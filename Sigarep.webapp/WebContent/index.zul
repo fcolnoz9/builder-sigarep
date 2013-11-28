@@ -2,6 +2,6 @@
 <window title="Prueba6" border="normal" width="200px">
 
 <label value="You are using: ${desktop.webApp.version}"/>
-<textbox id="txtprueba"/>
+<textbox id="txtprueba2"/>
 
 </window>
