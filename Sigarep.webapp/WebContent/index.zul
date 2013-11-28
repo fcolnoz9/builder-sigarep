@@ -1,5 +1,5 @@
 <?page title="Auto Generated index.zul"?>
-<window title="Prueba4" border="normal" width="200px">
+<window title="Prueba5" border="normal" width="200px">
 
 <label value="You are using: ${desktop.webApp.version}"/>
 
