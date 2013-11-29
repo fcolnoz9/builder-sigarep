@@ -1,0 +1,110 @@
+<zk>
+	<window id="winActualizarNoticia" title="Actualizar Noticias"
+		border="normal" sclass="mymodal">
+		<groupbox closable="false">
+			<caption label="Datos Noticias" />
+			<grid id="grdNoticia" height="100%" sclass="fgrid">
+				<columns>
+					<column label="" width="20%" />
+					<column label="" width="35%" />
+					<column label="" width="45%" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblTitulo" value="Titulo:" />
+						<hlayout id="lytTitulo">
+							<textbox id="txtTitulo" cols="23"
+								maxlength="100" disabled="false" mold="rounded" width="300px"
+								tabindex="1" />
+						</hlayout>
+						<div align="left">
+							<button id="btnBuscarNoticia" label="Buscar"
+								mold="trendy" image="/imagenes/iconos/buscar.png" width="75px"
+								height="55px" orient="vertical" />
+						</div>
+					</row>
+					<row>
+						<label id="lblContenido" value="Contenido:" />
+						<hlayout id="lytContenido">
+							<textbox id="txtContenido" width="300px"
+								rows="3" mold="rounded" tabindex="2" />
+						</hlayout>
+					</row>
+					<row>
+						<label id="lblFoto" value="Foto:" />
+						<hlayout id="lytFoto">
+							<textbox id="txtNombreFoto" cols="23"
+								maxlength="30" mold="rounded" tabindex="3" />
+						</hlayout>
+						<div align="left">
+							<button id="btnCargarFoto" label="Cargar"
+								upload="true" image="/imagenes/iconos/cargar.png" width="75px"
+								height="55px" orient="vertical">
+								<attribute name="onUpload">
+	org.zkoss.util.media.Media media = event.getMedia();
+	if (media instanceof org.zkoss.image.Image) {
+		org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+		if (img.getWidth() > img.getHeight()) {
+			if (img.getHeight() > 200) {
+
+				pics.setHeight("100px");
+				pics.setWidth(img.getWidth() * 100 / img.getHeight() + "px");
+			}
+		}
+		if (img.getHeight() > img.getWidth()) {
+			if (img.getWidth() > 150) {
+				pics.setWidth("150px");
+				pics.setHeight(img.getHeight() * 150 / img.getWidth() + "px");
+			}
+		}
+		pics.setContent(img);
+
+	} else {
+		Messagebox.show("Not an image: " + media, "Error", Messagebox.OK,
+				Messagebox.ERROR);
+		break; //not to show too many errors
+	}
+</attribute>
+							</button>
+
+						</div>
+						<image id="pics" />
+					</row>
+					<row>
+						<label id="lblFecha" value="Fecha Publicacion:" />
+						<hlayout id="lytFechaPublicacion">
+							<datebox id="dbfechaPublicacion"
+								mold="rounded" format="dd/MM/yyyy" width="150%" tabindex="4" />
+						</hlayout>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<div align="right">
+			<button id="btnGrabarNoticia" label="Grabar"
+				image="/imagenes/iconos/guardar.png" mold="trendy" width="75px"
+				height="55px" orient="vertical" />
+			<button id="btnEliminarNoticia" label="Eliminar"
+				image="/imagenes/iconos/borrar.png" mold="trendy" width="75px"
+				height="55px" orient="vertical" />
+			<button id="btnCancelarNoticia" label="Cancelar"
+				image="/imagenes/iconos/cerrar.png" mold="trendy" width="75px"
+				height="55px" orient="vertical" />
+		</div>
+		<groupbox closable="false">
+			<caption label="Listado de Noticias" />
+			<listbox id="lbxNoticias">
+				<listhead>
+					<listheader label="Titulo" />
+					<listheader label="Contenido" />
+					<listheader label="Fecha" />
+				</listhead>
+				<listitem>
+					<listcell label="" />
+					<listcell label="" />
+					<listcell label="" />
+				</listitem>
+			</listbox>
+		</groupbox>
+	</window>
+</zk>

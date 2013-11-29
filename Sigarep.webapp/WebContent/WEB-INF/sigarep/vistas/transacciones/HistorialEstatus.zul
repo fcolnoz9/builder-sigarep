@@ -1,0 +1,70 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="sigarep.controlador.maestros.ModalController" border="normal">
+		<caption label="Historial Estatus" />
+		<grid>
+			<columns>
+				<column align="center">
+					<label value="Carrera: " />
+					<combobox width="10%">
+						<comboitem label="Ingeniería en Produccion" />
+						<comboitem label="Ingeniería en Informática" />
+						<comboitem label="Licenciatura en Matemática" />
+						<comboitem label="Análisis de Sistemas" />
+					</combobox>
+				</column>
+			</columns>
+		</grid>
+		<listbox id="box" width="100%">
+			<listhead>
+				<listheader label="Cedula" sort="auto" />
+				<listheader label="Nombre" sort="auto" />
+				<listheader label="Apellido" sort="auto" />
+				<listheader label="Estatus" sort="auto" />
+				<listheader label="Sancion" sort="auto" />
+				<listheader label="Motivo" sort="auto" />
+			</listhead>
+			<listitem>
+				<listcell label="19637704" />
+				<listcell label="Nicolas" />
+				<listcell label="D'Amelio" />
+				<listcell label="En revision comision sustanciadora" />
+				<listcell label="RR" />
+				<listcell label="Médico" />
+			</listitem>
+			<listitem>
+				<listcell label="19696020" />
+				<listcell label="Daniel" />
+				<listcell label="Santeliz" />
+				<listcell
+					label="No procedente por comision sustanciadora" />
+				<listcell label="RR" />
+				<listcell label="Social" />
+			</listitem>
+			<listitem>
+				<listcell label="20252500" />
+				<listcell label="Jose" />
+				<listcell label="Carlos" />
+				<listcell label="No procedente por consejo de decanato" />
+				<listcell label="RP" />
+				<listcell label="Medico" />
+			</listitem>
+		</listbox>
+		<grid>
+			<rows>
+				<row>
+					<hbox width="100%" pack="right">
+						<button id="btnImprimir" label="Imprimir"
+							image="/imagenes/iconos/imprimir.png" width="75px" height="50px"
+							orient="vertical" />
+						<button id="btnCerrar" label="Cerrar"
+							image="/imagenes/iconos/salir.png" width="75px" height="50px"
+							orient="vertical" />
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+		<!--Registro de Apelacion, Evaluacion Comision Sustanciadora, -->
+		<!--Veredicto Consejo de Decanato, Recurso de Reconsideracion, Recurso Jerarquico.  -->
+	</window>
+</zk>

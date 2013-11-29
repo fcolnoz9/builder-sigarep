@@ -1,0 +1,106 @@
+<?page title="HISTRIAL DE ESTATUS"?>
+<window title="Historial de Estatus de la apelación" border="normal">
+	<hbox pack="center" width="100%" height="0px">
+		<div apply="org.zkoss.bind.BindComposer" height="50px"
+			width="700px" class="combodivarea">
+			<separator spacing="1px" />
+			<hbox width="700px">
+				<hlayout>
+					<separator spacing="5px" />
+					Buscar Apelación por:
+					<combobox id="cmbColor" width="150px">
+						<comboitem label="Estudiante" />
+						<comboitem label="Instancia Apelada" />
+						<comboitem label="Motivo" />
+						<comboitem label="Otro Lapso" />
+					</combobox>
+					<combobox id="cmbMotivo" width="150px">
+						<comboitem label="Medico" />
+						<comboitem label="Socioeconómico" />
+						<comboitem label="Judicial" />
+					</combobox>
+				</hlayout>
+			</hbox>
+		</div>
+	</hbox>
+	<listbox id="ApelacionListbox" height="80%"
+		emptyMessage="No contiene resultado">
+		<listhead>
+			<listheader label="Cedula del Estudiante" />
+			<listheader label="Nombre" />
+			<listheader label="Apellido" width="20%" />
+			<listheader label="Tipo de Apelación" />
+			<listheader label="Instancia Apelada" />
+			<listheader label="Estado" />
+			<listheader label="Fecha del Estado" />
+		</listhead>
+		<listitem>
+			<listcell label="19.123.456"></listcell>
+			<listcell label="Juan Alberto"></listcell>
+			<listcell label="Carrasco Mendoza"></listcell>
+			<listcell label="Apelación Inicial"></listcell>
+			<listcell label="Comisión Sustanciadora"></listcell>
+			<listcell label="Procedente"></listcell>
+			<listcell label="21/04/2013"></listcell>
+		</listitem>
+		<listitem>
+			<listcell label="19.201.109"></listcell>
+			<listcell label="Maria Auxiliadora"></listcell>
+			<listcell label="Méndez Méndez"></listcell>
+			<listcell label="Apelación Inicial"></listcell>
+			<listcell label="Comisión Sustanciadora"></listcell>
+			<listcell label="Procedente"></listcell>
+			<listcell label="21/04/2013"></listcell>
+		</listitem>
+		<listitem>
+			<listcell label="19.345.897"></listcell>
+			<listcell label="Miguel Angel"></listcell>
+			<listcell label="Cárdenas Orellana"></listcell>
+			<listcell label="Apelación Inicial"></listcell>
+			<listcell label="Comisión Sustanciadora"></listcell>
+			<listcell label="No Procedente"></listcell>
+			<listcell label="21/05/2013"></listcell>
+		</listitem>
+		<listitem>
+			<listcell label="20.264.908"></listcell>
+			<listcell label="Carlos Jose"></listcell>
+			<listcell label="Mejias Cuivas"></listcell>
+			<listcell label="Apelación Inicial"></listcell>
+			<listcell label="Comisión Sustanciadora"></listcell>
+			<listcell label="No Procedente"></listcell>
+			<listcell label="21/05/2013"></listcell>
+		</listitem>
+		<listitem>
+			<listcell label="19.345.330"></listcell>
+			<listcell label="Carmen María"></listcell>
+			<listcell label="Perez Atacho"></listcell>
+			<listcell label="Apelación Inicial"></listcell>
+			<listcell label="Comisión Sustanciadora"></listcell>
+			<listcell label="Procedente"></listcell>
+			<listcell label="21/05/2013"></listcell>
+		</listitem>
+		<listitem>
+			<listcell label="20.055.672"></listcell>
+			<listcell label="Jesus Rafael"></listcell>
+			<listcell label="Mendez Duran"></listcell>
+			<listcell label="Apelación Inicial"></listcell>
+			<listcell label="Comisión Sustanciadora"></listcell>
+			<listcell label="Procedente"></listcell>
+			<listcell label="21/05/2013"></listcell>
+		</listitem>
+		<listitem>
+			<listcell label="20.184.569"></listcell>
+			<listcell label="Ana Maria"></listcell>
+			<listcell label="Carrasco Contreraz"></listcell>
+			<listcell label="Apelación Inicial"></listcell>
+			<listcell label="Comisión Sustanciadora"></listcell>
+			<listcell label="Procedente"></listcell>
+			<listcell label="21/05/2013"></listcell>
+		</listitem>
+	</listbox>
+	<hbox width="99%" pack="end" align="center">
+		<button label="Aceptar" image="/imagenes/iconos/aceptar.png"></button>
+		<button label="Guardar" image="/imagenes/iconos/guardar.png"></button>
+	</hbox>
+</window>
+

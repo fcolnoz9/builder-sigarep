@@ -1,0 +1,93 @@
+<zk>
+	<window id="winActualizarEnlace"
+		title="Actualizar Enlaces de Interes" border="normal"
+		sclass="mymodal">
+		<groupbox closable="false">
+			<caption label="Datos Enlaces" />
+			<grid id="grdEnlace" height="100%" sclass="fgrid">
+				<columns>
+					<column label="" width="20%" />
+					<column label="" width="35%" />
+					<column label="" width="45%" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblNombreEnlace"
+							value="Nombre enlace:" />
+						<hlayout id="lytEnlace">
+							<textbox id="txtnombreEnlace" width="300px"
+								mold="rounded" tabindex="1" />
+						</hlayout>
+						<div align="left">
+							<button id="btnBuscarEnlace" label="Buscar"
+								mold="trendy" image="/imagenes/iconos/buscar.png"
+								width="75px" height="55px" orient="vertical" />
+						</div>
+					</row>
+					<row>
+						<label id="lblDireccion" value="Direccion Url:" />
+						<hlayout id="lytDireccionEnlace">
+							<textbox id="txtDireccionEnlace"
+								width="300px" mold="rounded" cols="23" maxlength="70"
+								tabindex="2" />
+						</hlayout>
+					</row>
+					<row>
+						<label id="lblDescripcionEnlace"
+							value="Descripcion:" />
+
+						<hlayout id="lytDescripcionEnlace">
+							<textbox id="txtDescripcionEnlace"
+								width="300px" rows="3" mold="rounded" tabindex="3" />
+						</hlayout>
+					</row>
+					<row>
+						<label id="lblImagenEnlace" value="Imagen:" />
+						<hlayout id="lytImagenEnlace">
+							<textbox id="txtNombreImagen" mold="rounded"
+								cols="23" maxlength="30" tabindex="3" />
+						</hlayout>
+						<div align="left">
+							<button id="btnCargarImagen" label="Cargar"
+								image="/imagenes/iconos/cargar.png" width="75px"
+								height="55px" orient="vertical" upload="true">
+								<attribute name="onUpload">
+								
+							</attribute>
+							</button>
+							<image id="pics" />
+						</div>
+
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<div align="right">
+			<button id="btnGrabarEnlace" label="Grabar"
+				image="/imagenes/iconos/guardar.png" mold="trendy" width="75px"
+				height="55px" orient="vertical" />
+			<button id="btnEliminarEnlace" label="Eliminar"
+				image="/imagenes/iconos/borrar.png" mold="trendy" width="75px"
+				height="55px" orient="vertical" />
+			<button id="btnCancelarEnlace" label="Cancelar"
+				image="/imagenes/iconos/cerrar.png" mold="trendy" width="75px"
+				height="55px" orient="vertical" />
+		</div>
+		<groupbox closable="false">
+			<caption label="Listado de Enlaces" />
+			<listbox id="lbxEnlaces">
+				<listhead>
+					<listheader label="Nombre" />
+					<listheader label="Direccion Url" />
+					<listheader label="Foto" />
+				</listhead>
+				<listitem>
+					<listcell label="" />
+					<listcell label="" />
+					<listcell label="" />
+				</listitem>
+			</listbox>
+
+		</groupbox>
+	</window>
+</zk>

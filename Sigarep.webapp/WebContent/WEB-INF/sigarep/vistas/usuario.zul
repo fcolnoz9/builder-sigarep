@@ -1,0 +1,20 @@
+<?page title="usuario" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Usuario" border="normal"
+		style="background: #1AFF00;">
+		<tablelayout columns="3">
+			<tablechildren>
+				<label value="Luis Olivera"
+					style="color: black; font: 24 bold monospace;" />
+			</tablechildren>
+			<tablechildren>
+				<a href="">
+					<image src="imagenes/Builder.png" width="50px" />
+				</a>
+			</tablechildren>
+			<tablechildren>
+				<button width="100px" label="Cerrar Sesion" />
+			</tablechildren>
+		</tablelayout>
+	</window>
+</zk>
