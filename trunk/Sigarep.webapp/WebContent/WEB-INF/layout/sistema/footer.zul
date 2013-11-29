@@ -1,0 +1,14 @@
+<div hflex="1" vflex="1" sclass="footer">
+	<vbox hflex="1" vflex="1" align="center">
+		<tablelayout columns="2">
+    		<tablechildren>
+        		<label value="Desarrollado por Builder UCLA-DCYT 2013"/>
+    		</tablechildren>
+    		<tablechildren>
+       			<a href="http://www.ucla.edu.ve/">
+					<image src="imagenes/Builder.png" width="100px" />
+				</a>
+    		</tablechildren>
+		</tablelayout>
+	</vbox>
+</div>
