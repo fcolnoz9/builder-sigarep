@@ -1,0 +1,67 @@
+<window title="Registrar Sanción" id="winRegistrarSanción"
+	border="normal">
+	<groupbox>
+		<caption label="Registrar Sanción" />
+		<grid sclass="fgrid">
+			<columns>
+				<column align="left" width="auto" />
+				<column align="left" width="auto" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Nombre de la Sanción: "
+						id="lblSancion" />
+					<textbox id="txtSancion" cols="23" width="200px"
+						maxlength="30" disabled="false">
+					</textbox>
+				</row>
+				<row>
+					<label value="Descripción: " id="lblDescripcion" />
+					<hlayout id="lytDescripcion">
+						<textbox id="txtDescripcion" width="200px"
+							rows="3" mold="rounded" tabindex="2" />
+					</hlayout>
+				</row>
+			</rows>
+		</grid>
+		<groupbox>
+			<caption label="Tipos de Sanciones" />
+			<grid sclass="fgrid">
+				<columns>
+					<column label="" width="auto" />
+					<column label="" width="auto" />
+				</columns>
+				<rows>
+
+					<row>
+						<label id="lblNombreSancion" value="Sanción:" />
+						<label id="lblDescripcionSancion"
+							value="Descripción:" />
+					</row>
+					<row>
+						<label value="RR" />
+						<label value="Regimen de Repitencia" />
+					</row>
+					<row>
+						<label value="RP" />
+						<label value="Regimen de Permanencia" />
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar"
+				image="imagenes/iconos/guardar.png" width="75px" height="50px"
+				orient="vertical">
+			</button>
+			<button label="Eliminar" id="btnEliminar"
+				image="imagenes/iconos/borrar.png" width="75px" height="50px"
+				orient="vertical">
+			</button>
+			<button label="Cancelar" id="btnCancelar"
+				image="imagenes/iconos/cancelar.png" width="75px" height="50px"
+				orient="vertical">
+			</button>
+		</div>
+	</groupbox>
+</window>

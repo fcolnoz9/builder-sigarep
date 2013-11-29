@@ -1,0 +1,69 @@
+<zk>
+	<window id="winActualizarPregunta"
+		title="Actualizar Preguntas Básicas" border="normal"
+		sclass="mymodal">
+		<groupbox closable="false">
+			<caption label="Datos" />
+			<grid id="grdPregunta" height="100%" sclass="fgrid">
+				<columns>
+					<column label="" width="20%" />
+					<column label="" width="35%" />
+					<column label="" width="45%" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblPregunta" value="Pregunta:" />
+						<hlayout id="lytPregunta">
+							<textbox id="txtPregunta" width="300px"
+								cols="23" maxlength="70" mold="rounded" tabindex="1" />
+						</hlayout>
+						<button id="btnBuscarPregunta" label="Buscar"
+							mold="trendy" image="/imagenes/iconos/buscar.png" width="80px"
+							height="55px" orient="vertical" />
+					</row>
+					<row>
+						<label id="lblRespuesta" value="Respuesta:" />
+						<hlayout id="lytRespuesta">
+							<textbox id="txtRespuesta" width="300px"
+								rows="3" mold="rounded" tabindex="2" />
+						</hlayout>
+					</row>
+					<row>
+						<hlayout></hlayout>
+
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<div align="right">
+			<hbox>
+				<button id="btnGrabarPregunta" label="Grabar"
+					image="/imagenes/iconos/guardar.png" mold="trendy" width="80px"
+					height="55px" orient="vertical" />
+				<button id="btnEliminarPregunta" label="Eliminar"
+					image="/imagenes/iconos/borrar.png" mold="trendy" width="80px"
+					height="55px" orient="vertical" />
+				<button id="btnCancelarPregunta" label="Cancelar"
+					image="/imagenes/iconos/cerrar.png" mold="trendy" width="80px"
+					height="55px" orient="vertical" />
+			</hbox>
+		</div>
+		<groupbox closable="false">
+			<caption label="Listado de Preguntas" />
+			<listbox id="lbxPreguntas">
+				<listhead>
+					<listheader label="Preguntas" />
+					<listheader label="Respuestas" />
+				</listhead>
+				<listitem>
+					<listcell label="" />
+					<listcell label="" />
+				</listitem>
+				<listitem>
+					<listcell label="" />
+					<listcell label="" />
+				</listitem>
+			</listbox>
+		</groupbox>
+	</window>
+</zk>

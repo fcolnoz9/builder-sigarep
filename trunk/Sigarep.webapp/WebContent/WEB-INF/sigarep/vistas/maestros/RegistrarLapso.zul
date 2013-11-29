@@ -1,0 +1,93 @@
+<zk>
+	<window id="winRegistrarLapso" title="Registrar Lapso Academico"
+		border="normal">
+		<groupbox vflex="true" closable="false" sclass="z-demo-config"
+			width="auto" height="100%">
+			<caption label="Formulario de Registrar Lapso Academico" />
+			<grid id="grdRegitrarLapso">
+				<columns>
+					<column label="" width="150px" id="columna1" />
+					<column label="" width="150px" id="columna2" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblLapsoAcademico"
+							value="Lapso Academico" />
+						<textbox id="txtLapsoAcademico"
+							constraint="no empty" value="@bind(fx.telephone)" width="300px"
+							maxlength="30" cols="23" tabindex="5" />
+						<button label="Buscar" id="btnBuscar"
+							image="imagenes/iconos/buscar.png" width="75px" height="50px"
+							orient="vertical" />
+					</row>
+					<row>
+						<label id="lblFechaInicio"
+							value="Fecha de Inicio" />
+						<datebox id="dtbInicioLapso" cols="12"
+							format="@load(vm.dateFormat)" mold="rounded" width="130px"
+							height="50px" />
+					</row>
+					<row>
+						<label id="lblFechaFin" sclass="hightlight">
+							Fecha de fin de Lapso
+						</label>
+						<datebox id="dbFinLapso" cols="12"
+							format="@load(vm.dateFormat)" mold="rounded" width="130px"
+							height="50px" />
+					</row>
+				</rows>
+			</grid>
+			<groupbox>
+				<caption label="Lapsos Academicos" />
+				<grid>
+					<columns>
+						<column label="" width="auto" />
+						<column label="" width="auto" />
+					</columns>
+					<rows>
+						<row>
+							<label id="lblLapsoAcademicos"
+								value="Lapso Academico:" />
+							<label id="lblFechaInicios"
+								value="Fecha de inicio:" />
+							<label id="lblFechafins"
+								value="Fecha de fin de lapso:" />
+						</row>
+						<row>
+							<label value="2011-1" />
+							<label value="10/02/2011" />
+							<label value="10/08/2011" />
+						</row>
+						<row>
+							<label value="2012-1" />
+							<label value="10/03/2012" />
+							<label value="20/11/2011" />
+						</row>
+						<row>
+							<label value="2012-2" />
+							<label value="30/11/2012" />
+							<label value="06/05/2013" />
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
+			<hbox width="90%" height="150%" pack="right">
+				<hlayout id="lytGuardar">
+					<button label="Guardar" id="btnGuardar"
+						image="imagenes/iconos/guardar.png" width="100px" height="50px"
+						orient="vertical" />
+				</hlayout>
+				<hlayout id="lytQuitar">
+					<button label="Quitar" id="btnQuitar"
+						image="imagenes/iconos/borrar.png" width="100px" height="50px"
+						orient="vertical" />
+				</hlayout>
+				<hlayout id="lytCancelar">
+					<button label="Cancelar" id="btnCancelar"
+						image="imagenes/iconos/cancelar.png" width="100px" height="50px"
+						orient="vertical" />
+				</hlayout>
+			</hbox>
+		</groupbox>
+	</window>
+</zk>

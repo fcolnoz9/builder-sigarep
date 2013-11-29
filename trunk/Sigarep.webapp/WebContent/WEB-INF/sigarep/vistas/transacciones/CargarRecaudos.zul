@@ -1,0 +1,50 @@
+<?page title="Cargar Recaudos"?>
+<window id="winCargarrecaudos" title="Cargar Recaudos"
+	border="normal">
+	<groupbox>
+		<grid>
+			<columns>
+				<column label="" width="25%" />
+				<column label="" width="45%" />
+				<column label="" width="35%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblNroCaso" value="Nro de Caso"
+						width="10%" />
+					<textbox id="txtNrocaso" width="150px" />
+					<button id="lblBuscar" label="Buscar"
+						image="/imagenes/iconos/buscar.png">
+					</button>
+
+					<label id="lblFecha" value="Fecha" width="10%" />
+				</row>
+				<row>
+					<label id="lblCedula" value="Cedula" width="10%" />
+					<textbox id="txtCedula" width="150px" />
+				</row>
+				<row>
+					<label id="lblDocumento" value="Documento"
+						width="10%" />
+					<hbox>
+						<textbox id="txtDocumento" width="150px" />
+						<fileupload id="floadCargar" label="Cargar"
+							image="/imagenes/iconos/cargar.png" width="100%" height="100%"
+							onClick="cpa.randomValue();" />
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<div align="right" height="100%">
+		<button id="btnGuardar" width="100px" height="50px"
+			label="Guardar" image="/imagenes/iconos/guardar.png" orient="vertical">
+		</button>
+		<button id="btnCancelar" width="100px" height="50px"
+			label="Cancelar" image="/imagenes/iconos/cancelar.png" orient="vertical">
+		</button>
+		<button id="btnSalir" width="100px" height="50px" label="Salir"
+			image="/imagenes/iconos/salir.png" orient="vertical">
+		</button>
+	</div>
+</window>
