@@ -1,4 +1,5 @@
-<?link rel="stylesheet" type="text/css" href="/WEB-INF/widgets/css/style.css"?>
+<?link rel="stylesheet" type="text/css" href="/WebContent/WEB-INF/widgets/css/style.css"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/WEB-INF/layout/template.zul"?>
 <zk>
 	<include id="mainInclude" self="@define(content)" src=""/>
+</zk>
