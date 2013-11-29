@@ -1,0 +1,41 @@
+.header{
+	background-color:#fff;
+<!--background-image:url('/public/images/encabezado');-->
+}
+.body_left{
+	background-color:#fff;
+	
+}
+.body_left_login{
+	font-size: 20px;
+}
+
+.header-text{
+	font-size: 26px;
+	font-style: bold;
+}
+.panel{
+	background-color:#fff;
+	font-size: 26px;
+	font-style: bold;
+	height:80px;
+	width:80px;
+	
+}
+.enlace{
+	background-color:#66CCFF;
+	
+	
+}
+.fisheyeDemo { 
+		margin : 5px 40px; 
+		position : relative;
+		padding-left: 20%;
+
+  }
+.footer{
+	background-color: #C0C0C0;
+	color:black;
+	font-size:6px;
+
+}
