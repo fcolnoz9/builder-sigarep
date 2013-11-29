@@ -1,17 +1,17 @@
 <zk>
 	<borderlayout id="mainBorderLayout" hflex="1" vflex="1">
 		<north height="95px" border="none">
-			<include src="/WEB-INF/layout/banner.zul" />
+			<include src="/WEB-INF/layout/sistema/banner.zul" />
 		</north>
 		<west width="260px" border="none" collapsible="true" 
 			splittable="true" minsize="250">
-			<include src="/WEB-INF/layout/tree.zul" />
+			<include src="/WEB-INF/layout/sistema/tree.zul" />
 		</west>
 		<center id="mainContent" autoscroll="true" border="none"
 			self="@insert(content)">
 		</center>
 		<south height="50px" border="none">
-			<include src="/WEB-INF/layout/footer.zul" />
+			<include src="/WEB-INF/layout/sistema/footer.zul" />
 		</south>
 	</borderlayout>
 </zk>
