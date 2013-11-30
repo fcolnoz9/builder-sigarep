@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<!-- Css -->
-	<style src="/public/css/style.css" />
+	<style src="/widgets/css/style.css" />
 	<?meta name="viewport" content="width=device-width, initial-scale=1.0" ?>
 	<html>
 		<style dynamic="true">
@@ -40,13 +40,13 @@
 			<borderlayout>
 				<!-- Inicio del Encabezado-->
 				<north sclass="banner" flex="true" size="75%">
-					<include src="/widgets/Encabezado.zul" />
+					<include src="/WEB-INF/layout/principal/header.zul" />
 				</north>
 				<!-- Fin del encabezado-->
 				<!-- Inicio del Menu-->
 				<south size="25%" hflex="1">
 					<menubar autodrop="true"
-						style="background: url(images/)">
+						style="background: url(/imagenes/portal-principal/)">
 						<menuitem label="INICIO"
 							style="color:white;font:arial;font-weight:bold;cursor:pointer" />
 						<menuitem label="" />
@@ -82,17 +82,17 @@
 						<north title="" vflex="1" size="50%">
 							<borderlayout>
 								<west vflex="1" size="27%" border="0">
-									<html><![CDATA[ <div class="context" apply="Demo.ModalControler">
-										<image alt="" style="width:150px;" src="images/noticiashead.png" />
-										<ul id="cuadronot" > <li><imagesrc="images/buscar.gif" />
+									<html><![CDATA[ <div class="context" apply="sigarep.controlador.maestros.ModalControler2">
+										<image alt="" style="width:150px;" src="imagenes/portal-principal/noticiashead.png" />
+										<ul id="cuadronot" > <li><imagesrc="imagenes/portal-principal/buscar.gif" />
 										<a id="a1" class="news-title" style="cursor:pointer">Comision Sustanciadora</a> <span
 										class="news-text"><label class="news-text" value="holamundo" /></span>
-										<li><image alt="" src="images/sistemaico.png" />
+										<li><image alt="" src="imagenes/portal-principal/sistemaico.png" />
 										<a class="news-title" href="#">Soportes Medicos</a> <span class="news-text">Nuevos Documentos para las ApelacionesMedicas</span> </li> <li><image
-										alt="" src="images/busquedaico.png" />
+										alt="" src="imagenes/portal-principal/busquedaico.png" />
 										<a class="news-title" href="#">Titulo tercera noticia</a>
 										<span class="news-text">Texto de la tercera noticia</span> </li>
-										<li><image alt="" src="images/banner2.png" /> <a class="news-title" href=" #
+										<li><image alt="" src="imagenes/portal-principal/banner2.png" /> <a class="news-title" href=" #
 										">Titulo cuarta noticia</a>
 										<span class="news-text">Texto de
 										la cuarta noticia</span> </li>
@@ -102,13 +102,13 @@
 								<east size="75%" border="0">
 									<html><ul id="diapos" style="margin-top:5px;">
 											<li>
-												<img src="images/12.jpg" alt="" width="700" height="250" />
+												<img src="imagenes/portal-principal/12.jpg" alt="" width="700" height="250" />
 											</li>
 											<li>
-												<img src="images/6.jpg" alt="" width="700" height="250" />
+												<img src="imagenes/portal-principal/6.jpg" alt="" width="700" height="250" />
 											</li>
 											<li>
-												<img src="images/divina.jpg" alt="" width="700" height="250" />
+												<img src="imagenes/portal-principal/divina.jpg" alt="" width="700" height="250" />
 											</li>
 										  </ul>
 									</html>
@@ -136,7 +136,7 @@
 															</vlayout>
 															<space />
 															<hlayout>
-																<image src="/images/busquedaico.png" style="cursor:pointer" />
+																<image src="imagenes/portal-principal/busquedaico.png" style="cursor:pointer" />
 																<label value=" Cedula:" style="color:Black;font:arial;font-weight:bold" />
 																<intbox />
 																<label value="Ó"
@@ -145,8 +145,8 @@
 																	value=" Numero de Caso:"
 																	style="color:Black;font:arial;font-weight:bold" />
 																<intbox />
-																<div apply="Demo.ModalControler" align="center">
-																	<image id="buscar" src="/images/buscar.png" style="cursor:pointer" />
+																<div apply="sigarep.controlador.maestros.ModalControler2" align="center">
+																	<image id="buscar" src="/imagenes/portal-principal/buscar.png" style="cursor:pointer" />
 																</div>
 															</hlayout>
 														</groupbox>
@@ -159,14 +159,14 @@
 													<vlayout>
 														<space />
 														<label value="- Calendario Académico." style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
-														<attribute name="onClick"><![CDATA[Filedownload.save("/Archivos/word.docx", null);]]></attribute>
-														<div apply="Demo.ModalControler">
+														<attribute name="onClick"><![CDATA[Filedownload.save("/archivos/documentos/word.docx", null);]]></attribute>
+														<div apply="sigarep.controlador.maestros.ModalControler2">
 														<label id="lblRegla" value="- Reglamentos." style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
 														</div>
 														<label value="- Formatos de Apelación." style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
-														<attribute name="onClick"><![CDATA[Filedownload.save("/Archivos/word.docx", null);]]></attribute>
+														<attribute name="onClick"><![CDATA[Filedownload.save("/archivos/documentos/word.docx", null);]]></attribute>
 														<label value="- Recaudos por Sanción." style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
-														<attribute name="onClick"><![CDATA[Filedownload.save("/Archivos/word.docx", null);]]></attribute>
+														<attribute name="onClick"><![CDATA[Filedownload.save("/archivos/documentos/word.docx", null);]]></attribute>
 													</vlayout>
 												</panelchildren>
 											</panel>
@@ -174,8 +174,8 @@
 									</div>
 								</east>
 								<west vflex="1" size="25%" border="0">
-									<image src="/images/Guiaico.png" style="cursor:pointer" />
-									<attribute name="onClick"><![CDATA[Filedownload.save("/Archivos/word.docx", null);]]></attribute>
+									<image src="/imagenes/portal-principal/Guiaico.png" style="cursor:pointer" />
+									<attribute name="onClick"><![CDATA[Filedownload.save("/archivos/documentos/word.docx", null);]]></attribute>
 								</west>
 							</borderlayout>
 						</west>
@@ -187,12 +187,12 @@
 								<groupbox mold="3d" hflex="1"
 									contentStyle="height:60px;overflow:auto">
 									<toolbar id="tb" orient="horizontal" align="center">
-										<toolbarbutton image="/images/logoIteratorico.png" onClick='www.yahoo.com' />
-										<toolbarbutton image="/images/sistemaico.png" onClick='alert("Issue")' />
-										<toolbarbutton image="/images/sitecico.png" onClick='alert("Internet")' />
-										<toolbarbutton image="/images/decanatoico.png" onClick='alert("Volume")' />
-										<toolbarbutton image="/images/sistemaico.png" onClick='alert("Issue")' />
-										<toolbarbutton image="/images/sitecico.png" onClick='alert("Internet")' />
+										<toolbarbutton image="/imagenes/portal-principal/logoIteratorico.png" onClick='www.yahoo.com' />
+										<toolbarbutton image="/imagenes/portal-principal/sistemaico.png" onClick='alert("Issue")' />
+										<toolbarbutton image="/imagenes/portal-principal/sitecico.png" onClick='alert("Internet")' />
+										<toolbarbutton image="/imagenes/portal-principal/decanatoico.png" onClick='alert("Volume")' />
+										<toolbarbutton image="/imagenes/portal-principal/sistemaico.png" onClick='alert("Issue")' />
+										<toolbarbutton image="/imagenes/portal-principal/sitecico.png" onClick='alert("Internet")' />
 									</toolbar>
 								</groupbox>
 							</div>
@@ -213,8 +213,8 @@
 									<textbox id="log_clave" type="password" hflex="1" />
 									<button label="Entrar"></button>
 								</hlayout>
-								<div apply="Demo.ModalControler" align="center">
-									<image id="orderBtn2" src="/images/registrateico.png" style="cursor:pointer" />
+								<div apply="sigarep.controlador.maestros.ModalControler2" align="center">
+									<image id="orderBtn2" src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" />
 								</div>
 							</vlayout>
 						</window>
@@ -244,7 +244,7 @@
 							<window title="Timeline" border="normal"
 								height="300px" contentStyle="overflow:auto;">
 								<include
-									src="/public/widgets/twitter.html" />
+									src="/widgets/twitter.html" />
 							</window>
 						</vlayout>
 						<!-- Fin del Twitter -->
@@ -256,7 +256,7 @@
 		<!-- Fin del cuerpo principal de la pagina-->
 		<!-- Inicio del pie de pagina -->
 		<south size="3%" vflex="1">
-			<include src="/widgets/Pie.zul" />
+			<include src="/WEB-INF/layout/principal/footer.zul" />
 		</south>
 		<!-- Fin del pie de pagina -->
 	</borderlayout>
