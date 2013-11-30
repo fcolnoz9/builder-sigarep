@@ -21,7 +21,7 @@ public class ModalControler2 extends SelectorComposer<Component> {
 	public void showModal2(Event e) {
 		//create a window programmatically and use it as a modal dialog.
 		Window window = (Window)Executions.createComponents(
-				"/Modal/RegistrarEstudiante.zul", null, null);
+				"inde.zul", null, null);
 		window.doModal();
 	}
 	@Listen("onClick = #buscar")
@@ -37,6 +37,10 @@ public class ModalControler2 extends SelectorComposer<Component> {
 		Window window = (Window)Executions.createComponents(
 				"/Modal/DescripcionCrog.zul", null, null);
 		window.doModal();
+	}
+	@Listen("onClick = #btnlogin")
+	public void showModal43(Event e) {
+		Executions.sendRedirect("index.zul");
 	}
 }
 
