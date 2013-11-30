@@ -211,7 +211,7 @@
 									<textbox id="log_usuario" hflex="1" />
 									<label value="Clave" style="font-size:11px" />
 									<textbox id="log_clave" type="password" hflex="1" />
-									<button label="Entrar"></button>
+									<button label="Entrar" id="btnlogin"></button>
 								</hlayout>
 								<div apply="sigarep.controlador.maestros.ModalControler2" align="center">
 									<image id="orderBtn2" src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" />
