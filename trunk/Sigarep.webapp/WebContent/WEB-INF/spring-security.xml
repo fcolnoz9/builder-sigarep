@@ -1,0 +1,24 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+	<http auto-config="true">
+		<intercept-url pattern="/Portal*" access="ROLE_USER" />
+		<form-login login-page="/login" default-target-url="/Portal"
+			authentication-failure-url="/loginfailed" />
+		<logout logout-success-url="/logout" />
+	</http>
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="
+		      select nombre, password, estatus 
+		      from usuario where nombre=?"
+				authorities-by-username-query="
+		      select u.nombre, g.autoridad from usuario u, grupo g 
+		      where u.idusuario = g.idusuario and u.nombre =?  " />
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
