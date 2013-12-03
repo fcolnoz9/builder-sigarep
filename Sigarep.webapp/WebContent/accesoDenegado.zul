@@ -1,0 +1,9 @@
+<zk>
+<vbox>
+<label value="Acceso Denegado, debe loguear"/>
+</vbox>
+<vbox>
+	<toolbarbutton href="/index.zul" label="volver a anterior"/>
+</vbox>
+
+</zk>
