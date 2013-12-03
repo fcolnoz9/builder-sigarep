@@ -3,7 +3,7 @@
 		<north height="95px" border="none">
 			<include src="/WEB-INF/layout/sistema/banner.zul" />
 		</north>
-		<west width="260px" border="none" collapsible="true" 
+		<west width="260px" border="none" collapsible="true"
 			splittable="true" minsize="250">
 			<include src="/WEB-INF/layout/sistema/tree.zul" />
 		</west>

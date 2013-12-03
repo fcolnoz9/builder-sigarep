@@ -1,21 +1,19 @@
-<div hflex="1" vflex="1" sclass="banner">
-	<hbox hflex="1" vflex="1" align="center">
-		<a href="http://www.ucla.edu.ve/">
-			<image src="imagenes/portal-principal/Logo SIGAREP.png" width="200px" />
-		</a>
+<div vflex="1" sclass="banner" align="center">
+	<hbox vflex="1" align="center">
 		<div>
-			<label value="_________"
-				style="color: #102d35; font: 24 bold monospace;" />
+			<a href="http://www.ucla.edu.ve/">
+				<image src="imagenes/portal-principal/Logo SIGAREP.png"
+					width="200px" />
+			</a>
 		</div>
-		<div width="100%" align="center">
+		<div align="center"
+			style="padding-left: 5%; padding-right: 5%">
 			<label
-				value="Sistema Integrado de Apoyo a la Gestión del Regimen de Repitencia y Permanencia"
+				value="Sistema Integrado en Apoyo a la Gestión del Regimen de Repitencia y Permanencia"
 				sclass="banner-head" />
 		</div>
 		<div>
-			<label value="________"
-				style="color: #102d35; font: 24 bold monospace;" />
+			<include src="/WEB-INF/sigarep/vistas/usuario.zul" />
 		</div>
-		<include src="/WEB-INF/sigarep/vistas/usuario.zul" />
 	</hbox>
 </div>
