@@ -32,7 +32,7 @@ public class Asignatura implements Serializable {
 	private Integer unidadesAcademicas;
 
 	//bi-directional many-to-one association to ProgramaAcademico
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="id_programa", nullable=false)
 	private ProgramaAcademico programaAcademico;
 

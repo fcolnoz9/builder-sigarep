@@ -28,14 +28,14 @@ public class Operacion implements Serializable {
 	@Column(name="nombre_operacion", nullable=false, length=255)
 	private String nombreOperacion;
 
-	//bi-directional many-to-one association to GrupoOperacion
-	@OneToMany(mappedBy="operacion")
-	private List<GrupoOperacion> grupoOperacions;
-
 	//bi-directional many-to-one association to MenuFuncion
 	@ManyToOne
 	@JoinColumn(name="id_funcion", nullable=false)
 	private MenuFuncion menuFuncion;
+
+	//bi-directional many-to-one association to GrupoOperacion
+	@OneToMany(mappedBy="operacion")
+	private List<GrupoOperacion> grupoOperacions;
 
 	public Operacion() {
 	}
@@ -64,6 +64,14 @@ public class Operacion implements Serializable {
 		this.nombreOperacion = nombreOperacion;
 	}
 
+	public MenuFuncion getMenuFuncion() {
+		return this.menuFuncion;
+	}
+
+	public void setMenuFuncion(MenuFuncion menuFuncion) {
+		this.menuFuncion = menuFuncion;
+	}
+
 	public List<GrupoOperacion> getGrupoOperacions() {
 		return this.grupoOperacions;
 	}
@@ -84,14 +92,6 @@ public class Operacion implements Serializable {
 		grupoOperacion.setOperacion(null);
 
 		return grupoOperacion;
-	}
-
-	public MenuFuncion getMenuFuncion() {
-		return this.menuFuncion;
-	}
-
-	public void setMenuFuncion(MenuFuncion menuFuncion) {
-		this.menuFuncion = menuFuncion;
 	}
 
 }
