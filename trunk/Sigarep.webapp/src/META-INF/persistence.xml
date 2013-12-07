@@ -2,5 +2,46 @@
 <persistence version="2.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="sigarep-persistence" />
+	<persistence-unit name="sigarep-persistence" >
+		<class>sigarep.modelos.data.maestros.Actividad</class>
+		<class>sigarep.modelos.data.transacciones.ApelacionMomento</class>
+		<class>sigarep.modelos.data.transacciones.ApelacionMomentoPK</class>
+		<class>sigarep.modelos.data.maestros.Asignatura</class>
+		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado</class>
+		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK</class>
+		<class>sigarep.modelos.data.maestros.Banner</class>
+		<class>sigarep.modelos.data.transacciones.Cronograma</class>
+		<class>sigarep.modelos.data.transacciones.CronogramaPK</class>
+		<class>sigarep.modelos.data.maestros.DatoSistema</class>
+		<class>sigarep.modelos.data.maestros.EnlaceIntere</class>
+		<class>sigarep.modelos.data.maestros.Estudiante</class>
+		<class>sigarep.modelos.data.transacciones.EstudianteSancionado</class>
+		<class>sigarep.modelos.data.transacciones.EstudianteSancionadoPK</class>
+		<class>sigarep.modelos.data.maestros.Grupo</class>
+		<class>sigarep.modelos.data.transacciones.GrupoOperacion</class>
+		<class>sigarep.modelos.data.transacciones.GrupoOperacionPK</class>
+		<class>sigarep.modelos.data.maestros.InstanciaApelada</class>
+		<class>sigarep.modelos.data.maestros.LapsoAcademico</class>
+		<class>sigarep.modelos.data.maestros.MenuFuncion</class>
+		<class>sigarep.modelos.data.maestros.Momento</class>
+		<class>sigarep.modelos.data.transacciones.Motivo</class>
+		<class>sigarep.modelos.data.transacciones.MotivoPK</class>
+		<class>sigarep.modelos.data.maestros.NivelMenu</class>
+		<class>sigarep.modelos.data.maestros.Noticia</class>
+		<class>sigarep.modelos.data.maestros.Operacion</class>
+		<class>sigarep.modelos.data.maestros.PreguntaBasica</class>
+		<class>sigarep.modelos.data.maestros.ProgramaAcademico</class>
+		<class>sigarep.modelos.data.maestros.Recaudo</class>
+		<class>sigarep.modelos.data.transacciones.RecaudoEntregado</class>
+		<class>sigarep.modelos.data.transacciones.RecaudoEntregadoPK</class>
+		<class>sigarep.modelos.data.maestros.Reglamento</class>
+		<class>sigarep.modelos.data.maestros.SancionMaestro</class>
+		<class>sigarep.modelos.data.transacciones.SolicitudApelacion</class>
+		<class>sigarep.modelos.data.transacciones.SolicitudApelacionPK</class>
+		<class>sigarep.modelos.data.transacciones.Soporte</class>
+		<class>sigarep.modelos.data.transacciones.SoportePK</class>
+		<class>sigarep.modelos.data.maestros.TipoMotivo</class>
+		<class>sigarep.modelos.data.maestros.Usuario</class>
+		<class>sigarep.modelos.data.transacciones.MiembroGrupo</class>
+		<class>sigarep.modelos.data.transacciones.MiembroGrupoPK</class></persistence-unit>
 </persistence>
