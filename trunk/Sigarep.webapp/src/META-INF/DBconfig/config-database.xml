@@ -22,6 +22,7 @@
 		</property>
 		<property name="jpaProperties">
 			<props>
+				<prop key="hibernate.default_schema">sigarep</prop> 
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop> <!-- muestra con que dialecto se esta trabajando en nuestro caso Postgresql -->
 				<prop key="hibernate.format_sql">false</prop> 								 <!-- muestra la sentencia  con formate en sql  y se activa con true y se desactiva con false -->
 				<prop key="hibernate.show_sql">true</prop> 									 <!-- muestra la sentencia sql y se activa con true y se desactiva con false -->
