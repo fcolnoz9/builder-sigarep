@@ -10,11 +10,11 @@ import java.util.List;
 
 
 /**
- * The persistent class for the estudiantes database table.
+ * The persistent class for the estudiante database table.
  * 
  */
 @Entity
-@Table(name="estudiantes")
+@Table(name="estudiante")
 public class Estudiante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -52,14 +52,14 @@ public class Estudiante implements Serializable {
 	@Column(length=11)
 	private String telefono;
 
-	//bi-directional many-to-one association to EstudianteSancionado
-	@OneToMany(mappedBy="estudiante")
-	private List<EstudianteSancionado> estudianteSancionados;
-
 	//bi-directional many-to-one association to ProgramaAcademico
 	@ManyToOne
 	@JoinColumn(name="id_programa", nullable=false)
 	private ProgramaAcademico programaAcademico;
+
+	//bi-directional many-to-one association to EstudianteSancionado
+	@OneToMany(mappedBy="estudiante")
+	private List<EstudianteSancionado> estudianteSancionados;
 
 	public Estudiante() {
 	}
@@ -144,6 +144,14 @@ public class Estudiante implements Serializable {
 		this.telefono = telefono;
 	}
 
+	public ProgramaAcademico getProgramaAcademico() {
+		return this.programaAcademico;
+	}
+
+	public void setProgramaAcademico(ProgramaAcademico programaAcademico) {
+		this.programaAcademico = programaAcademico;
+	}
+
 	public List<EstudianteSancionado> getEstudianteSancionados() {
 		return this.estudianteSancionados;
 	}
@@ -164,14 +172,6 @@ public class Estudiante implements Serializable {
 		estudianteSancionado.setEstudiante(null);
 
 		return estudianteSancionado;
-	}
-
-	public ProgramaAcademico getProgramaAcademico() {
-		return this.programaAcademico;
-	}
-
-	public void setProgramaAcademico(ProgramaAcademico programaAcademico) {
-		this.programaAcademico = programaAcademico;
 	}
 
 }

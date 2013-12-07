@@ -31,13 +31,13 @@ public class TipoMotivo implements Serializable {
 	@Column(name="nombre_tipo_motivo", nullable=false, length=60)
 	private String nombreTipoMotivo;
 
-	//bi-directional many-to-one association to Motivo
-	@OneToMany(mappedBy="tipoMotivo")
-	private List<Motivo> motivos;
-
 	//bi-directional many-to-one association to Recaudo
 	@OneToMany(mappedBy="tipoMotivo")
 	private List<Recaudo> recaudos;
+
+	//bi-directional many-to-one association to Motivo
+	@OneToMany(mappedBy="tipoMotivo")
+	private List<Motivo> motivos;
 
 	public TipoMotivo() {
 	}
@@ -74,28 +74,6 @@ public class TipoMotivo implements Serializable {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 	}
 
-	public List<Motivo> getMotivos() {
-		return this.motivos;
-	}
-
-	public void setMotivos(List<Motivo> motivos) {
-		this.motivos = motivos;
-	}
-
-	public Motivo addMotivo(Motivo motivo) {
-		getMotivos().add(motivo);
-		motivo.setTipoMotivo(this);
-
-		return motivo;
-	}
-
-	public Motivo removeMotivo(Motivo motivo) {
-		getMotivos().remove(motivo);
-		motivo.setTipoMotivo(null);
-
-		return motivo;
-	}
-
 	public List<Recaudo> getRecaudos() {
 		return this.recaudos;
 	}
@@ -116,6 +94,28 @@ public class TipoMotivo implements Serializable {
 		recaudo.setTipoMotivo(null);
 
 		return recaudo;
+	}
+
+	public List<Motivo> getMotivos() {
+		return this.motivos;
+	}
+
+	public void setMotivos(List<Motivo> motivos) {
+		this.motivos = motivos;
+	}
+
+	public Motivo addMotivo(Motivo motivo) {
+		getMotivos().add(motivo);
+		motivo.setTipoMotivo(this);
+
+		return motivo;
+	}
+
+	public Motivo removeMotivo(Motivo motivo) {
+		getMotivos().remove(motivo);
+		motivo.setTipoMotivo(null);
+
+		return motivo;
 	}
 
 }

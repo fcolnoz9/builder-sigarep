@@ -44,7 +44,7 @@ public class Usuario implements Serializable {
 	private Time ultimoAcceso;
 
 	//bi-directional many-to-one association to MiembroGrupo
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario", cascade={CascadeType.ALL})
 	private List<MiembroGrupo> miembroGrupos;
 
 	public Usuario() {

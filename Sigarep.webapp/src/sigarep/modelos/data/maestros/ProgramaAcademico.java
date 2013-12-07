@@ -26,7 +26,7 @@ public class ProgramaAcademico implements Serializable {
 	private String nombrePrograma;
 
 	//bi-directional many-to-one association to Asignatura
-	@OneToMany(mappedBy="programaAcademico")
+	@OneToMany(mappedBy="programaAcademico", cascade={CascadeType.ALL})
 	private List<Asignatura> asignaturas;
 
 	//bi-directional many-to-one association to Estudiante
