@@ -28,7 +28,7 @@ public class MiembroGrupo implements Serializable {
 	private Grupo grupo;
 
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="nombre_usuario", nullable=false, insertable=false, updatable=false)
 	private Usuario usuario;
 
