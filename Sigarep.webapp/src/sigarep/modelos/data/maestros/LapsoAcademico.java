@@ -9,59 +9,55 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the lapso_academico database table.
  * 
  */
 @Entity
-@Table(name="lapso_academico")
+@Table(name = "lapso_academico")
 public class LapsoAcademico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="codigo_lapso", unique=true, nullable=false, length=6)
 	private String codigoLapso;
-
-	@Column(nullable=false)
+	private Date fechaInicio;
+	private Date fechaCierre;
 	private Boolean estatus;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_cierre", nullable=false)
-	private Date fechaCierre;
+	public LapsoAcademico(String codigoLapso, Date fechaCierre, Date fechaInicio,Boolean estatus) {
+		super();
+		this.codigoLapso = codigoLapso;
+		this.fechaInicio = fechaInicio;
+		this.fechaCierre = fechaCierre;
+		this.estatus = estatus;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_inicio", nullable=false)
-	private Date fechaInicio;
-
-	//bi-directional many-to-one association to Cronograma
-	@OneToMany(mappedBy="lapsoAcademico")
-	private List<Cronograma> cronogramas;
-
-	//bi-directional many-to-one association to EstudianteSancionado
-	@OneToMany(mappedBy="lapsoAcademico")
-	private List<EstudianteSancionado> estudianteSancionados;
+	}
 
 	public LapsoAcademico() {
 	}
 
+	@Id
+	// @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "codigolapso", unique = true, nullable = false, length = 6)
 	public String getCodigoLapso() {
-		return this.codigoLapso;
+		return codigoLapso;
 	}
 
 	public void setCodigoLapso(String codigoLapso) {
 		this.codigoLapso = codigoLapso;
 	}
 
-	public Boolean getEstatus() {
-		return this.estatus;
+		@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_inicio", nullable = false)
+	public Date getFechaInicio() {
+		return this.fechaInicio;
 	}
 
-	public void setEstatus(Boolean estatus) {
-		this.estatus = estatus;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
-
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_cierre", nullable = false)
 	public Date getFechaCierre() {
 		return this.fechaCierre;
 	}
@@ -70,13 +66,25 @@ public class LapsoAcademico implements Serializable {
 		this.fechaCierre = fechaCierre;
 	}
 
-	public Date getFechaInicio() {
-		return this.fechaInicio;
+	@Column(nullable = false)
+	public Boolean getEstatus() {
+		return this.estatus;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
+	public void setEstatus(Boolean estatus) {
+		this.estatus = estatus;
 	}
+
+	
+	// bi-directional many-to-one association to Cronograma
+	@OneToMany(mappedBy = "lapsoAcademico")
+	private List<Cronograma> cronogramas;
+
+	// bi-directional many-to-one association to EstudianteSancionado
+	@OneToMany(mappedBy = "lapsoAcademico")
+	private List<EstudianteSancionado> estudianteSancionados;
+
+		
 
 	public List<Cronograma> getCronogramas() {
 		return this.cronogramas;
@@ -104,18 +112,21 @@ public class LapsoAcademico implements Serializable {
 		return this.estudianteSancionados;
 	}
 
-	public void setEstudianteSancionados(List<EstudianteSancionado> estudianteSancionados) {
+	public void setEstudianteSancionados(
+			List<EstudianteSancionado> estudianteSancionados) {
 		this.estudianteSancionados = estudianteSancionados;
 	}
 
-	public EstudianteSancionado addEstudianteSancionado(EstudianteSancionado estudianteSancionado) {
+	public EstudianteSancionado addEstudianteSancionado(
+			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
 		estudianteSancionado.setLapsoAcademico(this);
 
 		return estudianteSancionado;
 	}
 
-	public EstudianteSancionado removeEstudianteSancionado(EstudianteSancionado estudianteSancionado) {
+	public EstudianteSancionado removeEstudianteSancionado(
+			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);
 		estudianteSancionado.setLapsoAcademico(null);
 
