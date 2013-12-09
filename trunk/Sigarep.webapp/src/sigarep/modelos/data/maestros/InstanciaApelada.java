@@ -22,10 +22,10 @@ public class InstanciaApelada implements Serializable {
 	@Column(name="id_instancia_apelada", unique=true, nullable=false)
 	private Integer idInstanciaApelada;
 
-	@Column(length=255)
+	@Column(name="descripcion", length=255)
 	private String descripcion;
 
-	@Column(nullable=false)
+	@Column(name="estatus", nullable=false)
 	private Boolean estatus;
 
 	@Column(name="instancia_apelada", nullable=false, length=100)
@@ -38,6 +38,14 @@ public class InstanciaApelada implements Serializable {
 	@OneToMany(mappedBy="instanciaApelada")
 	private List<SolicitudApelacion> solicitudApelacions;
 
+	public InstanciaApelada(Integer idInstanciaApelada, String descripcion, Boolean estatus, String instanciaApelada, String nombreRecursoApelacion){
+		this.idInstanciaApelada = idInstanciaApelada;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.instanciaApelada = instanciaApelada;
+		this.nombreRecursoApelacion = nombreRecursoApelacion;
+	}
+	
 	public InstanciaApelada() {
 	}
 
