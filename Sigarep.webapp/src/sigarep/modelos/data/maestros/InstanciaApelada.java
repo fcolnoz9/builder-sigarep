@@ -102,5 +102,4 @@ public class InstanciaApelada implements Serializable {
 
 		return solicitudApelacion;
 	}
-
 }

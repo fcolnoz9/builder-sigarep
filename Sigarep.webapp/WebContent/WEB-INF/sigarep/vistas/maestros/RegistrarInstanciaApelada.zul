@@ -1,0 +1,31 @@
+<zk>
+	<window id="winMaestroInstanciaApelada" title="::Maestro::Registrar Instancia Apelada"  border="normal" width="70%"  height="auto" closable="true">
+			<grid id = "grdRegistrarInstanciaA" sclass="fgrid">
+				<auxhead>
+					<auxheader>Registrar Instancia Apelada</auxheader>
+	        	</auxhead>
+	   				<rows>
+	   					<row>
+			   				<label id = "lblInstancia" value="Instancia Apelada" />
+			   				<textbox id = "txtInstancia"  constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="1" />
+			   				<hbox>
+			   				<button label="Buscar" id="btnBuscar"  image="/imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" />	
+	   						</hbox>
+	   					</row>	
+	   					<row>
+		                	<label id = "lblRecurso" value="Nombre Recurso Apelacion" />
+                			<textbox id="txtRecurso" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="2"/>
+        				</row>	
+	   					<row>
+	   						<label id="lblDescripcion" value="Descripcion"/>
+	   						<textbox id="txtDescripcion" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="3"/>
+	   					</row>
+	   				</rows>
+	   			</grid>
+	   			<hbox  width="100%" pack="right">
+    				<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" />	
+   					<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" />	
+		   			<button label="Salir" id = "btnSalir"  image="/imagenes/iconos/salir.png" width="auto" height="auto" orient="horizontal" />	
+   				</hbox>	
+	</window>
+</zk>
