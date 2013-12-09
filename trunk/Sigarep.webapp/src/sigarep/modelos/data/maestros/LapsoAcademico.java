@@ -9,7 +9,7 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import java.util.Date;
 import java.util.List;
 
-/**
+/**as
  * The persistent class for the lapso_academico database table.
  * 
  */
