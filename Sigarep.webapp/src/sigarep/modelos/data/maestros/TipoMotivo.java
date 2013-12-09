@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name="tipo_motivo")
 public class TipoMotivo implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,10 +23,10 @@ public class TipoMotivo implements Serializable {
 	@Column(name="id_tipo_motivo", unique=true, nullable=false)
 	private Integer idTipoMotivo;
 
-	@Column(length=255)
+	@Column(name="descripcion" ,length=255)
 	private String descripcion;
 
-	@Column(nullable=false)
+	@Column(name ="estatus",nullable=false)
 	private Boolean estatus;
 
 	@Column(name="nombre_tipo_motivo", nullable=false, length=60)
@@ -39,8 +40,21 @@ public class TipoMotivo implements Serializable {
 	@OneToMany(mappedBy="tipoMotivo")
 	private List<Motivo> motivos;
 
+	
+	public TipoMotivo(Integer idTipoMotivo, String nombreTipoMotivo,
+			String descripcion, Boolean estatus) {
+		super();
+		this.idTipoMotivo= idTipoMotivo;
+		this.nombreTipoMotivo = nombreTipoMotivo;
+		this.descripcion= descripcion;
+		this.estatus= estatus;
+		// TODO Auto-generated constructor stub
+	}
+	
 	public TipoMotivo() {
 	}
+
+	
 
 	public Integer getIdTipoMotivo() {
 		return this.idTipoMotivo;
