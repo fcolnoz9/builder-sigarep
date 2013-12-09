@@ -6,16 +6,16 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zul.PieModel;
 
-import sigarep.modelos.data.reportes.ChartDataApelacionesPorPrograma;
+import sigarep.modelos.data.reportes.ChartData;
 
-public class PieChartApelacionesProgramaVM {
+public class VMApelacionesPorMotivo {
 
 	PieModel model;
 	
 	@Init
 	public void init() {
 		// prepare chart data
-		model = ChartDataApelacionesPorPrograma.getModel();
+		model = ChartData.getModel();
 	}
 
 	public PieModel getModel() {

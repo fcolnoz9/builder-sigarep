@@ -7,9 +7,9 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zul.CategoryModel;
 
-import sigarep.modelos.data.reportes.ChartDataApelacionesTipoSexo;
+import sigarep.modelos.data.reportes.ChartDataTipoApelacion;
 
-public class LineChartApelacionTipoSexoVM {
+public class VMTipoApelacion {
 
 	CategoryModel model;
 	LineChartEngine engine;
@@ -20,7 +20,7 @@ public class LineChartApelacionTipoSexoVM {
 	@Init
 	public void init() {
 		engine = new LineChartEngine();
-		model = ChartDataApelacionesTipoSexo.getModel();
+		model = ChartDataTipoApelacion.getModel();
 	}
 
 	public LineChartEngine getEngine() {
