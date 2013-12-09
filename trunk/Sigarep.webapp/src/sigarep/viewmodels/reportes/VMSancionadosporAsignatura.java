@@ -8,7 +8,7 @@ import org.zkoss.zul.PieModel;
 
 import sigarep.modelos.data.reportes.ChartDataSancionadosPorAsignatura;
 
-public class PieChartSancionadosporAsignaturaVM {
+public class VMSancionadosporAsignatura {
 
 	PieModel model;
 	

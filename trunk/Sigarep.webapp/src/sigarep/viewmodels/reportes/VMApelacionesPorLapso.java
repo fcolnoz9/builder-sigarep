@@ -9,7 +9,7 @@ import org.zkoss.zul.CategoryModel;
 
 import sigarep.modelos.data.reportes.ChartDataApelacionesPorLapso;
 
-public class LineChartApelacionesPorLapsoVM {
+public class VMApelacionesPorLapso {
 
 	CategoryModel model;
 	LineChartEngine engine;
