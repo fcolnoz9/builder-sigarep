@@ -1,5 +1,4 @@
 package sigarep.viewmodels.maestros;
-import java.util.Date;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
@@ -11,19 +10,18 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-
-import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMinstanciaApelada {
 	@WireVariable ServicioInstanciaApelada spp;
-	private String codigoInstancia;
+	private Integer codigoInstancia;
 	private String nombreInstancia;
 	private String nombreRecurso;
 	private String descripcion;
-	private String estatus;
+	private Boolean estatus;
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private InstanciaApelada instanciaApeladaseleccionada;
     @Wire Textbox txtcodigoInstacia;
@@ -33,15 +31,15 @@ public class VMinstanciaApelada {
     	return nombreInstancia;
     }
     
-    public String setNombreInstancia(String nombreInstancia){
+    public void setNombreInstancia(String nombreInstancia){
     	this.nombreInstancia = nombreInstancia;
     }
     
-    public String getCodigoInstancia() {
+    public Integer getCodigoInstancia() {
 		return codigoInstancia;
 	}
 	
-    public void setCodigoInstancia(String codigoInstancia) {
+    public void setCodigoInstancia(Integer codigoInstancia) {
 		this.codigoInstancia = codigoInstancia;
 	}
 	
@@ -58,12 +56,12 @@ public class VMinstanciaApelada {
 	}
 
 	public void setListaInstanciaApelada(List<InstanciaApelada> listaInstanciaApelada) {
-		this.listaInstaciaApelada = listaInstanciaApelada;
+		this.listaInstanciaApelada = listaInstanciaApelada;
 	}
 	@Command
 	@NotifyChange({"codigoInstancia", "nombreInstancia", "nombreRecurso", "descripcion", "estatus"})
 	public InstanciaApelada getInstanciaApeladaseleccionada() {
-		return instanciaApelacionseleccionada;
+		return instanciaApeladaseleccionada;
 	}
 	public void setInstanciaApeladaseleccionada(InstanciaApelada instanciaApeladaseleccionada) {
 		this.instanciaApeladaseleccionada = instanciaApeladaseleccionada;
@@ -79,7 +77,7 @@ public class VMinstanciaApelada {
 		if (codigoInstancia.equals("")||nombreInstancia.equals("")|| nombreRecurso.equals("")|| descripcion.equals(""))
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
-		InstanciaApelada pro = new InstanciaApelada(codigoInstancia,nombreInstancia,nombreRecurso,descripcion,estatus);
+		InstanciaApelada pro = new InstanciaApelada(codigoInstancia,descripcion,estatus,nombreInstancia,nombreRecurso);
 		spp.guardar(pro);
 		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 		limpiar();
@@ -88,7 +86,7 @@ public class VMinstanciaApelada {
 	@Command
 	@NotifyChange({"codigoIntancia", "nombreInstancia", "nombreRecurso","descripcion"})
 	public void limpiar(){
-		codigoInstancia = "";//fechaInicio="";fechaCierre="";
+		codigoInstancia = 0;//fechaInicio="";fechaCierre="";
 		buscarInstanciaApelada();
 	}
 	@Command
