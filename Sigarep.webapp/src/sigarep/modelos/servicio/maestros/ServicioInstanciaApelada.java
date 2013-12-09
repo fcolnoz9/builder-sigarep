@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.repositorio.maestros.IInstanciaApeladaDAO;
 
-@Service("spp") //Definiendo la variable servicio
+@Service("servicioInstanciaApelada") //Definiendo la variable servicio
 public class ServicioInstanciaApelada{
 	private @Autowired IInstanciaApeladaDAO pv ;
 

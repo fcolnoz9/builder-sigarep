@@ -16,7 +16,7 @@ import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMinstanciaApelada {
-	@WireVariable ServicioInstanciaApelada spp;
+	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
 	private Integer codigoInstancia;
 	private String nombreInstancia;
 	private String nombreRecurso;
@@ -78,7 +78,7 @@ public class VMinstanciaApelada {
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
 		InstanciaApelada pro = new InstanciaApelada(codigoInstancia,descripcion,estatus,nombreInstancia,nombreRecurso);
-		spp.guardar(pro);
+		servicioInstanciaApelada.guardar(pro);
 		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 		limpiar();
 		}
@@ -92,15 +92,15 @@ public class VMinstanciaApelada {
 	@Command
 	@NotifyChange({"listaInstanciaApelada"})
 	public void buscarInstanciaApelada(){
-		listaInstanciaApelada =spp.buscarP(codigoInstancia);
+		listaInstanciaApelada =servicioInstanciaApelada.buscarP(codigoInstancia);
 	}
 	@Command
 	@NotifyChange({"codigoInstancia", "nombreInstancia", "nombreRecurso","descripcion"})
 	public void mostrarSeleccionado(){
-		InstanciaApelada pro = getInstanciaApeladaseleccionada();
-		codigoInstancia = pro.getIdInstanciaApelada();
-		nombreInstancia = pro.getInstanciaApelada();
-	    nombreRecurso = pro.getNombreRecursoApelacion();
-	    descripcion = pro.getDescripcion();
+		InstanciaApelada ia = getInstanciaApeladaseleccionada();
+		codigoInstancia = ia.getIdInstanciaApelada();
+		nombreInstancia = ia.getInstanciaApelada();
+	    nombreRecurso = ia.getNombreRecursoApelacion();
+	    descripcion = ia.getDescripcion();
 	}	
 }
