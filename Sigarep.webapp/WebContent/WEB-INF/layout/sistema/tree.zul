@@ -43,6 +43,15 @@
 								onClick="createWin(RegistrarSancion.getId(), RegistrarSancion.getSclass())" />
 						</treerow>
 					</treeitem>
+					
+					<treeitem>
+						<treerow>
+							<treecell label="Instancia Apelada"
+								id="RegistrarInstanciaApelada" sclass="maestros"
+								onClick="createWin(RegistrarInstanciaApelada.getId(), RegistrarInstanciaApelada.getSclass())" />
+						</treerow>
+					</treeitem>
+					
 					<treeitem>
 						<treerow>
 							<treecell label="Motivos de Apelación"
