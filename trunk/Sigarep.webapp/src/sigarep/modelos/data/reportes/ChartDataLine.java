@@ -7,7 +7,7 @@ public class ChartDataLine {
 	
 	public static CategoryModel getModel() {
 		CategoryModel model = new SimpleCategoryModel();
-		String[] category = { "Predict", "Apelaron", "Sancionados" };
+		String[] category = { "Apelaron", "Sancionados" };
 		model.setValue(category[0], "2010-I", new Integer(25));
 		model.setValue(category[0], "2010-II", new Integer(35));
 		model.setValue(category[0], "2011-I", new Integer(45));
@@ -22,12 +22,7 @@ public class ChartDataLine {
 		model.setValue(category[1], "2012-I", new Integer(58));
 		model.setValue(category[1], "2012-II", new Integer(75));
 
-		model.setValue(category[2], "2010-I", new Integer(40));
-		model.setValue(category[2], "2010-II", new Integer(55));
-		model.setValue(category[2], "2011-I", new Integer(65));
-		model.setValue(category[2], "2011-II", new Integer(57));
-		model.setValue(category[2], "2012-I", new Integer(63));
-		model.setValue(category[2], "2012-II", new Integer(68));
+		
 		return model;
 	}
 }
