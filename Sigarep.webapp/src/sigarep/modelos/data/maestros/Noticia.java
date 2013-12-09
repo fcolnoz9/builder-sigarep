@@ -14,43 +14,55 @@ import java.util.Date;
 public class Noticia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_noticia", unique=true, nullable=false)
 	private Integer idNoticia;
 
-	@Column(nullable=false, length=255)
 	private String contenido;
 
-	@Column(name="enlace_noticia", length=255)
 	private String enlaceNoticia;
 
-	@Column(nullable=false)
 	private Boolean estatus;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_registro")
+	
 	private Date fechaRegistro;
 
 	private byte[] imagen;
 
-	@Column(nullable=false, length=60)
 	private String titulo;
 
-	@Temporal(TemporalType.DATE)
+	
 	private Date vencimiento;
 
 	public Noticia() {
 	}
+	
+	
+	
+	public Noticia(Integer idNoticia, String contenido, String enlaceNoticia,
+			Boolean estatus, Date fechaRegistro, byte[] imagen, String titulo,
+			Date vencimiento) {
+		super();
+		this.idNoticia = idNoticia;
+		this.contenido = contenido;
+		this.enlaceNoticia = enlaceNoticia;
+		this.estatus = estatus;
+		this.fechaRegistro = fechaRegistro;
+		this.imagen = imagen;
+		this.titulo = titulo;
+		this.vencimiento = vencimiento;
+	}
 
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_noticia", unique=true, nullable=false)
 	public Integer getIdNoticia() {
 		return this.idNoticia;
 	}
-
+	
 	public void setIdNoticia(Integer idNoticia) {
 		this.idNoticia = idNoticia;
 	}
-
+	@Column(nullable=false, length=255)
 	public String getContenido() {
 		return this.contenido;
 	}
@@ -58,7 +70,7 @@ public class Noticia implements Serializable {
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
-
+	@Column(name="enlace_noticia", length=255)
 	public String getEnlaceNoticia() {
 		return this.enlaceNoticia;
 	}
@@ -66,7 +78,7 @@ public class Noticia implements Serializable {
 	public void setEnlaceNoticia(String enlaceNoticia) {
 		this.enlaceNoticia = enlaceNoticia;
 	}
-
+	@Column(nullable=false)
 	public Boolean getEstatus() {
 		return this.estatus;
 	}
@@ -74,7 +86,8 @@ public class Noticia implements Serializable {
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
 	}
-
+	@Column(name="fecha_registro")
+	@Temporal(TemporalType.DATE)
 	public Date getFechaRegistro() {
 		return this.fechaRegistro;
 	}
@@ -82,7 +95,7 @@ public class Noticia implements Serializable {
 	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
-
+	@Column(nullable=true)
 	public byte[] getImagen() {
 		return this.imagen;
 	}
@@ -90,7 +103,7 @@ public class Noticia implements Serializable {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
-
+	@Column(nullable=false, length=60)
 	public String getTitulo() {
 		return this.titulo;
 	}
@@ -98,7 +111,8 @@ public class Noticia implements Serializable {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
+	@Column(name="fecha_vencimiento")
+	@Temporal(TemporalType.DATE)
 	public Date getVencimiento() {
 		return this.vencimiento;
 	}
