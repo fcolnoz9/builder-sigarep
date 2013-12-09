@@ -1,6 +1,8 @@
 <zk>
 	<window id="winMaestroInstanciaApelada" title="::Maestro::Registrar Instancia Apelada"  border="normal" width="70%"  height="auto" closable="true">
-			<grid id = "grdRegistrarInstanciaA" sclass="fgrid">
+			<script type="text/javascript" src="/widgets/js/watermark.js" />
+			<script type="text/javascript" src="/widgets/js/watermarkinput.js" />
+			<grid id = "grdRegistrarInstanciaA">
 				<auxhead>
 					<auxheader>Registrar Instancia Apelada</auxheader>
 	        	</auxhead>
