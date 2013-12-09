@@ -105,3 +105,21 @@
 .todo-box {
 	padding-right: 4px;
 }
+
+.water-mark { 
+        color: gray; font-style: italic; 
+    }
+
+form {
+        border: 1px solid #E1E1E1;
+        background: url('../widgets/effects/form_effect/img/bg.png');
+        padding: 20px 20px;
+        -webkit-border-radius:4px;
+        -moz-border-radius:4px;
+        border-radius:4px;
+    }
+.form .name {
+        display: block;
+        width: 100px;
+        text-align: center;
+    } 
