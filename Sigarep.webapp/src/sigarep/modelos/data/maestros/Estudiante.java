@@ -49,11 +49,14 @@ public class Estudiante implements Serializable {
 	@Column(name="segundo_nombre", length=30)
 	private String segundoNombre;
 
+	@Column(nullable=false, length=1)
+	private String sexo;
+
 	@Column(length=11)
 	private String telefono;
 
 	//bi-directional many-to-one association to ProgramaAcademico
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="id_programa", nullable=false)
 	private ProgramaAcademico programaAcademico;
 
@@ -134,6 +137,14 @@ public class Estudiante implements Serializable {
 
 	public void setSegundoNombre(String segundoNombre) {
 		this.segundoNombre = segundoNombre;
+	}
+
+	public String getSexo() {
+		return this.sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public String getTelefono() {
