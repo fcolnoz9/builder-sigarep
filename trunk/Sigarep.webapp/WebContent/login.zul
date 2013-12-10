@@ -1,31 +1,23 @@
-<?page id="testZul" title="CUSTOM ZK + SPRING SECURITY LOGIN"?>
-<window id="loginwin" title="ACCEDER" border="normal" width="350px">
-    <!-- this form-login-page form is also used as the
-         form-error-page to ask for a login again. -->
-    <html style="color:red" if="${not empty param.login_error}">
-      <![CDATA[
-        Your login attempt was not successful, try again.<br/><br/>
-        Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}
-       ]]>
-    </html>
- 
-    <groupbox>
-    <caption>Login</caption>
-    <h:form id="f" name="f" action="j_spring_security_check" method="POST"
-    xmlns:h="http://www.w3.org/1999/xhtml">
-        <grid>
-            <rows>
-                <row>Usuario: <textbox id="u" name="j_username"/></row>
-                <row>Password: <textbox id="p" type="password" name="j_password"/></row>
-                <row><checkbox id="r" name="_spring_security_remember_me"/>No preguntar por mi contraseña por dos semanas</row>
-                <row spans="2">
-                    <hbox>
-                        <h:input type="submit" value="Login"/>
-                        <h:input type="reset" value="Reset"/>
-                    </hbox>
-                </row>
-            </rows>
-        </grid>
-    </h:form>
-    </groupbox>
-</window>
+	<window title="Iniciar Sesion" border="normal" width="100%">
+		<h:form id="f" name="f" action="j_spring_security_check"
+			method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
+			<vlayout>
+				<hlayout>
+					<label value="Usuario" style="font-size:11px" />
+					<textbox id="u" name="j_username" hflex="1" />
+					<label value="Clave" style="font-size:11px" />
+					<textbox id="p" type="password" name="j_password"
+						hflex="1" />
+					<h:input type="submit" value="Entrar" />
+<!-- 					<button label="Entrar" id="btnlogin"></button> -->
+				</hlayout>
+				<div
+					apply="sigarep.controlador.maestros.ModalControler2"
+					align="center">
+					<image id="orderBtn2"
+						src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" />
+				</div>
+			</vlayout>
+		</h:form>
+
+	</window>
