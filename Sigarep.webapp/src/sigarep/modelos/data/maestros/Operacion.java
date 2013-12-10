@@ -30,7 +30,7 @@ public class Operacion implements Serializable {
 
 	//bi-directional many-to-one association to MenuFuncion
 	@ManyToOne
-	@JoinColumn(name="id_funcion", nullable=false)
+	@JoinColumn(name="id_funcion", nullable=true)
 	private MenuFuncion menuFuncion;
 
 	//bi-directional many-to-one association to GrupoOperacion

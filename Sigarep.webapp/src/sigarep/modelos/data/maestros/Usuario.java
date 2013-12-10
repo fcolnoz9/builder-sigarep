@@ -3,7 +3,15 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
+
+
 import sigarep.modelos.data.transacciones.MiembroGrupo;
+
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+
+import org.springframework.security.core.userdetails.User;
 
 import java.sql.Time;
 import java.util.Date;
@@ -16,7 +24,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="usuario")
-public class Usuario implements Serializable {
+public class Usuario extends User implements Serializable {
+	public Usuario(String nombreUsuario, String contrasenia, boolean estatus,
+			boolean accountNonExpired, boolean credentialsNonExpired,
+			boolean accountNonLocked,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(nombreUsuario, contrasenia, estatus, accountNonExpired, credentialsNonExpired,
+				accountNonLocked, authorities);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -47,8 +64,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario", cascade={CascadeType.ALL})
 	private List<MiembroGrupo> miembroGrupos;
 
-	public Usuario() {
-	}
 
 	public String getNombreUsuario() {
 		return this.nombreUsuario;

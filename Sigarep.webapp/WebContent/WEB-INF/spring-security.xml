@@ -5,8 +5,8 @@
 						http://www.springframework.org/schema/security
 						http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	<http auto-config="true">
-		<intercept-url pattern="/Portal*" access="ROLE_USER" />
-		<form-login login-page="/login" default-target-url="/Portal"
+		<intercept-url pattern="/Menu-Sigarep*" access="ROLE_USER" />
+		<form-login login-page="/login" default-target-url="/Menu-Sigarep"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logout" />
 	</http>
@@ -14,11 +14,11 @@
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="
-		      select nombre, password, estatus 
-		      from usuario where nombre=?"
+		      select nombre_usuario, contrasenia, estatus 
+		      from usuario where nombre_usuario=?"
 				authorities-by-username-query="
-		      select u.nombre, g.autoridad from usuario u, grupo g 
-		      where u.idusuario = g.idusuario and u.nombre =?  " />
+		      select u.nombre_usuario, o.nombre_operacion from usuario u, grupo g, miembro_grupo m, grupo_operacion go, operacion o 
+		      where u.nombre_usuario = m.nombre_usuario and g.id_grupo = m.id_grupo and g.id_grupo = go.id_grupo and o.id_operacion = go.id_operacion and u.nombre_usuario =?  " />
 		</authentication-provider>
 	</authentication-manager>
 </beans:beans>

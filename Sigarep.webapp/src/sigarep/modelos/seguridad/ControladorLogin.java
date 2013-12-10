@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ControladorLogin {
  
-	@RequestMapping(value="/Portal", method = RequestMethod.GET)
+	@RequestMapping(value="/Menu-Sigarep", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
  
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -18,7 +18,7 @@ public class ControladorLogin {
 	
 		model.addAttribute("username", name);
 		model.addAttribute("message", "Spring Security login + database example");
-		return "Portal.zul";
+		return "index";
 	}
  
 	@RequestMapping(value="/login", method = RequestMethod.GET)
@@ -30,12 +30,12 @@ public class ControladorLogin {
 	public String loginerror(ModelMap model) {
  
 		model.addAttribute("error", "true");
-		return "timeout";
+		return "accesoDenegado";
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logout(ModelMap model) {
-		return "login";
+		return "Portal";
 	}
 	
 }
