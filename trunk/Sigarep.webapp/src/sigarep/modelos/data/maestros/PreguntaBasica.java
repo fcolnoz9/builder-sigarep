@@ -1,60 +1,61 @@
-
 package sigarep.modelos.data.maestros;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+
 @Entity
-@Table(name = "pregunta_basica")
-public class PreguntaBasica {
-	
-	private Integer id_pregunta_basica;
-    private String pregunta;
-    private String respuesta;
-    private boolean estatus;
- 
-	public PreguntaBasica(Integer id_pregunta_basica, String pregunta, String respuesta, Boolean estatus) {
-		super();
-		this.id_pregunta_basica = id_pregunta_basica;
-		this.pregunta = pregunta;
-		this.respuesta = respuesta;
-		this.estatus = estatus;
-	}
-	public PreguntaBasica() {
-	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id_pregunta_basica")
-     public Integer getId_pregunta_basica() {
-		return id_pregunta_basica;
-	}
+@Table(name="pregunta_basica")
+public class PreguntaBasica implements Serializable {
+       private static final long serialVersionUID = 1L;
 
-	public void setId_pregunta_basica(Integer id_pregunta_basica) {
-		this.id_pregunta_basica = id_pregunta_basica;
-	}
-	@Column(name = "pregunta")
-	public String getPregunta() {
-		return pregunta;
-	}
+       @Id
+       @GeneratedValue(strategy=GenerationType.IDENTITY)
+       @Column(name="id_pregunta_basica", unique=true, nullable=false)
+       private Integer idPreguntaBasica;
 
-	public void setPregunta(String pregunta) {
-		this.pregunta = pregunta;
-	}
-	@Column(name = "respuesta")
-	public String getRespuesta() {
-		return respuesta;
-	}
+       @Column(nullable=false)
+       private Boolean estatus;
 
-	public void setRespuesta(String respuesta) {
-		this.respuesta = respuesta;
-	}
-	@Column(name = "estatus")
-	public Boolean getEstatus() {
-		return estatus;
-	}
-	public void setEstatus(Boolean estatus){
-		this.estatus = estatus;
-	}
+       @Column(nullable=false, length=255)
+       private String pregunta;
+
+       @Column(nullable=false, length=255)
+       private String respuesta;
+
+       public PreguntaBasica() {
+      }
+
+       public Integer getIdPreguntaBasica() {
+               return this.idPreguntaBasica;
+       }
+
+       public void setIdPreguntaBasica(Integer idPreguntaBasica) {
+               this.idPreguntaBasica = idPreguntaBasica;
+       }
+
+       public Boolean getEstatus() {
+               return this.estatus;
+       }
+
+       public void setEstatus(Boolean estatus) {
+               this.estatus = estatus;
+       }
+
+       public String getPregunta() {
+               return this.pregunta;
+       }
+
+       public void setPregunta(String pregunta) {
+               this.pregunta = pregunta;
+       }
+
+       public String getRespuesta() {
+               return this.respuesta;
+       }
+
+       public void setRespuesta(String respuesta) {
+               this.respuesta = respuesta;
+       }
+
 }
