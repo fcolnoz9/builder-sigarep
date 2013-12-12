@@ -1,0 +1,39 @@
+<window id="modalDialog" title="Reglamentos" sclass="sysWin"
+	border="normal" width="99%" apply="org.zkoss.bind.BindComposer"
+	position="center,center" closable="true"
+	action="show: slideDown;hide: slideUp"
+ 	 > 
+	<groupbox closable="false">
+		<caption label="Lista de Reglamentos"/>
+		<listbox id="lbxReglamento" height="99%"  mold="paging" pageSize="5" >
+			<listhead>
+				<listheader label="Nombre del Reglamento" align="center" />
+				<listheader label="Fecha Subida" align="center"/>
+				<listheader label="Extension" align="center" />
+				<listheader label="Descripcion" align="center" />
+				<listheader label="Desacargar" align="center" />
+			</listhead>
+			<listitem selected="true">
+				<listcell label="REGLAMENTO DE EVALUACION ESTUDIANTIL" ></listcell>
+				<listcell label="21/04/2013" ></listcell>
+				<listcell label=".PDF"></listcell>
+				<listcell label="El Reglamento rege el Proceso de Evaluación de los alumnos cursantes en las Carreras de la UCLA."></listcell>
+				<listcell label=" " src="/WebContent/imagenes/iconos/descargar.png"></listcell>
+				<attribute name="onClick"><![CDATA[
+        													Filedownload.save("/archivos/documentos/REGLAMENTODEEVALUACIONESTUDIANTIL.pdf", null);
+   														]]></attribute>
+			</listitem>
+			<listitem selected="true">
+				<listcell label="REFORMA PARCIAL A LA ARTICULACION PROBATORIA" ></listcell>
+				<listcell label="21/04/2013" ></listcell>
+				<listcell label=".PDF"></listcell>
+				<listcell label="Reforma probatoria"></listcell>
+				<listcell label=" " src="/WebContent/imagenes/iconos/descargar.png" ></listcell>
+				<attribute name="onClick"><![CDATA[
+        													Filedownload.save("/archivos/documentos/reglamento_de_repitencia.pdf", null);
+   														]]></attribute>
+				
+			</listitem>
+		</listbox>
+	</groupbox>	
+</window>

@@ -1,0 +1,94 @@
+<zk>
+	<window id="winMaestroMotivoA" title="Registrar Motivo de Apelación"
+		border="normal" height="auto">
+		<grid id="grdRegistrarMotivoA" sclass="fgrid">
+			<columns></columns>
+			<rows>
+				<row>
+					<label id="lblMotivo" value="Motivo de Apelación" />
+					<textbox id="txtMotivo" constraint="no empty"
+						width="170px" maxlength="30" cols="23" tabindex="5" />
+					<hbox>
+						<button label="Agregar" id="btnBuscar"
+							image="/imagenes/iconos/agregar.png" width="auto" height="auto"
+							orient="horizontal" />
+						<button label="eliminar" id="btneliminar"
+							image="/imagenes/iconos/borrar.png" width="auto" height="auto"
+							orient="horizontal" />
+					</hbox>
+				</row>
+
+				<row>
+					<label id="lblDescripcion" value="Descripcion" />
+					<hbox>
+						<textbox id="intro" rows="3" width="300px">
+							<attribute name="value"></attribute>
+						</textbox>
+
+					</hbox>
+				</row>
+
+
+			</rows>
+		</grid>
+
+
+
+
+		<grid width="auto%" vflex="true" id="grdCatalogo"
+			model="${$composer.allContributor}">
+
+
+			<columns>
+				<column label="N°" width="30px" align="center" />
+				<column label="Motivo de Apelacion" align="center" />
+				<column label="Descripcion" align="center" />
+			</columns>
+
+
+
+			<rows>
+				<row>
+
+					<label id="lblIDmotivo1" value=" 1" />
+					<label id="lblMotivoApelacion1" value=" Salud" />
+					<label id="lblDescripcion1"
+						value=" Tipo de problema de salud en cuestión, y ayuda a su entendimiento para apelar" />
+				</row>
+				<row>
+					<label id="lblIDmotivo2" value=" 2" />
+					<label id="lblMotivoApelacion2" value=" Legal" />
+					<label id="lblDescripcion2"
+						value="  Delito por ACCION o por Omision" />
+				</row>
+				<row>
+					<label id="lblIDmotivo3" value=" 3" />
+					<label id="lblMotivoApelacion3" value=" Finaciero" />
+					<label id="lblDescripcion3" value=" ..." />
+
+				</row>
+
+
+			</rows>
+
+		</grid>
+
+		<hbox width="75%" pack="right">
+
+
+			<button label="Guardar" id="btnGuardar"
+				image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" />
+			<button label="Cancelar" id="btnCancelar"
+				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+				orient="horizontal" />
+			<button label="Salir" id="btnSalir"
+				image="/imagenes/iconos/salir.png" width="auto" height="auto"
+				orient="horizontal" />
+
+
+		</hbox>
+
+	</window>
+
+</zk>

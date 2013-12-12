@@ -1,0 +1,38 @@
+<?page title="Guia Paso a Paso"?>
+<window id="winCargarGuia" title="Cargar Guia Paso a Paso" border="normal" width="100%" closable="true"  >
+
+<groupbox> 
+	<grid  >
+	<columns>
+			<column label=""/>
+			<column label=""/>
+			<column label=""/>
+	</columns>
+	<rows>
+		<row>
+			<label id="lblGuia" value="Guia Paso a Paso" width="10%" />
+			<hbox>
+				<textbox id="txtGuia" width="150px" />
+				<fileupload id="floadCargar" label="Cargar" image="/imagenes/cargar.png"
+			width="100%" height="100%"
+			onClick="cpa.randomValue();" />
+			</hbox>
+		</row>
+	</rows>
+	</grid>
+</groupbox>
+
+
+<div align="right" height="100%">
+		<button id="btnGuardar" width="100px" height="50px" label="Guardar"
+			image="/imagenes/guardar.png" orient="vertical">
+		</button>
+		<button id="btnCancelar" width="100px" height="50px" label="Cancelar"
+			image="/imagenes/cancelar.png" orient="vertical">
+		</button>
+		<button id="btnSalir" width="100px" height="50px" label="Salir"
+			image="/imagenes/salir.png" orient="vertical">
+		</button>
+	</div>
+			
+</window>

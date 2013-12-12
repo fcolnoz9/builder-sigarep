@@ -1,0 +1,107 @@
+<window title="Registrar Usuario" id="winRegistrarUsuario"
+	border="normal">
+	<groupbox>
+		<groupbox>
+			<caption label="Datos de Usuario" />
+			<grid sclass="fgrid">
+				<columns>
+					<column label="" width="auto" />
+					<column label="" width="auto" />
+				</columns>
+				<rows>
+
+					<row>
+						<label id="lblUsuario"
+									value="Nombre Usuario:" />
+						<textbox id="txtUsuario" />
+					</row>
+					<row>
+						<label id="lblContraseña"
+									value="Contraseña:" />
+						<textbox id="txtContraseña" type="password"/>
+					</row>
+					<row>
+						<label id="lblRepetirContraseña"
+									value="Repetir Contraseña:" />
+						<textbox id="txtRepetirContraseña" type="password"/>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		
+		<groupbox>
+					<caption label="Datos personales" />
+					<grid sclass="fgrid">
+						<rows>
+							<row>
+								<label id="lblCedula" value="Cedula:" />
+								<intbox id="intCedula"/>
+							</row>
+							<row>
+								<label id="lblPrimerNombre"
+									value="Primer nombre:" />
+								<textbox id="txtPrimerNombre" />
+								<label id="lblSegundoNombre"
+									value="Segundo nombre:" />
+								<textbox id="txtSegundoNombre" />
+							</row>
+							<row>
+								<label id="lblPrimerApellido"
+									value="Primer apellido:" />
+								<textbox id="txtPrimerApellido" />
+								<label id="lblSegundoApellido"
+									value="Segundo apellido:" />
+								<textbox id="txtSegundoApellido" />
+							</row>
+							<row>
+								<label id="lblFechaNacimiento"
+									value="Fecha de nacimiento:" />
+								<datebox id="txtFechaNacimiento" />
+								<label id="lblTelefono"
+									value="Telefono:" />
+								<textbox id="txtTelefono" type="tel"/>
+							</row>
+							<row>
+								<label id="lblEmail" value="Email:" />
+								<textbox id="txtEmail" type="email" constraint="/.+@.+\.[a-z]+/: Ingrese un e-mail correcto"/>
+								
+								  
+								<label id="lblImagen" value="Imagen:" />
+								<!--<textbox id="txtCargar" />-->
+								
+								<button id="btnCargar" label="Cargar Imagen" upload="true,maxsize=300" width="100px" height="30px" >
+       						 	<attribute name="onUpload"><![CDATA[
+            					org.zkoss.util.media.Media media = event.getMedia();
+           							 if (media instanceof org.zkoss.image.Image) {
+                						org.zkoss.zul.Image image = new org.zkoss.zul.Image();
+                 					    image.setContent(media);
+                                        image.setParent(pics);
+                                     } else {
+                                        Messagebox.show("Not an image: "+media, "Error", Messagebox.OK, Messagebox.ERROR);
+                                        break;
+                                     }
+                              ]]></attribute>
+                             </button>
+                             <idspace id="pics"  height="40px" style="overflow:auto"/>
+                            
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+		
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar"
+				image="imagenes/iconos/guardar.png" width="75px" height="50px"
+				orient="vertical">
+			</button>
+			<button label="Eliminar" id="btnEliminar"
+				image="imagenes/iconos/borrar.png" width="75px" height="50px"
+				orient="vertical">
+			</button>
+			<button label="Cancelar" id="btnCancelar"
+				image="imagenes/iconos/cancelar.png" width="75px" height="50px"
+				orient="vertical">
+			</button>
+		</div>
+	</groupbox>
+</window>

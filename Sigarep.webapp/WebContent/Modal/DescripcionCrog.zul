@@ -1,0 +1,46 @@
+<?page title="Descripci�n" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Detalle de la Actividad"  id="winDescripcion" border="normal"
+	width="1000px" height="200px"
+	apply=""
+	position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp">
+
+
+<listbox id="box" width="1000px"  >
+        <listhead >
+            <listheader  label="Hora" sort="auto" align="center" width="100px"/>
+            <listheader  label="Lugar" sort="auto" align="center" />
+            <listheader  label="Descripción" sort="auto" align="center"/>
+            <listheader  label="Observación" sort="auto" align="center"/>
+            
+        </listhead>
+        <listitem>
+           
+            <listcell label="14/11/2013" />
+            <listcell label="Recepción de Documentos" />
+            <listcell label="Todos los Docuemntos fueron recibidos gfdgfdgfdgfdgfdgfdgfdgdfgfdgfdgfdgfdgfdgfdgfdgfdgfdg" />
+            <listcell label="Recibido" />
+            
+            
+        </listitem>
+        <listitem>
+            <listcell label="17/11/2013" />
+            <listcell label="Revision de Documentos" />
+            <listcell label="Falta Recipe de 2do Reposo" />
+            <listcell label="Revisado" />
+            
+        </listitem>
+        <listitem>
+            <listcell label="20/11/2013" />
+            <listcell label="Analisis de Documentos" />
+            <listcell label="2do Reposo Aceptado" />
+            <listcell label="En Proceso" />
+           
+        </listitem>
+        
+    </listbox>
+
+
+</window>
+</zk>

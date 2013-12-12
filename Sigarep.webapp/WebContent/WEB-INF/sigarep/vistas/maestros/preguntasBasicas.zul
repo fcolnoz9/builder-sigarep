@@ -1,0 +1,117 @@
+<zk>
+	<style id="estiloPreguntas">
+
+        .fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+        div.z-cell,div.z-grid { border: none; overflow: hidden; zoom: 1;
+        background: white; border-top: none; border-left: none;
+        border-right: none; border-bottom: none; }
+		
+        .fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+        .z-cell { background-color: #F7F7F7; border-bottom: 1px solid
+        transparent; border-left: 1px solid transparent; border-top: 1px
+        solid transparent; }
+
+        .fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+        .z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0 0
+        transparent; }
+
+        .fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+        .z-cell,.fgrid tr.z-grid-odd { background: white }
+
+        .fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+        background: white; border-top: none; }
+
+   .mymodal .z-window-modal-hm, .mymodal .z-window-modal-br, .mymodal .z-window-modal-cr, .mymodal .z-window-modal-cl, .mymodal .z-window-modal-hr, .mymodal .z-window-modal-tr, .mymodal .z-window-modal-hl
+    {
+        background-image: none;
+        background-color: #20B2AA;
+    }
+
+    .mymodal .z-window-modal-icon 
+    {
+        width: 20px;
+        height: 16px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #0C6BA8 #0C6BA8 #0C6BA8 #0C6BA8;
+        box-shadow: inset 0 1px 0 #0C6BA8, inset -1px -1px 0 #0C6BA8, inset -1px -2px 0 #0C6BA8;
+    }
+
+    .mymodal .z-window-modal-close 
+    {
+          background:url('images/borrar.png')  transparent no-repeat 0 0; 
+    }
+
+    .mymodal .z-window-modal-header, .mymodal .z-window-modal-header-noborder 
+    {
+        padding-top: 1px;
+        padding-right: -1px;
+        padding-bottom: 1px;
+        padding-left: 0;
+        margin-right: -4px;
+        color: white;
+        font-family: "Arial";
+        font-size: 14px;
+        font-weight: bolder;
+        font-style: normal;
+    }
+    </style>
+<window id="winActualizarPregunta" title=".::Actualizar Preguntas Básicas" border="normal" sclass="mymodal" mode="modal" width="auto" height="100%">
+	<groupbox closable="false"> 
+		<caption label="Datos"/>
+		<grid id="grdPregunta" height="100%" sclass="fgrid">
+			<columns>
+				<column label="" width="30%" />
+				<column label="" width="25%" />
+				<column label="" width="45%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblPregunta" value="Pregunta:" />
+					<hlayout id="lytPregunta">
+						<textbox id="txtPregunta" width="300px" cols="23" maxlength="70" mold="rounded" tabindex="1" />
+						
+					</hlayout>
+					<button id="btnBuscarPregunta" label="Buscar" mold="trendy" image="/images/icons/buscar.png" width="80px" height="55px" orient="vertical" />
+				</row>
+				<row>
+					<label id="lblRespuesta" value="Respuesta:"/>
+					<hlayout id="lytRespuesta">
+						<textbox id="txtRespuesta" width="300px" rows="3" mold="rounded" tabindex="2" />
+					</hlayout>
+				</row>
+				<row>
+					<hlayout>
+					</hlayout>
+					
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<div align="right">
+		<hbox>
+			<button id="btnGrabarPregunta" label="Grabar" image="/images/icons/guardar.png" mold="trendy" width="80px" height="55px" orient="vertical"/>
+			<button id="btnEliminarPregunta" label="Eliminar" image="/images/icons/borrar.png" mold="trendy" width="80px" height="55px" orient="vertical"/>
+			<button id="btnCancelarPregunta" label="Cancelar" image="/images/icons/cerrar.png" mold="trendy" width="80px" height="55px" orient="vertical"/>
+		</hbox>
+	</div>
+	<groupbox closable="false"> 
+		<caption label="Listado de Preguntas"/>
+		<listbox id="lbxPreguntas">
+	<listhead>
+		<listheader label="Preguntas"/>
+		<listheader label="Respuestas"/>
+	</listhead>
+	<listitem>
+		<listcell label="" />
+		<listcell label="" />
+	</listitem>
+	<listitem>
+		<listcell label="" />
+		<listcell label="" />
+	</listitem>
+</listbox>
+
+	</groupbox>
+</window>
+</zk>
