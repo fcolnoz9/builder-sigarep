@@ -9,6 +9,15 @@ import javax.persistence.*;
 public class PreguntaBasica implements Serializable {
        private static final long serialVersionUID = 1L;
 
+    
+    
+   	public PreguntaBasica(Integer idPreguntaBasica, String pregunta, String respuesta, Boolean estatus) {
+   		super();
+   		this.idPreguntaBasica = idPreguntaBasica;
+   		this.pregunta = pregunta;
+   		this.respuesta = respuesta;
+   		this.estatus = estatus;
+   	}
        @Id
        @GeneratedValue(strategy=GenerationType.IDENTITY)
        @Column(name="id_pregunta_basica", unique=true, nullable=false)
