@@ -4,7 +4,7 @@
 		style="background: #1AFF00;">
 		<tablelayout columns="3">
 			<tablechildren>
-				<label value="${username}"
+<!-- 				<label value="${username}" -->
 					style="color: black; font: 24 bold monospace;" />
 			</tablechildren>
 			<tablechildren>
@@ -14,7 +14,8 @@
 				</a>
 			</tablechildren>
 			<tablechildren>
-				<a href="j_spring_security_logout">Cerrar Sesion</a>
+<!-- 				<a href="j_spring_security_logout">Cerrar Sesion</a> -->
+					<a href="/Portal.zul">Cerrar Sesion</a> -->
 			</tablechildren>
 		</tablelayout>
 	</window>

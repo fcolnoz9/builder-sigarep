@@ -45,8 +45,19 @@ public class LapsoAcademico implements Serializable {
 
         public LapsoAcademico() {
         }
+        
+        public LapsoAcademico(String codigoLapso,
+				Date fechaCierre, Date fechaInicio, Boolean estatus) {
+			super();
+			this.codigoLapso = codigoLapso;
+			this.estatus = estatus;
+			this.fechaCierre = fechaCierre;
+			this.fechaInicio = fechaInicio;
+		}
 
-        public String getCodigoLapso() {
+
+
+		public String getCodigoLapso() {
                 return this.codigoLapso;
         }
 
