@@ -10,13 +10,12 @@
 					<auxheader>Actualizar Preguntas Básicas</auxheader>
 	        	</auxhead>
 	        	<space/>
-	<groupbox id = "grbPreguntaBasica" closable="false"> 
+	<groupbox id = "grbPreguntaBasica"> 
 		<caption label="Datos"/>
 		<grid id="grdPreguntaBasica" height="100%" sclass="fgrid">
 			<columns>
-				<column label="" width="30%" />
-				<column label="" width="25%" />
-				<column label="" width="45%" />
+				<column label="" width="20%" />
+				<column label="" width="80%" />
 			</columns>
 			<rows>
 				<row>
@@ -46,7 +45,7 @@
 		</hbox>
 	</div>
    	<space />
-	<groupbox closable="false">
+	<groupbox id = "grbListaPreguntaBasica">
 		<caption label="Listado de Preguntas"/>
 		<listbox id="lbxPreguntas"  height="70%" model="@bind(vm.listaPregunta)" selectedItem="@bind(vm.preguntaseleccionada)"   
    			 onSelect="@command('mostrarSeleccionada')" emptyMessage="No hay preguntas básicas registradas" mold="paging" pageSize="5">
