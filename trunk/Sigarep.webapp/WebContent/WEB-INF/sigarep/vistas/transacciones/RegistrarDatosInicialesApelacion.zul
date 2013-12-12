@@ -1,0 +1,177 @@
+<window id="winRegistrarDatosInicialesApelacion"
+	title="Registrar Datos Iniciales de Apelación" border="normal"
+	width="auto" height="auto" style="overflow:auto">
+	<div>
+		<label id="lblfechaderegistro"
+			value="Fecha de Registro de Apelacion: " />
+		<datebox value="@bind(fx.birthday)"
+			format="@load(vm.dateFormat)" width="150px" tabindex="7" />
+	</div>
+	<groupbox id="grbDatosestudiante">
+		<caption id="lblDatosestudiante" label="Datos Estudiante" />
+		<hbox>
+			<grid sclass="fgrid">
+				<columns>
+					<column />
+					<column />
+				</columns>
+				<rows>
+					<row>
+
+					</row>
+					<row>
+						<label id="lblCedula" value="Cedula: " />
+						<textbox id="txtCedula" cols="23" maxlength="30"
+							value="18863080" disabled="true">
+						</textbox>
+					</row>
+					<row>
+						<label id="lblNombre" value="Nombre: " />
+						<textbox id="txtNombre" cols="23" maxlength="30"
+							value="Luis" disabled="true">
+						</textbox>
+					</row>
+					<row>
+						<label id="lblApellido" value="Apellido: " />
+						<textbox id="txtApellido" cols="23"
+							maxlength="30" value="Gomez" disabled="true">
+						</textbox>
+					</row>
+					<row>
+						<label id="lblEmail" value="Email: " />
+						<textbox id="txtEmail" cols="23" maxlength="30"
+							value="Luis@gmail.com" disabled="true">
+						</textbox>
+					</row>
+					<row>
+						<label id="lblTelefono" value="Telefono: " />
+						<textbox id="txtTelefono" cols="23"
+							maxlength="30" value="0412089765" disabled="true">
+						</textbox>
+					</row>
+					<row>
+						<label id="lblPrograma" value="Programa: " />
+						<textbox id="txtPrograma" cols="23"
+							maxlength="30" value="Informatica" disabled="true">
+						</textbox>
+					</row>
+				</rows>
+			</grid>
+			<button id="lblBuscar" label="Buscar"
+				image="/imagenes/iconos/buscar.png">
+			</button>
+		</hbox>
+	</groupbox>
+
+
+
+
+	<groupbox id="grbDatosSancion">
+		<caption id="lblDatossancion" label="Datos Sancion" />
+		<grid sclass="fgrid">
+			<columns>
+				<column />
+				<column />
+			</columns>
+			<rows>
+				<row>
+
+				</row>
+
+				<row>
+					<label id="lblLapsosancion"
+						value="Lapso de Sancion: " />
+					<textbox id="txtLapsosancion" cols="23"
+						maxlength="30" value="2013-II" disabled="true">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblTiposancion"
+						value="Tipo de Sancion: " />
+					<textbox id="txtTipoSancion" cols="23"
+						maxlength="30" value="Repitencia" disabled="true">
+					</textbox>
+				</row>
+				<row>
+
+					<label id="lblAsignatura" value="Asignatura: " />
+					<textbox id="txtAsignatura" cols="23" maxlength="30"
+						value="Calculo II" disabled="true">
+					</textbox>
+				</row>
+				<row>
+
+					<label id="lblCondicionAsignatura"
+						value=" Condicion Asignatura: " />
+					<textbox id="txtCondicionAsignatura" cols="23"
+						maxlength="30" value="3" disabled="true">
+					</textbox>
+				</row>
+
+				<row>
+					<label id="lblPeriodoinicialsancion"
+						value="Periodo Inicial de Sancion: " />
+					<textbox id="txtPeridoinicialsancion" cols="23"
+						maxlength="30" value="2013 II" disabled="true">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblPeriodofinalsancion"
+						value="Periodo Final de Sancion: " />
+					<textbox id="txtPeridofinalsancion" cols="23"
+						maxlength="30" value="2014 I" disabled="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+
+	<groupbox id="grbDatosdeapelacion">
+		<caption id="lblDatosapelacion" label="Datos Apelación" />
+		<grid sclass="fgrid">
+			<columns>
+				<column align="right" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblMotivo" value="Motivo: " />
+					<combobox id="cmbMotivo">
+						<comboitem label="Enfermedad"
+							description="Ha ameritado un reposo prolongado" />
+						<comboitem label="Status laboral/económico"
+							description="Status que le ha impedido cursar con regularidad el semestre" />
+						<comboitem label="Muerte del cónyuge/pariente"
+							description="Pariente en primer grado que implique cambio en status económico" />
+						<comboitem label="Detención judicial o policial"
+							description="Detención durante el semestre" />
+						<comboitem label="Consejero no asignado"
+							description="No se le asignó consejero conforme a lo pautado en el artículo 37" />
+						<comboitem label="Cambio de pénsum"
+							description="Solo le queda una única posibilidad de cursar una determinada asignatura" />
+						<comboitem label="Otros" description="..." />
+					</combobox>
+				</row>
+				<row>
+					<label id="lblDescripcionmotivo"
+						value="Descripción de Motivo: " />
+					<textbox id="txtDescripcionmotivo" width="300px"
+						rows="3">
+					</textbox>
+				</row>
+
+			</rows>
+		</grid>
+	</groupbox>
+	<div align="right" height="100%">
+		<button id="btnGuardar" width="auto" height="auto"
+			label="Guardar" image="/imagenes/iconos/guardar.png">
+		</button>
+		<button id="btnCancelar" width="auto" height="auto"
+			label="Cancelar" image="/imagenes/iconos/cancelar.png">
+		</button>
+		<button id="btnSalir" width="auto" height="auto" label="Salir"
+			image="/imagenes/iconos/salir.png">
+		</button>
+	</div>
+</window>

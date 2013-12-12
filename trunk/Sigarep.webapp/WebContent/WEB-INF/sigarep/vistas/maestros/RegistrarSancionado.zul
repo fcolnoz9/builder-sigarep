@@ -1,0 +1,63 @@
+<window id="winRegistrarSancionados" title="Registrar estudiantes sancionados" border="normal">
+			<groupbox>
+  			  <caption  label="Datos personales"/>
+	   		  <grid>
+        	  <rows>
+        	  	<row>
+                 <label id="lblCedula" value="Cedula:"/>
+	    		 <textbox id="txtCedula" />
+            	</row>
+            	<row>
+                 <label id="lblPrimerNombre" value="Primer nombre:"/>
+	    		 <textbox id="txtPrimerNombre" />
+	    		  <label id="lblSegundoNombre" value="Segundo nombre:"/>
+	    		 <textbox id="txtSegundoNombre" />
+            	</row>
+            	<row>
+                 <label id="lblPrimerApellido" value="Primer apellido:"/>
+	    		 <textbox id="txtPrimerApellido" />
+	    		  <label id="lblSegundoApellido" value="Segundo apellido:"/>
+	    		 <textbox id="txtSegundoApellido" />
+            	</row>
+            	<row>
+                 <label id="lblFechaNacimiento" value="Fecha de nacimiento:"/>
+	    		 <textbox id="txtFechaNacimiento" />
+	    		  <label id="lblTelefono" value="Telefono:"/>
+	    		 <textbox id="txtTelefono" />
+            	</row>
+            	<row>
+                 <label id="lblEmail" value="Email:"/>
+	    		 <textbox id="txtEmail" />
+            	</row>
+        	  </rows>
+   			  </grid>
+ 			</groupbox>
+ 			<groupbox>
+  			  <caption  label="Datos academicos"/>
+	   		  <grid>
+        	  <rows>
+            	<row>
+                 <label id="lblLapso" value="Lapso:"/>
+	    		 <textbox id="txtLapso" />
+	    		  <label id="lblPrograma" value="Programa:"/>
+	    		 <textbox id="txtPrograma" />
+            	</row>
+            	<row>
+                 <label id="lblSancion" value="Sancion:"/>
+	    		 <textbox id="txtSancion" />
+	    		  <label id="lblPeriodoSancion" value="Periodo de Sancion:"/>
+	    		 <textbox id="txtPeriodoSancion" />
+            	</row>
+            	<row>
+                 <label id="lblIndiceGrado" value="Indice de grado:"/>
+	    		 <textbox id="txtIndiceGrado" />
+            	</row>
+        	  </rows>
+   			  </grid>
+ 			</groupbox>
+ 			<hbox width="100%" pack="right" >
+ 		  	  <button id="btnGuardar" label="Guardar" image="/imagenes/iconos/guardar.png" width="75px" height="50px" orient="vertical" />
+ 		  	  <button id="btnCancelar" label="Cancelar" image="/imagenes/iconos/cancelar.png" width="75px" height="50px" orient="vertical" />
+ 		  	  <button id="btnSalir" label="Salir" image="/imagenes/iconos/salir.png" width="75px" height="50px" orient="vertical" />
+ 		  	 </hbox>
+ </window>

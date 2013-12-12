@@ -1,0 +1,68 @@
+<zk>
+<window id= "winEstudiantesPorSancion" title="Informe de Estudiantes Sancionados" border="normal" width="auto" height="auto">
+<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
+
+<caption label="Criterio de Selecciòn"   />
+
+<grid id = "grdEstudiantesPorSancion">
+		<columns>
+   		 		<column label="" width="135px" id ="columna1"/>
+                <column label="" width="170px" id ="columna2" /> 
+                <column label="" width="135px" id ="columna3" /> 
+                
+   		</columns>
+<rows> 
+
+<row>
+<label id = "lblLapsoAcademico" value="Lapso Academico" />
+				<combobox id="cmbLapsoAcademico"  cols="12" tooltiptext="Elegir una opcion">
+				<comboitem label="2011-1"/>
+				<comboitem label="2011-2"/>
+				<comboitem label="2012-1"/>
+				<comboitem label="2012-2"/>
+				<comboitem label="Todas"/>
+			</combobox>
+</row>
+
+<row>
+<label id = "lblTipodeSancion" value="Tipo de Sanciòn" />
+			<combobox id="cmbTipoSancion"  cols="12" tooltiptext="Elegir una opcion">
+			<comboitem label="RR"/>
+			<comboitem label="RP"/>
+			<comboitem label="Todas"/>
+			</combobox>
+
+
+
+
+</row>
+
+
+
+
+
+
+</rows>
+
+</grid>
+
+<hbox width="90%" height="150%" pack="right" >
+	<hlayout id = "lyBuscar">
+	<div align="right" height="100%">
+    <button  label= "Generar"  id = "btnGenerar" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal"></button>
+    </div>
+	</hlayout>
+	
+	<hlayout id = "lytBorrar">
+	<div align="right" height="100%">
+	<button label="Cancelar"  id = "btncancelar" image="imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal"></button>
+	  </div>
+	</hlayout>
+	</hbox>
+
+
+</groupbox>
+
+
+</window>
+</zk>

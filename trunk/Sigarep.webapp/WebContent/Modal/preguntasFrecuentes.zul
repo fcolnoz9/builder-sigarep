@@ -1,0 +1,35 @@
+<window id="modalDialog" title="Preguntas mas Frecuentes" border="normal" width="405px"
+	apply=""
+	position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp">
+	<vlayout>
+		<grid>
+			<columns>
+				
+				<column width="230px" label="Preguntas" align="center" />
+				<column width="150px" label="Respuestas" align="center" />
+			</columns>
+			<rows>
+				<row>
+					<label value="¿Como Apelar? " />
+					<label value="Acudir a las Instancias correspondientes y suministrar los recaudos necesarios " />
+				</row>
+				<row>
+					
+				   <label value="¿Que Documentos debo Entregar?" />
+				   <label value=" Formatos y Pruebas de acuerdo al tipo de caso" />
+					
+				</row>
+				
+				<row>
+				<label value="¿A que Instancias Debo Apelar?" />	
+				<label value=" Comision Sustanciadora, Concejo de Decanato y Concejo Universitario" />	
+				   
+				</row>
+				
+				
+			</rows>
+		</grid>
+		
+	</vlayout>
+</window>

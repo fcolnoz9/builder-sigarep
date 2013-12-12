@@ -33,25 +33,17 @@
 					<treeitem>
 						<treerow>
 							<treecell label="Actividades"
-								sclass="maestros" id="" onClick="createWin(.getId())" />
+								sclass="maestros" id="RegistrarActividad"
+								onClick="createWin(RegistrarActividad.getId(), RegistrarActividad.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
 						<treerow>
 							<treecell label="Tipo Sanción"
-								id="RegistrarSancion" sclass="maestros"
-								onClick="createWin(RegistrarSancion.getId(), RegistrarSancion.getSclass())" />
+								id="RegistrarTipoSancion" sclass="maestros"
+								onClick="createWin(RegistrarTipoSancion.getId(), RegistrarTipoSancion.getSclass())" />
 						</treerow>
 					</treeitem>
-					
-					<treeitem>
-						<treerow>
-							<treecell label="Instancia Apelada"
-								id="RegistrarInstanciaApelada" sclass="maestros"
-								onClick="createWin(RegistrarInstanciaApelada.getId(), RegistrarInstanciaApelada.getSclass())" />
-						</treerow>
-					</treeitem>
-					
 					<treeitem>
 						<treerow>
 							<treecell label="Motivos de Apelación"
@@ -62,8 +54,8 @@
 					<treeitem>
 						<treerow>
 							<treecell label="Recaudos"
-								id="RegistrarRecaudo" sclass="maestros"
-								onClick="createWin(RegistrarRecaudo.getId(), RegistrarRecaudo.getSclass())" />
+								id="RegistrarRecaudos" sclass="maestros"
+								onClick="createWin(RegistrarRecaudos.getId(), RegistrarRecaudos.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem open="false">
@@ -73,53 +65,17 @@
 						<treechildren>
 							<treeitem>
 								<treerow>
-									<treecell label="Por Lote" id=""
-										sclass="maestros"
-										onClick="createWin(RegistrarSancionado.getId(), RegistrarSancionado.getSclass())" />
+									<treecell label="Por Lote" id="RegistrarSancionadoLote"
+										sclass="maestros" onClick="createWin(RegistrarSancionadoLote.getId(), RegistrarSancionadoLote.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
-									<treecell label="Individual" id=""
-										sclass="maestros"
-										onClick="createWin(RegistrarSancionado.getId(), RegistrarSancionado.getSclass())" />
+									<treecell label="Individual" id="RegistrarSancionado"
+										sclass="maestros" onClick="createWin(RegistrarSancionado.getId(), RegistrarSancionado.getSclass())" />
 								</treerow>
 							</treeitem>
 						</treechildren>
-					</treeitem>
-
-
-
-
-					<treeitem>
-						<treerow>
-							<treecell
-								label="Registro reglamento y formatos"
-								id="RegistrarReglamentosFormatos" sclass="maestros"
-								onClick="createWin(RegistrarReglamentosFormatos.getId(), RegistrarReglamentosFormatos.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Registro asignaturas"
-								id="RegistrarAsignatura" sclass="maestros"
-								onClick="createWin(RegistrarAsignatura.getId(), RegistrarAsignatura.getSclass())" />
-						</treerow>
-					</treeitem>
-
-					<treeitem>
-						<treerow>
-							<treecell label="Registro tipo de apelación"
-								id="" onClick="createWin(.getId())" />
-						</treerow>
-					</treeitem>
-
-					<treeitem>
-						<treerow>
-							<treecell
-								label="Registro estados de apelaciones" id=""
-								onClick="createWin(.getId())" />
-						</treerow>
 					</treeitem>
 				</treechildren>
 			</treeitem>
@@ -175,7 +131,7 @@
 							<treeitem open="false">
 								<treerow>
 									<treecell label="Evaluar Apelación"
-										sclass="transacciones" id=""
+										sclass="transacciones" id="VerificarApelaciones"
 										onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
 								</treerow>
 								<treechildren>
@@ -183,8 +139,8 @@
 										<treerow>
 											<treecell
 												label="Verificar Recaudos" sclass="transacciones"
-												id="VerificarRecaudo"
-												onClick="createWin(VerificarRecaudo.getId(), VerificarRecaudo.getSclass())" />
+												id="VerificarRecaudos"
+												onClick="createWin(VerificarRecaudos.getId(), VerificarRecaudos.getSclass())" />
 										</treerow>
 									</treeitem>
 									<treeitem>
@@ -214,39 +170,37 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Registrar Reconsideración" sclass="transacciones"
-										id="Reconsideracion"
-										onClick="createWin(RegistrarReconsideracion.getId(), RegistrarReconsideracion.getSclass())"/>
+										label="Registrar Reconsideración" id="RegistrarReconsideracion" sclass="maestros"
+										onClick="createWin(RegistrarReconsideracion.getId(),RegistrarReconsideracion.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem open="false">
 								<treerow>
 									<treecell
-										label="Evaluar Reconsideración"
-										onClick="createWin(.getId(), .getLabel())" />
+										label="Evaluar Reconsideración" sclass="transacciones"
+										id="VerificarApelaciones2"
+										onClick="createWin(VerificarApelaciones2.getId(), VerificarApelaciones2.getSclass())" />
 								</treerow>
 								<treechildren>
 									<treeitem>
 										<treerow>
 											<treecell
-												label="Verificar Recaudos" sclass="transacciones"
-												id="VerificarApelaciones"
-												onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
+												label="Verificar Recaudos" sclass="transacciones" id=""
+												onClick="createWin(VerificarRecaudos.getId(), VerificarRecaudos.getSclass())" />
 										</treerow>
 									</treeitem>
 									<treeitem>
 										<treerow>
 											<treecell
-												label="Analizar Validez" sclass="transacciones"
-												id="VerificarApelaciones2"
-												onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
+												label="Analizar Validez" sclass="transacciones" id=""
+												onClick="createWin(AnalizarValidez.getId(), AnalizarValidez.getSclass())" />
 										</treerow>
 									</treeitem>
 									<treeitem>
 										<treerow>
 											<treecell label="Veredicto"
-												id="VerificarApelaciones3" sclass="transacciones"
-												onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
+												id="" sclass="transacciones"
+												onClick="createWin(Veredicto.getId(), Veredicto.getSclass())" />
 										</treerow>
 									</treeitem>
 								</treechildren>
@@ -261,36 +215,36 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Registrar Recurso Jerárquico" id="RecursoJerarquico"
-										sclass="transacciones"
-										onClick="createWin(RegistrarRecursoJerarquico.getId(), RegistrarRecursoJerarquico.getSclass())" />
+										label="Registrar Recurso Jerárquico" id="RegistrarRecursoJerarquico" sclass="maestros"
+										onClick="createWin(RegistrarRecursoJerarquico.getId(),RegistrarRecursoJerarquico.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem open="false">
 								<treerow>
 									<treecell
 										label="Evaluar Recurso Jerárquico" id=""
-										onClick="createWin(.getId(), .getLabel())" />
+										onClick="createWin(VerificarApelaciones2.getId(), VerificarApelaciones2.getSclass())" />
 								</treerow>
 								<treechildren>
 									<treeitem>
 										<treerow>
 											<treecell
-												label="Verificar Recaudos" id=""
-												onClick="createWin(.getId(),.getLabel())" />
+												label="Verificar Recaudos" sclass="transacciones" id=""
+												onClick="createWin(VerificarRecaudos.getId(), VerificarRecaudos.getSclass())" />
 										</treerow>
 									</treeitem>
 									<treeitem>
 										<treerow>
 											<treecell
 												label="Analizar Validez" id=""
-												onClick="createWin(.getId(), .getLabel())" />
+												onClick="createWin(AnalizarValidez.getId(), AnalizarValidez.getSclass())" />
 										</treerow>
 									</treeitem>
 									<treeitem>
 										<treerow>
 											<treecell label="Veredicto"
-												id="" onClick="createWin(.getId(), .getLabel())" />
+												id=""
+												onClick="createWin(Veredicto.getId(), Veredicto.getSclass())" />
 										</treerow>
 									</treeitem>
 								</treechildren>
@@ -299,7 +253,9 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Historial de Apelaciones" />
+							<treecell label="Historial de Apelaciones"
+								id=""
+								onClick="createWin(Veredicto.getId(), Veredicto.getSclass())" />
 						</treerow>
 					</treeitem>
 				</treechildren>
@@ -317,12 +273,15 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Estudiantes Sancionados" />
+										label="Estudiantes Sancionados"
+										id="ConfigurableEstudiantesSancionados" sclass="reportes"
+										onClick="createWin(ConfigurableEstudiantesSancionados.getId(), ConfigurableEstudiantesSancionados.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
-									<treecell label="Apelaciones" />
+									<treecell label="Apelaciones" id="ConfigurableApelaciones"
+										sclass="reportes" onClick="createWin(ConfigurableApelaciones.getId(), ConfigurableApelaciones.getSclass())" />
 								</treerow>
 							</treeitem>
 						</treechildren>
@@ -335,49 +294,65 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Cantidad de Estudiantes Sancionados vs. Estudiante que apelaron" />
+										label="Cantidad de Estudiantes Sancionados vs. Estudiante que apelaron"
+										id="EstudiantesSancionadosVsApelaron" sclass="reportes"
+										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Mayor Cantidad de Apelaciones por Motivos" />
+										label="Mayor Cantidad de Apelaciones por Motivos"
+										id="ApelacionesPorMotivo" sclass="reportes"
+										onClick="createWin(ApelacionesPorMotivo.getId(), ApelacionesPorMotivo.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Cantidad de Sancionados por Asignaturas" />
+										label="Cantidad de Sancionados por Asignaturas"
+										id="AsignaturasMayorCantidadDeSancionados" sclass="reportes"
+										onClick="createWin(AsignaturasMayorCantidadDeSancionados.getId(), AsignaturasMayorCantidadDeSancionados.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Promedio de Apelaciones por Tipo" />
+										label="Apelaciones por Tipo de Instancia"
+										id="ApelacionesPorTipoDeInstancia" sclass="reportes"
+										onClick="createWin(ApelacionesPorTipoDeInstancia.getId(), ApelacionesPorTipoDeInstancia.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Frecuencia de Apelaciones por Lapso" />
+										label="Frecuencia de Apelaciones por Lapso"
+										id="FrecuenciaDeApelacionesPorLapso" sclass="reportes"
+										onClick="createWin(FrecuenciaDeApelacionesPorLapso.getId(), FrecuenciaDeApelacionesPorLapso.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Cantidad de Apelaciones por Sexo" />
+										label="Cantidad de Apelaciones por Sexo"
+										id="ApelacionesPorTipoDeSexo" sclass="reportes"
+										onClick="createWin(ApelacionesPorTipoDeSexo.getId(), ApelacionesPorTipoDeSexo.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Porcentaje de Apelaciones por Programa" />
+										label="Porcentaje de Apelaciones por Programa"
+										id="ApelacionesPorPrograma" sclass="reportes"
+										onClick="createWin(ApelacionesPorPrograma.getId(), ApelacionesPorPrograma.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Porcentaje de Apelaciones por Tipo de Sanción" />
+										label="Porcentaje de Apelaciones por Tipo de Sanción"
+										id="ApelacionesPorTipoDeSancion" sclass="reportes"
+										onClick="createWin(ApelacionesPorTipoDeSancion.getId(), ApelacionesPorTipoDeSancion.getSclass())" />
 								</treerow>
 							</treeitem>
 						</treechildren>
@@ -390,25 +365,31 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Informe al Consejo Universitario" />
+										label="Informe al Consejo Universitario"
+										id="GenerarInformeAlCU" sclass="reportes"
+										onClick="createWin(GenerarInformeAlCU.getId(), GenerarInformeAlCU.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Informe al Consejo de Decanato" />
+										label="Informe al Consejo de Decanato" id="" sclass="reportes"
+										onClick="createWin(.getId(), .getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Listado de Estudiantes Procedentes y no Procedentes" />
+										label="Listado de Estudiantes Procedentes y no Procedentes"
+										id="InformeApelacion" sclass="reportes"
+										onClick="createWin(InformeApelacion.getId(), InformeApelacion.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Informe de Estudiantes que han apelado por lapso" />
+										label="Informe de Estudiantes que han apelado por lapso" id="InformeEstudiantes"
+										sclass="reportes" onClick="createWin(InformeEstudiantes.getId(), InformeEstudiantes.getSclass())" />
 								</treerow>
 							</treeitem>
 						</treechildren>
@@ -446,14 +427,16 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Crear grupos de usuario" id=""
-										onClick="createWin(.getId(),.getLabel())" />
+										label="Crear grupos de usuario" id="RegistrarGrupo"
+										sclass="maestros"
+										onClick="createWin(RegistrarGrupo.getId(), RegistrarGrupo.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell label="Crear usuario"
-										id="" onClick="createWin(.getId(), .getLabel())" />
+										id="RegistrarUsuario" sclass="maestros"
+										onClick="createWin(RegistrarUsuario.getId(), RegistrarUsuario.getSclass())" />
 								</treerow>
 							</treeitem>
 						</treechildren>
@@ -488,20 +471,22 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Guía paso a paso" id=""
-								onClick="createWin(.getId())" />
+							<treecell label="Guía paso a paso" id="GuiaPasoAPaso" sclass="maestros"
+								onClick="createWin(GuiaPasoAPaso.getId(), GuiaPasoAPaso.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
 						<treerow>
 							<treecell label="Formatos y Reglamentos"
-								id="" onClick="createWin(.getId())" />
+								id="CargarReglamentosYFormatos" sclass="maestros"
+								onClick="createWin(CargarReglamentosYFormatos.getId(), CargarReglamentosYFormatos.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Actualizar Banner" id=""
-								onClick="createWin(.getId())" />
+							<treecell label="Actualizar Banner"
+								id="ActualizarBanner" sclass="maestros"
+								onClick="createWin(ActualizarBanner.getId(), ActualizarBanner.getSclass())" />
 						</treerow>
 					</treeitem>
 				</treechildren>
@@ -512,5 +497,6 @@
 				</treerow>
 			</treeitem>
 		</treechildren>
+
 	</tree>
 </div>

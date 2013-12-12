@@ -1,0 +1,83 @@
+<zk>
+	<window id="winActualizarBanner" title="Actualizar Banner"
+		border="normal" width="70%" height="auto" closable="true">
+
+		<grid id="grdActualizarBanner">
+
+			<columns></columns>
+			<rows>
+				<row>
+					<label id="lblNombre" value="Nombre de la Imagen" />
+					<textbox id="txtNombre" constraint="no empty"
+						width="170px" maxlength="30" cols="23" tabindex="5" />
+					<hbox>
+						<button label="Subir" id="btnCargar"
+							image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+							orient="horizontal" />
+					</hbox>
+				</row>
+
+
+
+				<row>
+					<label id="lblLinkImagen" value="Link Imagen" />
+					<textbox id="txtLink" constraint="no empty"
+						width="170px" maxlength="30" cols="23" tabindex="5" />
+
+				</row>
+
+
+
+				<row>
+					<label id="lblBanner" value="Subir Imagen" />
+					<textbox id="txtBanner" constraint="no empty"
+						width="170px" maxlength="30" cols="23" tabindex="5" />
+
+				</row>
+
+
+			</rows>
+		</grid>
+
+
+
+		<grid width="auto%" vflex="true" id="grdLista"
+			model="${$composer.allContributor}">
+
+			<columns>
+				<column label="N°" width="30px" align="center" />
+				<column label="Imagen" align="center" />
+				<column label="Tamaño" align="center" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblNumeroBanner" value=" 1" />
+					<vbox width="100%" height="150%" pack="center"
+						align="center">
+						<label sclass="title"></label>
+						<image src="imagenes/iconos/DCyT.png" />
+					</vbox>
+					<label id="lblTamano1" value=" 30X30" />
+				</row>
+
+
+			</rows>
+
+		</grid>
+
+		<hbox width="75%" pack="right">
+			<button label="Guardar" id="btnGuardar"
+				image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" />
+			<button label="Cancelar" id="btnCancelar"
+				image="/imagenes/iconos/cancelar.png" />
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/salir.png" width="auto" height="auto"
+				orient="horizontal" />
+
+
+		</hbox>
+
+	</window>
+
+</zk>

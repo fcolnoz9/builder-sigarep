@@ -1,0 +1,55 @@
+<?page title="Cargar Recaudos"?>
+<window id="winCargarrecaudos" title="Cargar Recaudos" border="normal"
+	width="100%">
+	<groupbox>
+		<grid>
+			<columns>
+				<column label="" width="25%" />
+				<column label="" width="50%" />
+				<column label="" width="25%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblFecha" value="Fecha" width="10%" />
+					<datebox value="@bind(fx.birthday)"
+						format="@load(vm.dateFormat)" width="150px" tabindex="7" />
+				</row>
+				<row>
+					<label id="lblCedula" value="Cedula" width="10%" />
+					<hbox>
+						<textbox id="txtCedula" width="150px" />
+						<button id="lblBuscar" label="Buscar"
+							image="/imagenes/iconos/buscar.png">
+						</button>
+					</hbox>
+				</row>
+				<row>
+					<label id="lblDocumento" value="Documento"
+						width="10%" />
+					<hbox>
+						<textbox id="txtDocumento" width="150px" />
+
+						<fileupload id="floadCargar" label="Cargar"
+							image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+							onClick="cpa.randomValue();" />
+					</hbox>
+
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+
+
+	<div align="right" height="100%">
+		<button id="btnGuardar" width="auto" height="auto"
+			label="Guardar" image="/imagenes/iconos/guardar.png">
+		</button>
+		<button id="btnCancelar" width="auto" height="auto"
+			label="Cancelar" image="/imagenes/iconos/cancelar.png">
+		</button>
+		<button id="btnSalir" width="auto" height="auto" label="Salir"
+			image="/imagenes/iconos/salir.png">
+		</button>
+	</div>
+
+</window>

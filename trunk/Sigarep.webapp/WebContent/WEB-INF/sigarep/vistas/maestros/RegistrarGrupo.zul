@@ -1,0 +1,62 @@
+<?page title="Registrar Grupo de Usuario" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winRegistrarGrupo" title="Registrar Grupo de Usuario" border="normal">
+		<grid sclass="fgrid">
+			<columns>
+				<column label="" width="20%" height="20%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Id Grupo:" />
+					<textbox id="intIDGrupo" />
+				</row>
+				<row>
+					<label value="Nombre: " />
+					<hlayout>
+						<textbox id="txtNombre" />
+			<!--  				<div apply="sigarep.controlador.maestros.ModalController">
+							<button id="btnBuscar" label="Buscar"
+								autodisable="self" />
+						</div>   -->
+					</hlayout>
+				</row>
+				<row>
+					<label value="Descripción:" />
+					<textbox id="txtDescripcion" />
+				</row>
+				<row>
+				    <label id="lblImagen" value="Imagen:" />
+					<textbox id="txtCargar" />
+                    <button label="Cargar Imagen" upload="true,maxsize=300" width="100px" height="30px" >
+       						 <attribute name="onUpload"><![CDATA[
+            					org.zkoss.util.media.Media media = event.getMedia();
+           							 if (media instanceof org.zkoss.image.Image) {
+                						org.zkoss.zul.Image image = new org.zkoss.zul.Image();
+                 					    image.setContent(media);
+                                        image.setParent(pics);
+                                     } else {
+                                        Messagebox.show("Not an image: "+media, "Error", Messagebox.OK, Messagebox.ERROR);
+                                        break;
+                                     }
+                              ]]></attribute>
+                    </button>
+                    <hbox id="pics"  height="40px" style="overflow:auto"/>
+				</row>			 							
+			</rows>
+		</grid>
+		<grid sclass="fgrid">
+			<rows>
+				<row>
+					<hbox width="99%" pack="end" align="center">
+						<button id="btnGuardar" label="Guardar"
+							image="/imagenes/iconos/guardar.png" />
+						<button id="btnCancelar" label="Cancelar"
+							image="/imagenes/iconos/cancelar.png" />
+						<button id="btnSalir" label="Salir"
+							image="/imagenes/iconos/salir.png" />
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

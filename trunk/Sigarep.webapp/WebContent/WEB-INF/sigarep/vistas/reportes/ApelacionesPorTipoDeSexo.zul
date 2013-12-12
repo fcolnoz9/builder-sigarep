@@ -4,7 +4,7 @@
 
 
 <vlayout apply="org.zkoss.bind.BindComposer" 
-	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMApelacionTipoSexo')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.LineChartTipoSexoVM')">
 	
 	<groupbox id="grbParametros"> 
 	<caption id="lblParametros" label="Parametros de Seleccion" />
