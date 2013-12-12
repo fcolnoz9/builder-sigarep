@@ -1,69 +1,70 @@
 <zk>
-	<window id="winActualizarPregunta"
-		title="Actualizar Preguntas Básicas" border="normal"
-		sclass="mymodal">
-		<groupbox closable="false">
-			<caption label="Datos" />
-			<grid id="grdPregunta" height="100%" sclass="fgrid">
-				<columns>
-					<column label="" width="20%" />
-					<column label="" width="35%" />
-					<column label="" width="45%" />
-				</columns>
-				<rows>
-					<row>
-						<label id="lblPregunta" value="Pregunta:" />
-						<hlayout id="lytPregunta">
-							<textbox id="txtPregunta" width="300px"
-								cols="23" maxlength="70" mold="rounded" tabindex="1" />
-						</hlayout>
-						<button id="btnBuscarPregunta" label="Buscar"
-							mold="trendy" image="/imagenes/iconos/buscar.png" width="80px"
-							height="55px" orient="vertical" />
-					</row>
-					<row>
-						<label id="lblRespuesta" value="Respuesta:" />
-						<hlayout id="lytRespuesta">
-							<textbox id="txtRespuesta" width="300px"
-								rows="3" mold="rounded" tabindex="2" />
-						</hlayout>
-					</row>
-					<row>
-						<hlayout></hlayout>
-
-					</row>
-				</rows>
-			</grid>
-		</groupbox>
-		<div align="right">
-			<hbox>
-				<button id="btnGrabarPregunta" label="Grabar"
-					image="/imagenes/iconos/guardar.png" mold="trendy" width="80px"
-					height="55px" orient="vertical" />
-				<button id="btnEliminarPregunta" label="Eliminar"
-					image="/imagenes/iconos/borrar.png" mold="trendy" width="80px"
-					height="55px" orient="vertical" />
-				<button id="btnCancelarPregunta" label="Cancelar"
-					image="/imagenes/iconos/cerrar.png" mold="trendy" width="80px"
-					height="55px" orient="vertical" />
-			</hbox>
-		</div>
-		<groupbox closable="false">
-			<caption label="Listado de Preguntas" />
-			<listbox id="lbxPreguntas">
-				<listhead>
-					<listheader label="Preguntas" />
-					<listheader label="Respuestas" />
-				</listhead>
-				<listitem>
-					<listcell label="" />
-					<listcell label="" />
-				</listitem>
-				<listitem>
-					<listcell label="" />
-					<listcell label="" />
-				</listitem>
-			</listbox>
-		</groupbox>
+	<window id="winActualizarPreguntasBasicas" title="Configuración Web::Actualizar Preguntas Básicas"  width="auto" height="auto" closable = "true"
+	border="normal"  contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
+    		<script type="text/javascript" src="/widgets/js/watermark.js" />
+			<script type="text/javascript" src="/widgets/js/watermarkinput.js" />
+   			<style src="/widgets/input/form_sample/style.css" />
+			<style src="/widgets/input/form_sample/style.css" />
+   				<auxhead>
+					<auxheader>Actualizar Preguntas Básicas</auxheader>
+	        	</auxhead>
+	        	<space/>
+	<groupbox id = "grbPreguntaBasica" closable="false"> 
+		<caption label="Datos"/>
+		<grid id="grdPreguntaBasica" height="100%" sclass="fgrid">
+			<columns>
+				<column label="" width="30%" />
+				<column label="" width="25%" />
+				<column label="" width="45%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblPregunta" value="Pregunta:" />
+					<hlayout id="lytPregunta">
+						<textbox id="txtPregunta" width="300px" rows="3" maxlength="70"  mold="rounded"  tabindex="1"  value="@bind(vm.pregunta)"/>
+					</hlayout>
+				</row>
+				<row>
+					<label id="lblRespuesta" value="Respuesta:"/>
+					<hlayout id="lytRespuesta">
+						<textbox id="txtRespuesta" width="300px" rows="3" mold="rounded"  tabindex="2" value="@bind(vm.respuesta)" />
+					</hlayout>
+				</row>
+				<row>
+					<hlayout>
+					</hlayout>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<div align="right">
+		<hbox>
+			<div align="right" height="100%"> <button id="btnGuardarPregunta" label="Guardar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/guardar.png" onClick="@command('guardarPregunta')"/> </div>
+			<div align="right" height="100%"><button id="btnEliminarPregunta" label="Eliminar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/borrar.png" onClick="@command('eliminarPreguntaBasica')"/> </div>
+			<div align="right" height="100%"><button id="btnCancelarPregunta" label="Cancelar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cancelar.png" onClick="@command('limpiar')"/> </div>
+		</hbox>
+	</div>
+   	<space />
+	<groupbox closable="false">
+		<caption label="Listado de Preguntas"/>
+		<listbox id="lbxPreguntas"  height="70%" model="@bind(vm.listaPregunta)" selectedItem="@bind(vm.preguntaseleccionada)"   
+   			 onSelect="@command('mostrarSeleccionada')" emptyMessage="No hay preguntas básicas registradas" mold="paging" pageSize="5">
+	<listhead>
+		<listheader label="Número Pregunta" align="center" sort="auto(idPreguntaBasica)" />
+		<listheader label="Preguntas" align="center" sort="auto(pregunta)" />
+		<listheader label="Respuestas" align="center" sort="auto(respuesta)" />
+	</listhead>
+	<template name="model">
+	<listitem>
+ 		<listcell label="${each.idPreguntaBasica}" /> 
+		<listcell label="${each.pregunta}" />
+		<listcell label="${each.respuesta}" />
+	</listitem>
+	</template>
+</listbox>
+<space />
+<space />
+</groupbox>
 	</window>
 </zk>
