@@ -2,6 +2,8 @@
             jq("$txtInstancia").Watermark("Nombre de la Instancia","gray");
             jq("$txtRecurso").Watermark("Nombre del Recurso","gray");
             jq("$txtDescripcion").Watermark("Ingrese alguna descripcion","gray");
+            jq("$txtPregunta").Watermark("Introduzca la pregunta","gray");
+            jq("$txtRespuesta").Watermark("Introduzca la respuesta","gray");
              
             $.mask.definitions['A']='[A-Z]';
             $.mask.definitions['m']='[01]';
