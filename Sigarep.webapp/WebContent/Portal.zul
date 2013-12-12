@@ -204,21 +204,21 @@
 				<east size="25%" vflex="1">
 					<vlayout style="overflow:auto;">
 						<!-- Inicio de login -->
- 						<include src="/login.zul" /> 
-<!-- 						<window title="Iniciar Sesion" border="normal" width="100%"> -->
-<!-- 							<vlayout> -->
-<!-- 								<hlayout> -->
-<!-- 									<label value="Usuario" style="font-size:11px" /> -->
-<!-- 									<textbox id="log_usuario" hflex="1" /> -->
-<!-- 									<label value="Clave" style="font-size:11px" /> -->
-<!-- 									<textbox id="log_clave" type="password" hflex="1" /> -->
-<!-- 									<button label="Entrar" id="btnlogin"></button> -->
-<!-- 								</hlayout> -->
-<!-- 								<div apply="sigarep.controlador.maestros.ModalControler2" align="center"> -->
-<!-- 									<image id="orderBtn2" src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" /> -->
-<!-- 								</div> -->
-<!-- 							</vlayout> -->
-<!-- 						</window> -->
+<!--  						<include src="/login.zul" />  -->
+						<window title="Iniciar Sesion" border="normal" width="100%">
+							<vlayout>
+								<hlayout>
+									<label value="Usuario" style="font-size:11px" />
+									<textbox id="log_usuario" hflex="1" />
+									<label value="Clave" style="font-size:11px" />
+									<textbox id="log_clave" type="password" hflex="1" />
+									<button label="Entrar" id="btnlogin"></button>
+								</hlayout>
+								<div apply="sigarep.controlador.maestros.ModalControler2" align="center">
+									<image id="orderBtn2" src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" />
+								</div>
+							</vlayout>
+						</window>
 						<!-- Fin del login -->
 						<!-- Inicio del cronograma de actividades -->
 						<vlayout>
