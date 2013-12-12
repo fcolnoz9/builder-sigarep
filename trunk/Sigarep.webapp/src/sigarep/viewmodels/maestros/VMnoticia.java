@@ -22,92 +22,81 @@ import sigarep.modelos.servicio.maestros.ServicioNoticia;
 public class VMnoticia {
 
 	@WireVariable ServicioNoticia servicionoticia;
-	private Integer idNoticia;private String contenido;private String enlaceNoticia;private Boolean estatus;private Date fechaRegistro;private byte[] imagen;private String titulo;private Date vencimiento;
+	private Integer idNoticia;
+	private String contenido;
+	private String enlaceNoticia;
+	private Boolean estatus;
+	private Date fechaRegistro;
+	private byte[] imagen;
+	private String titulo;
+	private Date vencimiento;
 	private List<Noticia> listaNoticia;
-	private Noticia noticiaseleccionada;
+	private Noticia noticiaSeleccionada;
    
+// Metodos GETS Y SETS
 	public Integer getIdNoticia() {
 		return idNoticia;
 	}
-
 	public String getContenido() {
 		return contenido;
 	}
-
 	public String getEnlaceNoticia() {
 		return enlaceNoticia;
 	}
-
 	public Boolean getEstatus() {
 		return estatus;
 	}
-
 	public Date getFechaRegistro() {
 		return fechaRegistro;
 	}
-
 	public byte[] getImagen() {
 		return imagen;
 	}
-
 	public String getTitulo() {
 		return titulo;
 	}
-
 	public Date getVencimiento() {
 		return vencimiento;
 	}
-
 	public List<Noticia> getListaNoticia() {
 		return listaNoticia;
 	}
-
 	public Noticia getNoticiaseleccionada() {
-		return noticiaseleccionada;
+		return noticiaSeleccionada;
 	}
-
 	public void setIdNoticia(Integer idNoticia) {
 		this.idNoticia = idNoticia;
 	}
-
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
-
 	public void setEnlaceNoticia(String enlaceNoticia) {
 		this.enlaceNoticia = enlaceNoticia;
 	}
-
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
 	}
-
 	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
-
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
-
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
 	public void setVencimiento(Date vencimiento) {
 		this.vencimiento = vencimiento;
 	}
-
 	public void setListaNoticia(List<Noticia> listaNoticia) {
 		this.listaNoticia = listaNoticia;
 	}
-
-	public void setNoticiaseleccionada(Noticia noticiaseleccionada) {
-		this.noticiaseleccionada = noticiaseleccionada;
+	public void setNoticiaseleccionada(Noticia noticiaSeleccionada) {
+		this.noticiaSeleccionada = noticiaSeleccionada;
 	}
-    
-    // METODOS
-	
+    //Fin de los metodod gets y sets
+    // OTROS METODOS
+	//Metodos que perimite guardar una noticia
 	@Command
 	@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarNoticia(){
@@ -127,21 +116,23 @@ public class VMnoticia {
 		buscarNoticia();
     }
 	
+	//Metodo que busca una noticia partiendo por su titulo
 	@Command
 	@NotifyChange({"listaNoticia"})
 	public void buscarNoticia(){
 		listaNoticia =servicionoticia.buscarNoticia(titulo);
 	}
-  
-
+	//Metodo que limpia todos los campos de la pantalla
 	@Command
 	@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia"})
 	public void limpiar(){
+		// se utiliza la fecha del sistema para colocarla al momento de limpiar
 		Date fecha = new Date();
 		contenido="";enlaceNoticia="";fechaRegistro=fecha;imagen=null;titulo="";vencimiento=fecha;
 		buscarNoticia();
 	}
-
+	
+	//Metodo que elimina una noticia tomando en cuenta el idNoticia
 	@Command
 	@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento","listaNoticia"})
 	public void eliminarNoticia(){
@@ -149,22 +140,17 @@ public class VMnoticia {
 		limpiar();
 		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 	}
-	
+	//permite tomar los datos del objeto noticiaseleccionada
 	@Command
 	@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia"})
 	public void mostrarSeleccionado(){
 		contenido=getNoticiaseleccionada().getContenido();
-
 		enlaceNoticia=getNoticiaseleccionada().getEnlaceNoticia();
-
 		fechaRegistro=getNoticiaseleccionada().getFechaRegistro();
-
 		imagen=getNoticiaseleccionada().getImagen();
-
 		titulo=getNoticiaseleccionada().getTitulo();
-
 		vencimiento=getNoticiaseleccionada().getVencimiento();
 
 	}
-	
+//Fin de los otros metodos.
 }
