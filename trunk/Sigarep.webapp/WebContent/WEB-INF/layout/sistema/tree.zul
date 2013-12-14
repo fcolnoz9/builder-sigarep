@@ -403,8 +403,9 @@
 				<treechildren>
 					<treeitem>
 						<treerow>
-							<treecell label="Respaldar datos" id=""
-								onClick="createWin(.getId(),.getLabel())" />
+							<treecell 	label="Respaldar Datos"
+										id="RespaldarDatos" sclass="administracionSistema"
+										onClick="createWin(RespaldarDatos.getId(), RespaldarDatos.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>

@@ -1,0 +1,275 @@
+<zk>
+<window id="winRespaldarDatos" title="Respaldar Datos" border="normal" zclass="z-window-overlapped"  width="100%" >
+   <style src="/widgets/input/form_sample/style.css" />
+	<panel id="pnlRespaldarDatos" height="100%" width="100%" border="normal"
+		maximizable="false" closable="true" framable="false" sclass="z-demo-config">
+		
+		<panelchildren>
+			<div width="100%" height="240px" style="overflow:auto;" align="center">
+				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Destino del Respaldo" />
+				 <grid width="99%" height="100%">
+						<columns>
+							   	<column label="" width="10%" />
+                				<column label="" width="65%"  />
+						</columns>
+					<rows>
+							<row>
+								<label id="lblDescripcion" value="Descripción: " />
+								<textbox id= "txtdescripcion" value=""  width="150px" tabindex="2"/>	
+							</row>
+					</rows>
+				</grid>		
+					<grid width="99%" style="border:normal;" height="100%">
+						<columns>
+							<column label="" width="100%" height="100%" />
+						</columns>
+						<rows>
+							<row>
+								<radiogroup id="rgDestino"
+									onCheck="choice.value = self.selectedItem.label">
+									<grid>
+										<rows>
+											<row>
+												<hbox>
+													<radio id="rbLocal">
+														<attribute name="onCheck">
+															<![CDATA[
+																gbDispositivo.setVisible(false);
+															]]>
+														</attribute>
+													</radio>
+													<label id="lblLocal" value="Local" />
+												</hbox>
+												<hbox>
+													<radio id="rbDispositivo">
+														<attribute name="onCheck">
+														<![CDATA[
+															gbDispositivo.setVisible(true);
+														]]>
+														</attribute>
+													</radio>
+													<label id="lblDispositivoExterno" value="Dispositivo Externo" />
+												</hbox>
+											</row>
+										</rows>
+									</grid>
+								</radiogroup>
+							</row>
+						</rows>
+					</grid>
+					
+				</groupbox>
+				<groupbox style="margin:5px;" width="90%" mold="3d"
+					id="gbDispositivo" visible="false">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Seleccione el dispositivo" />
+					<grid>
+						<rows>
+							<row>
+								<hbox>
+									<textbox id="txtRuta" width="350px" />
+									<button label="Seleccionar" id="btnSeleccionar" >
+										<attribute name="onClick">
+											seleccionarRuta();
+										</attribute>
+									</button>
+								</hbox>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+				<div>
+
+						<button label="Respaldar" id="lblRespaldar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
+				height="auto" orient="horizontal">
+						<attribute name="onClick">
+							//***************************************************************************
+							//METODO PARA OBTENER LA RUTA DEL DIRECTORIO DE LOS RESPALDOS
+							//***************************************************************************
+							if(txtdescripcion.getValue()==""){
+								alert("Debe escribir el nombre del archivo de respaldo");
+							}
+							else if (rbLocal.isChecked()){
+							sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
+							ruta = obtenerRuta.obtenerDirectorio();
+							//Aqui hay que pasar la ruta local para el método donde esta el código para respaldar
+							//esta ruta es para la carpeta respaldos
+							//Asi es para guardar directamente en el proyecto
+							respaldarBD(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/respaldosBD",txtdescripcion.getValue());
+							//Asi guarda en .metadata
+							//respaldarBD(application.getRealPath("/WEB-INF/sigarep/respaldosBD"),txtdescripcion.getValue());
+							}else if(rbDispositivo.isChecked()){
+								respaldarBD(txtRuta.getValue(),txtdescripcion.getValue());
+							}else{
+								alert("Debe seleccionar el destino para el respaldo");
+							}
+						</attribute>
+					</button>
+					<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto" height="auto">
+						<attribute name="onClick">
+							cancelar();
+					</attribute>
+					</button>					
+				</div>
+			</div>					
+		</panelchildren>
+	</panel>	
+
+   	<panel>
+	<panelchildren>
+   		<space />
+   		<space />
+   		<groupbox>
+   		<caption label="Lista de Backups " />
+   		<space />
+   		<space />
+   		<div align="center">
+<!--    		FALTA PROGRAMAR ESTA LISTA... -->
+   		<listbox id="backupsListbox" height="160px" width="90%"  emptyMessage="No hay backups realizados" mold="paging" pageSize="5"   >
+			<listhead>
+				<listheader label="Descripción" align="center" sort="auto(descripcion)" />
+				<listheader label="Fecha" align="center" sort="auto(fecha)" />
+				<listheader label="Tamaño de Archivo" width="20%" align="center" sort="auto(tamanno)" />
+				<listheader label="Acciones" align="center" />
+			</listhead>
+			<template name="model">
+				<listitem selected="true">
+					<listcell label="${each.descripcion}" ></listcell>
+					<listcell label="${each.fecha}"></listcell>
+					<listcell label="${each.tamanno}"></listcell>
+					<listcell label=" (X) "></listcell>
+				</listitem>
+			</template>
+		</listbox>
+		</div>
+			<space />
+			<space />
+		</groupbox>
+	</panelchildren>
+	</panel>
+		<zscript>
+		<![CDATA[
+			//************************************************************************************
+			//METODO QUE PERMITE SELECCIONAR EL DIRECTORIO PARA EL RESPALDO EN DISPOSITIVO EXTERNO
+			//************************************************************************************
+			import javax.swing.*;
+			import java.util.Date;
+			import java.text.SimpleDateFormat;
+			public void seleccionarRuta(){
+				
+				JFileChooser chooser = new JFileChooser();
+				// Titulo que llevara la ventana
+				chooser.setDialogTitle("Guardar en...");
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.showOpenDialog(null);
+				//Retornando el directorio destino directorio
+				if(chooser.getSelectedFile()!=null){
+			 		txtRuta.setValue(chooser.getSelectedFile().getPath());
+			 	}	
+			}
+		//************************************************************************************
+		//METODO QUE PERMITE REALIZAR EL RESPALDO
+		//************************************************************************************
+		public void respaldarBD(String path2, String namespace){
+	
+			try {
+		        String nombreRespaldo;
+		        Properties props = new Properties();
+				java.io.FileInputStream lector = new java.io.FileInputStream(application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
+				props.load(lector);
+				lector.close();
+				
+				Date ahora = new Date();
+				SimpleDateFormat sdf=new java.text.SimpleDateFormat("ddMMyyyy");
+				String fecha =  sdf.format(ahora);
+				
+				String nroRespaldo = props.getProperty("nrorespaldo");
+				
+				if (Integer.valueOf(nroRespaldo)!=5){
+					Object[] arg = new Object[] { new Date(),
+							Integer.valueOf(nroRespaldo) + 1 };
+					nombreRespaldo = String.format(fecha, arg);		
+					nombreRespaldo = "/" + namespace + "-" + nombreRespaldo + ".backup";
+					props.setProperty("nrorespaldo", String.valueOf(Integer.valueOf(nroRespaldo) + 1));
+					java.io.FileOutputStream escritor = new java.io.FileOutputStream(
+					application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
+					props.store(escritor, "Incremento");
+					ejecutarComandos(nombreRespaldo, props, path2);
+			     
+				}else{
+					//Cuando existen mas de 5 respaldos de la BD
+					Messagebox.show("Se ha alcanzado el limite de respaldos,¿Desea reemplazar alguno de los ya existentes?",
+					"Confirmar",Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, 
+					new org.zkoss.zk.ui.event.EventListener() {
+	      			public void onEvent(Event evt) throws InterruptedException {
+						if (evt.getName().equals("onOK")) {
+							Object[] arg = new Object[] { new Date(), 1 };
+							nombreRespaldo = String.format(fecha, arg);		
+							nombreRespaldo = "/" + namespace + "-" + nombreRespaldo + ".backup";
+							ejecutarComandos(nombreRespaldo, props, path2); 								
+						}
+					}
+					});
+				
+				}
+			   }catch (Exception e) {
+					alert("El intento de respaldo no fue exitoso");
+				}
+					
+		}
+		//**************************************************************************************
+		//METODO QUE PERMITE EJECUTAR LOS COMANDOS NECESARIOS PARA REALIZAR EL RESPALDO DE LA BD
+		//**************************************************************************************
+		public void ejecutarComandos(String nombreRespaldo, Properties props, String path2){
+			//Ruta del respaldo y nombre del respaldo
+	        String path3 = path2 + nombreRespaldo;
+	        
+	        System.out.println("Ruta: " + path3);	
+	         
+	        Runtime r = Runtime.getRuntime();
+	       
+	
+	        Process p;
+	        ProcessBuilder pb;
+	
+	        r = Runtime.getRuntime();    
+	        List lista = new ArrayList();
+	        lista.add(props.getProperty("pgdump"));
+	        lista.add("-i"); 
+			lista.add("-h"); 
+			lista.add(props.getProperty("host")); 
+			lista.add("-p"); 
+			lista.add(props.getProperty("puerto")); 
+			lista.add("-U"); 
+			lista.add(props.getProperty("usuario")); 
+			lista.add("-F"); 
+			lista.add("c"); 
+			lista.add("-b"); 
+			lista.add("-v"); 
+			lista.add("-f"); 
+			lista.add(path3);
+			lista.add(props.getProperty("nombrebd"));
+	            
+	        pb = new ProcessBuilder(lista);
+	        pb.environment().put("PGPASSWORD", props.getProperty("contrasenna"));
+	        pb.redirectErrorStream(true);
+	        p = pb.start();       
+			alert("Respaldo realizado de manera exitosa");
+			cancelar();
+			gbDispositivo.setVisible(false);
+		
+		}		
+		//****************************************************
+		//METODO QUE PERMITE LIMPIAR LOS CAMPOS DEL FORMULARIO
+		//****************************************************
+		public void cancelar(){
+			txtRuta.setValue("");
+			txtdescripcion.setValue("");
+		}
+		]]>
+	</zscript>
+	
+</window>
+</zk>
