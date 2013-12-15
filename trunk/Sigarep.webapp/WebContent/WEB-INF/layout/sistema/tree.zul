@@ -452,8 +452,8 @@
 					<treeitem>
 						<treerow>
 							<treecell label="Actualizar Noticias"
-								id="ActualizarNoticias" sclass="maestros"
-								onClick="createWin(ActualizarNoticias.getId(), ActualizarNoticias.getSclass())" />
+								id="ActualizarNoticiass" sclass="maestros"
+								onClick="createWin(ActualizarNoticiass.getId(), ActualizarNoticiass.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
