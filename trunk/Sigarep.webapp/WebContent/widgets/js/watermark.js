@@ -4,7 +4,12 @@
             jq("$txtDescripcion").Watermark("Ingrese alguna descripcion","gray");
             jq("$txtPregunta").Watermark("Introduzca la pregunta","gray");
             jq("$txtRespuesta").Watermark("Introduzca la respuesta","gray");
-             
+            jq("$txtTitulo").Watermark("Introduzca el titulo","gray");
+            jq("$txtContenido").Watermark("Introduzca el contenido","gray");
+            jq("$txtNombreFoto").Watermark("Introduzca el nombre","gray");
+            jq("$txtEnlace").Watermark("Introduzca el enlace","gray");
+            
+            
             $.mask.definitions['A']='[A-Z]';
             $.mask.definitions['m']='[01]';
             $.mask.definitions['d']='[0123]';
