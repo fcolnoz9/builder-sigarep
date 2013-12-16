@@ -1,4 +1,4 @@
-<window id="winRegistrarRecursoJerarquico" title="Registrar Recurso Jerarquico" border="normal"
+<window id="winRegistrarRecursoJerarquico" title="Gestión :: Recurso Jerárguico :: Registrar Recurso Jerarquico" border="normal"
 	width="auto" height="auto"  style="overflow:auto" closable="true">
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />

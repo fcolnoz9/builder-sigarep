@@ -1,5 +1,5 @@
 <?page title="Guia Paso a Paso"?>
-<window id="winCargarGuia" title="Cargar Guia Paso a Paso" border="normal" width="100%" closable="true"  >
+<window id="winCargarGuia" title="Configuración Web :: Cargar Guia Paso a Paso" border="normal" width="100%" closable="true"  >
 
 <groupbox> 
 	<grid  >

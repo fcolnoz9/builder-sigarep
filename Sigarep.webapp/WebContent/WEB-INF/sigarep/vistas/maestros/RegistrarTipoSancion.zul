@@ -1,4 +1,4 @@
-<window title="Registrar Sanción"  id="winRegistrarSanción" border="normal"
+<window title="Registros Básicos :: Registrar Sanción"  id="winRegistrarSanción" border="normal"
 	width="auto" height="auto">
 	<groupbox>
 		<caption label="Registrar Sanción" />

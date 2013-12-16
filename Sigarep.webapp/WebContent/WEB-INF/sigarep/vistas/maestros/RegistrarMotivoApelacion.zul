@@ -1,5 +1,5 @@
 <zk>
-	<window id="winMaestroMotivoA" title="Registrar Motivo de Apelación"
+	<window id="winMaestroMotivoA" title="Registros Básicos :: Registrar Motivo de Apelación"
 		border="normal" height="auto">
 		<grid id="grdRegistrarMotivoA" sclass="fgrid">
 			<columns></columns>

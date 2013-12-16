@@ -1,6 +1,6 @@
 
 
-<window title="Apelaciones por Tipo de Instancia">
+<window title="Reportes :: Estadísticos :: Apelaciones por Tipo de Instancia">
 
 
 <vlayout apply="org.zkoss.bind.BindComposer" 

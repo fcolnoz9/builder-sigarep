@@ -1,6 +1,6 @@
 
 
-<window title="Apelaciones por Tipo de  Sancion">
+<window title="Reportes :: Estadísticos :: Apelaciones por Tipo de  Sancion">
 
 
 <vlayout apply="org.zkoss.bind.BindComposer" 

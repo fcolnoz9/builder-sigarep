@@ -1,4 +1,4 @@
-<window title="Registrar::Registrar Recaudo" id="winRegistrarRecaudo"
+<window title="Registros Básicos :: Registrar Recaudo" id="winRegistrarRecaudo"
 	border="normal" width="auto" height="auto" closable="true">
 	<!-- Estos datos vienen precargados, pues el estudiante se registró (en un maestro), busca su cédula-->
 	<groupbox id="grbDatosEstudiante">

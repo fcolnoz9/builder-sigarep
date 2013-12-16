@@ -1,6 +1,6 @@
 <zk>
 
-	<window title="Evaluar Apelaciones"
+	<window title="Gestión :: Apelaciones :: Evaluar Apelaciones"
 		id="winActualizarEstadoEstudiante" border="normal" width="auto">
 
 		<style src="/widgets/grid/simple/style.css" />

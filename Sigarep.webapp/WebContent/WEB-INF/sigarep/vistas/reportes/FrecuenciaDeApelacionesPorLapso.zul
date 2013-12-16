@@ -1,6 +1,6 @@
 
 
-<window title="Frecuencia de Apelaciones por Lapso">
+<window title="Reportes :: Estadísticos :: Frecuencia de Apelaciones por Lapso">
 
 
 <vlayout apply="org.zkoss.bind.BindComposer" 

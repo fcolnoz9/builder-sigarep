@@ -1,4 +1,4 @@
-<window title="Registrar Actividades" border="normal">
+<window title="Registros Básicos :: Registrar Actividades" border="normal">
 	<style src="/widgets/css/style.css" />
 	<groupbox>
 		<caption label="Datos de la Actividad" />

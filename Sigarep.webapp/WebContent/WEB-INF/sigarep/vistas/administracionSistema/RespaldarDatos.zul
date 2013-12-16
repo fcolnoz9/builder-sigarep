@@ -1,6 +1,5 @@
 <zk>
-<window id="winRespaldarDatos" title="Respaldar Datos" border="normal" zclass="z-window-overlapped"  width="100%" >
-   <style src="/widgets/input/form_sample/style.css" />
+<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" zclass="z-window-overlapped"  width="100%" >
 	<panel id="pnlRespaldarDatos" height="100%" width="100%" border="normal"
 		maximizable="false" closable="true" framable="false" sclass="z-demo-config">
 		
@@ -70,7 +69,7 @@
 							<row>
 								<hbox>
 									<textbox id="txtRuta" width="350px" />
-									<button label="Seleccionar" id="btnSeleccionar" >
+									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png" >
 										<attribute name="onClick">
 											seleccionarRuta();
 										</attribute>
@@ -82,7 +81,7 @@
 				</groupbox>
 				<div>
 
-						<button label="Respaldar" id="lblRespaldar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
+				<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
 				height="auto" orient="horizontal">
 						<attribute name="onClick">
 							//***************************************************************************
@@ -90,6 +89,7 @@
 							//***************************************************************************
 							if(txtdescripcion.getValue()==""){
 								alert("Debe escribir el nombre del archivo de respaldo");
+								System.out.println();
 							}
 							else if (rbLocal.isChecked()){
 							sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
@@ -107,7 +107,7 @@
 							}
 						</attribute>
 					</button>
-					<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto" height="auto">
+					<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" mold="trendy" width="auto" height="auto">
 						<attribute name="onClick">
 							cancelar();
 					</attribute>
@@ -123,8 +123,6 @@
    		<space />
    		<groupbox>
    		<caption label="Lista de Backups " />
-   		<space />
-   		<space />
    		<div align="center">
 <!--    		FALTA PROGRAMAR ESTA LISTA... -->
    		<listbox id="backupsListbox" height="160px" width="90%"  emptyMessage="No hay backups realizados" mold="paging" pageSize="5"   >
@@ -147,6 +145,26 @@
 			<space />
 			<space />
 		</groupbox>
+
+   		<div>
+   			<grid width="99%" height="70%">
+   				<columns>
+   					<column label="" width="100%" />
+   				</columns>
+   				<rows>
+   					<row  align="right">
+   						<button label="Cerrar" id="btnCerrar"
+   							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+   							height="auto" orient="horizontal">
+   							<!-- 					<attribute name="onClick"> -->
+   							<!-- 					</attribute> -->
+   							
+   						</button>
+   					</row>
+   				</rows>
+   			</grid>
+   		</div>
+
 	</panelchildren>
 	</panel>
 		<zscript>

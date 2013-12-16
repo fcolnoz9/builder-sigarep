@@ -1,5 +1,5 @@
 <zk>
-<window id="winApelacion" title="Informe de Apelación" border="normal" width="auto" height="auto">
+<window id="winApelacion" title="Reportes :: Informes :: Informe de Apelación" border="normal" width="auto" height="auto">
 
 <groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
 

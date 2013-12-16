@@ -1,4 +1,4 @@
-<window id="winRegistrarReconsideracion" title="Registrar Reconsideracion" border="normal"
+<window id="winRegistrarReconsideracion" title="Gestión :: Reconsideraciones :: Registrar Reconsideracion" border="normal"
 	width="auto" height="auto"  style="overflow:auto" closable="true">
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />

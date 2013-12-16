@@ -1,6 +1,6 @@
 <zk>
 	<window id="winActualizarEnlace"
-		title="Actualizar Enlaces de Interes" border="normal"
+		title="Configuración Web :: Actualizar Enlaces de Interes" border="normal"
 		sclass="mymodal">
 		<groupbox closable="false">
 			<caption label="Datos Enlaces" />

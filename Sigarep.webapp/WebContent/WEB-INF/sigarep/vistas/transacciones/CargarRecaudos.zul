@@ -1,5 +1,5 @@
 <?page title="Cargar Recaudos"?>
-<window id="winCargarrecaudos" title="Cargar Recaudos" border="normal"
+<window id="winCargarrecaudos" title="Gestión :: Apelaciones :: Registrar Apelación :: Cargar Recaudos" border="normal"
 	width="100%">
 	<groupbox>
 		<grid>

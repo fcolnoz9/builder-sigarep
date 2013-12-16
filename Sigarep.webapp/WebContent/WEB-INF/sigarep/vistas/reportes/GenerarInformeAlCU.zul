@@ -1,4 +1,4 @@
-<window title="Informe de las casos de apelación" id="winInforme" border="normal">
+<window title="Reportes :: Informes :: Informe de las casos de apelación" id="winInforme" border="normal">
 <groupbox >
 <caption>Informe</caption>
 <grid fixedLayout="true" id="grdDatos" sclass="fgrid" >

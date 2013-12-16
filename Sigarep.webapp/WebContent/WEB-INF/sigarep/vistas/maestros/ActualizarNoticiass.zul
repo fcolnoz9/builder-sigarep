@@ -41,7 +41,7 @@
 <!-- 		margin-right: -4px; color: white; font-family: "Arial"; -->
 <!-- 		font-size: 14px; font-weight: bolder; font-style: normal; } -->
 <!-- 	</style> -->
-	<window id="winActualizarNoticia" title="Actualizar Noticias" border="normal" width="auto" height="auto"
+	<window id="winActualizarNoticia" title="Configuración Web :: Actualizar Noticias" border="normal" width="auto" height="auto"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
 		<groupbox id="grbNoticia" closable="false">
