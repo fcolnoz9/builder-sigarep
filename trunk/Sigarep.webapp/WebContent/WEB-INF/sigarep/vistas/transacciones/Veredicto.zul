@@ -1,4 +1,4 @@
-<window title="Veredicto por Consejo de Decanato"  id="winVeredicto" border="normal"
+<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Veredicto por Consejo de Decanato"  id="winVeredicto" border="normal"
 	width="auto">
 	<groupbox>
 		<caption label="Datos Estudiante" />

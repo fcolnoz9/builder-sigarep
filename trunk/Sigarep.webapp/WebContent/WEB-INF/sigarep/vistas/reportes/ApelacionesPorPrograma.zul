@@ -1,5 +1,5 @@
 
-<window title="Apelaciones por Programa" border="normal" width="auto" height="auto" closable="true">
+<window title="Reportes :: Estadísticos :: Apelaciones por Programa" border="normal" width="auto" height="auto" closable="true">
  
 
 <vlayout apply="org.zkoss.bind.BindComposer" 

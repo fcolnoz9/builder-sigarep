@@ -1,5 +1,5 @@
 <zk>
-	<window id="winActualizarPreguntasBasicas" title="Configuración Web::Actualizar Preguntas Básicas"  width="auto" height="auto" closable = "true"
+	<window id="winActualizarPreguntasBasicas" title="Configuración Web :: Actualizar Preguntas Básicas"  width="auto" height="auto" closable = "true"
 	border="normal"  contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
     		<script type="text/javascript" src="/widgets/js/watermark.js" />

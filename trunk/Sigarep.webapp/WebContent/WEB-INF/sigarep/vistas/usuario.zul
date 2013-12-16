@@ -14,8 +14,18 @@
 				</a>
 			</tablechildren>
 			<tablechildren>
-<!-- 				<a href="j_spring_security_logout">Cerrar Sesion</a> -->
-					<a href="/Portal.zul">Cerrar Sesion</a> -->
+			   			<button label="Cerrar Sesión"
+			   				id="btnCerrarSesion" image="/imagenes/iconos/cerrarSesion.png"
+			   				mold="trendy" width="auto" height="auto"
+			   				orient="horizontal">
+<!-- 			   				<attribute name="onClick"> -->
+			   				
+<!-- 			   				</attribute> -->
+			   				<!-- 					<attribute name="onClick"> -->
+			   				<!-- 					</attribute> -->
+			   			</button>
+			   			<!-- 				<a href="j_spring_security_logout">Cerrar Sesion</a> -->
+			   			<!-- 					<a href="/Portal.zul">Cerrar Sesion</a> -->
 			</tablechildren>
 		</tablelayout>
 	</window>

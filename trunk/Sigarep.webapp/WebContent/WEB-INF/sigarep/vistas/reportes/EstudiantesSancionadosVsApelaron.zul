@@ -1,6 +1,6 @@
 
 
-<window title="Estudiantes Sancionados vs. Estudiante que apelaron" border="normal">
+<window title="Reportes :: Estadísticos :: Estudiantes Sancionados vs. Estudiante que apelaron" border="normal">
 
 
 <vlayout apply="org.zkoss.bind.BindComposer" 

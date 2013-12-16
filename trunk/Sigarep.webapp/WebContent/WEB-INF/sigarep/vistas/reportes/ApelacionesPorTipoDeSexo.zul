@@ -1,6 +1,6 @@
 
 
-<window title="Apelaciones por Tipo de  Sexo">
+<window title="Reportes :: Estadísticos :: Apelaciones por Tipo de  Sexo">
 
 
 <vlayout apply="org.zkoss.bind.BindComposer" 

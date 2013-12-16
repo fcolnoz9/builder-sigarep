@@ -1,5 +1,5 @@
 <zk>
-	<window id="winActualizarBanner" title="Actualizar Banner"
+	<window id="winActualizarBanner" title="Configuración Web :: Actualizar Banner"
 		border="normal" width="70%" height="auto" closable="true">
 
 		<grid id="grdActualizarBanner">

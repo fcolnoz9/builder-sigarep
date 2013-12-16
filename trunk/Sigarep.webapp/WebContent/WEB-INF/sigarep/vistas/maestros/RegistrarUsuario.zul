@@ -1,4 +1,4 @@
-<window title="Registrar Usuario" id="winRegistrarUsuario"
+<window title="Administración del Sistema :: Seguridad funcional :: Registrar Usuario" id="winRegistrarUsuario"
 	border="normal">
 	<groupbox>
 		<groupbox>

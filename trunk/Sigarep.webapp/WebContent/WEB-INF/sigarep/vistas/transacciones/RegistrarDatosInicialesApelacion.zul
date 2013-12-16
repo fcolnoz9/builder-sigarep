@@ -1,5 +1,5 @@
 <window id="winRegistrarDatosInicialesApelacion"
-	title="Registrar Datos Iniciales de Apelación" border="normal"
+	title="Gestión :: Apelaciones :: Registrar Apelación :: Registrar Datos Iniciales de Apelación" border="normal"
 	width="auto" height="auto" style="overflow:auto">
 	<div>
 		<label id="lblfechaderegistro"

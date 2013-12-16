@@ -1,5 +1,5 @@
 <?page title="Cronograma" contentType="text/html;charset=UTF-8"?>
-<window title="Cronograma"  id="cronograma" border="normal"
+<window title="Gestión :: Planificar :: Actualizar Cronograma"  id="cronograma" border="normal"
 	width="auto" height="auto">
 	 <separator spacing="15px" />
 	<label id="lbllapsoAcademico" value="Seleccione el Lapso Academico"  />

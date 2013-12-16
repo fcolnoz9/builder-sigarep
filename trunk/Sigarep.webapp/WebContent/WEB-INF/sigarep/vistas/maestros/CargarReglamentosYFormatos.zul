@@ -1,4 +1,4 @@
-<window id = "wincarga" title=" Cargar Reglamentos y formatos" border="normal" width = "700px" height="100%">
+<window id = "wincarga" title="Configuración Web :: Cargar Reglamentos y formatos" border="normal" width = "700px" height="100%">
 <groupbox  > 
 <caption label="">Reglamento y formato</caption>
 <grid id= "grdcargar" fixedLayout="true" >

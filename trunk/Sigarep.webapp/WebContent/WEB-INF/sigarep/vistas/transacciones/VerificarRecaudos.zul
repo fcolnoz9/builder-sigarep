@@ -1,5 +1,5 @@
 
-<window title="Verificar Recaudo"  id="winVerificarRecaudo" border="normal"
+<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Verificar Recaudos"  id="winVerificarRecaudo" border="normal"
 	width="auto">
 	<groupbox>
 		<caption label="Datos Estudiante" />

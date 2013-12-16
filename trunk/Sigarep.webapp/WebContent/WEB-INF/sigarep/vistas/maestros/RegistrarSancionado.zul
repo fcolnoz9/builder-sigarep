@@ -1,4 +1,4 @@
-<window id="winRegistrarSancionados" title="Registrar estudiantes sancionados" border="normal">
+<window id="winRegistrarSancionados" title="Registros Básicos :: Sancionados :: Registrar estudiante sancionado" border="normal">
 			<groupbox>
   			  <caption  label="Datos personales"/>
 	   		  <grid>

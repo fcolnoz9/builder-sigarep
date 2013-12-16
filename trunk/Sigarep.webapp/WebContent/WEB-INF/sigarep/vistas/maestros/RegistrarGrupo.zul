@@ -1,6 +1,6 @@
 <?page title="Registrar Grupo de Usuario" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winRegistrarGrupo" title="Registrar Grupo de Usuario" border="normal">
+	<window id="winRegistrarGrupo" title="Administración del Sistema :: Seguridad funcional :: Registrar Grupo de Usuario" border="normal">
 		<grid sclass="fgrid">
 			<columns>
 				<column label="" width="20%" height="20%" />
