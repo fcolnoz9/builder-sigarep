@@ -44,10 +44,10 @@
 	<window id="winActualizarNoticia" title="Configuración Web :: Actualizar Noticias" border="normal" width="auto" height="auto"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
-		    <script type="text/javascript" src="/widgets/js/watermark.js" />
-			<script type="text/javascript" src="/widgets/js/watermarkinput.js" />
-   			<style src="/widgets/input/form_sample/style.css" />
-			<style src="/widgets/input/form_sample/style.css" />
+<!-- 		    <script type="text/javascript" src="/widgets/js/watermark.js" /> -->
+<!-- 			<script type="text/javascript" src="/widgets/js/watermarkinput.js" /> -->
+<!--    			<style src="/widgets/input/form_sample/style.css" /> -->
+<!-- 			<style src="/widgets/input/form_sample/style.css" /> -->
 		
 		<groupbox id="grbNoticia" closable="false">
 			<caption label="Datos Noticias" />
