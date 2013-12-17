@@ -8,6 +8,12 @@
             jq("$txtContenido").Watermark("Introduzca el contenido","gray");
             jq("$txtNombreFoto").Watermark("Introduzca el nombre","gray");
             jq("$txtEnlace").Watermark("Introduzca el enlace","gray");
+            jq("$txtCedula").Watermark("Introduzca la respuesta","gray");
+            jq("$txtNombre").Watermark("Introduzca la respuesta","gray");
+            jq("$txtApellido").Watermark("Introduzca la respuesta","gray");
+            jq("$txtEmail").Watermark("Introduzca la respuesta","gray");
+            jq("$txtTelefono").Watermark("Introduzca la respuesta","gray");
+            jq("$txtPrograma").Watermark("Introduzca la respuesta","gray");
             
             
             $.mask.definitions['A']='[A-Z]';
