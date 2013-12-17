@@ -16,7 +16,7 @@
 	</div>
 	<groupbox id="grbDatosestudiante">
 		<caption id="lblDatosestudiante" label="Datos Estudiante" />
-		<hbox>
+		
 			<grid sclass="fgrid">
 				<columns>
 					<column />
@@ -64,10 +64,8 @@
 					</row>
 				</rows>
 			</grid>
-			<button id="lblBuscar" label="Buscar"
-				image="/imagenes/iconos/buscar.png">
-			</button>
-		</hbox>
+			
+		
 	</groupbox>
 
 
