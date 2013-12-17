@@ -72,7 +72,7 @@
 
 
 	<groupbox id="grbDatosSancion">
-		<caption id="lblDatossancion" label="Datos Sancion" />
+		<caption id="lblDatossancion" label="Datos Sanción" />
 		<grid sclass="fgrid">
 			<columns>
 				<column />
