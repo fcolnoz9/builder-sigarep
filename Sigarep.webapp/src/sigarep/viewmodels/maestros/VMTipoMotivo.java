@@ -25,8 +25,8 @@ public class VMTipoMotivo {
 	private List<TipoMotivo> listaTipoMotivo;
 	private TipoMotivo tiposeleccionado;
     @Wire Textbox txtnombreTipoMotivo;
-    @Wire Window ventana;
-	
+    @Wire Window winTipoMotivo;
+ // Metodos GETS Y SETS
     public Integer getIdTipoMotivo() {
 		return idTipoMotivo;
 	}
@@ -64,11 +64,21 @@ public class VMTipoMotivo {
 		this.tiposeleccionado = tiposeleccionado;
 	}
 	
+	//Fin de los metodod gets y sets
+    // OTROS METODOS
     @Init
     public void init(){
-    	
+    	 //initialization code
+    	buscarTipoMotivo();
     }
+  //Metodo que busca un motivo partiendo por su titulo
+  	@Command
+  	@NotifyChange({"listaTipoMotivo"})
+  	public void buscarTipoMotivo(){
+  		listaTipoMotivo = serviciotipomotivo.buscarP(nombreTipoMotivo);
+  	}
     
+    //Metodos que perimite guardar los tipos de motivos
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardar(){
@@ -82,19 +92,23 @@ public class VMTipoMotivo {
 		limpiar();
 		}
 	}
-    
+  //Metodo que busca un tipo de motivo 
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion"})
 	public void limpiar(){
 		nombreTipoMotivo = "";descripcion="";
+		buscarTipoMotivo();
 	}
-
-    @Command
-	@NotifyChange({"listaTipoMotivo"})
-	public void buscarTipoMotivo(){
-    	listaTipoMotivo =serviciotipomotivo.buscarP(nombreTipoMotivo);
-	}
-    
+ 
+  //Metodo que elimina un tipo de motivo tomando en cuenta el idTipoMotivo
+  	@Command
+  	@NotifyChange({"nombreTipoMotivo", "Descripcion", "listaTipoMotivo"})
+  	public void eliminarTipoMotivo(){
+  		serviciotipomotivo.eliminar(getTiposeleccionado().getIdTipoMotivo());
+  		limpiar();
+  		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+  	}
+  //permite tomar los datos del objeto tipo motivo seleccionado
     @Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "Descripcion"})
 	public void mostrarSeleccionado(){
