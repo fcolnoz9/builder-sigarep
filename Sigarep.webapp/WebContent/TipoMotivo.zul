@@ -20,29 +20,29 @@
         .fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
         background: white; border-top: none; }
     </style>
-   <window id="winTipoMotivo" title="Maestro"  border="normal" width="auto"  height="auto" closable="true"  sclass="sysWin" contentStyle="overflow:auto" apply=" org.zkoss.bind.BindComposer"
+   <window id="winTipoMotivo" title="Datos Basicos"  border="normal" width="auto"  height="auto" closable="true"  sclass="sysWin" contentStyle="overflow:auto" apply=" org.zkoss.bind.BindComposer"
                                 viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMTipoMotivo')" >
 
-		
-			
+		 <!-- <script type="text/javascript" src="/widgets/js/watermark.js" />      --> <!-- Archivos para el uso de marca de agua -->
+		 <!-- <script type="text/javascript" src="/widgets/js/watermarkinput.js" /> --> <!-- Archivos para el uso de marca de agua -->
 
-    
+			<!-- Grid que contiene los campos de la pantalla -->
 			<grid id = "grdTipoMotivo">
 			   		 <auxhead>
-	            	<auxheader>Registrar Motivo de Apelacion</auxheader>
+	            	<auxheader>Motivo de Apelacion</auxheader>
 	        		</auxhead>
 			   		<columns>    
 			   		</columns>
 	   				<rows>
 	   					<row>
 			   				<label id = "lblTipoMotivo" value="Motivo de Apelacion" />
-			   				<textbox id = "txtnombreTipoMotivo"  constraint="no empty" width="auto"   maxlength="30" cols="23"  value="@bind(vm.nombreTipoMotivo)"/>
-			   				<button label="Buscar" id="btnbuscar" image="/imagenes/iconos/buscar.png" onClick="@command('buscarTipoMotivo')" />
+			   				<textbox id = "txtnombreTipoMotivo" width="300px"  cols="23"   maxlength="30"  onClick="@command('buscarTipoMotivo')" value="@bind(vm.nombreTipoMotivo)"/>
+			   			<!--	<button label="Buscar" id="btnbuscar" image="/imagenes/iconos/buscar.png" onClick="@command('buscarTipoMotivo')" /> -->
 			   				
 	   					</row>	
 	   					
 	   					<row>
-		                <label id = "lblDescripcion" value="Descripcion" />
+		                <label id = "lblDescripcion" value="descripcion" />
 		                    <hbox>
                 			<textbox id="txtDescripcion" rows="3" width="300px" value="@bind(vm.descripcion)">
                     		<attribute name="value"> </attribute>
@@ -56,23 +56,31 @@
 				</grid>
 		        
     
-   
-   
+   <!-- Grupbox que contiene el listado de los tipos de motivos -->
 	 <groupbox>
    	<caption label="Listado de Tipos de Motivos de Apelacion" />
    	<space />
    	<space />
    	<listbox id="lbxtipomotivoListbox" height="160px" model="@bind(vm.listaTipoMotivo)" selectedItem="@bind(vm.tiposeleccionado)"   
    			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay Tipo de Motivos registrados" mold="paging" pageSize="10">
+		
+		<auxhead sclass="category-center"> 	
+		 	<auxheader colspan="1" align="center" image="/imagenes/iconos/buscar.png">
+           		<textbox id="filtroNombre" instant="true"  width="100px" value="@bind(vm.nombreTipoMotivofiltro)" onChange="@command('buscarTipoMotivoFiltronombre')" /> 
+            </auxheader>
+            <auxheader colspan="1" align="center" image="/imagenes/iconos/buscar.png">
+                <textbox id="filtrodescripcion" instant="true"  width="100px" value="@bind(vm.descripcionfiltro)" onChange="@command('buscarTipoMotivoFiltrodescripcion')" />
+            </auxheader>
+		</auxhead>
+		
+		
 		<listhead>
-			<listheader label=" N° Tipo Motivo" align="center" sort="auto(idTipoMotivo)" />
 			<listheader label="Motivo de la Apelacion" align="center" sort="auto(nombreTipoMotivo)" />
 			<listheader label="Descripcion " align="center" sort="auto(descripcion)"/>
 			
 		</listhead>
 		<template name="model">
 			<listitem selected="true">
-				<listcell label="${each.idTipoMotivo}" ></listcell>
 				<listcell label="${each.nombreTipoMotivo}"></listcell>
 				<listcell label="${each.descripcion}"></listcell>
 			</listitem>
@@ -81,11 +89,11 @@
 	<space />
 	<space />
 	</groupbox>
-    	
+    	<!-- Grupbox de Botones -->
     	<div align="right" height="100%">
 		<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('guardar')" />	
    		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
-   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/borrar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarTipoMotivo')"/>
+   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarTipoMotivo')"/>
    		</div>
 
 

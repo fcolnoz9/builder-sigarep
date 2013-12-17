@@ -21,7 +21,24 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMTipoMotivo {
 	@WireVariable ServicioTipoMotivo serviciotipomotivo;
-	private Integer idTipoMotivo;private String nombreTipoMotivo;private String descripcion;private Boolean estatus;
+	private Integer idTipoMotivo;private String nombreTipoMotivo,nombreTipoMotivofiltro;private String descripcion,descripcionfiltro;private Boolean estatus;
+	
+	
+	
+	public String getNombreTipoMotivofiltro() {
+		return nombreTipoMotivofiltro;
+	}
+	public void setNombreTipoMotivofiltro(String nombreTipoMotivofiltro) {
+		this.nombreTipoMotivofiltro = nombreTipoMotivofiltro;
+	}
+	public String getDescripcionfiltro() {
+		return descripcionfiltro;
+	}
+	public void setDescripcionfiltro(String descripcionfiltro) {
+		this.descripcionfiltro = descripcionfiltro;
+	}
+
+
 	private List<TipoMotivo> listaTipoMotivo;
 	private TipoMotivo tiposeleccionado;
     @Wire Textbox txtnombreTipoMotivo;
@@ -112,10 +129,23 @@ public class VMTipoMotivo {
     @Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "Descripcion"})
 	public void mostrarSeleccionado(){
-    	idTipoMotivo= getTiposeleccionado().getIdTipoMotivo();
 		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
 		descripcion= getTiposeleccionado().getDescripcion();
 	}
+  //Este metodo busca al tipo motivo por el filtro de nombre
+  	@Command
+  	@NotifyChange({"listaTipoMotivo"})
+  	public void buscarTipoMotivoFiltronombre(){
+  		listaTipoMotivo =serviciotipomotivo.buscarP(nombreTipoMotivofiltro);
+  		}
+  	
+  
+  	//Este metodo busca al tipo motivo  por el filtro de nombre
+  	@Command
+  	@NotifyChange({"listaTipoMotivo"})
+  	public void buscarTipoMotivoFiltrodescripcion(){
+  		listaTipoMotivo =serviciotipomotivo.buscarP(descripcionfiltro);
+  	}
     
     
 }
