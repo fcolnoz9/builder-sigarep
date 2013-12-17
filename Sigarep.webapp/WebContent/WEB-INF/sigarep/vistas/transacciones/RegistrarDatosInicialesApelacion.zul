@@ -8,12 +8,7 @@
 	
 	
 	
-	<div>
-		<label id="lblfechaderegistro"
-			value="Fecha de Registro de Apelacion: " />
-		<datebox value="@bind(fx.birthday)"
-			format="@load(vm.dateFormat)" width="150px" tabindex="7" />
-	</div>
+	
 	<groupbox id="grbDatosestudiante">
 		<caption id="lblDatosestudiante" label="Datos Estudiante" />
 		
@@ -150,7 +145,13 @@
 		<caption id="lblDatosapelacion" label="Datos Apelación" />
 		
 		<hbox>
-		
+		  <div width="200px" align="center">
+		<label id="lblfechaderegistro"
+			value="Fecha de Registro de Apelación: " width="auto"/>
+		<datebox value="@bind(fx.birthday)"
+			format="@load(vm.dateFormat)" width="150px" tabindex="7" />
+	</div>
+		  
 		
 		<grid sclass="fgrid">
 			<columns>
@@ -158,6 +159,8 @@
 				<column align="left" />
 			</columns>
 			<rows>
+			
+			
 				<row>
 					<label id="lblMotivo" value="Motivo: " />
 					<combobox id="cmbMotivo">
