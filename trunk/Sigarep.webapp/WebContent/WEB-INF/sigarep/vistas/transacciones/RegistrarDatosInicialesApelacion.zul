@@ -87,14 +87,14 @@
 					<label id="lblLapsosancion"
 						value="Lapso de Sancion: " />
 					<textbox id="txtLapsosancion" cols="23"
-						maxlength="30" value="2013-II" disabled="true">
+						maxlength="30" value="2013-II">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblTiposancion"
 						value="Tipo de Sancion: " />
 					<textbox id="txtTipoSancion" cols="23"
-						maxlength="30" value="Repitencia" disabled="true">
+						maxlength="30" value="Repitencia" >
 					</textbox>
 				</row>
 				
@@ -102,14 +102,14 @@
 					<label id="lblPeriodoinicialsancion"
 						value="Periodo Inicial de Sancion: " />
 					<textbox id="txtPeridoinicialsancion" cols="23"
-						maxlength="30" value="2013 II" disabled="true">
+						maxlength="30" value="2013 II" >
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodofinalsancion"
 						value="Periodo Final de Sancion: " />
 					<textbox id="txtPeridofinalsancion" cols="23"
-						maxlength="30" value="2014 I" disabled="true">
+						maxlength="30" value="2014 I" >
 					</textbox>
 				</row>
 				
@@ -130,7 +130,7 @@
 
 					<label id="lblAsignatura" value="Asignatura: " />
 					<textbox id="txtAsignatura" cols="23" maxlength="30"
-						value="Calculo II" disabled="true">
+						value="Calculo II" >
 					</textbox>
 				</row>
 				<row>
@@ -138,7 +138,7 @@
 					<label id="lblCondicionAsignatura"
 						value=" Condicion Asignatura: " />
 					<textbox id="txtCondicionAsignatura" cols="23"
-						maxlength="30" value="3" disabled="true">
+						maxlength="30" value="3" >
 					</textbox>
 				</row>
 	</rows>
