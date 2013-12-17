@@ -8,6 +8,8 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.zkoss.zkex.zul.impl.JFreeChartEngine;
 import org.zkoss.zul.Chart;
 
+import sigarep.modelos.data.reportes.ChartColors;
+
 
 
 /*
@@ -25,7 +27,7 @@ public class LineChartEngine extends JFreeChartEngine {
 		renderer.setSeriesStroke(1, new BasicStroke(width));
 		renderer.setSeriesStroke(2, new BasicStroke(width));
 
-		renderer.setSeriesLinesVisible(0, chart.isThreeD());
+		renderer.setSeriesLinesVisible(0, showLine);
 		renderer.setSeriesLinesVisible(1, showLine);
 		renderer.setSeriesLinesVisible(2, showLine);
 
@@ -33,8 +35,8 @@ public class LineChartEngine extends JFreeChartEngine {
 		renderer.setSeriesShapesVisible(1, showShape);
 		renderer.setSeriesShapesVisible(2, showShape);
 		
-		renderer.setSeriesPaint(0, ChartColors.COLOR_1);
-		renderer.setSeriesPaint(1, ChartColors.COLOR_2);
+		renderer.setSeriesPaint(0, ChartColors.COLOR_2);
+		renderer.setSeriesPaint(1, ChartColors.COLOR_1);
 		renderer.setSeriesPaint(2, ChartColors.COLOR_3);
 		return false;
 	}

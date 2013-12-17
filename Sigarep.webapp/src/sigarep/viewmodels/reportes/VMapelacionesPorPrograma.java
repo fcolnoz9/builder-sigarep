@@ -4,29 +4,34 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zul.PieModel;
+import org.zkoss.zul.CategoryModel;
 
 import sigarep.modelos.data.reportes.ChartDataApelacionesPorPrograma;
 
-public class VMApelacionesPrograma {
+public class VMapelacionesPorPrograma {
 
-	PieModel model;
+	CategoryModel model;
+	String type;
 	
 	@Init
 	public void init() {
 		// prepare chart data
+		type = "column";
 		model = ChartDataApelacionesPorPrograma.getModel();
 	}
 
-	public PieModel getModel() {
+	public CategoryModel getModel() {
 		return model;
 	}
 	
-	@GlobalCommand("dataChanged") 
-	@NotifyChange("model")
-	public void onDataChanged(
-			@BindingParam("category")String category,
-			@BindingParam("num") Number num){
-		model.setValue(category, num);
+	public String getType(){
+		return type;
+	}
+	
+	@GlobalCommand("configChanged") 
+	@NotifyChange("type")
+	public void onConfigChanged(
+			@BindingParam("type")String type){
+		this.type = type;
 	}
 }
