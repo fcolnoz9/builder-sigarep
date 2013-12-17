@@ -1,0 +1,63 @@
+<window title="Registros Básicos :: Registrar Programa Académico"
+	closable="true" id="winRegistrarPrograma" border="normal" width="auto"
+	height="auto" contentStyle="overflow:auto"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademico')">
+	<script type="text/javascript" src="/widgets/js/watermark.js" />
+	<groupbox>
+		<caption label="Registrar Programa Académico" />
+		<grid sclass="fgrid">
+			<rows>
+				<row>
+					<label value="Nombre del Programa: "
+						id="lblPrograma" />
+					<textbox id="txtNombrePrograma" cols="23"
+						width="200px" maxlength="30" value="@bind(vm.nombrePrograma)">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<space />
+	<div align="right" height="100%">
+		<button label="Guardar" id="btnGuardar"
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			mold="trendy" onClick="@command('guardarPrograma')">
+		</button>
+		<button label="Eliminar" id="btnEliminar"
+			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+			mold="trendy" onClick="@command('eliminarPrograma')">
+		</button>
+		<button label="Cancelar" id="btnCancelar"
+			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+			mold="trendy" onClick="@command('limpiar')">
+		</button>
+	</div>
+	<groupbox id="grbListaProgramas">
+		<caption label="Lista de Programas Académicos" />
+		<listbox id="lbxPrograma" height="100%"
+			model="@bind(vm.listaPrograma)"
+			selectedItem="@bind(vm.programaseleccionado)"
+			onSelect="@command('mostrarSeleccionado')"
+			emptyMessage="No hay programas académicos registrados" mold="paging"
+			pageSize="5">
+			<listhead>
+				<listheader label="Nombre" align="center"
+					sort="auto(nombrePrograma)" />
+			</listhead>
+			<template name="model">
+				<listitem selected="true">
+					<listcell label="${each.nombrePrograma}" />
+				</listitem>
+			</template>
+		</listbox>
+		<space />
+		<space />
+	</groupbox>
+	<div align="right">
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			mold="trendy" onClick="">
+		</button>
+	</div>
+</window>
