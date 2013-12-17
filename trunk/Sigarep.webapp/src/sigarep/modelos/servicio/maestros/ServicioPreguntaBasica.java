@@ -17,17 +17,18 @@ import sigarep.modelos.repositorio.maestros.IPreguntaBasicaDAO;
 public class ServicioPreguntaBasica{
 	private @Autowired IPreguntaBasicaDAO pre ;
 
+	// Servicio para guardar una pregunta
 	public void guardarPregunta(PreguntaBasica preb) {
 		
     pre.save(preb);
 	}
-	public void actualizar(PreguntaBasica preb){
-		
-		
-	}
+	
+	// Servicio que elimina una pregunta
 	public void eliminarPregunta(Integer PreguntaBasica){
 		pre.delete(PreguntaBasica);
 	}
+	
+	//Servicio para la busqueda de una pregunta
 	public PreguntaBasica buscarPregunta(Integer idPreguntaBasica){
 		return pre.findOne(idPreguntaBasica);
 	

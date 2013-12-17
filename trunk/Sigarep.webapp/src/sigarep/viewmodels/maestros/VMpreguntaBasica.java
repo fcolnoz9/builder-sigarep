@@ -15,7 +15,7 @@ import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.servicio.maestros.ServicioPreguntaBasica;
 
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") //anotación se utiliza para evitar un error en tiempo de compilación al implementar la interfaz java.io.Serializable
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMpreguntaBasica {
 	@WireVariable ServicioPreguntaBasica serviciopreguntabasica;
@@ -27,6 +27,7 @@ public class VMpreguntaBasica {
     private List<PreguntaBasica> listaPregunta;
 	private PreguntaBasica preguntaseleccionada;
     
+	//Metodos Get y Set de la clase 
     public Integer getIdPreguntaBasica() {
 		return idPreguntaBasica;
 	}
@@ -71,13 +72,15 @@ public class VMpreguntaBasica {
 	public void setPreguntaseleccionada(PreguntaBasica preguntaseleccionada) {
 		this.preguntaseleccionada = preguntaseleccionada;
 	}
+	//Fin de los metodos get y set
 	@Init
 	public void init(){
-		
-		buscarPreguntab ();
+	    //initialization code
+		buscarPreguntab (); 
     }
-	@Command
-	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
+// Metodos de la clase
+	@Command // Permite manipular la propiedad de ViewModel
+	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 	public void guardarPregunta(){
 		if (pregunta.equals("")||respuesta.equals(""))
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -93,9 +96,7 @@ public class VMpreguntaBasica {
 	public void limpiar(){
 		 pregunta = "";respuesta="";
 		 buscarPreguntab ();
-		
 	}
-	
 	@Command
 	@NotifyChange({"listaPregunta"})
 	public void buscarPreguntab(){
@@ -113,9 +114,5 @@ public class VMpreguntaBasica {
 	public void mostrarSeleccionada(){
 		pregunta=getPreguntaseleccionada().getPregunta();
 		respuesta=getPreguntaseleccionada().getRespuesta();
-	
-	
 	}
-	
-	
 }

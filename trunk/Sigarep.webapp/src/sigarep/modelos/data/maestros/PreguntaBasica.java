@@ -4,8 +4,12 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-@Entity
-@Table(name="pregunta_basica")
+/**
+ * The persistent class for the instancia_apelada database table.
+ * 
+ */
+@Entity // anotación indica que el JavaBean es una entidad persistente
+@Table(name="pregunta_basica") //
 public class PreguntaBasica implements Serializable {
        private static final long serialVersionUID = 1L;
 
@@ -18,8 +22,10 @@ public class PreguntaBasica implements Serializable {
    		this.respuesta = respuesta;
    		this.estatus = estatus;
    	}
-       @Id
-       @GeneratedValue(strategy=GenerationType.IDENTITY)
+  
+  // Atributos de la clase
+       @Id // Clave principal de la clase
+       @GeneratedValue(strategy=GenerationType.IDENTITY) // Genera el ID de la pregunta 
        @Column(name="id_pregunta_basica", unique=true, nullable=false)
        private Integer idPreguntaBasica;
 
@@ -35,6 +41,8 @@ public class PreguntaBasica implements Serializable {
        public PreguntaBasica() {
       }
 
+  // Métodos GET y SET 
+      
        public Integer getIdPreguntaBasica() {
                return this.idPreguntaBasica;
        }

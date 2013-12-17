@@ -13,6 +13,7 @@ public interface IPreguntaBasicaDAO extends
 	public List<PreguntaBasica> buscarPregunta();
 	@Query("select pr from PreguntaBasica pr where pr.pregunta= :pregunta")
     public PreguntaBasica findBynombre(Integer idPreguntaBasica);
+	// Metodo que busca las preguntas basicas por Id
 	@Query("select pr from PreguntaBasica pr where pr.idPreguntaBasica= :idPreguntaBasica")
 	public List<PreguntaBasica> buscarPreguntab(Integer idPreguntaBasica);
 
