@@ -1,33 +1,64 @@
 <zk>
-	<window id="winMaestroInstanciaApelada" title="::Maestro::Registrar Instancia Apelada"  border="normal" width="70%"  height="auto" closable="true">
+	<window id="winMaestroInstanciaApelada" title="::Registros Basicos::Registrar Instancia Apelada"  border="normal" width="auto"  height="auto" closable="true">
 			<script type="text/javascript" src="/widgets/js/watermark.js" />
 			<script type="text/javascript" src="/widgets/js/watermarkinput.js" />
-			<grid id = "grdRegistrarInstanciaA">
-				<auxhead>
-					<auxheader>Registrar Instancia Apelada</auxheader>
-	        	</auxhead>
-	   				<rows>
-	   					<row>
-			   				<label id = "lblInstancia" value="Instancia Apelada" />
-			   				<textbox id = "txtInstancia"  constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="1" />
-			   				<hbox>
-			   				<button label="Buscar" id="btnBuscar"  image="/imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" />	
-	   						</hbox>
-	   					</row>	
-	   					<row>
-		                	<label id = "lblRecurso" value="Nombre Recurso Apelacion" />
-                			<textbox id="txtRecurso" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="2"/>
-        				</row>	
-	   					<row>
-	   						<label id="lblDescripcion" value="Descripcion"/>
-	   						<textbox id="txtDescripcion" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="3"/>
-	   					</row>
-	   				</rows>
-	   			</grid>
+			<groupbox id="grbRegistrarInstanciaA">
+				<caption>Datos</caption>
+				 <separator />
+				 <hbox>
+				 	<vbox width="200px">
+				 		<label id = "lblInstancia" value="Instancia Apelada" />
+				 	</vbox>
+				 	<vbox width="200px">
+				 		<textbox id = "txtInstancia"  constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="1" />
+				 	</vbox>
+				 	<vbox width="200px">
+				 		<label id = "lblRecurso" value="Nombre Recurso Apelacion" />
+				 	</vbox>
+				 	<vbox>
+				 		<textbox id="txtRecurso" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="2"/>
+				 	</vbox>
+				 </hbox>
+				 <separator spacing="20px" />
+				 <hbox>
+				 	<vbox width="200px">
+				 		<label id="lblDescripcion" value="Descripcion"/>
+				 	</vbox>
+				 	<vbox width="200px">
+				 		<textbox id="txtDescripcion" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="3"/>
+				 	</vbox>
+				 </hbox>
+				 <separator />
+			</groupbox>
+			<separator />
+			<listbox id="lbxInstanciaApelada" mold="paging" pageSize="10">
+				<listhead sizable="true">
+            		<listheader label="Instancia Apelada" sort="auto" />
+            		<listheader label="Nombre del Recurso de Apelacion" sort="auto" />
+            		<listheader label="Descripcion" sort="auto" />
+        		</listhead>
+        		<listitem>
+            		<listcell label="Comision Sustanciadora" />
+            		<listcell label="Carta de Apelacion" />
+            		<listcell label="Descripcion"/>
+        		</listitem>
+        		<listitem>
+            		<listcell label="Consejo de Decanato" />
+            		<listcell label="Carta de Reconsideracion" />
+            		<listcell label="Descripcion"/>
+        		</listitem>
+			</listbox>
+			<separator />
+			<div align="right" height="100%">
+				<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" />	
+   				<button label="Eliminar" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" />
+   				<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" />	
+		   		<button label="Cerrar" id="btnSalir" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" />
+			</div>
+			<separator />
+
 	   			<hbox  width="100%" pack="right">
-    				<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" />	
-   					<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" />	
-		   			<button label="Salir" id = "btnSalir"  image="/imagenes/iconos/salir.png" width="auto" height="auto" orient="horizontal" />	
+    					
    				</hbox>	
 	</window>
 </zk>
