@@ -20,13 +20,12 @@
         .fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
         background: white; border-top: none; }
     </style>
-   <window id="ventana" title="Maestro"  border="normal" width="auto"  height="95%" sclass="sysWin" contentStyle="overflow:auto" apply=" org.zkoss.bind.BindComposer"
+   <window id="winTipoMotivo" title="Maestro"  border="normal" width="auto"  height="auto" closable="true"  sclass="sysWin" contentStyle="overflow:auto" apply=" org.zkoss.bind.BindComposer"
                                 viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMTipoMotivo')" >
 
 		
 			
-<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="100%">
-			<caption label=""   />
+
     
 			<grid id = "grdTipoMotivo">
 			   		 <auxhead>
@@ -37,15 +36,15 @@
 	   				<rows>
 	   					<row>
 			   				<label id = "lblTipoMotivo" value="Motivo de Apelacion" />
-			   				<textbox id = "txtnombreTipoMotivo"  constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="5" value="@bind(vm.nombreTipoMotivo)"/>
+			   				<textbox id = "txtnombreTipoMotivo"  constraint="no empty" width="auto"   maxlength="30" cols="23"  value="@bind(vm.nombreTipoMotivo)"/>
 			   				<button label="Buscar" id="btnbuscar" image="/imagenes/iconos/buscar.png" onClick="@command('buscarTipoMotivo')" />
 			   				
 	   					</row>	
 	   					
 	   					<row>
-		                <label id = "lblDescripcion" value="descripcion" />
+		                <label id = "lblDescripcion" value="Descripcion" />
 		                    <hbox>
-                			<textbox id="intro" rows="3" width="150px" value="@bind(vm.descripcion)">
+                			<textbox id="txtDescripcion" rows="3" width="300px" value="@bind(vm.descripcion)">
                     		<attribute name="value"> </attribute>
                 			</textbox>
                
@@ -63,12 +62,12 @@
    	<caption label="Listado de Tipos de Motivos de Apelacion" />
    	<space />
    	<space />
-   	<listbox id="tipomotivoListbox" height="160px" model="@bind(vm.listaTipoMotivo)" selectedItem="@bind(vm.tiposeleccionado)"   
-   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay Tipo de Motivos registrados" mold="paging" pageSize="5">
+   	<listbox id="lbxtipomotivoListbox" height="160px" model="@bind(vm.listaTipoMotivo)" selectedItem="@bind(vm.tiposeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay Tipo de Motivos registrados" mold="paging" pageSize="10">
 		<listhead>
 			<listheader label=" N° Tipo Motivo" align="center" sort="auto(idTipoMotivo)" />
 			<listheader label="Motivo de la Apelacion" align="center" sort="auto(nombreTipoMotivo)" />
-			<listheader label="Descripcion del Motivo" align="center" sort="auto(descripcion)"/>
+			<listheader label="Descripcion " align="center" sort="auto(descripcion)"/>
 			
 		</listhead>
 		<template name="model">
@@ -83,15 +82,13 @@
 	<space />
 	</groupbox>
     	
-    	<hbox width="75%" pack="right">
-    	<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="75px" height="50px" orient="vertical" onClick="@command('guardar')" />	
-   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="75px" height="50px" orient="vertical" onClick="@command('limpiar')" />	
-   		<button label="Salir" id = "btnSalir"  image="/imagenes/iconos/salir.png" width="75px" height="50px" orient="vertical" />	
-   		
-   		
-   		</hbox>	
-	
-</groupbox>
+    	<div align="right" height="100%">
+		<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('guardar')" />	
+   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
+   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/borrar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarTipoMotivo')"/>
+   		</div>
+
+
 
 
 

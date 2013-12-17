@@ -18,6 +18,9 @@ public class ServicioTipoMotivo {
 	public void guardar(TipoMotivo tipo){
 		tm.save(tipo);
 	}
+	public void eliminar(Integer idTipoMotivo) {
+		tm.delete(idTipoMotivo);
+	}
 	public List<TipoMotivo> listadoTipoMotivo() {
 		List<TipoMotivo> TipoMotivoLista=tm.findAll();
 	    return TipoMotivoLista ;
@@ -25,9 +28,11 @@ public class ServicioTipoMotivo {
 	
 	public List<TipoMotivo> buscarP(String nombreTipoMotivo){
 		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
-		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los profesores
+		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los tipos de motivo
+			// si el codigo es null o vacio,el resultado va a ser la lista completa de
+			//todas los motivos
 			result = listadoTipoMotivo();
-		}else{//caso contrario se recorre toda la lista y busca los profesores con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre. Realiza la busqueda con el apellido e inicial del apellido.
+		}else{//caso contrario se recorre toda la lista y busca los tipos de motivos con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre.
 			for (TipoMotivo t: listadoTipoMotivo()){
 				if (t.getNombreTipoMotivo().toLowerCase().contains(nombreTipoMotivo.toLowerCase())||
 					t.getDescripcion().toLowerCase().contains(nombreTipoMotivo.toLowerCase())){
