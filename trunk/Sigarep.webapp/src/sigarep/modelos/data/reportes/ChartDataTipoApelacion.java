@@ -7,7 +7,7 @@ public class ChartDataTipoApelacion {
 	
 	public static CategoryModel getModel() {
 		CategoryModel model = new SimpleCategoryModel();
-		String[] category = { "Inicial", "Reconsideracion", "Jerarquico" };
+		String[] category = { "Inicial", "Consejo de Decanato", "Consejo Universitario" };
 		model.setValue(category[0], "2010-I", new Integer(25));
 		model.setValue(category[0], "2010-II", new Integer(35));
 		model.setValue(category[0], "2011-I", new Integer(45));
