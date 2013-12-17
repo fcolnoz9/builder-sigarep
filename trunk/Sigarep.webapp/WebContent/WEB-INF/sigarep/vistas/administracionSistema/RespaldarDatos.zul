@@ -1,14 +1,36 @@
 <zk>
-<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" zclass="z-window-overlapped"  width="100%" >
+<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" zclass="z-window-overlapped" width="auto" height="auto" closable="true" >
+	<zscript>
+	<![CDATA[
+		//***************************************************************************
+		//METODO PARA OBTENER LA RUTA DEL DIRECTORIO DE LOS BACKUPS
+		//***************************************************************************
+			import java.io.File;
+			sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
+			ruta = obtenerRuta.obtenerDirectorio();
+			
+			//Accediendo a los archivos en el directorio
+			File directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/respaldosBD");
+			String[] listaDirectorio2 = directorio.list();
+			List listaDirectorio1 = new ArrayList();
+			for (int i=0; i<listaDirectorio2.length;i++)
+			{
+				if (!(listaDirectorio2[i].equals(".svn")))
+				{
+					listaDirectorio1.add(listaDirectorio2[i]);
+				}
+			}
+		]]>
+	</zscript>
 	<panel id="pnlRespaldarDatos" height="100%" width="100%" border="normal"
 		maximizable="false" closable="true" framable="false" sclass="z-demo-config">
 		
 		<panelchildren>
-			<div width="100%" height="240px" style="overflow:auto;" align="center">
-				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d">
+			<div width="100%" height="255px" style="overflow:auto;" align="center">
+				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d" >
 					<caption style="font-weight:bold;font-size:14px;color:gray;"
 						label="Destino del Respaldo" />
-				 <grid width="99%" height="100%">
+				 <grid id="grdColumns" width="99%" height="100%">
 						<columns>
 							   	<column label="" width="10%" />
                 				<column label="" width="65%"  />
@@ -20,7 +42,7 @@
 							</row>
 					</rows>
 				</grid>		
-					<grid width="99%" style="border:normal;" height="100%">
+					<grid id="grdColumn" width="99%" style="border:normal;" height="100%">
 						<columns>
 							<column label="" width="100%" height="100%" />
 						</columns>
@@ -28,14 +50,14 @@
 							<row>
 								<radiogroup id="rgDestino"
 									onCheck="choice.value = self.selectedItem.label">
-									<grid>
+									<grid id="grdRadioButtons ">
 										<rows>
 											<row>
 												<hbox>
 													<radio id="rbLocal">
 														<attribute name="onCheck">
 															<![CDATA[
-																gbDispositivo.setVisible(false);
+																grbDispositivo.setVisible(false);
 															]]>
 														</attribute>
 													</radio>
@@ -45,7 +67,7 @@
 													<radio id="rbDispositivo">
 														<attribute name="onCheck">
 														<![CDATA[
-															gbDispositivo.setVisible(true);
+															grbDispositivo.setVisible(true);
 														]]>
 														</attribute>
 													</radio>
@@ -61,10 +83,10 @@
 					
 				</groupbox>
 				<groupbox style="margin:5px;" width="90%" mold="3d"
-					id="gbDispositivo" visible="false">
+					id="grbDispositivo" visible="false">
 					<caption style="font-weight:bold;font-size:14px;color:gray;"
 						label="Seleccione el dispositivo" />
-					<grid>
+					<grid id="grdRuta">
 						<rows>
 							<row>
 								<hbox>
@@ -119,13 +141,13 @@
 
    	<panel>
 	<panelchildren>
+   		
    		<space />
-   		<space />
-   		<groupbox>
+   		<groupbox id="grbListaBackups" height="181px">
    		<caption label="Lista de Backups " />
    		<div align="center">
-<!--    		FALTA PROGRAMAR ESTA LISTA... -->
-   		<listbox id="backupsListbox" height="160px" width="90%"  emptyMessage="No hay backups realizados" mold="paging" pageSize="5"   >
+<!--    		FALTA PROGRAMAR ESTA LISTA...No quiere verse el modelo NPI... -->
+   		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados" mold="paging" pageSize="10" model="@{listaDirectorio1}">
 			<listhead>
 				<listheader label="Descripción" align="center" sort="auto(descripcion)" />
 				<listheader label="Fecha" align="center" sort="auto(fecha)" />
@@ -143,11 +165,10 @@
 		</listbox>
 		</div>
 			<space />
-			<space />
 		</groupbox>
 
    		<div>
-   			<grid width="99%" height="70%">
+   			<grid id="grdCerrar" width="99%" height="70%">
    				<columns>
    					<column label="" width="100%" />
    				</columns>
@@ -276,7 +297,7 @@
 	        p = pb.start();       
 			alert("Respaldo realizado de manera exitosa");
 			cancelar();
-			gbDispositivo.setVisible(false);
+			grbDispositivo.setVisible(false);
 		
 		}		
 		//****************************************************
