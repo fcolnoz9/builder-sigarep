@@ -4,36 +4,43 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the programa_academico database table.
  * 
  */
 @Entity
-@Table(name="programa_academico")
+@Table(name = "programa_academico")
 public class ProgramaAcademico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_programa", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_programa", unique = true, nullable = false)
 	private Integer idPrograma;
 
-	@Column(name="estatus_programa", nullable=false)
+	@Column(name = "estatus_programa", nullable = false)
 	private Boolean estatusPrograma;
 
-	@Column(name="nombre_programa", nullable=false, length=60)
+	@Column(name = "nombre_programa", nullable = false, length = 60)
 	private String nombrePrograma;
 
-	//bi-directional many-to-one association to Asignatura
-	@OneToMany(mappedBy="programaAcademico", cascade={CascadeType.ALL})
+	// bi-directional many-to-one association to Asignatura
+	@OneToMany(mappedBy = "programaAcademico", cascade = { CascadeType.ALL })
 	private List<Asignatura> asignaturas;
 
-	//bi-directional many-to-one association to Estudiante
-	@OneToMany(mappedBy="programaAcademico")
+	// bi-directional many-to-one association to Estudiante
+	@OneToMany(mappedBy = "programaAcademico")
 	private List<Estudiante> estudiantes;
 
 	public ProgramaAcademico() {
+	}
+
+	public ProgramaAcademico(Integer idPrograma, String nombrePrograma,
+			Boolean estatus) {
+		super();
+		this.idPrograma = idPrograma;
+		this.nombrePrograma = nombrePrograma;
+		this.estatusPrograma = estatus;
 	}
 
 	public Integer getIdPrograma() {
