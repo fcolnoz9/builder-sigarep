@@ -97,22 +97,7 @@
 						maxlength="30" value="Repitencia" disabled="true">
 					</textbox>
 				</row>
-				<row>
-
-					<label id="lblAsignatura" value="Asignatura: " />
-					<textbox id="txtAsignatura" cols="23" maxlength="30"
-						value="Calculo II" disabled="true">
-					</textbox>
-				</row>
-				<row>
-
-					<label id="lblCondicionAsignatura"
-						value=" Condicion Asignatura: " />
-					<textbox id="txtCondicionAsignatura" cols="23"
-						maxlength="30" value="3" disabled="true">
-					</textbox>
-				</row>
-
+				
 				<row>
 					<label id="lblPeriodoinicialsancion"
 						value="Periodo Inicial de Sancion: " />
@@ -127,8 +112,38 @@
 						maxlength="30" value="2014 I" disabled="true">
 					</textbox>
 				</row>
+				
+
+				
 			</rows>
 		</grid>
+	</groupbox>
+	<groupbox>
+	<grid id="grdSancionRR">
+	
+	<columns>
+				<column />
+				<column />
+			</columns>
+			<rows>
+	<row>
+
+					<label id="lblAsignatura" value="Asignatura: " />
+					<textbox id="txtAsignatura" cols="23" maxlength="30"
+						value="Calculo II" disabled="true">
+					</textbox>
+				</row>
+				<row>
+
+					<label id="lblCondicionAsignatura"
+						value=" Condicion Asignatura: " />
+					<textbox id="txtCondicionAsignatura" cols="23"
+						maxlength="30" value="3" disabled="true">
+					</textbox>
+				</row>
+	</rows>
+	</grid>
+	
 	</groupbox>
 
 	<groupbox id="grbDatosdeapelacion">
