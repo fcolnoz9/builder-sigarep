@@ -416,8 +416,9 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Recuperar información"
-								id="" onClick="createWin(.getId(),.getLabel())" />
+							<treecell 	label="Restaurar Información"
+										id="RestaurarInformacion" sclass="administracionSistema"
+										onClick="createWin(RestaurarInformacion.getId(), RestaurarInformacion.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem open="false">
