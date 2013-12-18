@@ -2,6 +2,9 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import sigarep.herramientas.Archivo;
+
 import java.util.Date;
 
 
@@ -15,27 +18,22 @@ public class Reglamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_documento", unique=true, nullable=false)
 	private Integer idDocumento;
+	
+	@Embedded
+	private Archivo imagen;
 
 	@Column(length=255)
 	private String descripcion;
 
 	@Column(nullable=false)
-	private byte[] documento;
-
-	@Column(nullable=false)
 	private Boolean estatus;
-
-	@Column(nullable=false, length=4)
-	private String extension;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_subida", nullable=false)
 	private Date fechaSubida;
-
-	@Column(name="nombre_documento", nullable=false, length=60)
-	private String nombreDocumento;
 
 	@Column(name="tipo_documento", nullable=false)
 	private Boolean tipoDocumento;
@@ -59,28 +57,12 @@ public class Reglamento implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public byte[] getDocumento() {
-		return this.documento;
-	}
-
-	public void setDocumento(byte[] documento) {
-		this.documento = documento;
-	}
-
 	public Boolean getEstatus() {
 		return this.estatus;
 	}
 
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
-	}
-
-	public String getExtension() {
-		return this.extension;
-	}
-
-	public void setExtension(String extension) {
-		this.extension = extension;
 	}
 
 	public Date getFechaSubida() {
@@ -91,20 +73,20 @@ public class Reglamento implements Serializable {
 		this.fechaSubida = fechaSubida;
 	}
 
-	public String getNombreDocumento() {
-		return this.nombreDocumento;
-	}
-
-	public void setNombreDocumento(String nombreDocumento) {
-		this.nombreDocumento = nombreDocumento;
-	}
-
 	public Boolean getTipoDocumento() {
 		return this.tipoDocumento;
 	}
 
 	public void setTipoDocumento(Boolean tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
+	}
+
+	public Archivo getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Archivo imagen) {
+		this.imagen = imagen;
 	}
 
 }

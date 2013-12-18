@@ -2,6 +2,9 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import sigarep.herramientas.Archivo;
+
 import java.util.List;
 
 
@@ -15,6 +18,7 @@ public class DatoSistema implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_sistema", unique=true, nullable=false)
 	private Integer idSistema;
 
@@ -24,14 +28,15 @@ public class DatoSistema implements Serializable {
 	@Column(length=255)
 	private String descripcion;
 
-	private byte[] logo;
-
 	@Column(name="nombre_completo", nullable=false, length=255)
 	private String nombreCompleto;
 
 	@Column(length=255)
 	private String objetivo;
 
+	@Embedded
+	private Archivo imagen;
+	
 	//bi-directional many-to-one association to MenuFuncion
 	@OneToMany(mappedBy="datoSistema")
 	private List<MenuFuncion> menuFuncions;
@@ -61,14 +66,6 @@ public class DatoSistema implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public byte[] getLogo() {
-		return this.logo;
-	}
-
-	public void setLogo(byte[] logo) {
-		this.logo = logo;
 	}
 
 	public String getNombreCompleto() {
@@ -107,6 +104,14 @@ public class DatoSistema implements Serializable {
 		menuFuncion.setDatoSistema(null);
 
 		return menuFuncion;
+	}
+
+	public Archivo getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Archivo imagen) {
+		this.imagen = imagen;
 	}
 
 }

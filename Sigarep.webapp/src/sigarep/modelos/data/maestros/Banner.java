@@ -2,6 +2,9 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import sigarep.herramientas.Archivo;
+
 import java.util.Date;
 
 
@@ -15,11 +18,9 @@ public class Banner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_imagen", unique=true, nullable=false)
 	private Integer idImagen;
-
-	@Column(name="archivo_imagen", nullable=false)
-	private byte[] archivoImagen;
 
 	@Column(length=255)
 	private String descripcion;
@@ -36,6 +37,9 @@ public class Banner implements Serializable {
 
 	@Column(length=60)
 	private String titulo;
+	
+	@Embedded
+	private Archivo imagen;
 
 	public Banner() {
 	}
@@ -46,14 +50,6 @@ public class Banner implements Serializable {
 
 	public void setIdImagen(Integer idImagen) {
 		this.idImagen = idImagen;
-	}
-
-	public byte[] getArchivoImagen() {
-		return this.archivoImagen;
-	}
-
-	public void setArchivoImagen(byte[] archivoImagen) {
-		this.archivoImagen = archivoImagen;
 	}
 
 	public String getDescripcion() {
@@ -94,6 +90,14 @@ public class Banner implements Serializable {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public Archivo getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Archivo imagen) {
+		this.imagen = imagen;
 	}
 
 }
