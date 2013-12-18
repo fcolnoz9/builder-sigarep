@@ -3,6 +3,7 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.transacciones.Cronograma;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class Actividad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_actividad", unique=true, nullable=false)
 	private Integer idActividad;
 
@@ -27,10 +29,11 @@ public class Actividad implements Serializable {
 	@Column(nullable=false)
 	private Boolean estatus;
 
-	private byte[] imagen;
-
 	@Column(nullable=false, length=60)
 	private String nombre;
+	
+	@Embedded
+	private Archivo imagen;
 
 	//bi-directional many-to-one association to Cronograma
 	@OneToMany(mappedBy="actividad")
@@ -63,14 +66,6 @@ public class Actividad implements Serializable {
 		this.estatus = estatus;
 	}
 
-	public byte[] getImagen() {
-		return this.imagen;
-	}
-
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -99,6 +94,14 @@ public class Actividad implements Serializable {
 		cronograma.setActividad(null);
 
 		return cronograma;
+	}
+
+	public Archivo getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Archivo imagen) {
+		this.imagen = imagen;
 	}
 
 }
