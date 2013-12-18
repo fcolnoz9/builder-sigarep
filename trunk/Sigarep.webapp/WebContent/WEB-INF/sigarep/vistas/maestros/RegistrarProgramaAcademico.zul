@@ -7,6 +7,10 @@
 	<groupbox>
 		<caption label="Registrar Programa Académico" />
 		<grid sclass="fgrid">
+			<columns>
+				<column align="right" width="40%" />
+				<column align="left" />
+			</columns>
 			<rows>
 				<row>
 					<label value="Nombre del Programa: "
@@ -18,7 +22,7 @@
 			</rows>
 		</grid>
 	</groupbox>
-	<space />
+	<separator />
 	<div align="right" height="100%">
 		<button label="Guardar" id="btnGuardar"
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
@@ -51,13 +55,12 @@
 				</listitem>
 			</template>
 		</listbox>
-		<space />
-		<space />
 	</groupbox>
+	<separator />
 	<div align="right">
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			mold="trendy" onClick="">
+			mold="trendy" onClick="winRegistrarPrograma.onClose()">
 		</button>
 	</div>
 </window>
