@@ -19,7 +19,6 @@ public class Estudiante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="cedula_estudiante", unique=true, nullable=false, length=8)
 	private String cedulaEstudiante;
 

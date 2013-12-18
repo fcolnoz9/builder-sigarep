@@ -53,7 +53,6 @@ public class Noticia implements Serializable {
 
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_noticia", unique=true, nullable=false)
 	public Integer getIdNoticia() {
 		return this.idNoticia;

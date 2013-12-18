@@ -18,7 +18,6 @@ public class Asignatura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="codigo_asignatura", unique=true, nullable=false, length=8)
 	private String codigoAsignatura;
 
