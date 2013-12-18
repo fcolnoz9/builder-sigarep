@@ -23,12 +23,12 @@ public class VMnoticia {
 
 	@WireVariable ServicioNoticia servicionoticia;
 	private Integer idNoticia;
-	private String contenido;
-	private String enlaceNoticia;
+	private String contenido,contenidoFiltro;
+	private String enlaceNoticia,enlaceNoticiaFiltro;
 	private Boolean estatus;
 	private Date fechaRegistro;
 	private byte[] imagen;
-	private String titulo;
+	private String titulo,tituloFiltro;
 	private Date vencimiento;
 	private List<Noticia> listaNoticia;
 	private Noticia noticiaSeleccionada;
@@ -94,6 +94,25 @@ public class VMnoticia {
 	public void setNoticiaseleccionada(Noticia noticiaSeleccionada) {
 		this.noticiaSeleccionada = noticiaSeleccionada;
 	}
+	public String getContenidoFiltro() {
+		return contenidoFiltro;
+	}
+	public String getEnlaceNoticiaFiltro() {
+		return enlaceNoticiaFiltro;
+	}
+	public String getTituloFiltro() {
+		return tituloFiltro;
+	}
+	public void setContenidoFiltro(String contenidoFiltro) {
+		this.contenidoFiltro = contenidoFiltro;
+	}
+	public void setEnlaceNoticiaFiltro(String enlaceNoticiaFiltro) {
+		this.enlaceNoticiaFiltro = enlaceNoticiaFiltro;
+	}
+	public void setTituloFiltro(String tituloFiltro) {
+		this.tituloFiltro = tituloFiltro;
+	}
+	
     //Fin de los metodod gets y sets
     // OTROS METODOS
 	//Metodos que perimite guardar una noticia
@@ -152,5 +171,24 @@ public class VMnoticia {
 		vencimiento=getNoticiaseleccionada().getVencimiento();
 
 	}
+	
+	//Este metodo busca la noticia por el filtro de titulo
+		@Command
+		@NotifyChange({"listaNoticia"})
+		public void buscarNoticiaFiltroTitulo(){
+			listaNoticia =servicionoticia.buscarNoticia(tituloFiltro);
+		}
+		//Este metodo busca la noticia por el filtro de contenido
+		@Command
+		@NotifyChange({"listaNoticia"})
+		public void buscarNoticiaFiltroContenido(){
+			listaNoticia =servicionoticia.buscarNoticia(contenidoFiltro);
+		}
+		//Este metodo busca la noticia por el filtro de enlace
+		@Command
+		@NotifyChange({"listaNoticia"})
+		public void buscarNoticiaFiltroEnlaceNoticia(){
+			listaNoticia =servicionoticia.buscarNoticia(enlaceNoticiaFiltro);
+		}
 //Fin de los otros metodos.
 }
