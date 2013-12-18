@@ -1,8 +1,8 @@
-<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Veredicto por Consejo de Decanato"  id="winVeredicto" border="normal"
+<window title="Veredicto por Consejo de Decanato"  id="winVeredicto" border="normal"
 	width="auto">
 	<groupbox>
 		<caption label="Datos Estudiante" />
-		<grid sclass="fgrid">
+		<grid>
 			<columns>
 				<column align="right" />
 				<column align="left" />
@@ -34,7 +34,7 @@
 	</groupbox>
 	<groupbox>
 		<caption label=" Datos de la Sanción" />
-		<grid sclass="fgrid">
+		<grid>
 			<columns>
 				<column align="right" />
 				<column align="left" />
@@ -53,17 +53,22 @@
 	</groupbox>
 	<groupbox>
 		<caption label="Datos de Apelación" />
-		<grid sclass="fgrid">
-			<columns>
-				<column align="right" />
+		<grid>
+			 <columns>
 				<column align="left" />
 				<column align="right" />
 				<column align="left" />
 			</columns>
 			<rows>
 				<row>
-					<label value="Motivo: " id="lblMotivo"  />
-					<textbox id="txtMotivo" mold="rounded" cols="15" maxlength="20" value="Médico" disabled="true"></textbox>
+					<hlayout id="lytMotivo">
+		    		      <label id="lblMotivo" value="Motivo "/>
+		    			 <combobox id="cmbMotivo" mold="rounded" tooltiptext="Elegir ….">
+		    			  <comboitem id="cmiMedico" label="Medico"/>
+		    			  <comboitem id="cmiJuridico" label="Juridico"/>
+		    			  <comboitem id="cmiSocial" label="Social"/>               
+		   		    	 </combobox>
+		   		    	</hlayout>
 					<label value="Caso: " id="lblCaso"  />
 					<textbox id="txtCaso" mold="rounded" cols="15" maxlength="20" value="001" disabled="true"></textbox>
 		        </row>
@@ -72,71 +77,64 @@
 	</groupbox>
 	<groupbox>
 	   <caption label="Verificacón de Recaudo" />
-		<grid id="grdVerificarApelaciones" sclass="fgrid">
+		<grid id="grdVerificarApelaciones">
 	        <columns>
-	            <column hflex="3">Recaudos Verificados</column>
-	            <column hflex="4">Observación1</column>
-	            <column hflex="4">Observación2</column>
-	            <column hflex="4">Observación3</column>
+	            <column hflex="3">Recaudos Analizados</column>
+	            <column hflex="4">Observación</column>
 	        </columns>
 	          <rows sclass="narrow">
 	            <row>
 	                <label id="lblConstanciaMedica" value="Constancia Médica" /> 
 	                <textbox id="txtObservacion1" mold="rounded" cols="23" maxlength="30" value="completo" disabled="true"></textbox>
-	                <textbox id="txtObservacion11" mold="rounded" cols="23" maxlength="30" value="completo" disabled="true"></textbox>
-	                <textbox id="txtObservacion111" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
 	            </row>	
 	            <row>
 	               <label id="lblReposo" value="Reposo" />
 	               <textbox id="txtObservacion2" mold="rounded" cols="23" maxlength="30" value="completo" disabled="true"></textbox>
-	               <textbox id="txtObservacion22" mold="rounded" cols="23" maxlength="30" value="completo" disabled="true"></textbox>
-	               <textbox id="txtObservacion222" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
 	            </row>
 	             <row>
 	               <label id="lblInformeMedico" value="Informe Médico" />
 	               <textbox id="txtObservacion3" mold="rounded" cols="23" maxlength="30" value="completo" disabled="true"></textbox>
-	               <textbox id="txtObservacion33" mold="rounded" cols="23" maxlength="30" value="completo" disabled="true"></textbox>
-	               <textbox id="txtObservacion333" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
 	            </row>
              </rows>
         </grid>
 	</groupbox>
 	<groupbox>
-		<grid sclass="fgrid">
+		<grid>
 			<columns>
+				<column align="left" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
 				<column align="right" />
 				<column align="left" />
 			</columns>
 			<rows>
 				<row>
-				    <button label="Procedente" mold="trendy" id="btnProcedente" width="auto" height="25px">
-					</button>
-						<button label="No Procedente" mold="trendy" id="btnNoProcedente" width="auto" height="25px">
-					</button>
-				</row>
-		    </rows>
-		</grid>	
-	</groupbox>
-	<groupbox>
-		<grid sclass="fgrid">
-			<columns>
-				<column align="right" />
-				<column align="left" />
-				<column align="right" />
-				<column align="left" />
-				
-			</columns>
-			<rows>
-				<row>
-					<label value="Observación General Anterior: " id="lblObservacion"  />
-					<textbox id="txtObservacion" mold="rounded" value="muy completos los recaudos" width="150px" rows="3" disabled="true"></textbox>
-					<label value="Observación General Actual: " id="lblObservaciong"  />
-					<textbox id="txtObservaciong" mold="rounded" width="150px" rows="3" disabled="false"></textbox>
-				</row>
-				<row>
+				    <vlayout>
+				        <checkbox id="lp" label="Procedente" onCheck="doChecked()" />
+				        <separator />
+				        <hlayout>
+				            <label id="layoutp"/>
+				        </hlayout>
+				        <zscript><![CDATA[
+				            void doChecked() {
+				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
+				        ]]></zscript>
+				    </vlayout>
+				    <vlayout>
+				        <checkbox id="lnp" label="No Procedente" onCheck="doChecked()" />
+				        <separator />
+				        <hlayout>
+				            <label id="layoutnp"/>
+				        </hlayout>
+				        <zscript><![CDATA[
+				            void doChecked() {
+				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
+				        ]]></zscript>
+				    </vlayout>
+					<label value="Observación General " id="lblObservacion"  />
+					<textbox id="txtObservacion" mold="rounded" value="muy completos los recaudos" width="130px" rows="3" disabled="false"></textbox>
 				    <label value="Responsable: " id="lblResponsableant"  />
-					<textbox id="txtResponsableant" mold="rounded" cols="15" maxlength="20" value="completo" disabled="true"></textbox>
-					<label value="Responsable: " id="lblResponsable"/>
 					<combobox id="cmbResponsable" mold="rounded">
 						<comboitem  id="cmiMiembro1" label="Miembro1"/>
 						<comboitem id="cmiMiembro2" label="Miembro2"/>
@@ -146,14 +144,14 @@
 		</grid>	
 	</groupbox>
 	<div align="right" height="100%">
-		<button  label="Guardar" mold="trendy" id="btnGuardar" image="imagenes/iconos/guardar.png" width="75px" height="50px"
-			 orient="vertical">
+		<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+			 orient="horizontal">
 		</button>
-		<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/aceptar.png" width="75px" height="50px" 
-			 orient="vertical">
+		<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/finalizar.png" width="auto" height="auto" 
+			 orient="horizontal">
 		</button>
-		<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="75px" height="50px" 
-			 orient="vertical">
+		<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
+			 orient="horizontal">
 		</button>
 	</div>
 </window>
