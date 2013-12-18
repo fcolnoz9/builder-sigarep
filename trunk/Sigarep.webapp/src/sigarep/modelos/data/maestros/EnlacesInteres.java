@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name = "enlace_interes")
-
 public class EnlacesInteres {
 	private Integer id_enlace;
 	private String nombre_enlace;
@@ -35,7 +34,6 @@ public class EnlacesInteres {
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name= "id_enlace")
 	public Integer getId_enlace() {
 		return id_enlace;

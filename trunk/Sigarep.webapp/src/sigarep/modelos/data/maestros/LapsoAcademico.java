@@ -20,7 +20,6 @@ public class LapsoAcademico implements Serializable {
         private static final long serialVersionUID = 1L;
 
         @Id
-        @GeneratedValue(strategy=GenerationType.IDENTITY)
         @Column(name="codigo_lapso", unique=true, nullable=false, length=6)
         private String codigoLapso;
 
