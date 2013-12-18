@@ -14,7 +14,11 @@
             jq("$txtEmail").Watermark("Introduzca la respuesta","gray");
             jq("$txtTelefono").Watermark("Introduzca la respuesta","gray");
             jq("$txtPrograma").Watermark("Introduzca la respuesta","gray");
-            
+            jq("$txtNombreActividad").Watermark("Nombre de la Actividad","gray");
+            jq("$txtDescripcionActividad").Watermark("Ejemplo: Publicacion de Cronograma","gray");
+            jq("$txtImagen").Watermark("C:Imagenes..","gray");
+            jq("$txtNombreSancion").Watermark("Nombre de la Sancion","gray");
+            jq("$txtDescripcionSancion").Watermark("Ejemplo: Regimen de Permanencia.","gray");
             
             $.mask.definitions['A']='[A-Z]';
             $.mask.definitions['m']='[01]';

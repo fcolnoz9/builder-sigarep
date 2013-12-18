@@ -13,7 +13,7 @@
 ]]>
 	</zscript>
 	<tree id="tree" Zclass="z-vfiletree" multiple="false"
-		height="500px" hflex="true" vflex="true">
+		height="600px" hflex="true" vflex="true">
 		<treecols>
 			<treecol label="MENU SIGAREP" />
 		</treecols>
@@ -40,8 +40,8 @@
 					<treeitem>
 						<treerow>
 							<treecell label="Tipo Sanción"
-								id="RegistrarTipoSancion" sclass="maestros"
-								onClick="createWin(RegistrarTipoSancion.getId(), RegistrarTipoSancion.getSclass())" />
+								id="RegistrarSancionMaestro" sclass="maestros"
+								onClick="createWin(RegistrarSancionMaestro.getId(), RegistrarSancionMaestro.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
