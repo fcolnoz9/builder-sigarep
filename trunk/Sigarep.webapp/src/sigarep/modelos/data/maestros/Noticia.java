@@ -2,6 +2,9 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import sigarep.herramientas.Archivo;
+
 import java.util.Date;
 
 
@@ -13,24 +16,14 @@ import java.util.Date;
 @Table(name="noticia")
 public class Noticia implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	private Integer idNoticia;
-
 	private String contenido;
-
 	private String enlaceNoticia;
-
 	private Boolean estatus;
-
-	
 	private Date fechaRegistro;
-
-	private byte[] imagen;
-
 	private String titulo;
-
-	
 	private Date vencimiento;
+	private Archivo imagen;
 
 	public Noticia() {
 	}
@@ -38,7 +31,7 @@ public class Noticia implements Serializable {
 	
 	
 	public Noticia(Integer idNoticia, String contenido, String enlaceNoticia,
-			Boolean estatus, Date fechaRegistro, byte[] imagen, String titulo,
+			Boolean estatus, Date fechaRegistro, String titulo,
 			Date vencimiento) {
 		super();
 		this.idNoticia = idNoticia;
@@ -46,13 +39,13 @@ public class Noticia implements Serializable {
 		this.enlaceNoticia = enlaceNoticia;
 		this.estatus = estatus;
 		this.fechaRegistro = fechaRegistro;
-		this.imagen = imagen;
 		this.titulo = titulo;
 		this.vencimiento = vencimiento;
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_noticia", unique=true, nullable=false)
 	public Integer getIdNoticia() {
 		return this.idNoticia;
@@ -94,14 +87,7 @@ public class Noticia implements Serializable {
 	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
-	@Column(nullable=true)
-	public byte[] getImagen() {
-		return this.imagen;
-	}
-
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
-	}
+	
 	@Column(nullable=false, length=60)
 	public String getTitulo() {
 		return this.titulo;
@@ -118,6 +104,15 @@ public class Noticia implements Serializable {
 
 	public void setVencimiento(Date vencimiento) {
 		this.vencimiento = vencimiento;
+	}
+
+	@Embedded
+	public Archivo getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Archivo imagen) {
+		this.imagen = imagen;
 	}
 
 }

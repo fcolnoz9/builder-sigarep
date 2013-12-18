@@ -25,6 +25,7 @@ public class PreguntaBasica implements Serializable {
   
   // Atributos de la clase
        @Id // Clave principal de la clase
+       @GeneratedValue(strategy=GenerationType.IDENTITY)
        @Column(name="id_pregunta_basica", unique=true, nullable=false)
        private Integer idPreguntaBasica;
 

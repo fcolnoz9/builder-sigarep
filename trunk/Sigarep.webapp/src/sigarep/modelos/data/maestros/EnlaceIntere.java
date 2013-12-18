@@ -3,6 +3,8 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import sigarep.herramientas.Archivo;
+
 
 /**
  * The persistent class for the enlace_interes database table.
@@ -26,10 +28,11 @@ public class EnlaceIntere implements Serializable {
 	@Column(nullable=false)
 	private Boolean estatus;
 
-	private byte[] imagen;
-
 	@Column(name="nombre_enlace", nullable=false, length=60)
 	private String nombreEnlace;
+	
+	@Embedded
+	private Archivo imagen;
 
 	public EnlaceIntere() {
 	}
@@ -66,20 +69,20 @@ public class EnlaceIntere implements Serializable {
 		this.estatus = estatus;
 	}
 
-	public byte[] getImagen() {
-		return this.imagen;
-	}
-
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
-	}
-
 	public String getNombreEnlace() {
 		return this.nombreEnlace;
 	}
 
 	public void setNombreEnlace(String nombreEnlace) {
 		this.nombreEnlace = nombreEnlace;
+	}
+
+	public Archivo getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Archivo imagen) {
+		this.imagen = imagen;
 	}
 
 }
