@@ -21,81 +21,82 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMTipoMotivo {
 	@WireVariable ServicioTipoMotivo serviciotipomotivo;
-	private Integer idTipoMotivo;private String nombreTipoMotivo,nombreTipoMotivofiltro;private String descripcion,descripcionfiltro;private Boolean estatus;
-	
-	
-	
-	public String getNombreTipoMotivofiltro() {
-		return nombreTipoMotivofiltro;
-	}
-	public void setNombreTipoMotivofiltro(String nombreTipoMotivofiltro) {
-		this.nombreTipoMotivofiltro = nombreTipoMotivofiltro;
-	}
-	public String getDescripcionfiltro() {
-		return descripcionfiltro;
-	}
-	public void setDescripcionfiltro(String descripcionfiltro) {
-		this.descripcionfiltro = descripcionfiltro;
-	}
-
-
+	private Integer idTipoMotivo;
+	private String nombreTipoMotivo,nombreTipoMotivofiltro;
+	private String descripcion,descripcionfiltro;
+	private Boolean estatus;
 	private List<TipoMotivo> listaTipoMotivo;
 	private TipoMotivo tiposeleccionado;
     @Wire Textbox txtnombreTipoMotivo;
     @Wire Window winTipoMotivo;
- // Metodos GETS Y SETS
+	
+    //Metodos set y get
     public Integer getIdTipoMotivo() {
 		return idTipoMotivo;
+	}
+    public String getNombreTipoMotivo() {
+		return nombreTipoMotivo;
+	}
+    public String getDescripcion() {
+		return descripcion;
+	}
+    public Boolean getEstatus() {
+		return estatus;
+	}
+    public String getNombreTipoMotivofiltro() {
+		return nombreTipoMotivofiltro;
+	}
+    public String getDescripcionfiltro() {
+		return descripcionfiltro;
+	}
+    public List<TipoMotivo> getListaTipoMotivo() {
+		return listaTipoMotivo;
+	}
+    public TipoMotivo getTiposeleccionado() {
+		return tiposeleccionado;
+	}
+	public void setNombreTipoMotivofiltro(String nombreTipoMotivofiltro) {
+		this.nombreTipoMotivofiltro = nombreTipoMotivofiltro;
+	}
+	
+	public void setDescripcionfiltro(String descripcionfiltro) {
+		this.descripcionfiltro = descripcionfiltro;
 	}
 	public void setIdTipoMotivo(Integer idTipoMotivo) {
 		this.idTipoMotivo = idTipoMotivo;
 	}
-	public String getNombreTipoMotivo() {
-		return nombreTipoMotivo;
-	}
+	
 	public void setNombreTipoMotivo(String nombreTipoMotivo) {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 	}
-	public String getDescripcion() {
-		return descripcion;
-	}
+	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Boolean getEstatus() {
-		return estatus;
-	}
+	
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
-	}
-	public List<TipoMotivo> getListaTipoMotivo() {
-		return listaTipoMotivo;
 	}
 	public void setListaTipoMotivo(List<TipoMotivo> ListaTipoMotivo) {
 		this.listaTipoMotivo = ListaTipoMotivo;
 	}
-	public TipoMotivo getTiposeleccionado() {
-		return tiposeleccionado;
-	}
 	public void setTiposeleccionado(TipoMotivo tiposeleccionado) {
 		this.tiposeleccionado = tiposeleccionado;
 	}
-	
 	//Fin de los metodod gets y sets
-    // OTROS METODOS
+    //----------- OTROS METODOS
     @Init
     public void init(){
     	 //initialization code
     	buscarTipoMotivo();
     }
-  //Metodo que busca un motivo partiendo por su titulo
+    //Metodo que busca un motivo partiendo por su titulo
   	@Command
   	@NotifyChange({"listaTipoMotivo"})
   	public void buscarTipoMotivo(){
   		listaTipoMotivo = serviciotipomotivo.buscarP(nombreTipoMotivo);
   	}
-    
-    //Metodos que perimite guardar los tipos de motivos
+    //Metodos que Permite guardar los tipos de motivos
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardar(){
@@ -119,7 +120,7 @@ public class VMTipoMotivo {
  
   //Metodo que elimina un tipo de motivo tomando en cuenta el idTipoMotivo
   	@Command
-  	@NotifyChange({"nombreTipoMotivo", "Descripcion", "listaTipoMotivo"})
+  	@NotifyChange({"nombreTipoMotivo", "descripcion", "listaTipoMotivo"})
   	public void eliminarTipoMotivo(){
   		serviciotipomotivo.eliminar(getTiposeleccionado().getIdTipoMotivo());
   		limpiar();
@@ -127,25 +128,23 @@ public class VMTipoMotivo {
   	}
   //permite tomar los datos del objeto tipo motivo seleccionado
     @Command
-	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "Descripcion"})
+	@NotifyChange({"nombreTipoMotivo", "descripcion"})
 	public void mostrarSeleccionado(){
 		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
-		descripcion= getTiposeleccionado().getDescripcion();
+		descripcion=getTiposeleccionado().getDescripcion();
+		
 	}
-  //Este metodo busca al tipo motivo por el filtro de nombre
+  //Este metodo busca al tipo motivo por el FILTRO de nombre
   	@Command
   	@NotifyChange({"listaTipoMotivo"})
   	public void buscarTipoMotivoFiltronombre(){
   		listaTipoMotivo =serviciotipomotivo.buscarP(nombreTipoMotivofiltro);
-  		}
+  	}
   	
-  
-  	//Este metodo busca al tipo motivo  por el filtro de nombre
+  	//Este metodo busca al tipo motivo  por el FILTRO de nombre
   	@Command
   	@NotifyChange({"listaTipoMotivo"})
   	public void buscarTipoMotivoFiltrodescripcion(){
   		listaTipoMotivo =serviciotipomotivo.buscarP(descripcionfiltro);
   	}
-    
-    
 }
