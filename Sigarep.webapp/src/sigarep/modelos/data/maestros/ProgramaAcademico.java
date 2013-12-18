@@ -12,9 +12,8 @@ import java.util.List;
 @Table(name = "programa_academico")
 public class ProgramaAcademico implements Serializable {
 	private static final long serialVersionUID = 1L;
- //HSHS
+ 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_programa", unique = true, nullable = false)
 	private Integer idPrograma;
 
