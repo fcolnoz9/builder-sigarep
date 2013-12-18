@@ -1,0 +1,157 @@
+<window title="Analizar Validez"  id="winAnalizarValidez" border="normal"
+	width="auto">
+	<groupbox>
+		<caption label="Datos Estudiante" />
+		<grid>
+			<columns>
+				<column align="right" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Cédula: " id="lblCedula"  />
+					<textbox id="txtCedula" mold="rounded" cols="15" maxlength="20" value="18571956" disabled="true"></textbox>
+					<label value="Nombre: " id="lblNombre"/>
+					<textbox id="txtNombre" mold="rounded" cols="15" maxlength="20" value="María" disabled="true"></textbox>
+					<label value="Apellido: " id="lblApellido" />
+					<textbox id="txtApellido" mold="rounded" cols="15" maxlength="20" value="Pérez" disabled="true">
+					</textbox>
+				</row>
+				<row>
+					<label value="Programa: " id="lblPrograma"/>
+					<textbox id="txtPrograma" mold="rounded" cols="15" maxlength="27" value="Ingeniería en Informática" disabled="true">
+					</textbox>
+					<label value="Indice de Grado: " id="lblIndiceGrado" />
+					<textbox id="txtIndiceGrado" mold="rounded" cols="15" maxlength="25" value="15.7" disabled="true">
+					</textbox>
+				</row>
+		    </rows>
+		</grid>		
+	</groupbox>
+	<groupbox>
+		<caption label=" Datos de la Sanción" />
+		<grid>
+			<columns>
+				<column align="right" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+				  <label value="Tipo Sanción: " id="lblTipoSancion"/>
+			      <textbox id="txtTipoSancion" mold="rounded" cols="23" maxlength="30" value="Régimen de Repitencia" disabled="true"></textbox>
+			      <label value="Período de Sanción: " id="lblPeriodoSancion"/>
+			      <textbox id="txtPeriodoSancion" mold="rounded" cols="23" maxlength="30" value="2013-II:3014-I" disabled="true"></textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<groupbox>
+		<caption label="Datos de Apelación" />
+		<grid>
+		    <columns>
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+					<hlayout id="lytMotivo">
+		    		      <label id="lblMotivo" value="Motivo "/>
+		    			 <combobox id="cmbMotivo" mold="rounded" tooltiptext="Elegir ….">
+		    			  <comboitem id="cmiMedico" label="Medico"/>
+		    			  <comboitem id="cmiJuridico" label="Juridico"/>
+		    			  <comboitem id="cmiSocial" label="Social"/>               
+		   		    	 </combobox>
+		   		    	</hlayout>
+					<label value="Caso: " id="lblCaso"  />
+					<textbox id="txtCaso" mold="rounded" cols="23" maxlength="30" value="001" disabled="true"></textbox>
+				</row>
+		    </rows>
+		</grid>	
+	</groupbox>
+	<groupbox>
+	   <caption label="Validez de Recaudos" />
+		<grid id="grdVerificarApelaciones">
+	        <columns>
+	            <column hflex="3">Recaudos Verificados</column>
+	            <column hflex="4">Observación</column>
+	        </columns>
+	          <rows sclass="narrow">
+	            <row>
+	                <label id="lblConstanciaMedica" value="Constancia Médica" /> 
+	                <textbox id="txtObservacion1" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox> 
+	            </row>	
+	            <row>
+	               <label id="lblReposo" value="Reposo" />
+	               <textbox id="txtObservacion2" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
+	            </row>
+	             <row>
+	               <label id="lblInformeMedico" value="Informe Médico" />
+	               <textbox id="txtObservacion3" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
+	            </row>
+             </rows>
+        </grid>
+    </groupbox>
+    <groupbox>
+		<grid>
+			<columns>
+				<column align="left" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+				    <vlayout>
+				        <checkbox id="lp" label="Procedente" onCheck="doChecked()" />
+				        <separator />
+				        <hlayout>
+				            <label id="layoutp"/>
+				        </hlayout>
+				        <zscript><![CDATA[
+				            void doChecked() {
+				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
+				        ]]></zscript>
+				    </vlayout>
+				    <vlayout>
+				        <checkbox id="lnp" label="No Procedente" onCheck="doChecked()" />
+				        <separator />
+				        <hlayout>
+				            <label id="layoutnp"/>
+				        </hlayout>
+				        <zscript><![CDATA[
+				            void doChecked() {
+				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
+				        ]]></zscript>
+				    </vlayout>
+					<label value="Observación General: " id="lblObservacion"  />
+					<textbox id="txtObservacion" mold="rounded" width="130px" value="muy completos los recaudos" rows="3" disabled="false"></textbox>
+					<label value="Responsable: " id="lblResponsable"/>
+					<combobox id="cmbResponsable" mold="rounded">
+						<comboitem  id="cmiMiembro1" label="Miembro1"/>
+						<comboitem id="cmiMiembro2" label="Miembro2"/>
+					</combobox>
+				</row>
+		    </rows>
+		</grid>	
+	</groupbox>
+	<div align="right" height="100%">
+		<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+			 orient="horizontal">
+		</button>
+		<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/finalizar.png" width="auto" height="auto" 
+			 orient="horizontal">
+		</button>
+		<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
+			 orient="horizontal">
+		</button>
+	</div>
+</window>
