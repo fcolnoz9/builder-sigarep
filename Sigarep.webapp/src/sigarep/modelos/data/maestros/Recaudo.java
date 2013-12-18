@@ -18,7 +18,6 @@ public class Recaudo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_recaudo", unique=true, nullable=false)
 	private Integer idRecaudo;
 
