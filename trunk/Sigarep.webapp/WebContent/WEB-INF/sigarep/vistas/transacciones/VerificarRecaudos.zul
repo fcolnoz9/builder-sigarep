@@ -1,9 +1,9 @@
 
-<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Verificar Recaudos"  id="winVerificarRecaudo" border="normal"
+<window title="Verificar Recaudo"  id="winVerificarRecaudo" border="normal"
 	width="auto">
 	<groupbox>
 		<caption label="Datos Estudiante" />
-		<grid sclass="fgrid">
+		<grid>
 			<columns>
 				<column align="right" />
 				<column align="left" />
@@ -35,7 +35,7 @@
 	</groupbox>
 	<groupbox>
 		<caption label=" Datos de la Sanción" />
-		<grid sclass="fgrid">
+		<grid>
 			<columns>
 				<column align="right" />
 				<column align="left" />
@@ -54,30 +54,34 @@
 	</groupbox>
 	<groupbox>
 		<caption label="Datos de Apelación" />
-		<grid sclass="fgrid">
+		<grid>
 			<columns>
-				<column align="right" />
 				<column align="left" />
 				<column align="right" />
 				<column align="left" />
 			</columns>
 			<rows>
 				<row>
-					<label value="Motivo: " id="lblMotivo"  />
-					<textbox id="txtMotivo" mold="rounded" cols="23" maxlength="30" value="Médico" disabled="true"></textbox>
-					<label value="Código: " id="lblCodigo"  />
-					<textbox id="txtCodigo" mold="rounded" cols="23" maxlength="30" value="001" disabled="true"></textbox>
+					<hlayout id="lytMotivo">
+		    		      <label id="lblMotivo" value="Motivo "/>
+		    			 <combobox id="cmbMotivo" mold="rounded" tooltiptext="Elegir ….">
+		    			  <comboitem id="cmiMedico" label="Medico"/>
+		    			  <comboitem id="cmiJuridico" label="Juridico"/>
+		    			  <comboitem id="cmiSocial" label="Social"/>               
+		   		    	 </combobox>
+		   		    	</hlayout>
+					<label value="Caso: " id="lblCaso"  />
+					<textbox id="txtCaso" mold="rounded" cols="23" maxlength="30" value="001" disabled="true"></textbox>
 				</row>
 		    </rows>
 		</grid>	
 	</groupbox>
 	<groupbox>
 	   <caption label="Verificacón de Recaudo" />
-		<grid id="grdVerificarApelaciones" sclass="fgrid">
+		<grid id="grdVerificarApelaciones">
 	        <columns>
 	            <column hflex="3">Recaudos Cargados</column>
 	            <column hflex="3">Recaudos Verificados</column>
-	            <column hflex="4">Observación</column>
 	        </columns>
 	          <rows sclass="narrow">
 	            <row>
@@ -93,7 +97,6 @@
 				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
 				        ]]></zscript>
 				    </vlayout>
-	                <textbox id="txtObservacion1" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
 	            </row>	
 	            <row>
 	               <label id="lblReposo" value="Reposo" />
@@ -108,7 +111,6 @@
 				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
 				        ]]></zscript>
 				    </vlayout>
-	               <textbox id="txtObservacion2" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
 	            </row>
 	             <row>
 	               <label id="lblInformeMedico" value="Informe Médico" />
@@ -123,30 +125,15 @@
 				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
 				        ]]></zscript>
 				    </vlayout>
-	               <textbox id="txtObservacion3" mold="rounded" cols="23" maxlength="30" disabled="false"></textbox>
 	            </row>
              </rows>
         </grid>
 	</groupbox>
 	<groupbox>
-		<grid sclass="fgrid">
+		<grid>
 			<columns>
-				<column align="right" />
 				<column align="left" />
-			</columns>
-			<rows>
-				<row>
-				    <button label="Procedente" mold="trendy" id="btnProcedente" width="auto" height="25px">
-					</button>
-						<button label="No Procedente" mold="trendy" id="btnNoProcedente" width="auto" height="25px">
-					</button>
-				</row>
-		    </rows>
-		</grid>	
-	</groupbox>
-	<groupbox>
-		<grid sclass="fgrid">
-			<columns>
+				<column align="left" />
 				<column align="right" />
 				<column align="left" />
 				<column align="right" />
@@ -154,8 +141,30 @@
 			</columns>
 			<rows>
 				<row>
+				    <vlayout>
+				        <checkbox id="lp" label="Procedente" onCheck="doChecked()" />
+				        <separator />
+				        <hlayout>
+				            <label id="layoutp"/>
+				        </hlayout>
+				        <zscript><![CDATA[
+				            void doChecked() {
+				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
+				        ]]></zscript>
+				    </vlayout>
+				    <vlayout>
+				        <checkbox id="lnp" label="No Procedente" onCheck="doChecked()" />
+				        <separator />
+				        <hlayout>
+				            <label id="layoutnp"/>
+				        </hlayout>
+				        <zscript><![CDATA[
+				            void doChecked() {
+				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
+				        ]]></zscript>
+				    </vlayout>
 					<label value="Observación General: " id="lblObservacion"  />
-					<textbox id="txtObservacion" mold="rounded" width="240px" rows="3" disabled="false"></textbox>
+					<textbox id="txtObservacion" mold="rounded" width="130px" rows="3" disabled="false"></textbox>
 					<label value="Responsable: " id="lblResponsable"/>
 					<combobox id="cmbResponsable" mold="rounded">
 						<comboitem  id="cmiMiembro1" label="Miembro1"/>
@@ -166,14 +175,14 @@
 		</grid>	
 	</groupbox>
 	<div align="right" height="100%">
-		<button  label="Guardar" mold="trendy" id="btnGuardar" image="imagenes/iconos/guardar.png" width="75px" height="50px"
-			 orient="vertical">
+		<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+			 orient="horizontal">
 		</button>
-		<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/aceptar.png" width="75px" height="50px" 
-			 orient="vertical">
+		<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/finalizar.png" width="auto" height="auto" 
+			 orient="horizontal">
 		</button>
-		<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="75px" height="50px" 
-			 orient="vertical">
+		<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
+			 orient="horizontal">
 		</button>
 	</div>
 </window>
