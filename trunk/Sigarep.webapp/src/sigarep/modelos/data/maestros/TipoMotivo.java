@@ -19,7 +19,6 @@ public class TipoMotivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_tipo_motivo", unique=true, nullable=false)
 	private Integer idTipoMotivo;
 	@Column(name="nombre_tipo_motivo", nullable=false, length=60)

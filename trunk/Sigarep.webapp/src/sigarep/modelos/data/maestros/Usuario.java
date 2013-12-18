@@ -25,6 +25,7 @@ import java.util.List;
 @Entity
 @Table(name="usuario")
 public class Usuario extends User implements Serializable {
+
 	public Usuario(String nombreUsuario, String contrasenia, boolean estatus,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,
@@ -37,7 +38,6 @@ public class Usuario extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="nombre_usuario", unique=true, nullable=false, length=30)
 	private String nombreUsuario;
 
