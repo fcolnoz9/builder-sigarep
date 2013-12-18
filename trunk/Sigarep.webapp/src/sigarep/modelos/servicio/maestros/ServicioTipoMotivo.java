@@ -13,19 +13,22 @@ import sigarep.modelos.repositorio.maestros.ITipoMotivoDAO;
 
 @Service("serviciotipomotivo")
 public class ServicioTipoMotivo {
-	private @Autowired ITipoMotivoDAO tm;
+	private @Autowired ITipoMotivoDAO tipomotivo;
 	
+	//metodo que permite Guardar
 	public void guardar(TipoMotivo tipo){
-		tm.save(tipo);
+		tipomotivo.save(tipo);
 	}
+	
+	//metodo que permite eliminar
 	public void eliminar(Integer idTipoMotivo) {
-		tm.delete(idTipoMotivo);
+		tipomotivo.delete(idTipoMotivo);
 	}
 	public List<TipoMotivo> listadoTipoMotivo() {
-		List<TipoMotivo> TipoMotivoLista=tm.findAll();
+		List<TipoMotivo> TipoMotivoLista=tipomotivo.findAll();
 	    return TipoMotivoLista ;
 	}
-	
+	//Metodo de Busqueda
 	public List<TipoMotivo> buscarP(String nombreTipoMotivo){
 		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
 		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los tipos de motivo
@@ -33,10 +36,10 @@ public class ServicioTipoMotivo {
 			//todas los motivos
 			result = listadoTipoMotivo();
 		}else{//caso contrario se recorre toda la lista y busca los tipos de motivos con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre.
-			for (TipoMotivo t: listadoTipoMotivo()){
-				if (t.getNombreTipoMotivo().toLowerCase().contains(nombreTipoMotivo.toLowerCase())||
-					t.getDescripcion().toLowerCase().contains(nombreTipoMotivo.toLowerCase())){
-					result.add(t);
+			for (TipoMotivo tip: listadoTipoMotivo()){
+				if (tip.getNombreTipoMotivo().toLowerCase().contains(nombreTipoMotivo.toLowerCase())||
+					tip.getDescripcion().toLowerCase().contains(nombreTipoMotivo.toLowerCase())){
+					result.add(tip);
 				}
 			}
 		}
