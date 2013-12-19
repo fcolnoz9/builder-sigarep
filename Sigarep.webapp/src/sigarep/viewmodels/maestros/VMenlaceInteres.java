@@ -1,5 +1,6 @@
 package sigarep.viewmodels.maestros;
 
+import java.io.IOException;
 import java.util.List;
 
 import java.util.List;
@@ -7,9 +8,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
+import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
@@ -35,6 +40,7 @@ public class VMenlaceInteres {
 	private Boolean estatus;
 	private Archivo imagen = new Archivo();
 	private AImage imagenes;
+	private Media media;
 	private List<EnlaceInteres> listaEnlaces;
 	private EnlaceInteres enlaceSeleccionado;
     @Wire Textbox txtnombre_enlace;
@@ -137,11 +143,32 @@ public class VMenlaceInteres {
     }
     
     @Command
-    @NotifyChange({"idEnlace", "nombreEnlace", "direccionEnlace", "descripcion","estatus" })
+	@NotifyChange("imagenes")
+	public void cargarImagen(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
+		media = event.getMedia();
+		if (media != null) {
+			if (media instanceof org.zkoss.image.Image) {
+				imagen.setNombreArchivo(media.getName());
+				imagen.setTipo(media.getContentType());
+				imagen.setContenidoArchivo(media.getByteData());
+		
+				imagenes = (AImage) media;
+			} else {
+				Messagebox.show("El archivo: "+media+" no es una imagen valida", "Error", Messagebox.OK, Messagebox.ERROR);
+			}
+		} 
+	}
+    
+    @Command
+    @NotifyChange({"idEnlace", "nombreEnlace", "direccionEnlace", "descripcion","estatus","imagenes" })
     public void limpiar(){
     	nombreEnlace= "";
     	direccionEnlace="";
         descripcion = "";
+        idEnlace = null;
+        media = null;
+		imagenes = null;
+		imagen = new Archivo();
         buscarEnlaceInteres();
     }
     
@@ -166,7 +193,7 @@ public class VMenlaceInteres {
     @Command
    	@NotifyChange({"listaEnlaces"})
        public void buscarEnlaceFiltroDireccionEnlace(){
-       	listaEnlaces = servicioenlacesinteres.buscarEnlacesNombre(direccionEnlaceFiltro);
+       	listaEnlaces = servicioenlacesinteres.buscarEnlacesDireccion(direccionEnlaceFiltro);
        }
     
 	@Command
@@ -178,12 +205,21 @@ public class VMenlaceInteres {
 	}
 	
 	@Command
-    @NotifyChange({"id_enlace", "nombre_enlace","direccion_enlace", "descripcion_enlace","estatus" })
+    @NotifyChange({"idEnlace", "nombreEnlace","direccionEnlace", "descripcion","estatus", "imagenes" })
 	public void mostrarEnlace(){
-		idEnlace= getEnlaceSeleccionado().getIdEnlace();
-		nombreEnlace = getEnlaceSeleccionado().getNombreEnlace();
-		direccionEnlace = getEnlaceSeleccionado().getDireccionEnlace();
-		descripcion = getEnlaceSeleccionado().getDescripcion();
+		idEnlace= enlaceSeleccionado.getIdEnlace();
+		nombreEnlace = enlaceSeleccionado.getNombreEnlace();
+		direccionEnlace = enlaceSeleccionado.getDireccionEnlace();
+		descripcion = enlaceSeleccionado.getDescripcion();
+		if (enlaceSeleccionado.getImagen().getTamano() > 0){
+			try {
+				imagenes = new AImage(enlaceSeleccionado.getImagen().getNombreArchivo(), enlaceSeleccionado.getImagen().getContenidoArchivo());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		else
+			imagenes = null;
 	}    
 }
 
