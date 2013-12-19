@@ -24,14 +24,17 @@ import java.util.List;
  */
 @Entity
 @Table(name="usuario")
-public class Usuario extends User implements Serializable {
-
+public class Usuario implements Serializable {
+	
+	public Usuario() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Usuario(String nombreUsuario, String contrasenia, boolean estatus,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(nombreUsuario, contrasenia, estatus, accountNonExpired, credentialsNonExpired,
-				accountNonLocked, authorities);
 		// TODO Auto-generated constructor stub
 	}
 
