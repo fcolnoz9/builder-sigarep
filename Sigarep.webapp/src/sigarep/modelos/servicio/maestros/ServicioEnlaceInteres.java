@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.repositorio.maestros.IEnlaceInteresDAO;
 
+
 @Service("servicioenlacesinteres")
 public class ServicioEnlaceInteres {
 	private @Autowired IEnlaceInteresDAO enlaceinteres;
@@ -32,9 +33,7 @@ public class ServicioEnlaceInteres {
 			result = listadoEnlaceInteres();
 		}else{//caso contrario se recorre toda la lista y busca los profesores con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre. Realiza la busqueda con el apellido e inicial del apellido.
 			for (EnlaceInteres e: listadoEnlaceInteres()){
-				if (e.getNombreEnlace().toLowerCase().contains(nombreEnlace.toLowerCase())||
-					e.getDescripcion().toLowerCase().contains(nombreEnlace.toLowerCase())||
-					e.getDireccionEnlace().toLowerCase().contains(nombreEnlace.toLowerCase())){
+				if (e.getNombreEnlace().toLowerCase().contains(nombreEnlace.toLowerCase())){
 					result.add(e);
 				}
 			}
@@ -42,16 +41,13 @@ public class ServicioEnlaceInteres {
 		return result;
 	}	
 		
-		public List<EnlaceInteres> buscarEnlacesCodigo(Integer id_enlace){
+		public List<EnlaceInteres> buscarEnlacesCodigo(Integer idEnlace){
 			List<EnlaceInteres> result = new LinkedList<EnlaceInteres>();
-			if (id_enlace==null || "".equals(id_enlace)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los profesores
+			if (idEnlace==null){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los profesores
 				result = listadoEnlaceInteres();
 			}else{//caso contrario se recorre toda la lista y busca los profesores con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre. Realiza la busqueda con el apellido e inicial del apellido.
 				for (EnlaceInteres ei: listadoEnlaceInteres()){
-					if (ei.getIdEnlace().toString().contains(id_enlace.toString())||
-						ei.getNombreEnlace().toLowerCase().contains(id_enlace.toString())||
-						ei.getDescripcion().toLowerCase().contains(id_enlace.toString())||
-						ei.getDireccionEnlace().toLowerCase().contains(id_enlace.toString())){
+					if (ei.getIdEnlace().toString().contains(idEnlace.toString())){
 						result.add(ei);
 					}
 				}
@@ -59,6 +55,20 @@ public class ServicioEnlaceInteres {
 			return result;
 
 	}
+		
+		public List<EnlaceInteres> buscarEnlacesDireccion(String direccionEnlace){
+			List<EnlaceInteres> result = new LinkedList<EnlaceInteres>();
+			if (direccionEnlace==null || "".equals(direccionEnlace)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los profesores
+				result = listadoEnlaceInteres();
+			}else{//caso contrario se recorre toda la lista y busca los profesores con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre. Realiza la busqueda con el apellido e inicial del apellido.
+				for (EnlaceInteres e: listadoEnlaceInteres()){
+					if (e.getDireccionEnlace().toLowerCase().contains(direccionEnlace.toLowerCase())){
+						result.add(e);
+					}
+				}
+			}
+			return result;
+		}
 	
 	/*public List<EnlacesInteres> buscarEnlaces(Integer id_enlace){
 		List<EnlacesInteres> result = new LinkedList<EnlacesInteres>();
