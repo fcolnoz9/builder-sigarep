@@ -6,6 +6,7 @@ import javax.persistence.*;
 import sigarep.herramientas.Archivo;
 
 
+
 /**
  * The persistent class for the enlace_interes database table.
  * 
@@ -16,6 +17,7 @@ public class EnlaceInteres implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_enlace", unique=true, nullable=false)
 	private Integer idEnlace;
 
