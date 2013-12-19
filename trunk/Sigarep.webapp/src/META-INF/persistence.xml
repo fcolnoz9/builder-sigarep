@@ -44,5 +44,6 @@
 		<class>sigarep.modelos.data.maestros.Usuario</class>
 		<class>sigarep.modelos.data.transacciones.MiembroGrupo</class>
 		<class>sigarep.modelos.data.transacciones.MiembroGrupoPK</class>
-		<class>sigarep.herramientas.Archivo</class></persistence-unit>
+		<class>sigarep.herramientas.Archivo</class>
+		<class>sigarep.modelos.data.maestros.EnlaceInteres</class></persistence-unit>
 </persistence>
