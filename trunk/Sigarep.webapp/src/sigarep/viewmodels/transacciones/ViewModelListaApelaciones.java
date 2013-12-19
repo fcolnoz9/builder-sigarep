@@ -102,6 +102,6 @@ public class ViewModelListaApelaciones {
 	  	@Command
 		@NotifyChange({"listadoApelaciones"})
 		public void buscarApelaciones(){
-			listadoApelaciones =servicioapelacionmomento.listadoApelaciones();
+		
 		}
 }
