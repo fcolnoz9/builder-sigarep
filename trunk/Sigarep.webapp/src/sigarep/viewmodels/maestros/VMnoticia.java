@@ -122,8 +122,8 @@ public class VMnoticia {
 		if (titulo.equals("")||contenido.equals("")|| fechaRegistro.equals("")|| enlaceNoticia.equals("") || vencimiento.equals(""))
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
-		Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, imagen,titulo, vencimiento);
-		servicionoticia.guardar(noticia);
+		//Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, imagen,titulo, vencimiento);
+		//servicionoticia.guardar(noticia);
 		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 		limpiar();
 		}
@@ -166,7 +166,7 @@ public class VMnoticia {
 		contenido=getNoticiaseleccionada().getContenido();
 		enlaceNoticia=getNoticiaseleccionada().getEnlaceNoticia();
 		fechaRegistro=getNoticiaseleccionada().getFechaRegistro();
-		imagen=getNoticiaseleccionada().getImagen();
+		//imagen=getNoticiaseleccionada().getImagen();
 		titulo=getNoticiaseleccionada().getTitulo();
 		vencimiento=getNoticiaseleccionada().getVencimiento();
 

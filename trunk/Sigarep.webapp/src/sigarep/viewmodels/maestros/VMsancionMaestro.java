@@ -83,9 +83,9 @@ public class VMsancionMaestro {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			SancionMaestro sanm = new SancionMaestro(id_sancion, nombre,
-					descripcion, true);
-			serviciosancionmaestro.guardarSancion(sanm);
+			//SancionMaestro sanm = new SancionMaestro(id_sancion, nombre,
+			//		descripcion, true);
+			//serviciosancionmaestro.guardarSancion(sanm);
 			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
 					Messagebox.OK, Messagebox.INFORMATION);
 			limpiar();
