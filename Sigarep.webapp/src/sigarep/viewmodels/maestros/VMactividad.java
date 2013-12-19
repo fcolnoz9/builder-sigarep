@@ -94,9 +94,9 @@ public class VMactividad {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			Actividad actividad = new Actividad(id_actividad, nombre,
-					descripcion, imagen, true);
-			servicioactividad.guardar(actividad);
+			//Actividad actividad = new Actividad(id_actividad, nombre,
+			//		descripcion, imagen, true);
+			//servicioactividad.guardar(actividad);
 			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
 					Messagebox.OK, Messagebox.INFORMATION);
 			limpiar();
@@ -143,6 +143,6 @@ public class VMactividad {
 		id_actividad = getActividadSeleccionada().getIdActividad();
 		nombre = getActividadSeleccionada().getNombre();
 		descripcion = getActividadSeleccionada().getDescripcion();
-		imagen = getActividadSeleccionada().getImagen();
+		//imagen = getActividadSeleccionada().getImagen();
 	}
 }
