@@ -21,7 +21,7 @@ public class Archivo {
 	 * 
 	 */
 	@Column(name = "contenidoarchivo", nullable=true)
-	private byte[] contenido = new byte[] {};
+	private byte[] contenidoArchivo = new byte[] {};
 
 	@Column(name = "nombrearchivo", nullable=true)
 	private String nombreArchivo = "";
@@ -38,7 +38,7 @@ public class Archivo {
 	public Archivo(File archivo) {
 		try {
 			byte[] bytes = Archivo.toByteArray(archivo);
-			this.contenido = bytes;
+			this.contenidoArchivo = bytes;
 			this.nombreArchivo = archivo.getName();
 		} catch (Exception ex) {
 			// Seguramente un Error de Entrada y Salida
@@ -46,17 +46,17 @@ public class Archivo {
 	}
 
 	
-	public byte[] getContenido() {
-		return contenido;
+	public byte[] getContenidoArchivo() {
+		return contenidoArchivo;
 	}
 
-	public void setContenido(byte[] contenido) {
+	public void setContenidoArchivo(byte[] contenido) {
 		if (contenido != null) {
 			this.setTamano(new Long(contenido.length));
 		} else {
 			contenido = new byte[] {};
 		}
-		this.contenido = contenido;
+		this.contenidoArchivo = contenido;
 	}
 
 	public String getNombreArchivo() {
@@ -80,7 +80,7 @@ public class Archivo {
 	public InputStream toInputStream() {
 		ByteArrayInputStream input;
 
-		input = new ByteArrayInputStream(contenido);
+		input = new ByteArrayInputStream(contenidoArchivo);
 
 		return input;
 	}
@@ -149,7 +149,7 @@ public class Archivo {
 	public AImage getAImage() throws IOException{
 		if (tamano > 0){
 			try {
-				return new AImage(nombreArchivo, contenido);
+				return new AImage(nombreArchivo, contenidoArchivo);
 			} catch (IOException e) {
 				return null;
 			}
