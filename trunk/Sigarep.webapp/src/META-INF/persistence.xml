@@ -13,7 +13,6 @@
 		<class>sigarep.modelos.data.transacciones.Cronograma</class>
 		<class>sigarep.modelos.data.transacciones.CronogramaPK</class>
 		<class>sigarep.modelos.data.maestros.DatoSistema</class>
-		<class>sigarep.modelos.data.maestros.EnlaceIntere</class>
 		<class>sigarep.modelos.data.maestros.Estudiante</class>
 		<class>sigarep.modelos.data.transacciones.EstudianteSancionado</class>
 		<class>sigarep.modelos.data.transacciones.EstudianteSancionadoPK</class>
