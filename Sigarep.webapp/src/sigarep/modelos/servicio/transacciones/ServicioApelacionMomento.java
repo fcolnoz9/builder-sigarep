@@ -1,4 +1,7 @@
 package sigarep.modelos.servicio.transacciones;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +19,23 @@ import sigarep.modelos.repositorio.transacciones.IApelacionMomentoDAO;
 // El servicio interactua con la base de datos
 
 @Service("servicioapelacionmomento") //Definiendo la variable servicio
-public class ServicioApelacionMomento{
-	private @Autowired IApelacionMomentoDAO ape ;
+public class ServicioApelacionMomento {
+	private @Autowired IApelacionMomentoDAO ape;
+	
 
 //	public ApelacionMomento buscarApelaciones(ApelacionMomentoPK momento){
 //		return ape.findOne(momento);
 //	
 //	}
 	
+	public List<ApelacionMomento> listadoApelaciones() {
+		System.out.println("Metodo llamado desde el VM");
+		List<ApelacionMomento> lista=ape.buscarApelaciones();
+	    return lista ;
+	}
+
 
 }
 
 	
+
