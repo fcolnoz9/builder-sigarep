@@ -48,15 +48,23 @@ public class ViewModelListaApelaciones {
 	private String nombreTipoMotivo;
 	@WireVariable
 	private String nombrePrograma;
-	
+	@WireVariable
+	private String cedulaEstudiante;
+	@WireVariable
+	private String primerNombre;
+	@WireVariable
+	private String primerApellido;
+	@WireVariable
+	private ApelacionMomento apelacionmomento;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
+	@WireVariable
+	private ServicioApelacionMomento servicioapelacionmomento;
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<ApelacionMomento> listadoApelaciones;
-	private ServicioApelacionMomento servicioapelacionmomento;
 	public List<TipoMotivo> getListaTipoMotivo() {
 			return listaTipoMotivo;
 		}
@@ -85,6 +93,7 @@ public class ViewModelListaApelaciones {
 	    	 //initialization code
 	    	buscarTipoMotivo();
 	    	buscarProgramaA ();
+	    	buscarApelaciones ();
 	    	
 	    }
 	    //Metodo que busca un motivo partiendo por su titulo
@@ -102,6 +111,8 @@ public class ViewModelListaApelaciones {
 	  	@Command
 		@NotifyChange({"listadoApelaciones"})
 		public void buscarApelaciones(){
-		
+	  		System.out.println("Metodo llamado en el init()");
+			listadoApelaciones =servicioapelacionmomento.listadoApelaciones();
+			
 		}
 }

@@ -62,15 +62,16 @@
    			 					 emptyMessage="No hay Apelaciones" >	
 							<listhead>
 								<listheader label="Cédula" align="center" sort="auto(cedulaEstudiante)"  />
-								<listheader label="Nombre" align="center" />
-								<listheader label="Apellido" align="center" />
-								<listheader label="Sanción" align="center"  />
+								<listheader label="Nombre" align="center" sort="auto(primerNombre)"/>
+								<listheader label="Apellido" align="center" sort="auto(primerApellido)" />
+								<listheader label="Sanción" align="center" sort="auto(nombreSancion)" />
 							</listhead>
 						<template name="model">
 							<listitem>
  								<listcell label="${each.cedulaEstudiante}"/> 
-								<listcell label="" />
-								<listcell label="" />
+								<listcell label="${each.primerNombre}" />
+								<listcell label="${each.primerApellido}" />
+								<listcell label="${each.nombreSancion}" />
 							</listitem>
 						</template>
 						</listbox>
