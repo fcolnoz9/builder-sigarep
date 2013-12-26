@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,33 +39,53 @@ import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelArray;
 import sigarep.modelos.data.maestros.*;
 import sigarep.modelos.data.transacciones.ApelacionMomento;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.*;
-import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
+import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
+import sigarep.modelos.servicio.transacciones.ServicioApelacion;
+//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
+//import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+//import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class ViewModelListaApelaciones {
 	@WireVariable
-	private String nombreTipoMotivo;
+	private Estudiante estudiante = new Estudiante();
+	@WireVariable
+	private EstudianteSancionado estudiantesancionado;
+	@WireVariable
+	private ListaApelacionMomento listaapelacionmomento;
+	@WireVariable
+	private SolicitudApelacion solicitudapelacion;
+	@WireVariable
+	private Momento momento;
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
-	private String cedulaEstudiante;
-	@WireVariable
-	private String primerNombre;
-	@WireVariable
-	private String primerApellido;
+	private String nombreTipoMotivo;
 	@WireVariable
 	private ApelacionMomento apelacionmomento;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
+//	@WireVariable
+//	private ServicioApelacionMomento servicioapelacionmomento;
+//	@WireVariable
+//	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
-	private ServicioApelacionMomento servicioapelacionmomento;
+	private ServicioApelacion serviciolista;
+//	@WireVariable
+//	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private List<EstudianteSancionado> listaSancionados =  new LinkedList<EstudianteSancionado>();
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<ApelacionMomento> listadoApelaciones;
+	private List<ListaApelacionMomento> lista = new LinkedList<ListaApelacionMomento>();
 	public List<TipoMotivo> getListaTipoMotivo() {
 			return listaTipoMotivo;
 		}
@@ -88,12 +109,21 @@ public class ViewModelListaApelaciones {
 		this.listaPrograma = listaPrograma;
 	}
    
-	 @Init
+	
+	 public List<ListaApelacionMomento> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<ListaApelacionMomento> lista) {
+		this.lista = lista;
+	}
+
+	@Init
 	    public void init(){
 	    	 //initialization code
 	    	buscarTipoMotivo();
 	    	buscarProgramaA ();
-	    	buscarApelaciones ();
+	    	buscarApelacionesR ();
 	    	
 	    }
 	    //Metodo que busca un motivo partiendo por su titulo
@@ -109,10 +139,8 @@ public class ViewModelListaApelaciones {
 			listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
 		}
 	  	@Command
-		@NotifyChange({"listadoApelaciones"})
-		public void buscarApelaciones(){
-	  		System.out.println("Metodo llamado en el init()");
-			listadoApelaciones =servicioapelacionmomento.listadoApelaciones();
-			
+		@NotifyChange({"lista"})
+		public void buscarApelacionesR(){
+		  			lista = serviciolista.buscarApelaciones();
 		}
 }
