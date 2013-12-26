@@ -58,7 +58,7 @@
 
 		<groupbox id = "grbListaSancionados">
 						<caption label="Lista de Sancionados"/>
-						<listbox id="lbxSancionados"  height="70%" model="@bind(vm.listadoApelaciones)"   
+						<listbox id="lbxSancionados"  height="70%" model="@bind(vm.lista)"   
    			 					 emptyMessage="No hay Apelaciones" >	
 							<listhead>
 								<listheader label="Cédula" align="center" sort="auto(cedulaEstudiante)"  />
