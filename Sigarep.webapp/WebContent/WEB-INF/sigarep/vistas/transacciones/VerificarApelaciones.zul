@@ -3,7 +3,8 @@
 	<window title="Gestión :: Apelaciones :: Evaluar Apelaciones"
 		id="winActualizarEstadoEstudiante" border="normal" width="auto"
 	    closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.ViewModelListaApelaciones')" >
+            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.ViewModelListaApelaciones')"  
+            action="hide: slideUp"  onCancel="@command('closeThis')" >
 		<style src="/widgets/grid/simple/style.css" />
 
 		<zscript><![CDATA[
@@ -57,8 +58,9 @@
 		</grid>
 
 		<groupbox id = "grbListaSancionados">
-						<caption label="Lista de Sancionados"/>
-						<listbox id="lbxSancionados"  height="70%" model="@bind(vm.lista)"   
+						<caption label="Lista de Sancionados" />
+						<listbox id="lbxSancionados"  height="70%" model="@bind(vm.lista)" selectedItem="@bind(vm.listaapelacionmomento)"   
+				   			 onSelect="@command('showModal')"  mold="paging" pageSize="5"   
    			 					 emptyMessage="No hay Apelaciones" >	
 							<listhead>
 								<listheader label="Cédula" align="center" sort="auto(cedulaEstudiante)"  />
