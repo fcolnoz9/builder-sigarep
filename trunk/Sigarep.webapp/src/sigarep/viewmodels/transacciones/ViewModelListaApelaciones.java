@@ -24,6 +24,8 @@ import org.zkoss.util.resource.Labels;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -37,6 +39,8 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelArray;
+import org.zkoss.zul.Window;
+
 import sigarep.modelos.data.maestros.*;
 import sigarep.modelos.data.transacciones.ApelacionMomento;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
@@ -51,7 +55,8 @@ import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class ViewModelListaApelaciones {
+public class ViewModelListaApelaciones  {
+	
 	@WireVariable
 	private Estudiante estudiante = new Estudiante();
 	@WireVariable
@@ -86,6 +91,13 @@ public class ViewModelListaApelaciones {
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<ApelacionMomento> listadoApelaciones;
 	private List<ListaApelacionMomento> lista = new LinkedList<ListaApelacionMomento>();
+	private String sancion;
+	private String programa;
+	private String telefono;
+	private String email;
+	private String apellido;
+	private String nombre;
+	private String cedula;
 	public List<TipoMotivo> getListaTipoMotivo() {
 			return listaTipoMotivo;
 		}
@@ -117,6 +129,73 @@ public class ViewModelListaApelaciones {
 	public void setLista(List<ListaApelacionMomento> lista) {
 		this.lista = lista;
 	}
+	
+
+	public ListaApelacionMomento getListaapelacionmomento() {
+		return listaapelacionmomento;
+	}
+
+	public void setListaapelacionmomento(ListaApelacionMomento listaapelacionmomento) {
+		this.listaapelacionmomento = listaapelacionmomento;
+	}
+	
+	
+
+	public String getSancion() {
+		return sancion;
+	}
+
+	public void setSancion(String sancion) {
+		this.sancion = sancion;
+	}
+
+	public String getPrograma() {
+		return programa;
+	}
+
+	public void setPrograma(String programa) {
+		this.programa = programa;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
 
 	@Init
 	    public void init(){
@@ -124,7 +203,7 @@ public class ViewModelListaApelaciones {
 	    	buscarTipoMotivo();
 	    	buscarProgramaA ();
 	    	buscarApelacionesR ();
-	    	
+		
 	    }
 	    //Metodo que busca un motivo partiendo por su titulo
 	  	@Command
@@ -143,4 +222,30 @@ public class ViewModelListaApelaciones {
 		public void buscarApelacionesR(){
 		  			lista = serviciolista.buscarApelaciones();
 		}
-}
+	  	
+	  	@Command
+		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", "sancion"})
+		public void showModal (){
+	  		cedula = getListaapelacionmomento().getCedulaEstudiante();
+	  		nombre = getListaapelacionmomento().getPrimerNombre();
+	  		apellido = getListaapelacionmomento().getPrimerApellido();
+	  		email = getListaapelacionmomento().getEmail();
+	  		telefono = getListaapelacionmomento().getTelefono();
+	  		programa = getListaapelacionmomento().getPrograma();
+	  		sancion = getListaapelacionmomento().getNombreSancion();
+	  		
+	  		final HashMap<String, Object> map = new HashMap<String, Object>();
+	        map.put("cedula", this.cedula );
+	        map.put("nombre", this.nombre);
+	        map.put("apellido", this.apellido);
+	        map.put("email", this.email);
+	        map.put("telefono", this.telefono);
+	        map.put("programa", this.programa);
+	        map.put("sancion", this.sancion);
+	        
+	        final Window window = (Window) Executions.createComponents(
+	        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarReconsideracion.zul", null, map);
+			window.setMaximizable(true);
+			window.doModal();	
+	  	}
+	  }

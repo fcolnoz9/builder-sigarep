@@ -1,5 +1,8 @@
 <window id="winRegistrarReconsideracion" title="Gestión :: Reconsideraciones :: Registrar Reconsideracion" border="normal"
-	width="auto" height="auto"  style="overflow:auto" closable="true">
+	width="auto" height="auto"  style="overflow:auto" closable="true" contentStyle="overflow:auto"  action="hide: slideUp" apply="org.zkoss.bind.BindComposer"
+       onCancel="@command('closeThis')" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.ViewModelWindowRegistrarReconsideracion')">
+  
+		<style src="/widgets/grid/simple/style.css" />
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />
 		<textbox id="txtnrocaso" cols="23" maxlength="30" value="0001" disabled="true"></textbox>
@@ -19,28 +22,28 @@
 				</row>
 				<row>
 					<label id="lblCedula" value="Cedula: "/>
-					<textbox id="txtcedula" cols="23" maxlength="30" value="18863080" disabled="true"></textbox>
+					<textbox id="txtcedula" cols="23" maxlength="30" disabled="true" value="@bind(vm.cedula)"></textbox>
 				</row>
 				<row>
 					<label id="lblNombres" value="Nombres: "/>
-					<textbox id="txtNombres" cols="23" maxlength="30" value="Jose Luis" disabled="true"></textbox>
+					<textbox id="txtNombres" cols="23" maxlength="30" value="@bind(vm.nombre)" disabled="true"></textbox>
 				</row>
 				<row>
 					<label id="lblApellidos" value="Apellidos: "/>
-					<textbox id="txtApellidos" cols="23" maxlength="30" value="Vargas Ramirez" disabled="true"></textbox>
+					<textbox id="txtApellidos" cols="23" maxlength="30" value="@bind(vm.apellido)" disabled="true"></textbox>
 				</row>
 				<row>
 					<label id="lblEmail" value="Email: "/>
-					<textbox id="txtEmail" cols="23" maxlength="30" value="Jose@gmail.com" disabled="true"></textbox>
+					<textbox id="txtEmail" cols="23" maxlength="30" value="@bind(vm.email)" disabled="true"></textbox>
 				</row>
 				<row>
 					<label id="lblTelefono" value="Telefono: "/>
-					<textbox id="txtTelefono" cols="23" maxlength="30" value="0412089765" disabled="true">
+					<textbox id="txtTelefono" cols="23" maxlength="30" value="@bind(vm.telefono)" disabled="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPrograma" value="Programa: "/>
-					<textbox id="txtPrograma" cols="23" maxlength="30" value="Informatica" disabled="true"></textbox>
+					<textbox id="txtPrograma" cols="23" maxlength="30" value="@bind(vm.programa)" disabled="true"></textbox>
 				</row>
 			</rows>
 		</grid>
@@ -61,7 +64,7 @@
 				</row>
 				<row>
 					<label id="lblTiposancion" value="Tipo de Sancion: " />
-					<textbox id="txtTipoSancion" cols="23" maxlength="30" value="18863080" disabled="true"></textbox>
+					<textbox id="txtTipoSancion" cols="23" maxlength="30"  disabled="true" value="@bind(vm.sancion)"></textbox>
 				</row>
 				<row>
 					<label id="lblLapsosancion" value="Lapso de Sancion: " />
@@ -100,7 +103,8 @@
 	</groupbox>
 	<groupbox>
 	<listbox sclass="employee-list" vflex="true" hflex="1"
-            		model="@load(vm.contributorList)" selectedItem="@bind(vm.selectedContributor)" >
+            		
+            		 >
             	<auxhead>
                 	<auxheader colspan="3" class="topic">Recaudos</auxheader>
             	</auxhead>
