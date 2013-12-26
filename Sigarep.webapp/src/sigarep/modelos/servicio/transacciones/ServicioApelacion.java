@@ -17,7 +17,6 @@ import sigarep.modelos.data.transacciones.ApelacionMomento;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.repositorio.transacciones.IApelacionMomentoDAO;
-import sigarep.modelos.repositorio.transacciones.IServicioApelacion;
 import sigarep.modelos.data.maestros.Estudiante;
 
 
