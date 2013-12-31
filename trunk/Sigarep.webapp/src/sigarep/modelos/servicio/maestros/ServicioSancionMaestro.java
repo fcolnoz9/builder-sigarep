@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.repositorio.maestros.ISancionMaestroDAO;
 
@@ -12,8 +14,7 @@ import sigarep.modelos.repositorio.maestros.ISancionMaestroDAO;
 @Service("serviciosancionmaestro")
 // Definiendo la variable servicio
 public class ServicioSancionMaestro {
-	private @Autowired
-	ISancionMaestroDAO san;
+	@Autowired private  ISancionMaestroDAO san;
 
 	public void guardarSancion(SancionMaestro sanm) {
 		san.save(sanm);
@@ -32,7 +33,8 @@ public class ServicioSancionMaestro {
 	}
 
 	public List<SancionMaestro> listadoSanciones() {
-		List<SancionMaestro> sancionesLista = san.findAll();
+		List<SancionMaestro> sancionesLista = new LinkedList<SancionMaestro>();
+		sancionesLista = san.findAll();
 		return sancionesLista;
 	}
 

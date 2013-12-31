@@ -12,12 +12,11 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;;
 
-@Service("spp") //Definiendo la variable servicio
+@Service("serviciolapsoacademico") //Definiendo la variable servicio
 public class ServicioLapsoAcademico{
-	private @Autowired ILapsoAcademicoDAO pv ;
+	private @Autowired ILapsoAcademicoDAO pv;
 
 	public void guardar(LapsoAcademico pro) {
-		
     pv.save(pro);
 	}
 	public void actualizar(){
@@ -30,8 +29,9 @@ public class ServicioLapsoAcademico{
 		return pv.findOne(codigoLapso);
 	}
 	public List<LapsoAcademico> listadoLapsoAcademico() {
-		List<LapsoAcademico> LapsoAcademicoLista=pv.findAll();
-	    return LapsoAcademicoLista ;
+		List<LapsoAcademico> lapsoAcademicoLista = new LinkedList<LapsoAcademico>();
+		lapsoAcademicoLista=pv.findAll();
+	    return lapsoAcademicoLista;
 	}
 	public List<LapsoAcademico> buscarP(String codigoLapso){
 		List<LapsoAcademico> result = new LinkedList<LapsoAcademico>();
