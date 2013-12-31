@@ -1,107 +1,95 @@
-<window title="Administración del Sistema :: Seguridad funcional :: Registrar Usuario" id="winRegistrarUsuario"
-	border="normal">
+<window title="Registros Básicos :: Registrar Usuario"
+	id="winRegistrarUsuario" border="normal" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMusuario')">
 	<groupbox>
-		<groupbox>
-			<caption label="Datos de Usuario" />
-			<grid sclass="fgrid">
-				<columns>
-					<column label="" width="auto" />
-					<column label="" width="auto" />
-				</columns>
-				<rows>
-
-					<row>
-						<label id="lblUsuario"
-									value="Nombre Usuario:" />
-						<textbox id="txtUsuario" />
-					</row>
-					<row>
-						<label id="lblContraseña"
-									value="Contraseña:" />
-						<textbox id="txtContraseña" type="password"/>
-					</row>
-					<row>
-						<label id="lblRepetirContraseña"
-									value="Repetir Contraseña:" />
-						<textbox id="txtRepetirContraseña" type="password"/>
-					</row>
-				</rows>
-			</grid>
-		</groupbox>
-		
-		<groupbox>
-					<caption label="Datos personales" />
-					<grid sclass="fgrid">
-						<rows>
-							<row>
-								<label id="lblCedula" value="Cedula:" />
-								<intbox id="intCedula"/>
-							</row>
-							<row>
-								<label id="lblPrimerNombre"
-									value="Primer nombre:" />
-								<textbox id="txtPrimerNombre" />
-								<label id="lblSegundoNombre"
-									value="Segundo nombre:" />
-								<textbox id="txtSegundoNombre" />
-							</row>
-							<row>
-								<label id="lblPrimerApellido"
-									value="Primer apellido:" />
-								<textbox id="txtPrimerApellido" />
-								<label id="lblSegundoApellido"
-									value="Segundo apellido:" />
-								<textbox id="txtSegundoApellido" />
-							</row>
-							<row>
-								<label id="lblFechaNacimiento"
-									value="Fecha de nacimiento:" />
-								<datebox id="txtFechaNacimiento" />
-								<label id="lblTelefono"
-									value="Telefono:" />
-								<textbox id="txtTelefono" type="tel"/>
-							</row>
-							<row>
-								<label id="lblEmail" value="Email:" />
-								<textbox id="txtEmail" type="email" constraint="/.+@.+\.[a-z]+/: Ingrese un e-mail correcto"/>
-								
-								  
-								<label id="lblImagen" value="Imagen:" />
-								<!--<textbox id="txtCargar" />-->
-								
-								<button id="btnCargar" label="Cargar Imagen" upload="true,maxsize=300" width="100px" height="30px" >
-       						 	<attribute name="onUpload"><![CDATA[
-            					org.zkoss.util.media.Media media = event.getMedia();
-           							 if (media instanceof org.zkoss.image.Image) {
-                						org.zkoss.zul.Image image = new org.zkoss.zul.Image();
-                 					    image.setContent(media);
-                                        image.setParent(pics);
-                                     } else {
-                                        Messagebox.show("Not an image: "+media, "Error", Messagebox.OK, Messagebox.ERROR);
-                                        break;
-                                     }
-                              ]]></attribute>
-                             </button>
-                             <idspace id="pics"  height="40px" style="overflow:auto"/>
-                            
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-		
-		<div align="right" height="100%">
-			<button label="Guardar" id="btnGuardar"
-				image="imagenes/iconos/guardar.png" width="75px" height="50px"
-				orient="vertical">
-			</button>
-			<button label="Eliminar" id="btnEliminar"
-				image="imagenes/iconos/borrar.png" width="75px" height="50px"
-				orient="vertical">
-			</button>
-			<button label="Cancelar" id="btnCancelar"
-				image="imagenes/iconos/cancelar.png" width="75px" height="50px"
-				orient="vertical">
-			</button>
-		</div>
+		<caption label="Datos del usuario" />
+		<grid sclass="fgrid">
+			<columns>
+				<column align="right" width="40%" />
+				<column align="center" />
+				<column align="center" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Nombre del usuario: " id="lblNombreUsuario" />
+					<textbox id="txtNombreUsuario" cols="23"
+						constraint="no empty" width="200px" maxlength="30"
+						value="@bind(vm.nombreUsuario)" />
+				</row>
+				<row>
+					<label value="Correo electrónico: " id="lblCorreo" />
+					<textbox id="txtCorreo" cols="23"
+						constraint="no empty" width="200px" maxlength="30"
+						value="@bind(vm.correo)" />
+				</row>
+				<row>
+<!-- 				reconocido -->
+					<label value="Contraseña: " id="lblContraseña" />
+					<hlayout>
+						<textbox id="txtContraseña"
+							constraint="no empty" width="200px" 
+							value="@bind(vm.contrasenia)" />
+					</hlayout>
+				</row>
+				<row>
+					<label value="Repetir contraseña: " id="lblRepetirContraseña" />
+					<hlayout>
+						<textbox id="txtRepetirContraseña"
+							constraint="no empty" width="200px" 
+							value="@bind(vm.confirmarcontrasenia)" />
+					</hlayout>
+				</row>
+			</rows>
+		</grid>
 	</groupbox>
+	<separator />
+	<hbox width="100%" pack="end" align="center">
+		<button label="Guardar" image="/imagenes/iconos/guardar.png"
+			mold="trendy" width="auto" height="auto"
+			onClick="@command('guardarUsuario')">
+		</button>
+		<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
+			mold="trendy" width="auto" height="auto"
+			onClick="@command('eliminarUsuario')">
+		</button>
+		<button label="Cancelar" image="/imagenes/iconos/cancelar.png"
+			mold="trendy" width="auto" height="auto"
+			onClick="@command('limpiar')">
+		</button>
+	</hbox>
+	<groupbox id="grbListaUsuarios">
+		<caption label="Lista de Usuarios" />
+		<listbox id="lbxUsuario" height="100%"
+			model="@bind(vm.listaUsuario)"
+			selectedItem="@bind(vm.usuarioSeleccionado)"
+			onSelect="@command('mostrarSeleccionado')"
+			onClick="@command('pasepase')"
+			emptyMessage="No hay Usuarios registrados" mold="paging"
+			pageSize="5">
+			<listhead>
+				<listheader label="Número de usuario" align="center"
+					sort="auto(nombreUsuario)" />
+				<listheader label="Fecha de creación" align="center"
+					sort="auto(fechaCreacion)" />
+<!-- 				<listheader label="Estatus" align="center" -->
+<!-- 					sort="auto(descripcion)" /> -->
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell label="${each.nombreUsuario }" />
+					<listcell label="${each.fechaCreacion}" />
+<!-- 					<listcell label="${each.estatus}" /> -->
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
+	<separator />
+	<div align="right">
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			mold="trendy" onClick="winRegistrarUsuario.onClose()">
+		</button>
+	</div>
 </window>
