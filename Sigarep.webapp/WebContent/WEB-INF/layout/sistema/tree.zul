@@ -79,7 +79,7 @@
 							<treeitem>
 								<treerow>
 									<treecell label="Individual" id="RegistrarSancionado"
-										sclass="maestros" onClick="createWin(RegistrarSancionado.getId(), RegistrarSancionado.getSclass())" />
+										sclass="transacciones" onClick="createWin(RegistrarSancionado.getId(), RegistrarSancionado.getSclass())" />
 								</treerow>
 							</treeitem>
 						</treechildren>
@@ -422,8 +422,8 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Guardar históricos" id=""
-								onClick="createWin(.getId(),.getLabel())" />
+							<treecell label="Guardar históricos" id="" sclass="administracionSistema"
+										onClick="createWin(.getId(), .getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
@@ -441,9 +441,9 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Crear grupos de usuario" id="RegistrarGrupo"
+										label="Crear grupo de usuarios" id="RegistrarTipoGrupo"
 										sclass="maestros"
-										onClick="createWin(RegistrarGrupo.getId(), RegistrarGrupo.getSclass())" />
+										onClick="createWin(RegistrarTipoGrupo.getId(), RegistrarTipoGrupo.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>

@@ -3,8 +3,10 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import sigarep.modelos.data.transacciones.MiembroGrupo;
+import sigarep.herramientas.Archivo;
+import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -22,22 +24,27 @@ public class Grupo implements Serializable {
 	@Column(name="id_grupo", unique=true, nullable=false)
 	private Integer idGrupo;
 
-	@Column(length=255)
+	@Column(name="descripcion", length=255)
 	private String descripcion;
 
 	@Column(nullable=false)
 	private Boolean estatus;
 
-	private byte[] imagen;
-
-	@Column(nullable=false, length=50)
+	@Column(name = "nombre", nullable=false, length=50)
 	private String nombre;
 
 	//bi-directional many-to-one association to MiembroGrupo
 	@OneToMany(mappedBy="grupo")
-	private List<MiembroGrupo> miembroGrupos;
+	private List<UsuarioGrupo> usuariosGrupos = new LinkedList<UsuarioGrupo>();
 
 	public Grupo() {
+	}
+	
+	public Grupo(String descripcion, Boolean estatus, String nombre) {
+		super();
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.nombre = nombre;
 	}
 
 	public Integer getIdGrupo() {
@@ -64,14 +71,6 @@ public class Grupo implements Serializable {
 		this.estatus = estatus;
 	}
 
-	public byte[] getImagen() {
-		return this.imagen;
-	}
-
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -80,26 +79,25 @@ public class Grupo implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<MiembroGrupo> getMiembroGrupos() {
-		return this.miembroGrupos;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.grupo")
+	public List<UsuarioGrupo> getUsuariosGrupos() {
+		return this.usuariosGrupos;
 	}
 
-	public void setMiembroGrupos(List<MiembroGrupo> miembroGrupos) {
-		this.miembroGrupos = miembroGrupos;
+	public void setMiembroGrupos(List<UsuarioGrupo> miembroGrupos) {
+		this.usuariosGrupos = miembroGrupos;
 	}
 
-	public MiembroGrupo addMiembroGrupo(MiembroGrupo miembroGrupo) {
-		getMiembroGrupos().add(miembroGrupo);
-		miembroGrupo.setGrupo(this);
-
-		return miembroGrupo;
+	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuarioGrupo) {
+		getUsuariosGrupos().add(usuarioGrupo);
+		usuarioGrupo.setGrupo(this);
+		return usuarioGrupo;
 	}
 
-	public MiembroGrupo removeMiembroGrupo(MiembroGrupo miembroGrupo) {
-		getMiembroGrupos().remove(miembroGrupo);
-		miembroGrupo.setGrupo(null);
-
-		return miembroGrupo;
+	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuarioGrupo) {
+		getUsuariosGrupos().remove(usuarioGrupo);
+		usuarioGrupo.setGrupo(null);
+		return usuarioGrupo;
 	}
 
 }
