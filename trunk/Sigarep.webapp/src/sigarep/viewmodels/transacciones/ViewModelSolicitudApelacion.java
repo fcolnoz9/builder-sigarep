@@ -1,6 +1,7 @@
 package sigarep.viewmodels.transacciones;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,11 +49,14 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.Estudiante;
+import sigarep.modelos.data.transacciones.ApelacionMomento;
+import sigarep.modelos.data.transacciones.ApelacionMomentoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 
@@ -81,13 +85,16 @@ public class ViewModelSolicitudApelacion {
 		@WireVariable
 		private ServicioSolicitudApelacion serviciosolicitudapelacion;
 		@WireVariable
+		private ServicioApelacionMomento servicioapelacionmomento;
+		@WireVariable
 		private Integer instanciaApelada;
 		@WireVariable
 		private Date fechaSolicitud;
 		mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 		SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 		SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-		 
+		ApelacionMomentoPK apelacionMomentoPK = new ApelacionMomentoPK();
+		ApelacionMomento apelacionMomento = new ApelacionMomento(); 
 
 		
 		public Integer getInstancia() {
@@ -248,6 +255,7 @@ public class ViewModelSolicitudApelacion {
 		@Command
 		public void registrarSolicitudApelacion() {
 				Date fecha= new Date();
+				Time hora= new Time(0);
 				System.out.println("cedula "+cedula);
 				solicitudApelacionPK.setCedulaEstudiante(cedula);
 				System.out.println("lapso "+lapso);
@@ -258,10 +266,18 @@ public class ViewModelSolicitudApelacion {
 				System.out.println("fecha "+fecha);
 				solicitudApelacion.setFechaSolicitud(fecha);
 				solicitudApelacion.setEstatus(true);
+				apelacionMomentoPK.setCedulaEstudiante(cedula);
+				apelacionMomentoPK.setCodigoLapso(lapso);
+				apelacionMomentoPK.setIdInstanciaApelada(2);
+				apelacionMomentoPK.setIdMomento(4);
+				apelacionMomento.setId(apelacionMomentoPK);
+				apelacionMomento.setFechaMomento(hora);
 				
 				try {
 			
 					serviciosolicitudapelacion.guardar(solicitudApelacion);
+					servicioapelacionmomento.guardar(apelacionMomento);
+	
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
