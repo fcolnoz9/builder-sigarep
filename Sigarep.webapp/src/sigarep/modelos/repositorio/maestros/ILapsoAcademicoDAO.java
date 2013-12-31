@@ -16,8 +16,5 @@ public interface ILapsoAcademicoDAO extends JpaRepository<LapsoAcademico, String
 	@Query("select p from LapsoAcademico p where p.codigoLapso= :codigoLapso")
     public LapsoAcademico findBycodigoLapso(String codigoLapso);
 	@Query("select p from LapsoAcademico p where p.codigoLapso= :codigoLapso")
-	public List<LapsoAcademico> buscarLapsoAcademico(String codigoLapso);
-	
-	
-	
+	public List<LapsoAcademico> buscarLapsoAcademico(String codigoLapso);	
 }
