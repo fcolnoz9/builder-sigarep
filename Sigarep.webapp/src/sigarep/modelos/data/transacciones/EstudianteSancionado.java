@@ -7,7 +7,13 @@ import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
 
 
 /**
@@ -15,6 +21,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="estudiante_sancionado")
 public class EstudianteSancionado implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -36,15 +43,18 @@ public class EstudianteSancionado implements Serializable {
 
 	@Column(name="unidades_cursadas", nullable=false)
 	private Integer unidadesCursadas;
+	
+	@Column(name="estatus", nullable=true)
+	private boolean estatus;
 
 	//bi-directional many-to-one association to AsignaturaEstudianteSancionado
 	@OneToMany(mappedBy="estudianteSancionado")
-	private List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados;
+	private List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados = new LinkedList<AsignaturaEstudianteSancionado>();
 
 	//bi-directional many-to-one association to Estudiante
 	@ManyToOne
 	@JoinColumn(name="cedula_estudiante", nullable=false, insertable=false, updatable=false)
-	private Estudiante estudiante;
+	private Estudiante estudiante = new Estudiante();
 
 	//bi-directional many-to-one association to LapsoAcademico
 	@ManyToOne
@@ -58,9 +68,26 @@ public class EstudianteSancionado implements Serializable {
 
 	//bi-directional many-to-one association to SolicitudApelacion
 	@OneToMany(mappedBy="estudianteSancionado")
-	private List<SolicitudApelacion> solicitudApelacions;
-
+	private List<SolicitudApelacion> solicitudApelacions = new LinkedList<SolicitudApelacion>();
+		
 	public EstudianteSancionado() {
+	}
+		
+	public EstudianteSancionado(EstudianteSancionadoPK id, float indiceGrado,
+			String lapsosAcademicosRp, Integer semestre,
+			Integer unidadesAprobadas, Integer unidadesCursadas,
+			Estudiante estudiante, LapsoAcademico lapsoAcademico,
+			SancionMaestro sancionMaestro) {
+		super();
+		this.id = id;
+		this.indiceGrado = indiceGrado;
+		this.lapsosAcademicosRp = lapsosAcademicosRp;
+		this.semestre = semestre;
+		this.unidadesAprobadas = unidadesAprobadas;
+		this.unidadesCursadas = unidadesCursadas;
+		this.estudiante = estudiante;
+		this.lapsoAcademico = lapsoAcademico;
+		this.sancionMaestro = sancionMaestro;
 	}
 
 	public EstudianteSancionadoPK getId() {
@@ -156,6 +183,14 @@ public class EstudianteSancionado implements Serializable {
 	public void setSancionMaestro(SancionMaestro sancionMaestro) {
 		this.sancionMaestro = sancionMaestro;
 	}
+	
+	public boolean getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(boolean estatus) {
+		this.estatus = estatus;
+	}
 
 	public List<SolicitudApelacion> getSolicitudApelacions() {
 		return this.solicitudApelacions;
@@ -168,7 +203,6 @@ public class EstudianteSancionado implements Serializable {
 	public SolicitudApelacion addSolicitudApelacion(SolicitudApelacion solicitudApelacion) {
 		getSolicitudApelacions().add(solicitudApelacion);
 		solicitudApelacion.setEstudianteSancionado(this);
-
 		return solicitudApelacion;
 	}
 
@@ -178,5 +212,4 @@ public class EstudianteSancionado implements Serializable {
 
 		return solicitudApelacion;
 	}
-
 }

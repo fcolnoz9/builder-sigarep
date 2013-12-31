@@ -6,6 +6,7 @@ import javax.persistence.*;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -14,6 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="solicitud_apelacion")
 public class SolicitudApelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -42,15 +44,15 @@ public class SolicitudApelacion implements Serializable {
 	private String veredicto;
 
 	//bi-directional many-to-one association to ApelacionMomento
-	@OneToMany(mappedBy="solicitudApelacion")
-	private List<ApelacionMomento> apelacionMomentos;
+	@OneToMany(mappedBy="solicitudApelacion",fetch=FetchType.LAZY)
+	private List<ApelacionMomento> apelacionMomentos = new LinkedList<ApelacionMomento>();
 
 	//bi-directional many-to-one association to Motivo
-	@OneToMany(mappedBy="solicitudApelacion")
-	private List<Motivo> motivos;
+	@OneToMany(mappedBy="solicitudApelacion",fetch=FetchType.LAZY)
+	private List<Motivo> motivos = new LinkedList<Motivo>();
 
 	//bi-directional many-to-one association to EstudianteSancionado
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumns({
 		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
 		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false)

@@ -1,0 +1,126 @@
+<window id="winRegistrarSancionados" title="Registros Básicos :: Sancionados :: Registrar estudiante sancionado" border="normal" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMEstudianteSancionado')">
+			<groupbox>
+  			  <caption  label="Datos personales"/>
+	   		  <grid>
+        	  			<rows>
+        	  				<row>
+			                 	<label id="lblCedula" value="Cedula:"/>
+				    			<textbox id="txtCedula" value="@bind(vm.cedula)" />
+				    			<button label="Buscar" id = "btnBuscar"  image="/imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudiante')" />
+			            	</row>
+			            	<row>
+				                 <label id="lblPrimerNombre" value="Primer nombre:"/>
+					    		 <textbox id="txtPrimerNombre" value="@bind(vm.primerNombre)" />
+					    		 <label id="lblSegundoNombre" value="Segundo nombre:"/>
+					    		 <textbox id="txtSegundoNombre" value="@bind(vm.segundoNombre)" />
+			            	</row>
+			            	<row>
+				                 <label id="lblPrimerApellido" value="Primer apellido:"/>
+					    		 <textbox id="txtPrimerApellido" value="@bind(vm.primerApellido)"/>
+					    		 <label id="lblSegundoApellido" value="Segundo apellido:"/>
+					    		 <textbox id="txtSegundoApellido" value="@bind(vm.segundoApellido)"/>
+			            	</row>
+			            	<row>
+			            	  	<label id="lblsexo" value="Sexo"/>
+					    		<textbox id="txtSexo" value="@bind(vm.sexo)"/>
+								<label id="lblFechaNacimiento" value="Fecha de nacimiento:"/>
+					    		<datebox id="dtbFechaNacimiento"  cols="12"   mold="rounded" width="130px" height="25px" value="@bind(vm.fechaNacimiento)" format = "dd/MM/yyyy" />
+							</row>
+			            	<row>
+				                  <label id="lblTelefono" value="Telefono:"/>
+					    		  <textbox id="txtTelefono" value="@bind(vm.telefono)"/>
+					    		  <label id="lblEmail" value="Email:"/>
+					    		  <textbox id="txtEmail" value="@bind(vm.email)"/>
+			            	</row>
+			     
+        	 			 </rows>
+   			  </grid>
+ 			</groupbox>
+ 			<groupbox>
+  			  <caption  label="Datos academicos"/>
+	   		  <grid>
+			        	  <rows>
+			            	<row>
+			            			<label id="lblLapso" value="Lapso:"/>
+						    	    <combobox readonly="true" id= "cmbLapso" value="@bind(vm.lapsoAcademico.codigoLapso)" width="auto" mold="rounded" model="@load(vm.listaLapso)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('objetoComboLapso')">
+						    	        <template name="model">
+											<comboitem  label="${each.codigoLapso}"/>
+										</template>	
+								    </combobox>
+						    		
+						    		<label id="lblPrograma" value="Programa:"/>
+							    	<textbox id="txtPrograma" value="@bind(vm.programa)"/>								
+									<label id="lblAnnoIngreso" value="Año Ingreso:"/>
+					    			<datebox id="dtbAnnoIngreso"  cols="12"   mold="rounded" width="130px" height="25px" value="@bind(vm.annoIngreso)" format = "dd/MM/yyyy"/>
+							</row>
+			            	<row>
+						    		 <label id="lblIndiceGrado" value="Indice de grado:"/>
+						    		 <textbox id="txtIndiceGrado" value="@bind(vm.indiceGrado)"/>
+					                 <label id="lblLapsoAcademico" value="Lapso Academico:"/>
+						    		 <textbox id="txtLapsoAcademico" value="@bind(vm.lapsoAcademico.codigoLapso)"/>
+			            	</row>
+			            	
+			            	<row>
+					                 
+						    	
+							</row> 	
+							<row>
+								 	<label id="lblUnidadCursadas" value="Unidades Cursada"/>
+								 	<textbox id="txtUnidadCursadas" value="@bind(vm.unidadesCursadas)"/>
+								 	<label id="lblUnidadAprobadas" value="Unidades Aprobadas"/>
+								 	<textbox id="txtUnidadAprobadas" value="@bind(vm.unidadesAprobadas)"/>
+							</row>
+			            	
+			            	<row>
+					             <label id="lblSancion" value="Sancion:"/>
+						    	<combobox readonly="true" id= "cmbSancion" value="@bind(vm.sancionMaestro.nombreSancion)"  mold="rounded" width="auto" model="@load(vm.listaSancion)" selectedItem="@bind(vm.sancionMaestro)" onSelect="@command('objetoComboSancion')">
+						    	       <template name="model">
+											<comboitem  label="${each.nombreSancion}"/>
+									  </template>
+								</combobox>
+						    		  <label id="lblPeriodoSancion" value="Periodo de Sancion:"/>
+						    		  <textbox id="txtPeriodoSancion" value="@bind(vm.semestre)"/>
+			            	</row>
+			            	
+			        	  </rows>
+   			  </grid>
+ 			</groupbox>
+ 			
+ 			<!-- Grupbox de Botones -->
+ 		<space/>
+    	<div align="right" height="100%">
+		<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('registrarEstudianteSancionado')" />	
+   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
+   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarEstudianteSancionado')"/>
+   		</div>
+   		
+   	<space />
+   	<groupbox>
+   	<caption label="Lista de Estudiantes Sancionados" />
+   	<space />
+   	<space />
+   	<listbox id="estListbox" height="130px" model="@bind(vm.listaSancionados)" selectedItem="@bind(vm.estudianteSeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay estudiantes sancionados registrados" mold="paging" pageSize="3">
+		<listhead>
+			<listheader label="Cedula" align="center" sort="auto(id.cedulaEstudiante)" />
+			<listheader label="Nombre" align="center" sort="auto(estudiante.primerNombre)" />
+			<listheader label="Apellido" align="center" sort="auto(estudiante.primerApellido)" />
+			<listheader label="Sanción" align="center" sort="auto(sancionMaestro.nombreSancion)" />
+			<listheader label="Lapso Academico" align="center" sort="auto(id.codigoLapso)" />
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.id.cedulaEstudiante}" ></listcell>
+				<listcell label="${each.estudiante.primerNombre}" ></listcell>
+				<listcell label="${each.estudiante.primerApellido}" ></listcell>
+				<listcell label="${each.sancionMaestro.nombreSancion}" ></listcell>
+				<listcell label="${each.id.codigoLapso}" ></listcell>
+			</listitem>
+		</template>
+	</listbox>
+	<space />
+	<space />
+	</groupbox>
+   		
+ </window>

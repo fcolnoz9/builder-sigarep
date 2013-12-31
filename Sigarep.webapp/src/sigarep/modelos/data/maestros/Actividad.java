@@ -14,6 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="actividad")
 public class Actividad implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -40,6 +41,16 @@ public class Actividad implements Serializable {
 	private List<Cronograma> cronogramas;
 
 	public Actividad() {
+	}
+	
+	public Actividad(Integer id_actividad, String nombre, String descripcion,
+			byte[] imagen, Boolean estatus) {
+		super();
+		this.idActividad = id_actividad;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.imagen = imagen;
+		this.estatus = estatus;
 	}
 
 	public Integer getIdActividad() {
@@ -92,7 +103,6 @@ public class Actividad implements Serializable {
 	public Cronograma removeCronograma(Cronograma cronograma) {
 		getCronogramas().remove(cronograma);
 		cronograma.setActividad(null);
-
 		return cronograma;
 	}
 

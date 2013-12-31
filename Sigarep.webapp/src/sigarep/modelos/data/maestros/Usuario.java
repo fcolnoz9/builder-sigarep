@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 
 
-import sigarep.modelos.data.transacciones.MiembroGrupo;
+import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
 import java.util.Collection;
 
@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.User;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -37,7 +38,16 @@ public class Usuario implements Serializable {
 			Collection<? extends GrantedAuthority> authorities) {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
+	public Usuario(String nombreUsuario, String contrasenia,String correo, boolean estatus, Date fechaCreacion){
+		super();
+		this.nombreUsuario = nombreUsuario;
+		this.contrasenia = contrasenia;
+		this.correo = correo;
+		this.estatus = estatus;
+		this.fechaCreacion = fechaCreacion;
+	}
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -57,15 +67,20 @@ public class Usuario implements Serializable {
 	@Column(name="fecha_creacion", nullable=false)
 	private Date fechaCreacion;
 
-	@Column(name="nombre_completo", nullable=false, length=255)
-	private String nombreCompleto;
-
+	/*@Column(name="nombre_completo", nullable=false, length=255)
+	private String nombreCompleto;*/
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name="ultimo_acceso")
-	private Time ultimoAcceso;
+	private Date ultimoAcceso;
 
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_eliminacion")
+	private Date fechaEliminacion;
+	
 	//bi-directional many-to-one association to MiembroGrupo
 	@OneToMany(mappedBy="usuario", cascade={CascadeType.ALL})
-	private List<MiembroGrupo> miembroGrupos;
+	private List<UsuarioGrupo> usuariosGrupos = new LinkedList<UsuarioGrupo>();
 
 
 	public String getNombreUsuario() {
@@ -108,15 +123,15 @@ public class Usuario implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public String getNombreCompleto() {
+	/*public String getNombreCompleto() {
 		return this.nombreCompleto;
 	}
 
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
-	}
+	}*/
 
-	public Time getUltimoAcceso() {
+	public Date getUltimoAcceso() {
 		return this.ultimoAcceso;
 	}
 
@@ -124,26 +139,34 @@ public class Usuario implements Serializable {
 		this.ultimoAcceso = ultimoAcceso;
 	}
 
-	public List<MiembroGrupo> getMiembroGrupos() {
-		return this.miembroGrupos;
+	public Date getFechaEliminacion() {
+		return fechaEliminacion;
 	}
 
-	public void setMiembroGrupos(List<MiembroGrupo> miembroGrupos) {
-		this.miembroGrupos = miembroGrupos;
+	public void setFechaEliminacion(Date fechaEliminacion) {
+		this.fechaEliminacion = fechaEliminacion;
 	}
 
-	public MiembroGrupo addMiembroGrupo(MiembroGrupo miembroGrupo) {
-		getMiembroGrupos().add(miembroGrupo);
-		miembroGrupo.setUsuario(this);
-
-		return miembroGrupo;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.usuario")
+	public List<UsuarioGrupo> getUsuariosGrupos() {
+		return this.usuariosGrupos;
 	}
 
-	public MiembroGrupo removeMiembroGrupo(MiembroGrupo miembroGrupo) {
-		getMiembroGrupos().remove(miembroGrupo);
-		miembroGrupo.setUsuario(null);
+	public void setUsuariosGrupos(List<UsuarioGrupo> usuariosGrupos) {
+		this.usuariosGrupos = usuariosGrupos;
+	}
 
-		return miembroGrupo;
+	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
+		getUsuariosGrupos().add(usuariosGrupos);
+		usuariosGrupos.setUsuario(this);
+		return usuariosGrupos;
+	}
+
+	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
+		getUsuariosGrupos().remove(usuariosGrupos);
+		usuariosGrupos.setUsuario(null);
+
+		return usuariosGrupos;
 	}
 
 }

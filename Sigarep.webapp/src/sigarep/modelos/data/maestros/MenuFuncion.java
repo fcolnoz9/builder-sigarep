@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="menu_funcion")
 public class MenuFuncion implements Serializable {
 	private static final long serialVersionUID = 1L;

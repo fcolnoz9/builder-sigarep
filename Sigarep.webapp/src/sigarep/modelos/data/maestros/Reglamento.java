@@ -13,6 +13,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="reglamento")
 public class Reglamento implements Serializable {
 	private static final long serialVersionUID = 1L;

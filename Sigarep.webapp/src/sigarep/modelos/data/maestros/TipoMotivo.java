@@ -13,6 +13,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="tipo_motivo")
 public class TipoMotivo implements Serializable {
 	

@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.maestros.TipoMotivo;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -13,6 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="motivo")
 public class Motivo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -42,7 +44,7 @@ public class Motivo implements Serializable {
 
 	//bi-directional many-to-one association to RecaudoEntregado
 	@OneToMany(mappedBy="motivo")
-	private List<RecaudoEntregado> recaudoEntregados;
+	private List<RecaudoEntregado> recaudoEntregados = new LinkedList<RecaudoEntregado>();
 
 	public Motivo() {
 	}

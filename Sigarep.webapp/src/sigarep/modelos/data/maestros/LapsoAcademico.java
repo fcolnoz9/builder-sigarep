@@ -15,6 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="lapso_academico")
 public class LapsoAcademico implements Serializable {
         private static final long serialVersionUID = 1L;

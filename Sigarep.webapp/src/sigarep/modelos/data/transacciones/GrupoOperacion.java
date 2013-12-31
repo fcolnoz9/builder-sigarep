@@ -12,6 +12,7 @@ import sigarep.modelos.data.maestros.Operacion;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="grupo_operacion")
 public class GrupoOperacion implements Serializable {
 	private static final long serialVersionUID = 1L;

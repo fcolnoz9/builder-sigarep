@@ -12,6 +12,7 @@ import sigarep.herramientas.Archivo;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="enlace_interes")
 public class EnlaceInteres implements Serializable {
 	private static final long serialVersionUID = 1L;
