@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="nivel_menu")
 public class NivelMenu implements Serializable {
 	private static final long serialVersionUID = 1L;

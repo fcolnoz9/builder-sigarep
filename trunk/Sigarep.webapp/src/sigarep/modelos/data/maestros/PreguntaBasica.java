@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity // anotación indica que el JavaBean es una entidad persistente
+@Access(AccessType.FIELD)
 @Table(name="pregunta_basica") //
 public class PreguntaBasica implements Serializable {
        private static final long serialVersionUID = 1L;

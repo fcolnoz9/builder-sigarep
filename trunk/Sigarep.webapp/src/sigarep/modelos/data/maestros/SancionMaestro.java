@@ -22,10 +22,10 @@ public class SancionMaestro implements Serializable {
 	@Column(name="id_sancion", unique=true, nullable=false)
 	private Integer idSancion;
 
-	@Column(length=255)
+	@Column(name="descripcion", length=255)
 	private String descripcion;
 
-	@Column(nullable=false)
+	@Column(name="estatus", nullable=false)
 	private Boolean estatus;
 
 	@Column(name="nombre_sancion", nullable=false, length=60)
@@ -37,6 +37,16 @@ public class SancionMaestro implements Serializable {
 
 	public SancionMaestro() {
 	}
+	
+	public SancionMaestro(Integer idSancion, String nombreSancion, String descripcion,Boolean estatus) {
+		super();
+		this.idSancion = idSancion;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.nombreSancion = nombreSancion;
+	}
+
+
 
 	public Integer getIdSancion() {
 		return this.idSancion;

@@ -2,6 +2,7 @@ package sigarep.modelos.data.transacciones;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="soporte")
 public class Soporte implements Serializable {
 	private static final long serialVersionUID = 1L;

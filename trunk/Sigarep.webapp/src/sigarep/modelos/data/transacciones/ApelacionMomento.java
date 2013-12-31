@@ -6,6 +6,7 @@ import javax.persistence.*;
 import sigarep.modelos.data.maestros.Momento;
 
 import java.sql.Time;
+import java.util.Date;
 
 
 /**
@@ -13,6 +14,7 @@ import java.sql.Time;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="apelacion_momento")
 public class ApelacionMomento implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,7 +23,7 @@ public class ApelacionMomento implements Serializable {
 	private ApelacionMomentoPK id;
 
 	@Column(name="fecha_momento", nullable=false)
-	private Time fechaMomento;
+	private Date fechaMomento;
 
 	//bi-directional many-to-one association to Momento
 	@ManyToOne
@@ -48,7 +50,7 @@ public class ApelacionMomento implements Serializable {
 		this.id = id;
 	}
 
-	public Time getFechaMomento() {
+	public Date getFechaMomento() {
 		return this.fechaMomento;
 	}
 

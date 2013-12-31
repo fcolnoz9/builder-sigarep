@@ -8,6 +8,7 @@ import javax.persistence.*;
  * 
  */
 @Embeddable
+@Access(AccessType.FIELD)
 public class SolicitudApelacionPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;

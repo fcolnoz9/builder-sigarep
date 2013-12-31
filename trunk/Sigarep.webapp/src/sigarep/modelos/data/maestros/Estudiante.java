@@ -6,6 +6,7 @@ import javax.persistence.*;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -14,6 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="estudiante")
 public class Estudiante implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -60,8 +62,8 @@ public class Estudiante implements Serializable {
 	private ProgramaAcademico programaAcademico;
 
 	//bi-directional many-to-one association to EstudianteSancionado
-	@OneToMany(mappedBy="estudiante")
-	private List<EstudianteSancionado> estudianteSancionados;
+	@OneToMany(mappedBy="estudiante",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
 	public Estudiante() {
 	}
@@ -139,7 +141,7 @@ public class Estudiante implements Serializable {
 	}
 
 	public String getSexo() {
-		return this.sexo;
+		return sexo;
 	}
 
 	public void setSexo(String sexo) {

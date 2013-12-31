@@ -8,6 +8,7 @@ import javax.persistence.*;
  * 
  */
 @Embeddable
+@Access(AccessType.FIELD)
 public class EstudianteSancionadoPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
@@ -20,6 +21,13 @@ public class EstudianteSancionadoPK implements Serializable {
 
 	public EstudianteSancionadoPK() {
 	}
+	
+	public EstudianteSancionadoPK(String codigoLapso, String cedulaEstudiante) {
+		super();
+		this.codigoLapso = codigoLapso;
+		this.cedulaEstudiante = cedulaEstudiante;
+	}
+
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}

@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.maestros.Recaudo;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -13,6 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="recaudo_entregado")
 public class RecaudoEntregado implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +45,7 @@ public class RecaudoEntregado implements Serializable {
 
 	//bi-directional many-to-one association to Soporte
 	@OneToMany(mappedBy="recaudoEntregado")
-	private List<Soporte> soportes;
+	private List<Soporte> soportes = new LinkedList<Soporte>();
 
 	public RecaudoEntregado() {
 	}

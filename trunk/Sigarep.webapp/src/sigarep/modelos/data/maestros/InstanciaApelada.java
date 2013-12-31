@@ -13,6 +13,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="instancia_apelada")
 public class InstanciaApelada implements Serializable {
 	private static final long serialVersionUID = 1L;

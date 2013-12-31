@@ -11,6 +11,7 @@ import sigarep.modelos.data.maestros.Asignatura;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="asignatura_estudiante_sancionado")
 public class AsignaturaEstudianteSancionado implements Serializable {
 	private static final long serialVersionUID = 1L;
