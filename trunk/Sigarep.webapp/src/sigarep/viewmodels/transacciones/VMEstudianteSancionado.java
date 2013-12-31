@@ -1,53 +1,28 @@
 package sigarep.viewmodels.transacciones;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JRException;
-
-import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.ExecutionArgParam;
+
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.image.AImage;
-import org.zkoss.util.media.AMedia;
-import org.zkoss.util.resource.Labels;
+
 import org.zkoss.zhtml.Messagebox;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.select.Selectors;
+
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkplus.databind.BindingListModel;
-import org.zkoss.zkplus.databind.BindingListModelArray;
-import org.zkoss.zkplus.databind.BindingListModelList;
-import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Filedownload;
+
 import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Label;
+
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Datebox;
-import org.zkoss.zul.ListModel;
-import org.zkoss.zul.ListModelArray;
 
-import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -57,7 +32,6 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
@@ -171,9 +145,6 @@ public class VMEstudianteSancionado {
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 	
-	
-	@WireVariable
-	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@Wire
 	private Datebox dbfecha;
 	@Wire
@@ -596,98 +567,5 @@ public class VMEstudianteSancionado {
 	 @NotifyChange({"listaLapso"})
 	public LapsoAcademico objetoComboLapso() {
 		return lapsoAcademico;
-	}
-	
-	@Command
-	//@NotifyChange({"dbfecha","rgEleccion","rbTodos","rbSolicitud"})
-	public void generarHistorico() {
-		if (dbfecha.getValue() != null) {
-			List<String> listaElementosAInsertar = new ArrayList<String>();
-			List<String> listaAuxiliarElementos = new ArrayList<String>();
-			dbfecha.setFormat("yyyy-MM-dd");
-			String nombreHistorico = "historicoTodosSigarep-" + dbfecha.getText();
-			String destinoHistorico = "todos/historicoTodosSigarep-" + dbfecha.getText();
-			if (rgEleccion.getSelectedItem() != null) {
-				if (rbTodos.isChecked()) {
-					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(dbfecha.getValue());
-					System.out.println("tamaño lista auxiliar: "+ listaAuxiliarElementos);
-					if (listaAuxiliarElementos.size() > 0) {
-						listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					}
-					// 	 				    listaAuxiliarElementos=servicioOrdenEntrega.historicoOrdenEntrega(dbfecha.getValue());  
-					// 	 				    if(listaAuxiliarElementos.size()>0){  
-					// 	 			            listaElementosAInsertar.addAll(listaAuxiliarElementos);	  
-					// 	 			        }  
-					// 	 			        listaAuxiliarElementos=servicioOrdenServicio.historicoOrdenServicio(dbfecha.getValue());  
-					// 	 			        if(listaAuxiliarElementos.size()>0){  
-					// 	 						listaElementosAInsertar.addAll(listaAuxiliarElementos);  
-					// 	 					}  
-					// 	 					listaAuxiliarElementos=servicioRequisicion.historicoRequisicion(dbfecha.getValue());  
-					//	 					if(listaAuxiliarElementos.size()>0){  
-					// 	 						listaElementosAInsertar.addAll(listaAuxiliarElementos);  
-					//	 					}  
-				}
-
-				if (rbSolicitud.isChecked()) {
-					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(dbfecha.getValue());
-					if (listaAuxiliarElementos.size() > 0) {
-						listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					}
-					nombreHistorico = "solicitudes-" + dbfecha.getText();
-					destinoHistorico = "solicitudes/solicitudesApelacion-" + dbfecha.getText();
-				}
-				// 	 			if(rbRequisicion.isChecked()){  
-				// 	 				listaAuxiliarElementos=servicioservicioTransaccion2.historicoservicioTransaccion2(dbfecha.getValue());  
-				// 	 				if(listaAuxiliarElementos.size()>0){  
-				// 	 					listaElementosAInsertar.addAll(listaAuxiliarElementos);  
-				// 	 				}  
-				// 	 				nombreHistorico="transaccion2-"+dbfecha.getText();  
-				// 	 				destinoHistorico="transaccion2/transaccion2-"+dbfecha.getText();  
-				// 	 			}  
-
-				// 	 			if(rbEntrega.isChecked()){  
-				// 	 				listaAuxiliarElementos=servicioservicioTransaccion3.historicoservicioTransaccion3(dbfecha.getValue());  
-				// 	 				if(listaAuxiliarElementos.size()>0){  
-				// 	 					listaElementosAInsertar.addAll(listaAuxiliarElementos);	  
-				// 	 				}  
-				// 	 				nombreHistorico="transaccion3-"+dbfecha.getText();  
-				// 	 				destinoHistorico="transaccion3/transaccion3-"+dbfecha.getText();  
-				// 	 			}  
-				// 	 			if(rbServicio.isChecked()){  
-				// 	 				listaAuxiliarElementos=servicioTransaccion4.historicoTransaccion4(dbfecha.getValue());  
-				// 	 				if(listaAuxiliarElementos.size()>0){  
-				// 	 					listaElementosAInsertar.addAll(listaAuxiliarElementos);  
-				// 	 				}  
-				// 	 				nombreHistorico="transaccion4-"+dbfecha.getText();  
-				// 	 				destinoHistorico="transaccion4/transaccion4-"+dbfecha.getText();  
-				// 	 			}  	
-				
-				String ruta = UtilidadesSigarep.obtenerDirectorio();
-				ruta = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/historicos";
-				if (listaElementosAInsertar.size() > 0) {
-					File fichero = new File(ruta + "/" + destinoHistorico + ".sql");
-					try {
-						BufferedWriter writer = new BufferedWriter(
-								new FileWriter(fichero));
-						for (int j = 0; j < listaElementosAInsertar.size(); j++) {
-							String ln = System.getProperty("line.separator");
-							writer.write(listaElementosAInsertar.get(j) + ln);
-						}
-						 Messagebox.show("Operacion Exitosa", "Información", Messagebox.OK, Messagebox.INFORMATION);
-						 Messagebox.show("Se a Creado un archivo historico bajo el nombre de: " + nombreHistorico + ".sql", "Información", Messagebox.OK, Messagebox.INFORMATION);
-						writer.close();
-					} catch (Exception e) {
-						System.err.println(e);
-					}
-				} else {
-					Messagebox.show("No hay nada a lo que hacer respaldo en esta fecha", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-				}
-			} else {
-				Messagebox.show("Debe Seleccionar una Opción", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-			}
-		} else {
-			Messagebox.show("Debe colocar una Fecha Limite", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-
 	}
 }
