@@ -9,11 +9,14 @@ public class ListaApelacionMomento {
 	private String email;
 	private String telefono;
 	private String programa;
+	private String lapso;
+	private Integer instancia;
+	
 	
 	
 	public ListaApelacionMomento(String cedulaEstudiante, String primerNombre,
 			String primerApellido, String nombreSancion, String email,
-			String telefono, String programa) {
+			String telefono, String programa, String lapso, Integer instancia) {
 		super();
 		this.cedulaEstudiante = cedulaEstudiante;
 		this.primerNombre = primerNombre;
@@ -22,7 +25,27 @@ public class ListaApelacionMomento {
 		this.email = email;
 		this.telefono = telefono;
 		this.programa = programa;
+		this.lapso = lapso;	
+		this.instancia = instancia;
+	}
+
 	
+	public Integer getInstancia() {
+		return instancia;
+	}
+
+
+	public void setInstancia(Integer instancia) {
+		this.instancia = instancia;
+	}
+
+
+	public String getLapso() {
+		return lapso;
+	}
+
+	public void setLapso(String lapso) {
+		this.lapso = lapso;
 	}
 
 	public String getCedulaEstudiante() {
