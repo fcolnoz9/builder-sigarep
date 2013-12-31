@@ -98,6 +98,26 @@ public class ViewModelListaApelaciones  {
 	private String apellido;
 	private String nombre;
 	private String cedula;
+	private String lapso;
+	private Integer instancia;
+	
+	
+	public Integer getInstancia() {
+		return instancia;
+	}
+
+	public void setInstancia(Integer instancia) {
+		this.instancia = instancia;
+	}
+
+	public String getLapso() {
+		return lapso;
+	}
+
+	public void setLapso(String lapso) {
+		this.lapso = lapso;
+	}
+
 	public List<TipoMotivo> getListaTipoMotivo() {
 			return listaTipoMotivo;
 		}
@@ -224,7 +244,7 @@ public class ViewModelListaApelaciones  {
 		}
 	  	
 	  	@Command
-		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", "sancion"})
+		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", "sancion", "lapso"})
 		public void showModal (){
 	  		cedula = getListaapelacionmomento().getCedulaEstudiante();
 	  		nombre = getListaapelacionmomento().getPrimerNombre();
@@ -233,6 +253,8 @@ public class ViewModelListaApelaciones  {
 	  		telefono = getListaapelacionmomento().getTelefono();
 	  		programa = getListaapelacionmomento().getPrograma();
 	  		sancion = getListaapelacionmomento().getNombreSancion();
+	  		lapso = getListaapelacionmomento().getLapso();
+	  		instancia = getListaapelacionmomento().getInstancia();
 	  		
 	  		final HashMap<String, Object> map = new HashMap<String, Object>();
 	        map.put("cedula", this.cedula );
@@ -242,6 +264,9 @@ public class ViewModelListaApelaciones  {
 	        map.put("telefono", this.telefono);
 	        map.put("programa", this.programa);
 	        map.put("sancion", this.sancion);
+	        map.put("lapso", this.lapso);
+	        map.put("instancia", this.instancia);
+	       
 	        
 	        final Window window = (Window) Executions.createComponents(
 	        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarReconsideracion.zul", null, map);
