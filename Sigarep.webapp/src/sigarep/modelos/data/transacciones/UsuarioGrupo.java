@@ -8,7 +8,7 @@ import sigarep.modelos.data.maestros.Usuario;
 
 
 /**
- * The persistent class for the miembro_grupo database table.
+ * The persistent class for the usuario_grupo database table.
  * 
  */
 @Entity

@@ -10,7 +10,7 @@
 			ruta = obtenerRuta.obtenerDirectorio();
 			
 			//Accediendo a los archivos en el directorio
-			File directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/respaldosBD");
+			File directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
 			String[] listaDirectorio2 = directorio.list();
 			List listaDirectorio1 = new ArrayList();
 			for (int i=0; i<listaDirectorio2.length;i++)
@@ -119,9 +119,9 @@
 							//Aqui hay que pasar la ruta local para el método donde esta el código para respaldar
 							//esta ruta es para la carpeta respaldos
 							//Asi es para guardar directamente en el proyecto
-							respaldarBD(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/respaldosBD",txtdescripcion.getValue());
+							respaldarBD(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD",txtdescripcion.getValue());
 							//Asi guarda en .metadata
-							//respaldarBD(application.getRealPath("/WEB-INF/sigarep/respaldosBD"),txtdescripcion.getValue());
+							//respaldarBD(application.getRealPath("/WEB-INF/sigarep/administracionBaseDatos/respaldosBD"),txtdescripcion.getValue());
 							}else if(rbDispositivo.isChecked()){
 								respaldarBD(txtRuta.getValue(),txtdescripcion.getValue());
 							}else{

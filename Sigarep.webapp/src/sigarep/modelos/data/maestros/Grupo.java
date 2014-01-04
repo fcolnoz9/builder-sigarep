@@ -84,8 +84,8 @@ public class Grupo implements Serializable {
 		return this.usuariosGrupos;
 	}
 
-	public void setMiembroGrupos(List<UsuarioGrupo> miembroGrupos) {
-		this.usuariosGrupos = miembroGrupos;
+	public void setUsuarioGrupos(List<UsuarioGrupo> usuarioGrupos) {
+		this.usuariosGrupos = usuarioGrupos;
 	}
 
 	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuarioGrupo) {
