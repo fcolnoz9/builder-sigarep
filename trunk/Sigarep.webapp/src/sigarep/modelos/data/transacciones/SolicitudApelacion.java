@@ -6,8 +6,10 @@ import javax.persistence.*;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name="solicitud_apelacion")
-public class SolicitudApelacion implements Serializable {
+public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
@@ -40,16 +42,16 @@ public class SolicitudApelacion implements Serializable {
 	@Column(length=255)
 	private String observacion;
 
-	@Column(length=60)
-	private String veredicto;
-
 	//bi-directional many-to-one association to ApelacionMomento
-	@OneToMany(mappedBy="solicitudApelacion",fetch=FetchType.LAZY)
-	private List<ApelacionMomento> apelacionMomentos = new LinkedList<ApelacionMomento>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="solicitudApelacion")
+	private Set<ApelacionMomento> apelacionMomentos = new HashSet<ApelacionMomento>();
 
 	//bi-directional many-to-one association to Motivo
-	@OneToMany(mappedBy="solicitudApelacion",fetch=FetchType.LAZY)
-	private List<Motivo> motivos = new LinkedList<Motivo>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,mappedBy="solicitudApelacion")
+	private Set<Motivo> motivos = new HashSet<Motivo>();
+	
+	@Column(length=60)
+	private String veredicto;
 
 	//bi-directional many-to-one association to EstudianteSancionado
 	@ManyToOne(cascade = {CascadeType.ALL})
@@ -65,6 +67,8 @@ public class SolicitudApelacion implements Serializable {
 	private InstanciaApelada instanciaApelada;
 
 	public SolicitudApelacion() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public SolicitudApelacionPK getId() {
@@ -123,11 +127,11 @@ public class SolicitudApelacion implements Serializable {
 		this.veredicto = veredicto;
 	}
 
-	public List<ApelacionMomento> getApelacionMomentos() {
+	public Set<ApelacionMomento> getApelacionMomentos() {
 		return this.apelacionMomentos;
 	}
 
-	public void setApelacionMomentos(List<ApelacionMomento> apelacionMomentos) {
+	public void setApelacionMomentos(Set<ApelacionMomento> apelacionMomentos) {
 		this.apelacionMomentos = apelacionMomentos;
 	}
 
@@ -145,11 +149,11 @@ public class SolicitudApelacion implements Serializable {
 		return apelacionMomento;
 	}
 
-	public List<Motivo> getMotivos() {
+	public Set<Motivo> getMotivos() {
 		return this.motivos;
 	}
 
-	public void setMotivos(List<Motivo> motivos) {
+	public void setMotivos(Set<Motivo> motivos) {
 		this.motivos = motivos;
 	}
 
@@ -181,6 +185,12 @@ public class SolicitudApelacion implements Serializable {
 
 	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
 		this.instanciaApelada = instanciaApelada;
+	}
+
+	@Override
+	public int compareTo(SolicitudApelacion arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -16,6 +16,15 @@ import java.util.Date;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name="apelacion_momento")
+@AssociationOverrides({
+	@AssociationOverride(name = "id.momento", 
+		joinColumns = @JoinColumn(name = "id_momento")),
+	@AssociationOverride(name = "id.solicitud_apelacion", 
+		joinColumns = @JoinColumn(name = "codigo_lapso")),
+	@AssociationOverride(name = "id.solicitud_apelacion", 
+		joinColumns = @JoinColumn(name = "cedula_estudiante")),
+	@AssociationOverride(name = "id.solicitud_apelacion", 
+		joinColumns = @JoinColumn(name = "id_instancia_apelada"))})
 public class ApelacionMomento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +40,7 @@ public class ApelacionMomento implements Serializable {
 	private Momento momento;
 
 	//bi-directional many-to-one association to SolicitudApelacion
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
 		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
 		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false),

@@ -11,7 +11,7 @@
 			ruta = obtenerRuta.obtenerDirectorio();
 			
 			//Accediendo a los archivos en el directorio
-			File directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/respaldosBD");
+			File directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
 			String[] listaDirectorio2 = directorio.list();
 			List listaDirectorio = new ArrayList();
 			for (int i=0; i<listaDirectorio2.length;i++)
@@ -184,8 +184,7 @@
 				System.out.println("Ruta externa: " + archivoBD);
 			} else if (!(archivoSelec.equals(""))) {
 				//Trabajando con el proyecto directamente
-				archivoBD = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/respaldosBD" + "/"
-						+ archivoSelec;
+				archivoBD = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD" + "/"+ archivoSelec;
 			}
 			Process p;
 			ProcessBuilder pb;

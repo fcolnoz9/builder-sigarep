@@ -1,0 +1,87 @@
+<window title="Administración del Sistema :: Guardar Históricos" id="winRegistrarRecaudo"
+	border="normal" 
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistoricosSigarepBD')">
+	
+	<div width="100%" height="94%" style="overflow:auto;" align="center">
+				<groupbox style="margin:5px;" width="85%" mold="3d">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Seleccione el archivo historico que desea generar" />
+					<grid width="99%" style="border:normal;" height="100%">
+						<columns>
+							<column label="" width="100%" height="100%" />
+						</columns>
+						<rows>
+							<row>
+								<radiogroup id="rgEleccion" selectedItem="@bind(vm.selected)">
+									<grid>
+										<rows>
+											<row>
+												<hbox>
+													<radio id="rbTodos" label="Todos" value="todos"/>
+												</hbox>
+											    <hbox>
+													<radio id="rbSolicitud" label="Solicitudes de Apelación" value="solicitud"/>
+												</hbox>
+												<hbox>
+													<radio id="rbTransaccion2" label="Transacción 2" value="transaccion2"/>
+												</hbox>
+												<hbox>
+													<radio id="rbTransaccion3" label="Transacción 3" value="transaccion3"/>
+												</hbox>
+												<hbox>
+													<radio id="rbTransaccion4" label="Transacción 4" value="transaccion4"/>
+												</hbox>
+											</row>
+										</rows>
+									</grid>
+								</radiogroup>
+								<label value="@bind(vm.selected)"/>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+
+				<groupbox id="gbManual" style="margin:5px;" width="85%"
+					mold="3d">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Fecha límite respaldo" />
+					<grid>
+						<columns>
+							<column label="" width="10%" height="100%" />
+							<column label="" width="20%" height="100%" />
+							<column label="" width="15%" height="100%" />
+							<column label="" width="20%"/>
+						</columns>										
+						<rows>
+							<row>
+								<label value="Fecha límite:"/>								
+								    <datebox id="dbfecha" format="dd/MM/yyyy" value="@bind(vm.fecha)" >
+									</datebox>
+								<label value="Lapso Acádemico:"/>								
+								<combobox id="cmbLapso" width="100px" />
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+	</div>
+	
+	
+	<div align="right" height="100%">
+		<!-- Genera el historico seleccionado -->
+		<button label="Guardar" id="btnGuardar"
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('generarHistorico')">
+		</button>
+		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
+		<button label="Cancelar" id="btnCancelar"
+			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+			orient="horizontal">
+		</button>
+		<!-- Sale del registro, es necesario mensajes de advertencia-->
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal">
+		</button>
+	</div>
+
+</window>

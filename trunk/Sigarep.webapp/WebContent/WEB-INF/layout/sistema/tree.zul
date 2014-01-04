@@ -422,8 +422,8 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Guardar históricos" id="" sclass="administracionSistema"
-										onClick="createWin(.getId(), .getSclass())" />
+							<treecell label="Guardar históricos" id="HistoricosSigarepBD" sclass="administracionSistema"
+										onClick="createWin(HistoricosSigarepBD.getId(), HistoricosSigarepBD.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
