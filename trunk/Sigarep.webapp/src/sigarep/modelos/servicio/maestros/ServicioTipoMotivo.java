@@ -52,4 +52,23 @@ public class ServicioTipoMotivo {
 		return result;
 	}
 	
+	//Metodo de Busqueda
+	public List<TipoMotivo> buscarP(String nombreTipoMotivo){
+		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
+		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los tipos de motivo
+			// si el codigo es null o vacio,el resultado va a ser la lista completa de
+			//todas los motivos
+			result = listadoTipoMotivo();
+		}else{//caso contrario se recorre toda la lista y busca los tipos de motivos con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre.
+			for (TipoMotivo tip: listadoTipoMotivo()){
+				if (tip.getNombreTipoMotivo().toLowerCase().contains(nombreTipoMotivo.toLowerCase())||
+					tip.getDescripcion().toLowerCase().contains(nombreTipoMotivo.toLowerCase())){
+					result.add(tip);
+				}
+			}
+		}
+		return result;
+
+	}
+	
 }
