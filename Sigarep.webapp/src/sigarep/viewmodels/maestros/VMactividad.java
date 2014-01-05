@@ -7,7 +7,10 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+
+import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.maestros.Actividad;
+import sigarep.modelos.data.maestros.ActividadFiltros;
 import sigarep.modelos.servicio.maestros.ServicioActividad;
 
 @SuppressWarnings("serial")
@@ -20,40 +23,15 @@ public class VMactividad {
 	private Integer id_actividad;
 	private String nombre;
 	private String descripcion;
-	private byte[] imagen;
+	private String nombreFiltro;
+	private String descripcionFiltro;
+	private Archivo imagen;
 	private Boolean estatus;
 	private List<Actividad> listaActividad;
 	private Actividad actividadSeleccionada;
+	private ActividadFiltros filtros = new ActividadFiltros();
 
 	// Metodos GETS Y SETS
-	public Integer getId_Actividad() {
-		return id_actividad;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public byte[] getImagen() {
-		return imagen;
-	}
-
-	public Boolean getEstatus() {
-		return estatus;
-	}
-
-	public List<Actividad> getListaActividad() {
-		return listaActividad;
-	}
-
-	public Actividad getActividadSeleccionada() {
-		return actividadSeleccionada;
-	}
-
 	public void setId_Actividad(Integer id_actividad) {
 		this.id_actividad = id_actividad;
 	}
@@ -66,7 +44,7 @@ public class VMactividad {
 		this.descripcion = descripcion;
 	}
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(Archivo imagen) {
 		this.imagen = imagen;
 	}
 
@@ -82,10 +60,69 @@ public class VMactividad {
 		this.actividadSeleccionada = actividadSeleccionada;
 	}
 
+	public void setNombreFiltro(String nombreFiltro) {
+		this.nombreFiltro = nombreFiltro;
+	}
+
+	public void setDescripcionFiltro(String descripcionFiltro) {
+		this.descripcionFiltro = descripcionFiltro;
+	}
+
+	public void setFiltros(ActividadFiltros filtros) {
+		this.filtros = filtros;
+	}
+
+	public Integer getId_Actividad() {
+		return id_actividad;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public Archivo getImagen() {
+		return imagen;
+	}
+
+	public Boolean getEstatus() {
+		return estatus;
+	}
+
+	public List<Actividad> getListaActividad() {
+		return listaActividad;
+	}
+
+	public Actividad getActividadSeleccionada() {
+		return actividadSeleccionada;
+	}
+
+	public String getNombreFiltro() {
+		return nombreFiltro;
+	}
+
+	public String getDescripcionFiltro() {
+		return descripcionFiltro;
+	}
+
+	@NotifyChange({ "filtros" })
+	public ActividadFiltros getFiltros() {
+		return filtros;
+	}
+
 	// Fin de los metodos gets y sets
 
 	// OTROS METODOS
-	// Metodos que perimite guardar una Actividad
+
+	@Init
+	public void init() {
+		listadoActividad();
+	}
+
+	// Metodo que perimite guardar una Actividad
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion", "imagen",
 			"listaActividad" })
@@ -94,41 +131,35 @@ public class VMactividad {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			//Actividad actividad = new Actividad(id_actividad, nombre,
-			//		descripcion, imagen, true);
-			//servicioactividad.guardar(actividad);
+			Actividad actividad = new Actividad(id_actividad, descripcion,
+					true, nombre, imagen);
+			servicioactividad.guardar(actividad);
 			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
 					Messagebox.OK, Messagebox.INFORMATION);
 			limpiar();
 		}
 	}
 
-	@Init
-	public void init() {
-		// initialization code
-		buscarActividad();
-	}
-
-	// Metodo que busca una noticia partiendo por su titulo
+	// Metodo que muestra la lista de todas las actividades
 	@Command
 	@NotifyChange({ "listaActividad" })
-	public void buscarActividad() {
-		listaActividad = servicioactividad.buscarActividad(nombre);
+	public void listadoActividad() {
+		listaActividad = servicioactividad.listadoActividad();
 	}
 
 	// Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombre", "descripcion", "imagen" })
+	@NotifyChange({ "nombre", "descripcion", "imagen", "listaActividad" })
 	public void limpiar() {
 		nombre = "";
 		descripcion = "";
 		imagen = null;
-		buscarActividad();
+		listadoActividad();
 	}
 
 	// Metodo que elimina una actividad tomando en cuenta el idActividad
 	@Command
-	@NotifyChange({ "listaActividad" })
+	@NotifyChange({ "listaActividad", "nombre", "descripcion" })
 	public void eliminarActividad() {
 		servicioactividad.eliminar(getActividadSeleccionada().getIdActividad());
 		Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
@@ -136,13 +167,21 @@ public class VMactividad {
 		limpiar();
 	}
 
-	// permite tomar los datos del objeto actividadseleccionada
+	// Permite tomar los datos del objeto actividadseleccionada
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion", "imagen" })
 	public void mostrarSeleccionada() {
 		id_actividad = getActividadSeleccionada().getIdActividad();
 		nombre = getActividadSeleccionada().getNombre();
 		descripcion = getActividadSeleccionada().getDescripcion();
-		//imagen = getActividadSeleccionada().getImagen();
+		// imagen = getActividadSeleccionada().getImagen();
 	}
+
+	// Método que busca y filtra las actividades
+	@Command
+	@NotifyChange({ "listaActividad" })
+	public void filtros() {
+		listaActividad = servicioactividad.buscarActividad(filtros);
+	}
+
 }

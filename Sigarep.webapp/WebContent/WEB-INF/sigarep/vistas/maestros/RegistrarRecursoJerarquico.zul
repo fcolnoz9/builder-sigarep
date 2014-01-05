@@ -126,7 +126,7 @@
 			image="/imagenes/cancelar.png" orient="vertical">
 		</button>
 		<button id="btnSalir" width="100px" height="50px" label="Salir"
-			image="/imagenes/salir.png" orient="vertical">
+			image="/imagenes/salir.png" orient="vertical" onClick="winRegistrarRecursoJerarquico.onClose()">
 		</button>
 	</div>
 </window>

@@ -59,6 +59,9 @@
 			<button label="Eliminar" id="btnEliminar"
 				image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 				orient="horizontal" onClick="@command('eliminarGrupo')" />
+			<button label="Salir" id="btnSalir"
+				image="/imagenes/iconos/salir.png" width="auto" height="auto"
+				orient="horizontal" onClick="winTipoGrupo.onClose()" />				
 		</div>
 	</window>
 </zk>

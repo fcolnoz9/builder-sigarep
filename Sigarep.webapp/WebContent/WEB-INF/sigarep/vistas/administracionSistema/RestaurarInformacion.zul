@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./pnlrestaurarinformacion"?>
 <zk>
-<window id="winRespaldarDatos" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="70%" width="auto" closable="true" >	
+<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="70%" width="auto" closable="true" >	
 <zscript>
 <![CDATA[
 		//***************************************************************************
@@ -132,6 +132,10 @@
 							cancelar();
 						</attribute>
 					</button>
+					<button label="Cerrar" id="btnCerrar"
+   							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+   							height="auto" orient="horizontal" onClick="winRestaurarInformacion.onClose()">
+   					</button>
 				</div>
 			</div>
 		</panelchildren>

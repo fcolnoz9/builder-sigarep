@@ -1,7 +1,6 @@
 package sigarep.viewmodels.maestros;
 import org.zkoss.zul.Button;
 import java.util.List;
-import javax.persistence.Column;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -76,7 +75,7 @@ public class VMpreguntaBasica {
 	@Init
 	public void init(){
 	    //initialization code
-		buscarPreguntab (); 
+		buscarPregunta (); 
     }
 // Metodos de la clase
 	@Command // Permite manipular la propiedad de ViewModel
@@ -95,15 +94,15 @@ public class VMpreguntaBasica {
 	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus"})
 	public void limpiar(){
 		 pregunta = "";respuesta="";
-		 buscarPreguntab ();
+		 buscarPregunta ();
 	}
 	@Command
 	@NotifyChange({"listaPregunta"})
-	public void buscarPreguntab(){
+	public void buscarPregunta(){
 		listaPregunta =serviciopreguntabasica.buscarPr(pregunta);
 	}
 	@Command
-	@NotifyChange({"listaPregunta"})
+	@NotifyChange({"listaPregunta","pregunta","respuesta"})
 	public void eliminarPreguntaBasica(){
 		serviciopreguntabasica.eliminarPregunta(getPreguntaseleccionada().getIdPreguntaBasica());
 		limpiar();

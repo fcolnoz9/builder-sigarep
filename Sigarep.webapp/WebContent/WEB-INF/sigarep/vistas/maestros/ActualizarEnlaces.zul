@@ -6,7 +6,7 @@
 		border="normal" width="auto" height="auto" closable="true"
 		sclass="sysWin" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm')@init('com.sigarep.viewmodels.VMenlaceInteres')">
+		viewModel="@id('vm')@init('sigarep.viewmodels.maestros.VMenlaceInteres')">
 		<style src="/widgets/input/form_sample/style.css" />
 
 		<groupbox id="grbDatosEnlace">
@@ -82,7 +82,7 @@
 			<listheader label="Imagen" align="center"/>
 		</listhead>
 		<template name="model">
-			<listitem selected="true">
+			<listitem selected="false">
 				<listcell label="${each.idEnlace}" ></listcell>
 				<listcell label="${each.nombreEnlace}"></listcell>
 				<listcell label="${each.direccionEnlace}"></listcell>
@@ -109,7 +109,7 @@
 					    width="auto" height="auto" image="imagenes/iconos/cancelar.png" 
 							onClick="@command('limpiar')"/>
                          <button label="Cerrar" id="btnCerrar" width="auto" height="auto" image="imagenes/iconos/cerrar.png" 
-							onClick="@command('limpiar')"/>
+							onClick="winEnlaceinteres.onClose()"/>
 					</div>
 				
 

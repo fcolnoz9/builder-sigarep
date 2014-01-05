@@ -2,8 +2,6 @@
 	<window id="winActualizarPreguntasBasicas" title="Configuración Web::Actualizar Preguntas Básicas"  width="auto" height="auto" closable = "true"
 			border="normal"  contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
-    		<script type="text/javascript" src="/widgets/js/watermark.js" />       <!-- Archivos para el uso de marca de agua -->
-			<script type="text/javascript" src="/widgets/js/watermarkinput.js" />  <!-- Archivos para el uso de marca de agua -->
    			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
 			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
    			<auxhead>
@@ -21,13 +19,13 @@
 								<row>
 									<label id="lblPregunta" value="Pregunta:" />
 									<hlayout id="lytPregunta">
-										<textbox id="txtPregunta" width="300px" rows="3" maxlength="255"  mold="rounded"  tabindex="1"  value="@bind(vm.pregunta)"/>
+										<textbox id="txtPregunta" width="300px" rows="3" maxlength="255"  mold="rounded"  tabindex="1"  value="@bind(vm.pregunta)" constraint="no empty" />
 									</hlayout>
 								</row>
 								<row>
 									<label id="lblRespuesta" value="Respuesta:"/>
 									<hlayout id="lytRespuesta">
-										<textbox id="txtRespuesta" width="300px" rows="3" maxlength="255" mold="rounded"  tabindex="2" value="@bind(vm.respuesta)" />
+										<textbox id="txtRespuesta" width="300px" rows="3" maxlength="255" mold="rounded"  tabindex="2" value="@bind(vm.respuesta)" constraint="no empty" />
 									</hlayout>
 								</row>
 							</rows>
@@ -60,7 +58,9 @@
 					<div align="right" height="100%"> <button id="btnGuardarPregunta" label="Guardar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/guardar.png" onClick="@command('guardarPregunta')"/> </div>
 					<div align="right" height="100%"><button id="btnEliminarPregunta" label="Eliminar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/eliminar.png" onClick="@command('eliminarPreguntaBasica')"/> </div>
 					<div align="right" height="100%"><button id="btnCancelarPregunta" label="Cancelar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cancelar.png" onClick="@command('limpiar')"/> </div>
-					<div align="right" height="100%"><button id="btnCerrar" label="Cerrar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cerrar.png"  /> </div>
+					<div align="right" height="100%">
+						<button id="btnCerrar" label="Cerrar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cerrar.png" onClick="winActualizarPreguntasBasicas.onClose()"/>
+					</div>
 				</hbox>
 			</div>
 	</window>

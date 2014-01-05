@@ -127,8 +127,8 @@
 		<button id="btnCancelar" width="100px" height="50px" label="Cancelar"
 			image="/imagenes/cancelar.png" orient="vertical">
 		</button>
-		<button id="btnSalir" width="100px" height="50px" label="Salir"
-			image="/imagenes/salir.png" orient="vertical">
+		<button id="btnCerrar" width="100px" height="50px" label="Salir"
+			image="/imagenes/cerrar.png" orient="vertical" onClick="winRegistrarReconsideracion.onClose()" >
 		</button>
 	</div>
 </window>

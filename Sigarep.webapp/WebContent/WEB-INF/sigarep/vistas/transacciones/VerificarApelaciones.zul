@@ -87,9 +87,9 @@
 				image="/imagenes/iconos/finalizar.png" width="auto" height="auto"
 				orient="horizontal">
 			</button>
-			<button label="Salir" mold="trendy" id="btnSalir"
+			<button label="Cerrar" mold="trendy" id="btnSalir"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal">
+				orient="horizontal" onClick="winActualizarEstadoEstudiante.onClose()">
 			</button>
 		</div>
 	</window>

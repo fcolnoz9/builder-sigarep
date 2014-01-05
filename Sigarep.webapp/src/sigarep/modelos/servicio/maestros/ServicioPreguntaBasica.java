@@ -24,19 +24,21 @@ public class ServicioPreguntaBasica{
 	}
 	
 	// Servicio que elimina una pregunta
-	public void eliminarPregunta(Integer PreguntaBasica){
-		pre.delete(PreguntaBasica);
+	public void eliminarPregunta(Integer idPreguntaBasica){
+		PreguntaBasica pb = pre.findOne(idPreguntaBasica);
+		pb.setEstatus(false);
+		pre.save(pb);
 	}
 	
-	//Servicio para la busqueda de una pregunta
-	public PreguntaBasica buscarPregunta(Integer idPreguntaBasica){
-		return pre.findOne(idPreguntaBasica);
-	
-	}
+//	//Servicio para la busqueda de una pregunta
+//	public PreguntaBasica buscarPregunta(Integer idPreguntaBasica){
+//		return pre.findOne(idPreguntaBasica);
+//	
+//	}
+//	
 	
 	public List<PreguntaBasica> listadoPreguntas() {
-		List<PreguntaBasica> preguntasLista=pre.findAll();
-	    return preguntasLista ;
+	    return pre.buscarPreguntab() ;
 	}
 	public List<PreguntaBasica> buscarPr(String pregunta){
 		List<PreguntaBasica> result = new LinkedList<PreguntaBasica>();

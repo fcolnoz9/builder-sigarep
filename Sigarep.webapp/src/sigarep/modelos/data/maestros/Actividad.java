@@ -42,17 +42,17 @@ public class Actividad implements Serializable {
 
 	public Actividad() {
 	}
-	
-	public Actividad(Integer id_actividad, String nombre, String descripcion,
-			byte[] imagen, Boolean estatus) {
-		super();
-		this.idActividad = id_actividad;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.imagen = imagen;
-		this.estatus = estatus;
-	}
 
+	public Actividad(Integer idActividad, String descripcion, Boolean estatus,
+			String nombre, Archivo imagen) {
+		super();
+		this.idActividad = idActividad;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.nombre = nombre;
+		this.imagen = imagen;
+	}
+	
 	public Integer getIdActividad() {
 		return this.idActividad;
 	}
@@ -103,6 +103,7 @@ public class Actividad implements Serializable {
 	public Cronograma removeCronograma(Cronograma cronograma) {
 		getCronogramas().remove(cronograma);
 		cronograma.setActividad(null);
+
 		return cronograma;
 	}
 

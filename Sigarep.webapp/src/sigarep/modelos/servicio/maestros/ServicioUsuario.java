@@ -1,14 +1,11 @@
 package sigarep.modelos.servicio.maestros;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.Usuario;
 import sigarep.modelos.repositorio.maestros.IUsuarioDAO;
 //+++++++++++++
 import java.util.LinkedList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //***********
 
@@ -39,6 +36,7 @@ private @Autowired IUsuarioDAO iUsuario;
 	
 	public List<Usuario> listadoUsuario() {
 		List<Usuario> usuarioLista = iUsuario.buscarGruposActivos();
+		
 		return usuarioLista;
 	}
 	

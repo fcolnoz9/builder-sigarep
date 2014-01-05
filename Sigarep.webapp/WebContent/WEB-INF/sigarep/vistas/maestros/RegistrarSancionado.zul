@@ -58,6 +58,6 @@
  			<hbox width="100%" pack="right" >
  		  	  <button id="btnGuardar" label="Guardar" image="/imagenes/iconos/guardar.png" width="75px" height="50px" orient="vertical" />
  		  	  <button id="btnCancelar" label="Cancelar" image="/imagenes/iconos/cancelar.png" width="75px" height="50px" orient="vertical" />
- 		  	  <button id="btnSalir" label="Salir" image="/imagenes/iconos/salir.png" width="75px" height="50px" orient="vertical" />
+ 		  	  <button id="btnSalir" label="Salir" image="/imagenes/iconos/salir.png" width="75px" height="50px" orient="vertical" onClick="winRegistrarSancionados.onClose()" />
  		  	 </hbox>
  </window>

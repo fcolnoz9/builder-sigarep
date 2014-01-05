@@ -10,38 +10,40 @@ import org.springframework.stereotype.Service;
 
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;;
+import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
 
 @Service("serviciolapsoacademico") //Definiendo la variable servicio
 public class ServicioLapsoAcademico{
-	private @Autowired ILapsoAcademicoDAO pv;
+	private @Autowired ILapsoAcademicoDAO iLapsoAcademico ;
 
-	public void guardar(LapsoAcademico pro) {
-    pv.save(pro);
+	//metodo que permite Guardar
+	public void guardarLapso(LapsoAcademico lapsoA) {
+		iLapsoAcademico.save(lapsoA);
 	}
-	public void actualizar(){
-		
-	}
-	public void eliminar(String codigoLapso){
-		pv.delete(codigoLapso);
-	}
-	public LapsoAcademico buscar(String codigoLapso){
-		return pv.findOne(codigoLapso);
-	}
+	//metodo que permite eliminar
+	public void eliminarLapso(String codigoLapso){
+		LapsoAcademico  lapsoacademico = iLapsoAcademico.findOne(codigoLapso);
+		lapsoacademico.setEstatus(false);
+		iLapsoAcademico.save(lapsoacademico);
+		}
+	public List<LapsoAcademico> buscarLapso(String codigoLapso){
+			return iLapsoAcademico.buscarActivoLapso();
+		}
+	// metodo del listado actualizado de los lapsos	
 	public List<LapsoAcademico> listadoLapsoAcademico() {
-		List<LapsoAcademico> lapsoAcademicoLista = new LinkedList<LapsoAcademico>();
-		lapsoAcademicoLista=pv.findAll();
-	    return lapsoAcademicoLista;
+		List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarActivoLapso();
+	    return LapsoAcademicoLista ;
 	}
-	public List<LapsoAcademico> buscarP(String codigoLapso){
+	//metodo para buscar el lapso academico
+	public List<LapsoAcademico> buscarLapsoAcademico(String codigoLapso){
 		List<LapsoAcademico> result = new LinkedList<LapsoAcademico>();
-		if (codigoLapso==null || "".equals(codigoLapso)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los profesores
+		if (codigoLapso==null || "".equals(codigoLapso)){
 			result = listadoLapsoAcademico();
-		}else{//caso contrario se recorre toda la lista y busca los profesores con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre. Realiza la busqueda con el apellido e inicial del apellido.
-			for (LapsoAcademico l: listadoLapsoAcademico()){
-				if (l.getCodigoLapso().toLowerCase().contains(codigoLapso.toLowerCase()))
+		}else{
+			for (LapsoAcademico lapso: listadoLapsoAcademico()){
+				if (lapso.getCodigoLapso().toLowerCase().contains(codigoLapso.toLowerCase()))
 				{
-					result.add(l);
+					result.add(lapso);
 				}
 			}
 		}

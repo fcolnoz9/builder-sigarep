@@ -5,48 +5,48 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 
+import java.util.LinkedList;
 import java.util.List;
-
 
 /**
  * The persistent class for the sancion_maestro database table.
  * 
  */
 @Entity
-@Table(name="sancion_maestro")
+@Access(AccessType.FIELD)
+@Table(name = "sancion_maestro")
 public class SancionMaestro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_sancion", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_sancion", unique = true, nullable = false)
 	private Integer idSancion;
 
-	@Column(name="descripcion", length=255)
+	@Column(length = 255)
 	private String descripcion;
 
-	@Column(name="estatus", nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
-	@Column(name="nombre_sancion", nullable=false, length=60)
+	@Column(name = "nombre_sancion", nullable = false, length = 60)
 	private String nombreSancion;
 
-	//bi-directional many-to-one association to EstudianteSancionado
-	@OneToMany(mappedBy="sancionMaestro")
-	private List<EstudianteSancionado> estudianteSancionados;
+	// bi-directional many-to-one association to EstudianteSancionado
+	@OneToMany(mappedBy = "sancionMaestro")
+	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
 	public SancionMaestro() {
 	}
-	
-	public SancionMaestro(Integer idSancion, String nombreSancion, String descripcion,Boolean estatus) {
+
+	public SancionMaestro(Integer idSancion, String descripcion,
+			Boolean estatus, String nombreSancion) {
 		super();
 		this.idSancion = idSancion;
 		this.descripcion = descripcion;
 		this.estatus = estatus;
 		this.nombreSancion = nombreSancion;
 	}
-
-
 
 	public Integer getIdSancion() {
 		return this.idSancion;
@@ -84,18 +84,21 @@ public class SancionMaestro implements Serializable {
 		return this.estudianteSancionados;
 	}
 
-	public void setEstudianteSancionados(List<EstudianteSancionado> estudianteSancionados) {
+	public void setEstudianteSancionados(
+			List<EstudianteSancionado> estudianteSancionados) {
 		this.estudianteSancionados = estudianteSancionados;
 	}
 
-	public EstudianteSancionado addEstudianteSancionado(EstudianteSancionado estudianteSancionado) {
+	public EstudianteSancionado addEstudianteSancionado(
+			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
 		estudianteSancionado.setSancionMaestro(this);
 
 		return estudianteSancionado;
 	}
 
-	public EstudianteSancionado removeEstudianteSancionado(EstudianteSancionado estudianteSancionado) {
+	public EstudianteSancionado removeEstudianteSancionado(
+			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);
 		estudianteSancionado.setSancionMaestro(null);
 

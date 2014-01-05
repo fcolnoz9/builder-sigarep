@@ -8,6 +8,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
+import sigarep.modelos.data.maestros.ProgramaAcademicoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 
 @SuppressWarnings("serial")
@@ -20,7 +21,9 @@ public class VMprogramaAcademico {
 	private Boolean estatus;
 	private List<ProgramaAcademico> listaPrograma;
 	private ProgramaAcademico programaseleccionado;
+	private ProgramaAcademicoFiltros filtros = new ProgramaAcademicoFiltros();
 
+	// Inicio Métodos Sets y Gets
 	public Integer getIdProgramaAcademico() {
 		return idPrograma;
 	}
@@ -61,11 +64,22 @@ public class VMprogramaAcademico {
 		this.programaseleccionado = programaseleccionado;
 	}
 
+	public ProgramaAcademicoFiltros getFiltros() {
+		return filtros;
+	}
+
+	public void setFiltro(ProgramaAcademicoFiltros filtros) {
+		this.filtros = filtros;
+	}
+
+	// Fin Métodos Sets y Gets
+
 	@Init
 	public void init() {
 		buscarProgramaA();
 	}
 
+	// Método que guarda un programa académico
 	@Command
 	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma" })
 	public void guardarPrograma() {
@@ -82,33 +96,43 @@ public class VMprogramaAcademico {
 		}
 	}
 
+	// Método que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus" })
+	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma" })
 	public void limpiar() {
 		nombrePrograma = "";
 		buscarProgramaA();
 	}
 
+	// Método que trae todos los programas académicos en la lista de programas
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
-		listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
+		listaPrograma = servicioprogramaacademico.listadoProgramas();
 	}
 
+	// Métodos que elimina un programa académico dado su IdPrograma
 	@Command
-	@NotifyChange({ "listaPrograma" })
+	@NotifyChange({ "listaPrograma", "nombrePrograma" })
 	public void eliminarPrograma() {
 		servicioprogramaacademico.eliminarPrograma(getProgramaseleccionado()
 				.getIdPrograma());
-		limpiar();
 		Messagebox.show("Se ha eliminado correctamente", "Informacion",
 				Messagebox.OK, Messagebox.INFORMATION);
+		limpiar();
 	}
 
+	// Método que muestra los datos de una programa seleccionado
 	@Command
 	@NotifyChange({ "nombrePrograma" })
 	public void mostrarSeleccionado() {
 		nombrePrograma = getProgramaseleccionado().getNombrePrograma();
 	}
 
+	// Método que busca y filtra los programas academicos
+	@Command
+	@NotifyChange({ "listaPrograma" })
+	public void filtros() {
+		listaPrograma = servicioprogramaacademico.buscarPrograma(filtros);
+	}
 }

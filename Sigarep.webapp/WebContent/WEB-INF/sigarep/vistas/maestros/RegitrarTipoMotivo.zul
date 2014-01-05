@@ -1,0 +1,70 @@
+<zk>
+   <window id="winTipoMotivo" title="Registros Básicos :: Registrar Tipo Motivo"  border="normal" width="auto"  height="auto" closable="true"  sclass="sysWin" contentStyle="overflow:auto" apply=" org.zkoss.bind.BindComposer"
+                                viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMTipoMotivo')" >
+
+			<!-- Grid que contiene los campos de la pantalla -->
+			<grid id = "grdTipoMotivo">
+			   		 <auxhead>
+	            	<auxheader>Motivo de Apelacion</auxheader>
+	        		</auxhead>
+			   		<columns>    
+			   		</columns>
+	   				<rows>
+	   					<row>
+			   				<label id = "lblTipoMotivo" value="Motivo de Apelacion" />
+			   				<textbox id = "txtnombreTipoMotivo" constraint="no empty" width="300px" mold="rounded" cols="23"   maxlength="30"   value="@bind(vm.nombreTipoMotivo)"/>
+	   					</row>
+	   					<row>
+		                	<label id = "lblDescripcion" value="Descripcion" />
+		                    <hbox>
+                			<textbox id="txtDescripcion" constraint="no empty" width="300px" mold="rounded" value="@bind(vm.descripcion)">
+                			</textbox>
+            				</hbox>
+        				</row>	
+	   				</rows>
+				</grid>
+		        
+    
+   <!-- Grupbox que contiene el listado de los tipos de motivos -->
+	<groupbox>
+   	<caption label="Listado de Tipos de Motivos de Apelacion" />
+   	<space />
+   	<space />
+   	<!-- Lista que contiene el listado de los tipos de motivos -->
+   	<listbox id="lbxtipomotivoListbox" height="100px" 
+   			model="@bind(vm.listaTipoMotivo)" 
+   			selectedItem="@bind(vm.tiposeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay Tipo de Motivos registrados" mold="paging" pageSize="10">
+	<!-- Busqueda por FILTROS los tipos de motivos -->
+		<auxhead sclass="category-center"> 	
+		 	<auxheader colspan="1" align="center" image="/imagenes/iconos/buscar.png">
+           		<textbox id="filtroNombre" instant="true"  width="100px" value="@bind(vm.filtros.nombre)" onChange="@command('filtros')" /> 
+            </auxheader>
+            <auxheader colspan="1" align="center" image="/imagenes/iconos/buscar.png">
+                <textbox id="filtrodescripcion" instant="true"  width="100px" value="@bind(vm.filtros.descripcion)" onChange="@command('filtros')" />
+            </auxheader>
+		</auxhead>
+		
+		<listhead>
+			<listheader label="Motivo de la Apelacion" align="center" sort="auto(nombreTipoMotivo)" />
+			<listheader label="Descripcion " align="center" sort="auto(descripcion)"/>
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.nombreTipoMotivo}"></listcell>
+				<listcell label="${each.descripcion}"></listcell>
+			</listitem>
+		</template>
+	</listbox>
+	<space/>
+	<space/>
+	</groupbox>
+    	<!-- Grupbox de Botones -->
+    	<div align="right" height="100%">
+			<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('guardarTipoMotivo')" />	
+	   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarTipoMotivo')"/>
+	   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
+	   		<button label="Cerrar" id="btnCerrar"  image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winTipoMotivo.onClose()"/>
+   		</div>
+</window>			
+</zk>
