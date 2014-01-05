@@ -8,6 +8,8 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+
+import sigarep.herramientas.EnviarCorreo;
 import sigarep.modelos.data.maestros.Usuario;
 import sigarep.modelos.servicio.maestros.ServicioUsuario;
 
@@ -25,6 +27,8 @@ public class VMusuario {
 	private Boolean estatus;
 	private Date fechaCreacion;
 	private Date fechaEliminacion;
+	@WireVariable
+	private String correoLogin;
 	
 	
 
@@ -105,6 +109,14 @@ public class VMusuario {
 	public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
 		this.usuarioSeleccionado = usuarioSeleccionado;
 	}
+	
+	public String getCorreoLogin() {
+		return correoLogin;
+	}
+
+	public void setCorreoLogin(String correoLogin) {
+		this.correoLogin = correoLogin;
+	}
 
 	// OTROS METODOS
 	// Metodos que perimite guardar una Actividad
@@ -175,5 +187,33 @@ public class VMusuario {
 	@NotifyChange({ "listaUsuario" })
 	public void pasepase() {
 		System.out.println("pase");
+	}
+	
+	@Command
+	@NotifyChange({ "correoLogin" })
+	public void recuperarContrasenna() {
+		Usuario usuario = new Usuario();
+		usuario.setNombreUsuario("-1");
+		if (correoLogin.equals(""))
+			Messagebox.show("Debe llenar los campos", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
+		else {
+			List<Usuario> listaUsuarios = serviciousuario.listadoUsuario();
+				Usuario usuarioAux = new Usuario();
+				for (int i = 0; i < listaUsuarios.size(); i++) {
+					usuarioAux = listaUsuarios.get(i);
+//					if (usuarioAux.getCorreo() != null) 
+//						if (usuarioAux.getCorreo().equals(correoLogin) || usuarioAux.getNombreUsuario().equals(correoLogin))
+//							usuario = usuarioAux;
+				}
+				usuario = usuarioAux;
+				if (!usuario.getNombreUsuario().equals("-1")) {
+					EnviarCorreo enviar = new EnviarCorreo();
+					System.out.println(usuario.getCorreo());
+					enviar.sendEmail(usuario.getCorreo(), usuario.getContrasenia());
+					Messagebox.show("Te hemos enviado un email con tu contraseña.","Información", Messagebox.OK, Messagebox.INFORMATION);
+				}
+				else
+					Messagebox.show("Usuario incorrecto","Información", Messagebox.OK, Messagebox.INFORMATION);
+		}
 	}
 }

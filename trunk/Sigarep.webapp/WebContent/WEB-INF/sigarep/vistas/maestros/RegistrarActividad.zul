@@ -55,7 +55,7 @@
 	<groupbox id="grbListaActividades">
 		<caption label="Lista de Actividades" />
 		<listbox id="lbxActividad" height="100%"
-			model="@bind(vm.listaActividad)"
+			model="@load(vm.listaActividad)"
 			selectedItem="@bind(vm.actividadSeleccionada)"
 			onSelect="@command('mostrarSeleccionada')"
 			emptyMessage="No hay Actividades registradas" mold="paging"
@@ -64,9 +64,19 @@
 				<listheader label="Número Actividad" align="center"
 					sort="auto(idActividad)" />
 				<listheader label="Nombre" align="center"
-					sort="auto(nombre)" />
+					sort="auto(nombre)">
+					<textbox id="filtroNombre" instant="true"
+						width="100px" value="@bind(vm.filtros.nombre)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
 				<listheader label="Descripción" align="center"
-					sort="auto(descripcion)" />
+					sort="auto(descripcion)">
+					<textbox id="filtroDescripcion" instant="true"
+						width="100px" value="@bind(vm.filtros.descripcion)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
 			</listhead>
 			<template name="model">
 				<listitem>

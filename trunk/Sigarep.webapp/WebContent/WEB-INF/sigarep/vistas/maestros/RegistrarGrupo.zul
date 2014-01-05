@@ -53,7 +53,7 @@
 						<button id="btnCancelar" label="Cancelar"
 							image="/imagenes/iconos/cancelar.png" />
 						<button id="btnSalir" label="Salir"
-							image="/imagenes/iconos/salir.png" />
+							image="/imagenes/iconos/salir.png" onClick="winRegistrarGrupo.onClose()" />
 					</hbox>
 				</row>
 			</rows>

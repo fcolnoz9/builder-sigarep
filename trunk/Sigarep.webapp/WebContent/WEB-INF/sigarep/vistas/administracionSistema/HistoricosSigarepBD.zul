@@ -1,4 +1,4 @@
-<window title="Administración del Sistema :: Guardar Históricos" id="winRegistrarRecaudo"
+<window title="Administración del Sistema :: Guardar Históricos" id="winHistoricosSigarepBD"
 	border="normal" 
 	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistoricosSigarepBD')">
 	
@@ -80,7 +80,8 @@
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal">
+			orient="horizontal" onClick="winHistoricosSigarepBD.onClose()">
+
 		</button>
 	</div>
 

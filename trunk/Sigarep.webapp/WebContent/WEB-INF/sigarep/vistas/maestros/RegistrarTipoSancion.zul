@@ -59,6 +59,9 @@
 		<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="75px" height="50px" 
 			 orient="vertical">
 		</button>
+		<button label="Salir" id="btnSalir"
+				image="/imagenes/iconos/salir.png" width="auto" height="auto"
+				orient="horizontal" onClick="winRegistrarSanción.onClose()" />
 	</div>
 		</groupbox>
 </window>

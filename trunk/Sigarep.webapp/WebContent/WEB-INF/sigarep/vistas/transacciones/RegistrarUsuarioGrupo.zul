@@ -1,4 +1,4 @@
-<window title="Registros Básicos :: Registrar Recaudo" id="winRegistrarRecaudo"
+<window title="Registros Básicos :: Registrar Recaudo" id="winRegistrarUsuarioGrupo"
 	border="normal" 
 	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMUsuarioGrupo')">
 	
@@ -100,7 +100,7 @@
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal">
+			orient="horizontal" onClick="winRegistrarUsuarioGrupo.onClose()">
 		</button>
 	</div>
 

@@ -47,10 +47,15 @@
 			pageSize="5">
 			<listhead>
 				<listheader label="Nombre" align="center"
-					sort="auto(nombrePrograma)" />
+					sort="auto(nombrePrograma)">
+					<textbox id="filtroNombre" instant="true"
+						width="100px" value="@bind(vm.filtros.nombre)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
 			</listhead>
 			<template name="model">
-				<listitem selected="true">
+				<listitem selected="false">
 					<listcell label="${each.nombrePrograma}" />
 				</listitem>
 			</template>

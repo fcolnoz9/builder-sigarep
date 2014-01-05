@@ -8,6 +8,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import sigarep.modelos.data.maestros.SancionMaestro;
+import sigarep.modelos.data.maestros.SancionMaestroFiltros;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
 @SuppressWarnings("serial")
@@ -21,7 +22,9 @@ public class VMsancionMaestro {
 	private Boolean estatus;
 	private List<SancionMaestro> listaSancion;
 	private SancionMaestro sancionSeleccionada;
+	private SancionMaestroFiltros filtros = new SancionMaestroFiltros();
 
+	// Inicion Métodos Sets y Gets
 	public Integer getIdSancion() {
 		return id_sancion;
 	}
@@ -70,11 +73,24 @@ public class VMsancionMaestro {
 		this.sancionSeleccionada = sancionSeleccionada;
 	}
 
-	@Init
-	public void init() {
-		buscarSancion();
+	public SancionMaestroFiltros getFiltros() {
+		return filtros;
 	}
 
+	public void setFiltros(SancionMaestroFiltros filtros) {
+		this.filtros = filtros;
+	}
+
+	// Fin Métodos Sets y Gets
+
+	// Otros Métodos
+
+	@Init
+	public void init() {
+		listadoSancion();
+	}
+
+	// Método que guarda una Sanción
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
 			"listaSancion" })
@@ -83,44 +99,55 @@ public class VMsancionMaestro {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			//SancionMaestro sanm = new SancionMaestro(id_sancion, nombre,
-			//		descripcion, true);
-			//serviciosancionmaestro.guardarSancion(sanm);
+			SancionMaestro sanm = new SancionMaestro(id_sancion, descripcion,
+					true, nombre);
+			serviciosancionmaestro.guardarSancion(sanm);
 			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
 					Messagebox.OK, Messagebox.INFORMATION);
 			limpiar();
 		}
 	}
 
+	// Método que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus" })
+	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus", "listaSancion" })
 	public void limpiar() {
 		nombre = "";
 		descripcion = "";
-		buscarSancion();
+		listadoSancion();
 	}
 
+	// Método que trae todos los registros en una lista de sanciones
 	@Command
 	@NotifyChange({ "listaSancion" })
-	public void buscarSancion() {
-		listaSancion = serviciosancionmaestro.buscarSan(nombre);
+	public void listadoSancion() {
+		listaSancion = serviciosancionmaestro.listadoSanciones();
 	}
 
+	// Método que elimina una sanción dado el IdSancion
 	@Command
-	@NotifyChange({ "listaSancion" })
+	@NotifyChange({ "listaSancion", "nombre", "descripcion" })
 	public void eliminarSancion() {
 		serviciosancionmaestro.eliminarSancion(getSancionSeleccionada()
 				.getIdSancion());
-		limpiar();
 		Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
 				Messagebox.OK, Messagebox.INFORMATION);
+		limpiar();
 	}
 
+	// Método que muestra una sanción seleccionada
 	@Command
 	@NotifyChange({ "nombre", "descripcion" })
 	public void mostrarSeleccionada() {
 		nombre = getSancionSeleccionada().getNombreSancion();
 		descripcion = getSancionSeleccionada().getDescripcion();
+	}
+
+	// Método que busca y filtra las sanciones
+	@Command
+	@NotifyChange({ "listaSancion" })
+	public void filtros() {
+		listaSancion = serviciosancionmaestro.buscarSancion(filtros);
 	}
 
 }

@@ -92,7 +92,7 @@
 		<hbox>
 			<button id="btnGrabarPregunta" label="Grabar" image="/images/icons/guardar.png" mold="trendy" width="80px" height="55px" orient="vertical"/>
 			<button id="btnEliminarPregunta" label="Eliminar" image="/images/icons/borrar.png" mold="trendy" width="80px" height="55px" orient="vertical"/>
-			<button id="btnCancelarPregunta" label="Cancelar" image="/images/icons/cerrar.png" mold="trendy" width="80px" height="55px" orient="vertical"/>
+			<button id="btnCancelarPregunta" label="Cancelar" image="/images/icons/cerrar.png" mold="trendy" width="80px" height="55px" orient="vertical" onClick="winActualizarPregunta.onClose()" />
 		</hbox>
 	</div>
 	<groupbox closable="false"> 

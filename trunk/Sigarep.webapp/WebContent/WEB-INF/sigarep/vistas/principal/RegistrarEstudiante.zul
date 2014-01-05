@@ -1,6 +1,6 @@
 <?page title="Registrar Estudiante" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Registrar Estudiante" border="normal" width="800px"
+<window id="winRegistrarEstudiante" title="Registrar Estudiante" border="normal" width="800px"
 apply=""
 	position="center,center" closable="true" 
 	action="show: slideDown;hide: slideUp">
@@ -63,7 +63,7 @@ apply=""
 	<hbox width="100%" pack = "end" align = "center">
 	<button mold="trendy" label="Guardar" width="100px" height="50px" image="/img/guardar.png"></button>
 	<button mold="trendy" label="Cancelar" width="100px" height="50px" image="/img/cancelar.png"></button>
-	<button mold="trendy" label="Salir" width="100px" height="50px" image="/img/salir.png"></button>
+	<button mold="trendy" label="Cerrar" width="100px" height="50px" image="/imagenes/iconos/cerrar.png" onClick="winRegistrarEstudiante.onClose()"></button>
 
 	</hbox>
 	

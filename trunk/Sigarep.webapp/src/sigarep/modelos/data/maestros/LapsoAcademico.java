@@ -7,6 +7,7 @@ import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -37,11 +38,11 @@ public class LapsoAcademico implements Serializable {
 
         //bi-directional many-to-one association to Cronograma
         @OneToMany(mappedBy="lapsoAcademico")
-        private List<Cronograma> cronogramas;
+        private List<Cronograma> cronogramas = new LinkedList<Cronograma>();
 
         //bi-directional many-to-one association to EstudianteSancionado
         @OneToMany(mappedBy="lapsoAcademico")
-        private List<EstudianteSancionado> estudianteSancionados;
+        private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
         public LapsoAcademico() {
         }

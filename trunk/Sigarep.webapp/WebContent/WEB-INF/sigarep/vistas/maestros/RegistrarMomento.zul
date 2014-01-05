@@ -1,0 +1,120 @@
+<zk>
+	<window id="winRegistarMomento"
+		title="Registros Básicos :: Registrar Momento" width="auto"
+		height="auto" closable="true" border="normal"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMmomento')">
+		<!--	<script type="text/javascript" src="/widgets/js/watermark.js" />     -->
+		<!-- Archivos para el uso de marca de agua -->
+		<!--	<script type="text/javascript" src="/widgets/js/watermarkinput.js" /> -->
+		<!-- Archivos para el uso de marca de agua -->
+		<style src="/widgets/input/form_sample/style.css" />
+		<!-- Estilos de CSS para pantallas -->
+		<style src="/widgets/input/form_sample/style.css" />
+		<!-- Estilos de CSS para pantallas -->
+
+		<!-- Grupbox que contiene los campos de la pantalla -->
+		<groupbox id="grbMomento">
+			<caption label="Registrar Momento" />
+			<grid id="grdMomento" height="100%" sclass="fgrid">
+				<columns>
+					<column label="" width="20%" />
+					<column label="" width="80%" />
+					<column label="" width="20%" />
+					<column label="" width="80%" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblNombreMomento" value="Nombre:" />
+						<hlayout id="lytNombreMomento">
+							<textbox
+								constraint="no empty: ingrese el nombre del Momento"
+								id="txtNombreMomento" width="300px" cols="23" maxlength="30"
+								mold="rounded" tabindex="1" value="@bind(vm.nombreMomento)" />
+						</hlayout>
+								<label id="lblDescripcion" value="Descripcion:" />
+						<hlayout id="lytdescripcion">
+							<textbox
+								constraint="no empty: ingrese la descripción del Momento"
+								id="txtDescripcion" width="300px" rows="3" maxlength="255"
+								mold="rounded" tabindex="2" value="@bind(vm.descripcion)" />
+						</hlayout>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<space />
+		<!-- Grupbox que contiene el listado de momentos almacenados en base de datos -->
+		<groupbox id="grbListaMomento">
+			<caption label="Listado de Momentos" />
+			<listbox id="lbxNombreMomento" height="70%"
+				model="@bind(vm.listaMomento)"
+				selectedItem="@bind(vm.momenseleccionado)"
+				onSelect="@command('mostrarSeleccionado')"
+				emptyMessage="No hay momentos registrados" mold="paging"
+				pageSize="5">
+
+				<!-- Busqueda por FILTROS los momentos -->
+				<auxhead sclass="category-center">
+					<auxheader colspan="1" align="center"
+						image="/imagenes/iconos/buscar.png">
+						<textbox id="filtroNombreMomento" instant="true"
+							width="100px" value="@bind(vm.filtros.nombreMomento)"
+							onChange="@command('filtros')" />
+					</auxheader>
+					<auxheader colspan="1" align="center"
+						image="/imagenes/iconos/buscar.png">
+						<textbox id="filtrodescripcion" instant="true"
+							width="100px" value="@bind(vm.filtros.descripcion)"
+							onChange="@command('filtros')" />
+					</auxheader>
+				</auxhead>
+
+				<listhead>
+					<listheader label="Nombre del Momento"
+						align="center" sort="auto(nombreMomento)" />
+					<listheader label="Descripcion del Momento "
+						align="center" sort="auto(descripcion)" />
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.nombreMomento}"></listcell>
+						<listcell label="${each.descripcion}"></listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+			<space />
+		</groupbox>
+
+		<!-- Grupo de botones -->
+		<div align="right">
+			<hbox>
+				<div align="right" height="100%">
+					<button id="btnGuardarMomento" label="Guardar"
+						mold="trendy" width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/guardar.png"
+						onClick="@command('guardarMomento')" />
+				</div>
+				<div align="right" height="100%">
+					<button id="btnEliminarMomento" label="Eliminar"
+						mold="trendy" width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/eliminar.png"
+						onClick="@command('eliminarMomento')" />
+				</div>
+				<div align="right" height="100%">
+					<button id="btnCancelarPregunta" label="Cancelar"
+						mold="trendy" width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/cancelar.png"
+						onClick="@command('limpiar')" />
+				</div>
+				<div align="right" height="100%">
+					<button id="btnCerrar" label="Cerrar" mold="trendy"
+						width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/cerrar.png"
+						onClick="winRegistarMomento.onClose()" />
+				</div>
+			</hbox>
+		</div>
+	</window>
+</zk>

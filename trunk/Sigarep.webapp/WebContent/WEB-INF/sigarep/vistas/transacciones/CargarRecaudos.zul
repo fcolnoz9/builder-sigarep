@@ -47,8 +47,8 @@
 		<button id="btnCancelar" width="auto" height="auto"
 			label="Cancelar" image="/imagenes/iconos/cancelar.png">
 		</button>
-		<button id="btnSalir" width="auto" height="auto" label="Salir"
-			image="/imagenes/iconos/salir.png">
+		<button id="btnCerrar" width="auto" height="auto" label="Salir"
+			image="/imagenes/iconos/cerrar.png" onClick="winCargarrecaudos.onClose()">
 		</button>
 	</div>
 

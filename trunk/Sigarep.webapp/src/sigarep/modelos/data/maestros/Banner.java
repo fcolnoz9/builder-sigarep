@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import sigarep.herramientas.Archivo;
 
+
 import java.util.Date;
 
 
@@ -39,10 +40,20 @@ public class Banner implements Serializable {
 	@Column(length=60)
 	private String titulo;
 	
-	@Embedded
-	private Archivo imagen;
-
+	@Embedded()
+	private Archivo fotoBanner;
+	
 	public Banner() {
+	}
+	public Banner(Integer idImagen,String descripcion, String enlace,Date fechaVencimiento, String titulo,Archivo fotoBanner, Boolean estatus){
+		super();
+		this.idImagen = idImagen;
+		this.descripcion = descripcion;
+		this.enlace = enlace;
+		this.fechaVencimiento= fechaVencimiento;
+		this.titulo= titulo;
+		this.fotoBanner= fotoBanner;
+		this.estatus= estatus;
 	}
 
 	public Integer getIdImagen() {
@@ -52,6 +63,7 @@ public class Banner implements Serializable {
 	public void setIdImagen(Integer idImagen) {
 		this.idImagen = idImagen;
 	}
+
 
 	public String getDescripcion() {
 		return this.descripcion;
@@ -93,12 +105,11 @@ public class Banner implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public Archivo getImagen() {
-		return imagen;
+	public Archivo getFotoBanner() {
+		return fotoBanner;
 	}
 
-	public void setImagen(Archivo imagen) {
-		this.imagen = imagen;
+	public void setFotoBanner(Archivo fotoBanner) {
+		this.fotoBanner = fotoBanner;
 	}
-
 }

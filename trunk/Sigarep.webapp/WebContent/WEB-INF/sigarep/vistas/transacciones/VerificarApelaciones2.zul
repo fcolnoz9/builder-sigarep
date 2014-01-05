@@ -339,8 +339,8 @@
 		<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/finalizar.png" width="75px" height="50px" 
 			 orient="vertical">
 		</button>
-		<button label="Salir" mold="trendy" id="btnSalir" image="/imagenes/iconos/salir.png" width="75px" height="50px" 
-			 orient="vertical">
+		<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="75px" height="50px" 
+			 orient="vertical" onClick="winActualizarEstadoEstudiante2.onClose()">
 		</button>
 	</div>
 </window> 

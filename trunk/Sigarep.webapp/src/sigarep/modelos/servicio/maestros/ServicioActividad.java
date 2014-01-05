@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Actividad;
+import sigarep.modelos.data.maestros.ActividadFiltros;
 import sigarep.modelos.repositorio.maestros.IActividadDAO;
 
 @Service("servicioactividad")
@@ -16,24 +17,29 @@ public class ServicioActividad {
 		iActividad.save(actividad);
 	}
 
-	public void eliminar(Integer id_actividad) {
-		iActividad.delete(id_actividad);
+	public void eliminar(Integer idActividad){
+		Actividad miActividad = iActividad.findOne(idActividad);
+		miActividad.setEstatus(false);
+		iActividad.save(miActividad);
 	}
 
 	public List<Actividad> listadoActividad() {
-		List<Actividad> actividadLista = iActividad.findAll();
+		List<Actividad> actividadLista = iActividad.buscarActividadesActivas();
 		return actividadLista;
 	}
 
-	public List<Actividad> buscarActividad(String nombre) {
+	public List<Actividad> buscarActividad(ActividadFiltros filtros) {
 		List<Actividad> resultado = new LinkedList<Actividad>();
-		if (nombre == null || "".equals(nombre)) {
+		String nombre = filtros.getNombre().toLowerCase();
+		String descripcion = filtros.getDescripcion().toLowerCase();
+		if (nombre == null || descripcion == null) {
 			resultado = listadoActividad();
 		} else {
-			for (Actividad actividad : listadoActividad()) {
-				if (actividad.getNombre().toLowerCase()
-						.contains(nombre.toLowerCase())) {
-					resultado.add(actividad);
+			for (Actividad act : listadoActividad()) {
+				if (act.getNombre().toLowerCase().contains(nombre)
+						&& act.getDescripcion().toLowerCase()
+								.contains(descripcion)) {
+					resultado.add(act);
 				}
 			}
 		}

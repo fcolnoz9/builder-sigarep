@@ -82,11 +82,8 @@
 			<button label="Cancelar" id="btnCancelar"
 				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
 				orient="horizontal" />
-			<button label="Salir" id="btnSalir"
-				image="/imagenes/iconos/salir.png" width="auto" height="auto"
-				orient="horizontal" />
-
-
+			<button label="Cerrar" id="btnSalir" image="/imagenes/iconos/cerrar.png" width="auto" 
+			height="auto" orient="horizontal" onClick="winMaestroMotivoA.onClose()" />
 		</hbox>
 
 	</window>

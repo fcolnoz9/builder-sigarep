@@ -3,6 +3,7 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,11 +29,11 @@ public class ProgramaAcademico implements Serializable {
 
 	// bi-directional many-to-one association to Asignatura
 	@OneToMany(mappedBy = "programaAcademico", cascade = { CascadeType.ALL })
-	private List<Asignatura> asignaturas;
+	private List<Asignatura> asignaturas = new LinkedList<Asignatura>();
 
 	// bi-directional many-to-one association to Estudiante
 	@OneToMany(mappedBy = "programaAcademico")
-	private List<Estudiante> estudiantes;
+	private List<Estudiante> estudiantes = new LinkedList<Estudiante>();
 
 	public ProgramaAcademico() {
 	}

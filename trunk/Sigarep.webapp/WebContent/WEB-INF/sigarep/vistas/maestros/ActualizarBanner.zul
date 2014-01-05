@@ -1,82 +1,120 @@
 <zk>
 	<window id="winActualizarBanner" title="Configuración Web :: Actualizar Banner"
-		border="normal" width="70%" height="auto" closable="true">
+		border="normal" width="auto" height="auto" closable="true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMBanner')">
 
-		<grid id="grdActualizarBanner">
+<!-- 	//<script type="text/javascript" src="/widgets/js/watermarkinput.js" />    Archivos para el uso de marca de agua -->
+<!-- 	//<script type="text/javascript"> -->
+<!-- 		//zk.afterMount(function(){ -->
+<!-- 			//jq("$txtTituloBanner").Watermark("Introduzca el Titulo","gray"); -->
+            
+<!-- 		//}); -->
+<!-- 		//</script> -->
+		<grid> 
+		<columns>
+			<column label="" width="70%"></column>
+			<column label="" width="30%"></column>
+		</columns>
+		<rows>
+			<row>
+			<grid id="grdActualizarBanner">
 
 			<columns></columns>
 			<rows>
 				<row>
-					<label id="lblNombre" value="Nombre de la Imagen" />
-					<textbox id="txtNombre" constraint="no empty"
-						width="170px" maxlength="30" cols="23" tabindex="5" />
-					<hbox>
-						<button label="Subir" id="btnCargar"
-							image="/imagenes/iconos/cargar.png" width="auto" height="auto"
-							orient="horizontal" />
-					</hbox>
+					<label id="lblTitulo" value="Titulo de la Imagen:" />
+					<textbox id="txtTituloBanner" constraint="no empty" value="@bind(vm.titulo)"
+					width="170px" maxlength="30" cols="23" tabindex="5" mold="rounded" />
+					
 				</row>
 
 
 
 				<row>
 					<label id="lblLinkImagen" value="Link Imagen" />
-					<textbox id="txtLink" constraint="no empty"
-						width="170px" maxlength="30" cols="23" tabindex="5" />
+					<textbox id="txtLinkBanner" constraint="no empty" value="@bind(vm.enlace)"
+						width="170px" maxlength="30" cols="23" tabindex="5" mold="rounded" />
 
 				</row>
 
 
 
 				<row>
-					<label id="lblBanner" value="Subir Imagen" />
-					<textbox id="txtBanner" constraint="no empty"
-						width="170px" maxlength="30" cols="23" tabindex="5" />
+					<label id="lblDescripcionBanner" value="Descripcion Imagen" />
+					<textbox id="txtDescripcionBanner" constraint="no empty" value="@bind(vm.descripcion)"
+						width="170px" maxlength="30" cols="23" tabindex="5" mold="rounded" />
 
 				</row>
-
-
-			</rows>
-		</grid>
-
-
-
-		<grid width="auto%" vflex="true" id="grdLista"
-			model="${$composer.allContributor}">
-
-			<columns>
-				<column label="N°" width="30px" align="center" />
-				<column label="Imagen" align="center" />
-				<column label="Tamaño" align="center" />
-			</columns>
-			<rows>
 				<row>
-					<label id="lblNumeroBanner" value=" 1" />
-					<vbox width="100%" height="150%" pack="center"
-						align="center">
-						<label sclass="title"></label>
-						<image src="imagenes/iconos/DCyT.png" />
-					</vbox>
-					<label id="lblTamano1" value=" 30X30" />
+					<label id="lblFechaVencimiento" value="Fecha Vencimiento" />
+					<datebox id="dtbFechaVencimiento" width="auto" height="auto" format="dd/MM/yyyy" mold="rounded" value="@bind(vm.fechaVencimiento)"/>
+
 				</row>
 
 
 			</rows>
-
 		</grid>
+		<vlayout>
+			<button label="Subir" id="btnCargarBanner" image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarImagenBanner',upload=event)"/>
+				<image id="imgImagen" height="150px" width="300px" content="@bind(vm.imagenBanner)"/>
+		</vlayout>
+		</row>
+		</rows>
+		</grid>
+	<space />
+	<space />
+	
+<!-- 	//**************************************************** -->
+<!-- 	//LISTADO DE BANNER -->
+<!-- 	//**************************************************** -->
+	
+		<listbox id="lbxListaBanner" rows="2" model="@bind(vm.listadoBanner)" selectedItem="@bind(vm.bannerSeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay banner registrados" mold="paging" pageSize="2">
+		<auxhead sclass="category-center">
+            <auxheader label="Busqueda por Filtros" colspan="5" />
+        </auxhead>
+        
+        <listhead>
+			<listheader label="Id" width="30px" align="center" sort="auto(nombre)" />
+			
+			<listheader label="Titulo" align="center" sort="auto(titulo)">
+				<textbox instant="true" width="100px" 
+                    value="@bind(vm.titulofiltro)" onChange="@command('buscarBannerFiltroTitulo')" />
+			</listheader>
+			<listheader label="Link" align="center" sort="auto(enlace)">
+				<textbox instant="true"  width="100px"
+                    value="@bind(vm.enlacefiltro)" onChange="@command('buscarBannerFiltroEnlace')"/>
+			</listheader>
+			<listheader label="Fecha Vencimiento" align="center"/>
+			<listheader label="Imagen" align="center"/>
+		</listhead>
+			
+			<template name="model">
+				<listitem selected="false">
+					<listcell label="${each.idImagen}" />
+					<listcell label="${each.titulo}"/>
+					<listcell label="${each.enlace}"/>
+					<listcell label="${each.fechaVencimiento}"/>
+					<listcell label="">
+						<image height="30px" width="60px" content="${each.getFotoBanner().getAImage()}"/>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
 
-		<hbox width="75%" pack="right">
-			<button label="Guardar" id="btnGuardar"
-				image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" />
-			<button label="Cancelar" id="btnCancelar"
-				image="/imagenes/iconos/cancelar.png" />
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="@command('guardarBanner')"/>
+			<button label="Eliminar" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="@command('eliminarImagenBanner')"/>
+			<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
+			orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
 			<button label="Cerrar" id="btnCerrar"
-				image="/imagenes/iconos/salir.png" width="auto" height="auto"
-				orient="horizontal" />
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="winActualizarBanner.onClose()" />
 
 
-		</hbox>
+		</div>
 
 	</window>
 

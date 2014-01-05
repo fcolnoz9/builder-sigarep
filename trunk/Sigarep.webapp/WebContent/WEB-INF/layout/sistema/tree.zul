@@ -37,6 +37,27 @@
 								onClick="createWin(RegistrarActividad.getId(), RegistrarActividad.getSclass())" />
 						</treerow>
 					</treeitem>
+				    <treeitem>
+						<treerow>
+							<treecell label="Momento"
+								id="RegistrarMomento" sclass="maestros"
+								onClick="createWin(RegistrarMomento.getId(), RegistrarMomento.getSclass())" />
+						</treerow>
+					</treeitem>
+					<treeitem>
+						<treerow>
+							<treecell label="Programa Académico"
+								id="RegistrarProgramaAcademico" sclass="maestros"
+								onClick="createWin(RegistrarProgramaAcademico.getId(), RegistrarProgramaAcademico.getSclass())" />
+						</treerow>
+					</treeitem>
+					<treeitem>
+						<treerow>
+							<treecell label="Tipo Motivo"
+								id="RegitrarTipoMotivo" sclass="maestros"
+								onClick="createWin(RegitrarTipoMotivo.getId(), RegitrarTipoMotivo.getSclass())" />
+						</treerow>
+					</treeitem>
 					<treeitem>
 						<treerow>
 							<treecell label="Tipo Sanción"
@@ -473,8 +494,8 @@
 					<treeitem>
 						<treerow>
 							<treecell label="Actualizar Noticias"
-								id="ActualizarNoticiass" sclass="maestros"
-								onClick="createWin(ActualizarNoticiass.getId(), ActualizarNoticiass.getSclass())" />
+								id="ActualizarNoticiasPortal" sclass="maestros"
+								onClick="createWin(ActualizarNoticiasPortal.getId(), ActualizarNoticiasPortal.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
@@ -487,8 +508,8 @@
 					<treeitem>
 						<treerow>
 							<treecell label="Enlaces de Interés"
-								id="ActualizarEnlacesInteres" sclass="maestros"
-								onClick="createWin(ActualizarEnlacesInteres.getId(), ActualizarEnlacesInteres.getSclass())" />
+								id="ActualizarEnlaces" sclass="maestros"
+								onClick="createWin(ActualizarEnlaces.getId(), ActualizarEnlaces.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>

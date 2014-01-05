@@ -9,12 +9,10 @@ import sigarep.modelos.data.maestros.PreguntaBasica;
 
 public interface IPreguntaBasicaDAO extends
 		JpaRepository<PreguntaBasica, Integer> {
-	@Query("select  pre from PreguntaBasica pre where pre.pregunta= :pregunta")
-	public List<PreguntaBasica> buscarPregunta();
-	@Query("select pr from PreguntaBasica pr where pr.pregunta= :pregunta")
-    public PreguntaBasica findBynombre(Integer idPreguntaBasica);
-	// Metodo que busca las preguntas basicas por Id
-	@Query("select pr from PreguntaBasica pr where pr.idPreguntaBasica= :idPreguntaBasica")
-	public List<PreguntaBasica> buscarPreguntab(Integer idPreguntaBasica);
+//	@Query("select  pre from PreguntaBasica pre where pre.estatus = 'true'")
+//	public List<PreguntaBasica> buscarPregunta();
 
+// Metodo que busca las preguntas basicas cuando su estatus es true 
+	@Query("select pr from PreguntaBasica pr where pr.estatus='true'")
+	public List<PreguntaBasica> buscarPreguntab();
 }

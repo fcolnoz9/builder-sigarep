@@ -1,10 +1,10 @@
 package sigarep.modelos.data.maestros;
-
 import java.io.Serializable;
 import javax.persistence.*;
 
 import sigarep.modelos.data.transacciones.Motivo;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -34,16 +34,15 @@ public class TipoMotivo implements Serializable {
 	private List<Recaudo> recaudos;
 	//bi-directional many-to-one association to Motivo
 	@OneToMany(mappedBy="tipoMotivo")
-	private List<Motivo> motivos;
+	private List<Motivo> motivos = new LinkedList<Motivo>();
 	
 	//Constructor 
 	public TipoMotivo() {
 	}
 	//Constructor con parametros
-	public TipoMotivo(Integer idTipoMotivo, String nombreTipoMotivo,
+	public TipoMotivo(String nombreTipoMotivo,
 			String descripcion, Boolean estatus) {
 		super();
-		this.idTipoMotivo= idTipoMotivo;
 		this.nombreTipoMotivo = nombreTipoMotivo;
 		this.descripcion= descripcion;
 		this.estatus= estatus;

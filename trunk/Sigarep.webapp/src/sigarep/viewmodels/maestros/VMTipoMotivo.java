@@ -14,6 +14,7 @@ import org.zkoss.zul.Window;
 
 
 import sigarep.modelos.data.maestros.TipoMotivo;
+import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
 
@@ -21,19 +22,20 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMTipoMotivo {
 	@WireVariable ServicioTipoMotivo serviciotipomotivo;
-	private Integer idTipoMotivo;
+//	private Integer idTipoMotivo;
 	private String nombreTipoMotivo,nombreTipoMotivofiltro;
 	private String descripcion,descripcionfiltro;
 	private Boolean estatus;
 	private List<TipoMotivo> listaTipoMotivo;
 	private TipoMotivo tiposeleccionado;
-    @Wire Textbox txtnombreTipoMotivo;
+	private TipoMotivoFiltros filtros = new TipoMotivoFiltros();
+	@Wire Textbox txtnombreTipoMotivo;
     @Wire Window winTipoMotivo;
 	
     //Metodos set y get
-    public Integer getIdTipoMotivo() {
-		return idTipoMotivo;
-	}
+//    public Integer getIdTipoMotivo() {
+//		return idTipoMotivo;
+//	}
     public String getNombreTipoMotivo() {
 		return nombreTipoMotivo;
 	}
@@ -62,10 +64,13 @@ public class VMTipoMotivo {
 	public void setDescripcionfiltro(String descripcionfiltro) {
 		this.descripcionfiltro = descripcionfiltro;
 	}
-	public void setIdTipoMotivo(Integer idTipoMotivo) {
-		this.idTipoMotivo = idTipoMotivo;
+	public TipoMotivoFiltros getFiltros() {
+		return filtros;
 	}
-	
+
+	public void setFiltros(TipoMotivoFiltros filtros) {
+		this.filtros = filtros;
+	}
 	public void setNombreTipoMotivo(String nombreTipoMotivo) {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 	}
@@ -84,67 +89,60 @@ public class VMTipoMotivo {
 		this.tiposeleccionado = tiposeleccionado;
 	}
 	//Fin de los metodod gets y sets
-    //----------- OTROS METODOS
+   
+	//----------- OTROS METODOS
     @Init
     public void init(){
-    	 //initialization code
-    	buscarTipoMotivo();
+      	listadoTipoMotivo();
     }
-    //Metodo que busca un motivo partiendo por su titulo
-  	@Command
-  	@NotifyChange({"listaTipoMotivo"})
-  	public void buscarTipoMotivo(){
-  		listaTipoMotivo = serviciotipomotivo.buscarP(nombreTipoMotivo);
-  	}
+    
     //Metodos que Permite guardar los tipos de motivos
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
-	public void guardar(){
+	public void guardarTipoMotivo(){
 		if (nombreTipoMotivo.equals("")||descripcion.equals("")){
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		else{
-		TipoMotivo motivo = new TipoMotivo(idTipoMotivo,nombreTipoMotivo, descripcion,true);
-		serviciotipomotivo.guardar(motivo);
+		TipoMotivo motivo = new TipoMotivo(nombreTipoMotivo, descripcion,true);
+		serviciotipomotivo.guardarTipoMotivo(motivo);
 		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 		limpiar();
 		}
 	}
-  //Metodo que busca un tipo de motivo 
+  //Metodo que limpia  todos los campos 
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion"})
 	public void limpiar(){
-		nombreTipoMotivo = "";descripcion="";
-		buscarTipoMotivo();
+		nombreTipoMotivo = "";
+		descripcion="";
+		listadoTipoMotivo();
 	}
- 
+    // Método que trae todos los registros en una lista de tipo de motivos
+ 	@Command
+ 	@NotifyChange({ "listaTipoMotivo" })
+ 	public void listadoTipoMotivo() {
+ 		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
+ 	}
   //Metodo que elimina un tipo de motivo tomando en cuenta el idTipoMotivo
   	@Command
   	@NotifyChange({"nombreTipoMotivo", "descripcion", "listaTipoMotivo"})
   	public void eliminarTipoMotivo(){
-  		serviciotipomotivo.eliminar(getTiposeleccionado().getIdTipoMotivo());
-  		limpiar();
+  		serviciotipomotivo.eliminarTipoMotivo(getTiposeleccionado().getIdTipoMotivo());
   		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+  		limpiar();
   	}
   //permite tomar los datos del objeto tipo motivo seleccionado
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion"})
 	public void mostrarSeleccionado(){
 		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
-		descripcion=getTiposeleccionado().getDescripcion();
-		
+		descripcion=getTiposeleccionado().getDescripcion();	
 	}
-  //Este metodo busca al tipo motivo por el FILTRO de nombre
-  	@Command
-  	@NotifyChange({"listaTipoMotivo"})
-  	public void buscarTipoMotivoFiltronombre(){
-  		listaTipoMotivo =serviciotipomotivo.buscarP(nombreTipoMotivofiltro);
-  	}
-  	
-  	//Este metodo busca al tipo motivo  por el FILTRO de nombre
-  	@Command
-  	@NotifyChange({"listaTipoMotivo"})
-  	public void buscarTipoMotivoFiltrodescripcion(){
-  		listaTipoMotivo =serviciotipomotivo.buscarP(descripcionfiltro);
-  	}
+    // Método que busca y filtra las sanciones
+ 	@Command
+ 	@NotifyChange({ "listaTipoMotivo" })
+ 	public void filtros() {
+ 		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivo(filtros);
+ 	}
 }

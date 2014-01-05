@@ -3,41 +3,55 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import sigarep.modelos.data.transacciones.ApelacionMomento;
-
-import java.util.List;
-
-
-/**
- * The persistent class for the momento database table.
- * 
+/*
+ * @ (#) Momento.java 
+ *
+ * Copyright 2013 Builder. Todos los derechos reservados.
+ * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
  */
+/*
+ ** Esta clase es del registro del maestro "Momento"
+ * @ Author Lilibeth Achji 
+ * @ Version 1.0, 16/12/13
+ */
+
 @Entity
+// anotación indica que el JavaBean es una entidad persistente
 @Access(AccessType.FIELD)
-@Table(name="momento")
+@Table(name = "momento")
 public class Momento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public Momento(Integer idMomento, String nombreMomento, String descripcion,
+			Boolean estatus) {
+		super();
+		this.idMomento = idMomento;
+		this.nombreMomento = nombreMomento;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+	}
+
+	// Atributos de la clase
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_momento", unique=true, nullable=false)
+	// Clave principal de la clase
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// Genera el ID del Momento
+	@Column(name = "id_momento", unique = true, nullable = false)
 	private Integer idMomento;
 
-	@Column(length=255)
-	private String descripcion;
-
-	@Column(nullable=false)
+	@Column(name = "estatus", nullable = false)
 	private Boolean estatus;
 
-	@Column(name="nombre_momento", nullable=false, length=255)
+	@Column(name = "nombremomento", length = 255)
 	private String nombreMomento;
 
-	//bi-directional many-to-one association to ApelacionMomento
-	@OneToMany(mappedBy="momento")
-	private List<ApelacionMomento> apelacionMomentos;
+	@Column(name = "descripcion", length = 255)
+	private String descripcion;
 
 	public Momento() {
 	}
+
+	// Métodos GET y SET
 
 	public Integer getIdMomento() {
 		return this.idMomento;
@@ -45,14 +59,6 @@ public class Momento implements Serializable {
 
 	public void setIdMomento(Integer idMomento) {
 		this.idMomento = idMomento;
-	}
-
-	public String getDescripcion() {
-		return this.descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public Boolean getEstatus() {
@@ -71,26 +77,12 @@ public class Momento implements Serializable {
 		this.nombreMomento = nombreMomento;
 	}
 
-	public List<ApelacionMomento> getApelacionMomentos() {
-		return this.apelacionMomentos;
+	public String getDescripcion() {
+		return this.descripcion;
 	}
 
-	public void setApelacionMomentos(List<ApelacionMomento> apelacionMomentos) {
-		this.apelacionMomentos = apelacionMomentos;
-	}
-
-	public ApelacionMomento addApelacionMomento(ApelacionMomento apelacionMomento) {
-		getApelacionMomentos().add(apelacionMomento);
-		apelacionMomento.setMomento(this);
-
-		return apelacionMomento;
-	}
-
-	public ApelacionMomento removeApelacionMomento(ApelacionMomento apelacionMomento) {
-		getApelacionMomentos().remove(apelacionMomento);
-		apelacionMomento.setMomento(null);
-
-		return apelacionMomento;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

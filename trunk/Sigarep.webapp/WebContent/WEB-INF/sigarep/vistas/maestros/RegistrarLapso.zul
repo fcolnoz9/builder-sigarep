@@ -1,84 +1,129 @@
 <zk>
-<window id="winRegistrarLapso" title="Registros Básicos :: Registrar Lapso Academico"  border="normal" width="auto" height="auto">
-		
-			
-<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="100%">
-			<caption label="Formulario de Registrar Lapso Academico"   />
-			
-<grid id = "grdRegitrarLapso">
-	
-   		<columns>
-   		 		<column label="" width="150px" id ="columna1"/>
-                <column label="" width="150px" id ="columna2" /> 
-   		</columns>
-   		
-   		
-   	<rows>
-   		<row>
-			<label id = "lblLapsoAcademico" value="Lapso Academico" />
-			<textbox id = "txtLapsoAcademico" constraint="no empty" value="@bind(fx.telephone)" width="300px" maxlength="30" cols="23" tabindex="5" />
-             <button label="Buscar" id = "btnBuscar"  image="imagenes/iconos/buscar.png" width="75px" height="50px" orient="vertical"  />	
-		</row>
-		
-		<row>
-			<label id = "lblFechaInicio" value="Fecha de Inicio" />
-			<datebox id="dtbInicioLapso" cols="12" format="@load(vm.dateFormat)"  mold="rounded" width="130px" height="50px" />		
-		</row>
-		
-		<row>  
-			<label id = "lblFechaFin" sclass="hightlight">Fecha de fin de Lapso </label>	
-			<datebox id="dbFinLapso" cols="12" format="@load(vm.dateFormat)"  mold="rounded" width="130px" height="50px"/>
-		</row>	
-	</rows>	
-	</grid>
-		<groupbox>
-		<caption label="Lapsos Academicos" />
-	<grid>
-	<columns>
-				<column label="" width="auto" />
-				<column label="" width="auto" />
-			</columns>
+<!-- 	<style id="estilo"> -->
+<!-- 		.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body -->
+<!-- 		div.z-cell,div.z-grid { border: none; overflow: hidden; zoom: 1; -->
+<!-- 		background: white; border-top: none; border-left: none; -->
+<!-- 		border-right: none; border-bottom: none; } -->
 
-			<rows>
-				
-				<row>
-					<label id="lblLapsoAcademicos" value="Lapso Academico:" />
-					<label id="lblFechaInicios" value="Fecha de inicio:" />
-					<label id="lblFechafins" value="Fecha de fin de lapso:" />
-				</row>
-		
-						<row>
-			<label value="2011-1" />
-			<label value="10/02/2011" />
-			<label value="10/08/2011" />	
-			</row>
-						<row>
-			<label value="2012-1" />
-			<label value="10/03/2012" />
-			<label value="20/11/2011" />	
-			</row>
-						<row>
-			<label value="2012-2" />
-			<label value="30/11/2012" />
-			<label value="06/05/2013" />	
-			</row>
+<!-- 		.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd -->
+<!-- 		.z-cell { background-color: #F7F7F7; border-bottom: 1px solid -->
+<!-- 		transparent; border-left: 1px solid transparent; border-top: 1px -->
+<!-- 		solid transparent; } -->
+
+<!-- 		.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd -->
+<!-- 		.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0 0 -->
+<!-- 		transparent; } -->
+
+<!-- 		.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd -->
+<!-- 		.z-cell,.fgrid tr.z-grid-odd { background: white } -->
+
+<!-- 		.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell { -->
+<!-- 		background: white; border-top: none; } -->
+<!-- 	</style> -->
+	<window id="winRegistrarLapso"
+		title="Registros Básicos :: Registrar Lapso Academico" border="normal"
+		width="auto" height="auto" contentStyle="overflow:auto"
+		apply="org.zkoss.bind.BindComposer" closable="true"
+		viewModel="@id('vm1') @init('sigarep.viewmodels.maestros.VMlapsoAcademico')">
+
+
+		<groupbox id="grbRegistrarLapso">
+			<caption label="Registrar Lapso Académicos" />
+			<!-- Grid que contiene los campos de la pantalla -->
+			<grid id="grdRegitrarLapso">
+				<columns>
+					<column label="" width="30%" id="columna1" />
+					<column label="" width="70%" id="columna2" />
+					<column label="" width="30%" id="columna3" />
+					<column label="" width="70%" id="columna4" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblLapsoAcademico"
+							value="Lapso Académico" />
+						<textbox id="txtLapsoAcademico"
+							constraint="no empty:Ingrese Lapso Académico"
+							value="@bind(vm1.codigoLapso)" width="300px" height="auto"
+							mold="rounded" maxlength="30" cols="23"
+							onClick="@command('buscarActivoLapso')" />
+					
+					</row>
+					
+					<row>
+						<label id="lblFechaInicio"
+							value="Fecha de Inicio de Lapso" />
+						<datebox id="dtbFechaInicio"
+							constraint="no empty:Ingrese Fecha de Inicio de Lapso Académico"
+							format="yyyy/MM/dd" height="auto" width="300px" tabindex="4"
+							mold="rounded" value="@bind(vm1.fechaInicio)" />
+										
+						<label id="lblFechaCierre"
+							value="Fecha de fin de Lapso"/>
+						<datebox id="dbFechaCierre"
+							constraint="no empty:Ingrese Fecha final de Lapso Académico"
+							format="yyyy/MM/dd" height="auto" width="300px" mold="rounded"
+							value="@bind(vm1.fechaCierre)" />
+					</row>
 				</rows>
-	</grid>
-	</groupbox>	
-	<hbox width="90%" height="150%" pack="right" >
-	<hlayout id = "lytGuardar">
-	<button label="Guardar"  id = "btnGuardar" image="imagenes/iconos/guardar.png" width="100px" height="50px" orient="vertical" />
-	</hlayout>
-	<hlayout id = "lytQuitar">
-	<button label="Quitar"  id = "btnQuitar" image="imagenes/iconos/borrar.png" width="100px" height="50px" orient="vertical"/>
-	</hlayout>
-	<hlayout id = "lytCancelar">
-	<button label="Cancelar" id = "btnCancelar" image="imagenes/iconos/cancelar.png" width="100px" height="50px" orient="vertical" />	
-	</hlayout>
-	
-	</hbox>
-			
-</groupbox>	
-</window>
+			</grid>
+			<space />
+		</groupbox>
+		<space />
+		<!-- Grupbox que contiene el listado de los lapso academico -->
+		<groupbox id="grbRegistrarLapso3">
+			<caption label="Listado de Lapsos Académicos" />
+			<listbox id="lbxLapsoAcademico" height="160px"
+				model="@bind(vm1.listaLapsoAcademico)"
+				selectedItem="@bind(vm1.lapsoAcademicoseleccionado)"
+				onSelect="@command('mostrarSeleccionadoLapso')"
+				emptyMessage="No hay Lapsos Academicos registradas" mold="paging"
+				pageSize="10">
+				<!-- Busqueda por FILTROS los lapso academicos -->
+				<auxhead sclass="category-center">
+					<auxheader colspan="1" align="center"
+						image="/imagenes/iconos/buscar.png">
+						<textbox id="txtfiltroCodigoLapso"
+							instant="true" width="100px" value="@bind(vm1.codigoLapso)"
+							onChange="@command('buscarCodigoLapsoFiltro')" />
+					</auxheader>
+				</auxhead>
+				<listhead>
+					<listheader label="Lapso Academido"
+						id="lblLapsoAcademicos" align="center" sort="auto(codigoLapso)" />
+					<listheader label="Fecha de Inicio de Lapso"
+						id="lblFechaInicios" align="center" sort="auto(fechaInicio)" />
+					<listheader label="Fecha de Final de Lapso"
+						id="lblFechafinal" align="center" sort="auto(fechaCierre)" />
+				</listhead>
+
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.codigoLapso}" />
+						<listcell label="${each.fechaInicio}" />
+						<listcell label="${each.fechaCierre}" />
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+		</groupbox>
+		<!-- Grupbox de Botones -->
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar"
+				image="imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('guardarLapso')" />
+			<button label="Eliminar" id="btnEliminar"
+				image="imagenes/iconos/eliminar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('eliminarLapsoAcademico')" />
+			<button label="Cancelar" id="btnCancelar"
+				image="imagenes/iconos/cancelar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('limpiarlapso')" />
+			<button label="Cerrar" id="btnCerrar"
+				image="imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal" onClick="winRegistrarLapso.onClose()" />
+		</div>
+
+
+
+	</window>
 
 </zk>

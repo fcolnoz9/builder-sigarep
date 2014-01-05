@@ -1,12 +1,12 @@
 <?page title="Registrar Sancionado Por Lote" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Registros Básicos :: Sancionados :: Registrar Sancionado Por Lote" border="normal" closable="true">
+<window id="winRegistrarSancionadoLote" title="Registros Básicos :: Sancionados :: Registrar Sancionado Por Lote" border="normal" closable="true">
 <groupbox>
 			<caption  label="Registro por archivo"/>
 			<label id="lblDocumentoXml" value="Documento XML:"/> <textbox id="txtCargar" /> <button id="btnCargar" label="Cargar" image="/imagenes/iconos/cargar.png" width="60px" height="50px" orient="vertical" />  
  		  </groupbox>
  		  <hbox width="100%" pack="right" >
- 		  <button id="btnSalir1" label="Salir" image="/imagenes/iconos/salir.png" width="75px" height="50px" orient="vertical" />
+ 		  <button id="btnSalir1" label="Salir" image="/imagenes/iconos/salir.png" width="75px" height="50px" orient="vertical" onClick="winRegistrarSancionadoLote.onClose()" />
  		  </hbox>
 </window>
 </zk>

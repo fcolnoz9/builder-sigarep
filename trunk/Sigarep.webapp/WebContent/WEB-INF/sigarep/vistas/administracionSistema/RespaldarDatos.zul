@@ -176,10 +176,7 @@
    					<row  align="right">
    						<button label="Cerrar" id="btnCerrar"
    							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-   							height="auto" orient="horizontal">
-   							<!-- 					<attribute name="onClick"> -->
-   							<!-- 					</attribute> -->
-   							
+   							height="auto" orient="horizontal" onClick="winRespaldarDatos.onClose()">
    						</button>
    					</row>
    				</rows>
