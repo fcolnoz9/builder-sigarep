@@ -22,23 +22,23 @@
 						</columns>
 						<rows>
 							<row>
-								<label id="lblTitulo" value="Titulo:" />
+								<label id="lblTitulo" value="Título:" />
 								<hlayout>
 									<textbox id="txtTitulo" cols="23"
-										maxlength="90" disabled="false" constraint="no empty" mold="rounded" width="300px"
+										maxlength="90" disabled="false" constraint="no empty: Título" mold="rounded" width="300px"
 										tabindex="1" value="@bind(vm.titulo)" />
 								</hlayout>
 							</row>
 							<row>
 								<label id="lblContenido"
 									value="Contenido:" />
-								<textbox id="txtContenido" width="300px" constraint="no empty"
+								<textbox id="txtContenido" width="300px" constraint="no empty: Contenido"
 									rows="3" mold="rounded" tabindex="2"
 									value="@bind(vm.contenido)" />
 							</row>
 							<row>
 								<label id="lblEnlace" value="Enlace:" />
-								<textbox id="txtEnlace" cols="23" constraint="no empty"
+								<textbox id="txtEnlace" cols="23" constraint="no empty:Enlace"
 									maxlength="90" disabled="false" mold="rounded" width="300px"
 									tabindex="1" value="@bind(vm.enlaceNoticia)" />
 							</row>
@@ -144,11 +144,8 @@
 				height="auto" orient="horizontal"
 				onClick="@command('eliminarNoticia')" />
 			<button id="btnCancelarNoticia" label="Cancelar"
-				image="/imagenes/iconos/cancelar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="@command('limpiar')" />
-            <button id="btnCerrar" label="Cerrar"
 				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="winActualizarNoticia.onClose()" />				
+				height="auto" orient="horizontal" onClick="@command('limpiar')" />
 		</div>
 	</window>
 </zk>

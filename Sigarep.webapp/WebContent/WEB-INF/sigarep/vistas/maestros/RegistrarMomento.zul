@@ -16,26 +16,26 @@
 		<!-- Grupbox que contiene los campos de la pantalla -->
 		<groupbox id="grbMomento">
 			<caption label="Registrar Momento" />
-			<grid id="grdMomento" height="100%" sclass="fgrid">
+			<grid id="grdMomento">
 				<columns>
-					<column label="" width="20%" />
-					<column label="" width="80%" />
-					<column label="" width="20%" />
-					<column label="" width="80%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
 				</columns>
 				<rows>
 					<row>
 						<label id="lblNombreMomento" value="Nombre:" />
 						<hlayout id="lytNombreMomento">
 							<textbox
-								constraint="no empty: ingrese el nombre del Momento"
+								constraint="no empty: Ingrese el Nombre del Momento"
 								id="txtNombreMomento" width="300px" cols="23" maxlength="30"
 								mold="rounded" tabindex="1" value="@bind(vm.nombreMomento)" />
 						</hlayout>
 								<label id="lblDescripcion" value="Descripcion:" />
 						<hlayout id="lytdescripcion">
 							<textbox
-								constraint="no empty: ingrese la descripción del Momento"
+								constraint="no empty: Ingrese la Descripción del Momento"
 								id="txtDescripcion" width="300px" rows="3" maxlength="255"
 								mold="rounded" tabindex="2" value="@bind(vm.descripcion)" />
 						</hlayout>
@@ -47,34 +47,28 @@
 		<!-- Grupbox que contiene el listado de momentos almacenados en base de datos -->
 		<groupbox id="grbListaMomento">
 			<caption label="Listado de Momentos" />
-			<listbox id="lbxNombreMomento" height="70%"
+			<listbox id="lbxNombreMomento" height="100%"
 				model="@bind(vm.listaMomento)"
 				selectedItem="@bind(vm.momenseleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
 				emptyMessage="No hay momentos registrados" mold="paging"
 				pageSize="5">
 
-				<!-- Busqueda por FILTROS los momentos -->
-				<auxhead sclass="category-center">
-					<auxheader colspan="1" align="center"
-						image="/imagenes/iconos/buscar.png">
-						<textbox id="filtroNombreMomento" instant="true"
-							width="100px" value="@bind(vm.filtros.nombreMomento)"
-							onChange="@command('filtros')" />
-					</auxheader>
-					<auxheader colspan="1" align="center"
-						image="/imagenes/iconos/buscar.png">
-						<textbox id="filtrodescripcion" instant="true"
-							width="100px" value="@bind(vm.filtros.descripcion)"
-							onChange="@command('filtros')" />
-					</auxheader>
-				</auxhead>
-
 				<listhead>
 					<listheader label="Nombre del Momento"
-						align="center" sort="auto(nombreMomento)" />
+						align="center" sort="auto(nombreMomento)">
+						<textbox id="filtroNombreMomento" instant="true"
+						width="100px" value="@bind(vm.filtros.nombreMomento)"
+						onChange="@command('filtros')"/>
+						<image src="/imagenes/iconos/buscar.png"/>
+						</listheader>
 					<listheader label="Descripcion del Momento "
-						align="center" sort="auto(descripcion)" />
+						align="center" sort="auto(descripcion)" >
+						<textbox id="filtrodescripcion" instant="true"
+						width="100px" value="@bind(vm.filtros.descripcion)"
+						onChange="@command('filtros')" />
+						<image src="/imagenes/iconos/buscar.png"/>
+				</listheader>
 				</listhead>
 				<template name="model">
 					<listitem selected="false">

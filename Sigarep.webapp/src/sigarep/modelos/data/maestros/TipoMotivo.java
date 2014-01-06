@@ -4,8 +4,10 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.transacciones.Motivo;
 
+
 import java.util.LinkedList;
 import java.util.List;
+
 
 
 /**
@@ -30,8 +32,8 @@ public class TipoMotivo implements Serializable {
 	@Column(name ="estatus",nullable=false)
 	private Boolean estatus;
 	//bi-directional many-to-one association to Recaudo
-	@OneToMany(mappedBy="tipoMotivo")
-	private List<Recaudo> recaudos;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,mappedBy="tipoMotivo")
+	private List<Recaudo> recaudos = new LinkedList<Recaudo>();
 	//bi-directional many-to-one association to Motivo
 	@OneToMany(mappedBy="tipoMotivo")
 	private List<Motivo> motivos = new LinkedList<Motivo>();

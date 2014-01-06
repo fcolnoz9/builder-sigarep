@@ -6,7 +6,7 @@ package sigarep.modelos.data.maestros;
  * CONFIDENCIAL.
  */
 /*
-** Esta clase es para los filtros de busqueda del maestro "Momento"
+** Esta clase es para los filtrosde busqueda del maestro "Momento"
  * @ Author Lilibeth Achji 
  * @ Version 1.0, 04/01/14
 */

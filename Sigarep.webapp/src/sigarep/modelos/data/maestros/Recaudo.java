@@ -13,6 +13,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name="recaudo")
 public class Recaudo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +36,7 @@ public class Recaudo implements Serializable {
 	private String observacion;
 
 	//bi-directional many-to-one association to TipoMotivo
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_tipo_motivo", nullable=false)
 	private TipoMotivo tipoMotivo;
 

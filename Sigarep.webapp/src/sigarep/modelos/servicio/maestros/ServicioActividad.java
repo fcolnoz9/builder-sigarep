@@ -17,8 +17,8 @@ public class ServicioActividad {
 		iActividad.save(actividad);
 	}
 
-	public void eliminar(Integer idActividad){
-		Actividad miActividad = iActividad.findOne(idActividad);
+	public void eliminar(Integer id_actividad) {
+		Actividad miActividad = iActividad.findOne(id_actividad);
 		miActividad.setEstatus(false);
 		iActividad.save(miActividad);
 	}
@@ -45,5 +45,4 @@ public class ServicioActividad {
 		}
 		return resultado;
 	}
-
 }

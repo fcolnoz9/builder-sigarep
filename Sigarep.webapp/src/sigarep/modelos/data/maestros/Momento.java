@@ -16,8 +16,8 @@ import javax.persistence.*;
  */
 
 @Entity
-// anotación indica que el JavaBean es una entidad persistente
 @Access(AccessType.FIELD)
+// anotación indica que el JavaBean es una entidad persistente
 @Table(name = "momento")
 public class Momento implements Serializable {
 	private static final long serialVersionUID = 1L;

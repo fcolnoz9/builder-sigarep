@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
@@ -14,6 +16,9 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 
 	@Query("select sa from SolicitudApelacion sa where sa.fechaSolicitud<=?1")
 	public List<SolicitudApelacion> buscarPorFechaHasta(Date fecha);
+
+	@Query("select sa.estudianteSancionado from SolicitudApelacion sa where sa.id.cedulaEstudiante = :cedulaEstudiante")
+	public EstudianteSancionado buscarSancionado(@Param("cedulaEstudiante")String cedulaEstudiante);
 	
 	 //@Query()
 	 //public List<SolicitudApelacion> solicitudesApelacionPorSancionado(EstudianteSancionadoPK id);

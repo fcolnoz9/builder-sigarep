@@ -160,7 +160,7 @@ public class VMmomento {
 	@NotifyChange({ "nombreMomento", "descripcion", "listaMomento" })
 	public void eliminarMomento() {
 		if (nombreMomento == null || descripcion == null) {
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia",
+			Messagebox.show("Debes Seleccionar un Momento", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
 			serviciomomento.eliminarMomento(getMomenseleccionado().getIdMomento());
