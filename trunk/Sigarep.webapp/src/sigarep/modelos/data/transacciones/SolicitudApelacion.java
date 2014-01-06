@@ -41,6 +41,9 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 
 	@Column(length=255)
 	private String observacion;
+	
+	@Column(name="numero_caso", nullable=true)
+	private Integer numeroCaso;
 
 	//bi-directional many-to-one association to ApelacionMomento
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="solicitudApelacion")
@@ -191,6 +194,14 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 	public int compareTo(SolicitudApelacion arg0) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public Integer getNumeroCaso() {
+		return numeroCaso;
+	}
+
+	public void setNumeroCaso(Integer numeroCaso) {
+		this.numeroCaso = numeroCaso;
 	}
 
 }
