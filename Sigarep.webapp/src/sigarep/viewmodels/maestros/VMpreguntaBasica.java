@@ -104,9 +104,14 @@ public class VMpreguntaBasica {
 	@Command
 	@NotifyChange({"listaPregunta","pregunta","respuesta"})
 	public void eliminarPreguntaBasica(){
+		if (pregunta==null||respuesta==null){
+			Messagebox.show("Debes Seleccionar una Pregunta Básica", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+  		}
+		else{
 		serviciopreguntabasica.eliminarPregunta(getPreguntaseleccionada().getIdPreguntaBasica());
 		limpiar();
 		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+	}
 	}
 	@Command
 	@NotifyChange({"pregunta","respuesta"})
