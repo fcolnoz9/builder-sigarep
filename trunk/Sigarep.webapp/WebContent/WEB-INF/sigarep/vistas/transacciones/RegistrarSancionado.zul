@@ -11,27 +11,27 @@
 			            	</row>
 			            	<row>
 				                 <label id="lblPrimerNombre" value="Primer nombre:"/>
-					    		 <textbox id="txtPrimerNombre" value="@bind(vm.primerNombre)" />
+					    		 <textbox id="txtPrimerNombre" value="@bind(vm.primerNombre)" disabled="true"/>
 					    		 <label id="lblSegundoNombre" value="Segundo nombre:"/>
-					    		 <textbox id="txtSegundoNombre" value="@bind(vm.segundoNombre)" />
+					    		 <textbox id="txtSegundoNombre" value="@bind(vm.segundoNombre)" disabled="true"/>
 			            	</row>
 			            	<row>
 				                 <label id="lblPrimerApellido" value="Primer apellido:"/>
-					    		 <textbox id="txtPrimerApellido" value="@bind(vm.primerApellido)"/>
+					    		 <textbox id="txtPrimerApellido" value="@bind(vm.primerApellido)" disabled="true"/>
 					    		 <label id="lblSegundoApellido" value="Segundo apellido:"/>
-					    		 <textbox id="txtSegundoApellido" value="@bind(vm.segundoApellido)"/>
+					    		 <textbox id="txtSegundoApellido" value="@bind(vm.segundoApellido)" disabled="true"/>
 			            	</row>
 			            	<row>
 			            	  	<label id="lblsexo" value="Sexo"/>
-					    		<textbox id="txtSexo" value="@bind(vm.sexo)"/>
+					    		<textbox id="txtSexo" value="@bind(vm.sexo)" disabled="true" />
 								<label id="lblFechaNacimiento" value="Fecha de nacimiento:"/>
-					    		<datebox id="dtbFechaNacimiento"  cols="12"   mold="rounded" width="130px" height="25px" value="@bind(vm.fechaNacimiento)" format = "dd/MM/yyyy" />
+					    		<datebox id="dtbFechaNacimiento"  cols="12"   mold="rounded" width="130px" height="25px" value="@bind(vm.fechaNacimiento)" format = "dd/MM/yyyy" disabled="true" />
 							</row>
 			            	<row>
 				                  <label id="lblTelefono" value="Telefono:"/>
-					    		  <textbox id="txtTelefono" value="@bind(vm.telefono)"/>
+					    		  <textbox id="txtTelefono" value="@bind(vm.telefono)" disabled="true"/>
 					    		  <label id="lblEmail" value="Email:"/>
-					    		  <textbox id="txtEmail" value="@bind(vm.email)"/>
+					    		  <textbox id="txtEmail" value="@bind(vm.email)" disabled="true"/>
 			            	</row>
 			     
         	 			 </rows>
@@ -42,24 +42,21 @@
 	   		  <grid>
 			        	  <rows>
 			            	<row>
+						    		<label id="lblAnnoIngreso" value="Año Ingreso:"/>
+					    			<datebox id="dtbAnnoIngreso"  cols="12"   mold="rounded" width="130px" height="25px" value="@bind(vm.annoIngreso)" format = "dd/MM/yyyy" disabled="true"/>
+						    		<label id="lblPrograma" value="Programa:"/>
+							    	<textbox id="txtPrograma" value="@bind(vm.programa)" disabled="true"/>								
+									</row>
+			            	<row>
 			            			<label id="lblLapso" value="Lapso:"/>
 						    	    <combobox readonly="true" id= "cmbLapso" value="@bind(vm.lapsoAcademico.codigoLapso)" width="auto" mold="rounded" model="@load(vm.listaLapso)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('objetoComboLapso')">
 						    	        <template name="model">
 											<comboitem  label="${each.codigoLapso}"/>
 										</template>	
 								    </combobox>
-						    		
-						    		<label id="lblPrograma" value="Programa:"/>
-							    	<textbox id="txtPrograma" value="@bind(vm.programa)"/>								
-									<label id="lblAnnoIngreso" value="Año Ingreso:"/>
-					    			<datebox id="dtbAnnoIngreso"  cols="12"   mold="rounded" width="130px" height="25px" value="@bind(vm.annoIngreso)" format = "dd/MM/yyyy"/>
-							</row>
-			            	<row>
 						    		 <label id="lblIndiceGrado" value="Indice de grado:"/>
 						    		 <textbox id="txtIndiceGrado" value="@bind(vm.indiceGrado)"/>
-					                 <label id="lblLapsoAcademico" value="Lapso Academico:"/>
-						    		 <textbox id="txtLapsoAcademico" value="@bind(vm.lapsoAcademico.codigoLapso)"/>
-			            	</row>
+					     	</row>
 			            	
 			            	<row>
 					                 
@@ -93,7 +90,7 @@
 		<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('registrarEstudianteSancionado')" />	
    		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
    		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarEstudianteSancionado')"/>
-   		<button label="Cerrar" id="btnCerrar"  image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winRegistrarSancionados.onClose()"/>
+   		<button label="Cerrar" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="VMEstudianteSancionado.onClose()" />
    		</div>
    		
    	<space />

@@ -8,51 +8,46 @@ import sigarep.modelos.data.transacciones.Cronograma;
 
 import java.util.List;
 
-
 /**
  * The persistent class for the actividad database table.
  * 
  */
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="actividad")
+@Table(name = "actividad")
 public class Actividad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_actividad", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_actividad", unique = true, nullable = false)
 	private Integer idActividad;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String descripcion;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
-	@Column(nullable=false, length=60)
+	@Column(nullable = false, length = 60)
 	private String nombre;
-	
-	@Embedded
-	private Archivo imagen;
 
-	//bi-directional many-to-one association to Cronograma
-	@OneToMany(mappedBy="actividad")
+	// bi-directional many-to-one association to Cronograma
+	@OneToMany(mappedBy = "actividad")
 	private List<Cronograma> cronogramas;
 
 	public Actividad() {
 	}
 
-	public Actividad(Integer idActividad, String descripcion, Boolean estatus,
-			String nombre, Archivo imagen) {
+	public Actividad(Integer id_actividad, String nombre, String descripcion,
+			Boolean estatus) {
 		super();
-		this.idActividad = idActividad;
+		this.idActividad = id_actividad;
+		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.estatus = estatus;
-		this.nombre = nombre;
-		this.imagen = imagen;
 	}
-	
+
 	public Integer getIdActividad() {
 		return this.idActividad;
 	}
@@ -103,16 +98,7 @@ public class Actividad implements Serializable {
 	public Cronograma removeCronograma(Cronograma cronograma) {
 		getCronogramas().remove(cronograma);
 		cronograma.setActividad(null);
-
 		return cronograma;
-	}
-
-	public Archivo getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(Archivo imagen) {
-		this.imagen = imagen;
 	}
 
 }

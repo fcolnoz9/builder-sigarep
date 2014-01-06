@@ -7,8 +7,6 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
-
-import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.ActividadFiltros;
 import sigarep.modelos.servicio.maestros.ServicioActividad;
@@ -25,7 +23,6 @@ public class VMactividad {
 	private String descripcion;
 	private String nombreFiltro;
 	private String descripcionFiltro;
-	private Archivo imagen;
 	private Boolean estatus;
 	private List<Actividad> listaActividad;
 	private Actividad actividadSeleccionada;
@@ -42,10 +39,6 @@ public class VMactividad {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public void setImagen(Archivo imagen) {
-		this.imagen = imagen;
 	}
 
 	public void setEstatus(Boolean estatus) {
@@ -84,10 +77,6 @@ public class VMactividad {
 		return descripcion;
 	}
 
-	public Archivo getImagen() {
-		return imagen;
-	}
-
 	public Boolean getEstatus() {
 		return estatus;
 	}
@@ -124,15 +113,14 @@ public class VMactividad {
 
 	// Metodo que perimite guardar una Actividad
 	@Command
-	@NotifyChange({ "id_actividad", "nombre", "descripcion", "imagen",
-			"listaActividad" })
+	@NotifyChange({ "id_actividad", "nombre", "descripcion", "listaActividad" })
 	public void guardarActividad() {
 		if (nombre.equals("") || descripcion.equals("")) {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			Actividad actividad = new Actividad(id_actividad, descripcion,
-					true, nombre, imagen);
+			Actividad actividad = new Actividad(id_actividad, nombre,
+					descripcion, true);
 			servicioactividad.guardar(actividad);
 			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
 					Messagebox.OK, Messagebox.INFORMATION);
@@ -149,11 +137,10 @@ public class VMactividad {
 
 	// Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombre", "descripcion", "imagen", "listaActividad" })
+	@NotifyChange({ "nombre", "descripcion", "listaActividad" })
 	public void limpiar() {
 		nombre = "";
 		descripcion = "";
-		imagen = null;
 		listadoActividad();
 	}
 
@@ -169,12 +156,11 @@ public class VMactividad {
 
 	// Permite tomar los datos del objeto actividadseleccionada
 	@Command
-	@NotifyChange({ "id_actividad", "nombre", "descripcion", "imagen" })
+	@NotifyChange({ "id_actividad", "nombre", "descripcion" })
 	public void mostrarSeleccionada() {
 		id_actividad = getActividadSeleccionada().getIdActividad();
 		nombre = getActividadSeleccionada().getNombre();
 		descripcion = getActividadSeleccionada().getDescripcion();
-		// imagen = getActividadSeleccionada().getImagen();
 	}
 
 	// Método que busca y filtra las actividades
@@ -183,5 +169,4 @@ public class VMactividad {
 	public void filtros() {
 		listaActividad = servicioactividad.buscarActividad(filtros);
 	}
-
 }

@@ -94,13 +94,14 @@ public class VMTipoMotivo {
     @Init
     public void init(){
       	listadoTipoMotivo();
+      	
     }
     
     //Metodos que Permite guardar los tipos de motivos
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarTipoMotivo(){
-		if (nombreTipoMotivo.equals("")||descripcion.equals("")){
+		if (nombreTipoMotivo== null|| descripcion == null ){
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		else{
@@ -128,10 +129,15 @@ public class VMTipoMotivo {
   	@Command
   	@NotifyChange({"nombreTipoMotivo", "descripcion", "listaTipoMotivo"})
   	public void eliminarTipoMotivo(){
+  		if (nombreTipoMotivo== null|| descripcion == null ){
+			Messagebox.show("Debes Seleccionar un motivo", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		else{
   		serviciotipomotivo.eliminarTipoMotivo(getTiposeleccionado().getIdTipoMotivo());
   		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
   		limpiar();
   	}
+  	}	
   //permite tomar los datos del objeto tipo motivo seleccionado
     @Command
 	@NotifyChange({"nombreTipoMotivo", "descripcion"})

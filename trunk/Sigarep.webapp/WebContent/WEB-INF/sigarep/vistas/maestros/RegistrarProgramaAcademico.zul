@@ -3,40 +3,25 @@
 	height="auto" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademico')">
-	<script type="text/javascript" src="/widgets/js/watermark.js" />
 	<groupbox>
 		<caption label="Registrar Programa Académico" />
 		<grid sclass="fgrid">
 			<columns>
-				<column align="right" width="40%" />
-				<column align="left" />
+				<column width="20%" />
+				<column width="80%" />
 			</columns>
 			<rows>
 				<row>
 					<label value="Nombre del Programa: "
 						id="lblPrograma" />
-					<textbox id="txtNombrePrograma" cols="23"
-						width="200px" maxlength="30" value="@bind(vm.nombrePrograma)">
+					<textbox id="txtNombrePrograma" cols="23" constraint="no empty: Ingrese nombre del programa"
+						width="300px" maxlength="30" value="@bind(vm.nombrePrograma)">
 					</textbox>
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
 	<separator />
-	<div align="right" height="100%">
-		<button label="Guardar" id="btnGuardar"
-			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('guardarPrograma')">
-		</button>
-		<button label="Eliminar" id="btnEliminar"
-			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('eliminarPrograma')">
-		</button>
-		<button label="Cancelar" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('limpiar')">
-		</button>
-	</div>
 	<groupbox id="grbListaProgramas">
 		<caption label="Lista de Programas Académicos" />
 		<listbox id="lbxPrograma" height="100%"
@@ -63,6 +48,18 @@
 	</groupbox>
 	<separator />
 	<div align="right">
+		<button label="Guardar" id="btnGuardar"
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			mold="trendy" onClick="@command('guardarPrograma')">
+		</button>
+		<button label="Eliminar" id="btnEliminar"
+			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+			mold="trendy" onClick="@command('eliminarPrograma')">
+		</button>
+		<button label="Cancelar" id="btnCancelar"
+			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+			mold="trendy" onClick="@command('limpiar')">
+		</button>
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 			mold="trendy" onClick="winRegistrarPrograma.onClose()">

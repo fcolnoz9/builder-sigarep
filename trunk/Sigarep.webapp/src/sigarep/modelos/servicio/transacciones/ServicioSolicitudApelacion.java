@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.transacciones.ApelacionMomento;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
@@ -23,10 +24,13 @@ public class ServicioSolicitudApelacion {
 
 	private @Autowired ISolicitudApelacionDAO iSolicitudApelacionDAO;
 	private @Autowired IMotivoDAO iMotivoDAO;
-	private EntityManager em;
 	
 	public SolicitudApelacion guardar(SolicitudApelacion solicitudapelacion) {
 		return iSolicitudApelacionDAO.save(solicitudapelacion);
+	}
+	
+	public EstudianteSancionado buscarEstudianteSancionadoxSolicitud(String cedulaEstudiante){
+		return iSolicitudApelacionDAO.buscarSancionado(cedulaEstudiante);
 	}
 	
 	public void eliminar(SolicitudApelacionPK id){

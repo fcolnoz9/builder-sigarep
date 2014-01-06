@@ -1,57 +1,33 @@
-<window title="Registros Básicos :: Registrar Actividades"
+<window title="Registros Básicos :: Registrar Actividad"
 	id="winRegistrarActividad" border="normal" closable="true"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMactividad')">
-	<script type="text/javascript" src="/widgets/js/watermark.js" />
-	<script type="text/javascript" src="/widgets/js/watermarkinput.js" />
 	<groupbox>
 		<caption label="Datos de la Actividad" />
 		<grid sclass="fgrid">
 			<columns>
-				<column align="right" width="40%" />
-				<column align="center" />
-				<column align="left" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
 			</columns>
 			<rows>
 				<row>
 					<label value="Nombre: " id="lblNombreActividad" />
 					<textbox id="txtNombreActividad" cols="23"
-						constraint="no empty" width="200px" maxlength="30"
-						value="@bind(vm.nombre)" />
-				</row>
-				<row>
+						constraint="no empty: Ingrese nombre de la Actividad" mold="rounded"
+						width="300px" maxlength="30" value="@bind(vm.nombre)" />
 					<label value="Descripción: " id="lblDescripcion" />
 					<hlayout>
 						<textbox id="txtDescripcionActividad"
-							constraint="no empty" width="200px" rows="3"
-							value="@bind(vm.descripcion)" />
+							constraint="no empty: Ingrese descripcion de la Actividad" mold="rounded"
+							width="300px" rows="3" value="@bind(vm.descripcion)" />
 					</hlayout>
-				</row>
-				<row>
-					<label value="Imagen:" />
-					<textbox id="txtImagen" width="200px"
-						value="@bind(vm.imagen)" />
-					<button label="Cargar"
-						image="/imagenes/iconos/cargar.png" mold="trendy" />
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
 	<separator />
-	<hbox width="100%" pack="end" align="center">
-		<button label="Guardar" image="/imagenes/iconos/guardar.png"
-			mold="trendy" width="auto" height="auto"
-			onClick="@command('guardarActividad')">
-		</button>
-		<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
-			mold="trendy" width="auto" height="auto"
-			onClick="@command('eliminarActividad')">
-		</button>
-		<button label="Cancelar" image="/imagenes/iconos/cancelar.png"
-			mold="trendy" width="auto" height="auto"
-			onClick="@command('limpiar')">
-		</button>
-	</hbox>
 	<groupbox id="grbListaActividades">
 		<caption label="Lista de Actividades" />
 		<listbox id="lbxActividad" height="100%"
@@ -61,8 +37,6 @@
 			emptyMessage="No hay Actividades registradas" mold="paging"
 			pageSize="5">
 			<listhead>
-				<listheader label="Número Actividad" align="center"
-					sort="auto(idActividad)" />
 				<listheader label="Nombre" align="center"
 					sort="auto(nombre)">
 					<textbox id="filtroNombre" instant="true"
@@ -80,8 +54,6 @@
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="${each}"
-						forEach="${forEachStatus.index+1}" />
 					<listcell label="${each.nombre}" />
 					<listcell label="${each.descripcion}" />
 				</listitem>
@@ -90,6 +62,18 @@
 	</groupbox>
 	<separator />
 	<div align="right">
+		<button label="Guardar" image="/imagenes/iconos/guardar.png"
+			mold="trendy" width="auto" height="auto"
+			onClick="@command('guardarActividad')">
+		</button>
+		<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
+			mold="trendy" width="auto" height="auto"
+			onClick="@command('eliminarActividad')">
+		</button>
+		<button label="Cancelar" image="/imagenes/iconos/cancelar.png"
+			mold="trendy" width="auto" height="auto"
+			onClick="@command('limpiar')">
+		</button>
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 			mold="trendy" onClick="winRegistrarActividad.onClose()">

@@ -42,6 +42,7 @@ public class VMnoticia {
 	private Date vencimiento;
 	private List<Noticia> listaNoticia;
 	private Noticia noticiaSeleccionada;
+	
 	private NoticiaFiltro filtros = new NoticiaFiltro();
 	
 @NotifyChange({"filtros"})
