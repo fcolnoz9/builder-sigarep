@@ -1,5 +1,4 @@
 package sigarep.modelos.data.maestros;
-
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -20,23 +19,62 @@ import java.util.List;
 public class Estudiante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name="cedula_estudiante", unique=true, nullable=false, length=8)
 	private String cedulaEstudiante;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="anio_ingreso", nullable=false)
 	private Date anioIngreso;
+
+	@Column(length=50)
 	private String email;
+
+	@Column(nullable=false)
 	private Boolean estatus;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_nacimiento", nullable=false)
 	private Date fechaNacimiento;
+
+	@Column(name="primer_apellido", nullable=false, length=30)
 	private String primerApellido;
+
+	@Column(name="primer_nombre", nullable=false, length=30)
 	private String primerNombre;
+
+	@Column(name="segundo_apellido", length=30)
 	private String segundoApellido;
+
+	@Column(name="segundo_nombre", length=30)
 	private String segundoNombre;
+
+	@Column(nullable=false, length=1)
 	private String sexo;
+
+	@Column(length=11)
 	private String telefono;
-	
+
+	//bi-directional many-to-one association to ProgramaAcademico
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="id_programa", nullable=false)
+	private ProgramaAcademico programaAcademico;
+
+	//bi-directional many-to-one association to EstudianteSancionado
+	@OneToMany(mappedBy="estudiante",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
+
+
+//se le agrego el constructor con parametros
+	public Estudiante() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+ 
 	public Estudiante(String cedulaEstudiante, Date anioIngreso, String email,
 			Boolean estatus, Date fechaNacimiento, String primerApellido,
 			String primerNombre, String segundoApellido, String segundoNombre,
-			String sexo, String telefono, ProgramaAcademico programaAcademico,
-			List<EstudianteSancionado> estudianteSancionados) {
+			String sexo, String telefono, ProgramaAcademico programaAcademico) {
 		super();
 		this.cedulaEstudiante = cedulaEstudiante;
 		this.anioIngreso = anioIngreso;
@@ -50,24 +88,8 @@ public class Estudiante implements Serializable {
 		this.sexo = sexo;
 		this.telefono = telefono;
 		this.programaAcademico = programaAcademico;
-		this.estudianteSancionados = estudianteSancionados;
 	}
 
-	public Estudiante() {
-	}
-	//bi-directional many-to-one association to ProgramaAcademico
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="id_programa", nullable=false)
-	private ProgramaAcademico programaAcademico;
-
-	//bi-directional many-to-one association to EstudianteSancionado
-	@OneToMany(mappedBy="estudiante",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
-	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
-
-
-     
-	@Id
-	@Column(name="cedula_estudiante", unique=true, nullable=false, length=8)
 	public String getCedulaEstudiante() {
 		return this.cedulaEstudiante;
 	}
@@ -76,8 +98,6 @@ public class Estudiante implements Serializable {
 		this.cedulaEstudiante = cedulaEstudiante;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="anio_ingreso", nullable=false)
 	public Date getAnioIngreso() {
 		return this.anioIngreso;
 	}
@@ -85,7 +105,7 @@ public class Estudiante implements Serializable {
 	public void setAnioIngreso(Date anioIngreso) {
 		this.anioIngreso = anioIngreso;
 	}
-	@Column(name="email",length=50)
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -93,7 +113,7 @@ public class Estudiante implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Column(name="estatus",nullable=false)
+
 	public Boolean getEstatus() {
 		return this.estatus;
 	}
@@ -101,8 +121,7 @@ public class Estudiante implements Serializable {
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
 	}
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_nacimiento", nullable=false)
+
 	public Date getFechaNacimiento() {
 		return this.fechaNacimiento;
 	}
@@ -110,7 +129,7 @@ public class Estudiante implements Serializable {
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	@Column(name="primer_apellido", nullable=false, length=30)
+
 	public String getPrimerApellido() {
 		return this.primerApellido;
 	}
@@ -118,7 +137,7 @@ public class Estudiante implements Serializable {
 	public void setPrimerApellido(String primerApellido) {
 		this.primerApellido = primerApellido;
 	}
-	@Column(name="primer_nombre", nullable=false, length=30)
+
 	public String getPrimerNombre() {
 		return this.primerNombre;
 	}
@@ -126,7 +145,7 @@ public class Estudiante implements Serializable {
 	public void setPrimerNombre(String primerNombre) {
 		this.primerNombre = primerNombre;
 	}
-	@Column(name="segundo_apellido", length=30)
+
 	public String getSegundoApellido() {
 		return this.segundoApellido;
 	}
@@ -134,7 +153,7 @@ public class Estudiante implements Serializable {
 	public void setSegundoApellido(String segundoApellido) {
 		this.segundoApellido = segundoApellido;
 	}
-	@Column(name="segundo_nombre", length=30)
+
 	public String getSegundoNombre() {
 		return this.segundoNombre;
 	}
@@ -142,7 +161,7 @@ public class Estudiante implements Serializable {
 	public void setSegundoNombre(String segundoNombre) {
 		this.segundoNombre = segundoNombre;
 	}
-	@Column(name="sexo",nullable=false, length=1)
+
 	public String getSexo() {
 		return sexo;
 	}
@@ -150,7 +169,7 @@ public class Estudiante implements Serializable {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	@Column(name="telefono",length=11)
+
 	public String getTelefono() {
 		return this.telefono;
 	}
