@@ -126,7 +126,7 @@ public class VMmomento {
 	// cambiar, en este caso es nombre y descripción se va a colocar en blanco
 	// al guardar
 	public void guardarMomento() {
-		if (nombreMomento == null || descripcion == null) {
+		if (nombreMomento==null || descripcion==null) {
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
@@ -159,7 +159,7 @@ public class VMmomento {
 	@Command
 	@NotifyChange({ "nombreMomento", "descripcion", "listaMomento" })
 	public void eliminarMomento() {
-		if (nombreMomento == null || descripcion == null) {
+		if (nombreMomento==null || descripcion==null) {
 			Messagebox.show("Debes Seleccionar un Momento", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {

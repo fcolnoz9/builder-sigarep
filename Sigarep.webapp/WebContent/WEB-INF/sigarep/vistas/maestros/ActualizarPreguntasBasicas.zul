@@ -10,25 +10,21 @@
 	        <!-- Grupbox que contiene los campos de la pantalla -->
 				<groupbox id = "grbPreguntaBasica"> 
 					<caption label="Datos"/>
-						<grid id="grdPreguntaBasica" height="100%" sclass="fgrid">
+						<grid id="grdPreguntaBasica" height="100%">
 							<columns>
-								<column label="" width="20%" />
-								<column label="" width="80%" />
+								<column label="" width="10%" />
+								<column label="" width="40%" />
+								<column label="" width="10%" />
+								<column label="" width="40%" />
 							</columns>
 							<rows>
 								<row>
 									<label id="lblPregunta" value="Pregunta:" />
-									<hlayout id="lytPregunta">
-										<textbox id="txtPregunta" width="300px" rows="3" maxlength="255"  mold="rounded"  tabindex="1"  value="@bind(vm.pregunta)" constraint="no empty" />
-									</hlayout>
+										<textbox id="txtPregunta" width="300px" rows="3" maxlength="255"  mold="rounded"  tabindex="1"  value="@bind(vm.pregunta)" constraint="no empty:Introduzca la pregunta" />
+										<label id="lblRespuesta" value="Respuesta:"/>
+										<textbox id="txtRespuesta" width="300px" rows="3" maxlength="255" mold="rounded"  tabindex="2" value="@bind(vm.respuesta)" constraint="no empty:Introduzca la respuesta" />
 								</row>
-								<row>
-									<label id="lblRespuesta" value="Respuesta:"/>
-									<hlayout id="lytRespuesta">
-										<textbox id="txtRespuesta" width="300px" rows="3" maxlength="255" mold="rounded"  tabindex="2" value="@bind(vm.respuesta)" constraint="no empty" />
-									</hlayout>
-								</row>
-							</rows>
+								</rows>
 						</grid>
 					</groupbox>
    					<space />
@@ -58,9 +54,7 @@
 					<div align="right" height="100%"> <button id="btnGuardarPregunta" label="Guardar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/guardar.png" onClick="@command('guardarPregunta')"/> </div>
 					<div align="right" height="100%"><button id="btnEliminarPregunta" label="Eliminar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/eliminar.png" onClick="@command('eliminarPreguntaBasica')"/> </div>
 					<div align="right" height="100%"><button id="btnCancelarPregunta" label="Cancelar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cancelar.png" onClick="@command('limpiar')"/> </div>
-					<div align="right" height="100%">
-						<button id="btnCerrar" label="Cerrar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cerrar.png" onClick="winActualizarPreguntasBasicas.onClose()"/>
-					</div>
+					<div align="right" height="100%"><button id="btnCerrar" label="Cerrar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cerrar.png" onClick = "winActualizarPreguntasBasicas.onClose()" /> </div>
 				</hbox>
 			</div>
 	</window>

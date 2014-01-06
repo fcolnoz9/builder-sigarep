@@ -1,6 +1,6 @@
 <zk>
 	<window id="winRegistarMomento"
-		title="Registros Básicos :: Registrar Momento" width="auto"
+		title="Registros Básicos :: Momento" width="auto"
 		height="auto" closable="true" border="normal"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMmomento')">
@@ -15,7 +15,7 @@
 
 		<!-- Grupbox que contiene los campos de la pantalla -->
 		<groupbox id="grbMomento">
-			<caption label="Registrar Momento" />
+			<caption label="Datos del Momento" />
 			<grid id="grdMomento">
 				<columns>
 					<column label="" width="10%" />
