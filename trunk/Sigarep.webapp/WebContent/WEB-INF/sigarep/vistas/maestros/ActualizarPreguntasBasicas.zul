@@ -1,15 +1,13 @@
 <zk>
-	<window id="winActualizarPreguntasBasicas" title="Configuración Web::Actualizar Preguntas Básicas"  width="auto" height="auto" closable = "true"
+	<window id="winActualizarPreguntasBasicas" title="Configuración Web:: Preguntas Básicas"  width="auto" height="auto" closable = "true"
 			border="normal"  contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
    			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
 			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
-   			<auxhead>
-					<auxheader>Actualizar Preguntas Básicas</auxheader>
-	        </auxhead>
+   		
 	        <!-- Grupbox que contiene los campos de la pantalla -->
 				<groupbox id = "grbPreguntaBasica"> 
-					<caption label="Datos"/>
+					<caption label="Datos de la Pregunta Básica"/>
 						<grid id="grdPreguntaBasica" height="100%">
 							<columns>
 								<column label="" width="10%" />
@@ -31,7 +29,7 @@
    					<!-- Grupbox que contiene el listado de preguntas almacenadas en base de datos -->
 					<groupbox id = "grbListaPreguntaBasica">
 						<caption label="Listado de Preguntas"/>
-						<listbox id="lbxPreguntas"  height="70%" model="@bind(vm.listaPregunta)" selectedItem="@bind(vm.preguntaseleccionada)"   
+						<listbox id="lbxPreguntas"  height="100%" model="@bind(vm.listaPregunta)" selectedItem="@bind(vm.preguntaseleccionada)"   
    			 					 onSelect="@command('mostrarSeleccionada')" emptyMessage="No hay preguntas básicas registradas" mold="paging" pageSize="5">	
 							<listhead>
 								<listheader label="Número Pregunta" align="center" sort="auto(idPreguntaBasica)" />
