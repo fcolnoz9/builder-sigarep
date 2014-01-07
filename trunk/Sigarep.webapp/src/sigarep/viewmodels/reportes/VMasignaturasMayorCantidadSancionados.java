@@ -12,10 +12,13 @@ import java.util.Map;
 
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.zkoss.bind.annotation.BindingParam;
@@ -43,7 +46,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	
 	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable ServicioListaAsignaturasMayorCantidadSancionados servicioListaAsignaturasMayor;
-	@WireVariable ServicioLapsoAcademico spp;
+	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable ServicioProgramaAcademico servicioprogramaacademico;
 	
 	//***********************************DECLARACION DE LISTAS*************************
@@ -222,7 +225,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	@Command
 	@NotifyChange({ "listaComboLapsoFinal" })
 	public void buscarLapsoAcademicoFinal() {
-		setListaComboLapsoFinal(spp.listadoLapsoAcademico());
+		setListaComboLapsoFinal(serviciolapsoacademico.listadoLapsoAcademico());
 	}
 	@Command
 	 @NotifyChange({"listaComboLapsoFinal"})
@@ -234,7 +237,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarLapso() {
-		setListaLapsoAcademico(spp.listadoLapsoAcademico());
+		setListaLapsoAcademico(serviciolapsoacademico.listadoLapsoAcademico());
 	}
 	@Command
 	 @NotifyChange({"listaLapsoAcademico"})
@@ -268,14 +271,22 @@ public class VMasignaturasMayorCantidadSancionados {
 		}
 		
 		try {
-			String reporte= "C:/Reportes/RpAsignaturasMayorSancionados.jrxml";
+			String reporte= "C:/Users/SixmarAndreina/workspace/Sigarep.webapp/WebContent/jasperReportes/RpAsignaturasMayorSancionados.jrxml";
 			
 			parametros.put("varprograma",programaAcademico.getIdPrograma());
 			parametros.put("varcod1",lapsoAcademico.getCodigoLapso()); //Parametro del reporte
 			parametros.put("varcod2",lapsoAcademicoFinal.getCodigoLapso());
 			JasperReport jasperReport= JasperCompileManager.compileReport(reporte);
 			JasperPrint jasperPrint= JasperFillManager.fillReport(jasperReport,parametros,con);
-		
+			
+			JRExporter exporter = new JRPdfExporter();
+			
+			//Esto es para que guarde el reporte en la ruta deseada.
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			//Dependiendo del filtro pues se guarda el reporte...
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("C:/Users/SixmarAndreina/workspace/Sigarep.webapp/WebContent/jasperReportes/ListadoAsignaturasMayorSancionados.pdf"));
+			exporter.exportReport();  
+			
 			JasperViewer.viewReport(jasperPrint);
 			con.close();
 		} catch (JRException e){
