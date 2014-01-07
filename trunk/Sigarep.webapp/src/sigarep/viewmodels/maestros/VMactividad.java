@@ -115,12 +115,12 @@ public class VMactividad {
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion", "listaActividad" })
 	public void guardarActividad() {
-		if (nombre.equals("") || descripcion.equals("")) {
+		if (nombre == null || descripcion == null) {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			Actividad actividad = new Actividad(id_actividad, nombre,
-					descripcion, true);
+			Actividad actividad = new Actividad(id_actividad, nombre, descripcion,
+					true);
 			servicioactividad.guardar(actividad);
 			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
 					Messagebox.OK, Messagebox.INFORMATION);
@@ -148,10 +148,16 @@ public class VMactividad {
 	@Command
 	@NotifyChange({ "listaActividad", "nombre", "descripcion" })
 	public void eliminarActividad() {
-		servicioactividad.eliminar(getActividadSeleccionada().getIdActividad());
-		Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
-				Messagebox.OK, Messagebox.INFORMATION);
-		limpiar();
+		if (nombre == null || descripcion == null) {
+			Messagebox.show("Debe seleccionar una actividad", "Advertencia",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		} else {
+			servicioactividad.eliminar(getActividadSeleccionada()
+					.getIdActividad());
+			Messagebox.show("Se ha eliminado correctamente", "Información",
+					Messagebox.OK, Messagebox.INFORMATION);
+			limpiar();
+		}
 	}
 
 	// Permite tomar los datos del objeto actividadseleccionada

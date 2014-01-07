@@ -1,11 +1,11 @@
-<window title="Registros Básicos :: Registrar Programa Académico"
+<window title="Registros Básicos :: Programa Académico"
 	closable="true" id="winRegistrarPrograma" border="normal" width="auto"
 	height="auto" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademico')">
 	<groupbox>
-		<caption label="Registrar Programa Académico" />
-		<grid sclass="fgrid">
+		<caption label="Datos del Programa Académico" />
+		<grid>
 			<columns>
 				<column width="20%" />
 				<column width="80%" />
@@ -29,7 +29,7 @@
 			selectedItem="@bind(vm.programaseleccionado)"
 			onSelect="@command('mostrarSeleccionado')"
 			emptyMessage="No hay programas académicos registrados" mold="paging"
-			pageSize="5">
+			pageSize="10">
 			<listhead>
 				<listheader label="Nombre" align="center"
 					sort="auto(nombrePrograma)">
