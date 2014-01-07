@@ -97,7 +97,9 @@
   
     	    
          	    	    
-            	    	<!-- Inicio del Noticiero-->      
+            	    	<!-- Inicio del Noticiero-->    
+            	    	<include src="/WEB-INF/layout/sistema/portalNoticias.zul" /> 
+            	    	  
 
             	    	    </west>
             	    	    

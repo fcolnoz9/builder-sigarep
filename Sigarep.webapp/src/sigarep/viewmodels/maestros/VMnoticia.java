@@ -1,6 +1,7 @@
 package sigarep.viewmodels.maestros;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Temporal;
@@ -15,6 +16,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -34,7 +36,7 @@ public class VMnoticia {
 	private String contenido,contenidoFiltro;
 	private String enlaceNoticia,enlaceNoticiaFiltro;
 	private Boolean estatus;
-	private Date fechaRegistro;
+	private Date fechaRegistro; 
 	private Archivo fotoNoticia = new Archivo();
 	private Media mediaNoticia;
 	private AImage imagenNoticia;
@@ -164,6 +166,8 @@ public NoticiaFiltro getFiltros() {
 		if (titulo.equals("")||contenido.equals("")|| fechaRegistro.equals("")|| enlaceNoticia.equals("") || vencimiento.equals(""))
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
+			System.out.println(fotoNoticia.getTamano());
+			System.out.println(contenido);
 		Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, fotoNoticia,titulo, vencimiento);
 		servicionoticia.guardar(noticia);
 		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
@@ -230,8 +234,8 @@ public NoticiaFiltro getFiltros() {
 				// TODO Auto-generated catch block
 			}
 		}
-		else
-			imagenNoticia = null;
+		else{
+			imagenNoticia = null;}
 
 	}
 	
@@ -289,5 +293,44 @@ public NoticiaFiltro getFiltros() {
 			listaNoticia =servicionoticia.buscarNoticias(filtros);
 		}
 		
+		//Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. Hecho por: José Galíndez
+		@Command
+		@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia","fotoNoticia"})
+		public void mostrarSeleccionado2(){
+			idNoticia=getNoticiaSeleccionada().getIdNoticia();
+			contenido=getNoticiaSeleccionada().getContenido();
+			enlaceNoticia=getNoticiaSeleccionada().getEnlaceNoticia();
+			fechaRegistro=getNoticiaSeleccionada().getFechaRegistro();
+			titulo=getNoticiaSeleccionada().getTitulo();
+			vencimiento=getNoticiaSeleccionada().getVencimiento();
+			fotoNoticia=getNoticiaSeleccionada().getFotoNoticia();
+			
+			noticiaSeleccionada = getNoticiaSeleccionada();
+			final HashMap<String, Object> map = new HashMap<String, Object>();
+	        //map.put("contenido", this.contenido );
+	        //map.put("enlaceNoticia", this.enlaceNoticia);
+	        //map.put("titulo", this.titulo);
+	        map.put("noticiaSeleccionada", this.noticiaSeleccionada);
+	        final Window win = (Window) Executions.createComponents(
+					"/Modal/ModalNoticia.zul", null, map);
+			win.setMaximizable(true);
+			win.doModal();
+
+		}
+		@Command
+		@NotifyChange({"listaNoticia"})
+		public void reordenarLista(){
+			System.out.println("pase por reeordenar");
+			Noticia nitic = listaNoticia.remove(0);
+			System.out.println(nitic.getTitulo());
+			System.out.println(listaNoticia.size());
+			System.out.println(listaNoticia.size());
+			listaNoticia.add(nitic);
+			System.out.println(listaNoticia.size());
+			nitic = listaNoticia.get((listaNoticia.size()-1));
+			System.out.println(nitic.getTitulo());
+			
+		}
+
 //Fin de los otros metodos.
 }
