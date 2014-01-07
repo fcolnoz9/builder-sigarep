@@ -115,7 +115,7 @@ public class VMCargarEstudiantesSancionadosXml {
 					   } catch (ParseException ex) {
 					   ex.printStackTrace();
 					   }
-				   if(node.getChildText("estatus")=="true"){
+				   if(node.getChildText("estatus").equals("true")){
 					   estatus=true;
 				   }
 				   else{
