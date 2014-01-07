@@ -13,10 +13,10 @@ public class GrupoOperacionPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="id_grupo", unique=true, nullable=false)
+	@Column(name="id_grupo", unique=false, nullable=false)
 	private Integer idGrupo;
 
-	@Column(name="id_operacion", unique=true, nullable=false)
+	@Column(name="id_operacion", unique=false, nullable=false)
 	private Integer idOperacion;
 
 	public GrupoOperacionPK() {
