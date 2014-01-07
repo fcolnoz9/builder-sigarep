@@ -124,7 +124,7 @@ public class VMlapsoAcademico {
   	@NotifyChange({"listaLapsoAcademico"})
   	public void eliminarLapsoAcademico(){
   		if (codigoLapso==null||fechaInicio==null|| fechaCierre==null){
-			Messagebox.show("Debes Seleccionar un lapso Academico", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Debes Seleccionar un lapso Académico", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
   		}
 		else{
   		serviciolapsoacademico.eliminarLapso(getLapsoAcademicoseleccionado().getCodigoLapso());
