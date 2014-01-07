@@ -11,12 +11,12 @@
 					<h:input type="submit" value="Entrar" />
 <!-- 					<button label="Entrar" id="btnlogin"></button> -->
 				</hlayout>
-				<div
-					apply="sigarep.controlador.maestros.ModalControler2"
-					align="center">
-					<image id="orderBtn2"
-						src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" />
-				</div>
+<!-- 				<div -->
+<!-- 					apply="sigarep.controlador.maestros.ModalControler2" -->
+<!-- 					align="center"> -->
+<!-- 					<image id="orderBtn2" -->
+<!-- 						src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" /> -->
+<!-- 				</div> -->
 			</vlayout>
 		</h:form>
 

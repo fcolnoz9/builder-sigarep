@@ -163,7 +163,7 @@ public NoticiaFiltro getFiltros() {
 	@Command
 	@NotifyChange({"idNoticia","contenido", "enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarNoticia(){
-		if (titulo.equals("")||contenido.equals("")|| fechaRegistro.equals("")|| enlaceNoticia.equals("") || vencimiento.equals(""))
+		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null)
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
 			System.out.println(fotoNoticia.getTamano());
@@ -211,9 +211,13 @@ public NoticiaFiltro getFiltros() {
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void eliminarNoticia(){
+		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null)
+			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+		else{
 		servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
 		limpiar();
 		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+	  }
 	}
 	//permite tomar los datos del objeto noticiaseleccionada
 	@Command

@@ -4,18 +4,16 @@
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
-		<grid sclass="fgrid" width="auto">
-			<auxhead>
-				<auxheader colspan="2" rowspan="2"
-					label="Registro de Noticias" style="font-size:16px" align="left" />
-			</auxhead>
+		<groupbox id="grbNoticia">
+			<caption label="Registrar Noticia" />
+		<grid  width="auto">
 			<columns>
 				<column label="" width="70%"></column>
 				<column label="" width="30%"></column>
 			</columns>
 			<rows>
 				<row>
-					<grid sclass="fgrid" width="auto">
+					<grid  width="auto">
 						<columns>
 							<column label="" width="40%" />
 							<column label="" width="60%" />
@@ -46,14 +44,14 @@
 								<label id="lblFecha"
 									value="Fecha Publicacion:" />
 								<datebox id="dbfechaPublicacion"
-									mold="rounded" format="dd/MM/yyyy" width="90%" tabindex="4"
+									mold="rounded" format="dd/MM/yyyy" width="300px" tabindex="4"
 									value="@bind(vm.fechaRegistro)" />
 							</row>
 							<row>
 								<label id="lblFechaVencimiento"
 									value="Fecha Vencimiento:" />
 								<datebox id="dbfechaVencimiento"
-									mold="rounded" format="dd/MM/yyyy" width="90%" tabindex="4"
+									mold="rounded" format="dd/MM/yyyy" width="300px" tabindex="4"
 									value="@bind(vm.vencimiento)" />
 							</row>
 						</rows>
@@ -71,52 +69,39 @@
 				</row>
 			</rows>
 		</grid>
+		</groupbox>
 		<groupbox>
-			<caption label="Listado de Noticias" />
-			<listbox id="lbxNoticias" height="300px"
+			<caption label="Listado de Noticias"/>
+			<listbox id="lbxNoticias"
 				model="@bind(vm.listaNoticia)"
 				selectedItem="@bind(vm.noticiaSeleccionada)"
 				onSelect="@command('mostrarSeleccionado')"
 				emptyMessage="No hay noticias registradas" mold="paging"
-				pageSize="5">
-				<auxhead sclass="category-center">
-					<auxheader colspan="1" align="center"></auxheader>
-					<auxheader colspan="1" align="center"
-						image="imagenes/iconos/buscar.png">
-						<textbox id="filtroTitulo" instant="true"
-							width="100px" value="@bind(vm.filtros.titulo)"
-							onChange="@command('filtroNoticia')" />
-					</auxheader>
-					<auxheader colspan="1" align="center"
-						image="imagenes/iconos/buscar.png">
-						<textbox id="filtroContenido" instant="true"
-							width="100px" value="@bind(vm.filtros.contenido)"
-							onChange="@command('filtroNoticia')" />
-					</auxheader>
-					<auxheader colspan="1" align="center"></auxheader>
-					<auxheader colspan="1" align="center"></auxheader>
-					<auxheader colspan="1" align="center"></auxheader>
-					<auxheader colspan="1" align="center"
-						image="imagenes/iconos/buscar.png">
-						<textbox id="filtroEnlace" instant="true"
-							width="100px" value="@bind(vm.enlaceNoticiaFiltro)"
-							onChange="@command('buscarNoticiaFiltroEnlaceNoticia')" />
-					</auxheader>
-				</auxhead>
+				pageSize="10">
 				<listhead>
 					<listheader label="Id" align="center"
-						sort="auto(idNoticia)" />
+						sort="auto(idNoticia)" > </listheader>
 					<listheader label="Titulo" align="center"
-						sort="auto(titulo)" />
+						sort="auto(titulo)" > 
+					<textbox id="filtroTitulo" instant="true"
+							width="50px" value="@bind(vm.filtros.titulo)"
+							onChange="@command('filtroNoticia')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
 					<listheader label="Contenido" align="center"
-						sort="auto(contenido)" />
-					<listheader label="Imagen" align="center" />
+						sort="auto(contenido)" >
+					<textbox id="filtroContenido" instant="true"
+							width="50px" value="@bind(vm.filtros.contenido)"
+							onChange="@command('filtroNoticia')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					 </listheader>
+					<listheader label="Imagen" align="center" > </listheader>
 					<listheader label="Fecha Registro" align="center"
-						sort="auto(fechaRegistro)" />
+						sort="auto(fechaRegistro)" > </listheader>
 					<listheader label="Fecha Vencimiento" align="center"
-						sort="auto(vencimiento)" />
+						sort="auto(vencimiento)" > </listheader>
 					<listheader label="Enlace" align="center"
-						sort="auto(enlaceNoticia)" />
+						sort="auto(enlaceNoticia)" > </listheader>
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
@@ -144,8 +129,11 @@
 				height="auto" orient="horizontal"
 				onClick="@command('eliminarNoticia')" />
 			<button id="btnCancelarNoticia" label="Cancelar"
-				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+				image="/imagenes/iconos/cancelar.png" mold="trendy" width="auto"
 				height="auto" orient="horizontal" onClick="@command('limpiar')" />
+		    <button id="btnSalirNoticia" label="Salirr"
+				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+				height="auto" orient="horizontal" onClick="winActualizarNoticia.onClose()" />
 		</div>
 	</window>
 </zk>
