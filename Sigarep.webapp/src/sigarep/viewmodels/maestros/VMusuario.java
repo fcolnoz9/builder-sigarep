@@ -194,26 +194,25 @@ public class VMusuario {
 	public void recuperarContrasenna() {
 		Usuario usuario = new Usuario();
 		usuario.setNombreUsuario("-1");
-		if (correoLogin.equals(""))
+		if (correoLogin=="")
 			Messagebox.show("Debe llenar los campos", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
 		else {
 			List<Usuario> listaUsuarios = serviciousuario.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
 				for (int i = 0; i < listaUsuarios.size(); i++) {
 					usuarioAux = listaUsuarios.get(i);
-//					if (usuarioAux.getCorreo() != null) 
-//						if (usuarioAux.getCorreo().equals(correoLogin) || usuarioAux.getNombreUsuario().equals(correoLogin))
-//							usuario = usuarioAux;
+					if (usuarioAux.getCorreo() != null) 
+						if (usuarioAux.getCorreo().equals(correoLogin) || usuarioAux.getNombreUsuario().equals(correoLogin)){
+							usuario = usuarioAux;
+						}
 				}
-				usuario = usuarioAux;
-				if (!usuario.getNombreUsuario().equals("-1")) {
+				if (usuario.getNombreUsuario()!="-1") {
 					EnviarCorreo enviar = new EnviarCorreo();
-					System.out.println(usuario.getCorreo());
 					enviar.sendEmail(usuario.getCorreo(), usuario.getContrasenia());
 					Messagebox.show("Te hemos enviado un email con tu contraseña.","Información", Messagebox.OK, Messagebox.INFORMATION);
 				}
 				else
-					Messagebox.show("Usuario incorrecto","Información", Messagebox.OK, Messagebox.INFORMATION);
+					Messagebox.show("Usuario o correo e-mail no registrados","Información", Messagebox.OK, Messagebox.INFORMATION);
 		}
 	}
 }

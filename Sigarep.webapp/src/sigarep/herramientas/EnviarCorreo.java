@@ -17,8 +17,8 @@ public class EnviarCorreo {
 
 	private final Properties properties = new Properties();
 
-	private final String username = "sistemasiragep@gmail.com"; //Nota: este correo está aun sin existencia.
-	private final String password = "equipo1si";
+	private final String username = "jorgechaviel@gmail.com"; //Nota: este correo emisor está aun sin existencia.
+	private final String password = "87997872";
 
 	private Session session;
 
@@ -36,15 +36,13 @@ public class EnviarCorreo {
 		properties.put("mail.smtp.starttls.enable", true);
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
-		properties.put("mail.smtp.mail.sender", "sistemasiragep@gmail.com");
-
+		properties.put("mail.smtp.mail.sender", "jorgechaviel@gmail.com");
 		session = Session.getInstance(properties,
 				new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
 						return new PasswordAuthentication(username, password);
 					}
 				});
-
 	}
 
 	//función para recuperar la contraseña
@@ -52,22 +50,17 @@ public class EnviarCorreo {
 		init();
 		try {
 			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress((String) properties
-					.get("mail.smtp.mail.sender")));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					correoReceptor));
-			message.setSubject("Olvido su contraseña");
+			message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
+			message.setSubject("Recuperación de clave de acceso al sistema SIGAREP");
 			message.setText("La Recuperación de contraseña se realizó "
-					+ "satisfactoriamente."
-					+ "\n\n SIRAGEP le informa que su contraseña para acceder a "
-					+ "nuestro sistema es: " + clave
-					+ "\n\n\t\t Sistema de Información "
-					+ "para el Apoyo a la Gestión del Regimen de Repitencia y Permanencia");
-
+			+ "satisfactoriamente."
+			+ "\n\n SIRAGEP le informa que su contraseña para acceder a "
+			+ "nuestro sistema es: " + clave
+			+ "\n\n\t\t Sistema de Información "
+			+ "para el Apoyo a la Gestión del Regimen de Repitencia y Permanencia");
 			Transport.send(message);
-			
 			System.out.println("Enviado");
-
 		} catch (MessagingException me) {
 			throw new RuntimeException(me);
 		}

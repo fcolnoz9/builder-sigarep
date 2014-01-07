@@ -1,0 +1,31 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winRecuperarContrasenna" title="Seguridad funcional Sigarel - Recuperar Contraseña" border="normal" 
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMusuario')" width="40%" closable="true"
+	position="center,center">
+		<div align="center">
+		<groupbox style="margin:5px;" width="98%" mold="3d">
+			<caption style="font-size:14px;color:gray;"
+				label="Completa este formulario y te enviaremos las instrucciones para recuperar tu contraseña a tu e-mail" />
+			<grid>
+				<rows>
+					<row>
+						<label id= "lblUsuarioEmail" value="Usuario o E-mail:"/>
+						<textbox id="txtCorreoLogin" width="180px" value="@bind(vm.correoLogin)" />
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		</div>
+		<div align="center">
+			<button id="btnRecuperar" label="Recuperar" 
+			image="/imagenes/iconos/guardar.png" width="auto" height="auto" 
+			orient="horizontal" onClick="@command('recuperarContrasenna')">
+			</button>
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal" onClick="winRecuperarContrasenna.onClose()">
+		</button>
+		</div>
+	</window>
+</zk>

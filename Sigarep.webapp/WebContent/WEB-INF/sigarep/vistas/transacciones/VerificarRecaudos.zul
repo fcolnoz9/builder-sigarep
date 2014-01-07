@@ -1,136 +1,198 @@
-
-<window title="Verificar Recaudo"  id="winVerificarRecaudo" border="normal"
-	width="auto">
-	<groupbox>
-		<caption label="Datos Estudiante" />
-		<grid>
+<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Verificar Recaudos" id="winVerificiarRecaudos"
+	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRecaudos')" 
+	width="auto" height="auto" closable="true">
+	<!-- Estos datos vienen precargados, pues el estudiante se registró (en un maestro), busca su cédula-->
+	<groupbox id="grbDatosEstudiante">
+		<caption label="Datos del Estudiante" />
+		<grid id="grdDatosEstudiante" sclass="fgrid">
 			<columns>
-				<column align="right" />
-				<column align="left" />
-				<column align="right" />
-				<column align="left" />
-				<column align="right" />
-				<column align="left" />
+				<column align="left" width="auto" />
+				<column align="left" width="auto" />
 			</columns>
 			<rows>
+				<row></row>
 				<row>
-					<label value="Cédula: " id="lblCedula"  />
-					<textbox id="txtCedula" mold="rounded" cols="15" maxlength="20" value="18571956" disabled="true"></textbox>
-					<label value="Nombre: " id="lblNombre"/>
-					<textbox id="txtNombre" mold="rounded" cols="15" maxlength="20" value="María" disabled="true"></textbox>
-					<label value="Apellido: " id="lblApellido" />
-					<textbox id="txtApellido" mold="rounded" cols="15" maxlength="20" value="Pérez" disabled="true">
+					<label value="Cédula: " id="lblCedulaEstudiante" />
+					<textbox id="txtCedulaEstudiante" cols="23"
+						width="200px" maxlength="30" disabled="false" value="@bind(vm.cedula)">
+					</textbox>
+					
+					<button label="Buscar" id="btnBuscarCedulaSancionado"
+						image="imagenes/iconos/buscar.png" width="auto" height="auto"
+						orient="horizontal" onClick="@command('buscarEstudianteSancionado')">
+					</button>
+				</row>
+				<row>
+					<label value="Nombres: " id="lblNombresEstudiante" />
+					<textbox id="txtNombresEstudiante" cols="23"
+						width="200px" maxlength="30" disabled="true" value="@bind(vm.nombres)">
+					</textbox>
+					<label value="Apellidos: "
+						id="lblApellidosEstudiante" />
+					<textbox id="txtApellidosEstudiante" cols="23"
+						width="200px" maxlength="30" disabled="true" value="@bind(vm.apellidos)">
 					</textbox>
 				</row>
 				<row>
-					<label value="Programa: " id="lblPrograma"/>
-					<textbox id="txtPrograma" mold="rounded" cols="15" maxlength="27" value="Ingeniería en Informática" disabled="true">
+					<label value="Telefono: " id="lblTelefonoEstudiante" />
+					<textbox id="txtTelefonoEstudiante" cols="23"
+						width="200px" maxlength="30" disabled="true" value="@bind(vm.telefono)">
 					</textbox>
-					<label value="Indice de Grado: " id="lblIndiceGrado" />
-					<textbox id="txtIndiceGrado" mold="rounded" cols="15" maxlength="25" value="15.7" disabled="true">
+					<label value="Programa: "
+						id="lblProgramaEstudiante" />
+					<textbox id="txtProgramaEstudiante" cols="23"
+						width="200px" maxlength="30" disabled="true" value="@bind(vm.programa.nombrePrograma)">
 					</textbox>
-				</row>
-		    </rows>
-		</grid>		
-	</groupbox>
-	<groupbox>
-		<caption label=" Datos de la Sanción" />
-		<grid>
-			<columns>
-				<column align="right" />
-				<column align="left" />
-				<column align="right" />
-				<column align="left" />
-			</columns>
-			<rows>
-				<row>
-				  <label value="Tipo Sanción: " id="lblTipoSancion"/>
-			      <textbox id="txtTipoSancion" mold="rounded" cols="23" maxlength="30" value="Régimen de Repitencia" disabled="true"></textbox>
-			      <label value="Período de Sanción: " id="lblPeriodoSancion"/>
-			      <textbox id="txtPeriodoSancion" mold="rounded" cols="23" maxlength="30" value="2013-II:3014-I" disabled="true"></textbox>
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
-	<groupbox>
-		<caption label="Datos de Apelación" />
+		<groupbox id="grbDatosSancion">
+		<caption id="lblDatossancion" label="Datos Sancion" />
 		<grid>
+			<rows>
+				<row>
+					<label id="lblTiposancion"
+						value="Tipo de Sancion: " />
+					<textbox id="txtTipoSancion" cols="23"
+						maxlength="30" disabled="true" value="@bind(vm.sancion.nombreSancion)">
+					</textbox>
+							<label id="lblLapsosancion" value="Lapso de Sancion: " />
+					<textbox id="txtLapsosancion" cols="23"
+						maxlength="30" value="@bind(vm.lapsoAcademico.codigoLapso)" disabled="true">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblPeriodosancion"
+						value="Periodo de Sancion: " />
+					<textbox id="txtPeridosancion" cols="23"
+						maxlength="30" value="@bind(vm.semestreSancion)" disabled="true">
+					</textbox>
+					<label id="lblAsignatura" value="Asignatura: " />
+					<textbox id="txtAsignatura" cols="23"
+						maxlength="30" value="@bind(vm.asignatura.nombreAsignatura)" disabled="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+
+	<!-- Lo que aparece en la lista son los recaudos precargados (maestro cargar recaudo), el botón cargar es para la
+		carga de los documentos en digital -->
+	<groupbox id="grbDatosRecaudo">
+		<caption label="Datos del Recaudo" />
+		<grid id="grdTipoMotivo">
 			<columns>
 				<column align="left" />
-				<column align="right" />
 				<column align="left" />
 			</columns>
 			<rows>
 				<row>
-					<hlayout id="lytMotivo">
-		    		      <label id="lblMotivo" value="Motivo "/>
-		    			 <combobox id="cmbMotivo" mold="rounded" tooltiptext="Elegir ….">
-		    			  <comboitem id="cmiMedico" label="Medico"/>
-		    			  <comboitem id="cmiJuridico" label="Juridico"/>
-		    			  <comboitem id="cmiSocial" label="Social"/>               
-		   		    	 </combobox>
-		   		    	</hlayout>
-					<label value="Caso: " id="lblCaso"  />
-					<textbox id="txtCaso" mold="rounded" cols="23" maxlength="30" value="001" disabled="true"></textbox>
+					<hlayout id="lytTipoMotivo">
+
+						<label id="lblTipoMotivo"
+							value="Tipo de Motivo" />
+
+						<combobox id="cmbTipoMotivo" value="@bind(vm.tipoMotivo.nombreTipoMotivo)"  mold="rounded" width="auto" model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.tipoMotivo)" onSelect="@command('objetoTipoMotivo')"
+							tooltiptext="Elegir un tipo de Motivo">
+							<attribute name="onSelect">
+							<![CDATA[
+									if(right.getItemCount()>0){
+										for(int i=0;i<right.getItemCount();i++)
+											for(int j=0;j<left.getItemCount();j++)
+											   if(right.getItemAtIndex(i).equals(left.getItemAtIndex(j)))
+												   left.removeItemAt(j);
+									}
+									System.out.println("1:" +left.getItemCount());
+									System.out.println("2: "+right.getItemCount());
+							]]>
+							
+							</attribute>
+							   <template name="model">
+									<comboitem  label="${each.nombreTipoMotivo}" description="${each.descripcion}"/>
+							   </template>
+						</combobox>
+					</hlayout>
 				</row>
-		    </rows>
-		</grid>	
+			</rows>
+		</grid>
+
+		<columnlayout>
+			<columnchildren width="40%">
+				<panel title="Seleccionar Recaudos">
+					<panelchildren>
+						<listbox id="left" multiple="true" 
+							height="250px" oddRowSclass="non-odd" checkmark="true"
+							xmlns:ca="client/attribute" ca:data-scrollable="false"
+							 model="@bind(vm.listaRecaudosPorMotivo)"
+   			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="3" >
+							<template name="model">
+								<listitem selected="false">
+									<listcell label="${each.nombreRecaudo}" ></listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</panelchildren>
+				</panel>
+			</columnchildren>
+			<columnchildren width="100px">
+				<panel>
+					<panelchildren style="margin: 70px 34px;">
+						<image sclass="pointer"
+							src="imagenes/iconos/agregarLista.png"
+							tooltiptext="Agregar Recaudo">
+							<attribute name="onClick">
+	Set items = left.getSelectedItems();
+	if (items.isEmpty()) {
+		alert("Por favor, seleccione al menos un recaudo para agregar");
+	} else {
+		List al = new ArrayList(items);
+		for (Iterator it = al.iterator(); it.hasNext();) {
+			Listitem li = (Listitem) it.next();
+			li.setSelected(false);
+			right.appendChild(li);
+		}
+	}
+	
+	
+</attribute>
+						</image>
+						<separator height="15px" />
+						<image sclass="pointer"
+							src="imagenes/iconos/quitarLista.png"
+							tooltiptext="Remover Recaudo">
+							<attribute name="onClick">
+	Set items = right.getSelectedItems();
+	if (items.isEmpty()) {
+		alert("Por favor, seleccione al menos un recaudo para remover");
+	} else {
+		List al = new ArrayList(items);
+		for (Iterator it = al.iterator(); it.hasNext();) {
+			Listitem li = (Listitem) it.next();
+			li.setSelected(false);
+			left.appendChild(li);
+		}
+	}
+</attribute>
+
+			</image>
+					</panelchildren>
+				</panel>
+			</columnchildren>
+				
+			<columnchildren width="40%">
+				<panel title="Recaudos Seleccionados">
+					<panelchildren>
+						<listbox id="right" multiple="true"
+							height="250px" oddRowSclass="non-odd" checkmark="true"
+							xmlns:ca="client/attribute" ca:data-scrollable="false">
+						</listbox>
+					</panelchildren>
+				</panel>
+			</columnchildren>
+		</columnlayout>
 	</groupbox>
-	<groupbox>
-	   <caption label="Verificacón de Recaudo" />
-		<grid id="grdVerificarApelaciones">
-	        <columns>
-	            <column hflex="3">Recaudos Cargados</column>
-	            <column hflex="3">Recaudos Verificados</column>
-	        </columns>
-	          <rows sclass="narrow">
-	            <row>
-	                <label id="lblConstanciaMedica" value="Constancia Médica" /> 
-	                <vlayout>
-				        <checkbox id="l1" onCheck="doChecked()" />
-				        <separator />
-				        <hlayout>
-				            <label id="layout1" />
-				        </hlayout>
-				        <zscript><![CDATA[
-				            void doChecked() {
-				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
-				        ]]></zscript>
-				    </vlayout>
-	            </row>	
-	            <row>
-	               <label id="lblReposo" value="Reposo" />
-	               <vlayout>
-				        <checkbox id="l2" onCheck="doChecked()" />
-				        <separator />
-				        <hlayout>
-				            <label id="layout2" />
-				        </hlayout>
-				        <zscript><![CDATA[
-				            void doChecked() {
-				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
-				        ]]></zscript>
-				    </vlayout>
-	            </row>
-	             <row>
-	               <label id="lblInformeMedico" value="Informe Médico" />
-	               <vlayout>
-				        <checkbox id="l3" onCheck="doChecked()"/>
-				        <separator />
-				        <hlayout>
-				            <label id="layout3" />
-				        </hlayout>
-				        <zscript><![CDATA[
-				            void doChecked() {
-				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
-				        ]]></zscript>
-				    </vlayout>
-	            </row>
-             </rows>
-        </grid>
-	</groupbox>
-	<groupbox>
-		<grid>
+			<grid>
 			<columns>
 				<column align="left" />
 				<column align="left" />
@@ -163,28 +225,27 @@
 				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
 				        ]]></zscript>
 				    </vlayout>
-					<label value="Observación General: " id="lblObservacion"  />
-					<textbox id="txtObservacion" mold="rounded" width="130px" rows="3" disabled="false"></textbox>
-					<label value="Responsable: " id="lblResponsable"/>
-					<combobox id="cmbResponsable" mold="rounded">
-						<comboitem  id="cmiMiembro1" label="Miembro1"/>
-						<comboitem id="cmiMiembro2" label="Miembro2"/>
-					</combobox>
 				</row>
 		    </rows>
 		</grid>	
-	</groupbox>
+	
 	<div align="right" height="100%">
-		<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-			 orient="horizontal">
+
+		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
+		<button label="Guardar" id="btnGuardar" 
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=right.items)">
 		</button>
-		<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/finalizar.png" width="auto" height="auto" 
-			 orient="horizontal">
+		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
+		<button label="Cancelar" id="btnCancelar"
+			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+			orient="horizontal">
 		</button>
-		<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
-			 orient="horizontal">
+		<!-- Sale del registro, es necesario mensajes de advertencia-->
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal" onClick="winVerificiarRecaudos.onClose()">
 		</button>
 	</div>
-</window>
 
-            
+</window>

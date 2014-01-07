@@ -24,6 +24,7 @@ public class ModalControler2 extends SelectorComposer<Component> {
 				"/Modal/RegistrarEstudiante.zul", null, null);
 		window.doModal();
 	}
+	
 	@Listen("onClick = #buscar")
 	public void showModal3(Event e) {
 		//create a window programmatically and use it as a modal dialog.
@@ -41,6 +42,14 @@ public class ModalControler2 extends SelectorComposer<Component> {
 	@Listen("onClick = #btnlogin")
 	public void showModal43(Event e) {
 		Executions.sendRedirect("index.zul");
+	}
+	
+	@Listen("onClick = #ordenRecuperarContrasenna")
+	public void showModal5(Event e) {
+		//create a window programmatically and use it as a modal dialog.
+		Window window = (Window)Executions.createComponents(
+				"/Modal/RecuperarContrasenna.zul", null, null);
+		window.doModal();
 	}
 }
 
