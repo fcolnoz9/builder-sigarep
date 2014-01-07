@@ -13,10 +13,10 @@ public class UsuarioGrupoPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="id_grupo", unique=true, nullable=false)
+	@Column(name="id_grupo", unique=false, nullable=false)
 	private Integer idGrupo;
 
-	@Column(name="nombre_usuario", unique=true, nullable=false, length=30)
+	@Column(name="nombre_usuario", unique=false, nullable=false, length=30)
 	private String nombreUsuario;
 
 	public UsuarioGrupoPK() {
