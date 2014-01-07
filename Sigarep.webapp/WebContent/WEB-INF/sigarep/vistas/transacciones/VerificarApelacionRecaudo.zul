@@ -3,7 +3,7 @@
 	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.ViewModelListastudianteApelacion')"
 	action="hide: slideUp" onCancel="@command('closeThis')" >
-	<style src="/widgets/grid/simple/style.css" />
+<!-- 	<style src="/widgets/grid/simple/style.css" /> -->
 	<grid id="grdVerificarApelacionesBusqueda">
 		<columns>
 			<column align="center">

@@ -85,14 +85,14 @@ public class ViewModelSolicitudApelacion {
 	private String nombres;
 	private String apellidos;
 	private String asignatura;
-	private String caso;
+	private Integer caso;
 
 
-	public String getCaso() {
+	public Integer getCaso() {
 		return caso;
 	}
 
-	public void setCaso(String caso) {
+	public void setCaso(Integer caso) {
 		this.caso = caso;
 	}
 
@@ -341,7 +341,7 @@ public class ViewModelSolicitudApelacion {
 	            @ExecutionArgParam("segundoNombre") String v12,
 	            @ExecutionArgParam("segundoApellido") String v13,
 	            @ExecutionArgParam("asignatura") String v14,
-	            @ExecutionArgParam("caso") String v15)
+	            @ExecutionArgParam("caso") Integer v15)
 	           
 			// initialization code
 		

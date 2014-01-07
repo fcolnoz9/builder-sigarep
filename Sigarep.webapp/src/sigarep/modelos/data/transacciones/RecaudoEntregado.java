@@ -29,7 +29,7 @@ public class RecaudoEntregado implements Serializable {
 	private String observacionExperto;
 
 	//bi-directional many-to-one association to Motivo
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
 		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
 		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false),
