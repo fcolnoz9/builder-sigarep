@@ -1,118 +1,139 @@
 <zk>
-
-<window id="winEnlaceinteres"
-
-		title="Actualizar Información::Enlaces de Interes"
-		border="normal" width="auto" height="auto" closable="true"
-		sclass="sysWin" contentStyle="overflow:auto"
-		apply="org.zkoss.bind.BindComposer"
+	<window id="winEnlaceinteres"
+		title="Configuración Web::Enlaces de Interes" width="auto"
+		height="auto" closable="true" border="normal"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm')@init('sigarep.viewmodels.maestros.VMenlaceInteres')">
 		<style src="/widgets/input/form_sample/style.css" />
-
+		
+<!-- Contiene los campos que requieren llenarse con los datos del enlace -->
 		<groupbox id="grbDatosEnlace">
-			<grid sclass = "fgrid">
-				<auxhead>
-					<auxheader colspan="2" rowspan="2" label="Datos del Enlaces" style="font-size:16px" align="left"/> 
-				</auxhead>
-				<columns>
-					<column label="" width="70%"></column>
-					<column label="" width="30%"></column>
-				</columns>
-				<rows>
+		<caption label="Datos del Enlace" />
+		<grid  width="auto">
+			<columns>
+				<column label="" width="70%"></column>
+				<column label="" width="30%"></column>
+			</columns>
+			<rows>
+				<row>
+					<grid  width="auto">
+						<columns>
+							<column label="" width="35%" />
+							<column label="" width="65%" />
+						</columns>
+						<rows>
 					<row>
-						<grid id="grdDatos" sclass="fgrid">
-							<columns>
-								<column label="" width="35%" />
-								<column label="" width="65%" />
-							</columns>
-							<rows>
-								<row>
-									<label value="Nombre:" width="150px" />
-									<textbox id="txtNombre_enlace" width="150px"
-											tabindex="2" value="@bind(vm.nombreEnlace)" />
-								</row>
-			
-								<row>
-									<label value="Dirección:" />
-									<textbox id="txtDireccion_enlace" width="150px"
-										tabindex="2" value="@bind(vm.direccionEnlace)" />
-								</row>
-			
-								<row>
-									<label value="Descripción:" width="150px" />
-									<textbox id="txtDescripcion_enlace"
-										width="150px" tabindex="3" value="@bind(vm.descripcion)" />
-								</row>
-							</rows>
-						</grid>
-						
-						<vlayout>
-								<button label="Cargar Imagen" id="btnImagen" upload="true" onUpload="@command('cargarImagen',upload=event)">
-								</button>
-								<image id="imgImagenEnlace" height="150px" width="300px" content="@bind(vm.imagenes)"/>
-						</vlayout>
+						<label id="lblNombreEnlace"
+						value="Nombre:" width="150px" />
+						<textbox 
+						constraint="no empty: Ingrese en Nombre del Enlace"
+						id="txtNombreEnlace" 
+						width="150px" tabindex="2" 
+						value="@bind(vm.nombreEnlace)" />
+					</row>
+					<row>
+								<label id="lblDireccionEnlace"
+						value="Dirección:" width="150px" />
+						<textbox constraint="no empty: Ingrese la Direción del Enlace"
+						id="txtDireccionEnlace"
+						width="150px" tabindex="2" 
+						value="@bind(vm.direccionEnlace)" />
+					</row>
+					<row>
+								<label id="lblDescripcionEnlace"
+						value="Descripción:" width="150px" />
+						<textbox constraint="no empty: Ingrese la Descripción del Enlace"
+						id="txtDescripcionEnlace"
+						width="150px" tabindex="3" 
+						value="@bind(vm.descripcion)" />
 					</row>
 				</rows>
-			</grid>
-		</groupbox>
-		<space />
-		
-
-	<groupbox id="grbListadoEnlaces">
-   	<caption label="Listado de Enlaces" />
-   	<space />
-   	<listbox id="lbxListaEnlaces" height="260px" model="@bind(vm.listaEnlaces)" selectedItem="@bind(vm.enlaceSeleccionado)"   
-   			 onSelect="@command('mostrarEnlace')" emptyMessage="No hay enlaces registrados" mold="paging" pageSize="5">
-   		<auxhead sclass="category-center">
-   		     <auxheader colspan="1" align="center" image="images/search-016x016.png">
-                <intbox id="filtroIdEnlace" instant="true"  width="100px" value="@bind(vm.idEnlaceFiltro)" onChange="@command('buscarEnlaceFiltroId')" />
-            </auxheader>
-             <auxheader colspan="1" align="center" image="images/search-016x016.png">
-                <textbox id="filtroNombreEnlace" instant="true"  width="100px" value="@bind(vm.nombreEnlaceFiltro)" onChange="@command('buscarEnlaceFiltroNombreEnlace')" />
-            </auxheader>
-             <auxheader colspan="1" align="center" image="images/search-016x016.png">
-                <textbox id="filtroDireccion" instant="true"  width="100px" value="@bind(vm.direccionEnlaceFiltro)" onChange="@command('buscarEnlaceFiltroDireccionEnlace')" />
-            </auxheader>
-   		</auxhead>	 
-		<listhead>
-		    <listheader label="Id" align="center" sort="auto(idEnlace)" />
-			<listheader label="Nombre" align="center" sort="auto(nombreEnlace)" />
-			<listheader label="Dirección" align="center" sort="auto(direccionEnlace)" />
-			<listheader label="Descripción" align="center" sort="auto(descripcion)" />
-			<listheader label="Imagen" align="center"/>
-		</listhead>
-		<template name="model">
-			<listitem selected="false">
-				<listcell label="${each.idEnlace}" ></listcell>
-				<listcell label="${each.nombreEnlace}"></listcell>
-				<listcell label="${each.direccionEnlace}"></listcell>
-				<listcell label="${each.descripcion}"></listcell>
-				<listcell label="">
-					<image height="30px" width="60px" content="${each.getImagen().getAImage()}"/>
-				</listcell>
-			</listitem>
-		</template>
-	</listbox>
-	<space />
+				</grid>
+					<vlayout>
+					<button label="Cargar Imagen" id="btnImagen2"
+					upload="true"
+					onUpload="@command('cargarImagen',upload=event)">
+					</button>
+					<image id="imgImagenEnlace" height="150px"
+					width="300px" content="@bind(vm.imagenes)" />	
+				</vlayout>
+				</row>
+			</rows>
+</grid>
 </groupbox>
-
-					<hlayout></hlayout>
-					<div align="right" height="100%">
-					
-						<button label="Guardar" id="btnGuardar"
-							width="auto" height="auto" image="imagenes/iconos/guardar.png"
-							onClick="@command('guardar')" />
-						<button label="Eliminar" id="btnEliminar"
-							width="auto" height="auto" image="imagenes/iconos/eliminar.png"
-							onClick="@command('eliminarEnlaceSeleccionado')" />
-					    <button label="Cancelar" id="btnCancelar" 
-					    width="auto" height="auto" image="imagenes/iconos/cancelar.png" 
-							onClick="@command('limpiar')"/>
-                         <button label="Cerrar" id="btnCerrar" width="auto" height="auto" image="imagenes/iconos/cerrar.png" 
-							onClick="winEnlaceinteres.onClose()"/>
-					</div>
+<space/>
+<!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->
+		<groupbox id="grbListadoEnlaces">
+			<caption label="Listado de Enlaces" />
+			<space />
+			<listbox id="lbxListaEnlaces" height="100%"
+				model="@bind(vm.listaEnlaces)"
+				selectedItem="@bind(vm.enlaceSeleccionado)"
+				onSelect="@command('mostrarEnlace')"
+				emptyMessage="No hay enlaces registrados" mold="paging"
+				pageSize="10">
 				
+				<listhead>
+					
+					<listheader label="Id" align="center"
+						sort="auto(idEnlace)" > 
+					<intbox id="filtroIdEnlace" instant="true"
+							width="50px" value="@bind(vm.idEnlaceFiltro)"
+							onChange="@command('buscarEnlaceFiltroId')" />
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
+					<listheader label="Nombre" align="center"
+						sort="auto(nombreEnlace)" >
+					<textbox id="filtroNombreEnlace" instant="true"
+							width="100px" value="@bind(vm.nombreEnlaceFiltro)"
+							onChange="@command('buscarEnlaceFiltroNombreEnlace')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					 </listheader>
+					 <listheader label="Dirección" align="center"
+						sort="auto(direccionEnlace)" >
+					<textbox id="filtroDireccionEnlace"
+							instant="true" width="100px"
+							value="@bind(vm.direccionEnlaceFiltro)"
+							onChange="@command('buscarEnlaceFiltroDireccionEnlace')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					 </listheader>
+					  <listheader label="Descripción" align="center"
+						sort="auto(descripcion)" >
+					 </listheader>
+					 <listheader label="Imagen" align="center" > </listheader>
+					 	 
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.idEnlace}"></listcell>
+						<listcell label="${each.nombreEnlace}"></listcell>
+						<listcell label="${each.direccionEnlace}"></listcell>
+						<listcell label="${each.descripcion}"></listcell>
+						<listcell label="">
+							<image height="30px" width="60px"
+								content="${each.getImagen().getAImage()}" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+		</groupbox>
 
-	
+		<hlayout></hlayout>
+		<div align="right" height="100%">
+<!-- Permite realizar acciones respecto a los Enlaces -->
+			<button label="Guardar" id="btnGuardar" width="auto"
+				height="auto" image="imagenes/iconos/guardar.png"
+				onClick="@command('guardar')" />
+			<button label="Eliminar" id="btnEliminar" width="auto"
+				height="auto" image="imagenes/iconos/eliminar.png"
+				onClick="@command('eliminarEnlaceSeleccionado')" />
+			<button label="Cancelar" id="btnCancelar" width="auto"
+				height="auto" image="imagenes/iconos/cancelar.png"
+				onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrar" width="auto"
+				height="auto" image="imagenes/iconos/cerrar.png"
+				onClick="winEnlaceinteres.onClose()" />
+		</div>
 	</window>
 </zk>
