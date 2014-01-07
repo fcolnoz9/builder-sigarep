@@ -1,46 +1,38 @@
-<?page title="Descripci�n" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Detalle de la Actividad"  id="winDescripcion" border="normal"
-	width="1000px" height="200px"
-	apply=""
-	position="center,center" closable="true" 
-	action="show: slideDown;hide: slideUp">
-
-
-<listbox id="box" width="1000px"  >
-        <listhead >
-            <listheader  label="Hora" sort="auto" align="center" width="100px"/>
-            <listheader  label="Lugar" sort="auto" align="center" />
-            <listheader  label="Descripción" sort="auto" align="center"/>
-            <listheader  label="Observación" sort="auto" align="center"/>
-            
-        </listhead>
-        <listitem>
-           
-            <listcell label="14/11/2013" />
-            <listcell label="Recepción de Documentos" />
-            <listcell label="Todos los Docuemntos fueron recibidos gfdgfdgfdgfdgfdgfdgfdgdfgfdgfdgfdgfdgfdgfdgfdgfdgfdg" />
-            <listcell label="Recibido" />
-            
-            
-        </listitem>
-        <listitem>
-            <listcell label="17/11/2013" />
-            <listcell label="Revision de Documentos" />
-            <listcell label="Falta Recipe de 2do Reposo" />
-            <listcell label="Revisado" />
-            
-        </listitem>
-        <listitem>
-            <listcell label="20/11/2013" />
-            <listcell label="Analisis de Documentos" />
-            <listcell label="2do Reposo Aceptado" />
-            <listcell label="En Proceso" />
-           
-        </listitem>
-        
-    </listbox>
-
-
-</window>
+	<window title="@bind(vm.nombre)" id="winDescripcionActividad"
+		border="normal" position="center,center" closable="true"
+		action="show: slideDown;hide: slideUp" mode="modal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMDetalleCronograma')">
+		<listbox id="box" emptyMessage="No hay registros" mold="paging"
+			pageSize="5">
+			<listhead>
+				<listheader label="Fecha Inicio" width="100px"
+					sort="auto(fecha_inicio)" align="center"  />
+				<listheader label="Fecha Fin" sort="auto(fecha_fin)"
+					align="center" width="100px" />
+				<listheader label="Hora" sort="auto(hora_inicio)" align="center" width="80px" />
+				<listheader label="Descripción" sort="auto(descripcion)"
+					align="center" />
+				<listheader label="Lugar" sort="auto(lugar)"
+					align="center" />
+				<listheader label="Observación" sort="auto(observacion)"
+					align="center" />
+			</listhead>
+				<listitem>
+					<listcell label="@bind(vm.fecha_inicio)"></listcell>
+					<listcell label="@bind(vm.fecha_fin)"></listcell>
+					<listcell label="@bind(vm.hora_inicio)"></listcell>
+					<listcell label="@bind(vm.descripcion)"></listcell>
+					<listcell label="@bind(vm.lugar)"></listcell>
+					<listcell label="@bind(vm.observacion)"></listcell>
+				</listitem>
+		</listbox>
+		<div align="right">
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				mold="trendy" onClick="winDescripcionActividad.onClose()">
+			</button>
+		</div>
+	</window>
 </zk>
