@@ -8,23 +8,46 @@
 		background-image: none; background-color: #EAECF0 !important; }
 	</style>
 	
-		<hlayout vflex="min" children="@load(vm.menuItems)"  apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMenlace')" valign="center">
-			<template name="children" var="item" >
-				<div  hflex="1"  vflex="1" align="center" >
+		<hlayout vflex="min" children="@load(vm.menuItems)"  apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMenlace')" valign="center" > 
+			<template name="children" var="item" > 
+				<div  hflex="1"  vflex="1" align="center" > 
 				
-						<groupbox width="auto" mold="3d" >
+						<groupbox width="auto" mold="3d" > 
 							
-							<hbox style="text-align:center">
+							<hbox style="text-align:center"> 
 							
-								<toolbarbutton label="${each.name}" image="${each.img}"
-									forEach="${item.children}"  href="${each.href}"/>
-						     
-							</hbox>
-						</groupbox>
+								<toolbarbutton   imageContent="${each.getImg}" label="${each.name}" 
+									forEach="${item.children}"  href="${each.href}">
+									
+							    </toolbarbutton> 
+							</hbox> 
+ 						</groupbox> 
 				
-				 </div>
-			</template>
-		</hlayout>
+			 </div> 
+			</template>  
+	    </hlayout> 
+
+
+<!-- <hlayout vflex="min" children="@load(vm.menuItems)"  apply="org.zkoss.bind.BindComposer" -->
+<!-- 		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMenlace')" valign="center"> -->
+<!-- 			<template name="children" var="item" > -->
+<!-- 				<div  hflex="1"  vflex="1" align="center" > -->
+				
+<!-- 						<groupbox width="auto" mold="3d" > -->
+							
+<!-- 							<hbox style="text-align:center"> -->
+							
+<!-- 								<toolbarbutton label="${each.name}" image="${each.img}" -->
+<!-- 									forEach="${item.children}"  href="${each.href}"/> -->
+						    
+<!-- 							</hbox> -->
+<!-- 						</groupbox> -->
+				
+<!-- 				 </div> -->
+<!-- 			</template> -->
+<!-- 		</hlayout> -->
+
+
 	
 </zk>

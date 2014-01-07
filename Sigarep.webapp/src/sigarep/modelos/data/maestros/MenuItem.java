@@ -3,14 +3,19 @@ package sigarep.modelos.data.maestros;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.zkoss.image.AImage;
+
+import sigarep.herramientas.Archivo;
+
 public class MenuItem {
 	private String name;
-	private String img;
+	private Archivo imagen = new Archivo();
+	private AImage img;
 	private String href;
 	private List<MenuItem> children;
 	private int level;
 
-	public MenuItem(String name,String img,String href,int level) {
+	public MenuItem(String name,AImage img,String href,int level) {
 		this.name = name;
 		this.img= img;
 		this.level = level;
@@ -36,11 +41,11 @@ public class MenuItem {
 		this.name = name;
 	}
 
-	public String getImg() {
+	public AImage getImg() {
 		return img;
 	}
 
-	public void setImg(String img) {
+	public void setImg(AImage img) {
 		this.img = img;
 	}
 	
