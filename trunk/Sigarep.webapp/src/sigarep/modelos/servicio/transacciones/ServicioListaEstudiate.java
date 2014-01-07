@@ -56,7 +56,7 @@ public class ServicioListaEstudiate {
 						"AND esa.codigo_lapso = la.codigo_lapso AND i.id_instancia_apelada = sap.id_instancia_apelada " +
 						"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
 						"AND sap.id_instancia_apelada = mo.id_instancia_apelada AND tm.id_tipo_motivo = mo.id_tipo_motivo " +
-						"AND la.estatus = 'true' AND es.cedula_estudiante = " +
+						"AND re.id_tipo_motivo = mo.id_tipo_motivo AND la.estatus = 'true' AND es.cedula_estudiante = " +
 						"esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante";
 		Query query = em.createNativeQuery(queryStatement);
 		@SuppressWarnings("unchecked")

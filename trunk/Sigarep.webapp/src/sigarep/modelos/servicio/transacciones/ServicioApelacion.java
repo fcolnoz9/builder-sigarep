@@ -69,7 +69,7 @@ public class ServicioApelacion  {
 				"AND esa.codigo_lapso = la.codigo_lapso AND i.id_instancia_apelada = sap.id_instancia_apelada " +
 				"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
 				"AND sap.id_instancia_apelada = mo.id_instancia_apelada AND tm.id_tipo_motivo = mo.id_tipo_motivo " +
-				"AND la.estatus = 'true' AND es.cedula_estudiante = " +
+				"AND re.id_tipo_motivo = mo.id_tipo_motivo AND la.estatus = 'true' AND es.cedula_estudiante = " +
 				"esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante";
 
 		Query query = em.createNativeQuery(queryStatement2);
@@ -96,7 +96,7 @@ public class ServicioApelacion  {
 					(String) resultRow[2], (String) resultRow[3], (String) resultRow[4], (String) resultRow[5],
 					(String) resultRow[6], (String) resultRow[7], (Integer)(resultRow[8]), (String) resultRow[9],
 					(String) resultRow[10], (String)resultRow[11],(String) resultRow[12], (String) resultRow[13],
-					(String) resultRow[14]));
+					(Integer) resultRow[14]));
 		}
 		
 		return results;

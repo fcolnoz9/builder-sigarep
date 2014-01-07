@@ -103,14 +103,14 @@ public class ViewModelListaApelaciones  {
 	private String segundoNombre;
 	private String segundoApellido;
 	private String asignatura;
-	private String caso;
+	private Integer caso;
 	
 	
-	public String getCaso() {
+	public Integer getCaso() {
 		return caso;
 	}
 
-	public void setCaso(String caso) {
+	public void setCaso(Integer caso) {
 		this.caso = caso;
 	}
 

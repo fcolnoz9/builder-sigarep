@@ -50,7 +50,7 @@ public class Motivo implements Serializable {
 	private TipoMotivo tipoMotivo;
 
 	//bi-directional many-to-one association to RecaudoEntregado
-	@OneToMany(mappedBy="motivo")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="motivo")
 	private List<RecaudoEntregado> recaudoEntregados = new LinkedList<RecaudoEntregado>();
 
 	public Motivo() {
