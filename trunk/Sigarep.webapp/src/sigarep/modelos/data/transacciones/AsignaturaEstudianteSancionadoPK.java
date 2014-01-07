@@ -13,13 +13,13 @@ public class AsignaturaEstudianteSancionadoPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="codigo_lapso", unique=true, nullable=false, length=6)
+	@Column(name="codigo_lapso", unique=false, nullable=false, length=6)
 	private String codigoLapso;
 
-	@Column(name="cedula_estudiante", unique=true, nullable=false, length=8)
+	@Column(name="cedula_estudiante", unique=false, nullable=false, length=8)
 	private String cedulaEstudiante;
 
-	@Column(name="codigo_asignatura", unique=true, nullable=false, length=8)
+	@Column(name="codigo_asignatura", unique=false, nullable=false, length=8)
 	private String codigoAsignatura;
 
 	public AsignaturaEstudianteSancionadoPK() {
