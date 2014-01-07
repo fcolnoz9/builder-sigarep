@@ -1,9 +1,7 @@
-
-<window id="winReporteAsignaturasMayorCantidadSancionados" title="Asignaturas Mayor Cantidad de Sancionados" border="normal" width="auto" height="auto" closable="true">
-
- 
-<vlayout apply="org.zkoss.bind.BindComposer" 
+<window id="winReporteAsignaturasMayorCantidadSancionados" title="Reportes :: Estadisticos :: Asignaturas Mayor Cantidad de Sancionados" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
 	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMasignaturasMayorCantidadSancionados')">
+
+<vlayout>
 	
 <groupbox id="grbParametros">
 
@@ -19,17 +17,33 @@
 		</columns>
 		<rows>
 			<row>
-				<label id="lblCarreras" value="Carrera" />
-                 <combobox id="cmbCarreras" value="Todas"><comboitem label="Informática"/><comboitem label="Análisis"/> <comboitem label="Producción"/><comboitem label="Matemática"/></combobox>
-                
+				<label id="lblProgramas" value="Programa" />
+                <combobox readonly="true" id= "cmbPrograma" value="@bind(vm.programaAcademico.nombrePrograma)" width="auto" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
+						  <template name="model">
+								<comboitem  label="${each.nombrePrograma}"/>
+						  </template>				
+				</combobox>
+				
 				
 			</row>
 			<row>
 				<label id="lblLapsoInicial" value="Lapso Inicial" />
-				<combobox id="cmblapsoInicial" value="Todos"><comboitem label="2013-I"/></combobox>
-				<label id="lblLapsoFinal" value="Lapso Final" />
-				<combobox id="cmblapsoFinal" ><comboitem label="2013 II"/><comboitem label="2014-I"/></combobox>
 				
+				<combobox readonly="true" id= "cmblapsoInicial" value="@bind(vm.lapsoAcademico.codigoLapso)" width="auto" mold="rounded" 
+				model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" 
+				onSelect="@command('objetoComboLapso')">
+					<template name="model">
+						<comboitem  label="${each.codigoLapso}" />
+					</template>	
+				</combobox>
+				
+				<label id="lblLapsoFinal" value="Lapso Final" />
+				
+				<combobox readonly="true" id= "cmblapsoFinal" value="@bind(vm.lapsoAcademicoFinal.codigoLapso)" width="auto" mold="rounded" model="@load(vm.listaComboLapsoFinal)" selectedItem="@bind(vm.lapsoAcademicoFinal)" onSelect="@command('objetoComboLapsoFinal')">
+					<template name="model">
+						<comboitem  label="${each.codigoLapso}" />
+					</template>	
+				</combobox>
 			</row>
 		
 		</rows>
@@ -39,8 +53,8 @@
 
 
 <div align="right">
-<button id="btnGenerar" width="auto"  height="auto" label="Generar"
-			image="/imagenes/imagenesReportes/generar.png" orient="vertical" >
+<button id="btnGenerar" width="auto"  height="auto" label="Generar" onClick="@command('buscarListaAsigMayorSancionados')"
+			image="/imagenes/iconos/generar.png" orient="horizontal" mold= "trendy">
 		</button>
 </div>		
 </hbox>
@@ -63,48 +77,30 @@
 
 <groupbox id="grbListadeDatos">
 <caption id="lblListaDeDatos" label="Lista de Datos" />		
-	<div apply="org.zkoss.bind.BindComposer" 
-	viewModel="@id('vmg') @init('sigarep.viewmodels.reportes.PieChartConfigVM')">
-	<grid width="250px">
-		<columns>
-			<column label="Motivo" width="150px" />
-			<column label="Valor" />
-		</columns>
-		<rows>
-			<row>
-				<label value="Programación I" />
-				<doublebox value="@bind(vmg.value1)" constraint="no empty" 
-					onChange="@global-command('dataChanged', category='C/C++', num=vmg.value1)"/>
-			</row>
-			<row>
-				<label value="Matemática II" />
-				<doublebox value="@bind(vmg.value2)" constraint="no empty" 
-					onChange="@global-command('dataChanged', category='VB', num=vmg.value2)"/>
-			</row>
-			<row>
-				<label value="Estructuras Discretas" />
-				<doublebox value="@bind(vmg.value3)" constraint="no empty" 
-					onChange="@global-command('dataChanged', category='Java', num=vmg.value3)"/> 
-			</row>
-			<row>
-				<label value="Matemática I" />
-				<doublebox value="@bind(vmg.value4)" constraint="no empty" 
-					onChange="@global-command('dataChanged', category='PHP', num=vmg.value4)"/>
-			</row>
-		</rows>
-	</grid>	
-	</div>
+	<listbox id="lbxListaAsignaturasSancionados" model= "@bind(vm.listaAsig)" emptyMessage="No hay registros" width="auto">
+        <listhead>
+			<listheader label="Asignaturas" width="auto" align="center" />
+			
+			<listheader label="Cantidad Sancionados" width="auto" align="center" />
+		</listhead>
+			
+			<template name="model">
+				<listitem selected="">
+					<listcell label="${each.nombreAsignatura}" />
+					<listcell label="${each.cantidadSancionados}"/>
+				</listitem>
+			</template>
+		</listbox>
 	</groupbox>
 		<div  align="right" height="100%">
-		<button id="btnImprimir" width="100px" height="50px" label="Imprimir"
-			image="/imagenes/iconos/guardar.png" orient="vertical">
+		<button id="btnImprimir" width="auto" height="auto" label="Imprimir" image="/imagenes/iconos/guardar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteAsigMayor')"/>
+		
+		<button id="btnCancelar" width="auto" height="auto" label="Cancelar"
+			image="/imagenes/iconos/cancelar.png" orient="horizontal" mold="trendy">
 		</button>
-		<button id="btnCancelar" width="100px" height="50px" label="Cancelar"
-			image="/imagenes/iconos/cancelar.png" orient="vertical">
-		</button>
-		<button id="btnSalir" width="100px" height="50px" label="Salir"
-			image="/imagenes/iconos/salir.png" orient="vertical">
+		<button id="btnSalir" width="auto" height="auto" label="Salir"
+			image="/imagenes/iconos/cerrar.png" orient="horizontal" mold="trendy">
 		</button>
 	</div>
-</vlayout>
+	</vlayout>
 </window>
