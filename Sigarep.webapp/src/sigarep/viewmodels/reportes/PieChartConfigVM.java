@@ -3,10 +3,10 @@ package sigarep.viewmodels.reportes;
 
 public class PieChartConfigVM {
 	
-	double value1 = 21.2D;
-	double value2 = 10.2D;
-	double value3 = 40.4D;
-	double value4 = 28.2D;
+	double value1; //= 21.2D;
+	double value2; //= 10.2D;
+	double value3; //= 40.4D;
+	double value4; //= 28.2D;
 
 	public double getValue1() {
 		return value1;
