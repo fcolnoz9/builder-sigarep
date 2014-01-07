@@ -28,13 +28,13 @@
 						<label id="lblTipoMotivo"
 							value="Motivo de Apelacion" />
 						<textbox id="txtnombreTipoMotivo" width="300px"
-							height="auto" mold="rounded" constraint="no empty" cols="23" maxlength="30"
+							height="auto" mold="rounded" constraint="no empty:Introduzca un Nombre" cols="23" maxlength="30"
 							value="@bind(vm.nombreTipoMotivo)" />
 
 						<label id="lblDescripcion" value="Descripcion" />
 						<hbox>
 							<textbox id="txtDescripcion" width="300px" 
-								height="auto" mold="rounded" constraint="no empty" rows= "3" value="@bind(vm.descripcion)">
+								height="auto" mold="rounded" constraint="no empty:Introduzca una Descripion" rows= "3" value="@bind(vm.descripcion)">
 							</textbox>
 						</hbox>
 					</row>
