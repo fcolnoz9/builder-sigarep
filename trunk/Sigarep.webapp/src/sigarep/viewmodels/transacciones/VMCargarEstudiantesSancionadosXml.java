@@ -22,25 +22,27 @@ import org.zkoss.zul.Messagebox;
 import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
+import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarEstudiantesSancionadosXml {
 	private Document document;
 	private String textoXML;
 	private Integer tamanoXML;
-	private String  extensionArchivo="xml";
 	private String primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,email,telefono,cedula_estudiante,aux_fecha_nacimiento,aux_anio_ingreso;
 	private String sexo;
 	private Boolean estatus;
     private Date fecha_nacimiento,anio_ingreso;
     private Integer id_programa;
-	public 	JFileChooser selector2;
-	@WireVariable 
-	private ServicioEstudiante servicioestudiante;
+	@WireVariable  ServicioEstudiante servicioestudiante;
 	@WireVariable
 	private Estudiante estudiante;
 	@WireVariable 
-	private ProgramaAcademico programacademico;
+	private ProgramaAcademico programa_academico;
+	@WireVariable 
+	private ProgramaAcademico aux_programaacademico;
+	@WireVariable 
+	private ServicioProgramaAcademico servicioprogramaacademico;
 	
 	public String getTextoXML() {
 		return textoXML;
@@ -75,24 +77,7 @@ public class VMCargarEstudiantesSancionadosXml {
 		}
 	}
 	@Command
-	@NotifyChange({"textoXML","tamanoXML"})
-	public String soloLecturaXml(File f)
-	{
-		String datos="";
-		SAXBuilder saxBuilder = new SAXBuilder();
-		try {
-			document = saxBuilder.build(f);
-			XMLOutputter output = new XMLOutputter();
-			textoXML=(output.outputString(document));
-		} catch (JDOMException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return datos;
-	}
-		
-	@Command
-	@NotifyChange({"texto"})
+	@NotifyChange({"texto","tamanoXML"})
 	public String leerXml(File f){
 		String datos="";
 		int tamaño=0;
@@ -103,21 +88,9 @@ public class VMCargarEstudiantesSancionadosXml {
 			System.out.println("Data Archivo"+output.outputString(document));
 			Element rootNode = document.getRootElement();
 			List list = rootNode.getChildren("Estudiante");
-			System.out.println("Tamaño L");
+			tamanoXML=list.size();
 			for (int i = 0; i < list.size(); i++) {
 				   Element node = (Element) list.get(i);
-//				   System.out.println("Cedula Estudiante : " + node.getAttribute("cedula_estudiante").getValue());
-//				   System.out.println("Primer Nombre : " + node.getChildText("primer_nombre"));
-//				   System.out.println("Segundo_nombre : " + node.getChildText("segundo_nombre"));
-//				   System.out.println("primer_apellido : " + node.getChildText("primer_apellido"));
-//				   System.out.println("segundo_apellido : " + node.getChildText("segundo_apellido"));
-//				   System.out.println("sexo : " + node.getChildText("sexo"));
-//				   System.out.println("fecha_nacimiento : " + node.getChildText("fecha_nacimiento"));
-//				   System.out.println("email : " + node.getChildText("email"));
-//				   System.out.println("telefono : " + node.getChildText("telefono"));
-//				   System.out.println("id_programa : " + node.getChildText("id_programa"));
-//				   System.out.println("anio_ingreso : " + node.getChildText("anio_ingreso"));
-//				   System.out.println("estatus : " + node.getChildText("estatus"));
 				   cedula_estudiante=node.getAttribute("cedula_estudiante").getValue();
 				   primer_nombre=node.getChildText("primer_nombre");
 				   segundo_nombre=node.getChildText("segundo_nombre");
@@ -142,22 +115,19 @@ public class VMCargarEstudiantesSancionadosXml {
 					   } catch (ParseException ex) {
 					   ex.printStackTrace();
 					   }
-//				   if(node.getChildText("estatus")==true"){
+				   if(node.getChildText("estatus")=="true"){
 					   estatus=true;
-//				   }
-//				   else{
-//				   estatus=false; 
-//				   }
-				   ProgramaAcademico programaacademico=new ProgramaAcademico();
-				   programaacademico.setIdPrograma(id_programa);
-				   programaacademico.setEstatusPrograma(true);
-				   programaacademico.setNombrePrograma("Informatica");
+				   }
+				   else{
+					   estatus=false; 
+				   }
+				   ProgramaAcademico programaacademico =new ProgramaAcademico();
+				   programaacademico=servicioprogramaacademico.buscarUnPrograma(id_programa);
 				   Estudiante estudiante = new Estudiante(cedula_estudiante,anio_ingreso,email,estatus,fecha_nacimiento,primer_apellido,primer_nombre,segundo_apellido,segundo_nombre,sexo,telefono,programaacademico);
 				   servicioestudiante.guardarPrograma(estudiante);
 				}
-			System.out.println("Tamaño del Xml :"+tamaño);
 			textoXML=(output.outputString(document));
-			//System.out.println("texttoooo"+texto);
+			Messagebox.show("Se ha Terminado la Carga de "+tamanoXML+" Estudiantes", "Informacion",Messagebox.OK, Messagebox.INFORMATION);
 		} catch (JDOMException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
