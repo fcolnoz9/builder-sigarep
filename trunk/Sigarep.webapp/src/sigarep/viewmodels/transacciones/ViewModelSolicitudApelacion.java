@@ -12,6 +12,7 @@ import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
 
+import org.jfree.text.TextBox;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -56,6 +57,7 @@ import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
@@ -64,7 +66,9 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 public class ViewModelSolicitudApelacion {
 	@Wire("#modalDialog")
     private Window window;
-    
+	
+	 @Wire Textbox txtAsignatura;
+	 @Wire Window winRegistrarReconsideracion;
 	
 	private String sancion;
 	private String programa;
@@ -74,27 +78,103 @@ public class ViewModelSolicitudApelacion {
 	private String nombre;
 	private String lapso;
 	private int instancia;
-		@WireVariable
-		private String cedula;
-		@WireVariable
-		private SolicitudApelacion solicitudapelacion;
-		@WireVariable
-		private LapsoAcademico lapsoAcademico = new LapsoAcademico();
-		@WireVariable
-		private ServicioLapsoAcademico serviciolapsoacademico;
-		@WireVariable
-		private ServicioSolicitudApelacion serviciosolicitudapelacion;
-		@WireVariable
-		private ServicioApelacionMomento servicioapelacionmomento;
-		@WireVariable
-		private Integer instanciaApelada;
-		@WireVariable
-		private Date fechaSolicitud;
-		mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
-		SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
-		SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-		ApelacionMomentoPK apelacionMomentoPK = new ApelacionMomentoPK();
-		ApelacionMomento apelacionMomento = new ApelacionMomento(); 
+	private String motivo;
+	private String recaudo;
+	private String segundoNombre;
+	private String segundoApellido;
+	private String nombres;
+	private String apellidos;
+	private String asignatura;
+	private String caso;
+
+
+	public String getCaso() {
+		return caso;
+	}
+
+	public void setCaso(String caso) {
+		this.caso = caso;
+	}
+
+	public String getAsignatura() {
+		return asignatura;
+	}
+
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+
+	@WireVariable
+	private String cedula;
+	@WireVariable
+	private SolicitudApelacion solicitudapelacion;
+	@WireVariable
+	private LapsoAcademico lapsoAcademico = new LapsoAcademico();
+	@WireVariable
+	private ServicioLapsoAcademico serviciolapsoacademico;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioApelacionMomento servicioapelacionmomento;
+	@WireVariable
+	private Integer instanciaApelada;
+	@WireVariable
+	private Date fechaSolicitud;
+	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
+	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
+	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
+	ApelacionMomentoPK apelacionMomentoPK = new ApelacionMomentoPK();
+	ApelacionMomento apelacionMomento = new ApelacionMomento(); 
+
+
+	public String getRecaudo() {
+		return recaudo;
+	}
+
+	public void setRecaudo(String recaudo) {
+		this.recaudo = recaudo;
+	}
+
+	public String getSegundoNombre() {
+		return segundoNombre;
+	}
+
+	public void setSegundoNombre(String segundoNombre) {
+		this.segundoNombre = segundoNombre;
+	}
+
+	public String getSegundoApellido() {
+		return segundoApellido;
+	}
+
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
+	}
+
+		public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
 
 		
 		public Integer getInstancia() {
@@ -219,8 +299,34 @@ public class ViewModelSolicitudApelacion {
 			this.nombre = nombre;
 		}
 		
+		public void concatenacionNombres () {		
+
+		 	String nombre1 = nombre;
+			String nombre2 = segundoNombre;
+			nombres = nombre1 + " " + nombre2;
+			System.out.println(nombres);
+		}
+		
+		public void  concatenacionApellidos () {
+			
+			String apellido1 = apellido;
+			String apellido2 = segundoApellido;
+			apellidos = apellido1 + " " + apellido2;
+			
+		}
+		
+		
+//		public void inhabilitar () {
+//		String materia = asignatura;
+//			if (materia  == null){
+//			txtAsignatura.setTextBlock(null);
+//		}
+//		}
+
 		@Init
-		public void init(@ContextParam(ContextType.VIEW) Component view,
+		public void init(
+				
+				@ContextParam(ContextType.VIEW) Component view,
 	            @ExecutionArgParam("cedula") String v1 ,
 	            @ExecutionArgParam("nombre") String v2,
 	            @ExecutionArgParam("apellido") String v3,
@@ -229,8 +335,14 @@ public class ViewModelSolicitudApelacion {
 	            @ExecutionArgParam("programa") String v6,
 	            @ExecutionArgParam("sancion") String v7,
 	            @ExecutionArgParam("lapso") String v8,
-	            @ExecutionArgParam("instancia") Integer v9)
-	            
+	            @ExecutionArgParam("instancia") Integer v9,
+	            @ExecutionArgParam("motivo") String v10,
+	            @ExecutionArgParam("recaudo") String v11,
+	            @ExecutionArgParam("segundoNombre") String v12,
+	            @ExecutionArgParam("segundoApellido") String v13,
+	            @ExecutionArgParam("asignatura") String v14,
+	            @ExecutionArgParam("caso") String v15)
+	           
 			// initialization code
 		
 		{
@@ -244,7 +356,16 @@ public class ViewModelSolicitudApelacion {
 		        this.sancion = v7;
 		        this.lapso = v8;
 		        this.instancia = v9;
-		        
+		        this.motivo = v10;
+		        this.recaudo = v11;
+		        this.segundoNombre = v12;
+		        this.segundoApellido = v13;
+		        this.asignatura = v14;
+		        this.caso = v15;
+		        concatenacionNombres ();
+		        concatenacionApellidos ();
+		 
+
 		   } 
 		    @Command
 		    public void closeThis() {
@@ -254,9 +375,11 @@ public class ViewModelSolicitudApelacion {
 
 		@Command
 		public void registrarSolicitudApelacion() {
+			
 				Date fecha= new Date();
 				Time hora= new Time(0);
 				System.out.println("cedula "+cedula);
+				
 				solicitudApelacionPK.setCedulaEstudiante(cedula);
 				System.out.println("lapso "+lapso);
 				solicitudApelacionPK.setCodigoLapso(lapso);
@@ -266,6 +389,7 @@ public class ViewModelSolicitudApelacion {
 				System.out.println("fecha "+fecha);
 				solicitudApelacion.setFechaSolicitud(fecha);
 				solicitudApelacion.setEstatus(true);
+				
 				apelacionMomentoPK.setCedulaEstudiante(cedula);
 				apelacionMomentoPK.setCodigoLapso(lapso);
 				apelacionMomentoPK.setIdInstanciaApelada(2);
@@ -284,5 +408,19 @@ public class ViewModelSolicitudApelacion {
 				msjs.informacionRegistroCorrecto();
 			
 			}
+		
+		@Command
+		@NotifyChange({"txtAsignatura", "winRegistrarReconsideracion"})
+		public void inhabilitar () {
+			String sanciontipo;
+			sanciontipo = "RP";
+			System.out.println("...." +sanciontipo);
+			System.out.println("´´´´´´" +sancion);
+			System.out.println("pasoooooooo1");
+			if (sanciontipo.equals(sancion)){
+				txtAsignatura.setVisible(false);
+			System.out.println("pasooooo2");
+			}
 		}
+	}
 
