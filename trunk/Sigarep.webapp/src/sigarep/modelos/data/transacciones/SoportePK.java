@@ -13,19 +13,19 @@ public class SoportePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="id_recaudo", unique=true, nullable=false)
+	@Column(name="id_recaudo", unique=false, nullable=false)
 	private Integer idRecaudo;
 
-	@Column(name="id_tipo_motivo", unique=true, nullable=false)
+	@Column(name="id_tipo_motivo", unique=false, nullable=false)
 	private Integer idTipoMotivo;
 
-	@Column(name="codigo_lapso", unique=true, nullable=false, length=6)
+	@Column(name="codigo_lapso", unique=false, nullable=false, length=6)
 	private String codigoLapso;
 
-	@Column(name="cedula_estudiante", unique=true, nullable=false, length=8)
+	@Column(name="cedula_estudiante", unique=false, nullable=false, length=8)
 	private String cedulaEstudiante;
 
-	@Column(name="id_instancia_apelada", unique=true, nullable=false)
+	@Column(name="id_instancia_apelada", unique=false, nullable=false)
 	private Integer idInstanciaApelada;
 
 	public SoportePK() {
