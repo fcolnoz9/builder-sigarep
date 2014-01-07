@@ -1,28 +1,15 @@
-
-<div hflex="1" vflex="1" sclass="banner">
+<div hflex="1" vflex="1" sclass="banner" align="center">
 	<hbox hflex="1" vflex="1" align="center">
-		<a href="http://www.ucla.edu.ve/">
-			<image src="imagenes/portal-principal/Logo SIGAREP.png" width="200px" />
-		</a>
-		
 		<div>
-			<label value="_________"
-				style="color: #102d35; font: 24 bold monospace;" />
+			<a href="http://www.ucla.edu.ve/">
+				<image src="imagenes/portal-principal/Logo SIGAREP.png"
+					width="200px" />
+			</a>
 		</div>
-		<div width="100%" align="center">
+		<div align="center" style="padding-left: 5%; padding-right: 5%">
 			<label
 				value="Sistema Integrado de Apoyo a la Gestión del Regimen de Repitencia y Permanencia"
 				sclass="banner-head" />
 		</div>
-		<div>
-			<label value="________"
-				style="color: #102d35; font: 24 bold monospace;" />
-		</div>
-		
-		
-					
-					
-     
-		
 	</hbox>
 </div>

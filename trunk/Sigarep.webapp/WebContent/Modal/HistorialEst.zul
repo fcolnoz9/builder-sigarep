@@ -1,93 +1,86 @@
-<window title="Historial"  id="winHistorial" border="normal"
-	width="1200px" height="550px"
-	apply=""
-	position="center,center" closable="true" 
-	action="show: slideDown;hide: slideUp">
+<window title="Historial Estudiante Sancionado" id="winHistorial"
+	border="normal" position="center,center" width="1200px" closable="true"
+	mode="modal" action="show: slideDown;hide: slideUp"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMHistoricoEstudiante')">
 	<groupbox>
 		<caption label="Datos Estudiante" />
 		<grid>
 			<columns>
-				<column  />
-				<column  />
-				<column  />
-				<column  />
+				<column width="10%" />
+				<column width="40%" />
+				<column width="10%" />
+				<column width="40%" />
 			</columns>
 			<rows>
 				<row>
-					<label value="Cédula: " id="lblCedula"  />
-					<textbox id="txtCedula" mold="rounded" cols="23" maxlength="10" value="18571956" disabled="true"></textbox>
-					<label value="Nombre: " id="lblNombre"/>
-					<textbox id="txtNombre" mold="rounded" cols="23" maxlength="30" value="María" disabled="true"></textbox>
-				</row>
-				<row>
-					<label value="Apellido: " id="lblApellido" />
-					<textbox id="txtApellido" mold="rounded" cols="23" maxlength="30"
-						value="Pérez" disabled="true">
+					<label value="Cédula: " id="lblCedula" />
+					<textbox id="txtCedula" mold="rounded" cols="23"
+						value="@bind(vm.cedula)" width="300px" maxlength="10"
+						disabled="true">
 					</textbox>
-					<label value="Programa: " id="lblPrograma"/>
-					<textbox id="txtPrograma" mold="rounded" cols="23" maxlength="30" value="Ingeniería en Informática"
+					<label value="Programa: " id="lblPrograma" />
+					<textbox id="txtPrograma" mold="rounded" cols="23"
+						value="@bind(vm.programa)" width="300px" maxlength="30"
 						disabled="true">
 					</textbox>
 				</row>
-				
-		    </rows>
-		</grid>		
+				<row>
+					<label value="Nombre: " id="lblNombre" />
+					<textbox id="txtNombre" mold="rounded" cols="23"
+						value="@bind(vm.nombre)" width="300px" maxlength="30"
+						disabled="true">
+					</textbox>
+					<label value="Apellido: " id="lblApellido" />
+					<textbox id="txtApellido" mold="rounded" cols="23"
+						value="@bind(vm.apellido)" width="300px" maxlength="30"
+						disabled="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
 	</groupbox>
 	<groupbox>
 		<caption label=" Datos de la Sanción" />
 		<grid>
 			<columns>
-				<column />
-				<column />
-				<column  />
-				<column  />
-				<column  />
-				<column  />
-				<column  />
-				<column  />
-				<column  />
-				<column  />
+				<column width="10%" />
+				<column width="10%" />
+				<column width="8%" />
+				<column width="10%" />
+				<column width="8%" />
+				<column width="10%" />
+				<column width="8%" />
+				<column width="10%" />
+				<column width="5%" />
+				<column width="19%" />
 			</columns>
 			<rows>
-				
 				<row>
-				
-				  <label value="Lapso Académico " id="lblLapso"/>
-			      <textbox id="txtLapso" mold="rounded" cols="8" maxlength="30" value="2013-I" disabled="true"></textbox>
-			      
-				  <label value="Tipo Sanción: " id="lblTipoSancion"/>
-			      <textbox id="txtTipoSancion" mold="rounded"  cols="5" maxlength="22" value="RP" disabled="true"></textbox>
-			      
-			      		      
-			      
-			      <label value="Período Inicial: " id="lblPeriodoInicial"/>
-			      <textbox id="txtPeriodoInicial" mold="rounded" cols="8" maxlength="30" value="2013-I" disabled="true"></textbox>
-			      
-			      <label value="Período Final: " id="lblPeriodoFinal"/>
-			      <textbox id="txtPeriodoFinal" mold="rounded" cols="8" maxlength="30" value="2014-I" disabled="true"></textbox>
-			     
-			     
-			      
-				</row>
-				<row>
-				
-				  <label value="Lapso Académico " id="lblLapso1"/>
-			      <textbox id="txtLapso1" mold="rounded" cols="8" maxlength="30" value="2013-I" disabled="true"></textbox>
-			      
-				  <label value="Tipo Sanción: " id="lblTipoSancion1"/>
-			      <textbox id="txtTipoSancion1" mold="rounded"  cols="5" maxlength="22" value="RR" disabled="true"></textbox>
-			      
-			      		      
-			      
-			      <label value="Período Inicial: " id="lblPeriodoInicial1"/>
-			      <textbox id="txtPeriodoInicial1" mold="rounded" cols="8" maxlength="30" value="2013-I" disabled="true"></textbox>
-			      
-			      <label value="Período Final: " id="lblPeriodoFinal1"/>
-			      <textbox id="txtPeriodoFina1l" mold="rounded" cols="8" maxlength="30" value="2014-I" disabled="true"></textbox>
-			     
-			     <label value="Materia: " id="lblMateria"/>
-			      <textbox id="txtPeriodoFinal1" mold="rounded" cols="10" maxlength="30" value="CALCULO I" disabled="true"></textbox>
-			      
+					<label value="Lapso Académico " id="lblLapso" />
+					<textbox id="txtLapso" mold="rounded" cols="8"
+						maxlength="30" value="@bind(vm.lapsoAcademico)" disabled="true">
+					</textbox>
+					<label value="Tipo Sanción: " id="lblTipoSancion" />
+					<textbox id="txtTipoSancion" mold="rounded" cols="5"
+						maxlength="20" value="@bind(vm.tipoSancion)" disabled="true">
+					</textbox>
+					<label value="Período Inicial: "
+						id="lblPeriodoInicial" />
+					<textbox id="txtPeriodoInicial" mold="rounded"
+						cols="8" maxlength="30" value="@bind(vm.periodoInicial)"
+						disabled="true">
+					</textbox>
+					<label value="Período Final: " id="lblPeriodoFinal" />
+					<textbox id="txtPeriodoFinal" mold="rounded"
+						cols="8" maxlength="30" value="@bind(vm.periodoFinal)"
+						disabled="true">
+					</textbox>
+					<label value="Materia: " id="lblMateria" />
+					<textbox id="txtPeriodoFinal1" mold="rounded"
+						width="200px" cols="10" maxlength="30" value="@bind(vm.materia)"
+						disabled="true">
+					</textbox>
 				</row>
 			</rows>
 		</grid>
@@ -96,63 +89,73 @@
 		<caption label=" Datos de Apelación" />
 		<grid>
 			<columns>
-				<column  />
-				<column  />
-				<column />
-				<column  />
-				<column />
-				<column  />
+				<column width="10%" />
+				<column width="20%" />
+				<column width="10%" />
+				<column width="40%" />
 			</columns>
 			<rows>
 				<row>
-				  <label value="N° de Caso: " id="lblCodigo"/>
-			      <textbox id="txtCaso" mold="rounded" cols="15" maxlength="20" value="1234" disabled="true"></textbox>
-				  <label value="Motivo: " id="lblMotivo"/>
-			      <textbox id="txtMotivo" mold="rounded" cols="15" maxlength="20" value="Ordinaria" disabled="true"></textbox>
-			      <label value="Fecha: " id="lblFecha"/>
-			      <textbox id="txtFecha" mold="rounded" cols="15" maxlength="10" value="15/11/2013" disabled="true"></textbox>
+					<label value="N° de Caso: " id="lblNumeroCaso" />
+					<textbox id="txtCaso" mold="rounded" cols="15"
+						maxlength="20" value="@bind(vm.numeroCaso)" disabled="true">
+					</textbox>
+					<label value="Motivo: " id="lblMotivo" />
+					<listbox id="lbxMotivo" height="100px"
+						model="@bind(vm.listaMotivo)" mold="paging" pageSize="5">
+						<template name="model">
+							<listitem>
+								<listcell label="${each}" />
+							</listitem>
+						</template>
+					</listbox>
+				</row>
+				<row>
+					<label value="Fecha: " id="lblFecha" />
+					<textbox id="txtFecha" mold="rounded" cols="15"
+						maxlength="10" value="@bind(vm.fecha)" disabled="true">
+					</textbox>
 				</row>
 			</rows>
 		</grid>
-		
 	</groupbox>
-	
 	<separator />
-		<separator />
-		<separator />
+	<separator />
+	<separator />
 	<div align="center" height="100%">
-	   <hbox> 
-	    <vbox>
-	    
-		<button  label="Registro Apelación" mold="trendy" id="btn1" image="/imagenes/portal-principal/fondoAzul.png"  width="150px" height="10px"
-			 orient="vertical">
-			 
-		</button>
-		</vbox>
-		<vbox>
-		
-		<button label="Comision Sustanciadora" mold="trendy" id="btn2" image="/images/portal-principal/fondoGris.png" width="180px" height="10px" 
-			 orient="vertical">
-		</button>
-		</vbox>
-		<vbox>
-	    
-		<button  label="Consejo Decanato" mold="trendy" id="btn3" image="/images/fondoGris.png" width="150px" height="10px"
-			 orient="vertical">
-		</button>
-		</vbox>
-		<vbox>
-		
-		<button label="Recurso Reconsideración" mold="trendy" id="btn4" image="/images/fondoGris.png" width="170px" height="10px" 
-			 orient="vertical">
-		</button>
-		</vbox>
-		<vbox>
-		
-		<button  label="Recurso Jerarquico" mold="trendy" id="btn5" image="/images/fondoGris.png" width="150px" height="10px"
-			 orient="vertical">
-		</button>
-		</vbox>
+		<hbox>
+			<vbox>
+				<button label="Registro Apelación" mold="trendy"
+					id="btn1" image="/imagenes/portal-principal/fondoAzul.png"
+					width="150px" height="10px" orient="vertical">
+				</button>
+			</vbox>
+			<vbox>
+				<button label="Comision Sustanciadora" mold="trendy"
+					id="btn2" image="/imagenes/portal-principal/fondoGris.png"
+					width="180px" height="10px" orient="vertical">
+				</button>
+			</vbox>
+			<vbox>
+
+				<button label="Consejo Decanato" mold="trendy" id="btn3"
+					image="/imagenes/portal-principal/fondoGris.png" width="150px"
+					height="10px" orient="vertical">
+				</button>
+			</vbox>
+			<vbox>
+
+				<button label="Recurso Reconsideración" mold="trendy"
+					id="btn4" image="/imagenes/portal-principal/fondoGris.png"
+					width="170px" height="10px" orient="vertical">
+				</button>
+			</vbox>
+			<vbox>
+				<button label="Recurso Jerarquico" mold="trendy"
+					id="btn5" image="/imagenes/portal-principal/fondoGris.png"
+					width="150px" height="10px" orient="vertical">
+				</button>
+			</vbox>
 		</hbox>
 		<separator />
 		<separator />
@@ -160,51 +163,38 @@
 		<separator />
 		<separator />
 		<separator />
-		<listbox id="box" width="1000px"  >
-        <listhead >
-            <listheader  label="Fecha" sort="auto" align="center"/>
-            <listheader  label="Proceso de Apelación" sort="auto" align="center" />
-            <listheader  label="Observación" sort="auto" align="center"/>
-            <listheader  label="Estatus" sort="auto" align="center" />
-            <listheader  label="Responsable" sort="auto" align="center"/>
-        </listhead>
-        <listitem>
-           
-            <listcell label="14/11/2013" />
-            <listcell label="Recepción de Documentos" />
-            <listcell label="Todos los Docuemntos fueron recibidos" />
-            <listcell label="Recibido" />
-            <listcell label="Jorge Guerrero" />
-            
-        </listitem>
-        <listitem>
-            <listcell label="17/11/2013" />
-            <listcell label="Revision de Documentos" />
-            <listcell label="Falta Recipe de 2do Reposo" />
-            <listcell label="Revisado" />
-            <listcell label="Jorge Guerrero" />
-        </listitem>
-        <listitem>
-            <listcell label="20/11/2013" />
-            <listcell label="Analisis de Documentos" />
-            <listcell label="2do Reposo Aceptado" />
-            <listcell label="En Proceso" />
-            <listcell label="Jorge Guerrero" />
-        </listitem>
-        
-    </listbox>
-	
-		
-		
+		<listbox id="box" width="1000px">
+			<listhead>
+				<listheader label="Fecha" sort="auto" align="center" />
+				<listheader label="Proceso de Apelación" sort="auto"
+					align="center" />
+				<listheader label="Observación" sort="auto"
+					align="center" />
+				<listheader label="Estatus" sort="auto" align="center" />
+				<listheader label="Responsable" sort="auto"
+					align="center" />
+			</listhead>
+			<listitem>
+				<listcell label="14/11/2013" />
+				<listcell label="Recepción de Documentos" />
+				<listcell label="Todos los Docuemntos fueron recibidos" />
+				<listcell label="Recibido" />
+				<listcell label="Jorge Guerrero" />
+			</listitem>
+			<listitem>
+				<listcell label="17/11/2013" />
+				<listcell label="Revision de Documentos" />
+				<listcell label="Falta Recipe de 2do Reposo" />
+				<listcell label="Revisado" />
+				<listcell label="Jorge Guerrero" />
+			</listitem>
+			<listitem>
+				<listcell label="20/11/2013" />
+				<listcell label="Analisis de Documentos" />
+				<listcell label="2do Reposo Aceptado" />
+				<listcell label="En Proceso" />
+				<listcell label="Jorge Guerrero" />
+			</listitem>
+		</listbox>
 	</div>
-	
-	
-	
-	
-		
-	
-
-	
-	
-	
 </window>
