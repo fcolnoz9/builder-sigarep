@@ -11,6 +11,7 @@ import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
 
+
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -40,6 +41,9 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelArray;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Textbox;
+
+
 
 import sigarep.modelos.data.maestros.*;
 import sigarep.modelos.data.transacciones.ApelacionMomento;
@@ -47,16 +51,16 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.*;
 import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
+import sigarep.modelos.servicio.transacciones.ListaApelacionMomentoFiltros;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
-//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
-//import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-//import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
+
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class ViewModelListaApelaciones  {
 	
+	@WireVariable
+	private Textbox txtAsignatura;
 	@WireVariable
 	private Estudiante estudiante = new Estudiante();
 	@WireVariable
@@ -77,14 +81,8 @@ public class ViewModelListaApelaciones  {
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
-//	@WireVariable
-//	private ServicioApelacionMomento servicioapelacionmomento;
-//	@WireVariable
-//	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioApelacion serviciolista;
-//	@WireVariable
-//	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private List<EstudianteSancionado> listaSancionados =  new LinkedList<EstudianteSancionado>();
 	private List<ProgramaAcademico> listaPrograma;
@@ -100,8 +98,72 @@ public class ViewModelListaApelaciones  {
 	private String cedula;
 	private String lapso;
 	private Integer instancia;
+	private String motivo;
+	private String recaudo;
+	private String segundoNombre;
+	private String segundoApellido;
+	private String asignatura;
+	private String caso;
 	
 	
+	public String getCaso() {
+		return caso;
+	}
+
+	public void setCaso(String caso) {
+		this.caso = caso;
+	}
+
+	public String getAsignatura() {
+		return asignatura;
+	}
+
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
+	}
+
+	public String getRecaudo() {
+		return recaudo;
+	}
+
+	public void setRecaudo(String recaudo) {
+		this.recaudo = recaudo;
+	}
+
+	public String getSegundoNombre() {
+		return segundoNombre;
+	}
+
+	public void setSegundoNombre(String segundoNombre) {
+		this.segundoNombre = segundoNombre;
+	}
+
+	public String getSegundoApellido() {
+		return segundoApellido;
+	}
+
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	private ListaApelacionMomentoFiltros filtros = new ListaApelacionMomentoFiltros();
+	private String programaFiltro;
+	
+	public String getProgramaFiltro() {
+		return programaFiltro;
+	}
+
+	public void setProgramaFiltro(String programaFiltro) {
+		this.programaFiltro = programaFiltro;
+	}
+
 	public Integer getInstancia() {
 		return instancia;
 	}
@@ -223,7 +285,7 @@ public class ViewModelListaApelaciones  {
 	    	buscarTipoMotivo();
 	    	buscarProgramaA ();
 	    	buscarApelacionesR ();
-		
+
 	    }
 	    //Metodo que busca un motivo partiendo por su titulo
 	  	@Command
@@ -239,12 +301,13 @@ public class ViewModelListaApelaciones  {
 		}
 	  	@Command
 		@NotifyChange({"lista"})
-		public void buscarApelacionesR(){
+		public void buscarApelacionesR(){ 
 		  			lista = serviciolista.buscarApelaciones();
 		}
 	  	
 	  	@Command
-		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", "sancion", "lapso"})
+		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", 
+			"sancion", "lapso", "recaudo", "segundoNombre", "segundoApellido", "asignatura", "caso"})
 		public void showModal (){
 	  		cedula = getListaapelacionmomento().getCedulaEstudiante();
 	  		nombre = getListaapelacionmomento().getPrimerNombre();
@@ -255,6 +318,12 @@ public class ViewModelListaApelaciones  {
 	  		sancion = getListaapelacionmomento().getNombreSancion();
 	  		lapso = getListaapelacionmomento().getLapso();
 	  		instancia = getListaapelacionmomento().getInstancia();
+	  		motivo = getListaapelacionmomento().getMotivo();
+	  		recaudo = getListaapelacionmomento().getRecaudo();
+	  		segundoNombre = getListaapelacionmomento().getSegundoNombre();
+	  		segundoApellido = getListaapelacionmomento().getSegundoApellido();
+	  		asignatura = getListaapelacionmomento().getAsignatura();
+	  		caso  = getListaapelacionmomento().getCaso();
 	  		
 	  		final HashMap<String, Object> map = new HashMap<String, Object>();
 	        map.put("cedula", this.cedula );
@@ -266,6 +335,12 @@ public class ViewModelListaApelaciones  {
 	        map.put("sancion", this.sancion);
 	        map.put("lapso", this.lapso);
 	        map.put("instancia", this.instancia);
+	        map.put("motivo", this.motivo);
+	        map.put("recaudo", this.recaudo);
+	        map.put("segundoNombre", this.segundoNombre);
+	        map.put("segundoApellido", this.segundoApellido);
+	        map.put("asignatura", this.asignatura);
+	        map.put("caso", this.caso); 
 	       
 	        
 	        final Window window = (Window) Executions.createComponents(
@@ -273,4 +348,19 @@ public class ViewModelListaApelaciones  {
 			window.setMaximizable(true);
 			window.doModal();	
 	  	}
+	  	
+		@Command
+		@NotifyChange({"lista"})
+		public void filtros(){
+			lista = serviciolista.buscarPorFiltros(filtros);
+		}
+		@NotifyChange({"filtros"})
+		public ListaApelacionMomentoFiltros getFiltros() {
+			return filtros;
+		}
+		public void setFiltros(ListaApelacionMomentoFiltros filtros) {
+			this.filtros = filtros;
+		
 	  }
+
+}
