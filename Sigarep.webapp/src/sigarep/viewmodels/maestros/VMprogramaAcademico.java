@@ -11,6 +11,15 @@ import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademicoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 
+/*
+ * @ (#) ProgramaAcademico.java 
+ *
+ * Copyright 2013 Builder. Todos los derechos reservados.
+ * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
+ * Esta clase es del registro del maestro "Programa Academico"
+ * @ Author Javier Chacon
+ */
+
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMprogramaAcademico {
@@ -83,10 +92,10 @@ public class VMprogramaAcademico {
 	@Command
 	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma" })
 	public void guardarPrograma() {
-		if (nombrePrograma.equals(""))
+		if (nombrePrograma == null) {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
-		else {
+		} else {
 			ProgramaAcademico proa = new ProgramaAcademico(idPrograma,
 					nombrePrograma, true);
 			servicioprogramaacademico.guardarPrograma(proa);
@@ -115,11 +124,16 @@ public class VMprogramaAcademico {
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
 	public void eliminarPrograma() {
-		servicioprogramaacademico.eliminarPrograma(getProgramaseleccionado()
-				.getIdPrograma());
-		Messagebox.show("Se ha eliminado correctamente", "Informacion",
-				Messagebox.OK, Messagebox.INFORMATION);
-		limpiar();
+		if (nombrePrograma == null) {
+			Messagebox.show("Debe seleccionar un programa ", "Advertencia",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		} else {
+			servicioprogramaacademico
+					.eliminarPrograma(getProgramaseleccionado().getIdPrograma());
+			Messagebox.show("Se ha eliminado correctamente", "Informacion",
+					Messagebox.OK, Messagebox.INFORMATION);
+			limpiar();
+		}
 	}
 
 	// Método que muestra los datos de una programa seleccionado

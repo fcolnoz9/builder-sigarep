@@ -11,6 +11,15 @@ import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.SancionMaestroFiltros;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
+/*
+ * @ (#) SancionMaestro.java 
+ *
+ * Copyright 2013 Builder. Todos los derechos reservados.
+ * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
+ * Esta clase es del registro del maestro "Sancion"
+ * @ Author Javier Chacon
+ */
+
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMsancionMaestro {
@@ -95,7 +104,7 @@ public class VMsancionMaestro {
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
 			"listaSancion" })
 	public void guardarSancion() {
-		if (nombre.equals("") || descripcion.equals("")) {
+		if (nombre == null || descripcion == null) {
 			Messagebox.show("Debe llenar todos los campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
@@ -110,7 +119,8 @@ public class VMsancionMaestro {
 
 	// Método que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus", "listaSancion" })
+	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
+			"listaSancion" })
 	public void limpiar() {
 		nombre = "";
 		descripcion = "";
@@ -128,11 +138,16 @@ public class VMsancionMaestro {
 	@Command
 	@NotifyChange({ "listaSancion", "nombre", "descripcion" })
 	public void eliminarSancion() {
-		serviciosancionmaestro.eliminarSancion(getSancionSeleccionada()
-				.getIdSancion());
-		Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
-				Messagebox.OK, Messagebox.INFORMATION);
-		limpiar();
+		if (nombre == null || descripcion == null) {
+			Messagebox.show("Debe seleccionar un tipo de sanción", "Advertencia",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		} else {
+			serviciosancionmaestro.eliminarSancion(getSancionSeleccionada()
+					.getIdSancion());
+			Messagebox.show("Se ha eliminado correctamente", "Informacion",
+					Messagebox.OK, Messagebox.INFORMATION);
+			limpiar();
+		}
 	}
 
 	// Método que muestra una sanción seleccionada
