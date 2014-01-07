@@ -17,6 +17,7 @@ import java.util.Date;
 @Access(AccessType.FIELD)
 @Table(name="soporte")
 public class Soporte implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
@@ -32,6 +33,17 @@ public class Soporte implements Serializable {
 	@Embedded
 	private Documento documento;
 
+	
+	public Soporte(SoportePK id, Boolean estatus, Date fechaSubida,
+			Documento documento) {
+		super();
+		this.id = id;
+		this.estatus = estatus;
+		this.fechaSubida = fechaSubida;
+		this.documento = documento;
+	}
+	
+	
 	//bi-directional many-to-one association to RecaudoEntregado
 	@ManyToOne
 	@JoinColumns({
