@@ -1,30 +1,30 @@
-<window id="winRegistrarSancionados" title="Registros Básicos :: Sancionados :: Registrar estudiante sancionado" border="normal" apply="org.zkoss.bind.BindComposer"
+<window id="winRegistrarSancionados" title="Registros Básicos :: Sancionados :: Individual :: Registrar Estudiante Sancionado" border="normal" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMEstudianteSancionado')">
 			<groupbox>
-  			  <caption  label="Datos personales"/>
+  			  <caption  label="Datos del Estudiante "/>
 	   		  <grid>
         	  			<rows>
         	  				<row>
 			                 	<label id="lblCedula" value="Cedula:"/>
-				    			<textbox id="txtCedula" value="@bind(vm.cedula)" />
-				    			<button label="Buscar" id = "btnBuscar"  image="/imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudiante')" />
+				    			<textbox id="txtCedula" value="@bind(vm.cedula)" constraint="no empty:Introduzca la cedula" />
+				    			<button label="Buscar" id = "btnBuscar"   image="/imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudiante')" />
 			            	</row>
 			            	<row>
-				                 <label id="lblPrimerNombre" value="Primer nombre:"/>
+				                 <label id="lblPrimerNombre" value="Primer Nombre:"/>
 					    		 <textbox id="txtPrimerNombre" value="@bind(vm.primerNombre)" disabled="true"/>
-					    		 <label id="lblSegundoNombre" value="Segundo nombre:"/>
+					    		 <label id="lblSegundoNombre" value="Segundo Nombre:"/>
 					    		 <textbox id="txtSegundoNombre" value="@bind(vm.segundoNombre)" disabled="true"/>
 			            	</row>
 			            	<row>
-				                 <label id="lblPrimerApellido" value="Primer apellido:"/>
+				                 <label id="lblPrimerApellido" value="Primer Apellido:"/>
 					    		 <textbox id="txtPrimerApellido" value="@bind(vm.primerApellido)" disabled="true"/>
-					    		 <label id="lblSegundoApellido" value="Segundo apellido:"/>
+					    		 <label id="lblSegundoApellido" value="Segundo Apellido:"/>
 					    		 <textbox id="txtSegundoApellido" value="@bind(vm.segundoApellido)" disabled="true"/>
 			            	</row>
 			            	<row>
 			            	  	<label id="lblsexo" value="Sexo"/>
 					    		<textbox id="txtSexo" value="@bind(vm.sexo)" disabled="true" />
-								<label id="lblFechaNacimiento" value="Fecha de nacimiento:"/>
+								<label id="lblFechaNacimiento" value="Fecha de Nacimiento:"/>
 					    		<datebox id="dtbFechaNacimiento"  cols="12"   mold="rounded" width="130px" height="25px" value="@bind(vm.fechaNacimiento)" format = "dd/MM/yyyy" disabled="true" />
 							</row>
 			            	<row>
@@ -49,13 +49,15 @@
 									</row>
 			            	<row>
 			            			<label id="lblLapso" value="Lapso:"/>
-						    	    <combobox readonly="true" id= "cmbLapso" value="@bind(vm.lapsoAcademico.codigoLapso)" width="auto" mold="rounded" model="@load(vm.listaLapso)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('objetoComboLapso')">
-						    	        <template name="model">
+						    	    <combobox readonly="true" id= "cmbLapso" value="@bind(vm.lapsoAcademico.codigoLapso)" 
+						    	    
+						    	    width="auto" mold="rounded" model="@load(vm.listaLapso)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('objetoComboLapso')">
+						    	        <template name="model" constraint="no empty:Seleccione el lapso" >
 											<comboitem  label="${each.codigoLapso}"/>
 										</template>	
 								    </combobox>
 						    		 <label id="lblIndiceGrado" value="Indice de grado:"/>
-						    		 <textbox id="txtIndiceGrado" value="@bind(vm.indiceGrado)"/>
+						    		 <textbox id="txtIndiceGrado"  constraint="no empty:Introduzca un el indice de grado"   value="@bind(vm.indiceGrado)"/>
 					     	</row>
 			            	
 			            	<row>
@@ -64,9 +66,9 @@
 							</row> 	
 							<row>
 								 	<label id="lblUnidadCursadas" value="Unidades Cursada"/>
-								 	<textbox id="txtUnidadCursadas" value="@bind(vm.unidadesCursadas)"/>
+								 	<textbox id="txtUnidadCursadas" value="@bind(vm.unidadesCursadas)" constraint="no empty:Introduzca un las Unidades Cursadas" />
 								 	<label id="lblUnidadAprobadas" value="Unidades Aprobadas"/>
-								 	<textbox id="txtUnidadAprobadas" value="@bind(vm.unidadesAprobadas)"/>
+								 	<textbox id="txtUnidadAprobadas" value="@bind(vm.unidadesAprobadas)" constraint="no empty:Introduzca un las Unidades Aprobadas"/>
 							</row>
 			            	
 			            	<row>
@@ -77,29 +79,20 @@
 									  </template>
 								</combobox>
 						    		  <label id="lblPeriodoSancion" value="Periodo de Sancion:"/>
-						    		  <textbox id="txtPeriodoSancion" value="@bind(vm.semestre)"/>
+						    		  <textbox id="txtPeriodoSancion" constraint="no empty:Introduzca el periodo de la Sancion"  value="@bind(vm.semestre)"/>
 			            	</row>
 			            	
 			        	  </rows>
    			  </grid>
  			</groupbox>
- 			
- 			<!-- Grupbox de Botones -->
- 		<space/>
-    	<div align="right" height="100%">
-		<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('registrarEstudianteSancionado')" />	
-   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
-   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarEstudianteSancionado')"/>
-   		<button label="Cerrar" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="VMEstudianteSancionado.onClose()" />
-   		</div>
-   		
-   	<space />
+ 		
+   	
    	<groupbox>
    	<caption label="Lista de Estudiantes Sancionados" />
    	<space />
    	<space />
    	<listbox id="estListbox" height="130px" model="@bind(vm.listaSancionados)" selectedItem="@bind(vm.estudianteSeleccionado)"   
-   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay estudiantes sancionados registrados" mold="paging" pageSize="3">
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay estudiantes sancionados registrados" mold="paging" pageSize="10">
 		<listhead>
 			<listheader label="Cedula" align="center" sort="auto(id.cedulaEstudiante)" />
 			<listheader label="Nombre" align="center" sort="auto(estudiante.primerNombre)" />
@@ -120,5 +113,15 @@
 	<space />
 	<space />
 	</groupbox>
+		
+ 			<!-- Grupbox de Botones -->
+ 		
+    	<div align="right" height="100%">
+		<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('registrarEstudianteSancionado')" />	
+   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
+   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarEstudianteSancionado')"/>
+   		<button label="Cerrar" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="VMEstudianteSancionado.onClose()" />
+   		</div>
+   		
    		
  </window>
