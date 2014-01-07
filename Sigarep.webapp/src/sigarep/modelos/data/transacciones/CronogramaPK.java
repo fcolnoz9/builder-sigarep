@@ -13,10 +13,10 @@ public class CronogramaPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="codigo_lapso", unique=true, nullable=false, length=6)
+	@Column(name="codigo_lapso", unique=false, nullable=false, length=6)
 	private String codigoLapso;
 
-	@Column(name="id_actividad", unique=true, nullable=false)
+	@Column(name="id_actividad", unique=false, nullable=false)
 	private Integer idActividad;
 
 	public CronogramaPK() {
