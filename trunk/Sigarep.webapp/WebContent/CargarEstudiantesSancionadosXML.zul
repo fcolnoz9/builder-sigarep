@@ -18,14 +18,8 @@
 			</row>
 		</rows>
 	</grid>
-	
-	
-				
-				    
-		
-		 
-		 <button label="Seleccionar XML"   onClick="@command('carga')" />
-				
+		<button label="Cargar Estudiante por XML"   onClick="@command('carga')" />
+		<button label="Cargar Estudiantes Sancionados por XML"   onClick="@command('cargaSancionados')" />	
 		   
 		  
 		 
