@@ -26,12 +26,12 @@
 				<rows>
 					<row>
 						<label id="lblTipoMotivo"
-							value="Motivo de Apelacion" />
+							value="Motivo de Apelacion:" />
 						<textbox id="txtnombreTipoMotivo" width="300px"
 							height="auto" mold="rounded" constraint="no empty:Introduzca un Nombre" cols="23" maxlength="30"
 							value="@bind(vm.nombreTipoMotivo)" />
 
-						<label id="lblDescripcion" value="Descripcion" />
+						<label id="lblDescripcion" value="Descripcion:" />
 						<hbox>
 							<textbox id="txtDescripcion" width="300px" 
 								height="auto" mold="rounded" constraint="no empty:Introduzca una Descripion" rows= "3" value="@bind(vm.descripcion)">
@@ -44,15 +44,15 @@
 		</groupbox>
 		<space />
 		<!-- Grupbox que contiene el listado de los tipos de motivos -->
-		<groupbox>
+		<groupbox height="200px">
 			<caption label="Listado de Tipos de Motivos de Apelacion" />
 			<!-- Lista que contiene el listado de los tipos de motivos -->
-			<listbox id="lbxtipomotivoListbox" height="100px"
+			<listbox id="lbxtipomotivoListbox" height="180px"
 				model="@bind(vm.listaTipoMotivo)"
 				selectedItem="@bind(vm.tiposeleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
 				emptyMessage="No hay Tipo de Motivos registrados" mold="paging"
-				pageSize="10">
+				pageSize="2">
 				<!-- Busqueda por FILTROS los tipos de motivos -->
 				<auxhead sclass="category-center">
 					<auxheader colspan="1" align="center"
@@ -76,7 +76,7 @@
 						sort="auto(descripcion)" />
 				</listhead>
 				<template name="model">
-					<listitem selected="true">
+					<listitem selected="false">
 						<listcell label="${each.nombreTipoMotivo}"></listcell>
 						<listcell label="${each.descripcion}"></listcell>
 					</listitem>
