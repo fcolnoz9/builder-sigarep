@@ -51,7 +51,7 @@ public class ServicioApelacion  {
 		String queryStatement2 =
 				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
 				"sa.nombre_sancion, es.email, es.telefono, p.nombre_programa, la.codigo_lapso, i.id_instancia_apelada, " +
-				"tm.nombre_tipo_motivo, r.nombre_recaudo, es.segundo_nombre, es.segundo_apellido, a.nombre_asignatura, sap.numero_caso " +
+				"tm.nombre_tipo_motivo, r.nombre_recaudo, es.segundo_nombre, es.segundo_apellido, a.nombre_asignatura, sap.numero_caso, tm.id_tipo_motivo " +
 				" FROM sancion_maestro sa, programa_academico p, lapso_academico la, instancia_apelada i, " +
 				"tipo_motivo tm, solicitud_apelacion sap, estudiante es " +
 				"INNER JOIN apelacion_momento AS ap ON es.cedula_estudiante = ap.cedula_estudiante " +
@@ -65,7 +65,7 @@ public class ServicioApelacion  {
 				"AND aesa.cedula_estudiante = esa.cedula_estudiante)" +
 				"LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
 				"WHERE sa.id_sancion = esa.id_sancion " +
-				"AND m.id_momento = ap.id_momento  AND m.nombre_momento = 'veredictoprimeraapelacion' " +
+				"AND m.id_momento = ap.id_momento  AND m.nombremomento = 'consejodecanato' " +
 				"AND esa.codigo_lapso = la.codigo_lapso AND i.id_instancia_apelada = sap.id_instancia_apelada " +
 				"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
 				"AND sap.id_instancia_apelada = mo.id_instancia_apelada AND tm.id_tipo_motivo = mo.id_tipo_motivo " +
@@ -96,7 +96,7 @@ public class ServicioApelacion  {
 					(String) resultRow[2], (String) resultRow[3], (String) resultRow[4], (String) resultRow[5],
 					(String) resultRow[6], (String) resultRow[7], (Integer)(resultRow[8]), (String) resultRow[9],
 					(String) resultRow[10], (String)resultRow[11],(String) resultRow[12], (String) resultRow[13],
-					(Integer) resultRow[14]));
+					(Integer) resultRow[14], (Integer) resultRow[15]));
 		}
 		
 		return results;

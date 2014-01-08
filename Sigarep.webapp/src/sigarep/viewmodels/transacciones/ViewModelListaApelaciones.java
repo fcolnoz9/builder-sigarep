@@ -104,8 +104,17 @@ public class ViewModelListaApelaciones  {
 	private String segundoApellido;
 	private String asignatura;
 	private Integer caso;
+	private Integer idMotivo;
 	
 	
+	public Integer getIdMotivo() {
+		return idMotivo;
+	}
+
+	public void setIdMotivo(Integer idMotivo) {
+		this.idMotivo = idMotivo;
+	}
+
 	public Integer getCaso() {
 		return caso;
 	}
@@ -324,6 +333,7 @@ public class ViewModelListaApelaciones  {
 	  		segundoApellido = getListaapelacionmomento().getSegundoApellido();
 	  		asignatura = getListaapelacionmomento().getAsignatura();
 	  		caso  = getListaapelacionmomento().getCaso();
+	  		idMotivo  = getListaapelacionmomento().getIdMotivo();
 	  		
 	  		final HashMap<String, Object> map = new HashMap<String, Object>();
 	        map.put("cedula", this.cedula );
@@ -341,6 +351,7 @@ public class ViewModelListaApelaciones  {
 	        map.put("segundoApellido", this.segundoApellido);
 	        map.put("asignatura", this.asignatura);
 	        map.put("caso", this.caso); 
+	        map.put("idMotivo", this.idMotivo);   
 	       
 	        
 	        final Window window = (Window) Executions.createComponents(

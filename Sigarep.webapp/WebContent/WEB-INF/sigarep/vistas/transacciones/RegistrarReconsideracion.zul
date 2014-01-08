@@ -92,14 +92,14 @@
 			</columns>
 			<rows>
 				<row>
-					<label id="lblCartaReconsideracion"
-						value="Carta de Reconsideracion" width="10%" />
+		<hlayout>
 					<hbox>
-						<textbox id="txtReconsideracion" width="150px" />
-						<fileupload id="floadCargar" label="Cargar"
-							image="/imagenes/iconos/cargar.png" width="auto" height="auto"
-							mold="trendy" onClick="cpa.randomValue();" />
+						<button label="Cargar Carta de Reconsideración" id="btnDocumento" upload="true"
+						 onUpload="@command('cargarDocumento',upload=event)" image="/imagenes/iconos/cargar.png" 
+						 mold="trendy"></button>
+						<a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
 					</hbox>
+					</hlayout>
 				</row>
 				<row>
 
