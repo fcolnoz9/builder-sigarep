@@ -21,6 +21,11 @@ public class ServicioTipoMotivo {
 		tipomotivo.save(tipo);
 	}
 	
+	public TipoMotivo buscarTipoMotivoPorCodigo(Integer codigoTipoMotivo){
+		TipoMotivo tipmotivo = tipomotivo.findOne(codigoTipoMotivo);
+		return tipmotivo;
+	}
+	
 	//metodo que permite eliminar
 	public void eliminarTipoMotivo(Integer tipo) {
 		TipoMotivo tip = tipomotivo.findOne(tipo);

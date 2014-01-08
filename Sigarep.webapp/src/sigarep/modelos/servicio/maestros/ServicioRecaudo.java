@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.Recaudo;
+import sigarep.modelos.data.maestros.RecaudoFiltro;
 import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
 
 @Service("serviciorecaudo")
@@ -33,5 +34,26 @@ public class ServicioRecaudo {
 		Recaudo recaudo=iRecaudoDAO.buscarRecaudoPorNombre(nombreRecaudo);
 	    return recaudo;
 	}
-		
+	
+	public List<Recaudo> listadoRecaudosActivos() {
+		List<Recaudo> listaRecaudos=iRecaudoDAO.buscaRecaudosActivos();
+	    return listaRecaudos;
+	}
+	
+	public List<Recaudo> buscarRecaudo(RecaudoFiltro filtros) {
+		List<Recaudo> resultado = new LinkedList<Recaudo>();
+		String nombreRecaudo = filtros.getNombre_recaudo().toLowerCase();
+		//String  Nombre_tipo_motivo= filtros.getNombre_tipo_motivo().toLowerCase();
+		if (nombreRecaudo == null ) {
+			resultado = listadoRecaudosActivos();
+		} else {
+			for (Recaudo rec : listadoRecaudosActivos()) {
+				if (rec.getNombreRecaudo().toLowerCase().contains(nombreRecaudo))
+				{
+					resultado.add(rec);
+				}
+			}
+		}
+		return resultado;
+	}
 }

@@ -1,5 +1,5 @@
 <window title="Gestión :: Apelaciones :: Evaluar Apelación :: Verificar Recaudos" id="winVerificiarRecaudos"
-	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRecaudos')" 
+	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRecaudosEntregados')" 
 	width="auto" height="auto" closable="true">
 	<!-- Estos datos vienen precargados, pues el estudiante se registró (en un maestro), busca su cédula-->
 	<groupbox id="grbDatosEstudiante">

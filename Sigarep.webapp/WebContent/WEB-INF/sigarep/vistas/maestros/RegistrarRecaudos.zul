@@ -1,245 +1,85 @@
-<window title="Registros Básicos :: Registrar Recaudo" id="winRegistrarRecaudo"
-	border="normal" width="auto" height="auto" closable="true">
-	<!-- Estos datos vienen precargados, pues el estudiante se registró (en un maestro), busca su cédula-->
-	<groupbox id="grbDatosEstudiante">
-		<caption label="Datos del Estudiante" />
-		<grid id="grdDatosEstudiante" sclass="fgrid">
-			<columns>
-				<column align="left" width="auto" />
-				<column align="left" width="auto" />
-			</columns>
-			<rows>
-				<row></row>
-				<row>
-					<label value="Cédula: " id="lblCedulaEstudiante" />
-					<textbox id="txtCedulaEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="false">
-					</textbox>
-					<button label="Buscar" id="btnBuscarCedula"
-						image="imagenes/iconos/buscar.png" width="auto" height="auto"
-						orient="horizontal">
-					</button>
-				</row>
-				<row>
-					<label value="Nombre: " id="lblNombreEstudiante" />
-					<textbox id="txtNombreEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="false">
-					</textbox>
-					<label value="Apellido: "
-						id="lblApellidoEstudiante" />
-					<textbox id="txtApellidoEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="false">
-					</textbox>
-				</row>
-			</rows>
-		</grid>
-	</groupbox>
-
-	<!-- Lo que aparece en la lista son los recaudos precargados (maestro cargar recaudo), el botón cargar es para la
-		carga de los documentos en digital -->
-	<groupbox id="grbDatosRecaudo">
+  <window id="winRegistrarRecaudos" title="Registrar Recaudos :: Recaudos :: Registrar Recaudos" border="normal" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudo')">
+	
+	<groupbox>
 		<caption label="Datos del Recaudo" />
-		<grid id="grdTipoMotivo">
-			<columns>
-				<column align="left" />
-				<column align="left" />
-			</columns>
-			<rows>
-				<row>
-					<hlayout id="lytTipoMotivo">
-
-						<label id="lblTipoMotivo"
-							value="Tipo de Motivo" />
-
-						<combobox id="cmbTipoMotivo"
-							tooltiptext="Elegir un tipo de Motivo">
-							<comboitem label="Enfermedad"
-								description="Ha ameritado un reposo prolongado" />
-							<comboitem label="Status laboral/económico"
-								description="Status que le ha impedido cursar con regularidad el semestre" />
-							<comboitem
-								label="Muerte del cónyuge/pariente"
-								description="Pariente en primer grado que implique cambio en status económico" />
-							<comboitem
-								label="Detención judicial o policial"
-								description="Detención durante el semestre" />
-							<comboitem label="Consejero no asignado"
-								description="No se le asignó consejero conforme a lo pautado en el artículo 37" />
-							<comboitem label="Cambio de pénsum"
-								description="Solo le queda una única posibilidad de cursar una determinada asignatura" />
-							<comboitem label="Otros" description="..." />
-						</combobox>
-					</hlayout>
-				</row>
-			</rows>
-		</grid>
-
-		<columnlayout>
-			<columnchildren width="40%">
-				<panel title="Seleccionar Recaudos">
-					<panelchildren>
-						<listbox id="left" multiple="true"
-							height="250px" oddRowSclass="non-odd" checkmark="true"
-							xmlns:ca="client/attribute" ca:data-scrollable="false">
-							<listitem selected="true">
-								<listcell
-									label="Carta de noticación de sanción" />
-							</listitem>
-							<listitem>
-								<listcell
-									label="Carta de exposición de motivos" />
-							</listitem>
-							<listitem>
-								<listcell
-									label="Constancia de renuncia de trabajo o cambio de horario" />
-							</listitem>
-							<listitem>
-								<listcell label="Exámenes médicos" />
-							</listitem>
-							<listitem>
-								<listcell label="Reposos médicos" />
-							</listitem>
-							<listitem>
-								<listcell label="Constancia medica" />
-							</listitem>
-							<listitem>
-								<listcell
-									label="Carta compromiso de ayuda y documentos probatorios" />
-							</listitem>
-						</listbox>
-					</panelchildren>
-				</panel>
-			</columnchildren>
-			<columnchildren width="100px">
-				<panel>
-					<panelchildren style="margin: 70px 34px;">
-						<image sclass="pointer"
-							src="imagenes/iconos/agregarLista.png"
-							tooltiptext="Agregar Recaudo">
-							<attribute name="onClick">
-	Set items = left.getSelectedItems();
-	if (items.isEmpty()) {
-		alert("Por favor, seleccione al menos un recaudo para agregar");
-	} else {
-		List al = new ArrayList(items);
-		for (Iterator it = al.iterator(); it.hasNext();) {
-			Listitem li = (Listitem) it.next();
-			li.setSelected(false);
-			right.appendChild(li);
-		}
-	}
-</attribute>
-						</image>
-						<separator height="15px" />
-						<image sclass="pointer"
-							src="imagenes/iconos/quitarLista.png"
-							tooltiptext="Remover Recaudo">
-							<attribute name="onClick">
-	Set items = right.getSelectedItems();
-	if (items.isEmpty()) {
-		alert("Por favor, seleccione al menos un recaudo para remover");
-	} else {
-		List al = new ArrayList(items);
-		for (Iterator it = al.iterator(); it.hasNext();) {
-			Listitem li = (Listitem) it.next();
-			li.setSelected(false);
-			left.appendChild(li);
-		}
-	}
-</attribute>
-						</image>
-					</panelchildren>
-				</panel>
-			</columnchildren>
-			<columnchildren width="40%">
-				<panel title="Recaudos Seleccionados">
-					<panelchildren>
-						<listbox id="right" multiple="true"
-							height="250px" oddRowSclass="non-odd" checkmark="true"
-							xmlns:ca="client/attribute" ca:data-scrollable="false">
-						</listbox>
-					</panelchildren>
-				</panel>
-			</columnchildren>
-
-			<columnchildren width="20%">
-				<panel>
-					<panelchildren>
-						<div align="right" height="100%">
-							<!-- Carga los recaudos en digital -->
-							<fileupload id="fluCargarRecaudo"
-								label="Cargar Recaudos" image="/imagenes/iconos/cargar.png"
-								width="auto" height="auto" onClick="cpa.randomValue();" />
-						</div>
-					</panelchildren>
-				</panel>
-			</columnchildren>
-
-		</columnlayout>
-
-	</groupbox>
-
-	<!-- En la lista se muestran los datos de los recaudos que el estudiante ha seleccionado y cargado -->
-	<groupbox id="grbRecaudosCargados">
-		<caption label="Recaudos Cargados" />
 		<grid>
 			<columns>
-				<column label="" width="auto" />
-				<column label="" width="auto" />
+				<column align="left" width="auto" />
+				<column align="left"  width="auto"/>
 			</columns>
-
-			<rows>
-
-				<row>
-					<label id="lblTipoRecaudoRegistrado"
-						value="Tipo de Recaudo" />
-					<label id="lblNombreRecaudoCargado" value="Recaudo" />
-					<label id="lblDescripcionRecaudoRegistrado"
-						value="Recaudo Cargado" />
-
-				</row>
-
-				<row>
-					<label value="Enfermedad" />
-					<label value="Exámenes médicos" />
-					<label value="ExámenesmédicosBrPedroPerez.pdf" />
+			
+		<rows>
+			<row>
+<!-- 			<hlayout id="lytTipoMotivo"> -->
+			
+				 <label id="lblTipoMotivo" value="Tipo de Motivo"  />
+				<combobox readonly="true" id= "cmbTipoMotivo" value="@bind(vm.tipoMotivo.nombreTipoMotivo)" 
+				    width="auto" mold="rounded" model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.tipoMotivo)" onSelect="@command('objetoComboRecaudo')">
+							<template name="model">
+								<comboitem  label="${each.nombreTipoMotivo}"/>
+							</template>
+					</combobox>
+<!--              </hlayout> -->
 				</row>
 				<row>
-					<label value="Status laboral/económico" />
-					<label
-						value="Constancia de renuncia de trabajo o cambio de horario" />
-					<label
-						value="ConstanciaderenunciadetrabajoBrMariaMedina.pdf" />
+					<label  id="lblNombreRecaudo" value="Nombre:"/>
+					<textbox id="txtNombreRecaudo" cols="23" width="200px" maxlength="30" value="@bind(vm.nombreRecaudo)"></textbox>
 				</row>
-			</rows>
-		</grid>
-		<div align="right" height="100%">
-			<!-- Cancelar detiene el proceso de los recaudos registrados hasta el momento-->
-			<button label="Cancelar" id="btnCancelarRecaudosCargados"
-				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-				orient="horizontal">
-			</button>
-		</div>
+				<row>
+					<label id="lblDescripcionRecaudo" value="Descripción: "/>
+<!-- 					<hlayout id="lytDescripcionRecaudo">   -->
+						<textbox id="txtDescripcionRecaudo" width="200px" value="@bind(vm.descripcion)" />
+<!-- 					</hlayout> -->
+				</row>
+			     <row>
+					<label id="lblObservacionRecaudo" value="Observación: " />
+<!-- 					<hlayout id="lytObservacionRecaudo"> -->
+						<textbox id="txtObservacionRecaudo" width="200px" value="@bind(vm.observacion)" />
+<!-- 					</hlayout> -->
+				</row>
+		    </rows>
+		</grid>	
+		
+	 <!-- Grupbox que contiene el listado de los recaudos -->
+	<groupbox>
+   	<caption label="Listado de Recaudos" />
+   	<space />
+   	<space />
+   	<!-- Lista que contiene el listado de los recaudos -->
+   	<listbox id="lbxrecaudo" height="160px" model="@bind(vm.listaRecaudos)" selectedItem="@bind(vm.recaudoSeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay recados registrados" mold="paging" pageSize="10">
+	<!-- Busqueda por FILTROS recaudos -->
+		<auxhead sclass="category-center"> 	
+		 	<auxheader colspan="1" align="center" image="/imagenes/iconos/buscar.png">
+           		<textbox id="filtroNombre" instant="true"  width="100px" value="@bind(vm.nombreRecaudo)" onChange="@command('buscarRecaudoFiltronombre')" /> 
+            </auxheader>
+            
+		</auxhead>
+		
+		<listhead>
+			<listheader label="Nombre del Recaudo" align="center" sort="auto(nombreRecaudo)" />
+			<listheader label="Descripcion " align="center" sort="auto(descripcion)"/>
+			<listheader label="Tipo de Motivo" align="center" sort="auto(tipoMotivo)"/>
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.nombreRecaudo}"></listcell>
+				<listcell label="${each.descripcion}"></listcell>
+				<listcell label="${each.tipoMotivo.nombreTipoMotivo}"></listcell>
+			</listitem>
+		</template>
+	</listbox>
+	<space/>
+	<space/>
 	</groupbox>
-
-
-	<div align="right" height="100%">
-
-		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
-		<button label="Guardar" id="btnGuardar"
-			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal">
-		</button>
-		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
-		<button label="Cancelar" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-			orient="horizontal">
-		</button>
-		<!-- Sale del registro, es necesario mensajes de advertencia-->
-		<button label="Cerrar" id="btnCerrar"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="winRegistrarRecaudo.onClose()">
-		</button>
-	</div>
-
+	
+    	<!-- Grupbox de Botones -->
+    	<div align="right" height="100%">
+			<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('guardarRecaudo')" />	
+	   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
+	   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarRecaudo')"/>
+	   		<button label="Cerrar" id="btnCerrar"  image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="@command('')"/>
+   		</div>
+   			</groupbox>
 </window>
