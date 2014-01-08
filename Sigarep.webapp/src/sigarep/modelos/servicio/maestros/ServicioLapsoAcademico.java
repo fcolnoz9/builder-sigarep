@@ -34,6 +34,9 @@ public class ServicioLapsoAcademico{
 		List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarActivoLapso();
 	    return LapsoAcademicoLista ;
 	}
+	public LapsoAcademico buscarUnLapsoAcademico(String codigoLapso){
+		return iLapsoAcademico.findOne(codigoLapso);
+	}
 	//metodo para buscar el lapso academico
 	public List<LapsoAcademico> buscarLapsoAcademico(String codigoLapso){
 		List<LapsoAcademico> result = new LinkedList<LapsoAcademico>();
