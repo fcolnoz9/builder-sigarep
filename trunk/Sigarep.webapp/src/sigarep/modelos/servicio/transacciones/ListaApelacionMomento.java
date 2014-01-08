@@ -17,13 +17,14 @@ public class ListaApelacionMomento {
 	private String segundoApellido;
 	private String asignatura;
 	private Integer caso;
+	private Integer idMotivo;
 	
 	
 	
 	public ListaApelacionMomento(String cedulaEstudiante, String primerNombre,
 			String primerApellido, String nombreSancion, String email,
 			String telefono, String programa, String lapso, Integer instancia, String motivo,
-			String recaudo, String segundoNombre, String segundoApellido, String asignatura, Integer caso) {
+			String recaudo, String segundoNombre, String segundoApellido, String asignatura, Integer caso, Integer idMotivo) {
 		super();
 		this.cedulaEstudiante = cedulaEstudiante;
 		this.primerNombre = primerNombre;
@@ -40,7 +41,19 @@ public class ListaApelacionMomento {
 		this.segundoApellido = segundoApellido;
 		this.asignatura = asignatura;
 		this.caso = caso;
+		this.idMotivo = idMotivo; 
 	}
+
+	
+	public Integer getIdMotivo() {
+		return idMotivo;
+	}
+
+
+	public void setIdMotivo(Integer idMotivo) {
+		this.idMotivo = idMotivo;
+	}
+
 
 	public Integer getCaso() {
 		return caso;

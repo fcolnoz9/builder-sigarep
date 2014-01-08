@@ -10,6 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+
+import sigarep.herramientas.Archivo;
+import sigarep.herramientas.Documento;
 import net.sf.jasperreports.engine.JRException;
 
 import org.jfree.text.TextBox;
@@ -23,10 +26,12 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
+import org.zkoss.util.media.Media;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -47,6 +52,7 @@ import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
+import sigarep.modelos.data.maestros.Momento;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.Estudiante;
@@ -54,12 +60,23 @@ import sigarep.modelos.data.transacciones.ApelacionMomento;
 import sigarep.modelos.data.transacciones.ApelacionMomentoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
+import sigarep.modelos.data.transacciones.Motivo;
+import sigarep.modelos.data.transacciones.MotivoPK;
+import sigarep.modelos.data.transacciones.RecaudoEntregado;
+import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
+import sigarep.modelos.data.transacciones.Soporte;
+import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+import sigarep.modelos.servicio.maestros.ServicioMomento;
 import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
+import sigarep.modelos.servicio.transacciones.ServicioMotivos;
+import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -86,7 +103,54 @@ public class ViewModelSolicitudApelacion {
 	private String apellidos;
 	private String asignatura;
 	private Integer caso;
+	private Integer idMotivo;
 
+	private Documento doc = new Documento();
+	private Media media;
+	private AImage imagen;
+	private String nombreDoc;
+	
+	
+
+	public Documento getDoc() {
+		return doc;
+	}
+
+	public void setDoc(Documento doc) {
+		this.doc = doc;
+	}
+
+	public Media getMedia() {
+		return media;
+	}
+
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+
+	public AImage getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(AImage imagen) {
+		this.imagen = imagen;
+	}
+
+	public String getNombreDoc() {
+		return nombreDoc;
+	}
+
+	public void setNombreDoc(String nombreDoc) {
+		this.nombreDoc = nombreDoc;
+	}
+
+	public Integer getIdMotivo() {
+		return idMotivo;
+	}
+
+	public void setIdMotivo(Integer idMotivo) {
+		this.idMotivo = idMotivo;
+	}
 
 	public Integer getCaso() {
 		return caso;
@@ -132,7 +196,15 @@ public class ViewModelSolicitudApelacion {
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	@WireVariable
 	private ServicioApelacionMomento servicioapelacionmomento;
+	@WireVariable
+	private ServicioMotivos serviciomotivos;
+	@WireVariable
+	private ServicioSoporte serviciosoporte;
+	@WireVariable
+	private ServicioMomento serviciomomento;
 	@WireVariable
 	private Integer instanciaApelada;
 	@WireVariable
@@ -142,6 +214,14 @@ public class ViewModelSolicitudApelacion {
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 	ApelacionMomentoPK apelacionMomentoPK = new ApelacionMomentoPK();
 	ApelacionMomento apelacionMomento = new ApelacionMomento(); 
+	RecaudoEntregado recaudoEntregado  = new RecaudoEntregado(); 
+	RecaudoEntregadoPK recaudoEntregadoPK  = new RecaudoEntregadoPK();
+	Soporte soporte  = new Soporte();
+	SoportePK soportePK  = new SoportePK(); 
+	Motivo motivos  = new Motivo();
+	MotivoPK motivoPK  = new MotivoPK(); 
+	Momento momento = new Momento(); 
+	
 
 
 	public String getRecaudo() {
@@ -341,7 +421,8 @@ public class ViewModelSolicitudApelacion {
 	            @ExecutionArgParam("segundoNombre") String v12,
 	            @ExecutionArgParam("segundoApellido") String v13,
 	            @ExecutionArgParam("asignatura") String v14,
-	            @ExecutionArgParam("caso") Integer v15)
+	            @ExecutionArgParam("caso") Integer v15,
+	            @ExecutionArgParam("idMotivo") Integer v16)
 	           
 			// initialization code
 		
@@ -362,8 +443,11 @@ public class ViewModelSolicitudApelacion {
 		        this.segundoApellido = v13;
 		        this.asignatura = v14;
 		        this.caso = v15;
+		        this.idMotivo = v16;
 		        concatenacionNombres ();
 		        concatenacionApellidos ();
+				media = null;
+				doc = new Documento();
 		 
 
 		   } 
@@ -393,18 +477,58 @@ public class ViewModelSolicitudApelacion {
 				apelacionMomentoPK.setCedulaEstudiante(cedula);
 				apelacionMomentoPK.setCodigoLapso(lapso);
 				apelacionMomentoPK.setIdInstanciaApelada(2);
-				apelacionMomentoPK.setIdMomento(4);
+				apelacionMomentoPK.setIdMomento(3);
 				apelacionMomento.setId(apelacionMomentoPK);
 				apelacionMomento.setFechaMomento(hora);
+				System.out.println(".." +idMotivo);
 				
-				try {
+				motivoPK.setCedulaEstudiante(cedula);
+				motivoPK.setCodigoLapso(lapso);
+				motivoPK.setIdInstanciaApelada(2);
+				motivoPK.setIdTipoMotivo(idMotivo);
+				motivos.setId(motivoPK);
+				motivos.setEstatus(true);
 			
-					serviciosolicitudapelacion.guardar(solicitudApelacion);
-					servicioapelacionmomento.guardar(apelacionMomento);
+				
+				recaudoEntregadoPK.setCedulaEstudiante(cedula);
+				recaudoEntregadoPK.setCodigoLapso(lapso);
+				recaudoEntregadoPK.setIdInstanciaApelada(2);
+				recaudoEntregadoPK.setIdRecaudo(2);
+				recaudoEntregadoPK.setIdTipoMotivo(idMotivo);
+				recaudoEntregado.setId(recaudoEntregadoPK);
+				recaudoEntregado.setEstatus(true);
+				
+				soportePK.setCedulaEstudiante(cedula);
+				soportePK.setCodigoLapso(lapso);
+				soportePK.setIdInstanciaApelada(2);
+				soportePK.setIdRecaudo(2);
+				soportePK.setIdTipoMotivo(idMotivo);
+				soporte.setId(soportePK);
+				soporte.setDocumento(doc);
+				System.out.println(""+doc);
+				soporte.setEstatus(true);
+				soporte.setFechaSubida(fecha);
+				soporte.setRecaudoEntregado(recaudoEntregado);
+				
+				
+				
 	
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
+				
+					try {
+						
+						serviciosolicitudapelacion.guardar(solicitudApelacion);
+						servicioapelacionmomento.guardar(apelacionMomento);
+						serviciomotivos.guardar(motivos);
+						serviciorecaudoentregado.guardar(recaudoEntregado);
+						serviciosoporte.guardar(soporte);
+						
+					
+		
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+				
 				}
+				
 				msjs.informacionRegistroCorrecto();
 			
 			}
@@ -422,5 +546,33 @@ public class ViewModelSolicitudApelacion {
 			System.out.println("pasooooo2");
 			}
 		}
-	}
+
+		@Command
+		@NotifyChange("nombreDoc")
+		public void cargarDocumento(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
+			media = event.getMedia();
+			if (media != null) {
+				if (media.getContentType().equals("image/jpeg") ||
+					media.getContentType().equals("application/pdf") ||
+					media.getContentType().equals("application/msword") ||
+					media.getContentType().equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document") ||
+					media.getContentType().equals("application/vnd.oasis.opendocument.text") ||
+					media.getContentType().equals("application/x-vnd.oasis.opendocument.text"))
+				{
+					doc.setNombreDocumento(media.getName());
+					doc.setTipoDocumento(media.getContentType());
+					doc.setContenidoDocumento(media.getByteData());
+					nombreDoc=doc.getNombreDocumento();
+				} else {
+					Messagebox.show(media.getName()+" No es un tipo de archivo valido!", "Error", Messagebox.OK, Messagebox.ERROR);
+				}
+			} 
+		}
+		
+		@Command
+		public void descargarDocumento(){
+			Filedownload.save(doc.getContenidoDocumento(), doc.getTipoDocumento(), doc.getNombreDocumento());
+		}
+}
+
 
