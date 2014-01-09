@@ -5,7 +5,7 @@ package sigarep.modelos.repositorio.maestros;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import sigarep.modelos.data.maestros.Momento;
+import sigarep.modelos.data.maestros.EstadoApelacion;
 
 /*
   * @ (#) Momento.java 
@@ -19,9 +19,9 @@ import sigarep.modelos.data.maestros.Momento;
   * @ Version 1.0, 16/12/13
  */
 
-public interface IMomentoDAO extends JpaRepository<Momento, Integer> {
+public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Integer> {
 
-	@Query("Select tipo FROM Momento AS tipo WHERE estatus = TRUE")
-	public List<Momento> buscarMomentoActivas();
+	@Query("Select ea FROM EstadoApelacion AS ea WHERE estatus = TRUE")
+	public List<EstadoApelacion> buscarEstadosApelacionActivas();
 
 }
