@@ -35,7 +35,7 @@ public class EstadoApelacion implements Serializable {
 	@Id
 	// Clave principal de la clase
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	// Genera el ID del Momento
+	// Genera el ID del Estado de la apelacion
 	@Column(name = "id_estado_apelacion", unique = true, nullable = false)
 	private Integer idEstadoApelacion;
 

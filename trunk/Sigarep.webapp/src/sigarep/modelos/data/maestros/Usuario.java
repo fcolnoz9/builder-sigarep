@@ -66,9 +66,6 @@ public class Usuario implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_creacion", nullable=false)
 	private Date fechaCreacion;
-
-	/*@Column(name="nombre_completo", nullable=false, length=255)
-	private String nombreCompleto;*/
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="ultimo_acceso")
