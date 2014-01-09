@@ -26,10 +26,10 @@ public class ServicioListaEstudiate {
 	@PersistenceContext
 	private EntityManager em;
 	@Autowired
-	private IApelacionEstudianteEstadoApelacionDAO apelacionmomento;
+	private IApelacionEstudianteEstadoApelacionDAO apelacionestadoapelacion;
 	
 	/**
-	 * Metodo de ls Interfaz IApelacionEstudianteMomentoDAO el cual retornar una lista 
+	 * Metodo de ls Interfaz IApelacionEstudianteEstadoApelacionDAO el cual retornar una lista 
 	 * de Estudiante que estan con apelaciones. 
 	 */
 	public List<ListaEstudianteApelacion> buscarEstudianteApelacions(){
@@ -40,8 +40,8 @@ public class ServicioListaEstudiate {
 						"tm.nombre_tipo_motivo, r.nombre_recaudo, es.segundo_nombre, es.segundo_apellido, a.nombre_asignatura, sap.numero_caso " +
 						" FROM sancion_maestro sa, programa_academico p, lapso_academico la, instancia_apelada i, " +
 						"tipo_motivo tm, solicitud_apelacion sap, estudiante es " +
-						"INNER JOIN apelacion_momento AS ap ON es.cedula_estudiante = ap.cedula_estudiante " +
-						"INNER JOIN momento AS m ON m.id_momento = ap.id_momento, " +
+						"INNER JOIN apelacion_estado_apelacion AS ap ON es.cedula_estudiante = ap.cedula_estudiante " +
+						"INNER JOIN estado_apelacion AS m ON m.id_estado_apelacion = ap.id_estado_apelacion, " +
 						"motivo as mo LEFT JOIN recaudo_entregado AS re ON (mo.id_tipo_motivo = re.id_tipo_motivo AND " +
 						"re.id_instancia_apelada = mo.id_instancia_apelada AND " +
 						"re.codigo_lapso = mo.codigo_lapso AND re.cedula_estudiante = mo.cedula_estudiante) " +
@@ -51,7 +51,7 @@ public class ServicioListaEstudiate {
 						"AND aesa.cedula_estudiante = esa.cedula_estudiante)" +
 						"LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
 						"WHERE sa.id_sancion = esa.id_sancion " +
-						"AND m.id_momento = ap.id_momento  AND m.nombre_momento = 'veredictosegundaapelacion' " +
+						"AND m.id_estado_apelacion = ap.id_estado_apelacion  AND m.nombre_estado = 'veredictosegundaapelacion' " +
 						"AND esa.codigo_lapso = la.codigo_lapso AND i.id_instancia_apelada = sap.id_instancia_apelada " +
 						"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
 						"AND sap.id_instancia_apelada = mo.id_instancia_apelada AND tm.id_tipo_motivo = mo.id_tipo_motivo " +
