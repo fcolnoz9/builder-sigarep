@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 
 /*
-  * @ (#) Momento.java 
+  * @ (#) EstadoApelacion.java 
   *
   * Copyright 2013 Builder. Todos los derechos reservados.
   * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
   */
 /*
- ** Archivo del repositorio  del registro del maestro "Momento"
+ ** Archivo del repositorio  del registro del maestro "EstadoApelacion"
   * @ Author Lilibeth Achji 
   * @ Version 1.0, 16/12/13
  */
