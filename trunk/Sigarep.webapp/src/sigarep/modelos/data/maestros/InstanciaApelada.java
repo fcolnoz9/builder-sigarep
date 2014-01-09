@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -34,6 +35,10 @@ public class InstanciaApelada implements Serializable {
 
 	@Column(name="nombre_recurso_apelacion", nullable=false, length=60)
 	private String nombreRecursoApelacion;
+	
+	// bi-directional many-to-one association to EstadoApelacion
+	@OneToMany(mappedBy = "instanciaApelada", cascade = { CascadeType.ALL })
+	private List<EstadoApelacion> estadosApelacion = new LinkedList<EstadoApelacion>();
 
 	//bi-directional many-to-one association to SolicitudApelacion
 	@OneToMany(mappedBy="instanciaApelada")
@@ -110,5 +115,13 @@ public class InstanciaApelada implements Serializable {
 		solicitudApelacion.setInstanciaApelada(null);
 
 		return solicitudApelacion;
+	}
+
+	public List<EstadoApelacion> getEstadosApelacion() {
+		return estadosApelacion;
+	}
+
+	public void setEstadosApelacion(List<EstadoApelacion> estadosApelacion) {
+		this.estadosApelacion = estadosApelacion;
 	}
 }

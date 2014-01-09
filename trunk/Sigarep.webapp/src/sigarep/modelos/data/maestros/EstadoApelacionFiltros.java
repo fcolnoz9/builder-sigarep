@@ -6,18 +6,18 @@ package sigarep.modelos.data.maestros;
  * CONFIDENCIAL.
  */
 /*
-** Esta clase es para los filtrosde busqueda del maestro "Momento"
+** Esta clase es para los filtrosde busqueda del maestro "EstadoApelacion"
  * @ Author Lilibeth Achji 
  * @ Version 1.0, 04/01/14
 */
-public class MomentoFiltros {
-	private String nombreMomento = "", descripcion = "";
+public class EstadoApelacionFiltros {
+	private String nombreEstado = "", descripcion = "";
 
-	public String getNombreMomento() {
-		return nombreMomento;
+	public String getNombreEstado() {
+		return nombreEstado;
 	}
-	public void setNombreMomento(String nombreMomento) {
-		this.nombreMomento = nombreMomento == null ? "" : nombreMomento.trim();
+	public void setNombreEstado(String nombreEstado) {
+		this.nombreEstado = nombreEstado == null ? "" : nombreEstado.trim();
 	}
 
 	public String getDescripcion() {
