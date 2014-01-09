@@ -4,17 +4,17 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * The primary key class for the apelacion_momento database table.
+ * The primary key class for the apelacion_estado_apelacion database table.
  * 
  */
 @Embeddable
 @Access(AccessType.FIELD)
-public class ApelacionMomentoPK implements Serializable {
+public class ApelacionEstadoApelacionPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="id_momento", unique=false, nullable=false)
-	private Integer idMomento;
+	@Column(name="id_estado_apelacion", unique=false, nullable=false)
+	private Integer idEstadoApelacion;
 
 	@Column(name="codigo_lapso", unique=false, nullable=false, length=6)
 	private String codigoLapso;
@@ -25,13 +25,13 @@ public class ApelacionMomentoPK implements Serializable {
 	@Column(name="id_instancia_apelada", unique=false, nullable=false)
 	private Integer idInstanciaApelada;
 
-	public ApelacionMomentoPK() {
+	public ApelacionEstadoApelacionPK() {
 	}
-	public Integer getIdMomento() {
-		return this.idMomento;
+	public Integer getIdEstadoApelacion() {
+		return idEstadoApelacion;
 	}
-	public void setIdMomento(Integer idMomento) {
-		this.idMomento = idMomento;
+	public void setIdEstadoApelacion(Integer idEstadoApelacion) {
+		this.idEstadoApelacion = idEstadoApelacion;
 	}
 	public String getCodigoLapso() {
 		return this.codigoLapso;
@@ -56,12 +56,12 @@ public class ApelacionMomentoPK implements Serializable {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof ApelacionMomentoPK)) {
+		if (!(other instanceof ApelacionEstadoApelacionPK)) {
 			return false;
 		}
-		ApelacionMomentoPK castOther = (ApelacionMomentoPK)other;
+		ApelacionEstadoApelacionPK castOther = (ApelacionEstadoApelacionPK)other;
 		return 
-			this.idMomento.equals(castOther.idMomento)
+			this.idEstadoApelacion.equals(castOther.idEstadoApelacion)
 			&& this.codigoLapso.equals(castOther.codigoLapso)
 			&& this.cedulaEstudiante.equals(castOther.cedulaEstudiante)
 			&& this.idInstanciaApelada.equals(castOther.idInstanciaApelada);
@@ -70,11 +70,12 @@ public class ApelacionMomentoPK implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.idMomento.hashCode();
+		hash = hash * prime + this.idEstadoApelacion.hashCode();
 		hash = hash * prime + this.codigoLapso.hashCode();
 		hash = hash * prime + this.cedulaEstudiante.hashCode();
 		hash = hash * prime + this.idInstanciaApelada.hashCode();
 		
 		return hash;
 	}
+
 }
