@@ -79,7 +79,7 @@ public class Grupo implements Serializable {
 		this.nombre = nombre;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.grupo")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nombreUsuario")
 	public List<UsuarioGrupo> getUsuariosGrupos() {
 		return this.usuariosGrupos;
 	}

@@ -1,6 +1,6 @@
 package sigarep.modelos.data.maestros;
 /*
- * @ (#) MomentoFiltros.java 
+ * @ (#) EstadoApelacionFiltros.java 
  *
  * Copyright 2014 Builder. Todos los derechos reservados.
  * CONFIDENCIAL.
