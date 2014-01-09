@@ -19,7 +19,7 @@ public interface IApelacionEstudianteEstadoApelacionDAO extends
 JpaRepository<ApelacionEstadoApelacion, ApelacionEstadoApelacionPK> {
 	@Query("select es.cedulaEstudiante, es.primerNombre, es.primerApellido, " +
 			"sm.nombreSancion, ea.idEstadoApelacion, ia.idInstanciaApelada from Estudiante es, EstudianteSancionado esa, SolicitudApelacion sa, " +
-			"ApelacionMomento ap, EstadoApelacion ea, SancionMaestro sm, InstanciaApelada ia  where  es.cedulaEstudiante = " +
+			"ApelacionEstadoApelacion ap, EstadoApelacion ea, SancionMaestro sm, InstanciaApelada ia  where  es.cedulaEstudiante = " +
 			"cedula_estudiante and cedula_estudiante = " +
 			"sa.estudianteSancionado and sa.estudianteSancionado = " +
 			"cedula_estudiante and id_estado_apelacion = ea.idEstadoApelacion and " +
