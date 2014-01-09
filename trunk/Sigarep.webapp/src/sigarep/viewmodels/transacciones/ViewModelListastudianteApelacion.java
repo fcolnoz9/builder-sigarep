@@ -9,21 +9,20 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.modelos.data.maestros.Estudiante;
-import sigarep.modelos.data.maestros.Momento;
+import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
-import sigarep.modelos.data.transacciones.ApelacionMomento;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
-import sigarep.modelos.servicio.transacciones.ListaApelacionMomentoFiltros;
+import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacionFiltros;
 import sigarep.modelos.servicio.transacciones.ListaEstudianteApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioListaEstudiate;
 
@@ -39,13 +38,13 @@ public class ViewModelListastudianteApelacion {
 	@WireVariable
 	private SolicitudApelacion solicitudapelacion;
 	@WireVariable
-	private Momento momento;
+	private EstadoApelacion momento;
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
 	private String nombreTipoMotivo;
 	@WireVariable
-	private ApelacionMomento apelacionmomento;
+	private ApelacionEstadoApelacion apelacionmomento;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -56,9 +55,9 @@ public class ViewModelListastudianteApelacion {
 	private List<EstudianteSancionado> listaSancionados =  new LinkedList<EstudianteSancionado>();
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
-	private List<ApelacionMomento> listadoApelaciones;
+	private List<ApelacionEstadoApelacion> listadoApelaciones;
 	private List<ListaEstudianteApelacion> lista = new LinkedList<ListaEstudianteApelacion>();
-	private ListaApelacionMomentoFiltros filtros = new ListaApelacionMomentoFiltros();
+	private ListaApelacionEstadoApelacionFiltros filtros = new ListaApelacionEstadoApelacionFiltros();
 	private String programaFiltro;
 	private String sancion;
 	private String programa;
@@ -102,7 +101,7 @@ public class ViewModelListastudianteApelacion {
 		return solicitudapelacion;
 	}
 
-	public Momento getMomento() {
+	public EstadoApelacion getMomento() {
 		return momento;
 	}
 
@@ -114,7 +113,7 @@ public class ViewModelListastudianteApelacion {
 		return nombreTipoMotivo;
 	}
 
-	public ApelacionMomento getApelacionmomento() {
+	public ApelacionEstadoApelacion getApelacionmomento() {
 		return apelacionmomento;
 	}
 
@@ -142,7 +141,7 @@ public class ViewModelListastudianteApelacion {
 		return listaTipoMotivo;
 	}
 
-	public List<ApelacionMomento> getListadoApelaciones() {
+	public List<ApelacionEstadoApelacion> getListadoApelaciones() {
 		return listadoApelaciones;
 	}
 
@@ -203,7 +202,7 @@ public class ViewModelListastudianteApelacion {
 		this.solicitudapelacion = solicitudapelacion;
 	}
 
-	public void setMomento(Momento momento) {
+	public void setMomento(EstadoApelacion momento) {
 		this.momento = momento;
 	}
 
@@ -215,7 +214,7 @@ public class ViewModelListastudianteApelacion {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 	}
 
-	public void setApelacionmomento(ApelacionMomento apelacionmomento) {
+	public void setApelacionmomento(ApelacionEstadoApelacion apelacionmomento) {
 		this.apelacionmomento = apelacionmomento;
 	}
 
@@ -245,7 +244,7 @@ public class ViewModelListastudianteApelacion {
 		this.listaTipoMotivo = listaTipoMotivo;
 	}
 
-	public void setListadoApelaciones(List<ApelacionMomento> listadoApelaciones) {
+	public void setListadoApelaciones(List<ApelacionEstadoApelacion> listadoApelaciones) {
 		this.listadoApelaciones = listadoApelaciones;
 	}
 
@@ -330,7 +329,7 @@ public class ViewModelListastudianteApelacion {
 	}
 
 	@NotifyChange({"filtros"})
-	public ListaApelacionMomentoFiltros getFiltros() {
+	public ListaApelacionEstadoApelacionFiltros getFiltros() {
 		return filtros;
 	}
 
@@ -338,7 +337,7 @@ public class ViewModelListastudianteApelacion {
 		return programaFiltro;
 	}
 
-	public void setFiltros(ListaApelacionMomentoFiltros filtros) {
+	public void setFiltros(ListaApelacionEstadoApelacionFiltros filtros) {
 		this.filtros = filtros;
 	}
 
