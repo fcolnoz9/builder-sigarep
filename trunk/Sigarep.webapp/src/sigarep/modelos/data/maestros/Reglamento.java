@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import sigarep.herramientas.Archivo;
+import sigarep.herramientas.Documento;
 
 import java.util.Date;
 
@@ -16,6 +17,7 @@ import java.util.Date;
 @Access(AccessType.FIELD)
 @Table(name="reglamento")
 public class Reglamento implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,7 +26,7 @@ public class Reglamento implements Serializable {
 	private Integer idDocumento;
 	
 	@Embedded
-	private Archivo imagen;
+	private Documento documento;
 
 	@Column(length=255)
 	private String descripcion;
@@ -36,10 +38,22 @@ public class Reglamento implements Serializable {
 	@Column(name="fecha_subida", nullable=false)
 	private Date fechaSubida;
 
-	@Column(name="tipo_documento", nullable=false)
-	private Boolean tipoDocumento;
+	@Column(name="categoria", nullable=false, length=30)
+	private String categoria;
 
 	public Reglamento() {
+	}
+	
+	public Reglamento(Integer idDocumento, Documento documento,
+			String descripcion, Boolean estatus, Date fechaSubida,
+			String categoria) {
+		super();
+		this.idDocumento = idDocumento;
+		this.documento = documento;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.fechaSubida = fechaSubida;
+		this.categoria = categoria;
 	}
 
 	public Integer getIdDocumento() {
@@ -74,20 +88,20 @@ public class Reglamento implements Serializable {
 		this.fechaSubida = fechaSubida;
 	}
 
-	public Boolean getTipoDocumento() {
-		return this.tipoDocumento;
+	public Documento getDocumento() {
+		return documento;
 	}
 
-	public void setTipoDocumento(Boolean tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
 	}
 
-	public Archivo getImagen() {
-		return imagen;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setImagen(Archivo imagen) {
-		this.imagen = imagen;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 }
