@@ -1,9 +1,9 @@
 <zk>
-	<window id="winRegistarMomento"
-		title="Registros Básicos :: Momento" width="auto"
+	<window id="winRegistarEstadoApelacion"
+		title="Registros Básicos :: Estado de Apelacion" width="auto"
 		height="auto" closable="true" border="normal"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMmomento')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMEstadoApelacion')">
 		<!--	<script type="text/javascript" src="/widgets/js/watermark.js" />     -->
 		<!-- Archivos para el uso de marca de agua -->
 		<!--	<script type="text/javascript" src="/widgets/js/watermarkinput.js" /> -->
