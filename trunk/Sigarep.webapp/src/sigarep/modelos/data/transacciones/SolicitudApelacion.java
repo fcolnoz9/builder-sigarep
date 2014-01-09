@@ -45,9 +45,9 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 	@Column(name="numero_caso", nullable=true)
 	private Integer numeroCaso;
 
-	//bi-directional many-to-one association to ApelacionMomento
+	//bi-directional many-to-one association to ApelacionEstadoApelacion
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="solicitudApelacion")
-	private Set<ApelacionMomento> apelacionMomentos = new HashSet<ApelacionMomento>();
+	private Set<ApelacionEstadoApelacion> apelacionEstadosApelacion = new HashSet<ApelacionEstadoApelacion>();
 
 	//bi-directional many-to-one association to Motivo
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,mappedBy="solicitudApelacion")
@@ -130,26 +130,26 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 		this.veredicto = veredicto;
 	}
 
-	public Set<ApelacionMomento> getApelacionMomentos() {
-		return this.apelacionMomentos;
+	public Set<ApelacionEstadoApelacion> getApelacionEstadosApelacion() {
+		return this.apelacionEstadosApelacion;
 	}
 
-	public void setApelacionMomentos(Set<ApelacionMomento> apelacionMomentos) {
-		this.apelacionMomentos = apelacionMomentos;
+	public void setApelacionEstadosApelacion(Set<ApelacionEstadoApelacion> apelacionEstadosApelacion) {
+		this.apelacionEstadosApelacion = apelacionEstadosApelacion;
 	}
 
-	public ApelacionMomento addApelacionMomento(ApelacionMomento apelacionMomento) {
-		getApelacionMomentos().add(apelacionMomento);
-		apelacionMomento.setSolicitudApelacion(this);
+	public ApelacionEstadoApelacion addApelacionEstadosApelacion(ApelacionEstadoApelacion apelacionEstadoApelacion) {
+		getApelacionEstadosApelacion().add(apelacionEstadoApelacion);
+		apelacionEstadoApelacion.setSolicitudApelacion(this);
 
-		return apelacionMomento;
+		return apelacionEstadoApelacion;
 	}
 
-	public ApelacionMomento removeApelacionMomento(ApelacionMomento apelacionMomento) {
-		getApelacionMomentos().remove(apelacionMomento);
-		apelacionMomento.setSolicitudApelacion(null);
+	public ApelacionEstadoApelacion removeApelacionEstadosApelacion(ApelacionEstadoApelacion apelacionEstadoApelacion) {
+		getApelacionEstadosApelacion().remove(apelacionEstadoApelacion);
+		apelacionEstadoApelacion.setSolicitudApelacion(null);
 
-		return apelacionMomento;
+		return apelacionEstadoApelacion;
 	}
 
 	public Set<Motivo> getMotivos() {
