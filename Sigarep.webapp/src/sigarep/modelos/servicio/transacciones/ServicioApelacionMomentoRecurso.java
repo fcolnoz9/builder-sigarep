@@ -5,22 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sigarep.modelos.data.transacciones.ApelacionMomento;
-import sigarep.modelos.repositorio.transacciones.IApelacionMomentoDAO;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
 
 @Service("servicioapelacionmomentorecurso")
 public class ServicioApelacionMomentoRecurso {
-private @Autowired IApelacionMomentoDAO iApelacionMomentoDAO;
+private @Autowired IApelacionEstadoApelacionDAO iApelacionMomentoDAO;
 	
-	public ApelacionMomento guardar(ApelacionMomento apelacionmomento) {
+	public ApelacionEstadoApelacion guardar(ApelacionEstadoApelacion apelacionmomento) {
 		return iApelacionMomentoDAO.save(apelacionmomento);
 	}
 	
-	public void eliminar(ApelacionMomento apelacionmomento){
+	public void eliminar(ApelacionEstadoApelacion apelacionmomento){
 		iApelacionMomentoDAO.delete(apelacionmomento);
 	}
 	
-	public List<ApelacionMomento> buscarTodos() {
+	public List<ApelacionEstadoApelacion> buscarTodos() {
 		return iApelacionMomentoDAO.findAll();
 	}
 
@@ -28,8 +28,8 @@ private @Autowired IApelacionMomentoDAO iApelacionMomentoDAO;
 		return iApelacionMomentoDAO.findAll().size();
 	}
 
-	public ApelacionMomento crear() {
-		return new ApelacionMomento();
+	public ApelacionEstadoApelacion crear() {
+		return new ApelacionEstadoApelacion();
 	}
 
 }

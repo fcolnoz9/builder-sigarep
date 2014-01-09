@@ -1,6 +1,6 @@
 package sigarep.modelos.servicio.transacciones;
 
-public class ListaApelacionMomento {
+public class ListaApelacionEstadoApelacion {
 	
 	private String cedulaEstudiante;
 	private String primerNombre;
@@ -21,7 +21,7 @@ public class ListaApelacionMomento {
 	
 	
 	
-	public ListaApelacionMomento(String cedulaEstudiante, String primerNombre,
+	public ListaApelacionEstadoApelacion(String cedulaEstudiante, String primerNombre,
 			String primerApellido, String nombreSancion, String email,
 			String telefono, String programa, String lapso, Integer instancia, String motivo,
 			String recaudo, String segundoNombre, String segundoApellido, String asignatura, Integer caso, Integer idMotivo) {

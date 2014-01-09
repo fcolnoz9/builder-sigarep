@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sigarep.modelos.data.transacciones.ApelacionMomento;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
@@ -60,10 +60,10 @@ public class ServicioSolicitudApelacion {
 	    	SolicitudApelacion solicitudApelacion = solicitudApelaciones.get(i);
 	    	elementoAInsertar="INSERT INTO historico_solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, fecha_veredicto, numero_sesion, observacion, veredicto)" +"VALUES ('"+solicitudApelacion.getId().getCedulaEstudiante()+"','"+solicitudApelacion.getId().getCodigoLapso()+"',"+solicitudApelacion.getInstanciaApelada().getIdInstanciaApelada()+",'"+solicitudApelacion.getEstatus()+"','"+solicitudApelacion.getFechaSolicitud()+"','"+solicitudApelacion.getFechaVeredicto()+"','"+solicitudApelacion.getNumeroSesion()+"','"+solicitudApelacion.getObservacion()+"','"+solicitudApelacion.getVeredicto()+"');";
 	    	listaElementosAInsertar.add(elementoAInsertar);
-	    	Set<ApelacionMomento> apelacionesMomento = solicitudApelacion.getApelacionMomentos();
-	    	for(Iterator<ApelacionMomento> it = apelacionesMomento.iterator();it.hasNext();){
-	    		ApelacionMomento apelacionMomento=it.next();
-	    		elementoAInsertar="INSERT INTO historico_apelacion_momento(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_momento, fecha_momento)"+"VALUES ('"+apelacionMomento.getId().getCedulaEstudiante()+"','"+apelacionMomento.getId().getCodigoLapso()+"',"+apelacionMomento.getId().getIdInstanciaApelada()+", "+apelacionMomento.getMomento().getIdMomento()+",'"+apelacionMomento.getFechaMomento()+"');";
+	    	Set<ApelacionEstadoApelacion> apelacionesEstadoApelacion = solicitudApelacion.getApelacionEstadosApelacion();
+	    	for(Iterator<ApelacionEstadoApelacion> it = apelacionesEstadoApelacion.iterator();it.hasNext();){
+	    		ApelacionEstadoApelacion apelacionEstadoApelacion=it.next();
+	    		elementoAInsertar="INSERT INTO historico_apelacion_estado_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_estado_apelacion, fecha_estado)"+"VALUES ('"+apelacionEstadoApelacion.getId().getCedulaEstudiante()+"','"+apelacionEstadoApelacion.getId().getCodigoLapso()+"',"+apelacionEstadoApelacion.getId().getIdInstanciaApelada()+", "+apelacionEstadoApelacion.getEstadoApelacion().getIdEstadoApelacion()+",'"+apelacionEstadoApelacion.getFechaEstado()+"');";
 	    		listaElementosAInsertar.add(elementoAInsertar);
 	    	}
 	    	List<Motivo> motivos = iMotivoDAO.findBySolicitudApelacion(solicitudApelacion);

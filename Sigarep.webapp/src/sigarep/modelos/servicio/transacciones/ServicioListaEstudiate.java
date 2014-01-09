@@ -16,8 +16,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sigarep.modelos.data.transacciones.ApelacionMomento;
-import sigarep.modelos.repositorio.transacciones.IApelacionEstudianteMomentoDAO;
+import sigarep.modelos.repositorio.transacciones.IApelacionEstudianteEstadoApelacionDAO;
 
 @Service("serviciolistaestudiate")
 public class ServicioListaEstudiate {
@@ -27,7 +26,7 @@ public class ServicioListaEstudiate {
 	@PersistenceContext
 	private EntityManager em;
 	@Autowired
-	private IApelacionEstudianteMomentoDAO apelacionmomento;
+	private IApelacionEstudianteEstadoApelacionDAO apelacionmomento;
 	
 	/**
 	 * Metodo de ls Interfaz IApelacionEstudianteMomentoDAO el cual retornar una lista 
@@ -78,7 +77,7 @@ public class ServicioListaEstudiate {
 		return results;
 	}
 	
-	public List<ListaEstudianteApelacion> buscarPorFiltros(ListaApelacionMomentoFiltros filtros){
+	public List<ListaEstudianteApelacion> buscarPorFiltros(ListaApelacionEstadoApelacionFiltros filtros){
 		List<ListaEstudianteApelacion> result = new ArrayList<ListaEstudianteApelacion>();
 		String programa = filtros.getPrograma().toLowerCase();
 		String motivo = filtros.getMotivo().toLowerCase();
