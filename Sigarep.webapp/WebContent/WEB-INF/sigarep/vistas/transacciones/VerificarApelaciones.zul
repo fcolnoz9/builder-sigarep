@@ -59,7 +59,7 @@
 
 		<groupbox id = "grbListaSancionados">
 						<caption label="Lista de Sancionados" />
-						<listbox id="lbxSancionados"  height="70%" model="@bind(vm.lista)" selectedItem="@bind(vm.listaapelacionmomento)"   
+						<listbox id="lbxSancionados"  height="70%" model="@bind(vm.lista)" selectedItem="@bind(vm.listaapelacionestadoapelacion)"   
 				   			 onClick="@command('showModal')"  mold="paging" pageSize="10"  
    			 					 emptyMessage="No hay Apelaciones" >
 							<listhead>
