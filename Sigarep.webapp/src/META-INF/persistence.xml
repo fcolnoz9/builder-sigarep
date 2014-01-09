@@ -4,8 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="sigarep-persistence" >
 		<class>sigarep.modelos.data.maestros.Actividad</class>
-		<class>sigarep.modelos.data.transacciones.ApelacionMomento</class>
-		<class>sigarep.modelos.data.transacciones.ApelacionMomentoPK</class>
 		<class>sigarep.modelos.data.maestros.Asignatura</class>
 		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado</class>
 		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK</class>
@@ -22,7 +20,6 @@
 		<class>sigarep.modelos.data.maestros.InstanciaApelada</class>
 		<class>sigarep.modelos.data.maestros.LapsoAcademico</class>
 		<class>sigarep.modelos.data.maestros.MenuFuncion</class>
-		<class>sigarep.modelos.data.maestros.Momento</class>
 		<class>sigarep.modelos.data.transacciones.Motivo</class>
 		<class>sigarep.modelos.data.transacciones.MotivoPK</class>
 		<class>sigarep.modelos.data.maestros.NivelMenu</class>
@@ -44,5 +41,11 @@
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupo</class>
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupoPK</class>
 		<class>sigarep.herramientas.Archivo</class>
-		<class>sigarep.modelos.data.maestros.EnlaceInteres</class></persistence-unit>
+		<class>sigarep.modelos.data.maestros.EnlaceInteres</class>
+		<class>sigarep.modelos.data.transacciones.MiembroGrupo</class>
+		<class>sigarep.modelos.data.transacciones.MiembroGrupoPK</class>
+		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK</class>
+		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacion</class>
+		<class>sigarep.herramientas.Documento</class>
+		<class>sigarep.modelos.data.maestros.EstadoApelacion</class></persistence-unit>
 </persistence>
