@@ -52,12 +52,12 @@ import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.Momento;
+import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.Estudiante;
-import sigarep.modelos.data.transacciones.ApelacionMomento;
-import sigarep.modelos.data.transacciones.ApelacionMomentoPK;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.Motivo;
@@ -69,9 +69,9 @@ import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
-import sigarep.modelos.servicio.maestros.ServicioMomento;
-import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
-import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
+import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
+import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioMotivos;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
@@ -198,13 +198,13 @@ public class ViewModelSolicitudApelacion {
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@WireVariable
-	private ServicioApelacionMomento servicioapelacionmomento;
+	private ServicioApelacionEstadoApelacion servicioapelacionmomento;
 	@WireVariable
 	private ServicioMotivos serviciomotivos;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
 	@WireVariable
-	private ServicioMomento serviciomomento;
+	private ServicioEstadoApelacion serviciomomento;
 	@WireVariable
 	private Integer instanciaApelada;
 	@WireVariable
@@ -212,15 +212,15 @@ public class ViewModelSolicitudApelacion {
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-	ApelacionMomentoPK apelacionMomentoPK = new ApelacionMomentoPK();
-	ApelacionMomento apelacionMomento = new ApelacionMomento(); 
+	ApelacionEstadoApelacionPK apelacionMomentoPK = new ApelacionEstadoApelacionPK();
+	ApelacionEstadoApelacion apelacionMomento = new ApelacionEstadoApelacion(); 
 	RecaudoEntregado recaudoEntregado  = new RecaudoEntregado(); 
 	RecaudoEntregadoPK recaudoEntregadoPK  = new RecaudoEntregadoPK();
 	Soporte soporte  = new Soporte();
 	SoportePK soportePK  = new SoportePK(); 
 	Motivo motivos  = new Motivo();
 	MotivoPK motivoPK  = new MotivoPK(); 
-	Momento momento = new Momento(); 
+	EstadoApelacion momento = new EstadoApelacion(); 
 	
 
 
@@ -477,9 +477,9 @@ public class ViewModelSolicitudApelacion {
 				apelacionMomentoPK.setCedulaEstudiante(cedula);
 				apelacionMomentoPK.setCodigoLapso(lapso);
 				apelacionMomentoPK.setIdInstanciaApelada(2);
-				apelacionMomentoPK.setIdMomento(3);
+				apelacionMomentoPK.setIdEstadoApelacion(3);
 				apelacionMomento.setId(apelacionMomentoPK);
-				apelacionMomento.setFechaMomento(hora);
+				apelacionMomento.setFechaEstado(hora);
 				System.out.println(".." +idMotivo);
 				
 				motivoPK.setCedulaEstudiante(cedula);
