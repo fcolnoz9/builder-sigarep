@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import sigarep.modelos.data.maestros.Momento;
-import sigarep.modelos.data.transacciones.ApelacionMomento;
+import sigarep.modelos.data.maestros.EstadoApelacion;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
-import sigarep.modelos.repositorio.transacciones.IApelacionMomentoDAO;
+import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
 import sigarep.modelos.data.maestros.Estudiante;
 
 
@@ -27,9 +27,9 @@ public class ServicioApelacion  {
 	private EntityManager em;
 	
 	@Autowired
-	private IApelacionMomentoDAO apelacionmomento;
+	private IApelacionEstadoApelacionDAO apelacionestadoapelacion;
 	
-	public List<ListaApelacionMomento> buscarApelaciones() {
+	public List<ListaApelacionEstadoApelacion> buscarApelaciones() {
 		
 //		PARA PARAMETROS
 		
@@ -54,8 +54,8 @@ public class ServicioApelacion  {
 				"tm.nombre_tipo_motivo, r.nombre_recaudo, es.segundo_nombre, es.segundo_apellido, a.nombre_asignatura, sap.numero_caso, tm.id_tipo_motivo " +
 				" FROM sancion_maestro sa, programa_academico p, lapso_academico la, instancia_apelada i, " +
 				"tipo_motivo tm, solicitud_apelacion sap, estudiante es " +
-				"INNER JOIN apelacion_momento AS ap ON es.cedula_estudiante = ap.cedula_estudiante " +
-				"INNER JOIN momento AS m ON m.id_momento = ap.id_momento, " +
+				"INNER JOIN apelacion_estado_apelacion AS ap ON es.cedula_estudiante = ap.cedula_estudiante " +
+				"INNER JOIN estado_apelacion AS m ON m.id_estado_apelacion = ap.id_estado_apelacion, " +
 				"motivo as mo LEFT JOIN recaudo_entregado AS re ON (mo.id_tipo_motivo = re.id_tipo_motivo AND " +
 				"re.id_instancia_apelada = mo.id_instancia_apelada AND " +
 				"re.codigo_lapso = mo.codigo_lapso AND re.cedula_estudiante = mo.cedula_estudiante) " +
@@ -65,7 +65,7 @@ public class ServicioApelacion  {
 				"AND aesa.cedula_estudiante = esa.cedula_estudiante)" +
 				"LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
 				"WHERE sa.id_sancion = esa.id_sancion " +
-				"AND m.id_momento = ap.id_momento  AND m.nombremomento = 'consejodecanato' " +
+				"AND m.id_estado_apelacion = ap.id_estado_apelacion  AND m.nombre_estado = 'consejodecanato' " +
 				"AND esa.codigo_lapso = la.codigo_lapso AND i.id_instancia_apelada = sap.id_instancia_apelada " +
 				"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
 				"AND sap.id_instancia_apelada = mo.id_instancia_apelada AND tm.id_tipo_motivo = mo.id_tipo_motivo " +
@@ -85,14 +85,14 @@ public class ServicioApelacion  {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ListaApelacionMomento> results = new ArrayList<ListaApelacionMomento>();
+		List<ListaApelacionEstadoApelacion> results = new ArrayList<ListaApelacionEstadoApelacion>();
 		for (Object[] resultRow : resultSet) {
 			System.out.println(resultRow[0]);
 			System.out.println(resultRow[1]);
 			System.out.println(resultRow[2]);
 			System.out.println(resultRow[3]);
 			
-			results.add(new ListaApelacionMomento((String) resultRow[0], (String) resultRow[1],
+			results.add(new ListaApelacionEstadoApelacion((String) resultRow[0], (String) resultRow[1],
 					(String) resultRow[2], (String) resultRow[3], (String) resultRow[4], (String) resultRow[5],
 					(String) resultRow[6], (String) resultRow[7], (Integer)(resultRow[8]), (String) resultRow[9],
 					(String) resultRow[10], (String)resultRow[11],(String) resultRow[12], (String) resultRow[13],
@@ -103,8 +103,8 @@ public class ServicioApelacion  {
 	}
 
 
-	public List<ListaApelacionMomento> buscarPorFiltros(ListaApelacionMomentoFiltros filtros){
-		List<ListaApelacionMomento> result = new ArrayList<ListaApelacionMomento>();
+	public List<ListaApelacionEstadoApelacion> buscarPorFiltros(ListaApelacionEstadoApelacionFiltros filtros){
+		List<ListaApelacionEstadoApelacion> result = new ArrayList<ListaApelacionEstadoApelacion>();
 		String programa = filtros.getPrograma().toLowerCase();
 		String motivo = filtros.getMotivo().toLowerCase();
 		String cedula = filtros.getCedula().toLowerCase();
@@ -116,7 +116,7 @@ public class ServicioApelacion  {
         	result= buscarApelaciones();
         }
         else{
-			for (ListaApelacionMomento ap : buscarApelaciones())
+			for (ListaApelacionEstadoApelacion ap : buscarApelaciones())
 			{
 				if (ap.getPrograma().toLowerCase().contains(programa)&&
 						ap.getMotivo().toLowerCase().contains(motivo)&&

@@ -1,6 +1,6 @@
 package sigarep.modelos.servicio.transacciones;
 
-public class ListaApelacionMomentoFiltros {
+public class ListaApelacionEstadoApelacionFiltros {
 
 	private String programa = "";
 	private String motivo = "";
