@@ -9,49 +9,27 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.jasperreports.engine.JRException;
 
 
-import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.util.media.AMedia;
-import org.zkoss.util.resource.Labels;
-import org.zkoss.zhtml.Messagebox;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkplus.databind.BindingListModel;
-import org.zkoss.zkplus.databind.BindingListModelArray;
-import org.zkoss.zkplus.databind.BindingListModelList;
-import org.zkoss.zul.Button;
-import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Filedownload;
-import org.zkoss.zul.Label;
-import org.zkoss.zul.ListModel;
-import org.zkoss.zul.ListModelArray;
+
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Textbox;
 
 
 
 import sigarep.modelos.data.maestros.*;
-import sigarep.modelos.data.transacciones.ApelacionMomento;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.*;
-import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
-import sigarep.modelos.servicio.transacciones.ListaApelacionMomentoFiltros;
+import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
+import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacionFiltros;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 
 
@@ -66,17 +44,17 @@ public class ViewModelListaApelaciones  {
 	@WireVariable
 	private EstudianteSancionado estudiantesancionado;
 	@WireVariable
-	private ListaApelacionMomento listaapelacionmomento;
+	private ListaApelacionEstadoApelacion listaapelacionmomento;
 	@WireVariable
 	private SolicitudApelacion solicitudapelacion;
 	@WireVariable
-	private Momento momento;
+	private EstadoApelacion momento;
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
 	private String nombreTipoMotivo;
 	@WireVariable
-	private ApelacionMomento apelacionmomento;
+	private ApelacionEstadoApelacion apelacionmomento;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -87,8 +65,8 @@ public class ViewModelListaApelaciones  {
 	private List<EstudianteSancionado> listaSancionados =  new LinkedList<EstudianteSancionado>();
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
-	private List<ApelacionMomento> listadoApelaciones;
-	private List<ListaApelacionMomento> lista = new LinkedList<ListaApelacionMomento>();
+	private List<ApelacionEstadoApelacion> listadoApelaciones;
+	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
 	private String sancion;
 	private String programa;
 	private String telefono;
@@ -162,7 +140,7 @@ public class ViewModelListaApelaciones  {
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
 	}
-	private ListaApelacionMomentoFiltros filtros = new ListaApelacionMomentoFiltros();
+	private ListaApelacionEstadoApelacionFiltros filtros = new ListaApelacionEstadoApelacionFiltros();
 	private String programaFiltro;
 	
 	public String getProgramaFiltro() {
@@ -196,11 +174,11 @@ public class ViewModelListaApelaciones  {
 	public List<ProgramaAcademico> getListaPrograma() {
 			return listaPrograma;
 		}
-	public List<ApelacionMomento> getListadoApelaciones() {
+	public List<ApelacionEstadoApelacion> getListadoApelaciones() {
 		return listadoApelaciones;
 	}
 
-	public void setListadoApelaciones(List<ApelacionMomento> listadoApelaciones) {
+	public void setListadoApelaciones(List<ApelacionEstadoApelacion> listadoApelaciones) {
 		this.listadoApelaciones = listadoApelaciones;
 	}
 
@@ -213,20 +191,20 @@ public class ViewModelListaApelaciones  {
 	}
    
 	
-	 public List<ListaApelacionMomento> getLista() {
+	 public List<ListaApelacionEstadoApelacion> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<ListaApelacionMomento> lista) {
+	public void setLista(List<ListaApelacionEstadoApelacion> lista) {
 		this.lista = lista;
 	}
 	
 
-	public ListaApelacionMomento getListaapelacionmomento() {
+	public ListaApelacionEstadoApelacion getListaapelacionmomento() {
 		return listaapelacionmomento;
 	}
 
-	public void setListaapelacionmomento(ListaApelacionMomento listaapelacionmomento) {
+	public void setListaapelacionmomento(ListaApelacionEstadoApelacion listaapelacionmomento) {
 		this.listaapelacionmomento = listaapelacionmomento;
 	}
 	
@@ -366,10 +344,10 @@ public class ViewModelListaApelaciones  {
 			lista = serviciolista.buscarPorFiltros(filtros);
 		}
 		@NotifyChange({"filtros"})
-		public ListaApelacionMomentoFiltros getFiltros() {
+		public ListaApelacionEstadoApelacionFiltros getFiltros() {
 			return filtros;
 		}
-		public void setFiltros(ListaApelacionMomentoFiltros filtros) {
+		public void setFiltros(ListaApelacionEstadoApelacionFiltros filtros) {
 			this.filtros = filtros;
 		
 	  }
