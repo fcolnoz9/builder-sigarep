@@ -198,13 +198,13 @@ public class ViewModelSolicitudApelacion {
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionmomento;
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
 	private ServicioMotivos serviciomotivos;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
 	@WireVariable
-	private ServicioEstadoApelacion serviciomomento;
+	private ServicioEstadoApelacion servicioestadoapelacion;
 	@WireVariable
 	private Integer instanciaApelada;
 	@WireVariable
@@ -212,15 +212,15 @@ public class ViewModelSolicitudApelacion {
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-	ApelacionEstadoApelacionPK apelacionMomentoPK = new ApelacionEstadoApelacionPK();
-	ApelacionEstadoApelacion apelacionMomento = new ApelacionEstadoApelacion(); 
+	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
+	ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion(); 
 	RecaudoEntregado recaudoEntregado  = new RecaudoEntregado(); 
 	RecaudoEntregadoPK recaudoEntregadoPK  = new RecaudoEntregadoPK();
 	Soporte soporte  = new Soporte();
 	SoportePK soportePK  = new SoportePK(); 
 	Motivo motivos  = new Motivo();
 	MotivoPK motivoPK  = new MotivoPK(); 
-	EstadoApelacion momento = new EstadoApelacion(); 
+	EstadoApelacion estadoApelacion = new EstadoApelacion(); 
 	
 
 
@@ -474,12 +474,12 @@ public class ViewModelSolicitudApelacion {
 				solicitudApelacion.setFechaSolicitud(fecha);
 				solicitudApelacion.setEstatus(true);
 				
-				apelacionMomentoPK.setCedulaEstudiante(cedula);
-				apelacionMomentoPK.setCodigoLapso(lapso);
-				apelacionMomentoPK.setIdInstanciaApelada(2);
-				apelacionMomentoPK.setIdEstadoApelacion(3);
-				apelacionMomento.setId(apelacionMomentoPK);
-				apelacionMomento.setFechaEstado(hora);
+				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+				apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
+				apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
+				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+				apelacionEstadoApelacion.setFechaEstado(hora);
 				System.out.println(".." +idMotivo);
 				
 				motivoPK.setCedulaEstudiante(cedula);
@@ -517,7 +517,7 @@ public class ViewModelSolicitudApelacion {
 					try {
 						
 						serviciosolicitudapelacion.guardar(solicitudApelacion);
-						servicioapelacionmomento.guardar(apelacionMomento);
+						servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 						serviciomotivos.guardar(motivos);
 						serviciorecaudoentregado.guardar(recaudoEntregado);
 						serviciosoporte.guardar(soporte);

@@ -12,10 +12,6 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
-//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
-//import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-//import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)

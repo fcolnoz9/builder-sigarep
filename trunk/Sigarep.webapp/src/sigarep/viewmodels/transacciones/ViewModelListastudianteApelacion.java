@@ -38,13 +38,13 @@ public class ViewModelListastudianteApelacion {
 	@WireVariable
 	private SolicitudApelacion solicitudapelacion;
 	@WireVariable
-	private EstadoApelacion momento;
+	private EstadoApelacion estadoapelacion;
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
 	private String nombreTipoMotivo;
 	@WireVariable
-	private ApelacionEstadoApelacion apelacionmomento;
+	private ApelacionEstadoApelacion apelacionestadoapelacion;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -101,8 +101,8 @@ public class ViewModelListastudianteApelacion {
 		return solicitudapelacion;
 	}
 
-	public EstadoApelacion getMomento() {
-		return momento;
+	public EstadoApelacion getEstadoapelacion() {
+		return estadoapelacion;
 	}
 
 	public String getNombrePrograma() {
@@ -113,8 +113,8 @@ public class ViewModelListastudianteApelacion {
 		return nombreTipoMotivo;
 	}
 
-	public ApelacionEstadoApelacion getApelacionmomento() {
-		return apelacionmomento;
+	public ApelacionEstadoApelacion getApelacionEstadoapelacion() {
+		return apelacionestadoapelacion;
 	}
 
 	public ServicioTipoMotivo getServiciotipomotivo() {
@@ -202,8 +202,8 @@ public class ViewModelListastudianteApelacion {
 		this.solicitudapelacion = solicitudapelacion;
 	}
 
-	public void setMomento(EstadoApelacion momento) {
-		this.momento = momento;
+	public void setEstadoapelacion(EstadoApelacion estadoapelacion) {
+		this.estadoapelacion = estadoapelacion;
 	}
 
 	public void setNombrePrograma(String nombrePrograma) {
@@ -214,8 +214,8 @@ public class ViewModelListastudianteApelacion {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 	}
 
-	public void setApelacionmomento(ApelacionEstadoApelacion apelacionmomento) {
-		this.apelacionmomento = apelacionmomento;
+	public void setApelacionestadoapelacion(ApelacionEstadoApelacion apelacionestadoapelacion) {
+		this.apelacionestadoapelacion = apelacionestadoapelacion;
 	}
 
 	public void setServiciotipomotivo(ServicioTipoMotivo serviciotipomotivo) {
