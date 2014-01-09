@@ -17,11 +17,11 @@ import sigarep.modelos.data.maestros.EstadoApelacionFiltros;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 
 /*
- * @ (#) Momento.java 
+ * @ (#) EstadoApelacion.java 
  *
  * Copyright 2013 Builder. Todos los derechos reservados.
  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- * Esta clase es del registro del maestro "Momento"
+ * Esta clase es del registro del maestro "EstadoApelacion"
  * @ Author Lilibeth Achji 
  * @ Version 1.0, 16/12/13
  */
@@ -148,7 +148,7 @@ public class VMEstadoApelacion {
 		listadoEstadoApelacion();
 	}
 
-	// Método que trae todos los registros en una lista de momentos
+	// Método que trae todos los registros en una lista de Estados de Apelacion
 	@Command
 	@NotifyChange({ "listaEstadoApelacion" })
 	public void listadoEstadoApelacion() {
