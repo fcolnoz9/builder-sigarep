@@ -37,7 +37,7 @@ public class Recaudo implements Serializable {
 
 	//bi-directional many-to-one association to TipoMotivo
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="id_tipo_motivo", nullable=false)
+	@JoinColumn(name="id_tipo_motivo", nullable=true)
 	private TipoMotivo tipoMotivo;
 
 	//bi-directional many-to-one association to RecaudoEntregado
