@@ -23,7 +23,7 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.reportes.ServicioApelacionesPorSexo;
-import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
+import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
