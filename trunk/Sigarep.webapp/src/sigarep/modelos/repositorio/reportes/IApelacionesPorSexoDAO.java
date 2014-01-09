@@ -7,12 +7,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-
 import sigarep.modelos.data.reportes.ApelacionesPorSexo;
-import sigarep.modelos.data.reportes.ChartDataApelacionesPorLapso;
-import sigarep.modelos.data.transacciones.ApelacionMomento;
-import sigarep.modelos.data.transacciones.ApelacionMomentoPK;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
