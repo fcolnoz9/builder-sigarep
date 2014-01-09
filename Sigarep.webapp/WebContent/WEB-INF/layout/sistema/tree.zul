@@ -39,9 +39,9 @@
 					</treeitem>
 				    <treeitem>
 						<treerow>
-							<treecell label="Momento"
-								id="RegistrarMomento" sclass="maestros"
-								onClick="createWin(RegistrarMomento.getId(), RegistrarMomento.getSclass())" />
+							<treecell label="Estado de Apelacion"
+								id="RegistrarEstadoApelacion" sclass="maestros"
+								onClick="createWin(RegistrarEstadoApelacion.getId(), RegistrarEstadoApelacion.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>
