@@ -8,24 +8,24 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
 
-@Service("servicioapelacionmomentorecurso")
-public class ServicioApelacionMomentoRecurso {
-private @Autowired IApelacionEstadoApelacionDAO iApelacionMomentoDAO;
+@Service("servicioapelacionestadoapelacionrecurso")
+public class ServicioApelacionEstadoApelacionRecurso {
+private @Autowired IApelacionEstadoApelacionDAO iApelacionEstadoApelacionDAO;
 	
 	public ApelacionEstadoApelacion guardar(ApelacionEstadoApelacion apelacionmomento) {
-		return iApelacionMomentoDAO.save(apelacionmomento);
+		return iApelacionEstadoApelacionDAO.save(apelacionmomento);
 	}
 	
 	public void eliminar(ApelacionEstadoApelacion apelacionmomento){
-		iApelacionMomentoDAO.delete(apelacionmomento);
+		iApelacionEstadoApelacionDAO.delete(apelacionmomento);
 	}
 	
 	public List<ApelacionEstadoApelacion> buscarTodos() {
-		return iApelacionMomentoDAO.findAll();
+		return iApelacionEstadoApelacionDAO.findAll();
 	}
 
 	public int contarTodos() {
-		return iApelacionMomentoDAO.findAll().size();
+		return iApelacionEstadoApelacionDAO.findAll().size();
 	}
 
 	public ApelacionEstadoApelacion crear() {
