@@ -28,8 +28,11 @@ public class Reglamento implements Serializable {
 	@Embedded
 	private Documento documento;
 
-	@Column(length=255)
+	@Column(name="descripcion",length=255)
 	private String descripcion;
+	
+	@Column(name="titulo",length=50, nullable=false)
+	private String titulo;
 
 	@Column(nullable=false)
 	private Boolean estatus;
@@ -102,6 +105,14 @@ public class Reglamento implements Serializable {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 }
