@@ -44,16 +44,16 @@ import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.*;
-import sigarep.modelos.data.transacciones.ApelacionMomento;
-import sigarep.modelos.data.transacciones.ApelacionMomentoPK;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.servicio.maestros.*;
-import sigarep.modelos.servicio.transacciones.ListaApelacionMomento;
+import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaEstudianteApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionMomentoRecurso;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacionRecurso;
 //import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
@@ -102,8 +102,8 @@ public class ViewModelWindowRegistrarRecurso {
 	mensajes msjs = new mensajes();
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-	ApelacionMomentoPK apelacionMomentoPK = new ApelacionMomentoPK();
-	ApelacionMomento apelacionMomento = new ApelacionMomento();
+	ApelacionEstadoApelacionPK apelacionMomentoPK = new ApelacionEstadoApelacionPK();
+	ApelacionEstadoApelacion apelacionMomento = new ApelacionEstadoApelacion();
 	
 	
 	
@@ -388,9 +388,9 @@ public class ViewModelWindowRegistrarRecurso {
 			apelacionMomentoPK.setCedulaEstudiante(cedula);
 			apelacionMomentoPK.setCodigoLapso(lapso);
 			apelacionMomentoPK.setIdInstanciaApelada(3);
-			apelacionMomentoPK.setIdMomento(5);
+			apelacionMomentoPK.setIdEstadoApelacion(5);
 			apelacionMomento.setId(apelacionMomentoPK);
-			apelacionMomento.setFechaMomento(hora);
+			apelacionMomento.setFechaEstado(hora);
 			
 			try {
 		
