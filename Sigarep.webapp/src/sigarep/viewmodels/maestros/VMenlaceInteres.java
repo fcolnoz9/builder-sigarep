@@ -31,7 +31,7 @@ import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
  *
  * Copyright 2013 Builder. Todos los derechos reservados.
  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- * Esta clase es del registro del maestro "Momento"
+ * Esta clase es del registro del maestro "EstadoApelacion"
  * @ Author Lilibeth Achji 
  * @ Version 1.0, 16/12/13
  */

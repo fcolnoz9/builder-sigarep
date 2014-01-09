@@ -30,15 +30,15 @@ import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstadoApelacion {
 	@WireVariable
-	ServicioEstadoApelacion serviciomomento;
-	private Integer idMomento; // clave principal de la tabla Momento
-	private String nombreMomento; // nombre del Momento
-	private String nombreMomentofiltro; // filtro de busqueda por nombre
-	private String descripcion; // descripcion del momento
+	ServicioEstadoApelacion servicioestadoapelacion;
+	private Integer idEstadoApelacion; // clave principal de la tabla EstadoApelacion
+	private String nombreEstadoApelacion; // nombre del EstadoApelacion
+	private String nombreEstadoApelacionfiltro; // filtro de busqueda por nombre
+	private String descripcion; // descripcion del EstadoApelacion
 	private String descripcionfiltro; // filtro de busqueda por descripcion
-	private Boolean estatus; // estatus del momento
-	private List<EstadoApelacion> listaMomento; // lista de Momentos registrados
-	private EstadoApelacion momenseleccionado;
+	private Boolean estatus; // estatus del EstadoApelacion
+	private List<EstadoApelacion> listaEstadoApelacion; // lista de Estados de Apelacion registrados
+	private EstadoApelacion estadoseleccionado;
 	private EstadoApelacionFiltros filtros = new EstadoApelacionFiltros();
 
 	@Wire
@@ -47,20 +47,20 @@ public class VMEstadoApelacion {
 	Window winRegistrarMomento;
 
 	// Metodos GETS Y SETS
-	public Integer getIdMomento() {
-		return idMomento;
+	public Integer getIdEstadoApelacion() {
+		return idEstadoApelacion;
 	}
 
-	public void setIdMomento(Integer idMomento) {
-		this.idMomento = idMomento;
+	public void setIdEstadoApelacion(Integer idEstadoApelacion) {
+		this.idEstadoApelacion = idEstadoApelacion;
 	}
 
-	public String getNombreMomento() {
-		return nombreMomento;
+	public String getNombreEstadoApelacion() {
+		return nombreEstadoApelacion;
 	}
 
-	public void setNombreMomento(String nombreMomento) {
-		this.nombreMomento = nombreMomento;
+	public void setNombreEstadoApelacion(String nombreEstadoApelacion) {
+		this.nombreEstadoApelacion = nombreEstadoApelacion;
 	}
 
 	public String getDescripcion() {
@@ -79,8 +79,8 @@ public class VMEstadoApelacion {
 		this.estatus = estatus;
 	}
 
-	public String getNombreMomentofiltro() {
-		return nombreMomentofiltro;
+	public String getNombreEstadoApelacionfiltro() {
+		return nombreEstadoApelacionfiltro;
 	}
 
 	public String getDescripcionfiltro() {
@@ -95,20 +95,20 @@ public class VMEstadoApelacion {
 		this.filtros = filtros;
 	}
 
-	public List<EstadoApelacion> getListaMomento() {
-		return listaMomento;
+	public List<EstadoApelacion> getListaEstadoApelacion() {
+		return listaEstadoApelacion;
 	}
 
-	public void setListaMomento(List<EstadoApelacion> ListaMomento) {
-		this.listaMomento = ListaMomento;
+	public void setListaEstadoApelacion(List<EstadoApelacion> ListaEstadoApelacion) {
+		this.listaEstadoApelacion = ListaEstadoApelacion;
 	}
 
-	public EstadoApelacion getMomenseleccionado() {
-		return momenseleccionado;
+	public EstadoApelacion getEstadoseleccionado() {
+		return estadoseleccionado;
 	}
 
-	public void setMomenseleccionado(EstadoApelacion momenseleccionado) {
-		this.momenseleccionado = momenseleccionado;
+	public void setEstadoseleccionado(EstadoApelacion momenseleccionado) {
+		this.estadoseleccionado = momenseleccionado;
 	}
 
 	// Fin de los metodos gets y sets
@@ -116,23 +116,23 @@ public class VMEstadoApelacion {
 	// OTROS METODOS
 	@Init
 	public void init() {
-		listadoMomento();
+		listadoEstadoApelacion();
 	}
 
-	// Metodos que permite guardar los momentos
+	// Metodos que permite guardar los Estados de Apelacion
 	@Command
-	@NotifyChange({ "nombreMomento", "descripcion", "listaMomento" })
+	@NotifyChange({ "nombreEstadoApelacion", "descripcion", "listaEstadoApelacion" })
 	// el notifychange le avisa a que parametros en la pantalla se van a
 	// cambiar, en este caso es nombre y descripción se va a colocar en blanco
 	// al guardar
-	public void guardarMomento() {
-		if (nombreMomento==null || descripcion==null) {
+	public void guardarEstadoApelacion() {
+		if (nombreEstadoApelacion==null || descripcion==null) {
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			EstadoApelacion momento = new EstadoApelacion(idMomento, nombreMomento,
+			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstadoApelacion,
 					descripcion, true);
-			serviciomomento.guardar(momento);
+			servicioestadoapelacion.guardar(estadoApelacion);
 			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
 					Messagebox.OK, Messagebox.INFORMATION);
 			limpiar();
@@ -141,47 +141,47 @@ public class VMEstadoApelacion {
 
 	// Metodo que limpia todos los campos
 	@Command
-	@NotifyChange({ "nombreMomento", "descripcion" })
+	@NotifyChange({ "nombreEstadoApelacion", "descripcion" })
 	public void limpiar() {
-		nombreMomento = "";
+		nombreEstadoApelacion = "";
 		descripcion = "";
-		listadoMomento();
+		listadoEstadoApelacion();
 	}
 
 	// Método que trae todos los registros en una lista de momentos
 	@Command
-	@NotifyChange({ "listaMomento" })
-	public void listadoMomento() {
-		listaMomento = serviciomomento.listadoEstadoApelacion();
+	@NotifyChange({ "listaEstadoApelacion" })
+	public void listadoEstadoApelacion() {
+		listaEstadoApelacion = servicioestadoapelacion.listadoEstadoApelacion();
 	}
 
-	// Metodo que elimina un momento tomando en cuenta el idMomento
+	// Metodo que elimina un EstadoApelacion tomando en cuenta el idEstadoApelacion
 	@Command
-	@NotifyChange({ "nombreMomento", "descripcion", "listaMomento" })
-	public void eliminarMomento() {
-		if (nombreMomento==null || descripcion==null) {
-			Messagebox.show("Debes Seleccionar un Momento", "Advertencia",
+	@NotifyChange({ "nombreEstadoApelacion", "descripcion", "listaEstadoApelacion" })
+	public void eliminarEstadoApelacion() {
+		if (nombreEstadoApelacion==null || descripcion==null) {
+			Messagebox.show("Debes Seleccionar un Estado de Apelacion", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
-			serviciomomento.eliminarEstadoApelacion(getMomenseleccionado().getIdEstadoApelacion());
+			servicioestadoapelacion.eliminarEstadoApelacion(getEstadoseleccionado().getIdEstadoApelacion());
 		Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
 				Messagebox.OK, Messagebox.INFORMATION);
 		limpiar();
 	}
 	}
-	// permite tomar los datos del objeto momento seleccionado
+	// permite tomar los datos del objeto EstadoApelacion seleccionado
 	@Command
-	@NotifyChange({ "idMomento", "nombreMomento", "descripcion" })
+	@NotifyChange({ "idEstadoApelacion", "nombreEstadoApelacion", "descripcion" })
 	public void mostrarSeleccionado() {
-		idMomento = getMomenseleccionado().getIdEstadoApelacion();
-		nombreMomento = getMomenseleccionado().getNombreEstado();
-		descripcion = getMomenseleccionado().getDescripcion();
+		idEstadoApelacion = getEstadoseleccionado().getIdEstadoApelacion();
+		nombreEstadoApelacion = getEstadoseleccionado().getNombreEstado();
+		descripcion = getEstadoseleccionado().getDescripcion();
 	}
 
 	// Método que busca y filtra las sanciones
 	@Command
-	@NotifyChange({ "listaMomento" })
+	@NotifyChange({ "listaEstadoApelacion" })
 	public void filtros() {
-		listaMomento = serviciomomento.buscarEstadoApelacion(filtros);
+		listaEstadoApelacion = servicioestadoapelacion.buscarEstadoApelacion(filtros);
 	}
 }
