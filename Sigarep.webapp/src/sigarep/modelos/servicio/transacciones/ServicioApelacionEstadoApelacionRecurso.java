@@ -12,12 +12,12 @@ import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
 public class ServicioApelacionEstadoApelacionRecurso {
 private @Autowired IApelacionEstadoApelacionDAO iApelacionEstadoApelacionDAO;
 	
-	public ApelacionEstadoApelacion guardar(ApelacionEstadoApelacion apelacionmomento) {
-		return iApelacionEstadoApelacionDAO.save(apelacionmomento);
+	public ApelacionEstadoApelacion guardar(ApelacionEstadoApelacion apelacionestadoapelacion) {
+		return iApelacionEstadoApelacionDAO.save(apelacionestadoapelacion);
 	}
 	
-	public void eliminar(ApelacionEstadoApelacion apelacionmomento){
-		iApelacionEstadoApelacionDAO.delete(apelacionmomento);
+	public void eliminar(ApelacionEstadoApelacion apelacionestadoapelacion){
+		iApelacionEstadoApelacionDAO.delete(apelacionestadoapelacion);
 	}
 	
 	public List<ApelacionEstadoApelacion> buscarTodos() {
