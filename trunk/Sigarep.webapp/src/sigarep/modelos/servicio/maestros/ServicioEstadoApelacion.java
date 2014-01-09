@@ -14,13 +14,13 @@ import sigarep.modelos.data.maestros.EstadoApelacionFiltros;
 import sigarep.modelos.repositorio.maestros.IEstadoApelacionDAO;
 
 /*
- * @ (#) ServicioMomento.java 
+ * @ (#) ServicioEstadoApelacion.java 
  *
  * Copyright 2013 Builder. Todos los derechos reservados.
  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
  */
 /*
- ** Servicio del registro del maestro "Momento"
+ ** Servicio del registro del maestro "EstadoApelacion"
  * @ Author Lilibeth Achji 
  * @ Version 1.0, 16/12/13
  */
@@ -47,7 +47,7 @@ public class ServicioEstadoApelacion {
 		return EstadoApelacionLista;
 	}
 
-	// Busca en la lista de Momentos
+	// Busca en la lista de EstadoApelacion
 	public List<EstadoApelacion> buscarEstadoApelacion(EstadoApelacionFiltros filtros) {
 		List<EstadoApelacion> result = new LinkedList<EstadoApelacion>();
 		String nombreEstado = filtros.getNombreEstado().toLowerCase();
