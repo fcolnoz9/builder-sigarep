@@ -54,12 +54,8 @@ import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaEstudianteApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioApelacionMomentoRecurso;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacionRecurso;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacionRecurso;
-//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
-//import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-//import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-//import sigarep.modelos.servicio.transacciones.ServicioApelacionMomento;
 import sigarep.modelos.servicio.transacciones.ServicioListaEstudiate;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -94,7 +90,7 @@ public class ViewModelWindowRegistrarRecurso {
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
-	private ServicioApelacionMomentoRecurso servicioapelacionmomentorecurso;
+	private ServicioApelacionEstadoApelacionRecurso servicioapelacionestadoapelacionrecurso;
 	@WireVariable
 	private ServicioSolicitudApelacionRecurso serviciosolicitudapelacionrecurso;
 	@WireVariable
@@ -102,8 +98,8 @@ public class ViewModelWindowRegistrarRecurso {
 	mensajes msjs = new mensajes();
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-	ApelacionEstadoApelacionPK apelacionMomentoPK = new ApelacionEstadoApelacionPK();
-	ApelacionEstadoApelacion apelacionMomento = new ApelacionEstadoApelacion();
+	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
+	ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
 	
 	
 	
@@ -221,8 +217,8 @@ public class ViewModelWindowRegistrarRecurso {
 		return serviciolapsoacademico;
 	}
 
-	public ServicioApelacionMomentoRecurso getServicioapelacionmomentorecurso() {
-		return servicioapelacionmomentorecurso;
+	public ServicioApelacionEstadoApelacionRecurso getServicioapelacionestadoapelacionrecurso() {
+		return servicioapelacionestadoapelacionrecurso;
 	}
 
 	public ServicioSolicitudApelacionRecurso getServiciosolicitudapelacionrecurso() {
@@ -286,9 +282,9 @@ public class ViewModelWindowRegistrarRecurso {
 		this.serviciolapsoacademico = serviciolapsoacademico;
 	}
 
-	public void setServicioapelacionmomentorecurso(
-			ServicioApelacionMomentoRecurso servicioapelacionmomentorecurso) {
-		this.servicioapelacionmomentorecurso = servicioapelacionmomentorecurso;
+	public void setServicioapelacionestadoapelacionrecurso(
+			ServicioApelacionEstadoApelacionRecurso servicioapelacionestadoapelacionrecurso) {
+		this.servicioapelacionestadoapelacionrecurso = servicioapelacionestadoapelacionrecurso;
 	}
 
 	public void setServiciosolicitudapelacionrecurso(
@@ -385,17 +381,17 @@ public class ViewModelWindowRegistrarRecurso {
 			solicitudApelacion.setFechaSolicitud(fecha);
 			solicitudApelacion.setEstatus(true);
 			
-			apelacionMomentoPK.setCedulaEstudiante(cedula);
-			apelacionMomentoPK.setCodigoLapso(lapso);
-			apelacionMomentoPK.setIdInstanciaApelada(3);
-			apelacionMomentoPK.setIdEstadoApelacion(5);
-			apelacionMomento.setId(apelacionMomentoPK);
-			apelacionMomento.setFechaEstado(hora);
+			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(5);
+			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+			apelacionEstadoApelacion.setFechaEstado(hora);
 			
 			try {
 		
 				serviciosolicitudapelacionrecurso.guardar(solicitudApelacion);
-				servicioapelacionmomentorecurso.guardar(apelacionMomento);
+				servicioapelacionestadoapelacionrecurso.guardar(apelacionEstadoApelacion);
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());

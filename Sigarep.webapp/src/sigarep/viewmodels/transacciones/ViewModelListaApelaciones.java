@@ -44,17 +44,17 @@ public class ViewModelListaApelaciones  {
 	@WireVariable
 	private EstudianteSancionado estudiantesancionado;
 	@WireVariable
-	private ListaApelacionEstadoApelacion listaapelacionmomento;
+	private ListaApelacionEstadoApelacion listaapelacionestadoapelacion;
 	@WireVariable
 	private SolicitudApelacion solicitudapelacion;
 	@WireVariable
-	private EstadoApelacion momento;
+	private EstadoApelacion estadoapelacion;
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
 	private String nombreTipoMotivo;
 	@WireVariable
-	private ApelacionEstadoApelacion apelacionmomento;
+	private ApelacionEstadoApelacion apelacionestadoapelacion;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -200,12 +200,12 @@ public class ViewModelListaApelaciones  {
 	}
 	
 
-	public ListaApelacionEstadoApelacion getListaapelacionmomento() {
-		return listaapelacionmomento;
+	public ListaApelacionEstadoApelacion getListaapelacionestadoapelacion() {
+		return listaapelacionestadoapelacion;
 	}
 
-	public void setListaapelacionmomento(ListaApelacionEstadoApelacion listaapelacionmomento) {
-		this.listaapelacionmomento = listaapelacionmomento;
+	public void setListaapelacionestadoapelacion(ListaApelacionEstadoApelacion listaapelacionestadoapelacion) {
+		this.listaapelacionestadoapelacion = listaapelacionestadoapelacion;
 	}
 	
 	
@@ -296,22 +296,22 @@ public class ViewModelListaApelaciones  {
 		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", 
 			"sancion", "lapso", "recaudo", "segundoNombre", "segundoApellido", "asignatura", "caso"})
 		public void showModal (){
-	  		cedula = getListaapelacionmomento().getCedulaEstudiante();
-	  		nombre = getListaapelacionmomento().getPrimerNombre();
-	  		apellido = getListaapelacionmomento().getPrimerApellido();
-	  		email = getListaapelacionmomento().getEmail();
-	  		telefono = getListaapelacionmomento().getTelefono();
-	  		programa = getListaapelacionmomento().getPrograma();
-	  		sancion = getListaapelacionmomento().getNombreSancion();
-	  		lapso = getListaapelacionmomento().getLapso();
-	  		instancia = getListaapelacionmomento().getInstancia();
-	  		motivo = getListaapelacionmomento().getMotivo();
-	  		recaudo = getListaapelacionmomento().getRecaudo();
-	  		segundoNombre = getListaapelacionmomento().getSegundoNombre();
-	  		segundoApellido = getListaapelacionmomento().getSegundoApellido();
-	  		asignatura = getListaapelacionmomento().getAsignatura();
-	  		caso  = getListaapelacionmomento().getCaso();
-	  		idMotivo  = getListaapelacionmomento().getIdMotivo();
+	  		cedula = getListaapelacionestadoapelacion().getCedulaEstudiante();
+	  		nombre = getListaapelacionestadoapelacion().getPrimerNombre();
+	  		apellido = getListaapelacionestadoapelacion().getPrimerApellido();
+	  		email = getListaapelacionestadoapelacion().getEmail();
+	  		telefono = getListaapelacionestadoapelacion().getTelefono();
+	  		programa = getListaapelacionestadoapelacion().getPrograma();
+	  		sancion = getListaapelacionestadoapelacion().getNombreSancion();
+	  		lapso = getListaapelacionestadoapelacion().getLapso();
+	  		instancia = getListaapelacionestadoapelacion().getInstancia();
+	  		motivo = getListaapelacionestadoapelacion().getMotivo();
+	  		recaudo = getListaapelacionestadoapelacion().getRecaudo();
+	  		segundoNombre = getListaapelacionestadoapelacion().getSegundoNombre();
+	  		segundoApellido = getListaapelacionestadoapelacion().getSegundoApellido();
+	  		asignatura = getListaapelacionestadoapelacion().getAsignatura();
+	  		caso  = getListaapelacionestadoapelacion().getCaso();
+	  		idMotivo  = getListaapelacionestadoapelacion().getIdMotivo();
 	  		
 	  		final HashMap<String, Object> map = new HashMap<String, Object>();
 	        map.put("cedula", this.cedula );
