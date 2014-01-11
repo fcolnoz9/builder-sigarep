@@ -18,6 +18,7 @@ import java.util.Date;
 @Access(AccessType.FIELD)
 @Table(name="cronograma")
 public class Cronograma implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
@@ -40,8 +41,20 @@ public class Cronograma implements Serializable {
 	@Column(length=255)
 	private String lugar;
 
-	@Column(nullable=false, length=255)
+	@Column(nullable=true, length=255)
 	private String observacion;
+	
+	public Cronograma(CronogramaPK id, Boolean estatus, Date fechaFin,
+			Date fechaInicio, Time horaInicio, String lugar, String observacion) {
+		super();
+		this.id = id;
+		this.estatus = estatus;
+		this.fechaFin = fechaFin;
+		this.fechaInicio = fechaInicio;
+		this.horaInicio = horaInicio;
+		this.lugar = lugar;
+		this.observacion = observacion;
+	}
 
 	//bi-directional many-to-one association to Actividad
 	@ManyToOne
