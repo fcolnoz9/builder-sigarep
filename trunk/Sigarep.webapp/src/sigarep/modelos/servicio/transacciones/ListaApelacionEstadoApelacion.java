@@ -11,20 +11,19 @@ public class ListaApelacionEstadoApelacion {
 	private String programa;
 	private String lapso;
 	private Integer instancia;
-	private String motivo;
-	private String recaudo;
+
 	private String segundoNombre;
 	private String segundoApellido;
 	private String asignatura;
 	private Integer caso;
-	private Integer idMotivo;
+
 	
 	
 	
 	public ListaApelacionEstadoApelacion(String cedulaEstudiante, String primerNombre,
 			String primerApellido, String nombreSancion, String email,
-			String telefono, String programa, String lapso, Integer instancia, String motivo,
-			String recaudo, String segundoNombre, String segundoApellido, String asignatura, Integer caso, Integer idMotivo) {
+			String telefono, String programa, String lapso, Integer instancia,
+			 String segundoNombre, String segundoApellido, String asignatura, Integer caso) {
 		super();
 		this.cedulaEstudiante = cedulaEstudiante;
 		this.primerNombre = primerNombre;
@@ -35,25 +34,17 @@ public class ListaApelacionEstadoApelacion {
 		this.programa = programa;
 		this.lapso = lapso;	
 		this.instancia = instancia;
-		this.motivo = motivo;
-		this.recaudo = recaudo;
+	
+	
 		this.segundoNombre = segundoNombre;
 		this.segundoApellido = segundoApellido;
 		this.asignatura = asignatura;
 		this.caso = caso;
-		this.idMotivo = idMotivo; 
+	
 	}
 
 	
-	public Integer getIdMotivo() {
-		return idMotivo;
-	}
-
-
-	public void setIdMotivo(Integer idMotivo) {
-		this.idMotivo = idMotivo;
-	}
-
+	
 
 	public Integer getCaso() {
 		return caso;
@@ -75,13 +66,6 @@ public class ListaApelacionEstadoApelacion {
 	}
 
 
-	public String getRecaudo() {
-		return recaudo;
-	}
-
-	public void setRecaudo(String recaudo) {
-		this.recaudo = recaudo;
-	}
 
 	public String getSegundoNombre() {
 		return segundoNombre;
@@ -105,14 +89,7 @@ public class ListaApelacionEstadoApelacion {
 
 
 
-	public String getMotivo() {
-		return motivo;
-	}
-
-
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
-	}
+	
 
 
 	public Integer getInstancia() {

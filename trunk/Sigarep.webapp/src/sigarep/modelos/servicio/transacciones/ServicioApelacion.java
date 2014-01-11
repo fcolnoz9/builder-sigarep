@@ -31,56 +31,31 @@ public class ServicioApelacion  {
 	
 	public List<ListaApelacionEstadoApelacion> buscarApelaciones() {
 		
-//		PARA PARAMETROS
-		
-//		String queryStatement = 
-//				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido," +
-//				" sa.nombre_sancion FROM sigarep.sancionmaestro sa, sigarep.estudiante es " +
-//				" INNER JOIN sigarep.estudiantesancionado AS esa ON es.cedula_estudiante =" +
-//				" esa.cedula_estudiante" +
-//				"INNER JOIN sigarep.solicitudapelacion  AS sa ON esa.cedula_estudiante = " +
-//				"sa.cedula_estudiante" +
-//				"INNER JOIN sigarep.apelacionmomento AS ap ON sa.cedula_estudiante = " +
-//				"ap.cedula_estudiante" +
-//				"INNER JOIN sigarep.momento AS m ON m.id_momento = ap.id_momento" +
-//				"WHERE es.cedula_estudiante = ? AND esa.cedula_estudiante = ? " +
-//				"AND sa.cedula_estudiante = ? AND ap.cedula_estudiante = ? AND m.id_momento = ? ";
-//				//"m.nombre_momento = 'veredicto'";
 		
 //FALTA PERIODO DE SANCION
 		String queryStatement2 =
 				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
 				"sa.nombre_sancion, es.email, es.telefono, p.nombre_programa, la.codigo_lapso, i.id_instancia_apelada, " +
-				"tm.nombre_tipo_motivo, r.nombre_recaudo, es.segundo_nombre, es.segundo_apellido, a.nombre_asignatura, sap.numero_caso, tm.id_tipo_motivo " +
-				" FROM sancion_maestro sa, programa_academico p, lapso_academico la, instancia_apelada i, " +
-				"tipo_motivo tm, solicitud_apelacion sap, estudiante es " +
+				"es.segundo_nombre, es.segundo_apellido, a.nombre_asignatura, sap.numero_caso " +
+				"FROM sancion_maestro sa, programa_academico p, lapso_academico la, instancia_apelada i, " +
+				"solicitud_apelacion sap, estudiante es " +
 				"INNER JOIN apelacion_estado_apelacion AS ap ON es.cedula_estudiante = ap.cedula_estudiante " +
 				"INNER JOIN estado_apelacion AS m ON m.id_estado_apelacion = ap.id_estado_apelacion, " +
-				"motivo as mo LEFT JOIN recaudo_entregado AS re ON (mo.id_tipo_motivo = re.id_tipo_motivo AND " +
-				"re.id_instancia_apelada = mo.id_instancia_apelada AND " +
-				"re.codigo_lapso = mo.codigo_lapso AND re.cedula_estudiante = mo.cedula_estudiante) " +
-				"LEFT JOIN recaudo as r ON (r.id_recaudo = re.id_recaudo)," +
 				"estudiante_sancionado AS esa LEFT JOIN asignatura_estudiante_sancionado AS aesa ON " +
-				"(aesa.codigo_lapso = esa.codigo_lapso " +
-				"AND aesa.cedula_estudiante = esa.cedula_estudiante)" +
+				"(aesa.codigo_lapso = esa.codigo_lapso AND aesa.cedula_estudiante = esa.cedula_estudiante)" +
 				"LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
-				"WHERE sa.id_sancion = esa.id_sancion " +
-				"AND m.id_estado_apelacion = ap.id_estado_apelacion  AND m.nombre_estado = 'consejodecanato' " +
-				"AND esa.codigo_lapso = la.codigo_lapso AND i.id_instancia_apelada = sap.id_instancia_apelada " +
+				"WHERE sa.id_sancion = esa.id_sancion AND " +
+				"m.id_estado_apelacion = ap.id_estado_apelacion  AND m.nombre_estado = 'veredicto' " +
+				"AND esa.codigo_lapso = la.codigo_lapso  AND i.id_instancia_apelada = sap.id_instancia_apelada  " +
 				"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
-				"AND sap.id_instancia_apelada = mo.id_instancia_apelada AND tm.id_tipo_motivo = mo.id_tipo_motivo " +
-				"AND re.id_tipo_motivo = mo.id_tipo_motivo AND la.estatus = 'true' AND es.cedula_estudiante = " +
-				"esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante";
+				"AND la.estatus = 'true' AND es.cedula_estudiante = " +
+				"esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante AND ap.id_instancia_apelada = '1' "  +
+				"AND sap.estatus = 'true'" ; 
+				
+		
 
 		Query query = em.createNativeQuery(queryStatement2);
-		
-		//PARA PARAMETROS
-		
-//		query.setParameter(1, estudiante.getCedulaEstudiante());
-//		query.setParameter(1, estudiantesancionado.getId().getCedulaEstudiante());
-//		query.setParameter(2, solicitudapelacion.getId().getCedulaEstudiante());
-//		query.setParameter(3, apelacionmomento.getId().getCedulaEstudiante());
-//		query.setParameter(4, momento.getIdMomento());
+
 		
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
@@ -95,8 +70,7 @@ public class ServicioApelacion  {
 			results.add(new ListaApelacionEstadoApelacion((String) resultRow[0], (String) resultRow[1],
 					(String) resultRow[2], (String) resultRow[3], (String) resultRow[4], (String) resultRow[5],
 					(String) resultRow[6], (String) resultRow[7], (Integer)(resultRow[8]), (String) resultRow[9],
-					(String) resultRow[10], (String)resultRow[11],(String) resultRow[12], (String) resultRow[13],
-					(Integer) resultRow[14], (Integer) resultRow[15]));
+					 (String)resultRow[10],(String) resultRow[11], (Integer) resultRow[12]));
 		}
 		
 		return results;
@@ -119,7 +93,7 @@ public class ServicioApelacion  {
 			for (ListaApelacionEstadoApelacion ap : buscarApelaciones())
 			{
 				if (ap.getPrograma().toLowerCase().contains(programa)&&
-						ap.getMotivo().toLowerCase().contains(motivo)&&
+					//	ap.getMotivo().toLowerCase().contains(motivo)&&
 						ap.getCedulaEstudiante().toLowerCase().contains(cedula)&&
 						ap.getPrimerNombre().toLowerCase().contains(nombre)&&
 						ap.getPrimerApellido().toLowerCase().contains(apellido)&&
@@ -130,15 +104,46 @@ public class ServicioApelacion  {
         }
 		return result;
         } 
-//	@Override
-//	public List<ListaApelacionMomento> buscarApelaciones(
-//			EstudianteSancionado estudiantesancionado,
-//			SolicitudApelacion solicitudapelacion,
-//			ApelacionMomento apelacionmomento, Momento momento) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 	
-	
+	public List<ListaRecaudosMotivoEstudiante> buscarRecaudos(String cedula) {
+		String queryStatement = 
+				"SELECT r.nombre_recaudo, tm.nombre_tipo_motivo, s.nombre_documento, s.contenido_documento, " +
+				"s.tipo_documento, tm.id_tipo_motivo, re.id_recaudo FROM  tipo_motivo tm " +
+				"INNER JOIN motivo AS m ON m.id_tipo_motivo = tm.id_tipo_motivo " +
+				"INNER JOIN solicitud_apelacion  as sa on sa.cedula_estudiante = m.cedula_estudiante " +
+				"and sa.codigo_lapso = m.codigo_lapso and sa.id_instancia_apelada   = m.id_instancia_apelada  " +
+				"inner join estudiante_sancionado as esa on esa.cedula_estudiante = sa.cedula_estudiante " +
+				"and esa.codigo_lapso = sa.codigo_lapso " +
+				"inner join estudiante as es on es.cedula_estudiante = esa.cedula_estudiante " +
+				"inner join lapso_academico as la on la.codigo_lapso = esa.codigo_lapso ,  " +
+				"recaudo_entregado as re left join soporte as s on s.id_recaudo = re.id_recaudo and " +
+				"s.codigo_lapso = re.codigo_lapso and s.cedula_estudiante = re.cedula_estudiante and " +
+				"s.id_instancia_apelada = re.id_instancia_apelada and s.id_tipo_motivo = re.id_tipo_motivo " +
+				"left join recaudo as r on r.id_recaudo = re.id_recaudo  " +
+				"where r.id_tipo_motivo = tm.id_tipo_motivo and r.id_recaudo = re.id_recaudo and " +
+				"la.estatus = 'TRUE' and esa.cedula_estudiante = "+"'"+ cedula +"' and m.cedula_estudiante = re.cedula_estudiante " +
+				"and m.codigo_lapso = re.codigo_lapso and m.id_instancia_apelada = re.id_instancia_apelada and " +
+				"m.id_tipo_motivo = re.id_tipo_motivo and re.id_instancia_apelada = '1'";
 
-}
+		Query query = em.createNativeQuery(queryStatement);
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		
+		List<ListaRecaudosMotivoEstudiante> results = new ArrayList<ListaRecaudosMotivoEstudiante>();
+		for (Object[] resultRow : resultSet) {
+			System.out.println(resultRow[0]);
+			System.out.println(resultRow[1]);
+			
+			results.add(new ListaRecaudosMotivoEstudiante ((String) resultRow[0], (String) resultRow[1],
+					(String) resultRow[2], (byte[]) resultRow[3], (String) resultRow[4], (Integer) resultRow[5],
+					(Integer) resultRow[6]));
+		}
+		
+		return results;
+	}
+
+	
+	}
+

@@ -4,8 +4,8 @@
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm')
-     @init('sigarep.viewmodels.transacciones.ViewModelSolicitudApelacion')">
-	<style src="/widgets/grid/simple/style.css"  onCreate= "@command('inhabilitar')" />
+     @init('sigarep.viewmodels.transacciones.ViewModelSolicitudApelacion')"  onCreate= "visible.asignaturaVisible()">
+	<style src="/widgets/grid/simple/style.css" />
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />
 		<textbox id="txtnrocaso" cols="23" maxlength="30" value="@bind(vm.caso)"
@@ -14,7 +14,7 @@
 	</div>
 	<space/>
 	<groupbox id="grbDatosestudiante">
-		<caption id="lblDatosestudiante" label="Datos Estudiante" />
+		<caption id="lblDatosestudiante" label="Datos Estudiante" /> 
 			<grid id="grdDatosEstudiante">
 				<rows>
 					<row>
@@ -22,30 +22,31 @@
 						<textbox id="txtcedula" cols="23" maxlength="30"
 							disabled="true" value="@bind(vm.cedula)" width="200px">
 						</textbox>
-							<label id="lblNombres" value="Nombres: " />
-						<textbox id="txtNombres" cols="23"
-							maxlength="30" value="@bind(vm.nombres)" disabled="true" width="200px">
-						</textbox>
-					</row>
-					<row>
-						<label id="lblApellidos" value="Apellidos: " />
-						<textbox id="txtApellidos" cols="23"
-							maxlength="30" value="@bind(vm.apellidos)" disabled="true" width="200px">
-						</textbox>
-							<label id="lblEmail" value="Email: " />
-						<textbox id="txtEmail" cols="23" maxlength="30"
-							value="@bind(vm.email)" disabled="true" width="200px">
-						</textbox>
-					</row>
-					<row>
-						<label id="lblTelefono" value="Telefono: " />
-						<textbox id="txtTelefono" cols="23"
-							maxlength="30" value="@bind(vm.telefono)" disabled="true" width="200px">
-						</textbox>
 						<label id="lblPrograma" value="Programa: " />
 						<textbox id="txtPrograma" cols="23"
 							maxlength="30" value="@bind(vm.programa)" disabled="true" width="200px">
 						</textbox>
+					</row>
+					<row>
+						<label id="lblNombres" value="Nombres: " />
+						<textbox id="txtNombres" cols="23"
+							maxlength="30" value="@bind(vm.nombres)" disabled="true" width="200px">
+						</textbox>
+						<label id="lblApellidos" value="Apellidos: " />
+						<textbox id="txtApellidos" cols="23"
+							maxlength="30" value="@bind(vm.apellidos)" disabled="true" width="200px">
+						</textbox>
+<!-- 							<label id="lblEmail" value="Email: " /> -->
+<!-- 						<textbox id="txtEmail" cols="23" maxlength="30" -->
+<!-- 							value="@bind(vm.email)" disabled="true" width="200px"> -->
+<!-- 						</textbox> -->
+					</row>
+					<row>
+<!-- 						<label id="lblTelefono" value="Telefono: " /> -->
+<!-- 						<textbox id="txtTelefono" cols="23" -->
+<!-- 							maxlength="30" value="@bind(vm.telefono)" disabled="true" width="200px"> -->
+<!-- 						</textbox> -->
+						
 					</row>
 				</rows>
 			</grid>
@@ -95,9 +96,9 @@
 		<hlayout>
 					<hbox>
 						<button label="Cargar Carta de Reconsideración" id="btnDocumento" upload="true"
-						 onUpload="@command('cargarDocumento',upload=event)" image="/imagenes/iconos/cargar.png" 
+						 onUpload="@command('cargarCartaReconsideracion',upload=event)" image="/imagenes/iconos/cargar.png" 
 						 mold="trendy"></button>
-						<a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
+						<label id="lblDocumento" value="@bind(vm.nombreDoc)"></label>
 					</hbox>
 					</hlayout>
 				</row>
@@ -109,29 +110,35 @@
 		</grid>
 	</groupbox>
 	<groupbox>
-		<listbox sclass="employee-list" vflex="true" hflex="1">
-			<auxhead>
-				<auxheader colspan="3" class="topic">
-					Recaudos
-				</auxheader>
-			</auxhead>
+	<caption id="lblDatosRecaudos" label="Recaudos Entregados" />
+		<listbox   model="@bind(vm.listaRecaudos)"   
+   			 					 emptyMessage="No hay recaudos registrados" mold="paging" pageSize="5">	
+
+			
 			<listhead>
-				<listheader label="Recaudos" width="350px" align="center" sort="auto(recaudo)"/>
-				<listheader label="Documentos Cargados" align="center" />
-				<listheader label="Subir Documento" width="200px"
-					align="center" />
+				<listheader label="Motivos" width="35%" align="center" sort="auto(nombreMotivo)"/>
+				<listheader label="Recaudos" width="35%" align="center" sort="auto(nombreRecaudo)"/>
+				<listheader label="Documentos Cargados" width="30%" align="center" />
 			</listhead>
+			<template name="model">
 			<listitem>
-				<listcell  label="@bind(vm.recaudo)" />
-				<listcell label="Cargado" />
-				<listcell>
-					<button id="btnActualizar" width="auto"
-						height="auto" label="Actualizar Documento"
-						image="/imagenes/iconos/guardar.png" orient="horizontal"
-						mold="trendy">
-					</button>
+				<listcell  label="${each.nombreTipoMotivo}" />
+				<listcell  label="${each.nombreRecaudo}" />
+				<listcell> 
+					<a label="${each.nombreDocumento}" onClick="@command('descargarDocumento', componente=self)">
+						<custom-attributes idRecaudo = "${each.idRecaudo}" />
+					</a> 
 				</listcell>
+<!-- 				<listcell> -->
+<!-- 					<button  width="auto" -->
+<!-- 						height="auto" label="Actualizar Documento" upload="true" -->
+<!-- 						 onUpload="@command('cargarDocumento',upload=event,componente=self)" image="/imagenes/iconos/cargar.png"  -->
+<!-- 						 orient="horizontal" mold="trendy"> -->
+<!-- 						 <custom-attributes idRecaudo="${each.idRecaudo}"/> -->
+<!-- 					</button> -->
+<!-- 				</listcell> -->
 			</listitem>
+	</template>
 		</listbox>
 	</groupbox>
 	<div align="right">
@@ -154,4 +161,23 @@
 			</div>
 		</hbox>
 	</div>
+	<zscript><![CDATA[
+	 class Visible {
+		 Visible (){
+		 }
+		public void asignaturaVisible (){
+		if (txtTipoSancion.getValue().toString().equals("RR")){
+		txtAsignatura.setVisible (true);
+		lblAsignatura.setVisible (true);
+		}
+		else {
+			txtAsignatura.setVisible (false);
+			lblAsignatura.setVisible (false);
+		}
+		}
+		
+		}
+	 Visible visible = new Visible ();               
+	                  
+	]]></zscript>
 </window>

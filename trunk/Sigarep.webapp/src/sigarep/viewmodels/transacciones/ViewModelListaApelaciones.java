@@ -30,6 +30,7 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.*;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacionFiltros;
+import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 
 
@@ -39,8 +40,8 @@ public class ViewModelListaApelaciones  {
 	
 	@WireVariable
 	private Textbox txtAsignatura;
-	@WireVariable
-	private Estudiante estudiante = new Estudiante();
+	//@WireVariable
+	//private Estudiante estudiante = new Estudiante();
 	@WireVariable
 	private EstudianteSancionado estudiantesancionado;
 	@WireVariable
@@ -62,7 +63,7 @@ public class ViewModelListaApelaciones  {
 	@WireVariable
 	private ServicioApelacion serviciolista;
 	@WireVariable
-	private List<EstudianteSancionado> listaSancionados =  new LinkedList<EstudianteSancionado>();
+	//private List<EstudianteSancionado> listaSancionados =  new LinkedList<EstudianteSancionado>();
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<ApelacionEstadoApelacion> listadoApelaciones;
@@ -84,7 +85,7 @@ public class ViewModelListaApelaciones  {
 	private Integer caso;
 	private Integer idMotivo;
 	
-	
+
 	public Integer getIdMotivo() {
 		return idMotivo;
 	}
@@ -294,7 +295,7 @@ public class ViewModelListaApelaciones  {
 	  	
 	  	@Command
 		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", 
-			"sancion", "lapso", "recaudo", "segundoNombre", "segundoApellido", "asignatura", "caso"})
+			"sancion", "lapso",  "segundoNombre", "segundoApellido", "asignatura", "caso"})
 		public void showModal (){
 	  		cedula = getListaapelacionestadoapelacion().getCedulaEstudiante();
 	  		nombre = getListaapelacionestadoapelacion().getPrimerNombre();
@@ -305,13 +306,12 @@ public class ViewModelListaApelaciones  {
 	  		sancion = getListaapelacionestadoapelacion().getNombreSancion();
 	  		lapso = getListaapelacionestadoapelacion().getLapso();
 	  		instancia = getListaapelacionestadoapelacion().getInstancia();
-	  		motivo = getListaapelacionestadoapelacion().getMotivo();
-	  		recaudo = getListaapelacionestadoapelacion().getRecaudo();
 	  		segundoNombre = getListaapelacionestadoapelacion().getSegundoNombre();
 	  		segundoApellido = getListaapelacionestadoapelacion().getSegundoApellido();
 	  		asignatura = getListaapelacionestadoapelacion().getAsignatura();
 	  		caso  = getListaapelacionestadoapelacion().getCaso();
-	  		idMotivo  = getListaapelacionestadoapelacion().getIdMotivo();
+	  
+	  		
 	  		
 	  		final HashMap<String, Object> map = new HashMap<String, Object>();
 	        map.put("cedula", this.cedula );
@@ -323,14 +323,14 @@ public class ViewModelListaApelaciones  {
 	        map.put("sancion", this.sancion);
 	        map.put("lapso", this.lapso);
 	        map.put("instancia", this.instancia);
-	        map.put("motivo", this.motivo);
-	        map.put("recaudo", this.recaudo);
+	       
+	       
 	        map.put("segundoNombre", this.segundoNombre);
 	        map.put("segundoApellido", this.segundoApellido);
 	        map.put("asignatura", this.asignatura);
 	        map.put("caso", this.caso); 
-	        map.put("idMotivo", this.idMotivo);   
-	       
+	        
+	     
 	        
 	        final Window window = (Window) Executions.createComponents(
 	        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarReconsideracion.zul", null, map);
