@@ -4,11 +4,10 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 /*
- * Debe declarar una variable tipo mensajes en donde usará los mensajes (su clase viewmodels), 
+ * Debe declarar una variable tipo mensajes como estándar mensajeAlUsuario(mensajes mensajeAlUsuario = new mensajes();) en donde usará los mensajes (su clase viewmodels), 
  * primero importe el paquete herramientas
- * por ejemplo: private mensajes misMensajes;
- * Cuando vaya a usar algún mensaje coloca misMensajes.NombreDelMetodo();
- * por ejemplo: misMensajes.advertenciaLlenarCampos();
+ * Cuando vaya a usar algún mensaje coloca mensajeAlUsuario.NombreDelMetodo();
+ * por ejemplo: mensajeAlUsuario.advertenciaLlenarCampos();
  * Lea los estándaresInterfacesV1.2 para que observe cuáles son los mensajes que puede necesitar.
  * si necesita algún otro mensaje agréguelo a esta clase, en orden.
  * por ejemplo: si es de advertencia, debajo del último de advertencia.
@@ -38,13 +37,13 @@ public void advertenciaSoloLetras(){
 
 public void advertenciaIngresarUsuario(){
 	
-	Messagebox.show("Debe ingresar un usuario", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	Messagebox.show("¡Debe ingresar un usuario!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 
 }
 
 public void advertenciaIngresarContraseña(){
 	
-	Messagebox.show("Debe ingresar una contraseña", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	Messagebox.show("¡Debe ingresar una contraseña!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 
 }
 
@@ -57,8 +56,20 @@ public void advertenciaSeleccionarOpcion(){
 public void advertenciaNoCaracteres(){
 	
 	Messagebox.show("El campo no permite caracteres especiales.", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-
 }
+
+public void advertenciaCargarImagen(){
+
+	Messagebox.show("¡Debe Cargar una Imagen!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+}
+
+public void advertenciaSeleccionarParaEliminar(){
+	
+	
+	Messagebox.show("Debe seleccionar un registro para eliminarlo", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+}
+
+
 	
 	public void informacionRegistroCorrecto(){
 		
