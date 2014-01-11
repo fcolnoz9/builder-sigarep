@@ -17,6 +17,17 @@ import java.util.List;
 @Table(name="recaudo")
 public class Recaudo implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+
+	public Recaudo(Integer idRecaudo, String descripcion, Boolean estatus,
+			String nombreRecaudo, String observacion) {
+		super();
+		this.idRecaudo = idRecaudo;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.nombreRecaudo = nombreRecaudo;
+		this.observacion = observacion;
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
