@@ -1,24 +1,41 @@
 package sigarep.modelos.data.maestros;
 
 public class RecaudoFiltro {
-	private String nombre_recaudo = "", nombre_tipo_motivo = "";
+	private String nombreRecaudo = "", descripcion="", observacion="", nombreTipoMotivo = "";
 
-	public String getNombre_recaudo() {
-		return nombre_recaudo;
+	public String getNombreRecaudo() {
+		return nombreRecaudo;
 	}
 
-	public void setNombre_recaudo(String nombre_recaudo) {
-		this.nombre_recaudo = nombre_recaudo;
+	public void setNombreRecaudo(String nombreRecaudo) {
+		this.nombreRecaudo = nombreRecaudo == null ? "" : nombreRecaudo.trim();
+
 	}
 
-	public String getNombre_tipo_motivo() {
-		return nombre_tipo_motivo;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setNombre_tipo_motivo(String nombre_tipo_motivo) {
-		this.nombre_tipo_motivo = nombre_tipo_motivo;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion == null ? "" : descripcion.trim();
 	}
 
-	
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion == null ? "" : observacion.trim();;
+	}
+
+	public String getNombreTipoMotivo() {
+		return nombreTipoMotivo;
+	}
+
+	public void setNombreTipoMotivo(String nombreTipoMotivo) {
+		this.nombreTipoMotivo = nombreTipoMotivo == null ? "" : nombreTipoMotivo.trim();;
+	}
+
+
 }
 	
