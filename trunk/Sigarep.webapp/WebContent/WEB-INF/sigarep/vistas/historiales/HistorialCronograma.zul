@@ -1,0 +1,62 @@
+<?page title="HistorialCronograma" contentType="text/html;charset=UTF-8"?>
+<window id="winHistorialCronograma" title="Gestión :: Planificar :: Historial de Cronograma" border="normal"
+	width="auto" height="auto" closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialCronograma')"  
+            action="hide: slideUp"  onCancel="@command('closeThis')" >
+<!-- 		<style src="/widgets/grid/simple/style.css" > -->
+			 <separator spacing="15px" />
+			 
+			
+	 				<label value="Lapso academico: " id="lblLapsoAcademico" />
+					<combobox readonly="true" id= "cmbLapsoAcademico" value="@bind(vm.lapsoAcademico.codigoLapso)" 
+				    width="150px" mold="rounded" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('buscarDetalleLapsoAcademicoCombo')">
+							<template name="model">
+								<comboitem  label="${each.codigoLapso}"/>
+							</template>
+					</combobox>
+				 
+				    <separator spacing="30px" />
+
+    <groupbox>
+			<caption label="Actividades Agregadas al Cronograma" />
+			<listbox id="lbxActividades" height="auto"
+				model="@bind(vm.listaCronogramas)"
+				emptyMessage="No hay actividades registradas" mold="paging"
+				pageSize="5">
+				<listhead>
+					<listheader label="Actividad" align="center"
+						sort="auto(actividad.getNombre)" />
+					<listheader label="Fecha Inicio" align="center"
+						sort="auto(fechaInicio)" />
+					<listheader label="Fecha Fin" align="center"
+						sort="auto(fechaFin)" />
+					<listheader label="Lugar" align="center"
+						sort="auto(lugar)" />
+					<listheader label="Hora" align="center"
+						sort="auto(horaInicio)" />
+					<listheader label="Observacion" align="center"
+						sort="auto(observacion)" />
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.getActividad().getNombre()}"></listcell>
+						<listcell label="${each.fechaInicio}"></listcell>
+						<listcell label="${each.fechaFin}"></listcell>
+						<listcell label="${each.lugar}"></listcell>
+						<listcell label="${each.horaInicio}"></listcell>
+						<listcell label="${each.observacion}"></listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+
+	<separator spacing="15px" />
+	<div align="right" height="100%">
+        
+        <button id="btnCerrar" label="Cerrar"
+				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+				height="auto" orient="horizontal" onClick="winHistorialCronograma.onClose()" />
+	</div>
+	<separator spacing="15px" />
+		
+</window>
