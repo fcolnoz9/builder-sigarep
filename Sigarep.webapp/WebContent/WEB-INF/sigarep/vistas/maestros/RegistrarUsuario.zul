@@ -1,10 +1,40 @@
-<window title="Registros Básicos :: Registrar Usuario"
+<window title="AdministraciÃ³n del Sistema :: Seguridad funcional :: Registrar Usuario"
 	id="winRegistrarUsuario" border="normal" closable="true"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMusuario')">
+	
+	
+	
+	<zscript><![CDATA[
+        class MyConst implements Constraint, CustomConstraint {
+            //Constraint//
+            public void validate(Component comp, Object value) {
+                if (value == null || ((Integer)value).intValue() < 100)
+                    throw new WrongValueException(comp, "At least 100 must be specified"+txtCorreo.getInstant());
+            }
+            //CustomConstraint//
+            public void showCustomError(Component comp, WrongValueException ex) {
+                errmsg.setValue(ex != null ? ex.getMessage(): "");
+            }
+        }
+        Constraint ctt = new MyConst();
+        
+        
+    ]]>
+    </zscript>
+<!--     <hlayout> -->
+<!--         Enter a number at least 100: -->
+<!--         <intbox constraint="${ctt}" /> -->
+<!--         <label id="errmsg" /> -->
+<!--     </hlayout> -->
+	
+	<attribute name="onTimer">
+		
+		
+	</attribute>
 	<groupbox>
 		<caption label="Datos del usuario" />
-		<grid sclass="fgrid">
+		<grid id="cosa" sclass="fgrid">
 			<columns>
 				<column align="right" width="40%" />
 				<column align="center" />
@@ -15,29 +45,28 @@
 				<row>
 					<label value="Nombre del usuario: " id="lblNombreUsuario" />
 					<textbox id="txtNombreUsuario" cols="23"
-						constraint="no empty" width="200px" maxlength="30"
+						constraint="/[a-z,0-9]+/: No deje espacios en blanco y solo use letras [A-Z]" width="200px" maxlength="30"
 						value="@bind(vm.nombreUsuario)" />
 				</row>
 				<row>
-					<label value="Correo electrónico: " id="lblCorreo" />
+					<label value="Correo electrÃ³nico: " id="lblCorreo" />
 					<textbox id="txtCorreo" cols="23"
-						constraint="no empty" width="200px" maxlength="30"
+						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com" width="200px" maxlength="30"
 						value="@bind(vm.correo)" />
 				</row>
 				<row>
-<!-- 				reconocido -->
-					<label value="Contraseña: " id="lblContraseña" />
+					<label value="ContraseÃ±a: " id="lblContraseña" />
 					<hlayout>
-						<textbox id="txtContraseña"
-							constraint="no empty" width="200px" 
+						<textbox id="txtContraseña" type="password"
+							constraint="/[a-z,0-9]+/: Solo utilice letras y nÃºmeros" width="200px" 
 							value="@bind(vm.contrasenia)" />
 					</hlayout>
 				</row>
 				<row>
-					<label value="Repetir contraseña: " id="lblRepetirContraseña" />
+					<label value="Repetir contraseÃ±a: " id="lblRepetirContraseña" />
 					<hlayout>
-						<textbox id="txtRepetirContraseña"
-							constraint="no empty" width="200px" 
+						<textbox id="txtRepetirContraseña" type="password"
+							constraint="/[a-z,0-9]+/: Solo utilice letras y nÃºmeros" width="200px" 
 							value="@bind(vm.confirmarcontrasenia)" />
 					</hlayout>
 				</row>
@@ -69,9 +98,9 @@
 			emptyMessage="No hay Usuarios registrados" mold="paging"
 			pageSize="5">
 			<listhead>
-				<listheader label="Número de usuario" align="center"
+				<listheader label="Nombre de usuario" align="center"
 					sort="auto(nombreUsuario)" />
-				<listheader label="Fecha de creación" align="center"
+				<listheader label="Fecha de creaciÃ³n" align="center"
 					sort="auto(fechaCreacion)" />
 <!-- 				<listheader label="Estatus" align="center" -->
 <!-- 					sort="auto(descripcion)" /> -->
