@@ -33,10 +33,10 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 	private Date fechaSolicitud;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_veredicto")
-	private Date fechaVeredicto;
+	@Column(name="fecha_sesion")
+	private Date fechaSesion;
 
-	@Column(name="numero_sesion", length=15)
+	@Column(name="codigo_sesion", length=15)
 	private String numeroSesion;
 
 	@Column(length=255)
@@ -44,6 +44,9 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 	
 	@Column(name="numero_caso", nullable=true)
 	private Integer numeroCaso;
+	
+	@Column(name="tipo_sesion", nullable=true, length=30)
+	private String tipoSesion;
 
 	//bi-directional many-to-one association to ApelacionEstadoApelacion
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="solicitudApelacion")
@@ -98,12 +101,12 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 		this.fechaSolicitud = fechaSolicitud;
 	}
 
-	public Date getFechaVeredicto() {
-		return this.fechaVeredicto;
+	public Date getFechaSesion() {
+		return this.fechaSesion;
 	}
 
-	public void setFechaVeredicto(Date fechaVeredicto) {
-		this.fechaVeredicto = fechaVeredicto;
+	public void setFechaSesion(Date fechaSesion) {
+		this.fechaSesion = fechaSesion;
 	}
 
 	public String getNumeroSesion() {
@@ -202,6 +205,14 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 
 	public void setNumeroCaso(Integer numeroCaso) {
 		this.numeroCaso = numeroCaso;
+	}
+
+	public String getTipoSesion() {
+		return tipoSesion;
+	}
+
+	public void setTipoSesion(String tipoSesion) {
+		this.tipoSesion = tipoSesion;
 	}
 
 }
