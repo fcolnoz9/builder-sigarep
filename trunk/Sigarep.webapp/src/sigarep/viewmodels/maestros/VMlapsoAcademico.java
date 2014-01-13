@@ -82,7 +82,14 @@ public class VMlapsoAcademico {
 	public void init(){
         //initialization code
 		buscarActivoLapso();
+		buscarLapso();
     }
+	
+	@Command
+	@NotifyChange({"listaLapsoAcademico"})
+	public void buscarLapso(){
+		listaLapsoAcademico =serviciolapsoacademico.buscarLapsoAcademico(codigoLapso);
+	}
 	 //Metodos que Permite guardar los lapsos Academicos
 	@Command
 	@NotifyChange({"codigoLapso", "fechaInicio", "fechaCierre","listaLapsoAcademico"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
