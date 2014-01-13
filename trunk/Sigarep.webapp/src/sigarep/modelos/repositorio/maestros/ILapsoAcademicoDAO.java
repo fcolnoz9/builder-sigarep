@@ -14,6 +14,9 @@ public interface ILapsoAcademicoDAO extends JpaRepository<LapsoAcademico, String
 	@Query("select  lapso from LapsoAcademico AS lapso  where estatus= TRUE")
 	public List<LapsoAcademico> buscarActivoLapso();
 	
+	@Query("SELECT la FROM LapsoAcademico la WHERE  estatus = TRUE ")
+	public LapsoAcademico buscarLapsoActivo();
 	
-	
+	@Query("SELECT la FROM LapsoAcademico la")
+	public List<LapsoAcademico> buscarLapsosAcademicos();
 }
