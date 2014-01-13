@@ -28,9 +28,31 @@ import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.data.maestros.NoticiaFiltro;
 import sigarep.modelos.servicio.maestros.ServicioNoticia;
 
+import java.util.LinkedList;
+
+import org.springframework.stereotype.Controller;
+import org.zkoss.bind.annotation.BindingParam;
+
+
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.Listen;
+
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.ListModel;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Timer;
+
+
+
+import org.zkoss.zk.ui.event.Event;
+
+import org.zkoss.zk.ui.Component;
+
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMnoticia {
+public class VMnoticia extends SelectorComposer<Component>  {
 	@WireVariable ServicioNoticia servicionoticia;
 	private Integer idNoticia,idNoticiaFiltro;
 	private String contenido,contenidoFiltro;
@@ -46,6 +68,7 @@ public class VMnoticia {
 	private Noticia noticiaSeleccionada;
 	
 	private NoticiaFiltro filtros = new NoticiaFiltro();
+	private @Wire Listbox lbxNoticias;
 	
 @NotifyChange({"filtros"})
 public NoticiaFiltro getFiltros() {
@@ -323,18 +346,46 @@ public NoticiaFiltro getFiltros() {
 		}
 		@Command
 		@NotifyChange({"listaNoticia"})
-		public void reordenarLista(){
-			System.out.println("pase por reeordenar");
+		public void reordenarLista(List<Noticia> listaNoticia){
+			System.out.println("pase por reordenar");
+			
+			if(listaNoticia != null)
+			System.out.println("tiene " + listaNoticia.size());
+			else System.out.println("viene nula");
+			if(listaNoticia.size() > 2){
 			Noticia nitic = listaNoticia.remove(0);
+			
 			System.out.println(nitic.getTitulo());
 			System.out.println(listaNoticia.size());
-			System.out.println(listaNoticia.size());
+			
 			listaNoticia.add(nitic);
+			
 			System.out.println(listaNoticia.size());
+			
 			nitic = listaNoticia.get((listaNoticia.size()-1));
+			
 			System.out.println(nitic.getTitulo());
+			//con este metodo si pueden trabajar tranquilamente el selectedItem onSelect y onClick, yo los uso para invocar una modal
+			lbxNoticias.setModel(new ListModelList<Noticia>(listaNoticia));
+			}else{System.out.println("hay menos de 3 elementos en la lista");}
 			
 		}
-
+		//Maneja el timer de la  vista , se encarga de actualizar la lista cada 5 segu
+		//necesitan declarar la lista y el timer
+		// por ejemplo yo uso private @Wire Timer tiempo; private @Wire Listbox lbxNoticias; 
+				@Listen("onTimer = #tiempo")
+				public void hacer(){
+					System.out.println("otro timer");
+					reordenarLista(getListaNoticia());
+				}
+		
+			@Override
+			public void doAfterCompose(Component comp) throws Exception {
+					// TODO Auto-generated method stub
+					super.doAfterCompose(comp);
+					buscarNoticia();
+		
+					
+			}
 //Fin de los otros metodos.
 }
