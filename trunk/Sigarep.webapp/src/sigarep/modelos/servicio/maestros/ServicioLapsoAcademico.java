@@ -26,9 +26,13 @@ public class ServicioLapsoAcademico{
 		lapsoacademico.setEstatus(false);
 		iLapsoAcademico.save(lapsoacademico);
 		}
-	public List<LapsoAcademico> buscarLapso(String codigoLapso){
-			return iLapsoAcademico.buscarActivoLapso();
-		}
+	public List<LapsoAcademico> buscarLapsoActivo(){
+		return iLapsoAcademico.buscarActivoLapso();
+	}
+	public List<LapsoAcademico> buscarTodosLosLapsos(){
+		return iLapsoAcademico.buscarLapsosAcademicos();
+	}
+
 	// metodo del listado actualizado de los lapsos	
 	public List<LapsoAcademico> listadoLapsoAcademico() {
 		List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarActivoLapso();
