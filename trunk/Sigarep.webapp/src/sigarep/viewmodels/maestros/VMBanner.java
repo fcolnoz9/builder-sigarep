@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 
+import sigarep.herramientas.mensajes;
 import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.maestros.Banner;
 import sigarep.modelos.servicio.maestros.ServicioBanner;
@@ -37,6 +38,7 @@ public class VMBanner {
 	private Archivo fotoBanner = new Archivo();
 	private Media media;
 	private AImage imagenBanner;
+	mensajes mensajeBanner= new mensajes();
 	
 	//Metodos Get y Set de la clase 
 	public Integer getIdImagen() {
@@ -131,7 +133,7 @@ public class VMBanner {
 	@Init
 	public void init(){
         //initialization code
-		fechaVencimiento= new Date();
+		fechaVencimiento= null;
 		media= null;
 		fotoBanner= new Archivo();
 		buscarBanner();
@@ -142,13 +144,13 @@ public class VMBanner {
 		@NotifyChange({"idImagen","descripcion","enlace","fechaVencimiento","titulo","estatus","imagenBanner","listadoBanner"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 		public void guardarBanner(){
 			if (descripcion.equals("")||enlace.equals("")||titulo.equals(""))
-				Messagebox.show("¡Debe llenar todos los campos!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+				mensajeBanner.advertenciaLlenarCampos();
 			else if (fotoBanner.getTamano() < 1)
-				Messagebox.show("¡Debe cargar una imagen!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+				mensajeBanner.advertenciaCargarImagen();
 			else{
 					Banner ban = new Banner (idImagen,descripcion,enlace,fechaVencimiento,titulo,fotoBanner,true);
 					servicioBanner.guardarImagen(ban);
-					Messagebox.show("Se ha registrado correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+					mensajeBanner.informacionRegistroCorrecto();
 					limpiar();
 			}
 		}
@@ -156,9 +158,13 @@ public class VMBanner {
 		@Command
 		@NotifyChange({"listadoBanner","descripcion","fechaVencimiento","enlace","titulo","imagenBanner"})
 		public void eliminarImagenBanner(){
-			servicioBanner.eliminarBanner(idImagen);
-			limpiar();
-			Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+			if(titulo==null || enlace==null || descripcion==null || fechaVencimiento==null || fotoBanner==null)
+				mensajeBanner.advertenciaSeleccionarParaEliminar();
+			else{
+				servicioBanner.eliminarBanner(idImagen);
+				limpiar();
+				mensajeBanner.informacionEliminarCorrecto();
+			}
 		}
 		
 		@Command
@@ -171,7 +177,7 @@ public class VMBanner {
 			 media= null;
 			 imagenBanner= null;
 			 fotoBanner = new Archivo();
-			 fechaVencimiento= new Date();
+			 fechaVencimiento= null;//new Date();
 			 buscarBanner();
 		}
 		
@@ -201,6 +207,7 @@ public class VMBanner {
 			enlace=getBannerSeleccionado().getEnlace();
 			fechaVencimiento=getBannerSeleccionado().getFechaVencimiento();
 			titulo=getBannerSeleccionado().getTitulo();
+			fotoBanner=getBannerSeleccionado().getFotoBanner();
 			if (bannerSeleccionado.getFotoBanner().getTamano() > 0){
 				try {
 					imagenBanner = new AImage(bannerSeleccionado.getFotoBanner().getNombreArchivo(), bannerSeleccionado.getFotoBanner().getContenidoArchivo());
