@@ -1,16 +1,29 @@
+
+<window sclass="principal" border="0" height="100%" contentStyle="overflow:auto" id="winTree" 
+		>
+<!-- 	apply="org.zkoss.bind.BindComposer" -->
+<!--     viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMmenuAplicacion')"> -->
+    
+<!-- 	<tree id="tree" Zclass="z-vfiletree" multiple="false"  -->
+<!--  		height="600px" hflex="true" vflex="true" model="@load(vm.contactTreeModel)" ItemRenderer="sigarep.viewmodels.seguridad.VMmenuTreeRenderer3">  -->
+<!--  		<treecols>  -->
+<!-- 			<treecol label="MENU SIGAREP" sclass="fondo_arbol1" />  -->
+<!--  		</treecols> -->
+<!--  	</tree>   -->
+ 		
 <div>
 	<zscript><![CDATA[
-	import sigarep.controlador.maestros.WindowController;
-	public void createWin(String idNodo, String ruta) {
-		WindowController winController = new WindowController();
-		try {
-			winController.onClickMenu("/WEB-INF/sigarep/vistas/" + ruta + "/"
-					+ idNodo + ".zul");
-		} catch (InterruptedException ex) {
-			// Ignore if can not get win.
-		}
-	}
-]]>
+ 	import sigarep.controlador.maestros.WindowController; 
+ 	public void createWin(String idNodo, String ruta) { 
+ 		WindowController winController = new WindowController(); 
+ 		try { 
+ 			winController.onClickMenu2("/WEB-INF/sigarep/vistas/" + ruta + "/" 
+ 					+ idNodo + ".zul"); 
+ 		} catch (InterruptedException ex) { 
+ 			 //Ignore if can not get win. 
+ 		} 
+ 	} 
+	]]> 
 	</zscript>
 	<tree id="tree" Zclass="z-vfiletree" multiple="false"
 		height="600px" hflex="true" vflex="true">
@@ -462,9 +475,9 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Crear grupo de usuarios" id="RegistrarTipoGrupo"
+										label="Crear grupo de usuarios" id="RegistrarGrupo"
 										sclass="maestros"
-										onClick="createWin(RegistrarTipoGrupo.getId(), RegistrarTipoGrupo.getSclass())" />
+										onClick="createWin(RegistrarGrupo.getId(), RegistrarGrupo.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
@@ -543,3 +556,4 @@
 
 	</tree>
 </div>
+</window>

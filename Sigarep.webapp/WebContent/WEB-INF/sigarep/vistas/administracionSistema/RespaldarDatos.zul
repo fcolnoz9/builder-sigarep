@@ -1,5 +1,5 @@
 <zk>
-<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" zclass="z-window-overlapped" width="auto" height="auto" closable="true" >
+<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" width="auto" height="auto" closable="true" >
 	<zscript>
 	<![CDATA[
 		//***************************************************************************
@@ -101,8 +101,11 @@
 						</rows>
 					</grid>
 				</groupbox>
-				<div>
-
+			<div  width="99%" height="70%">
+				<grid id="grdGuardarYCancelar" width="99%">
+   				<rows>
+   					<row  align="right">
+				<hbox>
 				<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
 				height="auto" orient="horizontal">
 						<attribute name="onClick">
@@ -133,7 +136,11 @@
 						<attribute name="onClick">
 							cancelar();
 					</attribute>
-					</button>					
+					</button>
+					</hbox>			
+				</row>
+   			  </rows>
+   		</grid>
 				</div>
 			</div>					
 		</panelchildren>
@@ -147,21 +154,19 @@
    		<caption label="Lista de Backups " />
    		<div align="center">
 <!--    		FALTA PROGRAMAR ESTA LISTA...No quiere verse el modelo NPI... -->
-   		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados" mold="paging" pageSize="10" model="@{listaDirectorio1}">
-			<listhead>
-				<listheader label="Descripción" align="center" sort="auto(descripcion)" />
-				<listheader label="Fecha" align="center" sort="auto(fecha)" />
-				<listheader label="Tamaño de Archivo" width="20%" align="center" sort="auto(tamanno)" />
-				<listheader label="Acciones" align="center" />
-			</listhead>
-			<template name="model">
-				<listitem selected="true">
-					<listcell label="${each.descripcion}" ></listcell>
-					<listcell label="${each.fecha}"></listcell>
-					<listcell label="${each.tamanno}"></listcell>
-					<listcell label=" (X) "></listcell>
-				</listitem>
-			</template>
+   		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados" mold="paging" pageSize="10" model="@{listaDirectorio1}" multiple="false">
+			<listhead sizable="true">
+				<listheader label="Descripción" align="center" />
+			</listhead>	
+				<attribute name="onSelect">
+				<![CDATA[
+						String archivoSelec = backupsListbox.getSelectedItem().getValue();
+				]]>				
+				</attribute>
+<!-- 				<listheader label="Fecha" align="center" sort="auto(fecha)" /> -->
+<!-- 				<listheader label="Tamaño de Archivo" width="20%" align="center" sort="auto(tamanno)" /> -->
+<!-- 				<listheader label="Acciones" align="center" /> -->
+
 		</listbox>
 		</div>
 			<space />
@@ -194,11 +199,11 @@
 			import java.util.Date;
 			import java.text.SimpleDateFormat;
 			public void seleccionarRuta(){
-				
 				JFileChooser chooser = new JFileChooser();
 				// Titulo que llevara la ventana
 				chooser.setDialogTitle("Guardar en...");
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.setVisible(true);
 				chooser.showOpenDialog(null);
 				//Retornando el directorio destino directorio
 				if(chooser.getSelectedFile()!=null){
@@ -306,6 +311,5 @@
 		}
 		]]>
 	</zscript>
-	
 </window>
 </zk>

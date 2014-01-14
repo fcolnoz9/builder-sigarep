@@ -1,23 +1,19 @@
-	<window title="Iniciar Sesion" border="normal" width="100%">
-		<h:form id="f" name="f" action="j_spring_security_check"
-			method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
-			<vlayout>
-				<hlayout>
-					<label value="Usuario" style="font-size:11px" />
-					<textbox id="u" name="j_username" hflex="1" />
-					<label value="Clave" style="font-size:11px" />
-					<textbox id="p" type="password" name="j_password"
-						hflex="1" />
-					<h:input type="submit" value="Entrar" />
-<!-- 					<button label="Entrar" id="btnlogin"></button> -->
-				</hlayout>
-<!-- 				<div -->
-<!-- 					apply="sigarep.controlador.maestros.ModalControler2" -->
-<!-- 					align="center"> -->
-<!-- 					<image id="orderBtn2" -->
-<!-- 						src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" /> -->
-<!-- 				</div> -->
-			</vlayout>
-		</h:form>
-
-	</window>
+<window id="winLogin" title="Iniciar Sesion" border="normal" width="100%" style="background-color:blue">
+	<h:form id="f" name="f" action="j_spring_security_check"
+		method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
+	<vlayout>
+		<hlayout>
+			<label value="Usuario" style="font-size:11px" />
+			<textbox id="u" name="j_username" hflex="1" />
+			<label value="Clave" style="font-size:11px" />
+			<textbox id="log_clave" hflex="1" type="password" name="j_password" />
+			<h:input type="submit" value="Entrar"/>
+			<button href="index.zul" label="Entrar" id="btnlogin"/>
+		</hlayout>
+	</vlayout>	
+	</h:form>
+		<div apply="sigarep.controlador.maestros.ModalControler2"
+			align="center">
+			<a id="ordenRecuperarContrasenna">¿Olvidó su contraseña?</a>
+		</div>
+</window>

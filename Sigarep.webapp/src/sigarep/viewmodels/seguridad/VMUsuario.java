@@ -1,73 +1,58 @@
-package sigarep.viewmodels.maestros;
+package sigarep.viewmodels.seguridad;
 
+import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
+
+import org.hibernate.Session;
+
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.ListModelList;
 
 import sigarep.herramientas.EnviarCorreo;
-import sigarep.modelos.data.maestros.Usuario;
-import sigarep.modelos.servicio.maestros.ServicioUsuario;
+import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.seguridad.Grupo;
+import sigarep.modelos.data.seguridad.Usuario;
+import sigarep.modelos.servicio.seguridad.ServicioGrupo;
+import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMusuario {
+public class VMUsuario {
 
-	@WireVariable 
-	ServicioUsuario serviciousuario;
+	@WireVariable
+	private ServicioUsuario su;
+
+	@WireVariable
+	private ServicioGrupo sg;
 
 	private String nombreUsuario;
-	private String contrasenia;
-	private String confirmarcontrasenia;
 	private String correo;
-	private Boolean estatus;
-	private Date fechaCreacion;
-	private Date fechaEliminacion;
-	@WireVariable
-	private String correoLogin;
-	
-	
-
+	private String clave;
+	private String confirmarcontrasenia;
+	private String nombreCompleto;
+	private String estado;
+	private ListModelList<Grupo> modeloGrupo;
+	List<Grupo> listGrupo;
 	private List<Usuario> listaUsuario;
 	private Usuario usuarioSeleccionado;
-
-	// Metodos GETS Y SETS
 	
+	@WireVariable
+	private String correoLogin;
 
-	public String getConfirmarcontrasenia() {
-		return confirmarcontrasenia;
-	}
-
-	public void setConfirmarcontrasenia(String confirmarcontrasenia) {
-		this.confirmarcontrasenia = confirmarcontrasenia;
-	}
-
-	// Fin de los metodos gets y sets
-	public Date getFechaEliminacion() {
-		return fechaEliminacion;
-	}
-
-	public void setFechaEliminacion(Date fechaEliminacion) {
-		this.fechaEliminacion = fechaEliminacion;
-	}
+	private mensajes msjs = new mensajes();
+	
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
-	}
-
-	public String getContrasenia() {
-		return contrasenia;
-	}
-
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
 	}
 
 	public String getCorreo() {
@@ -78,30 +63,38 @@ public class VMusuario {
 		this.correo = correo;
 	}
 
-	public Boolean getEstatus() {
-		return estatus;
+	public String getClave() {
+		return clave;
 	}
 
-	public void setEstatus(Boolean estatus) {
-		this.estatus = estatus;
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
+	public String getNombreCompleto() {
+		return nombreCompleto;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
 	}
 
-	public List<Usuario> getListaUsuario() {
-		return listaUsuario;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setListaUsuario(List<Usuario> listaUsuario) {
-		this.listaUsuario = listaUsuario;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
+	public ListModelList<Grupo> getModeloGrupo() {
+		return modeloGrupo;
+	}
+
+	public void setModeloGrupo(ListModelList<Grupo> modeloGrupo) {
+		this.modeloGrupo = modeloGrupo;
+	}
+	
 	public Usuario getUsuarioSeleccionado() {
 		return usuarioSeleccionado;
 	}
@@ -118,28 +111,49 @@ public class VMusuario {
 		this.correoLogin = correoLogin;
 	}
 
-	// OTROS METODOS
-	// Metodos que perimite guardar una Actividad
+	public String getConfirmarcontrasenia() {
+		return confirmarcontrasenia;
+	}
+
+	public void setConfirmarcontrasenia(String confirmarcontrasenia) {
+		this.confirmarcontrasenia = confirmarcontrasenia;
+	}
+
+	public List<Grupo> getListGrupo() {
+		return listGrupo;
+	}
+
+	public void setListGrupo(List<Grupo> listGrupo) {
+		this.listGrupo = listGrupo;
+	}
+
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia","confirmarcontrasenia", "correo",
+	@NotifyChange({ "nombreUsuario", "clave","confirmarcontrasenia", "correo",
 			"listaUsuario" })
 	public void guardarUsuario() {
-		if (nombreUsuario.equals("") || contrasenia.equals("")|| correo.equals("")) {
-			Messagebox.show("Debe llenar todos los campos", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombreUsuario=="" || clave==""|| correo=="") {
+			msjs.advertenciaLlenarCampos();
 		} else {
-			//Actividad actividad = new Actividad(id_actividad, nombre,
-			//		descripcion, imagen, true);
-			//servicioactividad.guardar(actividad);
-			Date fecha= new Date();
-			Usuario usuario = new Usuario(nombreUsuario, contrasenia, correo, true, fecha);
-			serviciousuario.guardar(usuario);
-			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
-					Messagebox.OK, Messagebox.INFORMATION);
+			Usuario usuario = new Usuario();
+			usuario.setNombreUsuario(nombreUsuario);
+			usuario.setClave(clave);
+			usuario.setCorreo(correo);
+//			usuario.setNombreCompleto(nombreCompleto); //esto se lo debería traer de la vista, ojo JM.
+			usuario.setEstatus(true);
+			su.guardarUsuario(usuario);
+			msjs.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
-
+	
 	@Init
 	public void init() {
 		// initialization code
@@ -150,15 +164,15 @@ public class VMusuario {
 	@Command
 	@NotifyChange({ "listaUsuario" })
 	public void buscarUsuario() {
-		listaUsuario = serviciousuario.buscarUsuario(nombreUsuario);
+		listaUsuario = su.buscarUsuario(nombreUsuario);
 	}
 
 	// Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","correo" })
+	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","correo","listaUsuario"})
 	public void limpiar() {
 		nombreUsuario = "";
-		contrasenia = "";
+		clave = "";
 		confirmarcontrasenia = "";
 		correo = "";
 		buscarUsuario();
@@ -168,9 +182,8 @@ public class VMusuario {
 	@Command
 	@NotifyChange({ "listaUsuario" })
 	public void eliminarUsuario() {
-		serviciousuario.eliminar(getUsuarioSeleccionado().getNombreUsuario());
-		Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
-				Messagebox.OK, Messagebox.INFORMATION);
+		su.eliminar(getUsuarioSeleccionado().getNombreUsuario());
+		msjs.informacionEliminarCorrecto();
 		limpiar();
 	}
 
@@ -179,14 +192,13 @@ public class VMusuario {
 	@NotifyChange({ "nombreUsuario", "fechaCreacion","correo" })
 	public void mostrarSeleccionado() {
 		nombreUsuario = getUsuarioSeleccionado().getNombreUsuario();
-		fechaCreacion = getUsuarioSeleccionado().getFechaCreacion();
 		correo = getUsuarioSeleccionado().getCorreo();
 		
 	}
 	@Command
 	@NotifyChange({ "listaUsuario" })
 	public void pasepase() {
-		System.out.println("pase");
+		System.out.println("");
 	}
 	
 	@Command
@@ -197,7 +209,7 @@ public class VMusuario {
 		if (correoLogin=="")
 			Messagebox.show("Debe llenar los campos", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
 		else {
-			List<Usuario> listaUsuarios = serviciousuario.listadoUsuario();
+			List<Usuario> listaUsuarios = su.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
 				for (int i = 0; i < listaUsuarios.size(); i++) {
 					usuarioAux = listaUsuarios.get(i);
@@ -208,7 +220,7 @@ public class VMusuario {
 				}
 				if (usuario.getNombreUsuario()!="-1") {
 					EnviarCorreo enviar = new EnviarCorreo();
-					enviar.sendEmail(usuario.getCorreo(), usuario.getContrasenia());
+					enviar.sendEmail(usuario.getCorreo(), usuario.getClave());
 					Messagebox.show("Te hemos enviado un email con tu contraseña.","Información", Messagebox.OK, Messagebox.INFORMATION);
 				}
 				else

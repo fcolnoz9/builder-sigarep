@@ -16,11 +16,6 @@
 					<textbox id="txtCedulaEstudiante" cols="23"
 						width="200px" maxlength="30" disabled="false" value="@bind(vm.cedula)">
 					</textbox>
-					
-					<button label="Buscar" id="btnBuscarCedulaSancionado"
-						image="imagenes/iconos/buscar.png" width="auto" height="auto"
-						orient="horizontal" onClick="@command('buscarEstudianteSancionado')">
-					</button>
 				</row>
 				<row>
 					<label value="Nombres: " id="lblNombresEstudiante" />
@@ -81,42 +76,6 @@
 		carga de los documentos en digital -->
 	<groupbox id="grbDatosRecaudo">
 		<caption label="Datos del Recaudo" />
-		<grid id="grdTipoMotivo">
-			<columns>
-				<column align="left" />
-				<column align="left" />
-			</columns>
-			<rows>
-				<row>
-					<hlayout id="lytTipoMotivo">
-
-						<label id="lblTipoMotivo"
-							value="Tipo de Motivo" />
-
-						<combobox id="cmbTipoMotivo" value="@bind(vm.tipoMotivo.nombreTipoMotivo)"  mold="rounded" width="auto" model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.tipoMotivo)" onSelect="@command('objetoTipoMotivo')"
-							tooltiptext="Elegir un tipo de Motivo">
-							<attribute name="onSelect">
-							<![CDATA[
-									if(right.getItemCount()>0){
-										for(int i=0;i<right.getItemCount();i++)
-											for(int j=0;j<left.getItemCount();j++)
-											   if(right.getItemAtIndex(i).equals(left.getItemAtIndex(j)))
-												   left.removeItemAt(j);
-									}
-									System.out.println("1:" +left.getItemCount());
-									System.out.println("2: "+right.getItemCount());
-							]]>
-							
-							</attribute>
-							   <template name="model">
-									<comboitem  label="${each.nombreTipoMotivo}" description="${each.descripcion}"/>
-							   </template>
-						</combobox>
-					</hlayout>
-				</row>
-			</rows>
-		</grid>
-
 		<columnlayout>
 			<columnchildren width="40%">
 				<panel title="Seleccionar Recaudos">
@@ -135,106 +94,48 @@
 					</panelchildren>
 				</panel>
 			</columnchildren>
-			<columnchildren width="100px">
-				<panel>
-					<panelchildren style="margin: 70px 34px;">
-						<image sclass="pointer"
-							src="imagenes/iconos/agregarLista.png"
-							tooltiptext="Agregar Recaudo">
-							<attribute name="onClick">
-	Set items = left.getSelectedItems();
-	if (items.isEmpty()) {
-		alert("Por favor, seleccione al menos un recaudo para agregar");
-	} else {
-		List al = new ArrayList(items);
-		for (Iterator it = al.iterator(); it.hasNext();) {
-			Listitem li = (Listitem) it.next();
-			li.setSelected(false);
-			right.appendChild(li);
-		}
-	}
-	
-	
-</attribute>
-						</image>
-						<separator height="15px" />
-						<image sclass="pointer"
-							src="imagenes/iconos/quitarLista.png"
-							tooltiptext="Remover Recaudo">
-							<attribute name="onClick">
-	Set items = right.getSelectedItems();
-	if (items.isEmpty()) {
-		alert("Por favor, seleccione al menos un recaudo para remover");
-	} else {
-		List al = new ArrayList(items);
-		for (Iterator it = al.iterator(); it.hasNext();) {
-			Listitem li = (Listitem) it.next();
-			li.setSelected(false);
-			left.appendChild(li);
-		}
-	}
-</attribute>
-
-			</image>
-					</panelchildren>
-				</panel>
-			</columnchildren>
-				
-			<columnchildren width="40%">
-				<panel title="Recaudos Seleccionados">
-					<panelchildren>
-						<listbox id="right" multiple="true"
-							height="250px" oddRowSclass="non-odd" checkmark="true"
-							xmlns:ca="client/attribute" ca:data-scrollable="false">
-						</listbox>
-					</panelchildren>
-				</panel>
-			</columnchildren>
 		</columnlayout>
 	</groupbox>
-			<grid>
-			<columns>
-				<column align="left" />
-				<column align="left" />
-				<column align="right" />
-				<column align="left" />
-				<column align="right" />
-				<column align="left" />
-			</columns>
-			<rows>
-				<row>
-				    <vlayout>
-				        <checkbox id="lp" label="Procedente" onCheck="doChecked()" />
-				        <separator />
-				        <hlayout>
-				            <label id="layoutp"/>
-				        </hlayout>
-				        <zscript><![CDATA[
-				            void doChecked() {
-				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
-				        ]]></zscript>
-				    </vlayout>
-				    <vlayout>
-				        <checkbox id="lnp" label="No Procedente" onCheck="doChecked()" />
-				        <separator />
-				        <hlayout>
-				            <label id="layoutnp"/>
-				        </hlayout>
-				        <zscript><![CDATA[
-				            void doChecked() {
-				                layout.value = (l1.isChecked() ? l1.label+' ' : "");}
-				        ]]></zscript>
-				    </vlayout>
-				</row>
-		    </rows>
-		</grid>	
-	
+	<groupbox style="margin:5px;" width="85%" mold="3d">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Sugerencia de procedente" />
+					<grid width="99%" style="border:normal;" height="100%">
+						<columns>
+							<column label="" width="100%" height="100%" />
+						</columns>
+						<rows>
+							<row>
+								<radiogroup id="rgSugerencia" selectedItem="@bind(vm.selected)">
+									<grid>
+										<rows>
+											<row>
+												<hbox>
+													<radio id="rbSugerenciaSi" label="Si" value="sugiere"/>
+												</hbox>
+											    <hbox>
+													<radio id="rbSugerenciaNo" label="No" value="nosugiere"/>
+												</hbox>
+											</row>
+										</rows>
+									</grid>
+								</radiogroup>
+								<label value="@bind(vm.selected)"/>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>	
 	<div align="right" height="100%">
 
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" 
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=right.items)">
+			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=left.selectedItems)">
+			<attribute name="onClick">
+				Set items = left.getSelectedItems();
+				if (items.isEmpty()) {
+					alert("Por favor, seleccione al menos un recaudo para guardar");
+				} 
+			</attribute>
 		</button>
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
 		<button label="Cancelar" id="btnCancelar"

@@ -1,11 +1,11 @@
 <?page title="usuario" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window title="Usuario" border="normal"
-		style="background: #1AFF00;">
+		style="background: #1AFF00;" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.SecurityUtil')">
 		<tablelayout columns="3">
 			<tablechildren>
-<!-- 				<label value="${username}" -->
-					style="color: black; font: 24 bold monospace;" />
+ 				<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" />
 			</tablechildren>
 			<tablechildren>
 				<a href="">
@@ -14,7 +14,7 @@
 				</a>
 			</tablechildren>
 			<tablechildren>
-			   			<button label="Cerrar Sesión"
+			   			<button label="Cerrar Sesión" href="j_spring_security_logout"
 			   				id="btnCerrarSesion" image="/imagenes/iconos/cerrarSesion.png"
 			   				mold="trendy" width="auto" height="auto"
 			   				orient="horizontal">

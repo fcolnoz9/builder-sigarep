@@ -10,21 +10,21 @@
 		<class>sigarep.modelos.data.maestros.Banner</class>
 		<class>sigarep.modelos.data.transacciones.Cronograma</class>
 		<class>sigarep.modelos.data.transacciones.CronogramaPK</class>
-		<class>sigarep.modelos.data.maestros.DatoSistema</class>
+<!-- 		<class>sigarep.modelos.data.maestros.DatoSistema</class> -->
 		<class>sigarep.modelos.data.maestros.Estudiante</class>
 		<class>sigarep.modelos.data.transacciones.EstudianteSancionado</class>
 		<class>sigarep.modelos.data.transacciones.EstudianteSancionadoPK</class>
-		<class>sigarep.modelos.data.maestros.Grupo</class>
-		<class>sigarep.modelos.data.transacciones.GrupoOperacion</class>
-		<class>sigarep.modelos.data.transacciones.GrupoOperacionPK</class>
+<!-- 		<class>sigarep.modelos.data.maestros.Grupo</class> -->
+<!-- 		<class>sigarep.modelos.data.transacciones.GrupoOperacion</class> -->
+<!-- 		<class>sigarep.modelos.data.transacciones.GrupoOperacionPK</class> -->
 		<class>sigarep.modelos.data.maestros.InstanciaApelada</class>
 		<class>sigarep.modelos.data.maestros.LapsoAcademico</class>
-		<class>sigarep.modelos.data.maestros.MenuFuncion</class>
+<!-- 		<class>sigarep.modelos.data.maestros.MenuFuncion</class> -->
 		<class>sigarep.modelos.data.transacciones.Motivo</class>
 		<class>sigarep.modelos.data.transacciones.MotivoPK</class>
-		<class>sigarep.modelos.data.maestros.NivelMenu</class>
+<!-- 		<class>sigarep.modelos.data.maestros.NivelMenu</class> -->
 		<class>sigarep.modelos.data.maestros.Noticia</class>
-		<class>sigarep.modelos.data.maestros.Operacion</class>
+<!-- 		<class>sigarep.modelos.data.maestros.Operacion</class> -->
 		<class>sigarep.modelos.data.maestros.PreguntaBasica</class>
 		<class>sigarep.modelos.data.maestros.ProgramaAcademico</class>
 		<class>sigarep.modelos.data.maestros.Recaudo</class>
@@ -37,15 +37,18 @@
 		<class>sigarep.modelos.data.transacciones.Soporte</class>
 		<class>sigarep.modelos.data.transacciones.SoportePK</class>
 		<class>sigarep.modelos.data.maestros.TipoMotivo</class>
-		<class>sigarep.modelos.data.maestros.Usuario</class>
+<!-- 		<class>sigarep.modelos.data.maestros.Usuario</class> -->
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupo</class>
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupoPK</class>
 		<class>sigarep.herramientas.Archivo</class>
 		<class>sigarep.modelos.data.maestros.EnlaceInteres</class>
-		<class>sigarep.modelos.data.transacciones.MiembroGrupo</class>
-		<class>sigarep.modelos.data.transacciones.MiembroGrupoPK</class>
+<!-- 		<class>sigarep.modelos.data.transacciones.MiembroGrupo</class> -->
+<!-- 		<class>sigarep.modelos.data.transacciones.MiembroGrupoPK</class> -->
 		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK</class>
 		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacion</class>
 		<class>sigarep.herramientas.Documento</class>
-		<class>sigarep.modelos.data.maestros.EstadoApelacion</class></persistence-unit>
+		<class>sigarep.modelos.data.maestros.EstadoApelacion</class>
+		<class>sigarep.modelos.data.seguridad.Nodo</class>
+		<class>sigarep.modelos.data.seguridad.Grupo</class>
+		<class>sigarep.modelos.data.seguridad.Usuario</class></persistence-unit>
 </persistence>

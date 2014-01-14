@@ -1,7 +1,4 @@
 <zk>
-<!-- 	<style id="estilo"> -->
-
-<!-- 	</style> -->
 	<window id="winTipoMotivo"
 		title="Registros Básicos ::  Tipo Motivo" border="normal"
 		width="auto" height="auto" closable="true" sclass="sysWin"

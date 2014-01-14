@@ -1,62 +1,68 @@
-<?page title="Registrar Grupo de Usuario" contentType="text/html;charset=UTF-8"?>
-<zk>
-	<window id="winRegistrarGrupo" title="Administración del Sistema :: Seguridad funcional :: Registrar Grupo de Usuario" border="normal">
-		<grid sclass="fgrid">
-			<columns>
-				<column label="" width="20%" height="20%" />
-			</columns>
-			<rows>
-				<row>
-					<label value="Id Grupo:" />
-					<textbox id="intIDGrupo" />
-				</row>
-				<row>
-					<label value="Nombre: " />
-					<hlayout>
-						<textbox id="txtNombre" />
-			<!--  				<div apply="sigarep.controlador.maestros.ModalController">
-							<button id="btnBuscar" label="Buscar"
-								autodisable="self" />
-						</div>   -->
-					</hlayout>
-				</row>
-				<row>
-					<label value="Descripción:" />
-					<textbox id="txtDescripcion" />
-				</row>
-				<row>
-				    <label id="lblImagen" value="Imagen:" />
-					<textbox id="txtCargar" />
-                    <button label="Cargar Imagen" upload="true,maxsize=300" width="100px" height="30px" >
-       						 <attribute name="onUpload"><![CDATA[
-            					org.zkoss.util.media.Media media = event.getMedia();
-           							 if (media instanceof org.zkoss.image.Image) {
-                						org.zkoss.zul.Image image = new org.zkoss.zul.Image();
-                 					    image.setContent(media);
-                                        image.setParent(pics);
-                                     } else {
-                                        Messagebox.show("Not an image: "+media, "Error", Messagebox.OK, Messagebox.ERROR);
-                                        break;
-                                     }
-                              ]]></attribute>
-                    </button>
-                    <hbox id="pics"  height="40px" style="overflow:auto"/>
-				</row>			 							
-			</rows>
-		</grid>
-		<grid sclass="fgrid">
-			<rows>
-				<row>
-					<hbox width="99%" pack="end" align="center">
-						<button id="btnGuardar" label="Guardar"
-							image="/imagenes/iconos/guardar.png" />
-						<button id="btnCancelar" label="Cancelar"
-							image="/imagenes/iconos/cancelar.png" />
-						<button id="btnSalir" label="Salir"
-							image="/imagenes/iconos/salir.png" onClick="winRegistrarGrupo.onClose()" />
-					</hbox>
-				</row>
-			</rows>
-		</grid>
-	</window>
-</zk>
+<window id="winRegistrarGrupo"  apply="org.zkoss.bind.BindComposer"
+    viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMRegistrarGrupo')" border="normal" title="Registros Basicos - Registro de Grupo ">
+    <style>
+    .h-inline-block {
+        display: inline-block;
+        _display: inline;
+    }
+    
+    </style>
+    <groupbox id="gbxDatosGrupo">
+    	<caption label="Datos Grupo"></caption>
+    	<grid id="grdDatosGrupo">
+    		<columns></columns>
+    		<rows>
+    			<row>
+    			   	<hbox>
+    					Nombre:
+    					<textbox id="txtNombreRegistrarGrupo"
+    						value="@bind(vm.nombre)" />
+    				</hbox>
+    				<hbox>
+    					Descripción:
+    					<textbox id="txtDescripcionRegistrarGrupo"
+    						value="@bind(vm.descripcion)" rows="2" />
+    				</hbox>
+    			</row>
+    		</rows>
+    	</grid>
+    	</groupbox>
+    	<space />
+    	<groupbox id="grbRegistrarFuncionesAGrupo">
+    	<caption label="Seleccione las funciones del menu principal que desea cargar en el grupo de usuarios" />
+    	<grid>
+    		<columns>
+    			<column label="" />
+    			<column label="" />
+    		</columns>
+    		<rows>
+    			<row>
+    				<tree id="tree" Zclass="z-vfiletree" height="250px"
+    					hflex="true" vflex="true" model="@load(vm.contactTreeModel)"
+    					ItemRenderer="sigarep.viewmodels.seguridad.VMmenuTreeRenderer" width="90%">
+    					<treecols>
+    						<treecol label="Menu Principal" />
+    					</treecols>
+    				</tree>
+    				<tree id="tree2" Zclass="z-vfiletree" height="250px"
+    					hflex="true" vflex="true" model="@load(vm.contactTreeModel2)"
+    					ItemRenderer="sigarep.viewmodels.seguridad.VMmenuTreeRenderer2" width="90%">
+    					<treecols>
+    						<treecol label="Menu del Grupo" />
+    					</treecols>
+    				</tree>
+    			</row>
+    		</rows>
+    	</grid>
+    </groupbox>
+    <space />
+    <div align="right">
+			<button id="btnGuardarRegistrarGrupo" label="Guardar"
+				image="imagenes/iconos/guardar.png" onClick="@command('guardarGrupo')" width="70" height="50"/>
+			<button id="btnCancelarRegistrarGrupo" label="Cancelar"
+				image="imagenes/iconos/cancelar.png" width="70" height="50"/>
+			<button id="btnSalirRegistrarGrupo" label="Cerrar" onClick="winRegistrarGrupo.onClose()"
+				image="/imagenes/iconos/cerrar.png" width="70" height="50"/>
+		</div>
+   
+</window>

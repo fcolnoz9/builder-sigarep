@@ -120,7 +120,7 @@
 		<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('registrarEstudianteSancionado')" />	
    		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
    		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarEstudianteSancionado')"/>
-   		<button label="Cerrar" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="VMEstudianteSancionado.onClose()" />
+   		<button label="Cerrar" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winRegistrarSancionados.onClose()" />
    		</div>
    		
    		
