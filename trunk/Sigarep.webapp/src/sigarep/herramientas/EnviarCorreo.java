@@ -19,7 +19,8 @@ public class EnviarCorreo {
 
 	private final String username = "jorgechaviel@gmail.com"; //Nota: este correo emisor está aun sin existencia.
 	private final String password = "87997872";
-
+	
+	
 	private Session session;
 
 	private void init() {
@@ -33,9 +34,10 @@ public class EnviarCorreo {
 		sf.setTrustAllHosts(true);
 		properties.put("mail.smtp.ssl.socketFactory", sf);
 		properties.put("mail.smtp.auth", true);
-		properties.put("mail.smtp.starttls.enable", true);
+		properties.put("mail.smtp.starttls.enable", true);		
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.debug", "true");
 		properties.put("mail.smtp.mail.sender", "jorgechaviel@gmail.com");
 		session = Session.getInstance(properties,
 				new javax.mail.Authenticator() {

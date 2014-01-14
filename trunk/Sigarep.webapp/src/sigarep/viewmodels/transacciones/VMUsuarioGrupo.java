@@ -10,18 +10,17 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.maestros.Grupo;
 
-import sigarep.modelos.data.maestros.Usuario;
 
+import sigarep.modelos.data.seguridad.Grupo;
+import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 import sigarep.modelos.data.transacciones.UsuarioGrupoPK;
 
+import sigarep.modelos.servicio.seguridad.ServicioGrupo;
+import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioUsuarioGrupo;
-import sigarep.modelos.servicio.maestros.ServicioGrupo;
-
-import sigarep.modelos.servicio.maestros.ServicioUsuario;
 
 //import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 
@@ -36,9 +35,9 @@ public class VMUsuarioGrupo {
 	@WireVariable
 	private List<Grupo> listaGrupo = new LinkedList<Grupo>();
 	@WireVariable
-	private ServicioGrupo serviciogrupo;
+	private ServicioGrupo sg;
 	@WireVariable
-	private ServicioUsuario serviciousuario;
+	private ServicioUsuario su;
 	@WireVariable
 	private ServicioUsuarioGrupo serviciousuariogrupo;
 	@WireVariable
@@ -146,21 +145,20 @@ public class VMUsuarioGrupo {
 		 Grupo miGrupo = getGrupoSeleccionado();
 		 nombreGrupo = miGrupo.getNombre();
 		 descripcionGrupo = miGrupo.getDescripcion();
-		 System.out.println("plop2");
 	}
 	
 	// Metodo que buscar los lapsos y cargarlos en el combobox
 	@Command
 	@NotifyChange({ "listaUsuario" })
 	public void buscarUsuario() {
-		listaUsuario = serviciousuario.listadoUsuario();
+		listaUsuario = su.listadoUsuario();
 	}
 
 	// Metodo que busca las sanciones y las carga en el combobox de sanciones
 	@Command
 	@NotifyChange({ "listaGrupo" })
 	public void buscarGrupo() {
-		listaGrupo = serviciogrupo.listadoGrupo();
+		listaGrupo = sg.listadoGrupo();
 	}
 
 	@Command

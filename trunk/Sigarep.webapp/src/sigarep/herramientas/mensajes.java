@@ -16,6 +16,12 @@ import org.zkoss.zul.Messagebox;
 
 public class mensajes {
 	
+	public void advertenciaMenudelGrupoVacio(){
+		
+		Messagebox.show("¡Debe agregar al menos una función al menu del grupo!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
+	
 	public void advertenciaLlenarCampos(){
 		
 		Messagebox.show("¡Debe llenar todos los campos!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
