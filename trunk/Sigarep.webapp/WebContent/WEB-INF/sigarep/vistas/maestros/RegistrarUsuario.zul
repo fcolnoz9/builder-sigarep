@@ -1,7 +1,7 @@
-<window title="AdministraciÃ³n del Sistema :: Seguridad funcional :: Registrar Usuario"
+<window title="Administración del Sistema :: Seguridad funcional :: Registrar Usuario"
 	id="winRegistrarUsuario" border="normal" closable="true"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMusuario')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUsuario')">
 	
 	
 	
@@ -49,21 +49,21 @@
 						value="@bind(vm.nombreUsuario)" />
 				</row>
 				<row>
-					<label value="Correo electrÃ³nico: " id="lblCorreo" />
+					<label value="Correo electronico: " id="lblCorreo" />
 					<textbox id="txtCorreo" cols="23"
 						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com" width="200px" maxlength="30"
 						value="@bind(vm.correo)" />
 				</row>
 				<row>
-					<label value="ContraseÃ±a: " id="lblContraseña" />
+					<label value="Contraseña: " id="lblContraseña" />
 					<hlayout>
 						<textbox id="txtContraseña" type="password"
 							constraint="/[a-z,0-9]+/: Solo utilice letras y nÃºmeros" width="200px" 
-							value="@bind(vm.contrasenia)" />
+							value="@bind(vm.clave)" />
 					</hlayout>
 				</row>
 				<row>
-					<label value="Repetir contraseÃ±a: " id="lblRepetirContraseña" />
+					<label value="Repetir contraseña: " id="lblRepetirContraseña" />
 					<hlayout>
 						<textbox id="txtRepetirContraseña" type="password"
 							constraint="/[a-z,0-9]+/: Solo utilice letras y nÃºmeros" width="200px" 
@@ -100,16 +100,10 @@
 			<listhead>
 				<listheader label="Nombre de usuario" align="center"
 					sort="auto(nombreUsuario)" />
-				<listheader label="Fecha de creaciÃ³n" align="center"
-					sort="auto(fechaCreacion)" />
-<!-- 				<listheader label="Estatus" align="center" -->
-<!-- 					sort="auto(descripcion)" /> -->
 			</listhead>
 			<template name="model">
 				<listitem>
 					<listcell label="${each.nombreUsuario }" />
-					<listcell label="${each.fechaCreacion}" />
-<!-- 					<listcell label="${each.estatus}" /> -->
 				</listitem>
 			</template>
 		</listbox>
