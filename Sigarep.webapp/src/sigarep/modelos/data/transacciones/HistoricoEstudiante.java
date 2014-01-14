@@ -1,7 +1,6 @@
 package sigarep.modelos.data.transacciones;
 
 import java.util.Date;
-import java.util.List;
 
 public class HistoricoEstudiante {
 
@@ -14,14 +13,14 @@ public class HistoricoEstudiante {
 	private String periodo_inicial;
 	private String periodo_final;
 	private String materia;
-	private String numeroCaso;
-	private List<String> listaMotivo;
+	private Integer numeroCaso;
+	private String descripcionMotivo;
 	private Date fecha;
 
 	public HistoricoEstudiante(String cedula, String programa, String nombre,
 			String apellido, String lapso_academico, String tipo_sancion,
 			String periodo_inicial, String periodo_final, String materia,
-			String numeroCaso, Date fecha, List<String> listaMotivo) {
+			Integer numeroCaso, Date fecha, String motivo) {
 		super();
 		this.cedula = cedula;
 		this.programa = programa;
@@ -34,7 +33,7 @@ public class HistoricoEstudiante {
 		this.materia = materia;
 		this.numeroCaso = numeroCaso;
 		this.fecha = fecha;
-		this.listaMotivo = listaMotivo;
+		this.descripcionMotivo = motivo;
 	}
 
 	public HistoricoEstudiante() {
@@ -113,20 +112,20 @@ public class HistoricoEstudiante {
 		this.materia = materia;
 	}
 
-	public String getNumeroCaso() {
+	public Integer getNumeroCaso() {
 		return numeroCaso;
 	}
 
-	public void setNumeroCaso(String numeroCaso) {
+	public void setNumeroCaso(Integer numeroCaso) {
 		this.numeroCaso = numeroCaso;
 	}
 
-	public List<String> getListaMotivo() {
-		return listaMotivo;
+	public String getMotivo() {
+		return descripcionMotivo;
 	}
 
-	public void setListaMotivo(List<String> listaMotivo) {
-		this.listaMotivo = listaMotivo;
+	public void setMotivo(String motivo) {
+		this.descripcionMotivo = motivo;
 	}
 
 	public Date getFecha() {
@@ -135,6 +134,14 @@ public class HistoricoEstudiante {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public String getDescripcionMotivo() {
+		return descripcionMotivo;
+	}
+
+	public void setDescripcionMotivo(String descripcionMotivo) {
+		this.descripcionMotivo = descripcionMotivo;
 	}
 
 }
