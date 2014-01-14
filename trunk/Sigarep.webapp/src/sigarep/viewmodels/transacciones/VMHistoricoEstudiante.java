@@ -2,6 +2,8 @@ package sigarep.viewmodels.transacciones;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -14,13 +16,13 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import sigarep.modelos.data.transacciones.HistoricoEstudiante;
+import sigarep.modelos.data.transacciones.ListaMomento;
 import sigarep.modelos.servicio.transacciones.ServicioHistoricoEstudiante;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMHistoricoEstudiante {
-	
+
 	@Wire("#modalDialog")
-	
 	@WireVariable
 	private String cedula;
 	@WireVariable
@@ -40,14 +42,15 @@ public class VMHistoricoEstudiante {
 	@WireVariable
 	private String materia;
 	@WireVariable
-	private String numeroCaso;
+	private Integer numeroCaso;
 	@WireVariable
-	private List<String> listaMotivo;
+	private String descripcionMotivo;
 	@WireVariable
 	private String fecha;
-
 	@WireVariable
-	private HistoricoEstudiante historicoEstudiante;
+	private List<HistoricoEstudiante> listaHistoricoEstudiante;
+
+	private List<ListaMomento> listaMomento;
 
 	@WireVariable
 	private ServicioHistoricoEstudiante serviciohistoricoestudiante;
@@ -124,11 +127,11 @@ public class VMHistoricoEstudiante {
 		this.materia = materia;
 	}
 
-	public String getNumeroCaso() {
+	public Integer getNumeroCaso() {
 		return numeroCaso;
 	}
 
-	public void setNumeroCaso(String numeroCaso) {
+	public void setNumeroCaso(Integer numeroCaso) {
 		this.numeroCaso = numeroCaso;
 	}
 
@@ -140,24 +143,26 @@ public class VMHistoricoEstudiante {
 		this.fecha = fecha;
 	}
 
-	public List<String> getListaMotivo() {
-		return listaMotivo;
+	public List<HistoricoEstudiante> getListaHistoricoEstudiante() {
+		return listaHistoricoEstudiante;
 	}
 
-	public void setListaMotivo(List<String> listaMotivo) {
-		this.listaMotivo = listaMotivo;
+	public void setListaHistoricoEstudiante(
+			List<HistoricoEstudiante> listaHistoricoEstudiante) {
+		this.listaHistoricoEstudiante = listaHistoricoEstudiante;
 	}
 
-	public HistoricoEstudiante getHistoricoEstudiante() {
-		return historicoEstudiante;
+	public List<ListaMomento> getListaMomento() {
+		return listaMomento;
 	}
 
-	public void setHistoricoEstudiante(HistoricoEstudiante historicoEstudiante) {
-		this.historicoEstudiante = historicoEstudiante;
+	public void setListaMomento(List<ListaMomento> listaMomento) {
+		this.listaMomento = listaMomento;
 	}
 
 	@Init
-	public void init(@ContextParam(ContextType.VIEW) Component view, @ExecutionArgParam("cedula") String c) {
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("cedula") String c) {
 		Selectors.wireComponents(view, this, false);
 		this.cedula = c;
 		buscarHistorialEstudiante(c);
@@ -169,8 +174,14 @@ public class VMHistoricoEstudiante {
 			"lapsoAcademico", "tipoSancion", "periodoInicial", "periodoFinal",
 			"materia", "numeroCaso", "fecha" })
 	public void buscarHistorialEstudiante(String cedula) {
-		historicoEstudiante = serviciohistoricoestudiante
+		listaHistoricoEstudiante = serviciohistoricoestudiante
 				.buscarHistoricoEstudiante(cedula);
+	}
+	
+	@Command
+	@NotifyChange({ "listaMomento" })
+	public void buscarListaMomentos(@BindingParam("id") Integer id) {
+		listaMomento = serviciohistoricoestudiante.buscarListaMomentos(this.cedula, id);
 	}
 
 	@Command
@@ -178,19 +189,22 @@ public class VMHistoricoEstudiante {
 			"lapsoAcademico", "tipoSancion", "periodoInicial", "periodoFinal",
 			"materia", "numeroCaso", "fecha" })
 	public void mostrarHistoricoEstudiante() {
-		cedula = getHistoricoEstudiante().getCedula();
-		programa = getHistoricoEstudiante().getPrograma();
-		nombre = getHistoricoEstudiante().getNombre();
-		apellido = getHistoricoEstudiante().getApellido();
-		lapsoAcademico = getHistoricoEstudiante().getLapso_academico();
-		tipoSancion = getHistoricoEstudiante().getTipo_sancion();
-		periodoInicial = getHistoricoEstudiante().getPeriodo_inicial()
-				.substring(0, 6);
-		periodoFinal = getHistoricoEstudiante().getPeriodo_final().substring(7,
-				13);
-		materia = getHistoricoEstudiante().getMateria();
-		numeroCaso = getHistoricoEstudiante().getNumeroCaso();
+		cedula = getListaHistoricoEstudiante().get(0).getCedula();
+		programa = getListaHistoricoEstudiante().get(0).getPrograma();
+		nombre = getListaHistoricoEstudiante().get(0).getNombre();
+		apellido = getListaHistoricoEstudiante().get(0).getApellido();
+		lapsoAcademico = getListaHistoricoEstudiante().get(0)
+				.getLapso_academico();
+		tipoSancion = getListaHistoricoEstudiante().get(0).getTipo_sancion();
+		periodoInicial = getListaHistoricoEstudiante().get(0)
+				.getPeriodo_inicial().substring(0, 6);
+		periodoFinal = getListaHistoricoEstudiante().get(0).getPeriodo_final()
+				.substring(7, 13);
+		materia = getListaHistoricoEstudiante().get(0).getMateria();
+		numeroCaso = getListaHistoricoEstudiante().get(0).getNumeroCaso();
 		SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-		fecha = formateador.format(getHistoricoEstudiante().getFecha());
+		fecha = formateador.format(getListaHistoricoEstudiante().get(0)
+				.getFecha());
 	}
+
 }

@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.transacciones.HistoricoEstudiante;
+import sigarep.modelos.data.transacciones.ListaMomento;
 
 @Service("serviciohistoricoestudiante")
 public class ServicioHistoricoEstudiante {
@@ -15,10 +16,32 @@ public class ServicioHistoricoEstudiante {
 	@PersistenceContext
 	private EntityManager em;
 
-	public HistoricoEstudiante buscarHistoricoEstudiante(String cedula) {
+	public List<ListaMomento> buscarListaMomentos(String cedula, Integer idInstancia) {
+		String queryStatement2 = "SELECT fecha_estado, id_estado_apelacion, observacion "
+				+ "FROM apelacion_estado_apelacion AS apemo "
+				+ "WHERE apemo.cedula_estudiante = ? "
+				+ "AND apemo.id_instancia_apelada = ? "
+				+ "ORDER BY fecha_estado";
+		Query query = em.createNativeQuery(queryStatement2);
+		query.setParameter(1, cedula);
+		query.setParameter(2, idInstancia);
+
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		List<ListaMomento> result = new ArrayList<ListaMomento>();
+		
+		for (Object[] resultRow : resultSet) {
+			result.add(new ListaMomento((Date) resultRow[0], (String) resultRow[1], (String) resultRow[2],
+					(String) resultRow[3]));
+		}
+
+		return result;
+	}
+
+	public List<HistoricoEstudiante> buscarHistoricoEstudiante(String cedula) {
 		String queryStatement2 = "SELECT es.cedula_estudiante, prog.nombre_programa, es.primer_nombre, es.segundo_nombre, "
 				+ "es.primer_apellido, es.segundo_apellido, lapac.codigo_lapso, sanm.nombre_sancion, estsan.lapsos_academicos_RP, "
-				+ "asig.nombre_asignatura, solape.numero_sesion, solape.fecha_solicitud, mot.descripcion "
+				+ "asig.nombre_asignatura, solape.numero_caso, solape.fecha_solicitud, mot.descripcion "
 				+ "FROM sancion_maestro sanm, programa_academico prog, lapso_academico lapac, "
 				+ "instancia_apelada isap, motivo mot, estudiante es, solicitud_apelacion solape, "
 				+ "tipo_motivo tipmo, estudiante_sancionado AS estsan "
@@ -43,22 +66,18 @@ public class ServicioHistoricoEstudiante {
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
-		HistoricoEstudiante results = new HistoricoEstudiante();
-		List<String> motivos = new ArrayList<String>();
-		for (Object[] resultRow : resultSet) {
-			
-			motivos.add((String) resultRow[12]);
+		List<HistoricoEstudiante> results = new ArrayList<HistoricoEstudiante>();
 
-			results = (new HistoricoEstudiante((String) resultRow[0],
-					(String) resultRow[1],
-					(String) resultRow[2] +" "+ resultRow[3], 
-					(String) resultRow[4] +" "+ resultRow[5], 
-					(String) resultRow[6],
+		for (Object[] resultRow : resultSet) {
+			results.add(new HistoricoEstudiante((String) resultRow[0],
+					(String) resultRow[1], (String) resultRow[2] + " "
+							+ resultRow[3], (String) resultRow[4] + " "
+							+ resultRow[5], (String) resultRow[6],
 					(String) resultRow[7], (String) resultRow[8],
 					(String) resultRow[8], (String) resultRow[9],
-					(String) resultRow[10], (Date) resultRow[11], motivos));
+					(Integer) resultRow[10], (Date) resultRow[11],
+					(String) resultRow[12]));
 		}
-		System.out.println(motivos);
 		return results;
 	}
 }

@@ -17,24 +17,24 @@
 					<label value="Cédula: " id="lblCedula" />
 					<textbox id="txtCedula" mold="rounded" cols="23"
 						value="@bind(vm.cedula)" width="300px" maxlength="10"
-						disabled="true">
+						readonly="true">
 					</textbox>
 					<label value="Programa: " id="lblPrograma" />
 					<textbox id="txtPrograma" mold="rounded" cols="23"
 						value="@bind(vm.programa)" width="300px" maxlength="30"
-						disabled="true">
+						readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label value="Nombre: " id="lblNombre" />
 					<textbox id="txtNombre" mold="rounded" cols="23"
 						value="@bind(vm.nombre)" width="300px" maxlength="30"
-						disabled="true">
+						readonly="true">
 					</textbox>
 					<label value="Apellido: " id="lblApellido" />
 					<textbox id="txtApellido" mold="rounded" cols="23"
 						value="@bind(vm.apellido)" width="300px" maxlength="30"
-						disabled="true">
+						readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -59,27 +59,27 @@
 				<row>
 					<label value="Lapso Académico " id="lblLapso" />
 					<textbox id="txtLapso" mold="rounded" cols="8"
-						maxlength="30" value="@bind(vm.lapsoAcademico)" disabled="true">
+						maxlength="30" value="@bind(vm.lapsoAcademico)" readonly="true">
 					</textbox>
 					<label value="Tipo Sanción: " id="lblTipoSancion" />
 					<textbox id="txtTipoSancion" mold="rounded" cols="5"
-						maxlength="20" value="@bind(vm.tipoSancion)" disabled="true">
+						maxlength="20" value="@bind(vm.tipoSancion)" readonly="true">
 					</textbox>
 					<label value="Período Inicial: "
 						id="lblPeriodoInicial" />
 					<textbox id="txtPeriodoInicial" mold="rounded"
 						cols="8" maxlength="30" value="@bind(vm.periodoInicial)"
-						disabled="true">
+						readonly="true">
 					</textbox>
 					<label value="Período Final: " id="lblPeriodoFinal" />
 					<textbox id="txtPeriodoFinal" mold="rounded"
 						cols="8" maxlength="30" value="@bind(vm.periodoFinal)"
-						disabled="true">
+						readonly="true">
 					</textbox>
 					<label value="Materia: " id="lblMateria" />
 					<textbox id="txtPeriodoFinal1" mold="rounded"
 						width="200px" cols="10" maxlength="30" value="@bind(vm.materia)"
-						disabled="true">
+						readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -98,14 +98,16 @@
 				<row>
 					<label value="N° de Caso: " id="lblNumeroCaso" />
 					<textbox id="txtCaso" mold="rounded" cols="15"
-						maxlength="20" value="@bind(vm.numeroCaso)" disabled="true">
+						maxlength="20" value="@bind(vm.numeroCaso)" readonly="true">
 					</textbox>
 					<label value="Motivo: " id="lblMotivo" />
 					<listbox id="lbxMotivo" height="100px"
-						model="@bind(vm.listaMotivo)" mold="paging" pageSize="5">
+						disabled="true" model="@bind(vm.listaHistoricoEstudiante)"
+						mold="paging" pageSize="5">
 						<template name="model">
 							<listitem>
-								<listcell label="${each}" />
+								<listcell
+									label="${each.descripcionMotivo}" />
 							</listitem>
 						</template>
 					</listbox>
@@ -113,7 +115,7 @@
 				<row>
 					<label value="Fecha: " id="lblFecha" />
 					<textbox id="txtFecha" mold="rounded" cols="15"
-						maxlength="10" value="@bind(vm.fecha)" disabled="true">
+						maxlength="10" value="@bind(vm.fecha)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -125,35 +127,33 @@
 	<div align="center" height="100%">
 		<hbox>
 			<vbox>
-				<button label="Registro Apelación" mold="trendy"
-					id="btn1" image="/imagenes/portal-principal/fondoAzul.png"
-					width="150px" height="10px" orient="vertical">
-				</button>
-			</vbox>
-			<vbox>
 				<button label="Comision Sustanciadora" mold="trendy"
-					id="btn2" image="/imagenes/portal-principal/fondoGris.png"
-					width="180px" height="10px" orient="vertical">
+					id="btn2" image="/imagenes/portal-principal/fondoAzul.png"
+					width="180px" height="10px" orient="vertical"
+					onClick="@command('buscarListaMomentos', id=0)">
 				</button>
 			</vbox>
 			<vbox>
 
 				<button label="Consejo Decanato" mold="trendy" id="btn3"
-					image="/imagenes/portal-principal/fondoGris.png" width="150px"
-					height="10px" orient="vertical">
+					image="/imagenes/portal-principal/fondoAzul.png" width="150px"
+					height="10px" orient="vertical"
+					onClick="@command('buscarListaMomentos', id=1)">
 				</button>
 			</vbox>
 			<vbox>
 
 				<button label="Recurso Reconsideración" mold="trendy"
 					id="btn4" image="/imagenes/portal-principal/fondoGris.png"
-					width="170px" height="10px" orient="vertical">
+					width="170px" height="10px" orient="vertical"
+					onClick="@command('buscarListaMomentos', id=2)">
 				</button>
 			</vbox>
 			<vbox>
 				<button label="Recurso Jerarquico" mold="trendy"
 					id="btn5" image="/imagenes/portal-principal/fondoGris.png"
-					width="150px" height="10px" orient="vertical">
+					width="150px" height="10px" orient="vertical"
+					onClick="@command('buscarListaMomentos', id=3)">
 				</button>
 			</vbox>
 		</hbox>
@@ -163,38 +163,22 @@
 		<separator />
 		<separator />
 		<separator />
-		<listbox id="box" width="1000px">
+		<listbox id="box" width="1000px" model="@bind(vm.listaMomento)"
+			emptyMessage="No hay momento seleccionado">
 			<listhead>
 				<listheader label="Fecha" sort="auto" align="center" />
-				<listheader label="Proceso de Apelación" sort="auto"
+				<listheader label="Estado de apelación" sort="auto"
 					align="center" />
 				<listheader label="Observación" sort="auto"
 					align="center" />
-				<listheader label="Estatus" sort="auto" align="center" />
-				<listheader label="Responsable" sort="auto"
-					align="center" />
 			</listhead>
-			<listitem>
-				<listcell label="14/11/2013" />
-				<listcell label="Recepción de Documentos" />
-				<listcell label="Todos los Docuemntos fueron recibidos" />
-				<listcell label="Recibido" />
-				<listcell label="Jorge Guerrero" />
-			</listitem>
-			<listitem>
-				<listcell label="17/11/2013" />
-				<listcell label="Revision de Documentos" />
-				<listcell label="Falta Recipe de 2do Reposo" />
-				<listcell label="Revisado" />
-				<listcell label="Jorge Guerrero" />
-			</listitem>
-			<listitem>
-				<listcell label="20/11/2013" />
-				<listcell label="Analisis de Documentos" />
-				<listcell label="2do Reposo Aceptado" />
-				<listcell label="En Proceso" />
-				<listcell label="Jorge Guerrero" />
-			</listitem>
+			<template name="model">
+				<listitem>
+					<listcell label="${each.fecha}" />
+					<listcell label="${each.nombreEstado}" />
+					<listcell label="${each.observacion}" />
+				</listitem>
+			</template>
 		</listbox>
 	</div>
 </window>
