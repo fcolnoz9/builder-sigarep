@@ -41,15 +41,15 @@
 		</groupbox>
 		<space />
 		<!-- Grupbox que contiene el listado de los tipos de motivos -->
-		<groupbox height="200px">
+		<groupbox height="auto">
 			<caption label="Listado de Tipos de Motivos de Apelacion" />
 			<!-- Lista que contiene el listado de los tipos de motivos -->
-			<listbox id="lbxtipomotivoListbox" height="180px"
+			<listbox id="lbxtipomotivoListbox" height="auto"
 				model="@bind(vm.listaTipoMotivo)"
 				selectedItem="@bind(vm.tiposeleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
 				emptyMessage="No hay Tipo de Motivos registrados" mold="paging"
-				pageSize="2">
+				pageSize="8">
 				<!-- Busqueda por FILTROS los tipos de motivos -->
 				<auxhead sclass="category-center">
 					<auxheader colspan="1" align="center"
