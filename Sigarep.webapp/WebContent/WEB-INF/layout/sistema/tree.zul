@@ -1,6 +1,5 @@
 
-<window sclass="principal" border="0" height="100%" contentStyle="overflow:auto" id="winTree" 
-		>
+<window sclass="principal" border="0" height="auto" contentStyle="overflow:auto" id="winTree" >
 <!-- 	apply="org.zkoss.bind.BindComposer" -->
 <!--     viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMmenuAplicacion')"> -->
     
@@ -11,7 +10,7 @@
 <!--  		</treecols> -->
 <!--  	</tree>   -->
  		
-<div>
+<div height="auto">
 	<zscript><![CDATA[
  	import sigarep.controlador.maestros.WindowController; 
  	public void createWin(String idNodo, String ruta) { 
@@ -26,7 +25,7 @@
 	]]> 
 	</zscript>
 	<tree id="tree" Zclass="z-vfiletree" multiple="false"
-		height="600px" hflex="true" vflex="true">
+		height="495px" hflex="true" vflex="true">
 		<treecols>
 			<treecol label="MENU SIGAREP" />
 		</treecols>
