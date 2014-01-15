@@ -29,7 +29,7 @@
 				 <separator />
 			</groupbox>
 			<separator />
-			<listbox id="lbxInstanciaApelada" mold="paging" pageSize="10">
+			<listbox height="auto" id="lbxInstanciaApelada" mold="paging" pageSize="10">
 				<listhead sizable="true">
             		<listheader label="Instancia Apelada" sort="auto" />
             		<listheader label="Nombre del Recurso de Apelacion" sort="auto" />
