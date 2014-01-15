@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import sigarep.modelos.data.maestros.Actividad;
+import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 
 import java.sql.Time;
@@ -65,6 +66,11 @@ public class Cronograma implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="codigo_lapso", nullable=false, insertable=false, updatable=false)
 	private LapsoAcademico lapsoAcademico;
+	
+	//bi-directional many-to-one association to InstanciaApelada
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="id_instancia_apelada", nullable=true)
+	private InstanciaApelada responsable;
 
 	public Cronograma() {
 	}
@@ -139,6 +145,14 @@ public class Cronograma implements Serializable {
 
 	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
 		this.lapsoAcademico = lapsoAcademico;
+	}
+
+	public InstanciaApelada getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(InstanciaApelada responsable) {
+		this.responsable = responsable;
 	}
 
 }
