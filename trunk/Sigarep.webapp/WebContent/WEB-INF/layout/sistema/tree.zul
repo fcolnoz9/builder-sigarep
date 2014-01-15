@@ -180,8 +180,8 @@
 										<treerow>
 											<treecell
 												label="Verificar Recaudos" sclass="transacciones"
-												id="VerificarRecaudos"
-												onClick="createWin(VerificarRecaudos.getId(), VerificarRecaudos.getSclass())" />
+												id="VerificarApelacionesComision"
+												onClick="createWin(VerificarApelacionesComision.getId(), VerificarApelacionesComision.getSclass())" />
 										</treerow>
 									</treeitem>
 									<treeitem>
@@ -527,15 +527,9 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Guía paso a paso" id="GuiaPasoAPaso" sclass="maestros"
-								onClick="createWin(GuiaPasoAPaso.getId(), GuiaPasoAPaso.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Formatos y Reglamentos"
-								id="CargarReglamentosYFormatos" sclass="maestros"
-								onClick="createWin(CargarReglamentosYFormatos.getId(), CargarReglamentosYFormatos.getSclass())" />
+							<treecell label="Cargar Documentos"
+								id="CargarDocumentos" sclass="maestros"
+								onClick="createWin(CargarDocumentos.getId(), CargarDocumentos.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem>

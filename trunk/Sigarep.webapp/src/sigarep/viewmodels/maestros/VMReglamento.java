@@ -19,6 +19,7 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 
 import sigarep.herramientas.Documento;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.maestros.ReglamentoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
@@ -43,6 +44,8 @@ private Reglamento reglamentoSeleccionado;
 private String nombreDoc;
 
 private ReglamentoFiltros filtros = new ReglamentoFiltros();
+
+private MensajesAlUsuario msjs  = new MensajesAlUsuario();
 
 public VMReglamento() {
 	super();
@@ -180,7 +183,7 @@ public void setListaReglamento(List<Reglamento> listaReglamento) {
 
 
 @Command
-@NotifyChange({"titulo", "descripcion", "categoria", "fechaSubida", "nombreDoc"})
+@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria", "fechaSubida", "nombreDoc"})
 public Reglamento getReglamentoSeleccionado() {
 	return reglamentoSeleccionado;
 }
@@ -221,12 +224,13 @@ public void limpiar(){
 	media = null;
 	documento = new Documento();
 	nombreDoc="";
+	filtros();
 }
 
 
 
 @Command
-@NotifyChange({"titulo", "descripcion", "categoria","fechaSubida","listaReglamento","nombreDoc"})
+@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida","listaReglamento","nombreDoc"})
 public void mostrarSeleccionado(){
 	Reglamento reg = getReglamentoSeleccionado();
 	titulo = reg.getTitulo(); 
@@ -242,7 +246,7 @@ public void mostrarSeleccionado(){
 }
 
 @Command
-@NotifyChange({"titulo", "descrripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
+@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
 public void eliminarReglamento(){
 if (titulo == null)
 		Messagebox.show("IdDocumento de Reglamento no encontrado, no se pudo eliminar", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -253,7 +257,7 @@ if (titulo == null)
 		catch(Exception e){
 		    System.out.println(e.getMessage());
 		}
-		Messagebox.show("Reglamento eliminado correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+		msjs.informacionEliminarCorrecto();
 		limpiar();
 		filtros();
 	}

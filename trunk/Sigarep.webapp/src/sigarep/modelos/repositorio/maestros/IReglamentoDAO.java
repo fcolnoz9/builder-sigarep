@@ -12,7 +12,7 @@ public interface IReglamentoDAO extends JpaRepository<Reglamento, Integer> {
 	
 	//permite la busqueda de los registros por estatus, para mostrar los registros en true, luego de la eliminación lógica.
 		//se utiliza en ServicioReglamento public List<Reglamento> listaReglamento()
-			@Query("select  r from Reglamento r where r.estatus='true'")
+			@Query("select  r from Reglamento r where r.estatus='TRUE'")
 			public List<Reglamento> listaReglamentoLogico();
 
 }
