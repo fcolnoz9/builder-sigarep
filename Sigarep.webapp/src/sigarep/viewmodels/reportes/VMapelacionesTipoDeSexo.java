@@ -102,13 +102,13 @@ public class VMapelacionesTipoDeSexo {
 	@Command
 	@NotifyChange({ "listaLapsoInicial" })
 	public void buscarLapsoInicial() {
-		setListaLapsoInicial(serviciolapsoacademico.buscarLapso(codigoLapso));
+		setListaLapsoInicial(serviciolapsoacademico.buscarLapsoAcademico(codigoLapso));
 	}
 
 	@Command
 	@NotifyChange({ "listaLapsoFinal" })
 	public void buscarLapsoFinal() {
-		setListaLapsoFinal(serviciolapsoacademico.buscarLapso(codigoLapso));
+		setListaLapsoFinal(serviciolapsoacademico.buscarLapsoAcademico(codigoLapso));
 	}
 
 	public PieModel getModel() {
