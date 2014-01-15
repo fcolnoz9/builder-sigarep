@@ -30,7 +30,7 @@
 							<textbox
 								constraint="no empty: Ingrese el Nombre del Momento"
 								id="txtNombreMomento" width="300px" cols="23" maxlength="30"
-								mold="rounded" tabindex="1" value="@bind(vm.nombreMomento)" />
+								mold="rounded" tabindex="1" value="@bind(vm.nombreEstadoApelacion)" />
 						</hlayout>
 								<label id="lblDescripcion" value="Descripcion:" />
 						<hlayout id="lytdescripcion">
@@ -46,10 +46,10 @@
 		<space />
 		<!-- Grupbox que contiene el listado de momentos almacenados en base de datos -->
 		<groupbox id="grbListaMomento">
-			<caption label="Listado de Momentos" />
+			<caption label="Lista de Estados de Apelacion" />
 			<listbox id="lbxNombreMomento" height="100%"
-				model="@bind(vm.listaMomento)"
-				selectedItem="@bind(vm.momenseleccionado)"
+				model="@bind(vm.listaEstadoApelacion)"
+				selectedItem="@bind(vm.estadoseleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
 				emptyMessage="No hay momentos registrados" mold="paging"
 				pageSize="5">
@@ -58,7 +58,7 @@
 					<listheader label="Nombre del Momento"
 						align="center" sort="auto(nombreMomento)">
 						<textbox id="filtroNombreMomento" instant="true"
-						width="100px" value="@bind(vm.filtros.nombreMomento)"
+						width="100px" value="@bind(vm.filtros.nombreEstado)"
 						onChange="@command('filtros')"/>
 						<image src="/imagenes/iconos/buscar.png"/>
 						</listheader>
@@ -72,7 +72,7 @@
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
-						<listcell label="${each.nombreMomento}"></listcell>
+						<listcell label="${each.nombreEstado}"></listcell>
 						<listcell label="${each.descripcion}"></listcell>
 					</listitem>
 				</template>
@@ -88,13 +88,13 @@
 					<button id="btnGuardarMomento" label="Guardar"
 						mold="trendy" width="auto" height="auto" orient="horizontal"
 						image="imagenes/iconos/guardar.png"
-						onClick="@command('guardarMomento')" />
+						onClick="@command('guardarEstadoApelacion')" />
 				</div>
 				<div align="right" height="100%">
 					<button id="btnEliminarMomento" label="Eliminar"
 						mold="trendy" width="auto" height="auto" orient="horizontal"
 						image="imagenes/iconos/eliminar.png"
-						onClick="@command('eliminarMomento')" />
+						onClick="@command('eliminarEstadoApelacion')" />
 				</div>
 				<div align="right" height="100%">
 					<button id="btnCancelarPregunta" label="Cancelar"
@@ -106,7 +106,7 @@
 					<button id="btnCerrar" label="Cerrar" mold="trendy"
 						width="auto" height="auto" orient="horizontal"
 						image="imagenes/iconos/cerrar.png"
-						onClick="winRegistarMomento.onClose()" />
+						onClick="winRegistarEstadoApelacion.onClose()" />
 				</div>
 			</hbox>
 		</div>
