@@ -30,21 +30,21 @@
 		</grid>
 	</groupbox>
 		<groupbox id="grbDatosSancion">
-		<caption id="lblDatossancion" label="Datos Sancion" />
+		<caption id="lblDatossancion" label="Datos Sanción" />
 		<grid>
 			<rows>
 				<row>
 					<label id="lblTiposancion"
-						value="Tipo de Sancion: " />
+						value="Tipo de Sanción: " />
 					<textbox id="txtTipoSancion" cols="23"
 						maxlength="30" readonly="true" value="@bind(vm.sancion)">
 					</textbox>
-					<label id="lblLapsosancion" value="Lapso de Sancion: " />
+					<label id="lblLapsosancion" value="Lapso de Sanción: " />
 					<textbox id="txtLapsosancion" cols="23" maxlength="30" value="@bind(vm.lapso)" readonly="true"></textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
-						value="Periodo de Sancion: " />
+						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
 						maxlength="30" value="" readonly="true">
 					</textbox>
@@ -61,7 +61,7 @@
 		<caption label="Datos de Recaudos" />
 		<grid id="grdCargarRecaudos" model="@bind(vm.listaRecaudos)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="5">
 	        <columns>
-	        	<column label="Motivo de Apelacion" hflex="3" align="left"></column>
+	        	<column label="Motivo de Apelación" hflex="3" align="left"></column>
 	            <column label="Recaudo Entregado" hflex="3" align="left"></column>
 	            <column label="Soporte de Recaudo" hflex="3" align="left"></column>
 	            <column label="Opciones de Carga" hflex="3" align="left"></column>
@@ -98,7 +98,7 @@
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="winVerificiarRecaudos.onClose()">
+			orient="horizontal" onClick="winCargarRecaudoEntregadoEstudiante.onClose()">
 		</button>
 	</div>
 
