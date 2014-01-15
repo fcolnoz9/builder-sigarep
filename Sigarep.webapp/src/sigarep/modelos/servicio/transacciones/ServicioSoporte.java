@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.transacciones.Soporte;
+import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.repositorio.transacciones.ISoporteDAO;
 
 @Service("serviciosoporte")
@@ -22,5 +23,9 @@ public class ServicioSoporte {
 	
 	public Soporte guardar(Soporte soporte) {
 		return iSoporteDAO.save(soporte);
+	}
+	
+	public void eliminar(SoportePK soportePK){
+		iSoporteDAO.delete(soportePK);
 	}
 }
