@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Embeddable
 @Access(AccessType.FIELD)
 public class SoportePK implements Serializable {
+
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +31,18 @@ public class SoportePK implements Serializable {
 
 	public SoportePK() {
 	}
+	
+	public SoportePK(Integer idRecaudo, Integer idTipoMotivo,
+			String codigoLapso, String cedulaEstudiante,
+			Integer idInstanciaApelada) {
+		super();
+		this.idRecaudo = idRecaudo;
+		this.idTipoMotivo = idTipoMotivo;
+		this.codigoLapso = codigoLapso;
+		this.cedulaEstudiante = cedulaEstudiante;
+		this.idInstanciaApelada = idInstanciaApelada;
+	}
+	
 	public Integer getIdRecaudo() {
 		return this.idRecaudo;
 	}
