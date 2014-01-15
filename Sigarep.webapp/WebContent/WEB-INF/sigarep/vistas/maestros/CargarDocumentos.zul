@@ -30,7 +30,7 @@ style="overflow:auto" action="hide: slideUp"
             Descripcion:
             <hbox>
                 <textbox  id= "txtdescripcion" width="300px" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
-					 maxlength="30" cols="23" tabindex="5"  >
+					 maxlength="50" cols="23" tabindex="5"  >
                     <attribute name="value"> </attribute>
                 </textbox>
             </hbox>
