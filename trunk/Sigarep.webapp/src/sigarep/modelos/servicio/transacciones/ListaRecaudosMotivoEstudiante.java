@@ -23,6 +23,12 @@ public class ListaRecaudosMotivoEstudiante {
 		this.idRecaudo = idRecaudo;
 	}
 	
+	public ListaRecaudosMotivoEstudiante(String nombreRecaudo, String nombreTipoMotivo) {
+		super();
+		this.nombreRecaudo = nombreRecaudo;
+		this.nombreTipoMotivo = nombreTipoMotivo;
+	}
+	
 	
 	public Integer getIdTipoMotivo() {
 		return idTipoMotivo;

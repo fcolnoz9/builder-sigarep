@@ -45,10 +45,10 @@ public class ServicioApelacion  {
 				"(aesa.codigo_lapso = esa.codigo_lapso AND aesa.cedula_estudiante = esa.cedula_estudiante)" +
 				"LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
 				"WHERE sa.id_sancion = esa.id_sancion AND " +
-				"m.id_estado_apelacion = ap.id_estado_apelacion  AND m.nombre_estado = 'veredicto' " +
+				"m.nombre_estado = 'veredicto' " +
 				"AND esa.codigo_lapso = la.codigo_lapso  AND i.id_instancia_apelada = sap.id_instancia_apelada  " +
 				"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
-				"AND la.estatus = 'true' AND es.cedula_estudiante = " +
+				"AND la.estatus = 'TRUE' AND es.cedula_estudiante = " +
 				"esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante AND ap.id_instancia_apelada = '1' "  +
 				"AND sap.estatus = 'true'" ; 
 				
@@ -144,6 +144,24 @@ public class ServicioApelacion  {
 		return results;
 	}
 
+	public List<ListaRecaudosMotivoEstudiante> buscarRecaudosMotivos() {
+		String queryStatement = 
+				"SELECT recaudo.nombre_recaudo, tipo_motivo.nombre_tipo_motivo " +
+				"FROM recaudo, tipo_motivo WHERE tipo_motivo.id_tipo_motivo = recaudo.id_tipo_motivo";
+		Query query = em.createNativeQuery(queryStatement);
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		
+		List<ListaRecaudosMotivoEstudiante> results = new ArrayList<ListaRecaudosMotivoEstudiante>();
+		for (Object[] resultRow : resultSet) {
+			
+			results.add(new ListaRecaudosMotivoEstudiante ((String) resultRow[0], (String) resultRow[1]));
+		}
+		
+		return results;
+	}
 	
 	}
 
