@@ -162,9 +162,9 @@
 									<treeitem>
 										<treerow>
 											<treecell
-												label="Cargar Recaudos" id="CargarRecaudos"
+												label="Cargar Recaudos" id="ListaCargarRecaudoEntregado"
 												sclass="transacciones"
-												onClick="createWin(CargarRecaudos.getId(), CargarRecaudos.getSclass())" />
+												onClick="createWin(ListaCargarRecaudoEntregado.getId(), ListaCargarRecaudoEntregado.getSclass())" />
 										</treerow>
 									</treeitem>
 								</treechildren>
