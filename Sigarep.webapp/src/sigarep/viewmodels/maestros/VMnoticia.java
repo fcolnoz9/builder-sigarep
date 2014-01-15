@@ -320,7 +320,7 @@ public NoticiaFiltro getFiltros() {
 			listaNoticia =servicionoticia.buscarNoticias(filtros);
 		}
 		
-		//Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. Hecho por: José Galíndez
+		//Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
 		@Command
 		@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia","fotoNoticia"})
 		public void mostrarSeleccionado2(){
@@ -344,48 +344,31 @@ public NoticiaFiltro getFiltros() {
 			win.doModal();
 
 		}
+		
+		//Metodo que reordena la lista
 		@Command
 		@NotifyChange({"listaNoticia"})
-		public void reordenarLista(List<Noticia> listaNoticia){
-			System.out.println("pase por reordenar");
+		public void reordenarLista(List<Noticia> listaNoticia){		
 			
-			if(listaNoticia != null)
-			System.out.println("tiene " + listaNoticia.size());
-			else System.out.println("viene nula");
 			if(listaNoticia.size() > 2){
 			Noticia nitic = listaNoticia.remove(0);
-			
-			System.out.println(nitic.getTitulo());
-			System.out.println(listaNoticia.size());
-			
 			listaNoticia.add(nitic);
-			
-			System.out.println(listaNoticia.size());
-			
-			nitic = listaNoticia.get((listaNoticia.size()-1));
-			
-			System.out.println(nitic.getTitulo());
-			//con este metodo si pueden trabajar tranquilamente el selectedItem onSelect y onClick, yo los uso para invocar una modal
 			lbxNoticias.setModel(new ListModelList<Noticia>(listaNoticia));
-			}else{System.out.println("hay menos de 3 elementos en la lista");}
+			}//else{System.out.println("hay menos de 3 elementos en la lista");}
 			
 		}
-		//Maneja el timer de la  vista , se encarga de actualizar la lista cada 5 segu
-		//necesitan declarar la lista y el timer
-		// por ejemplo yo uso private @Wire Timer tiempo; private @Wire Listbox lbxNoticias; 
-				@Listen("onTimer = #tiempo")
-				public void hacer(){
-					System.out.println("otro timer");
+		
+		//Maneja el timer de la  vista , se encarga de actualizar la lista cada 5 segundos
+		@Listen("onTimer = #tiempo")
+		public void hacer(){
 					reordenarLista(getListaNoticia());
-				}
+		}
 		
-			@Override
-			public void doAfterCompose(Component comp) throws Exception {
-					// TODO Auto-generated method stub
-					super.doAfterCompose(comp);
-					buscarNoticia();
-		
-					
-			}
+		@Override
+		public void doAfterCompose(Component comp) throws Exception {
+			// TODO Auto-generated method stub
+			super.doAfterCompose(comp);
+			buscarNoticia();		
+		}
 //Fin de los otros metodos.
 }
