@@ -2,6 +2,7 @@ package sigarep.viewmodels.transacciones;
 
 import java.util.Date;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
@@ -11,6 +12,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 
 import org.zkoss.zhtml.Messagebox;
 
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
@@ -22,6 +24,7 @@ import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -568,4 +571,14 @@ public class VMEstudianteSancionado {
 	public LapsoAcademico objetoComboLapso() {
 		return lapsoAcademico;
 	}
+	
+	@Command
+	@NotifyChange({"cedula", "nombre", "apellido","sancion", "lapso"})
+	public void showModal(){
+  		Window registrar = (Window)Executions.createComponents(
+        		"/WEB-INF/sigarep/vistas/transacciones/ListadoSancionInicial.zul", null, null);
+		registrar.setMaximizable(true);
+		registrar.doModal();	
+  	}
+	
 }

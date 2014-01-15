@@ -1,22 +1,20 @@
 <zk>
-	<window id="winMaestroInstanciaApelada" title="::Registros Basicos::Registrar Instancia Apelada"  border="normal" width="auto"  height="auto" closable="true">
-			<script type="text/javascript" src="/widgets/js/watermark.js" />
-			<script type="text/javascript" src="/widgets/js/watermarkinput.js" />
+	<window id="winMaestroInstanciaApelada" title="Registros Basicos :: Instancia Apelada"  border="normal" width="auto"  height="auto" closable="true">
 			<groupbox id="grbRegistrarInstanciaA">
-				<caption>Datos</caption>
+				<caption>Datos Instancia Apelada</caption>
 				 <separator />
 				 <hbox>
 				 	<vbox width="200px">
 				 		<label id = "lblInstancia" value="Instancia Apelada" />
 				 	</vbox>
 				 	<vbox width="200px">
-				 		<textbox id = "txtInstancia"  constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="1" />
+				 		<textbox id = "txtInstancia" mold="rounded" width="300px" height="auto" constraint="no empty: Ingrese nombre de la instancia" tabindex="1" />
 				 	</vbox>
 				 	<vbox width="200px">
 				 		<label id = "lblRecurso" value="Nombre Recurso Apelacion" />
 				 	</vbox>
 				 	<vbox>
-				 		<textbox id="txtRecurso" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="2"/>
+				 		<textbox id="txtRecurso" mold="rounded" width="300px" height="auto" constraint="no empty: Ingrese el nombre del recurso" tabindex="2"/>
 				 	</vbox>
 				 </hbox>
 				 <separator spacing="20px" />
@@ -25,7 +23,7 @@
 				 		<label id="lblDescripcion" value="Descripcion"/>
 				 	</vbox>
 				 	<vbox width="200px">
-				 		<textbox id="txtDescripcion" constraint="no empty" width="170px" maxlength="30" cols="23" tabindex="3"/>
+				 		<textbox id="txtDescripcion" mold="rounded" width="300px" height="auto" constraint="no empty: Ingrese una descripcion"  tabindex="3"/>
 				 	</vbox>
 				 </hbox>
 				 <separator />
@@ -50,15 +48,13 @@
 			</listbox>
 			<separator />
 			<div align="right" height="100%">
-				<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" />	
-   				<button label="Eliminar" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" />
-   				<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" />	
-		   		<button label="Cerrar" id="btnSalir" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winMaestroInstanciaApelada.onClose()" />
+				<button label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" />	
+   				<button label="Eliminar" mold="trendy" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" />
+   				<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" />	
+		   		<button label="Cerrar" mold="trendy" id="btnSalir" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winMaestroInstanciaApelada.onClose()" />
 			</div>
 			<separator />
-
-	   			<hbox  width="100%" pack="right">
-    					
+	   			<hbox  width="100%" pack="right">	
    				</hbox>	
 	</window>
 </zk>

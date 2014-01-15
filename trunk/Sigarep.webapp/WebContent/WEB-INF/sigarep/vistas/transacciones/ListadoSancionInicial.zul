@@ -1,0 +1,38 @@
+<zk>
+<window id="winListadoSancionInicial" title="Gestion :: Apelacioness :: Registro Inicial" border="normal" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMEstudianteSancionado')"
+            width="auto"  height="auto" contentStyle="overflow:auto" closable="true" action="hide: slideUp" >
+<groupbox id="grbListadoSancionadosInicial">
+   	<caption label="Lista de Estudiantes Sancionados" />
+   	<space />
+   	<space />
+   	<listbox id="lbxDatosIniciales" height="130px"    
+   			 onSelect="@command('showModal')" emptyMessage="No hay estudiantes sancionados registrados" mold="paging" pageSize="10">
+		<listhead>
+			<listheader label="Cedula" align="center" sort="auto(id.cedulaEstudiante)" />
+			<listheader label="Nombre" align="center" sort="auto(estudiante.primerNombre)" />
+			<listheader label="Apellido" align="center" sort="auto(estudiante.primerApellido)" />
+			<listheader label="Sanción" align="center" sort="auto(sancionMaestro.nombreSancion)" />
+			<listheader label="Lapso Academico" align="center" sort="auto(id.codigoLapso)" />
+		</listhead>
+			<listitem selected="false">
+				<listcell label="18950688"></listcell>
+				<listcell label="Luis"></listcell>
+				<listcell label="Gomez"></listcell>
+				<listcell label="RR"></listcell>
+				<listcell label="2013 I"></listcell>
+			</listitem>
+	</listbox>
+	<space />
+	<space />
+	</groupbox>
+<separator />
+	<hbox  width="100%" pack="right">
+    	<div align="right" height="100%">
+   			<button label="Cancelar" id="btnCancelar" mold="trendy" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')"/>	
+		   	<button label="Cerrar" id="btnSalir" mold="trendy" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal"  onClick="winListadoInicial.onClose()" />
+		</div>	
+   	</hbox>	
+<separator />	
+</window>
+</zk>
