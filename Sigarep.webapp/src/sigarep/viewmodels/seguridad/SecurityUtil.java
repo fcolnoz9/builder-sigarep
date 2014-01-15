@@ -35,15 +35,15 @@ public class SecurityUtil {
         public static Usuario getUser() {
                 final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                 if (auth != null) {
-                try{
+                	try{
                         Object p = auth.getPrincipal();
                         if(p instanceof Usuario) return (Usuario) p; 
-                }catch(RuntimeException e){
+                	}catch(RuntimeException e){
                         e.printStackTrace();
                         throw e;
+                	}
                 }
-        }
-        return null;
+                return null;
         }
         /**
          * Return true if the authenticated principal is granted NONE of the roles 

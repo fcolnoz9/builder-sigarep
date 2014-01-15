@@ -10,33 +10,26 @@
 				<column align="left" width="auto" />
 			</columns>
 			<rows>
-				<row></row>
 				<row>
-					<label value="Cédula: " id="lblCedulaEstudiante" />
+					<label value="Cédula: " id="lblCedulaEstudiante" width="40%" />
 					<textbox id="txtCedulaEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="false" value="@bind(vm.cedula)">
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)">
+					</textbox>
+					<label value="Nombres: " id="lblNombresEstudiante" width="40%" />
+					<textbox id="txtNombresEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
 					</textbox>
 				</row>
 				<row>
-					<label value="Nombres: " id="lblNombresEstudiante" />
-					<textbox id="txtNombresEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="true" value="@bind(vm.nombres)">
-					</textbox>
 					<label value="Apellidos: "
 						id="lblApellidosEstudiante" />
 					<textbox id="txtApellidosEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="true" value="@bind(vm.apellidos)">
-					</textbox>
-				</row>
-				<row>
-					<label value="Telefono: " id="lblTelefonoEstudiante" />
-					<textbox id="txtTelefonoEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="true" value="@bind(vm.telefono)">
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
 					</textbox>
 					<label value="Programa: "
 						id="lblProgramaEstudiante" />
 					<textbox id="txtProgramaEstudiante" cols="23"
-						width="200px" maxlength="30" disabled="true" value="@bind(vm.programa.nombrePrograma)">
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)">
 					</textbox>
 				</row>
 			</rows>
@@ -50,22 +43,22 @@
 					<label id="lblTiposancion"
 						value="Tipo de Sancion: " />
 					<textbox id="txtTipoSancion" cols="23"
-						maxlength="30" disabled="true" value="@bind(vm.sancion.nombreSancion)">
+						maxlength="30" readonly="true" value="@bind(vm.sancion)">
 					</textbox>
 							<label id="lblLapsosancion" value="Lapso de Sancion: " />
 					<textbox id="txtLapsosancion" cols="23"
-						maxlength="30" value="@bind(vm.lapsoAcademico.codigoLapso)" disabled="true">
+						maxlength="30" value="@bind(vm.lapso)" readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="@bind(vm.semestreSancion)" disabled="true">
+						maxlength="30" value="@bind(vm.semestreSancion)" readonly="true">
 					</textbox>
 					<label id="lblAsignatura" value="Asignatura: " />
 					<textbox id="txtAsignatura" cols="23"
-						maxlength="30" value="@bind(vm.asignatura.nombreAsignatura)" disabled="true">
+						maxlength="30" value="@bind(vm.asignatura)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -83,11 +76,16 @@
 						<listbox id="left" multiple="true" 
 							height="250px" oddRowSclass="non-odd" checkmark="true"
 							xmlns:ca="client/attribute" ca:data-scrollable="false"
-							 model="@bind(vm.listaRecaudosPorMotivo)"
+							 model="@bind(vm.listaRecaudos)"
    			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="3" >
+<!-- 							<listhead> -->
+<!--  								<listheader label="Nombre del recaudo" width="50%" align="center" sort="auto(nombreRecaudo)"/> --> 
+<!--  								<listheader label="Tipo de Motivo" width="50%" align="center" sort="auto(nombreTipoMotivo)"/> -->
+<!-- 							</listhead> -->
 							<template name="model">
 								<listitem selected="false">
 									<listcell label="${each.nombreRecaudo}" ></listcell>
+									<listcell label="${each.nombreTipoMotivo}" ></listcell>
 								</listitem>
 							</template>
 						</listbox>
@@ -129,7 +127,7 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" 
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=left.selectedItems)">
+			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items)">
 			<attribute name="onClick">
 				Set items = left.getSelectedItems();
 				if (items.isEmpty()) {
@@ -148,5 +146,4 @@
 			orient="horizontal" onClick="winVerificiarRecaudos.onClose()">
 		</button>
 	</div>
-
 </window>
