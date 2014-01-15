@@ -1,5 +1,5 @@
   <window id="winRegistrarRecaudos" title="Registrar Recaudos :: Recaudos :: Registrar Recaudos" border="normal" apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudo')">
+           height="auto" viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudo')">
 	
 	<groupbox>
 		<caption label="Datos del Recaudo" />
@@ -9,18 +9,15 @@
 				<column align="left"  width="auto"/>
 			</columns>
 			
-		<rows>
-			<row>
-<!-- 			<hlayout id="lytTipoMotivo"> -->
-			
-				 <label id="lblTipoMotivo" value="Tipo de Motivo"  />
-				<combobox readonly="true" id= "cmbTipoMotivo" value="@bind(vm.tipoMotivo.nombreTipoMotivo)" 
-				    width="auto" mold="rounded" model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.tipoMotivo)" onSelect="@command('objetoComboRecaudo')">
-							<template name="model">
-								<comboitem  label="${each.nombreTipoMotivo}"/>
-							</template>
-					</combobox>
-<!--              </hlayout> -->
+			<rows>
+				<row>		
+					 <label id="lblTipoMotivo" value="Tipo de Motivo"  />
+					<combobox readonly="true" id= "cmbTipoMotivo" value="@bind(vm.tipoMotivo.nombreTipoMotivo)" 
+					    width="auto" mold="rounded" model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.tipoMotivo)" onSelect="@command('objetoComboRecaudo')">
+								<template name="model">
+									<comboitem  label="${each.nombreTipoMotivo}"/>
+								</template>
+						</combobox>
 				</row>
 				<row>
 					<label  id="lblNombreRecaudo" value="Nombre:"/>
@@ -28,27 +25,22 @@
 				</row>
 				<row>
 					<label id="lblDescripcionRecaudo" value="Descripción: "/>
-<!-- 					<hlayout id="lytDescripcionRecaudo">   -->
-						<textbox id="txtDescripcionRecaudo" width="200px" value="@bind(vm.descripcion)" />
-<!-- 					</hlayout> -->
+					<textbox id="txtDescripcionRecaudo" width="200px" value="@bind(vm.descripcion)" />
 				</row>
 			     <row>
 					<label id="lblObservacionRecaudo" value="Observación: " />
-<!-- 					<hlayout id="lytObservacionRecaudo"> -->
-						<textbox id="txtObservacionRecaudo" width="200px" value="@bind(vm.observacion)" />
-<!-- 					</hlayout> -->
+					<textbox id="txtObservacionRecaudo" width="200px" value="@bind(vm.observacion)" />
 				</row>
-		    </rows>
+			</rows>
 		</grid>	
 		
 	 <!-- Grupbox que contiene el listado de los recaudos -->
-	<groupbox>
+	<groupbox height="auto">
    	<caption label="Listado de Recaudos" />
    	<space />
-   	<space />
    	<!-- Lista que contiene el listado de los recaudos -->
-   	<listbox id="lbxrecaudo" height="160px" model="@bind(vm.listaRecaudos)" selectedItem="@bind(vm.recaudoSeleccionado)"   
-   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay recados registrados" mold="paging" pageSize="10">
+   	<listbox id="lbxrecaudo" height="auto" model="@bind(vm.listaRecaudos)" selectedItem="@bind(vm.recaudoSeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay recados registrados" mold="paging" pageSize="3">
 	<!-- Busqueda por FILTROS recaudos -->
 		<auxhead sclass="category-center"> 	
 		 	<auxheader colspan="1" align="center" image="/imagenes/iconos/buscar.png">
