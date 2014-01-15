@@ -1,0 +1,130 @@
+<window id = "wincarga" title="Configuración Web :: Cargar Documentos" 
+border="normal" width = "auto" height="auto" closable="true" contentStyle="overflow:auto"
+style="overflow:auto" action="hide: slideUp"
+ apply="org.zkoss.bind.BindComposer"
+ viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMReglamento')" >
+<groupbox  > 
+<caption label="">Carga de Documentos</caption>
+<grid id= "grdcargar" fixedLayout="true" >
+ <columns>
+        <column label="" width="200px" />
+        <column label=""  width = "100%"  />
+    </columns>
+    <rows>
+        <row>
+           Titulo Documento:
+            <hbox>
+                <vbox>
+                    <textbox id= "txttitulo"  height="24px" mold = "rounded" value="@bind(vm.titulo)"
+					width="170px" maxlength="30" cols="23" tabindex="5"    />
+                </vbox>
+                <hbox>
+                    <button id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarDocumento',upload=event)"></button>
+                    <a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
+                                
+                </hbox>
+            </hbox>
+        </row>
+           <row>
+            Descripcion:
+            <hbox>
+                <textbox  id= "txtdescripcion" width="300px" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+					 maxlength="30" cols="23" tabindex="5"  >
+                    <attribute name="value"> </attribute>
+                </textbox>
+            </hbox>
+        </row>
+        <row>
+            Categoria:
+            <hbox>
+              <combobox id="cmbCategoria" mold="rounded" selectedItem=" @bind(vm.categoria)">
+						<comboitem value="guia" id="cmiGuiaPaso" label="Guia Paso a Paso" />
+ 						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
+ 						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
+ 						<comboitem value="calendario" id="cmiCalendario" label="Calendario Académico" /> 
+ 			 </combobox> 
+                
+            </hbox>
+        </row>
+           <row>
+            Fecha de subida:
+            <hbox>
+            	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" value="@bind(vm.fechaSubida)"/>
+            </hbox>
+        </row>    
+    </rows>
+</grid>
+
+</groupbox>
+
+<groupbox> 
+<caption label= " Lista de Documentos" />
+
+<listbox id = "lbxlistareglamentos" rows="2" model="@bind(vm.listaReglamento)" 
+			selectedItem="@bind(vm.reglamentoSeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" 
+   			 emptyMessage="No hay banner registrados" mold="paging" pageSize="10" >
+
+<listhead>
+		<listheader label="Titulo" align="center" 
+			sort="auto(titulo)">
+			<textbox id="filtroTitulo" instant="true"
+			width="100px" value="@bind(vm.filtros.titulo)"
+			onChange="@command('filtros')" />
+			<image src="imagenes/iconos/buscar.png" />
+		</listheader>
+		<listheader label="Descripcion"  align="center"
+		 sort="auto(descripcion)" >
+		 <textbox id="filtroDescripcion" instant="true"
+			width="100px" value="@bind(vm.filtros.descripcion)"
+			onChange="@command('filtros')" />
+			<image src="imagenes/iconos/buscar.png" />
+		</listheader>
+		<listheader label="Categoria" align="center"
+		 sort="auto(categoria)" >
+		 <textbox id="filtroCategoria" instant="true"
+			width="100px" value="@bind(vm.filtros.categoria)"
+			onChange="@command('filtros')" />
+			<image src="imagenes/iconos/buscar.png" />
+		</listheader>
+		<listheader label="Fecha Subida" align="center" width="100px"
+		 sort="auto(fechaSubida)">
+		  </listheader>
+		<listheader label="Documento" align="center" width="100px"
+		sort="auto(documento)">
+		</listheader>
+		
+		
+	</listhead>
+	
+	
+	<template name="model">
+				<listitem selected="false">
+					<listcell label="${each.titulo}" />
+					<listcell label="${each.descripcion}" />
+					<listcell label="${each.categoria}" />
+					<listcell label="${each.fechaSubida}" />
+					<listcell label="${each.documento.nombreDocumento}" />
+				</listitem>
+	</template>
+</listbox>
+
+
+</groupbox>
+	<separator />
+
+<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="@command('guardarReglamento')"/>
+			<button label="Eliminar" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="@command('eliminarReglamento')"/>
+			<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
+			orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="wincarga.onClose()" />
+
+
+		</div>
+</window>

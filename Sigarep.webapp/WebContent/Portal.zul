@@ -86,8 +86,7 @@
 								<west vflex="1" size="25%" border="0">
 
 									<!-- Inicio del Noticiero-->
-<!-- 									<include -->
-<!-- 										src="/WEB-INF/layout/sistema/portalNoticias.zul" /> -->
+									<include src="/portalNoticias.zul" />
 								</west>
 								<east size="75%" border="0">
 									<html>

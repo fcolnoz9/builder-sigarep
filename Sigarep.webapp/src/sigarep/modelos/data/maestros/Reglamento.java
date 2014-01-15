@@ -27,12 +27,12 @@ public class Reglamento implements Serializable {
 	
 	@Embedded
 	private Documento documento;
-
-	@Column(name="descripcion",length=255)
-	private String descripcion;
 	
-	@Column(name="titulo",length=50, nullable=false)
+	@Column(length=255)
 	private String titulo;
+
+	@Column(length=255)
+	private String descripcion;
 
 	@Column(nullable=false)
 	private Boolean estatus;
@@ -47,12 +47,13 @@ public class Reglamento implements Serializable {
 	public Reglamento() {
 	}
 	
-	public Reglamento(Integer idDocumento, Documento documento,
+	public Reglamento( Documento documento, String titulo,
 			String descripcion, Boolean estatus, Date fechaSubida,
 			String categoria) {
 		super();
 		this.idDocumento = idDocumento;
 		this.documento = documento;
+		this.titulo= titulo;
 		this.descripcion = descripcion;
 		this.estatus = estatus;
 		this.fechaSubida = fechaSubida;
@@ -65,6 +66,15 @@ public class Reglamento implements Serializable {
 
 	public void setIdDocumento(Integer idDocumento) {
 		this.idDocumento = idDocumento;
+	}
+	
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getDescripcion() {
@@ -105,14 +115,6 @@ public class Reglamento implements Serializable {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
 	}
 
 }
