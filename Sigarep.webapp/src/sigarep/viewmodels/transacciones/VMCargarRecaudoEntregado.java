@@ -221,7 +221,6 @@ public class VMCargarRecaudoEntregado {
 		String nombre1 = nombre;
 		String nombre2 = segundoNombre;
 		nombres = nombre1 + " " + nombre2;
-		System.out.println(nombres);
 	}
 
 	public void concatenacionApellidos() {

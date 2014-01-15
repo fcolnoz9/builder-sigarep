@@ -234,7 +234,6 @@ public class VMListaCargarRecaudoEntregado {
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
 		listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
-		listaPrograma.add(new ProgramaAcademico(-1,"Todos",true));
 	}
 	
 	@Command
