@@ -6,7 +6,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.SancionMaestroFiltros;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
@@ -25,6 +25,8 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 public class VMsancionMaestro {
 	@WireVariable
 	ServicioSancionMaestro serviciosancionmaestro;
+	
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer id_sancion;
 	private String nombre;
 	private String descripcion;
@@ -104,15 +106,13 @@ public class VMsancionMaestro {
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
 			"listaSancion" })
 	public void guardarSancion() {
-		if (nombre == null || descripcion == null) {
-			Messagebox.show("Debe llenar todos los campos", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombre == null || nombre.equals("") || descripcion.equals("") || descripcion == null) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
 			SancionMaestro sanm = new SancionMaestro(id_sancion, descripcion,
 					true, nombre);
 			serviciosancionmaestro.guardarSancion(sanm);
-			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
-					Messagebox.OK, Messagebox.INFORMATION);
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
@@ -138,14 +138,12 @@ public class VMsancionMaestro {
 	@Command
 	@NotifyChange({ "listaSancion", "nombre", "descripcion" })
 	public void eliminarSancion() {
-		if (nombre == null || descripcion == null) {
-			Messagebox.show("Debe seleccionar un tipo de sanción", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombre == null || nombre.equals("") || descripcion.equals("") || descripcion == null) {
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
 			serviciosancionmaestro.eliminarSancion(getSancionSeleccionada()
 					.getIdSancion());
-			Messagebox.show("Se ha eliminado correctamente", "Informacion",
-					Messagebox.OK, Messagebox.INFORMATION);
+			mensajeAlUsuario.informacionEliminarCorrecto();
 			limpiar();
 		}
 	}

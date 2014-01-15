@@ -1,6 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<div sclass="footer">
-		 <label style="padding-left:15%" value="© 2013 Elaborado por el Grupo Builder. Terms Privacy"></label>
+	<div sclass="footer" align="center">
+		 <label value="© 2013 Elaborado por el Equipo Builder. Terms Privacy"></label>
  	</div>
 </zk>

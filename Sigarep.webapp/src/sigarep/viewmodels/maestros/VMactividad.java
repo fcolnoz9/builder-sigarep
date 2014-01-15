@@ -6,7 +6,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.ActividadFiltros;
 import sigarep.modelos.servicio.maestros.ServicioActividad;
@@ -18,6 +18,7 @@ public class VMactividad {
 	@WireVariable
 	ServicioActividad servicioactividad;
 
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer id_actividad;
 	private String nombre;
 	private String descripcion;
@@ -115,15 +116,14 @@ public class VMactividad {
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion", "listaActividad" })
 	public void guardarActividad() {
-		if (nombre == null || descripcion == null) {
-			Messagebox.show("Debe llenar todos los campos", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombre == null || nombre.equals("") || descripcion.equals("")
+				|| descripcion == null) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
-			Actividad actividad = new Actividad(id_actividad, nombre, descripcion,
-					true);
+			Actividad actividad = new Actividad(id_actividad, nombre,
+					descripcion, true);
 			servicioactividad.guardar(actividad);
-			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
-					Messagebox.OK, Messagebox.INFORMATION);
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
@@ -148,14 +148,13 @@ public class VMactividad {
 	@Command
 	@NotifyChange({ "listaActividad", "nombre", "descripcion" })
 	public void eliminarActividad() {
-		if (nombre == null || descripcion == null) {
-			Messagebox.show("Debe seleccionar una actividad", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombre == null || nombre.equals("") || descripcion.equals("")
+				|| descripcion == null) {
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
 			servicioactividad.eliminar(getActividadSeleccionada()
 					.getIdActividad());
-			Messagebox.show("Se ha eliminado correctamente", "Información",
-					Messagebox.OK, Messagebox.INFORMATION);
+			mensajeAlUsuario.informacionEliminarCorrecto();
 			limpiar();
 		}
 	}

@@ -177,11 +177,12 @@ public class VMHistoricoEstudiante {
 		listaHistoricoEstudiante = serviciohistoricoestudiante
 				.buscarHistoricoEstudiante(cedula);
 	}
-	
+
 	@Command
 	@NotifyChange({ "listaMomento" })
 	public void buscarListaMomentos(@BindingParam("id") Integer id) {
-		listaMomento = serviciohistoricoestudiante.buscarListaMomentos(this.cedula, id);
+		listaMomento = serviciohistoricoestudiante.buscarListaMomentos(
+				this.cedula, id);
 	}
 
 	@Command

@@ -20,7 +20,8 @@ public class ServicioListaCronograma {
 		String queryStatement2 = "SELECT act.nombre, act.descripcion, cro.fecha_inicio, cro.fecha_fin, "
 				+"cro.hora_inicio, cro.observacion, cro.lugar, cro.codigo_lapso FROM lapso_academico la "
 				+ "INNER JOIN cronograma AS cro ON la.codigo_lapso = cro.codigo_lapso "
-				+ "INNER JOIN actividad AS act ON act.id_actividad = cro.id_actividad  WHERE la.estatus = TRUE";
+				+ "INNER JOIN actividad AS act ON act.id_actividad = cro.id_actividad  "
+				+ "WHERE la.estatus = TRUE ORDER BY cro.fecha_inicio";
 		/*if(idactividad!=null){
 			queryStatement2 = queryStatement2 + " AND cro.id_actividad = ?";
 		}

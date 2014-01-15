@@ -6,7 +6,8 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
+
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademicoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -25,6 +26,8 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 public class VMprogramaAcademico {
 	@WireVariable
 	ServicioProgramaAcademico servicioprogramaacademico;
+	
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer idPrograma;
 	private String nombrePrograma;
 	private Boolean estatus;
@@ -92,15 +95,13 @@ public class VMprogramaAcademico {
 	@Command
 	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma" })
 	public void guardarPrograma() {
-		if (nombrePrograma == null) {
-			Messagebox.show("Debe llenar todos los campos", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombrePrograma == null || nombrePrograma.equals("")) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
 			ProgramaAcademico proa = new ProgramaAcademico(idPrograma,
 					nombrePrograma, true);
 			servicioprogramaacademico.guardarPrograma(proa);
-			Messagebox.show("Se ha registrado correctamente", "Informacion",
-					Messagebox.OK, Messagebox.INFORMATION);
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
@@ -124,14 +125,12 @@ public class VMprogramaAcademico {
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
 	public void eliminarPrograma() {
-		if (nombrePrograma == null) {
-			Messagebox.show("Debe seleccionar un programa ", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombrePrograma == null || nombrePrograma.equals("")) {
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
 			servicioprogramaacademico
 					.eliminarPrograma(getProgramaseleccionado().getIdPrograma());
-			Messagebox.show("Se ha eliminado correctamente", "Informacion",
-					Messagebox.OK, Messagebox.INFORMATION);
+			mensajeAlUsuario.informacionEliminarCorrecto();
 			limpiar();
 		}
 	}

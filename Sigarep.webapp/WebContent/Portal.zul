@@ -2,13 +2,12 @@
 <zk>
 	<!-- Css -->
 	<style src="widgets/css/style.css" />
-
 	<html>
 		<style dynamic="true">
 			*{padding:0;margin:0;border:0;} #diapos-on{border:0px solid
 			#FBFBFB;-moz-box-shadow:0px 2px 20px
 			#000;-webkit-box-shadow:0px 2px 20px #000;box-shadow:0px 2px
-			20px #000;width:700px;height:280px;margin:5em auto
+			20px #000;width:850px;height:280px;margin:5em auto
 			0;position:relative;} #diapos-on
 			li{position:absolute;top:0;left:0;width:700px;height:350px;list-style:none;}
 			#contador{width:700px;margin:1em auto 0;} #contador
@@ -17,39 +16,34 @@
 			1px 4px #000;} #contador li
 			a{display:block;text-indent:-999em;background:#F9D8E3;width:10px;height:10px;overflow:hidden;}
 			#contador li a:focus{outline:1px solid #F9D8E3;} #contador
-			li.actual a{background:url(images/banner2.png);}
-
-
-			.principal{ position:relative; min-width:1200px;
-			min-height:600px; }
-
-			.water-mark { color: gray; font-style: italic; }
+			li.actual .principal{ position:relative; min-width:1200px;
+			min-height:600px; } .water-mark { color: gray; font-style:
+			italic; }
 		</style>
-
 		<script type="text/javascript" src="widgets/js/DP.js"></script>
-
 		<script type="text/javascript" defer="true">
 			window.onload = DP.inicio;
 		</script>
 	</html>
 
-
-
 	<?meta name="viewport" content="width=device-width, initial-scale=1.0" ?>
 
 	<!-- Inicio de la estructura de la pagina principal -->
-
-	<borderlayout vflex="1" hflex="1" sclass="first-layout">
+	<borderlayout vflex="1" hflex="1" sclass="first-layout"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
 
 		<!-- Inicio de la estructura que contiene el encabezado y el menu -->
 		<north height="18%">
 			<borderlayout>
+
 				<!-- Inicio del Encabezado-->
 				<north sclass="banner" flex="true" size="75%">
 					<include
 						src="WEB-INF/layout/principal/bannerportal.zul" />
 				</north>
 				<!-- Fin del encabezado-->
+
 				<!-- Inicio del Menu-->
 				<south size="25%" hflex="1">
 					<menubar autodrop="true"
@@ -72,7 +66,6 @@
 									style="color:white;font:arial;font-weight:bold;cursor:pointer" />
 							</menupopup>
 						</menu>
-
 					</menubar>
 				</south>
 				<!--Fin del Menu-->
@@ -89,54 +82,38 @@
 					<borderlayout>
 						<!-- Inicio del banner de contenido y estatus-->
 						<north title="" vflex="1" size="50%">
-
 							<borderlayout>
-
-
 								<west vflex="1" size="25%" border="0">
 
-
-
 									<!-- Inicio del Noticiero-->
-									<include
-										src="/WEB-INF/layout/sistema/portalNoticias.zul" />
-
-
+<!-- 									<include -->
+<!-- 										src="/WEB-INF/layout/sistema/portalNoticias.zul" /> -->
 								</west>
-
-
 								<east size="75%" border="0">
-
-
-
 									<html>
 										
 										<![CDATA[ <ul id="diapos"
 										style="margin-top:0px;">
 										<li><image id="img1"
 										src="imagenes/portal-principal/6.jpg"
-										height="250px" /></li>
+										height="280px" /></li>
 										<li><image id="img2"
 										src="imagenes/portal-principal/12.jpg"
-										height="250px"/></li>
+										height="280px"/></li>
 
 										<li><image id="img3"
 										src="imagenes/portal-principal/divina.jpg"
-										height="250px"/></li> </ul> ]]>
+										height="280px"/></li> </ul> ]]>
+										
+										
+										
+										
 									</html>
-
-
-
-
 								</east>
-
-
-
-
 							</borderlayout>
 						</north>
-
 						<!-- Fin del banner de contenido y estatus-->
+
 						<!-- Inicio de la informacion del negocio -->
 						<west vflex="1" size="100%"
 							style="margin-top:0px; margin-right:0px; margin-left:0px;">
@@ -146,15 +123,18 @@
 										style="margin-right:0px; margin-left:0px;">
 										<hlayout>
 											<panel
-												title="Consulta tu Caso" border="normal" height="350px;"
-												hflex="2">
+												title="Consulta tu Caso" border="normal" height="260px"
+												hflex="1">
 												<panelchildren>
 													<vlayout>
 														<space />
 														<vlayout>
-															<label
-																value=" ¿Estas Sancionado?"
-																style="color:Black;font:arial;font-size:18px;font-weight:bold" />
+															<div
+																align="center">
+																<label
+																	value=" ¿Estas Sancionado?"
+																	style="color:Black;font:arial;font-size:18px;font-weight:bold" />
+															</div>
 														</vlayout>
 														<space />
 														<hlayout>
@@ -173,10 +153,8 @@
 													</vlayout>
 												</panelchildren>
 											</panel>
-
-
 											<panel title="Descargas"
-												border="normal" height="185px;" hflex="1">
+												border="normal" height="260px" hflex="1">
 												<panelchildren>
 													<vlayout>
 														<space />
@@ -186,25 +164,18 @@
 														<attribute name="onClick"><![CDATA[
 	Filedownload.save("/archivos/documentos/word.docx", null);
 ]]></attribute>
-
 														<div
 															apply="sigarep.controlador.maestros.ModalController">
-
 															<label
 																id="lblRegla" value="- Reglamentos."
 																style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
 														</div>
-
-
-
-
 														<label
 															value="- Formatos de Apelación."
 															style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
 														<attribute name="onClick"><![CDATA[
 	Filedownload.save("/archivos/documentos/word.docx", null);
 ]]></attribute>
-
 														<label
 															value="- Recaudos por Sanción."
 															style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
@@ -214,26 +185,21 @@
 													</vlayout>
 												</panelchildren>
 											</panel>
-
 										</hlayout>
 									</div>
 								</east>
 								<west vflex="1" size="25%" border="0">
-
-
 									<image
 										src="/imagenes/portal-principal/Guiaico.png"
 										style="cursor:pointer" />
 									<attribute name="onClick"><![CDATA[
 	Filedownload.save("/archivos/documentos/word.docx", null);
 ]]></attribute>
-
-
-
 								</west>
 							</borderlayout>
 						</west>
 						<!-- Fin del banner de contenido-->
+
 						<!-- Inicio de los enlaces de interes -->
 						<south title="" flex="true" size="13%"
 							border="normal">
@@ -242,58 +208,54 @@
 
 						</south>
 						<!-- Fin de los enlaces de interes -->
+
 					</borderlayout>
 				</west>
-
 				<!-- Inicio de la seccion de informacion del la web(login,cronograma,twitter)-->
 				<east size="25%" vflex="1">
 					<vlayout style="overflow:auto;">
 						<!-- Inicio de login -->
-											<include src="/login.zul"/>
-<!-- 						<window title="Iniciar Sesion" border="normal" -->
-<!-- 							width="100%"> -->
-<!-- 							<vlayout> -->
-<!-- 								<hlayout> -->
-<!-- 									<label value="Usuario" -->
-<!-- 										style="font-size:11px" /> -->
-<!-- 									<textbox id="log_usuario" hflex="1" /> -->
-<!-- 									<label value="Clave" -->
-<!-- 										style="font-size:11px" /> -->
-<!-- 									<textbox id="log_clave" -->
-<!-- 										type="password" hflex="1" /> -->
-<!-- 									<button href="index.zul" -->
-<!-- 										label="Entrar" id="btnlogin"> -->
-<!-- 									</button> -->
-<!-- 								</hlayout> -->
-<!-- 								<div -->
-<!-- 									apply="sigarep.controlador.maestros.ModalControler2" -->
-<!-- 									align="center"> -->
-<!-- 									<a id="ordenRecuperarContrasenna"> -->
-<!-- 										¿Olvidó su contraseña? -->
-<!-- 									</a> -->
-<!-- 								</div> -->
-<!-- 																<div apply="sigarep.controlador.maestros.ModalControler2" align="center"> -->
-<!-- 																	<image id="orderBtn2" src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" /> -->
-<!-- 																</div> -->
-<!-- 							</vlayout> -->
-<!-- 						</window> -->
+						<include src="/login.zul" />
+						<!-- 						<window title="Iniciar Sesion" border="normal" -->
+						<!-- 							width="100%"> -->
+						<!-- 							<vlayout> -->
+						<!-- 								<hlayout> -->
+						<!-- 									<label value="Usuario" -->
+						<!-- 										style="font-size:11px" /> -->
+						<!-- 									<textbox id="log_usuario" hflex="1" /> -->
+						<!-- 									<label value="Clave" -->
+						<!-- 										style="font-size:11px" /> -->
+						<!-- 									<textbox id="log_clave" -->
+						<!-- 										type="password" hflex="1" /> -->
+						<!-- 									<button href="index.zul" -->
+						<!-- 										label="Entrar" id="btnlogin"> -->
+						<!-- 									</button> -->
+						<!-- 								</hlayout> -->
+						<!-- 								<div -->
+						<!-- 									apply="sigarep.controlador.maestros.ModalControler2" -->
+						<!-- 									align="center"> -->
+						<!-- 									<a id="ordenRecuperarContrasenna"> -->
+						<!-- 										¿Olvidó su contraseña? -->
+						<!-- 									</a> -->
+						<!-- 								</div> -->
+						<!-- 																<div apply="sigarep.controlador.maestros.ModalControler2" align="center"> -->
+						<!-- 																	<image id="orderBtn2" src="/imagenes/portal-principal/registrateico.png" style="cursor:pointer" /> -->
+						<!-- 																</div> -->
+						<!-- 							</vlayout> -->
+						<!-- 						</window> -->
 						<!-- Fin del login -->
+
 						<!-- Inicio del cronograma de actividades -->
 						<vlayout style="overflow:auto;">
 							<include src="/cronograma.zul" />
 						</vlayout>
 						<!--  Fin del cronograma de actividades -->
+
 						<!--Inicio del Twitter -->
 						<vlayout style="overflow:auto;">
 							<window title="Timeline" border="normal"
 								height="300px" contentStyle="overflow:auto;">
-
-
-
 								<include src="/widgets/twitter.html" />
-
-
-
 							</window>
 						</vlayout>
 						<!-- Fin del Twitter -->
@@ -312,5 +274,4 @@
 		<!-- Fin del pie de pagina -->
 	</borderlayout>
 	<!-- Fin de la estructura principal de la pagina -->
-
 </zk>

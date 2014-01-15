@@ -130,7 +130,7 @@
 				<button label="Comision Sustanciadora" mold="trendy"
 					id="btn2" image="/imagenes/portal-principal/fondoAzul.png"
 					width="180px" height="10px" orient="vertical"
-					onClick="@command('buscarListaMomentos', id=0)">
+					onClick="@command('buscarListaMomentos', id=1)">
 				</button>
 			</vbox>
 			<vbox>
@@ -138,7 +138,7 @@
 				<button label="Consejo Decanato" mold="trendy" id="btn3"
 					image="/imagenes/portal-principal/fondoAzul.png" width="150px"
 					height="10px" orient="vertical"
-					onClick="@command('buscarListaMomentos', id=1)">
+					onClick="@command('buscarListaMomentos', id=2)">
 				</button>
 			</vbox>
 			<vbox>
@@ -146,14 +146,14 @@
 				<button label="Recurso Reconsideración" mold="trendy"
 					id="btn4" image="/imagenes/portal-principal/fondoGris.png"
 					width="170px" height="10px" orient="vertical"
-					onClick="@command('buscarListaMomentos', id=2)">
+					onClick="@command('buscarListaMomentos', id=3)">
 				</button>
 			</vbox>
 			<vbox>
 				<button label="Recurso Jerarquico" mold="trendy"
 					id="btn5" image="/imagenes/portal-principal/fondoGris.png"
 					width="150px" height="10px" orient="vertical"
-					onClick="@command('buscarListaMomentos', id=3)">
+					onClick="@command('buscarListaMomentos', id=4)">
 				</button>
 			</vbox>
 		</hbox>
