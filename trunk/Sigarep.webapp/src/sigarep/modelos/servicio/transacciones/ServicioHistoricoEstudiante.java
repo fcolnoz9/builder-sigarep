@@ -15,6 +15,15 @@ public class ServicioHistoricoEstudiante {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+	public String buscarEstadoApelacion(Integer idestado){
+		String queryStatement2 = "SELECT nombre_estado FROM estado_apelacion AS estape "
+				+ "WHERE estape.id_estado_apelacion = ?";
+		Query query = em.createNativeQuery(queryStatement2);
+		query.setParameter(1, idestado);
+		String result = (String) query.getSingleResult();
+		return result;
+	}
 
 	public List<ListaMomento> buscarListaMomentos(String cedula, Integer idInstancia) {
 		String queryStatement2 = "SELECT fecha_estado, id_estado_apelacion, observacion "
@@ -31,10 +40,9 @@ public class ServicioHistoricoEstudiante {
 		List<ListaMomento> result = new ArrayList<ListaMomento>();
 		
 		for (Object[] resultRow : resultSet) {
-			result.add(new ListaMomento((Date) resultRow[0], (String) resultRow[1], (String) resultRow[2],
-					(String) resultRow[3]));
+			result.add(new ListaMomento((Date) resultRow[0], buscarEstadoApelacion((Integer) resultRow[1]), (String) resultRow[2]));
 		}
-
+		System.out.println(result);
 		return result;
 	}
 

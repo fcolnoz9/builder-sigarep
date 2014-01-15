@@ -10,12 +10,11 @@ public class ListaMomento {
 	private String estatus;
 
 	public ListaMomento(Date fecha, String nombreEstado,
-			String observacion, String estatus) {
+			String observacion) {
 		super();
 		this.fecha = fecha;
 		this.nombreEstado = nombreEstado;
 		this.observacion = observacion;
-		this.estatus = estatus;
 	}
 
 	public ListaMomento() {
