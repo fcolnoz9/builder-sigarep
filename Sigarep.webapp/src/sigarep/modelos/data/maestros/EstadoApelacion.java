@@ -50,7 +50,7 @@ public class EstadoApelacion implements Serializable {
 	
 	//bi-directional many-to-one association to InstanciaApelada
 	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="id_instancia_apelada", nullable=false)
+	@JoinColumn(name="id_instancia_apelada", nullable=true)
 	private InstanciaApelada instanciaApelada;
 
 	public EstadoApelacion() {
