@@ -82,11 +82,8 @@
 
 				<listhead>
 					<listheader label="Lapso Académico"
-						id="lblLapsoAcademicos" align="center" sort="auto(codigoLapso)">
-						<textbox id="txtfiltroCodigoLapso"
-							instant="true" width="100px" value="@bind(vm1.codigoLapso)"
-							onChange="@command('buscarCodigoLapsoFiltro')" />
-						<image src="imagenes/iconos/buscar.png" />
+						id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)">
+						
 					</listheader>
 					<listheader label="Fecha de Inicio de Lapso"
 						id="lblFechaInicios" align="center" sort="auto(fechaInicio)" />
@@ -109,9 +106,6 @@
 			<button label="Guardar" id="btnGuardar"
 				image="imagenes/iconos/guardar.png" width="auto" height="auto"
 				orient="horizontal" onClick="@command('guardarLapso')" />
-			<button label="Eliminar" id="btnEliminar"
-				image="imagenes/iconos/eliminar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('eliminarLapsoAcademico')" />
 			<button label="Cancelar" id="btnCancelar"
 				image="imagenes/iconos/cancelar.png" width="auto" height="auto"
 				orient="horizontal" onClick="@command('limpiarlapso')" />

@@ -20,7 +20,7 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMlapsoAcademico {
 	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
-	private String codigoLapso,codigoLapsoFiltro;
+	private String codigoLapso;
 	private Date fechaInicio ;
 	private Date fechaCierre;
 	private Boolean estatus;
@@ -59,12 +59,7 @@ public class VMlapsoAcademico {
 	public void setListaLapsoAcademico(List<LapsoAcademico> listaLapsoAcademico) {
 		this.listaLapsoAcademico = listaLapsoAcademico;
 	}
-	public String getCodigoLapsoFiltro() {
-		return codigoLapsoFiltro;
-	}
-	public void setCodigoLapsoFiltro(String codigoLapsoFiltro) {
-		this.codigoLapsoFiltro = codigoLapsoFiltro;
-	}
+
 	//@Command
 	//@NotifyChange({"codigoLapso", "fechaCierre", "fechaInicio","estatus"})
 	public LapsoAcademico getLapsoAcademicoseleccionado() {
@@ -97,25 +92,31 @@ public class VMlapsoAcademico {
 		if (codigoLapso==null||fechaInicio==null|| fechaCierre==null)
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{   
-		LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,fechaInicio,fechaCierre,true);
-		serviciolapsoacademico.guardarLapso(lapsoA);
-		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-		limpiarlapso();
+		   if(getListaLapsoAcademico().size()!=0){
+			   System.out.println("ESTATUS"+getListaLapsoAcademico().get(0).getEstatus());
+			   Messagebox.show("Ya Existe un Lapso Activo", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+		   }
+		   else{
+			   LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,fechaInicio,fechaCierre,true);
+				serviciolapsoacademico.guardarLapso(lapsoA);
+				Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+				limpiarlapso();
+		   }
 		}
 	}
 	//Metodo que limpia  todos los campos y pone la fecha actual 
 	@Command
 	@NotifyChange({"codigoLapso", "fechaInicio", "fechaCierre","codigoLapsoFiltro","listaLapsoAcademico"})
 	public void limpiarlapso(){
-		Date fecha = new Date();
-		codigoLapso = "";fechaInicio=fecha;fechaCierre=fecha;codigoLapsoFiltro = "";
+		Date fecha = null;
+		codigoLapso = "";fechaInicio=fecha;fechaCierre=fecha;
 		buscarActivoLapso();
 	}
 	 // Método que trae todos los registros en una lista de Lapso Academicos
 	@Command
 	@NotifyChange({"listaLapsoAcademico"})
-	public void buscarActivoLapso(){
-		listaLapsoAcademico =serviciolapsoacademico.buscarLapsoAcademico(codigoLapso);
+	public List<LapsoAcademico> buscarActivoLapso(){
+		return listaLapsoAcademico =serviciolapsoacademico.buscarLapsoAcademico(codigoLapso);
 	}
 	//permite tomar los datos del objeto lapsoAcademico seleccionado
 	@Command
@@ -127,24 +128,27 @@ public class VMlapsoAcademico {
 	    fechaCierre=lapsoAA.getFechaCierre();
 	}
 	 //Metodo que elimina el lapso Academico tomando en cuenta el codigoLaso
-  	@Command
-  	@NotifyChange({"listaLapsoAcademico"})
-  	public void eliminarLapsoAcademico(){
-  		if (codigoLapso==null||fechaInicio==null|| fechaCierre==null){
-			Messagebox.show("Debes Seleccionar un lapso Académico", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-  		}
-		else{
-  		serviciolapsoacademico.eliminarLapso(getLapsoAcademicoseleccionado().getCodigoLapso());
-  		limpiarlapso();
-  		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-  	    }
-  	}	
+  //	@Command
+  //	@NotifyChange({"listaLapsoAcademico"})
+  //	public void eliminarLapsoAcademico(){
+  //		if (codigoLapso==null||fechaInicio==null|| fechaCierre==null){
+	//		Messagebox.show("Debes Seleccionar un lapso Académico", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+  		//}
+		//else{
+			//if(getListaLapsoAcademico().size()!=0){
+		//	   Messagebox.show("No Se Puede Eliminar el Lapso Actual ", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+		  // }
+  		//serviciolapsoacademico.eliminarLapso(getLapsoAcademicoseleccionado().getCodigoLapso());
+  		//limpiarlapso();
+  		//Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+  	   // }
+  	//}	
   	 //Este metodo busca el lapso academico por el filtro de codigo
-  	@Command
-  	@NotifyChange({"listaLapsoAcademico" })
-  	public void buscarCodigoLapsoFiltro(){
-  		listaLapsoAcademico =serviciolapsoacademico.buscarLapsoAcademico(codigoLapso);
-  		}
+  //	@Command
+  //	@NotifyChange({"listaLapsoAcademico" })
+  //	public void buscarCodigoLapsoFiltro(){
+  	//	listaLapsoAcademico =serviciolapsoacademico.buscarLapsoAcademico(codigoLapso);
+  		//}
   	
 	
 }
