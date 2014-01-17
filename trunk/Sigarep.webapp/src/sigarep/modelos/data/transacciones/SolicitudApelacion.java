@@ -47,6 +47,12 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 	
 	@Column(name="tipo_sesion", nullable=true, length=30)
 	private String tipoSesion;
+	
+	@Column(name="verificado", nullable=true)
+	private boolean verificado;
+	
+	@Column(name="analizado", nullable=true)
+	private boolean analizado;
 
 	//bi-directional many-to-one association to ApelacionEstadoApelacion
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="solicitudApelacion")
@@ -213,6 +219,22 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 
 	public void setTipoSesion(String tipoSesion) {
 		this.tipoSesion = tipoSesion;
+	}
+
+	public boolean isVerificado() {
+		return verificado;
+	}
+
+	public void setVerificado(boolean verificado) {
+		this.verificado = verificado;
+	}
+
+	public boolean isAnalizado() {
+		return analizado;
+	}
+
+	public void setAnalizado(boolean analizado) {
+		this.analizado = analizado;
 	}
 
 }
