@@ -10,6 +10,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import sigarep.modelos.data.maestros.Estudiante;
+import sigarep.modelos.data.maestros.Persona;
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
 @Entity
@@ -47,6 +49,14 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to MiembroGrupo
 	@OneToMany(mappedBy="usuario", cascade={CascadeType.ALL})
 	private List<UsuarioGrupo> usuariosGrupos = new LinkedList<UsuarioGrupo>();
+	
+	//bi-directional many-to-one association to Estudiante
+	@OneToMany(mappedBy="nombreUsuario")
+	private List<Estudiante> estudiantes;
+
+	//bi-directional many-to-one association to Persona
+	@OneToMany(mappedBy="nombreUsuario")
+	private List<Persona> personas;
 	
 	public Usuario(Integer idUsuario,String nombreUsuario, String correo, String clave,
 			String nombreCompleto, Boolean estatus) {
@@ -140,5 +150,25 @@ public class Usuario implements Serializable {
 		usuariosGrupos.setUsuario(null);
 
 		return usuariosGrupos;
+	}
+
+
+	public List<Estudiante> getEstudiantes() {
+		return estudiantes;
+	}
+
+
+	public void setEstudiantes(List<Estudiante> estudiantes) {
+		this.estudiantes = estudiantes;
+	}
+
+
+	public List<Persona> getPersonas() {
+		return personas;
+	}
+
+
+	public void setPersonas(List<Persona> personas) {
+		this.personas = personas;
 	}
 }

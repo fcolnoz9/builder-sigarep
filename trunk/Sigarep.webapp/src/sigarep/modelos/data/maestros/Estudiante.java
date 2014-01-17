@@ -2,6 +2,7 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 
 import java.util.Date;
@@ -54,6 +55,11 @@ public class Estudiante implements Serializable {
 
 	@Column(length=11)
 	private String telefono;
+	
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="nombreusuario", nullable=false)
+	private Usuario nombreUsuario;
 
 	//bi-directional many-to-one association to ProgramaAcademico
 	@ManyToOne(cascade={CascadeType.ALL})
@@ -206,6 +212,14 @@ public class Estudiante implements Serializable {
 		estudianteSancionado.setEstudiante(null);
 
 		return estudianteSancionado;
+	}
+
+	public Usuario getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(Usuario nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 
 }
