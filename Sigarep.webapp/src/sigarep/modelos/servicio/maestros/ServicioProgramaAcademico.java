@@ -37,7 +37,9 @@ public class ServicioProgramaAcademico {
 		List<ProgramaAcademico> programasLista = pro.buscarProgramasActivos();
 		return programasLista;
 	}
-
+	public ProgramaAcademico buscarPrograma(Integer idProgramaAcademico) {
+		return pro.findOne(idProgramaAcademico);
+	}
 	public List<ProgramaAcademico> buscarPrograma(
 			ProgramaAcademicoFiltros filtros) {
 		List<ProgramaAcademico> result = new LinkedList<ProgramaAcademico>();
