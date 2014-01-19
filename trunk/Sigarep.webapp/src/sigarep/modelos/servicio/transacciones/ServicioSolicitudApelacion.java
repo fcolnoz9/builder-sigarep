@@ -29,6 +29,10 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.save(solicitudapelacion);
 	}
 	
+	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {
+		return iSolicitudApelacionDAO.findOne(id);
+	}
+	
 	public EstudianteSancionado buscarEstudianteSancionadoxSolicitud(String cedulaEstudiante){
 		return iSolicitudApelacionDAO.buscarSancionado(cedulaEstudiante);
 	}

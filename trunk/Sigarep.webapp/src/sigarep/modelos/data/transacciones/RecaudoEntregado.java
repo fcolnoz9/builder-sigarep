@@ -22,8 +22,7 @@ public class RecaudoEntregado implements Serializable {
 	@EmbeddedId
 	private RecaudoEntregadoPK id;
 
-	@Column(nullable=false)
-	private Boolean estatus;
+	@Column(nullable=false) Boolean estatus;
 
 	@Column(name="observacion_experto", length=255)
 	private String observacionExperto;
@@ -35,7 +34,7 @@ public class RecaudoEntregado implements Serializable {
 		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false),
 		@JoinColumn(name="id_instancia_apelada", referencedColumnName="id_instancia_apelada", nullable=false, insertable=false, updatable=false),
 		@JoinColumn(name="id_tipo_motivo", referencedColumnName="id_tipo_motivo", nullable=false, insertable=false, updatable=false)
-		})
+	})	
 	private Motivo motivo;
 
 	//bi-directional many-to-one association to Recaudo
@@ -111,5 +110,4 @@ public class RecaudoEntregado implements Serializable {
 
 		return soporte;
 	}
-
 }

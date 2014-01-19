@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.repositorio.transacciones.IRecaudoEntregadoDAO;
 
@@ -23,4 +24,8 @@ public class ServicioRecaudoEntregado {
 	public RecaudoEntregado guardar(RecaudoEntregado recaudoentregado) {
 		return iRecaudoEntregadoDAO.save(recaudoentregado);
 	}
+	
+//	public void eliminarRecaudosEncontradosPorMotivo(String cedula, String lapso, Integer idTipoMotivo, Integer idInstancia) {
+//		iRecaudoEntregadoDAO.eliminarRecaudosPorMotivo(cedula,lapso,idTipoMotivo,idInstancia);
+//	}
 }

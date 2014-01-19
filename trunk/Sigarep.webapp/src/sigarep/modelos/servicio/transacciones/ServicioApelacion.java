@@ -144,10 +144,19 @@ public class ServicioApelacion  {
 		return results;
 	}
 
-	public List<ListaRecaudosMotivoEstudiante> buscarRecaudosMotivos() {
+	public List<ListaRecaudosMotivoEstudiante> buscarRecaudosMotivos(String cedulaEstudiante, String codigoLapso, Integer idInstancia) {
 		String queryStatement = 
 				"SELECT recaudo.nombre_recaudo, tipo_motivo.nombre_tipo_motivo " +
-				"FROM recaudo, tipo_motivo WHERE tipo_motivo.id_tipo_motivo = recaudo.id_tipo_motivo";
+				"FROM tipo_motivo, motivo, solicitud_apelacion, recaudo WHERE " +
+				"tipo_motivo.id_tipo_motivo = motivo.id_tipo_motivo AND " +
+				"motivo.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada AND " +
+				"motivo.codigo_lapso = solicitud_apelacion.codigo_lapso AND  " +
+				"motivo.cedula_estudiante = solicitud_apelacion.cedula_estudiante AND " +
+				"recaudo.id_tipo_motivo = motivo.id_tipo_motivo AND " +
+				"solicitud_apelacion.cedula_estudiante = '" +cedulaEstudiante+"' AND" +
+				" solicitud_apelacion.codigo_lapso = '" +codigoLapso+"' AND " +
+				"solicitud_apelacion.id_instancia_apelada = 1;";
+
 		Query query = em.createNativeQuery(queryStatement);
 		
 		
@@ -163,5 +172,69 @@ public class ServicioApelacion  {
 		return results;
 	}
 	
+	public List<ListaApelacionEstadoApelacion> buscarApelacionesALaComision() {
+		
+		
+		//FALTA PERIODO DE SANCION
+	   String queryStatement3 =
+				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, sa.nombre_sancion, " +
+				"es.email, es.telefono, p.nombre_programa, la.codigo_lapso, i.id_instancia_apelada, es.segundo_nombre, " +
+				"es.segundo_apellido, a.nombre_asignatura, sap.numero_caso FROM sancion_maestro sa, programa_academico p, " +
+				"lapso_academico la, instancia_apelada i, solicitud_apelacion sap, estudiante es, estudiante_sancionado AS esa " +
+				"LEFT JOIN asignatura_estudiante_sancionado AS aesa ON (aesa.codigo_lapso = esa.codigo_lapso AND " +
+				"aesa.cedula_estudiante = esa.cedula_estudiante) LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
+				"WHERE sa.id_sancion = esa.id_sancion AND esa.codigo_lapso = la.codigo_lapso  AND i.id_instancia_apelada = sap.id_instancia_apelada " +
+				"AND es.id_programa= p.id_programa AND la.estatus = 'TRUE' AND es.cedula_estudiante = esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante " +
+				"AND sap.estatus = 'TRUE';"; 
+						
+				
+
+				Query query = em.createNativeQuery(queryStatement3);
+
+				
+				@SuppressWarnings("unchecked")
+				List<Object[]> resultSet = query.getResultList();
+				
+				List<ListaApelacionEstadoApelacion> results = new ArrayList<ListaApelacionEstadoApelacion>();
+				for (Object[] resultRow : resultSet) {
+					System.out.println(resultRow[0]);
+					System.out.println(resultRow[1]);
+					System.out.println(resultRow[2]);
+					System.out.println(resultRow[3]);
+					
+					results.add(new ListaApelacionEstadoApelacion((String) resultRow[0], (String) resultRow[1],
+							(String) resultRow[2], (String) resultRow[3], (String) resultRow[4], (String) resultRow[5],
+							(String) resultRow[6], (String) resultRow[7], (Integer)(resultRow[8]), (String) resultRow[9],
+							 (String)resultRow[10],(String) resultRow[11], (Integer) resultRow[12]));
+				}
+				
+				return results;
+			}
+	
+	public List<ListaRecaudosMotivoEstudiante> buscarTiposMotivoSolicitud(String cedulaEstudiante, String codigoLapso, Integer idInstancia) {
+		
+		   String queryStatement4 =
+					"SELECT tm.nombre_tipo_motivo FROM tipo_motivo AS tm, " +
+						"motivo AS m, solicitud_apelacion AS sap WHERE tm.id_tipo_motivo = m.id_tipo_motivo " +
+						"AND sap.cedula_estudiante = m.cedula_estudiante AND " +
+						"sap.codigo_lapso = m.codigo_lapso AND " +
+						"sap.id_instancia_apelada = m.id_instancia_apelada AND sap.cedula_estudiante =: cedula " +
+						"AND sap.codigo_lapso = '" + codigoLapso +"' AND sap.id_instancia_apelada =: idInstancia;"; 
+							
+					Query query = em.createNativeQuery(queryStatement4);
+
+					@SuppressWarnings("unchecked")
+					List<Object[]> resultSet = query.getResultList();
+					
+					List<ListaRecaudosMotivoEstudiante> results = new ArrayList<ListaRecaudosMotivoEstudiante>();
+					for (Object[] resultRow : resultSet) {
+						
+						results.add(new ListaRecaudosMotivoEstudiante ((String) resultRow[0], (String) resultRow[1]));
+					}
+					
+					return results;
 	}
+
+
+}
 
