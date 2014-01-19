@@ -21,14 +21,13 @@
 	<!-- 		background: white; border-top: none; } -->
 	<!-- 	</style> -->
 	<window id="winRegistrarLapso"
-		title="Registros Básicos :: Lapso Academico" border="normal"
+		title="Registros Básicos :: Lapso Académico" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm1') @init('sigarep.viewmodels.maestros.VMlapsoAcademico')">
 
-
 		<groupbox id="grbRegistrarLapso">
-			<caption label="Datos de Lapso Académicos" />
+			<caption label="Datos de Lapso Académico" />
 			<!-- Grid que contiene los campos de la pantalla -->
 			<grid id="grdRegitrarLapso">
 				<columns>
@@ -40,51 +39,59 @@
 				<rows>
 					<row>
 						<label id="lblLapsoAcademico"
-							value="Lapso Académico" />
+							value="Lapso Académico:" />
 						<textbox id="txtLapsoAcademico"
 							constraint="no empty:Ingrese Lapso Académico"
-							value="@bind(vm1.codigoLapso)" width="300px" height="auto"
-							mold="rounded" maxlength="30" cols="23"
+							value="@bind(vm1.codigoLapso)" width="80%" height="auto"
+							mold="rounded" maxlength="30" cols="23" readonly="true" 
 							onClick="@command('buscarActivoLapso')" />
-
 					</row>
-
 					<row>
 						<label id="lblFechaInicio"
-							value="Fecha de Inicio de Lapso" />
+							value="Fecha de Inicio de Lapso:" />
 						<datebox id="dtbFechaInicio"
 							constraint="no empty:Ingrese Fecha de Inicio de Lapso Académico"
-							format="yyyy/MM/dd" height="auto" width="300px" tabindex="4"
+							format="yyyy/MM/dd" height="auto" width="80%" tabindex="4" readonly="true" 
 							mold="rounded" value="@bind(vm1.fechaInicio)" />
 
 						<label id="lblFechaCierre"
-							value="Fecha de fin de Lapso" />
+							value="Fecha de Fin de Lapso:" />
 						<datebox id="dbFechaCierre"
-							constraint="no empty:Ingrese Fecha final de Lapso Académico"
-							format="yyyy/MM/dd" height="auto" width="300px" mold="rounded"
+							constraint="no empty:Ingrese Fecha Final de Lapso Académico"
+							format="yyyy/MM/dd" height="auto" width="80%" mold="rounded" readonly="true" 
 							value="@bind(vm1.fechaCierre)" />
 					</row>
 				</rows>
 			</grid>
 			<space />
 		</groupbox>
-		<space />
-		<!-- Grupbox que contiene el listado de los lapso academico -->
+		<separator />
+		<!-- Grupbox de Botones -->
+		<div align="right" height="100%">
+			<button label="Guardar" mold="trendy" id="btnGuardar"
+				image="imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('guardarLapso')" />
+			<button label="Cancelar" mold="trendy"  id="btnCancelar"
+				image="imagenes/iconos/cancelar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('limpiarlapso')" />
+			<button label="Cerrar" mold="trendy"  id="btnCerrar"
+				image="imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal" onClick="winRegistrarLapso.onClose()" />
+		</div>
+					
+		<!-- Grupbox que contiene el  Lapso Académico Actual -->
 		<groupbox id="grbRegistrarLapso3">
-			<caption label="Listado de Lapsos Académicos" />
-			<listbox id="lbxLapsoAcademico" height="160px"
+			<caption label="Lapso Académico Actual" />
+			<listbox id="lbxLapsoAcademico" height="auto"
 				model="@bind(vm1.listaLapsoAcademico)"
 				selectedItem="@bind(vm1.lapsoAcademicoseleccionado)"
 				onSelect="@command('mostrarSeleccionadoLapso')"
 				emptyMessage="No hay Lapsos Academicos registradas" mold="paging"
 				pageSize="10">
-				<!-- Busqueda por FILTROS los lapso Académicos -->
-
+			
 				<listhead>
 					<listheader label="Lapso Académico"
-						id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)">
-						
-					</listheader>
+						id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)"/>
 					<listheader label="Fecha de Inicio de Lapso"
 						id="lblFechaInicios" align="center" sort="auto(fechaInicio)" />
 					<listheader label="Fecha de Final de Lapso"
@@ -99,23 +106,6 @@
 					</listitem>
 				</template>
 			</listbox>
-			<space />
 		</groupbox>
-		<!-- Grupbox de Botones -->
-		<div align="right" height="100%">
-			<button label="Guardar" id="btnGuardar"
-				image="imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('guardarLapso')" />
-			<button label="Cancelar" id="btnCancelar"
-				image="imagenes/iconos/cancelar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('limpiarlapso')" />
-			<button label="Cerrar" id="btnCerrar"
-				image="imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="winRegistrarLapso.onClose()" />
-		</div>
-
-
-
 	</window>
-
 </zk>
