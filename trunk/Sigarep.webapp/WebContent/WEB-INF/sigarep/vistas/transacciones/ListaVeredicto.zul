@@ -1,15 +1,15 @@
 <zk>
 	<window title="Gestión :: Apelaciones :: Evaluar Apelaciones :: Veredicto de Apelacion"
-		id="winListaRegistrarVeredicto1" border="normal" width="auto"
+		id="winListaVeredicto" border="normal" width="auto"
 	    closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.ViewModelListaApelacionVeredicto1')">
+            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMListaVeredicto')">
 		<style src="/widgets/grid/simple/style.css" />
 
 		<grid id="grdListaRegistrarVeredicto1">
 			<columns>
 				<column align="center">
 					<label id="lblPrograma" value="Programa " />
-					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.filtros.programa)" onChange="@command('filtros')" readonly="true">
+					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.programa)" onChange="@command('filtros')" readonly="true">
 						<template name="model">
 							<comboitem  label="${each.nombrePrograma}"/>
 						</template>
@@ -17,7 +17,7 @@
 				</column>
 				<column align="center">
 					<label id="lblMotivo" value="Motivo " />
-					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="@bind(vm.filtros.motivo)" onChange="@command('filtros')" readonly="true">
+					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="@bind(vm.motivo)" onChange="@command('filtros')" readonly="true">
 						<template name="model">
 								<comboitem  label="${each.nombreTipoMotivo}"/>
 						</template>	
@@ -33,14 +33,14 @@
 			<listhead>
 				<listheader label="Cédula" align="center" sort="auto(cedula)"> 
 					<textbox id="filtroCedula" instant="true"
-					width="100px" value="@bind(vm.filtros.cedula)"
+					width="100px" value="@bind(vm.cedula)"
 					onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" /> 
 				</listheader>
 			 
 				<listheader label="Nombre" align="center" sort="auto(nombre)">
 					<textbox id="filtroNombre" instant="true"
-					width="100px" value="@bind(vm.filtros.nombre)"
+					width="100px" value="@bind(vm.primerNombre)"
 					onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" /> 
 				</listheader>
@@ -48,14 +48,14 @@
 				
 				<listheader label="Apellido" align="center" sort="auto(apellido)" >
 					<textbox id="filtroApellido" instant="true"
-					width="100px" value="@bind(vm.filtros.apellido)"
+					width="100px" value="@bind(vm.primerApellido)"
 					onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" /> 
 				</listheader>
 
 				<listheader label="Sancion" align="center" sort="auto(sancion)" >
 					<textbox id="filtroSancion" instant="true"
-					width="100px" value="@bind(vm.filtros.sancion)"
+					width="100px" value="@bind(vm.sancion)"
 					onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" /> 
 				</listheader>
