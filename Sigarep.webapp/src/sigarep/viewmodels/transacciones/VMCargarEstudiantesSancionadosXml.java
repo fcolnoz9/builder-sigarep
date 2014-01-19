@@ -36,10 +36,10 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-/** Cargar Estudiante, Estudiandte Sancionado por XML
+/**CargarEstudiante por XML
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 2.1
+ * @version 2.3
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarEstudiantesSancionadosXml {
@@ -58,7 +58,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	@WireVariable 
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	//Estudiante sancionado
-	private String codigo_lapso,aux_indice_grado,lapsos_academicos_RP;
+	private String codigo_lapso,lapsos_academicos_RP;
 	private Integer unidades_cursadas,unidades_aprobadas,semestre,id_sancion;
 	private float indice_grado;
 	//Asignatura Estudiante Sancionado
@@ -84,6 +84,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	private Media media;//Archivo de tipo media que soporta la extension Xml
 	
+	// Sets y gets de textoXML , Med, listaEstudiante 
 	public String getTextoXML() {
 		return textoXML;
 	}
@@ -109,7 +110,11 @@ public class VMCargarEstudiantesSancionadosXml {
 	public void setListaEstudiante(List<Estudiante> listaEstudiante) {
 		this.listaEstudiante = listaEstudiante;
 	}
-	
+	/** listaEstudiante
+	  * @param listaEstudiante
+	  * @return La listaEstudiante cargada con los sancionados
+	  * 
+	  */
 	@Command
 	@NotifyChange({"listaEstudiante"})
 	public void listaEstudiante()
@@ -193,15 +198,15 @@ public class VMCargarEstudiantesSancionadosXml {
 							EstudianteSancionado estudiante_san;
 							estudiante_san=new EstudianteSancionado();
 							estudiante_san=servicioestudiantesancionado.buscar(id);
-								   sancionMaestro = new SancionMaestro();
-								   sancionMaestro =serviciosancionmaestro.buscarUnaSancion(id_sancion);
-								   EstudianteSancionado estudiante_sancionado=new EstudianteSancionado();
-								   lapsoAcademico=new LapsoAcademico();
-								   lapsoAcademico= serviciolapsoacademico.buscarUnLapsoAcademico(codigo_lapso);
-								   estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro);
-								   servicioestudiantesancionado.guardar(estudiante_sancionado);  
+							sancionMaestro = new SancionMaestro();
+							sancionMaestro =serviciosancionmaestro.buscarUnaSancion(id_sancion);
+							EstudianteSancionado estudiante_sancionado=new EstudianteSancionado();
+							lapsoAcademico=new LapsoAcademico();
+							lapsoAcademico= serviciolapsoacademico.buscarUnLapsoAcademico(codigo_lapso);
+							estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro);
+							servicioestudiantesancionado.guardar(estudiante_sancionado);  
 									   //las materias del Estudiante Sancionado. 
-								   if(!node.getChildText("codigo_asignatura_1").equals("0")){//Si es Igual a 0 es porque no tiene Materias
+								   if(!node.getChildText("codigo_asignatura_1").equals("0")){//Si es Igual a 0 es porque no tiene Materias, este valor viene del Xml
 									   codigo_asignatura_1= node.getChildText("codigo_asignatura_1");
 									   condicion_asignatura_1= Integer.parseInt(node.getChildText("condicion_asignatura_1"));
 									   AsignaturaEstudianteSancionadoPK asignatura_est_san_1=new AsignaturaEstudianteSancionadoPK();
@@ -255,3 +260,8 @@ public class VMCargarEstudiantesSancionadosXml {
 		}
 	}
 }
+/** 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 2.3
+ * @author FernandoC todos los Derechos Reservados
+ */
