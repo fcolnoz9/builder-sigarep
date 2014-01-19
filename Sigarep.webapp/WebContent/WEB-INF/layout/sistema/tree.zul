@@ -86,13 +86,6 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Motivos de Apelación"
-								id="RegistrarMotivoApelacion" sclass="maestros"
-								onClick="createWin(RegistrarMotivoApelacion.getId(), RegistrarMotivoApelacion.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
 							<treecell label="Recaudos"
 								id="RegistrarRecaudos" sclass="maestros"
 								onClick="createWin(RegistrarRecaudos.getId(), RegistrarRecaudos.getSclass())" />
@@ -137,6 +130,14 @@
 										onClick="createWin(ActualizarCronograma.getId(), ActualizarCronograma.getSclass())" />
 								</treerow>
 							</treeitem>
+							<treeitem>
+								<treerow>
+									<treecell
+										label="Historial Cronograma" id="HistorialCronograma"
+										sclass="historiales"
+										onClick="createWin(HistorialCronograma.getId(), HistorialCronograma.getSclass())" />
+								</treerow>
+							</treeitem>
 						</treechildren>
 					</treeitem>
 					<treeitem open="false">
@@ -146,8 +147,10 @@
 						<treechildren>
 							<treeitem open="false">
 								<treerow>
-									<treecell
-										label="Registrar apelación" />
+									<treecell 
+												label="Registrar apelación"
+												id="ListadoSancionInicial" sclass="transacciones"
+												onClick="createWin(ListadoSancionInicial.getId(), ListadoSancionInicial.getSclass())" />
 								</treerow>
 								<treechildren>
 									<treeitem>
