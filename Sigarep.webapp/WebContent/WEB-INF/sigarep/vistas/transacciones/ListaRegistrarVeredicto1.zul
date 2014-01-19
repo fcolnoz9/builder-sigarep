@@ -1,36 +1,23 @@
 <zk>
-	<window title="Gestión :: Apelaciones :: Evaluar Apelaciones"
-		id="winActualizarEstadoEstudiante" border="normal" width="auto"
+	<window title="Gestión :: Apelaciones :: Evaluar Apelaciones :: Veredicto de Apelacion"
+		id="winListaRegistrarVeredicto1" border="normal" width="auto"
 	    closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.ViewModelListaApelacionVeredicto1')">
 		<style src="/widgets/grid/simple/style.css" />
 
-		<zscript><![CDATA[
-	import sigarep.controlador.maestros.WindowController;
-	public void createWin(String idNodo, String ruta) {
-		WindowController winController = new WindowController();
-		try {
-			winController.onClickMenu("/WEB-INF/sigarep/vistas/" + ruta + "/"
-					+ idNodo + ".zul");
-		} catch (InterruptedException ex) {
-			// Ignore if can not get win.
-		}
-	}
-]]>
-	</zscript>
-		<grid id="grdVerificarApelacionesBusqueda">
+		<grid id="grdListaRegistrarVeredicto1">
 			<columns>
 				<column align="center">
 					<label id="lblPrograma" value="Programa " />
-					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.filtros.programa)" readonly="true">
-							<template name="model">
-								<comboitem  label="${each.nombrePrograma}"/>
-							</template>
+					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.filtros.programa)" onChange="@command('filtros')" readonly="true">
+						<template name="model">
+							<comboitem  label="${each.nombrePrograma}"/>
+						</template>
 					</combobox>
 				</column>
 				<column align="center">
 					<label id="lblMotivo" value="Motivo " />
-					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="@bind(vm.filtros.motivo)" readonly="true">
+					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="@bind(vm.filtros.motivo)" onChange="@command('filtros')" readonly="true">
 						<template name="model">
 								<comboitem  label="${each.nombreTipoMotivo}"/>
 						</template>	
@@ -40,8 +27,8 @@
 			</columns>
 		</grid>
 		<caption label="Lista de Sancionados" />	
-	<listbox id="lbxSancionados"  height="70%" model="@bind(vm.listafiltro)" selectedItem="@bind(vm.listaapelacionveredicto1)"   
-		 onSelect="@command('showModal')"  mold="paging" pageSize="5" emptyMessage="No hay Apelaciones" >	
+	<listbox id="lbxSancionados"  height="70%" model="@bind(vm.lista)" selectedItem="@bind(vm.listaApelacionVeredicto1)"   
+		 onSelect="@command('showModal')"  mold="paging" pageSize="10" emptyMessage="No se encontraron apelaciones" >	
 	
 			<listhead>
 				<listheader label="Cédula" align="center" sort="auto(cedula)"> 
@@ -76,25 +63,22 @@
 			</listhead>
 			<template name="model">
 				<listitem>
- 					<listcell label="${each.cedula}"/> 
-					<listcell label="${each.nombre}" />
-					<listcell label="${each.apellido}" />
-					<listcell label="${each.sancion}" />
+ 					<listcell label="${each.cedulaEstudiante}"/> 
+					<listcell label="${each.primerNombre}" />
+					<listcell label="${each.primerApellido}" />
+					<listcell label="${each.nombreSancion}" />
 					</listitem>
 			</template>
 		</listbox>
-	
-<!-- 		<groupbox id = "grbListaSancionados"> -->
-<!-- 		</groupbox> -->
 		
 		<div align="right" height="100%">
 			<button label="Cancelar" mold="trendy" id="btnCancelar"
 				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-				orient="horizontal" >
+				orient="horizontal" onClick="@command('vm.limpiar')" >
 			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" >
+				orient="horizontal" onClick = "winListaRegistrarVeredicto1.onClose()" >
 			</button>
 			<button label="Finalizar" mold="trendy" id="btnFinalizar"
 				image="/imagenes/iconos/finalizar.png" width="auto" height="auto"
