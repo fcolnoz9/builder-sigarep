@@ -5,7 +5,7 @@
             viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.SecurityUtil')">
 		<tablelayout columns="3">
 			<tablechildren>
- 				<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" />
+<!--  				<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" /> -->
 			</tablechildren>
 			<tablechildren>
 				<a href="">

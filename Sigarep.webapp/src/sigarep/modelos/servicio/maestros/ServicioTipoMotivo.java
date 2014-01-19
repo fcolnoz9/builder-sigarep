@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.maestros.TipoMotivoFiltros;
+import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.repositorio.maestros.ITipoMotivoDAO;
 
 @Service("serviciotipomotivo")

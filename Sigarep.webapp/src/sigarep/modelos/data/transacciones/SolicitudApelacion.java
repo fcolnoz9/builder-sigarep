@@ -55,11 +55,11 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 	private boolean analizado;
 
 	//bi-directional many-to-one association to ApelacionEstadoApelacion
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy="solicitudApelacion")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="solicitudApelacion")
 	private Set<ApelacionEstadoApelacion> apelacionEstadosApelacion = new HashSet<ApelacionEstadoApelacion>();
 
 	//bi-directional many-to-one association to Motivo
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,mappedBy="solicitudApelacion")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="solicitudApelacion")
 	private Set<Motivo> motivos = new HashSet<Motivo>();
 	
 	@Column(length=60)

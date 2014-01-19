@@ -20,12 +20,14 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 
 import org.zkoss.zul.Borderlayout;
+import org.zkoss.zul.Box;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Textbox;
 
 
 
+import sigarep.controlador.maestros.WindowController;
 import sigarep.modelos.data.maestros.*;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
@@ -33,7 +35,6 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.*;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacionFiltros;
-import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 
 
@@ -291,7 +292,7 @@ public class VMListaApelacionesComision  {
 	  	@Command
 		@NotifyChange({"lista"})
 		public void buscarApelacionesR(){ 
-		  			lista = serviciolista.buscarApelaciones();
+		  			lista = serviciolista.buscarApelacionesALaComision();
 		}
 	  	
 	  	@Command
@@ -328,16 +329,15 @@ public class VMListaApelacionesComision  {
 	        map.put("segundoApellido", this.segundoApellido);
 	        map.put("asignatura", this.asignatura);
 	        map.put("caso", this.caso); 
-	        
+	     	
 			Borderlayout bl = (Borderlayout) Path.getComponent("/mainBorderLayout");
+			// get an instance of the searched CENTER layout area
 			Center center = bl.getCenter();
-	        center.getChildren().clear();
-	        final Window window = (Window) Executions.createComponents(
-	        		"/WEB-INF/sigarep/vistas/transacciones/VerificarRecaudos.zul", center, map);
-			window.setMaximizable(true);
-			window.doModal();	
+			// clear the center child comps
+			center.getChildren().clear();
+	        Executions.createComponents("/WEB-INF/sigarep/vistas/transacciones/VerificarRecaudos.zul", center, map);			
 	  	}
-	  	
+	  
 		@Command
 		@NotifyChange({"lista"})
 		public void filtros(){
