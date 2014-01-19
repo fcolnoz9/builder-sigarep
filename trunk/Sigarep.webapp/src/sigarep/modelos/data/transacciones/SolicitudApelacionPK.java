@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Embeddable
 @Access(AccessType.FIELD)
 public class SolicitudApelacionPK implements Serializable {
+
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +25,15 @@ public class SolicitudApelacionPK implements Serializable {
 
 	public SolicitudApelacionPK() {
 	}
+	
+	public SolicitudApelacionPK(String codigoLapso, String cedulaEstudiante,
+			Integer idInstanciaApelada) {
+		super();
+		this.codigoLapso = codigoLapso;
+		this.cedulaEstudiante = cedulaEstudiante;
+		this.idInstanciaApelada = idInstanciaApelada;
+	}
+	
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
