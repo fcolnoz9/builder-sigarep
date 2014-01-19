@@ -1,7 +1,5 @@
 package sigarep.viewmodels.transacciones;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +26,7 @@ import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.servicio.transacciones.ListaBuscarRecaudosEntregados;
-import sigarep.modelos.servicio.transacciones.ServicioCargarRecaudoEntregado;
+import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -43,7 +41,6 @@ public class VMCargarRecaudoEntregado {
 	private String nombre;
 	private String lapso;
 	private Integer instancia;
-	private String motivo;
 	private String recaudo;
 	private String segundoNombre;
 	private String segundoApellido;
@@ -57,7 +54,7 @@ public class VMCargarRecaudoEntregado {
 	mensajes msjs = new mensajes();
 
 	@WireVariable
-	private ServicioCargarRecaudoEntregado serviciocargarrecaudoentregado;
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
 	@WireVariable
@@ -144,14 +141,6 @@ public class VMCargarRecaudoEntregado {
 		this.segundoApellido = segundoApellido;
 	}
 
-	public String getMotivo() {
-		return motivo;
-	}
-
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
-	}
-
 	public Integer getInstancia() {
 		return instancia;
 	}
@@ -217,18 +206,11 @@ public class VMCargarRecaudoEntregado {
 	}
 
 	public void concatenacionNombres() {
-
-		String nombre1 = nombre;
-		String nombre2 = segundoNombre;
-		nombres = nombre1 + " " + nombre2;
+		nombres = nombre + " " + segundoNombre;
 	}
 
 	public void concatenacionApellidos() {
-
-		String apellido1 = apellido;
-		String apellido2 = segundoApellido;
-		apellidos = apellido1 + " " + apellido2;
-
+		apellidos = apellido + " " + segundoApellido;
 	}
 
 	@Init
@@ -244,8 +226,7 @@ public class VMCargarRecaudoEntregado {
 		@ExecutionArgParam("instancia") Integer v8,
 		@ExecutionArgParam("segundoNombre") String v9,
 		@ExecutionArgParam("segundoApellido") String v10,
-		@ExecutionArgParam("asignatura") String v11,
-		@ExecutionArgParam("caso") Integer v12)
+		@ExecutionArgParam("caso") Integer v11)
 	{
 		Selectors.wireComponents(view, this, false);
 		this.cedula = v1;
@@ -258,8 +239,7 @@ public class VMCargarRecaudoEntregado {
 		this.instancia = v8;
 		this.segundoNombre = v9;
 		this.segundoApellido = v10;
-		this.asignatura = v11;
-		this.caso = v12;
+		this.caso = v11;
 
 		concatenacionNombres();
 		concatenacionApellidos();
@@ -271,7 +251,7 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({ "listaRecaudos" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudos = serviciocargarrecaudoentregado.buscarRecaudosEntregados(cedula);
+		listaRecaudos = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
 	}
 
 	@Command
