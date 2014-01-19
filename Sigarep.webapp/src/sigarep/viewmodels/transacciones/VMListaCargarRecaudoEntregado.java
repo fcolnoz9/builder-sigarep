@@ -14,15 +14,10 @@ import org.zkoss.zul.Window;
 
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
-import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
-import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacionFiltros;
 import sigarep.modelos.servicio.transacciones.ListaCargarRecaudoEntregado;
-import sigarep.modelos.servicio.transacciones.ListaCargarRecaudoEntregadoFiltros;
-import sigarep.modelos.servicio.transacciones.ListaEstudianteApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioCargarRecaudoEntregado;
-import sigarep.modelos.servicio.transacciones.ServicioListaEstudiate;
+import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaCargarRecaudoEntregado {
@@ -38,12 +33,11 @@ public class VMListaCargarRecaudoEntregado {
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
-	private ServicioCargarRecaudoEntregado serviciocargarrecaudoentregado;
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<ListaCargarRecaudoEntregado> lista = new LinkedList<ListaCargarRecaudoEntregado>();
-	private ListaCargarRecaudoEntregadoFiltros filtros = new ListaCargarRecaudoEntregadoFiltros();
 	private String sancion;
 	private String programa;
 	private String email;
@@ -54,7 +48,6 @@ public class VMListaCargarRecaudoEntregado {
 	private Integer instancia;
 	private String segundoNombre;
 	private String segundoApellido;
-	private String asignatura;
 	private Integer caso;
 	
 	
@@ -80,10 +73,6 @@ public class VMListaCargarRecaudoEntregado {
 
 	public ServicioProgramaAcademico getServicioprogramaacademico() {
 		return servicioprogramaacademico;
-	}
-
-	public ServicioCargarRecaudoEntregado getServicioCargarRecaudoEntregado() {
-		return serviciocargarrecaudoentregado;
 	}
 
 	public List<ListaCargarRecaudoEntregado> getLista() {
@@ -139,11 +128,6 @@ public class VMListaCargarRecaudoEntregado {
 		this.servicioprogramaacademico = servicioprogramaacademico;
 	}
 
-	public void setServicioCargarRecaudoEntregado(
-			ServicioCargarRecaudoEntregado servicioCargarRecaudoEntregado) {
-		this.serviciocargarrecaudoentregado = servicioCargarRecaudoEntregado;
-	}
-
 	public void setLista(List<ListaCargarRecaudoEntregado> lista) {
 		this.lista = lista;
 	}
@@ -188,29 +172,12 @@ public class VMListaCargarRecaudoEntregado {
 		return segundoApellido;
 	}
 
-	public String getAsignatura() {
-		return asignatura;
-	}
-
 	public void setSegundoNombre(String segundoNombre) {
 		this.segundoNombre = segundoNombre;
 	}
 
 	public void setSegundoApellido(String segundoApellido) {
 		this.segundoApellido = segundoApellido;
-	}
-
-	public void setAsignatura(String asignatura) {
-		this.asignatura = asignatura;
-	}
-
-	@NotifyChange({"filtros"})
-	public ListaCargarRecaudoEntregadoFiltros getFiltros() {
-		return filtros;
-	}
-	
-	public void setFiltros(ListaCargarRecaudoEntregadoFiltros filtros) {
-		this.filtros = filtros;
 	}
 
 	/**
@@ -239,12 +206,12 @@ public class VMListaCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({"lista"})
 	public void buscarApelacionesRecaudoEntregado(){
-	  			lista = serviciocargarrecaudoentregado.buscarApelaciones();
+	  			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
 	}
 	
 	@Command
-	@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", 
-		"sancion", "lapso", "recaudo", "segundoNombre", "segundoApellido", "asignatura"})
+	@NotifyChange({"cedula", "nombre", "apellido","email", "programa", 
+		"sancion", "lapso", "segundoNombre", "segundoApellido"})
 	public void showModal (){
 		cedula = listaEstudiantesCargarRecaudos.getCedulaEstudiante();
 		nombre = listaEstudiantesCargarRecaudos.getPrimerNombre();
@@ -256,7 +223,6 @@ public class VMListaCargarRecaudoEntregado {
   		instancia = listaEstudiantesCargarRecaudos.getInstancia();
   		segundoNombre = listaEstudiantesCargarRecaudos.getSegundoNombre();
   		segundoApellido = listaEstudiantesCargarRecaudos.getSegundoApellido();
-  		asignatura = listaEstudiantesCargarRecaudos.getAsignatura();
   		caso = listaEstudiantesCargarRecaudos.getCaso();
   		
   		final HashMap<String, Object> map = new HashMap<String, Object>();
@@ -270,7 +236,6 @@ public class VMListaCargarRecaudoEntregado {
         map.put("instancia", this.instancia);
         map.put("segundoNombre", this.segundoNombre);
         map.put("segundoApellido", this.segundoApellido);
-        map.put("asignatura", this.asignatura);
         map.put("caso", this.caso);
         
         final Window window = (Window) Executions.createComponents(
@@ -282,7 +247,7 @@ public class VMListaCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({"lista"})
 	public void filtros(){
-		lista = serviciocargarrecaudoentregado.buscarPorFiltros(filtros);
+		lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);
 	}
 
 	public List<ProgramaAcademico> getListaPrograma() {
@@ -308,6 +273,15 @@ public class VMListaCargarRecaudoEntregado {
 	public void setListaEstudiantesCargarRecaudos(
 			ListaCargarRecaudoEntregado listaEstudiantesCargarRecaudos) {
 		this.listaEstudiantesCargarRecaudos = listaEstudiantesCargarRecaudos;
+	}
+
+	public ServicioRecaudoEntregado getServiciorecaudoentregado() {
+		return serviciorecaudoentregado;
+	}
+
+	public void setServiciorecaudoentregado(
+			ServicioRecaudoEntregado serviciorecaudoentregado) {
+		this.serviciorecaudoentregado = serviciorecaudoentregado;
 	}
 }
 
