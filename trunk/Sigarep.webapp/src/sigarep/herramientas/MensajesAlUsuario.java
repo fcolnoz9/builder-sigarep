@@ -123,7 +123,7 @@ public class MensajesAlUsuario {
 	public void ErrorFinalizarLapsoCronograma() {
 
 		Messagebox.show("No puede finalizar el lapso actual. "
-				+ "Existen actividades sin guardarse en el cronograma.",
+				+ "Existen actividades sin ejecutarse en el cronograma.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 
 	}
