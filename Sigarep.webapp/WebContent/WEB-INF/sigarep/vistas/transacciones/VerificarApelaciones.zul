@@ -1,10 +1,12 @@
 <zk>
 
-	<window title="Gestión :: Reconsideración :: Registrar Reconsideración"
+	<window
+		title="Gestión :: Reconsideración :: Registrar Reconsideración"
 		id="winActualizarEstadoEstudiante" border="normal" width="auto"
-	    closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.ViewModelListaApelaciones')"  
-            action="hide: slideUp" >
+		closable="true" contentStyle="overflow:auto"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMListaApelacionesReconsideracion')"
+		action="hide: slideUp">
 		<style src="/widgets/grid/simple/style.css" />
 
 		<zscript><![CDATA[
@@ -24,72 +26,91 @@
 			<columns>
 				<column align="center">
 					<label id="lblPrograma" value="Programa " />
-					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.filtros.programa)" onChange="@command('filtros')" >
-							<template name="model">
-								<comboitem  label="${each.nombrePrograma}"/>
-							</template>
+					<combobox id="cmbPrograma" mold="rounded"
+						model="@load(vm.listaPrograma)" value="@bind(vm.filtros.programa)"
+						onChange="@command('filtros')">
+						<template name="model">
+							<comboitem label="${each.nombrePrograma}" />
+						</template>
 					</combobox>
 				</column>
 				<column align="center">
 					<label id="lblMotivo" value="Motivo " />
-					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="@bind(vm.filtros.motivo)" onChange="@command('filtros')">
-							<template name="model">
-								<comboitem  label="${each.nombreTipoMotivo}"/>
-							</template>
+					<combobox id="cmbMotivo" mold="rounded"
+						model="@load(vm.listaTipoMotivo)" value="@bind(vm.filtros.motivo)"
+						onChange="@command('filtros')">
+						<template name="model">
+							<comboitem label="${each.nombreTipoMotivo}" />
+						</template>
 					</combobox>
 				</column>
-<!-- 				<column align="center"> -->
-<!-- 					<label id="lblSesionConsejo" -->
-<!-- 						value="Sesion Consejo " /> -->
-<!-- 					<combobox id="cmbSesionConsejo" mold="rounded"> -->
-<!-- 						<comboitem id="cmiFecha" label="Fecha" /> -->
-<!-- 						<comboitem id="cmiCodigo" label="Código" /> -->
-<!-- 						<comboitem id="cmiOrdinaria" label="Ordinaria" /> -->
-<!-- 					</combobox> -->
-<!-- 				</column> -->
+				<!-- 				<column align="center"> -->
+				<!-- 					<label id="lblSesionConsejo" -->
+				<!-- 						value="Sesion Consejo " /> -->
+				<!-- 					<combobox id="cmbSesionConsejo" mold="rounded"> -->
+				<!-- 						<comboitem id="cmiFecha" label="Fecha" /> -->
+				<!-- 						<comboitem id="cmiCodigo" label="Código" /> -->
+				<!-- 						<comboitem id="cmiOrdinaria" label="Ordinaria" /> -->
+				<!-- 					</combobox> -->
+				<!-- 				</column> -->
 
-<!-- 				<column align="left"> -->
-<!-- 					<button label="Buscar" mold="trendy" id="btnBuscar" -->
-<!-- 						image="/imagenes/iconos/buscar.png" width="auto" height="auto" -->
-<!-- 						orient="horizontal" /> -->
-<!-- 				</column> -->
+				<!-- 				<column align="left"> -->
+				<!-- 					<button label="Buscar" mold="trendy" id="btnBuscar" -->
+				<!-- 						image="/imagenes/iconos/buscar.png" width="auto" height="auto" -->
+				<!-- 						orient="horizontal" /> -->
+				<!-- 				</column> -->
 
 			</columns>
 		</grid>
 
-		<groupbox id = "grbListaSancionados">
-						<caption label="Lista de Sancionados" />
-						<listbox id="lbxSancionados"  height="70%" model="@bind(vm.lista)" selectedItem="@bind(vm.listaapelacionestadoapelacion)"   
-				   			 onClick="@command('showModal')"  mold="paging" pageSize="10"  
-   			 					 emptyMessage="No hay Apelaciones" >
-							<listhead>
-								<listheader label="Cédula" align="center" sort="auto(cedulaEstudiante)" > 
-								<textbox id="filtroCedula" instant="true"  width="100px" value="@bind(vm.filtros.cedula)" onChange="@command('filtros')"/>
-								 <image src= "imagenes/iconos/buscar.png" /> 
-								</listheader>
-								<listheader label="Nombre" align="center" sort="auto(primerNombre)">
-								<textbox id="filtroNombre" instant="true"  width="100px" value="@bind(vm.filtros.nombre)" onChange="@command('filtros')" />
-								<image src= "imagenes/iconos/buscar.png" /> 
-							</listheader>
-								<listheader label="Apellido" align="center" sort="auto(primerApellido)" >
-								<textbox id="filtroApellido" instant="true"  width="100px" value="@bind(vm.filtros.apellido)" onChange="@command('filtros')" />
-								<image src= "imagenes/iconos/buscar.png" /> 
-								</listheader>
-								<listheader label="Sanción" align="center" sort="auto(nombreSancion)" >
-								<textbox id="filtroSancion" instant="true"  width="100px" value="@bind(vm.filtros.sancion)" onChange="@command('filtros')" />
-								<image src= "imagenes/iconos/buscar.png" /> 
-							</listheader>
-							</listhead>
-						<template name="model">
-							<listitem>
- 								<listcell label="${each.cedulaEstudiante}"/> 
-								<listcell label="${each.primerNombre}" />
-								<listcell label="${each.primerApellido}" />
-								<listcell label="${each.nombreSancion}" />
-							</listitem>
-						</template>
-						</listbox>
-					</groupbox>
+		<groupbox id="grbListaSancionados">
+			<caption label="Lista de Sancionados" />
+			<listbox id="lbxSancionados" height="70%"
+				model="@bind(vm.lista)"
+				selectedItem="@bind(vm.listaapelacionestadoapelacion)"
+				onClick="@command('showModal')" mold="paging" pageSize="10"
+				emptyMessage="No hay Apelaciones">
+				<!--    			 					  onClick="@command('showModal',before=winActualizarEstadoEstudiante.onClose())"  -->
+				<listhead>
+					<listheader label="Cédula" align="center"
+						sort="auto(cedulaEstudiante)">
+						<textbox id="filtroCedula" instant="true"
+							width="100px" value="@bind(vm.filtros.cedula)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+					</listheader>
+					<listheader label="Nombre" align="center"
+						sort="auto(primerNombre)">
+						<textbox id="filtroNombre" instant="true"
+							width="100px" value="@bind(vm.filtros.nombre)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+					</listheader>
+					<listheader label="Apellido" align="center"
+						sort="auto(primerApellido)">
+						<textbox id="filtroApellido" instant="true"
+							width="100px" value="@bind(vm.filtros.apellido)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+					</listheader>
+					<listheader label="Sanción" align="center"
+						sort="auto(nombreSancion)">
+						<textbox id="filtroSancion" instant="true"
+							width="100px" value="@bind(vm.filtros.sancion)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+					</listheader>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="${each.cedulaEstudiante}" />
+						<listcell label="${each.primerNombre}" />
+						<listcell label="${each.primerApellido}" />
+						<listcell label="${each.nombreSancion}" />
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
 		<div align="right" height="100%">
 			<button label="Finalizar" mold="trendy" id="btnFinalizar"
 				image="/imagenes/iconos/finalizar.png" width="auto" height="auto"
@@ -97,7 +118,8 @@
 			</button>
 			<button label="Salir" mold="trendy" id="btnSalir"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick = "winActualizarEstadoEstudiante.onClose()" >
+				orient="horizontal"
+				onClick="winActualizarEstadoEstudiante.onClose()">
 			</button>
 		</div>
 	</window>

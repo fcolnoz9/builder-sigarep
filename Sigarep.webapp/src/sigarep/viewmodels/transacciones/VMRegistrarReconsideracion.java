@@ -82,7 +82,7 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class ViewModelSolicitudApelacion {
+public class VMRegistrarReconsideracion {
 	@Wire("#modalDialog")
 	private Window window;
 	private String sancion;
@@ -144,6 +144,8 @@ public class ViewModelSolicitudApelacion {
 	private Integer instanciaApelada;
 	@WireVariable
 	private Date fechaSolicitud;
+	@Wire
+	Label lblDocumento;
 	mensajes msjs = new mensajes(); // para llamar a los diferentes mensajes de
 									// dialogo
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
@@ -158,8 +160,18 @@ public class ViewModelSolicitudApelacion {
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
 	Recaudo recaudos = new Recaudo();
+	
 	@WireVariable
 	private List<ListaRecaudosMotivoEstudiante> listaRecaudos = new LinkedList<ListaRecaudosMotivoEstudiante>();
+	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
+
+	public List<ListaApelacionEstadoApelacion> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<ListaApelacionEstadoApelacion> lista) {
+		this.lista = lista;
+	}
 
 	public Integer getIdTipoMotivo() {
 		return idTipoMotivo;
@@ -545,62 +557,65 @@ public class ViewModelSolicitudApelacion {
 		window.detach();
 	}
 
+	@NotifyChange({ "lista" })
 	@Command
 	public void registrarSolicitudApelacion() {
 
 		Date fecha = new Date();
 		Time hora = new Time(0);
-		System.out.println("cedula " + cedula);
 
-		solicitudApelacionPK.setCedulaEstudiante(cedula);
-		System.out.println("lapso " + lapso);
-		solicitudApelacionPK.setCodigoLapso(lapso);
-		solicitudApelacionPK.setIdInstanciaApelada(2);
-		System.out.println("instancia " + instancia);
-		solicitudApelacion.setId(solicitudApelacionPK);
-		System.out.println("fecha " + fecha);
-		solicitudApelacion.setFechaSolicitud(fecha);
-		solicitudApelacion.setEstatus(true);
-		solicitudApelacion.setNumeroCaso(caso);
+		if (nombreDoc == null) {
+			msjs.advertenciaLlenarCampos();
+		} else {
+			solicitudApelacionPK.setCedulaEstudiante(cedula);
+			System.out.println("lapso " + lapso);
+			solicitudApelacionPK.setCodigoLapso(lapso);
+			solicitudApelacionPK.setIdInstanciaApelada(2);
+			System.out.println("instancia " + instancia);
+			solicitudApelacion.setId(solicitudApelacionPK);
+			System.out.println("fecha " + fecha);
+			solicitudApelacion.setFechaSolicitud(fecha);
+			solicitudApelacion.setEstatus(true);
+			solicitudApelacion.setNumeroCaso(caso);
 
-		apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
-		apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-		apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
-		apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
-		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-		apelacionEstadoApelacion.setFechaEstado(hora);
-		// =
-		motivoPK.setCedulaEstudiante(cedula);
-		motivoPK.setCodigoLapso(lapso);
-		motivoPK.setIdInstanciaApelada(2);
-		motivoPK.setIdTipoMotivo(idTipoMotivo);
-		if (motivoPK == null)
-			System.out.println("nada1");
-		else
-			System.out.println("algo1");
-		motivos.setId(motivoPK);
-		motivos.setEstatus(true);
+			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
+			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+			apelacionEstadoApelacion.setFechaEstado(hora);
+			// =
+			motivoPK.setCedulaEstudiante(cedula);
+			motivoPK.setCodigoLapso(lapso);
+			motivoPK.setIdInstanciaApelada(2);
+			motivoPK.setIdTipoMotivo(idTipoMotivo);
+			if (motivoPK == null)
+				System.out.println("nada1");
+			else
+				System.out.println("algo1");
+			motivos.setId(motivoPK);
+			motivos.setEstatus(true);
 
-		recaudoEntregadoPK.setCedulaEstudiante(cedula);
-		recaudoEntregadoPK.setCodigoLapso(lapso);
-		recaudoEntregadoPK.setIdInstanciaApelada(2);
-		recaudoEntregadoPK.setIdRecaudo(2);
-		recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
-		recaudoEntregado.setId(recaudoEntregadoPK);
-		recaudoEntregado.setEstatus(true);
+			recaudoEntregadoPK.setCedulaEstudiante(cedula);
+			recaudoEntregadoPK.setCodigoLapso(lapso);
+			recaudoEntregadoPK.setIdInstanciaApelada(2);
+			recaudoEntregadoPK.setIdRecaudo(2);
+			recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
+			recaudoEntregado.setId(recaudoEntregadoPK);
+			recaudoEntregado.setEstatus(true);
 
-		soportePK.setCedulaEstudiante(cedula);
-		soportePK.setCodigoLapso(lapso);
-		soportePK.setIdInstanciaApelada(2);
-		soportePK.setIdRecaudo(2);
-		soportePK.setIdTipoMotivo(idTipoMotivo);
-		soporte.setId(soportePK);
-		soporte.setDocumento(doc);
-		System.out.println("" + doc);
-		soporte.setEstatus(true);
-		soporte.setFechaSubida(fecha);
-		soporte.setRecaudoEntregado(recaudoEntregado);
-
+			soportePK.setCedulaEstudiante(cedula);
+			soportePK.setCodigoLapso(lapso);
+			soportePK.setIdInstanciaApelada(2);
+			soportePK.setIdRecaudo(2);
+			soportePK.setIdTipoMotivo(idTipoMotivo);
+			soporte.setId(soportePK);
+			soporte.setDocumento(doc);
+			System.out.println("" + doc);
+			soporte.setEstatus(true);
+			soporte.setFechaSubida(fecha);
+			soporte.setRecaudoEntregado(recaudoEntregado);
+		}
 		try {
 
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
@@ -608,13 +623,15 @@ public class ViewModelSolicitudApelacion {
 			serviciomotivos.guardar(motivos);
 			serviciorecaudoentregado.guardar(recaudoEntregado);
 			serviciosoporte.guardar(soporte);
-
+			// sigarep.viewmodels.transacciones.ViewModelListaApelaciones vm =
+			// new ViewModelListaApelaciones();
+			// vm.init();
+			msjs.informacionRegistroCorrecto();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
+			serviciolista.buscarApelaciones();
 		}
-
-		msjs.informacionRegistroCorrecto();
 
 	}
 
@@ -688,6 +705,14 @@ public class ViewModelSolicitudApelacion {
 						Messagebox.OK, Messagebox.ERROR);
 			}
 		}
+	}
+
+	@Command
+	public void abrir() {
+		Executions
+				.createComponents(
+						"/WEB-INF/sigarep/vistas/transacciones/VerificarApelaciones.zul",
+						null, null);
 	}
 
 }
