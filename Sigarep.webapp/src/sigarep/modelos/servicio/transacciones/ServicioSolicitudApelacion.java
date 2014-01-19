@@ -55,6 +55,10 @@ public class ServicioSolicitudApelacion {
 		return new SolicitudApelacion();
 	}
 	
+	public SolicitudApelacion buscarSolicitudPorClavePrimaria(SolicitudApelacionPK pk){
+		return iSolicitudApelacionDAO.findOne(pk);
+	}
+	
 	public List<String> historicoSolicitudApelacion(Date date){
 		List<String> listaElementosAInsertar = new ArrayList<String>();
 		String elementoAInsertar;
