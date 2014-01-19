@@ -1,36 +1,46 @@
 package sigarep.viewmodels.transacciones;
-
-import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
+import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
+import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-
+/** Cargar Estudiante, Estudiandte Sancionado por XML
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 2.1
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarEstudiantesSancionadosXml {
 	private Document document;// Se Usa para poder leer el Xml, instancia la libreria Jdom-2.0.3 y poder usar sus propiedades
@@ -41,7 +51,8 @@ public class VMCargarEstudiantesSancionadosXml {
 	@WireVariable 
 	private  ServicioEstudiante servicioestudiante;
 	@WireVariable 
-	private Estudiante estudiante;
+	private Estudiante estudiante,estudiante2;
+    private List<Estudiante> listaEstudiante;//Lista de Estudiantes
 	@WireVariable 
 	private ProgramaAcademico programa_academico;
 	@WireVariable 
@@ -50,14 +61,19 @@ public class VMCargarEstudiantesSancionadosXml {
 	private String codigo_lapso,aux_indice_grado,lapsos_academicos_RP;
 	private Integer unidades_cursadas,unidades_aprobadas,semestre,id_sancion;
 	private float indice_grado;
+	//Asignatura Estudiante Sancionado
+	private Integer condicion_asignatura_1,condicion_asignatura_2,condicion_asignatura_3;
+	private String codigo_asignatura_1,codigo_asignatura_2,codigo_asignatura_3;
+	@WireVariable 
+	private ServicioAsignatura servicioAsignatura;
+	@WireVariable 
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado ;
 	@WireVariable 
 	private LapsoAcademico lapsoAcademico;
 	@WireVariable 
 	private SancionMaestro sancionMaestro;
 	@WireVariable 
-	private EstudianteSancionado estudiante_sancionado;
-	@WireVariable 
-	private EstudianteSancionadoPK id;
+	private EstudianteSancionado  est_san_busca;
 	@WireVariable 
 	private EstudianteSancionado estudianteSancionado;
 	@WireVariable 
@@ -66,6 +82,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable 
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	private Media media;//Archivo de tipo media que soporta la extension Xml
 	
 	public String getTextoXML() {
 		return textoXML;
@@ -79,152 +96,162 @@ public class VMCargarEstudiantesSancionadosXml {
 	public void setTamanoXML(Integer tamanoXML) {
 		this.tamanoXML = tamanoXML;
 	}
+	public Media getMedia() {
+		return media;
+	}
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+	
+	public List<Estudiante> getListaEstudiante() {
+		return listaEstudiante;
+	}
+	public void setListaEstudiante(List<Estudiante> listaEstudiante) {
+		this.listaEstudiante = listaEstudiante;
+	}
+	
+	@Command
+	@NotifyChange({"listaEstudiante"})
+	public void listaEstudiante()
+	{
+		listaEstudiante=servicioestudiante.listadoEstudiantes();
+	}
+	@Init
+	public void init()
+	{
+		listaEstudiante();
+	}
+	/** Unico punto de entrada.
+	  * @param UploadEvent event Zkoss UI
+	  * @return No devuelve ningun valor.
+	  * @throws las Excepciones son que el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.
+	  */
 	@Command
 	@NotifyChange({"textoXML","tamanoXML"})
-	public void carga(){
-		JFileChooser selector=new JFileChooser();
-		FileNameExtensionFilter filtro=new FileNameExtensionFilter("Archivos XML","xml");
-	    selector.setFileFilter(filtro);
-	    int r=selector.showOpenDialog(null);
-		if(r==JFileChooser.APPROVE_OPTION){
-			if(selector.getFileFilter()==filtro){
-				leerXml(selector.getSelectedFile());
-			System.out.println("extension :"+filtro.getExtensions());
+	public void cargarEstudiante(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
+		media = event.getMedia();
+		int i;
+		String codigo_lapso="";
+		if (media != null) {
+			if (media.getFormat().equals("xml")) {
+				String DataXmL = media.getStringData();
+				SAXBuilder saxBuilder = new SAXBuilder();
+				XMLOutputter output = new XMLOutputter();
+				try {
+					Document doc = saxBuilder.build(new StringReader(DataXmL));
+					System.out.println("DATA" + doc.getRootElement());
+					Element rootNode = doc.getRootElement(); 
+					List list = rootNode.getChildren("Estudiante");
+					tamanoXML = list.size();
+					for (i = 0; i < list.size(); i++) {
+						Element node = (Element) list.get(i);
+					  System.out.println("des"+node.getDocument().getDescendants());	
+						cedula_estudiante = node.getAttribute("cedula_estudiante").getValue();
+						primer_nombre = node.getChildText("primer_nombre");
+						segundo_nombre = node.getChildText("segundo_nombre");
+						primer_apellido = node.getChildText("primer_apellido");
+						segundo_apellido = node.getChildText("segundo_apellido");
+						sexo = node.getChildText("sexo");
+						aux_fecha_nacimiento = node.getChildText("fecha_nacimiento");
+						SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");// para darle formato a la fecha					
+						fecha_nacimiento = null;
+						try {
+							fecha_nacimiento = formatoDelTexto.parse(aux_fecha_nacimiento);//parse a la fecha para colocarla en el formato "yyyy-MM-dd"
+						} catch (ParseException ex) {
+							ex.printStackTrace();
+						}
+						email = node.getChildText("email");
+						telefono = node.getChildText("telefono");
+						id_programa = Integer.parseInt(node.getChildText("id_programa"));
+						aux_anio_ingreso = node.getChildText("anio_ingreso");
+						anio_ingreso = null;
+						try {
+							anio_ingreso = formatoDelTexto.parse(aux_anio_ingreso);
+						} catch (ParseException ex) {
+							ex.printStackTrace();
+						}
+						if (node.getChildText("estatus").equals("true")) {
+							estatus = true;
+						} else {
+							estatus = false;
+						}
+						codigo_lapso=node.getChildText("codigo_lapso");//Desde Aqui datos del estudiante Sancionado
+						indice_grado=Float.parseFloat(node.getChildText("indice_grado"));
+						lapsos_academicos_RP=node.getChildText("lapsos_academicos_RP");
+						id_sancion=Integer.parseInt(node.getChildText("id_sancion"));
+						unidades_cursadas=Integer.parseInt(node.getChildText("unidades_cursadas"));
+						unidades_aprobadas=Integer.parseInt(node.getChildText("unidades_aprobadas"));
+						semestre=Integer.parseInt(node.getChildText("semestre"));
+						try {
+							ProgramaAcademico programaacademico = new ProgramaAcademico();
+							programaacademico = servicioprogramaacademico.buscarUnPrograma(id_programa);
+							Estudiante estudiante = new Estudiante(cedula_estudiante, anio_ingreso, email,estatus, fecha_nacimiento, primer_apellido,primer_nombre, segundo_apellido,segundo_nombre, sexo, telefono,programaacademico);
+							servicioestudiante.guardarPrograma(estudiante);//Se guarda el estudiante
+							EstudianteSancionadoPK id =new EstudianteSancionadoPK();
+							id.setCedulaEstudiante(cedula_estudiante);
+							id.setCodigoLapso(codigo_lapso);
+							EstudianteSancionado estudiante_san;
+							estudiante_san=new EstudianteSancionado();
+							estudiante_san=servicioestudiantesancionado.buscar(id);
+								   sancionMaestro = new SancionMaestro();
+								   sancionMaestro =serviciosancionmaestro.buscarUnaSancion(id_sancion);
+								   EstudianteSancionado estudiante_sancionado=new EstudianteSancionado();
+								   lapsoAcademico=new LapsoAcademico();
+								   lapsoAcademico= serviciolapsoacademico.buscarUnLapsoAcademico(codigo_lapso);
+								   estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro);
+								   servicioestudiantesancionado.guardar(estudiante_sancionado);  
+									   //las materias del Estudiante Sancionado. 
+								   if(!node.getChildText("codigo_asignatura_1").equals("0")){//Si es Igual a 0 es porque no tiene Materias
+									   codigo_asignatura_1= node.getChildText("codigo_asignatura_1");
+									   condicion_asignatura_1= Integer.parseInt(node.getChildText("condicion_asignatura_1"));
+									   AsignaturaEstudianteSancionadoPK asignatura_est_san_1=new AsignaturaEstudianteSancionadoPK();
+									   asignatura_est_san_1.setCedulaEstudiante(cedula_estudiante);
+									   asignatura_est_san_1.setCodigoAsignatura(codigo_asignatura_1);
+									   asignatura_est_san_1.setCodigoLapso(codigo_lapso);
+									   Asignatura asignatura=servicioAsignatura.buscarAsignatura(codigo_asignatura_1);
+									   AsignaturaEstudianteSancionado asignaturaSancionado =new AsignaturaEstudianteSancionado(asignatura_est_san_1,condicion_asignatura_1,asignatura,estudiante_sancionado);
+									   servicioasignaturaestudiantesancionado.guardarAsignaturaEstudianteSancionado(asignaturaSancionado);
+									   if(!node.getChildText("codigo_asignatura_2").equals("0")){
+										   codigo_asignatura_2= node.getChildText("codigo_asignatura_2");
+										   condicion_asignatura_2= Integer.parseInt(node.getChildText("condicion_asignatura_2"));
+										   AsignaturaEstudianteSancionadoPK asignatura_est_san_2=new AsignaturaEstudianteSancionadoPK();
+										   asignatura_est_san_2.setCedulaEstudiante(cedula_estudiante);
+										   asignatura_est_san_2.setCodigoAsignatura(codigo_asignatura_2);
+										   asignatura_est_san_2.setCodigoLapso(codigo_lapso);
+										   Asignatura asignatura2=servicioAsignatura.buscarAsignatura(codigo_asignatura_2);
+										   AsignaturaEstudianteSancionado asignaturaSancionado2 =new AsignaturaEstudianteSancionado(asignatura_est_san_2,condicion_asignatura_2,asignatura2,estudiante_sancionado);
+										   servicioasignaturaestudiantesancionado.guardarAsignaturaEstudianteSancionado(asignaturaSancionado2);
+										   if(!node.getChildText("codigo_asignatura_3").equals("0")){
+											   codigo_asignatura_3= node.getChildText("codigo_asignatura_3");
+											   condicion_asignatura_3= Integer.parseInt(node.getChildText("condicion_asignatura_3"));
+											   AsignaturaEstudianteSancionadoPK asignatura_est_san_3=new AsignaturaEstudianteSancionadoPK();
+											   asignatura_est_san_3.setCedulaEstudiante(cedula_estudiante);
+											   asignatura_est_san_3.setCodigoAsignatura(codigo_asignatura_3);
+											   asignatura_est_san_3.setCodigoLapso(codigo_lapso);
+											   Asignatura asignatura3=servicioAsignatura.buscarAsignatura(codigo_asignatura_3);
+											   AsignaturaEstudianteSancionado asignaturaSancionado3 =new AsignaturaEstudianteSancionado(asignatura_est_san_3,condicion_asignatura_3,asignatura3,estudiante_sancionado);
+											   servicioasignaturaestudiantesancionado.guardarAsignaturaEstudianteSancionado(asignaturaSancionado3);
+										   }
+									   }
+								   }
+								   estudiante_sancionado=null;
+						} catch (Exception e) {
+							e.printStackTrace();
+							Messagebox.show("Ocurrio Un error!","ERROR", Messagebox.OK,Messagebox.ERROR);
+							// TODO: handle exception
+						}
+					}
+					Messagebox.show("Se han Finalizado la Operacion!","Informacion", Messagebox.OK,Messagebox.INFORMATION);
+					textoXML = output.outputString(doc);
+				} catch (JDOMException e) {
+					// handle JDOMException
+				} catch (IOException e) {
+					// handle IOException
+				}
 			}
 			else{
-				Messagebox.show("La Extension del Archivo no es XML", "ERROR",
-						Messagebox.OK, Messagebox.ERROR);
-				System.out.println("extension :"+filtro.getExtensions());
+				Messagebox.show("La Extension del Archivo no es XML", "ERROR",Messagebox.OK, Messagebox.ERROR);
 			}
 		}
 	}
-	@Command
-	@NotifyChange({"texto","tamanoXML"})
-	public String leerXml(File f){
-		String datos="";
-		SAXBuilder saxBuilder = new SAXBuilder();
-		try {
-			document = saxBuilder.build(f);
-			XMLOutputter output = new XMLOutputter();
-			System.out.println("Data Archivo"+output.outputString(document));
-			Element rootNode = document.getRootElement();
-			List list = rootNode.getChildren("Estudiante");
-			tamanoXML=list.size();
-			for (int i = 0; i < list.size(); i++) {
-				   Element node = (Element) list.get(i);
-				   cedula_estudiante=node.getAttribute("cedula_estudiante").getValue();
-				   primer_nombre=node.getChildText("primer_nombre");
-				   segundo_nombre=node.getChildText("segundo_nombre");
-				   primer_apellido=node.getChildText("primer_apellido");
-				   segundo_apellido=node.getChildText("segundo_apellido");
-				   sexo=node.getChildText("sexo");
-				   aux_fecha_nacimiento=node.getChildText("fecha_nacimiento");
-				   SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");//para darle formato a la fecha para poder
-				   fecha_nacimiento=null;
-				   try {
-					   fecha_nacimiento = formatoDelTexto.parse(aux_fecha_nacimiento);
-					   } catch (ParseException ex) {
-					   ex.printStackTrace();
-					   }
-				   email=node.getChildText("email");
-				   telefono=node.getChildText("telefono");
-				   id_programa=Integer.parseInt(node.getChildText("id_programa"));
-				   aux_anio_ingreso=node.getChildText("anio_ingreso");
-				   anio_ingreso=null;
-				   try {
-					   anio_ingreso = formatoDelTexto.parse(aux_anio_ingreso);
-					   } catch (ParseException ex) {
-					   ex.printStackTrace();
-					   }
-				   if(node.getChildText("estatus").equals("true")){
-					   estatus=true;
-				   }
-				   else{
-					   estatus=false; 
-				   }
-				   ProgramaAcademico programaacademico =new ProgramaAcademico();
-				   programaacademico=servicioprogramaacademico.buscarUnPrograma(id_programa);
-				   Estudiante estudiante = new Estudiante(cedula_estudiante,anio_ingreso,email,estatus,fecha_nacimiento,primer_apellido,primer_nombre,segundo_apellido,segundo_nombre,sexo,telefono,programaacademico);
-				   servicioestudiante.guardarPrograma(estudiante);
-				}
-			textoXML=(output.outputString(document));
-			Messagebox.show("Se ha Terminado la Carga de "+tamanoXML+" Estudiantes", "Informacion",Messagebox.OK, Messagebox.INFORMATION);
-		} catch (JDOMException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return datos;
-	}
-	
-	@Command
-	@NotifyChange({"textoXML","tamanoXML"})
-	public void cargaSancionados(){
-		JFileChooser selector=new JFileChooser();
-		FileNameExtensionFilter filtro=new FileNameExtensionFilter("Archivos XML","xml");
-	    selector.setFileFilter(filtro);
-	    int r=selector.showOpenDialog(null);
-		if(r==JFileChooser.APPROVE_OPTION){
-			if(selector.getFileFilter()==filtro){
-				leerXmlSancionados(selector.getSelectedFile());
-			System.out.println("extension :"+filtro.getExtensions());
-			}
-			else{
-				Messagebox.show("La Extension del Archivo no es XML", "ERROR",
-						Messagebox.OK, Messagebox.ERROR);
-				System.out.println("extension :"+filtro.getExtensions());
-			}
-		}
-	}
-	@Command
-	@NotifyChange({"texto","tamanoXML"})
-	public String leerXmlSancionados(File f){
-		String datos="";
-		SAXBuilder saxBuilder = new SAXBuilder();
-		try {
-			document = saxBuilder.build(f);
-			XMLOutputter output = new XMLOutputter();
-			System.out.println("Data Archivo"+output.outputString(document));
-			Element rootNode = document.getRootElement();
-			List list = rootNode.getChildren("EstudiantesSancionados");
-			tamanoXML=list.size();
-			for (int i = 0; i < list.size(); i++) {
-				   Element node = (Element) list.get(i);
-				   codigo_lapso=node.getChildText("codigo_lapso");
-				   cedula_estudiante=node.getChildText("cedula_estudiante");
-				   indice_grado=Float.parseFloat(node.getChildText("indice_grado"));
-				   lapsos_academicos_RP=node.getChildText("lapsos_academicos_RP");
-				   id_sancion=Integer.parseInt(node.getChildText("id_sancion"));
-				   unidades_cursadas=Integer.parseInt(node.getChildText("unidades_cursadas"));
-				   unidades_aprobadas=Integer.parseInt(node.getChildText("unidades_aprobadas"));
-				   semestre=Integer.parseInt(node.getChildText("semestre"));
-				   if(node.getChildText("estatus").equals("true")){
-					   estatus=true;
-				   }
-				   else{
-					   estatus=false; 
-				   }
-				   estudiante= new Estudiante();
-				   estudiante=servicioestudiante.buscarEstudiante(cedula_estudiante);//busca al estudiante por cedula y se lo asigna al objeto estudiante
-				   id =new EstudianteSancionadoPK();
-				   id.setCedulaEstudiante(cedula_estudiante);
-				   id.setCodigoLapso(codigo_lapso);
-				   sancionMaestro = new SancionMaestro();
-				   sancionMaestro =serviciosancionmaestro.buscarUnaSancion(id_sancion);
-				   estudiante_sancionado=new EstudianteSancionado();
-				   lapsoAcademico=new LapsoAcademico();
-				   lapsoAcademico= serviciolapsoacademico.buscarUnLapsoAcademico(codigo_lapso);
-				   estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro);
-				   servicioestudiantesancionado.guardar(estudiante_sancionado);
-				   
-				}
-			textoXML=(output.outputString(document));
-			Messagebox.show("Se ha Terminado la Carga de "+tamanoXML+" Estudiantes", "Informacion",Messagebox.OK, Messagebox.INFORMATION);
-		} catch (JDOMException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return datos;
-	}
-	
-	
 }
