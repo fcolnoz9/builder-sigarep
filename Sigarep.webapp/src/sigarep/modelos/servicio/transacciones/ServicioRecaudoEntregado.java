@@ -67,8 +67,7 @@ public class ServicioRecaudoEntregado {
 			String programa, String cedula, String nombre,
 			String apellido, String sancion){
 		List<ListaCargarRecaudoEntregado> result = new ArrayList<ListaCargarRecaudoEntregado>();
-        if(programa==null || cedula==null 
-        		|| nombre==null || apellido==null || sancion==null){
+        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
         	result= buscarApelacionesCargarRecaudo();
         }
         else{
