@@ -69,22 +69,19 @@ public class ServicioVeredicto {
 		return results;
 	}
 
-	public List<ListaVeredicto> buscarPorFiltros(FiltroListaApelacionVeredicto1 filtros){
+	public List<ListaVeredicto> filtrarApelacionesVeredicto1(String cedula, String nombre, String apellido, String programa, String sancion){
 		List<ListaVeredicto> result = new ArrayList<ListaVeredicto>();
-		String ced = filtros.getCedula().toLowerCase();
-		String nom = filtros.getNombre().toLowerCase();
-        String ape = filtros.getApellido().toLowerCase();
-        String san = filtros.getSancion().toLowerCase();
-        if(ced==null || nom==null || ape==null ||  san==null){
+        if(cedula==null || nombre==null || apellido==null || programa==null ||  sancion==null){
         	result= buscarApelacionesVeredicto1();
         }
         else{
 			for (ListaVeredicto b: buscarApelacionesVeredicto1())
 			{
-				if (b.getCedulaEstudiante().toLowerCase().contains(ced)&&
-					b.getPrimerNombre().toLowerCase().contains(nom)&&
-					b.getPrimerApellido().toLowerCase().contains(ape)&&
-					b.getNombreSancion().toLowerCase().contains(san)){
+				if (b.getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+					b.getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
+					b.getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+					b.getPrograma().toLowerCase().contains(programa.toLowerCase()) &&
+					b.getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
 					result.add(b);
 				}
 			}
