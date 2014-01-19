@@ -1,11 +1,12 @@
 <?page title="Cargar Estudiantes Sancionados" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Cargar Estudiantes Sancionados" border="normal" apply=" org.zkoss.bind.BindComposer"
+<window  id="cargarEstudiante" title="Cargar Estudiantes Sancionados" border="normal" apply=" org.zkoss.bind.BindComposer" width="800px" height="600px"
     viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarEstudiantesSancionadosXml')">
 	<grid id="cargarXML">
 		<columns>
 			<column label="Cargar"/>
 			<column label="Vista Archivo XML"/>
+			<column label=""/>
 		</columns>
 		<rows>
 			<row>	
@@ -14,13 +15,34 @@
 			</row>
 			<row>
 				<label>Cargar Estudiantes Sancionados</label>
-				<textbox id="texto" value="@bind(vm.textoXML)" width="300px" rows="5" cols="40"/>
+				<textbox id="texto" value="@bind(vm.textoXML)" width="300px" height="120px" rows="5" cols="40"/>
+				<button label="Estudiantes Sancionados por XML" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192" />
+			</row>
+			<row>
+			
 			</row>
 		</rows>
 	</grid>
-		<button label="Cargar Estudiante por XML"   onClick="@command('carga')" />
-		<button label="Cargar Estudiantes Sancionados por XML"   onClick="@command('cargaSancionados')" />	
-		   
+		<listbox id="estListbox" height="230px" model="@bind(vm.listaEstudiante)"   
+   			 emptyMessage="No hay Estudiantes Sancionados registrados" mold="paging" pageSize="5">
+		<listhead>
+			<listheader label="Cedula" align="center" sort="auto(cedulaEstudiante)" />
+			<listheader label="Nombre" align="center" sort="auto(primerNombre)" />
+			<listheader label="Apellido" align="center" sort="auto(primerApellido)" />
+			<listheader label="Telefono" align="center"/>
+			<listheader label="Email" align="center"/>
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.cedulaEstudiante}" ></listcell>
+				<listcell label="${each.primerNombre}" ></listcell>
+				<listcell label="${each.primerApellido}"></listcell>
+				<listcell label="${each.telefono}"></listcell>
+				<listcell label="${each.email}" ></listcell>
+			</listitem>
+		</template>
+	</listbox>
+		
 		  
 		 
 
