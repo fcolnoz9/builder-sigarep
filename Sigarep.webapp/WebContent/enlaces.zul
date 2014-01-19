@@ -17,7 +17,7 @@
 							
 							<hbox style="text-align:center"> 
 							
-								<toolbarbutton   imageContent="${each.getImg}" label="${each.name}" 
+								<toolbarbutton   imageContent="${each.getImg()}" label="${each.name}" 
 									forEach="${item.children}"  href="${each.href}">
 									
 							    </toolbarbutton> 
