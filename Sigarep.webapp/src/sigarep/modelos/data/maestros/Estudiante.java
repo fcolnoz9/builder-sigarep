@@ -58,7 +58,7 @@ public class Estudiante implements Serializable {
 	
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="nombreusuario", nullable=false)
+	@JoinColumn(name="nombreusuario", nullable=true)
 	private Usuario nombreUsuario;
 
 	//bi-directional many-to-one association to ProgramaAcademico
