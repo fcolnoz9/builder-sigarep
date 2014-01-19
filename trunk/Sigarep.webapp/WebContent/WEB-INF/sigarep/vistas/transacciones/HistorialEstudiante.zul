@@ -1,0 +1,242 @@
+<zk>
+
+<window id="winHistorialEstudiante"
+	title="Gestión :: Reconsideraciones :: Registrar Reconsideracion"
+	border="normal" width="100%" height="auto" style="overflow:auto"
+	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
+	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialEstudiante')">
+	
+		<tabbox id="tb" height="300px">
+			<tabs id="tabs">
+				<tab id="tbDatosBasicos" label="Datos Básicos" />
+				<tab id="tbDatosAcademicos" label="Datos de Académicos" />
+				<tab id="tbDatossancion" label="Datos de la Sanción" />
+				<tab id="tbDatosApelacion" label="Datos de la Apelación" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+
+					<grid id="grdDatosEstudiante" >
+						<columns>
+							<column align="left" width="auto" />
+							<column align="left" width="auto" />
+						</columns>
+						<rows>
+							<row></row>
+							<row>
+								<label value="Cédula: "
+									id="lblCedulaEstudiante" />
+								<textbox id="txtCedulaEstudiante"
+									cols="23" width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.cedula)">
+								</textbox>
+							</row>
+							<row>
+								<label value="Nombres: "
+									id="lblNombresEstudiante" />
+								<textbox id="txtNombresEstudiante"
+									cols="23" width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.nombres)">
+								</textbox>
+								<label value="Apellidos: "
+									id="lblApellidosEstudiante" />
+								<textbox id="txtApellidosEstudiante"
+									cols="23" width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.apellidos)">
+								</textbox>
+							</row>
+							<row>
+								<label value="Sexo: " id="lblSexo" />
+								<textbox id="txtSexo" cols="23"
+									width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.sexo)">
+								</textbox>
+								<label value="Fecha de Nacimiento: "
+									id="lblFechaNacimiento" />
+								<textbox id="txtFechaNacimiento"
+									cols="23" width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.fechaNacimiento)">
+								</textbox>
+							</row>
+							<row>
+								<label value="Teléfono: "
+									id="lblTelefono" />
+								<textbox id="txtTelefono" cols="23"
+									width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.telefono)">
+								</textbox>
+								<label value="Email: " id="lblEmail" />
+								<textbox id="txtEmail" cols="23"
+									width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.email)">
+								</textbox>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+
+				<tabpanel>
+					<grid id="grdDatosAcademicos" >
+						<columns>
+							<column align="left" width="auto" />
+							<column align="left" width="auto" />
+						</columns>
+						<rows>
+							<row></row>
+							<row>
+								<label value="Programa:"
+									id="lblProgramaAcademico" />
+								<textbox id="txtProgramaAcademico"
+									cols="23" width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.programa)">
+								</textbox>
+								<label value="Unidades Cursadas: "
+									id="lblUnidadesCursadas" />
+								<textbox id="txtUnidadesCursadas"
+									cols="23" width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.unidadesCursadas)">
+								</textbox>
+							</row>
+							<row>
+								<label value="Año de Ingreso: "
+									id="lblAñoIngreso" />
+								<textbox id="txtAñoIngreso" cols="23"
+									width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.anioIngreso)">
+								</textbox>
+								<label value="Unidades Aprobadas: "
+									id="lblUnidadesAprobadas" />
+								<textbox id="txtUnidadesAprobadas"
+									cols="23" width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.unidadesAprobadas)">
+								</textbox>
+							</row>
+							<row>
+								<label value="Indice de Grado: "
+									id="lblIndiceGrado" />
+								<textbox id="txtIndiceGrado" cols="23"
+									width="200px" maxlength="30" readonly= "true"
+									value="@bind(vm.indiceGrado)">
+								</textbox>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+<!-- donde usas esa lista? -->
+				<tabpanel>
+				
+				<groupbox id="grbDatosSncion">
+			
+			<space />
+			<listbox id="lbxDatosSancion" height="100%"
+				model="@bind(vm.listaSancion)" 
+					emptyMessage="No hay enlaces registrados" mold="paging"
+				pageSize="10">
+<!-- 				onSelect="@command('buscarSancion')" -->
+			
+				
+				<listhead>
+					
+					<listheader label="Lapso de la Sanción" align="center"
+						sort="auto(codigoLapso)" > 
+					</listheader>
+					<listheader label="Tipo de Sanción" align="center"
+						sort="auto(nombreSancion)" >
+					 </listheader>
+					 <listheader label="Motivo de Sanción" align="center">
+					</listheader>
+					
+<!-- 					  <listheader label="Asignatura" align="center" -->
+<!-- 						sort="auto(descripcion)" > -->
+<!-- 					 </listheader> -->
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.codigoLapso}"></listcell>
+						<listcell label="${each.nombreSancion}"></listcell>
+						<listcell> 
+						<combobox readonly="true" id= "cmbTipoMotivo" value="@bind(vm.nombreTipoMotivo)" 
+				    width="auto" mold="rounded" model="@load(vm.listaMotivo)" >
+							<template name="model">
+								<comboitem  label="${each.nombreTipoMotivo}"/>
+							</template>
+					</combobox>	
+					</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+		</groupbox>
+	</tabpanel>
+<!-- 				<tabpanel> -->
+<!-- 					Datos de la apelación -->
+<!-- 					<grid id="grdDatosApelacion" sclass="fgrid"> -->
+<!-- 						<columns> -->
+<!-- 							<column align="left" width="auto" /> -->
+<!-- 							<column align="left" width="auto" /> -->
+<!-- 						</columns> -->
+<!-- 						<rows> -->
+<!-- 							<row> -->
+<!-- 								<label value="Número de caso:" -->
+<!-- 									id="lblNumeroCaso" /> -->
+<!-- 								<textbox id="txtNumeroCaso" cols="23" -->
+<!-- 									width="200px" maxlength="30" disabled="true" -->
+<!-- 									value="@bind(vm.cedula)"> -->
+<!-- 								</textbox> -->
+<!-- 							</row> -->
+<!-- 							<row> -->
+<!-- 								<label value="Solicitud de Apelación:" -->
+<!-- 									id="lblSolicitudApelacion" /> -->
+<!-- 								<textbox id="txtSolicitudApelacion" -->
+<!-- 									cols="23" width="200px" maxlength="30" disabled="true" -->
+<!-- 									value="@bind(vm.cedula)"> -->
+<!-- 								</textbox> -->
+<!-- 								<label value="Veredicto Apelación:" -->
+<!-- 									id="lblVeredictoApelacion" /> -->
+<!-- 								<textbox id="txtVeredictoApelacion" -->
+<!-- 									cols="23" width="200px" maxlength="30" disabled="true" -->
+<!-- 									value="@bind(vm.cedula)"> -->
+<!-- 								</textbox> -->
+
+<!-- 							</row> -->
+<!-- 							<row> -->
+<!-- 								<label -->
+<!-- 									value="Solicitud de Reconsideración: " -->
+<!-- 									id="lblSolicitudReconsideracion" /> -->
+<!-- 								<textbox -->
+<!-- 									id="txtSolicitudReconsideracion" cols="23" width="200px" -->
+<!-- 									maxlength="30" disabled="true" value="@bind(vm.nombres)"> -->
+<!-- 								</textbox> -->
+<!-- 								<label -->
+<!-- 									value="Veredicto de Reconsideración" -->
+<!-- 									id="lblVeredictoReconsideracion" /> -->
+<!-- 								<textbox -->
+<!-- 									id="txtVeredictoReconsideracion" cols="23" width="200px" -->
+<!-- 									maxlength="30" disabled="true" value="@bind(vm.nombres)"> -->
+<!-- 								</textbox> -->
+<!-- 							</row> -->
+<!-- 							<row> -->
+<!-- 								<label -->
+<!-- 									value="Solicitud de Reconsideración: " -->
+<!-- 									id="lblSolicitudRecursoJerarquico" /> -->
+<!-- 								<textbox -->
+<!-- 									id="txtSolicitudRecursoJerarquico" cols="23" width="200px" -->
+<!-- 									maxlength="30" disabled="true" value="@bind(vm.nombres)"> -->
+<!-- 								</textbox> -->
+<!-- 								<label -->
+<!-- 									value="Veredicto de Recurso Jerárquico" -->
+<!-- 									id="lblVeredictoRecursoJerarquico" /> -->
+<!-- 								<textbox -->
+<!-- 									id="txtVeredictoRecursoJerarquico" cols="23" width="200px" -->
+<!-- 									maxlength="30" disabled="true" value="@bind(vm.nombres)"> -->
+<!-- 								</textbox> -->
+<!-- 							</row> -->
+<!-- 						</rows> -->
+<!-- 					</grid> -->
+<!-- 				</tabpanel> -->
+			</tabpanels>
+		</tabbox>
+	
+</window>
+</zk>

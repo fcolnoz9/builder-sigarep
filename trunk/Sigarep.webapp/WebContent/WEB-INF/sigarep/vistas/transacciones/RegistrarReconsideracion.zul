@@ -4,52 +4,53 @@
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm')
-     @init('sigarep.viewmodels.transacciones.ViewModelSolicitudApelacion')"  onCreate= "visible.asignaturaVisible()">
+     @init('sigarep.viewmodels.transacciones.VMRegistrarReconsideracion')"
+	onCreate="visible.asignaturaVisible()">
 	<style src="/widgets/grid/simple/style.css" />
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />
-		<textbox id="txtnrocaso" cols="23" maxlength="30" value="@bind(vm.caso)"
-			disabled="true">
+		<textbox id="txtnrocaso" cols="23" maxlength="30"
+			value="@bind(vm.caso)" readonly="true">
 		</textbox>
 	</div>
-	<space/>
+	<space />
 	<groupbox id="grbDatosestudiante">
-		<caption id="lblDatosestudiante" label="Datos Estudiante" /> 
-			<grid id="grdDatosEstudiante">
-				<rows>
-					<row>
-						<label id="lblCedula" value="Cedula: " />
-						<textbox id="txtcedula" cols="23" maxlength="30"
-							disabled="true" value="@bind(vm.cedula)" width="200px">
-						</textbox>
-						<label id="lblPrograma" value="Programa: " />
-						<textbox id="txtPrograma" cols="23"
-							maxlength="30" value="@bind(vm.programa)" disabled="true" width="200px">
-						</textbox>
-					</row>
-					<row>
-						<label id="lblNombres" value="Nombres: " />
-						<textbox id="txtNombres" cols="23"
-							maxlength="30" value="@bind(vm.nombres)" disabled="true" width="200px">
-						</textbox>
-						<label id="lblApellidos" value="Apellidos: " />
-						<textbox id="txtApellidos" cols="23"
-							maxlength="30" value="@bind(vm.apellidos)" disabled="true" width="200px">
-						</textbox>
-<!-- 							<label id="lblEmail" value="Email: " /> -->
-<!-- 						<textbox id="txtEmail" cols="23" maxlength="30" -->
-<!-- 							value="@bind(vm.email)" disabled="true" width="200px"> -->
-<!-- 						</textbox> -->
-					</row>
-					<row>
-<!-- 						<label id="lblTelefono" value="Telefono: " /> -->
-<!-- 						<textbox id="txtTelefono" cols="23" -->
-<!-- 							maxlength="30" value="@bind(vm.telefono)" disabled="true" width="200px"> -->
-<!-- 						</textbox> -->
-						
-					</row>
-				</rows>
-			</grid>
+		<caption id="lblDatosestudiante" label="Datos Estudiante" />
+		<grid id="grdDatosEstudiante">
+			<rows>
+				<row>
+					<label id="lblCedula" value="Cedula: " />
+					<textbox id="txtcedula" cols="23" maxlength="30"
+						readonly="true" value="@bind(vm.cedula)" width="200px">
+					</textbox>
+					<label id="lblPrograma" value="Programa: " />
+					<textbox id="txtPrograma" cols="23" maxlength="30"
+						value="@bind(vm.programa)" readonly="true" width="200px">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblNombres" value="Nombres: " />
+					<textbox id="txtNombres" cols="23" maxlength="30"
+						value="@bind(vm.nombres)" readonly="true" width="200px">
+					</textbox>
+					<label id="lblApellidos" value="Apellidos: " />
+					<textbox id="txtApellidos" cols="23" maxlength="30"
+						value="@bind(vm.apellidos)" readonly="true" width="200px">
+					</textbox>
+					<!-- 							<label id="lblEmail" value="Email: " /> -->
+					<!-- 						<textbox id="txtEmail" cols="23" maxlength="30" -->
+					<!-- 							value="@bind(vm.email)" disabled="true" width="200px"> -->
+					<!-- 						</textbox> -->
+				</row>
+				<row>
+					<!-- 						<label id="lblTelefono" value="Telefono: " /> -->
+					<!-- 						<textbox id="txtTelefono" cols="23" -->
+					<!-- 							maxlength="30" value="@bind(vm.telefono)" disabled="true" width="200px"> -->
+					<!-- 						</textbox> -->
+
+				</row>
+			</rows>
+		</grid>
 	</groupbox>
 	<groupbox id="grbDatosSancion">
 		<caption id="lblDatossancion" label="Datos Sancion" />
@@ -59,24 +60,23 @@
 					<label id="lblTiposancion"
 						value="Tipo de Sancion: " />
 					<textbox id="txtTipoSancion" cols="23"
-						maxlength="30" disabled="true" value="@bind(vm.sancion)">
+						maxlength="30" readonly="true" value="@bind(vm.sancion)">
 					</textbox>
-							<label id="lblLapsosancion"
+					<label id="lblLapsosancion"
 						value="Lapso de Sancion: " />
 					<textbox id="txtLapsosancion" cols="23"
-						maxlength="30" value="@bind(vm.lapso)" disabled="true">
+						maxlength="30" value="@bind(vm.lapso)" readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="1 Semestre" disabled="true">
+						maxlength="30" value="1 Semestre" readonly="true">
 					</textbox>
-					<label id="lblAsignatura"
-						value="Asignatura: " />
-					<textbox id="txtAsignatura" cols="23"
-						maxlength="30" value="@bind(vm.asignatura)" disabled="true">
+					<label id="lblAsignatura" value="Asignatura: " />
+					<textbox id="txtAsignatura" cols="23" maxlength="30"
+						value="@bind(vm.asignatura)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -93,13 +93,18 @@
 			</columns>
 			<rows>
 				<row>
-		<hlayout>
-					<hbox>
-						<button label="Cargar Carta de Reconsideración" id="btnDocumento" upload="true"
-						 onUpload="@command('cargarCartaReconsideracion',upload=event)" image="/imagenes/iconos/cargar.png" 
-						 mold="trendy"></button>
-						<label id="lblDocumento" value="@bind(vm.nombreDoc)"></label>
-					</hbox>
+					<hlayout>
+						<hbox>
+							<button
+								label="Cargar Carta de Reconsideración" id="btnDocumento"
+								upload="true"
+								onUpload="@command('cargarCartaReconsideracion',upload=event)"
+								image="/imagenes/iconos/cargar.png" mold="trendy">
+							</button>
+							<label id="lblDocumento"
+								value="@bind(vm.nombreDoc)">
+							</label>
+						</hbox>
 					</hlayout>
 				</row>
 				<row>
@@ -110,35 +115,41 @@
 		</grid>
 	</groupbox>
 	<groupbox>
-	<caption id="lblDatosRecaudos" label="Recaudos Entregados" />
-		<listbox   model="@bind(vm.listaRecaudos)"   
-   			 					 emptyMessage="No hay recaudos registrados" mold="paging" pageSize="5">	
+		<caption id="lblDatosRecaudos" label="Recaudos Entregados" />
+		<listbox model="@bind(vm.listaRecaudos)"
+			emptyMessage="No hay recaudos registrados" mold="paging"
+			pageSize="5">
 
-			
+
 			<listhead>
-				<listheader label="Motivos" width="35%" align="center" sort="auto(nombreMotivo)"/>
-				<listheader label="Recaudos" width="35%" align="center" sort="auto(nombreRecaudo)"/>
-				<listheader label="Documentos Cargados" width="30%" align="center" />
+				<listheader label="Motivos" width="35%" align="center"
+					sort="auto(nombreMotivo)" />
+				<listheader label="Recaudos" width="35%" align="center"
+					sort="auto(nombreRecaudo)" />
+				<listheader label="Documentos Cargados" width="30%"
+					align="center" />
 			</listhead>
 			<template name="model">
-			<listitem>
-				<listcell  label="${each.nombreTipoMotivo}" />
-				<listcell  label="${each.nombreRecaudo}" />
-				<listcell> 
-					<a label="${each.nombreDocumento}" onClick="@command('descargarDocumento', componente=self)">
-						<custom-attributes idRecaudo = "${each.idRecaudo}" />
-					</a> 
-				</listcell>
-<!-- 				<listcell> -->
-<!-- 					<button  width="auto" -->
-<!-- 						height="auto" label="Actualizar Documento" upload="true" -->
-<!-- 						 onUpload="@command('cargarDocumento',upload=event,componente=self)" image="/imagenes/iconos/cargar.png"  -->
-<!-- 						 orient="horizontal" mold="trendy"> -->
-<!-- 						 <custom-attributes idRecaudo="${each.idRecaudo}"/> -->
-<!-- 					</button> -->
-<!-- 				</listcell> -->
-			</listitem>
-	</template>
+				<listitem>
+					<listcell label="${each.nombreTipoMotivo}" />
+					<listcell label="${each.nombreRecaudo}" />
+					<listcell>
+						<a label="${each.nombreDocumento}"
+							onClick="@command('descargarDocumento', componente=self)">
+							<custom-attributes
+								idRecaudo="${each.idRecaudo}" />
+						</a>
+					</listcell>
+					<!-- 				<listcell> -->
+					<!-- 					<button  width="auto" -->
+					<!-- 						height="auto" label="Actualizar Documento" upload="true" -->
+					<!-- 						 onUpload="@command('cargarDocumento',upload=event,componente=self)" image="/imagenes/iconos/cargar.png"  -->
+					<!-- 						 orient="horizontal" mold="trendy"> -->
+					<!-- 						 <custom-attributes idRecaudo="${each.idRecaudo}"/> -->
+					<!-- 					</button> -->
+					<!-- 				</listcell> -->
+				</listitem>
+			</template>
 		</listbox>
 	</groupbox>
 	<div align="right">
@@ -155,29 +166,30 @@
 					mold="trendy" orient="horizontal" />
 			</div>
 			<div align="right" height="100%">
-				<button id="btnSalir" mold="trendy" width="auto"
+				<button id="btnCerrar" mold="trendy" width="auto"
 					height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png"
-					orient="horizontal" onClick = "winRegistrarReconsideracion.onClose()"/>
+					orient="horizontal"
+					onClick="@command(before=winRegistrarReconsideracion.onClose())" />
+				<!-- 					onClick="@command('abrir',before=winRegistrarReconsideracion.onClose())" -->
 			</div>
 		</hbox>
 	</div>
 	<zscript><![CDATA[
-	 class Visible {
-		 Visible (){
-		 }
-		public void asignaturaVisible (){
-		if (txtTipoSancion.getValue().toString().equals("RR")){
-		txtAsignatura.setVisible (true);
-		lblAsignatura.setVisible (true);
+	class Visible {
+		Visible() {
 		}
-		else {
-			txtAsignatura.setVisible (false);
-			lblAsignatura.setVisible (false);
+
+		public void asignaturaVisible() {
+			if (txtTipoSancion.getValue().toString().equals("RR")) {
+				txtAsignatura.setVisible(true);
+				lblAsignatura.setVisible(true);
+			} else {
+				txtAsignatura.setVisible(false);
+				lblAsignatura.setVisible(false);
+			}
 		}
-		}
-		
-		}
-	 Visible visible = new Visible ();               
-	                  
-	]]></zscript>
+
+	}
+	Visible visible = new Visible();
+]]></zscript>
 </window>

@@ -1,5 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
+import java.awt.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,11 +12,17 @@ import java.util.Map;
 
 
 
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 
 import org.zkoss.zul.Window;
@@ -36,12 +43,10 @@ import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class ViewModelListaApelaciones  {
+public class VMListaApelacionesReconsideracion  {
 	
 	@WireVariable
 	private Textbox txtAsignatura;
-	//@WireVariable
-	//private Estudiante estudiante = new Estudiante();
 	@WireVariable
 	private EstudianteSancionado estudiantesancionado;
 	@WireVariable
@@ -62,8 +67,6 @@ public class ViewModelListaApelaciones  {
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
 	private ServicioApelacion serviciolista;
-	@WireVariable
-	//private List<EstudianteSancionado> listaSancionados =  new LinkedList<EstudianteSancionado>();
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<ApelacionEstadoApelacion> listadoApelaciones;
@@ -84,6 +87,10 @@ public class ViewModelListaApelaciones  {
 	private String asignatura;
 	private Integer caso;
 	private Integer idMotivo;
+	
+	@Wire("#winActualizarEstadoEstudiante")
+	private Window win;
+	
 	
 
 	public Integer getIdMotivo() {
@@ -266,6 +273,7 @@ public class ViewModelListaApelaciones  {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
+	
 
 	@Init
 	    public void init(){
@@ -335,9 +343,12 @@ public class ViewModelListaApelaciones  {
 	        final Window window = (Window) Executions.createComponents(
 	        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarReconsideracion.zul", null, map);
 			window.setMaximizable(true);
-			window.doModal();	
+			window.doModal();
+			
+		
+			
 	  	}
-	  	
+	  
 		@Command
 		@NotifyChange({"lista"})
 		public void filtros(){

@@ -213,16 +213,16 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Registrar Reconsideración" id="RegistrarReconsideracion" sclass="maestros"
-										onClick="createWin(RegistrarReconsideracion.getId(),RegistrarReconsideracion.getSclass())" />
+										label="Registrar Reconsideración"  sclass="transacciones"
+										id="winActualizarEstadoEstudiante"
+										onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem open="false">
 								<treerow>
 									<treecell
-										label="Evaluar Reconsideración" sclass="transacciones"
-										id="winActualizarEstadoEstudiante"
-										onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
+										label="Evaluar Reconsideración" 
+										 />
 								</treerow>
 								<treechildren>
 									<treeitem>
@@ -297,8 +297,8 @@
 					<treeitem>
 						<treerow>
 							<treecell label="Historial de Apelaciones"
-								id=""
-								onClick="createWin(Veredicto.getId(), Veredicto.getSclass())" />
+								id="ListaHistorialEstudiante" sclass="transacciones"
+										onClick="createWin(ListaHistorialEstudiante.getId(), ListaHistorialEstudiante.getSclass())" />
 						</treerow>
 					</treeitem>
 				</treechildren>
