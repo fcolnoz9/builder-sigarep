@@ -37,6 +37,16 @@ public class AsignaturaEstudianteSancionado implements Serializable {
 
 	public AsignaturaEstudianteSancionado() {
 	}
+    
+	public AsignaturaEstudianteSancionado(AsignaturaEstudianteSancionadoPK id,
+			Integer condicionAsignatura, Asignatura asignatura,
+			EstudianteSancionado estudianteSancionado) {
+		super();
+		this.id = id;
+		this.condicionAsignatura = condicionAsignatura;
+		this.asignatura = asignatura;
+		this.estudianteSancionado = estudianteSancionado;
+	}
 
 	public AsignaturaEstudianteSancionadoPK getId() {
 		return this.id;
