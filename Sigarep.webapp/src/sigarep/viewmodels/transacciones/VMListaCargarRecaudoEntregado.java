@@ -38,26 +38,11 @@ public class VMListaCargarRecaudoEntregado {
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<ListaCargarRecaudoEntregado> lista = new LinkedList<ListaCargarRecaudoEntregado>();
-	private String sancion;
-	private String programa;
-	private String email;
-	private String apellido;
-	private String nombre;
-	private String cedula;
-	private String lapso;
-	private Integer instancia;
-	private String segundoNombre;
-	private String segundoApellido;
-	private Integer caso;
-	
-	
-	public Integer getCaso() {
-		return caso;
-	}
-
-	public void setCaso(Integer caso) {
-		this.caso = caso;
-	}
+	private String sancion="";
+	private String programa="";
+	private String apellido="";
+	private String nombre="";
+	private String cedula="";
 
 	public String getNombrePrograma() {
 		return nombrePrograma;
@@ -87,10 +72,6 @@ public class VMListaCargarRecaudoEntregado {
 		return programa;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
 	public String getApellido() {
 		return apellido;
 	}
@@ -101,14 +82,6 @@ public class VMListaCargarRecaudoEntregado {
 
 	public String getCedula() {
 		return cedula;
-	}
-
-	public String getLapso() {
-		return lapso;
-	}
-
-	public Integer getInstancia() {
-		return instancia;
 	}
 
 	public void setNombrePrograma(String nombrePrograma) {
@@ -140,10 +113,6 @@ public class VMListaCargarRecaudoEntregado {
 		this.programa = programa;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
@@ -154,30 +123,6 @@ public class VMListaCargarRecaudoEntregado {
 
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
-	}
-
-	public void setLapso(String lapso) {
-		this.lapso = lapso;
-	}
-
-	public void setInstancia(Integer instancia) {
-		this.instancia = instancia;
-	}
-
-	public String getSegundoNombre() {
-		return segundoNombre;
-	}
-
-	public String getSegundoApellido() {
-		return segundoApellido;
-	}
-
-	public void setSegundoNombre(String segundoNombre) {
-		this.segundoNombre = segundoNombre;
-	}
-
-	public void setSegundoApellido(String segundoApellido) {
-		this.segundoApellido = segundoApellido;
 	}
 
 	/**
@@ -213,30 +158,19 @@ public class VMListaCargarRecaudoEntregado {
 	@NotifyChange({"cedula", "nombre", "apellido","email", "programa", 
 		"sancion", "lapso", "segundoNombre", "segundoApellido"})
 	public void showModal (){
-		cedula = listaEstudiantesCargarRecaudos.getCedulaEstudiante();
-		nombre = listaEstudiantesCargarRecaudos.getPrimerNombre();
-		apellido = listaEstudiantesCargarRecaudos.getPrimerApellido();
-		email = listaEstudiantesCargarRecaudos.getEmail();
-  		programa = listaEstudiantesCargarRecaudos.getPrograma();
-  		sancion = listaEstudiantesCargarRecaudos.getNombreSancion();
-  		lapso = listaEstudiantesCargarRecaudos.getLapso();
-  		instancia = listaEstudiantesCargarRecaudos.getInstancia();
-  		segundoNombre = listaEstudiantesCargarRecaudos.getSegundoNombre();
-  		segundoApellido = listaEstudiantesCargarRecaudos.getSegundoApellido();
-  		caso = listaEstudiantesCargarRecaudos.getCaso();
   		
   		final HashMap<String, Object> map = new HashMap<String, Object>();
-	 	map.put("cedula", this.cedula );
-        map.put("nombre", this.nombre);
-        map.put("apellido", this.apellido);
-        map.put("email", this.email);
-        map.put("programa", this.programa);
-        map.put("sancion", this.sancion);
-        map.put("lapso", this.lapso);
-        map.put("instancia", this.instancia);
-        map.put("segundoNombre", this.segundoNombre);
-        map.put("segundoApellido", this.segundoApellido);
-        map.put("caso", this.caso);
+	 	map.put("cedula", listaEstudiantesCargarRecaudos.getCedulaEstudiante());
+        map.put("nombre", listaEstudiantesCargarRecaudos.getPrimerNombre());
+        map.put("apellido", listaEstudiantesCargarRecaudos.getPrimerApellido());
+        map.put("email", listaEstudiantesCargarRecaudos.getEmail());
+        map.put("programa", listaEstudiantesCargarRecaudos.getPrograma());
+        map.put("sancion", listaEstudiantesCargarRecaudos.getNombreSancion());
+        map.put("lapso", listaEstudiantesCargarRecaudos.getLapso());
+        map.put("instancia", listaEstudiantesCargarRecaudos.getInstancia());
+        map.put("segundoNombre", listaEstudiantesCargarRecaudos.getSegundoNombre());
+        map.put("segundoApellido", listaEstudiantesCargarRecaudos.getSegundoApellido());
+        map.put("caso", listaEstudiantesCargarRecaudos.getCaso());
         
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/transacciones/CargarRecaudoEntregado.zul", null, map);
@@ -245,7 +179,7 @@ public class VMListaCargarRecaudoEntregado {
   	}
 	
 	@Command
-	@NotifyChange({"lista"})
+	@NotifyChange({"lista","programa","cedula","nombre","apellido","sancion"})
 	public void filtros(){
 		lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);
 	}
