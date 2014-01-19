@@ -10,7 +10,7 @@
 			<columns>
 				<column align="center">
 					<label id="lblPrograma" value="Programa " />
-					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.filtros.programa)" onChange="@command('filtros')" >
+					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.programa)" onChange="@command('filtros')" >
 						<template name="model">
 							<comboitem  label="${each.nombrePrograma}"/>
 						</template>
@@ -18,7 +18,7 @@
 				</column>
 				<column align="center">
 					<label id="lblMotivo" value="Motivo " />
-					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="@bind(vm.filtros.motivo)" onChange="@command('filtros')">
+					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="" onChange="@command('filtros')">
 						<template name="model">
 							<comboitem  label="${each.nombreTipoMotivo}"/>
 						</template>
@@ -33,19 +33,19 @@
 	   			 	 onClick="@command('showModal')"  mold="paging" pageSize="10" emptyMessage="No hay Apelaciones" >
 				<listhead>
 					<listheader label="Cédula" align="center" sort="auto(cedulaEstudiante)" > 
-						<textbox id="filtroCedula" instant="true"  width="100px" value="@bind(vm.filtros.cedula)" onChange="@command('filtros')"/>
+						<textbox id="filtroCedula" instant="true"  width="100px" value="@bind(vm.cedula)" onChange="@command('filtros')"/>
 						 <image src= "imagenes/iconos/buscar.png" /> 
 					</listheader>
 					<listheader label="Nombre" align="center" sort="auto(primerNombre)">
-						<textbox id="filtroNombre" instant="true"  width="100px" value="@bind(vm.filtros.nombre)" onChange="@command('filtros')" />
+						<textbox id="filtroNombre" instant="true"  width="100px" value="@bind(vm.nombre)" onChange="@command('filtros')" />
 						<image src= "imagenes/iconos/buscar.png" /> 
 					</listheader>
 					<listheader label="Apellido" align="center" sort="auto(primerApellido)" >
-						<textbox id="filtroApellido" instant="true"  width="100px" value="@bind(vm.filtros.apellido)" onChange="@command('filtros')" />
+						<textbox id="filtroApellido" instant="true"  width="100px" value="@bind(vm.apellido)" onChange="@command('filtros')" />
 						<image src= "imagenes/iconos/buscar.png" /> 
 					</listheader>
 					<listheader label="Sanción" align="center" sort="auto(nombreSancion)" >
-						<textbox id="filtroSancion" instant="true"  width="100px" value="@bind(vm.filtros.sancion)" onChange="@command('filtros')" />
+						<textbox id="filtroSancion" instant="true"  width="100px" value="@bind(vm.sancion)" onChange="@command('filtros')" />
 						<image src= "imagenes/iconos/buscar.png" /> 
 					</listheader>
 				</listhead>
