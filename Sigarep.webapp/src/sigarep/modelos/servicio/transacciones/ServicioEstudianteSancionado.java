@@ -34,9 +34,9 @@ public class ServicioEstudianteSancionado {
 		return iEstudianteSancionadoDAO.buscarSancionadosActivos();
 	}
 	
-//	public EstudianteSancionado buscar(EstudianteSancionadoPK id) {
-//		return iEstudianteSancionadoDAO.findOne(id);
-//	}
+	public EstudianteSancionado buscar(EstudianteSancionadoPK id) {
+		return iEstudianteSancionadoDAO.findOne(id);
+	}
 
 	public int contarTodos() {
 		return iEstudianteSancionadoDAO.findAll().size();
