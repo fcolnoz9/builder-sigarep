@@ -1,46 +1,75 @@
 package sigarep.viewmodels.maestros;
 import java.util.List;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMinstanciaApelada {
 	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
-	private Integer codigoInstancia;
-	private String nombreInstancia;
-	private String nombreRecurso;
+	private Integer idInstanciaApelada;
+	private String instanciaApelada;
+	private String nombreRecursoApelacion;
 	private String descripcion;
+	private String nombreIFiltro;
+	private String nombreRFiltro;
+	private String descripcionFiltro;
 	private Boolean estatus;
+	private InstanciaApeladaFiltros filtros = new InstanciaApeladaFiltros();
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private InstanciaApelada instanciaApeladaseleccionada;
+	private mensajes mensajeAlUsuario = new mensajes();
     @Wire Textbox txtcodigoInstacia;
     @Wire Window ventana;
     
-    public String getNombreInstancia(){
-    	return nombreInstancia;
+    //Metodos Setters y Getters
+    public String getInstanciaApelada(){
+    	return instanciaApelada;
+    }
+    @NotifyChange({ "filtros" })
+    public InstanciaApeladaFiltros getFiltros() {
+		return filtros;
+	}
+
+	public void setFiltros(InstanciaApeladaFiltros filtros) {
+		this.filtros = filtros;
+	}
+
+	public String getNombreRecursoApelacion() {
+		return nombreRecursoApelacion;
+	}
+
+	public void setNombreRecursoApelacion(String nombreRecurso) {
+		this.nombreRecursoApelacion = nombreRecurso;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setInstanciaApelada(String nombreInstancia){
+    	this.instanciaApelada = nombreInstancia;
     }
     
-    public void setNombreInstancia(String nombreInstancia){
-    	this.nombreInstancia = nombreInstancia;
-    }
-    
-    public Integer getCodigoInstancia() {
-		return codigoInstancia;
+    public Integer getIdInstanciaApelada() {
+		return idInstanciaApelada;
 	}
 	
-    public void setCodigoInstancia(Integer codigoInstancia) {
-		this.codigoInstancia = codigoInstancia;
+    public void setIdInstanciaApelada(Integer codigoInstancia) {
+		this.idInstanciaApelada = codigoInstancia;
 	}
 	
 	public Boolean getEstatus() {
@@ -51,56 +80,125 @@ public class VMinstanciaApelada {
 		this.estatus = estatus;
 	}
 
-	public List<InstanciaApelada> getInstanciaApelada() {
+	public List<InstanciaApelada> getListaInstanciaApelada() {
 		return listaInstanciaApelada;
 	}
 
 	public void setListaInstanciaApelada(List<InstanciaApelada> listaInstanciaApelada) {
 		this.listaInstanciaApelada = listaInstanciaApelada;
 	}
-	@Command
-	@NotifyChange({"codigoInstancia", "nombreInstancia", "nombreRecurso", "descripcion", "estatus"})
+
 	public InstanciaApelada getInstanciaApeladaseleccionada() {
 		return instanciaApeladaseleccionada;
 	}
 	public void setInstanciaApeladaseleccionada(InstanciaApelada instanciaApeladaseleccionada) {
 		this.instanciaApeladaseleccionada = instanciaApeladaseleccionada;
 	}
+	
+	public String getNombreIFiltro() {
+		return nombreIFiltro;
+	}
+
+	public void setNombreIFiltro(String nombreIFiltro) {
+		this.nombreIFiltro = nombreIFiltro;
+	}
+
+	public String getNombreRFiltro() {
+		return nombreRFiltro;
+	}
+
+	public void setNombreRFiltro(String nombreRFiltro) {
+		this.nombreRFiltro = nombreRFiltro;
+	}
+
+	public String getDescripcionFiltro() {
+		return descripcionFiltro;
+	}
+
+	public void setDescripcionFiltro(String descripcionFiltro) {
+		this.descripcionFiltro = descripcionFiltro;
+	}
+	//Fin de los metodos setters y getters
+	
+	//Metodo que inicializa el codigo del VM
 	@Init
 	public void init(){
         //initialization code
-		buscarInstanciaApelada();
+		listadoInstancia();
     }
+	
+	//Metodo que permite guardar las instancias apeladas
 	@Command
-	@NotifyChange({"codigoInstancia", "nombreInstancia", "nombreRecurso", "descripcion"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
-	public void guardar(){
-		if (codigoInstancia.equals("")||nombreInstancia.equals("")|| nombreRecurso.equals("")|| descripcion.equals(""))
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
+	public void guardarInstancia(){
+		idInstanciaApelada = 0;
+		if (instanciaApelada == null || instanciaApelada.equals("")
+				|| nombreRecursoApelacion == null || nombreRecursoApelacion.equals("")
+				|| descripcion == null || descripcion.equals(""))
+					mensajeAlUsuario.advertenciaLlenarCampos();
 		else{
-		InstanciaApelada pro = new InstanciaApelada(codigoInstancia,descripcion,estatus,nombreInstancia,nombreRecurso);
-		servicioInstanciaApelada.guardar(pro);
-		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-		limpiar();
+					listaInstanciaApelada = servicioInstanciaApelada.buscarTodas();
+					if (listaInstanciaApelada == null){
+						idInstanciaApelada = 1;
+					} else {
+						System.out.print(listaInstanciaApelada.size());
+						System.out.print(listaInstanciaApelada.size()+1);
+						idInstanciaApelada = listaInstanciaApelada.size()+1;
+					}
+					InstanciaApelada inst = new InstanciaApelada(idInstanciaApelada,descripcion,
+																true,instanciaApelada,nombreRecursoApelacion);
+					servicioInstanciaApelada.guardar(inst);
+					limpiar();
+					mensajeAlUsuario.informacionRegistroCorrecto();
 		}
 	}
+	
+	// Metodo que muestra la lista de todas las instancias
 	@Command
-	@NotifyChange({"codigoIntancia", "nombreInstancia", "nombreRecurso","descripcion"})
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void listadoInstancia() {
+		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
+	}
+
+	@Command
+	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
 	public void limpiar(){
-		codigoInstancia = 0;//fechaInicio="";fechaCierre="";
-		buscarInstanciaApelada();
+		idInstanciaApelada = 0;
+		instanciaApelada = "";
+		nombreRecursoApelacion = "";
+		descripcion = "";
+		listadoInstancia();
 	}
+	
+	// Metodo que elimina una actividad tomando en cuenta el idActividad
 	@Command
-	@NotifyChange({"listaInstanciaApelada"})
-	public void buscarInstanciaApelada(){
-		listaInstanciaApelada =servicioInstanciaApelada.buscarP(codigoInstancia);
+	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
+	public void eliminarInstancia() {
+		if (instanciaApelada == null || instanciaApelada.equals("")
+				|| descripcion.equals("") || descripcion == null
+				|| nombreRecursoApelacion == null || nombreRecursoApelacion.equals("")) {
+					mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+		} else {
+					servicioInstanciaApelada.eliminar(getInstanciaApeladaseleccionada().getIdInstanciaApelada());
+					mensajeAlUsuario.informacionEliminarCorrecto();
+					limpiar();
+		}
 	}
+	
+	// Permite tomar los datos del objeto instanciaseleccionada
 	@Command
-	@NotifyChange({"codigoInstancia", "nombreInstancia", "nombreRecurso","descripcion"})
-	public void mostrarSeleccionado(){
-		InstanciaApelada ia = getInstanciaApeladaseleccionada();
-		codigoInstancia = ia.getIdInstanciaApelada();
-		nombreInstancia = ia.getInstanciaApelada();
-	    nombreRecurso = ia.getNombreRecursoApelacion();
-	    descripcion = ia.getDescripcion();
-	}	
+	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
+	public void mostrarSeleccionada() {
+		idInstanciaApelada = getInstanciaApeladaseleccionada().getIdInstanciaApelada();
+		instanciaApelada = getInstanciaApeladaseleccionada().getInstanciaApelada();
+		nombreRecursoApelacion = getInstanciaApeladaseleccionada().getNombreRecursoApelacion();
+		descripcion = getInstanciaApeladaseleccionada().getDescripcion();
+	}
+	
+	// Método que busca y filtra las instancias
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void filtros() {
+		listaInstanciaApelada = servicioInstanciaApelada.buscarInstancia(filtros);
+	}
 }

@@ -1,60 +1,93 @@
 <zk>
-	<window id="winMaestroInstanciaApelada" title="Registros Basicos :: Instancia Apelada"  border="normal" width="auto"  height="auto" closable="true">
-			<groupbox id="grbRegistrarInstanciaA">
-				<caption>Datos Instancia Apelada</caption>
-				 <separator />
-				 <hbox>
-				 	<vbox width="200px">
-				 		<label id = "lblInstancia" value="Instancia Apelada" />
-				 	</vbox>
-				 	<vbox width="200px">
-				 		<textbox id = "txtInstancia" mold="rounded" width="300px" height="auto" constraint="no empty: Ingrese nombre de la instancia" tabindex="1" />
-				 	</vbox>
-				 	<vbox width="200px">
-				 		<label id = "lblRecurso" value="Nombre Recurso Apelacion" />
-				 	</vbox>
-				 	<vbox>
-				 		<textbox id="txtRecurso" mold="rounded" width="300px" height="auto" constraint="no empty: Ingrese el nombre del recurso" tabindex="2"/>
-				 	</vbox>
-				 </hbox>
-				 <separator spacing="20px" />
-				 <hbox>
-				 	<vbox width="200px">
-				 		<label id="lblDescripcion" value="Descripcion"/>
-				 	</vbox>
-				 	<vbox width="200px">
-				 		<textbox id="txtDescripcion" mold="rounded" width="300px" height="auto" constraint="no empty: Ingrese una descripcion"  tabindex="3"/>
-				 	</vbox>
-				 </hbox>
-				 <separator />
-			</groupbox>
-			<separator />
-			<listbox height="auto" id="lbxInstanciaApelada" mold="paging" pageSize="10">
-				<listhead sizable="true">
-            		<listheader label="Instancia Apelada" sort="auto" />
-            		<listheader label="Nombre del Recurso de Apelacion" sort="auto" />
-            		<listheader label="Descripcion" sort="auto" />
-        		</listhead>
-        		<listitem>
-            		<listcell label="Comision Sustanciadora" />
-            		<listcell label="Carta de Apelacion" />
-            		<listcell label="Descripcion"/>
-        		</listitem>
-        		<listitem>
-            		<listcell label="Consejo de Decanato" />
-            		<listcell label="Carta de Reconsideracion" />
-            		<listcell label="Descripcion"/>
-        		</listitem>
-			</listbox>
-			<separator />
-			<div align="right" height="100%">
-				<button label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" />	
-   				<button label="Eliminar" mold="trendy" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" />
-   				<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" />	
-		   		<button label="Cerrar" mold="trendy" id="btnSalir" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winMaestroInstanciaApelada.onClose()" />
+	<window id="winMaestroInstanciaApelada" title="Registros Basicos :: Instancia Apelada" 
+			border="normal" width="auto"  height="auto" closable="true"
+			contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMinstanciaApelada')" action="hide: slideUp">
+		<groupbox id="grbRegistrarInstancia">
+			<caption label="Datos de la Instancia Apelada" />
+			<!-- Grid que contiene los campos de la pantalla -->
+			<grid id="grdRegitrarInstanciaApelada">
+				<columns>
+					<column label="" width="30%" id="columna1" />
+					<column label="" width="70%" id="columna2" />
+					<column label="" width="30%" id="columna3" />
+					<column label="" width="70%" id="columna4" />
+				</columns>
+				<rows>
+					<row>
+						<label id = "lblInstancia" value="Instancia Apelada" />
+						<textbox id = "txtInstancia" mold="rounded" width="300px" height="auto"
+						constraint="no empty: Ingrese nombre de la instancia" tabindex="1"
+						value="@bind(vm.instanciaApelada)"/>
+						<label id = "lblRecurso" value="Nombre Recurso Apelacion" />
+						<textbox id="txtRecurso" mold="rounded" width="300px" height="auto"
+						constraint="no empty: Ingrese el nombre del recurso" tabindex="2"
+						value="@bind(vm.nombreRecursoApelacion)"/>
+					</row>
+					<row>
+						<label id="lblDescripcion" value="Descripcion"/>
+				 		<textbox id="txtDescripcion" mold="rounded" width="300px" height="auto"
+				 		constraint="no empty: Ingrese una descripcion"  tabindex="3"
+				 		value="@bind(vm.descripcion)"/>
+						<div></div>
+						<div></div>
+					</row>
+				</rows>
+			</grid>
+			<space />
+		</groupbox>
+		<separator />
+		<div align="right" height="100%">
+				<button label="Guardar" mold="trendy" id="btnGuardar"
+					image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal"
+					onClick="@command('guardarInstancia')"/>	
+   				<button label="Eliminar" mold="trendy" id="btnEliminar"
+   					image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal"
+   					onClick="@command('eliminarInstancia')"/>
+   				<button label="Cancelar" mold="trendy" id="btnCancelar"
+   					image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal"
+   					onClick="@command('limpiar')"/>	
+		   		<button label="Cerrar" mold="trendy" id="btnSalir"
+		   			image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal"
+		   			onClick="winMaestroInstanciaApelada.onClose()" />
 			</div>
+		<!-- Grupbox que contiene el listado de las instancias -->
+		<groupbox id="grbListadoInstanciaApelada">
+			<caption label="Listado de Instancias Apeladas" />
 			<separator />
-	   			<hbox  width="100%" pack="right">	
-   				</hbox>	
+			<listbox height="auto" id="lbxInstanciaApelada" mold="paging" pageSize="10"
+				model="@load(vm.listaInstanciaApelada)"
+				selectedItem="@bind(vm.instanciaApeladaseleccionada)"
+				onSelect="@command('mostrarSeleccionada')"
+				emptyMessage="No hay Instancias Apeladas registradas">
+				<listhead sizable="true">
+            		<listheader label="Instancia Apelada " sort="auto(instanciaApelada)" align="center">
+            			<textbox id="filtroNombreInstancia" instant="true"
+						width="100px" value="@bind(vm.filtros.nombreInstancia)"
+						onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+            		</listheader>
+            		<listheader label="Nombre del Recurso " sort="auto(nombreRecursoApelacion)" align="center">
+            			<textbox id="filtroNombreRecurso" instant="true"
+						width="100px" value="@bind(vm.filtros.nombreRecurso)"
+						onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+            		</listheader>
+            		<listheader label="Descripcion " sort="auto(descripcion)" align="center">
+            			<textbox id="filtroDescripcion" instant="true"
+						width="100px" value="@bind(vm.filtros.descripcion)"
+						onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+            		</listheader>
+        		</listhead>
+        		<template name="model">
+        			<listitem>
+            			<listcell label="${each.instanciaApelada}" />
+            			<listcell label="${each.nombreRecursoApelacion}" />
+            			<listcell label="${each.descripcion}"/>
+        			</listitem>	
+        		</template>
+			</listbox>
+			</groupbox>
 	</window>
 </zk>
