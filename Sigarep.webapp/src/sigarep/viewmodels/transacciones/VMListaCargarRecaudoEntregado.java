@@ -155,8 +155,6 @@ public class VMListaCargarRecaudoEntregado {
 	}
 	
 	@Command
-	@NotifyChange({"cedula", "nombre", "apellido","email", "programa", 
-		"sancion", "lapso", "segundoNombre", "segundoApellido"})
 	public void showModal (){
   		
   		final HashMap<String, Object> map = new HashMap<String, Object>();
