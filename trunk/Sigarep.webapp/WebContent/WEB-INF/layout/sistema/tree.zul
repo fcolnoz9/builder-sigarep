@@ -197,8 +197,8 @@
 									<treeitem>
 										<treerow>
 											<treecell label="Veredicto"
-												id="Veredicto" sclass="transacciones"
-												onClick="createWin(Veredicto.getId(), Veredicto.getSclass())" />
+												id="ListaVeredicto" sclass="transacciones"
+												onClick="createWin(ListaVeredicto.getId(), ListaVeredicto.getSclass())" />
 										</treerow>
 									</treeitem>
 								</treechildren>
