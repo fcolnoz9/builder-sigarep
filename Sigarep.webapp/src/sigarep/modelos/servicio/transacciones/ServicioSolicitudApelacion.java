@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,13 +48,17 @@ public class ServicioSolicitudApelacion {
 	public int contarTodos() {
 		return iSolicitudApelacionDAO.findAll().size();
 	}
+	
+	public long contarApelacionesSinVeredicto(){
+		return iSolicitudApelacionDAO.numeroApleacionesSinVeredicto();
+	}
+	
+	public long contarApelacionesSinSesion(){
+		return iSolicitudApelacionDAO.numeroApleacionesSinSesion();
+	}
 
 	public SolicitudApelacion crear() {
 		return new SolicitudApelacion();
-	}
-	
-	public SolicitudApelacion buscarSolicitudPorClavePrimaria(SolicitudApelacionPK pk){
-		return iSolicitudApelacionDAO.findOne(pk);
 	}
 	
 	public List<String> historicoSolicitudApelacion(Date date){

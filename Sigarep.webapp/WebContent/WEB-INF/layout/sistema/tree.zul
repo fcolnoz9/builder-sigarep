@@ -451,6 +451,13 @@
 				<treechildren>
 					<treeitem>
 						<treerow>
+							<treecell 	label="Finalizar Lapso Academico"
+										id="FinalizarLapso" sclass="administracionSistema"
+										onClick="createWin(FinalizarLapso.getId(), FinalizarLapso.getSclass())" />
+						</treerow>
+					</treeitem>
+					<treeitem>
+						<treerow>
 							<treecell 	label="Respaldar Datos"
 										id="RespaldarDatos" sclass="administracionSistema"
 										onClick="createWin(RespaldarDatos.getId(), RespaldarDatos.getSclass())" />

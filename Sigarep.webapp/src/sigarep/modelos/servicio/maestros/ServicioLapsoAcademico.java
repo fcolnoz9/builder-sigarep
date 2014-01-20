@@ -29,6 +29,9 @@ public class ServicioLapsoAcademico{
 	public List<LapsoAcademico> buscarLapsoActivo(){
 		return iLapsoAcademico.buscarActivoLapso();
 	}
+	public LapsoAcademico encontrarLapsoActivo(){
+		return iLapsoAcademico.buscarLapsoActivo();
+	}
 	public List<LapsoAcademico> buscarTodosLosLapsos(){
 		return iLapsoAcademico.buscarLapsosAcademicos();
 	}
