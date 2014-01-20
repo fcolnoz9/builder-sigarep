@@ -190,8 +190,8 @@
 										<treerow>
 											<treecell
 												label="Analizar Validez" sclass="transacciones"
-												id="AnalizarValidez"
-												onClick="createWin(AnalizarValidez.getId(), AnalizarValidez.getSclass())" />
+												id="ListaAnalizarValidez"
+												onClick="createWin(ListaAnalizarValidez.getId(), ListaAnalizarValidez.getSclass())" />
 										</treerow>
 									</treeitem>
 									<treeitem>
