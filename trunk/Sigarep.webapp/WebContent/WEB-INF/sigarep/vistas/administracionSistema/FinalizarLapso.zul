@@ -1,0 +1,25 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Administración de Sistema :: Finalizar Lapso Academico " id="winFinalizarLapso"
+	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMFinalizarLapso')" 
+	width="auto" height="auto" closable="true">
+		<grid id="grdFinalizarLapso">
+			<columns>
+				<column align="center">
+					<label id="lblLapsoActual" value="Lapso Académico Actual:" />
+					<textbox mold="rounded" id="txtLapsoActual" cols="23" readonly="true"
+							 value="@bind(vm.lapsoAcademico.getCodigoLapso())" width="200px">
+					</textbox>
+				</column>
+				<column align="center">
+					<button label="Finalizar" mold="trendy" id="btnFinalizar" image="/imagenes/iconos/finalizar.png" width="auto" height="auto" 
+						 orient="horizontal" onClick="@command('finalizarLapso')">
+					</button>
+					<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" 
+						 orient="horizontal" onClick="winFinalizarLapso.onClose()">
+					</button>
+				</column>
+			</columns>
+		</grid>
+</window>
+</zk>

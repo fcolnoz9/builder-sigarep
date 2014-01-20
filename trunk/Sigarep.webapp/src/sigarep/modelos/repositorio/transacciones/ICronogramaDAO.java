@@ -1,5 +1,6 @@
 package sigarep.modelos.repositorio.transacciones;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,8 @@ public interface ICronogramaDAO extends JpaRepository<Cronograma, CronogramaPK> 
 
 	@Query("SELECT cro FROM Cronograma cro WHERE cro.id.codigoLapso = :codigoLapso")
 	public List<Cronograma> buscarCronogramas(@Param("codigoLapso")String codigoLapso);
+	
+	@Query("SELECT MAX(cr.fechaFin) from Cronograma cr, LapsoAcademico la WHERE cr.id.codigoLapso = la.codigoLapso AND la.estatus = TRUE")
+	public Date buscarUltimaFechaCronogramaActual();
 
 }

@@ -50,5 +50,9 @@ public class ServicioCronograma {
 		List<Cronograma> listaCronogramas = iCronograma.buscarCronogramas(codigoLapso);
 		return listaCronogramas;
 	}
+    
+    public Date buscarUltimaFechaDelCronogramaActual(){
+    	return iCronograma.buscarUltimaFechaCronogramaActual();
+    }
 	
 }
