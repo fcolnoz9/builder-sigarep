@@ -8,6 +8,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import sigarep.herramientas.Archivo;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.mensajes;
 
 import org.zkoss.bind.annotation.Command;
@@ -48,7 +49,7 @@ public class VMCronograma {
 	private String lugar;
 	private String observacion;
 	private String codigoLapso;
-	private List<LapsoAcademico> lapsoActivo;
+	private LapsoAcademico lapsoActivo;
 	@WireVariable
 	private LapsoAcademico lapsoAcademico = new LapsoAcademico();
 	@WireVariable
@@ -83,6 +84,7 @@ public class VMCronograma {
 	CronogramaPK cronogramaPK = new CronogramaPK();
 	Cronograma cronograma = new Cronograma();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 
 	// Metodos GETS Y SETS
     
@@ -214,11 +216,11 @@ public class VMCronograma {
 		this.codigoLapso = codigoLapso;
 	}
 
-	public List<LapsoAcademico> getLapsoActivo() {
+	public LapsoAcademico getLapsoActivo() {
 		return lapsoActivo;
 	}
 
-	public void setLapsoActivo(List<LapsoAcademico> lapsoActivo) {
+	public void setLapsoActivo(LapsoAcademico lapsoActivo) {
 		this.lapsoActivo = lapsoActivo;
 	}
     //Fin de los metodod gets y sets
@@ -229,8 +231,11 @@ public class VMCronograma {
         //initialization code
 		buscarCronograma();
 		buscarActividad();
-		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-		codigoLapso = lapsoActivo.get(0).getCodigoLapso();
+		lapsoActivo = serviciolapsoacademico.encontrarLapsoActivo();
+		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
+			mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+		else
+			codigoLapso = lapsoActivo.getCodigoLapso();
     }
 
 		@Command
