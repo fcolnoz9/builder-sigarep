@@ -32,7 +32,7 @@ public class EstudianteSancionado implements Serializable {
 	@Column(name="indice_grado", nullable=false)
 	private float indiceGrado;
 
-	@Column(name="lapsos_academicos_rp", length=13)
+	@Column(name="lapsos_academicos_rp", length=15)
 	private String lapsosAcademicosRp;
 
 	@Column(nullable=false)
