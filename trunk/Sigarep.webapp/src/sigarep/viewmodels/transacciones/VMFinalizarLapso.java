@@ -41,24 +41,27 @@ public class VMFinalizarLapso {
 	
 	@Command
 	public void finalizarLapso(){
-		long apelacionesSinVeredicto = 0;
-		long apelacionesSinSesion = 0;
-		Date ultimaFechaCronograma = serviciocronograma.buscarUltimaFechaDelCronogramaActual();
-		Date fechaActual = new Date();
-		
-		apelacionesSinVeredicto = serviciosolicitudapelacion.contarApelacionesSinVeredicto();
-		apelacionesSinSesion = serviciosolicitudapelacion.contarApelacionesSinSesion();
-		if (apelacionesSinVeredicto > 0)
-			mensajesAlUsuario.ErrorFinalizarLapsoVeredicto();
-		else if (apelacionesSinSesion > 0)
-			mensajesAlUsuario.ErrorFinalizarLapsoSesion();
-		else if (fechaActual.compareTo(ultimaFechaCronograma) < 0)
-			mensajesAlUsuario.ErrorFinalizarLapsoCronograma();
-		else{
-			LapsoAcademico lapsoActual = serviciolapsoacademico.encontrarLapsoActivo();
-			lapsoActual.setEstatus(false);
-			serviciolapsoacademico.guardarLapso(lapsoActual);
-			mensajesAlUsuario.informacionFinalizarLapsoExitoso();
+		if (lapsoAcademico == null)
+			mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+		else{	
+			long apelacionesSinVeredicto = 0;
+			long apelacionesSinSesion = 0;
+			Date ultimaFechaCronograma = serviciocronograma.buscarUltimaFechaDelCronogramaActual();
+			Date fechaActual = new Date();
+			
+			apelacionesSinVeredicto = serviciosolicitudapelacion.contarApelacionesSinVeredicto();
+			apelacionesSinSesion = serviciosolicitudapelacion.contarApelacionesSinSesion();
+			if (apelacionesSinVeredicto > 0)
+				mensajesAlUsuario.ErrorFinalizarLapsoVeredicto();
+			else if (apelacionesSinSesion > 0)
+				mensajesAlUsuario.ErrorFinalizarLapsoSesion();
+			else if (fechaActual.compareTo(ultimaFechaCronograma) < 0)
+				mensajesAlUsuario.ErrorFinalizarLapsoCronograma();
+			else{
+				lapsoAcademico.setEstatus(false);
+				serviciolapsoacademico.guardarLapso(lapsoAcademico);
+				mensajesAlUsuario.informacionFinalizarLapsoExitoso();
+			}
 		}
 	}
 	public LapsoAcademico getLapsoAcademico() {
