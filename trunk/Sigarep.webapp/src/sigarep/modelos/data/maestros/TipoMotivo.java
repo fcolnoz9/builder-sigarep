@@ -38,16 +38,20 @@ public class TipoMotivo implements Serializable {
 	@OneToMany(mappedBy="tipoMotivo")
 	private List<Motivo> motivos = new LinkedList<Motivo>();
 	
-	//Constructor 
-	public TipoMotivo() {
+	
+	public TipoMotivo(){
+		
 	}
+
 	//Constructor con parametros
-	public TipoMotivo(String nombreTipoMotivo,
-			String descripcion, Boolean estatus) {
+	public TipoMotivo(Integer idTipoMotivo,String descripcion,Boolean estatus,
+			String nombreTipoMotivo ) {
 		super();
-		this.nombreTipoMotivo = nombreTipoMotivo;
+		this.idTipoMotivo= idTipoMotivo;
 		this.descripcion= descripcion;
 		this.estatus= estatus;
+		this.nombreTipoMotivo = nombreTipoMotivo;
+		
 		// TODO Auto-generated constructor stub
 	}
 

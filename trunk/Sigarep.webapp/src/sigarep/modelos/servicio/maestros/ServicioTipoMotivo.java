@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
@@ -58,6 +59,11 @@ public class ServicioTipoMotivo {
 		return result;
 	}
 	
+	
+	public List<TipoMotivo> buscarTodas(){
+		return tipomotivo.buscarTodas();
+	}
+	
 	//Metodo de Busqueda
 	public List<TipoMotivo> buscarP(String nombreTipoMotivo){
 		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
@@ -74,7 +80,6 @@ public class ServicioTipoMotivo {
 			}
 		}
 		return result;
-
 	}
 	
 }

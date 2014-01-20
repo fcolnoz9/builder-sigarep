@@ -13,24 +13,29 @@ import org.zkoss.zul.Window;
 
 
 
+import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
 
-@SuppressWarnings("serial")
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMTipoMotivo {
 	@WireVariable ServicioTipoMotivo serviciotipomotivo;
 //	private Integer idTipoMotivo;
 	private String nombreTipoMotivo,nombreTipoMotivofiltro;
 	private String descripcion,descripcionfiltro;
+	private Integer idTipoMotivo;
+	  private mensajes mensajeAlUsuario = new mensajes();
 	private Boolean estatus;
 	private List<TipoMotivo> listaTipoMotivo;
 	private TipoMotivo tiposeleccionado;
 	private TipoMotivoFiltros filtros = new TipoMotivoFiltros();
 	@Wire Textbox txtnombreTipoMotivo;
     @Wire Window winTipoMotivo;
+  
 	
     //Metodos set y get
 //    public Integer getIdTipoMotivo() {
@@ -95,52 +100,69 @@ public class VMTipoMotivo {
     public void init(){
       	listadoTipoMotivo();
       	
-    }
-    
+    }   
     //Metodos que Permite guardar los tipos de motivos
     @Command
-	@NotifyChange({"nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
+	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarTipoMotivo(){
-		if (nombreTipoMotivo== null|| descripcion == null ){
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+    	idTipoMotivo = 0;
+    	if (nombreTipoMotivo== null|| descripcion == null ){
+    		mensajeAlUsuario.advertenciaLlenarCampos();
 		}
 		else{
-		TipoMotivo motivo = new TipoMotivo(nombreTipoMotivo, descripcion,true);
-		serviciotipomotivo.guardarTipoMotivo(motivo);
-		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-		limpiar();
-		}
+			listaTipoMotivo= serviciotipomotivo.buscarTodas();
+			if (listaTipoMotivo == null){
+				idTipoMotivo = 1;
+			} else {
+				System.out.print(listaTipoMotivo.size());
+				System.out.print(listaTipoMotivo.size()+1);
+				idTipoMotivo = listaTipoMotivo.size()+1;
+			}
+			TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo);
+			serviciotipomotivo.guardarTipoMotivo(tipo);
+			limpiar();
+			mensajeAlUsuario.informacionRegistroCorrecto();
+}
+}
+    public Integer getIdTipoMotivo() {
+		return idTipoMotivo;
 	}
-  //Metodo que limpia  todos los campos 
-    @Command
-	@NotifyChange({"nombreTipoMotivo", "descripcion"})
-	public void limpiar(){
-		nombreTipoMotivo = "";
-		descripcion="";
-		listadoTipoMotivo();
+	public void setIdTipoMotivo(Integer idTipoMotivo) {
+		this.idTipoMotivo = idTipoMotivo;
 	}
-    // Método que trae todos los registros en una lista de tipo de motivos
+	// Método que trae todos los registros en una lista de tipo de motivos
  	@Command
  	@NotifyChange({ "listaTipoMotivo" })
  	public void listadoTipoMotivo() {
  		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
- 	}
+ 	}	
+
+  //Metodo que limpia  todos los campos 
+    @Command
+	@NotifyChange({"listaTipoMotivo","idTipoMotivo","nombreTipoMotivo", "descripcion"})
+	public void limpiar(){
+    	idTipoMotivo =0;
+		nombreTipoMotivo = "";
+		descripcion="";
+		listadoTipoMotivo();
+	}
+   
   //Metodo que elimina un tipo de motivo tomando en cuenta el idTipoMotivo
   	@Command
-  	@NotifyChange({"nombreTipoMotivo", "descripcion", "listaTipoMotivo"})
+  	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion", "listaTipoMotivo"})
   	public void eliminarTipoMotivo(){
   		if (nombreTipoMotivo== null|| descripcion == null ){
-			Messagebox.show("Debes Seleccionar un motivo", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+  			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		}
 		else{
   		serviciotipomotivo.eliminarTipoMotivo(getTiposeleccionado().getIdTipoMotivo());
-  		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+  		mensajeAlUsuario.informacionEliminarCorrecto();
   		limpiar();
   	}
   	}	
   //permite tomar los datos del objeto tipo motivo seleccionado
     @Command
-	@NotifyChange({"nombreTipoMotivo", "descripcion"})
+	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion"})
 	public void mostrarSeleccionado(){
 		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
 		descripcion=getTiposeleccionado().getDescripcion();	
