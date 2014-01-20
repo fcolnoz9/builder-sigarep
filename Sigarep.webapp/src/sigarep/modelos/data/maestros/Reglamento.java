@@ -47,7 +47,7 @@ public class Reglamento implements Serializable {
 	public Reglamento() {
 	}
 	
-	public Reglamento( Documento documento, String titulo,
+	public Reglamento( Integer idDocumento, Documento documento, String titulo,
 			String descripcion, Boolean estatus, Date fechaSubida,
 			String categoria) {
 		super();

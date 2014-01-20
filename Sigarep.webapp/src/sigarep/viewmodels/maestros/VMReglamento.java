@@ -1,3 +1,4 @@
+
 package sigarep.viewmodels.maestros;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import org.zkoss.zul.Messagebox;
 
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.maestros.ReglamentoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
@@ -30,6 +32,7 @@ import sigarep.modelos.servicio.maestros.ServicioReglamento;
 public class VMReglamento {
 	
 @WireVariable ServicioReglamento servicioreglamento;
+
 
 private Integer IdDocumento; 
 private String titulo,titulofiltro;
@@ -45,7 +48,7 @@ private String nombreDoc;
 
 private ReglamentoFiltros filtros = new ReglamentoFiltros();
 
-private MensajesAlUsuario msjs  = new MensajesAlUsuario();
+private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 public VMReglamento() {
 	super();
@@ -198,16 +201,19 @@ public void guardarReglamento(){
 	System.out.print("ESTO ES NOMBREDOC");
 	System.out.print(nombreDoc);
 if (titulo == null || descripcion.equals("") || categoria.equals("") || fechaSubida.equals("") || nombreDoc == null)
-		Messagebox.show("No pueden haber campos vacios", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	mensajeAlUsuario.advertenciaLlenarCampos();	
+	//Messagebox.show("No pueden haber campos vacios", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	else{
-		Reglamento reg = new Reglamento(documento ,titulo, descripcion,true, fechaSubida,categoria);
+		Reglamento reg = new Reglamento(IdDocumento,documento ,titulo, descripcion,true, fechaSubida,categoria);
 		try{
 			servicioreglamento.guardarReglamento(reg);
 		}
 		catch(Exception e){
 		    System.out.println(e.getMessage());
 		}
-		Messagebox.show("Datos almacenados correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+		
+		mensajeAlUsuario.informacionArchivoCargado();
+		//Messagebox.show("Datos almacenados correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 		limpiar();
 		filtros();
 	}
@@ -215,8 +221,9 @@ if (titulo == null || descripcion.equals("") || categoria.equals("") || fechaSub
 
 
 @Command
-@NotifyChange({"titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
+@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
 public void limpiar(){
+	IdDocumento = null;
 	titulo = null;
 	descripcion = "";
 	categoria="";
@@ -233,6 +240,7 @@ public void limpiar(){
 @NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida","listaReglamento","nombreDoc"})
 public void mostrarSeleccionado(){
 	Reglamento reg = getReglamentoSeleccionado();
+	IdDocumento = reg.getIdDocumento();
 	titulo = reg.getTitulo(); 
 	descripcion = reg.getDescripcion();
 	categoria = reg.getCategoria();
@@ -249,15 +257,17 @@ public void mostrarSeleccionado(){
 @NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
 public void eliminarReglamento(){
 if (titulo == null)
-		Messagebox.show("IdDocumento de Reglamento no encontrado, no se pudo eliminar", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	mensajeAlUsuario.ErrorImposibleEliminar();	
+	//Messagebox.show("IdDocumento de Reglamento no encontrado, no se pudo eliminar", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	else{
 		try{
-			servicioreglamento.eliminar(IdDocumento);
+			servicioreglamento.eliminar(getReglamentoSeleccionado().getIdDocumento());
 		}
 		catch(Exception e){
 		    System.out.println(e.getMessage());
 		}
-		msjs.informacionEliminarCorrecto();
+		mensajeAlUsuario.informacionArchivoEliminado();
+		//msjs.informacionEliminarCorrecto();
 		limpiar();
 		filtros();
 	}
@@ -280,7 +290,7 @@ public void cargarDocumento(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent
 			documento.setContenidoDocumento(media.getByteData());
 			nombreDoc=documento.getNombreDocumento();
 		} else {
-			Messagebox.show(media.getName()+" No es un tipo de archivo valido!", "Error", Messagebox.OK, Messagebox.ERROR);
+			mensajeAlUsuario.advertenciaFormatoNoSoportado();
 		}
 	} 
 }
@@ -303,3 +313,4 @@ public void descargarDocumento(){
 		
 	
 }
+
