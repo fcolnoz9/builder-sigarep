@@ -1,3 +1,4 @@
+ <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./backupsListbox"?>
 <zk>
 <window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" width="auto" height="auto" closable="true" >
 	<zscript>
@@ -22,11 +23,7 @@
 			}
 		]]>
 	</zscript>
-	<panel id="pnlRespaldarDatos" height="100%" width="100%" border="normal"
-		maximizable="false" closable="true" framable="false" sclass="z-demo-config">
-		
-		<panelchildren>
-			<div width="100%" height="255px" style="overflow:auto;" align="center">
+			<div width="100%" height="auto" style="overflow:auto;" align="center">
 				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d" >
 					<caption style="font-weight:bold;font-size:14px;color:gray;"
 						label="Destino del Respaldo" />
@@ -109,6 +106,10 @@
 				<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
 				height="auto" orient="horizontal">
 						<attribute name="onClick">
+						    <![CDATA[
+							backupsListbox.setVisible(false);													
+							backupsListbox.setVisible(true);
+							]]>
 							//***************************************************************************
 							//METODO PARA OBTENER LA RUTA DEL DIRECTORIO DE LOS RESPALDOS
 							//***************************************************************************
@@ -140,21 +141,17 @@
 					</hbox>			
 				</row>
    			  </rows>
-   		</grid>
-				</div>
-			</div>					
-		</panelchildren>
-	</panel>	
-
-   	<panel>
-	<panelchildren>
-   		
+   			</grid>
+		</div>
+		</div>					
+		   		
    		<space />
    		<groupbox id="grbListaBackups" height="181px">
-   		<caption label="Lista de Backups " />
+   		<caption label="Lista de Backups "/>
    		<div align="center">
 <!--    		FALTA PROGRAMAR ESTA LISTA...No quiere verse el modelo NPI... -->
-   		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados" mold="paging" pageSize="10" model="@{listaDirectorio1}" multiple="false">
+   		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados"
+   		 mold="paging" pageSize="3" model="@{listaDirectorio1}" multiple="false">
 			<listhead sizable="true">
 				<listheader label="Descripción" align="center" />
 			</listhead>	
@@ -163,7 +160,6 @@
 						String archivoSelec = backupsListbox.getSelectedItem().getValue();
 				]]>				
 				</attribute>
-<!-- 				<listheader label="Fecha" align="center" sort="auto(fecha)" /> -->
 <!-- 				<listheader label="Tamaño de Archivo" width="20%" align="center" sort="auto(tamanno)" /> -->
 <!-- 				<listheader label="Acciones" align="center" /> -->
 
@@ -187,9 +183,6 @@
    				</rows>
    			</grid>
    		</div>
-
-	</panelchildren>
-	</panel>
 		<zscript>
 		<![CDATA[
 			//************************************************************************************

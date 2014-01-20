@@ -35,6 +35,7 @@ public class VMUsuario {
 	private String correo;
 	private String clave;
 	private String confirmarcontrasenia;
+	private String nuevaContrasenia;
 	private String nombreCompleto;
 	private String estado;
 	private ListModelList<Grupo> modeloGrupo;
@@ -118,7 +119,7 @@ public class VMUsuario {
 	public void setConfirmarcontrasenia(String confirmarcontrasenia) {
 		this.confirmarcontrasenia = confirmarcontrasenia;
 	}
-
+	
 	public List<Grupo> getListGrupo() {
 		return listGrupo;
 	}
@@ -133,6 +134,14 @@ public class VMUsuario {
 
 	public void setListaUsuario(List<Usuario> listaUsuario) {
 		this.listaUsuario = listaUsuario;
+	}
+
+	public String getNuevaContrasenia() {
+		return nuevaContrasenia;
+	}
+
+	public void setNuevaContrasenia(String nuevaContrasenia) {
+		this.nuevaContrasenia = nuevaContrasenia;
 	}
 
 	@Command
@@ -177,6 +186,15 @@ public class VMUsuario {
 		correo = "";
 		buscarUsuario();
 	}
+	
+	@Command
+	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","listaUsuario"})
+	public void cancelarCambiarContrasenia() {
+		nombreUsuario = "";
+		clave = "";
+		confirmarcontrasenia = "";
+		nuevaContrasenia = "";
+	}	
 
 	// Metodo que elimina una actividad tomando en cuenta el idActividad
 	@Command
@@ -199,6 +217,18 @@ public class VMUsuario {
 	@NotifyChange({ "listaUsuario" })
 	public void pasepase() {
 		System.out.println("");
+	}
+	
+	@Command
+	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia", "nuevaContrasenia" })
+	public void cambiarContrasenia() {
+	    if(nombreUsuario == null || clave==null || confirmarcontrasenia==null || nuevaContrasenia == null)
+	    	msjs.advertenciaLlenarCampos();
+	    else{
+	    	
+	    	if(su.cambiarContrasena(nombreUsuario, clave, nuevaContrasenia, confirmarcontrasenia)==true)
+	    		Messagebox.show("Se ha actualizado su contraseña", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
+	    }
 	}
 	
 	@Command
@@ -227,4 +257,5 @@ public class VMUsuario {
 					Messagebox.show("Usuario o correo e-mail no registrados","Información", Messagebox.OK, Messagebox.INFORMATION);
 		}
 	}
+	
 }

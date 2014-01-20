@@ -1,0 +1,56 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winCambiarContrasenia" ?>
+<zk>	
+		<window id="winCambiarContrasenia"
+		title="Administración del Sistema :: Cambiar Contraseña de Usuario" border="normal"
+		width="auto" height="auto" contentStyle="overflow:auto"
+		apply="org.zkoss.bind.BindComposer" closable="true"
+		viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUsuario')">
+<!-- 		<borderlayout> -->
+<!-- 			<center> -->
+				<grid>
+			  <rows>
+				<row>
+					<label value="Nombre de Usuario: " id="lblNombreUsuario" width="40%" />
+					<textbox id="txtNombreUsuario" cols="23"
+						width="200px" maxlength="30" value="@bind(vm.nombreUsuario)">
+					</textbox>
+					<label value="Contraseña Actual: "
+						id="lblContraseniaActual" />
+					<textbox id="txtContraseniaActual" cols="23" type="password"
+						width="200px" maxlength="30" value="@bind(vm.clave)">
+					</textbox>
+				</row>
+				<row>
+					<label value="Nueva Contraseña: " id="lblNuevaContrasenia" width="40%" />
+					<textbox id="txtNuevaContrasenia" cols="23" type="password"
+						width="200px" maxlength="30" value="@bind(vm.nuevaContrasenia)">
+					</textbox>
+					<label value="Confirmar Contraseña: "
+						id="lblConfirmarContrasenia" />
+					<textbox id="txtConfirmarContrasenia" cols="23" type="password"
+						width="200px" maxlength="30" value="@bind(vm.confirmarcontrasenia)">
+					</textbox>
+				</row>
+					</rows>
+				</grid>
+<!-- 			</center> -->
+<!-- 			<south height="48px"> -->
+				<div align="right" height="100%"
+					style="background:#c5e6ef">
+					<button label="Guardar" id="btnGuardar" 
+					image="imagenes/iconos/guardar.png" width="auto" height="auto"
+					orient="horizontal" onClick="@command('cambiarContrasenia')">
+					</button>
+					<button label="Cancelar" id="btnCancelar"
+						image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+						orient="horizontal" onClick="@command('cancelarCambiarContrasenia')">
+					</button>
+					<button label="Cerrar" id="btnCerrar"
+						image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+						orient="horizontal" onClick="winCambiarContrasenia.onClose()">
+					</button>
+				</div>
+<!-- 			</south> -->
+<!-- 		</borderlayout> -->
+	</window>
+</zk>

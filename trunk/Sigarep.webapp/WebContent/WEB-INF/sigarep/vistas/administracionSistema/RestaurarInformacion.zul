@@ -1,4 +1,4 @@
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./pnlrestaurarinformacion"?>
+ <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./lstArchivosLocal"?>
 <zk>
 <window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="70%" width="auto" closable="true" >	
 <zscript>
@@ -23,12 +23,9 @@
 			}
 		]]>
 </zscript>
-	<panel id="pnlrestaurarinformacion" height="100%" width="100%" border="normal"
-		maximizable="false" closable="true" framable="false">
-		<panelchildren>
 			<div align="center" style="overflow:auto;">
 				<groupbox style="margin:5px;" width="85%" mold="3d">
-					<caption style="font-weight:bold;font-size:14px;color:gray;"
+					<caption style="margin:5px;border:normal;"
 						label="Ubicación del respaldo a restaurar" />
 					<grid width="99%" style="border:normal;" height="100%">
 						<columns>
@@ -138,8 +135,6 @@
    					</button>
 				</div>
 			</div>
-		</panelchildren>
-	</panel>
 	<zscript>
 		<![CDATA[
 	import java.io.BufferedInputStream;
