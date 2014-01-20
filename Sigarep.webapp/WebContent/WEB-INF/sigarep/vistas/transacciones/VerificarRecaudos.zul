@@ -14,21 +14,21 @@
 					<textbox id="txtCedulaEstudiante" cols="23"
 						width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)">
 					</textbox>
-					<label value="Nombres: " id="lblNombresEstudiante" width="40%" />
-					<textbox id="txtNombresEstudiante" cols="23"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
-					</textbox>
-				</row>
-				<row>
-					<label value="Apellidos: "
-						id="lblApellidosEstudiante" />
-					<textbox id="txtApellidosEstudiante" cols="23"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
-					</textbox>
 					<label value="Programa: "
 						id="lblProgramaEstudiante" />
 					<textbox id="txtProgramaEstudiante" cols="23"
 						width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)">
+					</textbox>
+				</row>
+				<row>
+					<label value="Nombres: " id="lblNombresEstudiante" width="40%" />
+					<textbox id="txtNombresEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
+					</textbox>
+					<label value="Apellidos: "
+						id="lblApellidosEstudiante" />
+					<textbox id="txtApellidosEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
 					</textbox>
 				</row>
 			</rows>
@@ -67,25 +67,17 @@
 	<groupbox id="grbDatosApelacion">
 	   <caption label="Datos de la apelación" />
 	   <listbox id="listaMotivos" multiple="true" height="auto"
-	   	width="auto" mold="paging" pageSize="3">
+	   	width="auto" mold="paging" pageSize="3" model="@bind(vm.listaTipoMotivo)">
 	   	<listhead>
 	   		<listheader hflex="3" label="Tipo de Motivo" width="50%" sort="auto(nombreTipoMotivo)" />
 	   		<listheader hflex="4" label="Descripción" width="50%" sort="auto(descripcion)"/>
 	   	</listhead>
-	   	<listitem selected="false">
-	   		<listcell label="Enfermedad" />
-	   		<listcell
-	   			label="Reposo de un mes por cuadro de dengue hemorragico" />
-	   	</listitem>
-	   	<listitem selected="false">
-	   		<listcell label="Economico" />
-	   		<listcell
-	   			label="Reducción del tiempo de estudio por necesidad de trabajar" />
-	   	</listitem>
-	   	<listitem selected="false">
-	   		<listcell label="Judicial" />
-	   		<listcell label="Detención por conducir ebrio" />
-	   	</listitem>
+	   	<template name="model">
+	   		<listitem selected="false">
+	   			<listcell label="${each.nombreTipoMotivo}" height="20%"></listcell>
+	   			<listcell label="${each.descripcionTipoMotivo}" height="20%"></listcell>
+	   		</listitem>
+	   	</template>
 	   </listbox>
 	</groupbox>
 
@@ -110,6 +102,7 @@
 	</groupbox>
 	
 	<groupbox>
+	<caption label="Sugerencia" />
 		<grid>
 			<columns>
 				<column align="center" />
@@ -124,12 +117,12 @@
 								<row>
 									<hbox width="100%">
 										<radio id="rbSugerenciaSi"
-											label="Si procede" value="sugiere" />
+											label="Procedente" value="sugiere" />
 	
 									</hbox>
 									<hbox>
 										<radio id="rbSugerenciaNo"
-											label="No procede" value="nosugiere" />
+											label="No procedente" value="nosugiere" />
 									</hbox>
 								</row>
 							</rows>

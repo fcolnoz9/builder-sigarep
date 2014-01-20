@@ -20,6 +20,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -28,9 +29,12 @@ import org.zkoss.zul.Combobox;
 
 import org.zkoss.zul.Intbox;
 
+import org.zkoss.zul.ListModel;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
+import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Window;
@@ -55,6 +59,7 @@ import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
+import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
@@ -309,7 +314,7 @@ public class VMRecaudosEntregados {
 		this.lapso = v8;
 		this.asignatura = v13;		
 		buscarRecaudos();
-//		buscarTiposMotivo();
+		buscarTiposMotivo();
 	}
 	
 	@Command
@@ -320,7 +325,7 @@ public class VMRecaudosEntregados {
 	
 	// Metodo que buscar los lapsos y cargarlos en el combobox
 	@Command
-	@NotifyChange({"cedula","lapso","listaTipoMotivo" })
+	@NotifyChange({"cedula","lapso","listaTipoMotivo","nombreTipoMotivo"})
 	public void buscarTiposMotivo() {
 		listaTipoMotivo = serviciolista.buscarTiposMotivoSolicitud(cedula, lapso, 1);
 	}
@@ -380,6 +385,8 @@ public class VMRecaudosEntregados {
 				solicitudApelacionAux.setNumeroSesion(solicitudApelacion.getNumeroSesion());
 				solicitudApelacionAux.setVeredicto(solicitudApelacion.getVeredicto());
 				solicitudApelacionAux.setObservacion(solicitudApelacion.getObservacion());
+				solicitudApelacionAux.setVerificado(true);
+				solicitudApelacionAux.setAnalizado(false);
 				ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
@@ -397,6 +404,9 @@ public class VMRecaudosEntregados {
 				else Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
 				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
 				serviciosolicitudapelacion.guardar(solicitudApelacionAux);
+				
+//				Listbox lb = (Listbox)Path.getComponent("/winVerificarApelacionesComision/lbxSancionados");
+//				lb.setModel(new SimpleListModel<ListaApelacionEstadoApelacion>(serviciolista.buscarApelacionesALaComision()));
 				try {
 					msjs.informacionRegistroCorrecto();
 				} catch (Exception e) {

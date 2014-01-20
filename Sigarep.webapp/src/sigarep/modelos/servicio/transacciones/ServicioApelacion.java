@@ -174,7 +174,7 @@ public class ServicioApelacion  {
 		return results;
 	}
 	
-	public List<ListaApelacionEstadoApelacion> buscarApelacionesALaComision() {
+	public List<ListaApelacionEstadoApelacion> buscarApelacionesPorInstancia(Integer idInstanciaApelada) {
 		
 		
 		//FALTA PERIODO DE SANCION
@@ -187,7 +187,7 @@ public class ServicioApelacion  {
 				"aesa.cedula_estudiante = esa.cedula_estudiante) LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
 				"WHERE sa.id_sancion = esa.id_sancion AND esa.codigo_lapso = la.codigo_lapso  AND i.id_instancia_apelada = sap.id_instancia_apelada " +
 				"AND es.id_programa= p.id_programa AND la.estatus = 'TRUE' AND es.cedula_estudiante = esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante " +
-				"AND sap.estatus = 'TRUE';"; 
+				"AND sap.id_instancia_apelada = '"+idInstanciaApelada+"' AND sap.estatus = 'TRUE' AND sap.verificado = 'FALSE' AND sap.analizado = 'FALSE';"; 
 						
 				
 
@@ -216,12 +216,12 @@ public class ServicioApelacion  {
 	public List<ListaRecaudosMotivoEstudiante> buscarTiposMotivoSolicitud(String cedulaEstudiante, String codigoLapso, Integer idInstancia) {
 		
 		   String queryStatement4 =
-					"SELECT tm.nombre_tipo_motivo FROM tipo_motivo AS tm, " +
-						"motivo AS m, solicitud_apelacion AS sap WHERE tm.id_tipo_motivo = m.id_tipo_motivo " +
-						"AND sap.cedula_estudiante = m.cedula_estudiante AND " +
-						"sap.codigo_lapso = m.codigo_lapso AND " +
-						"sap.id_instancia_apelada = m.id_instancia_apelada AND sap.cedula_estudiante =: cedula " +
-						"AND sap.codigo_lapso = '" + codigoLapso +"' AND sap.id_instancia_apelada =: idInstancia;"; 
+					"SELECT tm.nombre_tipo_motivo, tm.descripcion FROM tipo_motivo AS tm, " +
+					"motivo AS m, solicitud_apelacion AS sap WHERE tm.id_tipo_motivo = m.id_tipo_motivo " +
+					"AND sap.cedula_estudiante = m.cedula_estudiante AND " +
+					"sap.codigo_lapso = m.codigo_lapso AND " +
+					"sap.id_instancia_apelada = m.id_instancia_apelada AND sap.cedula_estudiante = '"+cedulaEstudiante+"' " +
+					"AND sap.codigo_lapso = '" + codigoLapso +"' AND sap.id_instancia_apelada = '"+idInstancia+"';"; 
 							
 					Query query = em.createNativeQuery(queryStatement4);
 
@@ -231,7 +231,7 @@ public class ServicioApelacion  {
 					List<ListaRecaudosMotivoEstudiante> results = new ArrayList<ListaRecaudosMotivoEstudiante>();
 					for (Object[] resultRow : resultSet) {
 						
-						results.add(new ListaRecaudosMotivoEstudiante ((String) resultRow[0], (String) resultRow[1]));
+						results.add(new ListaRecaudosMotivoEstudiante ((String) resultRow[0], (String) resultRow[1], null));
 					}
 					
 					return results;

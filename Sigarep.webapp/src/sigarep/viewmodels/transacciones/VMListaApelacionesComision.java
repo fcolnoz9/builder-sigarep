@@ -292,7 +292,7 @@ public class VMListaApelacionesComision  {
 	  	@Command
 		@NotifyChange({"lista"})
 		public void buscarApelacionesR(){ 
-		  			lista = serviciolista.buscarApelacionesALaComision();
+		  			lista = serviciolista.buscarApelacionesPorInstancia(1);
 		}
 	  	
 	  	@Command

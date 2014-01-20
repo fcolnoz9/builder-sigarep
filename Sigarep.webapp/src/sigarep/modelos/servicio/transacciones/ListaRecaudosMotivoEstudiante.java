@@ -5,6 +5,7 @@ public class ListaRecaudosMotivoEstudiante {
 	private String nombreRecaudo;
 	private String nombreTipoMotivo;
 	private String nombreDocumento;
+	private String descripcionTipoMotivo;
 	private byte[] contenidoDocumento;
 	private String tipoDocumento;
 	private Integer idTipoMotivo;
@@ -27,6 +28,12 @@ public class ListaRecaudosMotivoEstudiante {
 		super();
 		this.nombreRecaudo = nombreRecaudo;
 		this.nombreTipoMotivo = nombreTipoMotivo;
+	}
+	
+	public ListaRecaudosMotivoEstudiante(String nombreTipoMotivo, String descripcionTipoMotivo, Integer idTipoMotivo ) {
+		super();
+		this.nombreTipoMotivo = nombreTipoMotivo;
+		this.descripcionTipoMotivo = descripcionTipoMotivo;
 	}
 	
 	
@@ -81,6 +88,11 @@ public class ListaRecaudosMotivoEstudiante {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	
-	
+	public String getDescripcionTipoMotivo() {
+		return descripcionTipoMotivo;
+	}
+
+	public void setDescripcionTipoMotivo(String descripcionTipoMotivo) {
+		this.descripcionTipoMotivo = descripcionTipoMotivo;
+	}
 }

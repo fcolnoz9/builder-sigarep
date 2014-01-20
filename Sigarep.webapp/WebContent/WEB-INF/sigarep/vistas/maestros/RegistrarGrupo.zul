@@ -1,5 +1,5 @@
 <window id="winRegistrarGrupo"  apply="org.zkoss.bind.BindComposer"
-    viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMRegistrarGrupo')" border="normal" title="Registros Basicos - Registro de Grupo ">
+    viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMRegistrarGrupo')" border="normal" title="Administración del Sistema :: Seguridad Funcional :: Registrar Grupo de Usuarios ">
     <style>
     .h-inline-block {
         display: inline-block;
