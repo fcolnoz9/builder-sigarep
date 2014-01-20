@@ -7,58 +7,80 @@ style="overflow:auto" action="hide: slideUp"
 <caption label="">Carga de Documentos</caption>
 <grid id= "grdcargar" fixedLayout="true" >
  <columns>
-        <column label="" width="200px" />
-        <column label=""  width = "100%"  />
+     <column label="" width="10%" />
+					<column label="" width="40%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
     </columns>
     <rows>
-        <row>
-           Titulo Documento:
+    	<row>
+            Categoría:
             <hbox>
-                <vbox>
-                    <textbox id= "txttitulo"  height="24px" mold = "rounded" value="@bind(vm.titulo)"
-					width="170px" maxlength="30" cols="23" tabindex="5"    />
-                </vbox>
-                <hbox>
-                    <button id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
-							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarDocumento',upload=event)"></button>
-                    <a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
-                                
-                </hbox>
-            </hbox>
-        </row>
-           <row>
-            Descripcion:
-            <hbox>
-                <textbox  id= "txtdescripcion" width="300px" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
-					 maxlength="50" cols="23" tabindex="5"  >
-                    <attribute name="value"> </attribute>
-                </textbox>
-            </hbox>
-        </row>
-        <row>
-            Categoria:
-            <hbox>
-              <combobox id="cmbCategoria" mold="rounded" selectedItem=" @bind(vm.categoria)">
-						<comboitem value="guia" id="cmiGuiaPaso" label="Guia Paso a Paso" />
+              <combobox id="cmbCategoria" mold="rounded" width="200px" selectedItem=" @bind(vm.categoria)">
+						<comboitem value="guia" id="cmiGuiaPaso" label="Guía Paso a Paso" />
  						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
  						<comboitem value="calendario" id="cmiCalendario" label="Calendario Académico" /> 
  			 </combobox> 
                 
             </hbox>
+       
+           Título Documento:
+            <hbox>
+                <vbox>
+                    <textbox id= "txttitulo"   mold = "rounded" value="@bind(vm.titulo)"
+					width="200px" maxlength="30" cols="23" tabindex="5"    />
+                </vbox>
+            </hbox>
         </row>
            <row>
+            Descripción:
+            <hbox>
+                <textbox  id= "txtdescripcion" width="200px" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+					 maxlength="150" cols="23" tabindex="5" rows="3" >
+                    <attribute name="value"> </attribute>
+                </textbox>
+            </hbox>
+     
             Fecha de subida:
             <hbox>
             	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" value="@bind(vm.fechaSubida)"/>
             </hbox>
-        </row>    
+        </row>  
+        <row> 
+        </row> 
+           <row>  
+           Documento:
+         <hbox>
+                    <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarDocumento',upload=event)"></button>
+                    <a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
+                                
+                </hbox>  
+                   </row>  
     </rows>
 </grid>
 
 </groupbox>
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="@command('guardarReglamento')"/>
+			<button label="Eliminar" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="@command('eliminarReglamento')"/>
+			<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
+			orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="wincarga.onClose()" />
 
+
+		</div>
+		
+<!-- 	//**************************************************** -->
+<!-- 	//LISTADO DE DOCUMENTO -->
+<!-- 	//**************************************************** -->
 <groupbox> 
+
 <caption label= " Lista de Documentos" />
 
 <listbox id = "lbxlistareglamentos" rows="2" model="@bind(vm.listaReglamento)" 
@@ -67,21 +89,21 @@ style="overflow:auto" action="hide: slideUp"
    			 emptyMessage="No hay banner registrados" mold="paging" pageSize="10" >
 
 <listhead>
-		<listheader label="Titulo" align="center" 
+		<listheader label="Título" align="center" 
 			sort="auto(titulo)">
 			<textbox id="filtroTitulo" instant="true"
 			width="100px" value="@bind(vm.filtros.titulo)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
-		<listheader label="Descripcion"  align="center"
+		<listheader label="Descripción"  align="center"
 		 sort="auto(descripcion)" >
 		 <textbox id="filtroDescripcion" instant="true"
 			width="100px" value="@bind(vm.filtros.descripcion)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
-		<listheader label="Categoria" align="center"
+		<listheader label="Categoría" align="center"
 		 sort="auto(categoria)" >
 		 <textbox id="filtroCategoria" instant="true"
 			width="100px" value="@bind(vm.filtros.categoria)"
@@ -114,17 +136,5 @@ style="overflow:auto" action="hide: slideUp"
 </groupbox>
 	<separator />
 
-<div align="right" height="100%">
-			<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="@command('guardarReglamento')"/>
-			<button label="Eliminar" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="@command('eliminarReglamento')"/>
-			<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
-			orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
-			<button label="Cerrar" id="btnCerrar"
-				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="wincarga.onClose()" />
 
-
-		</div>
 </window>

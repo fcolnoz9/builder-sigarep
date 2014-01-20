@@ -76,7 +76,11 @@ public class MensajesAlUsuario {
 		Messagebox.show("Debe seleccionar un registro para eliminarlo.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	public void  advertenciaFormatoNoSoportado() {
 
+		Messagebox.show("El formato no es soportado.",
+				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
 	public void informacionRegistroCorrecto() {
 
 		Messagebox.show("Se ha registrado correctamente.", "Información",
