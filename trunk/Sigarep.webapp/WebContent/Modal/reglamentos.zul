@@ -1,39 +1,35 @@
-<window id="modalDialog" title="Reglamentos" sclass="sysWin"
-	border="normal" width="99%" apply="org.zkoss.bind.BindComposer"
-	position="center,center" closable="true"
-	action="show: slideDown;hide: slideUp"
- 	 > 
+<window id="winModalDialog" title="Reglamentos" sclass="sysWin"
+	border="normal" width="70%" position="center,center"
+	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+	closable="true"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMreglamentoPortal')">
 	<groupbox closable="false">
-		<caption label="Lista de Reglamentos"/>
-		<listbox id="lbxReglamento" height="99%"  mold="paging" pageSize="5" >
+		<caption label="Lista de Reglamentos" />
+		<listbox id="lbxReglamento" model="@bind(vm.listaReglamento)"
+			emptyMessage="No hay reglamentos seleccionados" mold="paging"
+			pageSize="5">
 			<listhead>
-				<listheader label="Nombre del Reglamento" align="center" />
-				<listheader label="Fecha Subida" align="center"/>
-				<listheader label="Extension" align="center" />
-				<listheader label="Descripcion" align="center" />
-				<listheader label="Desacargar" align="center" />
+				<listheader label="Titulo" align="center"
+					sort="auto(titulo)" />
+				<listheader label="Fecha Subida" align="center"
+					sort="auto(fechaSubida)" />
+				<listheader label="Descripcion" align="center"
+					sort="auto(descripcion)" />
+				<listheader label="Archivo" align="center" />
 			</listhead>
-			<listitem selected="true">
-				<listcell label="REGLAMENTO DE EVALUACION ESTUDIANTIL" ></listcell>
-				<listcell label="21/04/2013" ></listcell>
-				<listcell label=".PDF"></listcell>
-				<listcell label="El Reglamento rege el Proceso de Evaluación de los alumnos cursantes en las Carreras de la UCLA."></listcell>
-				<listcell label=" " src="/WebContent/imagenes/iconos/descargar.png"></listcell>
-				<attribute name="onClick"><![CDATA[
-        													Filedownload.save("/archivos/documentos/REGLAMENTODEEVALUACIONESTUDIANTIL.pdf", null);
-   														]]></attribute>
-			</listitem>
-			<listitem selected="true">
-				<listcell label="REFORMA PARCIAL A LA ARTICULACION PROBATORIA" ></listcell>
-				<listcell label="21/04/2013" ></listcell>
-				<listcell label=".PDF"></listcell>
-				<listcell label="Reforma probatoria"></listcell>
-				<listcell label=" " src="/WebContent/imagenes/iconos/descargar.png" ></listcell>
-				<attribute name="onClick"><![CDATA[
-        													Filedownload.save("/archivos/documentos/reglamento_de_repitencia.pdf", null);
-   														]]></attribute>
-				
-			</listitem>
+			<template name="model">
+				<listitem selected="true">
+					<listcell label="${each.titulo}"></listcell>
+					<listcell label="${each.fechaSubida}"></listcell>
+					<listcell label="${each.descripcion}"></listcell>	
+					<listcell>	
+						<button onClick="@command('descargarArchivo', parametro=self)" label="Descargar" width="auto"
+								image="/imagenes/iconos/descargar.png">
+							<custom-attributes idReglamento="${each.idDocumento}"/>		
+						</button>
+					</listcell>
+				</listitem>
+			</template>
 		</listbox>
-	</groupbox>	
+	</groupbox>
 </window>
