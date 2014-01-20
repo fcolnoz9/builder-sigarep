@@ -232,8 +232,10 @@ public class VMCronograma {
 		buscarCronograma();
 		buscarActividad();
 		lapsoActivo = serviciolapsoacademico.encontrarLapsoActivo();
-		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
+		if (serviciolapsoacademico.encontrarLapsoActivo() == null){
 			mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+			
+		}
 		else
 			codigoLapso = lapsoActivo.getCodigoLapso();
     }
@@ -241,22 +243,25 @@ public class VMCronograma {
 		@Command
 		@NotifyChange({"fechaInicio", "fechaFin", "horaInicio", "lugar", "observacion", "listaCronograma", "actividad"})
 		public void guardarCronograma() {
-			
-			if(fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals(""))
-				msjs.advertenciaLlenarCampos();
-			else {
-				cronogramaPK.setIdActividad(actividad.getIdActividad());
-				cronogramaPK.setCodigoLapso(codigoLapso);
-				
-				try {
-					serviciocronograma.guardar(new Cronograma(cronogramaPK, true, fechaFin, fechaInicio, horaInicio, lugar, observacion));
-	
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
+			if (codigoLapso == null)
+				mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+			else{
+				if(fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals(""))
+					msjs.advertenciaLlenarCampos();
+				else {
+					cronogramaPK.setIdActividad(actividad.getIdActividad());
+					cronogramaPK.setCodigoLapso(codigoLapso);
+					
+					try {
+						serviciocronograma.guardar(new Cronograma(cronogramaPK, true, fechaFin, fechaInicio, horaInicio, lugar, observacion));
+		
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					msjs.informacionRegistroCorrecto();
+					buscarCronograma();
+					limpiar();
 				}
-				msjs.informacionRegistroCorrecto();
-				buscarCronograma();
-				limpiar();
 			}
 		}
 	
