@@ -26,7 +26,6 @@ import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.Soporte;
-import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.transacciones.ListaBuscarRecaudosEntregados;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
@@ -276,9 +275,9 @@ public class VMCargarRecaudoEntregado {
 					doc.setTipoDocumento(media.getContentType());
 					doc.setContenidoDocumento(media.getByteData());
 					
-					SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
+					/*SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
 														Integer.parseInt(componente.getAttribute("idTipoMotivo").toString()),
-														lapso, cedula, instancia);
+														lapso, cedula, instancia);*/
 					
 					//Soporte soporte = new Soporte(soportePK,true,new Date(),doc);
 					//serviciosoporte.guardar(soporte);
@@ -293,14 +292,14 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({"listaRecaudos" })
 	public void eliminarRecaudoEntregado(@ContextParam(ContextType.COMPONENT) Component componente) {			
-		SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
+		/*SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
 											Integer.parseInt(componente.getAttribute("idTipoMotivo").toString()),
 											lapso, cedula, instancia);
 		if (serviciosoporte.buscarSoportePorID(soportePK) != null){
 			serviciosoporte.eliminar(soportePK);
 			buscarRecaudosEntregados(cedula);
 			msjs.informacionEliminarCorrecto();
-		}
+		}*/
 	}
 
 	public String getAsignaturaLapsosConsecutivos() {
