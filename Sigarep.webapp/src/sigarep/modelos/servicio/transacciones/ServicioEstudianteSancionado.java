@@ -12,7 +12,6 @@ import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
-import sigarep.viewmodels.transacciones.EstudianteSancionadoFiltros;
 
 @Service("servicioestudiantesancionado")
 public class ServicioEstudianteSancionado {
