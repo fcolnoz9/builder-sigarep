@@ -5,12 +5,11 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 
 /*
- * Debe declarar una variable tipo mensajes como estándar mensajeAlUsuario(mensajes mensajeAlUsuario = new mensajes();) en donde usará los mensajes (su clase viewmodels), 
+ * Debe declarar una variable tipo MensajesAlUsuario como estándar mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) en donde usará los mensajes (su clase viewmodels), 
  * primero importe el paquete herramientas
  * Cuando vaya a usar algún mensaje coloca mensajeAlUsuario.NombreDelMetodo();
  * por ejemplo: mensajeAlUsuario.advertenciaLlenarCampos();
- * Lea los estándaresInterfacesV1.2 para que observe cuáles son los mensajes que puede necesitar.
- * si necesita algún otro mensaje agréguelo a esta clase, en orden.
+ * Si necesita algún otro mensaje agréguelo a esta clase, en orden.
  * por ejemplo: si es de advertencia, debajo del último de advertencia.
  * 
  * */
