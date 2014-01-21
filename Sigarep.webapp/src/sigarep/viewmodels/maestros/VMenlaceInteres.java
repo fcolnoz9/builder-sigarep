@@ -23,6 +23,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.Archivo;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 
@@ -32,7 +33,7 @@ import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
  * Copyright 2013 Builder. Todos los derechos reservados.
  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
  * Esta clase es del registro del maestro "EstadoApelacion"
- * @ Author Lilibeth Achji 
+ * @ Author Builder 
  * @ Version 1.0, 16/12/13
  */
 
@@ -54,6 +55,7 @@ public class VMenlaceInteres {
 	private Media media;
 	private List<EnlaceInteres> listaEnlaces;
 	private EnlaceInteres enlaceSeleccionado;
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
     @Wire Textbox txtnombre_enlace;
     @Wire Window ventana;
     
@@ -126,15 +128,18 @@ public class VMenlaceInteres {
 	public void setListaEnlaces(List<EnlaceInteres> listaEnlaces) {
 		this.listaEnlaces = listaEnlaces;
 	}
+	
 	public EnlaceInteres getEnlaceSeleccionado() {
 		return enlaceSeleccionado;
 	}
 	public void setEnlaceSeleccionado(EnlaceInteres enlaceSeleccionado) {
 		this.enlaceSeleccionado = enlaceSeleccionado;
 	}
+	
 // fin Getters and Setters	
 	   
-//Código de inicialización		
+
+	//Código de inicialización		
     @Init
     public void init(){
     	imagen = new Archivo();
@@ -146,15 +151,17 @@ public class VMenlaceInteres {
     @Command
     @NotifyChange({"idEnlace", "nombreEnlace", "direccionEnlace", "descripcion","estatus", "imagenes","listaEnlaces" })
     public void guardar(){
-    	if (nombreEnlace==null || direccionEnlace==null || descripcion==null || imagen.getTamano() < 1)
-    		Messagebox.show("Debes Llenar Todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+    	if (nombreEnlace==null || direccionEnlace==null || descripcion==null )
+    		mensajeAlUsuario.advertenciaLlenarCampos();
     	else if (imagen.getTamano() < 1)
-			Messagebox.show("¡Debe Cargar una Imagen!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+    		mensajeAlUsuario.advertenciaCargarImagen();
     	else{
     		EnlaceInteres enlace = new EnlaceInteres(idEnlace, nombreEnlace, direccionEnlace, descripcion, true, imagen);
     		servicioenlacesinteres.guardarEnlace(enlace);
-    		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);    	}
     		limpiar();
+    		mensajeAlUsuario.informacionRegistroCorrecto();
+        	}
+    		
     }
      
 
@@ -180,9 +187,9 @@ public class VMenlaceInteres {
     @Command
     @NotifyChange({"idEnlace", "nombreEnlace", "direccionEnlace", "descripcion","estatus","imagenes" })
     public void limpiar(){
-    	nombreEnlace= "";
-    	direccionEnlace="";
-        descripcion = "";
+    	nombreEnlace= null;
+    	direccionEnlace=null;
+        descripcion = null;
         idEnlace = null;
         media = null;
 		imagenes = null;
@@ -193,7 +200,7 @@ public class VMenlaceInteres {
     @Command
     @NotifyChange({"listaEnlaces"})
 	private void buscarEnlaceInteres() {
-		listaEnlaces = servicioenlacesinteres.buscarEnlacesCodigo(idEnlace);
+		listaEnlaces = servicioenlacesinteres.listadoEnlaceInteres();
 	}
 //Permite la búsqueda por id en el filtro,  en ActualizarEnlace.zul,viene de VMenlaceInteres	
     @Command
@@ -215,26 +222,27 @@ public class VMenlaceInteres {
        }
 //Elimina un registro logicamente, utiliza la clase mensajes del paquete herramientas.  
   	@Command
-  	@NotifyChange({"nombreEnlace, direccionEnlace, descripcion, listaEnlaces"})
+  	@NotifyChange({"nombreEnlace", "direccionEnlace", "descripcion", "listaEnlaces", "imagenes"})
   	public void eliminarEnlaceSeleccionado(){
   		if (nombreEnlace==null || direccionEnlace==null ||descripcion==null || imagen.getTamano() < 1) {
-			Messagebox.show("Debes Seleccionar un Enlace", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
-		} else {
-  		
+  			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+		} 
+  		else {
   		servicioenlacesinteres.eliminar(idEnlace);
-  		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+  		mensajeAlUsuario.informacionEliminarCorrecto();
   		limpiar();
   	}
+  		
  }   
 //muestra en el área de datos el registro seleccionado.	  	
 	@Command
-    @NotifyChange({"idEnlace", "nombreEnlace","direccionEnlace", "descripcion","estatus", "imagenes" })
+    @NotifyChange({"idEnlace", "nombreEnlace","direccionEnlace", "descripcion","estatus", "imagenes", "imagen" })
 	public void mostrarEnlace(){
 		idEnlace= enlaceSeleccionado.getIdEnlace();
 		nombreEnlace = enlaceSeleccionado.getNombreEnlace();
 		direccionEnlace = enlaceSeleccionado.getDireccionEnlace();
 		descripcion = enlaceSeleccionado.getDescripcion();
+		imagen = enlaceSeleccionado.getImagen();
 		if (enlaceSeleccionado.getImagen().getTamano() > 0){
 			try {
 				imagenes = new AImage(enlaceSeleccionado.getImagen().getNombreArchivo(), enlaceSeleccionado.getImagen().getContenidoArchivo());
@@ -242,8 +250,8 @@ public class VMenlaceInteres {
 				// TODO Auto-generated catch block
 			}
 		}
-		else
-			imagenes = null;
+		else{
+			imagenes = null;}
 	}    
 }//fin VMenlaceInteres.
 

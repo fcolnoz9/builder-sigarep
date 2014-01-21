@@ -20,13 +20,12 @@ public class ServicioEnlaceInteres {
 	//Permite la eliminación lógica del registro, por id, busca el id y cambia su estatus a false, 
 	//la llamada enlaceinteres.save(enlaceBorrarLogico); actualiza el estatus del registro.
 		public void eliminar(Integer idEnlace) {
-			EnlaceInteres enlaceBorrarLogico = enlaceinteres.findOne(idEnlace);
-			enlaceBorrarLogico.setEstatus(false);
-			enlaceinteres.save(enlaceBorrarLogico);
+			EnlaceInteres enlaceBorrarFisico = enlaceinteres.findOne(idEnlace);
+			enlaceinteres.delete(enlaceBorrarFisico);
 		}
 	//Utiliza IEnlaceInteresDAO, el cual trae todos los registros en true,los que no han sido eliminado logicamente
 		public List<EnlaceInteres> listadoEnlaceInteres() {
-			return enlaceinteres.listaEnlaceLogico();
+			return enlaceinteres.findAll();
 		}
 
 		//Permite la búsqueda por id en el filtro buscarEnlaceFiltroId() de VMenlaceInteres

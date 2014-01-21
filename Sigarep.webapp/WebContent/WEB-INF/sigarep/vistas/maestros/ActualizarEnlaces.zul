@@ -1,6 +1,6 @@
 <zk>
 	<window id="winEnlaceinteres"
-		title="Configuración Web::Enlaces de Interes" width="auto"
+		title="Configuración Web::Enlaces de Interés" width="auto"
 		height="auto" closable="true" border="normal"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm')@init('sigarep.viewmodels.maestros.VMenlaceInteres')">
@@ -9,64 +9,82 @@
 <!-- Contiene los campos que requieren llenarse con los datos del enlace -->
 		<groupbox id="grbDatosEnlace">
 		<caption label="Datos del Enlace" />
-		<grid  width="auto">
+		<!-- Grid exterior -->
+		<grid id= "grdDatosImagenEnlaces" width="auto">
 			<columns>
-				<column label="" width="70%"></column>
-				<column label="" width="30%"></column>
+			    <column valign="top" label="" width="70%"></column>
+				<column valign="top" label="" width="30%"></column>
 			</columns>
 			<rows>
 				<row>
-					<grid  width="auto">
+					<!-- Grid interior-->
+					<grid  id= "grdEnlaces" width="auto">
 						<columns>
-							<column label="" width="35%" />
-							<column label="" width="65%" />
+							<column label="" width="40%" />
+							<column label="" width="60%" />
 						</columns>
 						<rows>
-					<row>
-						<label id="lblNombreEnlace"
-						value="Nombre:" width="150px" />
-						<textbox 
-						constraint="no empty: Ingrese en Nombre del Enlace"
-						id="txtNombreEnlace" 
-						width="150px" tabindex="2" 
-						value="@bind(vm.nombreEnlace)" />
-					</row>
-					<row>
+							<row>
+								<label id="lblNombreEnlace"
+								value="Nombre:"/>
+								<textbox 
+								constraint="no empty: Ingrese en Nombre del Enlace"
+								id="txtNombreEnlace" mold="rounded"
+								width="80%" tabindex="2" 
+								value="@bind(vm.nombreEnlace)" />
+							</row>
+							<row>
 								<label id="lblDireccionEnlace"
-						value="Dirección:" width="150px" />
-						<textbox constraint="no empty: Ingrese la Direción del Enlace"
-						id="txtDireccionEnlace"
-						width="150px" tabindex="2" 
-						value="@bind(vm.direccionEnlace)" />
-					</row>
-					<row>
+								value="Dirección:"/>
+								<textbox constraint="no empty: Ingrese la Direción del Enlace"
+								id="txtDireccionEnlace" mold="rounded"
+								width="80%" tabindex="2" 
+								value="@bind(vm.direccionEnlace)" />
+							</row>
+							<row>
 								<label id="lblDescripcionEnlace"
-						value="Descripción:" width="150px" />
-						<textbox constraint="no empty: Ingrese la Descripción del Enlace"
-						id="txtDescripcionEnlace"
-						width="150px" tabindex="3" 
-						value="@bind(vm.descripcion)" />
-					</row>
-				</rows>
-				</grid>
+								value="Descripción:"/>
+								<textbox constraint="no empty: Ingrese la Descripción del Enlace"
+								id="txtDescripcionEnlace" mold="rounded"
+								width="77%"  rows="3" tabindex="2"
+								value="@bind(vm.descripcion)" />
+							</row>
+						</rows>
+					</grid>
 					<vlayout>
-					<button label="Cargar Imagen" id="btnImagen2"
-					upload="true"
-					onUpload="@command('cargarImagen',upload=event)">
-					</button>
-					<image id="imgImagenEnlace" height="150px"
-					width="300px" content="@bind(vm.imagenes)" />	
-				</vlayout>
+						<button label="Cargar Imagen" id="btnImagen" src="/imagenes/iconos/cargar.png"
+						upload="true"
+						onUpload="@command('cargarImagen',upload=event)">
+						</button >
+						<image id="imgImagenEnlace"  height="50%"
+						width="100px" content="@bind(vm.imagenes)" />	
+					</vlayout>
 				</row>
 			</rows>
-</grid>
+     </grid>
 </groupbox>
-<space/>
+<separator />
+<div align="right" height="100%">
+<!-- Permite realizar acciones respecto a los Enlaces -->
+			<button label="Guardar" id="btnGuardar" mold="trendy" width="auto"
+				height="auto" image="imagenes/iconos/guardar.png"
+				onClick="@command('guardar')" />
+			<button label="Eliminar" id="btnEliminar" mold="trendy" width="auto"
+				height="auto" image="imagenes/iconos/eliminar.png"
+				onClick="@command('eliminarEnlaceSeleccionado')" />
+			<button label="Cancelar" id="btnCancelar" mold="trendy" width="auto"
+				height="auto" image="imagenes/iconos/cancelar.png"
+				onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrar" mold="trendy" width="auto"
+				height="auto" image="imagenes/iconos/cerrar.png"
+				onClick="winEnlaceinteres.onClose()" />
+</div>
+
 <!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->
 		<groupbox id="grbListadoEnlaces">
 			<caption label="Listado de Enlaces" />
-			<space />
-			<listbox id="lbxListaEnlaces" height="100%"
+		<separator />
+			<listbox id="lbxListaEnlaces" height="auto"
 				model="@bind(vm.listaEnlaces)"
 				selectedItem="@bind(vm.enlaceSeleccionado)"
 				onSelect="@command('mostrarEnlace')"
@@ -74,14 +92,6 @@
 				pageSize="10">
 				
 				<listhead>
-					
-					<listheader label="Id" align="center"
-						sort="auto(idEnlace)" > 
-					<intbox id="filtroIdEnlace" instant="true"
-							width="50px" value="@bind(vm.idEnlaceFiltro)"
-							onChange="@command('buscarEnlaceFiltroId')" />
-							<image src="/imagenes/iconos/buscar.png"/>
-					</listheader>
 					<listheader label="Nombre" align="center"
 						sort="auto(nombreEnlace)" >
 					<textbox id="filtroNombreEnlace" instant="true"
@@ -105,7 +115,6 @@
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
-						<listcell label="${each.idEnlace}"></listcell>
 						<listcell label="${each.nombreEnlace}"></listcell>
 						<listcell label="${each.direccionEnlace}"></listcell>
 						<listcell label="${each.descripcion}"></listcell>
@@ -118,22 +127,5 @@
 			</listbox>
 			<space />
 		</groupbox>
-
-		<hlayout></hlayout>
-		<div align="right" height="100%">
-<!-- Permite realizar acciones respecto a los Enlaces -->
-			<button label="Guardar" id="btnGuardar" width="auto"
-				height="auto" image="imagenes/iconos/guardar.png"
-				onClick="@command('guardar')" />
-			<button label="Eliminar" id="btnEliminar" width="auto"
-				height="auto" image="imagenes/iconos/eliminar.png"
-				onClick="@command('eliminarEnlaceSeleccionado')" />
-			<button label="Cancelar" id="btnCancelar" width="auto"
-				height="auto" image="imagenes/iconos/cancelar.png"
-				onClick="@command('limpiar')" />
-			<button label="Cerrar" id="btnCerrar" width="auto"
-				height="auto" image="imagenes/iconos/cerrar.png"
-				onClick="winEnlaceinteres.onClose()" />
-		</div>
 	</window>
 </zk>
