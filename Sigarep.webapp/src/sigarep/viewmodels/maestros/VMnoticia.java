@@ -26,6 +26,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.data.maestros.NoticiaFiltro;
+import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.servicio.maestros.ServicioNoticia;
 
 import java.util.LinkedList;
@@ -53,31 +54,30 @@ import org.zkoss.zk.ui.Component;
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMnoticia extends SelectorComposer<Component>  {
+	public String getTitulof() {
+		return titulof;
+	}
+	public void setTitulof(String titulof) {
+		this.titulof = titulof;
+	}
 	@WireVariable ServicioNoticia servicionoticia;
-	private Integer idNoticia,idNoticiaFiltro;
-	private String contenido,contenidoFiltro;
-	private String enlaceNoticia,enlaceNoticiaFiltro;
+	private Integer idNoticia;
+	private String contenido;
+	private String enlaceNoticia;
 	private Boolean estatus;
 	private Date fechaRegistro; 
 	private Archivo fotoNoticia = new Archivo();
 	private Media mediaNoticia;
 	private AImage imagenNoticia;
-	private String titulo,tituloFiltro;
+	private String titulof="";
+	private String titulo;
 	private Date vencimiento;
-	private List<Noticia> listaNoticia;
+	private List<Noticia> listaNoticia = new LinkedList<Noticia>();
 	private Noticia noticiaSeleccionada;
+	private String rutaModal="";
 	
-	private NoticiaFiltro filtros = new NoticiaFiltro();
 	private @Wire Listbox lbxNoticias;
 	
-@NotifyChange({"filtros"})
-public NoticiaFiltro getFiltros() {
-		return filtros;
-	}
-@NotifyChange({"filtros"})
-	public void setFiltros(NoticiaFiltro filtros) {
-		this.filtros = filtros;
-	}
 	// Metodos GETS Y SETS
 	public Integer getIdNoticia() {
 		return idNoticia;
@@ -135,24 +135,6 @@ public NoticiaFiltro getFiltros() {
 	public void setNoticiaSeleccionada(Noticia noticiaSeleccionada) {
 		this.noticiaSeleccionada = noticiaSeleccionada;
 	}
-	public String getContenidoFiltro() {
-		return contenidoFiltro;
-	}
-	public String getEnlaceNoticiaFiltro() {
-		return enlaceNoticiaFiltro;
-	}
-	public String getTituloFiltro() {
-		return tituloFiltro;
-	}
-	public void setContenidoFiltro(String contenidoFiltro) {
-		this.contenidoFiltro = contenidoFiltro;
-	}
-	public void setEnlaceNoticiaFiltro(String enlaceNoticiaFiltro) {
-		this.enlaceNoticiaFiltro = enlaceNoticiaFiltro;
-	}
-	public void setTituloFiltro(String tituloFiltro) {
-		this.tituloFiltro = tituloFiltro;
-	}
 	public AImage getImagenNoticia() {
 		return imagenNoticia;
 	}
@@ -165,13 +147,6 @@ public NoticiaFiltro getFiltros() {
 	}
 	public void setFotoNoticia(Archivo fotoNoticia) {
 		this.fotoNoticia = fotoNoticia;
-	}
-
-	public Integer getIdNoticiaFiltro() {
-		return idNoticiaFiltro;
-	}
-	public void setIdNoticiaFiltro(Integer idNoticiaFiltro) {
-		this.idNoticiaFiltro = idNoticiaFiltro;
 	}
 	
 	public Media getMediaNoticia() {
@@ -268,29 +243,6 @@ public NoticiaFiltro getFiltros() {
 	
 	//Este metodo busca la noticia por el filtro de titulo
 		@Command
-		@NotifyChange({"listaNoticia"})
-		public void buscarNoticiaFiltroIdNoticia(){
-			listaNoticia =servicionoticia.buscarn(idNoticiaFiltro);
-		}
-		@Command
-		@NotifyChange({"listaNoticia"})
-		public void buscarNoticiaFiltroTitulo(){
-			listaNoticia =servicionoticia.buscarNoticia(tituloFiltro);
-		}
-		//Este metodo busca la noticia por el filtro de contenido
-		@Command
-		@NotifyChange({"listaNoticia"})
-		public void buscarNoticiaFiltroContenido(){
-			listaNoticia =servicionoticia.buscarNoticia(contenidoFiltro);
-		}
-		//Este metodo busca la noticia por el filtro de enlace
-		@Command
-		@NotifyChange({"listaNoticia"})
-		public void buscarNoticiaFiltroEnlaceNoticia(){
-			listaNoticia =servicionoticia.buscarNoticia(enlaceNoticiaFiltro);
-		}
-		
-		@Command
 		@NotifyChange("imagenNoticia")
 		public void cargarImagenNoticia(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
 			mediaNoticia = event.getMedia();
@@ -312,12 +264,6 @@ public NoticiaFiltro getFiltros() {
 		public void mostrarMensaje(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
 			mediaNoticia = event.getMedia();
 			Messagebox.show("Archivo" + mediaNoticia.getName(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-		}
-		
-		@Command
-		@NotifyChange({"listaNoticia"})
-		public void filtroNoticia(){
-			listaNoticia =servicionoticia.buscarNoticias(filtros);
 		}
 		
 		//Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
@@ -370,5 +316,11 @@ public NoticiaFiltro getFiltros() {
 			super.doAfterCompose(comp);
 			buscarNoticia();		
 		}
+		@Command
+		@NotifyChange({"titulof","listaNoticia"})
+		public void filtros(){
+				listaNoticia = servicionoticia.filtrarApelacionesCargarRecaudo(titulof);
+		}
+
 //Fin de los otros metodos.
 }
