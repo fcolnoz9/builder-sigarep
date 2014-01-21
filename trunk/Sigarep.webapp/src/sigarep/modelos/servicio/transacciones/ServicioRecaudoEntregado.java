@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
+import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.repositorio.transacciones.IRecaudoEntregadoDAO;
 
 @Service("serviciorecaudoentregado")
@@ -28,11 +29,11 @@ public class ServicioRecaudoEntregado {
 		return iRecaudoEntregadoDAO.save(recaudoentregado);
 	}
 	
-	public List<ListaCargarRecaudoEntregado> buscarApelacionesCargarRecaudo() {
+	public List<ListaGenericaSancionados> buscarApelacionesCargarRecaudo() {
 		String tiraSql =
-			"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido,"+
-				"sa.nombre_sancion, es.email, p.nombre_programa, la.codigo_lapso, i.id_instancia_apelada,"+ 
-				"es.segundo_nombre, es.segundo_apellido, sap.numero_caso, esa.lapsos_academicos_rp "+
+			"SELECT es.cedula_estudiante, es.primer_nombre, es.segundo_nombre, es.primer_apellido,"+
+				"es.segundo_apellido, es.email, p.nombre_programa, esa.indice_grado, sa.nombre_sancion," +
+				"esa.lapsos_academicos_rp, la.codigo_lapso, sap.numero_caso, i.id_instancia_apelada "+ 
 			"FROM sancion_maestro sa, programa_academico p, lapso_academico la, instancia_apelada i,"+
 				"solicitud_apelacion sap, estudiante es, estudiante_sancionado AS esa " +
 			"WHERE sa.id_sancion = esa.id_sancion "+
@@ -49,28 +50,29 @@ public class ServicioRecaudoEntregado {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ListaCargarRecaudoEntregado> results = new ArrayList<ListaCargarRecaudoEntregado>();
+		List<ListaGenericaSancionados> results = new ArrayList<ListaGenericaSancionados>();
 		for (Object[] resultRow : resultSet) {
-			results.add(new ListaCargarRecaudoEntregado((String) resultRow[0], (String) resultRow[1],
+			results.add(new ListaGenericaSancionados((String) resultRow[0], (String) resultRow[1],
 					(String) resultRow[2], (String) resultRow[3], (String) resultRow[4],
-					(String) resultRow[5], (String) resultRow[6], (Integer)(resultRow[7]), (String) resultRow[8],
-					(String) resultRow[9], (Integer) resultRow[10], (String) resultRow[11]));
+					(String) resultRow[5], (String) resultRow[6], (float)(resultRow[7]), 
+					(String) resultRow[8], (String) resultRow[9], (String) resultRow[10],
+					(Integer) resultRow[11], (Integer) resultRow[12]));
 		}
 		return results;
 	}
 	
 	
-	public List<ListaCargarRecaudoEntregado> filtrarApelacionesCargarRecaudo(
+	public List<ListaGenericaSancionados> filtrarApelacionesCargarRecaudo(
 			String programa, String cedula, String nombre,
 			String apellido, String sancion){
-		List<ListaCargarRecaudoEntregado> result = new ArrayList<ListaCargarRecaudoEntregado>();
+		List<ListaGenericaSancionados> result = new ArrayList<ListaGenericaSancionados>();
         if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
         	result= buscarApelacionesCargarRecaudo();
         }
         else{
-			for (ListaCargarRecaudoEntregado ap : buscarApelacionesCargarRecaudo())
+			for (ListaGenericaSancionados ap : buscarApelacionesCargarRecaudo())
 			{
-				if (ap.getPrograma().toLowerCase().contains(programa.toLowerCase())&&
+				if (ap.getProgramaAcademico().toLowerCase().contains(programa.toLowerCase())&&
 						ap.getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
 						ap.getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
 						ap.getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
