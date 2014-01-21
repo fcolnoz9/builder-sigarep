@@ -48,9 +48,9 @@
 					<textbox id="txtPeridosancion" cols="23"
 						maxlength="30" value="" readonly="true">
 					</textbox>
-					<label id="lblAsignatura" value="Asignatura: " />
-					<textbox id="txtAsignatura" cols="23"
-						maxlength="30" value="" readonly="true">
+					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55"
+						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -66,7 +66,7 @@
 	            <column label="Soporte de Recaudo" hflex="3" align="left"></column>
 	            <column label="Opciones de Carga" hflex="3" align="left"></column>
 	        </columns>
-	        <rows sclass="narrow">
+	       <rows sclass="narrow">
 	        	<template name="model">
 		            <row>
 		            	<label value="${each.nombreTipoMotivo}" />

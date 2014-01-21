@@ -23,9 +23,14 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.Asignatura;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.data.transacciones.SoportePK;
+import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.transacciones.ListaBuscarRecaudosEntregados;
+import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
@@ -37,8 +42,8 @@ public class VMCargarRecaudoEntregado {
 	private String sancion;
 	private String programa;
 	private String email;
-	private String apellido;
-	private String nombre;
+	private String primerApellido;
+	private String primerNombre;
 	private String lapso;
 	private Integer instancia;
 	private String recaudo;
@@ -46,8 +51,11 @@ public class VMCargarRecaudoEntregado {
 	private String segundoApellido;
 	private String nombres;
 	private String apellidos;
-	private String asignatura;
+	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private Integer caso;
+	private String lapsosConsecutivos;
+	private String asignaturaLapsosConsecutivos="";
+	private String labelAsignaturaLapsosConsecutivos;
 	
 	private Documento doc = new Documento();
 	private Media media;
@@ -55,6 +63,10 @@ public class VMCargarRecaudoEntregado {
 
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	@WireVariable
+	private ServicioAsignatura servicioAsignatura;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
 	@WireVariable
@@ -82,14 +94,6 @@ public class VMCargarRecaudoEntregado {
 
 	public void setCaso(Integer caso) {
 		this.caso = caso;
-	}
-
-	public String getAsignatura() {
-		return asignatura;
-	}
-
-	public void setAsignatura(String asignatura) {
-		this.asignatura = asignatura;
 	}
 
 	public String getApellidos() {
@@ -124,23 +128,7 @@ public class VMCargarRecaudoEntregado {
 	public void setRecaudo(String recaudo) {
 		this.recaudo = recaudo;
 	}
-
-	public String getSegundoNombre() {
-		return segundoNombre;
-	}
-
-	public void setSegundoNombre(String segundoNombre) {
-		this.segundoNombre = segundoNombre;
-	}
-
-	public String getSegundoApellido() {
-		return segundoApellido;
-	}
-
-	public void setSegundoApellido(String segundoApellido) {
-		this.segundoApellido = segundoApellido;
-	}
-
+	
 	public Integer getInstancia() {
 		return instancia;
 	}
@@ -189,28 +177,12 @@ public class VMCargarRecaudoEntregado {
 		this.email = email;
 	}
 
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public void concatenacionNombres() {
-		nombres = nombre + " " + segundoNombre;
+		nombres = primerNombre + " " + segundoNombre;
 	}
 
 	public void concatenacionApellidos() {
-		apellidos = apellido + " " + segundoApellido;
+		apellidos = primerApellido + " " + segundoApellido;
 	}
 
 	@Init
@@ -226,12 +198,13 @@ public class VMCargarRecaudoEntregado {
 		@ExecutionArgParam("instancia") Integer v8,
 		@ExecutionArgParam("segundoNombre") String v9,
 		@ExecutionArgParam("segundoApellido") String v10,
-		@ExecutionArgParam("caso") Integer v11)
+		@ExecutionArgParam("caso") Integer v11,
+		@ExecutionArgParam("lapsosConsecutivos") String v12)
 	{
 		Selectors.wireComponents(view, this, false);
 		this.cedula = v1;
-		this.nombre = v2;
-		this.apellido = v3;
+		this.primerNombre = v2;
+		this.primerApellido = v3;
 		this.email = v4;
 		this.programa = v5;
 		this.sancion = v6;
@@ -240,9 +213,23 @@ public class VMCargarRecaudoEntregado {
 		this.segundoNombre = v9;
 		this.segundoApellido = v10;
 		this.caso = v11;
-
+		this.lapsosConsecutivos = v12;
+		
 		concatenacionNombres();
 		concatenacionApellidos();
+		
+		if (sancion.equalsIgnoreCase("RR")){
+			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i=0; i<asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		}
+		else{
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
+
 		media = null;
 		doc = new Documento();
 		buscarRecaudosEntregados(cedula);
@@ -304,12 +291,33 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({"listaRecaudos" })
 	public void eliminarRecaudoEntregado(@ContextParam(ContextType.COMPONENT) Component componente) {			
+		System.out.println("*****AQUI ENTRO****");
+		System.out.println(componente.getAttribute("idRecaudo").toString());
 		SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
 											Integer.parseInt(componente.getAttribute("idTipoMotivo").toString()),
 											lapso, cedula, instancia);
-		serviciosoporte.eliminar(soportePK);
-		buscarRecaudosEntregados(cedula);
-		msjs.informacionEliminarCorrecto();
+		if (serviciosoporte.buscarSoportePorID(soportePK) != null){
+			serviciosoporte.eliminar(soportePK);
+			buscarRecaudosEntregados(cedula);
+			msjs.informacionEliminarCorrecto();
+		}
+	}
+
+	public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
 	}
 
 }

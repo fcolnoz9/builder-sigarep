@@ -32,12 +32,9 @@ public class ServicioRecaudoEntregado {
 		String tiraSql =
 			"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido,"+
 				"sa.nombre_sancion, es.email, p.nombre_programa, la.codigo_lapso, i.id_instancia_apelada,"+ 
-				"es.segundo_nombre, es.segundo_apellido, a.nombre_asignatura, sap.numero_caso "+
+				"es.segundo_nombre, es.segundo_apellido, sap.numero_caso, esa.lapsos_academicos_rp "+
 			"FROM sancion_maestro sa, programa_academico p, lapso_academico la, instancia_apelada i,"+
-				"solicitud_apelacion sap, estudiante es,"+
-				"estudiante_sancionado AS esa LEFT JOIN asignatura_estudiante_sancionado AS aesa ON "+
-				"(aesa.codigo_lapso = esa.codigo_lapso AND aesa.cedula_estudiante = esa.cedula_estudiante) "+
-				"LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura "+
+				"solicitud_apelacion sap, estudiante es, estudiante_sancionado AS esa " +
 			"WHERE sa.id_sancion = esa.id_sancion "+
 			"AND esa.codigo_lapso = la.codigo_lapso "+
 			"AND i.id_instancia_apelada = sap.id_instancia_apelada "+
@@ -57,7 +54,7 @@ public class ServicioRecaudoEntregado {
 			results.add(new ListaCargarRecaudoEntregado((String) resultRow[0], (String) resultRow[1],
 					(String) resultRow[2], (String) resultRow[3], (String) resultRow[4],
 					(String) resultRow[5], (String) resultRow[6], (Integer)(resultRow[7]), (String) resultRow[8],
-					 (String)resultRow[9],(String) resultRow[10], (Integer) resultRow[11]));
+					(String) resultRow[9], (Integer) resultRow[10], (String) resultRow[11]));
 		}
 		return results;
 	}

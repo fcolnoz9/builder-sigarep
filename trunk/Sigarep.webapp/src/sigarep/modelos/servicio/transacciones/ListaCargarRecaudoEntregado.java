@@ -12,13 +12,13 @@ public class ListaCargarRecaudoEntregado {
 	private Integer instancia;
 	private String segundoNombre;
 	private String segundoApellido;
-	private String asignatura;
 	private Integer caso;
+	private String lapsosConsecutivos;
 
 	public ListaCargarRecaudoEntregado(String cedulaEstudiante, String primerNombre,
 			String primerApellido, String nombreSancion, String email,
 			String programa, String lapso, Integer instancia, String segundoNombre,
-			String segundoApellido, String asignatura, Integer caso) {
+			String segundoApellido, Integer caso,String lapsosConsecutivos) {
 		super();
 		this.cedulaEstudiante = cedulaEstudiante;
 		this.primerNombre = primerNombre;
@@ -28,12 +28,10 @@ public class ListaCargarRecaudoEntregado {
 		this.programa = programa;
 		this.lapso = lapso;	
 		this.instancia = instancia;
-	
-	
 		this.segundoNombre = segundoNombre;
 		this.segundoApellido = segundoApellido;
-		this.asignatura = asignatura;
 		this.caso = caso;
+		this.lapsosConsecutivos = lapsosConsecutivos;
 	
 	}
 
@@ -43,14 +41,6 @@ public class ListaCargarRecaudoEntregado {
 
 	public void setCaso(Integer caso) {
 		this.caso = caso;
-	}
-
-	public String getAsignatura() {
-		return asignatura;
-	}
-
-	public void setAsignatura(String asignatura) {
-		this.asignatura = asignatura;
 	}
 
 	public String getSegundoNombre() {
@@ -136,6 +126,14 @@ public class ListaCargarRecaudoEntregado {
 
 	public ListaCargarRecaudoEntregado() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getLapsosConsecutivos() {
+		return lapsosConsecutivos;
+	}
+
+	public void setLapsosConsecutivos(String lapsosConsecutivos) {
+		this.lapsosConsecutivos = lapsosConsecutivos;
 	}
 
 }
