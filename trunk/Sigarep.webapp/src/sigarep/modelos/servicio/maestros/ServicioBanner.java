@@ -1,5 +1,6 @@
 package sigarep.modelos.servicio.maestros;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,34 +32,26 @@ public class ServicioBanner {
 	public List<Banner> listadoBanner() {
 		return banner.listaBanner();
 	}
-
 	
-	public List<Banner> buscarBannerTitulo(String titulo) {
-		List<Banner> result = new LinkedList<Banner>();
-		if (titulo == null || "".equals(titulo)) {
-			result = listadoBanner();
-		} else {
-			for (Banner bann : listadoBanner()) {
-				if (bann.getTitulo().toLowerCase()
-						.contains(titulo.toLowerCase())){
-					result.add(bann);
+	public List<Banner> buscarFiltroBanner(String titulo, String enlace){
+		List<Banner> result = new ArrayList<Banner>();
+        if(titulo==null || enlace==null){
+        	result= listadoBanner();
+        }
+        else{
+			for (Banner b: listadoBanner())
+			{
+				if (b.getTitulo().toLowerCase().contains(titulo.toLowerCase())&&
+					b.getEnlace().toLowerCase().contains(enlace.toLowerCase())){
+					result.add(b);
 				}
 			}
-		}
+        }
 		return result;
+        } 
+	
+	public List<Banner> buscarTodosBanner() {
+			return banner.listaBanner();
 	}
 	
-	public List<Banner> buscarBannerEnlace(String enlace) {
-		List<Banner> result = new LinkedList<Banner>();
-		if (enlace == null || "".equals(enlace)) {
-			result = listadoBanner();
-		} else {
-			for (Banner bann : listadoBanner()) {
-				if (bann.getEnlace().toLowerCase().contains(enlace.toLowerCase())){
-					result.add(bann);
-				}
-			}
-		}
-		return result;
-	}
 }

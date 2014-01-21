@@ -16,7 +16,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 
-import sigarep.herramientas.mensajes;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.maestros.Banner;
 import sigarep.modelos.servicio.maestros.ServicioBanner;
@@ -26,21 +26,20 @@ public class VMBanner {
 
 	@WireVariable ServicioBanner servicioBanner;
 	private Integer idImagen;
-	private String descripcion="";
-	private String enlace="";
-	private String titulofiltro;
-	private String enlacefiltro;
+	private String descripcion;
+	private String enlace;
 	private Date fechaVencimiento;
-	private String titulo="";
+	private String titulo;
 	private Boolean estatus;
 	private List<Banner> listadoBanner;
 	private Banner bannerSeleccionado;
 	private Archivo fotoBanner = new Archivo();
 	private Media media;
 	private AImage imagenBanner;
-	mensajes mensajeBanner= new mensajes();
+	MensajesAlUsuario mensajeBanner= new MensajesAlUsuario();
 	
 	//Metodos Get y Set de la clase 
+	
 	public Integer getIdImagen() {
 		return idImagen;
 	}
@@ -104,21 +103,7 @@ public class VMBanner {
 	public void setBannerSeleccionado(Banner bannerSeleccionado) {
 		this.bannerSeleccionado = bannerSeleccionado;
 	}
-	public String getTitulofiltro() {
-		return titulofiltro;
-	}
-
-	public void setTitulofiltro(String titulofiltro) {
-		this.titulofiltro = titulofiltro;
-	}
-
-	public String getEnlacefiltro() {
-		return enlacefiltro;
-	}
-
-	public void setEnlacefiltro(String enlacefiltro) {
-		this.enlacefiltro = enlacefiltro;
-	}
+	
 	public AImage getImagenBanner() {
 		return imagenBanner;
 	}
@@ -134,14 +119,30 @@ public class VMBanner {
 	public void init(){
         //initialization code
 		fechaVencimiento= null;
+		titulo="";
+		enlace= "";
+		descripcion= ""; 
 		media= null;
 		fotoBanner= new Archivo();
-		buscarBanner();
+		buscarTodosLosBanner();
     }
 	
 		// Metodos de la clase
+
+		@Command
+		@NotifyChange({"listadoBanner"})
+		public void filtrosBanner(){
+			listadoBanner =servicioBanner.buscarFiltroBanner(titulo,enlace);
+		}
+	
+		/** Guardar Datos del Banner.
+		 	* @param Ninguno
+		 	* @return Banner Guardado
+		 	* @throws No dispara ninguna excepcion.
+		 */
+
 		@Command // Permite manipular la propiedad de ViewModel
-		@NotifyChange({"idImagen","descripcion","enlace","fechaVencimiento","titulo","estatus","imagenBanner","listadoBanner"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
+		@NotifyChange({"descripcion","enlace","fechaVencimiento","titulo","estatus","imagenBanner","listadoBanner"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 		public void guardarBanner(){
 			if (descripcion.equals("")||enlace.equals("")||titulo.equals(""))
 				mensajeBanner.advertenciaLlenarCampos();
@@ -155,6 +156,12 @@ public class VMBanner {
 			}
 		}
 		
+		/** Eliminar Banner.
+	 		* @param Integer idImagen
+	 		* @return Banner Eliminado
+	 		* @throws No dispara ninguna excepcion.
+	 	*/
+		
 		@Command
 		@NotifyChange({"listadoBanner","descripcion","fechaVencimiento","enlace","titulo","imagenBanner"})
 		public void eliminarImagenBanner(){
@@ -167,8 +174,14 @@ public class VMBanner {
 			}
 		}
 		
+		/** Limpiar.
+	 		* @param Ninguno
+	 		* @return Limpiar cada una de las cajas de texto de la vista
+	 		* @throws No dispara ninguna excepcion.
+	 	*/
+		
 		@Command
-		@NotifyChange({"descripcion","fechaVencimiento","enlace","titulo","imagenBanner"})
+		@NotifyChange({"descripcion","fechaVencimiento","enlace","titulo","imagenBanner","bannerSeleccionado","listadoBanner"})
 		public void limpiar(){
 			idImagen= null; 
 			descripcion="";
@@ -178,35 +191,37 @@ public class VMBanner {
 			 imagenBanner= null;
 			 fotoBanner = new Archivo();
 			 fechaVencimiento= null;//new Date();
-			 buscarBanner();
+			 bannerSeleccionado= null;
+			 buscarTodosLosBanner();
 		}
 		
-		@Command
-        @NotifyChange({"listadoBanner"})
-        public void buscarBannerFiltroTitulo(){
-                listadoBanner = servicioBanner.buscarBannerTitulo(titulofiltro);
-        }
-        //Este metodo busca el banner por el filtro de enlace
-        @Command
-        @NotifyChange({"listadoBanner"})
-        public void buscarBannerFiltroEnlace(){
-        	listadoBanner = servicioBanner.buscarBannerEnlace(enlacefiltro);
-        }
 		
+        /** Buscar Banner.
+	 		* @param String Titulo
+	 		* @return Todos los Banner en la lista que están registrados en la Base de Datos
+	 		* @throws No dispara ninguna excepcion.
+	 	*/
+        
 		@Command
 		@NotifyChange({"titulo","descripcion","idImagen","enlace","fechaVencimiento","listadoBanner","imagenBanner"})
-		public void buscarBanner(){
-			listadoBanner =servicioBanner.buscarBannerTitulo(titulo);
+		public void buscarTodosLosBanner(){
+			listadoBanner =servicioBanner.buscarTodosBanner();
 		}
 		
+		/** Guardar Datos del Banner.
+	 		* @param Ninguno
+	 		* @return Llena cada una de las cajas de texto al seleccionar un elemento de la lista
+	 		* @throws No dispara ninguna excepcion.
+	 	*/
+		
 		@Command
-		@NotifyChange({"idImagen", "descripcion","enlace","fechaVencimiento","titulo","imagenBanner"})
+		@NotifyChange({"descripcion","enlace","fechaVencimiento","titulo","imagenBanner"})
 		public void mostrarSeleccionado(){
-			idImagen=getBannerSeleccionado().getIdImagen();
+			idImagen= getBannerSeleccionado().getIdImagen();
+			titulo=getBannerSeleccionado().getTitulo();
 			descripcion=getBannerSeleccionado().getDescripcion();
 			enlace=getBannerSeleccionado().getEnlace();
 			fechaVencimiento=getBannerSeleccionado().getFechaVencimiento();
-			titulo=getBannerSeleccionado().getTitulo();
 			fotoBanner=getBannerSeleccionado().getFotoBanner();
 			if (bannerSeleccionado.getFotoBanner().getTamano() > 0){
 				try {
@@ -218,7 +233,13 @@ public class VMBanner {
 			else
 				imagenBanner = null;
 		}
+	
 		
+		/** Cargar Imagen del Banner.
+	 		* @param Ninguno
+	 		* @return Muestra Imagen Seleccionada
+	 		* @throws No dispara ninguna excepcion.
+	 	*/
 		@Command
 		@NotifyChange("imagenBanner")
 		public void cargarImagenBanner(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
@@ -236,7 +257,7 @@ public class VMBanner {
 				}
 			} 
 			else
-				Messagebox.show("Debe introducir una imagen", "Error", Messagebox.OK, Messagebox.ERROR);
+				mensajeBanner.advertenciaCargarImagen();//Messagebox.show("Debe introducir una imagen", "Error", Messagebox.OK, Messagebox.ERROR);
 		}
 		
 }

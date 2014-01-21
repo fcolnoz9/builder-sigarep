@@ -17,90 +17,66 @@
 		</columns>
 		<rows>
 			<row>
-				<label id="lblProgramas" value="Programa" />
-                <combobox readonly="true" id= "cmbPrograma" value="@bind(vm.programaAcademico.nombrePrograma)" width="auto" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
+				<label id="lblProgramas" value="Programa:" />
+                <combobox readonly="true" id= "cmbPrograma" value="Seleccione un Programa..." width="auto" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
 						  <template name="model">
 								<comboitem  label="${each.nombrePrograma}"/>
 						  </template>				
 				</combobox>
 				
-				
+				<label id="lblInstancia" value="Instancia:" />
+				<combobox readonly="true" id= "cmbInstancia" value="Seleccione una Instancia..." width="auto" mold="rounded" 
+				model="@load(vm.listaComboInstancia)" selectedItem="@bind(vm.instanciaApelada)" 
+				onSelect="@command('objetoComboInstancia')">
+					<template name="model">
+						<comboitem  label="${each.nombreRecursoApelacion}" />
+					</template>	
+				</combobox>
 			</row>
 			<row>
-				<label id="lblLapsoInicial" value="Lapso Inicial" />
+				<label id="lblLapso" value="Lapso:" />
 				
-				<combobox readonly="true" id= "cmblapsoInicial" value="@bind(vm.lapsoAcademico.codigoLapso)" width="auto" mold="rounded" 
+				<combobox readonly="true" id= "cmbLapso" value="Seleccione un Lapso..." width="auto" mold="rounded" 
 				model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" 
 				onSelect="@command('objetoComboLapso')">
 					<template name="model">
 						<comboitem  label="${each.codigoLapso}" />
 					</template>	
 				</combobox>
-				
-				<label id="lblLapsoFinal" value="Lapso Final" />
-				
-				<combobox readonly="true" id= "cmblapsoFinal" value="@bind(vm.lapsoAcademicoFinal.codigoLapso)" width="auto" mold="rounded" model="@load(vm.listaComboLapsoFinal)" selectedItem="@bind(vm.lapsoAcademicoFinal)" onSelect="@command('objetoComboLapsoFinal')">
+				Tipo de Archivo : <listbox id="format" mold="select" model="@load(vm.reportTypesModel)" 
+							selectedItem="@bind(vm.reportType)">
 					<template name="model">
-						<comboitem  label="${each.codigoLapso}" />
-					</template>	
-				</combobox>
+						<listitem value="@load(each)" label="@load(each.label)"></listitem>
+					</template>
+				</listbox>
 			</row>
 		
 		</rows>
 	</grid>	
-
-
-
-
-<div align="right">
-<button id="btnGenerar" width="auto"  height="auto" label="Generar" onClick="@command('buscarListaAsigMayorSancionados')"
-			image="/imagenes/iconos/generar.png" orient="horizontal" mold= "trendy">
-		</button>
-</div>		
-</hbox>
-		
- 
-</groupbox> 
-
-<groupbox id="grbGrafico">
-<caption id="lblGrafico" label="Gráfico" />
-
 	
-	<flashchart id="chart" width="570" height="300" style="font-weight:bold"
-		type="@bind(vm.type)" 
-		model="@bind(vm.model)"/>
+</hbox> 
 
-
-
-</groupbox> 
-
-
-<groupbox id="grbListadeDatos">
-<caption id="lblListaDeDatos" label="Lista de Datos" />		
-	<listbox id="lbxListaAsignaturasSancionados" model= "@bind(vm.listaAsig)" emptyMessage="No hay registros" width="auto">
-        <listhead>
-			<listheader label="Asignaturas" width="auto" align="center" />
-			
-			<listheader label="Cantidad Sancionados" width="auto" align="center" />
-		</listhead>
-			
-			<template name="model">
-				<listitem selected="">
-					<listcell label="${each.nombreAsignatura}" />
-					<listcell label="${each.cantidadSancionados}"/>
-				</listitem>
-			</template>
-		</listbox>
-	</groupbox>
-		<div  align="right" height="100%">
-		<button id="btnImprimir" width="auto" height="auto" label="Imprimir" image="/imagenes/iconos/guardar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteAsigMayor')"/>
+ </groupbox>
+ <div align="right">
+		<button id="btnGenerarReporteAsignatura" width="auto" height="auto" label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteAsigMayor')"/>
+		<button id="btnImprimirReporteAsignatura" width="auto" height="auto" label="Imprimir" image="/imagenes/iconos/imprimir.png" orient="horizontal" mold="trendy"/>
+		<button id="btnCancelarReporteAsignatura" width="auto" height="auto" label="Cancelar" image="/imagenes/iconos/cancelar.png" orient="horizontal" mold="trendy"/>
 		
-		<button id="btnCancelar" width="auto" height="auto" label="Cancelar"
-			image="/imagenes/iconos/cancelar.png" orient="horizontal" mold="trendy">
-		</button>
-		<button id="btnSalir" width="auto" height="auto" label="Salir"
-			image="/imagenes/iconos/cerrar.png" orient="horizontal" mold="trendy">
-		</button>
-	</div>
+
+</div>
+
+
+<separator/>	
+<separator/>	
+ 
+ <groupbox>
+ <caption label="Reporte Generado"/>
+<jasperreport id="report" height="360px" 
+		src="@load(vm.reportConfig.source, after='GenerarReporteAsigMayor')" 
+		parameters="@load(vm.reportConfig.parameters, after='GenerarReporteAsigMayor')" 
+		type="@load(vm.reportConfig.type.value, after='GenerarReporteAsigMayor')" 
+		datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteAsigMayor')"/>            
+
+</groupbox>	
 	</vlayout>
 </window>
