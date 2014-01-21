@@ -12,6 +12,8 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
@@ -26,6 +28,7 @@ public class VMlapsoAcademico {
 	private Boolean estatus;
 	private List<LapsoAcademico> listaLapsoAcademico;
 	private LapsoAcademico lapsoAcademicoseleccionado;
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
     @Wire Textbox txtcodigoLapso;
     @Wire Window ventana;
   //Metodos set y get
@@ -90,16 +93,16 @@ public class VMlapsoAcademico {
 	@NotifyChange({"codigoLapso", "fechaInicio", "fechaCierre","listaLapsoAcademico"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
 	public void guardarLapso(){
 		if (codigoLapso==null||fechaInicio==null|| fechaCierre==null)
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else{   
 		   if(getListaLapsoAcademico().size()!=0){
 			   System.out.println("ESTATUS"+getListaLapsoAcademico().get(0).getEstatus());
-			   Messagebox.show("Ya Existe un Lapso Activo", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+			  mensajeAlUsuario.ErrorLapsoActivoExistente();
 		   }
 		   else{
 			   LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,fechaInicio,fechaCierre,true);
 				serviciolapsoacademico.guardarLapso(lapsoA);
-				Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+				mensajeAlUsuario.informacionRegistroCorrecto();
 				limpiarlapso();
 		   }
 		}
