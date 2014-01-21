@@ -1,0 +1,148 @@
+<zk>
+	<!-- Css -->
+	<style src="widgets/css/style.css" />
+	<html>
+		<script type="text/javascript" src="widgets/js/DP.js"></script>
+		<script type="text/javascript" defer="true">
+			window.onload = DP.inicio;
+		</script>
+	</html>
+	<!-- Inicio de la estructura del portal principal -->
+	<borderlayout hflex="1" vflex="1"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
+
+		<!-- Inicio del encabezado y el menú horizontal -->
+		<north size="120px">
+			<borderlayout>
+				<north size="95px" border="none">
+					<include
+						src="WEB-INF/layout/principal/bannerportal.zul" />
+				</north>
+				<south border="none">
+					<include
+						src="WEB-INF/layout/principal/MenuHorizontal.zul" />
+				</south>
+			</borderlayout>
+		</north>
+		<!-- Fin encabezado y menú horizontal -->
+
+		<!-- Inicio del cuerpo de la página -->
+		<center border="normal">
+			<borderlayout>
+				<!-- Inicio cuerpo izquierdo -->
+				<west size="25%" border="none">
+					<borderlayout>
+						<north title="Noticias" size="55%"
+							border="none">
+							<include src="/portalNoticias.zul" />
+						</north>
+						<center title="Guía paso a paso">
+							<hbox vflex="1" hflex="1" align="center">
+								<image
+									src="/imagenes/portal-principal/Guiaico.png"
+									style="cursor:pointer" />
+								<attribute name="onClick"><![CDATA[
+	Filedownload.save("/archivos/documentos/word.docx", null);
+]]></attribute>
+							</hbox>
+						</center>
+					</borderlayout>
+				</west>
+				<!-- Fin cuerpo izquierdo -->
+
+				<!-- Inicio cuerpo central -->
+				<center border="none">
+					<borderlayout>
+						<north size="55%" maxsize="300" border="none">
+							<html>
+								
+								<![CDATA[ <ul id="diapos"
+								style="margin-top:0px;"> <li><image
+								id="img1"
+								src="imagenes/portal-principal/6.jpg"
+								height="300px" /></li> <li><image
+								id="img2"
+								src="imagenes/portal-principal/12.jpg"
+								height="300px"/></li> <li><image
+								id="img3"
+								src="imagenes/portal-principal/divina.jpg"
+								height="300px"/></li> </ul> ]]>
+								
+							</html>
+							<!-- 							<include -->
+							<!-- 								src="WEB-INF/layout/principal/SliderImagenes.zul" /> -->
+						</north>
+						<west title="Consulta tu estado" size="50%">
+							<vbox vflex="1" hflex="1" align="center">
+								<space />
+								<div align="center">
+									<label value=" ¿Estas Sancionado?"
+										style="color:Black;font:arial;font-size:18px;font-weight:bold" />
+								</div>
+								<space />
+								<hbox align="center">
+									<image
+										src="/imagenes/portal-principal/busquedaico.png" />
+									<label value="Cedula:" />
+									<intbox id="intcedula"
+										mold="rounded" maxlength="8" width="150px"
+										value="@bind(vm.cedula)" />
+									<button label="Buscar"
+										onClick="@command('showModal')" />
+								</hbox>
+							</vbox>
+						</west>
+						<center title="Descargas">
+							<include
+								src="WEB-INF/layout/principal/Descargas.zul" />
+						</center>
+					</borderlayout>
+				</center>
+				<!-- Fin cuerpo central -->
+
+				<!-- Inicio enlaces de interes -->
+				<south size="80px" border="none">
+					<include src="enlaces.zul" />
+				</south>
+				<!-- Fin enlaces de interes -->
+			</borderlayout>
+		</center>
+
+		<!-- Inicio cuerpo derecho -->
+		<east size="25%" border="none">
+			<borderlayout>
+
+				<!-- Inicio Login -->
+				<north title="Iniciar Sesión" size="22%">
+					<include src="/login.zul" />
+				</north>
+				<!-- Fin Login -->
+
+				<!-- Inicio Cronograma de Actividades -->
+				<center title="Cronograma de Actividades">
+					<include src="/cronograma.zul" />
+				</center>
+				<!-- Fin Cronograma de Actividades -->
+
+				<!-- Inicio Twitter -->
+				<south title="Twitter" size="45%">
+					<window contentStyle="overflow:auto">
+						<include src="/widgets/twitter.html" />
+					</window>
+				</south>
+				<!-- Fin Twitter -->
+
+			</borderlayout>
+		</east>
+		<!-- Fin cuerpo derecho -->
+		<!-- Fin del cuerpo de la página -->
+
+		<!-- Inicio Pie de Página -->
+		<south size="21px">
+			<include src="WEB-INF/layout/principal/footer.zul" />
+		</south>
+		<!-- Fin Pie de Página -->
+
+	</borderlayout>
+</zk>

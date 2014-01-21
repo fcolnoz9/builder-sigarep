@@ -1,19 +1,17 @@
-<window id="winLogin" title="Iniciar Sesion" border="normal" width="100%" style="background-color:blue">
+<window id="winLogin">
 	<h:form id="f" name="f" action="j_spring_security_check"
 		method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
-	<vlayout>
-		<hlayout>
+		<hbox>
 			<label value="Usuario" style="font-size:11px" />
-			<textbox id="u" name="j_username" hflex="1" />
+			<textbox id="u" name="j_username" width="80%" />
 			<label value="Clave" style="font-size:11px" />
-			<textbox id="log_clave" hflex="1" type="password" name="j_password" />
-			<h:input type="submit" value="Entrar"/>
-<!-- 			<button href="index.zul" label="Entrar" id="btnlogin"/> -->
-		</hlayout>
-	</vlayout>	
+			<textbox id="log_clave" width="80%" type="password"
+				name="j_password" />
+			<h:input type="submit" value="Entrar" />
+		</hbox>
 	</h:form>
-		<div apply="sigarep.controlador.maestros.ModalControler2"
-			align="center">
-			<a id="ordenRecuperarContrasenna">¿Olvidó su contraseña?</a>
-		</div>
+	<div apply="sigarep.controlador.maestros.ModalControler2"
+		align="center">
+		<a id="ordenRecuperarContrasenna">¿Olvidó su contraseña?</a>
+	</div>
 </window>

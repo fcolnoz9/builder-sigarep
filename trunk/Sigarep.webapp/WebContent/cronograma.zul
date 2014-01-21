@@ -1,23 +1,20 @@
-<window title="Cronograma Actividades"
-	apply="org.zkoss.bind.BindComposer"
+<window apply="org.zkoss.bind.BindComposer" vflex="1" hflex="1"
 	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMListaCronograma')">
-	<vlayout>
-		<listbox id="lbxCronograma" height="205px"
-			model="@bind(vm.lista)" emptyMessage="En Construccion" mold="paging"
-			pageSize="5" selectedItem="@bind(vm.listaCronograma)"
-			onClick="@command('showModal')">
-			<listhead>
-				<listheader label="Fecha" align="center"
-					sort="auto(fecha_inicio)" />
-				<listheader label="Nombre" align="center"
-					sort="auto(nombre)" />
-			</listhead>
-			<template name="model">
-				<listitem>
-					<listcell label="${each.fecha_inicio}"></listcell>
-					<listcell label="${each.nombre}"></listcell>
-				</listitem>
-			</template>
-		</listbox>
-	</vlayout>
+	<listbox id="lbxCronograma" model="@bind(vm.lista)" vflex="1"
+		sizedByContent="true" span="true" emptyMessage="No hay actividades programadas"
+		mold="paging" pageSize="5" selectedItem="@bind(vm.listaCronograma)"
+		onClick="@command('showModal')">
+		<listhead height="15px">
+			<listheader label="Fecha" align="center"
+				sort="auto(fecha_inicio)" />
+			<listheader label="Nombre" align="center"
+				sort="auto(nombre)" />
+		</listhead>
+		<template name="model">
+			<listitem>
+				<listcell label="${each.fecha_inicio}"></listcell>
+				<listcell label="${each.nombre}"></listcell>
+			</listitem>
+		</template>
+	</listbox>
 </window>
