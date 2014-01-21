@@ -68,7 +68,6 @@ import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.transacciones.Soporte;
-import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
@@ -103,6 +102,7 @@ public class VMRegistrarReconsideracion {
 	private Integer caso;
 
 	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregados;
 	private String nombreRecaudo;
 	@WireVariable
 	private String nombreTipoMotivo;
@@ -155,14 +155,14 @@ public class VMRegistrarReconsideracion {
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	Soporte soporte = new Soporte();
-	SoportePK soportePK = new SoportePK();
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
 	Recaudo recaudos = new Recaudo();
 	
 	@WireVariable
-	private List<ListaRecaudosMotivoEstudiante> listaRecaudos = new LinkedList<ListaRecaudosMotivoEstudiante>();
+	//private List<ListaRecaudosMotivoEstudiante> listaRecaudos = new LinkedList<ListaRecaudosMotivoEstudiante>();
+	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
 
 	public List<ListaApelacionEstadoApelacion> getLista() {
@@ -309,14 +309,14 @@ public class VMRegistrarReconsideracion {
 		this.nombres = nombres;
 	}
 
-	public List<ListaRecaudosMotivoEstudiante> getListaRecaudos() {
-		return listaRecaudos;
-	}
-
-	public void setListaRecaudos(
-			List<ListaRecaudosMotivoEstudiante> listaRecaudos) {
-		this.listaRecaudos = listaRecaudos;
-	}
+//	public List<ListaRecaudosMotivoEstudiante> getListaRecaudos() {
+//		return listaRecaudos;
+//	}
+//
+//	public void setListaRecaudos(
+//			List<ListaRecaudosMotivoEstudiante> listaRecaudos) {
+//		this.listaRecaudos = listaRecaudos;
+//	}
 
 	public String getRecaudo() {
 		return recaudo;
@@ -490,14 +490,19 @@ public class VMRegistrarReconsideracion {
 
 	@Command
 	@NotifyChange({ "listaRecaudos" })
-	public void buscarRecaudos(String cedula) {
-		listaRecaudos = serviciolista.buscarRecaudos(cedula);
-		System.out.println(".." + nombreTipoMotivo);
-		System.out.println("---" + nombreRecaudo);
-		idTipoMotivo = listaRecaudos.get(0).getIdTipoMotivo();
-		idRecaudo = listaRecaudos.get(0).getIdRecaudo();
-
+	public void buscarRecaudosEntregados(String cedula) {
+		listaRecaudos = serviciorecaudoentregados.buscarRecaudosEntregadosReconsideracion(cedula);
 	}
+//	@Command
+//	@NotifyChange({ "listaRecaudos" })
+//	public void buscarRecaudos(String cedula) {
+//		listaRecaudos = serviciolista.buscarRecaudos(cedula);
+//		System.out.println(".." + nombreTipoMotivo);
+//		System.out.println("---" + nombreRecaudo);
+//		idTipoMotivo = listaRecaudos.get(0).getIdTipoMotivo();
+//		idRecaudo = listaRecaudos.get(0).getIdRecaudo();
+//
+//	}
 
 	// public void inhabilitar () {
 	// String materia = asignatura;
@@ -548,8 +553,8 @@ public class VMRegistrarReconsideracion {
 		concatenacionApellidos();
 		media = null;
 		doc = new Documento();
-		buscarRecaudos(cedula);
-		System.out.println("clase" + listaRecaudos);
+		//buscarRecaudos(cedula);
+		buscarRecaudosEntregados(cedula);
 	}
 
 	@Command
@@ -604,14 +609,7 @@ public class VMRegistrarReconsideracion {
 			recaudoEntregado.setId(recaudoEntregadoPK);
 			recaudoEntregado.setEstatus(true);
 
-			soportePK.setCedulaEstudiante(cedula);
-			soportePK.setCodigoLapso(lapso);
-			soportePK.setIdInstanciaApelada(2);
-			soportePK.setIdRecaudo(2);
-			soportePK.setIdTipoMotivo(idTipoMotivo);
-			soporte.setId(soportePK);
 			soporte.setDocumento(doc);
-			System.out.println("" + doc);
 			soporte.setEstatus(true);
 			soporte.setFechaSubida(fecha);
 			soporte.setRecaudoEntregado(recaudoEntregado);
@@ -621,7 +619,7 @@ public class VMRegistrarReconsideracion {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 			serviciomotivos.guardar(motivos);
-			serviciorecaudoentregado.guardar(recaudoEntregado);
+			serviciorecaudoentregados.guardar(recaudoEntregado);
 			serviciosoporte.guardar(soporte);
 			// sigarep.viewmodels.transacciones.ViewModelListaApelaciones vm =
 			// new ViewModelListaApelaciones();
@@ -662,19 +660,19 @@ public class VMRegistrarReconsideracion {
 		}
 	}
 
-	@Command
-	public void descargarDocumento(
-			@ContextParam(ContextType.COMPONENT) Component componente) {
-		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo")
-				.toString());
-		for (int j = 0; j < listaRecaudos.size(); j++) {
-			if (listaRecaudos.get(j).getIdRecaudo() == idRecaudo)
-				Filedownload.save(listaRecaudos.get(j).getContenidoDocumento(),
-						listaRecaudos.get(j).getTipoDocumento(), listaRecaudos
-								.get(j).getNombreDocumento());
-		}
-
-	}
+//	@Command
+//	public void descargarDocumento(
+//			@ContextParam(ContextType.COMPONENT) Component componente) {
+//		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo")
+//				.toString());
+//		for (int j = 0; j < listaRecaudos.size(); j++) {
+//			if (listaRecaudos.get(j).getIdRecaudo() == idRecaudo)
+//				Filedownload.save(listaRecaudos.get(j).getContenidoDocumento(),
+//						listaRecaudos.get(j).getTipoDocumento(), listaRecaudos
+//								.get(j).getNombreDocumento());
+//		}
+//
+//	}
 
 	@Command
 	public void cargarDocumento(
