@@ -1,15 +1,11 @@
 package sigarep.viewmodels.maestros;
-import org.zkoss.zul.Button;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Window;
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.servicio.maestros.ServicioPreguntaBasica;
 
@@ -19,10 +15,6 @@ import sigarep.modelos.servicio.maestros.ServicioPreguntaBasica;
 public class VMpreguntaBasica {
 	@WireVariable ServicioPreguntaBasica serviciopreguntabasica;
 	private Integer idPreguntaBasica;private String pregunta; private String respuesta;private Boolean estatus;
-    @Wire Textbox txtpregunta;
-    @Wire Textbox txtrespuesta;
-    @Wire Button btnGuardarPregunta;
-    @Wire Window winPreguntaBasica;
     private List<PreguntaBasica> listaPregunta;
 	private PreguntaBasica preguntaseleccionada;
     
@@ -116,6 +108,7 @@ public class VMpreguntaBasica {
 	@Command
 	@NotifyChange({"pregunta","respuesta"})
 	public void mostrarSeleccionada(){
+		idPreguntaBasica = getPreguntaseleccionada().getIdPreguntaBasica();
 		pregunta=getPreguntaseleccionada().getPregunta();
 		respuesta=getPreguntaseleccionada().getRespuesta();
 	}
