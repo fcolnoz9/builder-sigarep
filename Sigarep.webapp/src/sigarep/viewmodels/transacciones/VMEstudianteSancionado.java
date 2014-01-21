@@ -28,6 +28,7 @@ import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
@@ -38,6 +39,7 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
+import sigarep.modelos.servicio.transacciones.ListaCargarRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -66,11 +68,16 @@ public class VMEstudianteSancionado {
 	@WireVariable
 	private String telefono;
 	@WireVariable
+	private String sancion;
+	@WireVariable
+	private String lapso;
+	@WireVariable
 	private String email;
 	@WireVariable
 	private LapsoAcademico lapsoAcademico;
 	@WireVariable
 	private String nombrePrograma;
+	
 	
 
 	private mensajes mensajeAlUsuario = new mensajes();
@@ -142,19 +149,19 @@ public class VMEstudianteSancionado {
 	private Datebox dtbFechaNacimiento;
 	@Wire
 	private Datebox	dtbAnnoIngreso;
-
+	
 	private List<ProgramaAcademico> listaPrograma;
 	private List<LapsoAcademico> listaLapso;
 	private List<SancionMaestro> listaSancion;
 	private EstudianteSancionado estudianteSeleccionado;
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
 	private List<EstudianteSancionado> listaEstudianteSancionado;
-	
+
 	private EstudianteSancionadoFiltros filtros = new EstudianteSancionadoFiltros();
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
-	
+	private List<EstudianteSancionado> lista = new LinkedList<EstudianteSancionado>();
 	@Wire
 	private Datebox dbfecha;
 	@Wire
@@ -171,14 +178,17 @@ public class VMEstudianteSancionado {
 	public void setEstudiante(Estudiante estudiante) {
 		this.estudiante = estudiante;
 	}
-	public EstudianteSancionadoFiltros getFiltros() {
-		return filtros;
-	}
-
-	public void setFiltros(EstudianteSancionadoFiltros filtros) {
-		this.filtros = filtros;
-	}
 	
+
+	 @NotifyChange({ "filtros" })
+	    public EstudianteSancionadoFiltros getFiltros() {
+			return filtros;
+		}
+
+		public void setFiltros(EstudianteSancionadoFiltros filtros) {
+			this.filtros = filtros;
+		}
+
 	
 	public List<EstudianteSancionado> getListaEstudianteSancionado() {
 		return listaEstudianteSancionado;
@@ -660,12 +670,24 @@ public class VMEstudianteSancionado {
 		registrar.doModal();	
   	}
 	
-
-	 // Método que busca y filtra todos loe estudiantes sancionados
- 	@Command
- 	@NotifyChange({ "listaEstudianteSancionado" })
- 	public void filtros() {
- 		listaEstudianteSancionado = servicioestudiantesancionado.buscarEstudianteSancionado(filtros);
- 	}
+	@Command
+	@NotifyChange({ "listaEstudianteSancionado" })
+	public void listadoEstudianteSancionado() {
+		listaEstudianteSancionado = servicioestudiantesancionado.listadoEstudianteSancionado();
+	}
 	
+//
+//	 // Método que busca y filtra todos loe estudiantes sancionados
+// 	@Command
+// 	@NotifyChange({ "listaEstudianteSancionado" })
+// 	public void filtros() {
+// 		listaEstudianteSancionado = servicioestudiantesancionado.buscarEstudianteSancionado(filtros);
+// 	}
+	
+	@Command
+	@NotifyChange({"lista","cedula","nombre","apellido","sancion", "lapso"})
+	public void filtros(){
+		lista = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, sancion, lapso);
+				}
+ 	
 }
