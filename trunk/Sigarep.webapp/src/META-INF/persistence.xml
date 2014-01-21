@@ -28,7 +28,6 @@
 		<class>sigarep.modelos.data.transacciones.SolicitudApelacion</class>
 		<class>sigarep.modelos.data.transacciones.SolicitudApelacionPK</class>
 		<class>sigarep.modelos.data.transacciones.Soporte</class>
-		<class>sigarep.modelos.data.transacciones.SoportePK</class>
 		<class>sigarep.modelos.data.maestros.TipoMotivo</class>
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupo</class>
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupoPK</class>
