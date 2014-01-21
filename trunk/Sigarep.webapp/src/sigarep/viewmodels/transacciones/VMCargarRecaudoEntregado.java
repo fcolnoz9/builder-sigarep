@@ -189,16 +189,16 @@ public class VMCargarRecaudoEntregado {
 	public void init(
 		@ContextParam(ContextType.VIEW) Component view,
 		@ExecutionArgParam("cedula") String v1,
-		@ExecutionArgParam("nombre") String v2,
-		@ExecutionArgParam("apellido") String v3,
+		@ExecutionArgParam("primerNombre") String v2,
+		@ExecutionArgParam("primerApellido") String v3,
 		@ExecutionArgParam("email") String v4,
 		@ExecutionArgParam("programa") String v5,
 		@ExecutionArgParam("sancion") String v6,
-		@ExecutionArgParam("lapso") String v7,
-		@ExecutionArgParam("instancia") Integer v8,
+		@ExecutionArgParam("lapsoAcademico") String v7,
+		@ExecutionArgParam("idInstancia") Integer v8,
 		@ExecutionArgParam("segundoNombre") String v9,
 		@ExecutionArgParam("segundoApellido") String v10,
-		@ExecutionArgParam("caso") Integer v11,
+		@ExecutionArgParam("numeroCaso") Integer v11,
 		@ExecutionArgParam("lapsosConsecutivos") String v12)
 	{
 		Selectors.wireComponents(view, this, false);
