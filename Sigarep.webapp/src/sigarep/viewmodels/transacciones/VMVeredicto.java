@@ -178,7 +178,9 @@ public class VMVeredicto {
 		this.segundoApellido = v10;
 		this.caso = v11;
 		
-		solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudPorClavePrimaria(new SolicitudApelacionPK(lapso, cedula, instancia));
+		concatenacionNombres();
+		concatenacionApellidos();
+		solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudPorID(new SolicitudApelacionPK(lapso, cedula, instancia));
             
    } 
     @Command
