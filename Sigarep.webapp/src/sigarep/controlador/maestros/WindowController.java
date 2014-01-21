@@ -1,5 +1,7 @@
 package sigarep.controlador.maestros;
 
+import java.util.HashMap;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
@@ -48,6 +50,25 @@ public class WindowController extends SelectorComposer<Component> {
 			center.getChildren().clear();
 			// call the zul-file and put it in the center layout area
 			Executions.createComponents(rutaArchivoZul, center, null);
+		} catch (Exception e) {
+			Messagebox.show(e.toString());
+		}
+	}
+	
+	@Listen("onClick=#tree")
+	public void onClickMenu2(String rutaArchivoZul, String rutaModal) {
+		try {
+			final HashMap<String, Object> map = new HashMap<String, Object>();
+	  		map.put("rutaModal", rutaModal);
+			// get an instance of the borderlayout defined in the zul-file
+			Borderlayout bl = (Borderlayout) Path
+					.getComponent("/mainBorderLayout");
+			// get an instance of the searched CENTER layout area
+			Center center = bl.getCenter();
+			// clear the center child comps
+			center.getChildren().clear();
+			// call the zul-file and put it in the center layout area
+			Executions.createComponents(rutaArchivoZul, center, map);
 		} catch (Exception e) {
 			Messagebox.show(e.toString());
 		}
