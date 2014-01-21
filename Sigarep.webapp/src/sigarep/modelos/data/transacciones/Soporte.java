@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import sigarep.herramientas.Documento;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -20,8 +19,10 @@ public class Soporte implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private SoportePK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_soporte", unique=true, nullable=false)
+	private Integer idSoporte;
 
 	@Column(nullable=false)
 	private Boolean estatus;
@@ -34,18 +35,17 @@ public class Soporte implements Serializable {
 	private Documento documento;
 
 	
-	public Soporte(SoportePK id, Boolean estatus, Date fechaSubida,
+	public Soporte(Integer idSoporte, Boolean estatus, Date fechaSubida,
 			Documento documento) {
 		super();
-		this.id = id;
+		this.idSoporte = idSoporte;
 		this.estatus = estatus;
 		this.fechaSubida = fechaSubida;
 		this.documento = documento;
 	}
 	
-	
-	//bi-directional many-to-one association to RecaudoEntregado
-	@ManyToOne
+	//bi-directional one-to-one association to RecaudoEntregado
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
 		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
 		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false),
@@ -58,12 +58,12 @@ public class Soporte implements Serializable {
 	public Soporte() {
 	}
 
-	public SoportePK getId() {
-		return this.id;
+	public Integer getIdSoporte() {
+		return this.idSoporte;
 	}
 
-	public void setId(SoportePK id) {
-		this.id = id;
+	public void setId(Integer idSoporte) {
+		this.idSoporte = idSoporte;
 	}
 
 	public Boolean getEstatus() {

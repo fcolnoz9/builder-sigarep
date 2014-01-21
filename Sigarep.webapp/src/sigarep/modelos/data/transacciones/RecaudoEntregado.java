@@ -5,9 +5,6 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.maestros.Recaudo;
 
-import java.util.LinkedList;
-import java.util.List;
-
 
 /**
  * The persistent class for the recaudo_entregado database table.
@@ -42,9 +39,9 @@ public class RecaudoEntregado implements Serializable {
 	@JoinColumn(name="id_recaudo", nullable=false, insertable=false, updatable=false)
 	private Recaudo recaudo;
 
-	//bi-directional many-to-one association to Soporte
-	@OneToMany(mappedBy="recaudoEntregado")
-	private List<Soporte> soportes = new LinkedList<Soporte>();
+	//bi-directional one-to-one association to Soporte
+	@OneToOne(mappedBy="recaudoEntregado")
+	private Soporte soporte;
 
 	public RecaudoEntregado() {
 	}
@@ -89,25 +86,11 @@ public class RecaudoEntregado implements Serializable {
 		this.recaudo = recaudo;
 	}
 
-	public List<Soporte> getSoportes() {
-		return this.soportes;
+	public Soporte getSoporte() {
+		return this.soporte;
 	}
 
-	public void setSoportes(List<Soporte> soportes) {
-		this.soportes = soportes;
-	}
-
-	public Soporte addSoporte(Soporte soporte) {
-		getSoportes().add(soporte);
-		soporte.setRecaudoEntregado(this);
-
-		return soporte;
-	}
-
-	public Soporte removeSoporte(Soporte soporte) {
-		getSoportes().remove(soporte);
-		soporte.setRecaudoEntregado(null);
-
-		return soporte;
+	public void setSoporte(Soporte soporte) {
+		this.soporte = soporte;
 	}
 }
