@@ -39,7 +39,7 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
-import sigarep.modelos.servicio.transacciones.ListaCargarRecaudoEntregado;
+
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
