@@ -50,6 +50,8 @@ public class VMrecaudoGeneral {
 	private RecaudoFiltro filtros = new RecaudoFiltro();
 	mensajes mensajeAlUsuario = new mensajes();
 	
+	private String nombreRecaudoFiltro="";
+	
 	private  @Wire Textbox txtCodigoRecaudo;
 	private  @Wire Textbox txtDescripcionRecaudo;
 	private  @Wire Textbox txtNombreRecaudo;
@@ -156,9 +158,9 @@ public class VMrecaudoGeneral {
 	
 	//Método que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({"descripcion", "nombreRecaudo", "observacion","listaRecaudos"})
+	@NotifyChange({"descripcion", "nombreRecaudo", "observacion","listaRecaudos","nombreRecaudoFiltro"})
 	public void limpiar(){
-		nombreRecaudo=""; descripcion="";  observacion="";
+		nombreRecaudo=""; descripcion="";  observacion=""; nombreRecaudoFiltro="";
 		buscarRecaudos();
 	}
 	
@@ -188,7 +190,15 @@ public class VMrecaudoGeneral {
 		@Command
 		@NotifyChange({ "listaRecaudos" })
 		public void filtros() {
-			listaRecaudos = serviciorecaudo.buscarRecaudo(filtros);
+			listaRecaudos = serviciorecaudo.filtrarRecaudos(nombreRecaudoFiltro);
+		}
+
+		public String getNombreRecaudoFiltro() {
+			return nombreRecaudoFiltro;
+		}
+
+		public void setNombreRecaudoFiltro(String nombreRecaudoFiltro) {
+			this.nombreRecaudoFiltro = nombreRecaudoFiltro;
 		}
 	
 
