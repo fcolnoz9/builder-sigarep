@@ -1,0 +1,31 @@
+<panel border="none" vflex="1" hflex="1">
+	<panelchildren>
+		<vlayout>
+			<space />
+			<label value="- Calendario Académico"
+				style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
+			<attribute name="onClick"><![CDATA[
+	Filedownload.save("/archivos/documentos/word.docx", null);
+]]></attribute>
+			<div apply="sigarep.controlador.maestros.ModalController">
+				<label id="lblRegla" value="- Reglamentos"
+					style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
+			</div>
+			<label value="- Formatos de Apelación"
+				style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
+			<attribute name="onClick"><![CDATA[
+	Filedownload.save("/archivos/documentos/word.docx", null);
+]]></attribute>
+			<label value="- Recaudos por Sanción"
+				style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
+			<attribute name="onClick"><![CDATA[
+	Filedownload.save("/archivos/documentos/word.docx", null);
+]]></attribute>
+			<label value="- Preguntas Frecuentes"
+				style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
+			<attribute name="onClick"><![CDATA[
+	Filedownload.save("/archivos/documentos/word.docx", null);
+]]></attribute>
+		</vlayout>
+	</panelchildren>
+</panel>

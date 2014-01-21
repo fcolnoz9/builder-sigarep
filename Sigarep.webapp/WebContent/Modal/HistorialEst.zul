@@ -1,4 +1,4 @@
-<window title="Historial Estudiante Sancionado" id="winHistorial"
+<window title="Estado del proceso de Apelación" id="winHistorial"
 	border="normal" position="center,center" width="1200px" closable="true"
 	mode="modal" action="show: slideDown;hide: slideUp"
 	apply="org.zkoss.bind.BindComposer"

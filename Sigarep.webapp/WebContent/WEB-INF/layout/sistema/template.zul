@@ -7,7 +7,7 @@
 			splittable="true" minsize="250">
 			<include src="/WEB-INF/layout/sistema/tree.zul" />
 		</west>
-		<center id="mainContent" autoscroll="true" border="none"
+		<center sclass="center" style="background: .logofondo" id="mainContent" autoscroll="true" border="none" 
 			self="@insert(content)">
 		</center>
 		<south height="50px" border="none">
