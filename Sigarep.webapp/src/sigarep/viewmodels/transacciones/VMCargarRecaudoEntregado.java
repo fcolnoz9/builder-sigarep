@@ -23,14 +23,13 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.transacciones.ListaBuscarRecaudosEntregados;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
-import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
@@ -235,10 +234,13 @@ public class VMCargarRecaudoEntregado {
 		buscarRecaudosEntregados(cedula);
 	}
 	
+	
+	private List<RecaudoEntregado> listaRecaudo; 
 	@Command
-	@NotifyChange({ "listaRecaudos" })
+	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudos = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		//listaRecaudos = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
 	}
 
 	@Command
@@ -278,8 +280,8 @@ public class VMCargarRecaudoEntregado {
 														Integer.parseInt(componente.getAttribute("idTipoMotivo").toString()),
 														lapso, cedula, instancia);
 					
-					Soporte soporte = new Soporte(soportePK,true,new Date(),doc);
-					serviciosoporte.guardar(soporte);
+					//Soporte soporte = new Soporte(soportePK,true,new Date(),doc);
+					//serviciosoporte.guardar(soporte);
 					buscarRecaudosEntregados(cedula);
 					msjs.informacionRegistroCorrecto();
 			} else {
@@ -291,8 +293,6 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({"listaRecaudos" })
 	public void eliminarRecaudoEntregado(@ContextParam(ContextType.COMPONENT) Component componente) {			
-		System.out.println("*****AQUI ENTRO****");
-		System.out.println(componente.getAttribute("idRecaudo").toString());
 		SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
 											Integer.parseInt(componente.getAttribute("idTipoMotivo").toString()),
 											lapso, cedula, instancia);
@@ -318,6 +318,14 @@ public class VMCargarRecaudoEntregado {
 	public void setLabelAsignaturaLapsosConsecutivos(
 			String labelAsignaturaLapsosConsecutivos) {
 		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
+
+	public List<RecaudoEntregado> getListaRecaudo() {
+		return listaRecaudo;
+	}
+
+	public void setListaRecaudo(List<RecaudoEntregado> listaRecaudo) {
+		this.listaRecaudo = listaRecaudo;
 	}
 
 }
