@@ -6,7 +6,23 @@ import javax.persistence.*;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 
 import java.util.List;
-
+/*
+ * @ (#) Recaudo.java 
+ *
+ * Copyright 2013 Builder. Todos los derechos reservados.
+ * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
+ */
+/*
+ ** Esta clase es del registro del maestro "Recaudo"
+ * @ Author Lilibeth Achji 
+ * @ Version 1.0, 16/12/13
+ */
+/** Clase Recaudo
+ * Registra y elimina el maestro recaudo
+ * @author Beleanny Atacho 
+ * @version 1
+ * @since 20/01/2014 
+ */
 
 /**
  * The persistent class for the recaudo database table.
@@ -28,9 +44,11 @@ public class Recaudo implements Serializable {
 		this.nombreRecaudo = nombreRecaudo;
 		this.observacion = observacion;
 	}
-
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	// Genera el ID del Recaudo
 	@Column(name="id_recaudo", unique=true, nullable=false)
 	private Integer idRecaudo;
 
@@ -57,7 +75,7 @@ public class Recaudo implements Serializable {
 
 	public Recaudo() {
 	}
-
+	// Métodos GET y SET
 	public Integer getIdRecaudo() {
 		return this.idRecaudo;
 	}
