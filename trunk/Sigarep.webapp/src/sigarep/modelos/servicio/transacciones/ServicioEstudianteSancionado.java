@@ -1,13 +1,18 @@
 package sigarep.modelos.servicio.transacciones;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
+import sigarep.viewmodels.transacciones.EstudianteSancionadoFiltros;
 
 @Service("servicioestudiantesancionado")
 public class ServicioEstudianteSancionado {
@@ -39,4 +44,32 @@ public class ServicioEstudianteSancionado {
 	public EstudianteSancionado crear() {
 		return new EstudianteSancionado();
 	}
+	
+	public List<EstudianteSancionado> listadoEstudianteSancionado() {
+		List<EstudianteSancionado> estudiantesancionadoLista = iEstudianteSancionadoDAO.buscarSancionadosActivos();
+	    return estudiantesancionadoLista ;
+	}
+	
+	
+	public List<EstudianteSancionado> buscarEstudianteSancionadofiltros(String cedula, String primerNombre, String segundoApellido, String sancion, String lapso) {
+		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
+		
+		if (cedula == null || primerNombre == null || segundoApellido == null|| sancion== null|| lapso== null) {
+			resultado = listadoEstudianteSancionado();
+		} else {
+			for (EstudianteSancionado inst : listadoEstudianteSancionado()) {
+				if (inst.getId().getCedulaEstudiante().toLowerCase().contains(cedula)
+						&& inst.getEstudiante().getPrimerNombre().toLowerCase().contains(primerNombre)
+						&& inst.getEstudiante().getPrimerApellido().toLowerCase().contains(segundoApellido)
+						&& inst.getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion)
+						&& inst.getLapsoAcademico().getCodigoLapso().toLowerCase().contains(lapso)){
+					resultado.add(inst);
+				}
+			}
+		}
+		return resultado;
+	}
+	
+	
+	
 }

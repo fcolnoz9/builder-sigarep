@@ -31,10 +31,10 @@
 			<!-- Grid que contiene los campos de la pantalla -->
 			<grid id="grdRegitrarLapso">
 				<columns>
-					<column label="" width="10%" id="columna1" />
-					<column label="" width="40%" id="columna2" />
-					<column label="" width="10%" id="columna3" />
-					<column label="" width="40%" id="columna4" />
+					<column label="" width="20%" id="columna1" />
+					<column label="" width="30%" id="columna2" />
+					<column label="" width="20%" id="columna3" />
+					<column label="" width="30%" id="columna4" />
 				</columns>
 				<rows>
 					<row>
