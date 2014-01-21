@@ -2,7 +2,6 @@ package sigarep.viewmodels.transacciones;
 
 import java.util.Date;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
@@ -27,16 +26,11 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.maestros.InstanciaApelada;
-import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.Estudiante;
-import sigarep.modelos.data.maestros.TipoMotivo;
-import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-import sigarep.modelos.data.transacciones.EstudianteSancionadoFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 
@@ -157,7 +151,6 @@ public class VMEstudianteSancionado {
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
 	private List<EstudianteSancionado> listaEstudianteSancionado;
 
-	private EstudianteSancionadoFiltros filtros = new EstudianteSancionadoFiltros();
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
@@ -179,17 +172,6 @@ public class VMEstudianteSancionado {
 		this.estudiante = estudiante;
 	}
 	
-
-	 @NotifyChange({ "filtros" })
-	    public EstudianteSancionadoFiltros getFiltros() {
-			return filtros;
-		}
-
-		public void setFiltros(EstudianteSancionadoFiltros filtros) {
-			this.filtros = filtros;
-		}
-
-	
 	public List<EstudianteSancionado> getListaEstudianteSancionado() {
 		return listaEstudianteSancionado;
 	}
@@ -198,8 +180,6 @@ public class VMEstudianteSancionado {
 		this.listaEstudianteSancionado = listaEstudianteSancionado;
 	}
 	
-
-
 	public String getPrimerNombre() {
 		return primerNombre;
 	}
@@ -676,18 +656,10 @@ public class VMEstudianteSancionado {
 		listaEstudianteSancionado = servicioestudiantesancionado.listadoEstudianteSancionado();
 	}
 	
-//
-//	 // Método que busca y filtra todos loe estudiantes sancionados
-// 	@Command
-// 	@NotifyChange({ "listaEstudianteSancionado" })
-// 	public void filtros() {
-// 		listaEstudianteSancionado = servicioestudiantesancionado.buscarEstudianteSancionado(filtros);
-// 	}
-	
 	@Command
 	@NotifyChange({"lista","cedula","nombre","apellido","sancion", "lapso"})
 	public void filtros(){
 		lista = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, sancion, lapso);
-				}
+	}
  	
 }
