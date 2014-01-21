@@ -9,6 +9,20 @@ import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.RecaudoFiltro;
 import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
 
+/*
+ * @ (#) ServicioRecaudo.java 
+ *
+ * Copyright 2013 Builder. Todos los derechos reservados.
+ * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
+ */
+/*
+ ** Servicio del registro del maestro "Recaudo"
+ * @ Author Beleanny Atacho
+ * @ Version 1.0, 16/12/13
+ */
+
+
+
 @Service("serviciorecaudo")
 public class ServicioRecaudo {
 	private @Autowired IRecaudoDAO iRecaudoDAO;
@@ -39,16 +53,16 @@ public class ServicioRecaudo {
 		List<Recaudo> listaRecaudos=iRecaudoDAO.buscaRecaudosActivos();
 	    return listaRecaudos;
 	}
-	
-	public List<Recaudo> buscarRecaudo(RecaudoFiltro filtros) {
-		List<Recaudo> resultado = new LinkedList<Recaudo>();
-		String nombreRecaudo = filtros.getNombreRecaudo().toLowerCase();
-		//String  Nombre_tipo_motivo= filtros.getNombre_tipo_motivo().toLowerCase();
-		if (nombreRecaudo == null ) {
+	//Busca en la lista de Recaudo
+	public List<Recaudo> buscarRecaudo(String nombreRecaudo,String  nombreTipoMotivo) {
+		List<Recaudo> resultado = new LinkedList<Recaudo>();	
+		if (nombreRecaudo == null ||nombreTipoMotivo==null ) {
 			resultado = listadoRecaudosActivos();
 		} else {
 			for (Recaudo rec : listadoRecaudosActivos()) {
-				if (rec.getNombreRecaudo().toLowerCase().contains(nombreRecaudo))
+				if (rec.getNombreRecaudo().toLowerCase().contains(nombreRecaudo)
+						&& rec.getTipoMotivo().getNombreTipoMotivo().toLowerCase()
+						.contains(nombreTipoMotivo))
 				{
 					resultado.add(rec);
 				}
