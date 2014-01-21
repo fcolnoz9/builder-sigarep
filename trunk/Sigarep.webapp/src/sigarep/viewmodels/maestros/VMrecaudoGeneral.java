@@ -1,27 +1,16 @@
 package sigarep.viewmodels.maestros;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Window;
-import org.zkoss.zul.Combobox;
-
 
 import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.data.maestros.RecaudoFiltro;
 import sigarep.modelos.data.maestros.Recaudo;
-import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 
@@ -30,32 +19,27 @@ import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 public class VMrecaudoGeneral {
 	
 	@WireVariable 
-	ServicioRecaudo serviciorecaudo;
-	@WireVariable
+	private ServicioRecaudo serviciorecaudo;
+	
 	private Integer idRecaudo;
-	@WireVariable
+
 	private String descripcion;
-	@WireVariable
+
 	private Boolean estatus;
-	@WireVariable
+
 	private String nombreRecaudo;
-	@WireVariable
+
 	private String observacion;
-	@WireVariable
+
 	private List<RecaudoEntregado> recaudoEntregados;
-	@WireVariable
+
 	private List<Recaudo> listaRecaudo;
-	@WireVariable
+	
 	private Recaudo recaudoSeleccionado;
 	private RecaudoFiltro filtros = new RecaudoFiltro();
 	mensajes mensajeAlUsuario = new mensajes();
 	
 	private String nombreRecaudoFiltro="";
-	
-	private  @Wire Textbox txtCodigoRecaudo;
-	private  @Wire Textbox txtDescripcionRecaudo;
-	private  @Wire Textbox txtNombreRecaudo;
-	private  @Wire Textbox txtObservacionRecaudo;
 
 	@WireVariable
 	private List<Recaudo> listaRecaudos;
