@@ -21,6 +21,16 @@
  		} catch (InterruptedException ex) { 
  			 //Ignore if can not get win. 
  		} 
+ 	}
+ 	
+ 	public void createWin(String idNodo, String ruta, String rutaModal) { 
+ 		WindowController winController = new WindowController(); 
+ 		try { 
+ 			winController.onClickMenu2("/WEB-INF/sigarep/vistas/" + ruta + "/" 
+ 					+ idNodo + ".zul", rutaModal); 
+ 		} catch (InterruptedException ex) { 
+ 			 //Ignore if can not get win. 
+ 		} 
  	} 
 	]]> 
 	</zscript>
@@ -164,9 +174,9 @@
 									<treeitem>
 										<treerow>
 											<treecell
-												label="Cargar Recaudos" id="ListaCargarRecaudoEntregado"
+												label="Cargar Recaudos" id="cargarRecaudosEntregados"
 												sclass="transacciones"
-												onClick="createWin(ListaCargarRecaudoEntregado.getId(), ListaCargarRecaudoEntregado.getSclass())" />
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/CargarRecaudoEntregado.zul")' />
 										</treerow>
 									</treeitem>
 								</treechildren>
@@ -197,8 +207,8 @@
 									<treeitem>
 										<treerow>
 											<treecell label="Veredicto"
-												id="ListaVeredicto" sclass="transacciones"
-												onClick="createWin(ListaVeredicto.getId(), ListaVeredicto.getSclass())" />
+												id="ListaGenericaSancionados" sclass="transacciones"
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(), "transacciones/veredicto.zul")' />
 										</treerow>
 									</treeitem>
 								</treechildren>
