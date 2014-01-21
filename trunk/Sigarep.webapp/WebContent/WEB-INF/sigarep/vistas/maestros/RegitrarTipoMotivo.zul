@@ -6,7 +6,6 @@
 		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMTipoMotivo')">
 
 		
-
 		<!-- Grid que contiene los campos de la pantalla -->
 		<groupbox id="grbRegistrarTipoMotivo">
 			<caption label="Datos del Tipo de Motivo de Apelación" />
@@ -17,9 +16,8 @@
 					<column label="" width="30%" id="columna3" />
 					<column label="" width="70%" id="columna4" />
 				</columns>
+				
 				<rows>
-					
-					
 					<row>
 						<label id="lblTipoMotivo"
 							value="Motivo de Apelación:" />
