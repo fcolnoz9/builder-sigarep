@@ -64,7 +64,7 @@
 	        	<column label="Motivo de Apelación" hflex="3" align="left"></column>
 	            <column label="Recaudo Entregado" hflex="3" align="left"></column>
 	            <column label="Soporte de Recaudo" hflex="3" align="left"></column>
-	            <column label="Opciones de Carga" hflex="3" align="left"></column>
+	            <column label="Opciones de Archivo" hflex="3" align="left"></column>
 	        </columns>
 	       <rows sclass="narrow">
 	        	<template name="model">
@@ -75,13 +75,13 @@
 		                	<custom-attributes idRecaudo="${each.idRecaudo}"/>
 		                </a>
 		                <hlayout>
-		                	<button label="Cargar archivo"
+		                	<button label="Cargar"
 									image="/imagenes/iconos/cargar.png" width="auto" height="auto"
 									orient="horizontal" upload="true" onUpload="@command('cargarRecaudoEntregado',upload=event, parametro=self)">
 								<custom-attributes idRecaudo="${each.idRecaudo}"/>
 								<custom-attributes idTipoMotivo="${each.idTipoMotivo}"/>
 							</button>
-							<button label="Eliminar archivo"
+							<button label="Eliminar"
 									image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 									orient="horizontal" onClick="@command('eliminarRecaudoEntregado', parametro=self)">
 								<custom-attributes idRecaudo="${each.idRecaudo}"/>
