@@ -169,6 +169,7 @@ public class VMListaCargarRecaudoEntregado {
         map.put("segundoNombre", listaEstudiantesCargarRecaudos.getSegundoNombre());
         map.put("segundoApellido", listaEstudiantesCargarRecaudos.getSegundoApellido());
         map.put("caso", listaEstudiantesCargarRecaudos.getCaso());
+        map.put("lapsosConsecutivos", listaEstudiantesCargarRecaudos.getLapsosConsecutivos());
         
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/transacciones/CargarRecaudoEntregado.zul", null, map);

@@ -30,4 +30,8 @@ public class ServicioAsignaturaEstudianteSancionado {
 	public Asignatura buscarAsignaturaPorEstudianteSancionado(String cedulaEstudiante, String codigoLapso){
 		return iAsignaturaEstudianteSancionadoDAO.buscarAsignaturaEstudianteSancionado(cedulaEstudiante,codigoLapso);
 	}
+	
+	public List<AsignaturaEstudianteSancionado> buscarAsignaturaDeSancion(String cedula, String lapso){
+		return iAsignaturaEstudianteSancionadoDAO.buscarAsignaturaDeSancionRR(cedula, lapso);
+	}
 }

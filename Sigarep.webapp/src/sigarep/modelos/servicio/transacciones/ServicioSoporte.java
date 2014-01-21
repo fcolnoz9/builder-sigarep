@@ -28,4 +28,8 @@ public class ServicioSoporte {
 	public void eliminar(SoportePK soportePK){
 		iSoporteDAO.delete(soportePK);
 	}
+	
+	public Soporte buscarSoportePorID(SoportePK soportePK){
+		return iSoporteDAO.findOne(soportePK);
+	}
 }
