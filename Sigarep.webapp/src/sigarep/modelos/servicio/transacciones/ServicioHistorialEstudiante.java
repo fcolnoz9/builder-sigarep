@@ -36,10 +36,12 @@ public class ServicioHistorialEstudiante  {
 		String queryStatement2 =
 				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
 				"es.email, es.telefono, p.nombre_programa, es.segundo_nombre," +
-				" es.segundo_apellido, es.fecha_nacimiento,  es.sexo, es.anio_ingreso, esa.unidades_aprobadas, " +
-				"esa.unidades_cursadas, esa.indice_grado FROM programa_academico p, estudiante es, " +
-				" estudiante_sancionado esa WHERE es.id_programa= p.id_programa AND " +
-				"es.cedula_estudiante = esa.cedula_estudiante";
+				" es.segundo_apellido, es.fecha_nacimiento,  es.sexo, es.anio_ingreso, max(esa.unidades_aprobadas) as ua, " +
+				"max(esa.unidades_cursadas) as uc, esa.indice_grado FROM programa_academico p, estudiante es, " +
+				"estudiante_sancionado esa WHERE es.id_programa= p.id_programa AND " +
+				"es.cedula_estudiante = esa.cedula_estudiante group by es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
+				"es.email, es.telefono, p.nombre_programa, es.segundo_nombre, " +
+				"es.segundo_apellido, es.fecha_nacimiento,  es.sexo, es.anio_ingreso, esa.indice_grado";
 		
 
 		Query query = em.createNativeQuery(queryStatement2);
@@ -86,56 +88,73 @@ public class ServicioHistorialEstudiante  {
         }
 		return result;
         } 
-public List<ListaHistorialEstudianteSancion> buscarDatosSancion(String cedula) {
-		
-		String queryStatement =  "SELECT la.codigo_lapso, sa.nombre_sancion " +
-				"FROM   sancion_maestro sa, lapso_academico la " +
-				"inner join estudiante_sancionado as esa on la.codigo_lapso = esa.codigo_lapso " +
-				"where  esa.cedula_estudiante =  "+"'"+cedula +"' and sa.id_sancion = esa.id_sancion ";
-				
-				Query query = em.createNativeQuery(queryStatement);
 
-		@SuppressWarnings("unchecked")
-		List<Object[]> resultSet = query.getResultList();
-
-		List<ListaHistorialEstudianteSancion> results = new ArrayList<ListaHistorialEstudianteSancion>();
-		for (Object[] resultRow : resultSet) {
-			System.out.println(resultRow[0]);
-			System.out.println(resultRow[1]);
-
-
-			results.add(new ListaHistorialEstudianteSancion(
-					(String) resultRow[0], (String) resultRow[1]));
-		}
-
-		return results;
-	}
-
-public List<ListaHistorialEstudianteMotivo> buscarMotivos(String codigoLapso, String cedula) {
-	System.out.println("cedula"+cedula);System.out.println("codigoLapso"+codigoLapso);
-			String queryStatement1 =  "SELECT DISTINCT tm.nombre_tipo_motivo, esa.codigo_lapso FROM tipo_motivo tm " +
-					"inner join motivo as mo on mo.id_tipo_motivo = tm.id_tipo_motivo "+
-					"inner join solicitud_apelacion as sa on sa.cedula_estudiante = mo.cedula_estudiante "+
-					"and sa.codigo_lapso = mo.codigo_lapso inner join estudiante_sancionado as esa " +
-					"on esa.cedula_estudiante = sa.cedula_estudiante and esa.codigo_lapso = sa.codigo_lapso " +
-					"inner join estudiante as es on es.cedula_estudiante = esa.cedula_estudiante " +
-					"inner join lapso_academico as la on la.codigo_lapso = esa.codigo_lapso " +
-					"where es.cedula_estudiante = '"+cedula +"' and la.codigo_lapso = '"+ codigoLapso +"' ";
+	public List<ListaHistorialEstudianteAsignatura> buscarAsignaturas (String codigoLapso, String cedula) {
+	String queryStatement1 =  "SELECT Distinct a.nombre_asignatura, esa.codigo_lapso FROM asignatura a " +
+			"inner join asignatura_estudiante_sancionado as aes on aes.codigo_asignatura = aes.codigo_asignatura " +
+			"inner join solicitud_apelacion as sa on sa.cedula_estudiante = aes.cedula_estudiante  " +
+			"and sa.codigo_lapso = aes.codigo_lapso inner join estudiante_sancionado as esa  " +
+			"on esa.cedula_estudiante = sa.cedula_estudiante and esa.codigo_lapso = sa.codigo_lapso  " +
+			"inner join estudiante as es on es.cedula_estudiante = esa.cedula_estudiante  " +
+			"inner join lapso_academico as la on la.codigo_lapso = esa.codigo_lapso " +
+			"where es.cedula_estudiante = '"+cedula +"' and la.codigo_lapso = '"+ codigoLapso +"' " ;
 
 	Query query = em.createNativeQuery(queryStatement1);
-	
+
 
 	@SuppressWarnings("unchecked")
 	List<Object[]> resultSet = query.getResultList();
-	List<ListaHistorialEstudianteMotivo> results = new ArrayList<ListaHistorialEstudianteMotivo>();
+	List<ListaHistorialEstudianteAsignatura> results = new ArrayList<ListaHistorialEstudianteAsignatura>();
 	for (Object[] resultRow : resultSet) {
-		System.out.println(resultRow[0]);
-		System.out.println(resultRow[1]);
-		
-		results.add(new ListaHistorialEstudianteMotivo ((String) resultRow[0]));
+			results.add(new ListaHistorialEstudianteAsignatura ((String) resultRow[0]));
 	}
 	return results;
 	}
+	
+	public List<ListaHistorialEstudianteVeredicto> buscarVeredictos (String cedula) {
+		String queryStatement1 = 		
+				"SELECT distinct es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
+				"es.email, es.telefono, p.nombre_programa, es.segundo_nombre, " +
+				"es.segundo_apellido, es.fecha_nacimiento,  es.sexo, es.anio_ingreso, esa.unidades_aprobadas,  " +
+				"esa.unidades_cursadas, esa.indice_grado, sam.nombre_sancion, la.codigo_lapso, tm.nombre_tipo_motivo,  " +
+				"a.nombre_asignatura, (select  sa.veredicto from solicitud_apelacion sa where 	 " +
+				"sa.cedula_estudiante = '"+cedula +"' and sa.id_instancia_apelada= '1' and sa.codigo_lapso = la.codigo_lapso) " +
+				"as veredicto1, (select  sa.veredicto from solicitud_apelacion sa where " +
+				"sa.cedula_estudiante = '"+cedula +"' and sa.id_instancia_apelada= '2' and sa.codigo_lapso = la.codigo_lapso) as veredicto2, " +
+				"(select  sa.veredicto from solicitud_apelacion sa where " +
+				"sa.cedula_estudiante = '"+cedula +"' and sa.id_instancia_apelada= '3' and sa.codigo_lapso = la.codigo_lapso) as veredicto3  " +
+				"FROM programa_academico p, estudiante es,  lapso_academico la, " +
+				"sancion_maestro sam, tipo_motivo tm, " +
+				"estudiante_sancionado as esa LEFT JOIN asignatura_estudiante_sancionado " +
+				"AS asa ON esa.codigo_lapso = asa.codigo_lapso and esa.cedula_estudiante = asa.cedula_estudiante  " +
+				"Left join solicitud_apelacion as sa on sa.cedula_estudiante = esa.cedula_estudiante and sa.codigo_lapso  " +
+				"= esa.codigo_lapso inner join motivo  as mo on mo.cedula_estudiante = " +
+				"sa.cedula_estudiante and mo.codigo_lapso = sa.codigo_lapso " +
+				"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
+				"left join asignatura as a on  a.codigo_asignatura = asa.codigo_asignatura " +
+				"WHERE es.id_programa= p.id_programa AND  es.cedula_estudiante = esa.cedula_estudiante  " +
+				"and esa.cedula_estudiante =  '"+cedula +"' and sam.id_sancion = esa.id_sancion and tm.id_tipo_motivo = mo.id_tipo_motivo " +
+				"and esa.id_sancion = sam.id_sancion and la.codigo_lapso = esa.codigo_lapso " +
+				"order by la.codigo_lapso desc" ;
+				
 
+		Query query = em.createNativeQuery(queryStatement1);
+
+
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		List<ListaHistorialEstudianteVeredicto> results = new ArrayList<ListaHistorialEstudianteVeredicto>();
+		for (Object[] resultRow : resultSet) {
+				results.add(new ListaHistorialEstudianteVeredicto ((String) resultRow[0],
+						(String) resultRow[1], (String) resultRow[2], (String) resultRow[3],
+						(String) resultRow[4], (String) resultRow[5], (String) resultRow[6], 
+						(String) resultRow[7], (Date) resultRow[8], (String) resultRow[9],
+						(Date) resultRow[10],(Integer) resultRow[11], (Integer) resultRow[12],
+						(float) resultRow[13], (String) resultRow[14], (String) resultRow[15],
+						(String) resultRow[16], (String) resultRow[17], (String) resultRow[18],
+						(String) resultRow[19], (String) resultRow[20]));
+		}
+		return results;
+		}
 
 }

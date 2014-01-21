@@ -73,8 +73,10 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudiante;
+import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteAsignatura;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteMotivo;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteSancion;
+import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
 import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
@@ -102,16 +104,17 @@ public class VMHistorialEstudiante {
 	private String segundoApellido;
 	private String nombres;
 	private String apellidos;
-	private String asignatura;
+	private String nombreAsignatura;
 	private String sexo;
+	private String veredicto1;
+	private String veredicto2;
+	private String veredicto3;
 	private Date fechaNacimiento;
 	private Date anioIngreso;
 	private Float indiceGrado;
 	private Integer caso;
 	private Integer unidadesCursadas;
 	private Integer unidadesAprobadas;
-	private ListaHistorialEstudianteMotivo listahistorialestudiantemotivo;
-	private ListaHistorialEstudianteSancion listahistorialestudiantesancion;
 	private ListaHistorialEstudiante listahistorialestudiante;
 	private List<TipoMotivo> listaTipoMotivo;
 	private String cedula;
@@ -121,13 +124,21 @@ public class VMHistorialEstudiante {
 
 	mensajes msjs = new mensajes(); // para llamar a los diferentes mensajes de
 									// dialogo
-	@WireVariable
-	private List<ListaHistorialEstudianteSancion> listaSancion = new LinkedList<ListaHistorialEstudianteSancion>();
-	@WireVariable
-	private List<ListaHistorialEstudianteMotivo> listaMotivo = new LinkedList<ListaHistorialEstudianteMotivo>();
 
 	@WireVariable
 	private List<ListaHistorialEstudiante> lista = new LinkedList<ListaHistorialEstudiante>();
+	
+	@WireVariable
+	private List<ListaHistorialEstudianteVeredicto> listaVeredicto = new LinkedList<ListaHistorialEstudianteVeredicto>();
+	
+	public List<ListaHistorialEstudianteVeredicto> getListaVeredicto() {
+		return listaVeredicto;
+	}
+
+	public void setListaVeredicto(
+			List<ListaHistorialEstudianteVeredicto> listaVeredicto) {
+		this.listaVeredicto = listaVeredicto;
+	}
 
 	public List<ListaHistorialEstudiante> getLista() {
 		return lista;
@@ -146,23 +157,6 @@ public class VMHistorialEstudiante {
 		this.listahistorialestudiante = listahistorialestudiante;
 	}
 
-	public ListaHistorialEstudianteSancion getListahistorialestudiantesancion() {
-		return listahistorialestudiantesancion;
-	}
-
-	public void setListahistorialestudiantesancion(
-			ListaHistorialEstudianteSancion listahistorialestudiantesancion) {
-		this.listahistorialestudiantesancion = listahistorialestudiantesancion;
-	}
-
-	public ListaHistorialEstudianteMotivo getListahistorialestudiantemotivo() {
-		return listahistorialestudiantemotivo;
-	}
-
-	public void setListahistorialestudiantemotivo(
-			ListaHistorialEstudianteMotivo listahistorialestudiantemotivo) {
-		this.listahistorialestudiantemotivo = listahistorialestudiantemotivo;
-	}
 
 	public List<TipoMotivo> getListaTipoMotivo() {
 		return listaTipoMotivo;
@@ -180,12 +174,12 @@ public class VMHistorialEstudiante {
 		this.caso = caso;
 	}
 
-	public String getAsignatura() {
-		return asignatura;
+	public String getNombreAsignatura() {
+		return nombreAsignatura;
 	}
 
-	public void setAsignatura(String asignatura) {
-		this.asignatura = asignatura;
+	public void setNombreAsignatura(String nombreAsignatura) {
+		this.nombreAsignatura = nombreAsignatura;
 	}
 
 	public String getApellidos() {
@@ -300,6 +294,30 @@ public class VMHistorialEstudiante {
 		this.sexo = sexo;
 	}
 
+	public String getVeredicto1() {
+		return veredicto1;
+	}
+
+	public void setVeredicto1(String veredicto1) {
+		this.veredicto1 = veredicto1;
+	}
+
+	public String getVeredicto2() {
+		return veredicto2;
+	}
+
+	public void setVeredicto2(String veredicto2) {
+		this.veredicto2 = veredicto2;
+	}
+
+	public String getVeredicto3() {
+		return veredicto3;
+	}
+
+	public void setVeredicto3(String veredicto3) {
+		this.veredicto3 = veredicto3;
+	}
+
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -340,22 +358,6 @@ public class VMHistorialEstudiante {
 		this.indiceGrado = indiceGrado;
 	}
 
-	public List<ListaHistorialEstudianteSancion> getListaSancion() {
-		return listaSancion;
-	}
-
-	public void setListaSancion(
-			List<ListaHistorialEstudianteSancion> listaSancion) {
-		this.listaSancion = listaSancion;
-	}
-
-	public List<ListaHistorialEstudianteMotivo> getListaMotivo() {
-		return listaMotivo;
-	}
-
-	public void setListaMotivo(List<ListaHistorialEstudianteMotivo> listaMotivo) {
-		this.listaMotivo = listaMotivo;
-	}
 
 	public void concatenacionNombres() {
 
@@ -373,17 +375,12 @@ public class VMHistorialEstudiante {
 
 	}
 
+	
 	@Command
-	@NotifyChange({ "listaSancion" })
-	public void buscarSancion(String cedula) {
-		listaSancion = serviciohistorial.buscarDatosSancion(cedula);
-	}
-
-	@Command
-	@NotifyChange({ "listaMotivo" })
-	public void buscarMotivo(String codigoLapso, String cedula) {
-		codigoLapso = listaSancion.get(0).getCodigoLapso();
-		listaMotivo = serviciohistorial.buscarMotivos(codigoLapso, cedula);
+	@NotifyChange({ "listaVeredicto" })
+	public void buscarVeredicto(String cedula) {
+		codigoLapso = "2013-1";
+		listaVeredicto = serviciohistorial.buscarVeredictos(cedula);
 	}
 
 	@Init
@@ -427,8 +424,7 @@ public class VMHistorialEstudiante {
 		this.codigoLapso = v15;
 		concatenacionNombres();
 		concatenacionApellidos();
-		buscarSancion(cedula);
-		buscarMotivo(codigoLapso, cedula);
+		buscarVeredicto(cedula);
 	}
 
 	@Command
