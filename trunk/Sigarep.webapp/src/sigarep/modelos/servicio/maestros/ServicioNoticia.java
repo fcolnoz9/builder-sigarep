@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.data.maestros.NoticiaFiltro;
+import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.repositorio.maestros.INoticiaDAO;
 
 @Service("servicionoticia")
@@ -74,5 +75,22 @@ public class ServicioNoticia {
         }
 		return result;
         } 
+	
+	public List<Noticia> filtrarApelacionesCargarRecaudo(String titulo){
+		List<Noticia> result = new ArrayList<Noticia>();
+        if(titulo==null){
+        	result= listadoNoticia();
+        }
+        else{
+			for (Noticia n : listadoNoticia())
+			{
+				if (n.getTitulo().toLowerCase().contains(titulo.toLowerCase())){
+					result.add(n);
+				}
+			}
+        }
+		return result;
+	} 
+	
 }
 
