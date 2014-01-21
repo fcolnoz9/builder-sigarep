@@ -1,28 +1,29 @@
 <zk>
 <window id="winHistorialEstudiante"
 	title="Gestión :: Reconsideraciones :: Registrar Reconsideracion"
-	border="normal" width="100%" height="auto" style="overflow:auto"
+	border="normal" style="overflow:auto"
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialEstudiante')">
 	
-		<tabbox id="tb" height="300px">
+		<tabbox id="tb">
 			<tabs id="tabs">
 				<tab id="tbDatosBasicos" label="Datos Básicos" />
-				<tab id="tbDatosAcademicos" label="Datos de Académicos" />
-				<tab id="tbDatossancion" label="Datos de la Sanción" />
+				<tab id="tbDatosSancion" label="Datos de la Sanción" />
 			</tabs>
 			<tabpanels>
 				<tabpanel>
-
+                 <groupbox id="grbDatosBasicos"> 
+                 <caption>Datos Personales</caption>
 					<grid id="grdDatosEstudiante" >
-						<columns>
+	                    <columns>
 							<column align="left" width="auto" />
 							<column align="left" width="auto" />
 						</columns>
 						<rows>
 							<row></row>
 							<row>
+			                    
 								<label value="Cédula: "
 									id="lblCedulaEstudiante" />
 								<textbox id="txtCedulaEstudiante"
@@ -72,9 +73,10 @@
 							</row>
 						</rows>
 					</grid>
-				</tabpanel>
-
-				<tabpanel>
+					</groupbox>
+			
+					<groupbox id ="grbDatosAcademicos">
+					<caption>Datos Académicos</caption>
 					<grid id="grdDatosAcademicos" >
 						<columns>
 							<column align="left" width="auto" />
@@ -120,13 +122,14 @@
 							</row>
 						</rows>
 					</grid>
-				</tabpanel>
+					</groupbox>
+			</tabpanel>
+			
 				<tabpanel>
-				<groupbox id="grbDatosSncion">
+				<groupbox id="grbDatosSancion">
 			<space />
 			<listbox id="lbxDatosSancion" height="100%"
-				model="@bind(vm.listaVeredicto)" 
-					emptyMessage="No hay enlaces registrados" mold="paging"
+				model="@bind(vm.listaVeredicto)"  mold="paging"
 				pageSize="10">
 				<listhead>
 					<listheader label="Lapso de la Sanción" align="center"
