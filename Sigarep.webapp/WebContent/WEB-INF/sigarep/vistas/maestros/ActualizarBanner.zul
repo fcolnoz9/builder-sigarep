@@ -2,16 +2,22 @@
 	<window id="winActualizarBanner" title="Configuración Web :: Actualizar Banner"
 		border="normal" width="auto" height="auto" closable="true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMBanner')">
 
-		
+	<!-- Contiene los campos que requieren llenarse con los datos del Banner -->	
+	
+	
 	<groupbox id="grbDatosBanner"> 
 		<caption label="Datos del Banner"/>
-		<grid> 
+		<!-- Grid interior del Banner-->
+		<grid id="grdDatosDelBanner"> 
 		<columns>
 			<column label="" width="70%"></column>
 			<column label="" width="30%"></column>
 		</columns>
 		<rows>
 			<row>
+			
+			<!-- Grid interior del Banner -->
+			
 			<grid id="grdActualizarBanner">
 
 			<columns></columns>
@@ -19,7 +25,7 @@
 				<row>
 					<label id="lblTituloBanner" value="Título de la Imagen:" />
 					<textbox id="txtTituloBanner" constraint="no empty" value="@bind(vm.titulo)"
-					width="170px" maxlength="30" cols="23" tabindex="5" mold="rounded" />
+					width="80%" maxlength="30" cols="23" tabindex="5" mold="rounded" />
 					
 				</row>
 
@@ -28,7 +34,7 @@
 				<row>
 					<label id="lblLinkImagenBanner" value="Link Imagen:" />
 					<textbox id="txtLinkBanner" constraint="no empty" value="@bind(vm.enlace)"
-						width="170px" maxlength="30" cols="23" tabindex="5" mold="rounded" />
+						width="80%" maxlength="30" cols="23" tabindex="5" mold="rounded" />
 
 				</row>
 
@@ -37,7 +43,7 @@
 				<row>
 					<label id="lblDescripcionBanner" value="Descripción Imagen:" />
 					<textbox id="txtDescripcionBanner" constraint="no empty" value="@bind(vm.descripcion)"
-						width="170px" maxlength="30" cols="23" tabindex="5" mold="rounded" />
+						rows="3" tabindex="2" width="77%" maxlength="255" mold="rounded" />
 
 				</row>
 				<row>
@@ -51,63 +57,19 @@
 		</grid>
 		<vlayout>
 			<button label="Cargar Imagen" id="btnCargarImagenBanner" width="auto" height="auto"
-							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarImagenBanner',upload=event)"/>
-				<image id="imgImagenBanner" height="150px" width="300px" content="@bind(vm.imagenBanner)"/>
+							src="/imagenes/iconos/cargar.png" orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarImagenBanner',upload=event)"/>
+				<image id="imgImagenBanner" height="50%" width="100px" content="@bind(vm.imagenBanner)"/>
 		</vlayout>
 		</row>
 		</rows>
 		</grid>
 	</groupbox>
-	<space />
-	<space />
+	<separator />
+	<div align="right" height="100%">
 	
-<!-- 	//**************************************************** -->
-<!-- 	//LISTADO DE BANNER -->
-<!-- 	//**************************************************** -->
-	<groupbox id="grbListadoBanner"> 
-		<caption label="Listado del Banner"/>
-		<listbox id="lbxListaBanner" rows="2" model="@bind(vm.listadoBanner)" selectedItem="@bind(vm.bannerSeleccionado)"   
-   			 onClick="@command('mostrarSeleccionado')" emptyMessage="No hay banner registrados" mold="paging" pageSize="2">
-		<auxhead sclass="category-center">
-            <auxheader label="Busqueda por Filtros" colspan="6" />
-        </auxhead>
-        
-        <listhead>
-			<listheader label="Id" width="30px" align="center" sort="auto(nombre)" />
+	<!-- Permite realizar acciones respecto al Banner -->
 			
-			<listheader label="Título" align="center" sort="auto(titulo)">
-				<textbox instant="true" width="100px" value="@bind(vm.titulofiltro)" onChange="@command('buscarBannerFiltroTitulo')" />
-				<image src="/imagenes/iconos/buscar.png"/>
-			</listheader>
-			<listheader label="Link" align="center" sort="auto(enlace)">
-				<textbox instant="true"  width="100px"
-                    value="@bind(vm.enlacefiltro)" onChange="@command('buscarBannerFiltroEnlace')"/>
-				<image src="/imagenes/iconos/buscar.png"/>
-			</listheader>
-			<listheader label="Descripción" align="center" sort="auto(descripcion)" width="220px">
-				<textbox instant="true"  width="100px"
-                    value="@bind(vm.enlacefiltro)" onChange="@command('buscarBannerFiltroEnlace')"/>
-				<image src="/imagenes/iconos/buscar.png"/>
-			</listheader>
-			<listheader label="Fecha Vencimiento" align="center"/>
-			<listheader label="Imagen" align="center"/>
-		</listhead>
 			
-			<template name="model">
-				<listitem selected="false">
-					<listcell label="${each.idImagen}" />
-					<listcell label="${each.titulo}"/>
-					<listcell label="${each.enlace}"/>
-					<listcell label="${each.descripcion}"/>
-					<listcell label="${each.fechaVencimiento}"/>
-					<listcell label="">
-						<image height="30px" width="60px" content="${each.getFotoBanner().getAImage()}"/>
-					</listcell>
-				</listitem>
-			</template>
-		</listbox>
-	</groupbox>
-		<div align="right" height="100%">
 			<button label="Guardar" id="btnGuardarBanner" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 				orient="horizontal" mold="trendy" onClick="@command('guardarBanner')"/>
 			<button label="Eliminar" id="btnEliminarBanner" image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
@@ -120,6 +82,49 @@
 
 
 		</div>
+	
+<!-- 	//**************************************************** -->
+<!-- 	//LISTADO DE BANNER -->
+<!-- 	//**************************************************** -->
+<!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->
+	
+	
+	<groupbox id="grbListadoBanner"> 
+		<caption label="Listado del Banner"/>
+		<separator />
+		<listbox id="lbxListaBanner" rows="2" model="@bind(vm.listadoBanner)" selectedItem="@bind(vm.bannerSeleccionado)"  height="auto"  
+   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay banner registrados" mold="paging" pageSize="2">
+        
+        <listhead>
+			
+			<listheader label="Título" align="center" sort="auto(titulo)">
+				<textbox instant="true" width="100px" value="@bind(vm.titulo)" onChange="@command('filtrosBanner')" />
+				<image src="/imagenes/iconos/buscar.png"/>
+			</listheader>
+			<listheader label="Link" align="center" sort="auto(enlace)">
+				<textbox instant="true"  width="100px"
+                    value="@bind(vm.enlace)" onChange="@command('filtrosBanner')"/>
+				<image src="/imagenes/iconos/buscar.png"/>
+			</listheader>
+			<listheader label="Descripción" align="center" sort="auto(descripcion)" width="220px">
+			</listheader>
+			<listheader label="Fecha Vencimiento" align="center"/>
+			<listheader label="Imagen" align="center"/>
+		</listhead>
+			
+			<template name="model">
+				<listitem>
+					<listcell label="${each.titulo}"/>
+					<listcell label="${each.enlace}"/>
+					<listcell label="${each.descripcion}"/>
+					<listcell label="${each.fechaVencimiento}"/>
+					<listcell label="">
+						<image height="30px" width="60px" content="${each.getFotoBanner().getAImage()}"/>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
 
 	</window>
 
