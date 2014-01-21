@@ -54,7 +54,7 @@
 					<listheader label="Nombre" align="center"
 						sort="auto(nombre)">
 						<textbox id="filtroNombre" instant="true"
-							width="100px" value="@bind(vm.filtros.nombreRecaudo)"
+							width="100px" value="@bind(vm.nombreRecaudoFiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
