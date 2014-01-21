@@ -71,5 +71,20 @@ public class ServicioRecaudo {
 		return resultado;
 	}
 	
+	public List<Recaudo> filtrarRecaudos(String nombreRecaudo) {
+		List<Recaudo> resultado = new LinkedList<Recaudo>();	
+		if (nombreRecaudo == null) {
+			resultado = listadoRecaudosActivos();
+		} else {
+			for (Recaudo rec : listadoRecaudosActivos()) {
+				if (rec.getNombreRecaudo().toLowerCase().contains(nombreRecaudo))
+				{
+					resultado.add(rec);
+				}
+			}
+		}
+		return resultado;
+	}
+	
 	
 }
