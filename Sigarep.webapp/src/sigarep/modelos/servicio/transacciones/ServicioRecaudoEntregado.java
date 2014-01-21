@@ -85,6 +85,11 @@ public class ServicioRecaudoEntregado {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula);
 	}
 	
+	
+	public List<RecaudoEntregado> buscarRecaudosEntregadosReconsideracion(String cedula){
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosReconsideracion(cedula);
+	}
+	
 	public List<ListaBuscarRecaudosEntregados> buscarRecaudosEntregados2(String cedula) {
 		String queryStatement = 
 				"SELECT r.nombre_recaudo, tm.nombre_tipo_motivo, s.nombre_documento, s.contenido_documento, " +
