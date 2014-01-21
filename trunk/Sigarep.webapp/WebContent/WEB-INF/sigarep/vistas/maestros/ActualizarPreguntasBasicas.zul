@@ -1,59 +1,96 @@
 <zk>
-	<window id="winActualizarPreguntasBasicas" title="Configuración Web:: Preguntas Básicas"  width="auto" height="auto" closable = "true"
-			border="normal"  contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
-   			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
-			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
-   		
-	        <!-- Grupbox que contiene los campos de la pantalla -->
-				<groupbox id = "grbPreguntaBasica"> 
-					<caption label="Datos de la Pregunta Básica"/>
-						<grid id="grdPreguntaBasica" height="100%">
-							<columns>
-								<column label="" width="10%" />
-								<column label="" width="40%" />
-								<column label="" width="10%" />
-								<column label="" width="40%" />
-							</columns>
-							<rows>
-								<row>
-									<label id="lblPregunta" value="Pregunta:" />
-										<textbox id="txtPregunta" width="300px" rows="3" maxlength="255"  mold="rounded"  tabindex="1"  value="@bind(vm.pregunta)" constraint="no empty:Introduzca la pregunta" />
-										<label id="lblRespuesta" value="Respuesta:"/>
-										<textbox id="txtRespuesta" width="300px" rows="3" maxlength="255" mold="rounded"  tabindex="2" value="@bind(vm.respuesta)" constraint="no empty:Introduzca la respuesta" />
-								</row>
-								</rows>
-						</grid>
-					</groupbox>
-   					<space />
-   					<!-- Grupbox que contiene el listado de preguntas almacenadas en base de datos -->
-					<groupbox id = "grbListaPreguntaBasica">
-						<caption label="Listado de Preguntas"/>
-						<listbox id="lbxPreguntas"  height="100%" model="@bind(vm.listaPregunta)" selectedItem="@bind(vm.preguntaseleccionada)"   
-   			 					 onSelect="@command('mostrarSeleccionada')" emptyMessage="No hay preguntas básicas registradas" mold="paging" pageSize="5">	
-							<listhead>
-								<listheader label="Número Pregunta" align="center" sort="auto(idPreguntaBasica)" />
-								<listheader label="Preguntas" align="center" sort="auto(pregunta)" />
-								<listheader label="Respuestas" align="center" sort="auto(respuesta)" />
-							</listhead>
-						<template name="model">
-							<listitem>
- 								<listcell label="${each.idPreguntaBasica}" /> 
-								<listcell label="${each.pregunta}" />
-								<listcell label="${each.respuesta}" />
-							</listitem>
-						</template>
-						</listbox>
-					</groupbox>
-					<space />
-			 <!-- Grupo de botones -->
-			<div align="right">
-				<hbox>
-					<div align="right" height="100%"> <button id="btnGuardarPregunta" label="Guardar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/guardar.png" onClick="@command('guardarPregunta')"/> </div>
-					<div align="right" height="100%"><button id="btnEliminarPregunta" label="Eliminar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/eliminar.png" onClick="@command('eliminarPreguntaBasica')"/> </div>
-					<div align="right" height="100%"><button id="btnCancelarPregunta" label="Cancelar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cancelar.png" onClick="@command('limpiar')"/> </div>
-					<div align="right" height="100%"><button id="btnCerrar" label="Cerrar"  mold="trendy" width="auto" height="auto" orient="horizontal" image="imagenes/iconos/cerrar.png" onClick = "winActualizarPreguntasBasicas.onClose()" /> </div>
-				</hbox>
-			</div>
+	<window id="winActualizarPreguntasBasicas"
+		title="Configuración Web:: Preguntas Básicas" width="auto"
+		height="auto" closable="true" border="normal"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
+		<style src="/widgets/input/form_sample/style.css" />
+		<!-- Estilos de CSS para pantallas -->
+		<style src="/widgets/input/form_sample/style.css" />
+		<!-- Estilos de CSS para pantallas -->
+
+		<!-- Grupbox que contiene los campos de la pantalla -->
+		<groupbox id="grbPreguntaBasica">
+			<caption label="Datos de la Pregunta Básica" />
+			<grid id="grdPreguntaBasica" height="100%">
+				<columns>
+					<column label="" width="10%" />
+					<column label="" width="40%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblPregunta" value="Pregunta:" />
+						<textbox id="txtPregunta" width="80%" rows="3"
+							maxlength="255" mold="rounded" tabindex="1"
+							value="@bind(vm.pregunta)"
+							constraint="no empty:Introduzca la pregunta" />
+						<label id="lblRespuesta" value="Respuesta:" />
+						<textbox id="txtRespuesta" width="80%"
+							rows="3" maxlength="255" mold="rounded" tabindex="2"
+							value="@bind(vm.respuesta)"
+							constraint="no empty:Introduzca la respuesta" />
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<space />
+		<!-- Grupo de botones -->
+		<div align="right">
+			<hbox>
+				<div align="right" height="100%">
+					<button id="btnGuardarPregunta" label="Guardar"
+						mold="trendy" width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/guardar.png"
+						onClick="@command('guardarPregunta')" />
+				</div>
+				<div align="right" height="100%">
+					<button id="btnEliminarPregunta" label="Eliminar"
+						mold="trendy" width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/eliminar.png"
+						onClick="@command('eliminarPreguntaBasica')" />
+				</div>
+				<div align="right" height="100%">
+					<button id="btnCancelarPregunta" label="Cancelar"
+						mold="trendy" width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/cancelar.png"
+						onClick="@command('limpiar')" />
+				</div>
+				<div align="right" height="100%">
+					<button id="btnCerrar" label="Cerrar" mold="trendy"
+						width="auto" height="auto" orient="horizontal"
+						image="imagenes/iconos/cerrar.png"
+						onClick="winActualizarPreguntasBasicas.onClose()" />
+				</div>
+			</hbox>
+		</div>
+		<!-- Grupbox que contiene el listado de preguntas almacenadas en base de datos -->
+		<groupbox id="grbListaPreguntaBasica">
+			<caption label="Listado de Preguntas" />
+			<listbox id="lbxPreguntas" height="100%"
+				model="@bind(vm.listaPregunta)"
+				selectedItem="@bind(vm.preguntaseleccionada)"
+				onSelect="@command('mostrarSeleccionada')"
+				emptyMessage="No hay preguntas básicas registradas" mold="paging"
+				pageSize="5">
+				<listhead>
+					<listheader label="Número Pregunta" align="center"
+						sort="auto(idPreguntaBasica)" />
+					<listheader label="Preguntas" align="center"
+						sort="auto(pregunta)" />
+					<listheader label="Respuestas" align="center"
+						sort="auto(respuesta)" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="${each.idPreguntaBasica}" />
+						<listcell label="${each.pregunta}" />
+						<listcell label="${each.respuesta}" />
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+		<space />
 	</window>
 </zk>
