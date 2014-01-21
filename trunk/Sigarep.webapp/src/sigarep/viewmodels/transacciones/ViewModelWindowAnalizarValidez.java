@@ -32,7 +32,6 @@ import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.transacciones.Soporte;
-import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ListaAnalizarValidez;
@@ -130,7 +129,6 @@ public class ViewModelWindowAnalizarValidez {
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	Soporte soporte = new Soporte();
-	SoportePK soportePK = new SoportePK();
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
