@@ -138,6 +138,12 @@ public class MensajesAlUsuario {
 				"Error", Messagebox.OK, Messagebox.ERROR);
 
 	}
+	public void ErrorLapsoActivoExistente() {
+
+		Messagebox.show("Ya existe un lapso académico activo.",
+				"Error", Messagebox.OK, Messagebox.ERROR);
+
+	}
 
 	public void informacionArchivoCargado() {
 
