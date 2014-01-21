@@ -62,7 +62,7 @@ public class Soporte implements Serializable {
 		return this.idSoporte;
 	}
 
-	public void setId(Integer idSoporte) {
+	public void setIdSoporte(Integer idSoporte) {
 		this.idSoporte = idSoporte;
 	}
 
