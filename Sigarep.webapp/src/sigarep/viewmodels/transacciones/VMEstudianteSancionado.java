@@ -27,11 +27,15 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.Estudiante;
+import sigarep.modelos.data.maestros.TipoMotivo;
+import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
+import sigarep.modelos.data.transacciones.EstudianteSancionadoFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
@@ -67,7 +71,9 @@ public class VMEstudianteSancionado {
 	private LapsoAcademico lapsoAcademico;
 	@WireVariable
 	private String nombrePrograma;
+	
 
+	private mensajes mensajeAlUsuario = new mensajes();
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
@@ -76,8 +82,7 @@ public class VMEstudianteSancionado {
 	private ServicioEstudiante servicioestudiante;
 	@WireVariable
 	private ServicioSancionMaestro serviciosancionmaestro;
-	@WireVariable
-	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private String nombreSancion;
 	@WireVariable
@@ -143,7 +148,9 @@ public class VMEstudianteSancionado {
 	private List<SancionMaestro> listaSancion;
 	private EstudianteSancionado estudianteSeleccionado;
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
+	private List<EstudianteSancionado> listaEstudianteSancionado;
 	
+	private EstudianteSancionadoFiltros filtros = new EstudianteSancionadoFiltros();
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
@@ -164,7 +171,25 @@ public class VMEstudianteSancionado {
 	public void setEstudiante(Estudiante estudiante) {
 		this.estudiante = estudiante;
 	}
+	public EstudianteSancionadoFiltros getFiltros() {
+		return filtros;
+	}
+
+	public void setFiltros(EstudianteSancionadoFiltros filtros) {
+		this.filtros = filtros;
+	}
 	
+	
+	public List<EstudianteSancionado> getListaEstudianteSancionado() {
+		return listaEstudianteSancionado;
+	}
+
+	public void setListaEstudianteSancionado(List<EstudianteSancionado> listaEstudianteSancionado) {
+		this.listaEstudianteSancionado = listaEstudianteSancionado;
+	}
+	
+
+
 	public String getPrimerNombre() {
 		return primerNombre;
 	}
@@ -389,6 +414,55 @@ public class VMEstudianteSancionado {
 	public void setRbSolicitud(Radio rbSolicitud) {
 		this.rbSolicitud = rbSolicitud;
 	}
+	
+	private String cedulaFiltro;
+	private String nombreRFiltro;
+	private String apellidoFiltro;
+	private String sancionFiltro;
+	private String lapsoFiltro;
+	
+	
+	
+	public String getCedulaFiltro() {
+		return cedulaFiltro;
+	}
+
+	public void setCedulaFiltro(String cedulaFiltro) {
+		this.cedulaFiltro = cedulaFiltro;
+	}
+
+	public String getNombreRFiltro() {
+		return nombreRFiltro;
+	}
+
+	public void setNombreRFiltro(String nombreRFiltro) {
+		this.nombreRFiltro = nombreRFiltro;
+	}
+
+	public String getApellidoFiltro() {
+		return apellidoFiltro;
+	}
+
+	public void setApellidoFiltro(String apellidoFiltro) {
+		this.apellidoFiltro = apellidoFiltro;
+	}
+
+	public String getSancionFiltro() {
+		return sancionFiltro;
+	}
+
+	public void setSancionFiltro(String sancionFiltro) {
+		this.sancionFiltro = sancionFiltro;
+	}
+
+	public String getLapsoFiltro() {
+		return lapsoFiltro;
+	}
+
+	public void setLapsoFiltro(String lapsoFiltro) {
+		this.lapsoFiltro = lapsoFiltro;
+	}
+
 
 	@Init
 	public void init() {
@@ -458,22 +532,27 @@ public class VMEstudianteSancionado {
 		  ,"telefono","email","fechaNacimiento","lapsoAcademico","annoIngreso","listaSancionados"
 		  ,"segundoApellido", "sexo","programa"})
 	public void registrarEstudianteSancionado() {
-		if(primerNombre.equals("") || segundoNombre.equals("") || primerApellido.equals("")
+		if(cedula.equals("") || primerNombre.equals("") || segundoNombre.equals("") || primerApellido.equals("")
 				|| segundoApellido.equals("") || telefono.equals("") || email.equals("")
-				|| sexo.equals("") || programa.equals("") || cedula.equals("")
+				|| sexo.equals("") || programa.equals("") 
 			    || fechaNacimiento.equals("") || lapsoAcademico.equals("") || unidadesCursadas.equals("") 
 			    || unidadesAprobadas.equals(null) || annoIngreso.equals("")  ||sancionMaestro.equals("")
 			    || semestre.equals(""))
-				msjs.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
+			if(getListaEstudianteSancionado().size()!=0){
+				   System.out.println("ESTATUS"+getListaEstudianteSancionado().get(0).getEstatus());
+				   Messagebox.show("Ya Existe un Lapso Activo", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+			   }
+			   else{
+				   
 			estudianteSancionadoPK.setCedulaEstudiante(cedula);
 			estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
 			estudianteSancionado.setId(estudianteSancionadoPK);
 			estudianteSancionado.setLapsoAcademico(lapsoAcademico);
 			estudianteSancionado.setEstudiante(estudiante);
 			estudianteSancionado.setIndiceGrado(indiceGrado);
-		    //estudianteSancionado.setLapsosAcademicosRp(lapsosAcademicosRP); //ni idea de esta, Yelitza y Amanda modificarán la vista
-			estudianteSancionado.setSancionMaestro(sancionMaestro);
+		 	estudianteSancionado.setSancionMaestro(sancionMaestro);
 			estudianteSancionado.setUnidadesAprobadas(unidadesAprobadas);
 			estudianteSancionado.setUnidadesCursadas(unidadesCursadas);
 			estudianteSancionado.setSemestre(semestre);
@@ -483,8 +562,9 @@ public class VMEstudianteSancionado {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			msjs.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
+		}
 		}
 	}
 	 
@@ -494,8 +574,8 @@ public class VMEstudianteSancionado {
 		 })
 	 public void buscarEstudiante(){
 		 if (cedula.equals(""))
-				Messagebox.show("Debe ingresar una cedula", "Advertencia",
-						Messagebox.OK, Messagebox.EXCLAMATION);
+			 mensajeAlUsuario.advertenciaLlenarCampos();
+				
 		 else {
 			 estudiante = new Estudiante();
 			 estudiante = servicioestudiante.buscarEstudiante(cedula);
@@ -519,9 +599,7 @@ public class VMEstudianteSancionado {
 			  , "semestre", "lapsosAcademicosRP","listaSancionados"})
 		public void eliminarEstudianteSancionado(){
 		  if (cedula == null)
-			Messagebox.show(
-					"Cedula de estudiante no encontrada, no se pudo eliminar",
-					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			  mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		  else {
 			try {
 				servicioestudiantesancionado.eliminar(estudianteSeleccionado.getId());
@@ -546,6 +624,7 @@ public class VMEstudianteSancionado {
 		telefono = "";
 		email = "";
 		lapsosAcademicosRP = "";
+		nombreSancion= "";
 		sexo = "";
 		programa = null;
 		cedula = "";
@@ -580,5 +659,13 @@ public class VMEstudianteSancionado {
 		registrar.setMaximizable(true);
 		registrar.doModal();	
   	}
+	
+
+	 // Método que busca y filtra todos loe estudiantes sancionados
+ 	@Command
+ 	@NotifyChange({ "listaEstudianteSancionado" })
+ 	public void filtros() {
+ 		listaEstudianteSancionado = servicioestudiantesancionado.buscarEstudianteSancionado(filtros);
+ 	}
 	
 }
