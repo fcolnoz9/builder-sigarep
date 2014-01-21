@@ -1,10 +1,7 @@
 package sigarep.modelos.servicio.transacciones;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +10,6 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.repositorio.transacciones.IRecaudoEntregadoDAO;
@@ -84,7 +80,12 @@ public class ServicioRecaudoEntregado {
 		return result;
 	} 
 	
-	public List<ListaBuscarRecaudosEntregados> buscarRecaudosEntregados(String cedula) {
+	
+	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula){
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula);
+	}
+	
+	public List<ListaBuscarRecaudosEntregados> buscarRecaudosEntregados2(String cedula) {
 		String queryStatement = 
 				"SELECT r.nombre_recaudo, tm.nombre_tipo_motivo, s.nombre_documento, s.contenido_documento, " +
 				"s.tipo_documento, tm.id_tipo_motivo, re.id_recaudo FROM  tipo_motivo tm " +
