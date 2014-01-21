@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.transacciones.Soporte;
-import sigarep.modelos.data.transacciones.SoportePK;
 import sigarep.modelos.repositorio.transacciones.ISoporteDAO;
 
 @Service("serviciosoporte")
@@ -25,11 +24,11 @@ public class ServicioSoporte {
 		return iSoporteDAO.save(soporte);
 	}
 	
-	public void eliminar(SoportePK soportePK){
-		iSoporteDAO.delete(soportePK);
+	public void eliminar(Integer idSoporte){
+		iSoporteDAO.delete(idSoporte);
 	}
 	
-	public Soporte buscarSoportePorID(SoportePK soportePK){
-		return iSoporteDAO.findOne(soportePK);
+	public Soporte buscarSoportePorID(Integer idSoporte){
+		return iSoporteDAO.findOne(idSoporte);
 	}
 }
