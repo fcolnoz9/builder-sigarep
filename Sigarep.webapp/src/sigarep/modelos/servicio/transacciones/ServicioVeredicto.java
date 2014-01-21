@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.repositorio.transacciones.ISolicitudApelacionDAO;
 import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
 import sigarep.modelos.data.maestros.Estudiante;
@@ -30,11 +31,11 @@ public class ServicioVeredicto {
 	@Autowired
 	private IApelacionEstadoApelacionDAO apelacionestadoapelacion;
 	
-	public List<ListaVeredicto> buscarApelacionesVeredicto1() {
+	public List<ListaGenericaSancionados> buscarApelacionesVeredicto1() {
 		
 		String queryStatementVer =
-				"SELECT es.cedula_estudiante, es.primer_nombre, es.segundo_nombre, es.primer_apellido, es.segundo_apellido, p.nombre_programa," +
-				"es.email, esa.indice_grado, esa.codigo_lapso, sa.nombre_sancion, i.id_instancia_apelada, sap.numero_caso FROM sancion_maestro sa," +
+				"SELECT es.cedula_estudiante, es.primer_nombre, es.segundo_nombre, es.primer_apellido, es.segundo_apellido, es.email, p.nombre_programa," +
+				"esa.indice_grado, sa.nombre_sancion, esa.lapsos_academicos_rp, esa.codigo_lapso, sap.numero_caso, i.id_instancia_apelada FROM sancion_maestro sa," +
 				"programa_academico p, estudiante_sancionado esa, lapso_academico la, instancia_apelada i,  estudiante es " + 
 				"INNER JOIN solicitud_apelacion  AS sap ON es.cedula_estudiante = sap.cedula_estudiante " +
 				"WHERE sa.id_sancion = esa.id_sancion " +
@@ -49,10 +50,10 @@ public class ServicioVeredicto {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ListaVeredicto> results = new ArrayList<ListaVeredicto>();
+		List<ListaGenericaSancionados> results = new ArrayList<ListaGenericaSancionados>();
 		for (Object[] resultRow : resultSet) {
 			results.add(
-					new ListaVeredicto(
+					new ListaGenericaSancionados(
 							(String) resultRow[0],
 							(String) resultRow[1],
 							(String) resultRow[2],
@@ -63,24 +64,25 @@ public class ServicioVeredicto {
 							(Float) resultRow[7], 
 							(String) resultRow[8],
 							(String) resultRow[9],
-							(Integer) resultRow[10],
-							(Integer) resultRow[11]));
+							(String) resultRow[10],
+							(Integer) resultRow[11],
+							(Integer) resultRow[12]));
 		}
 		return results;
 	}
 
-	public List<ListaVeredicto> filtrarApelacionesVeredicto1(String cedula, String nombre, String apellido, String programa, String sancion){
-		List<ListaVeredicto> result = new ArrayList<ListaVeredicto>();
+	public List<ListaGenericaSancionados> filtrarApelacionesVeredicto1(String cedula, String nombre, String apellido, String programa, String sancion){
+		List<ListaGenericaSancionados> result = new ArrayList<ListaGenericaSancionados>();
         if(cedula==null || nombre==null || apellido==null || programa==null ||  sancion==null){
         	result= buscarApelacionesVeredicto1();
         }
         else{
-			for (ListaVeredicto b: buscarApelacionesVeredicto1())
+			for (ListaGenericaSancionados b: buscarApelacionesVeredicto1())
 			{
 				if (b.getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
 					b.getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
 					b.getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
-					b.getPrograma().toLowerCase().contains(programa.toLowerCase()) &&
+					b.getProgramaAcademico().toLowerCase().contains(programa.toLowerCase()) &&
 					b.getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
 					result.add(b);
 				}
