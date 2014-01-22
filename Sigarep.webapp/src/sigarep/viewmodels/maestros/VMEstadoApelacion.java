@@ -8,14 +8,17 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
-import sigarep.modelos.data.maestros.EstadoApelacionFiltros;
+import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
-
+import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 /*
  * @ (#) EstadoApelacion.java 
  *
@@ -31,20 +34,38 @@ import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 public class VMEstadoApelacion {
 	@WireVariable
 	ServicioEstadoApelacion servicioestadoapelacion;
+	@WireVariable
+	ServicioInstanciaApelada servicioInstanciaApelada;
+	@WireVariable
 	private Integer idEstadoApelacion; // clave principal de la tabla EstadoApelacion
-	private String nombreEstadoApelacion; // nombre del EstadoApelacion
-	private String nombreEstadoApelacionfiltro; // filtro de busqueda por nombre
+	@WireVariable
+	private String nombreEstado; // nombre del EstadoApelacion
+	@WireVariable
 	private String descripcion; // descripcion del EstadoApelacion
-	private String descripcionfiltro; // filtro de busqueda por descripcion
+	@WireVariable
 	private Boolean estatus; // estatus del EstadoApelacion
+	@WireVariable
+	private InstanciaApelada instanciaApelada;
+	@WireVariable
 	private List<EstadoApelacion> listaEstadoApelacion; // lista de Estados de Apelacion registrados
+	@WireVariable
 	private EstadoApelacion estadoseleccionado;
-	private EstadoApelacionFiltros filtros = new EstadoApelacionFiltros();
-
+	@WireVariable
+	private List<InstanciaApelada> listaInstanciaApelada; 
+	mensajes msjs = new mensajes();
+	
+    
 	@Wire
-	Textbox txtnombreMomento;
-	@Wire
-	Window winRegistrarMomento;
+	Window winRegistrarEstados;
+	private  @Wire Combobox cmbInstanciaApelada;
+	
+	@Init
+	public void init() {
+		// initialization code
+		buscarEstadoApelacion();
+		buscarInstanciaApelada();
+		
+	}
 
 	// Metodos GETS Y SETS
 	public Integer getIdEstadoApelacion() {
@@ -54,13 +75,13 @@ public class VMEstadoApelacion {
 	public void setIdEstadoApelacion(Integer idEstadoApelacion) {
 		this.idEstadoApelacion = idEstadoApelacion;
 	}
-
-	public String getNombreEstadoApelacion() {
-		return nombreEstadoApelacion;
+	
+	public String getNombreEstado() {
+		return nombreEstado;
 	}
 
-	public void setNombreEstadoApelacion(String nombreEstadoApelacion) {
-		this.nombreEstadoApelacion = nombreEstadoApelacion;
+	public void setNombreEstado(String nombreEstado) {
+		this.nombreEstado = nombreEstado;
 	}
 
 	public String getDescripcion() {
@@ -79,22 +100,6 @@ public class VMEstadoApelacion {
 		this.estatus = estatus;
 	}
 
-	public String getNombreEstadoApelacionfiltro() {
-		return nombreEstadoApelacionfiltro;
-	}
-
-	public String getDescripcionfiltro() {
-		return descripcionfiltro;
-	}
-
-	public EstadoApelacionFiltros getFiltros() {
-		return filtros;
-	}
-
-	public void setFiltros(EstadoApelacionFiltros filtros) {
-		this.filtros = filtros;
-	}
-
 	public List<EstadoApelacion> getListaEstadoApelacion() {
 		return listaEstadoApelacion;
 	}
@@ -107,81 +112,102 @@ public class VMEstadoApelacion {
 		return estadoseleccionado;
 	}
 
-	public void setEstadoseleccionado(EstadoApelacion momenseleccionado) {
-		this.estadoseleccionado = momenseleccionado;
+	public void setEstadoseleccionado(EstadoApelacion estadoseleccionado) {
+		this.estadoseleccionado = estadoseleccionado;
 	}
 
+	public List<InstanciaApelada> getListaInstanciaApelada() {
+		return listaInstanciaApelada;
+	}
+	
+	public void setListaInstanciaApelada(List<InstanciaApelada> listaInstanciaApelada) {
+		this.listaInstanciaApelada = listaInstanciaApelada;
+	}
+	
+	public Combobox getCmbInstanciaApelada() {
+		return cmbInstanciaApelada;
+	}
+	public void setCmbInstanciaApelada(Combobox cmbInstanciaApelada) {
+		this.cmbInstanciaApelada = cmbInstanciaApelada;
+	}
+	public InstanciaApelada getInstanciaApelada() {
+		return instanciaApelada;
+	}
+	public void setInstanciaApelada(InstanciaApelada instanciaapelada) {
+		this.instanciaApelada = instanciaapelada;
+	}
+	
 	// Fin de los metodos gets y sets
 
 	// OTROS METODOS
-	@Init
-	public void init() {
-		listadoEstadoApelacion();
-	}
 
 	// Metodos que permite guardar los Estados de Apelacion
 	@Command
-	@NotifyChange({ "nombreEstadoApelacion", "descripcion", "listaEstadoApelacion" })
+	@NotifyChange({ "nombreEstado", "descripcion", "instanciaapelada" })
 	// el notifychange le avisa a que parametros en la pantalla se van a
 	// cambiar, en este caso es nombre y descripción se va a colocar en blanco
 	// al guardar
 	public void guardarEstadoApelacion() {
-		if (nombreEstadoApelacion==null || descripcion==null) {
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+		if (nombreEstado==null || descripcion==null || instanciaApelada==null) {
+			msjs.advertenciaLlenarCampos();
 		} else {
-			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstadoApelacion,
-					descripcion, true);
-			servicioestadoapelacion.guardar(estadoApelacion);
-			Messagebox.show("Se ha Registrado Correctamente", "Informacion",
-					Messagebox.OK, Messagebox.INFORMATION);
+			EstadoApelacion estadoapelacion = new EstadoApelacion();
+			estadoapelacion.setNombreEstado(nombreEstado);
+			estadoapelacion.setDescripcion(descripcion);
+			estadoapelacion.setEstatus(true);
+			estadoapelacion.setInstanciaApelada(instanciaApelada);
+			servicioestadoapelacion.guardarEstadoApelacion(estadoapelacion);
+			msjs.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
+	
+	@Command
+	@NotifyChange({"nombreEstado","descripcion","instanciaapelada","listaEstadoApelacion"})
+	public void buscarEstadoApelacion(){
+			listaEstadoApelacion  = servicioestadoapelacion.listadoEstadoApelacionActivas();
+	}
+	
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void buscarInstanciaApelada() {
+		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
+		System.out.println("lista"+listaInstanciaApelada);
+	}
+	
 
 	// Metodo que limpia todos los campos
 	@Command
-	@NotifyChange({ "nombreEstadoApelacion", "descripcion" })
+	@NotifyChange({ "nombreEstado", "descripcion","listaEstadoApelacion"})
 	public void limpiar() {
-		nombreEstadoApelacion = "";
+		nombreEstado = "";
 		descripcion = "";
-		listadoEstadoApelacion();
+		instanciaApelada=null;
+		buscarEstadoApelacion();
 	}
 
-	// Método que trae todos los registros en una lista de Estados de Apelacion
-	@Command
-	@NotifyChange({ "listaEstadoApelacion" })
-	public void listadoEstadoApelacion() {
-		listaEstadoApelacion = servicioestadoapelacion.listadoEstadoApelacion();
-	}
-
-	// Metodo que elimina un EstadoApelacion tomando en cuenta el idEstadoApelacion
-	@Command
-	@NotifyChange({ "nombreEstadoApelacion", "descripcion", "listaEstadoApelacion" })
-	public void eliminarEstadoApelacion() {
-		if (nombreEstadoApelacion==null || descripcion==null) {
-			Messagebox.show("Debes Seleccionar un Estado de Apelacion", "Advertencia",
-					Messagebox.OK, Messagebox.EXCLAMATION);
-		} else {
-			servicioestadoapelacion.eliminarEstadoApelacion(getEstadoseleccionado().getIdEstadoApelacion());
-		Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
-				Messagebox.OK, Messagebox.INFORMATION);
-		limpiar();
-	}
-	}
 	// permite tomar los datos del objeto EstadoApelacion seleccionado
 	@Command
-	@NotifyChange({ "idEstadoApelacion", "nombreEstadoApelacion", "descripcion" })
+	@NotifyChange({ "nombreEstado", "descripcion", "instanciaApelada" })
 	public void mostrarSeleccionado() {
-		idEstadoApelacion = getEstadoseleccionado().getIdEstadoApelacion();
-		nombreEstadoApelacion = getEstadoseleccionado().getNombreEstado();
+		nombreEstado = getEstadoseleccionado().getNombreEstado();
 		descripcion = getEstadoseleccionado().getDescripcion();
+		instanciaApelada = getEstadoseleccionado().getInstanciaApelada();
 	}
 
-	// Método que busca y filtra las sanciones
+	//Combo
 	@Command
-	@NotifyChange({ "listaEstadoApelacion" })
-	public void filtros() {
-		listaEstadoApelacion = servicioestadoapelacion.buscarEstadoApelacion(filtros);
+	 @NotifyChange({"listaInstanciaApelada"})
+	public InstanciaApelada objetoComboEstadoApelacion() {
+		System.out.println(instanciaApelada.getDescripcion());
+		return instanciaApelada;
 	}
+	// Método que trae todos los registros en una lista de Estados de Apelacion
+	@Command
+	@NotifyChange({ "listaEstadoApelacion"  })
+	public void listadoEstadoApelacion() {
+		listaEstadoApelacion = servicioestadoapelacion.listadoEstadoApelacionActivas();
+	
+	}
+
 }

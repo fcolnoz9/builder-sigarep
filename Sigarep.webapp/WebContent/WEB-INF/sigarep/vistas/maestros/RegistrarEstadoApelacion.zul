@@ -1,6 +1,6 @@
 <zk>
 	<window id="winRegistarEstadoApelacion"
-		title="Registros Básicos :: Estado de Apelacion" width="auto"
+		title="Registros Básicos :: Estado de Apelación" width="auto"
 		height="auto" closable="true" border="normal"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMEstadoApelacion')">
@@ -14,29 +14,45 @@
 		<!-- Estilos de CSS para pantallas -->
 
 		<!-- Grupbox que contiene los campos de la pantalla -->
-		<groupbox id="grbMomento">
-			<caption label="Datos del Momento" />
-			<grid id="grdMomento">
+		<groupbox id="grbEstadoApelacion">
+			<caption label="Datos de los Estados de Apelación" />
+			<grid id="grdEstadoApelacion">
 				<columns>
-					<column label="" width="10%" />
-					<column label="" width="40%" />
+					<column label="" width="15%" />
+					<column label="" width="35%" />
 					<column label="" width="10%" />
 					<column label="" width="40%" />
 				</columns>
 				<rows>
 					<row>
-						<label id="lblNombreMomento" value="Nombre:" />
-						<hlayout id="lytNombreMomento">
+
+						<label id="lblInstanciaApelada"
+							value="Instancia Apelada:" />
+						<combobox readonly="true"
+							id="cmbInstanciaApelada"
+							value="@bind(vm.instanciaApelada.descripcion)" width="auto"
+							mold="rounded" model="@load(vm.listaInstanciaApelada)"
+							selectedItem="@bind(vm.instanciaApelada)"
+							onSelect="@command('objetoComboEstadoApelacion')">
+							<template name="model">
+								<comboitem label="${each.descripcion }" />
+							</template>
+						</combobox>
+					
+					</row>
+					<row>
+						<label id="lblNombreEstado" value="Nombre:" />
+						<hlayout id="lytNombreEstado">
 							<textbox
-								constraint="no empty: Ingrese el Nombre del Momento"
-								id="txtNombreMomento" width="300px" cols="23" maxlength="30"
-								mold="rounded" tabindex="1" value="@bind(vm.nombreEstadoApelacion)" />
+								constraint="no empty: Ingrese el Nombre del Estado de Apelación"
+								id="txtNombreEstado" width="200px" cols="23" maxlength="100"  
+								mold="rounded" tabindex="1" value="@bind(vm.nombreEstado)" />
 						</hlayout>
-								<label id="lblDescripcion" value="Descripcion:" />
+						<label id="lblDescripcion" value="Descripción:" />
 						<hlayout id="lytdescripcion">
 							<textbox
-								constraint="no empty: Ingrese la Descripción del Momento"
-								id="txtDescripcion" width="300px" rows="3" maxlength="255"
+								constraint="no empty: Ingrese la Descripción del Estado de Apelación"
+								id="txtDescripcion" width="200px" rows="3" maxlength="255" 
 								mold="rounded" tabindex="2" value="@bind(vm.descripcion)" />
 						</hlayout>
 					</row>
@@ -44,60 +60,17 @@
 			</grid>
 		</groupbox>
 		<space />
-		<!-- Grupbox que contiene el listado de momentos almacenados en base de datos -->
-		<groupbox id="grbListaMomento">
-			<caption label="Lista de Estados de Apelacion" />
-			<listbox id="lbxNombreMomento" height="100%"
-				model="@bind(vm.listaEstadoApelacion)"
-				selectedItem="@bind(vm.estadoseleccionado)"
-				onSelect="@command('mostrarSeleccionado')"
-				emptyMessage="No hay momentos registrados" mold="paging"
-				pageSize="5">
-
-				<listhead>
-					<listheader label="Nombre del Momento"
-						align="center" sort="auto(nombreMomento)">
-						<textbox id="filtroNombreMomento" instant="true"
-						width="100px" value="@bind(vm.filtros.nombreEstado)"
-						onChange="@command('filtros')"/>
-						<image src="/imagenes/iconos/buscar.png"/>
-						</listheader>
-					<listheader label="Descripcion del Momento "
-						align="center" sort="auto(descripcion)" >
-						<textbox id="filtrodescripcion" instant="true"
-						width="100px" value="@bind(vm.filtros.descripcion)"
-						onChange="@command('filtros')" />
-						<image src="/imagenes/iconos/buscar.png"/>
-				</listheader>
-				</listhead>
-				<template name="model">
-					<listitem selected="false">
-						<listcell label="${each.nombreEstado}"></listcell>
-						<listcell label="${each.descripcion}"></listcell>
-					</listitem>
-				</template>
-			</listbox>
-			<space />
-			<space />
-		</groupbox>
-
 		<!-- Grupo de botones -->
 		<div align="right">
 			<hbox>
 				<div align="right" height="100%">
-					<button id="btnGuardarMomento" label="Guardar"
-						mold="trendy" width="auto" height="auto" orient="horizontal"
-						image="imagenes/iconos/guardar.png"
+					<button id="btnGuardarEstadoApelacion"
+						label="Guardar" mold="trendy" width="auto" height="auto"
+						orient="horizontal" image="imagenes/iconos/guardar.png"
 						onClick="@command('guardarEstadoApelacion')" />
 				</div>
 				<div align="right" height="100%">
-					<button id="btnEliminarMomento" label="Eliminar"
-						mold="trendy" width="auto" height="auto" orient="horizontal"
-						image="imagenes/iconos/eliminar.png"
-						onClick="@command('eliminarEstadoApelacion')" />
-				</div>
-				<div align="right" height="100%">
-					<button id="btnCancelarPregunta" label="Cancelar"
+					<button id="btnCancelarEstado" label="Cancelar"
 						mold="trendy" width="auto" height="auto" orient="horizontal"
 						image="imagenes/iconos/cancelar.png"
 						onClick="@command('limpiar')" />
@@ -110,5 +83,40 @@
 				</div>
 			</hbox>
 		</div>
+		<!-- Grupbox que contiene el listado de momentos almacenados en base de datos -->
+		<groupbox id="grbListaEstadoApelacion">
+			<caption label="Listado de Estados de Apelación" />
+			<listbox id="lbxNombreEstadoApelacion" height="100%"
+				model="@bind(vm.listaEstadoApelacion)"
+				selectedItem="@bind(vm.estadoseleccionado)"
+				onSelect="@command('mostrarSeleccionado')"
+				emptyMessage="No hay Estados de Apelación registrados" mold="paging"
+				pageSize="10">
+
+				<listhead>
+					<listheader label="Nombre del Estado de Apelación"
+						align="center" sort="auto(nombreEstado)">
+					</listheader>
+					<listheader
+						label="Descripcion del Estado de Apelación" align="center"
+						sort="auto(descripcion)">
+					</listheader>
+					<listheader label="Instancia Apelada" align="center"
+						sort="auto(instanciaApelada)" />
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.nombreEstado}"></listcell>
+						<listcell label="${each.descripcion}"></listcell>
+						<listcell
+							label="${each.instanciaApelada.descripcion}">
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+			<space />
+		</groupbox>
+
 	</window>
 </zk>
