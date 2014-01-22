@@ -4,8 +4,7 @@
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm')
-     @init('sigarep.viewmodels.transacciones.VMRegistrarReconsideracion')"
-	onCreate="visible.asignaturaVisible()">
+     @init('sigarep.viewmodels.transacciones.VMRegistrarReconsideracion')">
 	<style src="/widgets/grid/simple/style.css" />
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />
@@ -37,17 +36,6 @@
 					<textbox id="txtApellidos" cols="23" maxlength="30"
 						value="@bind(vm.apellidos)" readonly="true" width="200px">
 					</textbox>
-					<!-- 							<label id="lblEmail" value="Email: " /> -->
-					<!-- 						<textbox id="txtEmail" cols="23" maxlength="30" -->
-					<!-- 							value="@bind(vm.email)" disabled="true" width="200px"> -->
-					<!-- 						</textbox> -->
-				</row>
-				<row>
-					<!-- 						<label id="lblTelefono" value="Telefono: " /> -->
-					<!-- 						<textbox id="txtTelefono" cols="23" -->
-					<!-- 							maxlength="30" value="@bind(vm.telefono)" disabled="true" width="200px"> -->
-					<!-- 						</textbox> -->
-
 				</row>
 			</rows>
 		</grid>
@@ -74,9 +62,9 @@
 					<textbox id="txtPeridosancion" cols="23"
 						maxlength="30" value="1 Semestre" readonly="true">
 					</textbox>
-					<label id="lblAsignatura" value="Asignatura: " />
-					<textbox id="txtAsignatura" cols="23" maxlength="30"
-						value="@bind(vm.asignatura)" readonly="true">
+					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55"
+						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -167,22 +155,4 @@
 			</div>
 		</hbox>
 	</div>
-	<zscript><![CDATA[
-	class Visible {
-		Visible() {
-		}
-
-		public void asignaturaVisible() {
-			if (txtTipoSancion.getValue().toString().equals("RR")) {
-				txtAsignatura.setVisible(true);
-				lblAsignatura.setVisible(true);
-			} else {
-				txtAsignatura.setVisible(false);
-				lblAsignatura.setVisible(false);
-			}
-		}
-
-	}
-	Visible visible = new Visible();
-]]></zscript>
 </window>
