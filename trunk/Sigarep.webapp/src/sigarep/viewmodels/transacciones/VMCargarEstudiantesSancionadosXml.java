@@ -39,7 +39,7 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 /**CargarEstudiante por XML
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 2.3
+ * @version 2.5
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarEstudiantesSancionadosXml {
@@ -50,10 +50,8 @@ public class VMCargarEstudiantesSancionadosXml {
     private Date fecha_nacimiento,anio_ingreso;
 	@WireVariable 
 	private  ServicioEstudiante servicioestudiante;
-	@WireVariable 
 	private Estudiante estudiante,estudiante2;
-    private List<Estudiante> listaEstudiante;//Lista de Estudiantes
-	@WireVariable 
+    private List<EstudianteSancionado> listaEstudiante;//Lista de Estudiantes
 	private ProgramaAcademico programa_academico;
 	@WireVariable 
 	private ServicioProgramaAcademico servicioprogramaacademico;
@@ -68,23 +66,17 @@ public class VMCargarEstudiantesSancionadosXml {
 	private ServicioAsignatura servicioAsignatura;
 	@WireVariable 
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado ;
-	@WireVariable 
 	private LapsoAcademico lapsoAcademico;
-	@WireVariable 
 	private SancionMaestro sancionMaestro;
-	@WireVariable 
 	private EstudianteSancionado  est_san_busca;
-	@WireVariable 
 	private EstudianteSancionado estudianteSancionado;
 	@WireVariable 
 	private ServicioSancionMaestro serviciosancionmaestro;
 	@WireVariable 
 	private ServicioLapsoAcademico serviciolapsoacademico;
-	@WireVariable 
-	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable private ServicioEstudianteSancionado servicioestudiantesancionado;
 	private Media media;//Archivo de tipo media que soporta la extension Xml
-	
-	// Sets y gets de textoXML , Med, listaEstudiante 
+	// Sets y gets 
 	public String getTextoXML() {
 		return textoXML;
 	}
@@ -103,11 +95,10 @@ public class VMCargarEstudiantesSancionadosXml {
 	public void setMedia(Media media) {
 		this.media = media;
 	}
-	
-	public List<Estudiante> getListaEstudiante() {
+	public List<EstudianteSancionado> getListaEstudiante() {
 		return listaEstudiante;
 	}
-	public void setListaEstudiante(List<Estudiante> listaEstudiante) {
+	public void setListaEstudiante(List<EstudianteSancionado> listaEstudiante) {
 		this.listaEstudiante = listaEstudiante;
 	}
 	/** listaEstudiante
@@ -119,7 +110,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	@NotifyChange({"listaEstudiante"})
 	public void listaEstudiante()
 	{
-		listaEstudiante=servicioestudiante.listadoEstudiantes();
+		listaEstudiante=servicioestudiantesancionado.buscarTodos();
 	}
 	@Init
 	public void init()
@@ -132,25 +123,24 @@ public class VMCargarEstudiantesSancionadosXml {
 	  * @throws las Excepciones son que el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.
 	  */
 	@Command
-	@NotifyChange({"textoXML","tamanoXML"})
+	@NotifyChange({"textoXML","tamanoXML","listaEstudiante"})
 	public void cargarEstudiante(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
 		media = event.getMedia();
 		int i;
-		String codigo_lapso="";
+		
 		if (media != null) {
 			if (media.getFormat().equals("xml")) {
-				String DataXmL = media.getStringData();
+				String DataXml = media.getStringData();//le pide al archivo media la data en string para guardarla en la variable DataXml
 				SAXBuilder saxBuilder = new SAXBuilder();
 				XMLOutputter output = new XMLOutputter();
 				try {
-					Document doc = saxBuilder.build(new StringReader(DataXmL));
+					Document doc = saxBuilder.build(new StringReader(DataXml));//para transformar y construir la DataXml con el formato del XML
 					System.out.println("DATA" + doc.getRootElement());
 					Element rootNode = doc.getRootElement(); 
 					List list = rootNode.getChildren("Estudiante");
 					tamanoXML = list.size();
 					for (i = 0; i < list.size(); i++) {
 						Element node = (Element) list.get(i);
-					  System.out.println("des"+node.getDocument().getDescendants());	
 						cedula_estudiante = node.getAttribute("cedula_estudiante").getValue();
 						primer_nombre = node.getChildText("primer_nombre");
 						segundo_nombre = node.getChildText("segundo_nombre");
@@ -176,46 +166,45 @@ public class VMCargarEstudiantesSancionadosXml {
 							ex.printStackTrace();
 						}
 						if (node.getChildText("estatus").equals("true")) {
-							estatus = true;
+							estatus=true;
 						} else {
-							estatus = false;
+							estatus=false;
 						}
-						codigo_lapso=node.getChildText("codigo_lapso");//Desde Aqui datos del estudiante Sancionado
+						codigo_lapso=node.getChildText("codigo_lapso");//datos del estudiante Sancionado
 						indice_grado=Float.parseFloat(node.getChildText("indice_grado"));
 						lapsos_academicos_RP=node.getChildText("lapsos_academicos_RP");
 						id_sancion=Integer.parseInt(node.getChildText("id_sancion"));
 						unidades_cursadas=Integer.parseInt(node.getChildText("unidades_cursadas"));
 						unidades_aprobadas=Integer.parseInt(node.getChildText("unidades_aprobadas"));
 						semestre=Integer.parseInt(node.getChildText("semestre"));
-						try {
-							ProgramaAcademico programaacademico = new ProgramaAcademico();
-							programaacademico = servicioprogramaacademico.buscarUnPrograma(id_programa);
-							Estudiante estudiante = new Estudiante(cedula_estudiante, anio_ingreso, email,estatus, fecha_nacimiento, primer_apellido,primer_nombre, segundo_apellido,segundo_nombre, sexo, telefono,programaacademico);
-							servicioestudiante.guardarPrograma(estudiante);//Se guarda el estudiante
-							EstudianteSancionadoPK id =new EstudianteSancionadoPK();
-							id.setCedulaEstudiante(cedula_estudiante);
-							id.setCodigoLapso(codigo_lapso);
-							EstudianteSancionado estudiante_san;
-							estudiante_san=new EstudianteSancionado();
-							estudiante_san=servicioestudiantesancionado.buscar(id);
-							sancionMaestro = new SancionMaestro();
-							sancionMaestro =serviciosancionmaestro.buscarUnaSancion(id_sancion);
-							EstudianteSancionado estudiante_sancionado=new EstudianteSancionado();
-							lapsoAcademico=new LapsoAcademico();
-							lapsoAcademico= serviciolapsoacademico.buscarUnLapsoAcademico(codigo_lapso);
-							estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro);
-							servicioestudiantesancionado.guardar(estudiante_sancionado);  
+						ProgramaAcademico programaacademico = new ProgramaAcademico();
+						programaacademico = servicioprogramaacademico.buscarUnPrograma(id_programa);//busca el programa academico
+						Estudiante estudiante = new Estudiante(cedula_estudiante, anio_ingreso, email,estatus, fecha_nacimiento, primer_apellido,primer_nombre, segundo_apellido,segundo_nombre, sexo, telefono,programaacademico);
+						servicioestudiante.guardarPrograma(estudiante);//Se guarda el estudiante
+						EstudianteSancionadoPK id =new EstudianteSancionadoPK();
+						id.setCedulaEstudiante(cedula_estudiante);
+						id.setCodigoLapso(codigo_lapso);
+						EstudianteSancionado estudiante_san;
+						estudiante_san=new EstudianteSancionado();
+						estudiante_san=servicioestudiantesancionado.buscar(id);
+						sancionMaestro = new SancionMaestro();
+						sancionMaestro =serviciosancionmaestro.buscarUnaSancion(id_sancion);
+						EstudianteSancionado estudiante_sancionado;
+						lapsoAcademico=new LapsoAcademico();
+						lapsoAcademico= serviciolapsoacademico.buscarUnLapsoAcademico(codigo_lapso);
+						estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro,estatus);
+						servicioestudiantesancionado.guardar(estudiante_sancionado);  
 									   //las materias del Estudiante Sancionado. 
-								   if(!node.getChildText("codigo_asignatura_1").equals("0")){//Si es Igual a 0 es porque no tiene Materias, este valor viene del Xml
-									   codigo_asignatura_1= node.getChildText("codigo_asignatura_1");
-									   condicion_asignatura_1= Integer.parseInt(node.getChildText("condicion_asignatura_1"));
-									   AsignaturaEstudianteSancionadoPK asignatura_est_san_1=new AsignaturaEstudianteSancionadoPK();
-									   asignatura_est_san_1.setCedulaEstudiante(cedula_estudiante);
-									   asignatura_est_san_1.setCodigoAsignatura(codigo_asignatura_1);
-									   asignatura_est_san_1.setCodigoLapso(codigo_lapso);
-									   Asignatura asignatura=servicioAsignatura.buscarAsignatura(codigo_asignatura_1);
-									   AsignaturaEstudianteSancionado asignaturaSancionado =new AsignaturaEstudianteSancionado(asignatura_est_san_1,condicion_asignatura_1,asignatura,estudiante_sancionado);
-									   servicioasignaturaestudiantesancionado.guardarAsignaturaEstudianteSancionado(asignaturaSancionado);
+								if(!node.getChildText("codigo_asignatura_1").equals("0")){//Si es Igual a 0 es porque no tiene Materias, este valor viene del Xml
+								   codigo_asignatura_1= node.getChildText("codigo_asignatura_1");
+								   condicion_asignatura_1= Integer.parseInt(node.getChildText("condicion_asignatura_1"));
+								   AsignaturaEstudianteSancionadoPK asignatura_est_san_1=new AsignaturaEstudianteSancionadoPK();
+								   asignatura_est_san_1.setCedulaEstudiante(cedula_estudiante);
+								   asignatura_est_san_1.setCodigoAsignatura(codigo_asignatura_1);
+								   asignatura_est_san_1.setCodigoLapso(codigo_lapso);
+								   Asignatura asignatura=servicioAsignatura.buscarAsignatura(codigo_asignatura_1);
+								   AsignaturaEstudianteSancionado asignaturaSancionado =new AsignaturaEstudianteSancionado(asignatura_est_san_1,condicion_asignatura_1,asignatura,estudiante_sancionado);
+								   servicioasignaturaestudiantesancionado.guardarAsignaturaEstudianteSancionado(asignaturaSancionado);
 									   if(!node.getChildText("codigo_asignatura_2").equals("0")){
 										   codigo_asignatura_2= node.getChildText("codigo_asignatura_2");
 										   condicion_asignatura_2= Integer.parseInt(node.getChildText("condicion_asignatura_2"));
@@ -240,14 +229,14 @@ public class VMCargarEstudiantesSancionadosXml {
 									   }
 								   }
 								   estudiante_sancionado=null;
-						} catch (Exception e) {
-							e.printStackTrace();
-							Messagebox.show("Ocurrio Un error!","ERROR", Messagebox.OK,Messagebox.ERROR);
-							// TODO: handle exception
-						}
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							Messagebox.show("Ocurrio Un error!","ERROR", Messagebox.OK,Messagebox.ERROR);
+//							// TODO: handle exception
+//						}
 					}
-					Messagebox.show("Se han Finalizado la Operacion!","Informacion", Messagebox.OK,Messagebox.INFORMATION);
-					textoXML = output.outputString(doc);
+					listaEstudiante();
+					Messagebox.show("Se han Finalizado la Operacion!","Informacion", Messagebox.OK,Messagebox.INFORMATION);	
 				} catch (JDOMException e) {
 					// handle JDOMException
 				} catch (IOException e) {
@@ -262,6 +251,6 @@ public class VMCargarEstudiantesSancionadosXml {
 }
 /** 
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 2.3
- * @author FernandoC todos los Derechos Reservados
+ * @version 2.5
+ * @author Builder todos los Derechos Reservados
  */
