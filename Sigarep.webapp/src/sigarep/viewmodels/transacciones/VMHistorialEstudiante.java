@@ -315,7 +315,6 @@ public class VMHistorialEstudiante {
 	@Command
 	@NotifyChange({ "listaVeredicto" })
 	public void buscarVeredicto(String cedula) {
-		codigoLapso = "2013-1";
 		listaVeredicto = serviciohistorial.buscarVeredictos(cedula);
 	}
 

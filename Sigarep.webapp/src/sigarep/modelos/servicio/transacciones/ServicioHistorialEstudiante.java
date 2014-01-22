@@ -89,27 +89,6 @@ public class ServicioHistorialEstudiante  {
 		return result;
         } 
 
-	public List<ListaHistorialEstudianteAsignatura> buscarAsignaturas (String codigoLapso, String cedula) {
-	String queryStatement1 =  "SELECT Distinct a.nombre_asignatura, esa.codigo_lapso FROM asignatura a " +
-			"inner join asignatura_estudiante_sancionado as aes on aes.codigo_asignatura = aes.codigo_asignatura " +
-			"inner join solicitud_apelacion as sa on sa.cedula_estudiante = aes.cedula_estudiante  " +
-			"and sa.codigo_lapso = aes.codigo_lapso inner join estudiante_sancionado as esa  " +
-			"on esa.cedula_estudiante = sa.cedula_estudiante and esa.codigo_lapso = sa.codigo_lapso  " +
-			"inner join estudiante as es on es.cedula_estudiante = esa.cedula_estudiante  " +
-			"inner join lapso_academico as la on la.codigo_lapso = esa.codigo_lapso " +
-			"where es.cedula_estudiante = '"+cedula +"' and la.codigo_lapso = '"+ codigoLapso +"' " ;
-
-	Query query = em.createNativeQuery(queryStatement1);
-
-
-	@SuppressWarnings("unchecked")
-	List<Object[]> resultSet = query.getResultList();
-	List<ListaHistorialEstudianteAsignatura> results = new ArrayList<ListaHistorialEstudianteAsignatura>();
-	for (Object[] resultRow : resultSet) {
-			results.add(new ListaHistorialEstudianteAsignatura ((String) resultRow[0]));
-	}
-	return results;
-	}
 	
 	public List<ListaHistorialEstudianteVeredicto> buscarVeredictos (String cedula) {
 		String queryStatement1 = 		
