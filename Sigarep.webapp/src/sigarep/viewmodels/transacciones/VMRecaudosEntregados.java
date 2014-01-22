@@ -1,5 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.LinkedList;
@@ -100,6 +101,10 @@ public class VMRecaudosEntregados {
 	@WireVariable
 	private Integer semestreSancion;
 	@WireVariable
+	private Integer caso;
+	@WireVariable
+	private String fechaSolicitud;
+	@WireVariable
 	private String selected = "";	
 	@WireVariable
 	private List<ListaRecaudosMotivoEstudiante> listaRecaudos = new LinkedList<ListaRecaudosMotivoEstudiante>();
@@ -128,6 +133,7 @@ public class VMRecaudosEntregados {
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
+	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 
 	@WireVariable
@@ -277,6 +283,22 @@ public class VMRecaudosEntregados {
 		this.lapso = lapso;
 	}
 
+	public Integer getCaso() {
+		return caso;
+	}
+
+	public void setCaso(Integer caso) {
+		this.caso = caso;
+	}
+	
+	public String getFechaSolicitud() {
+		return fechaSolicitud;
+	}
+
+	public void setFechaSolicitud(String fechaSolicitud) {
+		this.fechaSolicitud = fechaSolicitud;
+	}
+
 	@Command
 	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
 	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo){
@@ -312,7 +334,18 @@ public class VMRecaudosEntregados {
 		this.programa = v6;
 		this.sancion = v7;
 		this.lapso = v8;
-		this.asignatura = v13;		
+		this.asignatura = v13;
+		this.caso = v14;
+		
+		SolicitudApelacionPK solicitudApelacionPK2 = new SolicitudApelacionPK();
+		solicitudApelacionPK2.setCedulaEstudiante(cedula);
+		solicitudApelacionPK2.setCodigoLapso(lapso);
+		solicitudApelacionPK2.setIdInstanciaApelada(1);
+		Date fechaSA = serviciosolicitudapelacion.buscarSolicitudPorID(solicitudApelacionPK2).getFechaSolicitud();
+		SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
+		String fecha =  sdf.format(fechaSA);
+		this.fechaSolicitud = fecha;
+		
 		buscarRecaudos();
 		buscarTiposMotivo();
 	}
@@ -355,7 +388,6 @@ public class VMRecaudosEntregados {
 			Recaudo recaudo = new Recaudo();
 			for(Listitem miRecaudo: recaudos){
 				String nombreRecaudo = miRecaudo.getLabel();
-				System.out.println(nombreRecaudo);
 				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
 				recaudoEntregadoPK.setIdInstanciaApelada(1);
 				recaudoEntregadoPK.setCedulaEstudiante(cedula);

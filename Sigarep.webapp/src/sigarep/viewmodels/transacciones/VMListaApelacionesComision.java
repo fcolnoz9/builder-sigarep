@@ -330,12 +330,10 @@ public class VMListaApelacionesComision  {
 	        map.put("asignatura", this.asignatura);
 	        map.put("caso", this.caso); 
 	     	
-			Borderlayout bl = (Borderlayout) Path.getComponent("/mainBorderLayout");
-			// get an instance of the searched CENTER layout area
-			Center center = bl.getCenter();
-			// clear the center child comps
-			center.getChildren().clear();
-	        Executions.createComponents("/WEB-INF/sigarep/vistas/transacciones/VerificarRecaudos.zul", center, map);			
+	
+			final Window window = (Window)Executions.createComponents("/WEB-INF/sigarep/vistas/transacciones/VerificarRecaudos.zul", null, map);
+			window.setMaximizable(true);
+			window.doModal();
 	  	}
 	  
 		@Command

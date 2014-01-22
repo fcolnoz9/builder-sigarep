@@ -461,6 +461,13 @@
 				<treechildren>
 					<treeitem>
 						<treerow>
+							<treecell 	label="Cambiar Contraseña de Usuario"
+										id="CambiarContrasenia" sclass="administracionSistema"
+										onClick="createWin(CambiarContrasenia.getId(), CambiarContrasenia.getSclass())" />
+						</treerow>
+					</treeitem>
+					<treeitem>
+						<treerow>
 							<treecell 	label="Finalizar Lapso Academico"
 										id="FinalizarLapso" sclass="administracionSistema"
 										onClick="createWin(FinalizarLapso.getId(), FinalizarLapso.getSclass())" />

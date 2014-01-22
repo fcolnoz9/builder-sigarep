@@ -95,7 +95,7 @@
 				</div>
 				<!-- Groupbox para seleccionar archivo desde un dispositivo -->
 				<groupbox id="grbDispositivo" style="margin:5px;" width="85%" mold="3d" visible="false">
-					<caption style="font-weight:bold;font-size:14px;color:gray;"
+					<caption style="margin:5px;border:normal;"
 						label="Seleccione el archivo generado en el respaldo" />
 					<grid>
 						<rows>
@@ -114,7 +114,7 @@
 						</rows>
 					</grid>
 				</groupbox>
-				<div>
+				<div align="right">
 					<button label="Restaurar" id="btnRestaurar" image="/imagenes/iconos/restaurarBD.png" mold="trendy" width="auto" height="auto">
 						<attribute name="onClick">
 							 if (rbLocal.isChecked() || rbDispositivo.isChecked()){

@@ -32,5 +32,6 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	@Query("Select rec FROM Recaudo AS rec WHERE rec.estatus = TRUE")
 	public List<Recaudo> buscaRecaudosActivos();
 	
-	
+	@Query("Select rec FROM Recaudo AS rec WHERE rec.tipoMotivo.idTipoMotivo = '1'")
+	public List<Recaudo> buscaRecaudosGenerales();
 }

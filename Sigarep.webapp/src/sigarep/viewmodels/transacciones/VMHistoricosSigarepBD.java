@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 
 import java.util.List;
 
@@ -33,10 +34,12 @@ import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.herramientas.mensajes;
 
 
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
+import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMHistoricosSigarepBD {	
@@ -47,6 +50,8 @@ public class VMHistoricosSigarepBD {
 	private Radio radio;
 	@WireVariable
 	private boolean checkTodos;
+	@WireVariable
+	private LapsoAcademico lapso;
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 	
 	@WireVariable
@@ -54,6 +59,10 @@ public class VMHistoricosSigarepBD {
 	
 	@WireVariable
 	private String selected = "";
+	@WireVariable
+	private ServicioLapsoAcademico serviciolapsoacademico;
+	@WireVariable
+	private List<LapsoAcademico> listaLapsoAcademico = new LinkedList<LapsoAcademico>();
 	
 	public String getSelected() {
 		return selected;
@@ -88,25 +97,48 @@ public class VMHistoricosSigarepBD {
 		this.radio = radio;
 	}
 
+	public LapsoAcademico getLapso() {
+		return lapso;
+	}
+
+	public void setLapso(LapsoAcademico lapso) {
+		this.lapso = lapso;
+	}
+	
+	public List<LapsoAcademico> getListaLapsoAcademico() {
+		return listaLapsoAcademico;
+	}
+
+	public void setListaLapsoAcademico(List<LapsoAcademico> listaLapsoAcademico) {
+		this.listaLapsoAcademico = listaLapsoAcademico;
+	}
+
+	@Command
+	@NotifyChange({ "listaLapsoAcademico" })
+	public void buscarLapsoAcademicoAnteriores() {
+		listaLapsoAcademico  = serviciolapsoacademico.listadoLapsoAcademicoInactivos();
+	}
+	
 	@Init
 	public void init() {
 		// initialization code
+		buscarLapsoAcademicoAnteriores();
 	}
 	
 
 	@Command
-	@NotifyChange({"fecha","radio"})
+	@NotifyChange({"fecha","radio","lapso"})
 	public void generarHistorico() {
-		if (fecha!=null) {
+		if (lapso!=null) {
 			List<String> listaElementosAInsertar = new ArrayList<String>();
 			List<String> listaAuxiliarElementos = new ArrayList<String>();
 			SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd-MM-yyyy");
-			String fechaString =  sdf.format(fecha);
+			String fechaString =  sdf.format(new Date());
 			String nombreHistorico = "historicoTodosSigarep-" + fechaString;
 			String destinoHistorico = "todos/historicoTodosSigarep-" + fechaString;
 			if (!selected.equals("")) {
 				if (getSelected().equals("todos")) {
-					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(fecha);
+					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(lapso);
 					if (listaAuxiliarElementos.size() > 0) {
 						listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					}
@@ -124,7 +156,7 @@ public class VMHistoricosSigarepBD {
 					// }
 				}
 				if (getSelected().equals("solicitud")) {
-					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(fecha);
+					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(lapso);
 					if (listaAuxiliarElementos.size() > 0) {
 						listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					}
@@ -175,14 +207,14 @@ public class VMHistoricosSigarepBD {
 					}
 				}
 				else{ 
-					Messagebox.show("No hay nada a lo que hacer respaldo en esta fecha","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+					Messagebox.show("No hay nada a lo que hacer respaldo en el lapso seleccionado","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
 				}
 			}
 			else {
 					Messagebox.show("Debe Seleccionar una Opción","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
 				}
 		} else {
-			Messagebox.show("Debe colocar una Fecha Limite", "Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Debe seleccionar un lapso academico", "Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 }
