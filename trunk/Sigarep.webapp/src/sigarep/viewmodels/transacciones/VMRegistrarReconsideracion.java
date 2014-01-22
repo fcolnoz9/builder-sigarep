@@ -329,14 +329,6 @@ public class VMRegistrarReconsideracion {
 		this.nombres = nombres;
 	}
 
-//	public List<ListaRecaudosMotivoEstudiante> getListaRecaudos() {
-//		return listaRecaudos;
-//	}
-//
-//	public void setListaRecaudos(
-//			List<ListaRecaudosMotivoEstudiante> listaRecaudos) {
-//		this.listaRecaudos = listaRecaudos;
-//	}
 
 	public String getRecaudo() {
 		return recaudo;
@@ -515,23 +507,7 @@ public class VMRegistrarReconsideracion {
 		System.out.println(listaRecaudos);
 
 	}
-//	@Command
-//	@NotifyChange({ "listaRecaudos" })
-//	public void buscarRecaudos(String cedula) {
-//		listaRecaudos = serviciolista.buscarRecaudos(cedula);
-//		System.out.println(".." + nombreTipoMotivo);
-//		System.out.println("---" + nombreRecaudo);
-//		idTipoMotivo = listaRecaudos.get(0).getIdTipoMotivo();
-//		idRecaudo = listaRecaudos.get(0).getIdRecaudo();
-//
-//	}
 
-	// public void inhabilitar () {
-	// String materia = asignatura;
-	// if (materia == null){
-	// txtAsignatura.setTextBlock(null);
-	// }
-	// }
 
 	@Init
 	public void init(
