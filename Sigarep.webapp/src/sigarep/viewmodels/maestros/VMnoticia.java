@@ -8,6 +8,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import sigarep.herramientas.Archivo;
+import sigarep.herramientas.MensajesAlUsuario;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -51,20 +52,22 @@ import org.zkoss.zk.ui.event.Event;
 
 import org.zkoss.zk.ui.Component;
 
+/**Noticia
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
+ */
+
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMnoticia extends SelectorComposer<Component>  {
-	public String getTitulof() {
-		return titulof;
-	}
-	public void setTitulof(String titulof) {
-		this.titulof = titulof;
-	}
+
 	@WireVariable ServicioNoticia servicionoticia;
 	private Integer idNoticia;
 	private String contenido;
 	private String enlaceNoticia;
-	private Boolean estatus;
+	private Boolean estatus; //Estatus de la Noticia
 	private Date fechaRegistro; 
 	private Archivo fotoNoticia = new Archivo();
 	private Media mediaNoticia;
@@ -72,13 +75,19 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	private String titulof="";
 	private String titulo;
 	private Date vencimiento;
-	private List<Noticia> listaNoticia = new LinkedList<Noticia>();
+	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
 	private Noticia noticiaSeleccionada;
-	private String rutaModal="";
-	
+	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
+
 	private @Wire Listbox lbxNoticias;
-	
+
 	// Metodos GETS Y SETS
+	public String getTitulof() {
+		return titulof;
+	}
+	public void setTitulof(String titulof) {
+		this.titulof = titulof;
+	}
 	public Integer getIdNoticia() {
 		return idNoticia;
 	}
@@ -148,47 +157,57 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	public void setFotoNoticia(Archivo fotoNoticia) {
 		this.fotoNoticia = fotoNoticia;
 	}
-	
+
 	public Media getMediaNoticia() {
 		return mediaNoticia;
 	}
 	public void setMediaNoticia(Media mediaNoticia) {
 		this.mediaNoticia = mediaNoticia;
 	}
-    //Fin de los metodod gets y sets
-    // OTROS METODOS
-	//Metodos que perimite guardar una noticia
+
+	// OTROS METODOS
+	/** guardarNoticia
+	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	 * @return No devuelve ningun valor.
+	 * @throws las Excepciones son que se quiera registrar una Noticia y haya campos en blanco.
+	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido", "enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarNoticia(){
 		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null)
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajesAlUsuario.advertenciaLlenarCampos();
 		else{
 			System.out.println(fotoNoticia.getTamano());
 			System.out.println(contenido);
-		Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, fotoNoticia,titulo, vencimiento);
-		servicionoticia.guardar(noticia);
-		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-		limpiar();
+			Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, fotoNoticia,titulo, vencimiento);
+			servicionoticia.guardar(noticia);
+			mensajesAlUsuario.informacionRegistroCorrecto();
+			limpiar();
 		}
 	}
-	
+
 	@Init
 	public void init(){
-        //initialization code
+		//initialization code
 		mediaNoticia = null;
 		fotoNoticia = new Archivo();
 		buscarNoticia();
-    }
-	
-	//Metodo que busca una noticia partiendo por su titulo
+	}
+
+	/** buscarNoticia
+	 * @param listaNoticia cargada con  las noticias.
+	 * @return No devuelve ningun valor.
+	 */
 	@Command
 	@NotifyChange({"listaNoticia"})
 	public void buscarNoticia(){
 		listaNoticia =servicionoticia.listadoNoticia();
-		//listaNoticia =servicionoticia.buscarNoticia(titulo);
 	}
-	//Metodo que limpia todos los campos de la pantalla
+
+	/** limpiar
+	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	 * @return No devuelve ningun valor.
+	 */
 	@Command
 	@NotifyChange({"contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void limpiar(){
@@ -204,20 +223,27 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		fotoNoticia = new Archivo();
 		buscarNoticia();
 	}
-	
-	//Metodo que elimina una noticia tomando en cuenta el idNoticia
+
+	/** eliminarNoticia
+	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	 * @return No devuelve ningun valor.
+	 * @throws la Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
+	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void eliminarNoticia(){
 		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null)
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajesAlUsuario.advertenciaLlenarCampos();
 		else{
-		servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
-		limpiar();
-		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-	  }
+			servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
+			limpiar();
+			mensajesAlUsuario.informacionEliminarCorrecto();
+		}
 	}
-	//permite tomar los datos del objeto noticiaseleccionada
+	/** mostrarSeleccionado
+	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	 * @return No devuelve ningun valor.
+	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia","fotoNoticia"})
 	public void mostrarSeleccionado(){
@@ -228,7 +254,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		titulo=getNoticiaSeleccionada().getTitulo();
 		vencimiento=getNoticiaSeleccionada().getVencimiento();
 		fotoNoticia=getNoticiaSeleccionada().getFotoNoticia();
-		
+
 		if (noticiaSeleccionada.getFotoNoticia().getTamano() > 0){
 			try {
 				imagenNoticia = new AImage(noticiaSeleccionada.getFotoNoticia().getNombreArchivo(), noticiaSeleccionada.getFotoNoticia().getContenidoArchivo());
@@ -240,87 +266,110 @@ public class VMnoticia extends SelectorComposer<Component>  {
 			imagenNoticia = null;}
 
 	}
-	
-	//Este metodo busca la noticia por el filtro de titulo
-		@Command
-		@NotifyChange("imagenNoticia")
-		public void cargarImagenNoticia(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
-			mediaNoticia = event.getMedia();
-			if (mediaNoticia != null) {
-				if (mediaNoticia instanceof org.zkoss.image.Image) {
-					fotoNoticia.setNombreArchivo(mediaNoticia.getName());
-					fotoNoticia.setTipo(mediaNoticia.getContentType());
-					fotoNoticia.setContenidoArchivo(mediaNoticia.getByteData());
-			
-					imagenNoticia = (AImage) mediaNoticia;
-				//	Messagebox.show("Archivo: " + imagenNoticia.getHeight(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-				} else {
-					Messagebox.show("El archivo: "+mediaNoticia+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
-				}
-			} 
-		}
-		
-		@Command
-		public void mostrarMensaje(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
-			mediaNoticia = event.getMedia();
-			Messagebox.show("Archivo" + mediaNoticia.getName(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-		}
-		
-		//Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
-		@Command
-		@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia","fotoNoticia"})
-		public void mostrarSeleccionado2(){
-			idNoticia=getNoticiaSeleccionada().getIdNoticia();
-			contenido=getNoticiaSeleccionada().getContenido();
-			enlaceNoticia=getNoticiaSeleccionada().getEnlaceNoticia();
-			fechaRegistro=getNoticiaSeleccionada().getFechaRegistro();
-			titulo=getNoticiaSeleccionada().getTitulo();
-			vencimiento=getNoticiaSeleccionada().getVencimiento();
-			fotoNoticia=getNoticiaSeleccionada().getFotoNoticia();
-			
-			noticiaSeleccionada = getNoticiaSeleccionada();
-			final HashMap<String, Object> map = new HashMap<String, Object>();
-	        //map.put("contenido", this.contenido );
-	        //map.put("enlaceNoticia", this.enlaceNoticia);
-	        //map.put("titulo", this.titulo);
-	        map.put("noticiaSeleccionada", this.noticiaSeleccionada);
-	        final Window win = (Window) Executions.createComponents(
-					"/Modal/ModalNoticia.zul", null, map);
-			win.setMaximizable(true);
-			win.doModal();
 
-		}
-		
-		//Metodo que reordena la lista
-		@Command
-		@NotifyChange({"listaNoticia"})
-		public void reordenarLista(List<Noticia> listaNoticia){		
-			
-			if(listaNoticia.size() > 2){
+	/** cargarImagenNoticia
+	 * @param imagenNoticia, UploadEvent event Zkoss UI.
+	 * @return No devuelve ningun valor.
+	 * @throws la Excepcion es que la media noticia sea null
+	 */
+	@Command
+	@NotifyChange("imagenNoticia")
+	public void cargarImagenNoticia(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
+		mediaNoticia = event.getMedia();
+		if (mediaNoticia != null) {
+			if (mediaNoticia instanceof org.zkoss.image.Image) {
+				fotoNoticia.setNombreArchivo(mediaNoticia.getName());
+				fotoNoticia.setTipo(mediaNoticia.getContentType());
+				fotoNoticia.setContenidoArchivo(mediaNoticia.getByteData());
+
+				imagenNoticia = (AImage) mediaNoticia;
+				//	Messagebox.show("Archivo: " + imagenNoticia.getHeight(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+			} else {
+				Messagebox.show("El archivo: "+mediaNoticia+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
+			}
+		} 
+	}
+
+	/** mostrarMensaje
+	 * @param UploadEvent event Zkoss UI.
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	public void mostrarMensaje(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
+		mediaNoticia = event.getMedia();
+		Messagebox.show("Archivo" + mediaNoticia.getName(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+	}
+
+	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
+	 * @param contenido, enlaceNoticia, fechaRegistro, imagen, titulo, vencimiento, listaNoticia,fotoNoticia. 
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia","fotoNoticia"})
+	public void mostrarSeleccionado2(){
+		idNoticia=getNoticiaSeleccionada().getIdNoticia();
+		contenido=getNoticiaSeleccionada().getContenido();
+		enlaceNoticia=getNoticiaSeleccionada().getEnlaceNoticia();
+		fechaRegistro=getNoticiaSeleccionada().getFechaRegistro();
+		titulo=getNoticiaSeleccionada().getTitulo();
+		vencimiento=getNoticiaSeleccionada().getVencimiento();
+		fotoNoticia=getNoticiaSeleccionada().getFotoNoticia();
+
+		noticiaSeleccionada = getNoticiaSeleccionada();
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		//map.put("contenido", this.contenido );
+		//map.put("enlaceNoticia", this.enlaceNoticia);
+		//map.put("titulo", this.titulo);
+		map.put("noticiaSeleccionada", this.noticiaSeleccionada);
+		final Window win = (Window) Executions.createComponents(
+				"/Modal/ModalNoticia.zul", null, map);
+		win.setMaximizable(true);
+		win.doModal();
+
+	}
+
+	/** reordenarLista.Metodo que reordena la lista
+	 * @param listaNoticia cargada con las noticias. 
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	@NotifyChange({"listaNoticia"})
+	public void reordenarLista(List<Noticia> listaNoticia){		
+
+		if(listaNoticia.size() > 2){
 			Noticia nitic = listaNoticia.remove(0);
 			listaNoticia.add(nitic);
 			lbxNoticias.setModel(new ListModelList<Noticia>(listaNoticia));
-			}//else{System.out.println("hay menos de 3 elementos en la lista");}
-			
-		}
-		
-		//Maneja el timer de la  vista , se encarga de actualizar la lista cada 5 segundos
-		@Listen("onTimer = #tiempo")
-		public void hacer(){
-					reordenarLista(getListaNoticia());
-		}
-		
-		@Override
-		public void doAfterCompose(Component comp) throws Exception {
-			// TODO Auto-generated method stub
-			super.doAfterCompose(comp);
-			buscarNoticia();		
-		}
-		@Command
-		@NotifyChange({"titulof","listaNoticia"})
-		public void filtros(){
-				listaNoticia = servicionoticia.filtrarApelacionesCargarRecaudo(titulof);
-		}
+		}//else{System.out.println("hay menos de 3 elementos en la lista");}
 
-//Fin de los otros metodos.
+	}
+
+	/** hacer. Maneja el timer de la  vista , se encarga de actualizar la lista cada 5 segundos
+	 * @param onTimer. 
+	 * @return No devuelve ningun valor.
+	 */
+	@Listen("onTimer = #tiempo")
+	public void hacer(){
+		reordenarLista(getListaNoticia());
+	}
+
+	/** doAfterCompose.
+	 * @param comp. 
+	 * @return No devuelve ningun valor.
+	 */
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		// TODO Auto-generated method stub
+		super.doAfterCompose(comp);
+		buscarNoticia();		
+	}
+	/** filtros. Filtra por la variable titulo
+	 * @param titulof,listaNoticia
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	@NotifyChange({"titulof","listaNoticia"})
+	public void filtros(){
+		listaNoticia = servicionoticia.filtrarApelacionesCargarRecaudo(titulof);
+	}
 }
