@@ -75,8 +75,6 @@
 				emptyMessage="No hay preguntas básicas registradas" mold="paging"
 				pageSize="5">
 				<listhead>
-					<listheader label="Número Pregunta" align="center"
-						sort="auto(idPreguntaBasica)" />
 					<listheader label="Preguntas" align="center"
 						sort="auto(pregunta)" />
 					<listheader label="Respuestas" align="center"
@@ -84,7 +82,6 @@
 				</listhead>
 				<template name="model">
 					<listitem>
-						<listcell label="${each.idPreguntaBasica}" />
 						<listcell label="${each.pregunta}" />
 						<listcell label="${each.respuesta}" />
 					</listitem>
