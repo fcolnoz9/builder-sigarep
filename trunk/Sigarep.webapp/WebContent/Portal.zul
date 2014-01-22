@@ -88,26 +88,28 @@
 									<!-- Inicio del Noticiero-->
 									<include src="/portalNoticias.zul" />
 								</west>
+							
 								<east size="75%" border="0">
-									<html>
+								<include src="/PortalBanner.zul" />
+<!-- 									<html> -->
 										
-										<![CDATA[ <ul id="diapos"
-										style="margin-top:0px;">
-										<li><image id="img1"
-										src="imagenes/portal-principal/6.jpg"
-										height="280px" /></li>
-										<li><image id="img2"
-										src="imagenes/portal-principal/12.jpg"
-										height="280px"/></li>
+<!-- 										<![CDATA[ <ul id="diapos" -->
+<!-- 										style="margin-top:0px;"> -->
+<!-- 										<li><image id="img1" -->
+<!-- 										src="imagenes/portal-principal/6.jpg" -->
+<!-- 										height="280px" /></li> -->
+<!-- 										<li><image id="img2" -->
+<!-- 										src="imagenes/portal-principal/12.jpg" -->
+<!-- 										height="280px"/></li> -->
 
-										<li><image id="img3"
-										src="imagenes/portal-principal/divina.jpg"
-										height="280px"/></li> </ul> ]]>
+<!-- 										<li><image id="img3" -->
+<!-- 										src="imagenes/portal-principal/divina.jpg" -->
+<!-- 										height="280px"/></li> </ul> ]]> -->
 										
 										
 										
 										
-									</html>
+<!-- 									</html> -->
 								</east>
 							</borderlayout>
 						</north>
