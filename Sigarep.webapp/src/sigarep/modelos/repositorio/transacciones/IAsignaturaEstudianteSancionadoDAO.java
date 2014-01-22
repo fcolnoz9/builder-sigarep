@@ -14,9 +14,6 @@ public interface IAsignaturaEstudianteSancionadoDAO
 		extends
 		JpaRepository<AsignaturaEstudianteSancionado, AsignaturaEstudianteSancionadoPK> {
 
-		@Query("Select asig FROM AsignaturaEstudianteSancionado AS asigEstudiante, Asignatura AS asig WHERE asig.codigoAsignatura = asigEstudiante.id.codigoAsignatura AND asigEstudiante.id.cedulaEstudiante = :cedulaEstudiante AND asigEstudiante.id.codigoLapso =:codigoLapso")
-		public Asignatura buscarAsignaturaEstudianteSancionado(@Param("cedulaEstudiante") String cedulaEstudiante, @Param("codigoLapso") String codigoLapso);
-
 		@Query("Select ae FROM AsignaturaEstudianteSancionado AS ae WHERE ae.id.cedulaEstudiante = :cedulaEstudiante AND ae.id.codigoLapso = :codigoLapso")
 		public List<AsignaturaEstudianteSancionado> buscarAsignaturaDeSancionRR(@Param("cedulaEstudiante") String cedulaEstudiante, @Param("codigoLapso") String codigoLapso);
 }
