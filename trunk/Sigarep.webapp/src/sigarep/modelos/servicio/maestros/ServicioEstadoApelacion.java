@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
-import sigarep.modelos.data.maestros.EstadoApelacionFiltros;
+import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.repositorio.maestros.IEstadoApelacionDAO;
 
 /*
@@ -31,41 +31,40 @@ public class ServicioEstadoApelacion {
 	IEstadoApelacionDAO ea;
 
 	// metodo para guardar
-	public void guardar(EstadoApelacion estado) {
-		ea.save(estado);
-	}
-
-	// metodo que permite eliminar
-	public void eliminarEstadoApelacion(Integer estado) {
-		EstadoApelacion estadoApelacion = ea.findOne(estado);
-		estadoApelacion.setEstatus(false);
+	public void guardarEstadoApelacion(EstadoApelacion estadoApelacion) {
 		ea.save(estadoApelacion);
 	}
-
-	public List<EstadoApelacion> listadoEstadoApelacion() {
-		List<EstadoApelacion> EstadoApelacionLista = ea.buscarEstadosApelacionActivas();
-		return EstadoApelacionLista;
+//	public List<EstadoApelacion> listadoEstadoApelacionporInstancia(Integer idInstancia) {
+//		List<EstadoApelacion> listaEstadoApelacionporInstancia=ea.buscarEstadoPorInstancia(idInstancia);
+//	    return listaEstadoApelacionporInstancia;
+//	}
+	public List<EstadoApelacion> listadoEstadoApelacionActivas() {
+		List<EstadoApelacion> ListaEstadoApelacion = ea.buscarEstadoApelacionActivas();
+		return ListaEstadoApelacion;
+	}
+	public EstadoApelacion buscarEstadoNombre(String nombreEstado) {
+		EstadoApelacion estadoapelacion=ea.buscarEstadoPorNombre(nombreEstado);
+      return estadoapelacion;
 	}
 
 	// Busca en la lista de EstadoApelacion
-	public List<EstadoApelacion> buscarEstadoApelacion(EstadoApelacionFiltros filtros) {
-		List<EstadoApelacion> result = new LinkedList<EstadoApelacion>();
-		String nombreEstado = filtros.getNombreEstado().toLowerCase();
-		String descripcion = filtros.getDescripcion().toLowerCase();
-
-		if (nombreEstado == null || descripcion == null) {
-			result = listadoEstadoApelacion();
-		} else {
-			for (EstadoApelacion mome : listadoEstadoApelacion()) {
-				if (mome.getNombreEstado().toLowerCase()
-						.contains(nombreEstado)
-						&& mome.getDescripcion().toLowerCase()
-								.contains(descripcion)) {
-					result.add(mome);
-				}
-			}
-		}
-		return result;
-	}
-
+//	public List<EstadoApelacion> buscarEstadoApelacion(EstadoApelacionFiltros filtros) {
+//		List<EstadoApelacion> result = new LinkedList<EstadoApelacion>();
+//		String nombreEstado = filtros.getNombreEstado().toLowerCase();
+//	    String descripcion = filtros.getDescripcion().toLowerCase();
+//
+//		if (nombreEstado == null || descripcion == null) {
+//			result = listadoEstadoApelacionActivas();
+//		} else {
+//			for (EstadoApelacion esta : listadoEstadoApelacionActivas()) {
+//				if (esta.getNombreEstado().toLowerCase().contains(nombreEstado)
+//						&& esta.getDescripcion().toLowerCase().contains(descripcion)) {
+//					result.add(esta);
+//				}
+//			}
+//		}
+//		return result;
+//	}
+//
 }
+

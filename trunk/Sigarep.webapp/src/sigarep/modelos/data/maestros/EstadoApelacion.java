@@ -10,9 +10,10 @@ import javax.persistence.*;
  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
  */
 /*
- ** Esta clase es del registro del maestro "EstadoApelacion"
- * @ Author Lilibeth Achji 
- * @ Version 1.0, 16/12/13
+ ** Esta clase es del registro del maestro-transacción "EstadoApelacion"
+ * @Author Lilibeth Achji 
+ * @Version 1.0,
+ * @Since  16/12/13
  */
 
 @Entity
@@ -49,8 +50,8 @@ public class EstadoApelacion implements Serializable {
 	private String descripcion;
 	
 	//bi-directional many-to-one association to InstanciaApelada
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="id_instancia_apelada", nullable=true)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_instancia_apelada", nullable=false)
 	private InstanciaApelada instanciaApelada;
 
 	public EstadoApelacion() {
