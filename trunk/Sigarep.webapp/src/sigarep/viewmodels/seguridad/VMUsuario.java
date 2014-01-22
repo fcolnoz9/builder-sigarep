@@ -17,20 +17,50 @@ import org.zkoss.zul.ListModelList;
 
 import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.maestros.Persona;
+import sigarep.modelos.data.maestros.ProgramaAcademico;
+import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Usuario;
+import sigarep.modelos.data.transacciones.InstanciaMiembro;
+import sigarep.modelos.data.transacciones.InstanciaMiembroPK;
+import sigarep.modelos.servicio.maestros.SProgramaAcademico;
+import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
+import sigarep.modelos.servicio.maestros.ServicioPersona;
+import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
+import sigarep.modelos.servicio.transacciones.ServicioInstanciaMiembro;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMUsuario {
 
-	@WireVariable
-	private ServicioUsuario su;
+	@WireVariable private ServicioUsuario su;
+	@WireVariable private ServicioGrupo sg;
+	@WireVariable private ServicioPersona serviciopersona;
 
-	@WireVariable
-	private ServicioGrupo sg;
-
+	@WireVariable private ServicioInstanciaApelada servicioInstanciaApelada;
+	@WireVariable private ServicioInstanciaMiembro servicioInstanciaMiembro;
+	
+	private List<InstanciaApelada> listaInstancia;	
+	private InstanciaApelada instanciaseleccionada;
+	private String tituloinstancia = "";
+	private String cargo ="";
+	
+	private InstanciaMiembro instanciaMiembro = new InstanciaMiembro();
+	private InstanciaMiembroPK instanciaMiembroPK = new InstanciaMiembroPK();
+	
+	private Integer cedulaPersona=0;
+	private String nombre="";
+	private String apellido="";
+	private String telefono="";
+	
+	private List<Persona> listaPersona;
+	private Persona personaSeleccionado;
+	
+	
+	
 	private String nombreUsuario;
 	private String correo;
 	private String clave;
@@ -48,6 +78,102 @@ public class VMUsuario {
 
 	private mensajes msjs = new mensajes();
 	
+	public InstanciaMiembro getInstanciaMiembro() {
+		return instanciaMiembro;
+	}
+
+	public void setInstanciaMiembro(InstanciaMiembro instanciaMiembro) {
+		this.instanciaMiembro = instanciaMiembro;
+	}
+
+	public InstanciaMiembroPK getInstanciaMiembroPK() {
+		return instanciaMiembroPK;
+	}
+
+	public void setInstanciaMiembroPK(InstanciaMiembroPK instanciaMiembroPK) {
+		this.instanciaMiembroPK = instanciaMiembroPK;
+	}
+
+	public List<InstanciaApelada> getListaInstancia() {
+		return listaInstancia;
+	}
+
+	public void setListaInstancia(List<InstanciaApelada> listaInstancia) {
+		this.listaInstancia = listaInstancia;
+	}
+
+	public InstanciaApelada getInstanciaseleccionada() {
+		return instanciaseleccionada;
+	}
+
+	public void setInstanciaseleccionada(InstanciaApelada instanciaseleccionada) {
+		this.instanciaseleccionada = instanciaseleccionada;
+	}
+
+	public String getTituloinstancia() {
+		return tituloinstancia;
+	}
+
+	public void setTituloinstancia(String tituloinstancia) {
+		this.tituloinstancia = tituloinstancia;
+	}
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+	public Persona getPersonaSeleccionado() {
+		return personaSeleccionado;
+	}
+
+	public void setPersonaSeleccionado(Persona personaSeleccionado) {
+		this.personaSeleccionado = personaSeleccionado;
+	}
+	
+	public List<Persona> getListaPersona() {
+		return listaPersona;
+	}
+
+	public void setListaPersona(List<Persona> listaPersona) {
+		this.listaPersona = listaPersona;
+	}
+
+	public Integer getcedulaPersona() {
+		return cedulaPersona;
+	}
+
+	public void setcedulaPersona(Integer cedulaPersona) {
+		this.cedulaPersona = cedulaPersona;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
@@ -145,21 +271,56 @@ public class VMUsuario {
 	}
 
 	@Command
-	@NotifyChange({ "nombreUsuario", "clave","confirmarcontrasenia", "correo",
-			"listaUsuario" })
+	@NotifyChange({ "nombreUsuario","nombreCompleto", "clave","confirmarcontrasenia", "correo",
+			"listaUsuario","cedulaPersona","nombre","apellido","telefono","listaPersona" })
 	public void guardarUsuario() {
-		if (nombreUsuario=="" || clave==""|| correo=="") {
+		if (nombreUsuario=="" || clave==""|| correo==""|| cedulaPersona==0|| nombre==""|| apellido==""|| telefono=="") {
 			msjs.advertenciaLlenarCampos();
 		} else {
 			Usuario usuario = new Usuario();
 			usuario.setNombreUsuario(nombreUsuario);
 			usuario.setClave(clave);
 			usuario.setCorreo(correo);
-//			usuario.setNombreCompleto(nombreCompleto); //esto se lo debería traer de la vista, ojo JM.
+			nombreCompleto=nombre+ " " + apellido;
+ 			usuario.setNombreCompleto(nombreCompleto); //esto se lo debería traer de la vista, ojo JM.
 			usuario.setEstatus(true);
 			su.guardarUsuario(usuario);
+			
+			
+			Persona persona = new Persona();
+			persona.setCedulaPersona(cedulaPersona);
+			persona.setNombre(nombre);
+			persona.setApellido(apellido);
+			persona.setNombreUsuario(usuario);
+			persona.setCorreo(correo);
+			persona.setEstatus(true);
+			persona.setTelefono(telefono);
+			
+			serviciopersona.guardar(persona);
+			if(tituloinstancia.equals("")){
+				System.out.println("instancia vacia");
+			}else{
+			instanciaMiembroPK.setCedulaPersona(cedulaPersona);
+			instanciaMiembroPK.setIdInstanciaApelada(getInstanciaseleccionada().getIdInstanciaApelada());
+			
+			
+			instanciaMiembro.setId(instanciaMiembroPK);
+			instanciaMiembro.setCargo(cargo);
+			instanciaMiembro.setEstatus(true);
+			instanciaMiembro.setFechaEntrada(new Date());
+			instanciaMiembro.setInstanciaApelada(getInstanciaseleccionada());
+			instanciaMiembro.setPersona(persona);
+			
+			try {
+				servicioInstanciaMiembro.guardar(instanciaMiembro);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			}
+			
 			msjs.informacionRegistroCorrecto();
 			limpiar();
+			
 		}
 	}
 	
@@ -171,24 +332,30 @@ public class VMUsuario {
 
 	// Metodo que busca una noticia partiendo por su titulo
 	@Command
-	@NotifyChange({ "listaUsuario" })
+	@NotifyChange({ "listaUsuario","listaPersona","listaInstancia" })
 	public void buscarUsuario() {
 		listaUsuario = su.buscarUsuario(nombreUsuario);
+		listaPersona = serviciopersona.buscarper(cedulaPersona);
+		listaInstancia = servicioInstanciaApelada.buscarTodas();
 	}
 
 	// Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","correo","listaUsuario"})
+	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","correo","listaUsuario","cedulaPersona","nombre","apellido","telefono"})
 	public void limpiar() {
 		nombreUsuario = "";
 		clave = "";
 		confirmarcontrasenia = "";
 		correo = "";
+		cedulaPersona = 0;
+		nombre = "";
+		apellido = "";
+		telefono = "";
 		buscarUsuario();
 	}
 	
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","clave","listaUsuario"})
+	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","listaUsuario"})
 	public void cancelarCambiarContrasenia() {
 		nombreUsuario = "";
 		clave = "";
@@ -207,16 +374,16 @@ public class VMUsuario {
 
 	// permite tomar los datos del objeto usaurioseleccionado
 	@Command
-	@NotifyChange({ "nombreUsuario", "fechaCreacion","correo" })
+	@NotifyChange({ "nombreUsuario", "fechaCreacion","correo","cedulaPersona","apellido","nombre","telefono" })
 	public void mostrarSeleccionado() {
-		nombreUsuario = getUsuarioSeleccionado().getNombreUsuario();
-		correo = getUsuarioSeleccionado().getCorreo();
 		
-	}
-	@Command
-	@NotifyChange({ "listaUsuario" })
-	public void pasepase() {
-		System.out.println("");
+		nombreUsuario = getPersonaSeleccionado().getNombreUsuario().getNombreUsuario();
+		correo = getPersonaSeleccionado().getCorreo();
+		cedulaPersona = getPersonaSeleccionado().getCedulaPersona();
+		nombre = getPersonaSeleccionado().getNombre();
+		apellido = getPersonaSeleccionado().getApellido();
+		telefono = getPersonaSeleccionado().getTelefono();
+		
 	}
 	
 	@Command
@@ -226,10 +393,8 @@ public class VMUsuario {
 	    	msjs.advertenciaLlenarCampos();
 	    else{
 	    	
-	    	if(su.cambiarContrasena(nombreUsuario, clave, nuevaContrasenia, confirmarcontrasenia)==true){
+	    	if(su.cambiarContrasena(nombreUsuario, clave, nuevaContrasenia, confirmarcontrasenia)==true)
 	    		Messagebox.show("Se ha actualizado su contraseña", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
-	    		cancelarCambiarContrasenia();
-	    	}	
 	    }
 	}
 	
@@ -259,5 +424,12 @@ public class VMUsuario {
 					Messagebox.show("Usuario o correo e-mail no registrados","Información", Messagebox.OK, Messagebox.INFORMATION);
 		}
 	}
+
+	@Command
+	@NotifyChange({ "listaUsuario","tituloinstancia" })
+	public void pasepase() {
+		System.out.println("asdasfas"+ tituloinstancia);
+	}
 	
+
 }
