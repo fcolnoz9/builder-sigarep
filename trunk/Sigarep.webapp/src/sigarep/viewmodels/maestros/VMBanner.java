@@ -37,6 +37,10 @@ public class VMBanner {
 	private Media media;
 	private AImage imagenBanner;
 	MensajesAlUsuario mensajeBanner= new MensajesAlUsuario();
+	private int indiceBanner = 0;
+	private AImage contenidoBanner;
+	private Archivo fotoBannerPortal = new Archivo();
+	
 	
 	//Metodos Get y Set de la clase 
 	
@@ -112,8 +116,23 @@ public class VMBanner {
 		this.imagenBanner = imagenBanner;
 	}
 	
-	//Fin de los Metodos Get y Set de la clase 
+	public AImage getContenidoBanner() {
+		return contenidoBanner;
+	}
+
+	public void setContenidoBanner(AImage contenidoBanner) {
+		this.contenidoBanner = contenidoBanner;
+	}
+
+	public Archivo getFotoBannerPortal() {
+		return fotoBannerPortal;
+	}
+
+	public void setFotoBannerPortal(Archivo fotoBannerPortal) {
+		this.fotoBannerPortal = fotoBannerPortal;
+	}
 	
+	//Fin de los Metodos Get y Set de la clase 
 
 	@Init
 	public void init(){
@@ -125,6 +144,7 @@ public class VMBanner {
 		media= null;
 		fotoBanner= new Archivo();
 		buscarTodosLosBanner();
+		cambiarImagen();
     }
 	
 		// Metodos de la clase
@@ -259,5 +279,21 @@ public class VMBanner {
 			else
 				mensajeBanner.advertenciaCargarImagen();//Messagebox.show("Debe introducir una imagen", "Error", Messagebox.OK, Messagebox.ERROR);
 		}
+		
+		//Metodo que reordena la lista
+		@Command
+		@NotifyChange({"listadoBanner","fotoBannerPortal"})
+		public void cambiarImagen(){				
+			if(listadoBanner.size() > 0){
+				fotoBannerPortal=listadoBanner.get(indiceBanner).getFotoBanner();
+				  System.out.println(fotoBannerPortal.getNombreArchivo());
+				indiceBanner= indiceBanner+1;
+				if (indiceBanner==listadoBanner.size()){
+					indiceBanner=0;
+				}
+			}
+			
+		}
+		
 		
 }
