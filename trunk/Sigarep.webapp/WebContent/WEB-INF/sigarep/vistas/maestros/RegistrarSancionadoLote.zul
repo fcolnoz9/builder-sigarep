@@ -21,12 +21,12 @@
 		<listbox id="estListbox" height="270px" model="@bind(vm.listaEstudiante)"   
    			 emptyMessage="No hay Estudiantes Sancionados registrados" mold="paging" pageSize="5" tooltiptext="Estudiantes Sancionados">
 		<listhead>
-			<listheader label="Cedula" align="center"  width="90px"  />
-			<listheader label="Primer Nombre" align="center"  width="110px"/>
-			<listheader label="Primer Apellido" align="center"  width="110px" />
-			<listheader label="Semestre" align="center"  width="110px" />
-			<listheader label="Programa Academico" align="center" width="140px"/>
-			<listheader label="Sancion" align="center" width="110px"/>
+			<listheader label="Cedula" align="center"  width="90px"  sort="auto(estudiante.cedulaEstudiante)" />
+			<listheader label="Primer Nombre" align="center"  width="110px" sort="auto(estudiante.primerNombre)"/>
+			<listheader label="Primer Apellido" align="center"  width="110px" sort="auto(estudiante.primerApellido)" />
+			<listheader label="Semestre" align="center"  width="110px" sort="auto(semestre)"/>
+			<listheader label="Programa Academico" align="center" width="140px" sort="auto(estudiante.programaAcademico.idPrograma)"/>
+			<listheader label="Sancion" align="center" width="110px" sort="auto(sancionMaestro.nombreSancion)"/>
 			<listheader label="Email" align="center" width="110px"/>
 			<listheader label="Telefono" align="center" width="110px"/>
 		</listhead>
