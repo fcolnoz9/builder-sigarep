@@ -3,31 +3,28 @@
 
     <window id="modalDialog"
         title="Noticia"
-        width="50%" height="auto" border="normal" minimizable="false"
+        width="80%" height="80%" border="normal" minimizable="false"
         mode="modal" maximizable="false" closable="true"
         action="hide: slideUp" apply="org.zkoss.bind.BindComposer"
         onCancel="@command('closeThis')"
         viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMWindow')">
 
-        
         <separator />
         
        <groupbox> 
        		<div align="center">
        			<label value="@bind(vm.titulo)" />
+       			<space></space><space></space>
 		        <hlayout>
-		        	
-		        	
-		        	<image height="40%" width="40%" content="@bind(vm.fotoNoticia.getAImage())" />
+		        	<image height="400px" width="400px" content="@bind(vm.fotoNoticia.getAImage())" />
 		        	<vlayout>
-		        		<cell width="40%" rowspan="1" align="center" >
-                   			<label  width="" value="@bind(vm.contenido)" />
+		        		<cell width="90%" rowspan="1" align="center" >
+<!--                    			<label  width="90%" row="10" value="@bind(vm.contenido)" /> -->
+							<textbox rows="5" cols="60" value="@bind(vm.contenido)" readonly="true" >
+    							<attribute name="value">
+    							</attribute>
+							</textbox>
                 		</cell>
-<!-- 		        		<html><![CDATA[   -->
-<!-- 							<P Align=right value="@bind(vm.contenido)"> -->
-								
-<!-- 							</p> -->
-<!-- 		        		]]></html> -->
 		        		<cell width="50%" rowspan="1" align="center" >
 		        		<a href="@bind(vm.enlaceNoticia)">ENLACE</a>
 		        		</cell>
