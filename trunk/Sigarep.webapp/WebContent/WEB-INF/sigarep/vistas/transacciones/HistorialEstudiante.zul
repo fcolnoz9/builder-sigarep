@@ -9,7 +9,7 @@
 		<tabbox id="tb">
 			<tabs id="tabs">
 				<tab id="tbDatosBasicos" label="Datos Básicos" />
-				<tab id="tbDatosSancion" label="Datos de la Sanción" />
+				<tab id="tbDatosSancion" label="Datos de la Apelación" />
 			</tabs>
 			<tabpanels>
 				<tabpanel>
