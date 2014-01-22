@@ -77,7 +77,7 @@ public class EstudianteSancionado implements Serializable {
 			String lapsosAcademicosRp, Integer semestre,
 			Integer unidadesAprobadas, Integer unidadesCursadas,
 			Estudiante estudiante, LapsoAcademico lapsoAcademico,
-			SancionMaestro sancionMaestro) {
+			SancionMaestro sancionMaestro,boolean estatus) {
 		super();
 		this.id = id;
 		this.indiceGrado = indiceGrado;
@@ -88,6 +88,7 @@ public class EstudianteSancionado implements Serializable {
 		this.estudiante = estudiante;
 		this.lapsoAcademico = lapsoAcademico;
 		this.sancionMaestro = sancionMaestro;
+		this.estatus=estatus;
 	}
 
 	public EstudianteSancionadoPK getId() {
