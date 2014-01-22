@@ -310,7 +310,7 @@ public class VMRecaudos {
 				lapsoAcademico = estudianteSancionado.getLapsoAcademico();
 				sancion = estudianteSancionado.getSancionMaestro();
 				semestreSancion = estudianteSancionado.getSemestre();
-				asignatura = servicioasignaturaestudiantesancionado.buscarAsignaturaPorEstudianteSancionado(cedula, lapsoAcademico.getCodigoLapso());
+//				asignatura = servicioasignaturaestudiantesancionado.buscarAsignaturaPorEstudianteSancionado(cedula, lapsoAcademico.getCodigoLapso());
 			} catch (Exception e) {
 				Messagebox.show("Estudiante de cedula: "+ cedula+ " no ha realizado alguna solicitud de apelación",
 						"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
