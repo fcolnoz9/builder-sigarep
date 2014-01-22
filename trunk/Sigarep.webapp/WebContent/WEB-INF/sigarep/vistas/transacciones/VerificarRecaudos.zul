@@ -1,10 +1,21 @@
 <zk>	
-	<window id="winVerificiarRecaudos"
-		title="Gestión :: Apelaciones :: Evaluar Apelación :: Verificar Recaudos" border="normal"
-		width="auto" height="auto" contentStyle="overflow:auto"
-		apply="org.zkoss.bind.BindComposer" closable="true"
-		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRecaudosEntregados')">
-		
+<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Verificar Recaudos"
+	id="winVerificiarRecaudos" border="normal" width="auto" height="auto"
+	style="overflow:auto" closable="true" contentStyle="overflow:auto"
+	action="hide: slideUp" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRecaudosEntregados')">
+	<style src="/widgets/grid/simple/style.css" />
+<!-- 	<div align="right"> -->
+<!-- 			<label id="lblnrocaso" value="Nro del Caso: " /> -->
+<!-- 			<textbox id="txtnrocaso" cols="10" maxlength="30" -->
+<!-- 				value="@bind(vm.caso)" readonly="true"> -->
+<!-- 			</textbox> -->
+<!-- 			<label id="lblFechaSolicitud" value="Fecha de Solicitud: " /> -->
+<!-- 			<textbox id="txtFechaSolicitud" cols="10" maxlength="30" -->
+<!-- 				value="@bind(vm.fechaSolicitud)" readonly="true"> -->
+<!-- 			</textbox> -->
+			
+<!-- 		</div>	 -->
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
 		<grid id="grdDatosEstudiante">
@@ -66,6 +77,17 @@
 
 	<groupbox id="grbDatosApelacion">
 	   <caption label="Datos de la apelación" />
+	   	<div align="left">
+			<label id="lblnrocaso" value="Nro del Caso: " />
+			<textbox id="txtnrocaso" cols="10" maxlength="30"
+				value="@bind(vm.caso)" readonly="true">
+			</textbox>
+			<label id="lblFechaSolicitud" value="Fecha de Solicitud: " />
+			<textbox id="txtFechaSolicitud" cols="10" maxlength="30"
+				value="@bind(vm.fechaSolicitud)" readonly="true">
+			</textbox>
+			
+		</div>	
 	   <listbox id="listaMotivos" multiple="true" height="auto"
 	   	width="auto" mold="paging" pageSize="3" model="@bind(vm.listaTipoMotivo)">
 	   	<listhead>

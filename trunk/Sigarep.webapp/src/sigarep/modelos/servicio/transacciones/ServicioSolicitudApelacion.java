@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
@@ -61,14 +62,15 @@ public class ServicioSolicitudApelacion {
 		return new SolicitudApelacion();
 	}
 	
-	public List<String> historicoSolicitudApelacion(Date date){
+	public List<String> historicoSolicitudApelacion(LapsoAcademico lapso){
 		List<String> listaElementosAInsertar = new ArrayList<String>();
 		String elementoAInsertar;
-		List<SolicitudApelacion> solicitudApelaciones=iSolicitudApelacionDAO.buscarPorFechaHasta(date);
+		String codigolapsoAcademico = lapso.getCodigoLapso();
+		List<SolicitudApelacion> solicitudApelaciones=iSolicitudApelacionDAO.buscarPorLapso(codigolapsoAcademico);
 		
 	    for(int i=0;i<solicitudApelaciones.size();i++){
 	    	SolicitudApelacion solicitudApelacion = solicitudApelaciones.get(i);
-	    	elementoAInsertar="INSERT INTO historico_solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, fecha_veredicto, numero_sesion, observacion, veredicto)" +"VALUES ('"+solicitudApelacion.getId().getCedulaEstudiante()+"','"+solicitudApelacion.getId().getCodigoLapso()+"',"+solicitudApelacion.getInstanciaApelada().getIdInstanciaApelada()+",'"+solicitudApelacion.getEstatus()+"','"+solicitudApelacion.getFechaSolicitud()+"','"+solicitudApelacion.getFechaSesion()+"','"+solicitudApelacion.getNumeroSesion()+"','"+solicitudApelacion.getObservacion()+"','"+solicitudApelacion.getVeredicto()+"');";
+	    	elementoAInsertar="INSERT INTO historico_solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, numero_caso, fecha_sesion, codigo_sesion, observacion, tipo_sesion, veredicto, analizado, verificado)" +"VALUES ('"+solicitudApelacion.getId().getCedulaEstudiante()+"','"+solicitudApelacion.getId().getCodigoLapso()+"',"+solicitudApelacion.getInstanciaApelada().getIdInstanciaApelada()+",'"+solicitudApelacion.getEstatus()+"','"+solicitudApelacion.getFechaSolicitud()+"',"+solicitudApelacion.getNumeroCaso()+", '"+solicitudApelacion.getFechaSesion()+"','"+solicitudApelacion.getNumeroSesion()+"','"+solicitudApelacion.getObservacion()+"',"+solicitudApelacion.getTipoSesion()+",'"+solicitudApelacion.getVeredicto()+"', '"+solicitudApelacion.isAnalizado()+"', '"+solicitudApelacion.isVerificado()+"' );";
 	    	listaElementosAInsertar.add(elementoAInsertar);
 	    	Set<ApelacionEstadoApelacion> apelacionesEstadoApelacion = solicitudApelacion.getApelacionEstadosApelacion();
 	    	for(Iterator<ApelacionEstadoApelacion> it = apelacionesEstadoApelacion.iterator();it.hasNext();){

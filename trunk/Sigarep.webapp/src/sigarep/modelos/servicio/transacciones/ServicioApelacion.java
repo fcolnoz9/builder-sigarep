@@ -2,6 +2,7 @@ package sigarep.modelos.servicio.transacciones;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import java.util.List;
 
@@ -14,10 +15,13 @@ import org.springframework.stereotype.Service;
 
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
+import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
+import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
 import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
+import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.data.maestros.Estudiante;
 
 
@@ -28,7 +32,9 @@ public class ServicioApelacion  {
 	
 	@Autowired
 	private IApelacionEstadoApelacionDAO apelacionestadoapelacion;
-	
+	@Autowired
+	private IRecaudoDAO iRecaudoDAO;
+	ServicioRecaudo serviciorecaudo;
 	public List<ListaApelacionEstadoApelacion> buscarApelaciones() {
 		
 		
@@ -109,16 +115,16 @@ public class ServicioApelacion  {
 
 	public List<ListaRecaudosMotivoEstudiante> buscarRecaudosMotivos(String cedulaEstudiante, String codigoLapso, Integer idInstancia) {
 		String queryStatement = 
-				"SELECT recaudo.nombre_recaudo, tipo_motivo.nombre_tipo_motivo " +
-				"FROM tipo_motivo, motivo, solicitud_apelacion, recaudo WHERE " +
-				"tipo_motivo.id_tipo_motivo = motivo.id_tipo_motivo AND " +
-				"motivo.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada AND " +
-				"motivo.codigo_lapso = solicitud_apelacion.codigo_lapso AND  " +
-				"motivo.cedula_estudiante = solicitud_apelacion.cedula_estudiante AND " +
-				"recaudo.id_tipo_motivo = motivo.id_tipo_motivo AND " +
-				"solicitud_apelacion.cedula_estudiante = '" +cedulaEstudiante+"' AND" +
-				" solicitud_apelacion.codigo_lapso = '" +codigoLapso+"' AND " +
-				"solicitud_apelacion.id_instancia_apelada = 1;";
+				"SELECT r.nombre_recaudo, tm.nombre_tipo_motivo " +
+				"FROM tipo_motivo tm, motivo m, solicitud_apelacion sap, recaudo r WHERE " +
+				"tm.id_tipo_motivo = m.id_tipo_motivo AND " +
+				"m.id_instancia_apelada = sap.id_instancia_apelada AND " +
+				"m.codigo_lapso = sap.codigo_lapso AND  " +
+				"m.cedula_estudiante = sap.cedula_estudiante AND " +
+				"r.id_tipo_motivo = m.id_tipo_motivo AND tm.estatus = TRUE AND " +
+				"sap.cedula_estudiante = '" +cedulaEstudiante+"' AND" +
+				" sap.codigo_lapso = '" +codigoLapso+"' AND " +
+				"sap.id_instancia_apelada = 1;";
 
 		Query query = em.createNativeQuery(queryStatement);
 		
@@ -127,6 +133,13 @@ public class ServicioApelacion  {
 		List<Object[]> resultSet = query.getResultList();
 		
 		List<ListaRecaudosMotivoEstudiante> results = new ArrayList<ListaRecaudosMotivoEstudiante>();
+		List<Recaudo> listaRecaudosGenerales=iRecaudoDAO.buscaRecaudosGenerales();
+		for(int i=0; i<listaRecaudosGenerales.size();i++ ){
+			Recaudo recaudo = new Recaudo();
+			recaudo = listaRecaudosGenerales.get(i);
+			results.add(new ListaRecaudosMotivoEstudiante (recaudo.getNombreRecaudo(), recaudo.getTipoMotivo().getNombreTipoMotivo()));
+		}
+		
 		for (Object[] resultRow : resultSet) {
 			
 			results.add(new ListaRecaudosMotivoEstudiante ((String) resultRow[0], (String) resultRow[1]));
@@ -181,7 +194,7 @@ public class ServicioApelacion  {
 					"motivo AS m, solicitud_apelacion AS sap WHERE tm.id_tipo_motivo = m.id_tipo_motivo " +
 					"AND sap.cedula_estudiante = m.cedula_estudiante AND " +
 					"sap.codigo_lapso = m.codigo_lapso AND " +
-					"sap.id_instancia_apelada = m.id_instancia_apelada AND sap.cedula_estudiante = '"+cedulaEstudiante+"' " +
+					"sap.id_instancia_apelada = m.id_instancia_apelada AND tm.estatus = TRUE AND sap.cedula_estudiante = '"+cedulaEstudiante+"' " +
 					"AND sap.codigo_lapso = '" + codigoLapso +"' AND sap.id_instancia_apelada = '"+idInstancia+"';"; 
 							
 					Query query = em.createNativeQuery(queryStatement4);
@@ -197,7 +210,5 @@ public class ServicioApelacion  {
 					
 					return results;
 	}
-
-
 }
 

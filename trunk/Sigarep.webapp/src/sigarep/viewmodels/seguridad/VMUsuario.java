@@ -188,7 +188,7 @@ public class VMUsuario {
 	}
 	
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","listaUsuario"})
+	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","clave","listaUsuario"})
 	public void cancelarCambiarContrasenia() {
 		nombreUsuario = "";
 		clave = "";
@@ -226,8 +226,10 @@ public class VMUsuario {
 	    	msjs.advertenciaLlenarCampos();
 	    else{
 	    	
-	    	if(su.cambiarContrasena(nombreUsuario, clave, nuevaContrasenia, confirmarcontrasenia)==true)
+	    	if(su.cambiarContrasena(nombreUsuario, clave, nuevaContrasenia, confirmarcontrasenia)==true){
 	    		Messagebox.show("Se ha actualizado su contraseña", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
+	    		cancelarCambiarContrasenia();
+	    	}	
 	    }
 	}
 	

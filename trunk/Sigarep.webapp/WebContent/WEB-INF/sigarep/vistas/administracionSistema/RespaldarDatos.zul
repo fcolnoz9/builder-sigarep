@@ -25,7 +25,7 @@
 	</zscript>
 			<div width="100%" height="auto" style="overflow:auto;" align="center">
 				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d" >
-					<caption style="font-weight:bold;font-size:14px;color:gray;"
+					<caption style="border:normal;"
 						label="Destino del Respaldo" />
 				 <grid id="grdColumns" width="99%" height="100%">
 						<columns>
@@ -34,7 +34,7 @@
 						</columns>
 					<rows>
 							<row>
-								<label id="lblDescripcion" value="Descripción: " />
+								<label id="lblDescripcion" value="Descripción: "/>
 								<textbox id= "txtdescripcion" value=""  width="150px" tabindex="2"/>	
 							</row>
 					</rows>
@@ -81,14 +81,14 @@
 				</groupbox>
 				<groupbox style="margin:5px;" width="90%" mold="3d"
 					id="grbDispositivo" visible="false">
-					<caption style="font-weight:bold;font-size:14px;color:gray;"
+					<caption style="border:normal;"
 						label="Seleccione el dispositivo" />
 					<grid id="grdRuta">
 						<rows>
 							<row>
 								<hbox>
 									<textbox id="txtRuta" width="350px" />
-									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png" >
+									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png">
 										<attribute name="onClick">
 											seleccionarRuta();
 										</attribute>
@@ -138,6 +138,10 @@
 							cancelar();
 					</attribute>
 					</button>
+					<button label="Cerrar" id="btnCerrar"
+   							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+   							height="auto" orient="horizontal" onClick="winRespaldarDatos.onClose()">
+   						</button>
 					</hbox>			
 				</row>
    			  </rows>
@@ -167,22 +171,6 @@
 		</div>
 			<space />
 		</groupbox>
-
-   		<div>
-   			<grid id="grdCerrar" width="99%" height="70%">
-   				<columns>
-   					<column label="" width="100%" />
-   				</columns>
-   				<rows>
-   					<row  align="right">
-   						<button label="Cerrar" id="btnCerrar"
-   							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-   							height="auto" orient="horizontal" onClick="winRespaldarDatos.onClose()">
-   						</button>
-   					</row>
-   				</rows>
-   			</grid>
-   		</div>
 		<zscript>
 		<![CDATA[
 			//************************************************************************************

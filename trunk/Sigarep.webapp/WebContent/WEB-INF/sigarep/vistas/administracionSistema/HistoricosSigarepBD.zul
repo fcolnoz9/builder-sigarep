@@ -44,7 +44,7 @@
 				<groupbox id="gbManual" style="margin:5px;" width="85%"
 					mold="3d">
 					<caption style="font-weight:bold;font-size:14px;color:gray;"
-						label="Fecha límite respaldo" />
+						label="Lapso Acádemico de respaldo" />
 					<grid>
 						<columns>
 							<column label="" width="10%" height="100%" />
@@ -54,11 +54,12 @@
 						</columns>										
 						<rows>
 							<row>
-								<label value="Fecha límite:"/>								
-								    <datebox id="dbfecha" format="dd/MM/yyyy" value="@bind(vm.fecha)" >
-									</datebox>
 								<label value="Lapso Acádemico:"/>								
-								<combobox id="cmbLapso" width="100px" />
+								<combobox id="cmbLapso" width="100px" model="@load(vm.listaLapsoAcademico)" value="@bind(vm.lapso.codigoLapso)" selectedItem="@bind(vm.lapso)">
+									<template name="model">
+										 <comboitem  label="${each.codigoLapso}"/>
+									</template>
+								</combobox>	
 							</row>
 						</rows>
 					</grid>
