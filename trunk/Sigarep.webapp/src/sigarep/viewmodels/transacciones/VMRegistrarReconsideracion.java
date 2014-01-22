@@ -49,6 +49,7 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
@@ -62,6 +63,7 @@ import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
+import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioMotivos;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
@@ -106,6 +108,11 @@ public class VMRegistrarReconsideracion {
 	private AImage imagen;
 	private String nombreDoc;
 	private String cedula;
+	private List<AsignaturaEstudianteSancionado> asignaturas;
+	private String lapsosConsecutivos;
+	private String asignaturaLapsosConsecutivos="";
+	private String labelAsignaturaLapsosConsecutivos;
+	
 	private SolicitudApelacion solicitudapelacion;
 	private LapsoAcademico lapsoAcademico = new LapsoAcademico();
 	@WireVariable
@@ -122,6 +129,8 @@ public class VMRegistrarReconsideracion {
 	private ServicioSoporte serviciosoporte;
 	@WireVariable
 	private ServicioEstadoApelacion servicioestadoapelacion;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	private Integer instanciaApelada;
 	private Date fechaSolicitud;
 
@@ -139,12 +148,35 @@ public class VMRegistrarReconsideracion {
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
 	Recaudo recaudos = new Recaudo();
 	
-	@WireVariable
-	//private List<ListaRecaudosMotivoEstudiante> listaRecaudos = new LinkedList<ListaRecaudosMotivoEstudiante>();
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
 
 	
+	public String getLapsosConsecutivos() {
+		return lapsosConsecutivos;
+	}
+
+	public void setLapsosConsecutivos(String lapsosConsecutivos) {
+		this.lapsosConsecutivos = lapsosConsecutivos;
+	}
+
+	public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
+
 	public List<RecaudoEntregado> getListaRecaudos() {
 		return listaRecaudos;
 	}
@@ -541,11 +573,26 @@ public class VMRegistrarReconsideracion {
 	
 		concatenacionNombres();
 		concatenacionApellidos();
+		
+		
+		
+		if (sancion.equalsIgnoreCase("RR")){
+			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i=0; i<asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		}
+		else{
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
 		media = null;
 		doc = new Documento();
-		//buscarRecaudos(cedula);
 		buscarRecaudosEntregados(cedula);
+	
 	}
+	
 
 	@Command
 	public void closeThis() {
