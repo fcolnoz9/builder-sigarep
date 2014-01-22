@@ -249,18 +249,17 @@ public class VMasignaturasMayorCantidadSancionados {
 	@Command("GenerarReporteAsigMayor")
 	@NotifyChange({"reportConfig"})
 	public void GenerarReporteAsigMayor(){
-		if (listaAsigMayor == null)
-			Messagebox.show("No hay Datos", "Error", Messagebox.OK, Messagebox.ERROR);
-		else{
+			
 			listaAsigMayor.clear();
 			idPrograma = programaAcademico.getIdPrograma();// OBTENER EL VALOR DE LOS COMBOS
 			codigoLapso = lapsoAcademico.getCodigoLapso();
-			List<ListaAsignaturasMayorCantidadSancionados> lista= servicioListaAsignaturasMayor.buscarAsignaturasSancionados(idPrograma,codigoLapso);
+			idInstanciaApelada= instanciaApelada.getIdInstanciaApelada();
+			List<ListaAsignaturasMayorCantidadSancionados> lista= servicioListaAsignaturasMayor.buscarAsignaturasSancionados(idPrograma,codigoLapso,idInstanciaApelada);
 			listaAsigMayor.addAll(lista); 
 			reportConfig= new ReportConfig(); //INSTANCIANDO UNA NUEVA LLAMADA AL REPORTE
 			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE IMPRESION DEL REPORTE
 			reportConfig.setDataSource(new JRBeanCollectionDataSource(listaAsigMayor)); //ASIGNANDO MEDIANTE EL DATA SOURCE LOS DATOS PARA DIBUJAR EL REPORTE   
-	    }
+	    
 	}
 	//#####################FIN DEL METODO##########################
 
