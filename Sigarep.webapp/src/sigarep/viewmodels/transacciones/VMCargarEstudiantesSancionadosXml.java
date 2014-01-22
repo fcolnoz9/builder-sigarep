@@ -39,20 +39,17 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 /**CargarEstudiante por XML
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 2.5
+ * @version 2.5.2
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarEstudiantesSancionadosXml {
-	private Document document;// Se Usa para poder leer el Xml, instancia la libreria Jdom-2.0.3 y poder usar sus propiedades
 	private Integer tamanoXML,id_programa;
 	private String primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,email,telefono,cedula_estudiante,aux_fecha_nacimiento,aux_anio_ingreso,textoXML,sexo;//datos del Estudiante
 	private Boolean estatus;//estatus del estudiante
     private Date fecha_nacimiento,anio_ingreso;
 	@WireVariable 
 	private  ServicioEstudiante servicioestudiante;
-	private Estudiante estudiante,estudiante2;
-    private List<EstudianteSancionado> listaEstudiante;//Lista de Estudiantes
-	private ProgramaAcademico programa_academico;
+    private List<EstudianteSancionado> listaEstudiante;//Lista de Estudiante
 	@WireVariable 
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	//Estudiante sancionado
@@ -68,8 +65,6 @@ public class VMCargarEstudiantesSancionadosXml {
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado ;
 	private LapsoAcademico lapsoAcademico;
 	private SancionMaestro sancionMaestro;
-	private EstudianteSancionado  est_san_busca;
-	private EstudianteSancionado estudianteSancionado;
 	@WireVariable 
 	private ServicioSancionMaestro serviciosancionmaestro;
 	@WireVariable 
@@ -122,6 +117,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	  * @return No devuelve ningun valor.
 	  * @throws las Excepciones son que el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.
 	  */
+	@SuppressWarnings("unused")
 	@Command
 	@NotifyChange({"textoXML","tamanoXML","listaEstudiante"})
 	public void cargarEstudiante(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
@@ -130,13 +126,13 @@ public class VMCargarEstudiantesSancionadosXml {
 		
 		if (media != null) {
 			if (media.getFormat().equals("xml")) {
-				String DataXml = media.getStringData();//le pide al archivo media la data en string para guardarla en la variable DataXml
+				String dataXml = media.getStringData();//le pide al archivo media la data en string para guardarla en la variable DataXml
 				SAXBuilder saxBuilder = new SAXBuilder();
 				XMLOutputter output = new XMLOutputter();
 				try {
-					Document doc = saxBuilder.build(new StringReader(DataXml));//para transformar y construir la DataXml con el formato del XML
-					System.out.println("DATA" + doc.getRootElement());
+					Document doc = saxBuilder.build(new StringReader(dataXml));// transformar y construir la DataXml con el formato del XML, usa la libreria Jdom-2.0.3 para poder usar sus propiedades
 					Element rootNode = doc.getRootElement(); 
+					@SuppressWarnings("rawtypes")
 					List list = rootNode.getChildren("Estudiante");
 					tamanoXML = list.size();
 					for (i = 0; i < list.size(); i++) {
@@ -184,8 +180,7 @@ public class VMCargarEstudiantesSancionadosXml {
 						EstudianteSancionadoPK id =new EstudianteSancionadoPK();
 						id.setCedulaEstudiante(cedula_estudiante);
 						id.setCodigoLapso(codigo_lapso);
-						EstudianteSancionado estudiante_san;
-						estudiante_san=new EstudianteSancionado();
+						EstudianteSancionado estudiante_san=new EstudianteSancionado();
 						estudiante_san=servicioestudiantesancionado.buscar(id);
 						sancionMaestro = new SancionMaestro();
 						sancionMaestro =serviciosancionmaestro.buscarUnaSancion(id_sancion);
@@ -249,8 +244,4 @@ public class VMCargarEstudiantesSancionadosXml {
 		}
 	}
 }
-/** 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 2.5
- * @author Builder todos los Derechos Reservados
- */
+
