@@ -76,15 +76,15 @@ public class ServicioNoticia {
 		return result;
         } 
 	
-	public List<Noticia> filtrarApelacionesCargarRecaudo(String titulo){
+	public List<Noticia> filtrarApelacionesCargarRecaudo(String titulof){
 		List<Noticia> result = new ArrayList<Noticia>();
-        if(titulo==null){
+        if(titulof==null){
         	result= listadoNoticia();
         }
         else{
 			for (Noticia n : listadoNoticia())
 			{
-				if (n.getTitulo().toLowerCase().contains(titulo.toLowerCase())){
+				if (n.getTitulo().toLowerCase().contains(titulof.toLowerCase())){
 					result.add(n);
 				}
 			}
