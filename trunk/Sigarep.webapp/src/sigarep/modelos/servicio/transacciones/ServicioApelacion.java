@@ -49,7 +49,7 @@ public class ServicioApelacion  {
 				
 				"AND esa.codigo_lapso = la.codigo_lapso  AND i.id_instancia_apelada = sap.id_instancia_apelada  " +
 				"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
-				"AND la.estatus = 'TRUE' AND es.cedula_estudiante = " +
+				"AND la.estatus = 'true' AND es.cedula_estudiante = " +
 				"esa.cedula_estudiante AND es.cedula_estudiante = sap.cedula_estudiante AND ap.id_instancia_apelada = '1' " +
 				"AND sap.estatus = 'true' and  sap.cedula_estudiante not in (select ap.cedula_estudiante from " +
 				"apelacion_estado_apelacion as ap where  ap.id_instancia_apelada = '2')";

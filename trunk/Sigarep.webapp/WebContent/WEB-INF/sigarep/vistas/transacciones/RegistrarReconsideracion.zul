@@ -131,23 +131,16 @@
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="${each.nombreTipoMotivo}" />
-					<listcell label="${each.nombreRecaudo}" />
-					<listcell>
-						<a label="${each.nombreDocumento}"
-							onClick="@command('descargarDocumento', componente=self)">
-							<custom-attributes
-								idRecaudo="${each.idRecaudo}" />
-						</a>
-					</listcell>
-					<!-- 				<listcell> -->
-					<!-- 					<button  width="auto" -->
-					<!-- 						height="auto" label="Actualizar Documento" upload="true" -->
-					<!-- 						 onUpload="@command('cargarDocumento',upload=event,componente=self)" image="/imagenes/iconos/cargar.png"  -->
-					<!-- 						 orient="horizontal" mold="trendy"> -->
-					<!-- 						 <custom-attributes idRecaudo="${each.idRecaudo}"/> -->
-					<!-- 					</button> -->
-					<!-- 				</listcell> -->
+					<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
+					<listcell label="${each.getRecaudo().getNombreRecaudo()}" />
+					<listcell label="${each.getSoporte().getDocumento().getNombreDocumento()}" />
+<!-- 					<listcell> -->
+<!-- 						<a label="${each.getSoporte().getDocumento().getNombreDocumento()}" -->
+<!-- 							onClick="@command('descargarDocumento', componente=self)"> -->
+<!-- 							<custom-attributes -->
+<!-- 								idRecaudo="${each.idRecaudo}" /> -->
+<!-- 						</a> -->
+<!-- 					</listcell> -->
 				</listitem>
 			</template>
 		</listbox>
