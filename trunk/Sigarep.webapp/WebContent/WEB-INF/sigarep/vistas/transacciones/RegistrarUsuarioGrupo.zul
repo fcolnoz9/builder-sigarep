@@ -1,45 +1,12 @@
-<window title="Registros Básicos :: Registrar Recaudo" id="winRegistrarUsuarioGrupo"
+<window title="Administración del Sistema :: Seguridad funcional :: Asignar Usuario a Grupo" id="winRegistrarUsuarioGrupo"
 	border="normal" 
 	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMUsuarioGrupo')">
 	
 	
-	<groupbox id="grbDatosEstudiante">
-		<caption label="Datos del Estudiante" />
-		<grid id="grdDatosEstudiante" sclass="fgrid">
-			<columns>
-				<column align="left" width="auto" />
-				<column align="left" width="auto" />
-			</columns>
-			<rows>
-				<row></row>
-				<row>
-					<label value="Nombre Usuario: " id="lblNombreUsuario" />
-					<textbox id="txtNombreUsuario" cols="23"
-						width="200px" maxlength="30" disabled="false" value="@bind(vm.nombreUsuario)">
-					</textbox>
-				</row>
-				<row>
-					<label value="Nombre del Grupo: " id="lblNombreGrupo" />
-					<textbox id="txtNombreGrupo" cols="23"
-						width="200px" maxlength="30" disabled="false" value="@bind(vm.nombreGrupo)">
-					</textbox>
-					<label value="Descripción: "
-						id="lblDescripcion" />
-					<textbox id="txtDescripcion" cols="23"
-						width="200px" maxlength="30" disabled="false" value="@bind(vm.descripcionGrupo)">
-					</textbox>
-				</row>
-			</rows>
-		</grid>
-	</groupbox>
-
-	<groupbox id="grbDatosUsuarioGrupo">
-		<caption label="Datos de usuarios y grupos" />
-		<columnlayout>
-			<columnchildren width="48%">
-				<panel title="Seleccionar Usuario">
-					<panelchildren>
-						<listbox id="left" multiple="true" model="@bind(vm.listaUsuario)" selectedItem="@bind(vm.usuarioSeleccionado)"   
+	<groupbox id="grbDatosEstudiante" width="50%">
+		<caption label="Listado de Usuarios" />
+		
+			<listbox id="otro" multiple="true" model="@bind(vm.listaUsuario)" selectedItem="@bind(vm.usuarioSeleccionado)"   
    			 				onSelect="@command('mostrarUsuarioSeleccionado')" emptyMessage="No hay usuarios registrados" mold="paging" pageSize="10">
 							<listhead>
 								<listheader label="Nombre del usuario" align="center" sort="auto(nombreUsuario)" />
@@ -49,7 +16,17 @@
 									<listcell label="${each.nombreUsuario}" ></listcell>
 								</listitem>
 							</template>
-						</listbox>
+			</listbox>
+		
+	</groupbox>
+
+	<groupbox id="grbDatosUsuarioGrupo">
+		<caption label="Datos de usuarios y grupos" />
+		<columnlayout>
+			<columnchildren width="48%">
+				<panel title="Seleccionar Usuario">
+					<panelchildren>
+						<!-- 						listbox -->
 					</panelchildren>
 				</panel>
 			</columnchildren>
@@ -60,18 +37,9 @@
 			<columnchildren width="48%">
 				<panel title="Seleccionar Grupo">
 					<panelchildren>
-						<listbox id="lbxtipogrupo" height="auto" model="@bind(vm.listaGrupo)" selectedItem="@bind(vm.grupoSeleccionado)" 
-						onSelect="@command('mostrarGrupoSeleccionado')" emptyMessage="No hay grupos registrados" mold="paging" pageSize="10">
-							<listhead>
-								<listheader label="Nombre del grupo" align="center" sort="auto(nombre)" />
-							</listhead>
-							<template name="model">
-								<listitem selected="false">
-									<listcell label="${each.nombre}"></listcell>
-								</listitem>
-							</template>
-						</listbox>
+<!-- 						listbox -->
 					</panelchildren>
+					
 				</panel>
 			</columnchildren>
 

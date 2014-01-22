@@ -12,7 +12,8 @@ import sigarep.modelos.repositorio.transacciones.IUsuarioGrupoDAO;
 @Service("serviciousuariogrupo")
 public class ServicioUsuarioGrupo {
 	
-	private @Autowired IUsuarioGrupoDAO iUsuarioGrupoDAO;
+
+	public @Autowired IUsuarioGrupoDAO iUsuarioGrupoDAO;
 	
 	public UsuarioGrupo guardar(UsuarioGrupo usuariogrupo) {
 		return iUsuarioGrupoDAO.save(usuariogrupo);
@@ -23,6 +24,14 @@ public class ServicioUsuarioGrupo {
 		miUsuarioGrupo.setEstatus(false);
 		iUsuarioGrupoDAO.save(miUsuarioGrupo);
 	}
+	
+	/*public List<UsuarioGrupo> buscarPorUsuario(String nombreUsuario){
+		return iUsuarioGrupoDAO.buscarPorUsuario(nombreUsuario) ;
+	}
+	
+	public List<UsuarioGrupo> buscarPorUsuarioNO(String nombreUsuario){
+		return iUsuarioGrupoDAO.buscarPorUsuarioNO(nombreUsuario) ;
+	}*/
 	
 //	public List<UsuarioGrupo> buscarTodos() {
 //		return iUsuarioGrupoDAO.buscarSancionadosActivos();

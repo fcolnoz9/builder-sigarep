@@ -28,51 +28,114 @@
 <!--         <label id="errmsg" /> -->
 <!--     </hlayout> -->
 	
-	<attribute name="onTimer">
-		
-		
-	</attribute>
 	<groupbox>
-		<caption label="Datos del usuario" />
-		<grid id="cosa" sclass="fgrid">
+		<caption label="Datos personales" />
+		<grid id="grbpersonal" >
 			<columns>
-				<column align="right" width="40%" />
-				<column align="center" />
-				<column align="center" />
-				<column align="left" />
+				<column align="left" width="15%"  />
+				<column align="left" width="35%" />
+				<column align="left" width="15%" />
+				<column align="left" width="35%" />
 			</columns>
 			<rows>
 				<row>
-					<label value="Nombre del usuario: " id="lblNombreUsuario" />
-					<textbox id="txtNombreUsuario" cols="23"
-						constraint="/[a-z,0-9]+/: No deje espacios en blanco y solo use letras [A-Z]" width="200px" maxlength="30"
-						value="@bind(vm.nombreUsuario)" />
+					<label value="Cédula del usuario: " id="lblCedulaUsuario" />
+					<intbox id="intCedulaUsuario"   mold="rounded"
+						 width="80%" maxlength="30"
+						 value="@bind(vm.cedulaPersona)" />
+					<label value="Teléfono: " id="lblTelefono" />
+					<textbox id="txttelefono"  mold="rounded"
+						 width="80%" maxlength="30"
+						 value="@bind(vm.telefono)" />
 				</row>
 				<row>
-					<label value="Correo electronico: " id="lblCorreo" />
-					<textbox id="txtCorreo" cols="23"
-						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com" width="200px" maxlength="30"
-						value="@bind(vm.correo)" />
-				</row>
-				<row>
-					<label value="Contraseña: " id="lblContraseña" />
-					<hlayout>
-						<textbox id="txtContraseña" type="password"
-							constraint="/[a-z,0-9]+/: Solo utilice letras y nÃºmeros" width="200px" 
-							value="@bind(vm.clave)" />
-					</hlayout>
-				</row>
-				<row>
-					<label value="Repetir contraseña: " id="lblRepetirContraseña" />
-					<hlayout>
-						<textbox id="txtRepetirContraseña" type="password"
-							constraint="/[a-z,0-9]+/: Solo utilice letras y nÃºmeros" width="200px" 
-							value="@bind(vm.confirmarcontrasenia)" />
-					</hlayout>
+					<label value="Nombre: " id="lblNombre" />
+					<textbox id="txtNombre"  mold="rounded"
+						width="80%" maxlength="30"
+						value="@bind(vm.nombre)" />
+					<label value="Apellido: " id="lblApellido" />
+					<textbox id="txtApellido" mold="rounded"
+						width="80%" maxlength="30"
+						value="@bind(vm.apellido)" />		
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
+	
+	<groupbox>
+		<caption label="Datos del usuario" />
+		<grid id="grbusuario" >
+<!-- 		<grid id="cosa" sclass="fgrid"> -->
+			<columns>
+				<column align="left" width="15%" />
+				<column align="left" width="35%" />
+				<column align="left" width="15%" />
+				<column align="left" width="35%"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="Nombre del usuario: " id="lblNombreUsuario" />
+					<textbox id="txtNombreUsuario"  mold="rounded" width="80%"
+						constraint="/[a-z,0-9]+/: No deje espacios en blanco y solo use letras [A-Z]"  maxlength="45"
+						value="@bind(vm.nombreUsuario)" />
+				</row>
+				<row>
+					<label value="Correo electrónico: " id="lblCorreo" />
+					<textbox id="txtCorreo" width="80%"  mold="rounded"
+						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com"  maxlength="30"
+						value="@bind(vm.correo)" />
+					<label value="Repita el correo: " id="lblRepetirCorreo" />
+					<textbox id="txtRepetirCorreo" width="80%"  mold="rounded"
+						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com"  maxlength="30"
+						value="@bind(vm.correo)" />	
+						
+				</row>
+				<row>
+					<label value="Contraseña: " id="lblContraseña" width="auto" />
+					<textbox id="txtContraseña" type="password" width="80%" maxlength="30"  mold="rounded"
+						constraint="/[a-z,0-9]+/: Solo utilice letras y números"  
+						value="@bind(vm.clave)" />
+					
+					<label value="Repetir contraseña: " id="lblRepetirContraseña" />
+					<textbox id="txtRepetirContraseña" type="password" width="80%" maxlength="30"  mold="rounded"
+						constraint="/[a-z,0-9]+/: Solo utilice letras y números" 
+						value="@bind(vm.confirmarcontrasenia)" />
+					
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	
+	<groupbox>
+		<caption label="Datos de la Instancia" />
+		<grid id="grbinstacia" >
+			<columns>
+				<column align="left" width="15%"  />
+				<column align="left" width="35%" />
+				<column align="left" width="15%" />
+				<column align="left" width="35%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Instancia: " id="lblInstancia" />
+					<combobox readonly="true" id= "cmbIntancia" value="@bind(vm.tituloinstancia)" onCreate="@command('pasepase')"
+					    width="auto" mold="rounded" model="@load(vm.listaInstancia)" selectedItem="@bind(vm.instanciaseleccionada)" onSelect="@command('pasepase')">
+						<template name="model">
+								<comboitem  label="${each.instanciaApelada}"/>
+						</template>
+					</combobox>
+					<label value="Cargo: " id="lblCargo" />
+					<textbox id="txtCargo"  mold="rounded"
+						width="80%" maxlength="30"
+						value="@bind(vm.cargo)" />
+				</row>
+				<row>
+						
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	
 	<separator />
 	<hbox width="100%" pack="end" align="center">
 		<button label="Guardar" image="/imagenes/iconos/guardar.png"
@@ -87,32 +150,37 @@
 			mold="trendy" width="auto" height="auto"
 			onClick="@command('limpiar')">
 		</button>
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			mold="trendy" onClick="winRegistrarUsuario.onClose()">
+		</button>
 	</hbox>
 	<groupbox id="grbListaUsuarios">
 		<caption label="Lista de Usuarios" />
 		<listbox id="lbxUsuario" height="100%"
-			model="@bind(vm.listaUsuario)"
-			selectedItem="@bind(vm.usuarioSeleccionado)"
+			model="@bind(vm.listaPersona)"
+			selectedItem="@bind(vm.personaSeleccionado)"
 			onSelect="@command('mostrarSeleccionado')"
 			onClick="@command('pasepase')"
 			emptyMessage="No hay Usuarios registrados" mold="paging"
 			pageSize="5">
 			<listhead>
-				<listheader label="Nombre de usuario" align="center"
-					sort="auto(nombreUsuario)" />
+				<listheader label="Cédula" align="center"
+					sort="auto(cedulaPersona)" />
+				<listheader label="Nombre Completo" align="center"
+					sort="auto(nombreCompleto)" />
+				<listheader label="Usuario" align="center"
+					sort="auto(nombreUsuario)" />	
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="${each.nombreUsuario }" />
+					<listcell label="${each.cedulaPersona}" />
+					<listcell label="${each.nombreUsuario.getNombreCompleto()}" />
+					<listcell label="${each.nombreUsuario.getNombreUsuario()}" />
 				</listitem>
 			</template>
 		</listbox>
 	</groupbox>
 	<separator />
-	<div align="right">
-		<button label="Cerrar" id="btnCerrar"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			mold="trendy" onClick="winRegistrarUsuario.onClose()">
-		</button>
-	</div>
+	
 </window>
