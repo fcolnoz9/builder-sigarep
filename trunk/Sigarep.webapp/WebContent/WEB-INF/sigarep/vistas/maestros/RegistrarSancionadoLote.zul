@@ -1,3 +1,4 @@
+<zk>
 <?page title="Registrar Sancionado Por Lote" contentType="text/html;charset=UTF-8"?>
 <window  id="winRegistrarSancionadoLote" title="Registros Básicos :: Sancionados :: Registrar Sancionado Por Lote" border="normal" apply=" org.zkoss.bind.BindComposer" width="930px" height="600px"
     viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarEstudiantesSancionadosXml')">
@@ -42,10 +43,6 @@
 				
 			</listitem>
 		</template>
-	</listbox>
-		
-		  
-		 
-
+	</listbox>  
 </window>
 </zk>
