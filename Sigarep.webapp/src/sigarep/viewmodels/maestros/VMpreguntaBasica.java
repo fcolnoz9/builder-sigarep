@@ -5,7 +5,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.servicio.maestros.ServicioPreguntaBasica;
 
@@ -17,6 +17,7 @@ public class VMpreguntaBasica {
 	private Integer idPreguntaBasica;private String pregunta; private String respuesta;private Boolean estatus;
     private List<PreguntaBasica> listaPregunta;
 	private PreguntaBasica preguntaseleccionada;
+	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario (); // Instancia de la Clase de mensajes 
     
 	//Metodos Get y Set de la clase 
     public Integer getIdPreguntaBasica() {
@@ -74,11 +75,11 @@ public class VMpreguntaBasica {
 	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 	public void guardarPregunta(){
 		if (pregunta.equals("")||respuesta.equals(""))
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajesusuario.advertenciaLlenarCampos();
 		else{
 		PreguntaBasica preb = new PreguntaBasica (idPreguntaBasica,pregunta,respuesta,true);
 		serviciopreguntabasica.guardarPregunta(preb);
-		Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+		mensajesusuario.informacionRegistroCorrecto();
 		limpiar();
 		}
 	}
@@ -96,13 +97,13 @@ public class VMpreguntaBasica {
 	@Command
 	@NotifyChange({"listaPregunta","pregunta","respuesta"})
 	public void eliminarPreguntaBasica(){
-		if (pregunta==null||respuesta==null){
-			Messagebox.show("Debes Seleccionar una Pregunta Básica", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+		if (pregunta.equals("")|| respuesta.equals("")){
+			mensajesusuario.advertenciaSeleccionarParaEliminar();
   		}
 		else{
 		serviciopreguntabasica.eliminarPregunta(getPreguntaseleccionada().getIdPreguntaBasica());
 		limpiar();
-		Messagebox.show("Se ha Eliminado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+		mensajesusuario.informacionEliminarCorrecto();
 	}
 	}
 	@Command
