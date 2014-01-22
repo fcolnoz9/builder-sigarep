@@ -15,12 +15,12 @@
     			<row>
     			   	<hbox>
     					Nombre:
-    					<textbox id="txtNombreRegistrarGrupo"
+    					<textbox id="txtNombreRegistrarGrupo" mold="rounded"
     						value="@bind(vm.nombre)" />
     				</hbox>
     				<hbox>
     					Descripción:
-    					<textbox id="txtDescripcionRegistrarGrupo"
+    					<textbox id="txtDescripcionRegistrarGrupo" mold="rounded"
     						value="@bind(vm.descripcion)" rows="2" />
     				</hbox>
     			</row>
@@ -28,6 +28,14 @@
     	</grid>
     	</groupbox>
     	<space />
+    	<div align="right">
+			<button id="btnGuardarRegistrarGrupo" label="Guardar"
+				image="imagenes/iconos/guardar.png" onClick="@command('guardarGrupo')" width="70" height="50"/>
+			<button id="btnCancelarRegistrarGrupo" label="Cancelar"
+				image="imagenes/iconos/cancelar.png" width="70" height="50"/>
+			<button id="btnSalirRegistrarGrupo" label="Cerrar" onClick="winRegistrarGrupo.onClose()"
+				image="/imagenes/iconos/cerrar.png" width="70" height="50"/>
+		</div>
     	<groupbox id="grbRegistrarFuncionesAGrupo">
     	<caption label="Seleccione las funciones del menu principal que desea cargar en el grupo de usuarios" />
     	<grid>
@@ -56,13 +64,6 @@
     	</grid>
     </groupbox>
     <space />
-    <div align="right">
-			<button id="btnGuardarRegistrarGrupo" label="Guardar"
-				image="imagenes/iconos/guardar.png" onClick="@command('guardarGrupo')" width="70" height="50"/>
-			<button id="btnCancelarRegistrarGrupo" label="Cancelar"
-				image="imagenes/iconos/cancelar.png" width="70" height="50"/>
-			<button id="btnSalirRegistrarGrupo" label="Cerrar" onClick="winRegistrarGrupo.onClose()"
-				image="/imagenes/iconos/cerrar.png" width="70" height="50"/>
-		</div>
+    
    
 </window>

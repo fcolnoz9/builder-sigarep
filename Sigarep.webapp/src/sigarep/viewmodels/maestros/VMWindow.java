@@ -116,7 +116,7 @@ public class VMWindow {
         buscarNoticia2();
         //this.listaNoticia1 = v5;
         this.noticiaSeleccionada1 = v6;
-        System.out.println(noticiaSeleccionada1.getTitulo());
+//        System.out.println(noticiaSeleccionada1.getTitulo());
        /* if(listaNoticia1.get(0).getIdNoticia() == idNoticia){
         	System.out.println("si lo encontro");
         }else{System.out.println("no lo encontro");}*/
