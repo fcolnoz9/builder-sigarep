@@ -11,7 +11,7 @@
 		<rows>
 			<row>	
 				<label>Cantidad Estudiantes Sancionados</label>
-				<intbox id="tamanoXML" value="@bind(vm.tamanoXML)"/>
+				<intbox id="tamanoXML" value="@bind(vm.tamanoXML)" readonly="true"/>
 				<button label="Seleccionar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192"/>
 			</row>
 			<row>
@@ -19,9 +19,9 @@
 		</rows>
 	</grid>
 		<listbox id="estListbox" height="270px" model="@bind(vm.listaEstudiante)"   
-   			 emptyMessage="No hay Estudiantes Sancionados registrados" mold="paging" pageSize="5">
+   			 emptyMessage="No hay Estudiantes Sancionados registrados" mold="paging" pageSize="5" tooltiptext="Estudiantes Sancionados">
 		<listhead>
-			<listheader label="Cedula" align="center"  width="90px" />
+			<listheader label="Cedula" align="center"  width="90px"  />
 			<listheader label="Primer Nombre" align="center"  width="110px"/>
 			<listheader label="Primer Apellido" align="center"  width="110px" />
 			<listheader label="Semestre" align="center"  width="110px" />
