@@ -44,22 +44,6 @@
 						</template>
 					</combobox>
 				</column>
-				<!-- 				<column align="center"> -->
-				<!-- 					<label id="lblSesionConsejo" -->
-				<!-- 						value="Sesion Consejo " /> -->
-				<!-- 					<combobox id="cmbSesionConsejo" mold="rounded"> -->
-				<!-- 						<comboitem id="cmiFecha" label="Fecha" /> -->
-				<!-- 						<comboitem id="cmiCodigo" label="Código" /> -->
-				<!-- 						<comboitem id="cmiOrdinaria" label="Ordinaria" /> -->
-				<!-- 					</combobox> -->
-				<!-- 				</column> -->
-
-				<!-- 				<column align="left"> -->
-				<!-- 					<button label="Buscar" mold="trendy" id="btnBuscar" -->
-				<!-- 						image="/imagenes/iconos/buscar.png" width="auto" height="auto" -->
-				<!-- 						orient="horizontal" /> -->
-				<!-- 				</column> -->
-
 			</columns>
 		</grid>
 
