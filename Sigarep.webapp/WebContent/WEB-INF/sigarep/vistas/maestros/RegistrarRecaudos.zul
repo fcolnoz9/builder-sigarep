@@ -1,13 +1,17 @@
 <window id="winRegistrarRecaudo"
-	title="Registros Básicos:: Registrar Recaudos"
-	border="normal" apply="org.zkoss.bind.BindComposer"
+	title="Registros Básicos:: Registrar Recaudos" width="auto"
+	height="auto" closable="true" border="normal" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudo')">
+	<style src="/widgets/input/form_sample/style.css" />
+	 
+	
 	
 <!-- Grupbox que contiene los campos de la pantalla -->
-	<groupbox>
+	<groupbox id="grbRecaudos">
 		<caption label="Datos del Recaudo" />
-		<grid>
+		<grid id= "grdRecaudos" width="auto">
 			<columns>
+			
 				<column align="left" width="auto" />
 				<column align="left" width="auto" />
 			</columns>
@@ -42,18 +46,22 @@
 			</rows>
 		</grid>
 	</groupbox>
+<separator />
 
 	<!-- Grupbox de Botones -->
     	<div align="right" height="100%">
-			<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('guardarRecaudo')" />	
-	   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarRecaudo')"/>
-	   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
-	     	<button label="Cerrar" id="btnCerrar"  image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winRegistrarRecaudo.onClose()"/>
+    	
+			<button label="Guardar" id = "btnGuardar"  mold="trendy" width="auto" height="auto" image="/imagenes/iconos/guardar.png"  onClick="@command('guardarRecaudo')" />	
+	   		<button label="Eliminar" id="btnEliminar"  mold="trendy" width="auto" height="auto" image="/imagenes/iconos/eliminar.png"  onClick="@command('eliminarRecaudo')"/>
+	   		<button label="Cancelar" id = "btnCancelar"  mold="trendy" width="auto" height="auto" image="/imagenes/iconos/cancelar.png"  onClick="@command('limpiar')" />	
+	     	<button label="Cerrar" id="btnCerrar"  mold="trendy" width="auto" height="auto"  image="/imagenes/iconos/cerrar.png" onClick="winRegistrarRecaudo.onClose()"/>
    		</div>	
+  
 	<!-- Grupbox que contiene el listado de los recaudos registrados-->
-	<groupbox height="auto">
+	<groupbox id="grbListadoEnlaces">
    	<caption label="Listado de Recaudos" />
-	<listbox id="lbxrecaudo" height="160px"
+   	<separator />
+	<listbox id="lbxrecaudo" height="auto"
 				model="@bind(vm.listaRecaudos)"
 				selectedItem="@bind(vm.recaudoSeleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
