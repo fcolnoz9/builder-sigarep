@@ -3,39 +3,60 @@
 	width="auto" height="auto" closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialCronograma')"  
             action="hide: slideUp"  onCancel="@command('closeThis')" >
-<!-- 		<style src="/widgets/grid/simple/style.css" > -->
-			 <separator spacing="15px" />
+            
+    <!-- Muestra todos los Lapsos Academicos registrados -->
+            
+<!-- 	<style src="/widgets/grid/simple/style.css" > -->
+		
+	<separator spacing="15px" />
 			 
-			
-	 				<label value="Lapso academico: " id="lblLapsoAcademico" />
-					<combobox readonly="true" id= "cmbLapsoAcademico" value="@bind(vm.lapsoAcademico.codigoLapso)" 
-				    width="150px" mold="rounded" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('buscarDetalleLapsoAcademicoCombo')">
-							<template name="model">
-								<comboitem  label="${each.codigoLapso}"/>
-							</template>
-					</combobox>
-				 
-				    <separator spacing="30px" />
+	<label value="Lapso academico: " id="lblLapsoAcademico" />
+	<combobox readonly="true" id= "cmbLapsoAcademico" value="@bind(vm.lapsoAcademico.codigoLapso)" 
+	 width="150px" mold="rounded" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('buscarDetalleLapsoAcademicoCombo')">
+			<template name="model">
+				<comboitem  label="${each.codigoLapso}"/>
+			</template>
+	</combobox>
+	<separator spacing="30px" />
+	
+	<!-- Muestra el listado de actividades registradas en un cronograma del lapso seleccionado previamente en el combobox -->
 
-    <groupbox>
+    <groupbox id="grbHistorialCronograma">
 			<caption label="Actividades Agregadas al Cronograma" />
 			<listbox id="lbxActividades" height="auto"
 				model="@bind(vm.listaCronogramas)"
 				emptyMessage="No hay actividades registradas" mold="paging"
-				pageSize="5">
+				pageSize="10">
 				<listhead>
 					<listheader label="Actividad" align="center"
-						sort="auto(actividad.getNombre)" />
+						sort="auto(actividad.getNombre)">
+					<textbox id="filtroActividad" instant="true"
+							width="50px" value="@bind(vm.actividadf)"
+							onChange="@command('filtroCronograma')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
 					<listheader label="Fecha Inicio" align="center"
 						sort="auto(fechaInicio)" />
 					<listheader label="Fecha Fin" align="center"
 						sort="auto(fechaFin)" />
 					<listheader label="Lugar" align="center"
-						sort="auto(lugar)" />
+						sort="auto(lugar)">
+					<textbox id="filtroLugar" instant="true"
+							width="50px" value="@bind(vm.lugarf)"
+							onChange="@command('filtroCronograma')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
 					<listheader label="Hora" align="center"
 						sort="auto(horaInicio)" />
 					<listheader label="Observacion" align="center"
-						sort="auto(observacion)" />
+						sort="auto(observacion)"/>
+					<listheader label="Responsable" align="center"
+						sort="auto(responsable.getInstanciaApelada)">
+					<textbox id="filtroResponsable" instant="true"
+							width="50px" value="@bind(vm.responsablef)"
+							onChange="@command('filtroCronograma')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
@@ -45,11 +66,14 @@
 						<listcell label="${each.lugar}"></listcell>
 						<listcell label="${each.horaInicio}"></listcell>
 						<listcell label="${each.observacion}"></listcell>
+						<listcell label="${each.getResponsable().getInstanciaApelada()}"></listcell>
 					</listitem>
 				</template>
 			</listbox>
 		</groupbox>
-
+    
+    <!-- Permite cerrar la interfaz -->
+    
 	<separator spacing="15px" />
 	<div align="right" height="100%">
         
