@@ -15,18 +15,20 @@ import org.zkoss.zul.Window;
 
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioDatosIniciales;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioVeredicto;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaGenericaSancionados {
 
 
-	private ListaGenericaSancionados sancionadoSeleccionado;
+	private SolicitudApelacion sancionadoSeleccionado;
 	
 	
 	//Servicios para llenar los combos
@@ -42,9 +44,11 @@ public class VMListaGenericaSancionados {
 	private ServicioVeredicto servicioveredicto;
 	@WireVariable
 	private ServicioDatosIniciales serviciodatosiniciales;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	
 	//Lista que se llena segun la transaccion
-	private List<ListaGenericaSancionados> lista = new LinkedList<ListaGenericaSancionados>();
+	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
 	
 	//Variables para el filtrado por combos o textbox
 	private List<ProgramaAcademico> listaPrograma;
@@ -134,20 +138,20 @@ public class VMListaGenericaSancionados {
 		return serviciorecaudoentregado;
 	}
 
-	public ListaGenericaSancionados getSancionadoSeleccionado() {
+	public SolicitudApelacion getSancionadoSeleccionado() {
 		return sancionadoSeleccionado;
 	}
 
 	public void setSancionadoSeleccionado(
-			ListaGenericaSancionados sancionadoSeleccionado) {
+			SolicitudApelacion sancionadoSeleccionado) {
 		this.sancionadoSeleccionado = sancionadoSeleccionado;
 	}
 
-	public List<ListaGenericaSancionados> getLista() {
+	public List<SolicitudApelacion> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<ListaGenericaSancionados> lista) {
+	public void setLista(List<SolicitudApelacion> lista) {
 		this.lista = lista;
 	}
 
@@ -182,27 +186,16 @@ public class VMListaGenericaSancionados {
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
 		else if (rutaModal.equalsIgnoreCase("transacciones/Veredicto.zul"))
-			lista = servicioveredicto.buscarApelacionesVeredicto1();
-		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"));
+			lista = null; //servicioveredicto.buscarApelacionesVeredicto1();
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
+			lista = null;
 	}
 	
 	@Command
 	public void showModal (){
   		
   		final HashMap<String, Object> map = new HashMap<String, Object>();
-	 	map.put("cedula", sancionadoSeleccionado.getCedulaEstudiante());
-        map.put("primerNombre", sancionadoSeleccionado.getPrimerNombre());
-        map.put("primerApellido", sancionadoSeleccionado.getPrimerApellido());
-        map.put("segundoNombre", sancionadoSeleccionado.getSegundoNombre());
-        map.put("segundoApellido", sancionadoSeleccionado.getSegundoApellido());
-        map.put("email", sancionadoSeleccionado.getEmail());
-        map.put("programa", sancionadoSeleccionado.getProgramaAcademico());
-        map.put("indice", sancionadoSeleccionado.getIndiceAcademico());
-        map.put("sancion", sancionadoSeleccionado.getNombreSancion());
-        map.put("lapsosConsecutivos", sancionadoSeleccionado.getLapsosConsecutivos());
-        map.put("lapsoAcademico", sancionadoSeleccionado.getLapsoAcademico());
-        map.put("numeroCaso", sancionadoSeleccionado.getNumeroCaso());
-        map.put("idInstancia", sancionadoSeleccionado.getIdInstancia());
+	 	map.put("sancionadoSeleccionado", sancionadoSeleccionado);
  
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/"+rutaModal, null, map);
@@ -216,9 +209,9 @@ public class VMListaGenericaSancionados {
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/Veredicto.zul"))
-			lista = servicioveredicto.filtrarApelacionesVeredicto1(cedula, nombre, apellido, programa, sancion);
+			lista = null; //servicioveredicto.filtrarApelacionesVeredicto1(cedula, nombre, apellido, programa, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
-			lista = serviciodatosiniciales.filtrarEstudianteSancionado(cedula, nombre, apellido, nombrePrograma, sancion);
+			lista = null; //serviciodatosiniciales.filtrarEstudianteSancionado(cedula, nombre, apellido, nombrePrograma, sancion);
 	}
 
 }
