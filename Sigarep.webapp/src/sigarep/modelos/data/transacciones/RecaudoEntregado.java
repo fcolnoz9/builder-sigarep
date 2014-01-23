@@ -14,6 +14,7 @@ import sigarep.modelos.data.maestros.Recaudo;
 @Access(AccessType.FIELD)
 @Table(name="recaudo_entregado")
 public class RecaudoEntregado implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
@@ -42,6 +43,14 @@ public class RecaudoEntregado implements Serializable {
 	//bi-directional one-to-one association to Soporte
 	@OneToOne(mappedBy="recaudoEntregado")
 	private Soporte soporte;
+	
+	public RecaudoEntregado(RecaudoEntregadoPK id, Boolean estatus,
+			String observacionExperto) {
+		super();
+		this.id = id;
+		this.estatus = estatus;
+		this.observacionExperto = observacionExperto;
+	}
 
 	public RecaudoEntregado() {
 	}
