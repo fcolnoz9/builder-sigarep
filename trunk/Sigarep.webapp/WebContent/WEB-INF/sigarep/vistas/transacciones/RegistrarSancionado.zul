@@ -1,224 +1,270 @@
 <window id="winRegistrarSancionados"
-	 title="Registros Básicos :: Sancionados :: Individual :: Registrar Estudiante Sancionado"
-	  border="normal" width="auto" height="auto" closable="true" sclass="sysWin"
-	  apply="org.zkoss.bind.BindComposer"
-       viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMEstudianteSancionado')">
-			<!-- Grid que contiene los campos de los datos del estudiante -->
-			<groupbox>
-  			  <caption  label="Datos del Estudiante "/>
-	   		  <grid>
-			   		  <columns>
-							<column label="" width="10%" />
-							<column label="" width="40%" />
-							<column label="" width="10%" />
-							<column label="" width="40%" />
-						</columns>
-        	  			<rows>
-        	  				<row>
-			                 	<label id="lblCedula" value="Cédula:"/>
-				    			<textbox id="txtCedula" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1" 
-				    			value="@bind(vm.cedula)" constraint="no empty:Introduzca la cédula" />
-				    			<button label="Buscar" id = "btnBuscar"  mold="trendy" image="/imagenes/iconos/buscar.png" width="auto"  orient="horizontal" onClick="@command('buscarEstudiante')" />
-			            	</row>
-			            	<row>
-				                 <label id="lblPrimerNombre" value="Primer Nombre:"/>
-					    		 <textbox id="txtPrimerNombre" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1" 
-					    		 value="@bind(vm.primerNombre)" readonly="true"/>
-					    		 <label id="lblSegundoNombre" value="Segundo Nombre:"/>
-					    		 <textbox id="txtSegundoNombre" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    		  value="@bind(vm.segundoNombre)" readonly="true"/>
-			            	</row>
-			            	<row>
-				                 <label id="lblPrimerApellido" value="Primer Apellido:"/>
-					    		 <textbox id="txtPrimerApellido" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    		  value="@bind(vm.primerApellido)" readonly="true"/>
-					    		 <label id="lblSegundoApellido" value="Segundo Apellido:"/>
-					    		 <textbox id="txtSegundoApellido" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    		 value="@bind(vm.segundoApellido)" readonly="true"/>
-			            	</row>
-			            	<row>
-			            	  	<label id="lblsexo" value="Sexo"/>
-					    		<textbox id="txtSexo"  mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    		value="@bind(vm.sexo)" readonly="true" />
-								<label id="lblFechaNacimiento" value="Fecha de Nacimiento:"/>
-					    		<datebox id="dtbFechaNacimiento"     mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    		  value="@bind(vm.fechaNacimiento)" format = "dd/MM/yyyy" readonly="true" />
-							</row>
-			            	<row>
-				                  <label id="lblTelefono" value="Teléfono:"/>
-					    		  <textbox id="txtTelefono" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    		   value="@bind(vm.telefono)" readonly="true"/>
-					    		  <label id="lblEmail" value="Email:"/>
-					    		  <textbox id="txtEmail" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    		  value="@bind(vm.email)" readonly="true"/>
-			            	</row>
-			     
-        	 			 </rows>
-   			  </grid>
- 			</groupbox>
- 			
-<!--  			Grupo que contiene los datos academicos -->
- 			<groupbox>
-  			  <caption  label="Datos academicos"/>
-	   		  <grid>
-	   		  		<columns>
-							<column label="" width="10%" />
-							<column label="" width="40%" />
-							<column label="" width="10%" />
-							<column label="" width="40%" />
-						</columns>
-			        	  <rows>
-			            	<row>
-						    		<label id="lblAnnoIngreso" value="Año Ingreso:"/>
-					    			<datebox id="dtbAnnoIngreso"     mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-					    			value="@bind(vm.annoIngreso)" format = "dd/MM/yyyy" readonly="true"/>
-						    		<label id="lblPrograma" value="Programa:"/>
-							    	<textbox id="txtPrograma" mold="rounded" width="80%" value="@bind(vm.programa)" readonly="true"/>								
-							</row>
-			            	<row>
-			            			<label id="lblLapso" value="Lapso:"/>
-						    	    <combobox readonly="true" id= "cmbLapso"  value="@bind(vm.lapsoAcademico.codigoLapso)" width="80%" cols="23" maxlength="30" tabindex="1" mold="rounded" model="@load(vm.listaLapso)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('objetoComboLapso')">
-						    	        <template name="model" constraint="no empty:Seleccione el lapso" >
-											<comboitem  label="${each.codigoLapso}"/>
-										</template>	
-								    </combobox>
-						    		 <label id="lblIndiceGrado" value="Indice de grado:"/>
-						    		 <textbox id="txtIndiceGrado" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-						    		  constraint="no empty:Introduzca un el indice de grado"   value="@bind(vm.indiceGrado)"/>
-					     	</row> 	
-							<row>
-								 	<label id="lblUnidadCursadas" value="Unidades/Horas  Cursada"/>
-								 	<textbox id="txtUnidadCursadas" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-								 	value="@bind(vm.unidadesCursadas)" constraint="no empty:Introduzca un las Unidades Cursadas" />
-								 	<label id="lblUnidadAprobadas" value="Unidades/Horas Aprobadas"/>
-								 	<textbox id="txtUnidadAprobadas" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-								 	 value="@bind(vm.unidadesAprobadas)" constraint="no empty:Introduzca un las Unidades Aprobadas"/>
-							</row>
-			            	<row>
-					             <label id="lblSancion" value="Sancion:"/>
-							    	<combobox readonly="true" id= "cmbSancion" width="80%" cols="23" maxlength="30" tabindex="1" 
-							    	value="@bind(vm.sancionMaestro.nombreSancion)"  mold="rounded"  model="@load(vm.listaSancion)" selectedItem="@bind(vm.sancionMaestro)" onSelect="@command('objetoComboSancion')">
-							    	       <template name="model">
-												<comboitem  label="${each.nombreSancion}"/>
-										  </template>
-									</combobox>
-						    		  <label id="lblPeriodoSancion" value="Período de Sanción:"/>
-						    		  <textbox id="txtPeriodoSancion" mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
-						    		   constraint="no empty:Introduzca el período de la Sancion"  value="@bind(vm.semestre)"/>
-			            	</row>
-			        	  </rows>
-   			  </grid>
- 			</groupbox>
- 			<separator />
-		 		<!-- Grupbox de Botones -->
-		 		
-		    	<div align="right" height="100%">
-				<button label="Guardar" mold="trendy" id = "btnGuardar" 
-				 image="/imagenes/iconos/guardar.png" width="auto"
-				  height="auto" orient="horizontal" 
-				  onClick="@command('registrarEstudianteSancionado')" />	
-		   		<button label="Eliminar" mold="trendy" id="btnEliminar" 
-		   		 image="/imagenes/iconos/eliminar.png" 
-		   		 width="auto" height="auto" orient="horizontal" 
-		   		 onClick="@command('eliminarEstudianteSancionado')"/>
-		   		<button label="Cancelar" mold="trendy" id = "btnCancelar"
-		   		  image="/imagenes/iconos/cancelar.png"
-		   		   width="auto" height="auto" orient="horizontal" 
-		   		   onClick="@command('limpiar')" />	
-		   		<button label="Cerrar" mold="trendy" id="btnCerrar" 
-		   		image="/imagenes/iconos/cerrar.png" 
-		   		width="auto" height="auto" orient="horizontal" 
-		   		onClick="winRegistrarSancionados.onClose()" />
-		   		</div>
-		   		
-<!-- 		Grupo que contiene la lista de estudiante sancionados -->
- 	<groupbox height="auto">
-   	<caption label="Lista de Estudiantes Sancionados" />
-   		<separator />
- 		<listbox height="auto" id="lbxEstudianteSancionado" mold="paging" pageSize="10"
-				model="@load(vm.listaSancionados)"
-				selectedItem="@bind(vm.estudianteSeleccionado)"
-				onSelect="@command('mostrarSeleccionado')"
-				emptyMessage="No hay estudiantes sancionados registrados">
-				<listhead sizable="true">
-            		<listheader label="Cédula " sort="auto(id.cedulaEstudiante)" align="center">
-            			<textbox id="filtroCedula" instant="true"
-						width="100px" value="@bind(vm.filtros.cedula)"
-						onChange="@command('filtros')" />
-						<image src="imagenes/iconos/buscar.png" />
-            		</listheader>
-            		<listheader label="Nombre " sort="auto(estudiante.primerNombre)" align="center">
-            			<textbox id="filtroNombreSancionado" instant="true"
-						width="100px" value="@bind(vm.filtros.nombre)"
-						onChange="@command('filtros')" />
-						<image src="imagenes/iconos/buscar.png" />
-            		</listheader>
-            		<listheader label="Apellido " sort="auto(estudiante.primerApellido)" align="center">
-            			<textbox id="filtroApellidoSancionado" instant="true"
-						width="100px" value="@bind(vm.filtros.apellido)"
-						onChange="@command('filtros')" />
-						<image src="imagenes/iconos/buscar.png" />
-            		</listheader>
-            		<listheader label="Sación " sort="auto(sancionMaestro.nombreSancion)" align="center">
-            			<textbox id="filtroSancion" instant="true"
-						width="100px" value="@bind(vm.filtros.sancion)"
-						onChange="@command('filtros')" />
-						<image src="imagenes/iconos/buscar.png" />
-            		</listheader>
-            		<listheader label="Lapso " sort="auto(id.codigoLapso)" align="center">
-            			<textbox id="filtroLapso" instant="true"
-						width="100px" value="@bind(vm.filtros.lapso)"
-						onChange="@command('filtros')" />
-						<image src="imagenes/iconos/buscar.png" />
-            		</listheader>
-        		</listhead>
-        		<template name="model">
-        			<listitem>
-            			<listcell label="${each.id.cedulaEstudiante}" ></listcell>
-            			<listcell label="${each.estudiante.primerNombre}" ></listcell>
-        				<listcell label="${each.estudiante.primerApellido}" ></listcell>
-        				<listcell label="${each.sancionMaestro.nombreSancion}" ></listcell>
-						<listcell label="${each.id.codigoLapso}" ></listcell>
-        			</listitem>	
-        		</template>
-			</listbox>
- 		<space />
-	<space />
-	<space /> 
-	<space /> 
+	title="Registros Básicos :: Sancionados :: Individual :: Registrar Estudiante Sancionado"
+	border="normal" width="auto" height="auto" closable="true"
+	sclass="sysWin" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMEstudianteSancionado')">
+	<!-- Grid que contiene los campos de los datos del estudiante -->
+	<groupbox>
+		<caption label="Datos del Estudiante " />
+		<grid>
+			<columns>
+				<column label="" width="20%" />
+				<column label="" width="30%" />
+				<column label="" width="20%" />
+				<column label="" width="30%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblCedula" value="Cédula:" />
+					<textbox id="txtCedula" mold="rounded" width="80%"
+						cols="23" maxlength="30" tabindex="1" value="@bind(vm.cedula)"
+						constraint="no empty:Introduzca la cédula" />
+					<button label="Buscar" id="btnBuscar" mold="trendy"
+						image="/imagenes/iconos/buscar.png" width="auto"
+						orient="horizontal" onClick="@command('buscarEstudiante')" />
+				</row>
+				<row>
+					<label id="lblPrimerNombre" value="Primer Nombre:" />
+					<textbox id="txtPrimerNombre" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.primerNombre)" readonly="true" />
+					<label id="lblSegundoNombre"
+						value="Segundo Nombre:" />
+					<textbox id="txtSegundoNombre" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.segundoNombre)" readonly="true" />
+				</row>
+				<row>
+					<label id="lblPrimerApellido"
+						value="Primer Apellido:" />
+					<textbox id="txtPrimerApellido" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.primerApellido)" readonly="true" />
+					<label id="lblSegundoApellido"
+						value="Segundo Apellido:" />
+					<textbox id="txtSegundoApellido" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.segundoApellido)" readonly="true" />
+				</row>
+				<row>
+					<label id="lblsexo" value="Sexo" />
+					<textbox id="txtSexo" mold="rounded" width="80%"
+						cols="23" maxlength="30" tabindex="1" value="@bind(vm.sexo)"
+						readonly="true" />
+					<label id="lblFechaNacimiento"
+						value="Fecha de Nacimiento:" />
+					<datebox id="dtbFechaNacimiento" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.fechaNacimiento)" format="dd/MM/yyyy"
+						readonly="true" />
+				</row>
+				<row>
+					<label id="lblTelefono" value="Teléfono:" />
+					<textbox id="txtTelefono" mold="rounded" width="80%"
+						cols="23" maxlength="30" tabindex="1" value="@bind(vm.telefono)"
+						readonly="true" />
+					<label id="lblEmail" value="Email:" />
+					<textbox id="txtEmail" mold="rounded" width="80%"
+						cols="23" maxlength="30" tabindex="1" value="@bind(vm.email)"
+						readonly="true" />
+				</row>
+
+			</rows>
+		</grid>
 	</groupbox>
- 		
- 		
- 		
- 		
-   	
-<!--    	<groupbox> -->
-<!--    	<caption label="Lista de Estudiantes Sancionados" /> -->
-<!--    	<space /> -->
-<!--    	<space /> -->
-<!--    	<listbox id="estListbox" height="130px" model="@bind(vm.listaSancionados)" selectedItem="@bind(vm.estudianteSeleccionado)"    -->
-<!--    			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay estudiantes sancionados registrados" mold="paging" pageSize="10"> -->
-<!-- 		<listhead> -->
-<!-- 			<listheader label="Cedula" align="center" sort="auto(id.cedulaEstudiante)" /> -->
-<!-- 			<listheader label="Nombre" align="center" sort="auto(estudiante.primerNombre)" /> -->
-<!-- 			<listheader label="Apellido" align="center" sort="auto(estudiante.primerApellido)" /> -->
-<!-- 			<listheader label="Sanción" align="center" sort="auto(sancionMaestro.nombreSancion)" /> -->
-<!-- 			<listheader label="Lapso Academico" align="center" sort="auto(id.codigoLapso)" /> -->
-<!-- 		</listhead> -->
-<!-- 		<template name="model"> -->
-<!-- 			<listitem selected="false"> -->
-<!-- 				<listcell label="${each.id.cedulaEstudiante}" ></listcell> -->
-<!-- 				<listcell label="${each.estudiante.primerNombre}" ></listcell> -->
-<!-- 				<listcell label="${each.estudiante.primerApellido}" ></listcell> -->
-<!-- 				<listcell label="${each.sancionMaestro.nombreSancion}" ></listcell> -->
-<!-- 				<listcell label="${each.id.codigoLapso}" ></listcell> -->
-<!-- 			</listitem> -->
-<!-- 		</template> -->
-<!-- 	</listbox> -->
-<!-- 	<space /> -->
-<!-- 	<space /> -->
-<!-- 	</groupbox> -->
-	
- 		
-   		
- </window>
+
+	<!--  			Grupo que contiene los datos academicos -->
+	<groupbox>
+		<caption label="Datos academicos" />
+		<grid>
+			<columns>
+				<column label="" width="20%" />
+				<column label="" width="30%" />
+				<column label="" width="20%" />
+				<column label="" width="30%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblAnnoIngreso" value="Año Ingreso:" />
+					<datebox id="dtbAnnoIngreso" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy" readonly="true" />
+					<label id="lblPrograma" value="Programa:" />
+					<textbox id="txtPrograma" mold="rounded" width="80%"
+						value="@bind(vm.programa)" readonly="true" />
+				</row>
+				<row>
+					<label id="lblLapso" value="Lapso:" />
+					<combobox readonly="true" id="cmbLapso"
+						value="@bind(vm.lapsoAcademico.codigoLapso)" width="80%" cols="23"
+						maxlength="30" tabindex="1" mold="rounded"
+						model="@load(vm.listaLapso)"
+						selectedItem="@bind(vm.lapsoAcademico)"
+						onSelect="@command('objetoComboLapso')">
+						<template name="model"
+							constraint="no empty:Seleccione el lapso">
+							<comboitem label="${each.codigoLapso}" />
+						</template>
+					</combobox>
+					<label id="lblIndiceGrado" value="Indice de grado:" />
+					<textbox id="txtIndiceGrado" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						constraint="no empty:Introduzca un el indice de grado"
+						value="@bind(vm.indiceGrado)" />
+				</row>
+				<row>
+					<label id="lblUnidadCursadas"
+						value="Unidades/Horas  Cursada" />
+					<textbox id="txtUnidadCursadas" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.unidadesCursadas)"
+						constraint="no empty:Introduzca un las Unidades Cursadas" />
+					<label id="lblUnidadAprobadas"
+						value="Unidades/Horas Aprobadas" />
+					<textbox id="txtUnidadAprobadas" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.unidadesAprobadas)"
+						constraint="no empty:Introduzca un las Unidades Aprobadas" />
+				</row>
+				<row>
+					<label id="lblSancion" value="Sancion:" />
+					<combobox readonly="true" id="cmbSancion"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"
+						model="@load(vm.listaSancion)"
+						selectedItem="@bind(vm.sancionMaestro)"
+						onSelect="@command('objetoComboSancion')">
+						<template name="model">
+							<comboitem label="${each.nombreSancion}" />
+						</template>
+					</combobox>
+					<label id="lblPeriodoSancion"
+						value="Período de Sanción:" />
+					<textbox id="txtPeriodoSancion" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						constraint="no empty:Introduzca el período de la Sancion"
+						value="@bind(vm.semestre)" />
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<separator />
+	<!-- Grupbox de Botones -->
+
+	<div align="right" height="100%">
+		<button label="Guardar" mold="trendy" id="btnGuardar"
+			image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+			orient="horizontal"
+			onClick="@command('registrarEstudianteSancionado')" />
+		<button label="Eliminar" mold="trendy" id="btnEliminar"
+			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+			orient="horizontal"
+			onClick="@command('eliminarEstudianteSancionado')" />
+		<button label="Cancelar" mold="trendy" id="btnCancelar"
+			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('limpiar')" />
+		<button label="Cerrar" mold="trendy" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal" onClick="winRegistrarSancionados.onClose()" />
+	</div>
+
+	<!-- 		Grupo que contiene la lista de estudiante sancionados -->
+	<groupbox height="auto">
+		<caption label="Lista de Estudiantes Sancionados" />
+		<separator />
+		<listbox height="auto" id="lbxEstudianteSancionado"
+			mold="paging" pageSize="10" model="@load(vm.listaSancionado)"
+			selectedItem="@bind(vm.estudianteSeleccionado)"
+			onSelect="@command('mostrarSeleccionado')"
+			emptyMessage="No hay estudiantes sancionados registrados">
+			<listhead sizable="true">
+				<listheader label="Cédula "
+					sort="auto(id.cedulaEstudiante)" align="center">
+					<textbox id="filtrocedula" instant="true"
+						width="50px" value="@bind(vm.cedula)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Nombre "
+					sort="auto(estudiante.primerNombre)" align="center">
+					<textbox id="filtronombre" instant="true"
+						width="50px" value="@bind(vm.primerNombre)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Apellido "
+					sort="auto(estudiante.primerApellido)" align="center">
+					<textbox id="filtroApellido" instant="true"
+						width="50px" value="@bind(vm.primerApellido)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Sación "
+					sort="auto(sancionMaestro.nombreSancion)" align="center">
+					<textbox id="filtroSancion" instant="true"
+						width="50px" value="@bind(vm.nombreSancion)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+<!-- 				<listheader label="Lapso " sort="auto(id.codigoLapso)" -->
+<!-- 					align="center"> -->
+<!-- 					<textbox id="filtroLapso" instant="true" -->
+<!-- 						width="50px" value="@bind(vm.lapsoAcademico)" -->
+<!-- 						onChange="@command('filtros')" /> -->
+<!-- 					<image src="imagenes/iconos/buscar.png" /> -->
+<!-- 				</listheader> -->
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell label="${each.id.cedulaEstudiante}"></listcell>
+					<listcell label="${each.estudiante.primerNombre}"></listcell>
+					<listcell
+						label="${each.estudiante.primerApellido}">
+					</listcell>
+					<listcell
+						label="${each.sancionMaestro.nombreSancion}">
+				</listcell> 
+<!-- 				<listcell label="${each.id.codigoLapso}"></listcell> -->
+		</listitem> 
+			</template>
+		</listbox>
+		<space />
+		<space />
+		<space />
+		<space />
+	</groupbox>
+
+
+
+
+
+	<!--    	<groupbox> -->
+	<!--    	<caption label="Lista de Estudiantes Sancionados" /> -->
+	<!--    	<space /> -->
+	<!--    	<space /> -->
+	<!--    	<listbox id="estListbox" height="130px" model="@bind(vm.listaSancionados)" selectedItem="@bind(vm.estudianteSeleccionado)"    -->
+	<!--    			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay estudiantes sancionados registrados" mold="paging" pageSize="10"> -->
+	<!-- 		<listhead> -->
+	<!-- 			<listheader label="Cedula" align="center" sort="auto(id.cedulaEstudiante)" /> -->
+	<!-- 			<listheader label="Nombre" align="center" sort="auto(estudiante.primerNombre)" /> -->
+	<!-- 			<listheader label="Apellido" align="center" sort="auto(estudiante.primerApellido)" /> -->
+	<!-- 			<listheader label="Sanción" align="center" sort="auto(sancionMaestro.nombreSancion)" /> -->
+	<!-- 			<listheader label="Lapso Academico" align="center" sort="auto(id.codigoLapso)" /> -->
+	<!-- 		</listhead> -->
+	<!-- 		<template name="model"> -->
+	<!-- 			<listitem selected="false"> -->
+	<!-- 				<listcell label="${each.id.cedulaEstudiante}" ></listcell> -->
+	<!-- 				<listcell label="${each.estudiante.primerNombre}" ></listcell> -->
+	<!-- 				<listcell label="${each.estudiante.primerApellido}" ></listcell> -->
+	<!-- 				<listcell label="${each.sancionMaestro.nombreSancion}" ></listcell> -->
+	<!-- 				<listcell label="${each.id.codigoLapso}" ></listcell> -->
+	<!-- 			</listitem> -->
+	<!-- 		</template> -->
+	<!-- 	</listbox> -->
+	<!-- 	<space /> -->
+	<!-- 	<space /> -->
+	<!-- 	</groupbox> -->
+
+
+
+</window>

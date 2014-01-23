@@ -25,21 +25,25 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
+import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.Estudiante;
+import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+import sigarep.modelos.servicio.maestros.ServicioNoticia;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
-//import sigarep.modelos.servicio.maestros.ServicioEstudiante;
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudianteSancionado {
@@ -74,7 +78,7 @@ public class VMEstudianteSancionado {
 	
 	
 
-	private mensajes mensajeAlUsuario = new mensajes();
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
@@ -146,15 +150,16 @@ public class VMEstudianteSancionado {
 	
 	private List<ProgramaAcademico> listaPrograma;
 	private List<LapsoAcademico> listaLapso;
+
 	private List<SancionMaestro> listaSancion;
 	private EstudianteSancionado estudianteSeleccionado;
-	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
 	private List<EstudianteSancionado> listaEstudianteSancionado;
-
+	
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
-	private List<EstudianteSancionado> lista = new LinkedList<EstudianteSancionado>();
+	private List<EstudianteSancionado> listaSancionado;
+	
 	@Wire
 	private Datebox dbfecha;
 	@Wire
@@ -163,7 +168,22 @@ public class VMEstudianteSancionado {
 	private Radio rbTodos;
 	@Wire
 	private Radio rbSolicitud;
-	
+	public String getSancion() {
+		return sancion;
+	}
+
+	public void setSancion(String sancion) {
+		this.sancion = sancion;
+	}
+
+	public String getLapso() {
+		return lapso;
+	}
+
+	public void setLapso(String lapso) {
+		this.lapso = lapso;
+	}
+
 	public Estudiante getEstudiante() {
 		return estudiante;
 	}
@@ -405,54 +425,14 @@ public class VMEstudianteSancionado {
 		this.rbSolicitud = rbSolicitud;
 	}
 	
-	private String cedulaFiltro;
-	private String nombreRFiltro;
-	private String apellidoFiltro;
-	private String sancionFiltro;
-	private String lapsoFiltro;
+	public List<EstudianteSancionado> getListaSancionado() {
+		return listaSancionado;
+	}
+
+	public void setListaSancionado(List<EstudianteSancionado> listaSancionado) {
+		this.listaSancionado = listaSancionado;
+	}
 	
-	
-	
-	public String getCedulaFiltro() {
-		return cedulaFiltro;
-	}
-
-	public void setCedulaFiltro(String cedulaFiltro) {
-		this.cedulaFiltro = cedulaFiltro;
-	}
-
-	public String getNombreRFiltro() {
-		return nombreRFiltro;
-	}
-
-	public void setNombreRFiltro(String nombreRFiltro) {
-		this.nombreRFiltro = nombreRFiltro;
-	}
-
-	public String getApellidoFiltro() {
-		return apellidoFiltro;
-	}
-
-	public void setApellidoFiltro(String apellidoFiltro) {
-		this.apellidoFiltro = apellidoFiltro;
-	}
-
-	public String getSancionFiltro() {
-		return sancionFiltro;
-	}
-
-	public void setSancionFiltro(String sancionFiltro) {
-		this.sancionFiltro = sancionFiltro;
-	}
-
-	public String getLapsoFiltro() {
-		return lapsoFiltro;
-	}
-
-	public void setLapsoFiltro(String lapsoFiltro) {
-		this.lapsoFiltro = lapsoFiltro;
-	}
-
 
 	@Init
 	public void init() {
@@ -460,15 +440,10 @@ public class VMEstudianteSancionado {
 		buscarLapsoAcademico();
 		buscarSancion();
 		buscarSancionados();
+		buscarEstudianteSancionado();
+		
 	}
 	
-	public List<EstudianteSancionado> getListaSancionados() {
-		return listaSancionados;
-	}
-
-	public void setListaSancionados(List<EstudianteSancionado> listaSancionados) {
-		this.listaSancionados = listaSancionados;
-	}
 	
 	@Command
 	@NotifyChange({"cedula" ,"indiceGrado" ,"lapsoAcademico", "sancionMaestro", "unidadesAprobadas", "sexo"
@@ -497,11 +472,11 @@ public class VMEstudianteSancionado {
 	}
 	
 	@Command
-	@NotifyChange({"cedula", "primerNombre", "primerApellido", "sancionMaestro", "lapsoAcademico", "listaSancionados"})
+	@NotifyChange({"cedula", "primerNombre", "primerApellido", "sancionMaestro", "lapsoAcademico", "listaSancionado"})
 	public void buscarSancionados(){
-		listaSancionados = servicioestudiantesancionado.buscarTodos();
+		listaSancionado = servicioestudiantesancionado.listadoEstudianteSancionado();
 	}
-	
+
 	// Metodo que buscar los lapsos y cargarlos en el combobox
 	@Command
 	@NotifyChange({ "listaLapso" })
@@ -519,22 +494,23 @@ public class VMEstudianteSancionado {
 	@Command
 	 @NotifyChange({"cedula" ,"indiceGrado" ,"lapsoAcademico", "sancionMaestro", "unidadesAprobadas"
 		  ,"primerNombre","segundoNombre","primerApellido","unidadesCursadas" ,"semestre","lapsosAcademicosRP"
-		  ,"telefono","email","fechaNacimiento","lapsoAcademico","annoIngreso","listaSancionados"
+		  ,"telefono","email","fechaNacimiento","lapsoAcademico","annoIngreso","listaSancionado"
 		  ,"segundoApellido", "sexo","programa"})
 	public void registrarEstudianteSancionado() {
-		if(cedula.equals("") || primerNombre.equals("") || segundoNombre.equals("") || primerApellido.equals("")
-				|| segundoApellido.equals("") || telefono.equals("") || email.equals("")
-				|| sexo.equals("") || programa.equals("") 
-			    || fechaNacimiento.equals("") || lapsoAcademico.equals("") || unidadesCursadas.equals("") 
-			    || unidadesAprobadas.equals(null) || annoIngreso.equals("")  ||sancionMaestro.equals("")
-			    || semestre.equals(""))
+		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
+			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
+		else{
+			lapsoAcademico = serviciolapsoacademico.encontrarLapsoActivo();
+		if (cedula==null || cedula.equals("") || primerNombre==null ||primerNombre.equals("") || segundoNombre==null ||segundoNombre.equals("") 
+				|| primerApellido==null ||primerApellido.equals("") || segundoNombre==null ||segundoApellido.equals("") 
+				|| telefono==null ||telefono.equals("") || email==null ||email.equals("")|| sexo==null ||sexo.equals("") 
+				|| programa==null ||programa.equals("") || fechaNacimiento==null ||fechaNacimiento.equals("") 
+				|| lapsoAcademico==null || lapsoAcademico.equals("") || unidadesCursadas==null || unidadesCursadas.equals("") 
+			    || unidadesAprobadas==null ||unidadesAprobadas.equals(null) || annoIngreso==null || annoIngreso.equals("")  
+			    || sancionMaestro==null ||sancionMaestro.equals("")
+			    || semestre==null ||semestre.equals(""))
 			mensajeAlUsuario.advertenciaLlenarCampos();
-		else {
-			if(getListaEstudianteSancionado().size()!=0){
-				   System.out.println("ESTATUS"+getListaEstudianteSancionado().get(0).getEstatus());
-				   Messagebox.show("Ya Existe un Lapso Activo", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-			   }
-			   else{
+		   else{
 				   
 			estudianteSancionadoPK.setCedulaEstudiante(cedula);
 			estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
@@ -557,15 +533,17 @@ public class VMEstudianteSancionado {
 		}
 		}
 	}
-	 
+	
+	
+
+	
 	 @Command
 	 @NotifyChange({"cedula" ,"primerNombre" ,"segundoNombre", "primerApellido", "segundoApellido"
 		  ,"sexo" ,"fechaNacimiento" ,"telefono" ,"email" ,"annoIngreso", "nombreSancion", "programa"
 		 })
 	 public void buscarEstudiante(){
-		 if (cedula.equals(""))
+		 if (cedula==null ||cedula.equals("") )
 			 mensajeAlUsuario.advertenciaLlenarCampos();
-				
 		 else {
 			 estudiante = new Estudiante();
 			 estudiante = servicioestudiante.buscarEstudiante(cedula);
@@ -586,9 +564,9 @@ public class VMEstudianteSancionado {
 		 @NotifyChange({"cedula", "primerNombre", "segundoNombre", "primerApellido", "segundoApellido"
 			  , "sexo", "fechaNacimiento", "telefono", "email", "annoIngreso", "nombreSancion", "programa"
 			  , "indiceGrado", "lapsoAcademico", "sancionMaestro", "unidadesAprobadas", "unidadesCursadas"
-			  , "semestre", "lapsosAcademicosRP","listaSancionados"})
+			  , "semestre", "lapsosAcademicosRP","listaSancionado"})
 		public void eliminarEstudianteSancionado(){
-		  if (cedula == null)
+		  if (cedula==null ||cedula.equals("") )
 			  mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		  else {
 			try {
@@ -605,7 +583,7 @@ public class VMEstudianteSancionado {
 	 @NotifyChange({"cedula", "primerNombre", "segundoNombre", "primerApellido", "segundoApellido"
 		  , "sexo", "fechaNacimiento", "telefono", "email", "annoIngreso", "nombreSancion", "programa"
 		  , "indiceGrado", "lapsoAcademico", "sancionMaestro", "unidadesAprobadas", "unidadesCursadas"
-		  , "semestre", "lapsosAcademicosRP","listaSancionados"})
+		  , "semestre", "lapsosAcademicosRP","listaSancionado"})
 	public void limpiar() {
 		primerNombre = "";
 		segundoNombre = "";
@@ -656,10 +634,24 @@ public class VMEstudianteSancionado {
 		listaEstudianteSancionado = servicioestudiantesancionado.listadoEstudianteSancionado();
 	}
 	
+	
+	
+	
+	//Metodo que busca una noticia partiendo por su titulo
+		@Command
+		@NotifyChange({"listaSancionado"})
+		public void buscarEstudianteSancionado(){
+			listaSancionado =servicioestudiantesancionado.listadoEstudianteSancionado();
+			//listaNoticia =servicionoticia.buscarNoticia(titulo);
+		}
+	
 	@Command
-	@NotifyChange({"lista","cedula","nombre","apellido","sancion", "lapso"})
+	@NotifyChange({"listaSancionado","cedula","primerNombre","segundoApellido","nombreSancion"})
 	public void filtros(){
-		lista = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, sancion, lapso);
+		listaSancionado = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, nombreSancion);
 	}
  	
+	
+	
+	
 }
