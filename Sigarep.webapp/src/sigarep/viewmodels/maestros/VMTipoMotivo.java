@@ -15,6 +15,7 @@ import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
@@ -38,9 +39,7 @@ public class VMTipoMotivo {
   
 	
     //Metodos set y get
-//    public Integer getIdTipoMotivo() {
-//		return idTipoMotivo;
-//	}
+
     public String getNombreTipoMotivo() {
 		return nombreTipoMotivo;
 	}
@@ -105,25 +104,17 @@ public class VMTipoMotivo {
     @Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarTipoMotivo(){
-    	idTipoMotivo = 0;
-    	if (nombreTipoMotivo== null|| descripcion == null ){
-    		mensajeAlUsuario.advertenciaLlenarCampos();
-		}
-		else{
-			listaTipoMotivo= serviciotipomotivo.buscarTodas();
-			if (listaTipoMotivo == null){
-				idTipoMotivo = 1;
-			} else {
-				System.out.print(listaTipoMotivo.size());
-				System.out.print(listaTipoMotivo.size()+1);
-				idTipoMotivo = listaTipoMotivo.size()+1;
-			}
+    	if (nombreTipoMotivo == null || nombreTipoMotivo.equals("") || descripcion.equals("") || descripcion == null) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		} else {
 			TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo);
 			serviciotipomotivo.guardarTipoMotivo(tipo);
-			limpiar();
 			mensajeAlUsuario.informacionRegistroCorrecto();
-}
-}
+			limpiar();
+		}
+	}
+    	
+ 
     public Integer getIdTipoMotivo() {
 		return idTipoMotivo;
 	}
@@ -141,7 +132,6 @@ public class VMTipoMotivo {
     @Command
 	@NotifyChange({"listaTipoMotivo","idTipoMotivo","nombreTipoMotivo", "descripcion"})
 	public void limpiar(){
-    	idTipoMotivo =0;
 		nombreTipoMotivo = "";
 		descripcion="";
 		listadoTipoMotivo();
@@ -149,9 +139,9 @@ public class VMTipoMotivo {
    
   //Metodo que elimina un tipo de motivo tomando en cuenta el idTipoMotivo
   	@Command
-  	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion", "listaTipoMotivo"})
+  	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion"})
   	public void eliminarTipoMotivo(){
-  		if (nombreTipoMotivo== null|| descripcion == null ){
+  		if (nombreTipoMotivo==null || nombreTipoMotivo.equals("") || descripcion==null || descripcion.equals("") ){
   			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		}
 		else{
@@ -159,7 +149,14 @@ public class VMTipoMotivo {
   		mensajeAlUsuario.informacionEliminarCorrecto();
   		limpiar();
   	}
-  	}	
+  	}
+  	
+  	
+  
+  	
+  	
+ 
+  	
   //permite tomar los datos del objeto tipo motivo seleccionado
     @Command
 	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion"})
@@ -174,3 +171,26 @@ public class VMTipoMotivo {
  		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivo(filtros);
  	}
 }
+
+
+
+	
+//idTipoMotivo = 0;
+//if (nombreTipoMotivo==null|| descripcion==null ){
+//	mensajeAlUsuario.advertenciaLlenarCampos();
+//}
+//else{
+//	listaTipoMotivo= serviciotipomotivo.buscarTodas();
+//	if (listaTipoMotivo == null){
+//		idTipoMotivo = 1;
+//	} else {
+//		System.out.print(listaTipoMotivo.size());
+//		System.out.print(listaTipoMotivo.size()+1);
+//		idTipoMotivo = listaTipoMotivo.size()+1;
+//	}
+//	TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo);
+//	serviciotipomotivo.guardarTipoMotivo(tipo);
+//	limpiar();
+//	mensajeAlUsuario.informacionRegistroCorrecto();
+//}
+//}
