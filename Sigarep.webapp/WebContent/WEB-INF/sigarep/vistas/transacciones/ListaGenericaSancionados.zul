@@ -51,10 +51,10 @@
 				</listhead>
 				<template name="model">
 					<listitem>
-						<listcell label="${each.cedulaEstudiante}"/> 
-						<listcell label="${each.primerNombre}" />
-						<listcell label="${each.primerApellido}" />
-						<listcell label="${each.nombreSancion}" />
+						<listcell label="${each.getEstudianteSancionado().getEstudiante().getCedulaEstudiante()}"/> 
+						<listcell label="${each.getEstudianteSancionado().getEstudiante().getPrimerNombre()}" />
+						<listcell label="${each.getEstudianteSancionado().getEstudiante().getPrimerApellido()}" />
+						<listcell label="${each.getEstudianteSancionado().getSancionMaestro().getNombreSancion()}" />
 					</listitem>
 				</template>
 			</listbox>
