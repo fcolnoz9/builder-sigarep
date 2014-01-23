@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
+import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
@@ -26,6 +27,10 @@ public class ServicioSolicitudApelacion {
 	
 	public SolicitudApelacion guardar(SolicitudApelacion solicitudapelacion) {
 		return iSolicitudApelacionDAO.save(solicitudapelacion);
+	}
+	
+	public List<SolicitudApelacion> buscarSancionadosReconsideracion (){
+		return iSolicitudApelacionDAO.buscarSancionadosReconsideracion();
 	}
 	
 	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {
@@ -88,4 +93,21 @@ public class ServicioSolicitudApelacion {
 	    }
 	    return listaElementosAInsertar;
 	}
+	
+	public List<SolicitudApelacion> filtrarApelacionesReconsideracion(String programa){
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+		if(programa==null){
+			result= buscarSancionadosReconsideracion ();
+		}
+		else{
+			for (SolicitudApelacion sa : buscarSancionadosReconsideracion ())
+			{
+				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma().toLowerCase().contains(programa.toLowerCase())){
+					result.add(sa);
+				}
+			}
+		}
+		return result;
+	} 
+	
 }
