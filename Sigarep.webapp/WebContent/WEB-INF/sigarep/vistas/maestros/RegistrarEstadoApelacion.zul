@@ -31,7 +31,7 @@
 						<combobox readonly="true"
 							id="cmbInstanciaApelada"
 						
-							value="@bind(vm.instanciaApelada.instanciaApelada)" width="200px"
+							value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
 							onSelect="@command('objetoComboEstadoApelacion')">
@@ -43,19 +43,19 @@
 					</row>
 					<row>
 						<label id="lblNombreEstado" value="Nombre:" />
-						<hlayout id="lytNombreEstado">
+				
 							<textbox
 								constraint="no empty: Ingrese el Nombre del Estado de Apelación"
-								id="txtNombreEstado" width="200px" cols="23" maxlength="100"  
+								id="txtNombreEstado" width="80%" cols="23" maxlength="100"  
 								mold="rounded" tabindex="1" value="@bind(vm.nombreEstado)" />
-						</hlayout>
+					
 						<label id="lblDescripcion" value="Descripción:" />
-						<hlayout id="lytdescripcion">
+					
 							<textbox
 								constraint="no empty: Ingrese la Descripción del Estado de Apelación"
-								id="txtDescripcion" width="200px" rows="3" maxlength="255" 
+								id="txtDescripcion" width="80%" rows="3" maxlength="255" 
 								mold="rounded" tabindex="2" value="@bind(vm.descripcion)" />
-						</hlayout>
+					
 					</row>
 				</rows>
 			</grid>
