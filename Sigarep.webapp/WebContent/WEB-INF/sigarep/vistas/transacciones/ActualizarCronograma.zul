@@ -3,28 +3,29 @@
 	width="auto" height="auto" closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCronograma')"  
             action="hide: slideUp"  onCancel="@command('closeThis')" >
+            
 <!-- 		<style src="/widgets/grid/simple/style.css" > -->
-			 <separator spacing="15px" />
+
+    <!-- Contiene los campos que requieren llenarse con los datos de cronograma -->
 	 
-	 				<label value="Cronograma para el Lapso academico: " id="lblLapsoAcademico" />
-					<label id="lblLapsoAcademicoActivo" value="          @bind(vm.codigoLapso)"/>
-				    <separator spacing="30px" />
-	<groupbox closable="false">
+	<label value="Cronograma para el Lapso Académico: " id="lblLapsoAcademico" />
+	<label id="lblLapsoAcademicoActivo" value="          @bind(vm.codigoLapso)"/>
+	<separator spacing="30px" />
+	<groupbox closable="false" id="grbDatosCronograma">
 		<caption label="Agregar Actividad" />
-		<grid>
+		<grid id="grdDatosCronograma" width="auto">
 			<columns>
-				<column align="right"/>
-				<column align="left"/>
-				<column align="right"/>
-				<column align="left"/>
-				<column align="right"/>
-				<column align="left"/>
+				<column label="" width="10"/>
+				<column label="" width="40"/>
+				<column label="" width="10"/>
+				<column label="" width="40"/>
+				<column label="" width="10"/>
 			</columns>
 			<rows>
 			    <row>
-			        <label id="lblactividad" value="Actividad "  />
-                  <combobox readonly="true" id= "cmbActividad" value="@bind(vm.actividad.nombre)" 
-				    width="150px" mold="rounded" model="@load(vm.listaActividad)" selectedItem="@bind(vm.actividad)" onSelect="@command('buscarDetalleActividadCombo')">
+			        <label id="lblactividad" value="Actividad: "  />
+                    <combobox readonly="true" id= "cmbActividad" value="@bind(vm.actividad.nombre)" 
+				    width="80%" mold="rounded" model="@load(vm.listaActividad)" selectedItem="@bind(vm.actividad)" onSelect="@command('buscarDetalleActividadCombo')">
 							<template name="model">
 								<comboitem  label="${each.nombre}"/>
 							</template>
@@ -34,31 +35,39 @@
 				<row>
 					<label value="Fecha de Inicio: " id="lblfechaInicio"/>
 					<datebox value="@bind(vm.fechaInicio)" id="dtbFechaInicio" mold="rounded" onChange="@command('validarFecha')"
-                    format="dd/MM/yyyy" width="150px"  tabindex="7"/>
+                    format="dd/MM/yyyy" width="80%"  tabindex="7"/>
                     <label value="Fecha de Finalizacion: " id="lblfechaFinal"/>
 					<datebox value="@bind(vm.fechaFin)" id="dtbFechaFin" mold="rounded" onChange="@command('validarFecha')"
-                    format="dd/MM/yyyy" width="150px"  tabindex="7"/> 
+                    format="dd/MM/yyyy" width="80%"  tabindex="7"/> 
                     <label value="Hora Inicio: " id="lblHora"/>
-					<timebox format="a hh:mm:ss" mold="rounded" width="150px" id="tmbHora" 
+					<timebox format="a hh:mm:ss" mold="rounded" width="80%" id="tmbHora" 
                     value="@bind(vm.horaInicio)" />
 				</row>
 				 <row>
 					<label value="Lugar: " id="lbllugar"/>
-					<textbox id="txtLugar" cols="23" maxlength="90" disabled="false" constraint="no empty" 
-					mold="rounded" width="150px" tabindex="1" value="@bind(vm.lugar)" />
+					<textbox id="txtLugar" cols="23" maxlength="30" readonly="false" constraint="no empty: Escribe el lugar a realizarse la actividad. Ej: sala de conferencias" 
+					mold="rounded" width="80%" tabindex="1" value="@bind(vm.lugar)" />
 					<label value="Observación: " id="lblObservacion"  />
-					<textbox id="txtObservacion" mold="rounded"  value="@bind(vm.observacion)"
-					width="150px" rows="3" disabled="false"></textbox>
+					<textbox id="txtObservacion" mold="rounded" constraint="no empty: Escribe una observacion. Ej: Llegar 10min antes" value="@bind(vm.observacion)"
+					width="77%" rows="3" readonly="false"></textbox>
+					<label value="Responsable: " id="lblResponsable"  />
+					<combobox readonly="true" id= "cmbResponsable" value="@bind(vm.responsable.instanciaApelada)" 
+				    width="80%" mold="rounded" model="@load(vm.listaResponsable)" selectedItem="@bind(vm.responsable)">
+							<template name="model">
+								<comboitem  label="${each.instanciaApelada}"/>
+							</template>
+					</combobox>
 				</row>
 		    </rows>
 		</grid>	
 	</groupbox>
 	
-	<separator spacing="15px" />
-	<div align="right" height="100%">
-	    
-	    <button id="btnAgregarActividad" label="Agregar"
-				image="/imagenes/iconos/agregar.png" mold="trendy" width="auto"
+	<!-- Permite realizar acciones con respecto a las cronogramas -->
+				
+	<div align="right" height="100%">	
+				
+	    <button id="btnGuardarActividad" label="Guardar"
+				image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
 				height="auto" orient="horizontal"
 				onClick="@command('guardarCronograma')" />
 				
@@ -71,29 +80,52 @@
 				image="/imagenes/iconos/cancelar.png" mold="trendy" width="auto"
 				height="auto" orient="horizontal"
 				onClick="@command('limpiar')" />
-	</div>	
-    <separator spacing="15px" />
-    <groupbox>
+        
+        <button id="btnCerrar" label="Cerrar"
+				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+				height="auto" orient="horizontal" onClick="winActualizarCronograma.onClose()" />
+	</div>
+
+    <!-- Muestra el listado de actividades agregadas al cronograma, permite la modificación y eliminacion de un registro-->
+    <groupbox id="grbListaActividadesCronograma">
 			<caption label="Actividades Agregadas al Cronograma" />
 			<listbox id="lbxActividades" height="auto"
 				model="@bind(vm.listaCronograma)"
 				selectedItem="@bind(vm.cronogramaSeleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
 				emptyMessage="No hay actividades registradas" mold="paging"
-				pageSize="5">
+				pageSize="10">
+				<!-- Busqueda por filtros cronograma -->
 				<listhead>
 					<listheader label="Actividad" align="center"
-						sort="auto(actividad.getNombre)" />
+						sort="auto(actividad.getNombre)">
+					<textbox id="filtroActividad" instant="true"
+							width="50px" value="@bind(vm.actividadf)"
+							onChange="@command('filtroCronograma')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
 					<listheader label="Fecha Inicio" align="center"
 						sort="auto(fechaInicio)" />
 					<listheader label="Fecha Fin" align="center"
 						sort="auto(fechaFin)" />
 					<listheader label="Lugar" align="center"
-						sort="auto(lugar)" />
+						sort="auto(lugar)">
+					<textbox id="filtroLugar" instant="true"
+							width="50px" value="@bind(vm.lugarf)"
+							onChange="@command('filtroCronograma')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
 					<listheader label="Hora" align="center"
 						sort="auto(horaInicio)" />
 					<listheader label="Observacion" align="center"
-						sort="auto(observacion)" />
+						sort="auto(observacion)"/>
+					<listheader label="Responsable" align="center"
+						sort="auto(responsable.getInstanciaApelada)">
+					<textbox id="filtroResponsable" instant="true"
+							width="50px" value="@bind(vm.responsablef)"
+							onChange="@command('filtroCronograma')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
@@ -103,18 +135,11 @@
 						<listcell label="${each.lugar}"></listcell>
 						<listcell label="${each.horaInicio}"></listcell>
 						<listcell label="${each.observacion}"></listcell>
+						<listcell label="${each.getResponsable().getInstanciaApelada()}"></listcell>
 					</listitem>
 				</template>
 			</listbox>
 		</groupbox>
-
-	<separator spacing="15px" />
-	<div align="right" height="100%">
-        
-        <button id="btnCerrar" label="Cerrar"
-				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="winActualizarCronograma.onClose()" />
-	</div>
 	<separator spacing="15px" />
 		
 </window>
