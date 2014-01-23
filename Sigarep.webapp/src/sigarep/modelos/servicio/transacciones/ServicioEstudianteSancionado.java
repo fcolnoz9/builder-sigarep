@@ -11,6 +11,7 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
+import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
 
 @Service("servicioestudiantesancionado")
@@ -20,6 +21,10 @@ public class ServicioEstudianteSancionado {
 	
 	public EstudianteSancionado guardar(EstudianteSancionado estudianteSancionado) {
 		return iEstudianteSancionadoDAO.save(estudianteSancionado);
+	}
+	
+	public List<EstudianteSancionado> buscarSancionadosReconsideracion (){
+		return iEstudianteSancionadoDAO.buscarSancionadosReconsideracion();
 	}
 	
 	public void eliminar(EstudianteSancionadoPK id){
