@@ -124,14 +124,15 @@ public class VMrecaudoGeneral {
 	@NotifyChange({"idRecaudo", "descripcion", "nombreRecaudo", "observacion", "listaRecaudos"})
 	public void guardarRecaudoGeneral(){
 		if (descripcion==null||nombreRecaudo==null||observacion==null)
-			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaLlenarCampos();
 			else{
 	    		Recaudo recaudoNuevo= new Recaudo(idRecaudo, descripcion, true,
-	    				nombreRecaudo, observacion);
+	    				nombreRecaudo, observacion); 
 	    		serviciorecaudo.guardarRecaudo(recaudoNuevo);
+	    		limpiar();
 	    		mensajeAlUsuario.informacionRegistroCorrecto();
                 }
-	    		limpiar();
+	    		
 	    }
 	//Permite buscar los recaudos.
 	@Command
@@ -144,18 +145,18 @@ public class VMrecaudoGeneral {
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion","listaRecaudos","nombreRecaudoFiltro"})
 	public void limpiar(){
-		nombreRecaudo=""; descripcion="";  observacion=""; nombreRecaudoFiltro="";
+		nombreRecaudo=null; descripcion=null;  observacion=null; nombreRecaudoFiltro="";
 		buscarRecaudos();
 	}
 	
 	//Metodo que elimina un recaudo tomando en cuenta el idRecaudo
 	@Command
-	@NotifyChange({"descripcion", "nombreRecaudo", "observacion","listaRecaudos"})
+	@NotifyChange({ "idRecaudo","descripcion", "nombreRecaudo", "observacion","listaRecaudos"})
 	public void eliminarRecaudo(){
 		if (descripcion==null||nombreRecaudo==null||observacion==null) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-		serviciorecaudo.eliminarRecaudo(getRecaudoSeleccionado().getIdRecaudo());
+		serviciorecaudo.eliminarRecaudo(idRecaudo);
 		limpiar();
 		mensajeAlUsuario.informacionEliminarCorrecto();
 	}
@@ -165,9 +166,9 @@ public class VMrecaudoGeneral {
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "listaRecaudos"})
 	public void mostrarSeleccionado(){
-		descripcion=getRecaudoSeleccionado().getDescripcion();
-		nombreRecaudo=getRecaudoSeleccionado().getNombreRecaudo();
-		observacion=getRecaudoSeleccionado().getObservacion();
+		descripcion=recaudoSeleccionado.getDescripcion();
+		nombreRecaudo=recaudoSeleccionado.getNombreRecaudo();
+		observacion=recaudoSeleccionado.getObservacion();
 	}
 	
 	// Método que busca y filtra los recaudos
