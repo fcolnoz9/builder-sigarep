@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.repositorio.transacciones.ISoporteDAO;
 
@@ -31,4 +32,13 @@ public class ServicioSoporte {
 	public Soporte buscarSoportePorID(Integer idSoporte){
 		return iSoporteDAO.findOne(idSoporte);
 	}
+
+	public Soporte buscarPorIdDeRecaudoEntregado(RecaudoEntregadoPK recaudoEntregadoPK) {
+		Integer idRecaudo = recaudoEntregadoPK.getIdRecaudo();
+		Integer idTipoMotivo = recaudoEntregadoPK.getIdTipoMotivo();
+		Integer idInstancia = recaudoEntregadoPK.getIdInstanciaApelada();
+		String cedula = recaudoEntregadoPK.getCedulaEstudiante();
+		String codigoLapso = recaudoEntregadoPK.getCodigoLapso();
+		return iSoporteDAO.buscarSoportePorIdRecaudoEntregado(idRecaudo, idTipoMotivo, idInstancia, cedula, codigoLapso);
+	} 
 }

@@ -30,6 +30,12 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	@Query("select count(sa.id.cedulaEstudiante) AS cuenta from SolicitudApelacion sa where sa.numeroSesion is null")
 	public long numeroApleacionesSinSesion();
 	
+	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE'")
+	public List<SolicitudApelacion> buscarSolicitudesCargarRecaudoEntregado();
+
+	
 	 //@Query()
 	 //public List<SolicitudApelacion> solicitudesApelacionPorSancionado(EstudianteSancionadoPK id);
 }
