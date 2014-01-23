@@ -3,6 +3,13 @@ package sigarep.modelos.data.transacciones;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**Cronograma
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
+ */
+
 /**
  * The primary key class for the cronograma database table.
  * 
