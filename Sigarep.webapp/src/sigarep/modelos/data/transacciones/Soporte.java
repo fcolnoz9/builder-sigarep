@@ -36,22 +36,23 @@ public class Soporte implements Serializable {
 
 	
 	public Soporte(Integer idSoporte, Boolean estatus, Date fechaSubida,
-			Documento documento) {
+			Documento documento, RecaudoEntregado recaudoEntregado) {
 		super();
 		this.idSoporte = idSoporte;
 		this.estatus = estatus;
 		this.fechaSubida = fechaSubida;
 		this.documento = documento;
+		this.recaudoEntregado = recaudoEntregado;
 	}
 	
 	//bi-directional one-to-one association to RecaudoEntregado
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
-		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="id_instancia_apelada", referencedColumnName="id_instancia_apelada", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="id_recaudo", referencedColumnName="id_recaudo", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="id_tipo_motivo", referencedColumnName="id_tipo_motivo", nullable=false, insertable=false, updatable=false)
+		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false),
+		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false),
+		@JoinColumn(name="id_instancia_apelada", referencedColumnName="id_instancia_apelada", nullable=false),
+		@JoinColumn(name="id_recaudo", referencedColumnName="id_recaudo", nullable=false),
+		@JoinColumn(name="id_tipo_motivo", referencedColumnName="id_tipo_motivo", nullable=false)
 		})
 	private RecaudoEntregado recaudoEntregado;
 
