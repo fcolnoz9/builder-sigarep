@@ -199,7 +199,7 @@ public class VMEstadoApelacion {
 	@Command
 	 @NotifyChange({"listaInstanciaApelada"})
 	public InstanciaApelada objetoComboEstadoApelacion() {
-		System.out.println(instanciaApelada.getDescripcion());
+		System.out.println(instanciaApelada.getInstanciaApelada());
 		return instanciaApelada;
 	}
 	// Método que trae todos los registros en una lista de Estados de Apelacion
