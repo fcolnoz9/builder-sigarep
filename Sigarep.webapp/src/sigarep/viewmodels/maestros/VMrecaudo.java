@@ -25,14 +25,11 @@ import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 
-/*
- * @ (#) EstadoApelacion.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- * Esta clase es del registro del maestro "Recaudos"
- * @ Author Beleanny Atacho
- * @ Version 1.0, 16/12/13
+
+/**CargarEstudiante por XML
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 2.5.2
  */
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -56,11 +53,15 @@ public class VMrecaudo {
 	private Recaudo recaudo;
 	@WireVariable
 	private Integer idTipoMotivo;
+	@WireVariable
+	private String nombreRecaudo;
+	@WireVariable
+	private String nombreTipoMotivo;
 	
 	@WireVariable
 	private List<RecaudoEntregado> recaudoEntregados;
 	@WireVariable
-	private List<Recaudo> listaRecaudo;
+	private List<Recaudo> listaRecaudo; //Lista de recaudos
 	@WireVariable
 	private List<TipoMotivo> listaTipoMotivo;
 	@WireVariable
@@ -75,8 +76,8 @@ public class VMrecaudo {
 	private  @Wire Combobox cmbTipoMotivo;
 	@WireVariable
 	private List<Recaudo> listaRecaudos;
-	private String nombreRecaudo="";
-	private String nombreTipoMotivo="";
+	private String nombreRecaudofiltro="";
+	private String nombreTipoMotivofiltro="";
 	
 	@Init
 	public void init() {
@@ -84,6 +85,7 @@ public class VMrecaudo {
 		buscarRecaudos();
 		buscarTiposMotivo();
 	}
+	
 	// Metodos GETS Y SETS
 	public Integer getIdRecaudo() {
 		return idRecaudo;
@@ -122,6 +124,11 @@ public class VMrecaudo {
 	public void setListaRecaudo(List<Recaudo> listaRecaudo) {
 		this.listaRecaudo = listaRecaudo;
 	}
+	/** listaRecaudo
+	  * @param listaRecaudo
+	  * @return La listaRecaudo cargada con los recaudos
+	  * 
+	  */
 	public Recaudo getRecaudoSeleccionado() {
 		return recaudoSeleccionado;
 	}
@@ -190,23 +197,35 @@ public class VMrecaudo {
 	public void setIdTipoMotivo(Integer idTipoMotivo) {
 		this.idTipoMotivo = idTipoMotivo;
 	}
+	
+	public String getNombreRecaudofiltro() {
+		return nombreRecaudofiltro;
+	}
+	public void setNombreRecaudofiltro(String nombreRecaudofiltro) {
+		this.nombreRecaudofiltro = nombreRecaudofiltro;
+	}
+	public String getNombreTipoMotivofiltro() {
+		return nombreTipoMotivofiltro;
+	}
+	public void setNombreTipoMotivofiltro(String nombreTipoMotivofiltro) {
+		this.nombreTipoMotivofiltro = nombreTipoMotivofiltro;
+	}
 	//Fin de los metodod gets y sets
 	// OTROS METODOS
 	//Metodos que perimite guardar un recaudo
 	@Command
-	@NotifyChange({"recaudo","tipoMotivo","idTipoMotivo","listaRecaudos"})
+	@NotifyChange({"recaudo","tipoMotivo","nombreRecaudo","nombreTipoMotivo","listaRecaudos"})
 	public void guardarRecaudo(){
 		if (recaudo==null||tipoMotivo==null)
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
 			//Recaudo recaudo= new Recaudo();
 			
-	        recaudo.setTipoMotivo(tipoMotivo);
+	        recaudo.setTipoMotivo(tipoMotivo);//Asocia el idTipoMotivo al idRecaudo
 	        System.out.println(""+tipoMotivo);
 			serviciorecaudo.guardarRecaudo(recaudo);
 			System.out.println(recaudo.getTipoMotivo().getNombreTipoMotivo());
 			msjs.informacionRegistroCorrecto();
-			
 			limpiar();
 		}
 	}
@@ -217,7 +236,7 @@ public class VMrecaudo {
 	public void buscarRecaudos(){
 			listaRecaudos  = serviciorecaudo.listadoRecaudosActivos();
 	}
-	
+	// Metodo que permite buscar los tipos de motivos
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
 	public void buscarTiposMotivo() {
@@ -230,6 +249,8 @@ public class VMrecaudo {
 	public void limpiar(){
 		nombreTipoMotivo="";
 		nombreRecaudo="";
+		tipoMotivo= null;
+		recaudo= null;
 		buscarRecaudos();
 	}
 	
@@ -244,26 +265,28 @@ public class VMrecaudo {
 	
 	//permite tomar los datos del objeto recaudoseleccionado
 	@Command
-	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "tipoMotivo","nombreTipoMotivo"})
+	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "tipoMotivo","nombreTipoMotivo","reacaudo"})
 	public void mostrarSeleccionado(){
-		
+		recaudo = getRecaudoSeleccionado();
+		tipoMotivo = getRecaudoSeleccionado().getTipoMotivo();
 		nombreRecaudo=getRecaudoSeleccionado().getNombreRecaudo();
 		nombreTipoMotivo=getRecaudoSeleccionado().getTipoMotivo().getNombreTipoMotivo();
 	
 	}
-	
+	// Método que busca y filtra los recaudos
 	@Command
-	@NotifyChange({"listaRecaudos","nombreRecaudo","nombreTipoMotivo"})
+	@NotifyChange({"listaRecaudos","nombreRecaudofiltro","nombreTipoMotivofiltro"})
 	public void filtros(){
-		listaRecaudos = serviciorecaudo.buscarRecaudo(nombreRecaudo,nombreTipoMotivo);
+		listaRecaudos = serviciorecaudo.buscarRecaudo(nombreRecaudofiltro,nombreTipoMotivofiltro);
 	}
-		
+	// Metodo que busca los tipos de motivos y los carga en el combobox de motivos	
 	@Command
 	 @NotifyChange({"listaTipoMotivo"})
 	public TipoMotivo objetoComboMotivo() {
 		System.out.println(nombreTipoMotivo);
 		return tipoMotivo;
 	}
+	// Metodo que busca los recaudos y las carga en el combobox de recaudos	
 	@Command
 	 @NotifyChange({"listaRecaudos"})
 	public Recaudo objetoComboRecaudoGeneral() {
