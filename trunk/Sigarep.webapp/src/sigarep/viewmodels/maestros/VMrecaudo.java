@@ -67,7 +67,8 @@ public class VMrecaudo {
 	@WireVariable
 	private Recaudo recaudoSeleccionado;
 	private RecaudoFiltro filtros = new RecaudoFiltro();
-	mensajes msjs = new mensajes();
+	//mensajes msjs = new mensajes();
+	mensajes mensajeAlUsuario = new mensajes();
 	
 	private  @Wire Textbox txtCodigoRecaudo;
 	private  @Wire Textbox txtDescripcionRecaudo;
@@ -225,7 +226,7 @@ public class VMrecaudo {
 	        System.out.println(""+tipoMotivo);
 			serviciorecaudo.guardarRecaudo(recaudo);
 			System.out.println(recaudo.getTipoMotivo().getNombreTipoMotivo());
-			msjs.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
@@ -253,15 +254,20 @@ public class VMrecaudo {
 		recaudo= null;
 		buscarRecaudos();
 	}
-	
+		
 	//Metodo que elimina un recaudo tomando en cuenta el idRecaudo
-	@Command
-	@NotifyChange({"descripcion", "nombreRecaudo", "observacion","nombreTipoMotivo", "tipoMotivo","listaRecaudos"})
-	public void eliminarRecaudo(){
-		serviciorecaudo.eliminarRecaudo(getRecaudoSeleccionado().getIdRecaudo());
-		limpiar();
-		msjs.informacionEliminarCorrecto();
-	}
+		@Command
+		@NotifyChange({"descripcion", "nombreRecaudo", "observacion","nombreTipoMotivo", "tipoMotivo","listaRecaudos"})	
+		public void eliminarRecaudo(){
+			if (nombreRecaudo==null||nombreTipoMotivo==null) {
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+			} else {
+			serviciorecaudo.eliminarRecaudo(getRecaudoSeleccionado().getIdRecaudo());
+			limpiar();
+			mensajeAlUsuario.informacionEliminarCorrecto();
+		}
+		}
+		
 	
 	//permite tomar los datos del objeto recaudoseleccionado
 	@Command
