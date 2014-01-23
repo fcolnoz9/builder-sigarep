@@ -37,7 +37,7 @@ public class Actividad implements Serializable {
 
 	//bi-directional many-to-one association to InstanciaApelada
 	@ManyToOne
-	@JoinColumn(name="id_instancia_apelada")
+	@JoinColumn(name="id_instancia_apelada", nullable = true)
 	private InstanciaApelada instanciaApelada;
 	
 	public Actividad() {
