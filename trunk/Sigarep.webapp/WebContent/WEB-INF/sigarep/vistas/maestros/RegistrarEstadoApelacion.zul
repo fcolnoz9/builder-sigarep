@@ -84,7 +84,7 @@
 				</div>
 			</hbox>
 		</div>
-		<!-- Grupbox que contiene el listado de momentos almacenados en base de datos -->
+		<!-- Grupbox que contiene el listado de estados almacenados en base de datos -->
 		<groupbox id="grbListaEstadoApelacion">
 			<caption label="Listado de Estados de Apelación" />
 			<listbox id="lbxNombreEstadoApelacion" height="100%"
@@ -110,7 +110,7 @@
 						<listcell label="${each.nombreEstado}"></listcell>
 						<listcell label="${each.descripcion}"></listcell>
 						<listcell
-							label="${each.instanciaApelada.descripcion}">
+							label="${each.instanciaApelada.instanciaApelada }">
 						</listcell>
 					</listitem>
 				</template>

@@ -143,7 +143,7 @@ public class VMEstadoApelacion {
 
 	// Metodos que permite guardar los Estados de Apelacion
 	@Command
-	@NotifyChange({ "nombreEstado", "descripcion", "instanciaapelada" })
+	@NotifyChange({"listaEstadoApelacion", "nombreEstado", "descripcion", "instanciaapelada" })
 	// el notifychange le avisa a que parametros en la pantalla se van a
 	// cambiar, en este caso es nombre y descripción se va a colocar en blanco
 	// al guardar
@@ -151,12 +151,10 @@ public class VMEstadoApelacion {
 		if (nombreEstado==null || descripcion==null || instanciaApelada==null) {
 			msjs.advertenciaLlenarCampos();
 		} else {
-			EstadoApelacion estadoapelacion = new EstadoApelacion();
-			estadoapelacion.setNombreEstado(nombreEstado);
-			estadoapelacion.setDescripcion(descripcion);
-			estadoapelacion.setEstatus(true);
-			estadoapelacion.setInstanciaApelada(instanciaApelada);
-			servicioestadoapelacion.guardarEstadoApelacion(estadoapelacion);
+			//EstadoApelacion estadoapelacion = new EstadoApelacion(idEstadoApelacion,nombreEstado,descripcion,true,instanciaApelada);
+			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true);
+			estadoApelacion.setInstanciaApelada(instanciaApelada);
+			servicioestadoapelacion.guardarEstadoApelacion(estadoApelacion);
 			msjs.informacionRegistroCorrecto();
 			limpiar();
 		}
@@ -188,8 +186,9 @@ public class VMEstadoApelacion {
 
 	// permite tomar los datos del objeto EstadoApelacion seleccionado
 	@Command
-	@NotifyChange({ "nombreEstado", "descripcion", "instanciaApelada" })
+	@NotifyChange({ "idEstadoApelacion","nombreEstado", "descripcion", "instanciaApelada" })
 	public void mostrarSeleccionado() {
+		idEstadoApelacion = getEstadoseleccionado().getIdEstadoApelacion();
 		nombreEstado = getEstadoseleccionado().getNombreEstado();
 		descripcion = getEstadoseleccionado().getDescripcion();
 		instanciaApelada = getEstadoseleccionado().getInstanciaApelada();
