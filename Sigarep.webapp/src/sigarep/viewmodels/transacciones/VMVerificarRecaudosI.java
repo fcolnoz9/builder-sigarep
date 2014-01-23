@@ -32,6 +32,7 @@ import org.zkoss.zul.Intbox;
 
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
@@ -77,7 +78,7 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 //import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMRecaudosEntregados {
+public class VMVerificarRecaudosI {
 	@WireVariable
 	private ServicioApelacion serviciolista;
 	@WireVariable
@@ -103,7 +104,7 @@ public class VMRecaudosEntregados {
 	@WireVariable
 	private Integer caso;
 	@WireVariable
-	private String fechaSolicitud;
+	private String fechaApelacion;
 	@WireVariable
 	private String selected = "";	
 	@WireVariable
@@ -291,12 +292,12 @@ public class VMRecaudosEntregados {
 		this.caso = caso;
 	}
 	
-	public String getFechaSolicitud() {
-		return fechaSolicitud;
+	public String getFechaApelacion() {
+		return fechaApelacion;
 	}
 
-	public void setFechaSolicitud(String fechaSolicitud) {
-		this.fechaSolicitud = fechaSolicitud;
+	public void setFechaApelacion(String fechaApelacion) {
+		this.fechaApelacion = fechaApelacion;
 	}
 
 	@Command
@@ -344,7 +345,7 @@ public class VMRecaudosEntregados {
 		Date fechaSA = serviciosolicitudapelacion.buscarSolicitudPorID(solicitudApelacionPK2).getFechaSolicitud();
 		SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
 		String fecha =  sdf.format(fechaSA);
-		this.fechaSolicitud = fecha;
+		this.fechaApelacion = fecha;
 		
 		buscarRecaudos();
 		buscarTiposMotivo();
@@ -365,7 +366,7 @@ public class VMRecaudosEntregados {
 
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso"})
-	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos) {
+	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudos) {
 		if (cedula == null || nombres == null || apellidos == null) {
 			msjs.advertenciaLlenarCampos();
 		} else if (recaudos.size() == 0) {
@@ -441,6 +442,13 @@ public class VMRecaudosEntregados {
 //				lb.setModel(new SimpleListModel<ListaApelacionEstadoApelacion>(serviciolista.buscarApelacionesALaComision()));
 				try {
 					msjs.informacionRegistroCorrecto();
+					winVerificarRecaudos.detach(); //oculta el window
+//					Window windowLista = (Window) Path.getComponent("/winVerificarApelacionesComision");
+//					windowLista.onClose();
+//					sigarep.viewmodels.transacciones.VMListaApelacionesComision vm = new VMListaApelacionesComision();
+//					System.out.println("PLOP"+vm.getLista().size());
+
+					//falta actualizar la lista de apelaciones en este punto
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}

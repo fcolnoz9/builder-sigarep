@@ -1,6 +1,6 @@
  <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./lstArchivosLocal"?>
 <zk>
-<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="70%" width="auto" closable="true" >	
+<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="auto" width="auto" closable="true" >	
 <zscript>
 <![CDATA[
 		//***************************************************************************
