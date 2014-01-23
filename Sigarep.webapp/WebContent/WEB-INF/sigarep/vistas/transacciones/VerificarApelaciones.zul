@@ -41,7 +41,7 @@
 			<caption label="Lista de Sancionados" />
 			<listbox id="lbxSancionados" height="70%"
 				model="@bind(vm.listaSancionados)"
-				selectedItem="@bind(vm.listaestudiantesancionado)"
+				selectedItem="@bind(vm.solicitudapelacionseleccionada)"
 				onClick="@command('MostrarSancionados')" mold="paging" pageSize="10"
 				emptyMessage="No hay Apelaciones">
 				<!--    			 					  onClick="@command('showModal',before=winActualizarEstadoEstudiante.onClose())"  -->
@@ -78,9 +78,9 @@
 				<template name="model">
 					<listitem>
 						<listcell label="${each.getId().getCedulaEstudiante()}" />
-						<listcell label="${each.getEstudiante().getPrimerNombre()}" />
-						<listcell label="${each.getEstudiante().getPrimerApellido()}" />
-						<listcell label="${each.getSancionMaestro().getNombreSancion()}" />
+						<listcell label="${each.getEstudianteSancionado().getEstudiante().getPrimerNombre()}" />
+						<listcell label="${each.getEstudianteSancionado().getEstudiante().getPrimerApellido()}" />
+						<listcell label="${each.getEstudianteSancionado().getSancionMaestro().getNombreSancion()}" />
 					</listitem>
 				</template>
 			</listbox>

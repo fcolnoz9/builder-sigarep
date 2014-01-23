@@ -8,9 +8,9 @@
 	<style src="/widgets/grid/simple/style.css" />
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />
-<!-- 		<textbox id="txtnrocaso" cols="23" maxlength="30" -->
-<!-- 			value="@bind(vm)" readonly="true"> -->
-<!-- 		</textbox> -->
+		<textbox id="txtnrocaso" cols="23" maxlength="30"
+			value="@bind(vm.solicitudapelacionseleccionada.numeroCaso)" readonly="true">
+		</textbox>
 	</div>
 	<space />
 	<groupbox id="grbDatosestudiante">
@@ -20,56 +20,56 @@
 				<row>
 					<label id="lblCedula" value="Cedula: " />
 					<textbox id="txtcedula" cols="23" maxlength="30"
-						readonly="true" value="@bind(vm.listaestudiantesancionado.id.cedulaEstudiante)" width="200px">
+						readonly="true" value="@bind(vm.solicitudapelacionseleccionada.id.cedulaEstudiante)" width="200px">
 					</textbox>
 					<label id="lblPrograma" value="Programa: " />
 					<textbox id="txtPrograma" cols="23" maxlength="30"
-						value="@bind(vm.listaestudiantesancionado.estudiante.programaAcademico.nombrePrograma)" readonly="true" width="200px">
+						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.estudiante.programaAcademico.nombrePrograma)" readonly="true" width="200px">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblNombres" value="Nombres: " />
 					<textbox id="txtNombres" cols="23" maxlength="30"
-						value="@bind(vm.listaestudiantesancionado.estudiante.primerNombre)" readonly="true" width="200px">
+						value="@bind(vm.nombres)" readonly="true" width="200px">
 					</textbox>
 					<label id="lblApellidos" value="Apellidos: " />
 					<textbox id="txtApellidos" cols="23" maxlength="30"
-						value="@bind(vm.listaestudiantesancionado.estudiante.primerApellido)" readonly="true" width="200px">
+						value="@bind(vm.apellidos)" readonly="true" width="200px">
 					</textbox>
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
-<!-- 	<groupbox id="grbDatosSancion"> -->
-<!-- 		<caption id="lblDatossancion" label="Datos Sancion" /> -->
-<!-- 		<grid> -->
-<!-- 			<rows> -->
-<!-- 				<row> -->
-<!-- 					<label id="lblTiposancion" -->
-<!-- 						value="Tipo de Sancion: " /> -->
-<!-- 					<textbox id="txtTipoSancion" cols="23" -->
-<!-- 						maxlength="30" readonly="true" value="@bind(vm.sancion)"> -->
-<!-- 					</textbox> -->
-<!-- 					<label id="lblLapsosancion" -->
-<!-- 						value="Lapso de Sancion: " /> -->
-<!-- 					<textbox id="txtLapsosancion" cols="23" -->
-<!-- 						maxlength="30" value="@bind(vm.lapso)" readonly="true"> -->
-<!-- 					</textbox> -->
-<!-- 				</row> -->
-<!-- 				<row> -->
-<!-- 					<label id="lblPeriodosancion" -->
-<!-- 						value="Periodo de Sancion: " /> -->
-<!-- 					<textbox id="txtPeridosancion" cols="23" -->
-<!-- 						maxlength="30" value="1 Semestre" readonly="true"> -->
-<!-- 					</textbox> -->
-<!-- 					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" /> -->
-<!-- 					<textbox id="txtAsignatura" cols="55" -->
-<!-- 						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true"> -->
-<!-- 					</textbox> -->
-<!-- 				</row> -->
-<!-- 			</rows> -->
-<!-- 		</grid> -->
-<!-- 	</groupbox> -->
+	<groupbox id="grbDatosSancion">
+		<caption id="lblDatossancion" label="Datos Sancion" />
+		<grid>
+			<rows>
+				<row>
+					<label id="lblTiposancion"
+						value="Tipo de Sancion: " />
+					<textbox id="txtTipoSancion" cols="23"
+						maxlength="30" readonly="true" value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.sancionMaestro.nombreSancion)">
+					</textbox>
+					<label id="lblLapsosancion"
+						value="Lapso de Sancion: " />
+					<textbox id="txtLapsosancion" cols="23"
+						maxlength="30" value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.lapsoAcademico.codigoLapso)" readonly="true">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblPeriodosancion"
+						value="Periodo de Sancion: " />
+					<textbox id="txtPeridosancion" cols="23"
+						maxlength="30" value="1 Semestre" readonly="true">
+					</textbox>
+					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55"
+						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
 
 	<groupbox id="grbDatosdeReconsideracion">
 		<caption id="lblDatosReconsideracion"
