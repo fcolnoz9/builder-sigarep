@@ -16,34 +16,52 @@
 				<row>
 					<label id="lblNombreRecaudo" value="Nombre:" />
 					<textbox constraint="no empty: Ingrese el Nombre del Recaudo" 
-					id="txtNombreRecaudo" cols="23"
-						width="200px" maxlength="30" value="@bind(vm.nombreRecaudo)">
+					id="txtNombreRecaudo" mold="rounded"
+					width="80%" tabindex="2"  value="@bind(vm.nombreRecaudo)">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblDescripcionRecaudo"
 						value="Descripción: " />
 					<textbox constraint="no empty: Ingrese la Descripción del Recaudo" 
-					id="txtDescripcionRecaudo" width="200px"
+					id="txtDescripcionRecaudo" mold="rounded"
+					width="77%"  rows="3" tabindex="2"
 						value="@bind(vm.descripcion)" />
 				</row>
 				<row>
 					<label id="lblObservacionRecaudo"
 						value="Observación: " />
 					<textbox constraint="no empty: Ingrese la Observación del Recaudo" 
-					 id="txtObservacionRecaudo" width="200px"
+					 id="txtObservacionRecaudo" mold="rounded"
+								width="77%"  rows="3" tabindex="2"
 						value="@bind(vm.observacion)" />
 				</row>
 			</rows>
 		</grid>
+		</groupbox>
+		<separator />
+		<!--Botones -->
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar"
+				image="/imagenes/iconos/guardar.png"  mold="trendy" width="auto" height="auto"
+				orient="horizontal" onClick="@command('guardarRecaudoGeneral')" />
+			<button label="Eliminar" id="btnEliminar"
+				image="/imagenes/iconos/eliminar.png" mold="trendy"  width="auto" height="auto"
+				orient="horizontal" onClick="@command('eliminarRecaudo')" />
+			<button label="Cancelar" id="btnCancelar"
+				image="/imagenes/iconos/cancelar.png" mold="trendy"  width="auto" height="auto"
+				orient="horizontal" onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" mold="trendy"  width="auto" height="auto"
+				orient="horizontal" onClick="winRegistrarRecaudoGeneral.onClose()" />
+		</div>
 
 		<!-- Grupbox que contiene el listado de los recaudos -->
 		<groupbox>
 			<caption label="Listado de Recaudos" />
-			<space />
-			<space />
+			<separator />
 			<!-- Lista que contiene el listado de los recaudos -->
-			<listbox id="lbxrecaudo" height="160px"
+			<listbox id="lbxrecaudo" 
 				model="@bind(vm.listaRecaudos)"
 				selectedItem="@bind(vm.recaudoSeleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
@@ -73,20 +91,5 @@
 			</listbox>
 
 		</groupbox>
-		<!--Botones -->
-		<div align="right" height="100%">
-			<button label="Guardar" id="btnGuardar"
-				image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('guardarRecaudoGeneral')" />
-			<button label="Cancelar" id="btnCancelar"
-				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('limpiar')" />
-			<button label="Eliminar" id="btnEliminar"
-				image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('eliminarRecaudo')" />
-			<button label="Cerrar" id="btnCerrar"
-				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="winRegistrarRecaudoGeneral.onClose()" />
-		</div>
-	</groupbox>
+	
 </window>
