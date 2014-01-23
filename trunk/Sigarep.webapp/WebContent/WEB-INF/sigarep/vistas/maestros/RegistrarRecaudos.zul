@@ -48,7 +48,7 @@
 			<button label="Guardar" id = "btnGuardar"  image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal" onClick="@command('guardarRecaudo')" />	
 	   		<button label="Eliminar" id="btnEliminar"  image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal" onClick="@command('eliminarRecaudo')"/>
 	   		<button label="Cancelar" id = "btnCancelar"  image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal" onClick="@command('limpiar')" />	
-	     	<button label="Cerrar" id="btnCerrar"  image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="@command('')"/>
+	     	<button label="Cerrar" id="btnCerrar"  image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal" onClick="winRegistrarRecaudo.onClose()"/>
    		</div>	
 	<!-- Grupbox que contiene el listado de los recaudos registrados-->
 	<groupbox height="auto">
@@ -64,7 +64,7 @@
 					<listheader label="Nombre del Recaudo" align="center"
 						sort="auto(nombreRecaudo)">
 						<textbox id="filtroNombre" instant="true"
-							width="100px" value="@bind(vm.nombreRecaudo)"
+							width="100px" value="@bind(vm.nombreRecaudofiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
@@ -72,7 +72,7 @@
 					<listheader label="Tipo de Motivo" align="center"
 						sort="auto(nombreTipoMotivo)">
 						<textbox id="filtroTipoMotivo" instant="true"
-							width="100px" value="@bind(vm.nombreTipoMotivo)"
+							width="100px" value="@bind(vm.nombreTipoMotivofiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
@@ -87,7 +87,4 @@
 				</template>
 			</listbox>
 </groupbox>
-	<space/>
-	<space/>
-		
 </window>
