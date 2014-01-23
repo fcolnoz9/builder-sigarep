@@ -34,10 +34,7 @@ public class ServicioEstadoApelacion {
 	public void guardarEstadoApelacion(EstadoApelacion estadoApelacion) {
 		ea.save(estadoApelacion);
 	}
-//	public List<EstadoApelacion> listadoEstadoApelacionporInstancia(Integer idInstancia) {
-//		List<EstadoApelacion> listaEstadoApelacionporInstancia=ea.buscarEstadoPorInstancia(idInstancia);
-//	    return listaEstadoApelacionporInstancia;
-//	}
+
 	public List<EstadoApelacion> listadoEstadoApelacionActivas() {
 		List<EstadoApelacion> ListaEstadoApelacion = ea.buscarEstadoApelacionActivas();
 		return ListaEstadoApelacion;
@@ -47,24 +44,5 @@ public class ServicioEstadoApelacion {
       return estadoapelacion;
 	}
 
-	// Busca en la lista de EstadoApelacion
-//	public List<EstadoApelacion> buscarEstadoApelacion(EstadoApelacionFiltros filtros) {
-//		List<EstadoApelacion> result = new LinkedList<EstadoApelacion>();
-//		String nombreEstado = filtros.getNombreEstado().toLowerCase();
-//	    String descripcion = filtros.getDescripcion().toLowerCase();
-//
-//		if (nombreEstado == null || descripcion == null) {
-//			result = listadoEstadoApelacionActivas();
-//		} else {
-//			for (EstadoApelacion esta : listadoEstadoApelacionActivas()) {
-//				if (esta.getNombreEstado().toLowerCase().contains(nombreEstado)
-//						&& esta.getDescripcion().toLowerCase().contains(descripcion)) {
-//					result.add(esta);
-//				}
-//			}
-//		}
-//		return result;
-//	}
-//
 }
 

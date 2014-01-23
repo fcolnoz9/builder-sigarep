@@ -30,12 +30,13 @@
 							value="Instancia Apelada:" />
 						<combobox readonly="true"
 							id="cmbInstanciaApelada"
-							value="@bind(vm.instanciaApelada.descripcion)" width="auto"
+						
+							value="@bind(vm.instanciaApelada.instanciaApelada)" width="200px"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
 							onSelect="@command('objetoComboEstadoApelacion')">
 							<template name="model">
-								<comboitem label="${each.descripcion }" />
+								<comboitem label="${each.instanciaApelada }" />
 							</template>
 						</combobox>
 					
