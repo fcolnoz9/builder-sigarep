@@ -1,7 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import sigarep.herramientas.Documento;
@@ -25,9 +24,10 @@ import org.zkoss.zul.Window;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
+import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
-import sigarep.modelos.servicio.transacciones.ListaBuscarRecaudosEntregados;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
@@ -67,9 +67,9 @@ public class VMCargarRecaudoEntregado {
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
-	@WireVariable
-	private List<ListaBuscarRecaudosEntregados> listaRecaudos = new LinkedList<ListaBuscarRecaudosEntregados>();
 
+	private List<RecaudoEntregado> listaRecaudo; 
+	
 	public Documento getDoc() {
 		return doc;
 	}
@@ -108,15 +108,6 @@ public class VMCargarRecaudoEntregado {
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
-	}
-
-	public List<ListaBuscarRecaudosEntregados> getListaRecaudos() {
-		return listaRecaudos;
-	}
-
-	public void setListaRecaudos(
-			List<ListaBuscarRecaudosEntregados> listaRecaudos) {
-		this.listaRecaudos = listaRecaudos;
 	}
 
 	public String getRecaudo() {
@@ -186,36 +177,32 @@ public class VMCargarRecaudoEntregado {
 	@Init
 	public void init(
 		@ContextParam(ContextType.VIEW) Component view,
-		@ExecutionArgParam("cedula") String v1,
-		@ExecutionArgParam("primerNombre") String v2,
-		@ExecutionArgParam("primerApellido") String v3,
-		@ExecutionArgParam("email") String v4,
-		@ExecutionArgParam("programa") String v5,
-		@ExecutionArgParam("sancion") String v6,
-		@ExecutionArgParam("lapsoAcademico") String v7,
-		@ExecutionArgParam("idInstancia") Integer v8,
-		@ExecutionArgParam("segundoNombre") String v9,
-		@ExecutionArgParam("segundoApellido") String v10,
-		@ExecutionArgParam("numeroCaso") Integer v11,
-		@ExecutionArgParam("lapsosConsecutivos") String v12)
+		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
 	{
 		Selectors.wireComponents(view, this, false);
-		this.cedula = v1;
-		this.primerNombre = v2;
-		this.primerApellido = v3;
-		this.email = v4;
-		this.programa = v5;
-		this.sancion = v6;
-		this.lapso = v7;
-		this.instancia = v8;
-		this.segundoNombre = v9;
-		this.segundoApellido = v10;
-		this.caso = v11;
-		this.lapsosConsecutivos = v12;
+		this.cedula = sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
+		this.primerNombre = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre();
+		this.primerApellido = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido();
+		this.email = sa.getEstudianteSancionado().getEstudiante().getEmail();
+		this.programa = sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
+		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		this.lapso = sa.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
+		this.instancia = sa.getInstanciaApelada().getIdInstanciaApelada();
+		this.segundoNombre = sa.getEstudianteSancionado().getEstudiante().getSegundoNombre();
+		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
+		this.caso = sa.getNumeroCaso();
+		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
 		
 		concatenacionNombres();
 		concatenacionApellidos();
-		
+		mostrarDatosDeSancion();
+
+		media = null;
+		doc = new Documento();
+		buscarRecaudosEntregados(cedula);
+	}
+	
+	private void mostrarDatosDeSancion() {
 		if (sancion.equalsIgnoreCase("RR")){
 			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
 			if (asignaturas != null)
@@ -227,14 +214,8 @@ public class VMCargarRecaudoEntregado {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
 			asignaturaLapsosConsecutivos = lapsosConsecutivos;
 		}
-
-		media = null;
-		doc = new Documento();
-		buscarRecaudosEntregados(cedula);
 	}
-	
-	
-	private List<RecaudoEntregado> listaRecaudo; 
+
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
@@ -250,10 +231,11 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	public void descargarRecaudoEntregado(@ContextParam(ContextType.COMPONENT) Component componente) {
 		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
-		for (int j = 0; j < listaRecaudos.size(); j++) {
-			if (listaRecaudos.get(j).getIdRecaudo() == idRecaudo)
-				Filedownload.save(listaRecaudos.get(j).getContenidoDocumento(),
-				listaRecaudos.get(j).getTipoDocumento(), listaRecaudos.get(j).getNombreDocumento());
+		for (int j = 0; j < listaRecaudo.size(); j++) {
+			if (listaRecaudo.get(j).getId().getIdRecaudo() == idRecaudo)
+				Filedownload.save(listaRecaudo.get(j).getSoporte().getDocumento().getContenidoDocumento(),
+				listaRecaudo.get(j).getSoporte().getDocumento().getTipoDocumento(),
+				listaRecaudo.get(j).getSoporte().getDocumento().getNombreDocumento());
 		}
 
 	}
@@ -275,12 +257,19 @@ public class VMCargarRecaudoEntregado {
 					doc.setTipoDocumento(media.getContentType());
 					doc.setContenidoDocumento(media.getByteData());
 					
-					/*SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
-														Integer.parseInt(componente.getAttribute("idTipoMotivo").toString()),
-														lapso, cedula, instancia);*/
+					Integer idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
+					Integer idTipoMotivo = Integer.parseInt(componente.getAttribute("idTipoMotivo").toString());
 					
-					//Soporte soporte = new Soporte(soportePK,true,new Date(),doc);
-					//serviciosoporte.guardar(soporte);
+					RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia);
+					RecaudoEntregado recaudoEntregado = new RecaudoEntregado(recaudoEntregadoPK, true, "");
+					Soporte soporte = null;
+					if (serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK)!= null)
+						soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
+					else
+						soporte= new Soporte(null,true,new Date(),doc,recaudoEntregado);
+					
+					serviciosoporte.guardar(soporte);
+					
 					buscarRecaudosEntregados(cedula);
 					msjs.informacionRegistroCorrecto();
 			} else {
