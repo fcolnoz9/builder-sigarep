@@ -3,7 +3,6 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.transacciones.Cronograma;
 
 import java.util.List;
@@ -36,6 +35,11 @@ public class Actividad implements Serializable {
 	@OneToMany(mappedBy = "actividad")
 	private List<Cronograma> cronogramas;
 
+	//bi-directional many-to-one association to InstanciaApelada
+	@ManyToOne
+	@JoinColumn(name="id_instancia_apelada")
+	private InstanciaApelada instanciaApelada;
+	
 	public Actividad() {
 	}
 
@@ -99,6 +103,14 @@ public class Actividad implements Serializable {
 		getCronogramas().remove(cronograma);
 		cronograma.setActividad(null);
 		return cronograma;
+	}
+
+	public InstanciaApelada getInstanciaApelada() {
+		return instanciaApelada;
+	}
+
+	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
+		this.instanciaApelada = instanciaApelada;
 	}
 
 }
