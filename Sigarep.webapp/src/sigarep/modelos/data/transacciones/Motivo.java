@@ -7,12 +7,12 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 
 import java.util.LinkedList;
 import java.util.List;
-
-
-/**
- * The persistent class for the motivo database table.
- * 
- */
+/**Instancia Motivo
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 @Entity
 @Access(AccessType.FIELD)
 @Table(name="motivo")

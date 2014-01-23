@@ -8,27 +8,27 @@
 			<!-- Grid que contiene los campos de la pantalla -->
 			<grid id="grdRegitrarInstanciaApelada">
 				<columns>
-					<column label="" width="30%" id="columna1" />
-					<column label="" width="70%" id="columna2" />
-					<column label="" width="30%" id="columna3" />
-					<column label="" width="70%" id="columna4" />
+					<column label="" width="10%" id="columna1" />
+					<column label="" width="40%" id="columna2" />
+					<column label="" width="10%" id="columna3" />
+					<column label="" width="40%" id="columna4" />
 				</columns>
 				<rows>
 					<row>
 						<label id = "lblInstancia" value="Instancia Apelada" />
-						<textbox id = "txtInstancia" mold="rounded" width="300px" height="auto"
+						<textbox id = "txtInstancia" mold="rounded" width="80%" height="auto"
 						constraint="no empty: Ingrese nombre de la instancia" tabindex="1"
-						value="@bind(vm.instanciaApelada)"/>
+						value="@bind(vm.instanciaApelada)" cols="23" maxlength="100"/>
 						<label id = "lblRecurso" value="Nombre Recurso Apelacion" />
-						<textbox id="txtRecurso" mold="rounded" width="300px" height="auto"
+						<textbox id="txtRecurso" mold="rounded" width="80%" height="auto"
 						constraint="no empty: Ingrese el nombre del recurso" tabindex="2"
-						value="@bind(vm.nombreRecursoApelacion)"/>
+						value="@bind(vm.nombreRecursoApelacion)" cols="23" maxlength="60"/>
 					</row>
 					<row>
 						<label id="lblDescripcion" value="Descripcion"/>
-				 		<textbox id="txtDescripcion" mold="rounded" width="300px" height="auto"
+				 		<textbox id="txtDescripcion" mold="rounded" width="80%" height="auto"
 				 		constraint="no empty: Ingrese una descripcion"  tabindex="3"
-				 		value="@bind(vm.descripcion)"/>
+				 		value="@bind(vm.descripcion)" cols="23" maxlength="255"/>
 						<div></div>
 						<div></div>
 					</row>

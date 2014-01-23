@@ -2,7 +2,12 @@ package sigarep.modelos.data.transacciones;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
+/**MotivoPK
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 /**
  * The primary key class for the motivo database table.
  * 
