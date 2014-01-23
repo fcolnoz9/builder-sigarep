@@ -10,6 +10,17 @@ import javax.persistence.*;
 @Embeddable
 @Access(AccessType.FIELD)
 public class RecaudoEntregadoPK implements Serializable {
+	public RecaudoEntregadoPK(Integer idRecaudo, Integer idTipoMotivo,
+			String codigoLapso, String cedulaEstudiante,
+			Integer idInstanciaApelada) {
+		super();
+		this.idRecaudo = idRecaudo;
+		this.idTipoMotivo = idTipoMotivo;
+		this.codigoLapso = codigoLapso;
+		this.cedulaEstudiante = cedulaEstudiante;
+		this.idInstanciaApelada = idInstanciaApelada;
+	}
+
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
