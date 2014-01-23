@@ -3,7 +3,6 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.InstanciaMiembro;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
@@ -54,6 +53,10 @@ public class InstanciaApelada implements Serializable {
 	//bi-directional many-to-one association to InstanciaMiembro
 	@OneToMany(mappedBy="instanciaApelada")
 	private List<InstanciaMiembro> instanciaMiembros;
+	
+	//bi-directional many-to-one association to Actividad
+	@OneToMany(mappedBy="instanciaApelada")
+	private List<Actividad> actividads;
 
 	public InstanciaApelada(Integer idInstanciaApelada, String descripcion, Boolean estatus, String instanciaApelada, String nombreRecursoApelacion){
 		this.idInstanciaApelada = idInstanciaApelada;
@@ -150,5 +153,13 @@ public class InstanciaApelada implements Serializable {
 
 	public void setInstanciaMiembros(List<InstanciaMiembro> instanciaMiembros) {
 		this.instanciaMiembros = instanciaMiembros;
+	}
+
+	public List<Actividad> getActividads() {
+		return actividads;
+	}
+
+	public void setActividads(List<Actividad> actividads) {
+		this.actividads = actividads;
 	}
 }
