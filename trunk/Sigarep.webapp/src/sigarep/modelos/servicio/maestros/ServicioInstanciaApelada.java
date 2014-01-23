@@ -6,7 +6,12 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.repositorio.maestros.IInstanciaApeladaDAO;
-
+/**Servicio Instancia Apelada
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 @Service("servicioInstanciaApelada") //Definiendo la variable servicio
 public class ServicioInstanciaApelada{
 	private @Autowired IInstanciaApeladaDAO iInstancia ;

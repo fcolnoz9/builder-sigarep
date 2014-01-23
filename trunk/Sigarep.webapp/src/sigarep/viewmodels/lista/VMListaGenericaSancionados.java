@@ -18,6 +18,7 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
+import sigarep.modelos.servicio.transacciones.ServicioDatosIniciales;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioVeredicto;
 
@@ -39,7 +40,8 @@ public class VMListaGenericaSancionados {
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@WireVariable
 	private ServicioVeredicto servicioveredicto;
-	
+	@WireVariable
+	private ServicioDatosIniciales serviciodatosiniciales;
 	
 	//Lista que se llena segun la transaccion
 	private List<ListaGenericaSancionados> lista = new LinkedList<ListaGenericaSancionados>();
@@ -173,7 +175,6 @@ public class VMListaGenericaSancionados {
 		listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
 	}
 	
-	
 	//Metodo donde se decide cuales sancionados se deben buscar segun la transaccion
 	@Command
 	@NotifyChange({"lista"})
@@ -182,6 +183,7 @@ public class VMListaGenericaSancionados {
 			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
 		else if (rutaModal.equalsIgnoreCase("transacciones/Veredicto.zul"))
 			lista = servicioveredicto.buscarApelacionesVeredicto1();
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"));
 	}
 	
 	@Command
@@ -215,6 +217,8 @@ public class VMListaGenericaSancionados {
 			lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/Veredicto.zul"))
 			lista = servicioveredicto.filtrarApelacionesVeredicto1(cedula, nombre, apellido, programa, sancion);
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
+			lista = serviciodatosiniciales.filtrarEstudianteSancionado(cedula, nombre, apellido, nombrePrograma, sancion);
 	}
 
 }

@@ -1,4 +1,10 @@
 package sigarep.modelos.data.maestros;
+/**Instancia Filtros
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 
 public class InstanciaApeladaFiltros {
 	private String nombreInstancia = "", nombreRecurso = "", descripcion = "";

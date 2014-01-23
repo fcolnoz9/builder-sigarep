@@ -96,7 +96,14 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Recaudos"
+							<treecell label="Recaudos Generales"
+								id="RegistrarRecaudoGeneral" sclass="maestros"
+								onClick="createWin(RegistrarRecaudoGeneral.getId(), RegistrarRecaudoGeneral.getSclass())" />
+						</treerow>
+					</treeitem>
+					<treeitem>
+						<treerow>
+							<treecell label="Recaudos por Motivo"
 								id="RegistrarRecaudos" sclass="maestros"
 								onClick="createWin(RegistrarRecaudos.getId(), RegistrarRecaudos.getSclass())" />
 						</treerow>
@@ -157,10 +164,7 @@
 						<treechildren>
 							<treeitem open="false">
 								<treerow>
-									<treecell 
-												label="Registrar apelación"
-												id="ListadoSancionInicial" sclass="transacciones"
-												onClick="createWin(ListadoSancionInicial.getId(), ListadoSancionInicial.getSclass())" />
+									<treecell label="Registrar apelación"/>
 								</treerow>
 								<treechildren>
 									<treeitem>
@@ -168,7 +172,7 @@
 											<treecell
 												label="Datos Iniciales"
 												id="RegistrarDatosInicialesApelacion" sclass="transacciones"
-												onClick="createWin(RegistrarDatosInicialesApelacion.getId(), RegistrarDatosInicialesApelacion.getSclass())" />
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/RegistrarDatosInicialesApelacion.zul")' />
 										</treerow>
 									</treeitem>
 									<treeitem>

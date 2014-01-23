@@ -9,10 +9,16 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
-
+/**VM Instancia Apelada
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMinstanciaApelada {
 	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
@@ -131,25 +137,15 @@ public class VMinstanciaApelada {
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
 	public void guardarInstancia(){
-		idInstanciaApelada = 0;
 		if (instanciaApelada == null || instanciaApelada.equals("")
 				|| nombreRecursoApelacion == null || nombreRecursoApelacion.equals("")
 				|| descripcion == null || descripcion.equals(""))
 					mensajeAlUsuario.advertenciaLlenarCampos();
-		else{
-					listaInstanciaApelada = servicioInstanciaApelada.buscarTodas();
-					if (listaInstanciaApelada == null){
-						idInstanciaApelada = 1;
-					} else {
-						System.out.print(listaInstanciaApelada.size());
-						System.out.print(listaInstanciaApelada.size()+1);
-						idInstanciaApelada = listaInstanciaApelada.size()+1;
-					}
-					InstanciaApelada inst = new InstanciaApelada(idInstanciaApelada,descripcion,
-																true,instanciaApelada,nombreRecursoApelacion);
-					servicioInstanciaApelada.guardar(inst);
-					limpiar();
-					mensajeAlUsuario.informacionRegistroCorrecto();
+		else {
+			InstanciaApelada inst = new InstanciaApelada(idInstanciaApelada,descripcion,
+					true,instanciaApelada,nombreRecursoApelacion);
+			servicioInstanciaApelada.guardar(inst);
+			limpiar();
 		}
 	}
 	
