@@ -73,10 +73,7 @@
 				</listheader>
 				<listheader label="Descripción" align="center"
 						sort="auto(descripcion)">
-						<textbox id="filtrodescripcion" instant="true"
-							width="100px" value="@bind(vm.filtros.descripcion)"
-							onChange="@command('filtros')" />
-							<image src="/imagenes/iconos/buscar.png"/>
+						
 					</listheader>
 				</listhead>
 				<template name="model">
