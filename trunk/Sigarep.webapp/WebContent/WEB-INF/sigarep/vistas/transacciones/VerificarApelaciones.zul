@@ -40,35 +40,35 @@
 		<groupbox id="grbListaSancionados">
 			<caption label="Lista de Sancionados" />
 			<listbox id="lbxSancionados" height="70%"
-				model="@bind(vm.lista)"
-				selectedItem="@bind(vm.listaapelacionestadoapelacion)"
-				onClick="@command('showModal')" mold="paging" pageSize="10"
+				model="@bind(vm.listaSancionados)"
+				selectedItem="@bind(vm.listaestudiantesancionado)"
+				onClick="@command('MostrarSancionados')" mold="paging" pageSize="10"
 				emptyMessage="No hay Apelaciones">
 				<!--    			 					  onClick="@command('showModal',before=winActualizarEstadoEstudiante.onClose())"  -->
 				<listhead>
 					<listheader label="Cédula" align="center"
-						sort="auto(cedulaEstudiante)">
+						sort="auto(Estudiante.cedulaEstudiante)">
 						<textbox id="filtroCedula" instant="true"
 							width="100px" value="@bind(vm.filtros.cedula)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
 					<listheader label="Nombre" align="center"
-						sort="auto(primerNombre)">
+						sort="auto(Estudiante.primerNombre)">
 						<textbox id="filtroNombre" instant="true"
 							width="100px" value="@bind(vm.filtros.nombre)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
 					<listheader label="Apellido" align="center"
-						sort="auto(primerApellido)">
+						sort="auto(Estudiante.primerApellido)">
 						<textbox id="filtroApellido" instant="true"
 							width="100px" value="@bind(vm.filtros.apellido)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
 					<listheader label="Sanción" align="center"
-						sort="auto(nombreSancion)">
+						sort="auto(SancionMaestro.nombreSancion)">
 						<textbox id="filtroSancion" instant="true"
 							width="100px" value="@bind(vm.filtros.sancion)"
 							onChange="@command('filtros')" />
@@ -77,10 +77,10 @@
 				</listhead>
 				<template name="model">
 					<listitem>
-						<listcell label="${each.cedulaEstudiante}" />
-						<listcell label="${each.primerNombre}" />
-						<listcell label="${each.primerApellido}" />
-						<listcell label="${each.nombreSancion}" />
+						<listcell label="${each.getId().getCedulaEstudiante()}" />
+						<listcell label="${each.getEstudiante().getPrimerNombre()}" />
+						<listcell label="${each.getEstudiante().getPrimerApellido()}" />
+						<listcell label="${each.getSancionMaestro().getNombreSancion()}" />
 					</listitem>
 				</template>
 			</listbox>

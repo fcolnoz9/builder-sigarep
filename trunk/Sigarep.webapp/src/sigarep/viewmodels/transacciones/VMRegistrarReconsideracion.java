@@ -50,6 +50,7 @@ import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
@@ -64,6 +65,7 @@ import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioMotivos;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
@@ -147,11 +149,32 @@ public class VMRegistrarReconsideracion {
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
 	Recaudo recaudos = new Recaudo();
-	
+	@WireVariable ServicioEstudianteSancionado servicioestudiantesancionado;
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
-
 	
+	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
+	
+	private EstudianteSancionado listaestudiantesancionado;
+	
+	
+	public EstudianteSancionado getListaestudiantesancionado() {
+		return listaestudiantesancionado;
+	}
+
+	public void setListaestudiantesancionado(
+			EstudianteSancionado listaestudiantesancionado) {
+		this.listaestudiantesancionado = listaestudiantesancionado;
+	}
+
+	public List<EstudianteSancionado> getListaSancionados() {
+		return listaSancionados;
+	}
+
+	public void setListaSancionados(List<EstudianteSancionado> listaSancionados) {
+		this.listaSancionados = listaSancionados;
+	}
+
 	public String getLapsosConsecutivos() {
 		return lapsosConsecutivos;
 	}
@@ -507,66 +530,42 @@ public class VMRegistrarReconsideracion {
 		System.out.println(listaRecaudos);
 
 	}
+	
 
 
 	@Init
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("cedula") String v1,
-			@ExecutionArgParam("nombre") String v2,
-			@ExecutionArgParam("apellido") String v3,
-			@ExecutionArgParam("email") String v4,
-			@ExecutionArgParam("telefono") String v5,
-			@ExecutionArgParam("programa") String v6,
-			@ExecutionArgParam("sancion") String v7,
-			@ExecutionArgParam("lapso") String v8,
-			@ExecutionArgParam("instancia") Integer v9,
-
-			@ExecutionArgParam("segundoNombre") String v11,
-			@ExecutionArgParam("segundoApellido") String v12,
-			@ExecutionArgParam("asignatura") String v13,
-			@ExecutionArgParam("caso") Integer v14)
+			@ExecutionArgParam("listaestudiantesancionado") EstudianteSancionado v1)
+			
 
 	// initialization code
 
 	{
 		Selectors.wireComponents(view, this, false);
-		this.cedula = v1;
-		this.nombre = v2;
-		this.apellido = v3;
-		this.email = v4;
-		this.telefono = v5;
-		this.programa = v6;
-		this.sancion = v7;
-		this.lapso = v8;
-		this.instancia = v9;
-
-		this.segundoNombre = v11;
-		this.segundoApellido = v12;
-		this.asignatura = v13;
-		this.caso = v14;
+		this.listaestudiantesancionado = v1;
 	
 		concatenacionNombres();
 		concatenacionApellidos();
 		
 		
 		
-		if (sancion.equalsIgnoreCase("RR")){
-			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
-			if (asignaturas != null)
-				for (int i=0; i<asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
-			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-		}
-		else{
-			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-			asignaturaLapsosConsecutivos = lapsosConsecutivos;
-		}
-		media = null;
-		doc = new Documento();
-		buscarRecaudosEntregados(cedula);
-	
+//		if (sancion.equalsIgnoreCase("RR")){
+//			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+//			if (asignaturas != null)
+//				for (int i=0; i<asignaturas.size(); i++)
+//					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+//			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+//		}
+//		else{
+//			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+//			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+//		}
+//		media = null;
+//		doc = new Documento();
+//		buscarRecaudosEntregados(cedula);
+//	
 	}
 	
 

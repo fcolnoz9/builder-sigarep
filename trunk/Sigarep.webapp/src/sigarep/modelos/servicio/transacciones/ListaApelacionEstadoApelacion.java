@@ -11,13 +11,10 @@ public class ListaApelacionEstadoApelacion {
 	private String programa;
 	private String lapso;
 	private Integer instancia;
-
 	private String segundoNombre;
 	private String segundoApellido;
 	private String asignatura;
 	private Integer caso;
-
-	
 	
 	
 	public ListaApelacionEstadoApelacion(String cedulaEstudiante, String primerNombre,

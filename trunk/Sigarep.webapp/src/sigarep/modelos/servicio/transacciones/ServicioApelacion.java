@@ -52,7 +52,6 @@ public class ServicioApelacion  {
 				"LEFT JOIN asignatura AS a ON a.codigo_asignatura = aesa.codigo_asignatura " +
 				"WHERE sa.id_sancion = esa.id_sancion AND  " +
 				"m.id_estado_apelacion = ap.id_estado_apelacion  AND  sap.veredicto != ''   " +
-				
 				"AND esa.codigo_lapso = la.codigo_lapso  AND i.id_instancia_apelada = sap.id_instancia_apelada  " +
 				"AND sap.id_instancia_apelada = ap.id_instancia_apelada AND es.id_programa= p.id_programa " +
 				"AND la.estatus = 'true' AND es.cedula_estudiante = " +
