@@ -9,7 +9,12 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 
 import java.sql.Time;
 import java.util.Date;
-
+/**Cronograma
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
+ */
 
 /**
  * The persistent class for the cronograma database table.
@@ -45,8 +50,13 @@ public class Cronograma implements Serializable {
 	@Column(nullable=true, length=255)
 	private String observacion;
 	
+	/** Constructor Cronograma.
+	* @param id,estatus,fechaFin,fechaInicio,horaInicio,lugar,observacion,responsable
+	* @return Constructor lleno
+	* @throws No dispara ninguna excepcion.
+	*/
 	public Cronograma(CronogramaPK id, Boolean estatus, Date fechaFin,
-			Date fechaInicio, Time horaInicio, String lugar, String observacion) {
+			Date fechaInicio, Time horaInicio, String lugar, String observacion, InstanciaApelada responsable) {
 		super();
 		this.id = id;
 		this.estatus = estatus;
@@ -55,6 +65,7 @@ public class Cronograma implements Serializable {
 		this.horaInicio = horaInicio;
 		this.lugar = lugar;
 		this.observacion = observacion;
+		this.responsable =  responsable;
 	}
 
 	//bi-directional many-to-one association to Actividad
