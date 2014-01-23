@@ -94,20 +94,25 @@ public class ServicioSolicitudApelacion {
 	    return listaElementosAInsertar;
 	}
 	
-	public List<SolicitudApelacion> filtrarApelacionesReconsideracion(String programa){
+	public List<SolicitudApelacion> filtrarApelacionesReconsideracion(
+			String programa, String cedula, String nombre,
+			String apellido, String sancion){
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
-		if(programa==null){
-			result= buscarSancionadosReconsideracion ();
-		}
-		else{
-			for (SolicitudApelacion sa : buscarSancionadosReconsideracion ())
+        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
+        	result= buscarSancionadosReconsideracion();
+        }
+        else{
+			for (SolicitudApelacion sa : buscarSancionadosReconsideracion())
 			{
-				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma().toLowerCase().contains(programa.toLowerCase())){
+				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(nombre.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+						sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
 					result.add(sa);
 				}
 			}
-		}
+        }
 		return result;
 	} 
-	
 }

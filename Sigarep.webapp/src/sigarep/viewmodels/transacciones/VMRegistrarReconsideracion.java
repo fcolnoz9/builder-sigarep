@@ -1,23 +1,13 @@
 package sigarep.viewmodels.transacciones;
 
-import java.io.IOException;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import sigarep.herramientas.Archivo;
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
-import net.sf.jasperreports.engine.JRException;
 
-import org.jfree.text.TextBox;
-import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -25,9 +15,7 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
-import org.zkoss.util.media.AMedia;
 import org.zkoss.util.media.Media;
-import org.zkoss.util.resource.Labels;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -37,11 +25,9 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 
-import org.zkoss.zul.Label;
 import org.zkoss.zul.Window;
 import sigarep.modelos.data.maestros.*;
 
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 
@@ -50,7 +36,6 @@ import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
-import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
@@ -61,12 +46,10 @@ import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioMotivos;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
@@ -86,7 +69,6 @@ public class VMRegistrarReconsideracion {
 	private String nombreRecaudo;
 	private String nombreTipoMotivo;
 	private String nombreDocumento;
-	private Byte[] contenidoDocumento;
 	private String tipoDocumento;
 	private Integer idTipoMotivo;
 	private Integer idRecaudo;
@@ -228,14 +210,6 @@ public class VMRegistrarReconsideracion {
 
 	public void setNombreDocumento(String nombreDocumento) {
 		this.nombreDocumento = nombreDocumento;
-	}
-
-	public Byte[] getContenidoDocumento() {
-		return contenidoDocumento;
-	}
-
-	public void setContenidoDocumento(Byte[] contenidoDocumento) {
-		this.contenidoDocumento = contenidoDocumento;
 	}
 
 	public String getTipoDocumento() {
@@ -439,7 +413,7 @@ public class VMRegistrarReconsideracion {
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("solicitudapelacionseleccionada") SolicitudApelacion v1)
+	@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
 			
 
 	// initialization code

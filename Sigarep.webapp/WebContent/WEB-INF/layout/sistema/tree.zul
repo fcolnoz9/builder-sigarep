@@ -229,7 +229,7 @@
 									<treecell
 										label="Registrar Reconsideración"  sclass="transacciones"
 										id="winActualizarEstadoEstudiante"
-										onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
+										onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/RegistrarReconsideracion.zul" )' />
 								</treerow>
 							</treeitem>
 							<treeitem open="false">

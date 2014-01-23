@@ -184,6 +184,8 @@ public class VMListaGenericaSancionados {
 	public void buscarSancionados(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul"))
+			lista = serviciosolicitudapelacion.buscarSancionadosReconsideracion();
 		else if (rutaModal.equalsIgnoreCase("transacciones/Veredicto.zul"))
 			lista = null; //servicioveredicto.buscarApelacionesVeredicto1();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
@@ -207,6 +209,8 @@ public class VMListaGenericaSancionados {
 	public void filtros(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul"))
+			lista = serviciosolicitudapelacion.filtrarApelacionesReconsideracion(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/Veredicto.zul"))
 			lista = null; //servicioveredicto.filtrarApelacionesVeredicto1(cedula, nombre, apellido, programa, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
