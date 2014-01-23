@@ -41,6 +41,7 @@ import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacionFiltr
 import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 
 
@@ -89,32 +90,33 @@ public class VMListaApelacionesReconsideracion  {
 	private String asignatura;
 	private Integer caso;
 	private Integer idMotivo;
-	@WireVariable ServicioEstudianteSancionado servicioestudiantesancionado;
-	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
+	@WireVariable ServicioSolicitudApelacion serviciosolicitudapelacion;
+	private List<SolicitudApelacion> listaSancionados = new LinkedList<SolicitudApelacion>();
+
+	private SolicitudApelacion solicitudapelacionseleccionada;
 	
-	private EstudianteSancionado listaestudiantesancionado;
 	
 	@Wire("#winActualizarEstadoEstudiante")
 	private Window win;
 	
-	
 
-	public EstudianteSancionado getListaestudiantesancionado() {
-		return listaestudiantesancionado;
-	}
-
-	public void setListaestudiantesancionado(
-			EstudianteSancionado listaestudiantesancionado) {
-		this.listaestudiantesancionado = listaestudiantesancionado;
-	}
-
-	public List<EstudianteSancionado> getListaSancionados() {
+	public List<SolicitudApelacion> getListaSancionados() {
 		return listaSancionados;
 	}
 
-	public void setListaSancionados(List<EstudianteSancionado> listaSancionados) {
+	public void setListaSancionados(List<SolicitudApelacion> listaSancionados) {
 		this.listaSancionados = listaSancionados;
 	}
+
+	public SolicitudApelacion getSolicitudapelacionseleccionada() {
+		return solicitudapelacionseleccionada;
+	}
+
+	public void setSolicitudapelacionseleccionada(
+			SolicitudApelacion solicitudapelacionseleccionada) {
+		this.solicitudapelacionseleccionada = solicitudapelacionseleccionada;
+	}
+
 
 	public Integer getIdMotivo() {
 		return idMotivo;
@@ -239,7 +241,6 @@ public class VMListaApelacionesReconsideracion  {
 		this.listaapelacionestadoapelacion = listaapelacionestadoapelacion;
 	}
 	
-	
 
 	public String getSancion() {
 		return sancion;
@@ -303,7 +304,6 @@ public class VMListaApelacionesReconsideracion  {
 	    	 //initialization code
 	    	buscarTipoMotivo();
 	    	buscarProgramaA ();
-	    	//buscarApelacionesR ();
 	    	buscarSancionados();
 	    }
 	    //Metodo que busca un motivo partiendo por su titulo
@@ -327,63 +327,16 @@ public class VMListaApelacionesReconsideracion  {
 	  	@Command
 		@NotifyChange({"listaSancionados"})
 		public void buscarSancionados(){ 
-		  			listaSancionados = servicioestudiantesancionado.buscarSancionadosReconsideracion();
+	  		listaSancionados = serviciosolicitudapelacion.buscarSancionadosReconsideracion();
 		}
-	  	
-//	  	@Command
-//		@NotifyChange({"cedula", "nombre", "apellido","email", "telefono", "programa", 
-//			"sancion", "lapso",  "segundoNombre", "segundoApellido", "asignatura", "caso"})
-//		public void showModal (){
-//	  		cedula = getListaapelacionestadoapelacion().getCedulaEstudiante();
-//	  		nombre = getListaapelacionestadoapelacion().getPrimerNombre();
-//	  		apellido = getListaapelacionestadoapelacion().getPrimerApellido();
-//	  		email = getListaapelacionestadoapelacion().getEmail();
-//	  		telefono = getListaapelacionestadoapelacion().getTelefono();
-//	  		programa = getListaapelacionestadoapelacion().getPrograma();
-//	  		sancion = getListaapelacionestadoapelacion().getNombreSancion();
-//	  		lapso = getListaapelacionestadoapelacion().getLapso();
-//	  		instancia = getListaapelacionestadoapelacion().getInstancia();
-//	  		segundoNombre = getListaapelacionestadoapelacion().getSegundoNombre();
-//	  		segundoApellido = getListaapelacionestadoapelacion().getSegundoApellido();
-//	  		asignatura = getListaapelacionestadoapelacion().getAsignatura();
-//	  		caso  = getListaapelacionestadoapelacion().getCaso();
-//	  
-//	  		
-//	  		
-//	  		final HashMap<String, Object> map = new HashMap<String, Object>();
-//	        map.put("cedula", this.cedula );
-//	        map.put("nombre", this.nombre);
-//	        map.put("apellido", this.apellido);
-//	        map.put("email", this.email);
-//	        map.put("telefono", this.telefono);
-//	        map.put("programa", this.programa);
-//	        map.put("sancion", this.sancion);
-//	        map.put("lapso", this.lapso);
-//	        map.put("instancia", this.instancia);
-//	       
-//	       
-//	        map.put("segundoNombre", this.segundoNombre);
-//	        map.put("segundoApellido", this.segundoApellido);
-//	        map.put("asignatura", this.asignatura);
-//	        map.put("caso", this.caso); 
-//	        
-//	     
-//	        
-//	        final Window window = (Window) Executions.createComponents(
-//	        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarReconsideracion.zul", null, map);
-//			window.setMaximizable(true);
-//			window.doModal();
-//			
-//		
-//			
-//	  	}
+
 	  
 	  	@Command
-		@NotifyChange({ "listaestudiantesancionado" })
+		@NotifyChange({ "solicitudapelacionseleccionada" })
 		public void MostrarSancionados () {
 		
 				final HashMap<String, Object> map = new HashMap<String, Object>();
-		        map.put("listaestudiantesancionado", this.listaestudiantesancionado);
+		        map.put("solicitudapelacionseleccionada", this.solicitudapelacionseleccionada);
 		        final Window win = (Window) Executions.createComponents(
 		        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarReconsideracion.zul", null, map);
 				win.setMaximizable(true);

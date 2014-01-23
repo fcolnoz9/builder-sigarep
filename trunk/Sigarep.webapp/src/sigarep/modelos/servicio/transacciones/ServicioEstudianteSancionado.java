@@ -23,10 +23,6 @@ public class ServicioEstudianteSancionado {
 		return iEstudianteSancionadoDAO.save(estudianteSancionado);
 	}
 	
-	public List<EstudianteSancionado> buscarSancionadosReconsideracion (){
-		return iEstudianteSancionadoDAO.buscarSancionadosReconsideracion();
-	}
-	
 	public void eliminar(EstudianteSancionadoPK id){
 		EstudianteSancionado miEstudianteSancionado = iEstudianteSancionadoDAO.findOne(id);
 		miEstudianteSancionado.setEstatus(false);

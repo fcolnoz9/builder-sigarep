@@ -78,22 +78,11 @@ public class VMRegistrarReconsideracion {
 	private Window window;
 	private String sancion;
 	private String programa;
-	private String telefono;
-	private String email;
-	private String apellido;
-	private String nombre;
 	private String lapso;
-	private int instancia;
-	private String motivo;
-	private String recaudo;
-	private String segundoNombre;
-	private String segundoApellido;
 	private String nombres;
 	private String apellidos;
 	private String asignatura;
 	private Integer caso;
-
-
 	private String nombreRecaudo;
 	private String nombreTipoMotivo;
 	private String nombreDocumento;
@@ -133,8 +122,7 @@ public class VMRegistrarReconsideracion {
 	private ServicioEstadoApelacion servicioestadoapelacion;
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
-	private Integer instanciaApelada;
-	private Date fechaSolicitud;
+
 
 	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario(); // para llamar a los diferentes mensajes de
 									// dialogo
@@ -153,25 +141,27 @@ public class VMRegistrarReconsideracion {
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
 	
-	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
+	private List<SolicitudApelacion> listaSancionados = new LinkedList<SolicitudApelacion>();
 	
-	private EstudianteSancionado listaestudiantesancionado;
+	private SolicitudApelacion solicitudapelacionseleccionada;
 	
 	
-	public EstudianteSancionado getListaestudiantesancionado() {
-		return listaestudiantesancionado;
+	public SolicitudApelacion getSolicitudapelacionseleccionada() {
+		return solicitudapelacionseleccionada;
 	}
 
-	public void setListaestudiantesancionado(
-			EstudianteSancionado listaestudiantesancionado) {
-		this.listaestudiantesancionado = listaestudiantesancionado;
+	public void setSolicitudapelacionseleccionada(
+			SolicitudApelacion solicitudapelacionseleccionada) {
+		this.solicitudapelacionseleccionada = solicitudapelacionseleccionada;
 	}
 
-	public List<EstudianteSancionado> getListaSancionados() {
+
+
+	public List<SolicitudApelacion> getListaSancionados() {
 		return listaSancionados;
 	}
 
-	public void setListaSancionados(List<EstudianteSancionado> listaSancionados) {
+	public void setListaSancionados(List<SolicitudApelacion> listaSancionados) {
 		this.listaSancionados = listaSancionados;
 	}
 
@@ -353,46 +343,6 @@ public class VMRegistrarReconsideracion {
 	}
 
 
-	public String getRecaudo() {
-		return recaudo;
-	}
-
-	public void setRecaudo(String recaudo) {
-		this.recaudo = recaudo;
-	}
-
-	public String getSegundoNombre() {
-		return segundoNombre;
-	}
-
-	public void setSegundoNombre(String segundoNombre) {
-		this.segundoNombre = segundoNombre;
-	}
-
-	public String getSegundoApellido() {
-		return segundoApellido;
-	}
-
-	public void setSegundoApellido(String segundoApellido) {
-		this.segundoApellido = segundoApellido;
-	}
-
-	public String getMotivo() {
-		return motivo;
-	}
-
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
-	}
-
-	public Integer getInstancia() {
-		return instancia;
-	}
-
-	public void setInstancia(Integer instancia) {
-		this.instancia = instancia;
-	}
-
 	public String getLapso() {
 		return lapso;
 	}
@@ -443,21 +393,6 @@ public class VMRegistrarReconsideracion {
 		this.serviciosolicitudapelacion = serviciosolicitudapelacion;
 	}
 
-	public Integer getInstanciaApelada() {
-		return instanciaApelada;
-	}
-
-	public void setInstanciaApelada(Integer instanciaApelada) {
-		this.instanciaApelada = instanciaApelada;
-	}
-
-	public Date getFechaSolicitud() {
-		return fechaSolicitud;
-	}
-
-	public void setFechaSolicitud(Date fechaSolicitud) {
-		this.fechaSolicitud = fechaSolicitud;
-	}
 
 	public String getSancion() {
 		return sancion;
@@ -475,57 +410,24 @@ public class VMRegistrarReconsideracion {
 		this.programa = programa;
 	}
 
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public void concatenacionNombres() {
 
-		String nombre1 = nombre;
-		String nombre2 = segundoNombre;
-		nombres = nombre1 + " " + nombre2;
-		System.out.println(nombres);
+		nombres = solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getPrimerNombre() 
+				+ " " + solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getSegundoNombre();
 	}
 
 	public void concatenacionApellidos() {
 
-		String apellido1 = apellido;
-		String apellido2 = segundoApellido;
-		apellidos = apellido1 + " " + apellido2;
+		apellidos = solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getPrimerApellido()
+				 + " " + solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getSegundoApellido();
 
 	}
 
 	@Command
 	@NotifyChange({ "listaRecaudos" })
+	
 	public void buscarRecaudosEntregados(String cedula) {
+		
 		listaRecaudos = serviciorecaudoentregado.buscarRecaudosEntregadosReconsideracion(cedula);
 		System.out.println(listaRecaudos);
 
@@ -537,35 +439,38 @@ public class VMRegistrarReconsideracion {
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("listaestudiantesancionado") EstudianteSancionado v1)
+			@ExecutionArgParam("solicitudapelacionseleccionada") SolicitudApelacion v1)
 			
 
 	// initialization code
 
 	{
 		Selectors.wireComponents(view, this, false);
-		this.listaestudiantesancionado = v1;
-	
+		this.solicitudapelacionseleccionada = v1;
+		cedula = solicitudapelacionseleccionada.getId().getCedulaEstudiante();
 		concatenacionNombres();
 		concatenacionApellidos();
+		lapso = solicitudapelacionseleccionada.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
+		sancion = solicitudapelacionseleccionada.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		lapsosConsecutivos = solicitudapelacionseleccionada.getEstudianteSancionado().getLapsosAcademicosRp();
+		caso = solicitudapelacionseleccionada.getNumeroCaso();
 		
+		buscarRecaudosEntregados (cedula);
 		
-		
-//		if (sancion.equalsIgnoreCase("RR")){
-//			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
-//			if (asignaturas != null)
-//				for (int i=0; i<asignaturas.size(); i++)
-//					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
-//			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-//		}
-//		else{
-//			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-//			asignaturaLapsosConsecutivos = lapsosConsecutivos;
-//		}
-//		media = null;
-//		doc = new Documento();
-//		buscarRecaudosEntregados(cedula);
-//	
+		if (sancion.equalsIgnoreCase("RR")){
+			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i=0; i<asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		}
+		else{
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
+		media = null;
+		doc = new Documento();
+	
 	}
 	
 
@@ -586,12 +491,9 @@ public class VMRegistrarReconsideracion {
 
 		} else {
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
-			System.out.println("lapso " + lapso);
 			solicitudApelacionPK.setCodigoLapso(lapso);
 			solicitudApelacionPK.setIdInstanciaApelada(2);
-			System.out.println("instancia " + instancia);
 			solicitudApelacion.setId(solicitudApelacionPK);
-			System.out.println("fecha " + fecha);
 			solicitudApelacion.setFechaSolicitud(fecha);
 			solicitudApelacion.setEstatus(true);
 			solicitudApelacion.setNumeroCaso(caso);
@@ -602,16 +504,12 @@ public class VMRegistrarReconsideracion {
 			apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(hora);
-			// =
+			
 			idTipoMotivo  = listaRecaudos.get(0).getMotivo().getId().getIdTipoMotivo();
 			motivoPK.setCedulaEstudiante(cedula);
 			motivoPK.setCodigoLapso(lapso);
 			motivoPK.setIdInstanciaApelada(2);
 			motivoPK.setIdTipoMotivo(idTipoMotivo);
-			if (motivoPK == null)
-				System.out.println("nada1");
-			else
-				System.out.println("algo1");
 			motivos.setId(motivoPK);
 			motivos.setEstatus(true);
 
@@ -623,12 +521,12 @@ public class VMRegistrarReconsideracion {
 			recaudoEntregado.setId(recaudoEntregadoPK);
 			recaudoEntregado.setEstatus(true);
 		
-			
+			soporte.setRecaudoEntregado(recaudoEntregado);
 			soporte.setDocumento(doc);
 			soporte.setEstatus(true);
 			soporte.setFechaSubida(fecha);
 			soporte.setRecaudoEntregado(recaudoEntregado);
-//			recaudoEntregado.setSoporte(soporte);
+
 	
 		}
 		try {
