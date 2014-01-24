@@ -4,10 +4,8 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -24,18 +22,11 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 import sigarep.modelos.data.maestros.*;
-
-import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.EstadoApelacion;
-
-import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
-
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
@@ -44,53 +35,46 @@ import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.transacciones.Soporte;
-import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
-import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivos;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
+/**
+ * RegistrarReconsideracion 
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0
+ * @since 23/01/14
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarReconsideracion {
 	@Wire("#modalDialog")
 	private Window window;
 	private String sancion;
-	private String programa;
 	private String lapso;
 	private String nombres;
 	private String apellidos;
-	private String asignatura;
 	private Integer caso;
-	private String nombreRecaudo;
-	private String nombreTipoMotivo;
-	private String nombreDocumento;
-	private String tipoDocumento;
 	private Integer idTipoMotivo;
 	private Integer idRecaudo;
-	private List<TipoMotivo> listaTipoMotivo;
-	private List<Recaudo> listaRecaudo;
-	@WireVariable
-	private ServicioApelacion serviciolista;
 	private Documento doc = new Documento();
 	private Media media;
 	private AImage imagen;
 	private String nombreDoc;
 	private String cedula;
-	private List<AsignaturaEstudianteSancionado> asignaturas;
+	private String nombreDocumento;
+	private String tipoDocumento;
 	private String lapsosConsecutivos;
-	private String asignaturaLapsosConsecutivos="";
+	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
-	
 	private SolicitudApelacion solicitudapelacion;
 	private LapsoAcademico lapsoAcademico = new LapsoAcademico();
-	@WireVariable
-	private ServicioLapsoAcademico serviciolapsoacademico;
+
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
@@ -105,10 +89,8 @@ public class VMRegistrarReconsideracion {
 	private ServicioEstadoApelacion servicioestadoapelacion;
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
-
-
-	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario(); // para llamar a los diferentes mensajes de
-									// dialogo
+	// Para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario(); 
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
@@ -120,15 +102,13 @@ public class VMRegistrarReconsideracion {
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
 	Recaudo recaudos = new Recaudo();
-	@WireVariable ServicioEstudianteSancionado servicioestudiantesancionado;
+	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
-	
 	private List<SolicitudApelacion> listaSancionados = new LinkedList<SolicitudApelacion>();
-	
 	private SolicitudApelacion solicitudapelacionseleccionada;
-	
-	
+
+	// Metodos Get y Set
 	public SolicitudApelacion getSolicitudapelacionseleccionada() {
 		return solicitudapelacionseleccionada;
 	}
@@ -137,8 +117,6 @@ public class VMRegistrarReconsideracion {
 			SolicitudApelacion solicitudapelacionseleccionada) {
 		this.solicitudapelacionseleccionada = solicitudapelacionseleccionada;
 	}
-
-
 
 	public List<SolicitudApelacion> getListaSancionados() {
 		return listaSancionados;
@@ -160,7 +138,8 @@ public class VMRegistrarReconsideracion {
 		return asignaturaLapsosConsecutivos;
 	}
 
-	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+	public void setAsignaturaLapsosConsecutivos(
+			String asignaturaLapsosConsecutivos) {
 		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
 	}
 
@@ -221,38 +200,6 @@ public class VMRegistrarReconsideracion {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	public List<TipoMotivo> getListaTipoMotivo() {
-		return listaTipoMotivo;
-	}
-
-	public void setListaTipoMotivo(List<TipoMotivo> listaTipoMotivo) {
-		this.listaTipoMotivo = listaTipoMotivo;
-	}
-
-	public List<Recaudo> getListaRecaudo() {
-		return listaRecaudo;
-	}
-
-	public void setListaRecaudo(List<Recaudo> listaRecaudo) {
-		this.listaRecaudo = listaRecaudo;
-	}
-
-	public String getNombreRecaudo() {
-		return nombreRecaudo;
-	}
-
-	public void setNombreRecaudo(String nombreRecaudo) {
-		this.nombreRecaudo = nombreRecaudo;
-	}
-
-	public String getNombreMotivo() {
-		return nombreTipoMotivo;
-	}
-
-	public void setNombreMotivo(String nombreMotivo) {
-		this.nombreTipoMotivo = nombreMotivo;
-	}
-
 	public Documento getDoc() {
 		return doc;
 	}
@@ -293,14 +240,6 @@ public class VMRegistrarReconsideracion {
 		this.caso = caso;
 	}
 
-	public String getAsignatura() {
-		return asignatura;
-	}
-
-	public void setAsignatura(String asignatura) {
-		this.asignatura = asignatura;
-	}
-
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -316,7 +255,6 @@ public class VMRegistrarReconsideracion {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-
 
 	public String getLapso() {
 		return lapso;
@@ -350,25 +288,6 @@ public class VMRegistrarReconsideracion {
 		this.lapsoAcademico = lapsoAcademico;
 	}
 
-	public ServicioLapsoAcademico getServiciolapsoacademico() {
-		return serviciolapsoacademico;
-	}
-
-	public void setServiciolapsoacademico(
-			ServicioLapsoAcademico serviciolapsoacademico) {
-		this.serviciolapsoacademico = serviciolapsoacademico;
-	}
-
-	public ServicioSolicitudApelacion getServiciosolicitudapelacion() {
-		return serviciosolicitudapelacion;
-	}
-
-	public void setServiciosolicitudapelacion(
-			ServicioSolicitudApelacion serviciosolicitudapelacion) {
-		this.serviciosolicitudapelacion = serviciosolicitudapelacion;
-	}
-
-
 	public String getSancion() {
 		return sancion;
 	}
@@ -376,85 +295,93 @@ public class VMRegistrarReconsideracion {
 	public void setSancion(String sancion) {
 		this.sancion = sancion;
 	}
-
-	public String getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(String programa) {
-		this.programa = programa;
-	}
-
+// FIN de metodos get y set
+	
+	/** concatenacionNombres
+	 * @return devuelve primer y segundo nombre concatenados
+	 */
 	public void concatenacionNombres() {
 
-		nombres = solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getPrimerNombre() 
-				+ " " + solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getSegundoNombre();
+		nombres = solicitudapelacionseleccionada.getEstudianteSancionado()
+				.getEstudiante().getPrimerNombre()
+				+ " "
+				+ solicitudapelacionseleccionada.getEstudianteSancionado()
+						.getEstudiante().getSegundoNombre();
 	}
-
+	/** concatenacionApellidos
+	 * @return devuelve primer y segundo apellido concatenados
+	 */
 	public void concatenacionApellidos() {
 
-		apellidos = solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getPrimerApellido()
-				 + " " + solicitudapelacionseleccionada.getEstudianteSancionado().getEstudiante().getSegundoApellido();
+		apellidos = solicitudapelacionseleccionada.getEstudianteSancionado()
+				.getEstudiante().getPrimerApellido()
+				+ " "
+				+ solicitudapelacionseleccionada.getEstudianteSancionado()
+						.getEstudiante().getSegundoApellido();
 
 	}
-
+	/** buscarRecaudosEntregados
+	 * @param cedula 
+	 * @return Lista de recaudos y motivos por estudiante
+	 */
 	@Command
 	@NotifyChange({ "listaRecaudos" })
-	
 	public void buscarRecaudosEntregados(String cedula) {
-		
-		listaRecaudos = serviciorecaudoentregado.buscarRecaudosEntregadosReconsideracion(cedula);
-		System.out.println(listaRecaudos);
+		listaRecaudos = serviciorecaudoentregado
+				.buscarRecaudosEntregadosReconsideracion(cedula);
 
 	}
-	
-
 
 	@Init
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-	@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
-			
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
 
 	// initialization code
-
 	{
 		Selectors.wireComponents(view, this, false);
 		this.solicitudapelacionseleccionada = v1;
 		cedula = solicitudapelacionseleccionada.getId().getCedulaEstudiante();
 		concatenacionNombres();
 		concatenacionApellidos();
-		lapso = solicitudapelacionseleccionada.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
-		sancion = solicitudapelacionseleccionada.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
-		lapsosConsecutivos = solicitudapelacionseleccionada.getEstudianteSancionado().getLapsosAcademicosRp();
+		lapso = solicitudapelacionseleccionada.getEstudianteSancionado()
+				.getLapsoAcademico().getCodigoLapso();
+		sancion = solicitudapelacionseleccionada.getEstudianteSancionado()
+				.getSancionMaestro().getNombreSancion();
+		lapsosConsecutivos = solicitudapelacionseleccionada
+				.getEstudianteSancionado().getLapsosAcademicosRp();
 		caso = solicitudapelacionseleccionada.getNumeroCaso();
-		
-		buscarRecaudosEntregados (cedula);
-		
-		if (sancion.equalsIgnoreCase("RR")){
-			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+
+		buscarRecaudosEntregados(cedula);
+
+		if (sancion.equalsIgnoreCase("RR")) {
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, lapso);
 			if (asignaturas != null)
-				for (int i=0; i<asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+				for (int i = 0; i < asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-		}
-		else{
+		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
 			asignaturaLapsosConsecutivos = lapsosConsecutivos;
 		}
 		media = null;
 		doc = new Documento();
-	
+
 	}
-	
 
 	@Command
 	public void closeThis() {
 		window.detach();
 	}
-
-	@NotifyChange({ "lista" })
+	/** registrarSolicitudApelacion
+	 * @return No devuelve ningun valor.
+	 * @throws las Excepciones ocurren cuando se quiera registrar una reconsideracion y no se ha cargado la carta
+	 */
+	@NotifyChange({ "listaSancionados" })
 	@Command
 	public void registrarSolicitudApelacion() {
 
@@ -479,8 +406,9 @@ public class VMRegistrarReconsideracion {
 			apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(hora);
-			
-			idTipoMotivo  = listaRecaudos.get(0).getMotivo().getId().getIdTipoMotivo();
+
+			idTipoMotivo = listaRecaudos.get(0).getMotivo().getId()
+					.getIdTipoMotivo();
 			motivoPK.setCedulaEstudiante(cedula);
 			motivoPK.setCodigoLapso(lapso);
 			motivoPK.setIdInstanciaApelada(2);
@@ -495,14 +423,13 @@ public class VMRegistrarReconsideracion {
 			recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
 			recaudoEntregado.setId(recaudoEntregadoPK);
 			recaudoEntregado.setEstatus(true);
-		
+
 			soporte.setRecaudoEntregado(recaudoEntregado);
 			soporte.setDocumento(doc);
 			soporte.setEstatus(true);
 			soporte.setFechaSubida(fecha);
 			soporte.setRecaudoEntregado(recaudoEntregado);
 
-	
 		}
 		try {
 
@@ -515,11 +442,14 @@ public class VMRegistrarReconsideracion {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
-			serviciolista.buscarApelaciones();
 		}
 
 	}
-
+	/** cargarCartaReconsideracion
+	 * @param 
+	 * @return Documento cargado 
+	 * @throws Ocurren cuando se intenta cargar un archivo no soportado.
+	 */
 	@Command
 	@NotifyChange("nombreDoc")
 	public void cargarCartaReconsideracion(
@@ -546,19 +476,24 @@ public class VMRegistrarReconsideracion {
 			}
 		}
 	}
-
+	/** descargarDocumento
+	 * @param 
+	 * @return Documento descargado
+	 */
 	@Command
 	public void descargarDocumento(
-			
-			@ContextParam(ContextType.COMPONENT) Component componente) {
+
+	@ContextParam(ContextType.COMPONENT) Component componente) {
 		idRecaudo = listaRecaudos.get(0).getId().getIdRecaudo();
 		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo")
 				.toString());
 		for (int j = 0; j < listaRecaudos.size(); j++) {
 			if (listaRecaudos.get(j).getId().getIdRecaudo() == idRecaudo)
-				Filedownload.save(listaRecaudos.get(j).getSoporte().getDocumento().getContenidoDocumento(),
-						listaRecaudos.get(j).getSoporte().getDocumento().getTipoDocumento(), listaRecaudos
-								.get(j).getSoporte().getDocumento().getNombreDocumento());
+				Filedownload.save(listaRecaudos.get(j).getSoporte()
+						.getDocumento().getContenidoDocumento(), listaRecaudos
+						.get(j).getSoporte().getDocumento().getTipoDocumento(),
+						listaRecaudos.get(j).getSoporte().getDocumento()
+								.getNombreDocumento());
 		}
 
 	}
@@ -582,9 +517,6 @@ public class VMRegistrarReconsideracion {
 				doc.setTipoDocumento(media.getContentType());
 				doc.setContenidoDocumento(media.getByteData());
 				nombreDoc = doc.getNombreDocumento();
-
-				String idRecaudo = componente.getAttribute("idRecaudo")
-						.toString();
 
 			} else {
 				Messagebox.show(media.getName()
