@@ -121,14 +121,14 @@
 				<listitem>
 					<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
 					<listcell label="${each.getRecaudo().getNombreRecaudo()}" />
-					<listcell label="${each.getSoporte().getDocumento().getNombreDocumento()}" />
-<!-- 					<listcell> -->
-<!-- 						<a label="${each.getSoporte().getDocumento().getNombreDocumento()}" -->
-<!-- 							onClick="@command('descargarDocumento', componente=self)"> -->
-<!-- 							<custom-attributes -->
-<!-- 								idRecaudo="${each.idRecaudo}" /> -->
-<!-- 						</a> -->
-<!-- 					</listcell> -->
+<!-- 					<listcell label="${each.getSoporte().getDocumento().getNombreDocumento()}" /> -->
+					<listcell>
+						<a label="${each.getSoporte().getDocumento().getNombreDocumento()}"
+							onClick="@command('descargarDocumento', componente=self)">
+							<custom-attributes
+								idRecaudo="${each.getId().getIdRecaudo()}" />
+						</a>
+					</listcell>
 				</listitem>
 			</template>
 		</listbox>
