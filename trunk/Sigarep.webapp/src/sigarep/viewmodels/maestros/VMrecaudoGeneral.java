@@ -1,15 +1,12 @@
 package sigarep.viewmodels.maestros;
 import java.util.List;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
-
-import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.maestros.RecaudoFiltro;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
@@ -36,8 +33,8 @@ public class VMrecaudoGeneral {
 	private List<Recaudo> listaRecaudo;
 	
 	private Recaudo recaudoSeleccionado;
-	private RecaudoFiltro filtros = new RecaudoFiltro();
-	mensajes mensajeAlUsuario = new mensajes();
+
+   MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	private String nombreRecaudoFiltro="";
 
@@ -55,14 +52,6 @@ public class VMrecaudoGeneral {
 	public Integer getIdRecaudo() {
 		return idRecaudo;
 	}
-	public RecaudoFiltro getFiltros() {
-		return filtros;
-	}
-
-	public void setFiltros(RecaudoFiltro filtros) {
-		this.filtros = filtros;
-	}
-
 	public void setIdRecaudo(Integer idRecaudo) {
 		this.idRecaudo = idRecaudo;
 	}
