@@ -44,6 +44,9 @@ public class EstudianteSancionado implements Serializable {
 	@Column(name="unidades_cursadas", nullable=false)
 	private Integer unidadesCursadas;
 	
+	@Column(name="periodo_sacion", nullable=true)
+	private Integer periodoSancion;
+	
 	@Column(name="estatus", nullable=true)
 	private boolean estatus;
 
@@ -212,5 +215,13 @@ public class EstudianteSancionado implements Serializable {
 		solicitudApelacion.setEstudianteSancionado(null);
 
 		return solicitudApelacion;
+	}
+
+	public Integer getPeriodoSancion() {
+		return periodoSancion;
+	}
+
+	public void setPeriodoSancion(Integer periodoSancion) {
+		this.periodoSancion = periodoSancion;
 	}
 }
