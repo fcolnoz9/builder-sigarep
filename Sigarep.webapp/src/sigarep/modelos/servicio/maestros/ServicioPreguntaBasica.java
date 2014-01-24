@@ -11,35 +11,50 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.repositorio.maestros.IPreguntaBasicaDAO;
 
-// El servicio interactua con la base de datos
+/**PreguntaBasica
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0
+ * @since -/12/13
+ */
 
 @Service("serviciopreguntabasica") //Definiendo la variable servicio
 public class ServicioPreguntaBasica{
 	private @Autowired IPreguntaBasicaDAO pre ;
 
-	// Servicio para guardar una pregunta
+	/** guardar
+	 * @param preguntaBasica.
+	 * @return No devuelve ningun valor.
+	 */
 	public void guardarPregunta(PreguntaBasica preb) {
 		
     pre.save(preb);
 	}
 	
-	// Servicio que elimina una pregunta
+	/** eliminar
+	 * @param idPreguntaBasica
+	 * @return No devuelve ningun valor.
+	 */
 	public void eliminarPregunta(Integer idPreguntaBasica){
 		PreguntaBasica pb = pre.findOne(idPreguntaBasica);
 		pb.setEstatus(false);
 		pre.save(pb);
 	}
 	
-//	//Servicio para la busqueda de una pregunta
-//	public PreguntaBasica buscarPregunta(Integer idPreguntaBasica){
-//		return pre.findOne(idPreguntaBasica);
-//	
-//	}
-//	
+	/** listadoPreguntas
+	 * @param una listadoPreguntas
+	 * @return listadoPreguntas.
+	 */
 	
 	public List<PreguntaBasica> listadoPreguntas() {
 	    return pre.buscarPreguntab() ;
 	}
+	
+	/** buscarPr
+	 * @param pregunta
+	 * @return resultado es un listadoPregunta.
+	 * @throws la Excepcion es que la pregunta o respuesta este en blanco.
+	 */
 	public List<PreguntaBasica> buscarPr(String pregunta){
 		List<PreguntaBasica> result = new LinkedList<PreguntaBasica>();
 		if (pregunta==null || "".equals(pregunta)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los profesores

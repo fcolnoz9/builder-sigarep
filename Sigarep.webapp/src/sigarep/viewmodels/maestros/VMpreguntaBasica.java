@@ -9,6 +9,12 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.servicio.maestros.ServicioPreguntaBasica;
 
+/**PreguntaBasica
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since -/12/13
+ */
 
 @SuppressWarnings("serial") //anotación se utiliza para evitar un error en tiempo de compilación al implementar la interfaz java.io.Serializable
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -71,6 +77,11 @@ public class VMpreguntaBasica {
 		buscarPregunta (); 
     }
 // Metodos de la clase
+	/** guardarPreguntaBasica
+	 * @param id_pregunta_basica, pregunta, respuesta, estatus, listaPregunta
+	 * @return No devuelve ningun valor.
+	 * @throws las Excepciones ocurren cuando se quiera registrar una PreguntaBasica y haya campos en blanco.
+	 */
 	@Command // Permite manipular la propiedad de ViewModel
 	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 	public void guardarPregunta(){
@@ -83,17 +94,30 @@ public class VMpreguntaBasica {
 		limpiar();
 		}
 	}
+	/** limpiar
+	 * @param id_pregunta_basica, pregunta, respuesta, estatus, listaPregunta
+	 * @return No devuelve ningun valor.
+	 */
 	@Command
 	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus"})
 	public void limpiar(){
 		 pregunta = "";respuesta="";
 		 buscarPregunta ();
 	}
+
+	/** buscarPreguntaBasica
+	 * @return Devuelve una lista de preguntas.
+	 */
 	@Command
 	@NotifyChange({"listaPregunta"})
 	public void buscarPregunta(){
 		listaPregunta =serviciopreguntabasica.buscarPr(pregunta);
 	}
+	/** eliminarPreguntaBasica
+	 * @param id_pregunta_basica, pregunta, respuesta, estatus, listaPregunta.
+	 * @return No devuelve ningun valor.
+	 * @throws la Excepcion es que quiera eliminar con los campos vacios, sin seleccionar ningun registro
+	 */
 	@Command
 	@NotifyChange({"listaPregunta","pregunta","respuesta"})
 	public void eliminarPreguntaBasica(){
@@ -106,6 +130,10 @@ public class VMpreguntaBasica {
 		mensajesusuario.informacionEliminarCorrecto();
 	}
 	}
+	/** mostrarSeleccionada
+	 * @param pregunta, respuesta.
+	 * @return No devuelve ningun valor.
+	 */
 	@Command
 	@NotifyChange({"pregunta","respuesta"})
 	public void mostrarSeleccionada(){
