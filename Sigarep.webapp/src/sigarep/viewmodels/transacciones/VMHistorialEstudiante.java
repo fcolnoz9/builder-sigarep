@@ -3,7 +3,6 @@ package sigarep.viewmodels.transacciones;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -21,8 +20,13 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudiante;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
 import sigarep.modelos.servicio.transacciones.ServicioHistorialEstudiante;
-
-
+/**
+ * HistorialEstudiante 
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0
+ * @since 23/01/14
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMHistorialEstudiante {
 	@Wire("#modalDialog")
@@ -54,19 +58,17 @@ public class VMHistorialEstudiante {
 	private ListaHistorialEstudiante listahistorialestudiante;
 	private List<TipoMotivo> listaTipoMotivo;
 	private String cedula;
-
-	@WireVariable
-	private ServicioHistorialEstudiante serviciohistorial;
-
 	mensajes msjs = new mensajes(); // para llamar a los diferentes mensajes de
 									// dialogo
 
 	@WireVariable
+	private ServicioHistorialEstudiante serviciohistorial;
+	@WireVariable
 	private List<ListaHistorialEstudiante> lista = new LinkedList<ListaHistorialEstudiante>();
-	
 	@WireVariable
 	private List<ListaHistorialEstudianteVeredicto> listaVeredicto = new LinkedList<ListaHistorialEstudianteVeredicto>();
 	
+	// Metodos get y set
 	public List<ListaHistorialEstudianteVeredicto> getListaVeredicto() {
 		return listaVeredicto;
 	}
@@ -92,7 +94,6 @@ public class VMHistorialEstudiante {
 			ListaHistorialEstudiante listahistorialestudiante) {
 		this.listahistorialestudiante = listahistorialestudiante;
 	}
-
 
 	public List<TipoMotivo> getListaTipoMotivo() {
 		return listaTipoMotivo;
@@ -293,8 +294,11 @@ public class VMHistorialEstudiante {
 	public void setIndiceGrado(Float indiceGrado) {
 		this.indiceGrado = indiceGrado;
 	}
-
-
+ // fin de metodos get y set
+	
+	/** concatenacionNombres
+	 * @return devuelve primer y segundo nombre concatenados
+	 */
 	public void concatenacionNombres() {
 
 		String nombre1 = nombre;
@@ -302,7 +306,9 @@ public class VMHistorialEstudiante {
 		nombres = nombre1 + " " + nombre2;
 		System.out.println(nombres);
 	}
-
+	/** concatenacionApellidos
+	 * @return devuelve primer y segundo apellido concatenados
+	 */
 	public void concatenacionApellidos() {
 
 		String apellido1 = apellido;
@@ -310,8 +316,10 @@ public class VMHistorialEstudiante {
 		apellidos = apellido1 + " " + apellido2;
 
 	}
-
-	
+	/** buscarveredicto
+	 * @param cedula 
+	 * @return Lista de veredictps dados a un estudiante que apelo
+	 */
 	@Command
 	@NotifyChange({ "listaVeredicto" })
 	public void buscarVeredicto(String cedula) {
