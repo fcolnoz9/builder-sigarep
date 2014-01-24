@@ -60,6 +60,10 @@
 			</listbox>
 		</groupbox>
 		<div align="right" height="100%">
+			<button label="Finalizar" mold="trendy" id="btnFinalizar"
+				image="/imagenes/iconos/finalizar.png" width="auto" height="auto"
+				orient="horizontal">
+			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 				orient="horizontal" onClick = "winListaGenericaSancionados.onClose()" >

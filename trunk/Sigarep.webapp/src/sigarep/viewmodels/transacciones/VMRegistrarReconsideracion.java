@@ -25,6 +25,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 import sigarep.modelos.data.maestros.*;
 
@@ -546,19 +547,21 @@ public class VMRegistrarReconsideracion {
 		}
 	}
 
-//	@Command
-//	public void descargarDocumento(
-//			@ContextParam(ContextType.COMPONENT) Component componente) {
-//		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo")
-//				.toString());
-//		for (int j = 0; j < listaRecaudos.size(); j++) {
-//			if (listaRecaudos.get(j).getIdRecaudo() == idRecaudo)
-//				Filedownload.save(listaRecaudos.get(j).getContenidoDocumento(),
-//						listaRecaudos.get(j).getTipoDocumento(), listaRecaudos
-//								.get(j).getNombreDocumento());
-//		}
-//
-//	}
+	@Command
+	public void descargarDocumento(
+			
+			@ContextParam(ContextType.COMPONENT) Component componente) {
+		idRecaudo = listaRecaudos.get(0).getId().getIdRecaudo();
+		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo")
+				.toString());
+		for (int j = 0; j < listaRecaudos.size(); j++) {
+			if (listaRecaudos.get(j).getId().getIdRecaudo() == idRecaudo)
+				Filedownload.save(listaRecaudos.get(j).getSoporte().getDocumento().getContenidoDocumento(),
+						listaRecaudos.get(j).getSoporte().getDocumento().getTipoDocumento(), listaRecaudos
+								.get(j).getSoporte().getDocumento().getNombreDocumento());
+		}
+
+	}
 
 	@Command
 	public void cargarDocumento(
