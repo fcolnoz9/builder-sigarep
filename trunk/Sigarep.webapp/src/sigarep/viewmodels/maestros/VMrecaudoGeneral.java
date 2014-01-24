@@ -166,6 +166,7 @@ public class VMrecaudoGeneral {
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "listaRecaudos"})
 	public void mostrarSeleccionado(){
+		idRecaudo=recaudoSeleccionado.getIdRecaudo();
 		descripcion=recaudoSeleccionado.getDescripcion();
 		nombreRecaudo=recaudoSeleccionado.getNombreRecaudo();
 		observacion=recaudoSeleccionado.getObservacion();
