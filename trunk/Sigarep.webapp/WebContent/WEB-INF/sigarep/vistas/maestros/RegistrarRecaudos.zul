@@ -22,7 +22,7 @@
 						value="Recaudos" />
 					<combobox readonly="true" id="cmbRecaudoGeneral"
 						value="@bind(vm.nombreRecaudo)" width="auto" mold="rounded"
-						model="@load(vm.listaRecaudos)"
+						model="@load(vm.listaRecaudo)"
 						selectedItem="@bind(vm.recaudo)"
 						onSelect="@command('objetoComboRecaudoGeneral')">
 						<template name="model">
