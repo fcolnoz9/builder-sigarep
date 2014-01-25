@@ -1,6 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winRecuperarContrasenna" title="Seguridad funcional Sigarel - Recuperar Contraseña" border="normal" 
+	<window id="winRecuperarContrasenna" title="Seguridad funcional Sigarep - Recuperar Contraseña" border="normal" 
 	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUsuario')" width="40%" closable="true"
 	position="center,center">
 		<div align="center">

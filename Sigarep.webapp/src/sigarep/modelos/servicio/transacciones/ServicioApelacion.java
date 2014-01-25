@@ -247,7 +247,7 @@ public class ServicioApelacion  {
 					"AND sap.cedula_estudiante = m.cedula_estudiante AND " +
 					"sap.codigo_lapso = m.codigo_lapso AND " +
 					"sap.id_instancia_apelada = m.id_instancia_apelada AND sap.cedula_estudiante = '"+cedulaEstudiante+"' " +
-					"AND sap.codigo_lapso = '" + codigoLapso +"' AND sap.id_instancia_apelada = '"+idInstancia+"';"; 
+					"AND sap.codigo_lapso = '" + codigoLapso +"' AND sap.id_instancia_apelada = '"+idInstancia+"' AND tm.estatus = TRUE;"; 
 							
 					Query query = em.createNativeQuery(queryStatement4);
 

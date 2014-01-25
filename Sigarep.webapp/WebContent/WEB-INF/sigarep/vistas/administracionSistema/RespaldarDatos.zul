@@ -149,10 +149,9 @@
 		</div>
 		</div>					
 		   		
-   		<space />
    		<groupbox id="grbListaBackups" height="181px">
    		<caption label="Lista de Backups "/>
-   		<div align="center">
+   		<div id="divListBackups" align="center">
 <!--    		FALTA PROGRAMAR ESTA LISTA...No quiere verse el modelo NPI... -->
    		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados"
    		 mold="paging" pageSize="3" model="@{listaDirectorio1}" multiple="false">
@@ -219,7 +218,6 @@
 					application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
 					props.store(escritor, "Incremento");
 					ejecutarComandos(nombreRespaldo, props, path2);
-			     
 				}else{
 					//Cuando existen mas de 5 respaldos de la BD
 					Messagebox.show("Se ha alcanzado el limite de respaldos,¿Desea reemplazar alguno de los ya existentes?",
