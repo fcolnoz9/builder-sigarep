@@ -197,7 +197,7 @@
 											<treecell
 												label="Verificar Recaudos" sclass="transacciones"
 												id="VerificarApelacionesComision"
-												onClick="createWin(VerificarApelacionesComision.getId(), VerificarApelacionesComision.getSclass())" />
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/VerificarRecuados.zul")' />
 										</treerow>
 									</treeitem>
 									<treeitem>
