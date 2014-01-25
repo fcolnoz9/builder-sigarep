@@ -1,5 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +52,8 @@ public class VMCargarRecaudoEntregado {
 	private String apellidos;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private Integer caso;
+	private String fechaApelacion;
+	private Integer peridoSancion;
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos="";
 	private String labelAsignaturaLapsosConsecutivos;
@@ -192,6 +195,9 @@ public class VMCargarRecaudoEntregado {
 		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
 		this.caso = sa.getNumeroCaso();
 		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
+		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
+		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		
 		concatenacionNombres();
 		concatenacionApellidos();
@@ -219,7 +225,6 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		//listaRecaudos = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
 		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
 	}
 
@@ -230,18 +235,19 @@ public class VMCargarRecaudoEntregado {
 
 	@Command
 	public void descargarRecaudoEntregado(@ContextParam(ContextType.COMPONENT) Component componente) {
-		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
+		int idSoporte = Integer.parseInt(componente.getAttribute("idSoporte").toString());
 		for (int j = 0; j < listaRecaudo.size(); j++) {
-			if (listaRecaudo.get(j).getId().getIdRecaudo() == idRecaudo)
-				Filedownload.save(listaRecaudo.get(j).getSoporte().getDocumento().getContenidoDocumento(),
-				listaRecaudo.get(j).getSoporte().getDocumento().getTipoDocumento(),
-				listaRecaudo.get(j).getSoporte().getDocumento().getNombreDocumento());
+			if (listaRecaudo.get(j).getSoporte()!=null){
+				if (listaRecaudo.get(j).getSoporte().getIdSoporte() == idSoporte)
+					Filedownload.save(listaRecaudo.get(j).getSoporte().getDocumento().getContenidoDocumento(),
+					listaRecaudo.get(j).getSoporte().getDocumento().getTipoDocumento(),
+					listaRecaudo.get(j).getSoporte().getDocumento().getNombreDocumento());
+			}
 		}
-
 	}
 
 	@Command
-	@NotifyChange({"listaRecaudos" })
+	@NotifyChange({"listaRecaudo" })
 	public void cargarRecaudoEntregado(
 			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event,
 			@ContextParam(ContextType.COMPONENT) Component componente) {
@@ -279,16 +285,14 @@ public class VMCargarRecaudoEntregado {
 	}
 	
 	@Command
-	@NotifyChange({"listaRecaudos" })
+	@NotifyChange({"listaRecaudo" })
 	public void eliminarRecaudoEntregado(@ContextParam(ContextType.COMPONENT) Component componente) {			
-		/*SoportePK soportePK = new SoportePK(Integer.parseInt(componente.getAttribute("idRecaudo").toString()), 
-											Integer.parseInt(componente.getAttribute("idTipoMotivo").toString()),
-											lapso, cedula, instancia);
-		if (serviciosoporte.buscarSoportePorID(soportePK) != null){
-			serviciosoporte.eliminar(soportePK);
+		Integer idSoporte = Integer.parseInt(componente.getAttribute("idSoporte").toString());
+		if (serviciosoporte.buscarSoportePorID(idSoporte) != null){
+			serviciosoporte.eliminar(idSoporte);
 			buscarRecaudosEntregados(cedula);
 			msjs.informacionEliminarCorrecto();
-		}*/
+		}
 	}
 
 	public String getAsignaturaLapsosConsecutivos() {
@@ -316,4 +320,19 @@ public class VMCargarRecaudoEntregado {
 		this.listaRecaudo = listaRecaudo;
 	}
 
+	public String getFechaApelacion() {
+		return fechaApelacion;
+	}
+
+	public void setFechaApelacion(String fechaApelacion) {
+		this.fechaApelacion = fechaApelacion;
+	}
+
+	public Integer getPeridoSancion() {
+		return peridoSancion;
+	}
+
+	public void setPeridoSancion(Integer peridoSancion) {
+		this.peridoSancion = peridoSancion;
+	}
 }
