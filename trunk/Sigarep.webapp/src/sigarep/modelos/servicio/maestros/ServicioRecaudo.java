@@ -53,10 +53,16 @@ public class ServicioRecaudo {
 		List<Recaudo> listaRecaudos=iRecaudoDAO.buscaRecaudosActivos();
 	    return listaRecaudos;
 	}
+	
+	public List<Recaudo> listadoRecaudos() {
+		List<Recaudo> listaRecaudos=iRecaudoDAO.buscaRecaudos();
+	    return listaRecaudos;
+	}
+	
 	//Busca en la lista de Recaudo
 	public List<Recaudo> buscarRecaudo(String nombreRecaudo,String  nombreTipoMotivo) {
 		List<Recaudo> resultado = new LinkedList<Recaudo>();	
-		if (nombreRecaudo == null ||nombreTipoMotivo==null ) {
+		if (nombreRecaudo == null ||nombreTipoMotivo==null || nombreRecaudo.equals("") ||nombreTipoMotivo.equals("") ) {
 			resultado = listadoRecaudosActivos();
 		} else {
 			for (Recaudo rec : listadoRecaudosActivos()) {
