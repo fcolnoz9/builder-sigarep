@@ -1,38 +1,22 @@
-<zk>
-	<window id="winNoticiaPortal"
-		title="" border="normal"
-		width="auto" height="auto" contentStyle="overflow:auto"
-		apply="org.zkoss.bind.BindComposer" closable="false"
-		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
-		
-	<div apply="sigarep.viewmodels.maestros.VMnoticia">	
-		<timer id="tiempo" delay="5000" repeats="true">
-			<attribute name="onTimer">
-<!--  			Listitem listi = lbxNoticias.getChildren().get(lbxNoticias.getChildren().size()-2);  -->
-<!--  			lbxNoticias.removeChild(lbxNoticias.getChildren().get(lbxNoticias.getChildren().size()-2));  -->
-<!--  			lbxNoticias.insertBefore(listi, (Component) lbxNoticias.getChildren().get(0)); 	 -->
-			</attribute> 
-		</timer>
-		<groupbox>
-			<caption label="NOTICIAS" />
-			<listbox id="lbxNoticias" height="300px"
-				model="@bind(vm.listaNoticia)"
-				selectedItem="@bind(vm.noticiaSeleccionada)"
-				onSelect="@command('mostrarSeleccionado2')"
-				emptyMessage="No hay noticias disponibles" mold="paging" >
-				<auxhead sclass="category-center">
-
-					<auxheader colspan="1" align="center"></auxheader>
-				</auxhead>
-				<template name="model">
-					<listitem selected="false">
-
-						<listcell label="${each.titulo}"></listcell>
-					</listitem>
-				</template>
-			</listbox>
-		</groupbox>
-		</div>
-	</window>
-</zk>
-	
+<window id="winNoticiaPortal" contentStyle="overflow:auto" vflex="1" hflex="1"
+	apply="org.zkoss.bind.BindComposer" closable="false"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
+	<timer id="tiempo" delay="5000" repeats="true">
+		<attribute name="onTimer">
+			</attribute>
+	</timer>
+	<listbox id="lbxNoticias" hflex="1" vflex="1"
+		model="@bind(vm.listaNoticia)"
+		selectedItem="@bind(vm.noticiaSeleccionada)"
+		onSelect="@command('mostrarSeleccionado2')"
+		emptyMessage="No hay noticias disponibles">
+		<auxhead sclass="category-center">
+			<auxheader colspan="1" align="center"></auxheader>
+		</auxhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.titulo}"></listcell>
+			</listitem>
+		</template>
+	</listbox>
+</window>

@@ -15,13 +15,13 @@
 			<rows>
 				<row>
 					<label value="Nombre" id="lblSancion" />
-					<textbox id="txtNombreSancion" cols="23"
-						constraint="no empty: Ingrese nombre de la sanción" width="300px"
+					<textbox id="txtNombreSancion" cols="23" mold="rounded"
+						constraint="no empty: Ingrese nombre de la sanción" width="80%"
 						maxlength="30" value="@bind(vm.nombre)">
 					</textbox>
 					<label value="Descripción: " id="lblDescripcion" />
-					<textbox id="txtDescripcionSancion" width="300px"
-						constraint="no empty: Ingrese la descripción de la sanción"
+					<textbox id="txtDescripcionSancion" width="77%" mold="rounded"
+						constraint="no empty: Ingrese la descripción del tipo de sanción"
 						rows="3" value="@bind(vm.descripcion)" />
 				</row>
 			</rows>
@@ -58,7 +58,7 @@
 			<listhead>
 				<listheader label="Nombre" align="center"
 					sort="auto(nombreSancion)">
-					<textbox id="filtroNombre" instant="true"
+					<textbox id="filtroNombre" instant="true" mold="rounded"
 						width="100px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />

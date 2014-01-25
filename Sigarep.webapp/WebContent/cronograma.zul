@@ -2,7 +2,7 @@
 	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMListaCronograma')">
 	<listbox id="lbxCronograma" model="@bind(vm.lista)" vflex="1"
 		sizedByContent="true" span="true" emptyMessage="No hay actividades programadas"
-		mold="paging" pageSize="5" selectedItem="@bind(vm.listaCronograma)"
+		 selectedItem="@bind(vm.listaCronograma)"
 		onClick="@command('showModal')">
 		<listhead height="15px">
 			<listheader label="Fecha" align="center"

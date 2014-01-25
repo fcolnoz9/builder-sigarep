@@ -1,38 +1,30 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<zk>
-
-    <window id="modalDialog"
-        title="Noticia"
-        width="80%" height="80%" border="normal" minimizable="false"
-        mode="modal" maximizable="false" closable="true"
-        action="hide: slideUp" apply="org.zkoss.bind.BindComposer"
-        onCancel="@command('closeThis')"
-        viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMWindow')">
-
-        <separator />
-        
-       <groupbox> 
-       		<div align="center">
-       			<label value="@bind(vm.titulo)" />
-       			<space></space><space></space>
-		        <hlayout>
-		        	<image height="400px" width="400px" content="@bind(vm.fotoNoticia.getAImage())" />
-		        	<vlayout>
-		        		<cell width="90%" rowspan="1" align="center" >
-<!--                    			<label  width="90%" row="10" value="@bind(vm.contenido)" /> -->
-							<textbox rows="5" cols="60" value="@bind(vm.contenido)" readonly="true" >
-    							<attribute name="value">
-    							</attribute>
-							</textbox>
-                		</cell>
-		        		<cell width="50%" rowspan="1" align="center" >
-		        		<a href="@bind(vm.enlaceNoticia)">ENLACE</a>
-		        		</cell>
-		        	</vlayout>
-		        </hlayout>
-	        </div>
-        </groupbox>
-     
-        
-    </window>
-</zk>
+<window id="modalDialog" title="@bind(vm.titulo)" width="80%" vflex="1"
+	hflex="1" height="80%" border="normal" minimizable="false" mode="modal"
+	maximizable="false" closable="true" action="hide: slideUp"
+	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMWindow')">
+	<borderlayout>
+		<north size="80px" border="none">
+			<hbox align="center" pack="center" vflex="1" hflex="1">
+				<label value="@bind(vm.titulo)" sclass="head1" />
+			</hbox>
+		</north>
+		<west size="40%" border="none">
+			<hbox pack="center" vflex="1" hflex="1">
+				<image height="auto" width="400px"
+					content="@bind(vm.fotoNoticia.getAImage())" />
+			</hbox>
+		</west>
+		<center border="none">
+			<vbox vflex="1" hflex="1">
+				<textbox width="650px"
+					style="border-style : none; background: #FFF" readonly="true"
+					rows="10" sclass="head2" value="@bind(vm.contenido)">
+				</textbox>
+				<a href="@bind(vm.enlaceNoticia)" sclass="head2">
+					Enlace
+				</a>
+			</vbox>
+		</center>
+	</borderlayout>
+</window>
