@@ -159,7 +159,7 @@ public class VMinstanciaApelada {
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
 	public void limpiar(){
-		idInstanciaApelada = 0;
+		idInstanciaApelada = null;
 		instanciaApelada = "";
 		nombreRecursoApelacion = "";
 		descripcion = "";
