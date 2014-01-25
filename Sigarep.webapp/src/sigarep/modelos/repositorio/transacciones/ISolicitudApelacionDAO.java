@@ -15,9 +15,6 @@ import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 
 public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion, SolicitudApelacionPK> {
 
-//	@Query("select sa from SolicitudApelacion sa where sa.fechaSolicitud<=?1")
-//	public List<SolicitudApelacion> buscarPorFechaHasta(Date fecha);
-
 	@Query("select sa from SolicitudApelacion sa where sa.id.codigoLapso=:codigoLapso")
 	public List<SolicitudApelacion> buscarPorLapso(@Param("codigoLapso")String codigoLapso);
 	
@@ -34,10 +31,13 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"WHERE sa.id.codigoLapso = la.codigoLapso " +
 			"AND la.estatus = 'TRUE'")
 	public List<SolicitudApelacion> buscarSolicitudesCargarRecaudoEntregado();
-
 	
-	 //@Query()
-	 //public List<SolicitudApelacion> solicitudesApelacionPorSancionado(EstudianteSancionadoPK id);
+	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE' " +
+			"AND sa.verificado = 'FALSE'")
+	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI();
+
 	
 	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
 			"EstudianteSancionado esa, ApelacionEstadoApelacion ap where la.estatus = 'TRUE' and " +
