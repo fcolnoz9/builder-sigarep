@@ -309,7 +309,7 @@ public class VMListaHistorialEstudiante {
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
-		listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
+		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
 	}
 
 	@Command
