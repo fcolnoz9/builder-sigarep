@@ -361,7 +361,7 @@ public class ViewModelListaAnalizarValidez {
 	  	@Command
 		@NotifyChange({ "listaPrograma" })
 		public void buscarProgramaA() {
-			listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
+			listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
 		}
 //	  	@Command
 //		@NotifyChange({"lista"})
