@@ -178,6 +178,7 @@ public class VMEstadoApelacion {
 	@Command
 	@NotifyChange({ "nombreEstado", "descripcion","listaEstadoApelacion"})
 	public void limpiar() {
+		idEstadoApelacion = null;
 		nombreEstado = "";
 		descripcion = "";
 		instanciaApelada=null;
