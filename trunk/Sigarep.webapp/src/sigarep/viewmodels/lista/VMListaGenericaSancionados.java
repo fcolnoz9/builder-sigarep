@@ -175,7 +175,7 @@ public class VMListaGenericaSancionados {
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
-		listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
+		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
 	}
 	
 	//Metodo donde se decide cuales sancionados se deben buscar segun la transaccion
