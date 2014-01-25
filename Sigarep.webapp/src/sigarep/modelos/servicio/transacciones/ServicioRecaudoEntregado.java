@@ -64,4 +64,9 @@ public class ServicioRecaudoEntregado {
 	public List<RecaudoEntregado> buscarRecaudosEntregadosReconsideracion(String cedula){
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosReconsideracion(cedula);
 	}
+	
+//Maria Flores
+	public List<RecaudoEntregado> buscarRecaudosEntregadosRecurso(String cedula){
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosRecurso(cedula);
+	}
 }
