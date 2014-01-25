@@ -67,6 +67,10 @@ public class ServicioSolicitudApelacion {
 		return new SolicitudApelacion();
 	}
 	
+	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI(){
+		return iSolicitudApelacionDAO.buscarApelacionesVerificarRecaudosI();
+	}
+	
 	public List<String> historicoSolicitudApelacion(LapsoAcademico lapso){
 		List<String> listaElementosAInsertar = new ArrayList<String>();
 		String elementoAInsertar;
