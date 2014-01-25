@@ -73,24 +73,25 @@
 	<field name="programa" class="java.lang.String"/>
 	<field name="observaciones" class="java.lang.String"/>
 	<field name="field1" class="java.lang.String"/>
+	<field name="lapso" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="181" splitType="Stretch">
 			<staticText>
-				<reportElement x="123" y="72" width="304" height="45" uuid="f740bd15-9b60-4a11-8fde-7dde4c5cee88"/>
+				<reportElement x="86" y="72" width="398" height="45" uuid="f740bd15-9b60-4a11-8fde-7dde4c5cee88"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="134" y="117" width="281" height="43" uuid="eb9b761a-9421-46e3-9c6e-ee6323ec92c5"/>
+				<reportElement x="86" y="117" width="309" height="43" uuid="eb9b761a-9421-46e3-9c6e-ee6323ec92c5"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Lista de Resultado de Apelaciones]]></text>
+				<text><![CDATA[Lista de Resultado de Apelaciones Lapso]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="223" y="142" width="100" height="31" uuid="723cd066-70e2-4fed-93cf-b90166261ed9"/>
@@ -100,17 +101,24 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{programa}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="30" y="71" width="86" height="87" uuid="08f2e6c3-c34b-47e8-af18-4e10a5a08ad4"/>
+				<reportElement x="0" y="71" width="86" height="87" uuid="08f2e6c3-c34b-47e8-af18-4e10a5a08ad4"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="430" y="71" width="87" height="87" uuid="35d67ce7-30d4-4093-be0d-14daa21d3dd3"/>
+				<reportElement x="484" y="73" width="87" height="87" uuid="35d67ce7-30d4-4093-be0d-14daa21d3dd3"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="0" y="0" width="572" height="71" uuid="83285c2b-e532-437c-8f55-874332d1f61f"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="395" y="118" width="103" height="29" uuid="12e8632f-d9b9-4d62-8a2d-7e55666fcd82"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lapso}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
