@@ -84,11 +84,14 @@
 }
 
 .head1 {
-	font-size: large;
+	font-weight: bold;
+	font-size: x-large;
+	text-align: center;
 }
 
 .head2 {
 	font-size: medium;
+	text-align: justify;
 }
 
 .row-title .z-label {
