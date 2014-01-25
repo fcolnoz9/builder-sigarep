@@ -488,7 +488,7 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaSancion" })
 	public void buscarSancion() {
-		listaSancion = serviciosancionmaestro.listadoSanciones();
+		listaSancion = serviciosancionmaestro.listaTipoSanciones();
 	}
 
 	@Command
@@ -648,7 +648,7 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({"listaSancionado","cedula","primerNombre","segundoApellido","nombreSancion"})
 	public void filtros(){
-		listaSancionado = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, nombreSancion);
+		//listaSancionado = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, nombreSancion);
 	}
  	
 	
