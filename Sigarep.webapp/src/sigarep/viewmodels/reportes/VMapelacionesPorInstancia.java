@@ -123,7 +123,7 @@ public class VMapelacionesPorInstancia {
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarPrograma() {
-		listaPrograma = servicioprogramaacademico.buscarPr(nombrePrograma);
+		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
 		/*ProgramaAcademico prog = new ProgramaAcademico(null, "Todos", null);
 
 		listaPrograma.add(0, prog);*/
@@ -139,7 +139,7 @@ public class VMapelacionesPorInstancia {
 	@Command
 	@NotifyChange({ "listaTipoSancion" })
 	public void buscarTipoSancion() {
-		listaTipoSancion = serviciosancionmaestro.listadoSanciones();
+		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
 		SancionMaestro sanc = new SancionMaestro(null, null, null, "Todos");
 		listaTipoSancion.add(/* listaTipoSancion.size() */0, sanc);
 	}

@@ -84,7 +84,7 @@ public class VMapelacionesTipoDeSexo {
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarPrograma() {
-		setListaPrograma(servicioprogramaacademico.buscarPr(nombrePrograma));
+		setListaPrograma(servicioprogramaacademico.buscarPrograma(nombrePrograma));
 	}
 
 	@Command
@@ -96,7 +96,7 @@ public class VMapelacionesTipoDeSexo {
 	@Command
 	@NotifyChange({ "listaTipoSancion" })
 	public void buscarTipoSancion() {
-		setListaTipoSancion(serviciosancionmaestro.listadoSanciones());
+		setListaTipoSancion(serviciosancionmaestro.listaTipoSanciones());
 	}
 
 	@Command
