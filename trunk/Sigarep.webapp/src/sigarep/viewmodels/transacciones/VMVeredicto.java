@@ -11,121 +11,61 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
-import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
-import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
-import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioVeredicto;
+import sigarep.modelos.servicio.maestros.ServicioAsignatura;
+import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 
-import java.sql.Time;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMVeredicto {
 	@Wire("#modalDialog")
-    private Window window;
-	
-	@WireVariable
-	private SolicitudApelacion solicitudApelacion;
-	@WireVariable
-	private ServicioSolicitudApelacion serviciosolicitudapelacion;
-	@WireVariable 
-	ServicioVeredicto servicioveredicto;
-    
+	private Window window;
 	private String cedula;
-	private String primerNombre;
-	private String segundoNombre;
-	private String primerApellido;
-	private String segundoApellido;
 	private String sancion;
 	private String programa;
 	private String email;
+	private String primerApellido;
+	private String primerNombre;
 	private String lapso;
 	private Integer instancia;
 	private String recaudo;
-	private String asignatura;
-	private Integer caso;
-	private float indice;
-	
-	private String veredicto;
-	private Date fechaSesion;
-	private String observacion;
-	private String radioSelected;
-	private String apellidos;
+	private String segundoNombre;
+	private String segundoApellido;
 	private String nombres;
-	
-	mensajes msjs = new mensajes();
-		
+	private String apellidos;
+	private List<AsignaturaEstudianteSancionado> asignaturas;
+	private Integer caso;
+	private String fechaApelacion;
+	private Integer peridoSancion;
+	private String lapsosConsecutivos;
+	private String asignaturaLapsosConsecutivos="";
+	private String labelAsignaturaLapsosConsecutivos;
 
-	public String getVeredicto() {
-		return veredicto;
-	}
 
-	public void setVeredicto(String veredicto) {
-		this.veredicto = veredicto;
-	}
+	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	@WireVariable
+	private ServicioAsignatura servicioAsignatura;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 
-	public Date getFechaSesion() {
-		return fechaSesion;
-	}
+	private List<RecaudoEntregado> listaRecaudo; 
 
-	public void setFechaSesion(Date fechaSesion) {
-		this.fechaSesion = fechaSesion;
-	}
-
-	public String getObservacion() {
-		return observacion;
-	}
-
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
-	}
-		
-	public String getSancion() {
-		return sancion;
+	public Integer getCaso() {
+		return caso;
 	}
 
-	public void setSancion(String sancion) {
-		this.sancion = sancion;
+	public void setCaso(Integer caso) {
+		this.caso = caso;
 	}
 
-	public String getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(String programa) {
-		this.programa = programa;
-	}
-
-	public float getIndice() {
-		return indice;
-	}
-
-	public void setIndice(float indice) {
-		this.indice = indice;
-	}
-
-	public String getCedula() {
-		return cedula;
-	}
-
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
-	}
-	public String getLapso() {
-		return lapso;
-	}
-
-	public void setLapso(String lapso) {
-		this.lapso = lapso;
-	}
-	
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -141,7 +81,63 @@ public class VMVeredicto {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
+
+	public String getRecaudo() {
+		return recaudo;
+	}
+
+	public void setRecaudo(String recaudo) {
+		this.recaudo = recaudo;
+	}
 	
+	public Integer getInstancia() {
+		return instancia;
+	}
+
+	public void setInstancia(Integer instancia) {
+		this.instancia = instancia;
+	}
+
+	public String getLapso() {
+		return lapso;
+	}
+
+	public void setLapso(String lapso) {
+		this.lapso = lapso;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public String getSancion() {
+		return sancion;
+	}
+
+	public void setSancion(String sancion) {
+		this.sancion = sancion;
+	}
+
+	public String getPrograma() {
+		return programa;
+	}
+
+	public void setPrograma(String programa) {
+		this.programa = programa;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void concatenacionNombres() {
 		nombres = primerNombre + " " + segundoNombre;
 	}
@@ -149,53 +145,103 @@ public class VMVeredicto {
 	public void concatenacionApellidos() {
 		apellidos = primerApellido + " " + segundoApellido;
 	}
-	
+
 	@Init
-    public void init(@ContextParam(ContextType.VIEW) Component view,
-		    		@ExecutionArgParam("cedula") String v1,
-		    		@ExecutionArgParam("primerNombre") String v2,
-		    		@ExecutionArgParam("primerApellido") String v3,
-		    		@ExecutionArgParam("email") String v4,
-		    		@ExecutionArgParam("programa") String v5,
-		    		@ExecutionArgParam("sancion") String v6,
-		    		@ExecutionArgParam("lapso") String v7,
-		    		@ExecutionArgParam("instancia") Integer v8,
-		    		@ExecutionArgParam("segundoNombre") String v9,
-		    		@ExecutionArgParam("segundoApellido") String v10,
-		    		@ExecutionArgParam("caso") Integer v11,
-		    		@ExecutionArgParam("indice") float v12){
-	
+	public void init(
+		@ContextParam(ContextType.VIEW) Component view,
+		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
+	{
 		Selectors.wireComponents(view, this, false);
-		this.cedula = v1;
-		this.primerNombre = v2;
-		this.primerApellido = v3;
-		this.email = v4;
-		this.programa = v5;
-		this.sancion = v6;
-		this.lapso = v7;
-		this.instancia = v8;
-		this.segundoNombre = v9;
-		this.segundoApellido = v10;
-		this.caso = v11;
+		this.cedula = sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
+		this.primerNombre = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre();
+		this.primerApellido = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido();
+		this.email = sa.getEstudianteSancionado().getEstudiante().getEmail();
+		this.programa = sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
+		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		this.lapso = sa.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
+		this.instancia = sa.getInstanciaApelada().getIdInstanciaApelada();
+		this.segundoNombre = sa.getEstudianteSancionado().getEstudiante().getSegundoNombre();
+		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
+		this.caso = sa.getNumeroCaso();
+		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
+		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
+		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		
 		concatenacionNombres();
 		concatenacionApellidos();
-		solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudPorID(new SolicitudApelacionPK(lapso, cedula, instancia));
-            
-   } 
-    @Command
-    public void closeThis() {
-        window.detach();
-    }
+		mostrarDatosDeSancion();
 
-	public String getRadioSelected() {
-		return radioSelected;
+		buscarRecaudosEntregados(cedula);
+	}
+	
+	private void mostrarDatosDeSancion() {
+		if (sancion.equalsIgnoreCase("RR")){
+			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i=0; i<asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		}
+		else{
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
 	}
 
-	public void setRadioSelected(String radioSelected) {
-		this.radioSelected = radioSelected;
+	@Command
+	@NotifyChange({ "listaRecaudo" })
+	public void buscarRecaudosEntregados(String cedula) {
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoI(cedula);
+		listaRecaudo.get(0);
 	}
-    
+
+	@Command
+	public void closeThis() {
+		window.detach();
+	}
+	
+	public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
+
+	public List<RecaudoEntregado> getListaRecaudo() {
+		return listaRecaudo;
+	}
+
+	public void setListaRecaudo(List<RecaudoEntregado> listaRecaudo) {
+		this.listaRecaudo = listaRecaudo;
+	}
+
+	public String getFechaApelacion() {
+		return fechaApelacion;
+	}
+
+	public void setFechaApelacion(String fechaApelacion) {
+		this.fechaApelacion = fechaApelacion;
+	}
+
+	public Integer getPeridoSancion() {
+		return peridoSancion;
+	}
+
+	public void setPeridoSancion(Integer peridoSancion) {
+		this.peridoSancion = peridoSancion;
+	}
+
   //  @Command
 	//@NotifyChange({"veredicto", "observacion", "responsable","fecha_veredicto"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	//public void guardar(){
