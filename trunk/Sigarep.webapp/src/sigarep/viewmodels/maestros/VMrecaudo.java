@@ -85,6 +85,7 @@ public class VMrecaudo {
 		// initialization code
 		buscarRecaudos();
 		buscarTiposMotivo();
+		buscarTodosRecaudos();
 	}
 	
 	// Metodos GETS Y SETS
@@ -215,14 +216,14 @@ public class VMrecaudo {
 	// OTROS METODOS
 	//Metodos que perimite guardar un recaudo
 	@Command
-	@NotifyChange({"recaudo","tipoMotivo","nombreRecaudo","nombreTipoMotivo","listaRecaudos"})
+	@NotifyChange({"recaudo","tipoMotivo","nombreTipoMotivo", "descripcion", "nombreRecaudo", "observacion", "listaRecaudos"})
 	public void guardarRecaudo(){
-		if (recaudo==null||tipoMotivo==null)
+		if (recaudo==null || tipoMotivo==null)
 			Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
 			//Recaudo recaudo= new Recaudo();
 			
-	        recaudo.setTipoMotivo(tipoMotivo);//Asocia el idTipoMotivo al idRecaudo
+	        recaudo.setTipoMotivo(tipoMotivo);
 	        System.out.println(""+tipoMotivo);
 			serviciorecaudo.guardarRecaudo(recaudo);
 			System.out.println(recaudo.getTipoMotivo().getNombreTipoMotivo());
@@ -231,12 +232,19 @@ public class VMrecaudo {
 		}
 	}
 	
-	// Metodo que permite buscar recaudos
+	// Metodo que permite buscar recaudos activos
 	@Command
-	@NotifyChange({"nombreRecaudo","descripcion","nombreTipoMotivo","tipoMotivo","listaRecaudos"})
+	@NotifyChange({"listaRecaudos"})
 	public void buscarRecaudos(){
 			listaRecaudos  = serviciorecaudo.listadoRecaudosActivos();
 	}
+	// Metodo que permite buscar todos los recaudos para llenar al combo
+	@Command
+	@NotifyChange({"nombreRecaudo","descripcion","nombreTipoMotivo","tipoMotivo","listaRecaudos"})
+	public void buscarTodosRecaudos(){
+			listaRecaudo  = serviciorecaudo.listadoRecaudos();
+	}
+	
 	// Metodo que permite buscar los tipos de motivos
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
@@ -246,29 +254,38 @@ public class VMrecaudo {
 	
 	//Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombreRecaudo","nombreTipoMotivo","listaRecaudos"})
+	@NotifyChange({ "nombreRecaudo","nombreTipoMotivo","recaudo","tipoMotivo","listaRecaudos"})
 	public void limpiar(){
 		nombreTipoMotivo="";
 		nombreRecaudo="";
 		tipoMotivo= null;
 		recaudo= null;
 		buscarRecaudos();
+		
+		//buscarTodosRecaudos();
 	}
 		
 	//Metodo que elimina un recaudo tomando en cuenta el idRecaudo
 		@Command
 		@NotifyChange({"descripcion", "nombreRecaudo", "observacion","nombreTipoMotivo", "tipoMotivo","listaRecaudos"})	
 		public void eliminarRecaudo(){
-			if (nombreRecaudo==null||nombreTipoMotivo==null) {
+			if (nombreRecaudo.equals("")||nombreTipoMotivo.equals("")|| nombreRecaudo==null||nombreTipoMotivo==null) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 			} else {
 			serviciorecaudo.eliminarRecaudo(getRecaudoSeleccionado().getIdRecaudo());
 			limpiar();
 			mensajeAlUsuario.informacionEliminarCorrecto();
+			
 		}
 		}
 		
-	
+//		@Command
+//		@NotifyChange({"descripcion", "nombreRecaudo", "observacion","nombreTipoMotivo", "tipoMotivo","listaRecaudos"})
+//		public void eliminarRecaudo(){
+//			serviciorecaudo.eliminarRecaudo(getRecaudoSeleccionado().getIdRecaudo());
+//			limpiar();
+//			mensajeAlUsuario.informacionEliminarCorrecto();
+//		}
 	//permite tomar los datos del objeto recaudoseleccionado
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "tipoMotivo","nombreTipoMotivo","reacaudo"})
@@ -294,7 +311,7 @@ public class VMrecaudo {
 	}
 	// Metodo que busca los recaudos y las carga en el combobox de recaudos	
 	@Command
-	 @NotifyChange({"listaRecaudos"})
+	 @NotifyChange({"listaRecaudo"})
 	public Recaudo objetoComboRecaudoGeneral() {
 		System.out.println(nombreRecaudo);
 		return recaudo;
