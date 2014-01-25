@@ -100,7 +100,7 @@ style="overflow:auto" action="hide: slideUp"
 <listbox id = "lbxlistareglamentos" rows="2" model="@bind(vm.listaReglamento)" 
 			selectedItem="@bind(vm.reglamentoSeleccionado)"   
    			 onSelect="@command('mostrarSeleccionado')" 
-   			 emptyMessage="No hay banner registrados" mold="paging" pageSize="10" >
+   			 emptyMessage="No hay Documentos registrados" mold="paging" pageSize="10" >
    			 
 <!-- 		Busqueda Por Filtros -->
 <listhead>
