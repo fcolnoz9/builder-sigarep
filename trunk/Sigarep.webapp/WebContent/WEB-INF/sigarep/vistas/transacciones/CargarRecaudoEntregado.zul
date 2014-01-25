@@ -46,7 +46,7 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="" readonly="true">
+						maxlength="30" value="@bind(vm.peridoSancion)" readonly="true">
 					</textbox>
 					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
 					<textbox id="txtAsignatura" cols="55"
@@ -58,7 +58,17 @@
 	</groupbox>
 
 	<groupbox id="grbDatosRecaudo">
-		<caption label="Datos de Recaudos" />
+		<caption label="Datos de la Apelacion" />
+		<grid>
+			<rows>
+				<row>
+					<label value="Número de Caso:" id="lblNumeroCaso" />
+					<textbox id="txtNumeroCaso" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.caso)"></textbox>
+					<label value="Fecha de Apelacion:" id="lblFechaApelacion" />
+					<textbox id="txtFechaApelacion" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.fechaApelacion)"></textbox>
+				</row>
+			</rows>
+		</grid>
 		<grid id="grdCargarRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="5">
 	        <columns>
 	        	<column label="Motivo de Apelación" hflex="3" align="left"></column>
@@ -72,7 +82,7 @@
 		            	<label value="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
 		                <label value="${each.getRecaudo().getNombreRecaudo()}" /> 
 		                <a id="" label="${each.getSoporte().getDocumento().getNombreDocumento()}" onClick="@command('descargarRecaudoEntregado', parametro=self)" >
-		                	<custom-attributes idRecaudo="${each.getRecaudo().getIdRecaudo()}"/>
+		                	<custom-attributes idSoporte="${each.getSoporte().getIdSoporte()}"/>
 		                </a>
 		                <hlayout>
 		                	<button label="Cargar"
@@ -84,8 +94,7 @@
 							<button label="Eliminar"
 									image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 									orient="horizontal" onClick="@command('eliminarRecaudoEntregado', parametro=self)">
-								<custom-attributes idRecaudo="${each.getRecaudo().getIdRecaudo()}"/>
-								<custom-attributes idTipoMotivo="${each.getMotivo().getTipoMotivo().getIdTipoMotivo()}"/>
+								<custom-attributes idSoporte="${each.getSoporte().getIdSoporte()}"/>
 							</button>
 		                </hlayout>
 		            </row>
