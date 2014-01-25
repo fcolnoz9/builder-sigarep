@@ -10,8 +10,7 @@
 		<!-- Contiene los campos que requieren llenarse con los datos de noticia -->
 		
 		<groupbox id="grbNoticia">
-			<caption label="Registrar Noticia" />
-			
+			<caption label="Datos de Noticia" />
 		<!-- Grid exterior -->
 		
 		<grid id="grdDatosImagenNoticia" width="auto">
@@ -21,9 +20,7 @@
 			</columns>
 			<rows>
 				<row>
-				
-				    <!-- Grid interior --> 
-				    
+				    <!-- Grid interior -->  
 					<grid id="grdNoticias" width="auto">
 						<columns>
 							<column label="" width="10%" />
@@ -42,7 +39,7 @@
 									maxlength="90" readonly="false" mold="rounded" width="80%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
 							</row>
 							<row>
-								<label id="lblFecha" value="Fecha Publicacion:" />
+								<label id="lblFecha" value="Fecha Publicación:" />
 								<datebox id="dbfechaPublicacion" mold="rounded" format="dd/MM/yyyy" width="80%" tabindex="4"
 									value="@bind(vm.fechaRegistro)" />
 								<label id="lblFechaVencimiento" value="Fecha Vencimiento:" />
