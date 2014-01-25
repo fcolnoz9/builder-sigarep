@@ -7,7 +7,12 @@ import sigarep.herramientas.Archivo;
 import sigarep.herramientas.Documento;
 
 import java.util.Date;
-
+/**Reglamento
+ * UCLA DCYT Sistemas de Información 
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0
+ * @since 22/01/14
+ */
 
 /**
  * The persistent class for the reglamento database table.
@@ -46,6 +51,11 @@ public class Reglamento implements Serializable {
 
 	public Reglamento() {
 	}
+	
+	/** Constructor Reglamento
+	 * @param idDocumento,documento,titulo,descripcion,estatus,fechaSubida,categoria
+	 * @return Constructor lleno
+	 */
 	
 	public Reglamento( Integer idDocumento, Documento documento, String titulo,
 			String descripcion, Boolean estatus, Date fechaSubida,
@@ -101,6 +111,7 @@ public class Reglamento implements Serializable {
 		this.fechaSubida = fechaSubida;
 	}
 
+	@Embedded() 
 	public Documento getDocumento() {
 		return documento;
 	}
