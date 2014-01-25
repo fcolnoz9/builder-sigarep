@@ -46,7 +46,7 @@ import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
-import sigarep.modelos.servicio.transacciones.ServicioMotivos;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
@@ -86,7 +86,7 @@ public class VMRegistrarRecursoJerarquico {
 	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
-	private ServicioMotivos serviciomotivos;
+	private ServicioMotivo serviciomotivo;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
 	@WireVariable
@@ -357,7 +357,7 @@ public class VMRegistrarRecursoJerarquico {
 
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
-			serviciomotivos.guardar(motivos);
+			serviciomotivo.guardarMotivo(motivos);
 			serviciorecaudoentregado.guardar(recaudoEntregado);
 			serviciosoporte.guardar(soporte);
 			mensajesusuario.informacionRegistroCorrecto();
