@@ -33,6 +33,12 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.buscarSancionadosReconsideracion();
 	}
 	
+	public List<SolicitudApelacion> buscarSancionadosReconsideracionVerificar (){
+		return iSolicitudApelacionDAO.buscarSancionadosReconsideracionVerificar();
+	}
+	public List<SolicitudApelacion> buscarSancionadosJerarquicoVerificar (){
+		return iSolicitudApelacionDAO.buscarSancionadosJerarquicoVerificar();
+	}
 	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {
 		return iSolicitudApelacionDAO.findOne(id);
 	}

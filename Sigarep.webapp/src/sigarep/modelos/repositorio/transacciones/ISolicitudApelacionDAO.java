@@ -47,8 +47,29 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"and sap.id.cedulaEstudiante not in (select ap.id.cedulaEstudiante from ApelacionEstadoApelacion " +
 			"as ap where ap.id.idInstanciaApelada = '2') ")		
 	public List<SolicitudApelacion> buscarSancionadosReconsideracion();
-	
-//Maria Flores
+    //Yelitza Camejo
+	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
+			"EstudianteSancionado esa, ApelacionEstadoApelacion ap " +
+			"where la.estatus = 'TRUE' and " +
+			"sap.id.idInstanciaApelada = ap.id.idInstanciaApelada and " +
+			"ap.id.idInstanciaApelada  = '3' " +
+			"and esa.id.cedulaEstudiante = " +
+			"sap.id.cedulaEstudiante and i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
+			" la.codigoLapso = esa.id.codigoLapso ")
+		public List<SolicitudApelacion> buscarSancionadosJerarquicoVerificar();
+
+	//Lilibeth Achji
+	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
+			"EstudianteSancionado esa, ApelacionEstadoApelacion ap " +
+			"where la.estatus = 'TRUE' and " +
+			"sap.id.idInstanciaApelada = ap.id.idInstanciaApelada and " +
+			"ap.id.idInstanciaApelada  = '2' " +
+			"and esa.id.cedulaEstudiante = " +
+			"sap.id.cedulaEstudiante and i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
+			" la.codigoLapso = esa.id.codigoLapso ")
+		public List<SolicitudApelacion> buscarSancionadosReconsideracionVerificar();
+
+	//Maria Flores
 	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
 			"EstudianteSancionado esa, ApelacionEstadoApelacion ap where la.estatus = 'TRUE' and " +
 			"ap.id.idInstanciaApelada  = '1' and sap.veredicto <> '' and esa.id.cedulaEstudiante = " +

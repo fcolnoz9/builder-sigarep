@@ -191,7 +191,10 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.buscarSancionadosRecursoJerarquico();
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecuados.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVerificarRecaudosI();
-		
+		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosII.zul"))
+			lista = serviciosolicitudapelacion.buscarSancionadosReconsideracionVerificar();	
+		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosIII.zul"))
+			lista = serviciosolicitudapelacion.buscarSancionadosJerarquicoVerificar();	
 	}
 	
 	@Command
