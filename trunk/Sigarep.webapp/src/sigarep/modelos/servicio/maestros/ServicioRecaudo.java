@@ -62,7 +62,7 @@ public class ServicioRecaudo {
 	//Busca en la lista de Recaudo
 	public List<Recaudo> buscarRecaudo(String nombreRecaudo,String  nombreTipoMotivo) {
 		List<Recaudo> resultado = new LinkedList<Recaudo>();	
-		if (nombreRecaudo == null ||nombreTipoMotivo==null || nombreRecaudo.equals("") ||nombreTipoMotivo.equals("") ) {
+		if (nombreRecaudo == null || nombreTipoMotivo==null ) {
 			resultado = listadoRecaudosActivos();
 		} else {
 			for (Recaudo rec : listadoRecaudosActivos()) {
