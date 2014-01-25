@@ -648,10 +648,11 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({"listaSancionado","cedula","primerNombre","segundoApellido","nombreSancion"})
 	public void filtros(){
-		//listaSancionado = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, nombreSancion);
+		listaSancionado = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedula, primerNombre, segundoApellido, nombreSancion, lapso);
 	}
  	
 	
-	
+//	 else if ( servicioestudiante.buscarEstudiante(cedula)== null )
+//	 mensajeAlUsuario.advertenciaNoExiteCedula();
 	
 }
