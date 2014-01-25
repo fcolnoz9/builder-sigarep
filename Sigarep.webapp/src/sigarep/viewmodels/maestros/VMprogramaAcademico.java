@@ -6,19 +6,16 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
-import sigarep.modelos.data.maestros.ProgramaAcademicoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 
-/*
- * @ (#) ProgramaAcademico.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- * Esta clase es del registro del maestro "Programa Academico"
- * @ Author Javier Chacon
+/**
+ * ProgramaAcademico UCLA DCYT Sistemas de Informacion.
+ * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
  */
 
 @SuppressWarnings("serial")
@@ -26,14 +23,14 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 public class VMprogramaAcademico {
 	@WireVariable
 	ServicioProgramaAcademico servicioprogramaacademico;
-	
+
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer idPrograma;
 	private String nombrePrograma;
+	private String nombreProgramaFiltro = "";
 	private Boolean estatus;
 	private List<ProgramaAcademico> listaPrograma;
 	private ProgramaAcademico programaseleccionado;
-	private ProgramaAcademicoFiltros filtros = new ProgramaAcademicoFiltros();
 
 	// Inicio Métodos Sets y Gets
 	public Integer getIdProgramaAcademico() {
@@ -50,6 +47,14 @@ public class VMprogramaAcademico {
 
 	public void setNombrePrograma(String programa) {
 		this.nombrePrograma = programa;
+	}
+
+	public String getNombreProgramaFiltro() {
+		return nombreProgramaFiltro;
+	}
+
+	public void setNombreProgramaFiltro(String programa) {
+		this.nombreProgramaFiltro = programa;
 	}
 
 	public Boolean getEstatus() {
@@ -76,14 +81,6 @@ public class VMprogramaAcademico {
 		this.programaseleccionado = programaseleccionado;
 	}
 
-	public ProgramaAcademicoFiltros getFiltros() {
-		return filtros;
-	}
-
-	public void setFiltro(ProgramaAcademicoFiltros filtros) {
-		this.filtros = filtros;
-	}
-
 	// Fin Métodos Sets y Gets
 
 	@Init
@@ -91,7 +88,15 @@ public class VMprogramaAcademico {
 		buscarProgramaA();
 	}
 
-	// Método que guarda un programa académico
+	/**
+	 * guardarPrograma
+	 * 
+	 * @param idPrograma
+	 *            , nombrePrograma, estatus, listaPrograma
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             debe haber campos en blanco
+	 */
 	@Command
 	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma" })
 	public void guardarPrograma() {
@@ -106,22 +111,48 @@ public class VMprogramaAcademico {
 		}
 	}
 
-	// Método que limpia todos los campos de la pantalla
+	/**
+	 * limpiar
+	 * 
+	 * @param idPrograma
+	 *            , nombrePrograma, estatus, listaPrograma
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma" })
+	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma",
+			"nombreProgramaFiltro" })
 	public void limpiar() {
+		idPrograma = null;
 		nombrePrograma = "";
+		nombreProgramaFiltro = "";
 		buscarProgramaA();
 	}
 
-	// Método que trae todos los programas académicos en la lista de programas
+	/**
+	 * buscarProgramaA
+	 * 
+	 * @param listaPrograma
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
 		listaPrograma = servicioprogramaacademico.listadoProgramas();
 	}
 
-	// Métodos que elimina un programa académico dado su IdPrograma
+	/**
+	 * eliminarPrograma
+	 * 
+	 * @param nombrePrograma
+	 *            , listaPrograma
+	 * @return No devuelve ningun valor
+	 * @throws Debe
+	 *             seleccionar un registro para poder eliminarlo
+	 */
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
 	public void eliminarPrograma() {
@@ -135,17 +166,34 @@ public class VMprogramaAcademico {
 		}
 	}
 
-	// Método que muestra los datos de una programa seleccionado
+	/**
+	 * mostrarSeleccionado
+	 * 
+	 * @param nombrePrograma
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
 	@NotifyChange({ "nombrePrograma" })
 	public void mostrarSeleccionado() {
+		idPrograma = getProgramaseleccionado().getIdPrograma();
 		nombrePrograma = getProgramaseleccionado().getNombrePrograma();
 	}
 
-	// Método que busca y filtra los programas academicos
+	/**
+	 * filtros
+	 * 
+	 * @param listaPrograma
+	 *            , nombreProgramaFiltro
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "listaPrograma" })
+	@NotifyChange({ "listaPrograma", "nombreProgramaFiltro" })
 	public void filtros() {
-		listaPrograma = servicioprogramaacademico.buscarPrograma(filtros);
+		listaPrograma = servicioprogramaacademico
+				.buscarPrograma(nombreProgramaFiltro);
 	}
 }

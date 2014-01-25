@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.SancionMaestro;
-import sigarep.modelos.data.maestros.SancionMaestroFiltros;
 import sigarep.modelos.repositorio.maestros.ISancionMaestroDAO;
 
 // El servicio interactua con la base de datos
@@ -30,23 +29,18 @@ public class ServicioSancionMaestro {
 		return san.findOne(idSancionMaestro);
 	}
 
-	public List<SancionMaestro> listadoSanciones() {
+	public List<SancionMaestro> listaTipoSanciones() {
 		List<SancionMaestro> sancionesLista = san.buscarSancionesActivas();
 		return sancionesLista;
 	}
 
-	public List<SancionMaestro> buscarSancion(SancionMaestroFiltros filtros) {
+	public List<SancionMaestro> buscarTipoSancion(String nombre) {
 		List<SancionMaestro> result = new LinkedList<SancionMaestro>();
-		String nombre = filtros.getNombre().toLowerCase();
-		String descripcion = filtros.getDescripcion().toLowerCase();
-
-		if (nombre == null || descripcion == null) {
-			result = listadoSanciones();
+		if (nombre == null) {
+			result = listaTipoSanciones();
 		} else {
-			for (SancionMaestro sm : listadoSanciones()) {
-				if (sm.getNombreSancion().toLowerCase().contains(nombre)
-						&& sm.getDescripcion().toLowerCase()
-								.contains(descripcion)) {
+			for (SancionMaestro sm : listaTipoSanciones()) {
+				if (sm.getNombreSancion().toLowerCase().contains(nombre)) {
 					result.add(sm);
 				}
 			}

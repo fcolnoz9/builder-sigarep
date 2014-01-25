@@ -53,7 +53,7 @@
 				<listheader label="Nombre" align="center"
 					sort="auto(nombrePrograma)">
 					<textbox id="filtroNombre" instant="true"
-						mold="rounded" width="200px" value="@bind(vm.filtros.nombre)"
+						mold="rounded" width="200px" value="@bind(vm.nombreProgramaFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
