@@ -8,8 +8,17 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Actividad;
-import sigarep.modelos.data.maestros.ActividadFiltros;
+import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioActividad;
+import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
+
+/**
+ * Actividades UCLA DCYT Sistemas de Informacion.
+ * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
+ */
 
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -17,17 +26,21 @@ public class VMactividad {
 
 	@WireVariable
 	ServicioActividad servicioactividad;
+	@WireVariable
+	ServicioInstanciaApelada servicioInstanciaApelada;
 
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer id_actividad;
 	private String nombre;
 	private String descripcion;
-	private String nombreFiltro;
-	private String descripcionFiltro;
+	private String nombreFiltro = "";
+	private String responsableFiltro = "";
 	private Boolean estatus;
 	private List<Actividad> listaActividad;
 	private Actividad actividadSeleccionada;
-	private ActividadFiltros filtros = new ActividadFiltros();
+	private InstanciaApelada instanciaApelada;
+	@WireVariable
+	private List<InstanciaApelada> listaInstanciaApelada;
 
 	// Metodos GETS Y SETS
 	public void setId_Actividad(Integer id_actividad) {
@@ -58,12 +71,8 @@ public class VMactividad {
 		this.nombreFiltro = nombreFiltro;
 	}
 
-	public void setDescripcionFiltro(String descripcionFiltro) {
-		this.descripcionFiltro = descripcionFiltro;
-	}
-
-	public void setFiltros(ActividadFiltros filtros) {
-		this.filtros = filtros;
+	public void setResponsableFiltro(String responsableFiltro) {
+		this.responsableFiltro = responsableFiltro;
 	}
 
 	public Integer getId_Actividad() {
@@ -90,17 +99,29 @@ public class VMactividad {
 		return actividadSeleccionada;
 	}
 
+	public InstanciaApelada getInstanciaApelada() {
+		return instanciaApelada;
+	}
+
+	public void setInstanciaApelada(InstanciaApelada instanciaapelada) {
+		this.instanciaApelada = instanciaapelada;
+	}
+
+	public List<InstanciaApelada> getListaInstanciaApelada() {
+		return listaInstanciaApelada;
+	}
+
+	public void setListaInstanciaApelada(
+			List<InstanciaApelada> listaInstanciaApelada) {
+		this.listaInstanciaApelada = listaInstanciaApelada;
+	}
+
 	public String getNombreFiltro() {
 		return nombreFiltro;
 	}
 
-	public String getDescripcionFiltro() {
-		return descripcionFiltro;
-	}
-
-	@NotifyChange({ "filtros" })
-	public ActividadFiltros getFiltros() {
-		return filtros;
+	public String getResponsableFiltro() {
+		return responsableFiltro;
 	}
 
 	// Fin de los metodos gets y sets
@@ -109,44 +130,84 @@ public class VMactividad {
 
 	@Init
 	public void init() {
-		listadoActividad();
+		listaActividad();
+		buscarInstanciaApelada();
 	}
 
-	// Metodo que perimite guardar una Actividad
+	/**
+	 * guardarActividad
+	 * 
+	 * @param id_actividad
+	 *            , nombre, descripcion, listaActividad, instanciaApelada
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             debe haber campos en blanco
+	 */
 	@Command
-	@NotifyChange({ "id_actividad", "nombre", "descripcion", "listaActividad" })
+	@NotifyChange({ "id_actividad", "nombre", "descripcion",
+			"instanciaApelada", "listaActividad" })
 	public void guardarActividad() {
 		if (nombre == null || nombre.equals("") || descripcion.equals("")
 				|| descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
 			Actividad actividad = new Actividad(id_actividad, nombre,
-					descripcion, true);
+					descripcion, instanciaApelada, true);
 			servicioactividad.guardar(actividad);
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
 
-	// Metodo que muestra la lista de todas las actividades
+	/**
+	 * listaActividad
+	 * 
+	 * @param listaActividad
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
 	@NotifyChange({ "listaActividad" })
-	public void listadoActividad() {
+	public void listaActividad() {
 		listaActividad = servicioactividad.listadoActividad();
 	}
 
-	// Metodo que limpia todos los campos de la pantalla
+	/**
+	 * limpiar
+	 * 
+	 * @param id_actividad, nombre
+	 *            , descripcion, listaActividad, instanciaApelada
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "nombre", "descripcion", "listaActividad" })
+	@NotifyChange({ "id_actividad", "nombre", "descripcion", "instanciaApelada",
+			"nombreFiltro", "responsableFiltro", "listaActividad" })
 	public void limpiar() {
+		id_actividad = null;
 		nombre = "";
 		descripcion = "";
-		listadoActividad();
+		nombreFiltro = "";
+		responsableFiltro = "";
+		instanciaApelada = null;
+		listaActividad();
+		buscarInstanciaApelada();
 	}
 
-	// Metodo que elimina una actividad tomando en cuenta el idActividad
+	/**
+	 * eliminarActividad
+	 * 
+	 * @param nombre
+	 *            , descripcion, listaActividad, instanciaApelada
+	 * @return No devuelve ningun valor
+	 * @throws Debe
+	 *             seleccionar un registro para poder eliminarlo
+	 */
 	@Command
-	@NotifyChange({ "listaActividad", "nombre", "descripcion" })
+	@NotifyChange({ "listaActividad", "nombre", "instanciaApelada",
+			"descripcion" })
 	public void eliminarActividad() {
 		if (nombre == null || nombre.equals("") || descripcion.equals("")
 				|| descripcion == null) {
@@ -159,19 +220,65 @@ public class VMactividad {
 		}
 	}
 
-	// Permite tomar los datos del objeto actividadseleccionada
+	/**
+	 * mostrarSeleccionada
+	 * 
+	 * @param nombre
+	 *            , descripcion, id_actividad, instanciaApelada
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "id_actividad", "nombre", "descripcion" })
+	@NotifyChange({ "id_actividad", "nombre", "instanciaApelada", "descripcion" })
 	public void mostrarSeleccionada() {
 		id_actividad = getActividadSeleccionada().getIdActividad();
 		nombre = getActividadSeleccionada().getNombre();
 		descripcion = getActividadSeleccionada().getDescripcion();
+		instanciaApelada = getActividadSeleccionada().getInstanciaApelada();
 	}
 
-	// Método que busca y filtra las actividades
+	/**
+	 * buscarInstanciaApelada
+	 * 
+	 * @param listaInstanciaApelada
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "listaActividad" })
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void buscarInstanciaApelada() {
+		listaInstanciaApelada = servicioInstanciaApelada
+				.listadoInstanciaApelada();
+	}
+
+	/**
+	 * comboResponsable
+	 * 
+	 * @param listaInstanciaApelada
+	 * @return instanciaApelada
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public InstanciaApelada comboResponsable() {
+		return instanciaApelada;
+	}
+
+	/**
+	 * filtros
+	 * 
+	 * @param listaActividad
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "listaActividad", "nombreFiltro", "responsableFiltro" })
 	public void filtros() {
-		listaActividad = servicioactividad.buscarActividad(filtros);
+		listaActividad = servicioactividad.buscarActividad(nombreFiltro,
+				responsableFiltro);
 	}
 }

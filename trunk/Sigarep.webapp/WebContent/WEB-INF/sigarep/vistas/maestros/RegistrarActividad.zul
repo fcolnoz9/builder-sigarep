@@ -23,6 +23,18 @@
 						constraint="no empty: Ingrese descripcion de la Actividad"
 						mold="rounded" width="77%" rows="3" value="@bind(vm.descripcion)" />
 				</row>
+				<row>
+					<label value="Responsable: " id="lblResponsable" />
+					<combobox readonly="true" id="cmbInstanciaApelada"
+						value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
+						mold="rounded" model="@load(vm.listaInstanciaApelada)"
+						selectedItem="@bind(vm.instanciaApelada)"
+						onSelect="@command('comboResponsable')">
+						<template name="model">
+							<comboitem label="${each.instanciaApelada}" />
+						</template>
+					</combobox>
+				</row>
 			</rows>
 		</grid>
 	</groupbox>
@@ -48,8 +60,8 @@
 	<separator />
 	<groupbox id="grbListaActividades">
 		<caption label="Lista de Actividades" />
-		<listbox id="lbxActividad" height="100%"
-			model="@load(vm.listaActividad)"
+		<listbox id="lbxActividades" height="100%"
+			model="@bind(vm.listaActividad)"
 			selectedItem="@bind(vm.actividadSeleccionada)"
 			onSelect="@command('mostrarSeleccionada')"
 			emptyMessage="No hay Actividades registradas" mold="paging"
@@ -58,14 +70,17 @@
 				<listheader label="Nombre" align="center"
 					sort="auto(nombre)">
 					<textbox id="filtroNombre" instant="true"
-						mold="rounded" width="200px" value="@bind(vm.filtros.nombre)"
+						mold="rounded" width="200px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Descripción" align="center"
 					sort="auto(descripcion)">
-					<textbox id="filtroDescripcion" instant="true"
-						mold="rounded" width="200px" value="@bind(vm.filtros.descripcion)"
+				</listheader>
+				<listheader label="Instancia Apelada" align="center"
+					sort="auto(instanciaApelada)">
+					<textbox id="filtroResponsable" instant="true"
+						mold="rounded" width="200px" value="@bind(vm.responsableFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
@@ -74,6 +89,8 @@
 				<listitem>
 					<listcell label="${each.nombre}" />
 					<listcell label="${each.descripcion}" />
+					<listcell
+						label="${each.instanciaApelada.instanciaApelada}" />
 				</listitem>
 			</template>
 		</listbox>

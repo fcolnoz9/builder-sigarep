@@ -21,54 +21,21 @@
 					</textbox>
 					<label value="Descripción: " id="lblDescripcion" />
 					<textbox id="txtDescripcionSancion" width="300px"
-						constraint="no empty: Ingrese la descripción de la sanción" rows="3"
-						value="@bind(vm.descripcion)" />
+						constraint="no empty: Ingrese la descripción de la sanción"
+						rows="3" value="@bind(vm.descripcion)" />
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
 	<separator />
-	<groupbox id="grbListaSanciones">
-		<caption label="Tipos de Sanciones" />
-		<listbox id="lbxSancion" height="100%"
-			model="@bind(vm.listaSancion)"
-			selectedItem="@bind(vm.sancionSeleccionada)"
-			onSelect="@command('mostrarSeleccionada')"
-			emptyMessage="No hay Sanciones registradas" mold="paging"
-			pageSize="10">
-			<listhead>
-				<listheader label="Nombre" align="center"
-					sort="auto(nombreSancion)">
-					<textbox id="filtroNombre" instant="true"
-						width="100px" value="@bind(vm.filtros.nombre)"
-						onChange="@command('filtros')" />
-					<image src="imagenes/iconos/buscar.png" />
-				</listheader>
-				<listheader label="Descripción" align="center"
-					sort="auto(descripcion)">
-					<textbox id="filtroDescripcion" instant="true"
-						width="100px" value="@bind(vm.filtros.descripcion)"
-						onChange="@command('filtros')" />
-					<image src="imagenes/iconos/buscar.png" />
-				</listheader>
-			</listhead>
-			<template name="model">
-				<listitem selected="false">
-					<listcell label="${each.nombreSancion}" />
-					<listcell label="${each.descripcion}" />
-				</listitem>
-			</template>
-		</listbox>
-	</groupbox>
-	<separator />
 	<div align="right">
 		<button label="Guardar" id="btnGuardar"
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('guardarSancion')">
+			mold="trendy" onClick="@command('guardarTipoSancion')">
 		</button>
 		<button label="Eliminar" id="btnEliminar"
 			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('eliminarSancion')">
+			mold="trendy" onClick="@command('eliminarTipoSancion')">
 		</button>
 		<button label="Cancelar" id="btnCancelar"
 			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
@@ -79,4 +46,33 @@
 			mold="trendy" onClick="winRegistrarSancion.onClose()">
 		</button>
 	</div>
+	<separator />
+	<groupbox id="grbListaSanciones">
+		<caption label="Tipos de Sanciones" />
+		<listbox id="lbxSancion" height="100%"
+			model="@bind(vm.listaTipoSancion)"
+			selectedItem="@bind(vm.tipoSancionSeleccionada)"
+			onSelect="@command('mostrarSeleccionada')"
+			emptyMessage="No hay Sanciones registradas" mold="paging"
+			pageSize="10">
+			<listhead>
+				<listheader label="Nombre" align="center"
+					sort="auto(nombreSancion)">
+					<textbox id="filtroNombre" instant="true"
+						width="100px" value="@bind(vm.nombreFiltro)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Descripción" align="center"
+					sort="auto(descripcion)">
+				</listheader>
+			</listhead>
+			<template name="model">
+				<listitem selected="false">
+					<listcell label="${each.nombreSancion}" />
+					<listcell label="${each.descripcion}" />
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
 </window>

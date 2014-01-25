@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Actividad;
-import sigarep.modelos.data.maestros.ActividadFiltros;
 import sigarep.modelos.repositorio.maestros.IActividadDAO;
 
 @Service("servicioactividad")
@@ -28,17 +27,15 @@ public class ServicioActividad {
 		return actividadLista;
 	}
 
-	public List<Actividad> buscarActividad(ActividadFiltros filtros) {
+	public List<Actividad> buscarActividad(String nombre, String responsable) {
 		List<Actividad> resultado = new LinkedList<Actividad>();
-		String nombre = filtros.getNombre().toLowerCase();
-		String descripcion = filtros.getDescripcion().toLowerCase();
-		if (nombre == null || descripcion == null) {
+		if (nombre == null || responsable == null) {
 			resultado = listadoActividad();
 		} else {
 			for (Actividad act : listadoActividad()) {
 				if (act.getNombre().toLowerCase().contains(nombre)
-						&& act.getDescripcion().toLowerCase()
-								.contains(descripcion)) {
+						&& act.getInstanciaApelada().getInstanciaApelada().toLowerCase()
+								.contains(responsable)) {
 					resultado.add(act);
 				}
 			}

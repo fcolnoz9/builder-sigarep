@@ -8,16 +8,14 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.SancionMaestro;
-import sigarep.modelos.data.maestros.SancionMaestroFiltros;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
-/*
- * @ (#) SancionMaestro.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- * Esta clase es del registro del maestro "Sancion"
- * @ Author Javier Chacon
+/**
+ * SancionMaestro UCLA DCYT Sistemas de Informacion.
+ * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
  */
 
 @SuppressWarnings("serial")
@@ -25,15 +23,15 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 public class VMsancionMaestro {
 	@WireVariable
 	ServicioSancionMaestro serviciosancionmaestro;
-	
+
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer id_sancion;
 	private String nombre;
+	private String nombreFiltro;
 	private String descripcion;
 	private Boolean estatus;
-	private List<SancionMaestro> listaSancion;
-	private SancionMaestro sancionSeleccionada;
-	private SancionMaestroFiltros filtros = new SancionMaestroFiltros();
+	private List<SancionMaestro> listaTipoSancion;
+	private SancionMaestro tipoSancionSeleccionada;
 
 	// Inicion Métodos Sets y Gets
 	public Integer getIdSancion() {
@@ -68,28 +66,29 @@ public class VMsancionMaestro {
 		this.estatus = estatus;
 	}
 
-	public List<SancionMaestro> getListaSancion() {
-		return listaSancion;
+	public List<SancionMaestro> getListaTipoSancion() {
+		return listaTipoSancion;
 	}
 
-	public void setListaSancion(List<SancionMaestro> listaSancion) {
-		this.listaSancion = listaSancion;
+	public void setListaTipoSancion(List<SancionMaestro> listaTipoSancion) {
+		this.listaTipoSancion = listaTipoSancion;
 	}
 
-	public SancionMaestro getSancionSeleccionada() {
-		return sancionSeleccionada;
+	public SancionMaestro getTipoSancionSeleccionada() {
+		return tipoSancionSeleccionada;
 	}
 
-	public void setSancionSeleccionada(SancionMaestro sancionSeleccionada) {
-		this.sancionSeleccionada = sancionSeleccionada;
+	public void setTipoSancionSeleccionada(
+			SancionMaestro tipoSancionSeleccionada) {
+		this.tipoSancionSeleccionada = tipoSancionSeleccionada;
 	}
 
-	public SancionMaestroFiltros getFiltros() {
-		return filtros;
+	public String getNombreFiltro() {
+		return nombreFiltro;
 	}
 
-	public void setFiltros(SancionMaestroFiltros filtros) {
-		this.filtros = filtros;
+	public void setNombreFiltro(String nombreFiltro) {
+		this.nombreFiltro = nombreFiltro;
 	}
 
 	// Fin Métodos Sets y Gets
@@ -98,15 +97,24 @@ public class VMsancionMaestro {
 
 	@Init
 	public void init() {
-		listadoSancion();
+		listaTipoSancion();
 	}
 
-	// Método que guarda una Sanción
+	/**
+	 * guardarTipoSancion
+	 * 
+	 * @param id_sancion
+	 *            , nombre, descripcion, listaSancion, estatus
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             debe haber campos en blanco
+	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
-			"listaSancion" })
-	public void guardarSancion() {
-		if (nombre == null || nombre.equals("") || descripcion.equals("") || descripcion == null) {
+			"listaTipoSancion" })
+	public void guardarTipoSancion() {
+		if (nombre == null || nombre.equals("") || descripcion.equals("")
+				|| descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
 			SancionMaestro sanm = new SancionMaestro(id_sancion, descripcion,
@@ -117,50 +125,93 @@ public class VMsancionMaestro {
 		}
 	}
 
-	// Método que limpia todos los campos de la pantalla
+	/**
+	 * limpiar
+	 * 
+	 * @param id_sancion
+	 *            , nombre, descripcion, listaSancion, estatus
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
-			"listaSancion" })
+			"nombreFiltro", "listaTipoSancion" })
 	public void limpiar() {
+		id_sancion = null;
 		nombre = "";
+		nombreFiltro = "";
 		descripcion = "";
-		listadoSancion();
+		listaTipoSancion();
 	}
 
-	// Método que trae todos los registros en una lista de sanciones
+	/**
+	 * listaTipoSancion
+	 * 
+	 * @param listaTipoSancion
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "listaSancion" })
-	public void listadoSancion() {
-		listaSancion = serviciosancionmaestro.listadoSanciones();
+	@NotifyChange({ "listaTipoSancion" })
+	public void listaTipoSancion() {
+		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
 	}
 
-	// Método que elimina una sanción dado el IdSancion
+	/**
+	 * eliminarSancion
+	 * 
+	 * @param id_sancion
+	 *            , nombre, estatus, descripcion, listaTipoSancion
+	 * @return No devuelve ningun valor
+	 * @throws Debe
+	 *             seleccionar un registro para poder eliminarlo
+	 */
 	@Command
-	@NotifyChange({ "listaSancion", "nombre", "descripcion" })
-	public void eliminarSancion() {
-		if (nombre == null || nombre.equals("") || descripcion.equals("") || descripcion == null) {
+	@NotifyChange({ "listaTipoSancion", "nombre", "descripcion", "estatus" })
+	public void eliminarTipoSancion() {
+		if (nombre == null || nombre.equals("") || descripcion.equals("")
+				|| descripcion == null) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-			serviciosancionmaestro.eliminarSancion(getSancionSeleccionada()
+			serviciosancionmaestro.eliminarSancion(getTipoSancionSeleccionada()
 					.getIdSancion());
 			mensajeAlUsuario.informacionEliminarCorrecto();
 			limpiar();
 		}
 	}
 
-	// Método que muestra una sanción seleccionada
+	/**
+	 * mostrarSeleccionada
+	 * 
+	 * @param id_sancion
+	 *            , nombre, estatus, descripcion
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "nombre", "descripcion" })
+	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus" })
 	public void mostrarSeleccionada() {
-		nombre = getSancionSeleccionada().getNombreSancion();
-		descripcion = getSancionSeleccionada().getDescripcion();
+		id_sancion = getTipoSancionSeleccionada().getIdSancion();
+		nombre = getTipoSancionSeleccionada().getNombreSancion();
+		descripcion = getTipoSancionSeleccionada().getDescripcion();
 	}
 
-	// Método que busca y filtra las sanciones
+	/**
+	 * filtros
+	 * 
+	 * @param listaTipoSancion
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
 	@Command
-	@NotifyChange({ "listaSancion" })
+	@NotifyChange({ "listaTipoSancion", "nombreFiltro" })
 	public void filtros() {
-		listaSancion = serviciosancionmaestro.buscarSancion(filtros);
+		listaTipoSancion = serviciosancionmaestro
+				.buscarTipoSancion(nombreFiltro);
 	}
 
 }

@@ -43,12 +43,13 @@ public class Actividad implements Serializable {
 	public Actividad() {
 	}
 
-	public Actividad(Integer id_actividad, String nombre, String descripcion,
+	public Actividad(Integer id_actividad, String nombre, String descripcion, InstanciaApelada instanciaApelada,
 			Boolean estatus) {
 		super();
 		this.idActividad = id_actividad;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.instanciaApelada = instanciaApelada;
 		this.estatus = estatus;
 	}
 

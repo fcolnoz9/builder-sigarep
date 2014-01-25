@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
-import sigarep.modelos.data.maestros.ProgramaAcademicoFiltros;
 import sigarep.modelos.repositorio.maestros.IProgramaAcademicoDAO;
 
 // El servicio interactua con la base de datos
@@ -37,33 +36,18 @@ public class ServicioProgramaAcademico {
 		List<ProgramaAcademico> programasLista = pro.buscarProgramasActivos();
 		return programasLista;
 	}
+
 	public ProgramaAcademico buscarPrograma(Integer idProgramaAcademico) {
 		return pro.findOne(idProgramaAcademico);
 	}
-	public List<ProgramaAcademico> buscarPrograma(
-			ProgramaAcademicoFiltros filtros) {
+
+	public List<ProgramaAcademico> buscarPrograma(String programa) {
 		List<ProgramaAcademico> result = new LinkedList<ProgramaAcademico>();
-		String nombre = filtros.getNombre().toLowerCase();
-		if (nombre == null) {
+		if (programa == null) {
 			result = listadoProgramas();
 		} else {
 			for (ProgramaAcademico pr : listadoProgramas()) {
-				if (pr.getNombrePrograma().toLowerCase().contains(nombre)) {
-					result.add(pr);
-				}
-			}
-		}
-		return result;
-	}
-	
-	public List<ProgramaAcademico> buscarPr(String programa) {
-		List<ProgramaAcademico> result = new LinkedList<ProgramaAcademico>();
-		if (programa == null || "".equals(programa)) {
-			result = listadoProgramas();
-		} else {
-			for (ProgramaAcademico pr : listadoProgramas()) {
-				if (pr.getNombrePrograma().toLowerCase()
-						.contains(programa.toLowerCase())) {
+				if (pr.getNombrePrograma().toLowerCase().contains(programa)) {
 					result.add(pr);
 				}
 			}
