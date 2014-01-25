@@ -53,7 +53,7 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="5" readonly="true">
+						maxlength="30" value="@bind(vm.periodoSancion)" readonly="true">
 					</textbox>
 					<label id="lblAsignatura" value="Asignatura: " />
 					<textbox id="txtAsignatura" cols="23"
@@ -74,9 +74,9 @@
 			<label id="lblFechaApelacion" value="Fecha de la Apelación: " />
 			<textbox id="txtFechaApelacion" cols="10" maxlength="30"
 				value="@bind(vm.fechaApelacion)" readonly="true">
-			</textbox>
-			
-		</div>	
+			</textbox>	
+		</div>
+		<separator/>	
 	   <listbox id="listaMotivos" multiple="true" height="auto"
 	   	width="auto" mold="paging" pageSize="3" model="@bind(vm.listaTipoMotivo)">
 	   	<listhead>

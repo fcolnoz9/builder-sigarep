@@ -82,6 +82,8 @@ public class VMVerificarRecaudosI {
 	@WireVariable
 	private ServicioApelacion serviciolista;
 	@WireVariable
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable
 	private LapsoAcademico lapsoAcademico;
 	@WireVariable
 	private String nombrePrograma;
@@ -103,6 +105,8 @@ public class VMVerificarRecaudosI {
 	private Integer semestreSancion;
 	@WireVariable
 	private Integer caso;
+	@WireVariable
+	private Integer periodoSancion;
 	@WireVariable
 	private String fechaApelacion;
 	@WireVariable
@@ -292,6 +296,14 @@ public class VMVerificarRecaudosI {
 		this.caso = caso;
 	}
 	
+	public Integer getPeriodoSancion() {
+		return periodoSancion;
+	}
+
+	public void setPeriodoSancion(Integer periodoSancion) {
+		this.periodoSancion = periodoSancion;
+	}
+
 	public String getFechaApelacion() {
 		return fechaApelacion;
 	}
@@ -346,7 +358,10 @@ public class VMVerificarRecaudosI {
 		SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
 		String fecha =  sdf.format(fechaSA);
 		this.fechaApelacion = fecha;
-		
+		EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
+		estudianteSancionadoPK.setCedulaEstudiante(cedula);
+		estudianteSancionadoPK.setCodigoLapso(lapso);
+		this.periodoSancion = servicioestudiantesancionado.buscar(estudianteSancionadoPK).getPeriodoSancion();
 		buscarRecaudos();
 		buscarTiposMotivo();
 	}
@@ -372,19 +387,24 @@ public class VMVerificarRecaudosI {
 		} else if (recaudos.size() == 0) {
 			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
 					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-		} else {
+		}
+		else if (selected.equals("")) {
+			Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+		}
+		else 
+		{
+			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
+			if (getSelected().equals("sugiere"))
+				apelacionEstadoApelacion.setSugerencia("Procedente");
+			else
+				apelacionEstadoApelacion.setSugerencia("No procedente");
+			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
 			solicitudApelacionPK.setIdInstanciaApelada(1);
 			SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudPorID(solicitudApelacionPK);
-//			for(Motivo motivo : solicitudApelacion.getMotivos()){
-//				String cedula = motivo.getId().getCedulaEstudiante();
-//				String lapso = motivo.getId().getCodigoLapso();
-//				Integer idTipoMotivo = motivo.getId().getIdTipoMotivo();
-//				serviciorecaudoentregado.eliminarRecaudosEncontradosPorMotivo(cedula, lapso, idTipoMotivo, 1);
-//			}
 				
 			Recaudo recaudo = new Recaudo();
 			for(Listitem miRecaudo: recaudos){
@@ -425,26 +445,19 @@ public class VMVerificarRecaudosI {
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 				apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
 				apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
-				ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
+				
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
-				if (!selected.equals("")) {
-					if (getSelected().equals("sugiere"))
-						apelacionEstadoApelacion.setSugerencia("procede");
-					else
-						apelacionEstadoApelacion.setSugerencia("no procede");
-				}
-				else Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
 				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
 				serviciosolicitudapelacion.guardar(solicitudApelacionAux);
 				
-//				Listbox lb = (Listbox)Path.getComponent("/winVerificarApelacionesComision/lbxSancionados");
-//				lb.setModel(new SimpleListModel<ListaApelacionEstadoApelacion>(serviciolista.buscarApelacionesALaComision()));
 				try {
 					msjs.informacionRegistroCorrecto();
 					winVerificarRecaudos.detach(); //oculta el window
 //					Window windowLista = (Window) Path.getComponent("/winVerificarApelacionesComision");
 //					windowLista.onClose();
+//					Listbox lb = (Listbox)Path.getComponent("/winVerificarApelacionesComision/lbxSancionados");
+//					lb.setModel(new SimpleListModel<ListaApelacionEstadoApelacion>(serviciolista.buscarApelacionesALaComision()));
 //					sigarep.viewmodels.transacciones.VMListaApelacionesComision vm = new VMListaApelacionesComision();
 //					System.out.println("PLOP"+vm.getLista().size());
 
