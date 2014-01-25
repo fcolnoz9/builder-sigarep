@@ -3,18 +3,25 @@ border="normal" width = "auto" height="auto" closable="true" contentStyle="overf
 style="overflow:auto" action="hide: slideUp"
  apply="org.zkoss.bind.BindComposer"
  viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMReglamento')" >
+ 
+ 
+ <!--El groupbox Contiene los campos que requieren llenarse con los datos del Cargar Documentos -->
 <groupbox  > 
-<caption label="">Carga de Documentos</caption>
+	
+<!-- <caption label="">Carga de Documentos</caption> -->
+	<caption label="Carga de Documentos" />
 <grid id= "grdcargar" fixedLayout="true" >
  <columns>
-     <column label="" width="10%" />
+     				<column label="" width="10%" />
 					<column label="" width="40%" />
 					<column label="" width="10%" />
 					<column label="" width="40%" />
     </columns>
     <rows>
     	<row>
-            Categoría:
+    	<label id="lblCategoria"
+						value="Categoría" />
+<!--             Categoría: -->
             <hbox>
               <combobox id="cmbCategoria" mold="rounded" width="200px" selectedItem=" @bind(vm.categoria)">
 						<comboitem value="guia" id="cmiGuiaPaso" label="Guía Paso a Paso" />
@@ -24,8 +31,9 @@ style="overflow:auto" action="hide: slideUp"
  			 </combobox> 
                 
             </hbox>
-       
-           Título Documento:
+       <label id="lblTituloDocumento"
+						value="Título Documento" />
+<!--            Título Documento: -->
             <hbox>
                 <vbox>
                     <textbox id= "txttitulo"   mold = "rounded" value="@bind(vm.titulo)"
@@ -34,15 +42,18 @@ style="overflow:auto" action="hide: slideUp"
             </hbox>
         </row>
            <row>
-            Descripción:
+           <label id="lblDescripcion"
+						value="Descripción" />
+<!--             Descripción: -->
             <hbox>
                 <textbox  id= "txtdescripcion" width="200px" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
 					 maxlength="150" cols="23" tabindex="5" rows="3" >
                     <attribute name="value"> </attribute>
                 </textbox>
             </hbox>
-     
-            Fecha de subida:
+      		<label id="lblFechaSubida"
+						value="Fecha de Subida" />
+<!--             Fecha de subida: -->
             <hbox>
             	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" value="@bind(vm.fechaSubida)"/>
             </hbox>
@@ -50,7 +61,9 @@ style="overflow:auto" action="hide: slideUp"
         <row> 
         </row> 
            <row>  
-           Documento:
+           <label id="lblDocumento"
+						value="Documento" />
+<!--            Documento: -->
          <hbox>
                     <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
 							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarDocumento',upload=event)"></button>
@@ -61,6 +74,7 @@ style="overflow:auto" action="hide: slideUp"
     </rows>
 </grid>
 
+	<!-- Permite realizar acciones respecto al Cargar Documentos (Botones) -->
 </groupbox>
 		<div align="right" height="100%">
 			<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
@@ -77,7 +91,7 @@ style="overflow:auto" action="hide: slideUp"
 		</div>
 		
 <!-- 	//**************************************************** -->
-<!-- 	//LISTADO DE DOCUMENTO -->
+<!-- 	//LISTADO DE DOCUMENTOS REGISTRADOS -->
 <!-- 	//**************************************************** -->
 <groupbox> 
 
@@ -87,26 +101,23 @@ style="overflow:auto" action="hide: slideUp"
 			selectedItem="@bind(vm.reglamentoSeleccionado)"   
    			 onSelect="@command('mostrarSeleccionado')" 
    			 emptyMessage="No hay banner registrados" mold="paging" pageSize="10" >
-
+   			 
+<!-- 		Busqueda Por Filtros -->
 <listhead>
 		<listheader label="Título" align="center" 
 			sort="auto(titulo)">
 			<textbox id="filtroTitulo" instant="true"
-			width="100px" value="@bind(vm.filtros.titulo)"
+			width="100px" value="@bind(vm.tituloF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
 		<listheader label="Descripción"  align="center"
 		 sort="auto(descripcion)" >
-		 <textbox id="filtroDescripcion" instant="true"
-			width="100px" value="@bind(vm.filtros.descripcion)"
-			onChange="@command('filtros')" />
-			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
 		<listheader label="Categoría" align="center"
 		 sort="auto(categoria)" >
 		 <textbox id="filtroCategoria" instant="true"
-			width="100px" value="@bind(vm.filtros.categoria)"
+			width="100px" value="@bind(vm.categoriaF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
