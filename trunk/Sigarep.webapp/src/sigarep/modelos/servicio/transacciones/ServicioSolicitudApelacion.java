@@ -115,4 +115,31 @@ public class ServicioSolicitudApelacion {
         }
 		return result;
 	} 
+	
+//Maria Flores
+	public List<SolicitudApelacion> buscarSancionadosRecursoJerarquico(){
+		return iSolicitudApelacionDAO.buscarSancionadosRecursoJerarquico();
+	}
+	
+	public List<SolicitudApelacion> filtrarApelacionesRecurso(
+			String programa, String cedula, String nombre,
+			String apellido, String sancion){
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
+        	result= buscarSancionadosReconsideracion();
+        }
+        else{
+			for (SolicitudApelacion sa : buscarSancionadosRecursoJerarquico())
+			{
+				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(nombre.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+						sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
+					result.add(sa);
+				}
+			}
+        }
+		return result;
+	} 
 }
