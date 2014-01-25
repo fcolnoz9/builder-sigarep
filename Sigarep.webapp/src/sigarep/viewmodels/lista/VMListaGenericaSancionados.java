@@ -21,7 +21,6 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioDatosIniciales;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioVeredicto;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaGenericaSancionados {
@@ -39,8 +38,6 @@ public class VMListaGenericaSancionados {
 	//Servicios para buscar apelaciones segun su transaccion (AGREGA TU SERVICIO AQUI)
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
-	@WireVariable
-	private ServicioVeredicto servicioveredicto;
 	@WireVariable
 	private ServicioDatosIniciales serviciodatosiniciales;
 	@WireVariable
