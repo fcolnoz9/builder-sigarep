@@ -39,7 +39,7 @@ import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioMotivos;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAnalizarValidez;
@@ -109,7 +109,7 @@ public class ViewModelWindowAnalizarValidez {
 	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
-	private ServicioMotivos serviciomotivos;
+	private ServicioMotivo serviciomotivo;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
 	@WireVariable
