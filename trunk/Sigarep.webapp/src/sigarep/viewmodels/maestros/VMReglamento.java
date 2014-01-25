@@ -26,6 +26,12 @@ import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.maestros.ReglamentoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
+/**Reglamento
+ * UCLA-DCYT Sistemas de Información
+ * @author Equipo:Builder-SIGAREP
+ * @version 1.0
+ * @since 22/01/14
+ */
 
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -35,20 +41,20 @@ public class VMReglamento {
 
 
 private Integer IdDocumento; 
-private String titulo,titulofiltro;
-private String descripcion,descripcionfiltro;
+private String titulo;
+private String descripcion;
 private Boolean estatus;
 private Date fechaSubida;
 private  Documento documento = new Documento();
-private String categoria,categoriafiltro;
+private String categoria;
 private Media media;
 private List<Reglamento> listaReglamento;
 private Reglamento reglamentoSeleccionado;
 private String nombreDoc;
-
-private ReglamentoFiltros filtros = new ReglamentoFiltros();
-
+private String tituloF ="";
+private String categoriaF ="";
 private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+
 
 public VMReglamento() {
 	super();
@@ -65,14 +71,6 @@ public void init(){
 	documento = new Documento();
 	filtros();
 	
-}
-
-@NotifyChange({"filtros"})
-public ReglamentoFiltros getFiltros() {
-	return filtros;
-}
-public void setFiltros(ReglamentoFiltros filtros) {
-	this.filtros = filtros;
 }
 
 
@@ -100,28 +98,12 @@ public void setTitulo(String titulo) {
 	this.titulo = titulo;
 }
 
-public String getTitulofiltro() {
-	return titulofiltro;
-}
-
-public void setTitulofiltro(String titulofiltro) {
-	this.titulofiltro = titulofiltro;
-}
-
 public String getDescripcion() {
 	return descripcion;
 }
 
 public void setDescripcion(String descripcion) {
 	this.descripcion = descripcion;
-}
-
-public String getDescripcionfiltro() {
-	return descripcionfiltro;
-}
-
-public void setDescripcionfiltro(String descripcionfiltro) {
-	this.descripcionfiltro = descripcionfiltro;
 }
 
 public Boolean getEstatus() {
@@ -156,14 +138,6 @@ public void setCategoria(String categoria) {
 	this.categoria = categoria;
 }
 
-public String getCategoriafiltro() {
-	return categoriafiltro;
-}
-
-public void setCategoriafiltro(String categoriafiltro) {
-	this.categoriafiltro = categoriafiltro;
-}
-
 public Media getMedia() {
 	return media;
 }
@@ -180,11 +154,6 @@ public void setListaReglamento(List<Reglamento> listaReglamento) {
 	this.listaReglamento = listaReglamento;
 }
 
-
-
-
-
-
 @Command
 @NotifyChange({"IdDocumento","titulo", "descripcion", "categoria", "fechaSubida", "nombreDoc"})
 public Reglamento getReglamentoSeleccionado() {
@@ -195,14 +164,37 @@ public void setReglamentoSeleccionado(Reglamento reglamentoSeleccionado) {
 	this.reglamentoSeleccionado = reglamentoSeleccionado;
 }
 
-@Command
-@NotifyChange({"titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc"})//, "sexo"})
+public String getTituloF() {
+	return tituloF;
+}
+
+public void setTituloF(String tituloF) {
+	this.tituloF = tituloF;
+}
+
+public String getCategoriaF() {
+	return categoriaF;
+}
+
+public void setCategoriaF(String categoriaF) {
+	this.categoriaF = categoriaF;
+}
+
+/** guardarReglamento
+ * @param "titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc"
+ * @return No devuelve ningun valor
+ * @throws las excepciones son que los datos a guardar esten vacios
+ */
+
+@Command // Permite manipular la propiedad de ViewModel
+@NotifyChange({"IdDocumento","titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc", "documento"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 public void guardarReglamento(){
-	System.out.print("ESTO ES NOMBREDOC");
-	System.out.print(nombreDoc);
-if (titulo == null || descripcion.equals("") || categoria.equals("") || fechaSubida.equals("") || nombreDoc == null)
+if (titulo == null || descripcion ==null|| categoria==null )
 	mensajeAlUsuario.advertenciaLlenarCampos();	
-	//Messagebox.show("No pueden haber campos vacios", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+
+else if (documento.getTamanoDocumento() < 1)
+//else if (documento.getNombreDocumento().equals(""))
+	mensajeAlUsuario.advertenciaCargarDocumento();
 	else{
 		Reglamento reg = new Reglamento(IdDocumento,documento ,titulo, descripcion,true, fechaSubida,categoria);
 		try{
@@ -211,29 +203,38 @@ if (titulo == null || descripcion.equals("") || categoria.equals("") || fechaSub
 		catch(Exception e){
 		    System.out.println(e.getMessage());
 		}
-		
-		mensajeAlUsuario.informacionArchivoCargado();
-		//Messagebox.show("Datos almacenados correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 		limpiar();
 		filtros();
+		mensajeAlUsuario.informacionArchivoCargado();
+		
 	}
 }
-
+/** limpiar
+ * @param "IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"
+ * @return no devuelve nada
+ * @throws 
+ * 
+ */
 
 @Command
-@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
+@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc", "documento"})
 public void limpiar(){
 	IdDocumento = null;
 	titulo = null;
-	descripcion = "";
-	categoria="";
-	fechaSubida= null;
+	descripcion = null;
+	categoria=null;
+	fechaSubida= new Date();
 	media = null;
 	documento = new Documento();
-	nombreDoc="";
+	nombreDoc=null;
 	filtros();
+	
 }
 
+/**mostrarSeleccionado
+ *@param IdDocumento,titulo,descripcion,categoria,fechaSubida,listaReglamento,nombreDoc
+ *@return No devuelve ningun valor 
+ */
 
 
 @Command
@@ -246,18 +247,30 @@ public void mostrarSeleccionado(){
 	categoria = reg.getCategoria();
 	fechaSubida = reg.getFechaSubida();
 	documento = reg.getDocumento();
+//	
+//	IdDocumento =  reglamentoSeleccionado.getIdDocumento();
+//	titulo =  reglamentoSeleccionado.getTitulo();
+//	descripcion =  reglamentoSeleccionado.getDescripcion();
+//	categoria =  reglamentoSeleccionado.getCategoria();
+//	fechaSubida =  reglamentoSeleccionado.getFechaSubida();
+//	documento =  reglamentoSeleccionado.getDocumento();
 	if (reg.getDocumento().getNombreDocumento()!=null){
-		nombreDoc=reg.getDocumento().getNombreDocumento();
+	nombreDoc=reg.getDocumento().getNombreDocumento();
 	}
 	
 
 }
+/**eliminarReglamento
+ * @param IdDocumento,titulo,descripcion,categoria,fechaSubida,listaReglamento,nombreDoc
+ * @return No devuelve ningun valor
+ * @throws La Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
+ */
 
-@Command
+@Command 
 @NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
 public void eliminarReglamento(){
-if (titulo == null)
-	mensajeAlUsuario.ErrorImposibleEliminar();	
+if (titulo == null || descripcion ==null || categoria ==null|| documento ==null)
+	mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 	//Messagebox.show("IdDocumento de Reglamento no encontrado, no se pudo eliminar", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	else{
 		try{
@@ -272,6 +285,11 @@ if (titulo == null)
 		filtros();
 	}
 }
+/**cargarDocumento
+ * @param nombreDoc,UploadEvent event Zkoss UI.
+ * @return No devuelve ningun valor
+ * @throws La excepcion es que media sea null
+ */
 
 @Command
 @NotifyChange("nombreDoc")
@@ -294,6 +312,9 @@ public void cargarDocumento(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent
 		}
 	} 
 }
+/**descargarDocumento
+ * @return No devuelve ningun valor
+ */
 
 @Command
 public void descargarDocumento(){
@@ -301,14 +322,16 @@ public void descargarDocumento(){
 }
 
 
-//Método que busca y filtra los archivos
+/**filtros. Filtra por las variables tituloF,categoriaF 
+ *@param tituloF,categoriaF
+ *@return No devuelve ningun valor.
+ */
 		@Command
-		@NotifyChange({ "listaReglamento" })
+		@NotifyChange({ "listaReglamento","tituloF","categoriaF" })
 		public void filtros() {
-			List<Reglamento> listaF = servicioreglamento.listaReglamento();
-			listaReglamento = servicioreglamento.buscarReglamentoTitulo(filtros, listaF);
-			listaReglamento = servicioreglamento.buscarReglamentoDescripcion(filtros, listaReglamento);
-			listaReglamento = servicioreglamento.buscarReglamentoCategoria(filtros, listaReglamento);
+			
+			listaReglamento = servicioreglamento.buscarReglamento(tituloF,categoriaF);
+
 		}
 		
 	
