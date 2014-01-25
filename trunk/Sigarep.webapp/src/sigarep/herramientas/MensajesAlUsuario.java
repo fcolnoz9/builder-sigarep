@@ -80,6 +80,12 @@ public class MensajesAlUsuario {
 		Messagebox.show("El formato no es soportado.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	public void advertenciaCargarDocumento() {
+
+		Messagebox.show("¡Debe Cargar un Documento!", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
 	public void informacionRegistroCorrecto() {
 
 		Messagebox.show("Se ha registrado correctamente.", "Información",
