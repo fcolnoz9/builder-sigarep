@@ -174,7 +174,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	@Command
 	@NotifyChange({"idNoticia","contenido", "enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarNoticia(){
-		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null)
+		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia=="" || titulo=="" || contenido==""|| enlaceNoticia=="")
 			mensajesAlUsuario.advertenciaLlenarCampos();
 		else{
 			System.out.println(fotoNoticia.getTamano());
@@ -213,6 +213,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	public void limpiar(){
 		// se utiliza la fecha del sistema para colocarla al momento de limpiar
 		Date fecha = new Date();
+		idNoticia=null;
 		contenido="";
 		enlaceNoticia="";
 		fechaRegistro=fecha;
