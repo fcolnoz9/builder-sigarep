@@ -151,5 +151,9 @@ public class ServicioSolicitudApelacion {
 			}
         }
 		return result;
+	}
+
+	public List<SolicitudApelacion> buscarApelacionesVeredictoI() {
+		return iSolicitudApelacionDAO.buscarApelacionesVeredictoI();
 	} 
 }
