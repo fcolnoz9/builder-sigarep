@@ -171,8 +171,8 @@
 										<treerow>
 											<treecell
 												label="Datos Iniciales"
-												id="RegistrarDatosInicialesApelacion" sclass="transacciones"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/RegistrarDatosInicialesApelacion.zul")' />
+												id="ListadoSancionInicial" sclass="transacciones"
+												onClick='createWin(ListadoSancionInicial.getId(), ListadoSancionInicial.getSclass(),"transacciones/RegistrarDatosInicialesApelacion.zul")' />
 										</treerow>
 									</treeitem>
 									<treeitem>

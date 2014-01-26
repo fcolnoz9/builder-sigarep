@@ -15,10 +15,12 @@ import org.zkoss.zul.Window;
 
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioDatosIniciales;
+import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
@@ -27,7 +29,7 @@ public class VMListaGenericaSancionados {
 
 
 	private SolicitudApelacion sancionadoSeleccionado;
-	
+	private EstudianteSancionado estudianteseleccionado;
 	
 	//Servicios para llenar los combos
 	@WireVariable
@@ -42,9 +44,13 @@ public class VMListaGenericaSancionados {
 	private ServicioDatosIniciales serviciodatosiniciales;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	
 	
 	//Lista que se llena segun la transaccion
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
+	private List<EstudianteSancionado> listaEstudiantes = new LinkedList<EstudianteSancionado>();
 	
 	//Variables para el filtrado por combos o textbox
 	private List<ProgramaAcademico> listaPrograma;
@@ -57,6 +63,24 @@ public class VMListaGenericaSancionados {
 	private String apellido="";
 	private String nombre="";
 	private String cedula="";
+
+	
+	public EstudianteSancionado getEstudianteseleccionado() {
+		return estudianteseleccionado;
+	}
+
+	public void setEstudianteseleccionado(
+			EstudianteSancionado estudianteseleccionado) {
+		this.estudianteseleccionado = estudianteseleccionado;
+	}
+
+	public List<EstudianteSancionado> getListaEstudiantes() {
+		return listaEstudiantes;
+	}
+
+	public void setListaEstudiantes(List<EstudianteSancionado> listaEstudiantes) {
+		this.listaEstudiantes = listaEstudiantes;
+	}
 
 	public String getNombrePrograma() {
 		return nombrePrograma;
@@ -158,6 +182,9 @@ public class VMListaGenericaSancionados {
 	@Init
     public void init(@ExecutionArgParam("rutaModal") String rutaModal){
 		this.rutaModal=rutaModal;
+		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul")){
+		listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
+		}
 		buscarTipoMotivo();
 		buscarProgramaA ();
 		buscarSancionados();
@@ -202,6 +229,7 @@ public class VMListaGenericaSancionados {
   		
   		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("sancionadoSeleccionado", sancionadoSeleccionado);
+	 	map.put("estudianteseleccionado", estudianteseleccionado);
  
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/"+rutaModal, null, map);
