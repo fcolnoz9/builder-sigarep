@@ -78,7 +78,7 @@ public class VMRegistrarDatosIniciales {
 	private String descripcion;
 	private Motivo motivo;
 	private List<Motivo> listamotivos;
-	private List<mot> listamo;
+	private List<Mot> listamo = new LinkedList<Mot>();
 	private Motivo motivoseleccionado;
 	private String listamotivoseleccionado;
 	private mensajes msjs = new mensajes();
@@ -150,11 +150,11 @@ public class VMRegistrarDatosIniciales {
 		this.estudianteseleccionado = estudianteseleccionado;
 	}
 
-	public List<mot> getListamo() {
+	public List<Mot> getListamo() {
 		return listamo;
 	}
 
-	public void setListamo(List<mot> listamo) {
+	public void setListamo(List<Mot> listamo) {
 		this.listamo = listamo;
 	}
 
@@ -485,13 +485,11 @@ public class VMRegistrarDatosIniciales {
 				msjs.advertenciaLlenarCampos();
 		else{
 				for(int i=0; i<listamotivo.size();i++){
-					if(listamotivoseleccionado.equals(listamotivo.get(i).getNombreTipoMotivo())){
-						mot mo = new mot();
+						Mot mo = new Mot();
 						mo.setDescripcion(descripcion);
 						mo.setNombreMotivo(listamotivoseleccionado);
 						listamo.add(mo);
-					}
-					limpiar();
+                  limpiar();
 					msjs.informacionRegistroCorrecto();
 					}
 		}
@@ -517,27 +515,5 @@ public class VMRegistrarDatosIniciales {
 	@Command
 	public void cancelar(){
 		
-	}
-	
-	class mot{
-		String nombremotivo;
-		String descripcion;
-		
-		mot(){}
-		public void setNombreMotivo(String nm){
-			this.nombremotivo = nm;
-		}
-		
-		public String getNombreMotivo(){
-			return this.nombremotivo;
-		}
-		
-		public void setDescripcion(String d){
-			this.descripcion = d;
-		}
-		
-		public String getDescripcion(){
-			return this.descripcion;
-		}
 	}
 }
