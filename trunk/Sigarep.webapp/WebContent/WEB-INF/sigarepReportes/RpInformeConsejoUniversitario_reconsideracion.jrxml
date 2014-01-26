@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeConsejoUniversitario_subreport1" language="groovy" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="205ac812-d8a9-41b9-973c-a9a9d01a2dae">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM recaudo_entregado]]>
+	</queryString>
+	<field name="observacion_experto" class="java.lang.String"/>
+	<field name="nrosesion" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="segundo_veredicto" class="java.lang.String"/>
+	<field name="nombre_recaudo" class="java.lang.String"/>
+	<field name="nro" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="21" width="429" height="20" uuid="5298592f-d57b-4f13-87a0-2a8a901035da"/>
+				<text><![CDATA[Enumere e Identifique los anexos, constancias o comunicaciones entregadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="41" width="100" height="20" uuid="2badfc29-ebd2-4e56-9509-715ced3416ba"/>
+				<box>
+					<topPen lineWidth="1.75"/>
+					<leftPen lineWidth="1.75"/>
+					<bottomPen lineWidth="1.75"/>
+					<rightPen lineWidth="1.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="41" width="249" height="20" uuid="012fddbb-cfca-49a0-8097-c382511a78b0"/>
+				<box>
+					<topPen lineWidth="1.75"/>
+					<leftPen lineWidth="1.75"/>
+					<bottomPen lineWidth="1.75"/>
+					<rightPen lineWidth="1.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Recaudo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<line>
+				<reportElement x="110" y="27" width="249" height="1" uuid="6097d28b-3309-4654-ad93-aa6073212ef3"/>
+			</line>
+			<textField>
+				<reportElement x="110" y="8" width="100" height="20" uuid="0b87cab7-1091-4536-a8cd-88016e6aaf50"/>
+				<textFieldExpression><![CDATA[$F{nombre_recaudo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="7" width="100" height="21" uuid="f1bdb980-16ad-4f41-8eee-e3bc10ab0608"/>
+				<textFieldExpression><![CDATA[$F{nro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="134" splitType="Stretch">
+			<staticText>
+				<reportElement x="17" y="30" width="429" height="20" uuid="9b1d27b4-4ef9-4ea5-a5cc-25e5d600ccec"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="10" width="429" height="20" uuid="80c80951-de34-43fd-beac-64821b5514f5"/>
+				<text><![CDATA[Decisión tomada por el Consejo de Decanato :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="30" width="100" height="20" uuid="51a8e11a-81ac-4169-8d99-0edd8338d680"/>
+				<textFieldExpression><![CDATA[$F{segundo_veredicto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
