@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMVeredicto {
+public class VMVeredictoI {
 	@Wire("#modalDialog")
 	private Window window;
 	private String cedula;
@@ -47,6 +47,8 @@ public class VMVeredicto {
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos="";
 	private String labelAsignaturaLapsosConsecutivos;
+	private String observacionGeneral;
+	private String veredicto;
 
 
 	@WireVariable
