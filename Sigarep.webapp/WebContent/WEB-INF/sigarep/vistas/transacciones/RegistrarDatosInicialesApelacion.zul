@@ -109,7 +109,7 @@
 							width="80%" tabindex="7" />
 						<label id="lblMotivo" value="Motivo: " />
 						<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)"
-							 tabindex="8" width="80%"> 
+							 tabindex="8" width="80%" value="@bind(vm.listamotivoseleccionado) selectedItem="@bind(vm.listamotivoseleccionado)"> 
 							<template name="model">
 								<comboitem  label="${each.getNombreTipoMotivo()}"/>
 							</template>
@@ -117,7 +117,7 @@
 						<label id="lblDescripcionMotivo" value="Descripcion: " />
 						<textbox id="txtDescripcion" rows="3" 
 							width="80%" cols="23" height="auto"
-						 readonly="true" maxlength="255">
+						 readonly="true" maxlength="255" value="@bind(vm.descripcion)">
 						 </textbox>
 						<button id="btnAgregar" label="Agregar" mold="trendy"
 							image="/imagenes/iconos/agregar.png" width="auto" height="auto"
@@ -127,7 +127,7 @@
 				</rows>
 			</grid>
 			<listbox height="auto" id="lbxMotivos" mold="paging" pageSize="10"
-				model="@load(vm.listamotivos)"
+				model="@load(vm.listamot)"
 				selectedItem="@bind(vm.motivoseleccionado)"
 				onSelect="@command('eliminarMotivoSeleccionado')"
 				emptyMessage="No hay motivos agregados">
@@ -137,7 +137,7 @@
 				</listhead>
 				<template name="model">
 					<listitem>
-						<listcell label="${each.motivo}" />
+						<listcell label="${each.nombremotivo}" />
 						<listcell label="${each.descripcion}" />
 					</listitem>
 				</template>
