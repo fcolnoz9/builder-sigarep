@@ -7,20 +7,29 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -49,6 +58,9 @@ public class VMVeredictoI {
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacionGeneral;
 	private String veredicto;
+	
+	private SolicitudApelacion solicitudApelacion;
+	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 
 
 	@WireVariable
@@ -57,6 +69,10 @@ public class VMVeredictoI {
 	private ServicioAsignatura servicioAsignatura;
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 
 	private List<RecaudoEntregado> listaRecaudo; 
 
@@ -154,6 +170,7 @@ public class VMVeredictoI {
 		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
 	{
 		Selectors.wireComponents(view, this, false);
+		this.solicitudApelacion = sa;
 		this.cedula = sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
 		this.primerNombre = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre();
 		this.primerApellido = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido();
@@ -169,6 +186,7 @@ public class VMVeredictoI {
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
+		this.observacionGeneral = sa.getObservacion();
 		
 		concatenacionNombres();
 		concatenacionApellidos();
@@ -244,72 +262,66 @@ public class VMVeredictoI {
 		this.peridoSancion = peridoSancion;
 	}
 
-  //  @Command
-	//@NotifyChange({"veredicto", "observacion", "responsable","fecha_veredicto"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
-	//public void guardar(){
-    	//if (veredicto.equals("")||observacion.equals("")|| responsable.equals(""))
-			//Messagebox.show("Debes Llenar todos los Campos", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-		//else{
-		//objetoveredicto = new Profesor(veredicto,observacion,responsable,fecha_veredicto);
-		//sa.guardar(objetoveredicto);
-		//Messagebox.show("Se ha Registrado Correctamente", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-		//limpiar();
-	//	}
-	//}
-    
-//    @Command
-//    @NotifyChange({"veredicto","observacion","fecha_veredicto","selected"})
-//	public void registrarSolicitudApelacion() {
-//			Date fecha= new Date();
-//			Time hora= new Time(0);
-//			
-//			System.out.println("codigolapso  "+codigolapso);
-//			if (!selected.equals("")){
-//				if(getSelected().equals("procedente")){
-//					solicitudApelacion.setVeredicto(selected);
-//					System.out.println("veredictoIF"+selected);
-//				}
-//				else{
-//					System.out.println("veredictoELSE: "+selected);
-//					solicitudApelacion.setVeredicto(selected);
-//			
-//				}
-//			}
-//			System.out.println("fecha_veredicto "+fecha);
-//			solicitudApelacion.setFechaSesion(fechaSesion);
-//			System.out.println("observacion"+observacion);
-//			solicitudApelacion.setObservacion(observacion);
-//			System.out.println("cedula "+cedula);
-//			//solicitudApelacionPK.setCedulaEstudiante(cedula);
-//						
-//			try {
-//								
-//			/*  this.solicitudApelacionPK.setCedulaEstudiante(cedula);
-//		        System.out.println("cedula "+cedula);
-//		        this.solicitudApelacionPK.setCodigoLapso(codigolapso);
-//		        System.out.println("codigoLapso "+codigolapso);
-//		        this.solicitudApelacionPK.setIdInstanciaApelada(instancia);
-//		        System.out.println("instancia "+instancia);
-//		      */  
-//		        
-//		    //    this.solicitudApelacion = serviciosolicitudapelacion.buscarUno(solicitudApelacionPK);
-//		    //    System.out.println("objeto "+solicitudApelacion);
-//		
-//			//	serviciosolicitudapelacion.guardar(solicitudApelacion);
-//			//	System.out.println("OBJETO "+solicitudApelacion);
-//				
-//				
-//				
-//		        
-//		        
-//				serviciosolicitudapelacion.guardar(solicitudapelacion);
-//			} 
-//			catch (Exception e) {
-//				System.out.println(e.getMessage());
-//			}
-//			msjs.informacionRegistroCorrecto();
-//		
-//		}
+	public String getObservacionGeneral() {
+		return observacionGeneral;
+	}
+
+	public void setObservacionGeneral(String observacionGeneral) {
+		this.observacionGeneral = observacionGeneral;
+	}
+
+	public String getVeredicto() {
+		return veredicto;
+	}
+
+	public void setVeredicto(String veredicto) {
+		this.veredicto = veredicto;
+	}
+
+	@Command
+	public void registrarVeredicto(){
+		solicitudApelacion.setObservacion(observacionGeneral);
+		solicitudApelacion.setVeredicto(veredicto);
+		serviciosolicitudapelacion.guardar(solicitudApelacion);
+		
+		ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
+		ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
+		apelacionEstadoPK.setCedulaEstudiante(cedula);
+		apelacionEstadoPK.setCodigoLapso(lapso);
+		apelacionEstadoPK.setIdEstadoApelacion(4);
+		apelacionEstadoPK.setIdInstanciaApelada(instancia);
+		apelacionEstado.setId(apelacionEstadoPK);
+		apelacionEstado.setFechaEstado(new Date());
+		apelacionEstado.setObservacion(observacionGeneral);
+	
+		mensajesAlUsuario.informacionVeredictoRegistrado();
+		
+	}
+	
+	@Command
+	@NotifyChange({ "observacionGeneral" , "veredicto" })
+	public void limpiar(){
+		observacionGeneral = solicitudApelacion.getObservacion();
+		veredicto = "";
+	}
+
+	public void finalizarVeredictoI(List<SolicitudApelacion> listaSancionados) {
+		if (listaSancionados.size() == 0)
+			mensajesAlUsuario.informacionFinalizarVeredictoIApelacionesProcesadas();
+		else
+			showModalDatosSesion(listaSancionados);
+	}
+	
+	public void showModalDatosSesion (List<SolicitudApelacion> listaSancionados){
+  		
+  		final HashMap<String, Object> map = new HashMap<String, Object>();
+	 	map.put("listaSancionados", listaSancionados);
+ 
+        final Window window = (Window) Executions.createComponents(
+        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, null);
+		window.setMaximizable(true);
+		window.doModal();
+  	}
 }
     
 
