@@ -161,7 +161,11 @@ public class MensajesAlUsuario {
 
 		Messagebox.show("Archivo eliminado correctamente.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
-
+	}
+	
+	public void informacionVeredictoRegistrado() {
+		Messagebox.show("Veredicto registrado correctamente.", "Información",
+		Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void ErrorImposibleEliminar() {
