@@ -1,0 +1,45 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Veredicto :: Datos de la Sesión " id="winDatosDeSesion"
+	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDatosSesionI')" 
+	width="auto" height="auto" closable="true">
+		<grid id="grdFinalizarLapso">
+			<columns>
+				<column align="left"></column>
+				<column align="left"></column>
+				<column align="left"></column>
+				<column align="left"></column>
+			</columns>
+			<rows>
+				<row>
+					<label id="lblFechaSesion" value="Fecha de Sesión:" />
+					<datebox id="dtbFechaSesion" mold="rounded" value="@bind(vm.fechaSesion)" />
+					<label value="" />
+					<label value="" />
+				</row>
+				<row>
+					<label id="lblNumeroSesion" value="Número de Sesión:" />
+					<textbox id="txtNumeroSesion" mold="rounded" value="@bind(vm.numeroSesion)" />
+					<label id="lblTipoSesion" value="Tipo de Sesión:" />
+					<combobox id="cmbTipoSesion" mold="rounded" width="150px" selectedItem="@bind(vm.tipoSesion)">
+						<comboitem value="ORDINARIA" id="cmiOrdinaria" label="Ordinaria" ></comboitem>
+						<comboitem value="EXTRAORDINARIA" id="cmiExtraordinaria" label="Extraordinaria" ></comboitem>
+					</combobox>
+				</row>
+			</rows>
+		</grid>
+		<label value=""/>
+		
+		<div align="right" height="100%">
+			<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				 orient="horizontal" onClick="@command('guardarDatosSesion')">
+			</button>
+			<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
+				 orient="horizontal" onClick="@command('limpiar')">
+			</button>
+			<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" 
+				 orient="horizontal" onClick="winDatosDeSesion.onClose()">
+			</button>
+		</div>  
+</window>
+</zk>
