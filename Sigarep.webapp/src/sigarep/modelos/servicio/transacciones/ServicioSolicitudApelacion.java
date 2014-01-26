@@ -160,4 +160,31 @@ public class ServicioSolicitudApelacion {
 	public int mayorNumeroCaso(){
 		return iSolicitudApelacionDAO.mayorNumeroCaso();
 	}
+	
+	//Flor
+	public List<SolicitudApelacion> buscarAnalizarValidez1(){
+		return iSolicitudApelacionDAO.BuscarAnalizarValidez1();
+	}
+
+	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezI(
+			String programa, String cedula, String nombre, String apellido,
+			String sancion) {
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
+        	result= buscarAnalizarValidez1();
+        }
+        else{
+			for (SolicitudApelacion sa : buscarAnalizarValidez1())
+			{
+				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(nombre.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+						sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
+					result.add(sa);
+				}
+			}
+        }
+		return result;
+	}
 }
