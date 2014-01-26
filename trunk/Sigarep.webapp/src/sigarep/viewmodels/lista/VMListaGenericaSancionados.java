@@ -23,6 +23,7 @@ import sigarep.modelos.servicio.transacciones.ServicioDatosIniciales;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+import sigarep.viewmodels.transacciones.VMVeredictoI;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaGenericaSancionados {
@@ -47,6 +48,8 @@ public class VMListaGenericaSancionados {
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	
+	//Variables de tipo VM para llamar a metodos segun la funcionalidad "Finalizar"
+	private VMVeredictoI vmVeredictoI = new VMVeredictoI();
 	
 	//Lista que se llena segun la transaccion
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
@@ -247,7 +250,7 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesReconsideracion(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
-			lista = null; //servicioveredicto.filtrarApelacionesVeredicto1(cedula, nombre, apellido, programa, sancion);
+			lista = serviciosolicitudapelacion.filtrarApelacionesVeredicto1(cedula, nombre, apellido, programa, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
 			lista = null; //serviciodatosiniciales.filtrarEstudianteSancionado(cedula, nombre, apellido, nombrePrograma, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
@@ -258,5 +261,13 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezI(programa,cedula,nombre,apellido,sancion );
 	}
 
+	@Command
+	public void finalizar(){
+		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul")){
+			buscarSancionados();
+			vmVeredictoI.finalizarVeredictoI(lista);
+		}
+		
+	}
 }
 
