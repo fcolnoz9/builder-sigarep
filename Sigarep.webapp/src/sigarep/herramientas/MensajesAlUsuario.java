@@ -171,6 +171,11 @@ public class MensajesAlUsuario {
 		Messagebox.show("Todas las apelaciones ya han sido procesadas.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
+	
+	public void informacionGuardarDatosSesion(int contador) {
+		Messagebox.show("Se almacenaron correctamente los datos de la sesión a " + contador + " apelaciones.", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
+	}
 
 	public void ErrorImposibleEliminar() {
 
@@ -207,5 +212,6 @@ public class MensajesAlUsuario {
 				Messagebox.QUESTION);
 
 	}
+
 
 }
