@@ -212,7 +212,7 @@
 										<treerow>
 											<treecell label="Veredicto"
 												id="ListaGenericaSancionados" sclass="transacciones"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(), "transacciones/veredicto.zul")' />
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(), "transacciones/veredictoI.zul")' />
 										</treerow>
 									</treeitem>
 								</treechildren>
