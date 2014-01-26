@@ -92,5 +92,9 @@ public class ServicioRecaudo {
 		return resultado;
 	}
 	
+	public List<Recaudo> buscarRecaudosPorApelacion(String cedula, String codigoLapso, Integer idInstancia) {
+		List<Recaudo> listaRecaudosApelacion = iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);	
+		return listaRecaudosApelacion;
+	}
 	
 }
