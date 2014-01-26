@@ -67,7 +67,9 @@ public class VMRegistrarRecursoJerarquico {
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String nombreDoc;
+	private String observacion;
 	
+
 	private Integer idTipoMotivo;
 	private Integer idRecaudo;
 
@@ -98,26 +100,35 @@ public class VMRegistrarRecursoJerarquico {
 
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-	
+
 	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 	ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
-	
+
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
-	
+
 	Soporte soporte = new Soporte();
-	
+
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
-	
+
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
-	
+
 	Recaudo recaudos = new Recaudo();
 
-//METODOS GETS Y DETS
-		
+	// METODOS GETS Y DETS
+
+	
 	public SolicitudApelacion getSancionadoSeleccionado() {
 		return sancionadoSeleccionado;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	public String getNombres() {
@@ -207,13 +218,12 @@ public class VMRegistrarRecursoJerarquico {
 		this.idTipoMotivo = idTipoMotivo;
 	}
 
-// FIN DE LOS METODOS GETS Y SET
+	// FIN DE LOS METODOS GETS Y SET
 
-//OTROS METODOS
+	// OTROS METODOS
 
 	@Init
-	public void init(
-			@ContextParam(ContextType.VIEW) Component view,
+	public void init(@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
 
 	// initialization code
@@ -228,17 +238,20 @@ public class VMRegistrarRecursoJerarquico {
 				.getLapsoAcademico().getCodigoLapso();
 		sancion = sancionadoSeleccionado.getEstudianteSancionado()
 				.getSancionMaestro().getNombreSancion();
-		lapsosConsecutivos = sancionadoSeleccionado
-				.getEstudianteSancionado().getLapsosAcademicosRp();
+		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado()
+				.getLapsosAcademicosRp();
 		caso = sancionadoSeleccionado.getNumeroCaso();
 
 		buscarRecaudosEntregados(cedula);
 
 		if (sancion.equalsIgnoreCase("RR")) {
-			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, lapso);
 			if (asignaturas != null)
 				for (int i = 0; i < asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
 		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
@@ -248,22 +261,32 @@ public class VMRegistrarRecursoJerarquico {
 		doc = new Documento();
 	}
 
-	/** concatenacionNombres.
-	* @param 
-	* @return 
-	* @throws No dispara ninguna excepcion.
-	*/
+	/**
+	 * concatenacionNombres.
+	 * 
+	 * @param
+	 * @return
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	public void concatenacionNombres() {
 
-		nombres = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getPrimerNombre()
+		nombres = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getPrimerNombre()
 				+ " "
-				+ sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getSegundoNombre();
+				+ sancionadoSeleccionado.getEstudianteSancionado()
+						.getEstudiante().getSegundoNombre();
 	}
-	/** concatenacionApellidos.
-	* @param Ninguno.
-	* @return Ninguno
-	* @throws No dispara ninguna excepcion.
-	*/
+
+	/**
+	 * concatenacionApellidos.
+	 * 
+	 * @param Ninguno
+	 *            .
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	public void concatenacionApellidos() {
 
 		apellidos = sancionadoSeleccionado.getEstudianteSancionado()
@@ -274,11 +297,15 @@ public class VMRegistrarRecursoJerarquico {
 
 	}
 
-	/** buscarRecaudosEntregados.
-	* @param cedula, listaRecaudo
-	* @return Ninguno
-	* @throws No dispara ninguna excepcion.
-	*/
+	/**
+	 * buscarRecaudosEntregados.
+	 * 
+	 * @param cedula
+	 *            , listaRecaudo
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({ "listaRecaudos" })
 	public void buscarRecaudosEntregados(String cedula) {
@@ -287,72 +314,81 @@ public class VMRegistrarRecursoJerarquico {
 		System.out.println(listaRecaudos);
 
 	}
-	
-	/** closeThis.
-	* @param Ninguno
-	* @return Ninguno
-	* @throws No dispara ninguna excepcion.
-	*/
+
+	/**
+	 * closeThis.
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	public void closeThis() {
 		window.detach();
 	}
 
-	/** registrarSolicitudApelacion.
-	* @param lista
-	* @return Ninguno
-	* @throws No dispara ninguna excepcion.
-	*/
-	@NotifyChange({ "lista" })
+	/**
+	 * registrarSolicitudApelacion.
+	 * 
+	 * @param lista
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@NotifyChange({ "lista" , "observacion"})
 	@Command
 	public void registrarSolicitudApelacion() {
+		
+			Date fecha = new Date();
+			Time hora = new Time(0);
 
-		Date fecha = new Date();
-		Time hora = new Time(0);
+			if (nombreDoc == null || observacion.equals("")) {
+				mensajesusuario.advertenciaLlenarCampos();
 
-		if (nombreDoc == null) {
-			mensajesusuario.advertenciaLlenarCampos();
+			} else {
+				solicitudApelacionPK.setCedulaEstudiante(cedula);
+				solicitudApelacionPK.setCodigoLapso(lapso);
+				solicitudApelacionPK.setIdInstanciaApelada(2);
+				solicitudApelacion.setId(solicitudApelacionPK);
+				solicitudApelacion.setFechaSolicitud(fecha);
+				solicitudApelacion.setEstatus(true);
+				solicitudApelacion.setNumeroCaso(caso);
 
-		} else {
-			solicitudApelacionPK.setCedulaEstudiante(cedula);
-			solicitudApelacionPK.setCodigoLapso(lapso);
-			solicitudApelacionPK.setIdInstanciaApelada(2);
-			solicitudApelacion.setId(solicitudApelacionPK);
-			solicitudApelacion.setFechaSolicitud(fecha);
-			solicitudApelacion.setEstatus(true);
-			solicitudApelacion.setNumeroCaso(caso);
+				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+				apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
+				//OJO CON ESTE ID
+				apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
+				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+				apelacionEstadoApelacion.setFechaEstado(hora);
+				apelacionEstadoApelacion.setObservacion(observacion);
 
-			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
-			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
-			apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
-			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-			apelacionEstadoApelacion.setFechaEstado(hora);
+				idTipoMotivo = listaRecaudos.get(0).getMotivo().getId()
+						.getIdTipoMotivo();
+				motivoPK.setCedulaEstudiante(cedula);
+				motivoPK.setCodigoLapso(lapso);
+				motivoPK.setIdInstanciaApelada(2);
+				motivoPK.setIdTipoMotivo(idTipoMotivo);
+				motivos.setId(motivoPK);
+				motivos.setEstatus(true);
 
-			idTipoMotivo = listaRecaudos.get(0).getMotivo().getId()
-					.getIdTipoMotivo();
-			motivoPK.setCedulaEstudiante(cedula);
-			motivoPK.setCodigoLapso(lapso);
-			motivoPK.setIdInstanciaApelada(2);
-			motivoPK.setIdTipoMotivo(idTipoMotivo);
-			motivos.setId(motivoPK);
-			motivos.setEstatus(true);
+				recaudoEntregadoPK.setCedulaEstudiante(cedula);
+				recaudoEntregadoPK.setCodigoLapso(lapso);
+				recaudoEntregadoPK.setIdInstanciaApelada(2);
+				recaudoEntregadoPK.setIdRecaudo(2);
+				recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
+				recaudoEntregado.setId(recaudoEntregadoPK);
+				recaudoEntregado.setEstatus(true);
 
-			recaudoEntregadoPK.setCedulaEstudiante(cedula);
-			recaudoEntregadoPK.setCodigoLapso(lapso);
-			recaudoEntregadoPK.setIdInstanciaApelada(2);
-			recaudoEntregadoPK.setIdRecaudo(2);
-			recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
-			recaudoEntregado.setId(recaudoEntregadoPK);
-			recaudoEntregado.setEstatus(true);
-
-			soporte.setRecaudoEntregado(recaudoEntregado);
-			soporte.setDocumento(doc);
-			soporte.setEstatus(true);
-			soporte.setFechaSubida(fecha);
-			soporte.setRecaudoEntregado(recaudoEntregado);
-
-		}
+				soporte.setRecaudoEntregado(recaudoEntregado);
+				soporte.setDocumento(doc);
+				soporte.setEstatus(true);
+				soporte.setFechaSubida(fecha);
+				soporte.setRecaudoEntregado(recaudoEntregado);
+				
+			}
+		
 		try {
 
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
@@ -368,15 +404,19 @@ public class VMRegistrarRecursoJerarquico {
 		}
 
 	}
-	
-	/** cargarCartaReconsideracion.
-	* @param nombreDoc.
-	* @return Ninguno
-	* @throws No dispara ninguna excepcion.
-	*/
+
+	/**
+	 * cargarCartaReconsideracion.
+	 * 
+	 * @param nombreDoc
+	 *            .
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange("nombreDoc")
-	public void cargarCartaReconsideracion(
+	public void cargarRecursoJerarquico(
 			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
 		media = event.getMedia();
 		if (media != null) {
@@ -400,5 +440,23 @@ public class VMRegistrarRecursoJerarquico {
 			}
 		}
 	}
-//FIN OTROS METODOS
+
+	@Command
+	public void descargarDocumento(
+			@ContextParam(ContextType.COMPONENT) Component componente) {
+		idRecaudo = listaRecaudos.get(0).getId().getIdRecaudo();
+		int idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo")
+				.toString());
+		for (int j = 0; j < listaRecaudos.size(); j++) {
+			if (listaRecaudos.get(j).getId().getIdRecaudo() == idRecaudo)
+				Filedownload.save(listaRecaudos.get(j).getSoporte()
+						.getDocumento().getContenidoDocumento(), listaRecaudos
+						.get(j).getSoporte().getDocumento().getTipoDocumento(),
+						listaRecaudos.get(j).getSoporte().getDocumento()
+								.getNombreDocumento());
+		}
+
+	}
+
+	// FIN OTROS METODOS
 }
