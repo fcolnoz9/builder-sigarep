@@ -33,6 +33,11 @@ public class ServicioEstudianteSancionado {
 		return iEstudianteSancionadoDAO.buscarSancionadosActivos();
 	}
 	
+	public List<EstudianteSancionado> buscarSancionados() {
+		return iEstudianteSancionadoDAO.buscarSancionados();
+	}
+	
+	
 	public EstudianteSancionado buscar(EstudianteSancionadoPK id) {
 		return iEstudianteSancionadoDAO.findOne(id);
 	}

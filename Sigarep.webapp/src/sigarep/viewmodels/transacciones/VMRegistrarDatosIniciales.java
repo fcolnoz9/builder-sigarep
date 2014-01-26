@@ -1,12 +1,14 @@
 package sigarep.viewmodels.transacciones;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -14,10 +16,13 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
+import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 /**VM Regisrar Datos Iniciales
 * UCLA DCYT Sistemas de Informacion.
@@ -37,6 +42,10 @@ public class VMRegistrarDatosIniciales {
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	
+	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
+	private EstudianteSancionado estudianteseleccionado ;
+	private String asignaturaLapsosConsecutivos = "";
+	private String labelAsignaturaLapsosConsecutivos;
 	private String cedula;
 	private String primerNombre;
 	private String segundoNombre;
@@ -59,7 +68,62 @@ public class VMRegistrarDatosIniciales {
 	private Motivo motivoseleccionado;
 	private String listamotivoseleccionado;
 	private mensajes msjs = new mensajes();
+	private List<AsignaturaEstudianteSancionado> asignaturas;
+	private List<TipoMotivo> listaTipoMotivo;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	
+	
+	public List<TipoMotivo> getListaTipoMotivo() {
+		return listaTipoMotivo;
+	}
+
+	public void setListaTipoMotivo(List<TipoMotivo> listaTipoMotivo) {
+		this.listaTipoMotivo = listaTipoMotivo;
+	}
+
+	public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
+
+	public List<AsignaturaEstudianteSancionado> getAsignaturas() {
+		return asignaturas;
+	}
+
+	public void setAsignaturas(List<AsignaturaEstudianteSancionado> asignaturas) {
+		this.asignaturas = asignaturas;
+	}
+
+	public List<EstudianteSancionado> getListaSancionados() {
+		return listaSancionados;
+	}
+
+	public void setListaSancionados(List<EstudianteSancionado> listaSancionados) {
+		this.listaSancionados = listaSancionados;
+	}
+
+	public EstudianteSancionado getEstudianteseleccionado() {
+		return estudianteseleccionado;
+	}
+
+	public void setEstudianteseleccionado(
+			EstudianteSancionado estudianteseleccionado) {
+		this.estudianteseleccionado = estudianteseleccionado;
+	}
+
 	public List<mot> getListamo() {
 		return listamo;
 	}
@@ -261,39 +325,66 @@ public class VMRegistrarDatosIniciales {
 		this.motivoseleccionado = motivoseleccionado;
 	}
 	
+	/** concatenacionNombres
+	 * @return devuelve primer y segundo nombre concatenados
+	 */
 	public void concatenacionNombres() {
-		nombres = primerNombre + " " + segundoNombre;
-	}
 
+		nombres = estudianteseleccionado
+				.getEstudiante().getPrimerNombre()
+				+ " "
+				+ estudianteseleccionado
+						.getEstudiante().getSegundoNombre();
+	}
+	/** concatenacionApellidos
+	 * @return devuelve primer y segundo apellido concatenados
+	 */
 	public void concatenacionApellidos() {
-		apellidos = primerApellido + " " + segundoApellido;
+
+		apellidos = estudianteseleccionado
+				.getEstudiante().getPrimerApellido()
+				+ " "
+				+ estudianteseleccionado
+						.getEstudiante().getSegundoApellido();
+
 	}
 
-	@Init
-    public void init(@ContextParam(ContextType.VIEW) Component view,
-		    		@ExecutionArgParam("cedula") String v1,
-		    		@ExecutionArgParam("primerNombre") String v2,
-		    		@ExecutionArgParam("primerApellido") String v3,
-		    		@ExecutionArgParam("programa") String v5,
-		    		@ExecutionArgParam("sancion") String v6,
-		    		@ExecutionArgParam("lapso") String v7,
-		    		@ExecutionArgParam("segundoNombre") String v9,
-		    		@ExecutionArgParam("segundoApellido") String v10,
-		    		@ExecutionArgParam("indice") float v12){
+	@Command
+	@NotifyChange({ "listaTipoMotivo" })
+	public void buscarMotivos() {
+		listaTipoMotivo = serviciotipomotivo.buscarTodas();
 	
+	}
+	@Init
+	public void init(
+	@ContextParam(ContextType.VIEW) Component view,
+	@ExecutionArgParam("estudianteseleccionado") EstudianteSancionado v1
+	)
+	
+	{	
 		Selectors.wireComponents(view, this, false);
-		this.cedula = v1;
-		this.primerNombre = v2;
-		this.primerApellido = v3;
-		this.programa = v5;
-		this.sancion = v6;
-		this.lapso = v7;
-		this.segundoNombre = v9;
-		this.segundoApellido = v10;
+		this.estudianteseleccionado = v1;
+		Date fecha = new Date();
+		cedula = estudianteseleccionado.getId().getCedulaEstudiante();
+		sancion = estudianteseleccionado.getSancionMaestro().getNombreSancion();
+		lapso = estudianteseleccionado.getId().getCodigoLapso();
 		concatenacionNombres();
 		concatenacionApellidos();
-		
+		if (sancion.equalsIgnoreCase("RR")) {
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i = 0; i < asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		} else {
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
 		listamotivo = serviciotipomotivo.buscarTodas();
+		buscarMotivos();
 	}
 	
 	@Command

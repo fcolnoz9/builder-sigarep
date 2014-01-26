@@ -14,5 +14,9 @@ public interface IEstudianteSancionadoDAO extends JpaRepository<EstudianteSancio
 			
 	@Query("Select esa FROM EstudianteSancionado AS esa where estatus = TRUE")		
 	public List<EstudianteSancionado> buscarSancionadosActivos();
+	
+	@Query("Select esa FROM EstudianteSancionado AS esa, LapsoAcademico la  where la.estatus = TRUE " +
+			"and la.codigoLapso = esa.id.codigoLapso")		
+	public List<EstudianteSancionado> buscarSancionados();
 
 }
