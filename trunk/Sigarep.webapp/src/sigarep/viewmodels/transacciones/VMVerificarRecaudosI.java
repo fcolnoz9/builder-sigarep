@@ -52,6 +52,7 @@ import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.Motivo;
@@ -110,9 +111,18 @@ public class VMVerificarRecaudosI {
 	@WireVariable
 	private String fechaApelacion;
 	@WireVariable
-	private String selected = "";	
+	private String selected = "";
 	@WireVariable
-	private List<ListaRecaudosMotivoEstudiante> listaRecaudos = new LinkedList<ListaRecaudosMotivoEstudiante>();
+	private String lapsosConsecutivos;
+	@WireVariable
+	private String asignaturaLapsosConsecutivos="";
+	@WireVariable
+	private String labelAsignaturaLapsosConsecutivos;
+	
+	@WireVariable
+	private List<Recaudo> listaRecaudos = new LinkedList<Recaudo>();
+	@WireVariable
+	private List<AsignaturaEstudianteSancionado> asignaturas;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -142,8 +152,6 @@ public class VMVerificarRecaudosI {
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 
 	@WireVariable
-	private List<ListaRecaudosMotivoEstudiante> listaTipoMotivo;
-	@WireVariable
 	private TipoMotivo tipoMotivo;
 	@WireVariable
 	private List<Recaudo> listaRecaudosPorMotivo;
@@ -172,14 +180,6 @@ public class VMVerificarRecaudosI {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
-	}
-
-	public List<ListaRecaudosMotivoEstudiante> getListaTipoMotivo() {
-		return listaTipoMotivo;
-	}
-
-	public void setListaTipoMotivo(List<ListaRecaudosMotivoEstudiante> listaTipoMotivo) {
-		this.listaTipoMotivo = listaTipoMotivo;
 	}
 
 	public TipoMotivo getTipoMotivo() {
@@ -272,11 +272,11 @@ public class VMVerificarRecaudosI {
 		this.listaSancion = listaSancion;
 	}
 	
-	public List<ListaRecaudosMotivoEstudiante> getListaRecaudos() {
+	public List<Recaudo> getListaRecaudos() {
 		return listaRecaudos;
 	}
 
-	public void setListaRecaudos(List<ListaRecaudosMotivoEstudiante> listaRecaudos) {
+	public void setListaRecaudos(List<Recaudo> listaRecaudos) {
 		this.listaRecaudos = listaRecaudos;
 	}
 	
@@ -311,6 +311,39 @@ public class VMVerificarRecaudosI {
 	public void setFechaApelacion(String fechaApelacion) {
 		this.fechaApelacion = fechaApelacion;
 	}
+	
+	public List<AsignaturaEstudianteSancionado> getAsignaturas() {
+		return asignaturas;
+	}
+
+	public void setAsignaturas(List<AsignaturaEstudianteSancionado> asignaturas) {
+		this.asignaturas = asignaturas;
+	}
+	
+	public String getLapsosConsecutivos() {
+		return lapsosConsecutivos;
+	}
+
+	public void setLapsosConsecutivos(String lapsosConsecutivos) {
+		this.lapsosConsecutivos = lapsosConsecutivos;
+	}
+
+	public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
 
 	@Command
 	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
@@ -322,69 +355,51 @@ public class VMVerificarRecaudosI {
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("cedula") String v1,
-			@ExecutionArgParam("nombre") String v2,
-			@ExecutionArgParam("apellido") String v3,
-			@ExecutionArgParam("email") String v4,
-			@ExecutionArgParam("telefono") String v5,
-			@ExecutionArgParam("programa") String v6,
-			@ExecutionArgParam("sancion") String v7,
-			@ExecutionArgParam("lapso") String v8,
-			@ExecutionArgParam("instancia") Integer v9,
-
-			@ExecutionArgParam("segundoNombre") String v11,
-			@ExecutionArgParam("segundoApellido") String v12,
-			@ExecutionArgParam("asignatura") String v13,
-			@ExecutionArgParam("caso") Integer v14)
-
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
+	
 	// initialization code
 
 	{
 		Selectors.wireComponents(view, this, false);
-		this.cedula = v1;
-		this.nombres = v2 + " " +v11;
-		this.apellidos = v3 + " "+v12;
-		this.programa = v6;
-		this.sancion = v7;
-		this.lapso = v8;
-		this.asignatura = v13;
-		this.caso = v14;
-		
-		SolicitudApelacionPK solicitudApelacionPK2 = new SolicitudApelacionPK();
-		solicitudApelacionPK2.setCedulaEstudiante(cedula);
-		solicitudApelacionPK2.setCodigoLapso(lapso);
-		solicitudApelacionPK2.setIdInstanciaApelada(1);
-		Date fechaSA = serviciosolicitudapelacion.buscarSolicitudPorID(solicitudApelacionPK2).getFechaSolicitud();
-		SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
-		String fecha =  sdf.format(fechaSA);
-		this.fechaApelacion = fecha;
-		EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
-		estudianteSancionadoPK.setCedulaEstudiante(cedula);
-		estudianteSancionadoPK.setCodigoLapso(lapso);
-		this.periodoSancion = servicioestudiantesancionado.buscar(estudianteSancionadoPK).getPeriodoSancion();
+		this.cedula = sa.getEstudianteSancionado().getId().getCedulaEstudiante();
+		this.nombres = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre() + " " +sa.getEstudianteSancionado().getEstudiante().getSegundoNombre();
+		this.apellidos = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido() + " "+sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
+		this.programa = sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
+		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		this.lapso = sa.getId().getCodigoLapso();
+		this.caso = sa.getNumeroCaso();
+
+		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
+		this.periodoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		buscarRecaudos();
-		buscarTiposMotivo();
+		mostrarDatosDeSancion();
+	}
+	
+	private void mostrarDatosDeSancion() {
+		if (sancion.equalsIgnoreCase("RR")){
+			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i=0; i<asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		}
+		else{
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
 	}
 	
 	@Command
 	@NotifyChange({"cedula","lapso","nombreRecaudo","nombreTipoMotivo","listaRecaudos" })
 	public void buscarRecaudos() {
-		listaRecaudos = serviciolista.buscarRecaudosMotivos(cedula,lapso,1);
+		listaRecaudos = serviciorecaudo.buscarRecaudosPorApelacion(cedula, lapso, 1);
 	}
 	
-	// Metodo que buscar los lapsos y cargarlos en el combobox
-	@Command
-	@NotifyChange({"cedula","lapso","listaTipoMotivo","nombreTipoMotivo"})
-	public void buscarTiposMotivo() {
-		listaTipoMotivo = serviciolista.buscarTiposMotivoSolicitud(cedula, lapso, 1);
-	}
-
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso"})
 	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudos) {
-		if (cedula == null || nombres == null || apellidos == null) {
-			msjs.advertenciaLlenarCampos();
-		} else if (recaudos.size() == 0) {
+		if (recaudos.size() == 0) {
 			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
 					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
@@ -443,7 +458,7 @@ public class VMVerificarRecaudosI {
 				ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-				apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
+				apelacionEstadoApelacionPK.setIdEstadoApelacion(2);
 				apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
 				
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
@@ -454,13 +469,6 @@ public class VMVerificarRecaudosI {
 				try {
 					msjs.informacionRegistroCorrecto();
 					winVerificarRecaudos.detach(); //oculta el window
-//					Window windowLista = (Window) Path.getComponent("/winVerificarApelacionesComision");
-//					windowLista.onClose();
-//					Listbox lb = (Listbox)Path.getComponent("/winVerificarApelacionesComision/lbxSancionados");
-//					lb.setModel(new SimpleListModel<ListaApelacionEstadoApelacion>(serviciolista.buscarApelacionesALaComision()));
-//					sigarep.viewmodels.transacciones.VMListaApelacionesComision vm = new VMListaApelacionesComision();
-//					System.out.println("PLOP"+vm.getLista().size());
-
 					//falta actualizar la lista de apelaciones en este punto
 				} catch (Exception e) {
 					System.out.println(e.getMessage());

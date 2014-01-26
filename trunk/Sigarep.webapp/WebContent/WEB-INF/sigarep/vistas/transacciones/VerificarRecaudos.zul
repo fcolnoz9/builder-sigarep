@@ -55,9 +55,9 @@
 					<textbox id="txtPeridosancion" cols="23"
 						maxlength="30" value="@bind(vm.periodoSancion)" readonly="true">
 					</textbox>
-					<label id="lblAsignatura" value="Asignatura: " />
-					<textbox id="txtAsignatura" cols="23"
-						maxlength="30" value="@bind(vm.asignatura)" readonly="true">
+					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55"
+						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -76,25 +76,8 @@
 				value="@bind(vm.fechaApelacion)" readonly="true">
 			</textbox>	
 		</div>
-		<separator/>	
-	   <listbox id="listaMotivos" multiple="true" height="auto"
-	   	width="auto" mold="paging" pageSize="3" model="@bind(vm.listaTipoMotivo)">
-	   	<listhead>
-	   		<listheader hflex="3" label="Tipo de Motivo" width="50%" sort="auto(nombreTipoMotivo)" />
-	   		<listheader hflex="4" label="Descripción" width="50%" sort="auto(descripcion)"/>
-	   	</listhead>
-	   	<template name="model">
-	   		<listitem selected="false">
-	   			<listcell label="${each.nombreTipoMotivo}" height="20%"></listcell>
-	   			<listcell label="${each.descripcionTipoMotivo}" height="20%"></listcell>
-	   		</listitem>
-	   	</template>
-	   </listbox>
-	</groupbox>
-
-	<groupbox id="grbDatosRecaudo">
-	   <caption label="Datos de los recaudos: Seleccione los recaudos que fueron entregados" />
-	   <listbox id="left" multiple="true" height="auto" width="auto"
+		<separator/>
+	 	<listbox id="left" multiple="true" height="auto" width="auto"
 	   	oddRowSclass="non-odd" checkmark="true" xmlns:ca="client/attribute"
 	   	ca:data-scrollable="false" model="@bind(vm.listaRecaudos)"
 	   	emptyMessage="No hay recaudos entregados"
@@ -106,10 +89,10 @@
 	   	<template name="model">
 	   		<listitem selected="false">
 	   			<listcell label="${each.nombreRecaudo}" height="20%"></listcell>
-	   			<listcell label="${each.nombreTipoMotivo}" height="20%"></listcell>
+	   			<listcell label="${each.tipoMotivo.nombreTipoMotivo}" height="20%"></listcell>
 	   		</listitem>
 	   	</template>
-	   </listbox>
+	   </listbox>	
 	</groupbox>
 	
 	<groupbox>
