@@ -28,6 +28,7 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -308,17 +309,19 @@ public class VMVeredictoI {
 	public void finalizarVeredictoI(List<SolicitudApelacion> listaSancionados) {
 		if (listaSancionados.size() == 0)
 			mensajesAlUsuario.informacionFinalizarVeredictoIApelacionesProcesadas();
-		else
+		else{
+			System.out.println("AQUI: "+listaSancionados.size());
 			showModalDatosSesion(listaSancionados);
+		}
 	}
-	
+
 	public void showModalDatosSesion (List<SolicitudApelacion> listaSancionados){
   		
   		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("listaSancionados", listaSancionados);
- 
+	 	System.out.println("AQUI2: "+listaSancionados.size());
         final Window window = (Window) Executions.createComponents(
-        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, null);
+        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
 		window.setMaximizable(true);
 		window.doModal();
   	}
