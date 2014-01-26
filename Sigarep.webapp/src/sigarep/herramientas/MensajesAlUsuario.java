@@ -1,8 +1,7 @@
 package sigarep.herramientas;
 
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
+
 
 /*
  * Debe declarar una variable tipo MensajesAlUsuario como estándar mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) en donde usará los mensajes (su clase viewmodels), 
@@ -165,7 +164,12 @@ public class MensajesAlUsuario {
 	
 	public void informacionVeredictoRegistrado() {
 		Messagebox.show("Veredicto registrado correctamente.", "Información",
-		Messagebox.OK, Messagebox.INFORMATION);
+				Messagebox.OK, Messagebox.INFORMATION);
+	}
+	
+	public void informacionFinalizarVeredictoIApelacionesProcesadas() {
+		Messagebox.show("Todas las apelaciones ya han sido procesadas.", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void ErrorImposibleEliminar() {
