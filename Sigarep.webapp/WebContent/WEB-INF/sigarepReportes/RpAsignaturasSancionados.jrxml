@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpAsignaturasSancionados" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6b1c68a-5758-425f-ba1a-a2259b7d86bb">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="115"/>
+	<property name="ireport.x" value="98"/>
+	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Wed Jan 15 21:02:34 VET 2014"/>
 	<style name="table">
 		<box>
@@ -215,11 +215,11 @@ UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<image>
-				<reportElement x="59" y="82" width="100" height="100" uuid="d8fc3721-64d2-4304-b171-ca637cbedd32"/>
+				<reportElement x="67" y="82" width="100" height="100" uuid="d8fc3721-64d2-4304-b171-ca637cbedd32"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="592" y="82" width="100" height="100" uuid="da787d0b-6920-4aec-9128-a79e7020cb9c"/>
+				<reportElement x="600" y="82" width="100" height="100" uuid="da787d0b-6920-4aec-9128-a79e7020cb9c"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
@@ -323,9 +323,9 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="62" splitType="Stretch">
 			<textField>
-				<reportElement style="table 1" x="0" y="0" width="112" height="20" uuid="0a806358-2d48-4bb7-9292-e6c4d91d0618"/>
+				<reportElement style="table 1" x="8" y="0" width="112" height="20" uuid="0a806358-2d48-4bb7-9292-e6c4d91d0618"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
