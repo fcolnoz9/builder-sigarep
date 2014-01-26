@@ -86,7 +86,7 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
-	public void informacionRegistroCorrecto() {
+	public static void informacionRegistroCorrecto() {
 
 		Messagebox.show("Se ha registrado correctamente.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
