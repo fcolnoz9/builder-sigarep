@@ -16,28 +16,34 @@
 	<groupbox id="grbDatosEstudiante">
 		<caption id="lblDatosEstudiante" label="Datos del Estudiante" />
 		<grid id="grdDatosEstudiante">
+			<columns>
+				<column width="10%" />
+				<column width="40%" />
+				<column width="10%" />
+				<column width="40%" />
+			</columns>
 			<rows>
 				<row>
 					<label id="lblCedula" value="Cedula: " />
 					<textbox id="txtCedula" cols="23" maxlength="30"
 						readonly="true"
 						value="@bind(vm.sancionadoSeleccionado.id.cedulaEstudiante)"
-						width="200px">
+						width="80%" mold="rounded">
 					</textbox>
 					<label id="lblPrograma" value="Programa: " />
 					<textbox id="txtPrograma" cols="23" maxlength="30"
 						value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.estudiante.programaAcademico.nombrePrograma)"
-						readonly="true" width="200px">
+						readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblNombres" value="Nombres: " />
 					<textbox id="txtNombres" cols="23" maxlength="30"
-						value="@bind(vm.nombres)" readonly="true" width="200px">
+						value="@bind(vm.nombres)" readonly="true" width="80%" mold="rounded">
 					</textbox>
 					<label id="lblApellidos" value="Apellidos: " />
 					<textbox id="txtApellidos" cols="23" maxlength="30"
-						value="@bind(vm.apellidos)" readonly="true" width="200px">
+						value="@bind(vm.apellidos)" readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
 			</rows>
@@ -46,32 +52,40 @@
 	<groupbox id="grbDatosSancion">
 		<caption id="lblDatosSancion" label="Datos de la Sancion" />
 		<grid>
+			<columns>
+				<column width="10%" />
+				<column width="40%" />
+				<column width="10%" />
+				<column width="40%" />
+			</columns>
 			<rows>
 				<row>
 					<label id="lblTiposancion"
 						value="Tipo de Sancion: " />
 					<textbox id="txtTipoSancion" cols="23"
 						maxlength="30" readonly="true"
-						value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.sancionMaestro.nombreSancion)">
+						value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.sancionMaestro.nombreSancion)"
+						width="80%" mold="rounded">
 					</textbox>
 					<label id="lblLapsosancion"
 						value="Lapso de Sancion: " />
 					<textbox id="txtLapsosancion" cols="23"
 						maxlength="30"
 						value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.lapsoAcademico.codigoLapso)"
-						readonly="true">
+						readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="1 Semestre" readonly="true">
+						maxlength="30" value="1 Semestre" readonly="true" width="80%" mold="rounded">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
 					<textbox id="txtAsignatura" cols="55" maxlength="30"
-						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true"
+						width="80%" mold="rounded">
 					</textbox>
 				</row>
 			</rows>
@@ -81,26 +95,29 @@
 		<caption id="lblDatosRecurso" label="Datos del Recurso" />
 		<grid>
 			<columns>
-				<column align="right" />
-				<column align="left" />
+				<column width="20%" />
+				<column width="20%" />
+				<column width="10%" />
+				<column width="40%" />
 			</columns>
 			<rows>
 				<row>
-					<hlayout>
-						<hbox>
-							<button
-								label="Cargar Carta de Recurso Jerárquico" id="btnDocumento"
-								upload="true"
-								onUpload="@command('cargarCartaReconsideracion',upload=event)"
-								image="/imagenes/iconos/cargar.png" mold="trendy">
-							</button>
-							<label id="lblDocumento"
-								value="@bind(vm.nombreDoc)">
-							</label>
-						</hbox>
-					</hlayout>
+						<label id="lblDocumento"
+							value="@bind(vm.nombreDoc)">
+						</label>
+						<button
+							label="Cargar Recurso Jerárquico" id="btnDocumento"
+							upload="true"
+							onUpload="@command('cargarRecursoJerarquico',upload=event)"
+							image="/imagenes/iconos/cargar.png" mold="trendy">
+						</button>
+						<label id="lblObservacion"
+							value="Observacion:">
+						</label>
+						<textbox id="txtObservacion" cols="23"
+							maxlength="30" rows="3" width="77%" mold="rounded" value="@bind(vm.observacion)" >
+						</textbox>
 				</row>
-				<row></row>
 			</rows>
 		</grid>
 	</groupbox>
@@ -123,15 +140,15 @@
 						label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
 					<listcell
 						label="${each.getRecaudo().getNombreRecaudo()}" />
-					<listcell
-						label="${each.getSoporte().getDocumento().getNombreDocumento()}" />
-					<!-- 					<listcell> -->
-					<!-- 						<a label="${each.getSoporte().getDocumento().getNombreDocumento()}" -->
-					<!-- 							onClick="@command('descargarDocumento', componente=self)"> -->
-					<!-- 							<custom-attributes -->
-					<!-- 								idRecaudo="${each.idRecaudo}" /> -->
-					<!-- 						</a> -->
-					<!-- 					</listcell> -->
+					<!-- 					<listcell label="${each.getSoporte().getDocumento().getNombreDocumento()}" /> -->
+					<listcell>
+						<a
+							label="${each.getSoporte().getDocumento().getNombreDocumento()}"
+							onClick="@command('descargarDocumento', componente=self)">
+							<custom-attributes
+								idRecaudo="${each.getId().getIdRecaudo()}" />
+						</a>
+					</listcell>
 				</listitem>
 			</template>
 		</listbox>
