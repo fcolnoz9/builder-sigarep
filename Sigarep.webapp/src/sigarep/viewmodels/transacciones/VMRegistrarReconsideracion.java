@@ -72,6 +72,7 @@ public class VMRegistrarReconsideracion {
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
+	private String observacion;
 	private SolicitudApelacion solicitudapelacion;
 	private LapsoAcademico lapsoAcademico = new LapsoAcademico();
 
@@ -111,6 +112,14 @@ public class VMRegistrarReconsideracion {
 	// Metodos Get y Set
 	public SolicitudApelacion getSolicitudapelacionseleccionada() {
 		return solicitudapelacionseleccionada;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	public void setSolicitudapelacionseleccionada(
@@ -381,14 +390,14 @@ public class VMRegistrarReconsideracion {
 	 * @return No devuelve ningun valor.
 	 * @throws las Excepciones ocurren cuando se quiera registrar una reconsideracion y no se ha cargado la carta
 	 */
-	@NotifyChange({ "listaSancionados" })
+	@NotifyChange({ "lista" , "observacion"})
 	@Command
 	public void registrarSolicitudApelacion() {
 
 		Date fecha = new Date();
 		Time hora = new Time(0);
 
-		if (nombreDoc == null) {
+		if (nombreDoc == null||observacion.equals("")) {
 			mensajesusuario.advertenciaLlenarCampos();
 
 		} else {
@@ -406,6 +415,7 @@ public class VMRegistrarReconsideracion {
 			apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(hora);
+			apelacionEstadoApelacion.setObservacion(observacion);
 
 			idTipoMotivo = listaRecaudos.get(0).getMotivo().getId()
 					.getIdTipoMotivo();
