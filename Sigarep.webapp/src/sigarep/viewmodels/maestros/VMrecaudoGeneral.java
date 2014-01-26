@@ -15,37 +15,23 @@ import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMrecaudoGeneral {
 	
+	
+	private Integer idRecaudo;
+	private String descripcion;
+    private Boolean estatus;
+    private String nombreRecaudo;
+    private String observacion;
+    private List<RecaudoEntregado> recaudoEntregados;
+    private List<Recaudo> listaRecaudo;
+	private Recaudo recaudoSeleccionado;
+	private String nombreRecaudoFiltro="";
+    MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	@WireVariable
+	private List<Recaudo> listaRecaudos;
 	@WireVariable 
 	private ServicioRecaudo serviciorecaudo;
 	
-	private Integer idRecaudo;
-
-	private String descripcion;
-
-	private Boolean estatus;
-
-	private String nombreRecaudo;
-
-	private String observacion;
-
-	private List<RecaudoEntregado> recaudoEntregados;
-
-	private List<Recaudo> listaRecaudo;
 	
-	private Recaudo recaudoSeleccionado;
-
-   MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
-	private String nombreRecaudoFiltro="";
-
-	@WireVariable
-	private List<Recaudo> listaRecaudos;
-	
-	@Init
-	public void init() {
-		// initialization code
-		buscarRecaudos();
-	}
 	// Metodos GETS Y SETS
 	
 	
@@ -99,8 +85,6 @@ public class VMrecaudoGeneral {
 		this.recaudoEntregados = recaudoEntregados;
 	}
 	
-	//Fin de los métodos gets y sets
-   
 	public List<Recaudo> getListaRecaudos() {
 		return listaRecaudos;
 	}
@@ -108,7 +92,36 @@ public class VMrecaudoGeneral {
 		this.listaRecaudos = listaRecaudos;
 	}
 	
-	//Método que perimite guardar un recaudo
+	public String getNombreRecaudoFiltro() {
+		return nombreRecaudoFiltro;
+	}
+
+	public void setNombreRecaudoFiltro(String nombreRecaudoFiltro) {
+		this.nombreRecaudoFiltro = nombreRecaudoFiltro;
+	}
+	
+	//Fin de los métodos gets y sets
+	
+	
+	/**
+	 * inicialización
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
+	@Init
+	public void init() {
+		// initialization code
+		buscarRecaudos();
+	}
+	
+	/**
+	 * Guardar Recaudo
+	 * @param guardarRecaudoGeneral
+	 * @return Guarda un recaudo.
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({"idRecaudo", "descripcion", "nombreRecaudo", "observacion", "listaRecaudos"})
 	public void guardarRecaudoGeneral(){
@@ -123,14 +136,25 @@ public class VMrecaudoGeneral {
                 }
 	    		
 	    }
-	//Permite buscar los recaudos.
+	
+	/**
+	 * Buscar Recaudos
+	 * @param buscarRecaudos
+	 * @return busca un recaudo, los muestra en la lista.
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({"listaRecaudos"})
 	public void buscarRecaudos(){
 			listaRecaudos  = serviciorecaudo.listadoRecaudosActivos();
 	}
 	
-	//Método que limpia todos los campos de la pantalla
+	/**
+	 * Limpiar
+	 * @param limpiar
+	 * @return inicializa las cajas de texto.
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion","listaRecaudos","nombreRecaudoFiltro"})
 	public void limpiar(){
@@ -138,7 +162,12 @@ public class VMrecaudoGeneral {
 		buscarRecaudos();
 	}
 	
-	//Metodo que elimina un recaudo tomando en cuenta el idRecaudo
+	/**
+	 * Eliminar Recaudo
+	 * @param eliminarRecaudo
+	 * @return Elimina un recaudo por  idRecaudo
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({ "idRecaudo","descripcion", "nombreRecaudo", "observacion","listaRecaudos"})
 	public void eliminarRecaudo(){
@@ -151,7 +180,12 @@ public class VMrecaudoGeneral {
 	}
 	}
 	
-	//permite tomar los datos del objeto recaudoseleccionado
+	/**
+	 * Mostrar  Recaudo Seleccionado
+	 * @param mostrarSeleccionado
+	 * @return permite tomar los datos del objeto recaudoSeleccionado
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "listaRecaudos"})
 	public void mostrarSeleccionado(){
@@ -161,20 +195,17 @@ public class VMrecaudoGeneral {
 		observacion=recaudoSeleccionado.getObservacion();
 	}
 	
-	// Método que busca y filtra los recaudos
+	/**
+	 * Filtro de recaudo por nombre
+	 * @param filtros
+	 * @return permite filtrar un  recaudo, por nombre.
+	 * @throws No dispara ninguna excepcion.
+	 */
 		@Command
 		@NotifyChange({ "listaRecaudos" })
 		public void filtros() {
 			listaRecaudos = serviciorecaudo.filtrarRecaudos(nombreRecaudoFiltro);
 		}
 
-		public String getNombreRecaudoFiltro() {
-			return nombreRecaudoFiltro;
-		}
-
-		public void setNombreRecaudoFiltro(String nombreRecaudoFiltro) {
-			this.nombreRecaudoFiltro = nombreRecaudoFiltro;
-		}
-	
-
+		
 }//Fin de VMrecaudoGeneral
