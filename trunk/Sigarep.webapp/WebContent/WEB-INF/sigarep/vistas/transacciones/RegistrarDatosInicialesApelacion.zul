@@ -114,10 +114,11 @@
 								<comboitem  label="${each.getNombreTipoMotivo()}"/>
 							</template>
 						</combobox>
-						<label id="lblDescripcionMotivo" value="Observación: " />
+						<label id="lblDescripcionMotivo" value="Descripcion: " />
 						<textbox id="txtDescripcion" rows="3" 
 							width="80%" cols="23" height="auto"
-						 readonly="true" maxlength="255"/>
+						 readonly="true" maxlength="255">
+						 </textbox>
 						<button id="btnAgregar" label="Agregar" mold="trendy"
 							image="/imagenes/iconos/agregar.png" width="auto" height="auto"
 			 				orient="horizontal" onClick="@command('agregarMotivo')">
@@ -145,7 +146,7 @@
 		<separator />
 		<div align="right" height="100%">
 			<button id="btnGuardar" width="auto" height="auto"
-				mold="trendy" label="Guardar"
+				mold="trendy" label="Guardar" onClick="@command('registrarSolicitudApelacion')"
 				image="/imagenes/iconos/guardar.png">
 			</button>
 			<button id="btnCancelar" width="auto" height="auto"
@@ -153,7 +154,7 @@
 				image="/imagenes/iconos/cancelar.png">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
-				label="Salir" mold="trendy" image="/imagenes/iconos/cerrar.png"
+				label="Cerrar" mold="trendy" image="/imagenes/iconos/cerrar.png"
 				onClick="@command('closeThis')">
 			</button>
 		</div>

@@ -1,5 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,20 +10,31 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
+
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
+import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
+import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
+import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 /**VM Regisrar Datos Iniciales
 * UCLA DCYT Sistemas de Informacion.
@@ -36,11 +48,13 @@ public class VMRegistrarDatosIniciales {
     private Window window;
 	
 	@WireVariable
-	private SolicitudApelacion solicitudApelacion;
-	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
+	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	@WireVariable
+	private ServicioMotivo serviciomotivo;
 	
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
 	private EstudianteSancionado estudianteseleccionado ;
@@ -72,6 +86,18 @@ public class VMRegistrarDatosIniciales {
 	private List<TipoMotivo> listaTipoMotivo;
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
+	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario(); 
+	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
+	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
+	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
+	ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
+	Motivo motivos = new Motivo();
+	MotivoPK motivoPK = new MotivoPK();
+	EstadoApelacion estadoApelacion = new EstadoApelacion();
+
+	private Integer idTipoMotivo;
+
+	private int caso;
 	
 	
 	public List<TipoMotivo> getListaTipoMotivo() {
@@ -355,6 +381,11 @@ public class VMRegistrarDatosIniciales {
 		listaTipoMotivo = serviciotipomotivo.buscarTodas();
 	
 	}
+	
+	@Command
+	public void buscarCaso() {
+		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
+	}
 	@Init
 	public void init(
 	@ContextParam(ContextType.VIEW) Component view,
@@ -368,6 +399,7 @@ public class VMRegistrarDatosIniciales {
 		cedula = estudianteseleccionado.getId().getCedulaEstudiante();
 		sancion = estudianteseleccionado.getSancionMaestro().getNombreSancion();
 		lapso = estudianteseleccionado.getId().getCodigoLapso();
+		
 		concatenacionNombres();
 		concatenacionApellidos();
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -385,13 +417,68 @@ public class VMRegistrarDatosIniciales {
 		}
 		listamotivo = serviciotipomotivo.buscarTodas();
 		buscarMotivos();
+		buscarCaso();
 	}
+	
 	
 	@Command
 	public void closeThis() {
 		window.detach();
 	}
 	
+	/** registrarSolicitudApelacion
+	 * @return No devuelve ningun valor.
+	 * @throws las Excepciones ocurren cuando se quiera registrar una reconsideracion y no se ha cargado la carta
+	 */
+	@NotifyChange({ "listaSancionados" })
+	@Command
+	public void registrarSolicitudApelacion() {
+
+		Date fecha = new Date();
+		Time hora = new Time(0);
+	
+
+			solicitudApelacionPK.setCedulaEstudiante(cedula);
+			solicitudApelacionPK.setCodigoLapso(lapso);
+			solicitudApelacionPK.setIdInstanciaApelada(1);
+			solicitudApelacion.setId(solicitudApelacionPK);
+			solicitudApelacion.setFechaSolicitud(fecha);
+			solicitudApelacion.setEstatus(true);
+			solicitudApelacion.setAnalizado(false);
+			solicitudApelacion.setVerificado(false);
+			solicitudApelacion.setNumeroCaso(caso);
+	
+
+			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
+			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+			apelacionEstadoApelacion.setFechaEstado(hora);
+
+		
+			motivoPK.setCedulaEstudiante(cedula);
+			motivoPK.setCodigoLapso(lapso);
+			motivoPK.setIdInstanciaApelada(2);
+			motivoPK.setIdTipoMotivo(idTipoMotivo);
+			motivos.setId(motivoPK);
+			motivos.setEstatus(true);
+
+	
+		try {
+
+			serviciosolicitudapelacion.guardar(solicitudApelacion);
+			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
+			serviciomotivo.guardarMotivo(motivos);
+			mensajesusuario.informacionRegistroCorrecto();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+
+		}
+
+	}
+
+
 	@Command
 	public void agregarMotivo(){
 		if(listamotivoseleccionado == null || descripcion == null)

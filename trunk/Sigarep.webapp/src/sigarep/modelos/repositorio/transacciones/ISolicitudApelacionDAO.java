@@ -87,4 +87,8 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"AND sa.veredicto IS NULL " +
 			"AND sa.numeroSesion IS NULL")
 	public List<SolicitudApelacion> buscarApelacionesVeredictoI();
+	
+	@Query("select max(sa.numeroCaso) from SolicitudApelacion AS sa, LapsoAcademico la where la.estatus = 'TRUE' " +
+			"and la.codigoLapso = sa.id.codigoLapso")
+	public int mayorNumeroCaso();
 }
