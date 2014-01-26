@@ -221,7 +221,9 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosII.zul"))
 			lista = serviciosolicitudapelacion.buscarSancionadosReconsideracionVerificar();	
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosIII.zul"))
-			lista = serviciosolicitudapelacion.buscarSancionadosJerarquicoVerificar();	
+			lista = serviciosolicitudapelacion.buscarSancionadosJerarquicoVerificar();
+		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
+			lista = serviciosolicitudapelacion.buscarAnalizarValidez1();
 	}
 	
 	@Command
@@ -252,6 +254,8 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.filtrarApelacionesRecursoJerarquico(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesRecursoJerarquico(programa,cedula,nombre,apellido,sancion );
+		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
+			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezI(programa,cedula,nombre,apellido,sancion );
 	}
 
 }
