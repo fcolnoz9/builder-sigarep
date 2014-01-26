@@ -156,4 +156,8 @@ public class ServicioSolicitudApelacion {
 	public List<SolicitudApelacion> buscarApelacionesVeredictoI() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoI();
 	} 
+	
+	public int mayorNumeroCaso(){
+		return iSolicitudApelacionDAO.mayorNumeroCaso();
+	}
 }
