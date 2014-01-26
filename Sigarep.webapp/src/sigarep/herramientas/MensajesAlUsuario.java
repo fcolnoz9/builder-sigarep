@@ -168,7 +168,7 @@ public class MensajesAlUsuario {
 	}
 	
 	public void informacionFinalizarVeredictoIApelacionesProcesadas() {
-		Messagebox.show("Todas las apelaciones ya han sido procesadas.", "Información",
+		Messagebox.show("No existen apelaciones para procesar.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
