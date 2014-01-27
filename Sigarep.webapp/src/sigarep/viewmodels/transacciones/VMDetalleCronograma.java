@@ -15,7 +15,6 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
 import sigarep.modelos.data.transacciones.ListaCronograma;
-import sigarep.modelos.servicio.transacciones.ServicioListaCronograma;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDetalleCronograma {
@@ -34,8 +33,6 @@ public class VMDetalleCronograma {
 
 	private List<ListaCronograma> listaActividadCronograma = new LinkedList<ListaCronograma>();
 
-	@WireVariable
-	private ServicioListaCronograma serviciolistacronograma;
 
 	public ListaCronograma getListaCronograma() {
 		return listaCronograma;
