@@ -19,7 +19,6 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
-import sigarep.modelos.servicio.transacciones.ServicioDatosIniciales;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
@@ -41,8 +40,6 @@ public class VMListaGenericaSancionados {
 	//Servicios para buscar apelaciones segun su transaccion (AGREGA TU SERVICIO AQUI)
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
-	@WireVariable
-	private ServicioDatosIniciales serviciodatosiniciales;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
