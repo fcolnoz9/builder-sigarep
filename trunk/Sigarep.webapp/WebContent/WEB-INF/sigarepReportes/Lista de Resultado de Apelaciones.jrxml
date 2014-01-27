@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lista de Resultado de Apelaciones" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7da6540-11bf-427f-942b-b5cb25c64d55">
-	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="325"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="5"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -60,6 +60,7 @@
 	<parameter name="ImagenSuperior" class="java.lang.String"/>
 	<parameter name="codigoLapso" class="java.lang.String"/>
 	<parameter name="nombrePrograma" class="java.lang.String"/>
+	<parameter name="sesion" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM motivo]]>
 	</queryString>
@@ -69,51 +70,73 @@
 	<field name="veredicto" class="java.lang.String"/>
 	<field name="observacion" class="java.lang.String"/>
 	<field name="apellido" class="java.lang.String"/>
+	<field name="sesion" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="181" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="f740bd15-9b60-4a11-8fde-7dde4c5cee88" x="86" y="72" width="398" height="45"/>
+				<reportElement x="86" y="72" width="398" height="45" uuid="f740bd15-9b60-4a11-8fde-7dde4c5cee88"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="eb9b761a-9421-46e3-9c6e-ee6323ec92c5" x="86" y="117" width="309" height="43"/>
+				<reportElement x="86" y="117" width="309" height="43" uuid="eb9b761a-9421-46e3-9c6e-ee6323ec92c5"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lista de Resultado de Apelaciones Lapso]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="b8705380-10c4-4672-9371-96914ad3cc94" x="200" y="142" width="156" height="31"/>
+				<reportElement x="343" y="141" width="156" height="31" uuid="b8705380-10c4-4672-9371-96914ad3cc94"/>
 				<textElement markup="none">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombrePrograma}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement uuid="08f2e6c3-c34b-47e8-af18-4e10a5a08ad4" x="0" y="71" width="86" height="87"/>
+				<reportElement x="0" y="71" width="86" height="87" uuid="08f2e6c3-c34b-47e8-af18-4e10a5a08ad4"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement uuid="35d67ce7-30d4-4093-be0d-14daa21d3dd3" x="484" y="73" width="87" height="87"/>
+				<reportElement x="484" y="73" width="87" height="87" uuid="35d67ce7-30d4-4093-be0d-14daa21d3dd3"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement uuid="83285c2b-e532-437c-8f55-874332d1f61f" x="-1" y="2" width="572" height="71"/>
+				<reportElement x="-1" y="2" width="572" height="71" uuid="83285c2b-e532-437c-8f55-874332d1f61f"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement uuid="12e8632f-d9b9-4d62-8a2d-7e55666fcd82" x="395" y="118" width="123" height="29"/>
+				<reportElement x="388" y="118" width="123" height="29" uuid="12e8632f-d9b9-4d62-8a2d-7e55666fcd82"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{codigoLapso}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="100" y="140" width="100" height="20" uuid="ce62c1ba-7c8c-4634-8d18-27c66b5743c5"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sesión]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="151" y="141" width="100" height="20" uuid="9d4a0896-aa65-48f0-a06b-3375ad64f7a0"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sesion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="271" y="140" width="100" height="20" uuid="f24aabf8-a68b-4802-95b1-9a1ca0e0b5d7"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Programa]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -122,33 +145,27 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<columnHeader>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="0fe207d3-df74-4264-ba74-9968e95709d0" style="table" mode="Opaque" x="0" y="14" width="100" height="20" backcolor="#0033CC"/>
-				<textElement/>
+				<reportElement style="table" mode="Opaque" x="0" y="14" width="100" height="20" backcolor="#0033CC" uuid="0fe207d3-df74-4264-ba74-9968e95709d0"/>
 				<text><![CDATA[Cedula]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5dd7859b-b3b7-4ad5-bd17-5472d7762549" style="table" mode="Opaque" x="100" y="14" width="100" height="20" backcolor="#0033CC"/>
-				<textElement/>
+				<reportElement style="table" mode="Opaque" x="100" y="14" width="100" height="20" backcolor="#0033CC" uuid="5dd7859b-b3b7-4ad5-bd17-5472d7762549"/>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ecb90047-1d8a-438b-a8fe-f5aaae6ff154" style="table" mode="Opaque" x="271" y="14" width="100" height="20" backcolor="#0033CC"/>
-				<textElement/>
+				<reportElement style="table" mode="Opaque" x="271" y="14" width="100" height="20" backcolor="#0033CC" uuid="ecb90047-1d8a-438b-a8fe-f5aaae6ff154"/>
 				<text><![CDATA[Sancion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ba3e9285-410d-4221-906e-6335e153b28b" style="table" mode="Opaque" x="371" y="14" width="100" height="20" backcolor="#0033CC"/>
-				<textElement/>
+				<reportElement style="table" mode="Opaque" x="371" y="14" width="100" height="20" backcolor="#0033CC" uuid="ba3e9285-410d-4221-906e-6335e153b28b"/>
 				<text><![CDATA[Resultado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6dd05d64-bf09-4ace-aaa8-e500179bec37" style="table" mode="Opaque" x="471" y="14" width="100" height="20" backcolor="#0033CC"/>
-				<textElement/>
+				<reportElement style="table" mode="Opaque" x="471" y="14" width="100" height="20" backcolor="#0033CC" uuid="6dd05d64-bf09-4ace-aaa8-e500179bec37"/>
 				<text><![CDATA[Observaciones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a3a8391a-dec8-4887-b6d0-34b61f055239" style="table" mode="Opaque" x="200" y="14" width="71" height="20" backcolor="#0033CC"/>
-				<textElement/>
+				<reportElement style="table" mode="Opaque" x="200" y="14" width="71" height="20" backcolor="#0033CC" uuid="a3a8391a-dec8-4887-b6d0-34b61f055239"/>
 				<text><![CDATA[Apellido]]></text>
 			</staticText>
 		</band>
@@ -156,33 +173,27 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement uuid="7270b8f8-426e-4606-b80c-8e8169302fe8" x="-1" y="1" width="101" height="19"/>
-				<textElement/>
+				<reportElement x="-1" y="1" width="101" height="19" uuid="7270b8f8-426e-4606-b80c-8e8169302fe8"/>
 				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1882c97f-b465-41a0-81ae-94a7057dc34c" x="100" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="100" y="0" width="100" height="20" uuid="1882c97f-b465-41a0-81ae-94a7057dc34c"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="caa7536a-91ff-4663-88f3-6b6e3713a067" x="271" y="1" width="100" height="19"/>
-				<textElement/>
+				<reportElement x="271" y="1" width="100" height="19" uuid="caa7536a-91ff-4663-88f3-6b6e3713a067"/>
 				<textFieldExpression><![CDATA[$F{sancion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="93cda877-5ee6-4f0c-b37a-2558c6f15d80" x="371" y="1" width="100" height="19"/>
-				<textElement/>
+				<reportElement x="371" y="1" width="100" height="19" uuid="93cda877-5ee6-4f0c-b37a-2558c6f15d80"/>
 				<textFieldExpression><![CDATA[$F{veredicto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="4a1c8663-2ada-4ca4-b2e7-b1bd3344d9d5" x="471" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="471" y="0" width="100" height="20" uuid="4a1c8663-2ada-4ca4-b2e7-b1bd3344d9d5"/>
 				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="9025c1ac-9a60-42cd-9d9e-8737828cc26f" x="200" y="1" width="100" height="19"/>
-				<textElement/>
+				<reportElement x="200" y="1" width="100" height="19" uuid="9025c1ac-9a60-42cd-9d9e-8737828cc26f"/>
 				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
 			</textField>
 		</band>
