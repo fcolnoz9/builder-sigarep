@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.zkoss.zk.ui.Sessions;
 
-import sigarep.modelos.data.maestros.ProgramaAcademico;
+
 import  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class ReportConfigApelaciones {
 	private String folder = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/");
@@ -20,7 +20,8 @@ public class ReportConfigApelaciones {
 		parametros.put("ICON_RIGHT_HEADER", "../../imagenes/imagenes-reportes/logo-decanato.jpg");
 		parametros.put("ICON_FOOTER", "../../imagenes/imagenes-reportes/pie-reporte.jpg");
 		parametros.put("ImagenSuperior", "../../imagenes/imagenes-reportes/cabecera-reporte.jpg");
-		//parametros.put("nombrePrograma", programaAcademico.getIdPrograma());
+		//parametros.put("nombrePrograma", prog.getNombrePrograma());
+		//parametros.put("codigoLapso", lap.getCodigoLapso());
 		System.out.println(parametros);
 	}
 	

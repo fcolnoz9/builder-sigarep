@@ -159,6 +159,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<rectangle>
 				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="44" y="12" width="505" height="251" forecolor="#3366FF"/>
 			</rectangle>
+			<elementGroup/>
 			<bar3DChart>
 				<chart>
 					<reportElement uuid="cb165de8-29bd-45b4-83f3-dd09fc7cf562" x="44" y="12" width="505" height="251"/>
@@ -173,18 +174,21 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
-				<bar3DPlot>
-					<plot/>
+				<bar3DPlot isShowLabels="false">
+					<plot>
+						<seriesColor seriesOrder="0" color="#00B30E"/>
+						<seriesColor seriesOrder="1" color="#000DAA"/>
+						<seriesColor seriesOrder="2" color="#D47400"/>
+					</plot>
 					<itemLabel/>
 					<categoryAxisFormat>
-						<axisFormat/>
+						<axisFormat verticalTickLabels="false"/>
 					</categoryAxisFormat>
 					<valueAxisFormat>
-						<axisFormat/>
+						<axisFormat verticalTickLabels="false"/>
 					</valueAxisFormat>
 				</bar3DPlot>
 			</bar3DChart>
-			<elementGroup/>
 		</band>
 	</summary>
 </jasperReport>
