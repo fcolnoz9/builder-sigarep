@@ -44,7 +44,6 @@ import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
-import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
@@ -57,8 +56,6 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMVerificarRecaudosI {
-	@WireVariable
-	private ServicioApelacion serviciolista;
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
