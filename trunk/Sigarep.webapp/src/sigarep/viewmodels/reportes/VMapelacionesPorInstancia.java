@@ -285,11 +285,11 @@ public class VMapelacionesPorInstancia {
 	public void GenerarReporte() {
 
 		apelacionesPrograma.clear();
-		nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
-		codigo_lapso = objLapso.getCodigoLapso();
-		programa_academico = objPrograma.getNombrePrograma();
+
+
+		ProgramaAcademico prog = objPrograma;
+		LapsoAcademico lap = objLapso;
 		
-		System.out.println(nombre_sancion +"   "+ codigo_lapso + "   " + programa_academico);
 		
 		if (objSancion.getNombreSancion() == "Todos") {
 			apelacionesPrograma = servicioapelacionespormotivo
@@ -310,8 +310,15 @@ public class VMapelacionesPorInstancia {
 		 * System.out.println(reportType); System.out.println(listaAsigMayor);
 		 */
 
+		
+		
 		reportConfig = new ReportConfigApelaciones(); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
+		
+		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES - INSTANCIA / RESULTADO");
+		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
+		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
+		
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 											// IMPRESION DEL REPORTE
 		reportConfig.setDataSource(new JRBeanCollectionDataSource(

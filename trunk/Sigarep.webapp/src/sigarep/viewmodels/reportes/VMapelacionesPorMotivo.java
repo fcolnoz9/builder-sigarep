@@ -285,9 +285,10 @@ public class VMapelacionesPorMotivo {
 	public void GenerarReporte() {
 
 		apelacionesPrograma.clear();
-		nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
-		codigo_lapso = objLapso.getCodigoLapso();
-		programa_academico = objPrograma.getNombrePrograma();
+
+
+		ProgramaAcademico prog = objPrograma;
+		LapsoAcademico lap = objLapso;
 		
 		System.out.println(nombre_sancion +"   "+ codigo_lapso + "   " + programa_academico);
 		
@@ -313,7 +314,9 @@ public class VMapelacionesPorMotivo {
 		 * System.out.println(lapsoAcademicoFinal.getCodigoLapso());
 		 * System.out.println(reportType); System.out.println(listaAsigMayor);
 		 */
-
+		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES - MOTIVO / RESULTADO");
+		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
+		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
 		reportConfig = new ReportConfigApelaciones(); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
