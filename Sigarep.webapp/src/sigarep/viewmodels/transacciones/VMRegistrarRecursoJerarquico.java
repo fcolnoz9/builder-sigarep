@@ -91,8 +91,6 @@ public class VMRegistrarRecursoJerarquico {
 	private ServicioMotivo serviciomotivo;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
-	@WireVariable
-	private ServicioApelacion serviciolista;
 
 	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
 
@@ -400,7 +398,7 @@ public class VMRegistrarRecursoJerarquico {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
-			serviciolista.buscarApelaciones();
+			//serviciolista.buscarApelaciones(); POR FAVOR REVISAR AQUI
 		}
 
 	}
