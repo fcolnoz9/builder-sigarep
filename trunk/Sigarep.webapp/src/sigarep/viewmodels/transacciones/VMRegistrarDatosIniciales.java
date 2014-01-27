@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Window;
@@ -464,6 +465,7 @@ public class VMRegistrarDatosIniciales {
 		solicitudApelacion.setAnalizado(false);
 		solicitudApelacion.setVerificado(false);
 		solicitudApelacion.setNumeroCaso(caso);
+		serviciosolicitudapelacion.guardar(solicitudApelacion);
 
 		apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 		apelacionEstadoApelacionPK.setCodigoLapso(lapso);
@@ -471,19 +473,22 @@ public class VMRegistrarDatosIniciales {
 		apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
 		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 		apelacionEstadoApelacion.setFechaEstado(hora);
+		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 
-		motivoPK.setCedulaEstudiante(cedula);
-		motivoPK.setCodigoLapso(lapso);
-		motivoPK.setIdInstanciaApelada(2);
-		motivoPK.setIdTipoMotivo(idTipoMotivo);
-		motivos.setId(motivoPK);
-		motivos.setEstatus(true);
-
+		for (int j = 0; j < listaTipoMotivoListBox.size(); j++) {
+			if (listaTipoMotivoListBox.get(j).getMotivos()!=null){
+				idTipoMotivo = getMotivoseleccionado().getIdTipoMotivo();
+				motivoPK.setCedulaEstudiante(cedula);
+				motivoPK.setCodigoLapso(lapso);
+				motivoPK.setIdInstanciaApelada(1);
+				motivoPK.setIdTipoMotivo(idTipoMotivo);
+				motivos.setId(motivoPK);
+				motivos.setEstatus(true);
+				serviciomotivo.guardarMotivo(motivos);
+			}
+		}
+		
 		try {
-
-			serviciosolicitudapelacion.guardar(solicitudApelacion);
-			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
-			serviciomotivo.guardarMotivo(motivos);
 			mensajesusuario.informacionRegistroCorrecto();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
