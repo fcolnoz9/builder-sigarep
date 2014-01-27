@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 
 import sigarep.modelos.data.reportes.ApelacionesPorMotivo;
+import sigarep.modelos.data.reportes.Sancionados;
 
 @Service("servicioapelacionespormotivo")
 public class ServicioApelacionesPorMotivo {
@@ -163,6 +164,7 @@ public class ServicioApelacionesPorMotivo {
 				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
 				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				//"and sa.veredicto = 'Aprobado' " +
 				"GROUP BY timo.nombre_tipo_motivo, sa.veredicto " +
 				"ORDER BY numeroapelaciones desc, timo.nombre_tipo_motivo asc, sa.veredicto asc";
 		
@@ -260,4 +262,42 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
+
+	public List<Sancionados> buscarSancionados(String codigo_lapso, String nombre_programa){
+		String queryStatement =
+				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
+				"sanma.nombre_sancion, sa.veredicto, sa.observacion " +
+				"FROM tipo_motivo timo, solicitud_apelacion sa " +
+				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+				"and essa.codigo_lapso = sa.codigo_lapso " +
+				"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
+				"and mo.codigo_lapso = sa.codigo_lapso " +
+				"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
+				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
+				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
+				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+				"and prog.nombre_programa = "+ "'"+nombre_programa+"' ";
+
+		
+		Query query = em.createNativeQuery(queryStatement);
+		
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		
+		List<Sancionados> results = new ArrayList<Sancionados>();
+		for (Object[] resultRow : resultSet) {
+			results.add(new Sancionados((String) resultRow[0], (String) resultRow[1], (String) resultRow[2], 
+										(String) resultRow[3], (String) resultRow[4], (String) resultRow[5]));
+		}
+		System.out.println(results.get(0).getCedula());
+		return results;
+	}
+
+
+
+
 }

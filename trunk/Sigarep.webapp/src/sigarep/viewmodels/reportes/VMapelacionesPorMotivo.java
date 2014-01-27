@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.BindingParam;
@@ -122,7 +123,7 @@ public class VMapelacionesPorMotivo {
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarPrograma() {
-		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
+		listaPrograma = servicioprogramaacademico.listadoProgramas();
 		/*ProgramaAcademico prog = new ProgramaAcademico(null, "Todos", null);
 
 		listaPrograma.add(0, prog);*/
@@ -301,6 +302,10 @@ public class VMapelacionesPorMotivo {
 							objLapso.getCodigoLapso(),
 							objSancion.getNombreSancion(),
 							objPrograma.getNombrePrograma());
+		
+		
+		
+		
 
 		/*
 		 * System.out.println(programaAcademico.getIdPrograma());
@@ -312,7 +317,8 @@ public class VMapelacionesPorMotivo {
 		reportConfig = new ReportConfigApelaciones(); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-											// IMPRESION DEL REPORTE
+										// IMPRESION DEL REPORTE
+		
 		reportConfig.setDataSource(new JRBeanCollectionDataSource(
 				apelacionesPrograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
 										// DATOS PARA DIBUJAR EL REPORTE
