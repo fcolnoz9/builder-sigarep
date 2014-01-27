@@ -49,8 +49,8 @@ public class VMHistorialEstudiante {
 	private String veredicto1;
 	private String veredicto2;
 	private String veredicto3;
-	private Date fechaNacimiento;
-	private Date anioIngreso;
+	private String fechaNacimiento;
+	private String anioIngreso;
 	private Float indiceGrado;
 	private Integer caso;
 	private Integer unidadesCursadas;
@@ -255,7 +255,7 @@ public class VMHistorialEstudiante {
 		this.veredicto3 = veredicto3;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
@@ -275,15 +275,15 @@ public class VMHistorialEstudiante {
 		this.unidadesAprobadas = unidadesAprobadas;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Date getAnioIngreso() {
+	public String getAnioIngreso() {
 		return anioIngreso;
 	}
 
-	public void setAnioIngreso(Date anioIngreso) {
+	public void setAnioIngreso(String anioIngreso) {
 		this.anioIngreso = anioIngreso;
 	}
 
@@ -334,14 +334,14 @@ public class VMHistorialEstudiante {
 			@ExecutionArgParam("nombre") String v2,
 			@ExecutionArgParam("apellido") String v3,
 			@ExecutionArgParam("sexo") String v4,
-			@ExecutionArgParam("fechaNacimiento") Date v5,
+			@ExecutionArgParam("fechaNacimiento") String v5,
 			@ExecutionArgParam("telefono") String v6,
 			@ExecutionArgParam("email") String v7,
 			@ExecutionArgParam("segundoNombre") String v8,
 			@ExecutionArgParam("segundoApellido") String v9,
 			@ExecutionArgParam("unidadesCursadas") Integer v10,
 			@ExecutionArgParam("unidadesAprobadas") Integer v11,
-			@ExecutionArgParam("anioIngreso") Date v12,
+			@ExecutionArgParam("anioIngreso") String v12,
 			@ExecutionArgParam("indiceGrado") Float v13,
 			@ExecutionArgParam("programa") String v14,
 			@ExecutionArgParam("codigoLapso") String v15)

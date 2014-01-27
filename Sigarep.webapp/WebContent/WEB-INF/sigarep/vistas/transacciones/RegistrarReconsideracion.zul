@@ -67,7 +67,7 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="1 Semestre" readonly="true">
+						maxlength="30" value= "@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.periodoSancion)" readonly="true">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />

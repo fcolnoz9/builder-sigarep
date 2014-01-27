@@ -1,6 +1,7 @@
 package sigarep.viewmodels.transacciones;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -66,22 +67,22 @@ public class VMListaHistorialEstudiante {
 	private String segundoApellido;
 	private String sexo;
 	private String asignatura;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private Integer caso;
 	private Integer idMotivo;
 	private String programaFiltro;
-	private Date anioIngreso;
+	private String anioIngreso;
 	private Float indiceGrado;
 
 	private Integer unidadesCursadas;
 	private Integer unidadesAprobadas;
 	private ListaHistorialEstudianteFiltros filtrosHistorial = new ListaHistorialEstudianteFiltros();
 
-	public Date getAnioIngreso() {
+	public String getAnioIngreso() {
 		return anioIngreso;
 	}
 
-	public void setAnioIngreso(Date anioIngreso) {
+	public void setAnioIngreso(String anioIngreso) {
 		this.anioIngreso = anioIngreso;
 	}
 
@@ -185,11 +186,11 @@ public class VMListaHistorialEstudiante {
 	// no creo q vaya. private ListaApelacionEstadoApelacionFiltros filtros =
 	// new ListaApelacionEstadoApelacionFiltros();
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -328,13 +329,15 @@ public class VMListaHistorialEstudiante {
 		nombre = getListahistorialestudiante().getPrimerNombre();
 		apellido = getListahistorialestudiante().getPrimerApellido();
 		sexo = getListahistorialestudiante().getSexo();
-		fechaNacimiento = getListahistorialestudiante().getFechaNacimiento();
+		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		fechaNacimiento = sdf.format(getListahistorialestudiante().getFechaNacimiento());
 		telefono = getListahistorialestudiante().getTelefono();
 		email = getListahistorialestudiante().getEmail();
 		segundoNombre = getListahistorialestudiante().getSegundoNombre();
 		segundoApellido = getListahistorialestudiante().getSegundoApellido();
 		programa = getListahistorialestudiante().getPrograma();
-		anioIngreso = getListahistorialestudiante().getAnioIngreso();
+		SimpleDateFormat sdf1 = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		anioIngreso = sdf1.format(getListahistorialestudiante().getAnioIngreso());
 		indiceGrado = getListahistorialestudiante().getIndiceGrado();
 		unidadesCursadas = getListahistorialestudiante().getUnidadesCursadas();
 		unidadesAprobadas = getListahistorialestudiante()
