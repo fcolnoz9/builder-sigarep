@@ -1,6 +1,6 @@
 <zk>
 <?page title="Registrar Sancionado Por Lote" contentType="text/html;charset=UTF-8"?>
-<window  id="winRegistrarSancionadoLote" title="Registros Básicos :: Sancionados :: Registrar Sancionado Por Lote" border="normal" apply=" org.zkoss.bind.BindComposer" width="930px" height="600px"
+<window  id="winRegistrarSancionadoLote" title="Registros Básicos :: Sancionados :: Registrar Sancionado Por Lote" border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="true"
     viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarEstudiantesSancionadosXml')">
 	<grid id="cargarXML">
 		<columns>
@@ -12,7 +12,7 @@
 			<row>	
 				<label>Cantidad Estudiantes Sancionados</label>
 				<intbox id="tamanoXML" value="@bind(vm.tamanoXML)" readonly="true"/>
-				<button label="Seleccionar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192"/>
+				<button id="btnUpload" label="Seleccionar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192,multiple=false"/>
 			</row>
 			<row>
 			</row>
