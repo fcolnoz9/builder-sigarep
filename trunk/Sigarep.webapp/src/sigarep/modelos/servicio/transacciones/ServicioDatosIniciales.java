@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
-import sigarep.modelos.repositorio.transacciones.IApelacionEstudianteEstadoApelacionDAO;
 /**Servicio Datos Iniciales
 * UCLA DCYT Sistemas de Informacion.
 * @author Equipo: Builder-SIGAREP 
@@ -25,9 +24,6 @@ public class ServicioDatosIniciales {
 	
 	@Autowired
 	private IApelacionEstadoApelacionDAO apelacionestadoapelacion;
-	
-	@Autowired
-	private IApelacionEstudianteEstadoApelacionDAO apelacionestudianteapelacion;
 	
 	public List<ListaGenericaSancionados> buscarEstudianteSancionado() {
 		
