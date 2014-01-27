@@ -1,14 +1,9 @@
 package sigarep.viewmodels.transacciones;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -18,19 +13,12 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Textbox;
 
 import sigarep.modelos.data.maestros.*;
-import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.*;
-import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacionFiltros;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudiante;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteFiltros;
-import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
-import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioHistorialEstudiante;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
