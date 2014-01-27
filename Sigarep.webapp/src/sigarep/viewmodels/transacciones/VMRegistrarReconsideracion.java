@@ -36,7 +36,6 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
@@ -105,7 +104,6 @@ public class VMRegistrarReconsideracion {
 	Recaudo recaudos = new Recaudo();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
-	private List<ListaApelacionEstadoApelacion> lista = new LinkedList<ListaApelacionEstadoApelacion>();
 	private List<SolicitudApelacion> listaSancionados = new LinkedList<SolicitudApelacion>();
 	private SolicitudApelacion solicitudapelacionseleccionada;
 
@@ -167,14 +165,6 @@ public class VMRegistrarReconsideracion {
 
 	public void setListaRecaudos(List<RecaudoEntregado> listaRecaudos) {
 		this.listaRecaudos = listaRecaudos;
-	}
-
-	public List<ListaApelacionEstadoApelacion> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<ListaApelacionEstadoApelacion> lista) {
-		this.lista = lista;
 	}
 
 	public Integer getIdTipoMotivo() {
