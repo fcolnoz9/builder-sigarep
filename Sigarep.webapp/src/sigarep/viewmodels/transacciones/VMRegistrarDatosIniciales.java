@@ -35,6 +35,7 @@ import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.maestros.EstadoApelacion;
+import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
@@ -449,8 +450,9 @@ public class VMRegistrarDatosIniciales {
 	 *             Excepciones ocurren cuando se quiera registrar una apelacion
 	 *             y no registrar motivos
 	 */
-	@NotifyChange({ "listaSancionados" })
+	
 	@Command
+	@NotifyChange({ "listaSancionados", "listaTipoMotivoListBox" })
 	public void registrarSolicitudApelacion() {
 
 		Date fecha = new Date();
@@ -474,10 +476,10 @@ public class VMRegistrarDatosIniciales {
 		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 		apelacionEstadoApelacion.setFechaEstado(hora);
 		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
-
-		for (int j = 0; j < listaTipoMotivoListBox.size(); j++) {
-			if (listaTipoMotivoListBox.get(j).getMotivos()!=null){
-				idTipoMotivo = getMotivoseleccionado().getIdTipoMotivo();
+		
+		Motivo motivos = new Motivo();
+		for (int j = 0; j < listaTipoMotivoListBox.size(); j++) {;
+				idTipoMotivo = listaTipoMotivoListBox.get(j).getIdTipoMotivo();
 				motivoPK.setCedulaEstudiante(cedula);
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(1);
@@ -485,11 +487,11 @@ public class VMRegistrarDatosIniciales {
 				motivos.setId(motivoPK);
 				motivos.setEstatus(true);
 				serviciomotivo.guardarMotivo(motivos);
-			}
 		}
 		
 		try {
 			mensajesusuario.informacionRegistroCorrecto();
+			System.out.println(listaTipoMotivoListBox.size());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
