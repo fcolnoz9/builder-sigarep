@@ -4,6 +4,8 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -17,6 +19,8 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
@@ -36,17 +40,19 @@ import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-/**VM Regisrar Datos Iniciales
-* UCLA DCYT Sistemas de Informacion.
-* @author Equipo: Builder-SIGAREP 
-* @version 1.0
-* @since 20/12/13
-*/
+
+/**
+ * VM Regisrar Datos Iniciales UCLA DCYT Sistemas de Informacion.
+ * 
+ * @author Equipo: Builder-SIGAREP
+ * @version 1.0
+ * @since 20/12/13
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarDatosIniciales {
 	@Wire("#modalDialog")
-    private Window window;
-	
+	private Window window;
+
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
@@ -55,9 +61,9 @@ public class VMRegistrarDatosIniciales {
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
-	
+
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
-	private EstudianteSancionado estudianteseleccionado ;
+	private EstudianteSancionado estudianteseleccionado;
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String cedula;
@@ -72,21 +78,22 @@ public class VMRegistrarDatosIniciales {
 	private String lapso;
 	private String asignatura;
 	private float indice;
+	private String motivoCombo;
 	private String lapsosConsecutivos;
 	private Date fecha;
 	private List<TipoMotivo> listamotivo;
 	private String descripcion;
 	private Motivo motivo;
 	private List<Motivo> listamotivos;
-	private List<Mot> listamo = new LinkedList<Mot>();
-	private Motivo motivoseleccionado;
+	private TipoMotivo motivoseleccionado;
 	private String listamotivoseleccionado;
-	private mensajes msjs = new mensajes();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<TipoMotivo> listaTipoMotivo;
 	@WireVariable
+	private List<TipoMotivo> listaTipoMotivoListBox = new LinkedList<TipoMotivo>();
+	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
-	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario(); 
+	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
@@ -98,8 +105,15 @@ public class VMRegistrarDatosIniciales {
 	private Integer idTipoMotivo;
 
 	private int caso;
-	
-	
+
+	public String getMotivoCombo() {
+		return motivoCombo;
+	}
+
+	public void setMotivoCombo(String motivoCombo) {
+		this.motivoCombo = motivoCombo;
+	}
+
 	public List<TipoMotivo> getListaTipoMotivo() {
 		return listaTipoMotivo;
 	}
@@ -112,7 +126,8 @@ public class VMRegistrarDatosIniciales {
 		return asignaturaLapsosConsecutivos;
 	}
 
-	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+	public void setAsignaturaLapsosConsecutivos(
+			String asignaturaLapsosConsecutivos) {
 		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
 	}
 
@@ -148,14 +163,6 @@ public class VMRegistrarDatosIniciales {
 	public void setEstudianteseleccionado(
 			EstudianteSancionado estudianteseleccionado) {
 		this.estudianteseleccionado = estudianteseleccionado;
-	}
-
-	public List<Mot> getListamo() {
-		return listamo;
-	}
-
-	public void setListamo(List<Mot> listamo) {
-		this.listamo = listamo;
 	}
 
 	public String getSegundoNombre() {
@@ -343,35 +350,44 @@ public class VMRegistrarDatosIniciales {
 		this.listamotivos = listamotivos;
 	}
 
-	public Motivo getMotivoseleccionado() {
+	public TipoMotivo getMotivoseleccionado() {
 		return motivoseleccionado;
 	}
+	
+	public List<TipoMotivo> getListaTipoMotivoListBox() {
+		return listaTipoMotivoListBox;
+	}
 
-	public void setMotivoseleccionado(Motivo motivoseleccionado) {
+	public void setListaTipoMotivoListBox(List<TipoMotivo> listaTipoMotivoListBox) {
+		this.listaTipoMotivoListBox = listaTipoMotivoListBox;
+	}
+
+	public void setMotivoseleccionado(TipoMotivo motivoseleccionado) {
 		this.motivoseleccionado = motivoseleccionado;
 	}
-	
-	/** concatenacionNombres
+
+	/**
+	 * concatenacionNombres
+	 * 
 	 * @return devuelve primer y segundo nombre concatenados
 	 */
 	public void concatenacionNombres() {
 
-		nombres = estudianteseleccionado
-				.getEstudiante().getPrimerNombre()
+		nombres = estudianteseleccionado.getEstudiante().getPrimerNombre()
 				+ " "
-				+ estudianteseleccionado
-						.getEstudiante().getSegundoNombre();
+				+ estudianteseleccionado.getEstudiante().getSegundoNombre();
 	}
-	/** concatenacionApellidos
+
+	/**
+	 * concatenacionApellidos
+	 * 
 	 * @return devuelve primer y segundo apellido concatenados
 	 */
 	public void concatenacionApellidos() {
 
-		apellidos = estudianteseleccionado
-				.getEstudiante().getPrimerApellido()
+		apellidos = estudianteseleccionado.getEstudiante().getPrimerApellido()
 				+ " "
-				+ estudianteseleccionado
-						.getEstudiante().getSegundoApellido();
+				+ estudianteseleccionado.getEstudiante().getSegundoApellido();
 
 	}
 
@@ -379,27 +395,26 @@ public class VMRegistrarDatosIniciales {
 	@NotifyChange({ "listaTipoMotivo" })
 	public void buscarMotivos() {
 		listaTipoMotivo = serviciotipomotivo.buscarTodas();
-	
+
 	}
-	
+
 	@Command
 	public void buscarCaso() {
 		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
 	}
+
 	@Init
-	public void init(
-	@ContextParam(ContextType.VIEW) Component view,
-	@ExecutionArgParam("estudianteseleccionado") EstudianteSancionado v1
-	)
-	
-	{	
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("estudianteseleccionado") EstudianteSancionado v1)
+
+	{
 		Selectors.wireComponents(view, this, false);
 		this.estudianteseleccionado = v1;
 		Date fecha = new Date();
 		cedula = estudianteseleccionado.getId().getCedulaEstudiante();
 		sancion = estudianteseleccionado.getSancionMaestro().getNombreSancion();
 		lapso = estudianteseleccionado.getId().getCodigoLapso();
-		
+
 		concatenacionNombres();
 		concatenacionApellidos();
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -419,16 +434,19 @@ public class VMRegistrarDatosIniciales {
 		buscarMotivos();
 		buscarCaso();
 	}
-	
-	
+
 	@Command
 	public void closeThis() {
 		window.detach();
 	}
-	
-	/** registrarSolicitudApelacion
+
+	/**
+	 * registrarSolicitudApelacion
+	 * 
 	 * @return No devuelve ningun valor.
-	 * @throws las Excepciones ocurren cuando se quiera registrar una reconsideracion y no se ha cargado la carta
+	 * @throws las
+	 *             Excepciones ocurren cuando se quiera registrar una apelacion
+	 *             y no registrar motivos
 	 */
 	@NotifyChange({ "listaSancionados" })
 	@Command
@@ -436,35 +454,31 @@ public class VMRegistrarDatosIniciales {
 
 		Date fecha = new Date();
 		Time hora = new Time(0);
-	
 
-			solicitudApelacionPK.setCedulaEstudiante(cedula);
-			solicitudApelacionPK.setCodigoLapso(lapso);
-			solicitudApelacionPK.setIdInstanciaApelada(1);
-			solicitudApelacion.setId(solicitudApelacionPK);
-			solicitudApelacion.setFechaSolicitud(fecha);
-			solicitudApelacion.setEstatus(true);
-			solicitudApelacion.setAnalizado(false);
-			solicitudApelacion.setVerificado(false);
-			solicitudApelacion.setNumeroCaso(caso);
-	
+		solicitudApelacionPK.setCedulaEstudiante(cedula);
+		solicitudApelacionPK.setCodigoLapso(lapso);
+		solicitudApelacionPK.setIdInstanciaApelada(1);
+		solicitudApelacion.setId(solicitudApelacionPK);
+		solicitudApelacion.setFechaSolicitud(fecha);
+		solicitudApelacion.setEstatus(true);
+		solicitudApelacion.setAnalizado(false);
+		solicitudApelacion.setVerificado(false);
+		solicitudApelacion.setNumeroCaso(caso);
 
-			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
-			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-			apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
-			apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
-			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-			apelacionEstadoApelacion.setFechaEstado(hora);
+		apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+		apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+		apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
+		apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
+		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+		apelacionEstadoApelacion.setFechaEstado(hora);
 
-		
-			motivoPK.setCedulaEstudiante(cedula);
-			motivoPK.setCodigoLapso(lapso);
-			motivoPK.setIdInstanciaApelada(2);
-			motivoPK.setIdTipoMotivo(idTipoMotivo);
-			motivos.setId(motivoPK);
-			motivos.setEstatus(true);
+		motivoPK.setCedulaEstudiante(cedula);
+		motivoPK.setCodigoLapso(lapso);
+		motivoPK.setIdInstanciaApelada(2);
+		motivoPK.setIdTipoMotivo(idTipoMotivo);
+		motivos.setId(motivoPK);
+		motivos.setEstatus(true);
 
-	
 		try {
 
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
@@ -478,42 +492,19 @@ public class VMRegistrarDatosIniciales {
 
 	}
 
+	@Command
+	@NotifyChange({"listaTipoMotivo","listaTipoMotivoListBox","motivoseleccionado"})
+	public void agregarMotivo(
+			@BindingParam("listBoxTipoMotivo") Listbox listBoxTipoMotivo) {
+	
+		listaTipoMotivoListBox.add(getMotivoseleccionado());
+		limpiar ();
+	}
 
 	@Command
-	public void agregarMotivo(){
-		if(listamotivoseleccionado == null || descripcion == null)
-				msjs.advertenciaLlenarCampos();
-		else{
-				for(int i=0; i<listamotivo.size();i++){
-						Mot mo = new Mot();
-						mo.setDescripcion(descripcion);
-						mo.setNombreMotivo(listamotivoseleccionado);
-						listamo.add(mo);
-                  limpiar();
-					msjs.informacionRegistroCorrecto();
-					}
-		}
-	}
-	
-	@Command
-	public void limpiar(){
-		listamotivoseleccionado = "";
+	public void limpiar() {
 		descripcion = "";
 		fecha = null;
 	}
-	
-	@Command
-	public void eliminarMotivoSeleccionado(){
-		
-	}
-	
-	@Command
-	public void guardar(){
-		
-	}
-	
-	@Command
-	public void cancelar(){
-		
-	}
+
 }

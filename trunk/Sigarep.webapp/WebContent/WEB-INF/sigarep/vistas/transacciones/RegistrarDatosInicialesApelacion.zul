@@ -108,28 +108,25 @@
 							 mold="rounded" height="auto"
 							width="80%" tabindex="7" />
 						<label id="lblMotivo" value="Motivo: " />
-						<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)"
-							 tabindex="8" width="80%" value="@bind(vm.listamotivoseleccionado) selectedItem="@bind(vm.listamotivoseleccionado)"> 
+						<combobox id="cmbMotivo" mold="rounded" model="@bind(vm.listaTipoMotivo)"
+							 tabindex="8" width="80%" selectedItem="@bind(vm.motivoseleccionado)"> 
 							<template name="model">
-								<comboitem  label="${each.getNombreTipoMotivo()}"/>
+								<comboitem  label="${each.getNombreTipoMotivo()}" />
 							</template>
 						</combobox>
 						<label id="lblDescripcionMotivo" value="Descripcion: " />
 						<textbox id="txtDescripcion" rows="3" 
 							width="80%" cols="23" height="auto"
-						 readonly="true" maxlength="255" value="@bind(vm.descripcion)">
+						  maxlength="255">
 						 </textbox>
 						<button id="btnAgregar" label="Agregar" mold="trendy"
 							image="/imagenes/iconos/agregar.png" width="auto" height="auto"
-			 				orient="horizontal" onClick="@command('agregarMotivo')">
+			 				orient="horizontal" onClick="@command('agregarMotivo',listaTipoMotivo=lbxMotivos)">
 						</button>
 					</row>
 				</rows>
 			</grid>
-			<listbox height="auto" id="lbxMotivos" mold="paging" pageSize="10"
-				model="@load(vm.listamot)"
-				selectedItem="@bind(vm.motivoseleccionado)"
-				onSelect="@command('eliminarMotivoSeleccionado')"
+			<listbox height="auto" id="lbxMotivos" mold="paging" pageSize="10" model="@bind(vm.listaTipoMotivoListBox)"
 				emptyMessage="No hay motivos agregados">
 				<listhead>
 					<listheader label="Motivo" sort="auto" />
@@ -137,7 +134,7 @@
 				</listhead>
 				<template name="model">
 					<listitem>
-						<listcell label="${each.nombremotivo}" />
+						<listcell label="${each.nombreTipoMotivo}" />
 						<listcell label="${each.descripcion}" />
 					</listitem>
 				</template>
@@ -155,7 +152,7 @@
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" mold="trendy" image="/imagenes/iconos/cerrar.png"
-				onClick="@command('closeThis')">
+				onClick = "winRegistrarDatosInicialesApelacion.onClose()">
 			</button>
 		</div>
 	</window>
