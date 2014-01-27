@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.GrantedAuthority;
 import org.zkoss.bind.annotation.Command;
 
 import org.zkoss.bind.annotation.BindingParam;
@@ -21,59 +19,38 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
 
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 
-import org.zkoss.zul.Intbox;
-
-import org.zkoss.zul.ListModel;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Radio;
-import org.zkoss.zul.Radiogroup;
-import org.zkoss.zul.SimpleListModel;
-import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Window;
 
-import sigarep.herramientas.Documento;
 import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
-import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
-import sigarep.modelos.servicio.maestros.ServicioEstudiante;
-import sigarep.modelos.servicio.transacciones.ListaApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ListaRecaudosMotivoEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
-import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
-import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
 //import sigarep.modelos.servicio.maestros.ServicioEstudiante;
