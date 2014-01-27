@@ -64,15 +64,6 @@
 		</box>
 	</style>
 	<subDataset name="New Dataset 1" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584"/>
-	<parameter name="motivo" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="resultado" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="cantidad" class="java.lang.Long">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<parameter name="ImagenSuperior" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -85,6 +76,9 @@
 	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="Lapso" class="java.lang.String"/>
+	<parameter name="Programa" class="java.lang.String"/>
+	<parameter name="Titulo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
 				FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado
@@ -112,13 +106,13 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="113" splitType="Stretch">
+		<band height="131" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9" x="117" y="64" width="349" height="42"/>
+				<reportElement uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9" x="87" y="89" width="59" height="24"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[REPORTE DE APELACIONES  MOTIVO-PROGRAMA]]></text>
+				<text><![CDATA[LAPSO:]]></text>
 			</staticText>
 			<image>
 				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="16" y="0" width="109" height="64"/>
@@ -135,6 +129,34 @@
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="1746cfeb-c243-4787-a69e-089c523bd0eb" x="99" y="64" width="387" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ec363724-09d5-4efb-947e-41d6f8d42610" x="205" y="89" width="94" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROGRAMA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ace45e21-827f-4270-b413-143832ea4bd0" x="146" y="89" width="57" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Lapso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435" x="297" y="89" width="226" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Programa}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -144,10 +166,10 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band height="8" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
-		<band height="8" splitType="Stretch"/>
+		<band height="7" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="52" splitType="Stretch">
+		<band height="51" splitType="Stretch">
 			<image>
 				<reportElement uuid="95306347-0c44-4d80-b0bb-925f8fb76ead" x="0" y="0" width="572" height="50"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
