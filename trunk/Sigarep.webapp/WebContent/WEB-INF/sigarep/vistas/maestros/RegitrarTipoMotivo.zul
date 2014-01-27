@@ -11,10 +11,10 @@
 			<caption label="Datos del Tipo de Motivo de Apelación" />
 			<grid id="grdTipoMotivo">
 				<columns>
-					<column label="" width="30%" id="columna1" />
-					<column label="" width="70%" id="columna2" />
-					<column label="" width="30%" id="columna3" />
-					<column label="" width="70%" id="columna4" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
 				</columns>
 				
 				<rows>
@@ -24,13 +24,10 @@
 						<textbox id="txtnombreTipoMotivo" width="80%"
 							height="auto" mold="rounded" constraint="no empty:Introduzca un Nombre" cols="23" maxlength="30"
 							value="@bind(vm.nombreTipoMotivo)" />
-
 						<label id="lblDescripción" value="Descripción:" />
-						<hbox>
-							<textbox id="txtDescripción" width="80%" rows="3" 
-								height="auto" mold="rounded" constraint="no empty:Introduzca una Descripción"  value="@bind(vm.descripcion)">
-							</textbox>
-						</hbox>
+						<textbox id="txtDescripción" width="80%" rows="3" 
+						height="auto" mold="rounded" constraint="no empty:Introduzca una Descripción"  value="@bind(vm.descripcion)">
+						</textbox>
 					</row>
 				</rows>
 			</grid>
