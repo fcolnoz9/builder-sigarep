@@ -20,16 +20,16 @@ public class Archivo {
 	/**
 	 * 
 	 */
-	@Column(name = "contenidoarchivo", nullable=true)
+	@Column(name = "contenido_archivo", nullable=true)
 	private byte[] contenidoArchivo = new byte[] {};
 
-	@Column(name = "nombrearchivo", nullable=true)
+	@Column(name = "nombre_archivo", nullable=true)
 	private String nombreArchivo = "";
 
-	@Column(name = "tipoarchivo", nullable=true)
+	@Column(name = "tipo_archivo", nullable=true)
 	private String tipo = "";
 
-	@Column(name = "tamanoarchivo", nullable=true)
+	@Column(name = "tamano_archivo", nullable=true)
 	private Long tamano = 0l;
 
 	public Archivo() {
