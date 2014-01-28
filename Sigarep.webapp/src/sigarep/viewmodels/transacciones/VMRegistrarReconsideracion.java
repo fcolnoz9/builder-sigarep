@@ -387,10 +387,7 @@ public class VMRegistrarReconsideracion {
 		Date fecha = new Date();
 		Time hora = new Time(0);
 
-		if (nombreDoc == null||observacion.equals("")) {
-			mensajesusuario.advertenciaLlenarCampos();
-
-		} else {
+	
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
 			solicitudApelacionPK.setIdInstanciaApelada(2);
@@ -430,7 +427,7 @@ public class VMRegistrarReconsideracion {
 			soporte.setFechaSubida(fecha);
 			soporte.setRecaudoEntregado(recaudoEntregado);
 
-		}
+		
 		try {
 
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
