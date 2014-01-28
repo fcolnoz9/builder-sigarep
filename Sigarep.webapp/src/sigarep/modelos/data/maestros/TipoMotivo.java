@@ -31,6 +31,8 @@ public class TipoMotivo implements Serializable {
 	private String descripcion;
 	@Column(name ="estatus",nullable=false)
 	private Boolean estatus;
+	@Column(name ="protegido", nullable = true)
+	private Boolean protegido;
 	//bi-directional many-to-one association to Recaudo
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,mappedBy="tipoMotivo")
 	private List<Recaudo> recaudos = new LinkedList<Recaudo>();
@@ -115,6 +117,14 @@ public class TipoMotivo implements Serializable {
 		motivo.setTipoMotivo(null);
 
 		return motivo;
+	}
+
+	public Boolean getProtegido() {
+		return protegido;
+	}
+
+	public void setProtegido(Boolean protegido) {
+		this.protegido = protegido;
 	}
 
 }
