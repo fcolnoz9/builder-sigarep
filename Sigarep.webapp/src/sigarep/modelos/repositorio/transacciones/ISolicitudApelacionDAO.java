@@ -89,6 +89,17 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"OR sa.numeroSesion IS NULL)")
 	public List<SolicitudApelacion> buscarApelacionesVeredictoI();
 	
+	
+	
+	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE' " +
+			"AND sa.analizado = 'TRUE' " +
+			"AND sa.id.idInstanciaApelada = '2' " +
+			"AND (sa.veredicto IS NULL " +
+			"OR sa.numeroSesion IS NULL)")
+	public List<SolicitudApelacion> buscarApelacionesVeredictoII();
+	
 	//Marinel, Bely y Jesus
 	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
 			"WHERE sa.id.codigoLapso = la.codigoLapso " +
