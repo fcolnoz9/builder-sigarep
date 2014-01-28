@@ -111,5 +111,5 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 				"AND sa.verificado = 'TRUE' " +
 				"AND sa.analizado = 'FALSE' " +
 				"AND sa.id.idInstanciaApelada = '1'")
-		public List<SolicitudApelacion> BuscarAnalizarValidez1();
+		public List<SolicitudApelacion> BuscarAnalizarValidezI();
 }
