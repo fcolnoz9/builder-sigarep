@@ -156,6 +156,10 @@ public class ServicioSolicitudApelacion {
 	public List<SolicitudApelacion> buscarApelacionesVeredictoI() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoI();
 	} 
+	public List<SolicitudApelacion> buscarApelacionesVeredictoII() {
+		return iSolicitudApelacionDAO.buscarApelacionesVeredictoII();
+	} 
+	
 	public List<SolicitudApelacion> buscarApelacionesVeredictoIII() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoIII();
 	} 
@@ -216,6 +220,31 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 	
+	
+	public List<SolicitudApelacion> filtrarApelacionesVeredictoII(String cedula,
+			String nombre, String apellido, String programa, String sancion) {
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
+        	result= buscarApelacionesVeredictoII();
+        }
+        else{
+			for (SolicitudApelacion sa : buscarApelacionesVeredictoII())
+			{
+				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
+						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+						sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
+					result.add(sa);
+				}
+			}
+        }
+		return result;
+	}
+	
+	
+
+
 	public List<SolicitudApelacion> filtrarApelacionesVeredictoIII(String cedula,
 			String nombre, String apellido, String programa, String sancion) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
