@@ -1,53 +1,37 @@
-<panel border="none" vflex="1" hflex="1"
-	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
-	<panelchildren>
-		<grid>
-			<columns>
-				<column label="" />
-				<column label="" />
-			</columns>
-			<rows>
-				<row>
-					<label sclass="head2" value=" Calendario Académico"
-						id="lblCalendario" style="font:arial;cursor:pointer"
-						onClick="@command('descargarArchivo', parametro=self)" />
-					<a image="/imagenes/iconos/descargar.png" href="" />
-				</row>
-				<row>
-					<div
-						apply="sigarep.controlador.maestros.ModalController">
-						<label sclass="head2" id="lblReglamento"
-							value=" Reglamentos" style="font:arial;cursor:pointer" />
-					</div>
-
-				</row>
-				<row>
-					<label sclass="head2"
-						value=" Formatos de Apelación" style="font:arial;cursor:pointer" />
-					<attribute name="onClick"><![CDATA[
-	Filedownload.save("/archivos/documentos/word.docx", null);
-]]></attribute>
-					<a image="/imagenes/iconos/descargar.png" href="" />
-				</row>
-				<row>
-					<label sclass="head2"
-						value=" Recaudos por Motivo de Apelación"
-						style="font:arial;cursor:pointer" />
-					<attribute name="onClick"><![CDATA[
-<!-- 	Filedownload.save("/archivos/documentos/word.docx", null);
-]]></attribute>
-					<a image="/imagenes/iconos/descargar.png" href="" />
-				</row>
-				<row>
-					<label sclass="head2" value=" Preguntas Frecuentes"
-						style="font:arial;cursor:pointer" />
-					<attribute name="onClick"><![CDATA[
-	Filedownload.save("/archivos/documentos/word.docx", null);
-]]></attribute>
-					<a image="/imagenes/iconos/descargar.png" href="" />
-				</row>
-			</rows>
-		</grid>
-	</panelchildren>
-</panel>
+<listbox hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDescargas')">
+	<listhead>
+		<listheader label="" sort="auto" />
+		<listheader label="" sort="auto" />
+	</listhead>
+	<listitem>
+		<listcell sclass="head2" label=" Calendario Académico"
+			id="lblCalendario" style="font:arial;cursor:pointer"
+			onClick="@command('descargarArchivo', parametro=self)" />
+		<listcell>
+			<image src="/imagenes/iconos/descargar.png" />
+		</listcell>
+	</listitem>
+	<listitem>
+		<listcell label="Reglamentos" sclass="head2" id="lblReglamento"
+			onClick="@command('modalReglamento')"
+			style="font:arial;cursor:pointer" />
+		<listcell label="" />
+	</listitem>
+	<listitem>
+		<listcell label="Formatos de Apelación" sclass="head2"
+			id="lblFormatos" style="font:arial;cursor:pointer" />
+		<listcell label="" />
+	</listitem>
+	<listitem>
+		<listcell label="Recaudos por Motivo de Apelación"
+			sclass="head2" id="lblRecaudos" style="font:arial;cursor:pointer" />
+		<listcell label="" />
+	</listitem>
+	<listitem>
+		<listcell label="Preguntas Frecuentes" sclass="head2"
+			onClick="@command('modalPreguntasFrecuentes')" id=" lblPreguntas "
+			style="font:arial;cursor:pointer" />
+		<listcell></listcell>
+	</listitem>
+</listbox>

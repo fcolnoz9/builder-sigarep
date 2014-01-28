@@ -392,13 +392,6 @@ public class VMCronograma {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("cronogramaSeleccionado", this.cronogramaSeleccionado);
-//		map.put("fechaInicio", this.fechaInicio);
-//		map.put("fechaFin", this.fechaFin);
-//		map.put("horaInicio", this.horaInicio);
-//		map.put("nombre", this.actividad.getNombre());
-//		map.put("descripcion", this.actividad.getDescripcion());
-//		map.put("lugar", this.lugar);
-//		map.put("observacion", this.observacion);
 
 		final Window window = (Window) Executions.createComponents(
 				"/Modal/DescripcionCrog.zul", null, map);

@@ -174,5 +174,6 @@ public class VMPortalPrincipal {
 		listaCronograma = serviciocronograma
 				.buscarTodosCronogramas(codigoLapso);
 	}
+	
 
 }

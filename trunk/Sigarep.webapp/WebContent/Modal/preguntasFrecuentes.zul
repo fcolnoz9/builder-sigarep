@@ -1,31 +1,25 @@
-<zk>
-	<window id="winMostrarPreguntasMasFrecuentes" title="Preguntas mas Frecuentes"  width="auto" height="auto" closable = "true"
-			border="normal"  contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
-   			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
-			<style src="/widgets/input/form_sample/style.css" /> <!-- Estilos de CSS para pantallas -->
-   		
-
-   					<!-- Grupbox que contiene el listado de preguntas almacenadas en base de datos -->
-					<groupbox id = "grbListaPreguntaBasica">
-<!-- 						<caption label="Preguntas mas Frecuentes"/> -->
-						<listbox id="lbxPreguntas"  height="100%" model="@bind(vm.listaPregunta)" selectedItem="@bind(vm.preguntaseleccionada)"   
-   			 					 onSelect="@command('mostrarSeleccionada')" emptyMessage="No hay preguntas básicas registradas" mold="paging" pageSize="10">	
-							<listhead>
-								
-								<listheader label="Preguntas" align="center" sort="auto(pregunta)" />
-								<listheader label="Respuestas" align="center" sort="auto(respuesta)" />
-							</listhead>
-						<template name="model">
-							<listitem>
-
-								<listcell label="${each.pregunta}" />
-								<listcell label="${each.respuesta}" />
-							</listitem>
-						</template>
-						</listbox>
-					</groupbox>
-					
-			
-	</window>
-</zk>
+<window id="winMostrarPreguntasMasFrecuentes" 
+	title="Preguntas Frecuentes" width="75%" height="70%" closable="true"
+	border="normal" contentStyle="overflow:auto" mode="modal"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
+	<listbox id="lbxPreguntas"
+		model="@bind(vm.listaPregunta)"
+		selectedItem="@bind(vm.preguntaseleccionada)"
+		onSelect="@command('mostrarSeleccionada')"
+		emptyMessage="No hay preguntas básicas registradas" mold="paging"
+		pageSize="10">
+		<listhead>
+			<listheader label="Preguntas" align="center"
+				sort="auto(pregunta)" />
+			<listheader label="Respuestas" align="center"
+				sort="auto(respuesta)" />
+		</listhead>
+		<template name="model">
+			<listitem>
+				<listcell label="${each.pregunta}" />
+				<listcell label="${each.respuesta}" />
+			</listitem>
+		</template>
+	</listbox>
+</window>

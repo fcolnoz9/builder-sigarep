@@ -1,13 +1,12 @@
-<window id="winModalDialog" title="Reglamentos" sclass="sysWin"
-	border="normal" width="70%" position="center,center"
-	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-	closable="true"
+<window id="winModalDialog" title="Reglamentos" border="normal" height="70%"
+	width="75%" position="center,center" contentStyle="overflow:auto"
+	apply="org.zkoss.bind.BindComposer" closable="true"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMreglamentoPortal')">
 	<groupbox closable="false">
 		<caption label="Lista de Reglamentos" />
 		<listbox id="lbxReglamento" model="@bind(vm.listaReglamento)"
 			emptyMessage="No hay reglamentos seleccionados" mold="paging"
-			pageSize="5">
+			pageSize="10">
 			<listhead>
 				<listheader label="Titulo" align="center"
 					sort="auto(titulo)" />
@@ -21,11 +20,14 @@
 				<listitem selected="true">
 					<listcell label="${each.titulo}"></listcell>
 					<listcell label="${each.fechaSubida}"></listcell>
-					<listcell label="${each.descripcion}"></listcell>	
-					<listcell>	
-						<button onClick="@command('descargarArchivo', parametro=self)" label="Descargar" width="auto"
-								image="/imagenes/iconos/descargar.png">
-							<custom-attributes idReglamento="${each.idDocumento}"/>		
+					<listcell label="${each.descripcion}"></listcell>
+					<listcell>
+						<button
+							onClick="@command('descargarArchivo', parametro=self)"
+							label="Descargar" width="auto"
+							image="/imagenes/iconos/descargar.png">
+							<custom-attributes
+								idReglamento="${each.idDocumento}" />
 						</button>
 					</listcell>
 				</listitem>
