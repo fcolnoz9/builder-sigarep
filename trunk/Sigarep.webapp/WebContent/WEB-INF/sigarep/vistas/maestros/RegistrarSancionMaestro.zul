@@ -14,7 +14,7 @@
 			</columns>
 			<rows>
 				<row>
-					<label value="Nombre" id="lblSancion" />
+					<label value="Nombre:" id="lblSancion" />
 					<textbox id="txtNombreSancion" cols="23" mold="rounded"
 						constraint="no empty: Ingrese nombre de la sanción" width="80%"
 						maxlength="30" value="@bind(vm.nombre)">
@@ -46,9 +46,8 @@
 			mold="trendy" onClick="winRegistrarSancion.onClose()">
 		</button>
 	</div>
-	<separator />
 	<groupbox id="grbListaSanciones">
-		<caption label="Tipos de Sanciones" />
+		<caption label="Listado de Tipos de Sanciones" />
 		<listbox id="lbxSancion" height="100%"
 			model="@bind(vm.listaTipoSancion)"
 			selectedItem="@bind(vm.tipoSancionSeleccionada)"
