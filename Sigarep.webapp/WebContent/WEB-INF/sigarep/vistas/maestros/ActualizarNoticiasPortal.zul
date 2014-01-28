@@ -99,7 +99,7 @@
 					<listheader label="Título" align="center"
 						sort="auto(titulo)" > 
 					<textbox id="filtroTitulo" instant="true"
-							width="50px" value="@bind(vm.titulof)"
+					mold="rounded" width="100px" value="@bind(vm.titulof)"
 							onChange="@command('filtros')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
