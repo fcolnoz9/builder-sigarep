@@ -19,63 +19,53 @@ style="overflow:auto" action="hide: slideUp"
     </columns>
     <rows>
     	<row>
-    	<label id="lblCategoria"
-						value="Categoría" />
+    	<label id="lblCategoria" value="Categoría:" />
 <!--             Categoría: -->
-            <hbox>
-              <combobox id="cmbCategoria" mold="rounded" width="200px" selectedItem=" @bind(vm.categoria)">
+              <combobox id="cmbCategoria" mold="rounded" width="80%" selectedItem=" @bind(vm.categoria)">
 						<comboitem value="guia" id="cmiGuiaPaso" label="Guía Paso a Paso" />
  						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
  						<comboitem value="calendario" id="cmiCalendario" label="Calendario Académico" /> 
  			 </combobox> 
-                
-            </hbox>
-       <label id="lblTituloDocumento"
-						value="Título Documento" />
-<!--            Título Documento: -->
-            <hbox>
-                <vbox>
-                    <textbox id= "txttitulo"   mold = "rounded" value="@bind(vm.titulo)"
-					width="200px" maxlength="30" cols="23" tabindex="5"    />
-                </vbox>
-            </hbox>
+         
+         <label id="lblFechaSubida" value="Fecha de Subida:" />
+<!--             Fecha de subida: -->
+            
+            	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" width="46%" value="@bind(vm.fechaSubida)"/>
+           
+              
         </row>
            <row>
-           <label id="lblDescripcion"
-						value="Descripción" />
-<!--             Descripción: -->
-            <hbox>
-                <textbox  id= "txtdescripcion" width="200px" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
-					 maxlength="150" cols="23" tabindex="5" rows="3" >
-                    <attribute name="value"> </attribute>
-                </textbox>
-            </hbox>
-      		<label id="lblFechaSubida"
-						value="Fecha de Subida" />
-<!--             Fecha de subida: -->
-            <hbox>
-            	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" value="@bind(vm.fechaSubida)"/>
-            </hbox>
-        </row>  
-        <row> 
-        </row> 
-           <row>  
-           <label id="lblDocumento"
-						value="Documento" />
+           
+           <label id="lblTituloDocumento" value="Título Documento:" />
+<!--            Título Documento: -->
+                    <textbox id= "txttitulo"   mold = "rounded" value="@bind(vm.titulo)"
+			width="80%" maxlength="30" cols="23" tabindex="5"    />
+           
+           <label id="lblDocumento" value="Documento:" />
 <!--            Documento: -->
-         <hbox>
-                    <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+       
+                    <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" 
 							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarDocumento',upload=event)"></button>
                     <a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
                                 
-                </hbox>  
-                   </row>  
+          
+           </row>
+           <row>  
+            <label id="lblDescripcion" value="Descripción:" />
+<!--             Descripción: -->
+           
+                <textbox  id= "txtdescripcion" width="77%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+					 maxlength="150" cols="23" tabindex="5" rows="3" >
+                    <attribute name="value"> </attribute>
+                </textbox> 
+          </row> 
     </rows>
 </grid>
 
 	<!-- Permite realizar acciones respecto al Cargar Documentos (Botones) -->
 </groupbox>
+<separator />
 		<div align="right" height="100%">
 			<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 				orient="horizontal" mold="trendy" onClick="@command('guardarReglamento')"/>
@@ -86,10 +76,7 @@ style="overflow:auto" action="hide: slideUp"
 			<button label="Cerrar" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 				orient="horizontal" mold="trendy" onClick="wincarga.onClose()" />
-
-
 		</div>
-		
 <!-- 	//**************************************************** -->
 <!-- 	//LISTADO DE DOCUMENTOS REGISTRADOS -->
 <!-- 	//**************************************************** -->
@@ -97,7 +84,7 @@ style="overflow:auto" action="hide: slideUp"
 
 <caption label= " Lista de Documentos" />
 
-<listbox id = "lbxlistareglamentos" rows="2" model="@bind(vm.listaReglamento)" 
+<listbox id = "lbxlistareglamentos" height="100%"  model="@bind(vm.listaReglamento)" 
 			selectedItem="@bind(vm.reglamentoSeleccionado)"   
    			 onSelect="@command('mostrarSeleccionado')" 
    			 emptyMessage="No hay Documentos registrados" mold="paging" pageSize="10" >
@@ -107,19 +94,19 @@ style="overflow:auto" action="hide: slideUp"
 		<listheader label="Título" align="center" 
 			sort="auto(titulo)">
 			<textbox id="filtroTitulo" instant="true"
-			width="100px" value="@bind(vm.tituloF)"
+			mold="rounded" width="100px" value="@bind(vm.tituloF)"
+			onChange="@command('filtros')" />
+			<image src="imagenes/iconos/buscar.png" />
+		</listheader>
+		<listheader label="Categoría" align="center"
+		 sort="auto(categoria)" >
+		 <textbox id="filtroCategoria" instant="true"
+		mold="rounded" width="100px" value="@bind(vm.categoriaF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
 		<listheader label="Descripción"  align="center"
 		 sort="auto(descripcion)" >
-		</listheader>
-		<listheader label="Categoría" align="center"
-		 sort="auto(categoria)" >
-		 <textbox id="filtroCategoria" instant="true"
-			width="100px" value="@bind(vm.categoriaF)"
-			onChange="@command('filtros')" />
-			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
 		<listheader label="Fecha Subida" align="center" width="100px"
 		 sort="auto(fechaSubida)">
