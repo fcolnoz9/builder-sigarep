@@ -213,6 +213,8 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.buscarSancionadosReconsideracion();
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoI(); 
+		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul"))
+			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoII(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
@@ -251,6 +253,8 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.filtrarApelacionesReconsideracion(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesVeredictoI(cedula, nombre, apellido, programa, sancion);
+		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul"))
+			lista = serviciosolicitudapelacion.filtrarApelacionesVeredictoII(cedula, nombre, apellido, programa, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesVeredictoIII(cedula, nombre, apellido, programa, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
