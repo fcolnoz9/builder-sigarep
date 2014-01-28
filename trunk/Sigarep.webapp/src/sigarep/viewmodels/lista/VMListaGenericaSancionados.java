@@ -227,7 +227,7 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosIII.zul"))
 			lista = serviciosolicitudapelacion.buscarSancionadosJerarquicoVerificar();
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
-			lista = serviciosolicitudapelacion.buscarAnalizarValidez1();
+			lista = serviciosolicitudapelacion.buscarAnalizarValidezI();
 	}
 	
 	@Command
@@ -251,9 +251,9 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesReconsideracion(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
-			lista = serviciosolicitudapelacion.filtrarApelacionesVeredicto1(cedula, nombre, apellido, programa, sancion);
+			lista = serviciosolicitudapelacion.filtrarApelacionesVeredictoI(cedula, nombre, apellido, programa, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul"))
-			lista = serviciosolicitudapelacion.filtrarApelacionesVeredicto3(cedula, nombre, apellido, programa, sancion);
+			lista = serviciosolicitudapelacion.filtrarApelacionesVeredictoIII(cedula, nombre, apellido, programa, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
 			lista = null; //serviciodatosiniciales.filtrarEstudianteSancionado(cedula, nombre, apellido, nombrePrograma, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
