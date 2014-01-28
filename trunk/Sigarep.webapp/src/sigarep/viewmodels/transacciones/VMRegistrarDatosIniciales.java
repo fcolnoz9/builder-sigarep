@@ -542,7 +542,7 @@ public class VMRegistrarDatosIniciales {
 		recaudoEntregadoPK.setCodigoLapso(lapso);
 		recaudoEntregadoPK.setIdInstanciaApelada(1);
 		recaudoEntregadoPK.setIdRecaudo(12);
-		recaudoEntregadoPK.setIdTipoMotivo(1);
+		recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
 		recaudoEntregado.setId(recaudoEntregadoPK);
 		recaudoEntregado.setEstatus(true);
 		serviciorecaudoentregado.guardar(recaudoEntregado);
@@ -568,15 +568,20 @@ public class VMRegistrarDatosIniciales {
 		motivoLista.setDescripcion(descripcion);
 		motivoLista.setTipoMotivo(motivoseleccionado);
 		listaMotivoListBox.add(motivoLista);
-		listBoxMotivo.setRows(listBoxMotivo.getRows()+1);
-	
+		descripcion = "";
+		motivoseleccionado = null;
 	}
-
+	
+	@NotifyChange({ "nombreDoc" , "descripcion", "motivoseleccionado", "listaMotivoListBox"})
 	@Command
 	public void cancelar() {
+		//Motivo motivoLista  = new Motivo ();
+		nombreDoc = "";
 		descripcion = "";
+		motivoseleccionado = null;
+		listaMotivoListBox.clear();
 	}
-
+	
 	/** cargarCartaApelacion
 	 * @param 
 	 * @return Documento cargado 
