@@ -274,14 +274,6 @@ public class VMListaGenericaSancionados {
 		}
 		
 	}
-//	@Command
-//	public void finalizarVeredicto3(){
-//		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
-//			buscarSancionados();
-//			vmVeredictoIII.finalizarVeredictoIII(lista);
-//	}
-//		
-//	}
 	
 }
 
