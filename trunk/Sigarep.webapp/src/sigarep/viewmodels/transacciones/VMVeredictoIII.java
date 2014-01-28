@@ -282,7 +282,7 @@ public class VMVeredictoIII {
 
 	@Command
 	public void registrarVeredicto(){
-		if(veredicto.equals("")|| veredicto == null){
+		if(veredicto == null){
 			mensajesAlUsuario.advertenciaGuardarVeredicto();
 		}else{
 			solicitudApelacion.setObservacion(observacionGeneral);
