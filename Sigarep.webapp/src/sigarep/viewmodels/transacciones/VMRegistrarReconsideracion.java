@@ -417,7 +417,7 @@ public class VMRegistrarReconsideracion {
 			recaudoEntregadoPK.setCodigoLapso(lapso);
 			recaudoEntregadoPK.setIdInstanciaApelada(2);
 			recaudoEntregadoPK.setIdRecaudo(13);
-			recaudoEntregadoPK.setIdTipoMotivo(2);
+			recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
 			recaudoEntregado.setId(recaudoEntregadoPK);
 			recaudoEntregado.setEstatus(true);
 
@@ -529,6 +529,14 @@ public class VMRegistrarReconsideracion {
 				.createComponents(
 						"/WEB-INF/sigarep/vistas/transacciones/VerificarApelaciones.zul",
 						null, null);
+	}
+	
+	@NotifyChange({ "nombreDoc" , "observacion"})
+	@Command
+	public void cancelar() {
+		//Motivo motivoLista  = new Motivo ();
+		nombreDoc = "";
+		observacion = ""; 
 	}
 
 }
