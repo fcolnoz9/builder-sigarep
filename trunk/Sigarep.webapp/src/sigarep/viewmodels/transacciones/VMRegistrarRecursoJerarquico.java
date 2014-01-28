@@ -216,9 +216,8 @@ public class VMRegistrarRecursoJerarquico {
 	}
 
 	// FIN DE LOS METODOS GETS Y SET
-
+	
 	// OTROS METODOS
-
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
@@ -263,8 +262,7 @@ public class VMRegistrarRecursoJerarquico {
 	 * 
 	 * @param
 	 * @return
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	public void concatenacionNombres() {
 
@@ -277,12 +275,9 @@ public class VMRegistrarRecursoJerarquico {
 
 	/**
 	 * concatenacionApellidos.
-	 * 
 	 * @param Ninguno
-	 *            .
 	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	public void concatenacionApellidos() {
 
@@ -296,12 +291,9 @@ public class VMRegistrarRecursoJerarquico {
 
 	/**
 	 * buscarRecaudosEntregados.
-	 * 
-	 * @param cedula
-	 *            , listaRecaudo
+	 * @param cedula, listaRecaudo
 	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaRecaudos" })
@@ -317,8 +309,7 @@ public class VMRegistrarRecursoJerarquico {
 	 * 
 	 * @param Ninguno
 	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	public void closeThis() {
@@ -330,8 +321,8 @@ public class VMRegistrarRecursoJerarquico {
 	 * 
 	 * @param lista
 	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws las Excepciones ocurren cuando se quiera registrar una Recurso Jerárquico
+	 * 			y no se ha cargado la carta
 	 */
 	@NotifyChange({ "lista" , "observacion"})
 	@Command
@@ -340,104 +331,54 @@ public class VMRegistrarRecursoJerarquico {
 			Date fecha = new Date();
 			Time hora = new Time(0);
 
-			if (nombreDoc == null || observacion.equals("")) {
+			if (observacion==" " || observacion ==null) {
 				mensajesusuario.advertenciaLlenarCampos();
 
 			} else {
 				solicitudApelacionPK.setCedulaEstudiante(cedula);
 				solicitudApelacionPK.setCodigoLapso(lapso);
-				solicitudApelacionPK.setIdInstanciaApelada(2);
+				solicitudApelacionPK.setIdInstanciaApelada(3);
 				solicitudApelacion.setId(solicitudApelacionPK);
 				solicitudApelacion.setFechaSolicitud(fecha);
 				solicitudApelacion.setEstatus(true);
 				solicitudApelacion.setNumeroCaso(caso);
+				solicitudApelacion.setObservacion(observacion);
 
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-				apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
-				//OJO CON ESTE ID
-				apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
+				apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
+				//OJO CON ESTE ID QUE ES CON EL ESTADO DE LA APELACION
+				apelacionEstadoApelacionPK.setIdEstadoApelacion(9);
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(hora);
-				apelacionEstadoApelacion.setObservacion(observacion);
 
 				idTipoMotivo = listaRecaudos.get(0).getMotivo().getId()
 						.getIdTipoMotivo();
 				motivoPK.setCedulaEstudiante(cedula);
 				motivoPK.setCodigoLapso(lapso);
-				motivoPK.setIdInstanciaApelada(2);
+				motivoPK.setIdInstanciaApelada(3);
 				motivoPK.setIdTipoMotivo(idTipoMotivo);
 				motivos.setId(motivoPK);
 				motivos.setEstatus(true);
-
-				recaudoEntregadoPK.setCedulaEstudiante(cedula);
-				recaudoEntregadoPK.setCodigoLapso(lapso);
-				recaudoEntregadoPK.setIdInstanciaApelada(2);
-				recaudoEntregadoPK.setIdRecaudo(2);
-				recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
-				recaudoEntregado.setId(recaudoEntregadoPK);
-				recaudoEntregado.setEstatus(true);
-
-				soporte.setRecaudoEntregado(recaudoEntregado);
-				soporte.setDocumento(doc);
-				soporte.setEstatus(true);
-				soporte.setFechaSubida(fecha);
-				soporte.setRecaudoEntregado(recaudoEntregado);
-				
 			}
-		
 		try {
 
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 			serviciomotivo.guardarMotivo(motivos);
-			serviciorecaudoentregado.guardar(recaudoEntregado);
-			serviciosoporte.guardar(soporte);
 			mensajesusuario.informacionRegistroCorrecto();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-
-			//serviciolista.buscarApelaciones(); POR FAVOR REVISAR AQUI
 		}
 
 	}
-
+	
 	/**
-	 * cargarCartaReconsideracion.
-	 * 
-	 * @param nombreDoc
-	 *            .
+	 * descargarDocumento.
+	 *  @param nombreDoc    .
 	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws Ninguna.
 	 */
-	@Command
-	@NotifyChange("nombreDoc")
-	public void cargarRecursoJerarquico(
-			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
-		media = event.getMedia();
-		if (media != null) {
-			if (media.getContentType().equals("image/jpeg")
-					|| media.getContentType().equals("application/pdf")
-					|| media.getContentType().equals("application/msword")
-					|| media.getContentType()
-							.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-					|| media.getContentType().equals(
-							"application/vnd.oasis.opendocument.text")
-					|| media.getContentType().equals(
-							"application/x-vnd.oasis.opendocument.text")) {
-				doc.setNombreDocumento(media.getName());
-				doc.setTipoDocumento(media.getContentType());
-				doc.setContenidoDocumento(media.getByteData());
-				nombreDoc = doc.getNombreDocumento();
-			} else {
-				Messagebox.show(media.getName()
-						+ " No es un tipo de archivo valido!", "Error",
-						Messagebox.OK, Messagebox.ERROR);
-			}
-		}
-	}
-
 	@Command
 	public void descargarDocumento(
 			@ContextParam(ContextType.COMPONENT) Component componente) {
@@ -452,8 +393,6 @@ public class VMRegistrarRecursoJerarquico {
 						listaRecaudos.get(j).getSoporte().getDocumento()
 								.getNombreDocumento());
 		}
-
 	}
-
 	// FIN OTROS METODOS
 }
