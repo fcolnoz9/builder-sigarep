@@ -72,11 +72,11 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	//Maria Flores
 	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
 			"EstudianteSancionado esa, ApelacionEstadoApelacion ap where la.estatus = 'TRUE' and " +
-			"ap.id.idInstanciaApelada  = '1' and sap.veredicto <> '' and esa.id.cedulaEstudiante = " +
+			"ap.id.idInstanciaApelada  = '2' and sap.veredicto <> '' and esa.id.cedulaEstudiante = " +
 			"sap.id.cedulaEstudiante and i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			" la.codigoLapso = esa.id.codigoLapso " +
+			" la.codigoLapso = esa.id.codigoLapso and sap.veredicto = 'No Aprobado' " +
 			"and sap.id.cedulaEstudiante not in (select ap.id.cedulaEstudiante from ApelacionEstadoApelacion " +
-			"as ap where ap.id.idInstanciaApelada = '2') ")		
+			"as ap where ap.id.idInstanciaApelada = '3') ")		
 	public List<SolicitudApelacion> buscarSancionadosRecursoJerarquico();
 
 //Marinel, Bely y Jesus
