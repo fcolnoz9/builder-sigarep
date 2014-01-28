@@ -402,7 +402,7 @@ public class VMRegistrarReconsideracion {
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
-			apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(5);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(hora);
 			apelacionEstadoApelacion.setObservacion(observacion);
@@ -419,8 +419,8 @@ public class VMRegistrarReconsideracion {
 			recaudoEntregadoPK.setCedulaEstudiante(cedula);
 			recaudoEntregadoPK.setCodigoLapso(lapso);
 			recaudoEntregadoPK.setIdInstanciaApelada(2);
-			recaudoEntregadoPK.setIdRecaudo(2);
-			recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
+			recaudoEntregadoPK.setIdRecaudo(13);
+			recaudoEntregadoPK.setIdTipoMotivo(2);
 			recaudoEntregado.setId(recaudoEntregadoPK);
 			recaudoEntregado.setEstatus(true);
 

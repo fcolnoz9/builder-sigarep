@@ -12,6 +12,8 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.image.AImage;
+import org.zkoss.util.media.Media;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.UploadEvent;
@@ -21,9 +23,11 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
@@ -32,8 +36,11 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
+import sigarep.modelos.data.transacciones.RecaudoEntregado;
+import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
+import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
@@ -41,7 +48,9 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
+import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 /**
  * VM Regisrar Datos Iniciales UCLA DCYT Sistemas de Informacion.
@@ -63,6 +72,10 @@ public class VMRegistrarDatosIniciales {
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
+	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	@WireVariable
+	private ServicioSoporte serviciosoporte;
 
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
 	private EstudianteSancionado estudianteseleccionado;
@@ -83,16 +96,23 @@ public class VMRegistrarDatosIniciales {
 	private String motivoCombo;
 	private String lapsosConsecutivos;
 	private Date fecha;
+	private Documento doc = new Documento();
+	private Media media;
+	private AImage imagen;
+	private String nombreDoc;
+	private String nombreDocumento;
+	private String tipoDocumento;
 	private List<TipoMotivo> listamotivo;
 	private String descripcion;
 	private Motivo motivo;
 	private List<Motivo> listamotivos;
 	private TipoMotivo motivoseleccionado;
 	private String listamotivoseleccionado;
+	private String observacion;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<TipoMotivo> listaTipoMotivo;
 	@WireVariable
-	private List<TipoMotivo> listaTipoMotivoListBox = new LinkedList<TipoMotivo>();
+	private List<Motivo> listaMotivoListBox = new LinkedList<Motivo>();
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
@@ -103,10 +123,37 @@ public class VMRegistrarDatosIniciales {
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
-
+	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
+	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
+	Soporte soporte = new Soporte();
 	private Integer idTipoMotivo;
 
 	private int caso;
+
+	
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
+	public String getNombreDoc() {
+		return nombreDoc;
+	}
+
+	public void setNombreDoc(String nombreDoc) {
+		this.nombreDoc = nombreDoc;
+	}
+
+	public String getNombreDocumento() {
+		return nombreDocumento;
+	}
+
+	public void setNombreDocumento(String nombreDocumento) {
+		this.nombreDocumento = nombreDocumento;
+	}
 
 	public String getMotivoCombo() {
 		return motivoCombo;
@@ -355,13 +402,14 @@ public class VMRegistrarDatosIniciales {
 	public TipoMotivo getMotivoseleccionado() {
 		return motivoseleccionado;
 	}
-	
-	public List<TipoMotivo> getListaTipoMotivoListBox() {
-		return listaTipoMotivoListBox;
+
+	public List<Motivo> getListaMotivoListBox() {
+		return listaMotivoListBox;
 	}
 
-	public void setListaTipoMotivoListBox(List<TipoMotivo> listaTipoMotivoListBox) {
-		this.listaTipoMotivoListBox = listaTipoMotivoListBox;
+	public void setListaMotivoListBox(
+			List<Motivo> listaMotivoListBox) {
+		this.listaMotivoListBox = listaMotivoListBox;
 	}
 
 	public void setMotivoseleccionado(TipoMotivo motivoseleccionado) {
@@ -404,7 +452,7 @@ public class VMRegistrarDatosIniciales {
 	public void buscarCaso() {
 		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
 	}
-
+	
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("estudianteseleccionado") EstudianteSancionado v1)
@@ -450,7 +498,7 @@ public class VMRegistrarDatosIniciales {
 	 *             Excepciones ocurren cuando se quiera registrar una apelacion
 	 *             y no registrar motivos
 	 */
-	
+
 	@Command
 	@NotifyChange({ "listaSancionados", "listaTipoMotivoListBox" })
 	public void registrarSolicitudApelacion() {
@@ -476,42 +524,88 @@ public class VMRegistrarDatosIniciales {
 		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 		apelacionEstadoApelacion.setFechaEstado(hora);
 		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
-		
+
 		Motivo motivos = new Motivo();
-		for (int j = 0; j < listaTipoMotivoListBox.size(); j++) {;
-				idTipoMotivo = listaTipoMotivoListBox.get(j).getIdTipoMotivo();
-				motivoPK.setCedulaEstudiante(cedula);
-				motivoPK.setCodigoLapso(lapso);
-				motivoPK.setIdInstanciaApelada(1);
-				motivoPK.setIdTipoMotivo(idTipoMotivo);
-				motivos.setId(motivoPK);
-				motivos.setEstatus(true);
-				serviciomotivo.guardarMotivo(motivos);
+		for (int j = 0; j < listaMotivoListBox.size(); j++) {
+			
+			idTipoMotivo = listaMotivoListBox.get(j).getTipoMotivo().getIdTipoMotivo();
+			motivoPK.setCedulaEstudiante(cedula);
+			motivoPK.setCodigoLapso(lapso);
+			motivoPK.setIdInstanciaApelada(1);
+			motivoPK.setIdTipoMotivo(idTipoMotivo);
+			motivos.setId(motivoPK);
+			motivos.setEstatus(true);
+			motivos.setDescripcion(descripcion);
+			serviciomotivo.guardarMotivo(motivos);
 		}
+		recaudoEntregadoPK.setCedulaEstudiante(cedula);
+		recaudoEntregadoPK.setCodigoLapso(lapso);
+		recaudoEntregadoPK.setIdInstanciaApelada(1);
+		recaudoEntregadoPK.setIdRecaudo(12);
+		recaudoEntregadoPK.setIdTipoMotivo(1);
+		recaudoEntregado.setId(recaudoEntregadoPK);
+		recaudoEntregado.setEstatus(true);
+		serviciorecaudoentregado.guardar(recaudoEntregado);
+		soporte.setDocumento(doc);
+		soporte.setEstatus(true);
+		soporte.setFechaSubida(fecha);
+		soporte.setRecaudoEntregado(recaudoEntregado);
+		serviciosoporte.guardar(soporte);
 		
 		try {
 			mensajesusuario.informacionRegistroCorrecto();
-			System.out.println(listaTipoMotivoListBox.size());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-
 		}
-
 	}
 
 	@Command
-	@NotifyChange({"listaTipoMotivo","listaTipoMotivoListBox","motivoseleccionado"})
-	public void agregarMotivo(
-			@BindingParam("listBoxTipoMotivo") Listbox listBoxTipoMotivo) {
+	@NotifyChange({ "listaMotivo", "listaMotivoListBox",
+			"motivoseleccionado", "descripcion" })
+	public void agregarMotivo(@BindingParam("listBoxMotivo") Listbox listBoxMotivo) {
+		
+		Motivo motivoLista  = new Motivo ();
+		motivoLista.setDescripcion(descripcion);
+		motivoLista.setTipoMotivo(motivoseleccionado);
+		listaMotivoListBox.add(motivoLista);
+		listBoxMotivo.setRows(listBoxMotivo.getRows()+1);
 	
-		listaTipoMotivoListBox.add(getMotivoseleccionado());
-		limpiar ();
 	}
 
 	@Command
-	public void limpiar() {
+	public void cancelar() {
 		descripcion = "";
-		fecha = null;
 	}
 
+	/** cargarCartaApelacion
+	 * @param 
+	 * @return Documento cargado 
+	 * @throws Ocurren cuando se intenta cargar un archivo no soportado.
+	 */
+	@Command
+	@NotifyChange("nombreDoc")
+	public void cargarCartaApelacion(
+			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
+		media = event.getMedia();
+		if (media != null) {
+			if (media.getContentType().equals("image/jpeg")
+					|| media.getContentType().equals("application/pdf")
+					|| media.getContentType().equals("application/msword")
+					|| media.getContentType()
+							.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+					|| media.getContentType().equals(
+							"application/vnd.oasis.opendocument.text")
+					|| media.getContentType().equals(
+							"application/x-vnd.oasis.opendocument.text")) {
+				doc.setNombreDocumento(media.getName());
+				doc.setTipoDocumento(media.getContentType());
+				doc.setContenidoDocumento(media.getByteData());
+				nombreDoc = doc.getNombreDocumento();
+			} else {
+				Messagebox.show(media.getName()
+						+ " No es un tipo de archivo valido!", "Error",
+						Messagebox.OK, Messagebox.ERROR);
+			}
+		}
+	}
 }

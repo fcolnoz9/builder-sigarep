@@ -1,7 +1,8 @@
 <zk>
 	<window id="winRegistrarDatosInicialesApelacion"
 		title="Gestión :: Apelaciones :: Registrar Apelación :: Registrar Datos Iniciales de Apelación"
-		width="auto" height="auto"  style="overflow:auto" closable="true" apply="org.zkoss.bind.BindComposer"
+		width="auto" height="auto" style="overflow:auto" closable="true"
+		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRegistrarDatosIniciales')">
 		<groupbox id="grbDatosestudiante">
 			<caption id="lblDatosestudiante" label="Datos Estudiante" />
@@ -16,33 +17,28 @@
 					<row></row>
 					<row>
 						<label id="lblCedula" value="Cedula: " />
-						<textbox id="txtCedula" mold="rounded" tabindex="1"
-							width="80%" cols="23" height="auto" value="@bind(vm.estudianteseleccionado.estudiante.cedulaEstudiante)"
+						<textbox id="txtCedula" mold="rounded"
+							tabindex="1" width="80%" cols="23" height="auto"
+							value="@bind(vm.estudianteseleccionado.estudiante.cedulaEstudiante)"
 							readonly="true" maxlength="8">
 						</textbox>
 						<label id="lblPrograma" value="Programa: " />
-						<textbox id="txtPrograma" mold="rounded" tabindex="2"
-							width="80%" cols="23" height="auto" value="@bind(vm.estudianteseleccionado.estudiante.programaAcademico.nombrePrograma)"
+						<textbox id="txtPrograma" mold="rounded"
+							tabindex="2" width="80%" cols="23" height="auto"
+							value="@bind(vm.estudianteseleccionado.estudiante.programaAcademico.nombrePrograma)"
 							readonly="true" maxlength="60">
 						</textbox>
 					</row>
 					<row>
 						<label id="lblNombre" value="Nombre: " />
-						<textbox id="txtNombre" mold="rounded" tabindex="3"
-							width="80%" cols="23" height="auto" value="@bind(vm.nombres)"
-							readonly="true" maxlength="30">
+						<textbox id="txtNombre" mold="rounded"
+							tabindex="3" width="80%" cols="23" height="auto"
+							value="@bind(vm.nombres)" readonly="true" maxlength="30">
 						</textbox>
 						<label id="lblApellido" value="Apellido: " />
-						<textbox id="txtApellido" mold="rounded" tabindex="4"
-							width="80%" cols="23" height="auto" value="@bind(vm.apellidos)"
-							readonly="true" maxlength="30">
-						</textbox>
-					</row>
-					<row>
-						<label id="lblIndice" value="Indice de Grado: " />
-						<textbox id="txtIndice" mold="rounded" tabindex="5"
-							width="80%" cols="23" height="auto" value="@bind(vm.estudianteseleccionado.indiceGrado)"
-							readonly="true" maxlength="30">
+						<textbox id="txtApellido" mold="rounded"
+							tabindex="4" width="80%" cols="23" height="auto"
+							value="@bind(vm.apellidos)" readonly="true" maxlength="30">
 						</textbox>
 					</row>
 				</rows>
@@ -53,36 +49,43 @@
 			<grid id="grdDatosSancion">
 				<columns>
 					<column width="10%" />
-					<column width="40%"/>
+					<column width="40%" />
 					<column width="10%" />
-					<column width="40%"/>
+					<column width="40%" />
 				</columns>
 				<rows>
 					<row></row>
 					<row>
-						<label id="lblLapsosancion" value="Lapso de Sancion: " />
-						<textbox id="txtLapsosancion" mold="rounded" tabindex="6"
-							width="80%" cols="23" height="auto" value="@bind(vm.estudianteseleccionado.lapsoAcademico.codigoLapso)"
+						<label id="lblLapsosancion"
+							value="Lapso de Sancion: " />
+						<textbox id="txtLapsosancion" mold="rounded"
+							tabindex="6" width="80%" cols="23" height="auto"
+							value="@bind(vm.estudianteseleccionado.lapsoAcademico.codigoLapso)"
 							readonly="true" maxlength="6">
 						</textbox>
-						<label id="lblTiposancion" value="Tipo de Sancion: " />
-						<textbox id="txtTipoSancion" mold="rounded" tabindex="7"
-							width="80%" cols="23" height="auto" value="@bind(vm.estudianteseleccionado.sancionMaestro.nombreSancion)"
+						<label id="lblTiposancion"
+							value="Tipo de Sancion: " />
+						<textbox id="txtTipoSancion" mold="rounded"
+							tabindex="7" width="80%" cols="23" height="auto"
+							value="@bind(vm.estudianteseleccionado.sancionMaestro.nombreSancion)"
 							readonly="true" maxlength="30">
 						</textbox>
 					</row>
 					<row>
 						<label id="lblPeriodosancion"
 							value="Periodo de la Sancion: " />
-						<textbox id="txtPeridoinicialsancion" mold="rounded" tabindex="3"
-							width="80%" cols="23" height="auto"
-							value="@bind(vm.estudianteseleccionado.lapsosAcademicosRp)" readonly="true" maxlength="30">
-							
+						<textbox id="txtPeridoinicialsancion"
+							mold="rounded" tabindex="3" width="80%" cols="23" height="auto"
+							value="@bind(vm.estudianteseleccionado.lapsosAcademicosRp)"
+							readonly="true" maxlength="30">
+
 						</textbox>
-								<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55"
-						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
-					</textbox>
+						<label id="lblAsignaturaPeriodos"
+							value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+						<textbox id="txtAsignatura" cols="55"
+							maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)"
+							readonly="true">
+						</textbox>
 
 					</row>
 				</rows>
@@ -92,7 +95,7 @@
 			<caption id="lblDatosapelacion" label="Datos Apelación" />
 			<grid id="grdDatosapelacion">
 				<columns>
-					<column width="14%" />
+					<column width="24%" />
 					<column width="16%" />
 					<column width="8%" />
 					<column width="16%" />
@@ -102,31 +105,48 @@
 				</columns>
 				<rows>
 					<row>
-						<label id="lblfechaderegistro"
-							value="Fecha de Registro de Apelación: " width="auto" />
-						<datebox value="@bind(vm.fecha)"
-							 mold="rounded" height="auto"
-							width="80%" tabindex="7" />
+						<button label="Cargar Carta de Apelacion"
+							id="btnDocumento" upload="true"
+							onUpload="@command('cargarCartaApelacion',upload=event)"
+							image="/imagenes/iconos/cargar.png" mold="trendy">
+						</button>
+						<label id="lblDocumento"
+							value="@bind(vm.nombreDoc)">
+						</label>
+<!-- 						<label id="lblObservacion" -->
+<!-- 							value="Observacion:"> -->
+<!-- 						</label> -->
+<!-- 						<textbox id="txtObservacion" cols="23" -->
+<!-- 							maxlength="30" rows="3" width="77%" mold="rounded" -->
+<!-- 							value="@bind(vm.observacion)"> -->
+<!-- 						</textbox> -->
+					</row>
+					<row>
 						<label id="lblMotivo" value="Motivo: " />
-						<combobox id="cmbMotivo" mold="rounded" model="@bind(vm.listaTipoMotivo)"
-							 tabindex="8" width="80%" selectedItem="@bind(vm.motivoseleccionado)"> 
+						<combobox id="cmbMotivo" mold="rounded"
+							model="@bind(vm.listaTipoMotivo)" tabindex="8" width="80%"
+							selectedItem="@bind(vm.motivoseleccionado)">
 							<template name="model">
-								<comboitem  label="${each.getNombreTipoMotivo()}" />
+								<comboitem
+									label="${each.getNombreTipoMotivo()}" />
 							</template>
 						</combobox>
-						<label id="lblDescripcionMotivo" value="Descripcion: " />
-						<textbox id="txtDescripcion" rows="3" 
-							width="80%" cols="23" height="auto"
-						  maxlength="255">
-						 </textbox>
-						<button id="btnAgregar" label="Agregar" mold="trendy"
-							image="/imagenes/iconos/agregar.png" width="auto" height="auto"
-			 				orient="horizontal" onClick="@command('agregarMotivo',listaTipoMotivo=lbxMotivos)">
+						<label id="lblDescripcionMotivo"
+							value="Descripcion: " />
+						<textbox id="txtDescripcion" rows="3"
+							width="80%" cols="23" height="auto" maxlength="255"
+							value="@bind(vm.descripcion)">
+						</textbox>
+						<button id="btnAgregar" label="Agregar"
+							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
+							height="auto" orient="horizontal"
+							onClick="@command('agregarMotivo',listBoxMotivo=lbxMotivos)">
 						</button>
 					</row>
 				</rows>
 			</grid>
-			<listbox height="auto" id="lbxMotivos" mold="paging" pageSize="10" model="@bind(vm.listaTipoMotivoListBox)"
+			<listbox height="auto" id="lbxMotivos" mold="paging"
+				pageSize="10" model="@bind(vm.listaMotivoListBox)"
 				emptyMessage="No hay motivos agregados">
 				<listhead>
 					<listheader label="Motivo" sort="auto" />
@@ -134,7 +154,8 @@
 				</listhead>
 				<template name="model">
 					<listitem>
-						<listcell label="${each.nombreTipoMotivo}" />
+						<listcell
+							label="${each.tipoMotivo.nombreTipoMotivo}" />
 						<listcell label="${each.descripcion}" />
 					</listitem>
 				</template>
@@ -143,16 +164,17 @@
 		<separator />
 		<div align="right" height="100%">
 			<button id="btnGuardar" width="auto" height="auto"
-				mold="trendy" label="Guardar" onClick="@command('registrarSolicitudApelacion')"
+				mold="trendy" label="Guardar"
+				onClick="@command('registrarSolicitudApelacion')"
 				image="/imagenes/iconos/guardar.png">
 			</button>
 			<button id="btnCancelar" width="auto" height="auto"
-				mold="trendy" label="Cancelar"
+				mold="trendy" label="Cancelar" onClick="@command('cancelar')"
 				image="/imagenes/iconos/cancelar.png">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" mold="trendy" image="/imagenes/iconos/cerrar.png"
-				onClick = "winRegistrarDatosInicialesApelacion.onClose()">
+				onClick="winRegistrarDatosInicialesApelacion.onClose()">
 			</button>
 		</div>
 	</window>
