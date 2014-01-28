@@ -155,6 +155,14 @@ public class MensajesAlUsuario {
 				"Error", Messagebox.OK, Messagebox.ERROR);
 
 	}
+	
+	public void ErrorNoHayVeredictosRegistrados() {
+
+		Messagebox.show("No se ha podido finalizar. No hay veredictos registrados.",
+				"Error", Messagebox.OK, Messagebox.ERROR);
+
+	}
+	
 	public void ErrorLapsoActivoExistente() {
 
 		Messagebox.show("Ya existe un lapso académico activo.",
