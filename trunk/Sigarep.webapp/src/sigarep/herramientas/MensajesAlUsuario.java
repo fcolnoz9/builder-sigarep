@@ -92,6 +92,12 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+	public void advertenciaGuardarVeredicto() {
+
+		Messagebox.show("Debe especificar un veredicto para este caso.", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
 	public static void informacionRegistroCorrecto() {
 
 		Messagebox.show("Se ha registrado correctamente.", "Información",
