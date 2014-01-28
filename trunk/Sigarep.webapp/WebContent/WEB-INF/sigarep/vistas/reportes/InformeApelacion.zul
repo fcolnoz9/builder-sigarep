@@ -76,8 +76,19 @@
 
 
 					</row>
-
-
+					<row>
+						<label id="lblPara"
+							value="Para: " />
+						<textbox id="txtPara" value="@bind(vm.para)" mold="rounded" />
+						<label id="lblDe"
+							value="De: " />
+						<textbox id="txtDe" value="@bind(vm.de)" mold="rounded" />
+					</row>
+					<row>
+						<label id="lblContenido"
+							value="Contenido: " />
+						<textbox id="txtContenido" value="@bind(vm.contenido)" rows="3" mold="rounded" tabindex="2" />
+					</row>
 
 
 				</rows>

@@ -73,6 +73,37 @@ public class VMListadoEstudiantesVeredicto {
 	private String nombre_sancion;
 	private String codigo_lapso;
 	private String programa_academico;
+	
+	@Wire private String para ="";
+	@Wire private String de="";
+	@Wire private String contenido="";
+	
+	
+	public String getPara() {
+		return para;
+	}
+
+	public void setPara(String para) {
+		this.para = para;
+	}
+
+	public String getDe() {
+		return de;
+	}
+
+	public void setDe(String de) {
+		this.de = de;
+	}
+
+	public String getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
+
+	
 
 	
 	
@@ -325,7 +356,7 @@ public class VMListadoEstudiantesVeredicto {
 
 	// ###############METODO PARA IMPRIMIR REPORTE#################
 	@Command("GenerarReporteApelacionesMotivo")
-	@NotifyChange({ "reportConfig" })
+	@NotifyChange({ "reportConfig","para","de","contenido" })
 	public void GenerarReporte() {
 
 		sancionadosVeredicto.clear();
@@ -363,11 +394,18 @@ public class VMListadoEstudiantesVeredicto {
 
 		reportConfig = new ReportConfigSancionados(prog, lap); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
+		reportConfig.getParameters().put("De", de);
+		reportConfig.getParameters().put("Para", para);
+		reportConfig.getParameters().put("Contenido", contenido);
+		
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 											// IMPRESION DEL REPORTE
 		reportConfig.setDataSource(new JRBeanCollectionDataSource(
 				sancionadosVeredicto)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
 										// DATOS PARA DIBUJAR EL REPORTE
+			para ="";
+			de="";
+			contenido="";
 
 	}
 
