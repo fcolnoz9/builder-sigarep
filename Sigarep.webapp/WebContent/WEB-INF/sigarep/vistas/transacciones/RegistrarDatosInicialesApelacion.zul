@@ -76,7 +76,7 @@
 							value="Periodo de la Sancion: " />
 						<textbox id="txtPeridoinicialsancion"
 							mold="rounded" tabindex="3" width="80%" cols="23" height="auto"
-							value="@bind(vm.estudianteseleccionado.lapsosAcademicosRp)"
+							value="@bind(vm.estudianteseleccionado.periodoSancion)"
 							readonly="true" maxlength="30">
 
 						</textbox>
