@@ -216,7 +216,6 @@ public class VMVeredictoIII {
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoIII(cedula);
-		listaRecaudo.get(0);
 	}
 
 	@Command
@@ -283,22 +282,25 @@ public class VMVeredictoIII {
 
 	@Command
 	public void registrarVeredicto(){
-		solicitudApelacion.setObservacion(observacionGeneral);
-		solicitudApelacion.setVeredicto(veredicto);
-		serviciosolicitudapelacion.guardar(solicitudApelacion);
+		if(veredicto.equals("")|| veredicto == null){
+			mensajesAlUsuario.advertenciaGuardarVeredicto();
+		}else{
+			solicitudApelacion.setObservacion(observacionGeneral);
+			solicitudApelacion.setVeredicto(veredicto);
+			serviciosolicitudapelacion.guardar(solicitudApelacion);
+			
+			ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
+			ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
+			apelacionEstadoPK.setCedulaEstudiante(cedula);
+			apelacionEstadoPK.setCodigoLapso(lapso);
+			apelacionEstadoPK.setIdEstadoApelacion(4);
+			apelacionEstadoPK.setIdInstanciaApelada(instancia);
+			apelacionEstado.setId(apelacionEstadoPK);
+			apelacionEstado.setFechaEstado(new Date());
+			apelacionEstado.setObservacion(observacionGeneral);
 		
-		ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
-		ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
-		apelacionEstadoPK.setCedulaEstudiante(cedula);
-		apelacionEstadoPK.setCodigoLapso(lapso);
-		apelacionEstadoPK.setIdEstadoApelacion(4);
-		apelacionEstadoPK.setIdInstanciaApelada(instancia);
-		apelacionEstado.setId(apelacionEstadoPK);
-		apelacionEstado.setFechaEstado(new Date());
-		apelacionEstado.setObservacion(observacionGeneral);
-	
-		mensajesAlUsuario.informacionVeredictoRegistrado();
-		
+			mensajesAlUsuario.informacionVeredictoRegistrado();
+		}
 	}
 	
 	@Command
@@ -308,25 +310,25 @@ public class VMVeredictoIII {
 		veredicto = "";
 	}
 
-//	public void finalizarVeredictoIII(List<SolicitudApelacion> listaSancionados) {
-//		if (listaSancionados.size() == 0)
-//			mensajesAlUsuario.informacionFinalizarVeredictoIApelacionesProcesadas();
-//		else{
-//			System.out.println("AQUI: "+listaSancionados.size());
-//			showModalDatosSesion(listaSancionados);
-//		}
-//	}
+	public void finalizarVeredictoIII(List<SolicitudApelacion> listaSancionados) {
+		if (listaSancionados.size() == 0)
+			mensajesAlUsuario.informacionFinalizarVeredictoApelacionesProcesadas();
+		else{
+			System.out.println("AQUI: "+listaSancionados.size());
+			showModalDatosSesion(listaSancionados);
+		}
+	}
 
-//	public void showModalDatosSesion (List<SolicitudApelacion> listaSancionados){
-//  		
-//  		final HashMap<String, Object> map = new HashMap<String, Object>();
-//	 	map.put("listaSancionados", listaSancionados);
-//	 	System.out.println("AQUI2: "+listaSancionados.size());
-//        final Window window = (Window) Executions.createComponents(
-//        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
-//		window.setMaximizable(true);
-//		window.doModal();
-//  	}
+	public void showModalDatosSesion (List<SolicitudApelacion> listaSancionados){
+  		
+  		final HashMap<String, Object> map = new HashMap<String, Object>();
+	 	map.put("listaSancionados", listaSancionados);
+	 	System.out.println("AQUI2: "+listaSancionados.size());
+        final Window window = (Window) Executions.createComponents(
+        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
+		window.setMaximizable(true);
+		window.doModal();
+  	}
 }
     
 
