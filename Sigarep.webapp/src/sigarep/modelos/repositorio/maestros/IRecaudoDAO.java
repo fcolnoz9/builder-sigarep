@@ -41,4 +41,21 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	@Query("Select rec FROM Recaudo AS rec, TipoMotivo As tm, Motivo AS m, SolicitudApelacion AS sap WHERE tm.idTipoMotivo = m.id.idTipoMotivo AND m.id.idInstanciaApelada = sap.id.idInstanciaApelada AND m.id.codigoLapso = sap.id.codigoLapso AND m.id.cedulaEstudiante = sap.id.cedulaEstudiante AND rec.tipoMotivo.idTipoMotivo = m.id.idTipoMotivo AND sap.id.cedulaEstudiante = :cedula AND sap.id.codigoLapso = :codigoLapso AND sap.id.idInstanciaApelada = :idInstancia ORDER BY rec.tipoMotivo.idTipoMotivo")
 	public List<Recaudo> listadoRecaudosPorApelacion(@Param("cedula") String cedula, @Param("codigoLapso") String codigoLapso, @Param("idInstancia") Integer idInstancia);
 	
+	@Query("SELECT r FROM Recaudo AS r, RecaudoEntregado AS re, LapsoAcademico AS la " +
+			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '3' " +
+			"AND re.id.cedulaEstudiante = :cedula " +
+			"AND re.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE' " +
+			"AND r.idRecaudo != re.id.idRecaudo " +
+			"AND r.tipoMotivo.idTipoMotivo = re.id.idTipoMotivo")
+	public List<Recaudo> buscarRecaudosVerificarRecaudosII(@Param("cedula") String cedula);
+
+	@Query("SELECT r FROM Recaudo AS r, RecaudoEntregado AS re, LapsoAcademico AS la " +
+			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '2' " +
+			"AND re.id.cedulaEstudiante = :cedula " +
+			"AND re.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE' " +
+			"AND r.idRecaudo != re.id.idRecaudo " +
+			"AND r.tipoMotivo.idTipoMotivo = re.id.idTipoMotivo")
+	public List<Recaudo> buscarRecaudosVerificarRecaudosIII(@Param("cedula") String cedula);
 }
