@@ -14,7 +14,7 @@ public interface ITipoMotivoDAO extends JpaRepository<TipoMotivo, Integer> {
 	@Query("Select tipo FROM TipoMotivo AS tipo WHERE estatus = TRUE")
 	public List<TipoMotivo> buscarTipoMotivoActivas();
 	
-	@Query("SELECT tipo from TipoMotivo AS tipo")
+	@Query("SELECT tipo from TipoMotivo AS tipo WHERE tipo.protegido = 'FAlSE'")
 	public List<TipoMotivo> buscarTodas();
 	
 }
