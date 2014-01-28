@@ -18,10 +18,7 @@
 					<label id="lblCedula" value="Cédula:" />
 					<textbox id="txtCedula" mold="rounded" width="80%"
 						cols="23" maxlength="30" tabindex="1" value="@bind(vm.cedula)"
-						constraint="no empty:Introduzca la cédula" />
-					<button label="Buscar" id="btnBuscar" mold="trendy"
-						image="/imagenes/iconos/buscar.png" width="auto"
-						orient="horizontal" onClick="@command('buscarEstudiante')" />
+						constraint="no empty:Introduzca la cédula" onChange="@command('buscarEstudiante')" />
 				</row>
 				<row>
 					<label id="lblPrimerNombre" value="Primer Nombre:" />
