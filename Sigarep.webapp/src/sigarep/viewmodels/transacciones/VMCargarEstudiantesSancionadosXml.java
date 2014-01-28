@@ -57,7 +57,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	private Integer unidades_cursadas,unidades_aprobadas,semestre,id_sancion;
 	private float indice_grado;
 	//Asignatura Estudiante Sancionado
-	private Integer condicion_asignatura_1,condicion_asignatura_2,condicion_asignatura_3;
+	private Integer condicion_asignatura_1,condicion_asignatura_2,condicion_asignatura_3,periodo_sancion;
 	private String codigo_asignatura_1,codigo_asignatura_2,codigo_asignatura_3;
 	@WireVariable 
 	private ServicioAsignatura servicioAsignatura;
@@ -173,6 +173,7 @@ public class VMCargarEstudiantesSancionadosXml {
 						unidades_cursadas=Integer.parseInt(node.getChildText("unidades_cursadas"));
 						unidades_aprobadas=Integer.parseInt(node.getChildText("unidades_aprobadas"));
 						semestre=Integer.parseInt(node.getChildText("semestre"));
+						periodo_sancion=Integer.parseInt(node.getChildText("periodo_sancion"));
 						ProgramaAcademico programaacademico = new ProgramaAcademico();
 						programaacademico = servicioprogramaacademico.buscarUnPrograma(id_programa);//busca el programa academico
 						Estudiante estudiante = new Estudiante(cedula_estudiante, anio_ingreso, email,estatus, fecha_nacimiento, primer_apellido,primer_nombre, segundo_apellido,segundo_nombre, sexo, telefono,programaacademico);
@@ -187,7 +188,7 @@ public class VMCargarEstudiantesSancionadosXml {
 						EstudianteSancionado estudiante_sancionado;
 						lapsoAcademico=new LapsoAcademico();
 						lapsoAcademico= serviciolapsoacademico.buscarUnLapsoAcademico(codigo_lapso);
-						estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro,estatus);
+						estudiante_sancionado=new EstudianteSancionado(id,indice_grado,lapsos_academicos_RP,semestre,unidades_aprobadas,unidades_cursadas,estudiante,lapsoAcademico,sancionMaestro,estatus,periodo_sancion);
 						servicioestudiantesancionado.guardar(estudiante_sancionado);  
 									   //las materias del Estudiante Sancionado. 
 								if(!node.getChildText("codigo_asignatura_1").equals("0")){//Si es Igual a 0 es porque no tiene Materias, este valor viene del Xml
