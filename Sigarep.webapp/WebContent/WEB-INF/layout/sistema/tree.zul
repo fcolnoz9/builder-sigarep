@@ -295,8 +295,10 @@
 									<treeitem>
 										<treerow>
 											<treecell
-												label="Analizar Validez" id=""
-												onClick="createWin(AnalizarValidez.getId(), AnalizarValidez.getSclass())" />
+											
+											label="Analizar Validez" sclass="transacciones"
+												id="AnalizarValidezIII"
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezIII.zul" )' />
 										</treerow>
 									</treeitem>
 									<treeitem>
