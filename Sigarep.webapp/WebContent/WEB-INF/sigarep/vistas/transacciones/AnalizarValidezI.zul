@@ -132,44 +132,6 @@
 		</grid>	 
 		<label value=""/>
 			
-			
-			
-<!-- 			<grid> -->
-<!-- 				<columns> -->
-<!-- 					<column align="center" /> -->
-<!-- 				</columns>  -->
-<!-- 				<rows> -->
-<!-- 					<row width="80%"> -->
-<!-- 						<radiogroup id="rgSugerencia" -->
-<!-- 							selectedItem="@bind(vm.selected)"> -->
-<!-- 							<grid> -->
-<!-- 								<rows> -->
-<!-- 									<row> -->
-<!-- 										<hlayout></hlayout> -->
-<!-- 										<hbox width="80%"> -->
-<!-- 											<radio id="rbProcedente" -->
-<!-- 												label="Procedente" value="Procedente" /> -->
-
-<!-- 										</hbox> -->
-<!-- 										<hbox> -->
-<!-- 											<radio id="rbNoProcedente" -->
-<!-- 												label="No Procedente" value="NoProcedente" /> -->
-<!-- 										</hbox> -->
-<!-- 										<hbox> -->
-<!-- 											<label -->
-<!-- 												value="Observación General: " id="lblObservacion" /> -->
-<!-- 											<textbox id="txtObservacion" value="@bind(vm.observacion)" -->
-<!-- 												mold="rounded" rows="2"> -->
-<!-- 											</textbox> -->
-<!-- 										</hbox> -->
-<!-- 									</row> -->
-<!-- 								</rows> -->
-<!-- 							</grid> -->
-<!-- 						</radiogroup> -->
-						
-<!-- 					</row> -->
-<!-- 				</rows> -->
-<!-- 			</grid> -->
 		</groupbox>
 
 		<div align="right" height="100%">
