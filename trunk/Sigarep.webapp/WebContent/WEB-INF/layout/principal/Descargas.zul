@@ -2,32 +2,52 @@
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
 	<panelchildren>
-		<vlayout>
-			<space />
-			<label sclass="head2" value="- Calendario Académico"
-				id="lblCalendario" 
-				style="color:Red;font:arial;font-weight:bold;cursor:pointer"
-				onClick="@command('descargarArchivo', parametro=self)" />
-			<div apply="sigarep.controlador.maestros.ModalController">
-				<label sclass="head2" id="lblReglamento"
-					value="- Reglamentos"
-					style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
-			</div>
-			<label sclass="head2" value="- Formatos de Apelación"
-				style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
-			<attribute name="onClick"><![CDATA[
+		<grid>
+			<columns>
+				<column label="" />
+				<column label="" />
+			</columns>
+			<rows>
+				<row>
+					<label sclass="head2" value=" Calendario Académico"
+						id="lblCalendario" style="font:arial;cursor:pointer"
+						onClick="@command('descargarArchivo', parametro=self)" />
+					<a image="/imagenes/iconos/descargar.png" href="" />
+				</row>
+				<row>
+					<div
+						apply="sigarep.controlador.maestros.ModalController">
+						<label sclass="head2" id="lblReglamento"
+							value=" Reglamentos" style="font:arial;cursor:pointer" />
+					</div>
+
+				</row>
+				<row>
+					<label sclass="head2"
+						value=" Formatos de Apelación" style="font:arial;cursor:pointer" />
+					<attribute name="onClick"><![CDATA[
 	Filedownload.save("/archivos/documentos/word.docx", null);
 ]]></attribute>
-			<label sclass="head2" value="- Recaudos por Sanción"
-				style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
-			<attribute name="onClick"><![CDATA[
+					<a image="/imagenes/iconos/descargar.png" href="" />
+				</row>
+				<row>
+					<label sclass="head2"
+						value=" Recaudos por Motivo de Apelación"
+						style="font:arial;cursor:pointer" />
+					<attribute name="onClick"><![CDATA[
+<!-- 	Filedownload.save("/archivos/documentos/word.docx", null);
+]]></attribute>
+					<a image="/imagenes/iconos/descargar.png" href="" />
+				</row>
+				<row>
+					<label sclass="head2" value=" Preguntas Frecuentes"
+						style="font:arial;cursor:pointer" />
+					<attribute name="onClick"><![CDATA[
 	Filedownload.save("/archivos/documentos/word.docx", null);
 ]]></attribute>
-			<label sclass="head2" value="- Preguntas Frecuentes"
-				style="color:Red;font:arial;font-weight:bold;cursor:pointer" />
-			<attribute name="onClick"><![CDATA[
-	Filedownload.save("/archivos/documentos/word.docx", null);
-]]></attribute>
-		</vlayout>
+					<a image="/imagenes/iconos/descargar.png" href="" />
+				</row>
+			</rows>
+		</grid>
 	</panelchildren>
 </panel>

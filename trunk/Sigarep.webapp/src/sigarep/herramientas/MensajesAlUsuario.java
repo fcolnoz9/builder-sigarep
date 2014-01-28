@@ -49,6 +49,13 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
+	
+	public void advertenciaIngresarCedula() {
+
+		Messagebox.show("¡Debe ingresar una cedula!", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
 
 	public void advertenciaSeleccionarOpcion() {
 
@@ -194,6 +201,13 @@ public class MensajesAlUsuario {
 	public void ErrorNoExiste() {
 
 		Messagebox.show("El elemento solicitado no existe.", "Error",
+				Messagebox.OK, Messagebox.ERROR);
+
+	}
+	
+	public void ErrorNoExisteEstudianteSancionado() {
+
+		Messagebox.show("Esta cédula no está en la lista de Estudiantes Sancionados.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 
 	}

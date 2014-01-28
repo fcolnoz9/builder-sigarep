@@ -2,8 +2,6 @@ package sigarep.viewmodels.transacciones;
 
 import java.sql.Time;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
@@ -13,41 +11,21 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
-import sigarep.modelos.data.transacciones.ListaCronograma;
+import sigarep.modelos.data.transacciones.Cronograma;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDetalleCronograma {
 
 	@Wire("#modalDialog")
 	private Window window;
-	
-	private String nombre;
-	private String descripcion;
+	private String nombreActividad;
+	private String descripcionActividad;
 	private Date fecha_inicio;
 	private Date fecha_fin;
 	private Time hora_inicio;
 	private String observacion;
 	private String lugar;
-	private ListaCronograma listaCronograma;
-
-	private List<ListaCronograma> listaActividadCronograma = new LinkedList<ListaCronograma>();
-
-
-	public ListaCronograma getListaCronograma() {
-		return listaCronograma;
-	}
-
-	public void setListaCronograma(ListaCronograma listaCronograma) {
-		this.listaCronograma = listaCronograma;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+	private Cronograma cronogramaSeleccionado;
 
 	public Date getFecha_inicio() {
 		return fecha_inicio;
@@ -57,12 +35,20 @@ public class VMDetalleCronograma {
 		this.fecha_inicio = fecha_inicio;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getNombreActividad() {
+		return nombreActividad;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreActividad(String nombreActividad) {
+		this.nombreActividad = nombreActividad;
+	}
+
+	public String getDescripcionActividad() {
+		return descripcionActividad;
+	}
+
+	public void setDescripcionActividad(String descripcionActividad) {
+		this.descripcionActividad = descripcionActividad;
 	}
 
 	public Date getFecha_fin() {
@@ -97,33 +83,28 @@ public class VMDetalleCronograma {
 		this.lugar = lugar;
 	}
 
-	public List<ListaCronograma> getLista() {
-		return listaActividadCronograma;
-	}
-
-	public void setLista(List<ListaCronograma> lista) {
-		this.listaActividadCronograma = lista;
-	}
-
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("fecha_inicio") Date v1,
-			@ExecutionArgParam("fecha_fin") Date v2,
-			@ExecutionArgParam("hora_inicio") Time v3,
-			@ExecutionArgParam("nombre") String v4,
-			@ExecutionArgParam("descripcion") String v5,
-			@ExecutionArgParam("lugar") String v6,
-			@ExecutionArgParam("observacion") String v7)
-			
-	{
+			@ExecutionArgParam("cronogramaSeleccionado") Cronograma v1) {
 		Selectors.wireComponents(view, this, false);
-		this.fecha_inicio = v1;
-		this.fecha_fin = v2;
-		this.hora_inicio = v3;
-		this.nombre = v4;
-		this.descripcion = v5;
-		this.lugar = v6;
-		this.observacion = v7;
+		this.cronogramaSeleccionado = v1;
+		this.fecha_inicio = cronogramaSeleccionado.getFechaInicio();
+		this.fecha_fin = cronogramaSeleccionado.getFechaFin();
+		this.hora_inicio = cronogramaSeleccionado.getHoraInicio();
+		this.nombreActividad = cronogramaSeleccionado.getActividad()
+				.getNombre();
+		this.descripcionActividad = cronogramaSeleccionado.getActividad()
+				.getDescripcion();
+		this.lugar = cronogramaSeleccionado.getLugar();
+		this.observacion = cronogramaSeleccionado.getObservacion();
+	}
+
+	public Cronograma getCronograma() {
+		return cronogramaSeleccionado;
+	}
+
+	public void setCronograma(Cronograma cronograma) {
+		cronogramaSeleccionado = cronograma;
 	}
 
 }

@@ -177,8 +177,6 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia=="" || titulo=="" || contenido==""|| enlaceNoticia=="")
 			mensajesAlUsuario.advertenciaLlenarCampos();
 		else{
-			System.out.println(fotoNoticia.getTamano());
-			System.out.println(contenido);
 			Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, fotoNoticia,titulo, vencimiento);
 			servicionoticia.guardar(noticia);
 			mensajesAlUsuario.informacionRegistroCorrecto();
@@ -282,9 +280,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 				fotoNoticia.setNombreArchivo(mediaNoticia.getName());
 				fotoNoticia.setTipo(mediaNoticia.getContentType());
 				fotoNoticia.setContenidoArchivo(mediaNoticia.getByteData());
-
 				imagenNoticia = (AImage) mediaNoticia;
-				//	Messagebox.show("Archivo: " + imagenNoticia.getHeight(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 			} else {
 				Messagebox.show("El archivo: "+mediaNoticia+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
 			}
@@ -318,9 +314,6 @@ public class VMnoticia extends SelectorComposer<Component>  {
 
 		noticiaSeleccionada = getNoticiaSeleccionada();
 		final HashMap<String, Object> map = new HashMap<String, Object>();
-		//map.put("contenido", this.contenido );
-		//map.put("enlaceNoticia", this.enlaceNoticia);
-		//map.put("titulo", this.titulo);
 		map.put("noticiaSeleccionada", this.noticiaSeleccionada);
 		final Window win = (Window) Executions.createComponents(
 				"/Modal/ModalNoticia.zul", null, map);
