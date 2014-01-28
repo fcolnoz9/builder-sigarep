@@ -478,7 +478,7 @@ public class VMRegistrarDatosIniciales {
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
 		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+			asignaturaLapsosConsecutivos = estudianteseleccionado.getLapsosAcademicosRp();
 		}
 		listamotivo = serviciotipomotivo.buscarTodas();
 		buscarMotivos();
