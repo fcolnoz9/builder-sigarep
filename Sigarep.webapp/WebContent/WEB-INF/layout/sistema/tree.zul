@@ -256,8 +256,8 @@
 									<treeitem>
 										<treerow>
 											<treecell label="Veredicto"
-												id="" sclass="transacciones"
-												onClick="createWin(Veredicto.getId(), Veredicto.getSclass())" />
+												id="ListaGenericaSancionados2" sclass="transacciones"
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(), "transacciones/veredictoII.zul")' />
 										</treerow>
 									</treeitem>
 								</treechildren>
@@ -299,8 +299,9 @@
 									<treeitem>
 										<treerow>
 											<treecell label="Veredicto"
-												id=""
-												onClick="createWin(Veredicto.getId(), Veredicto.getSclass())" />
+												id="ListaGenericaSancionados3" sclass="transacciones"
+												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(), "transacciones/veredictoIII.zul")' />
+										
 										</treerow>
 									</treeitem>
 								</treechildren>
