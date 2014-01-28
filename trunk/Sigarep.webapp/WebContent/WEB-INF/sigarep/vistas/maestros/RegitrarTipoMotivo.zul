@@ -63,7 +63,7 @@
 				<listhead>
 				<listheader label="Motivo de la Apelación"
 						align="center" sort="auto(nombreTipoMotivo)">
-						<textbox id="filtroNombre" instant="true"
+						<textbox id="filtroNombre" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.filtros.nombre)"
 							onChange="@command('filtros')" />
 							<image src="/imagenes/iconos/buscar.png"/>
