@@ -30,7 +30,7 @@
 		<groupbox id = "grbListaSancionados">
 			<caption label="Lista de Sancionados" />
 			<listbox id="lbxSancionados"  height="70%" model="@bind(vm.listaEstudiantes)" selectedItem="@bind(vm.estudianteseleccionado)"   
-	   			 	 onClick="@command('showModal')"  mold="paging" pageSize="10" emptyMessage="No hay Apelaciones" >
+	   			 	 onSelect="@command('showModal')"  mold="paging" pageSize="10" emptyMessage="No hay Apelaciones" >
 				<listhead>
 					<listheader label="Cédula" align="center" sort="auto(cedulaEstudiante)" > 
 						<textbox id="filtroCedula" instant="true"  width="100px" value="@bind(vm.cedula)" onChange="@command('filtros')"/>
