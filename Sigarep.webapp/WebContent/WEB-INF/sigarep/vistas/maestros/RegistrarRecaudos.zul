@@ -71,7 +71,7 @@
 				<listhead>
 					<listheader label="Nombre del Recaudo" align="center"
 						sort="auto(nombreRecaudo)">
-						<textbox id="filtroNombre" instant="true"
+						<textbox id="filtroNombre" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreRecaudofiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
@@ -79,7 +79,7 @@
 					
 					<listheader label="Tipo de Motivo" align="center"
 						sort="auto(nombreTipoMotivo)">
-						<textbox id="filtroTipoMotivo" instant="true"
+						<textbox id="filtroTipoMotivo" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreTipoMotivofiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
