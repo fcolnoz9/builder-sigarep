@@ -180,7 +180,7 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
-	public void informacionFinalizarVeredictoIApelacionesProcesadas() {
+	public void informacionFinalizarVeredictoApelacionesProcesadas() {
 		Messagebox.show("No existen apelaciones para procesar.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
