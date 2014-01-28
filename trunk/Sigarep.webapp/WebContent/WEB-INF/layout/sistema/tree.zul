@@ -187,9 +187,7 @@
 							</treeitem>
 							<treeitem open="false">
 								<treerow>
-									<treecell label="Evaluar Apelación"
-										sclass="transacciones" id="VerificarApelaciones"
-										onClick="createWin(VerificarApelaciones.getId(), VerificarApelaciones.getSclass())" />
+									<treecell label="Evaluar Apelación"/>
 								</treerow>
 								<treechildren>
 									<treeitem>
