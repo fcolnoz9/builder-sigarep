@@ -18,10 +18,10 @@
 			<caption label="Datos de los Estados de Apelación" />
 			<grid id="grdEstadoApelacion">
 				<columns>
-					<column label="" width="15%" />
-					<column label="" width="35%" />
-					<column label="" width="10%" />
-					<column label="" width="40%" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
 				</columns>
 				<rows>
 					<row>
@@ -60,29 +60,23 @@
 				</rows>
 			</grid>
 		</groupbox>
-		<space />
+
 		<!-- Grupo de botones -->
+		<separator />
 		<div align="right">
-			<hbox>
-				<div align="right" height="100%">
 					<button id="btnGuardarEstadoApelacion"
 						label="Guardar" mold="trendy" width="auto" height="auto"
 						orient="horizontal" image="imagenes/iconos/guardar.png"
 						onClick="@command('guardarEstadoApelacion')" />
-				</div>
-				<div align="right" height="100%">
 					<button id="btnCancelarEstado" label="Cancelar"
 						mold="trendy" width="auto" height="auto" orient="horizontal"
 						image="imagenes/iconos/cancelar.png"
 						onClick="@command('limpiar')" />
-				</div>
-				<div align="right" height="100%">
 					<button id="btnCerrar" label="Cerrar" mold="trendy"
 						width="auto" height="auto" orient="horizontal"
 						image="imagenes/iconos/cerrar.png"
 						onClick="winRegistarEstadoApelacion.onClose()" />
-				</div>
-			</hbox>
+			
 		</div>
 		<!-- Grupbox que contiene el listado de estados almacenados en base de datos -->
 		<groupbox id="grbListaEstadoApelacion">
@@ -95,11 +89,11 @@
 				pageSize="10">
 
 				<listhead>
-					<listheader label="Nombre del Estado de Apelación"
+					<listheader label="Nombre"
 						align="center" sort="auto(nombreEstado)">
 					</listheader>
 					<listheader
-						label="Descripcion del Estado de Apelación" align="center"
+						label="Descripción" align="center"
 						sort="auto(descripcion)">
 					</listheader>
 					<listheader label="Instancia Apelada" align="center"
