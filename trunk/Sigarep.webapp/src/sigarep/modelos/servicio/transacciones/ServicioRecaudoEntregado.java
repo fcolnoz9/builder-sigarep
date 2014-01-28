@@ -74,6 +74,10 @@ public class ServicioRecaudoEntregado {
 			String cedula) {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVeredictoI(cedula);	
 	}
+	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoIII(
+			String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVeredictoIII(cedula);	
+	}
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezI(
 			String cedula) {
