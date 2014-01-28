@@ -281,12 +281,21 @@ public class VMListaGenericaSancionados {
 		if (listaSancionados.size() == 0)
 			mensajesAlUsuario.informacionFinalizarVeredictoApelacionesProcesadas();
 		else{
-			final HashMap<String, Object> map = new HashMap<String, Object>();
-		 	map.put("listaSancionados", listaSancionados);
-	        final Window window = (Window) Executions.createComponents(
-	        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
-			window.setMaximizable(true);
-			window.doModal();
+			Boolean check = false;
+			for (int i = 0; i < listaSancionados.size(); i++) {
+				if (listaSancionados.get(i).getVeredicto()!=null)
+					check = true;
+			}
+			if (check == true){
+				final HashMap<String, Object> map = new HashMap<String, Object>();
+			 	map.put("listaSancionados", listaSancionados);
+		        final Window window = (Window) Executions.createComponents(
+		        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
+				window.setMaximizable(true);
+				window.doModal();
+			}else{
+				mensajesAlUsuario.ErrorNoHayVeredictosRegistrados();
+			}
 		}
 	}
 }
