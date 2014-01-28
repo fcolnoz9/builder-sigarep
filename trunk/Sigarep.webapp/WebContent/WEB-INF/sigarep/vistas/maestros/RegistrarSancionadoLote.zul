@@ -24,9 +24,11 @@
 			<listheader label="Cedula" align="center"  width="90px"  sort="auto(estudiante.cedulaEstudiante)" tooltiptext="Click para Ordenar por Cedula" />
 			<listheader label="Primer Nombre" align="center"  width="110px" sort="auto(estudiante.primerNombre)" tooltiptext="Click para Ordenar por Primer Nombre" />
 			<listheader label="Primer Apellido" align="center"  width="110px" sort="auto(estudiante.primerApellido)" tooltiptext="Click para Ordenar por Primer Apellido"/>
-			<listheader label="Semestre" align="center"  width="110px" sort="auto(semestre)"/>
+			<listheader label="Semestre" align="center"  width="70px" sort="auto(semestre)"/>
 			<listheader label="Programa Academico" align="center" width="140px" sort="auto(estudiante.programaAcademico.idPrograma)" tooltiptext="Click para Ordenar por Programa Academico"/>
-			<listheader label="Sancion" align="center" width="110px" sort="auto(sancionMaestro.nombreSancion)" tooltiptext="Click para Ordenar por Sancion"/>
+			<listheader label="Sancion" align="center" width="60px" sort="auto(sancionMaestro.nombreSancion)" tooltiptext="Click para Ordenar por Sancion"/>
+			<listheader label="Lapsos Sancion" align="center" width="110px" tooltiptext="Click para Ordenar por Sancion"/>
+			<listheader label="Periodo Sancion" align="center" width="110px" tooltiptext="Click para Ordenar por Periodo Sancion"/>
 			<listheader label="Email" align="center" width="110px"/>
 			<listheader label="Telefono" align="center" width="110px"/>
 		</listhead>
@@ -38,9 +40,10 @@
 				<listcell label="${each.getSemestre()}"></listcell>
 				<listcell label="${each.getEstudiante().getProgramaAcademico().getNombrePrograma()}"></listcell>
 				<listcell label="${each.getSancionMaestro().getNombreSancion()}"></listcell>
+				<listcell label="${each.lapsosAcademicosRp}"></listcell>
+				<listcell label="${each.periodoSancion}"></listcell>
 				<listcell label="${each.getEstudiante().getEmail()}" ></listcell>
 				<listcell label="${each.getEstudiante().getTelefono()}"></listcell>
-				
 			</listitem>
 		</template>
 	</listbox>  
