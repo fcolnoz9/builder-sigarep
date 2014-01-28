@@ -161,7 +161,11 @@ public class ServicioSolicitudApelacion {
 	} 
 	
 	public int mayorNumeroCaso(){
-		return iSolicitudApelacionDAO.mayorNumeroCaso();
+		try {
+			 return iSolicitudApelacionDAO.mayorNumeroCaso();
+		} catch (Exception e) {
+			return 0;			
+		}
 	}
 	
 	//Flor
