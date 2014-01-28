@@ -107,7 +107,7 @@ public class VMTipoMotivo {
     	if (nombreTipoMotivo == null || nombreTipoMotivo.equals("") || descripcion.equals("") || descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
-			TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo);
+			TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo, false);
 			serviciotipomotivo.guardarTipoMotivo(tipo);
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();

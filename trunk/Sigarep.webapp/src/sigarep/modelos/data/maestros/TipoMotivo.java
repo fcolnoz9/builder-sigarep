@@ -47,12 +47,13 @@ public class TipoMotivo implements Serializable {
 
 	//Constructor con parametros
 	public TipoMotivo(Integer idTipoMotivo,String descripcion,Boolean estatus,
-			String nombreTipoMotivo ) {
+			String nombreTipoMotivo, Boolean protegido ) {
 		super();
 		this.idTipoMotivo= idTipoMotivo;
 		this.descripcion= descripcion;
 		this.estatus= estatus;
 		this.nombreTipoMotivo = nombreTipoMotivo;
+		this.protegido = protegido;
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -72,6 +73,7 @@ public class TipoMotivo implements Serializable {
 	public void setIdTipoMotivo(Integer idTipoMotivo) {
 		this.idTipoMotivo = idTipoMotivo;
 	}
+	
 	public void setNombreTipoMotivo(String nombreTipoMotivo) {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 	}
