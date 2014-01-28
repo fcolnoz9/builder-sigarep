@@ -1,0 +1,178 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id = "winVerificarRecaudosIII"
+		title="Gestión :: Recurso Jerárquico ::Evaluar Recurso Jerárquico :: Verificar Recaudos" border="normal"
+		width="auto" height="auto" contentStyle="overflow:auto"
+		apply="org.zkoss.bind.BindComposer" closable="true"
+		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVerificarRecaudosEntregadosIII')">
+
+	<!-- Estos datos vienen precargados, pues el estudiante se registró (en un maestro), busca su cédula-->
+	<groupbox id="grbDatosEstudiante">
+		<caption label="Datos del Estudiante" />
+		<grid id="grdDatosEstudiante" sclass="fgrid">
+			<columns>
+				<column align="left" width="auto" />
+				<column align="left" width="auto" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Cédula: " id="lblCedulaEstudiante" width="40%" />
+					<textbox id="txtCedulaEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)">
+					</textbox>
+					<label value="Nombres: " id="lblNombresEstudiante" width="40%" />
+					<textbox id="txtNombresEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
+					</textbox>
+				</row>
+				<row>
+					<label value="Apellidos: "
+						id="lblApellidosEstudiante" />
+					<textbox id="txtApellidosEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
+					</textbox>
+					<label value="Programa: "
+						id="lblProgramaEstudiante" />
+					<textbox id="txtProgramaEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+		<groupbox id="grbDatosSancion">
+		<caption id="lblDatossancion" label="Datos Sancion" />
+		<grid>
+			<rows>
+				<row>
+					<label id="lblTiposancion"
+						value="Tipo de Sancion: " />
+					<textbox id="txtTipoSancion" cols="23"
+						maxlength="30" readonly="true" value="@bind(vm.sancion)">
+					</textbox>
+							<label id="lblLapsosancion" value="Lapso de Sancion: " />
+					<textbox id="txtLapsosancion" cols="23"
+						maxlength="30" value="@bind(vm.lapso)" readonly="true">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblPeriodosancion"
+						value="Periodo de Sancion: " />
+					<textbox id="txtPeridosancion" cols="23"
+						maxlength="30" value="@bind(vm.semestreSancion)" readonly="true">
+					</textbox>
+					<label id="lblAsignatura" value="Asignatura: " />
+					<textbox id="txtAsignatura" cols="23"
+						maxlength="30" value="@bind(vm.asignatura)" readonly="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<groupbox id="grbDatosRecaudo">
+		<caption label="Datos del Recaudo" />
+				<div align="left">
+			<label id="lblnrocaso" value="Nro del Caso: " />
+			<textbox id="txtnrocaso" cols="10" maxlength="30"
+				value="@bind(vm.caso)" readonly="true">
+			</textbox>
+			<label id="lblFechaApelacion" value="Fecha de la Apelación: " />
+			<textbox id="txtFechaApelacion" cols="10" maxlength="30"
+				value="@bind(vm.fechaApelacion)" readonly="true">
+			</textbox>	
+		</div>
+		<separator/>
+		<columnlayout>
+			<columnchildren width="40%">
+				<panel title="Recaudos Entregados">
+					<panelchildren>
+						<listbox id="left" multiple="true" 
+							height="250px" oddRowSclass="non-odd" checkmark="false"
+							xmlns:ca="client/attribute" ca:data-scrollable="false"
+							 model="@bind(vm.listaRecaudosEntregados)"
+   			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="5" >
+							<template name="model">
+								<listitem selected="false">
+									<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
+									<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</panelchildren>
+				</panel>
+			</columnchildren>
+			
+			<columnchildren width="40%">
+				<panel title="Seleccionar Recaudos">
+					<panelchildren>
+						<listbox id="rigth" multiple="true" 
+							height="250px" oddRowSclass="non-odd" checkmark="true"
+							xmlns:ca="client/attribute" ca:data-scrollable="false"
+							 model="@bind(vm.listaRecaudosPorEntregar)"
+   			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="5" >
+							<template name="model">
+								<listitem selected="false">
+									<listcell label="${each.getNombreRecaudo()}" ></listcell>
+									<listcell label="${each.getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</panelchildren>
+				</panel>
+			</columnchildren>
+		</columnlayout>
+	</groupbox>
+	<groupbox style="margin:5px;" width="85%" mold="3d">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Veredicto" />
+					<grid width="99%" style="border:normal;" height="100%">
+						<columns>
+							<column label="" width="100%" height="100%" />
+						</columns>
+						<rows>
+							<row>
+								<radiogroup id="rgVeredicto" selectedItem="@bind(vm.selected)">
+									<grid>
+										<rows>
+											<row>
+												<hbox>
+													<radio id="rbProcedenteSi" label="Procedente" value="procede"/>
+												</hbox>
+											    <hbox>
+													<radio id="rbProcedenteNo" label="No Procedente" value="noprocede"/>
+												</hbox>
+											</row>
+										</rows>
+									</grid>
+								</radiogroup>
+								<label value="@bind(vm.selected)"/>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>	
+	<div align="right" height="100%">
+
+		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
+		<button label="Guardar" id="btnGuardar" 
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items)">
+			<attribute name="onClick">
+				Set items = left.getSelectedItems();
+				if (items.isEmpty()) {
+					alert("Por favor, seleccione al menos un recaudo para guardar");
+				} 
+			</attribute>
+		</button>
+		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
+		<button label="Cancelar" id="btnCancelar"
+			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+			orient="horizontal">
+		</button>
+		<!-- Sale del registro, es necesario mensajes de advertencia-->
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal" onClick="winVerificiarRecaudosIII.onClose()">
+		</button>
+	</div>
+</window>
+</zk>

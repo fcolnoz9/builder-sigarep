@@ -91,7 +91,17 @@ public class ServicioRecaudo {
 		}
 		return resultado;
 	}
+	public List<Recaudo> buscarRecaudosVerificarRecaudosII(
+			String cedula) {
+		// TODO Auto-generated method stub
+		return iRecaudoDAO.buscarRecaudosVerificarRecaudosII(cedula);
+	}
 	
+	public List<Recaudo> buscarRecaudosVerificarRecaudosIII(
+			String cedula) {
+		// TODO Auto-generated method stub
+		return iRecaudoDAO.buscarRecaudosVerificarRecaudosIII(cedula);
+	}
 	public List<Recaudo> buscarRecaudosPorApelacion(String cedula, String codigoLapso, Integer idInstancia) {
 		List<Recaudo> listaRecaudosApelacion = iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);	
 		return listaRecaudosApelacion;
