@@ -40,7 +40,6 @@
 			mold="trendy" onClick="winRegistrarPrograma.onClose()">
 		</button>
 	</div>
-	<separator />
 	<groupbox id="grbListaProgramas">
 		<caption label="Lista de Programas Académicos" />
 		<listbox id="lbxPrograma" height="100%"
@@ -53,7 +52,7 @@
 				<listheader label="Nombre" align="center"
 					sort="auto(nombrePrograma)">
 					<textbox id="filtroNombre" instant="true"
-						mold="rounded" width="200px" value="@bind(vm.nombreProgramaFiltro)"
+						mold="rounded" width="100px" value="@bind(vm.nombreProgramaFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
