@@ -13,6 +13,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
@@ -46,9 +47,7 @@ public class VMListaGenericaSancionados {
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	
-	//Variables de tipo VM para llamar a metodos segun la funcionalidad "Finalizar"
-	private VMVeredictoI vmVeredictoI = new VMVeredictoI();
-	private VMVeredictoIII vmVeredictoIII = new VMVeredictoIII();
+	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 	
 	//Lista que se llena segun la transaccion
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
@@ -270,10 +269,21 @@ public class VMListaGenericaSancionados {
 			rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
 			rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
 			buscarSancionados();
-			vmVeredictoI.finalizarVeredictoI(lista);
+			finalizarVeredicto(lista);
 		}
-		
 	}
 	
+	public void finalizarVeredicto(List<SolicitudApelacion> listaSancionados) {
+		if (listaSancionados.size() == 0)
+			mensajesAlUsuario.informacionFinalizarVeredictoApelacionesProcesadas();
+		else{
+			final HashMap<String, Object> map = new HashMap<String, Object>();
+		 	map.put("listaSancionados", listaSancionados);
+	        final Window window = (Window) Executions.createComponents(
+	        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
+			window.setMaximizable(true);
+			window.doModal();
+		}
+	}
 }
 
