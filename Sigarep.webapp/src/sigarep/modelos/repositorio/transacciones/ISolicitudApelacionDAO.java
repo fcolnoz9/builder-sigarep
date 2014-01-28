@@ -135,6 +135,15 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 					"AND sa.analizado = 'FALSE' " +
 					"AND sa.id.idInstanciaApelada = '2'")
 			public List<SolicitudApelacion> BuscarAnalizarValidezII();
+		
+		//lista de estudiantes sancionados Analizar Validez/Primera Apelación 
+		@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+					"WHERE sa.id.codigoLapso = la.codigoLapso " +
+					"AND la.estatus = 'TRUE' " +
+					"AND sa.verificado = 'TRUE' " +
+					"AND sa.analizado = 'FALSE' " +
+					"AND sa.id.idInstanciaApelada = '3'")
+			public List<SolicitudApelacion> BuscarAnalizarValidezIII();
 
 	
 }
