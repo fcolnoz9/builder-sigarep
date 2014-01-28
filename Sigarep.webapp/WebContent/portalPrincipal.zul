@@ -99,9 +99,7 @@
 
 				<!-- Inicio Login -->
 				<north title="Iniciar Sesión" size="22%">
-					<label
-						value="You are using: ${desktop.webApp.version}" />
-					<!-- 					<include src="/login.zul" /> -->
+					<include src="/login.zul" />
 				</north>
 				<!-- Fin Login -->
 

@@ -1,22 +1,34 @@
-<window id="winNoticiaPortal" contentStyle="overflow:auto" vflex="1" hflex="1"
-	apply="org.zkoss.bind.BindComposer" closable="false"
+<window id="winNoticiaPortal" title="" border="none"
+	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+	hflex="1" vflex="1"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
-	<timer id="tiempo" delay="5000" repeats="true">
-		<attribute name="onTimer">
+	<div apply="sigarep.viewmodels.maestros.VMnoticia" hflex="1"
+		vflex="1">
+		<timer id="tiempo" delay="5000" repeats="true">
+			<attribute name="onTimer">
 			</attribute>
-	</timer>
-	<listbox id="lbxNoticias" hflex="1" vflex="1"
-		model="@bind(vm.listaNoticia)"
-		selectedItem="@bind(vm.noticiaSeleccionada)"
-		onSelect="@command('mostrarSeleccionado2')"
-		emptyMessage="No hay noticias disponibles">
-		<auxhead sclass="category-center">
-			<auxheader colspan="1" align="center"></auxheader>
-		</auxhead>
-		<template name="model">
-			<listitem selected="false">
-				<listcell label="${each.titulo}"></listcell>
-			</listitem>
-		</template>
-	</listbox>
+		</timer>
+		<listbox id="lbxNoticias" hflex="1" vflex="1"
+			model="@bind(vm.listaNoticia)"
+			selectedItem="@bind(vm.noticiaSeleccionada)"
+			onClick="@command('mostrarSeleccionado2')"
+			emptyMessage="No hay noticias disponibles" mold="paging">
+			<auxhead sclass="category-center">
+				<auxheader colspan="1" align="center"></auxheader>
+			</auxhead>
+			<listhead>
+				<listheader width="60px"></listheader>
+				<listheader></listheader>
+			</listhead>
+			<template name="model">
+				<listitem selected="false">
+					<listcell label="">
+						<image height="30px" width="auto"
+							content="${each.getFotoNoticia().getAImage()}" />
+					</listcell>
+					<listcell label="${each.titulo}"></listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
 </window>
