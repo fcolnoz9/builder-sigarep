@@ -1,136 +1,128 @@
 package sigarep.viewmodels.transacciones;
 
-import org.zkoss.bind.annotation.BindingParam;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.web.filter.OncePerRequestFilter;
 import org.zkoss.bind.annotation.Command;
+
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+
+import org.zkoss.zhtml.Messagebox;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
+import sigarep.modelos.data.maestros.SancionMaestro;
+import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
-import sigarep.modelos.servicio.maestros.ServicioAsignatura;
-import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+import sigarep.modelos.servicio.maestros.ServicioRecaudo;
+import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+//import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAnalizarValidezI {
-	@Wire("#modalDialog")
-	private Window window;
-	private String cedula;
-	private String sancion;
+	@WireVariable
+	private LapsoAcademico lapsoAcademico;
 	private String programa;
-	private String email;
-	private String primerApellido;
-	private String primerNombre;
-	private String lapso;
-	private Integer instancia;
-	private String recaudo;
-	private String segundoNombre;
-	private String segundoApellido;
+	private String cedula;
 	private String nombres;
 	private String apellidos;
-	private List<AsignaturaEstudianteSancionado> asignaturas;
-	private Integer caso;
-	private String fechaApelacion;
-	private Integer peridoSancion;
+	private String asignatura;
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos="";
-	private String labelAsignaturaLapsosConsecutivos;
-	private MensajesAlUsuario mensajesAlUsuario;
-	
-	private String selected;
+	private String labelAsignaturaLapsosConsecutivos;	
+	private String sancion;
+	private String lapso;
+	@WireVariable
+	private Integer semestreSancion;
+	private Integer caso;
+	private String fechaApelacion;
 	private String observacion;
-
-
+	private String selected = "";	
+	private String observacionexperto;
 	@WireVariable
-	private ServicioRecaudoEntregado serviciorecaudoentregado;
-	@WireVariable
-	private ServicioAsignatura servicioAsignatura;
-	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
+	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	@WireVariable
 	private ServicioRecaudo serviciorecaudo;
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
+	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	private Combobox cmbSancion;
+	private Datebox dtbFechaNacimiento;
+	@Wire
+	private Datebox	dtbAnnoIngreso;
 
+	private List<LapsoAcademico> listaLapso;
+	private List<SancionMaestro> listaSancion;
+	private List<AsignaturaEstudianteSancionado> asignaturas;
+	
+	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
+	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
+	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
+	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
+	private SolicitudApelacion sancionadoSeleccionado;
+	mensajes msjs = new mensajes(); 
+	private TipoMotivo tipoMotivo;
+	private List<Recaudo> listaRecaudosPorMotivo;
+	private String telefono;
 	private List<RecaudoEntregado> listaRecaudo; 
-
-	public Integer getCaso() {
-		return caso;
+	
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
 	}
 
-	public void setCaso(Integer caso) {
-		this.caso = caso;
-	}
-
-	public String getApellidos() {
-		return apellidos;
-	}
-
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-
-	public String getNombres() {
-		return nombres;
-	}
-
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-
-	public String getRecaudo() {
-		return recaudo;
-	}
-
-	public void setRecaudo(String recaudo) {
-		this.recaudo = recaudo;
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
 	}
 	
-	public Integer getInstancia() {
-		return instancia;
+	public List<RecaudoEntregado> getListaRecaudo() {
+		return listaRecaudo;
 	}
 
-	public void setInstancia(Integer instancia) {
-		this.instancia = instancia;
-	}
-
-	public String getLapso() {
-		return lapso;
-	}
-
-	public void setLapso(String lapso) {
-		this.lapso = lapso;
+	public void setListaRecaudo(List<RecaudoEntregado> listaRecaudo) {
+		this.listaRecaudo = listaRecaudo;
 	}
 
 	public String getCedula() {
@@ -141,14 +133,38 @@ public class VMAnalizarValidezI {
 		this.cedula = cedula;
 	}
 
-	public String getSancion() {
-		return sancion;
+	public String getNombres() {
+		return nombres;
 	}
 
-	public void setSancion(String sancion) {
-		this.sancion = sancion;
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+	
+	public String getObservacion() {
+		return observacion;
 	}
 
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public TipoMotivo getTipoMotivo() {
+		return tipoMotivo;
+	}
+
+	public void setTipoMotivo(TipoMotivo tipoMotivo) {
+		this.tipoMotivo = tipoMotivo;
+	}
+	
 	public String getPrograma() {
 		return programa;
 	}
@@ -156,75 +172,109 @@ public class VMAnalizarValidezI {
 	public void setPrograma(String programa) {
 		this.programa = programa;
 	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 	
-	public String getEmail() {
-		return email;
+	public String getSelected() {
+		return selected;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSelected(String selected) {
+		this.selected = selected;
 	}
 
-	public void concatenacionNombres() {
-		nombres = primerNombre + " " + segundoNombre;
+	public String getAsignatura() {
+		return asignatura;
 	}
 
-	public void concatenacionApellidos() {
-		apellidos = primerApellido + " " + segundoApellido;
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
+	}	
+	
+	public LapsoAcademico getLapsoAcademico() {
+		return lapsoAcademico;
 	}
 
-	@Init
-	public void init(
-		@ContextParam(ContextType.VIEW) Component view,
-		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
-	{
-		Selectors.wireComponents(view, this, false);
-		this.cedula = sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
-		this.primerNombre = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre();
-		this.primerApellido = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido();
-		this.email = sa.getEstudianteSancionado().getEstudiante().getEmail();
-		this.programa = sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
-		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
-		this.lapso = sa.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
-		this.instancia = sa.getInstanciaApelada().getIdInstanciaApelada();
-		this.segundoNombre = sa.getEstudianteSancionado().getEstudiante().getSegundoNombre();
-		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
-		this.caso = sa.getNumeroCaso();
-		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
-		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
-		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
+	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
+		this.lapsoAcademico = lapsoAcademico;
+	}
+	
+	public String getSancion() {
+		return sancion;
+	}
+
+	public void setSancion(String sancion) {
+		this.sancion = sancion;
+	}
+	
+	public Integer getSemestreSancion() {
+		return semestreSancion;
+	}
+
+	public void setSemestreSancion(Integer semestreSancion) {
+		this.semestreSancion = semestreSancion;
+	}
+
+	public List<Recaudo> getListaRecaudosPorMotivo() {
+		return listaRecaudosPorMotivo;
+	}
+
+	public void setListaRecaudosPorMotivo(List<Recaudo> listaRecaudosPorMotivo) {
+		this.listaRecaudosPorMotivo = listaRecaudosPorMotivo;
+	}
+
+	public List<LapsoAcademico> getListaLapso() {
+		return listaLapso;
+	}
+
+	public void setListaLapso(List<LapsoAcademico> ListaLapso) {
+		this.listaLapso = ListaLapso;
+	}
+
+	public List<SancionMaestro> getListaSancion() {
+		return listaSancion;
+	}
+
+	public void setListaSancion(List<SancionMaestro> listaSancion) {
+		this.listaSancion = listaSancion;
+	}
 		
-		concatenacionNombres();
-		concatenacionApellidos();
-		mostrarDatosDeSancion();
+	public String getLapso() {
+		return lapso;
+	}
 
-		buscarRecaudosEntregados(cedula);
+	public void setLapso(String lapso) {
+		this.lapso = lapso;
+	}
+
+	public Integer getCaso() {
+		return caso;
+	}
+
+	public void setCaso(Integer caso) {
+		this.caso = caso;
 	}
 	
-	private void mostrarDatosDeSancion() {
-		if (sancion.equalsIgnoreCase("RR")){
-			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
-			if (asignaturas != null)
-				for (int i=0; i<asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
-			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-		}
-		else{
-			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-			asignaturaLapsosConsecutivos = lapsosConsecutivos;
-		}
+	public String getFechaApelacion() {
+		return fechaApelacion;
 	}
 
-	@Command
-	@NotifyChange({ "listaRecaudo" })
-	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
+	public void setFechaApelacion(String fechaApelacion) {
+		this.fechaApelacion = fechaApelacion;
 	}
-
-	@Command
-	public void closeThis() {
-		window.detach();
+	
+	public SolicitudApelacion getSancionadoSeleccionado() {
+		return sancionadoSeleccionado;
+	}
+	public void setSancionadoSeleccionado(
+			SolicitudApelacion sancionadoSeleccionado) {
+		this.sancionadoSeleccionado = sancionadoSeleccionado;
 	}
 	
 	public String getAsignaturaLapsosConsecutivos() {
@@ -234,62 +284,76 @@ public class VMAnalizarValidezI {
 	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
 		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
 	}
-
-	public String getLabelAsignaturaLapsosConsecutivos() {
-		return labelAsignaturaLapsosConsecutivos;
-	}
-
-	public void setLabelAsignaturaLapsosConsecutivos(
-			String labelAsignaturaLapsosConsecutivos) {
-		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
-	}
-
-	public List<RecaudoEntregado> getListaRecaudo() {
-		return listaRecaudo;
-	}
-
-	public void setListaRecaudo(List<RecaudoEntregado> listaRecaudo) {
-		this.listaRecaudo = listaRecaudo;
-	}
-
-	public String getFechaApelacion() {
-		return fechaApelacion;
-	}
-
-	public void setFechaApelacion(String fechaApelacion) {
-		this.fechaApelacion = fechaApelacion;
-	}
-
-	public Integer getPeridoSancion() {
-		return peridoSancion;
-	}
-
-	public void setPeridoSancion(Integer peridoSancion) {
-		this.peridoSancion = peridoSancion;
-	}
-
-	public String getSelected() {
-		return selected;
-	}
-
-	public void setSelected(String selected) {
-		this.selected = selected;
-	}
-
-	public String getObservacion() {
-		return observacion;
-	}
-
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
-	}
 	
-	public void actualizarRecaudosEntregados(@BindingParam("recaudosEntregados") List<Listitem> recaudos, @BindingParam("window") Window winAnalizarValidez1) {
+	public String getObservacionexperto() {
+		return observacionexperto;
+	}
 
-		if (selected==null || selected.equals("") || observacion==null || observacion.equals("") ) {
-			Messagebox.show("Debe Seleccionar una sugerencia de procedencia y emitir una observación general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+	public void setObservacionexperto(String observacionexperto) {
+		this.observacionexperto = observacionexperto;
+	}	
+	
+	@Command
+	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
+	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo){
+			listaRecaudosPorMotivo  = serviciorecaudo.listadoRecaudosPorMotivo(tipoMotivo);
+	}
 		
-		}else {
+	@Command
+	@NotifyChange({ "listaRecaudo" })
+	public void buscarRecaudosEntregados(String cedula) {
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
+		System.out.println(listaRecaudosPorMotivo);
+	}
+
+	@Init
+	public void init(			
+			@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
+	{
+		Selectors.wireComponents(view, this, false);
+		this.sancionadoSeleccionado = v1;
+		cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
+		lapso = sancionadoSeleccionado.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
+		sancion = sancionadoSeleccionado.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado().getLapsosAcademicosRp();
+		caso = sancionadoSeleccionado.getNumeroCaso();
+
+		buscarRecaudosEntregados(cedula);
+		
+		if (sancion.equalsIgnoreCase("RR")) {
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i = 0; i < asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		} else {
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
+
+		SolicitudApelacionPK solicitudApelacionPK2 = new SolicitudApelacionPK();
+		solicitudApelacionPK2.setCedulaEstudiante(cedula);
+		solicitudApelacionPK2.setCodigoLapso(lapso);
+		solicitudApelacionPK2.setIdInstanciaApelada(1);
+		Date fechaSA = serviciosolicitudapelacion.buscarSolicitudPorID(solicitudApelacionPK2).getFechaSolicitud();
+		SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd/MM/yyyy");
+		String fecha =  sdf.format(fechaSA);
+		this.fechaApelacion = fecha;
+		
+	}
+						
+	@Command
+	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacionExperto","observacion"})
+	public void actualizarRecaudosEntregados(@BindingParam("recaudosEntregados") List<Listitem> recaudos, @BindingParam("window") Window winAnalizarValidezI) {
+
+		if (selected==null || selected.equals("") || observacion==null || observacion.equals("")) {
+			Messagebox.show("Debe Seleccionar una sugerencia de procedencia y emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);		
+		}
+		else {
 		
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
@@ -300,6 +364,7 @@ public class VMAnalizarValidezI {
 			
 			Recaudo recaudo = new Recaudo();
 			for(Listitem miRecaudo: recaudos){
+				//System.out.println(((Listcell) miRecaudo.getChildren().get(1)).getLabel());
 				String nombreRecaudo = ((Listcell) miRecaudo.getChildren().get(1)).getLabel();
 				String observacionExperto = ((Textbox)(miRecaudo.getChildren().get(2)).getFirstChild()).getValue();
 				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
@@ -350,23 +415,28 @@ public class VMAnalizarValidezI {
 					else
 						apelacionEstadoApelacion.setSugerencia("No procedente");
 				}
-				else 
+					else 
 					
-				Messagebox.show("Debe Seleccionar una sugerencia de procedencia y emitir una observación general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
-				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
-				serviciosolicitudapelacion.guardar(solicitudApelacionAux);		
-					
-					
+						solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
+						serviciosolicitudapelacion.guardar(solicitudApelacionAux);										
 					
 				try {
 					MensajesAlUsuario.informacionRegistroCorrecto();				
-					winAnalizarValidez1.detach();
-				} catch (Exception e) {
+					winAnalizarValidezI.detach();
+					
+					} catch (Exception e) {
 					System.out.println(e.getMessage());
-				}
-	}
+
+					}
+		}
+	}	
+		
+	@Command
+	@NotifyChange({ "listaRecaudo", "observacion", "selected", "observacionexperto"})
+	public void limpiar(){
+		observacion = "";
+		selected = "";
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
 	}
 
 }
-    
-
