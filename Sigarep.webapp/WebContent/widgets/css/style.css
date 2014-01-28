@@ -54,7 +54,8 @@
 }
 
 .banner-titulo {
-	font-size: 20px;
+	font-weight: bold;
+	font-size: 25px;
 	padding-left: 5%;
 	padding-right: 5%";
 }
@@ -85,8 +86,19 @@
 
 .head1 {
 	font-weight: bold;
-	font-size: x-large;
+	font-size: xx-large;
 	text-align: center;
+}
+
+.textTitulo {
+	font-weight: bold;
+	font-size: xx-large;
+	text-align: center;
+}
+
+.textNoticia {
+	font-size: large;
+	text-align: justify;
 }
 
 .head2 {

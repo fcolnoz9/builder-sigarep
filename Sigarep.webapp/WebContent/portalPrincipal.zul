@@ -55,23 +55,7 @@
 				<center border="none">
 					<borderlayout>
 						<north size="55%" maxsize="300" border="none">
-							<html>
-								
-								<![CDATA[ <ul id="diapos"
-								style="margin-top:0px;"> <li><image
-								id="img1"
-								src="imagenes/portal-principal/6.jpg"
-								height="300px" /></li> <li><image
-								id="img2"
-								src="imagenes/portal-principal/12.jpg"
-								height="300px"/></li> <li><image
-								id="img3"
-								src="imagenes/portal-principal/divina.jpg"
-								height="300px"/></li> </ul> ]]>
-								
-							</html>
-							<!-- 							<include -->
-							<!-- 								src="WEB-INF/layout/principal/SliderImagenes.zul" /> -->
+							<include src="/PortalBanner.zul" />
 						</north>
 						<west title="Consulta tu estado" size="50%">
 							<vbox vflex="1" hflex="1" align="center">
@@ -89,7 +73,7 @@
 										mold="rounded" maxlength="8" width="150px"
 										value="@bind(vm.cedula)" />
 									<button label="Buscar"
-										onClick="@command('showModal')" />
+										onClick="@command('modalEstadoEstudiante')" />
 								</hbox>
 							</vbox>
 						</west>
@@ -115,7 +99,9 @@
 
 				<!-- Inicio Login -->
 				<north title="Iniciar Sesión" size="22%">
-					<include src="/login.zul" />
+					<label
+						value="You are using: ${desktop.webApp.version}" />
+					<!-- 					<include src="/login.zul" /> -->
 				</north>
 				<!-- Fin Login -->
 
@@ -127,9 +113,7 @@
 
 				<!-- Inicio Twitter -->
 				<south title="Twitter" size="45%">
-					<window contentStyle="overflow:auto">
-						<include src="/widgets/twitter.html" />
-					</window>
+					<include src="/widgets/twitter.html" />
 				</south>
 				<!-- Fin Twitter -->
 

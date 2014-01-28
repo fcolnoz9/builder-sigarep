@@ -286,14 +286,11 @@ public class VMBanner {
 		public void cambiarImagen(){				
 			if(listadoBanner.size() > 0){
 				fotoBannerPortal=listadoBanner.get(indiceBanner).getFotoBanner();
-				  System.out.println(fotoBannerPortal.getNombreArchivo());
 				indiceBanner= indiceBanner+1;
 				if (indiceBanner==listadoBanner.size()){
 					indiceBanner=0;
 				}
 			}
-			
 		}
-		
 		
 }

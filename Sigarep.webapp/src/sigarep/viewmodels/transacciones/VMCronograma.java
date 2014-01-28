@@ -1,40 +1,23 @@
 package sigarep.viewmodels.transacciones;
-import java.io.IOException;
+
 import java.sql.Time;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.herramientas.mensajes;
-
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Timebox;
 import org.zkoss.zul.Window;
-
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.CronogramaPK;
-import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.servicio.maestros.ServicioActividad;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
@@ -46,7 +29,6 @@ import sigarep.modelos.servicio.transacciones.ServicioCronograma;
  * @version 1.0
  * @since 22/01/14
  */
-
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCronograma {
@@ -400,6 +382,28 @@ public class VMCronograma {
 	@NotifyChange({"listaCronograma", "responsablef", "lugarf", "actividadf"})
 	public void filtroCronograma(){
 		listaCronograma = serviciocronograma.filtrarCronograma(responsablef, lugarf, actividadf);
+	}
+	
+	@Command
+	@NotifyChange({ "actividad", "fechaInicio", "fechaFin",
+			"horaInicio", "observacion", "lugar" })
+	public void modalDetalleCronograma() {
+
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("cronogramaSeleccionado", this.cronogramaSeleccionado);
+//		map.put("fechaInicio", this.fechaInicio);
+//		map.put("fechaFin", this.fechaFin);
+//		map.put("horaInicio", this.horaInicio);
+//		map.put("nombre", this.actividad.getNombre());
+//		map.put("descripcion", this.actividad.getDescripcion());
+//		map.put("lugar", this.lugar);
+//		map.put("observacion", this.observacion);
+
+		final Window window = (Window) Executions.createComponents(
+				"/Modal/DescripcionCrog.zul", null, map);
+		window.setMaximizable(true);
+		window.doModal();
 	}
 }
 
