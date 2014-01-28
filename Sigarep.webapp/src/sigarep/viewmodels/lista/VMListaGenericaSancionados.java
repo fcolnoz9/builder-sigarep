@@ -266,7 +266,9 @@ public class VMListaGenericaSancionados {
 
 	@Command
 	public void finalizar(){
-		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul")){
+		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
+			rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
+			rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
 			buscarSancionados();
 			vmVeredictoI.finalizarVeredictoI(lista);
 		}
