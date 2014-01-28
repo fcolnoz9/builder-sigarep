@@ -1,6 +1,6 @@
 <zk>
-	<window id="winAnalizarValidez1"
-		title="Gestión :: Apelaciones :: Analizar Validez" border="normal"
+	<window id="winAnalizarValidezI"
+		title="Gestión :: Apelaciones :: Evaluar Apelación :: Analizar Validez" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMAnalizarValidezI')">
@@ -17,17 +17,17 @@
 					<label value="Cédula:" id="lblCedulaEstudiante" />
 					<textbox id="txtCedulaEstudiante" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)"></textbox>
 					<label value="Programa:" id="lblProgramaEstudiante" />
-					<textbox id="txtProgramaEstudiante" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)"></textbox>
+					<textbox id="txtProgramaEstudiante" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.estudiante.programaAcademico.nombrePrograma)"></textbox>
 				</row>
 				<row>
 					<label value="Nombres: " id="lblNombresEstudiante" />
 					<textbox id="txtNombresEstudiante" cols="23" mold="rounded"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.estudiante.primerNombre)">
 					</textbox>
 					<label value="Apellidos: "
 						id="lblApellidosEstudiante" />
 					<textbox id="txtApellidosEstudiante" cols="23" mold="rounded"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.estudiante.primerApellido)">
 					</textbox>
 				</row>
 				<row>
@@ -53,16 +53,19 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23" mold="rounded"
-						maxlength="30" value="@bind(vm.peridoSancion)" readonly="true">
+						maxlength="30" value="@bind(vm.sancion)" readonly="true">
 					</textbox>
-					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55" mold="rounded"
-						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+					<label id="lblAsignaturaPeriodos"
+						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55" maxlength="30"
+						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
+	
+
 		<groupbox id="grbDatosRecaudo">
 		<caption label="Datos de la Apelacion" />
 		<grid>
@@ -75,70 +78,117 @@
 				</row>
 			</rows>
 		</grid>
-		<grid id="grdRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="3">
-	        <columns>
-	        	<column label="Motivo de Apelación" align="left" width="25%"></column>
-	            <column label="Recaudo Entregado" align="left" width="25%"></column>
-	            <column label="Observación" align="left" width="50%"></column>
-	            
-	        </columns>
-	       <rows sclass="narrow">
-	        	<template name="model">
-		            <row>
-		            	<label value="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
-		                <label value="${each.getRecaudo().getNombreRecaudo()}" /> 
-		                <textbox value="${each.getObservacionExperto()}" mold="rounded" cols="120" rows="2"></textbox>
-		            </row>
-	            </template>
-           </rows>
-        </grid>
+		</groupbox>
+		<groupbox>  
+		<caption label="Datos de los recaudos" />      
+        <listbox id="lbxRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="20">
+	   	<listhead>
+	   		<listheader hflex="3" label="Motivo de Apelación" align="left" width="25%" sort="auto(getMotivo().getTipoMotivo().getNombreTipoMotivo())" />
+	   		<listheader hflex="4" label="Recaudo Entregado" align="left" width="25%" sort="auto(getRecaudo().getNombreRecaudo())"  />
+	   		<listheader hflex="4" label="Observación"  align="left" width="50%" sort="auto(getObservacionExperto())" />
+	   	</listhead>
+	   	<template name="model">
+	   		<listitem selected="false">
+	   			<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
+	   			<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
+	   			<listcell height="%">
+	   			<textbox value="" mold="rounded" cols="120" rows="2" />
+	   			</listcell>
+	   		</listitem>
+	   	</template>
+	   </listbox>
+        
 	</groupbox>
-
-		<groupbox id="grbDatosVeredicto">
-		<caption label="Datos del Veredicto" />
-		
-    	<grid>
+	
+	
+	
+	<groupbox>
+			<caption id="lblsugerencia" label="Sugerencia" />
+			<grid>
 			<columns>
 				<column align="left" width="25%"/>
 				<column align="left" width="75%"/>
 			</columns>
 			<rows>
 				<row>
-					<radiogroup id="rgEleccion2" >
-				    <hlayout>
-				        <radio id="rbProcedente" label="Procedente" radiogroup="rgEleccion2" value="procedente" />
+					<radiogroup id="rgSugerencia"
+							selectedItem="@bind(vm.selected)">
+					<hlayout>
+				        <radio id="rbProcedente" label="Procedente"  value="PROCEDENTE" />
 				        <separator></separator>
-				        <radio id="rbNoProcedente" label="No Procedente" radiogroup="rgEleccion2" value="no procedente" />
+				        <radio id="rbNoProcedente" label="No Procedente"  value="NO PROCEDENTE" />
 				     </hlayout>
 				     </radiogroup>
+<!-- 				     <label value="@bind(vm.selected)" -->
+<!-- 							visible="false" /> -->
 				     
 				     <hlayout valign="center">
 						<label value="Observación General: " id="lblObservacion"  />
 						<separator></separator>
-						<textbox id="txtObservacion" mold="rounded"  cols="100" value="" rows="2"></textbox>
+						<textbox id="txtObservacion" mold="rounded"  cols="100" value="@bind(vm.observacion)" rows="2"></textbox>
 					</hlayout>
 				</row>
 		    </rows>
 		</grid>	 
 		<label value=""/>
-	</groupbox>
+			
+			
+			
+<!-- 			<grid> -->
+<!-- 				<columns> -->
+<!-- 					<column align="center" /> -->
+<!-- 				</columns>  -->
+<!-- 				<rows> -->
+<!-- 					<row width="80%"> -->
+<!-- 						<radiogroup id="rgSugerencia" -->
+<!-- 							selectedItem="@bind(vm.selected)"> -->
+<!-- 							<grid> -->
+<!-- 								<rows> -->
+<!-- 									<row> -->
+<!-- 										<hlayout></hlayout> -->
+<!-- 										<hbox width="80%"> -->
+<!-- 											<radio id="rbProcedente" -->
+<!-- 												label="Procedente" value="Procedente" /> -->
+
+<!-- 										</hbox> -->
+<!-- 										<hbox> -->
+<!-- 											<radio id="rbNoProcedente" -->
+<!-- 												label="No Procedente" value="NoProcedente" /> -->
+<!-- 										</hbox> -->
+<!-- 										<hbox> -->
+<!-- 											<label -->
+<!-- 												value="Observación General: " id="lblObservacion" /> -->
+<!-- 											<textbox id="txtObservacion" value="@bind(vm.observacion)" -->
+<!-- 												mold="rounded" rows="2"> -->
+<!-- 											</textbox> -->
+<!-- 										</hbox> -->
+<!-- 									</row> -->
+<!-- 								</rows> -->
+<!-- 							</grid> -->
+<!-- 						</radiogroup> -->
+						
+<!-- 					</row> -->
+<!-- 				</rows> -->
+<!-- 			</grid> -->
+		</groupbox>
+
 		<div align="right" height="100%">
 			<button label="Guardar" mold="trendy" id="btnGuardar"
 				image="imagenes/iconos/guardar.png" width="auto" height="auto"
 				orient="horizontal" onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidez1)">
 			<attribute name="onClick">
-				List items = grdRecaudos.getItems();
+				List items = lbxRecaudos.getItems();
 			</attribute>
 			</button>
 			<button label="Cancelar" mold="trendy" id="btnCancelar"
 				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-				onClick="@command('limpiar')"
-				orient="horizontal">
-			</button>
+				orient="horizontal"	onClick="@command('limpiar')">
+			</button>						
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal"  onClick="winAnalizarValidez1.onClose()">
+				orient="horizontal"  onClick="winAnalizarValidezI.onClose()">
 			</button>
+			
 		</div>
 	</window>
 </zk>
