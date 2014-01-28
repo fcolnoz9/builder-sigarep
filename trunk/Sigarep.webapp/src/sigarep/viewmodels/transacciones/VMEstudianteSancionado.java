@@ -547,16 +547,20 @@ public class VMEstudianteSancionado {
 		 else {
 			 estudiante = new Estudiante();
 			 estudiante = servicioestudiante.buscarEstudiante(cedula);
-			 primerNombre = estudiante.getPrimerNombre();
-			 segundoNombre = estudiante.getSegundoNombre();
-			 primerApellido = estudiante.getPrimerApellido();
-			 segundoApellido = estudiante.getSegundoApellido();
-			 sexo = estudiante.getSexo();
-			 fechaNacimiento = estudiante.getFechaNacimiento();
-			 telefono = estudiante.getTelefono();
-			 email = estudiante.getEmail();
-			 annoIngreso = estudiante.getAnioIngreso();
-             programa = estudiante.getProgramaAcademico().getNombrePrograma();
+			 if (estudiante== null)
+				 mensajeAlUsuario.advertenciaIngresarCedula();
+			 else {
+				 primerNombre = estudiante.getPrimerNombre();
+				 segundoNombre = estudiante.getSegundoNombre();
+				 primerApellido = estudiante.getPrimerApellido();
+				 segundoApellido = estudiante.getSegundoApellido();
+				 sexo = estudiante.getSexo();
+				 fechaNacimiento = estudiante.getFechaNacimiento();
+				 telefono = estudiante.getTelefono();
+				 email = estudiante.getEmail();
+				 annoIngreso = estudiante.getAnioIngreso();
+	             programa = estudiante.getProgramaAcademico().getNombrePrograma();
+			 }
 		 }		 
 	 }
 
