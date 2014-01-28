@@ -265,4 +265,38 @@ public class ServicioSolicitudApelacion {
         }
 		return result;
 	}
+	
+	
+		//Flory Amanda
+		public List<SolicitudApelacion> buscarAnalizarValidezII(){
+			return iSolicitudApelacionDAO.BuscarAnalizarValidezII();
+		}
+
+		public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezII(
+				String programa, String cedula, String nombre, String apellido,
+				String sancion) {
+			List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+	        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
+	        	result= buscarAnalizarValidezI();
+	        }
+	        else{
+				for (SolicitudApelacion sa : buscarAnalizarValidezI())
+				{
+					if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+							sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+							sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(nombre.toLowerCase())&&
+							sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+							sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
+						result.add(sa);
+					}
+				}
+	        }
+			return result;
+		}
+
+
+
+
+	
+
 }
