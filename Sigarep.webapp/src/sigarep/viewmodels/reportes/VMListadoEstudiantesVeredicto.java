@@ -62,7 +62,8 @@ public class VMListadoEstudiantesVeredicto {
 	private List<ProgramaAcademico> listaPrograma;
 
 	private List<Sancionados> sancionadosVeredicto = new LinkedList<Sancionados>();
-
+	private List<Sancionados> sancionadosVeredicto2 = new LinkedList<Sancionados>();
+	
 	private SancionMaestro objSancion;
 
 	private LapsoAcademico objLapso;
@@ -363,6 +364,8 @@ public class VMListadoEstudiantesVeredicto {
 		ProgramaAcademico prog = objPrograma;
 		LapsoAcademico lap = objLapso;
 		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), objPrograma.getNombrePrograma());
+		setSancionadosVeredicto2(servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), "Licenciatura en Matematicas"));
+		
 		/*nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
 		codigo_lapso = objLapso.getCodigoLapso();
 		sancionadosVeredicto = objInstancia.getInstanciaApelada();
@@ -403,9 +406,10 @@ public class VMListadoEstudiantesVeredicto {
 		reportConfig.setDataSource(new JRBeanCollectionDataSource(
 				sancionadosVeredicto)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
 										// DATOS PARA DIBUJAR EL REPORTE
-			para ="";
-			de="";
-			contenido="";
+		
+//			para ="";
+//			de="";
+//			contenido="";
 
 	}
 
@@ -435,6 +439,16 @@ public class VMListadoEstudiantesVeredicto {
 	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
 		this.listaPrograma = listaPrograma;
 	}
+
+	public List<Sancionados> getSancionadosVeredicto2() {
+		return sancionadosVeredicto2;
+	}
+
+	public void setSancionadosVeredicto2(List<Sancionados> sancionadosVeredicto2) {
+		this.sancionadosVeredicto2 = sancionadosVeredicto2;
+	}
+
+
 
 	
 

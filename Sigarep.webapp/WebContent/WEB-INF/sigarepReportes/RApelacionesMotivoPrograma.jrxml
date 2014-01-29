@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="115"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -79,6 +79,9 @@
 	<parameter name="Lapso" class="java.lang.String"/>
 	<parameter name="Programa" class="java.lang.String"/>
 	<parameter name="Titulo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Nicolas\\workspace\\Sigarep.webapp\\WebContent\\WEB-INF\\sigarepReportes\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
 				FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado
@@ -106,7 +109,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="131" splitType="Stretch">
+		<band height="157" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9" x="87" y="89" width="59" height="24"/>
 				<textElement>
@@ -163,11 +166,41 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="8" splitType="Stretch"/>
+		<band height="36">
+			<staticText>
+				<reportElement uuid="b6cc7138-ec8d-49d0-96b7-1252fd1a5081" style="table" mode="Opaque" x="327" y="13" width="102" height="20" backcolor="#0033CC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Resultado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3aa5b50b-acd8-4bf4-a412-1665f6c4e626" style="table" mode="Opaque" x="160" y="13" width="67" height="20" backcolor="#0033CC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a60a6539-f6ab-4051-a10b-bf97cf18c79c" style="table" mode="Opaque" x="227" y="13" width="100" height="20" backcolor="#0033CC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+		</band>
+		<band height="15">
+			<textField>
+				<reportElement uuid="b5c7dbad-7ac2-469a-9e7a-d9537d515336" x="160" y="0" width="67" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b12052f1-c28f-4e11-a97f-1157e07d46a2" x="227" y="0" width="100" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="166e9ab6-6f73-4096-a38a-780e3cfee7b7" x="327" y="0" width="102" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{resultado}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="7" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="51" splitType="Stretch">
 			<image>
@@ -177,14 +210,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="276" splitType="Stretch">
+		<band height="752" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="44" y="12" width="505" height="251" forecolor="#3366FF"/>
+				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="36" y="28" width="505" height="251" forecolor="#3366FF"/>
 			</rectangle>
 			<elementGroup/>
 			<bar3DChart>
 				<chart>
-					<reportElement uuid="cb165de8-29bd-45b4-83f3-dd09fc7cf562" x="44" y="12" width="505" height="251"/>
+					<reportElement uuid="cb165de8-29bd-45b4-83f3-dd09fc7cf562" x="36" y="28" width="505" height="251"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -211,6 +244,36 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</valueAxisFormat>
 				</bar3DPlot>
 			</bar3DChart>
+			<stackedBarChart>
+				<chart>
+					<reportElement uuid="f2d40bf8-f11e-4b18-b80e-4b1a025e62aa" x="36" y="292" width="505" height="274"/>
+					<chartTitle position="Top"/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{resultado}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+						<labelExpression><![CDATA[$F{cantidad}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#0099FF"/>
+						<seriesColor seriesOrder="1" color="#FF3333"/>
+						<seriesColor seriesOrder="2" color="#00CC66"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</stackedBarChart>
 		</band>
 	</summary>
 </jasperReport>

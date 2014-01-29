@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeConsejoUniversitario" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" uuid="ffe6c774-f49b-4872-a5ea-9596955ba072">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="251"/>
+	<property name="ireport.y" value="144"/>
 	<subDataset name="dataset1" uuid="51d50916-4b24-47ce-aa28-9d9db7235350"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\BLUMOCJG\\workspace2\\Reporte Sixmar\\sigarepReportes\\"]]></defaultValueExpression>
@@ -36,26 +36,26 @@
 	<title>
 		<band height="219" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="71" width="86" height="77" uuid="7f370d69-931c-404f-bee7-85206dea2f13"/>
+				<reportElement uuid="7f370d69-931c-404f-bee7-85206dea2f13" x="0" y="71" width="86" height="77"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="0" y="0" width="572" height="71" uuid="e7d3837e-2e8b-4c99-9286-540e189125d0"/>
+				<reportElement uuid="e7d3837e-2e8b-4c99-9286-540e189125d0" x="0" y="0" width="572" height="71"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="86" y="71" width="398" height="45" uuid="610b963a-6245-4e25-9dfa-17c6aa68db8a"/>
+				<reportElement uuid="610b963a-6245-4e25-9dfa-17c6aa68db8a" x="86" y="71" width="398" height="45"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 SECRETARIA DEL CONSEJO UNIVERSITARIO
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<image>
-				<reportElement x="484" y="71" width="84" height="77" uuid="193e0f50-5fc8-48a1-99fd-2bc3ba0dd80c"/>
+				<reportElement uuid="193e0f50-5fc8-48a1-99fd-2bc3ba0dd80c" x="484" y="71" width="84" height="77"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="86" y="116" width="398" height="98" uuid="8297d29f-57a2-4f99-be7f-70c3726eb28b"/>
+				<reportElement uuid="8297d29f-57a2-4f99-be7f-70c3726eb28b" x="86" y="116" width="398" height="98"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -81,14 +81,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<summary>
 		<band height="462" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="568" height="20" uuid="6fd33af4-45b8-42ca-9018-0871bc80cf5a"/>
+				<reportElement uuid="6fd33af4-45b8-42ca-9018-0871bc80cf5a" x="0" y="0" width="568" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Nombres y Apellidos del Br:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="138" y="0" width="100" height="20" uuid="828112a1-b63d-4617-af09-e1959a3913e8"/>
+				<reportElement uuid="828112a1-b63d-4617-af09-e1959a3913e8" x="138" y="0" width="100" height="20"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="0.25" lineColor="#005BD1"/>
@@ -96,24 +96,27 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<bottomPen lineWidth="1.5"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="238" y="0" width="100" height="20" uuid="5c9cb09c-9938-4b50-bf0d-bf7b3e999ffc"/>
+				<reportElement uuid="5c9cb09c-9938-4b50-bf0d-bf7b3e999ffc" x="238" y="0" width="100" height="20"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{primerapellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="338" y="0" width="100" height="20" uuid="96356a89-9997-43d0-b5b6-ad99cc0f65d1"/>
+				<reportElement uuid="96356a89-9997-43d0-b5b6-ad99cc0f65d1" x="338" y="0" width="100" height="20"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{segundoApellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="22" y="20" width="100" height="20" uuid="8026c5cd-d29c-4f83-991b-6fff2d1922ce"/>
+				<reportElement uuid="8026c5cd-d29c-4f83-991b-6fff2d1922ce" x="22" y="20" width="100" height="20"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -121,38 +124,40 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<bottomPen lineWidth="1.25"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{cedula_estudiante}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="40" width="238" height="20" uuid="2247363e-b521-47ad-938e-7ebf8504d531"/>
+				<reportElement uuid="2247363e-b521-47ad-938e-7ebf8504d531" x="0" y="40" width="238" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Decanato de Ciencias y Tecnología]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="238" y="40" width="100" height="20" uuid="10072909-83d3-4da7-a37f-bb2adb77a9d3"/>
+				<reportElement uuid="10072909-83d3-4da7-a37f-bb2adb77a9d3" x="238" y="40" width="100" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[ Programa o Carrera:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="338" y="40" width="230" height="20" uuid="0d12fc30-e008-4658-9233-88ff82724914"/>
+				<reportElement uuid="0d12fc30-e008-4658-9233-88ff82724914" x="338" y="40" width="230" height="20"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{programa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="60" width="238" height="20" uuid="c585e2e2-2b0c-4308-8869-5f329e135e3b"/>
+				<reportElement uuid="c585e2e2-2b0c-4308-8869-5f329e135e3b" x="0" y="60" width="238" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[ Régimen a ser aplicado:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="122" y="60" width="100" height="20" uuid="66d0408a-db3e-4aee-9f0c-090c23e01407"/>
+				<reportElement uuid="66d0408a-db3e-4aee-9f0c-090c23e01407" x="122" y="60" width="100" height="20"/>
 				<box>
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="0.0"/>
@@ -160,28 +165,31 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<bottomPen lineWidth="1.25"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{sancion}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="238" y="119" width="100" height="1" uuid="f7df34a9-4327-4c1a-b4cd-4e426148e632"/>
+				<reportElement uuid="f7df34a9-4327-4c1a-b4cd-4e426148e632" x="238" y="119" width="100" height="1"/>
 			</line>
 			<textField>
-				<reportElement x="254" y="99" width="100" height="20" uuid="680bd315-0756-4579-8d82-1314b4115297"/>
+				<reportElement uuid="680bd315-0756-4579-8d82-1314b4115297" x="254" y="99" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="6" y="120" width="478" height="20" uuid="0899de4e-f64f-4d67-a0cd-30952358afef"/>
+				<reportElement uuid="0899de4e-f64f-4d67-a0cd-30952358afef" x="6" y="120" width="478" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[ Indique en forma breve y clara los argumentos o causales alegados por el estudiante en su escrito]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="22" y="150" width="100" height="20" uuid="a17c0681-4e67-4dc0-96d0-79b3ba066f79"/>
+				<reportElement uuid="a17c0681-4e67-4dc0-96d0-79b3ba066f79" x="22" y="150" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{observacion_comision}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="6" y="140" width="551" height="60" uuid="19e984dd-dfff-464a-af92-86b222939de4"/>
+				<reportElement uuid="19e984dd-dfff-464a-af92-86b222939de4" x="6" y="140" width="551" height="60"/>
 				<box>
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -194,64 +202,64 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="244" height="20" uuid="3c178dbe-2ba8-4afd-97e6-0d76ab9d8945"/>
+				<reportElement uuid="3c178dbe-2ba8-4afd-97e6-0d76ab9d8945" x="0" y="20" width="22" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[C.I ]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="6" y="204" width="551" height="45" uuid="c264ec54-8f16-4153-a91d-10b29c9a6bd8"/>
+				<reportElement uuid="c264ec54-8f16-4153-a91d-10b29c9a6bd8" x="6" y="204" width="551" height="45"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RpInformeConsejoUniversitario_recaudosEntregados.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="6" y="392" width="551" height="44" uuid="8e8d692c-6efd-48e0-b536-17f5a2ade672"/>
+				<reportElement uuid="8e8d692c-6efd-48e0-b536-17f5a2ade672" x="6" y="392" width="551" height="44"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RpInformeConsejoUniversitario_subreport1.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement x="3" y="10" width="439" height="17" uuid="24cb9afd-db0b-43cb-a03e-1a92a5ce1c17"/>
-				<text><![CDATA[(b) Consejo de Decanato]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="6" y="99" width="460" height="20" uuid="3f6d3630-6920-4a55-a8c7-212a12cd9fad"/>
+				<reportElement uuid="3f6d3630-6920-4a55-a8c7-212a12cd9fad" x="6" y="99" width="460" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[(a) Comisión Sustanciadora (En reunión de Fecha                                         )]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="6" y="249" width="460" height="20" uuid="8c8458ea-70a4-4ba9-a166-3969b4a66259"/>
+				<reportElement uuid="8c8458ea-70a4-4ba9-a166-3969b4a66259" x="6" y="249" width="460" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[(b) Consejo de Decanato ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="115" y="273" width="100" height="20" uuid="b00b27c6-369a-457c-ab8b-756c95a0c321"/>
+				<reportElement uuid="b00b27c6-369a-457c-ab8b-756c95a0c321" x="115" y="273" width="100" height="20"/>
 				<box>
 					<bottomPen lineWidth="1.75"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{nro_sesion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="215" y="273" width="100" height="20" uuid="daf86da7-dc0c-46e6-a0de-255a0a5a287c"/>
+				<reportElement uuid="daf86da7-dc0c-46e6-a0de-255a0a5a287c" x="215" y="273" width="100" height="20"/>
+				<textElement/>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="18" y="273" width="100" height="20" uuid="57c09b6c-372f-4d3b-8299-d1768218ec66"/>
+				<reportElement uuid="57c09b6c-372f-4d3b-8299-d1768218ec66" x="18" y="273" width="100" height="20"/>
+				<textElement/>
 				<text><![CDATA[Nro de Sesion:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="315" y="273" width="100" height="20" uuid="0cae4bce-e966-4ca1-9e37-16514919187a"/>
+				<reportElement uuid="0cae4bce-e966-4ca1-9e37-16514919187a" x="315" y="273" width="100" height="20"/>
 				<box>
 					<bottomPen lineWidth="1.75"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="3" y="319" width="551" height="60" uuid="cf5b512b-5805-4c48-a235-5ee8e6282a18"/>
+				<reportElement uuid="cf5b512b-5805-4c48-a235-5ee8e6282a18" x="6" y="319" width="551" height="60"/>
 				<box>
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -264,14 +272,15 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="299" width="478" height="20" uuid="7c804381-1dea-4626-8745-6c746748ffcf"/>
+				<reportElement uuid="7c804381-1dea-4626-8745-6c746748ffcf" x="3" y="299" width="478" height="20"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[ Indique en forma breve y clara los argumentos o causales alegados por el estudiante en su escrito]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="22" y="330" width="100" height="20" uuid="a582656d-48b6-412b-af65-ce4b9e68784f"/>
+				<reportElement uuid="a582656d-48b6-412b-af65-ce4b9e68784f" x="22" y="331" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{observacion_consejo_decanato}]]></textFieldExpression>
 			</textField>
 		</band>
