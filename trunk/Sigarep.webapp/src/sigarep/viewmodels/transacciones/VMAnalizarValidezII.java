@@ -375,7 +375,7 @@ public class VMAnalizarValidezII {
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
-			solicitudApelacionPK.setIdInstanciaApelada(1);
+			solicitudApelacionPK.setIdInstanciaApelada(2);
 			SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 			solicitudApelacion = serviciosolicitudapelacion
 					.buscarSolicitudPorID(solicitudApelacionPK);
@@ -388,7 +388,7 @@ public class VMAnalizarValidezII {
 						.get(2)).getFirstChild()).getValue();
 				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
 				RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
-				recaudoEntregadoPK.setIdInstanciaApelada(1);
+				recaudoEntregadoPK.setIdInstanciaApelada(2);
 				recaudoEntregadoPK.setCedulaEstudiante(cedula);
 				recaudoEntregadoPK.setIdTipoMotivo(recaudo.getTipoMotivo()
 						.getIdTipoMotivo());
