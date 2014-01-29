@@ -352,7 +352,7 @@ public class VMAnalizarValidezIII {
 			"lapso", "observacionExperto", "observacion" })
 	public void actualizarRecaudosEntregados(
 			@BindingParam("recaudosEntregados") List<Listitem> recaudos,
-			@BindingParam("window") Window winAnalizarValidezI) {
+			@BindingParam("window") Window winAnalizarValidezIII) {
 
 		if (selected == null || selected.equals("") || observacion == null
 				|| observacion.equals("")) {
@@ -388,7 +388,7 @@ public class VMAnalizarValidezIII {
 						.get(2)).getFirstChild()).getValue();
 				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
 				RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
-				recaudoEntregadoPK.setIdInstanciaApelada(1);
+				recaudoEntregadoPK.setIdInstanciaApelada(3);
 				recaudoEntregadoPK.setCedulaEstudiante(cedula);
 				recaudoEntregadoPK.setIdTipoMotivo(recaudo.getTipoMotivo()
 						.getIdTipoMotivo());
@@ -438,7 +438,7 @@ public class VMAnalizarValidezIII {
 						
 			try {
 				MensajesAlUsuario.informacionRegistroCorrecto();
-				winAnalizarValidezI.detach();
+				winAnalizarValidezIII.detach();
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
