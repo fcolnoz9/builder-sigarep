@@ -369,7 +369,7 @@ public class VMVerificarRecaudosEntregadosIII {
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
-			solicitudApelacionPK.setIdInstanciaApelada(2);
+			solicitudApelacionPK.setIdInstanciaApelada(3);
 			SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 			solicitudApelacion = serviciosolicitudapelacion
 					.buscarSolicitudPorID(solicitudApelacionPK);
@@ -400,7 +400,7 @@ public class VMVerificarRecaudosEntregadosIII {
 				motivoPK.setIdTipoMotivo(recaudo.getTipoMotivo()
 						.getIdTipoMotivo());
 				motivoPK.setCodigoLapso(lapso);
-				motivoPK.setIdInstanciaApelada(2);
+				motivoPK.setIdInstanciaApelada(3);
 				Motivo motivo = new Motivo();
 				motivo.setId(motivoPK);
 				motivo.setEstatus(true);
@@ -428,7 +428,7 @@ public class VMVerificarRecaudosEntregadosIII {
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 			apelacionEstadoApelacionPK.setIdEstadoApelacion(2);
-			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(new Date());
