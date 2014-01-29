@@ -375,7 +375,7 @@ public class VMAnalizarValidezIII {
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
-			solicitudApelacionPK.setIdInstanciaApelada(1);
+			solicitudApelacionPK.setIdInstanciaApelada(3);
 			SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 			solicitudApelacion = serviciosolicitudapelacion
 					.buscarSolicitudPorID(solicitudApelacionPK);
@@ -403,7 +403,7 @@ public class VMAnalizarValidezIII {
 				motivoPK.setIdTipoMotivo(recaudo.getTipoMotivo()
 						.getIdTipoMotivo());
 				motivoPK.setCodigoLapso(lapso);
-				motivoPK.setIdInstanciaApelada(1);
+				motivoPK.setIdInstanciaApelada(3);
 				Motivo motivo = new Motivo();
 				motivo.setId(motivoPK);
 				motivo.setEstatus(true);
@@ -429,7 +429,7 @@ public class VMAnalizarValidezIII {
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 			apelacionEstadoApelacionPK.setIdEstadoApelacion(7);
-			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(new Date());
 			apelacionEstadoApelacion.setObservacion(observacion);
