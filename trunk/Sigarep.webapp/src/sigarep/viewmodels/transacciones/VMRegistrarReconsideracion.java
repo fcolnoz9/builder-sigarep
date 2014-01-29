@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
+
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -387,7 +389,6 @@ public class VMRegistrarReconsideracion {
 		Date fecha = new Date();
 		Time hora = new Time(0);
 
-	
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
 			solicitudApelacionPK.setIdInstanciaApelada(2);
@@ -395,7 +396,7 @@ public class VMRegistrarReconsideracion {
 			solicitudApelacion.setFechaSolicitud(fecha);
 			solicitudApelacion.setEstatus(true);
 			solicitudApelacion.setNumeroCaso(caso);
-
+			solicitudApelacion.setObservacion(observacion);
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
@@ -403,74 +404,14 @@ public class VMRegistrarReconsideracion {
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(hora);
 			apelacionEstadoApelacion.setObservacion(observacion);
-
-			idTipoMotivo = listaRecaudos.get(0).getMotivo().getId()
-					.getIdTipoMotivo();
-			motivoPK.setCedulaEstudiante(cedula);
-			motivoPK.setCodigoLapso(lapso);
-			motivoPK.setIdInstanciaApelada(2);
-			motivoPK.setIdTipoMotivo(idTipoMotivo);
-			motivos.setId(motivoPK);
-			motivos.setEstatus(true);
-
-			recaudoEntregadoPK.setCedulaEstudiante(cedula);
-			recaudoEntregadoPK.setCodigoLapso(lapso);
-			recaudoEntregadoPK.setIdInstanciaApelada(2);
-			recaudoEntregadoPK.setIdRecaudo(13);
-			recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
-			recaudoEntregado.setId(recaudoEntregadoPK);
-			recaudoEntregado.setEstatus(true);
-
-			soporte.setRecaudoEntregado(recaudoEntregado);
-			soporte.setDocumento(doc);
-			soporte.setEstatus(true);
-			soporte.setFechaSubida(fecha);
-			soporte.setRecaudoEntregado(recaudoEntregado);
-
-		
+			
 		try {
-
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
-			serviciomotivo.guardarMotivo(motivos);
-			serviciorecaudoentregado.guardar(recaudoEntregado);
-			serviciosoporte.guardar(soporte);
 			mensajesusuario.informacionRegistroCorrecto();
+		
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-
-		}
-
-	}
-	/** cargarCartaReconsideracion
-	 * @param 
-	 * @return Documento cargado 
-	 * @throws Ocurren cuando se intenta cargar un archivo no soportado.
-	 */
-	@Command
-	@NotifyChange("nombreDoc")
-	public void cargarCartaReconsideracion(
-			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
-		media = event.getMedia();
-		if (media != null) {
-			if (media.getContentType().equals("image/jpeg")
-					|| media.getContentType().equals("application/pdf")
-					|| media.getContentType().equals("application/msword")
-					|| media.getContentType()
-							.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-					|| media.getContentType().equals(
-							"application/vnd.oasis.opendocument.text")
-					|| media.getContentType().equals(
-							"application/x-vnd.oasis.opendocument.text")) {
-				doc.setNombreDocumento(media.getName());
-				doc.setTipoDocumento(media.getContentType());
-				doc.setContenidoDocumento(media.getByteData());
-				nombreDoc = doc.getNombreDocumento();
-			} else {
-				Messagebox.show(media.getName()
-						+ " No es un tipo de archivo valido!", "Error",
-						Messagebox.OK, Messagebox.ERROR);
-			}
 		}
 	}
 	/** descargarDocumento
@@ -494,48 +435,10 @@ public class VMRegistrarReconsideracion {
 		}
 
 	}
-
-	@Command
-	public void cargarDocumento(
-			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event,
-			@ContextParam(ContextType.COMPONENT) Component componente) {
-		media = event.getMedia();
-		if (media != null) {
-			if (media.getContentType().equals("image/jpeg")
-					|| media.getContentType().equals("application/pdf")
-					|| media.getContentType().equals("application/msword")
-					|| media.getContentType()
-							.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-					|| media.getContentType().equals(
-							"application/vnd.oasis.opendocument.text")
-					|| media.getContentType().equals(
-							"application/x-vnd.oasis.opendocument.text")) {
-				doc.setNombreDocumento(media.getName());
-				doc.setTipoDocumento(media.getContentType());
-				doc.setContenidoDocumento(media.getByteData());
-				nombreDoc = doc.getNombreDocumento();
-
-			} else {
-				Messagebox.show(media.getName()
-						+ " No es un tipo de archivo valido!", "Error",
-						Messagebox.OK, Messagebox.ERROR);
-			}
-		}
-	}
-
-	@Command
-	public void abrir() {
-		Executions
-				.createComponents(
-						"/WEB-INF/sigarep/vistas/transacciones/VerificarApelaciones.zul",
-						null, null);
-	}
 	
-	@NotifyChange({ "nombreDoc" , "observacion"})
 	@Command
+	@NotifyChange({"observacion"})
 	public void cancelar() {
-		//Motivo motivoLista  = new Motivo ();
-		nombreDoc = "";
 		observacion = ""; 
 	}
 
