@@ -479,6 +479,14 @@ public class VMRegistrarDatosIniciales {
 		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 		apelacionEstadoApelacion.setFechaEstado(hora);
 		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
+		
+		motivoPK.setCedulaEstudiante(cedula);
+		motivoPK.setCodigoLapso(lapso);
+		motivoPK.setIdInstanciaApelada(1);
+		motivoPK.setIdTipoMotivo(1);
+		motivos.setId(motivoPK);
+		motivos.setEstatus(true);
+		serviciomotivo.guardarMotivo(motivos);
 
 		Motivo motivos = new Motivo();
 		for (int j = 0; j < listaMotivoListBox.size(); j++) {
