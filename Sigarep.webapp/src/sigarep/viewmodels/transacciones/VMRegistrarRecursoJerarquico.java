@@ -352,14 +352,14 @@ public class VMRegistrarRecursoJerarquico {
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(hora);
 
-				idTipoMotivo = listaRecaudos.get(0).getMotivo().getId()
-						.getIdTipoMotivo();
+		
 				motivoPK.setCedulaEstudiante(cedula);
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(3);
-				motivoPK.setIdTipoMotivo(idTipoMotivo);
+				motivoPK.setIdTipoMotivo(3);
 				motivos.setId(motivoPK);
 				motivos.setEstatus(true);
+				
 			}
 		try {
 
