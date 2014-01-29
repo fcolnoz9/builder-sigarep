@@ -76,6 +76,8 @@ public class VMRegistrarDatosIniciales {
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
 	private EstudianteSancionado estudianteseleccionado;
@@ -89,19 +91,11 @@ public class VMRegistrarDatosIniciales {
 	private String segundoApellido;
 	private String apellidos;
 	private String sancion;
-	private String programa;
 	private String lapso;
 	private String asignatura;
-	private float indice;
 	private String motivoCombo;
 	private String lapsosConsecutivos;
 	private Date fecha;
-	private Documento doc = new Documento();
-	private Media media;
-	private AImage imagen;
-	private String nombreDoc;
-	private String nombreDocumento;
-	private String tipoDocumento;
 	private List<TipoMotivo> listamotivo;
 	private String descripcion;
 	private Motivo motivo;
@@ -111,10 +105,7 @@ public class VMRegistrarDatosIniciales {
 	private String observacion;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<TipoMotivo> listaTipoMotivo;
-	@WireVariable
 	private List<Motivo> listaMotivoListBox = new LinkedList<Motivo>();
-	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
@@ -123,36 +114,16 @@ public class VMRegistrarDatosIniciales {
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
-	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
-	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
-	Soporte soporte = new Soporte();
 	private Integer idTipoMotivo;
 
 	private int caso;
 
-	
 	public String getObservacion() {
 		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
-	}
-
-	public String getNombreDoc() {
-		return nombreDoc;
-	}
-
-	public void setNombreDoc(String nombreDoc) {
-		this.nombreDoc = nombreDoc;
-	}
-
-	public String getNombreDocumento() {
-		return nombreDocumento;
-	}
-
-	public void setNombreDocumento(String nombreDocumento) {
-		this.nombreDocumento = nombreDocumento;
 	}
 
 	public String getMotivoCombo() {
@@ -319,14 +290,6 @@ public class VMRegistrarDatosIniciales {
 		this.sancion = sancion;
 	}
 
-	public String getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(String programa) {
-		this.programa = programa;
-	}
-
 	public String getLapso() {
 		return lapso;
 	}
@@ -341,14 +304,6 @@ public class VMRegistrarDatosIniciales {
 
 	public void setAsignatura(String asignatura) {
 		this.asignatura = asignatura;
-	}
-
-	public float getIndice() {
-		return indice;
-	}
-
-	public void setIndice(float indice) {
-		this.indice = indice;
 	}
 
 	public String getLapsosConsecutivos() {
@@ -407,8 +362,7 @@ public class VMRegistrarDatosIniciales {
 		return listaMotivoListBox;
 	}
 
-	public void setListaMotivoListBox(
-			List<Motivo> listaMotivoListBox) {
+	public void setListaMotivoListBox(List<Motivo> listaMotivoListBox) {
 		this.listaMotivoListBox = listaMotivoListBox;
 	}
 
@@ -452,7 +406,7 @@ public class VMRegistrarDatosIniciales {
 	public void buscarCaso() {
 		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
 	}
-	
+
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("estudianteseleccionado") EstudianteSancionado v1)
@@ -478,7 +432,8 @@ public class VMRegistrarDatosIniciales {
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
 		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-			asignaturaLapsosConsecutivos = estudianteseleccionado.getLapsosAcademicosRp();
+			asignaturaLapsosConsecutivos = estudianteseleccionado
+					.getLapsosAcademicosRp();
 		}
 		listamotivo = serviciotipomotivo.buscarTodas();
 		buscarMotivos();
@@ -515,8 +470,8 @@ public class VMRegistrarDatosIniciales {
 		solicitudApelacion.setAnalizado(false);
 		solicitudApelacion.setVerificado(false);
 		solicitudApelacion.setNumeroCaso(caso);
+		solicitudApelacion.setObservacion(observacion);
 		serviciosolicitudapelacion.guardar(solicitudApelacion);
-
 		apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 		apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 		apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
@@ -527,8 +482,9 @@ public class VMRegistrarDatosIniciales {
 
 		Motivo motivos = new Motivo();
 		for (int j = 0; j < listaMotivoListBox.size(); j++) {
-			
-			idTipoMotivo = listaMotivoListBox.get(j).getTipoMotivo().getIdTipoMotivo();
+
+			idTipoMotivo = listaMotivoListBox.get(j).getTipoMotivo()
+					.getIdTipoMotivo();
 			motivoPK.setCedulaEstudiante(cedula);
 			motivoPK.setCodigoLapso(lapso);
 			motivoPK.setIdInstanciaApelada(1);
@@ -538,20 +494,7 @@ public class VMRegistrarDatosIniciales {
 			motivos.setDescripcion(descripcion);
 			serviciomotivo.guardarMotivo(motivos);
 		}
-		recaudoEntregadoPK.setCedulaEstudiante(cedula);
-		recaudoEntregadoPK.setCodigoLapso(lapso);
-		recaudoEntregadoPK.setIdInstanciaApelada(1);
-		recaudoEntregadoPK.setIdRecaudo(12);
-		recaudoEntregadoPK.setIdTipoMotivo(idTipoMotivo);
-		recaudoEntregado.setId(recaudoEntregadoPK);
-		recaudoEntregado.setEstatus(true);
-		serviciorecaudoentregado.guardar(recaudoEntregado);
-		soporte.setDocumento(doc);
-		soporte.setEstatus(true);
-		soporte.setFechaSubida(fecha);
-		soporte.setRecaudoEntregado(recaudoEntregado);
-		serviciosoporte.guardar(soporte);
-		
+
 		try {
 			mensajesusuario.informacionRegistroCorrecto();
 		} catch (Exception e) {
@@ -560,57 +503,22 @@ public class VMRegistrarDatosIniciales {
 	}
 
 	@Command
-	@NotifyChange({ "listaMotivo", "listaMotivoListBox",
-			"motivoseleccionado", "descripcion" })
-	public void agregarMotivo(@BindingParam("listBoxMotivo") Listbox listBoxMotivo) {
-		
-		Motivo motivoLista  = new Motivo ();
+	@NotifyChange({ "listaMotivo", "listaMotivoListBox", "motivoseleccionado",
+			"descripcion" })
+	public void agregarMotivo(
+			@BindingParam("listBoxMotivo") Listbox listBoxMotivo) {
+
+		Motivo motivoLista = new Motivo();
 		motivoLista.setDescripcion(descripcion);
 		motivoLista.setTipoMotivo(motivoseleccionado);
 		listaMotivoListBox.add(motivoLista);
-		descripcion = "";
-		motivoseleccionado = null;
 	}
-	
-	@NotifyChange({ "nombreDoc" , "descripcion", "motivoseleccionado", "listaMotivoListBox"})
+
 	@Command
-	public void cancelar() {
-		//Motivo motivoLista  = new Motivo ();
-		nombreDoc = "";
+	@NotifyChange({"descripcion", "motivoseleccionado","listaMotivoListBox" })
+	public void cancelar() { 
 		descripcion = "";
 		motivoseleccionado = null;
 		listaMotivoListBox.clear();
-	}
-	
-	/** cargarCartaApelacion
-	 * @param 
-	 * @return Documento cargado 
-	 * @throws Ocurren cuando se intenta cargar un archivo no soportado.
-	 */
-	@Command
-	@NotifyChange("nombreDoc")
-	public void cargarCartaApelacion(
-			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
-		media = event.getMedia();
-		if (media != null) {
-			if (media.getContentType().equals("image/jpeg")
-					|| media.getContentType().equals("application/pdf")
-					|| media.getContentType().equals("application/msword")
-					|| media.getContentType()
-							.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-					|| media.getContentType().equals(
-							"application/vnd.oasis.opendocument.text")
-					|| media.getContentType().equals(
-							"application/x-vnd.oasis.opendocument.text")) {
-				doc.setNombreDocumento(media.getName());
-				doc.setTipoDocumento(media.getContentType());
-				doc.setContenidoDocumento(media.getByteData());
-				nombreDoc = doc.getNombreDocumento();
-			} else {
-				Messagebox.show(media.getName()
-						+ " No es un tipo de archivo valido!", "Error",
-						Messagebox.OK, Messagebox.ERROR);
-			}
-		}
 	}
 }
