@@ -42,7 +42,7 @@
 			<listbox id="lbxSancionados" height="70%"
 				model="@bind(vm.listaSancionados)"
 				selectedItem="@bind(vm.solicitudapelacionseleccionada)"
-				onClick="@command('MostrarSancionados')" mold="paging" pageSize="10"
+				onSelect="@command('MostrarSancionados')" mold="paging" pageSize="10"
 				emptyMessage="No hay Apelaciones">
 				<!--    			 					  onClick="@command('showModal',before=winActualizarEstadoEstudiante.onClose())"  -->
 				<listhead>
