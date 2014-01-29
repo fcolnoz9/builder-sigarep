@@ -1,12 +1,10 @@
 package sigarep.viewmodels.seguridad;
 
-import java.util.ArrayList;
+
 import java.util.Date;
-
+import java.util.LinkedList;
 import java.util.List;
-
-import org.hibernate.Session;
-
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -14,34 +12,40 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Row;
+
 
 import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.Persona;
-import sigarep.modelos.data.maestros.ProgramaAcademico;
-import sigarep.modelos.data.maestros.TipoMotivo;
+
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.InstanciaMiembro;
 import sigarep.modelos.data.transacciones.InstanciaMiembroPK;
-import sigarep.modelos.servicio.maestros.SProgramaAcademico;
+import sigarep.modelos.data.transacciones.UsuarioGrupo;
+import sigarep.modelos.data.transacciones.UsuarioGrupoPK;
+
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioPersona;
-import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 import sigarep.modelos.servicio.transacciones.ServicioInstanciaMiembro;
+import sigarep.modelos.servicio.transacciones.ServicioUsuarioGrupo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMUsuario {
 
-	@WireVariable private ServicioUsuario su;
-	@WireVariable private ServicioGrupo sg;
-	@WireVariable private ServicioPersona serviciopersona;
-
-	@WireVariable private ServicioInstanciaApelada servicioInstanciaApelada;
-	@WireVariable private ServicioInstanciaMiembro servicioInstanciaMiembro;
+	@WireVariable 
+	private ServicioPersona serviciopersona;
+	@WireVariable 
+	private ServicioInstanciaApelada servicioInstanciaApelada;
+	@WireVariable 
+	private ServicioInstanciaMiembro servicioInstanciaMiembro;
+	@WireVariable
+	private ServicioUsuarioGrupo serviciousuariogrupo;
 	
 	private List<InstanciaApelada> listaInstancia;	
 	private InstanciaApelada instanciaseleccionada;
@@ -51,16 +55,13 @@ public class VMUsuario {
 	private InstanciaMiembro instanciaMiembro = new InstanciaMiembro();
 	private InstanciaMiembroPK instanciaMiembroPK = new InstanciaMiembroPK();
 	
-	private Integer cedulaPersona=0;
+	private String cedulaPersona="";
 	private String nombre="";
 	private String apellido="";
 	private String telefono="";
 	
 	private List<Persona> listaPersona;
-	private Persona personaSeleccionado;
-	
-	
-	
+	private Persona personaSeleccionado = new Persona();
 	private String nombreUsuario;
 	private String correo;
 	private String clave;
@@ -70,13 +71,59 @@ public class VMUsuario {
 	private String estado;
 	private ListModelList<Grupo> modeloGrupo;
 	List<Grupo> listGrupo;
-	private List<Usuario> listaUsuario;
-	private Usuario usuarioSeleccionado;
 	
 	@WireVariable
 	private String correoLogin;
 
-	private mensajes msjs = new mensajes();
+	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
+	
+	private Usuario usuarioSeleccionado;
+	@WireVariable
+	private Grupo grupoSeleccionado;	
+	@WireVariable
+	private List<Usuario> listaUsuario = new LinkedList<Usuario>();
+	@WireVariable
+	private List<Grupo> listaGrupoPertenece = new LinkedList<Grupo>();
+	@WireVariable
+	private List<Grupo> listaGrupoNoPertenece = new LinkedList<Grupo>();
+	@WireVariable
+	private ServicioGrupo sg;
+	@WireVariable
+	private ServicioUsuario su;
+	
+
+	public Grupo getGrupoSeleccionado() {
+		return grupoSeleccionado;
+	}
+
+	public void setGrupoSeleccionado(Grupo grupoSeleccionado) {
+		this.grupoSeleccionado = grupoSeleccionado;
+	}
+	
+	
+	public List<Grupo> getListaGrupoPertenece() {
+		return listaGrupoPertenece;
+	}
+
+	public void setListaGrupoPertenece(List<Grupo> listaGrupoPertenece) {
+		this.listaGrupoPertenece = listaGrupoPertenece;
+	}
+	
+	public List<Grupo> getListaGrupoNoPertenece() {
+		return listaGrupoNoPertenece;
+	}
+
+	public void setListaGrupoNoPertenece(List<Grupo> listaGrupoNoPertenece) {
+		this.listaGrupoNoPertenece = listaGrupoNoPertenece;
+	}
+
+		
+	// Metodo que buscar los lapsos y cargarlos en el combobox
+	@Command
+	@NotifyChange({ "listaUsuario" })
+	public void buscarListadoUsuario() {
+		listaUsuario = su.listadoUsuario();
+	}
 	
 	public InstanciaMiembro getInstanciaMiembro() {
 		return instanciaMiembro;
@@ -140,14 +187,6 @@ public class VMUsuario {
 
 	public void setListaPersona(List<Persona> listaPersona) {
 		this.listaPersona = listaPersona;
-	}
-
-	public Integer getcedulaPersona() {
-		return cedulaPersona;
-	}
-
-	public void setcedulaPersona(Integer cedulaPersona) {
-		this.cedulaPersona = cedulaPersona;
 	}
 
 	public String getNombre() {
@@ -269,58 +308,118 @@ public class VMUsuario {
 	public void setNuevaContrasenia(String nuevaContrasenia) {
 		this.nuevaContrasenia = nuevaContrasenia;
 	}
+	
+	public String getCedulaPersona() {
+		return cedulaPersona;
+	}
+
+	public void setCedulaPersona(String cedulaPersona) {
+		this.cedulaPersona = cedulaPersona;
+	}
 
 	@Command
 	@NotifyChange({ "nombreUsuario","nombreCompleto", "clave","confirmarcontrasenia", "correo",
 			"listaUsuario","cedulaPersona","nombre","apellido","telefono","listaPersona" })
-	public void guardarUsuario() {
-		if (nombreUsuario=="" || clave==""|| correo==""|| cedulaPersona==0|| nombre==""|| apellido==""|| telefono=="") {
+	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario, @BindingParam("rowContrasenna") Row rowContrasenna) {
+		boolean existeUsuario = false;
+		Usuario usuario = new Usuario();
+		if (nombreUsuario == null || correo == null || cedulaPersona == null || nombre == null || apellido == null
+				|| telefono == null) {
 			msjs.advertenciaLlenarCampos();
-		} else {
-			Usuario usuario = new Usuario();
-			usuario.setNombreUsuario(nombreUsuario);
-			usuario.setClave(clave);
+		}
+		else if(gruposDelUsuario.size()==0){
+			Messagebox.show("Debe seleccionar al menos un grupo",
+					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		else {
+			Usuario usuarioAux = su.encontrarUsuario(nombreUsuario);
+			if(usuarioAux==null){
+				usuario.setNombreUsuario(nombreUsuario);
+				usuario.setClave(clave);
+			}
+			else
+			{
+				usuario.setNombreUsuario(usuarioAux.getNombreUsuario());
+				usuario.setClave(usuarioAux.getClave());
+				existeUsuario = true;
+//				System.out.println("tamanno: "+usuario.getUsuariosGrupos().size());
+				if(sg.listadoGrupoPerteneceUsuario(nombreUsuario).size()>0){
+					for(int j=0;j<sg.listadoGrupoPerteneceUsuario(nombreUsuario).size();j++){
+						UsuarioGrupo usuarioGrupoABorrar = usuarioAux.getUsuariosGrupos().get(j);
+						usuario.removeUsuarioGrupo(usuarioGrupoABorrar);
+//						System.out.println(usuarioAux.getUsuariosGrupos().get(j).getGrupo().getNombre());
+					}
+				}
+			}
 			usuario.setCorreo(correo);
-			nombreCompleto=nombre+ " " + apellido;
- 			usuario.setNombreCompleto(nombreCompleto); //esto se lo debería traer de la vista, ojo JM.
+			nombreCompleto = nombre + " " + apellido;
+			usuario.setNombreCompleto(nombreCompleto); // esto se lo debería traer de la vista, ojo JM.
 			usuario.setEstatus(true);
-			su.guardarUsuario(usuario);
 			
+			for(Listitem miGrupo :gruposDelUsuario){
+				Grupo grupo = new Grupo();
+				String nombreGrupo = miGrupo.getLabel();
+				grupo = sg.buscarGrupoNombre(nombreGrupo);
+				
+				UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
+				UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
+				usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
+				usuarioGrupoPK.setNombreUsuario(nombreUsuario);
+				
+				usuarioGrupo.setId(usuarioGrupoPK);
+				usuarioGrupo.setUsuario(usuario);
+				usuarioGrupo.setGrupo(grupo);
+				usuarioGrupo.setEstatus(true);
+				
+				UsuarioGrupo usuarioGrupoAux = new UsuarioGrupo();
+				usuarioGrupoAux.setId(usuarioGrupo.getId());
+				usuarioGrupoAux.setGrupo(usuarioGrupo.getGrupo());
+				usuarioGrupoAux.setUsuario(usuarioGrupo.getUsuario());
+				usuarioGrupoAux.setEstatus(true);
+				usuario.addUsuarioGrupo(usuarioGrupoAux);
+				su.guardarUsuario(usuario);
+			}
 			
 			Persona persona = new Persona();
 			persona.setCedulaPersona(cedulaPersona);
 			persona.setNombre(nombre);
 			persona.setApellido(apellido);
+			
 			persona.setNombreUsuario(usuario);
 			persona.setCorreo(correo);
 			persona.setEstatus(true);
 			persona.setTelefono(telefono);
-			
 			serviciopersona.guardar(persona);
-			if(tituloinstancia.equals("")){
+			
+			if (tituloinstancia.equals("")) {
 				System.out.println("instancia vacia");
-			}else{
-			instanciaMiembroPK.setCedulaPersona(cedulaPersona);
-			instanciaMiembroPK.setIdInstanciaApelada(getInstanciaseleccionada().getIdInstanciaApelada());
-			
-			
-			instanciaMiembro.setId(instanciaMiembroPK);
-			instanciaMiembro.setCargo(cargo);
-			instanciaMiembro.setEstatus(true);
-			instanciaMiembro.setFechaEntrada(new Date());
-			instanciaMiembro.setInstanciaApelada(getInstanciaseleccionada());
-			instanciaMiembro.setPersona(persona);
-			
-			try {
-				servicioInstanciaMiembro.guardar(instanciaMiembro);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
+			} else {
+				instanciaMiembroPK.setCedulaPersona(cedulaPersona);
+				instanciaMiembroPK
+						.setIdInstanciaApelada(getInstanciaseleccionada()
+								.getIdInstanciaApelada());
+				instanciaMiembro.setId(instanciaMiembroPK);
+				instanciaMiembro.setCargo(cargo);
+				instanciaMiembro.setEstatus(true);
+				instanciaMiembro.setFechaEntrada(new Date());
+				instanciaMiembro
+						.setInstanciaApelada(getInstanciaseleccionada());
+				instanciaMiembro.setPersona(persona);
+
+				try {
+					servicioInstanciaMiembro.guardar(instanciaMiembro);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
 			}
 			
 			msjs.informacionRegistroCorrecto();
-			limpiar();
-			
+			if(existeUsuario==false){
+				EnviarCorreo enviar = new EnviarCorreo();
+				enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
+				Messagebox.show("Te hemos enviado un email con tu nombre de usuario y contraseña.","Información", Messagebox.OK, Messagebox.INFORMATION);	
+			}
+			limpiar(rowContrasenna);
 		}
 	}
 	
@@ -328,6 +427,8 @@ public class VMUsuario {
 	public void init() {
 		// initialization code
 		buscarUsuario();
+		buscarListadoUsuario();
+		buscarListadoGrupos();
 	}
 
 	// Metodo que busca una noticia partiendo por su titulo
@@ -338,20 +439,29 @@ public class VMUsuario {
 		listaPersona = serviciopersona.buscarper(cedulaPersona);
 		listaInstancia = servicioInstanciaApelada.buscarTodas();
 	}
+	
+	@NotifyChange({ "listaGrupoNoPertenece" })
+	public void buscarListadoGrupos() {
+		List<Grupo> listadoGruposActivos = sg.listadoGrupo();
+		listaGrupoNoPertenece = listadoGruposActivos;
+	}
 
 	// Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","correo","listaUsuario","cedulaPersona","nombre","apellido","telefono"})
-	public void limpiar() {
+	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","correo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre","apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece"})
+	public void limpiar(@BindingParam("rowContrasenna") Row rowContrasenna) {
 		nombreUsuario = "";
 		clave = "";
 		confirmarcontrasenia = "";
 		correo = "";
-		cedulaPersona = 0;
+		cedulaPersona = "";
 		nombre = "";
 		apellido = "";
 		telefono = "";
 		buscarUsuario();
+		listaGrupoPertenece.clear();
+		buscarListadoGrupos();
+		rowContrasenna.setVisible(true);
 	}
 	
 	@Command
@@ -365,26 +475,46 @@ public class VMUsuario {
 
 	// Metodo que elimina una actividad tomando en cuenta el idActividad
 	@Command
-	@NotifyChange({ "listaUsuario" })
-	public void eliminarUsuario() {
-		su.eliminar(getUsuarioSeleccionado().getNombreUsuario());
+	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
+	public void eliminarUsuario(@BindingParam("rowContrasenna") Row rowContrasenna) {
+		su.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		serviciopersona.eliminar(cedulaPersona);
 		msjs.informacionEliminarCorrecto();
-		limpiar();
+		limpiar(rowContrasenna);
 	}
 
 	// permite tomar los datos del objeto usaurioseleccionado
 	@Command
-	@NotifyChange({ "nombreUsuario", "fechaCreacion","correo","cedulaPersona","apellido","nombre","telefono" })
-	public void mostrarSeleccionado() {
-		
+	@NotifyChange({ "nombreUsuario", "fechaCreacion","correo","cedulaPersona","apellido","nombre","telefono","listaGrupoPertenece", "listaGrupoNoPertenece", "personaSeleccionado"})
+	public void mostrarSeleccionado(@BindingParam("rowContrasenna") Row rowContrasenna) {	
 		nombreUsuario = getPersonaSeleccionado().getNombreUsuario().getNombreUsuario();
 		correo = getPersonaSeleccionado().getCorreo();
 		cedulaPersona = getPersonaSeleccionado().getCedulaPersona();
 		nombre = getPersonaSeleccionado().getNombre();
 		apellido = getPersonaSeleccionado().getApellido();
 		telefono = getPersonaSeleccionado().getTelefono();
-		
+
+		listaGrupoPertenece = sg.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		listaGrupoNoPertenece = sg.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		rowContrasenna.setVisible(false);
 	}
+	
+	@Command
+	@NotifyChange({"listaGrupoNoPertenece","listaGrupoPertenece"})
+	public void quitarGrupo(@BindingParam("itemGrupoPertenece") Listitem itemGrupoPertenece) {
+		Grupo grupoAux1 = sg.buscarGrupoNombre(itemGrupoPertenece.getLabel());
+		listaGrupoNoPertenece.add(grupoAux1);
+		listaGrupoPertenece.remove(itemGrupoPertenece.getIndex());
+	}
+	
+	@Command
+	@NotifyChange({"listaGrupoPertenece","listaGrupoNoPertenece"})
+	public void agregarGrupo(@BindingParam("itemGrupoNoPertenece") Listitem itemGrupoNoPertenece) {
+		Grupo grupoAux2 = sg.buscarGrupoNombre(itemGrupoNoPertenece.getLabel());
+		listaGrupoPertenece.add(grupoAux2);
+		listaGrupoNoPertenece.remove(itemGrupoNoPertenece.getIndex());		
+	}
+	
 	
 	@Command
 	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia", "nuevaContrasenia" })
@@ -404,7 +534,7 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		usuario.setNombreUsuario("-1");
 		if (correoLogin=="")
-			Messagebox.show("Debe llenar los campos", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
+			msjs.advertenciaLlenarCampos();
 		else {
 			List<Usuario> listaUsuarios = su.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
@@ -424,12 +554,10 @@ public class VMUsuario {
 					Messagebox.show("Usuario o correo e-mail no registrados","Información", Messagebox.OK, Messagebox.INFORMATION);
 		}
 	}
-
+	
 	@Command
 	@NotifyChange({ "listaUsuario","tituloinstancia" })
 	public void pasepase() {
-		System.out.println("asdasfas"+ tituloinstancia);
+		System.out.println(tituloinstancia);
 	}
-	
-
 }

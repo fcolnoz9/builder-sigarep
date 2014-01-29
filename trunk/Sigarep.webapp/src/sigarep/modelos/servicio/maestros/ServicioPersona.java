@@ -19,7 +19,7 @@ public class ServicioPersona {
 		iPersona.save(person);
 	}
 
-	public void eliminar(Integer cedulaPersona) {
+	public void eliminar(String cedulaPersona) {
 		Persona  per = iPersona.findOne(cedulaPersona);
 		per.setEstatus(false);
 		iPersona.save(per);
@@ -30,9 +30,9 @@ public class ServicioPersona {
 		return personaLista;
 	}
 	
-	public  List<Persona> buscarper(Integer cedulaPersona) {
+	public  List<Persona> buscarper(String cedulaPersona) {
 		List<Persona> r = new LinkedList<Persona>();
-		r = iPersona.findAll();
+		r = iPersona.buscarpersona();
 		return r;
 	}
 
@@ -54,9 +54,9 @@ public class ServicioPersona {
 	
 	public List<Persona> buscarPersonas(Persona personas){
 		List<Persona> result = new ArrayList<Persona>();
-        Integer cedula = personas.getCedulaPersona();
+        String cedula = personas.getCedulaPersona();
        
-        if(cedula==null || cedula==0){
+        if(cedula==null){
         	result= listadoPersona();
         }
         else{

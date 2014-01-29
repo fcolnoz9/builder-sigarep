@@ -67,4 +67,25 @@ public class EnviarCorreo {
 			throw new RuntimeException(me);
 		}
 	}
+	
+	//función para recuperar la contraseña
+	public void sendEmailWelcomeToSigarep(String correoReceptor, String nombreUsuario, String clave) {
+		init();
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
+			message.setSubject("Bienvenida al sistema SIGAREP - Envio de login y password de usuario autorizado");
+			message.setText("Usted ha sido autorizado para acceder al sistema "
+			+ "integrado para el Apoyo a la Gestión del Regimen de Repitencia y Permanencia"
+			+ "\n\n ingresando con login: " + nombreUsuario + "y "
+			+ "password: " + clave
+			+ "\n\n\t\t"
+			+ "");
+			Transport.send(message);
+			System.out.println("Enviado");
+		} catch (MessagingException me) {
+			throw new RuntimeException(me);
+		}
+	}
 }

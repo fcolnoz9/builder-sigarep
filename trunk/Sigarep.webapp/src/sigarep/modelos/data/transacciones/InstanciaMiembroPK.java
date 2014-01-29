@@ -16,7 +16,7 @@ public class InstanciaMiembroPK implements Serializable {
 	private Integer idInstanciaApelada;
 
 	@Column(name="cedula_persona")
-	private Integer cedulaPersona;
+	private String cedulaPersona;
 
 	public InstanciaMiembroPK() {
 	}
@@ -26,10 +26,10 @@ public class InstanciaMiembroPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-	public Integer getCedulaPersona() {
+	public String getCedulaPersona() {
 		return this.cedulaPersona;
 	}
-	public void setCedulaPersona(Integer cedulaPersona) {
+	public void setCedulaPersona(String cedulaPersona) {
 		this.cedulaPersona = cedulaPersona;
 	}
 

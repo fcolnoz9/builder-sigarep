@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import sigarep.modelos.data.maestros.Persona;
 
-public interface IPersonaDAO extends JpaRepository<Persona, Integer> {
+public interface IPersonaDAO extends JpaRepository<Persona, String> {
 	
 	
 	

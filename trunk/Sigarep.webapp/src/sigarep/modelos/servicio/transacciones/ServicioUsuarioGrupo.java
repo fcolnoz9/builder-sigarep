@@ -24,7 +24,7 @@ public class ServicioUsuarioGrupo {
 		miUsuarioGrupo.setEstatus(false);
 		iUsuarioGrupoDAO.save(miUsuarioGrupo);
 	}
-	
+		
 	/*public List<UsuarioGrupo> buscarPorUsuario(String nombreUsuario){
 		return iUsuarioGrupoDAO.buscarPorUsuario(nombreUsuario) ;
 	}

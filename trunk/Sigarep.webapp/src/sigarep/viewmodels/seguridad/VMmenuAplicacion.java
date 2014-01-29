@@ -109,9 +109,7 @@ public class VMmenuAplicacion{
 				}
 			}
 		}
-
 		contactTreeModel = new VMAdvancedTreeModel(root);
-
 	}
 
 

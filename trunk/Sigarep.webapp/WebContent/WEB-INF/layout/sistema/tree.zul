@@ -1,5 +1,5 @@
 
-<window sclass="principal" border="0" height="auto" contentStyle="overflow:auto" id="winTree" >
+<window sclass="principal" border="0" height="auto" contentStyle="overflow:auto" id="winTree">
 <!-- 	apply="org.zkoss.bind.BindComposer" -->
 <!--     viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMmenuAplicacion')"> -->
     

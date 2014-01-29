@@ -39,6 +39,16 @@ public class ServicioGrupo {
 		List<Grupo> GrupoLista = gru.buscarGruposActivos();
 		return GrupoLista;
 	}
+	
+	public List<Grupo> listadoGrupoPerteneceUsuario(String nombreUsuario) {
+		List<Grupo> listaGrupoPertenece = gru.buscarGruposPerteneceUsuario(nombreUsuario);
+		return listaGrupoPertenece;
+	}
+	
+	public List<Grupo> listadoGrupoNoPerteneceUsuario(String nombreUsuario) {
+		List<Grupo> listaGrupoNoPertenece = gru.buscarGruposNoPerteneceUsuario(nombreUsuario);
+		return listaGrupoNoPertenece;
+	}
 
 	public void eliminar(Integer idGrupo) {
 		Grupo miGrupo = gru.findOne(idGrupo);
