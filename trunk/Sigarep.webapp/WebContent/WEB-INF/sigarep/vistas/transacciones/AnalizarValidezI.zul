@@ -53,7 +53,7 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23" mold="rounded"
-						maxlength="30" value="@bind(vm.sancion)" readonly="true">
+						maxlength="30" value="@bind(vm.periodoSancion)" readonly="true">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
