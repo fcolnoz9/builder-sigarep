@@ -102,8 +102,8 @@ public class ServicioRecaudo {
 		// TODO Auto-generated method stub
 		return iRecaudoDAO.buscarRecaudosVerificarRecaudosIII(cedula);
 	}
-	public List<Recaudo> buscarRecaudosPorApelacion(String cedula, String codigoLapso, Integer idInstancia) {
-		List<Recaudo> listaRecaudosApelacion = iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);	
+	public List<Recaudo> buscarRecaudosPorApelacion(String cedula) {
+		List<Recaudo> listaRecaudosApelacion = iRecaudoDAO.listadoRecaudosPorApelacion(cedula);	
 		return listaRecaudosApelacion;
 	}
 	
