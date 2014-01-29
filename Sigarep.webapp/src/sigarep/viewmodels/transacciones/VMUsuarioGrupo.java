@@ -1,7 +1,10 @@
 package sigarep.viewmodels.transacciones;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import org.zkoss.bind.annotation.Command;
 
 import org.zkoss.bind.annotation.Init;
@@ -34,7 +37,9 @@ public class VMUsuarioGrupo {
 	@WireVariable
 	private List<Usuario> listaUsuario = new LinkedList<Usuario>();
 	@WireVariable
-	private List<Grupo> listaGrupo = new LinkedList<Grupo>();
+	private List<Grupo> listaGrupoPertenece = new LinkedList<Grupo>();
+	@WireVariable
+	private List<Grupo> listaGrupoNoPertenece = new LinkedList<Grupo>();
 	@WireVariable
 	private ServicioGrupo sg;
 	@WireVariable
@@ -51,34 +56,85 @@ public class VMUsuarioGrupo {
 	UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
 	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
 	
-	@Wire private List<UsuarioGrupo> listadoUsuarioGrupo;
-	@Wire private List<UsuarioGrupo> listadoUsuarioGrupoNO;
+	@WireVariable 
+	private List<UsuarioGrupo> listadoUsuarioGrupo = new LinkedList<UsuarioGrupo>();
+	@WireVariable 
+	private List<UsuarioGrupo> listadoUsuarioGrupoNO = new LinkedList<UsuarioGrupo>();
 	
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
 	
+	public Usuario getUsuarioSeleccionado() {
+		return usuarioSeleccionado;
+	}
+
+	public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
+		this.usuarioSeleccionado = usuarioSeleccionado;
+	}
+
+	public Grupo getGrupoSeleccionado() {
+		return grupoSeleccionado;
+	}
+
+	public void setGrupoSeleccionado(Grupo grupoSeleccionado) {
+		this.grupoSeleccionado = grupoSeleccionado;
+	}
 	
+	public List<UsuarioGrupo> getListadoUsuarioGrupo() {
+		return listadoUsuarioGrupo;
+	}
+
+	public void setListadoUsuarioGrupo(List<UsuarioGrupo> listadoUsuarioGrupo) {
+		this.listadoUsuarioGrupo = listadoUsuarioGrupo;
+	}
+
+	public List<UsuarioGrupo> getListadoUsuarioGrupoNO() {
+		return listadoUsuarioGrupoNO;
+	}
+
+	public void setListadoUsuarioGrupoNO(List<UsuarioGrupo> listadoUsuarioGrupoNO) {
+		this.listadoUsuarioGrupoNO = listadoUsuarioGrupoNO;
+	}
+	
+	public List<Grupo> getListaGrupoPertenece() {
+		return listaGrupoPertenece;
+	}
+
+	public void setListaGrupoPertenece(List<Grupo> listaGrupoPertenece) {
+		this.listaGrupoPertenece = listaGrupoPertenece;
+	}
+	
+	public List<Grupo> getListaGrupoNoPertenece() {
+		return listaGrupoNoPertenece;
+	}
+
+	public void setListaGrupoNoPertenece(List<Grupo> listaGrupoNoPertenece) {
+		this.listaGrupoNoPertenece = listaGrupoNoPertenece;
+	}
 
 	@Init
 	public void init() {
 		// initialization code
 		buscarUsuario();
-		
 	}
 	
 	@Command
-	@NotifyChange({"nombreUsuario","listadoUsuarioGrupo","listadoUsuarioGrupo"})
+	@NotifyChange({"nombreUsuario","listaGrupoPertenece", "listaGrupoNoPertenece" })
 	public void mostrarUsuarioSeleccionado(){
-		//listadoUsuarioGrupo=serviciousuariogrupo.buscarPorUsuario(nombreUsuario);
-		//listadoUsuarioGrupoNO=serviciousuariogrupo.buscarPorUsuarioNO(nombreUsuario);
-		//listadoUsuarioGrupo.get(0).getGrupo().getUsuariosGrupos();
-		listadoUsuarioGrupo = usuarioSeleccionado.getUsuariosGrupos();
-		System.out.println(listadoUsuarioGrupo.size()+"tamaño");
+		listaGrupoPertenece = sg.listadoGrupoPerteneceUsuario(usuarioSeleccionado.getNombreUsuario());
+		listaGrupoNoPertenece = sg.listadoGrupoNoPerteneceUsuario(usuarioSeleccionado.getNombreUsuario());
+		System.out.println(listaGrupoPertenece.size()+"tamañoSI");
+		System.out.println(listaGrupoNoPertenece.size()+"tamañoNO");
 	}
 	
 	@Command
 	@NotifyChange({"nombreGrupo","descripcionGrupo"})
 	public void mostrarGrupoSeleccionado(){
-		
-		 
 		
 	}
 	
@@ -87,6 +143,7 @@ public class VMUsuarioGrupo {
 	@NotifyChange({ "listaUsuario" })
 	public void buscarUsuario() {
 		listaUsuario = su.listadoUsuario();
+		System.out.println(listaUsuario.size());
 	}
 
 	// Metodo que busca las sanciones y las carga en el combobox de sanciones

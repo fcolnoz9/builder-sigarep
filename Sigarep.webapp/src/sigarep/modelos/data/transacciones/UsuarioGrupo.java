@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -39,12 +40,12 @@ public class UsuarioGrupo implements Serializable {
 	private Boolean estatus;
 
 	//bi-directional many-to-one association to Grupo
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER,cascade={CascadeType.ALL})
 	@JoinColumn(name="idgrupo", nullable=false, insertable=false, updatable=false)
 	private Grupo grupo;
 
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(fetch = FetchType.EAGER,cascade={CascadeType.ALL})
 	@JoinColumn(name="nombreusuario", nullable=false, insertable=false, updatable=false)
 	private Usuario usuario;
 

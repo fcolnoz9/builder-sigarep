@@ -7,6 +7,7 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Hlayout;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Treecell;
+import org.zkoss.zul.Treechildren;
 import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.TreeitemRenderer;
 import org.zkoss.zul.Treerow;
@@ -19,7 +20,14 @@ public class VMmenuTreeRenderer implements TreeitemRenderer<VMmenuTreeNode> {
 		VMmenuTreeNode ctn = treeNode;
 		Nodo contact = (Nodo) ctn.getData();
 		Treerow dataRow = new Treerow();
+		Treechildren treeChildren = new Treechildren();
 		dataRow.setParent(treeItem);
+		int i=0;
+		if(contact.getTipo()=="F")
+		{
+			System.out.println("IIIIII: "+i++);
+			treeItem.setParent(treeChildren);
+		}
 		treeItem.setValue(ctn);
 
 		treeItem.setOpen(ctn.isOpen());

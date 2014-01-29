@@ -19,7 +19,7 @@ public class Persona implements Serializable {
 
 	@Id
 	@Column(name="cedula_persona")
-	private Integer cedulaPersona;
+	private String cedulaPersona;
 
 	private String apellido;
 
@@ -43,11 +43,11 @@ public class Persona implements Serializable {
 	public Persona() {
 	}
 
-	public Integer getCedulaPersona() {
+	public String getCedulaPersona() {
 		return this.cedulaPersona;
 	}
 
-	public void setCedulaPersona(Integer cedulaPersona) {
+	public void setCedulaPersona(String cedulaPersona) {
 		this.cedulaPersona = cedulaPersona;
 	}
 

@@ -34,7 +34,7 @@ public class Grupo implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="idGrupo", unique = true , nullable=false)
+	@Column(name="idgrupo", unique = true , nullable=false)
 	private Integer idGrupo;
 	
 	@Column(name="nombre")
@@ -107,7 +107,7 @@ public class Grupo implements Serializable{
         this.nodos.add(nodo);
     }
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nombreUsuario")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.grupo")
 	public List<UsuarioGrupo> getUsuariosGrupos() {
 		return this.usuariosGrupos;
 	}

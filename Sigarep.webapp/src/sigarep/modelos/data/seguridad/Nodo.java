@@ -1,10 +1,10 @@
 package sigarep.modelos.data.seguridad;
-
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "menu_arbol")
 public class Nodo {
@@ -28,7 +28,13 @@ public class Nodo {
 	
 	@Column(name="vinculo")
     private String vinculo;
+	
+	@Column(name="ruta_modal")
+    private String rutaModal;
    
+	//bi-directional many-to-one association to MiembroGrupo
+//	@OneToMany(mappedBy="grupo")
+//	private List<FuncionGrupo> funcionesGrupo = new LinkedList<FuncionGrupo>();
     
     public Nodo() {
 		super();
@@ -93,5 +99,36 @@ public class Nodo {
 	public void setVinculo(String vinculo) {
 		this.vinculo = vinculo;
 	}
+
+	public String getRutaModal() {
+		return rutaModal;
+	}
+
+	public void setRutaModal(String rutaModal) {
+		this.rutaModal = rutaModal;
+	}
+	
+	
+	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.nodo")
+//	public List<FuncionGrupo> getFuncionesGrupo() {
+//		return this.funcionesGrupo;
+//	}
+//
+//	public void setFuncionesGrupo(List<FuncionGrupo> funcionesGrupo) {
+//		this.funcionesGrupo = funcionesGrupo;
+//	}
+//
+//	public FuncionGrupo addFuncionGrupo(FuncionGrupo funcionGrupo) {
+//		getFuncionesGrupo().add(funcionGrupo);
+//		funcionGrupo.setNodo(this);
+//		return funcionGrupo;
+//	}
+//
+//	public FuncionGrupo removeUsuarioGrupo(FuncionGrupo funcionGrupo) {
+//		getFuncionesGrupo().remove(funcionGrupo);
+//		funcionGrupo.setGrupo(null);
+//		return funcionGrupo;
+//	}
 }
 

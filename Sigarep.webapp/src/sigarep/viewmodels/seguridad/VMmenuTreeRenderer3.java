@@ -15,6 +15,7 @@ import org.zkoss.zul.Center;
 import org.zkoss.zul.Hlayout;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Treecell;
+import org.zkoss.zul.Treechildren;
 import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.TreeitemRenderer;
 import org.zkoss.zul.Treerow;
@@ -31,6 +32,12 @@ public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
 	public void render(final Treeitem treeItem, VMmenuTreeNode treeNode, int index) throws Exception {
 		VMmenuTreeNode ctn = treeNode;
 		Nodo contact = (Nodo) ctn.getData();
+		Treechildren treeChildren = new Treechildren();
+		if(contact.getTipo().equals("F")){
+			System.out.println("PLOP");
+			treeChildren.setParent(treeItem.getParent());
+			treeItem.setParent(treeChildren);
+		}
 		Treerow dataRow = new Treerow();
 		dataRow.setParent(treeItem);
 		treeItem.setValue(ctn);
@@ -51,7 +58,6 @@ public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
 						if (w != null) {
 							w.detach();
 						}
-										
 					winController.onClickMenu(clickedNodeValue.getData().getVinculo());
 					}
 				}

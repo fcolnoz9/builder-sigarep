@@ -38,16 +38,9 @@ public class Usuario implements Serializable {
 	
 	@Column(name = "estado")
     private Boolean estatus;
-	
-	@ManyToMany(fetch=FetchType.EAGER) 
-	@Fetch(value = FetchMode.SUBSELECT)
-	@JoinTable(name = "usuarioGrupo",
-	joinColumns = { @JoinColumn(name = "nombreUsuario",referencedColumnName = "nombreUsuario") },
-	inverseJoinColumns = { @JoinColumn(name = "idGrupo", referencedColumnName = "idGrupo") })
-    private List<Grupo> grupos = new LinkedList<Grupo>();
 
 	//bi-directional many-to-one association to MiembroGrupo
-	@OneToMany(mappedBy="usuario", cascade={CascadeType.ALL})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="usuario", cascade={CascadeType.ALL})
 	private List<UsuarioGrupo> usuariosGrupos = new LinkedList<UsuarioGrupo>();
 	
 	//bi-directional many-to-one association to Estudiante
@@ -66,7 +59,6 @@ public class Usuario implements Serializable {
 		this.clave = clave;
 		this.nombreCompleto = nombreCompleto;
 		this.estatus = estatus;
-		this.grupos = new ArrayList<Grupo>();
 	}
 
 
@@ -116,21 +108,7 @@ public class Usuario implements Serializable {
 		this.estatus = estatus;
 	}
 
-	 public List<Grupo> getGrupos() {
-		return grupos;
-	}
-
-	public void setGrupos(List<Grupo> grupos) {
-		this.grupos = grupos;
-	}
-   
-
-	public void addGrupo(Grupo grupo){
-	  this.grupos.add(grupo);
-	} 
-  
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.usuario")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
 	public List<UsuarioGrupo> getUsuariosGrupos() {
 		return this.usuariosGrupos;
 	}
@@ -148,7 +126,6 @@ public class Usuario implements Serializable {
 	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
 		getUsuariosGrupos().remove(usuariosGrupos);
 		usuariosGrupos.setUsuario(null);
-
 		return usuariosGrupos;
 	}
 

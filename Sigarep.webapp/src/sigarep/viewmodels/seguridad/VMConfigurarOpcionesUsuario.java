@@ -131,7 +131,7 @@ public class VMConfigurarOpcionesUsuario {
 	public void buscarUsuario(){
 		root = new VMmenuTreeNode(null,null);
 		Usuario usuario=su.encontrarUsuario(nombreUsuario);
-		for(Grupo g:usuario.getGrupos()){
+		for(Grupo g:sg.listadoGrupoPerteneceUsuario(usuario.getNombreUsuario())){
 			VMmenuTreeNode aux=null;
 			for(Nodo a:g.getNodos()){
 				aux=new VMmenuTreeNode(a,null);

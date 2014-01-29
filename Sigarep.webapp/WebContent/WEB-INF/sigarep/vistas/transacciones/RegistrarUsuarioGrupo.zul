@@ -6,7 +6,7 @@
 	<groupbox id="grbDatosEstudiante" width="50%">
 		<caption label="Listado de Usuarios" />
 		
-			<listbox id="otro" multiple="true" model="@bind(vm.listaUsuario)" selectedItem="@bind(vm.usuarioSeleccionado)"   
+			<listbox id="listboxUsuario" multiple="true" model="@bind(vm.listaUsuario)" selectedItem="@bind(vm.usuarioSeleccionado)"   
    			 				onSelect="@command('mostrarUsuarioSeleccionado')" emptyMessage="No hay usuarios registrados" mold="paging" pageSize="10">
 							<listhead>
 								<listheader label="Nombre del usuario" align="center" sort="auto(nombreUsuario)" />
@@ -24,9 +24,25 @@
 		<caption label="Datos de usuarios y grupos" />
 		<columnlayout>
 			<columnchildren width="48%">
-				<panel title="Seleccionar Usuario">
+				<panel title="Grupos a los que pertenece el usuario">
 					<panelchildren>
-						<!-- 						listbox -->
+						<listbox id="listboxGruposPertenece" model="@bind(vm.listaGrupoPertenece)"
+   			 				 emptyMessage="Seleccione un grupo para mostrar sus grupos" mold="paging" pageSize="5">
+							<listhead>
+								<listheader label="Nombre del grupo" align="center" sort="auto(nombre)" />
+							</listhead>
+							<template name="model">							
+								<listitem selected="false">
+									<listcell label="${each.nombre}" ></listcell>
+
+									<attribute name="onClick">
+										Listitem item = listboxGruposPertenece.getSelectedItem();
+										item.setSelected(false);
+										listboxGruposNoPertenece.appendChild(item);
+									</attribute>
+								</listitem>
+							</template>
+						</listbox>						
 					</panelchildren>
 				</panel>
 			</columnchildren>
@@ -34,10 +50,45 @@
 			
 			</columnchildren>
 			
+			
+<!-- 			model="@bind(vm.listaGrupoPertenece)" -->
+			
 			<columnchildren width="48%">
-				<panel title="Seleccionar Grupo">
+				<panel title="Grupos a los cuales puede pertenecer el usuario">
 					<panelchildren>
-<!-- 						listbox -->
+						<listbox id="listboxGruposNoPertenece" 
+   			 				 emptyMessage="No hay grupos" mold="paging" pageSize="5">
+							<listhead>
+								<listheader label="Nombre del usuario" align="center" />
+							</listhead>
+															<listitem selected="false">
+									<listcell label="555" ></listcell>
+									<attribute name="onClick">
+										Listitem item2 = listboxGruposNoPertenece.getSelectedItem();
+										item2.setSelected(false);
+										listboxGruposPertenece.appendChild(item2);
+									</attribute>
+								</listitem>
+							<listitem selected="false">
+									<listcell label="NUEVO GRUPO" ></listcell>
+									<attribute name="onClick">
+										Listitem item2 = listboxGruposNoPertenece.getSelectedItem();
+										item2.setSelected(false);
+										listboxGruposPertenece.appendChild(item2);
+									</attribute>
+								</listitem>
+								
+<!-- 							<template name="model">							 -->
+<!-- 								<listitem selected="false"> -->
+<!-- 									<listcell label="${each.nombre}" ></listcell> -->
+<!-- 									<attribute name="onClick"> -->
+<!-- 										Listitem item = listboxGruposNoPertenece.getSelectedItem(); -->
+<!-- 										item.setSelected(false); -->
+<!-- 										listboxGruposPertenece.appendChild(item); -->
+<!-- 									</attribute> -->
+<!-- 								</listitem> -->
+<!-- 							</template> -->
+						</listbox>						
 					</panelchildren>
 					
 				</panel>
