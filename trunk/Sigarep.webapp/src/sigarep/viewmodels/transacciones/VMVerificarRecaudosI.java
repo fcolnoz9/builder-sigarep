@@ -386,7 +386,7 @@ public class VMVerificarRecaudosI {
 			if (getSelected().equals("sugiere"))
 				apelacionEstadoApelacion.setSugerencia("Procedente");
 			else
-				apelacionEstadoApelacion.setSugerencia("No procedente");
+				apelacionEstadoApelacion.setSugerencia("No Procedente");
 			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);

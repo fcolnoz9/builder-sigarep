@@ -337,72 +337,53 @@ public class VMVerificarRecaudosEntregadosII {
 }
 
 	@Command
-	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado",
-			"lapso" })
-	public void registrarRecaudosEntregados(
-			@BindingParam("recaudosEntregados") Set<Listitem> recaudos) {
+	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso" })
+	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos) {
 		if (cedula == null || nombres == null || apellidos == null) {
 			msjs.advertenciaLlenarCampos();
-		} else if (recaudos.size() == 0) {
-			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
-					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
 			solicitudApelacionPK.setIdInstanciaApelada(2);
 			SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-			solicitudApelacion = serviciosolicitudapelacion
-					.buscarSolicitudPorID(solicitudApelacionPK);
-			// for(Motivo motivo : solicitudApelacion.getMotivos()){
-			// String cedula = motivo.getId().getCedulaEstudiante();
-			// String lapso = motivo.getId().getCodigoLapso();
-			// Integer idTipoMotivo = motivo.getId().getIdTipoMotivo();
-			// serviciorecaudoentregado.eliminarRecaudosEncontradosPorMotivo(cedula,
-			// lapso, idTipoMotivo, 1);
-			// }
+			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudPorID(solicitudApelacionPK);
 
-			Recaudo recaudo = new Recaudo();
-			for (Listitem miRecaudo : recaudos) {
-				String nombreRecaudo = miRecaudo.getLabel();
-				System.out.println(nombreRecaudo);
-				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
-				recaudoEntregadoPK.setIdInstanciaApelada(2);
-				recaudoEntregadoPK.setCedulaEstudiante(cedula);
-				recaudoEntregadoPK.setIdTipoMotivo(recaudo.getTipoMotivo()
-						.getIdTipoMotivo());
-				recaudoEntregadoPK.setCodigoLapso(lapso);
-				recaudoEntregadoPK.setIdRecaudo(recaudo.getIdRecaudo());
-				RecaudoEntregado recaudoEntregadoAux = new RecaudoEntregado();
-				recaudoEntregadoAux.setId(recaudoEntregadoPK);
-				recaudoEntregadoAux.setEstatus(true);
-				MotivoPK motivoPK = new MotivoPK();
-				motivoPK.setCedulaEstudiante(cedula);
-				motivoPK.setIdTipoMotivo(recaudo.getTipoMotivo()
-						.getIdTipoMotivo());
-				motivoPK.setCodigoLapso(lapso);
-				motivoPK.setIdInstanciaApelada(2);
-				Motivo motivo = new Motivo();
-				motivo.setId(motivoPK);
-				motivo.setEstatus(true);
-				motivo.addRecaudoEntregado(recaudoEntregadoAux);
-				serviciomotivo.guardarMotivo(motivo);
-			}
+		  if (recaudos.size() > 0) {
+				Recaudo recaudo = new Recaudo();
+				for (Listitem miRecaudo : recaudos) {
+					String nombreRecaudo = miRecaudo.getLabel();
+					recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
+					recaudoEntregadoPK.setIdInstanciaApelada(2);
+					recaudoEntregadoPK.setCedulaEstudiante(cedula);
+					recaudoEntregadoPK.setIdTipoMotivo(recaudo.getTipoMotivo().getIdTipoMotivo());
+					recaudoEntregadoPK.setCodigoLapso(lapso);
+					recaudoEntregadoPK.setIdRecaudo(recaudo.getIdRecaudo());
+					RecaudoEntregado recaudoEntregadoAux = new RecaudoEntregado();
+					recaudoEntregadoAux.setId(recaudoEntregadoPK);
+					recaudoEntregadoAux.setEstatus(true);
+					MotivoPK motivoPK = new MotivoPK();
+					motivoPK.setCedulaEstudiante(cedula);
+					motivoPK.setIdTipoMotivo(recaudo.getTipoMotivo().getIdTipoMotivo());
+					motivoPK.setCodigoLapso(lapso);
+					motivoPK.setIdInstanciaApelada(2);
+					Motivo motivo = new Motivo();
+					motivo.setId(motivoPK);
+					motivo.setEstatus(true);
+					motivo.addRecaudoEntregado(recaudoEntregadoAux);
+					serviciomotivo.guardarMotivo(motivo);
+				}			  
+		  }
+
 			SolicitudApelacion solicitudApelacionAux = new SolicitudApelacion();
 			solicitudApelacionAux.setId(solicitudApelacionPK);
 			solicitudApelacionAux.setEstatus(true);
-			solicitudApelacionAux.setFechaSesion(solicitudApelacion
-					.getFechaSesion());
-			solicitudApelacionAux.setFechaSolicitud(solicitudApelacion
-					.getFechaSolicitud());
-			solicitudApelacionAux.setNumeroCaso(solicitudApelacion
-					.getNumeroCaso());
-			solicitudApelacionAux.setNumeroSesion(solicitudApelacion
-					.getNumeroSesion());
-			solicitudApelacionAux.setVeredicto(solicitudApelacion
-					.getVeredicto());
-			solicitudApelacionAux.setObservacion(solicitudApelacion
-					.getObservacion());
+			solicitudApelacionAux.setFechaSesion(solicitudApelacion.getFechaSesion());
+			solicitudApelacionAux.setFechaSolicitud(solicitudApelacion.getFechaSolicitud());
+			solicitudApelacionAux.setNumeroCaso(solicitudApelacion.getNumeroCaso());
+			solicitudApelacionAux.setNumeroSesion(solicitudApelacion.getNumeroSesion());
+			solicitudApelacionAux.setVeredicto(solicitudApelacion.getVeredicto());
+			solicitudApelacionAux.setObservacion(solicitudApelacion.getObservacion());
 			solicitudApelacionAux.setVerificado(true);
 			solicitudApelacionAux.setAnalizado(false);
 			ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
@@ -415,22 +396,13 @@ public class VMVerificarRecaudosEntregadosII {
 			apelacionEstadoApelacion.setFechaEstado(new Date());
 			if (!selected.equals("")) {
 				if (getSelected().equals("sugiere"))
-					apelacionEstadoApelacion.setSugerencia("procede");
+					apelacionEstadoApelacion.setSugerencia("Procedente");
 				else
-					apelacionEstadoApelacion.setSugerencia("no procede");
-			} else
-				Messagebox
-						.show("Debe Seleccionar una sugerencia de procedencia del caso",
-								"Advertencia", Messagebox.OK,
-								Messagebox.EXCLAMATION);
-			solicitudApelacionAux
-					.addApelacionEstadosApelacion(apelacionEstadoApelacion);
+					apelacionEstadoApelacion.setSugerencia("No Procedente");
+			} else Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+			solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
 			serviciosolicitudapelacion.guardar(solicitudApelacionAux);
 
-			// Listbox lb =
-			// (Listbox)Path.getComponent("/winVerificarApelacionesComision/lbxSancionados");
-			// lb.setModel(new
-			// SimpleListModel<ListaApelacionEstadoApelacion>(serviciolista.buscarApelacionesALaComision()));
 			try {
 				msjs.informacionRegistroCorrecto();
 			} catch (Exception e) {

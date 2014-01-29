@@ -137,7 +137,7 @@
 		<div align="right" height="100%">
 			<button label="Guardar" mold="trendy" id="btnGuardar"
 				image="imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidez1)">
+				orient="horizontal" onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidezII)">
 			<attribute name="onClick">
 				List items = lbxRecaudos.getItems();
 			</attribute>
@@ -148,7 +148,7 @@
 			</button>						
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal"  onClick="winAnalizarValidezI.onClose()">
+				orient="horizontal"  onClick="winAnalizarValidezII.onClose()">
 			</button>
 			
 		</div>
