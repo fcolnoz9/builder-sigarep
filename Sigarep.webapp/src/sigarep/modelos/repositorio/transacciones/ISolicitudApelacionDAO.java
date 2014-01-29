@@ -34,6 +34,7 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	
 	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
 			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND sa.id.idInstanciaApelada = '1' " +
 			"AND la.estatus = 'TRUE' " +
 			"AND sa.verificado = 'FALSE'")
 	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI();
@@ -60,13 +61,13 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 
 	//Lilibeth Achji
 	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
-			"EstudianteSancionado esa, ApelacionEstadoApelacion ap " +
+			"EstudianteSancionado esa " +
 			"where la.estatus = 'TRUE' and " +
-			"sap.id.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			"ap.id.idInstanciaApelada  = '2' " +
+			"sap.id.idInstanciaApelada  = '2' " +
 			"and esa.id.cedulaEstudiante = " +
-			"sap.id.cedulaEstudiante and i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			" la.codigoLapso = esa.id.codigoLapso ")
+			"sap.id.cedulaEstudiante and " +
+			"sap.verificado = 'FALSE'" +
+			"and la.codigoLapso = esa.id.codigoLapso ")
 		public List<SolicitudApelacion> buscarSancionadosReconsideracionVerificar();
 
 	//Maria Flores

@@ -49,9 +49,10 @@
 					<textbox id="txtPeridosancion" cols="23" mold="rounded"
 						maxlength="30" value="@bind(vm.peridoSancion)" readonly="true">
 					</textbox>
-					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55" mold="rounded"
-						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+						<label id="lblAsignaturaPeriodos"
+						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="45" maxlength="30"
+						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
 			</rows>

@@ -286,8 +286,6 @@ public class VMVeredictoI {
 		}else{
 			solicitudApelacion.setObservacion(observacionGeneral);
 			solicitudApelacion.setVeredicto(veredicto);
-			serviciosolicitudapelacion.guardar(solicitudApelacion);
-			
 			ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
 			ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
 			apelacionEstadoPK.setCedulaEstudiante(cedula);
@@ -297,6 +295,8 @@ public class VMVeredictoI {
 			apelacionEstado.setId(apelacionEstadoPK);
 			apelacionEstado.setFechaEstado(new Date());
 			apelacionEstado.setObservacion(observacionGeneral);
+			solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
+			serviciosolicitudapelacion.guardar(solicitudApelacion);
 		
 			mensajesAlUsuario.informacionVeredictoRegistrado();
 		}

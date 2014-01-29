@@ -106,7 +106,8 @@ public class VMAnalizarValidezI {
 	private TipoMotivo tipoMotivo;
 	private List<Recaudo> listaRecaudosPorMotivo;
 	private String telefono;
-	private List<RecaudoEntregado> listaRecaudo; 
+	private List<RecaudoEntregado> listaRecaudo;
+	private Integer periodoSancion; 
 	
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
@@ -293,6 +294,14 @@ public class VMAnalizarValidezI {
 		this.observacionexperto = observacionexperto;
 	}	
 	
+	public Integer getPeriodoSancion() {
+		return periodoSancion;
+	}
+
+	public void setPeriodoSancion(Integer periodoSancion) {
+		this.periodoSancion = periodoSancion;
+	}
+
 	@Command
 	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
 	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo){
@@ -316,6 +325,7 @@ public class VMAnalizarValidezI {
 		cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
 		lapso = sancionadoSeleccionado.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
 		sancion = sancionadoSeleccionado.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		periodoSancion = sancionadoSeleccionado.getEstudianteSancionado().getPeriodoSancion();
 		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado().getLapsosAcademicosRp();
 		caso = sancionadoSeleccionado.getNumeroCaso();
 
@@ -354,7 +364,12 @@ public class VMAnalizarValidezI {
 			Messagebox.show("Debe Seleccionar una sugerencia de procedencia y emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);		
 		}
 		else {
-		
+			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
+			if (getSelected().equals("Procedente"))
+				apelacionEstadoApelacion.setSugerencia("Procedente");
+			else
+				apelacionEstadoApelacion.setSugerencia("No procedente");
+			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
@@ -403,22 +418,14 @@ public class VMAnalizarValidezI {
 				ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-				apelacionEstadoApelacionPK.setIdEstadoApelacion(2);
+				apelacionEstadoApelacionPK.setIdEstadoApelacion(3);
 				apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
-				ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
+				
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
 				apelacionEstadoApelacion.setObservacion(observacion);
-				if (!selected.equals("")) {
-					if (getSelected().equals("Procedente"))
-						apelacionEstadoApelacion.setSugerencia("Procedente");
-					else
-						apelacionEstadoApelacion.setSugerencia("No procedente");
-				}
-					else 
-					
-						solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
-						serviciosolicitudapelacion.guardar(solicitudApelacionAux);										
+				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
+				serviciosolicitudapelacion.guardar(solicitudApelacionAux);									
 					
 				try {
 					MensajesAlUsuario.informacionRegistroCorrecto();				
