@@ -367,7 +367,7 @@ public class VMVerificarRecaudosI {
 	@Command
 	@NotifyChange({"cedula","lapso","nombreRecaudo","nombreTipoMotivo","listaRecaudos" })
 	public void buscarRecaudos() {
-		listaRecaudos = serviciorecaudo.buscarRecaudosPorApelacion(cedula, lapso, 1);
+		listaRecaudos = serviciorecaudo.buscarRecaudosPorApelacion(cedula);
 	}
 	
 	@Command
