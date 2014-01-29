@@ -403,7 +403,6 @@ public class VMRegistrarReconsideracion {
 			apelacionEstadoApelacionPK.setIdEstadoApelacion(5);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(hora);
-			apelacionEstadoApelacion.setObservacion(observacion);
 			
 		try {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
