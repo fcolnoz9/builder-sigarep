@@ -155,7 +155,7 @@
 		<div align="right" height="100%">
 			<button id="btnGuardar" width="auto" height="auto"
 				mold="trendy" label="Guardar"
-				onClick="@command('registrarSolicitudApelacion')"
+				onClick="@command('registrarSolicitudApelacion', window=winRegistrarDatosInicialesApelacion)"
 				image="/imagenes/iconos/guardar.png">
 			</button>
 			<button id="btnCancelar" width="auto" height="auto"
