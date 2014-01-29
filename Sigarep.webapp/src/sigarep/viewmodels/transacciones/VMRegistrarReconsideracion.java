@@ -409,11 +409,12 @@ public class VMRegistrarReconsideracion {
 			motivoPK.setIdTipoMotivo(2);
 			motivos.setId(motivoPK);
 			motivos.setEstatus(true);
-			serviciomotivo.guardarMotivo(motivos);
+			
 			
 		try {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
+			serviciomotivo.guardarMotivo(motivos);
 			mensajesusuario.informacionRegistroCorrecto();
 			winRegistrarReconsideracion.detach();
 		
