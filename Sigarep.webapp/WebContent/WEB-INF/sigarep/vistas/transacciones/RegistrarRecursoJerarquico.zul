@@ -79,7 +79,8 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="1 Semestre" readonly="true" width="80%" mold="rounded">
+						maxlength="30" value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.periodoSancion)"
+						readonly="true" width="80%" mold="rounded">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
@@ -104,7 +105,7 @@
 							value="Observacion:">
 						</label>
 						<textbox id="txtObservacion" cols="23"
-							maxlength="30" rows="4" width="99%" mold="rounded" value="@bind(vm.observacion)" >
+							maxlength="255" rows="4" width="99%" mold="rounded" value="@bind(vm.observacion)" >
 						</textbox>
 				</row>
 			</rows>
