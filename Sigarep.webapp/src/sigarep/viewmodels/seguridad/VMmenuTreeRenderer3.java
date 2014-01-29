@@ -32,12 +32,12 @@ public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
 	public void render(final Treeitem treeItem, VMmenuTreeNode treeNode, int index) throws Exception {
 		VMmenuTreeNode ctn = treeNode;
 		Nodo contact = (Nodo) ctn.getData();
-		Treechildren treeChildren = new Treechildren();
-		if(contact.getTipo().equals("F")){
-			System.out.println("PLOP");
-			treeChildren.setParent(treeItem.getParent());
-			treeItem.setParent(treeChildren);
-		}
+//		Treechildren treeChildren = new Treechildren();
+//		if(contact.getTipo().equals("F")){
+//			System.out.println("PLOP");
+//			treeChildren.setParent(treeItem.getParent());
+//			treeItem.setParent(treeChildren);
+//		}
 		Treerow dataRow = new Treerow();
 		dataRow.setParent(treeItem);
 		treeItem.setValue(ctn);

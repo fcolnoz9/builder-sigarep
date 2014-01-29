@@ -1,5 +1,5 @@
 ﻿<zk>
-	<window id="winAnalizarValidezII"
+	<window id="winAnalizarValidezIII"
 		title="Gestión :: Recurso Jerárquico :: Evaluar Recurso Jerárquico :: Analizar Validez" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer" closable="true"
@@ -137,7 +137,7 @@
 		<div align="right" height="100%">
 			<button label="Guardar" mold="trendy" id="btnGuardar"
 				image="imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidez1)">
+				orient="horizontal" onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidezIII)">
 			<attribute name="onClick">
 				List items = lbxRecaudos.getItems();
 			</attribute>
@@ -148,7 +148,7 @@
 			</button>						
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal"  onClick="winAnalizarValidezI.onClose()">
+				orient="horizontal"  onClick="winAnalizarValidezIII.onClose()">
 			</button>
 			
 		</div>

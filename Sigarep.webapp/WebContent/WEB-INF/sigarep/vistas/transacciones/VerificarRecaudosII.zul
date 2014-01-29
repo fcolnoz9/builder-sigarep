@@ -85,25 +85,7 @@
 		</div>
 		<separator/>
 		<columnlayout>
-			<columnchildren width="40%">
-				<panel title="Recaudos Entregados">
-					<panelchildren>
-						<listbox id="left" multiple="true" 
-							height="195px" oddRowSclass="non-odd" checkmark="false"
-							xmlns:ca="client/attribute" ca:data-scrollable="false"
-							 model="@bind(vm.listaRecaudosEntregados)"
-   			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="5" >
-							<template name="model">
-								<listitem selected="false">
-									<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
-									<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
-								</listitem>
-							</template>
-						</listbox>
-					</panelchildren>
-				</panel>
-			</columnchildren>
-			
+					
 			<columnchildren width="40%">
 				<panel title="Seleccionar Recaudos">
 					<panelchildren>
@@ -122,6 +104,27 @@
 					</panelchildren>
 				</panel>
 			</columnchildren>
+			<columnchildren width="40%">
+			</columnchildren>
+			<columnchildren width="40%">
+				<panel title="Recaudos Entregados">
+					<panelchildren>
+						<listbox id="left" multiple="true" 
+							height="195px" oddRowSclass="non-odd" checkmark="false"
+							xmlns:ca="client/attribute" ca:data-scrollable="false"
+							 model="@bind(vm.listaRecaudosEntregados)"
+   			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="5" >
+							<template name="model">
+								<listitem selected="false">
+									<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
+									<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</panelchildren>
+				</panel>
+			</columnchildren>
+
 		</columnlayout>
 	</groupbox>
 	<groupbox>
@@ -149,10 +152,7 @@
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
 			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items)">
 			<attribute name="onClick">
-				Set items = left.getSelectedItems();
-				if (items.isEmpty()) {
-					alert("Por favor, seleccione al menos un recaudo para guardar");
-				} 
+				Set items = rigth.getSelectedItems();
 			</attribute>
 		</button>
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->

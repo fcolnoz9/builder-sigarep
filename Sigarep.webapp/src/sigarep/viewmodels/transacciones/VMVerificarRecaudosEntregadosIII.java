@@ -362,25 +362,15 @@ public class VMVerificarRecaudosEntregadosIII {
 			@BindingParam("recaudosEntregados") Set<Listitem> recaudos) {
 		if (cedula == null || nombres == null || apellidos == null) {
 			msjs.advertenciaLlenarCampos();
-		} else if (recaudos.size() == 0) {
-			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
-					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
 			solicitudApelacionPK.setCodigoLapso(lapso);
 			solicitudApelacionPK.setIdInstanciaApelada(3);
 			SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-			solicitudApelacion = serviciosolicitudapelacion
-					.buscarSolicitudPorID(solicitudApelacionPK);
-			// for(Motivo motivo : solicitudApelacion.getMotivos()){
-			// String cedula = motivo.getId().getCedulaEstudiante();
-			// String lapso = motivo.getId().getCodigoLapso();
-			// Integer idTipoMotivo = motivo.getId().getIdTipoMotivo();
-			// serviciorecaudoentregado.eliminarRecaudosEncontradosPorMotivo(cedula,
-			// lapso, idTipoMotivo, 1);
-			// }
+			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudPorID(solicitudApelacionPK);
 
+		if (recaudos.size() > 0) {
 			Recaudo recaudo = new Recaudo();
 			for (Listitem miRecaudo : recaudos) {
 				String nombreRecaudo = miRecaudo.getLabel();
@@ -407,6 +397,7 @@ public class VMVerificarRecaudosEntregadosIII {
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
 			}
+		}
 			SolicitudApelacion solicitudApelacionAux = new SolicitudApelacion();
 			solicitudApelacionAux.setId(solicitudApelacionPK);
 			solicitudApelacionAux.setEstatus(true);
@@ -434,9 +425,9 @@ public class VMVerificarRecaudosEntregadosIII {
 			apelacionEstadoApelacion.setFechaEstado(new Date());
 			if (!selected.equals("")) {
 				if (getSelected().equals("sugiere"))
-					apelacionEstadoApelacion.setSugerencia("procede");
+					apelacionEstadoApelacion.setSugerencia("Procedente");
 				else
-					apelacionEstadoApelacion.setSugerencia("no procede");
+					apelacionEstadoApelacion.setSugerencia("No Procedente");
 			} else
 				Messagebox
 						.show("Debe Seleccionar una sugerencia de procedencia del caso",
