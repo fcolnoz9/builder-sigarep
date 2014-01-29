@@ -4,6 +4,7 @@
 		width="auto" height="auto" style="overflow:auto" closable="true"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRegistrarDatosIniciales')">
+	<style src="/widgets/grid/simple/style.css" />
 		<groupbox id="grbDatosestudiante">
 			<caption id="lblDatosestudiante" label="Datos Estudiante" />
 			<grid id="grdDatosBasicos">
@@ -14,19 +15,18 @@
 					<column width="40%" />
 				</columns>
 				<rows>
-					<row></row>
 					<row>
 						<label id="lblCedula" value="Cedula: " />
 						<textbox id="txtCedula" mold="rounded"
-							tabindex="1" width="80%" cols="23" height="auto"
+							tabindex="1" width="80%" cols="23"
 							value="@bind(vm.estudianteseleccionado.estudiante.cedulaEstudiante)"
-							readonly="true" maxlength="8">
+							readonly="true" maxlength="30">
 						</textbox>
 						<label id="lblPrograma" value="Programa: " />
 						<textbox id="txtPrograma" mold="rounded"
-							tabindex="2" width="80%" cols="23" height="auto"
+							tabindex="2" width="80%" cols="23"
 							value="@bind(vm.estudianteseleccionado.estudiante.programaAcademico.nombrePrograma)"
-							readonly="true" maxlength="60">
+							readonly="true" maxlength="30">
 						</textbox>
 					</row>
 					<row>
@@ -82,9 +82,9 @@
 						</textbox>
 						<label id="lblAsignaturaPeriodos"
 							value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-						<textbox id="txtAsignatura" cols="55"
+						<textbox id="txtAsignatura" cols="23"
 							maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)"
-							readonly="true">
+							readonly="true" mold="rounded" width="80%">
 						</textbox>
 
 					</row>
@@ -95,31 +95,21 @@
 			<caption id="lblDatosapelacion" label="Datos Apelación" />
 			<grid id="grdDatosapelacion">
 				<columns>
-					<column width="24%" />
-					<column width="16%" />
-					<column width="8%" />
-					<column width="16%" />
 					<column width="10%" />
-					<column width="15%" />
-					<column width="14%" />
+					<column width="40%" />
+					<column width="10%" />
+					<column width="40%" />
+					<column width="20%" />
 				</columns>
 				<rows>
 					<row>
-						<button label="Cargar Carta de Apelacion"
-							id="btnDocumento" upload="true"
-							onUpload="@command('cargarCartaApelacion',upload=event)"
-							image="/imagenes/iconos/cargar.png" mold="trendy">
-						</button>
-						<label id="lblDocumento"
-							value="@bind(vm.nombreDoc)">
+						<label id="lblObservacion"
+							value="Observacion:">
 						</label>
-<!-- 						<label id="lblObservacion" -->
-<!-- 							value="Observacion:"> -->
-<!-- 						</label> -->
-<!-- 						<textbox id="txtObservacion" cols="23" -->
-<!-- 							maxlength="30" rows="3" width="77%" mold="rounded" -->
-<!-- 							value="@bind(vm.observacion)"> -->
-<!-- 						</textbox> -->
+						<textbox id="txtObservacion" cols="23"
+							maxlength="255" rows="3" width="80%" value="@bind(vm.observacion)"
+							mold="rounded">
+						</textbox>
 					</row>
 					<row>
 						<label id="lblMotivo" value="Motivo: " />
@@ -134,8 +124,8 @@
 						<label id="lblDescripcionMotivo"
 							value="Descripcion: " />
 						<textbox id="txtDescripcion" rows="3"
-							width="80%" cols="23" height="auto" maxlength="255"
-							value="@bind(vm.descripcion)">
+							width="80%" cols="23" maxlength="255"
+							value="@bind(vm.descripcion)" mold="rounded">
 						</textbox>
 						<button id="btnAgregar" label="Agregar"
 							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
