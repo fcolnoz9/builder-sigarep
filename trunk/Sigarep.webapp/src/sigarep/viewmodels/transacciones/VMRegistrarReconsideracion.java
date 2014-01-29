@@ -384,7 +384,7 @@ public class VMRegistrarReconsideracion {
 	 */
 	@NotifyChange({ "lista" , "observacion"})
 	@Command
-	public void registrarSolicitudApelacion() {
+	public void registrarSolicitudApelacion(@BindingParam("window") Window winRegistrarReconsideracion) {
 
 		Date fecha = new Date();
 		Time hora = new Time(0);
@@ -408,6 +408,7 @@ public class VMRegistrarReconsideracion {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 			mensajesusuario.informacionRegistroCorrecto();
+			winRegistrarReconsideracion.detach();
 		
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

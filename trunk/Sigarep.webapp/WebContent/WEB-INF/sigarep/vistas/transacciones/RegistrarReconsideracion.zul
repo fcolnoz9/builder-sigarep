@@ -153,7 +153,7 @@
 				<button id="btnGuardar" width="auto" height="auto"
 					label="Guardar" image="/imagenes/iconos/guardar.png"
 					orient="horizontal" mold="trendy"
-					onClick="@command('registrarSolicitudApelacion')" />
+					onClick="@command('registrarSolicitudApelacion', window=winRegistrarReconsideracion)" />
 			</div>
 			<div align="right" height="100%">
 				<button id="btnCancelar" width="auto" height="auto"

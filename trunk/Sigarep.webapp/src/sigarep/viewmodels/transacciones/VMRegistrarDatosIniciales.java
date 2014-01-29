@@ -456,7 +456,7 @@ public class VMRegistrarDatosIniciales {
 
 	@Command
 	@NotifyChange({ "listaSancionados", "listaTipoMotivoListBox" })
-	public void registrarSolicitudApelacion() {
+	public void registrarSolicitudApelacion(@BindingParam("window") Window winRegistrarDatosInicialesApelacion) {
 
 		Date fecha = new Date();
 		Time hora = new Time(0);
@@ -497,6 +497,7 @@ public class VMRegistrarDatosIniciales {
 
 		try {
 			mensajesusuario.informacionRegistroCorrecto();
+			winRegistrarDatosInicialesApelacion.detach();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
