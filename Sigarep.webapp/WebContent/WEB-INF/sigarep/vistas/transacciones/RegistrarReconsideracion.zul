@@ -10,35 +10,43 @@
 		<label id="lblnrocaso" value="Nro del Caso: " />
 		<textbox id="txtnrocaso" cols="23" maxlength="30"
 			value="@bind(vm.solicitudapelacionseleccionada.numeroCaso)"
-			readonly="true">
+			readonly="true" mold="rounded">
 		</textbox>
 	</div>
 	<space />
 	<groupbox id="grbDatosestudiante">
 		<caption id="lblDatosestudiante" label="Datos Estudiante" />
 		<grid id="grdDatosEstudiante">
+			<columns>
+				<column width="10%" />
+				<column width="40%" />
+				<column width="10%" />
+				<column width="40%" />
+			</columns>
 			<rows>
 				<row>
 					<label id="lblCedula" value="Cedula: " />
 					<textbox id="txtcedula" cols="23" maxlength="30"
-						readonly="true"
+						readonly="true" mold="rounded"
 						value="@bind(vm.solicitudapelacionseleccionada.id.cedulaEstudiante)"
-						width="200px">
+						width="80%">
 					</textbox>
 					<label id="lblPrograma" value="Programa: " />
 					<textbox id="txtPrograma" cols="23" maxlength="30"
 						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.estudiante.programaAcademico.nombrePrograma)"
-						readonly="true" width="200px">
+						readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblNombres" value="Nombres: " />
 					<textbox id="txtNombres" cols="23" maxlength="30"
-						value="@bind(vm.nombres)" readonly="true" width="200px">
+						mold="rounded" value="@bind(vm.nombres)" readonly="true"
+						width="80%">
 					</textbox>
 					<label id="lblApellidos" value="Apellidos: " />
 					<textbox id="txtApellidos" cols="23" maxlength="30"
-						value="@bind(vm.apellidos)" readonly="true" width="200px">
+						mold="rounded" value="@bind(vm.apellidos)" readonly="true"
+						width="80%">
 					</textbox>
 				</row>
 			</rows>
@@ -47,18 +55,24 @@
 	<groupbox id="grbDatosSancion">
 		<caption id="lblDatossancion" label="Datos Sancion" />
 		<grid>
+			<columns>
+				<column width="10%" />
+				<column width="40%" />
+				<column width="10%" />
+				<column width="40%" />
+			</columns>
 			<rows>
 				<row>
 					<label id="lblTiposancion"
 						value="Tipo de Sancion: " />
 					<textbox id="txtTipoSancion" cols="23"
-						maxlength="30" readonly="true"
+						maxlength="30" readonly="true" mold="rounded" width="80%"
 						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.sancionMaestro.nombreSancion)">
 					</textbox>
 					<label id="lblLapsosancion"
 						value="Lapso de Sancion: " />
 					<textbox id="txtLapsosancion" cols="23"
-						maxlength="30"
+						maxlength="30" mold="rounded" width="80%"
 						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.lapsoAcademico.codigoLapso)"
 						readonly="true">
 					</textbox>
@@ -67,12 +81,15 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value= "@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.periodoSancion)" readonly="true">
+						mold="rounded" width="80%" maxlength="30"
+						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.periodoSancion)"
+						readonly="true">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55" maxlength="30"
-						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+					<textbox id="txtAsignatura" cols="23" maxlength="30"
+						mold="rounded" value="@bind(vm.asignaturaLapsosConsecutivos)"
+						readonly="true" width="80%">
 					</textbox>
 				</row>
 			</rows>
@@ -84,35 +101,18 @@
 			label="Datos Reconsideracion" />
 		<grid>
 			<columns>
-				<column width="20%" />
-				<column width="20%" />
 				<column width="10%" />
-				<column width="40%" />
+				<column width="60%" />
 			</columns>
 			<rows>
 				<row>
-							<button
-								label="Cargar Carta de Reconsideración" id="btnDocumento"
-								upload="true"
-								onUpload="@command('cargarCartaReconsideracion',upload=event)"
-								image="/imagenes/iconos/cargar.png" mold="trendy">
-							</button>
-							<label id="lblDocumento"
-								value="@bind(vm.nombreDoc)">
-							</label>
-							<label id="lblObservacion"
-							value="Observacion:">
-						</label>
-						<textbox id="txtObservacion" cols="23"
-							maxlength="30" rows="3" width="77%" mold="rounded" value="@bind(vm.observacion)" >
-						</textbox>
-					
-					
+					<label id="lblObservacion" value="Observacion:">
+					</label>
+					<textbox id="txtObservacion" cols="23"
+						maxlength="255" rows="3" width="80%" mold="rounded"
+						value="@bind(vm.observacion)">
+					</textbox>
 				</row>
-				<row>
-
-				</row>
-
 			</rows>
 		</grid>
 	</groupbox>
@@ -121,8 +121,6 @@
 		<listbox model="@bind(vm.listaRecaudos)"
 			emptyMessage="No hay recaudos registrados" mold="paging"
 			pageSize="5">
-
-
 			<listhead>
 				<listheader label="Motivos" width="35%" align="center"
 					sort="auto(nombreMotivo)" />
@@ -137,7 +135,6 @@
 						label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
 					<listcell
 						label="${each.getRecaudo().getNombreRecaudo()}" />
-					<!-- 					<listcell label="${each.getSoporte().getDocumento().getNombreDocumento()}" /> -->
 					<listcell>
 						<a
 							label="${each.getSoporte().getDocumento().getNombreDocumento()}"
@@ -161,7 +158,7 @@
 			<div align="right" height="100%">
 				<button id="btnCancelar" width="auto" height="auto"
 					label="Cancelar" image="/imagenes/iconos/cancelar.png"
-					mold="trendy" orient="horizontal" onClick="@command('cancelar')"/>
+					mold="trendy" orient="horizontal" onClick="@command('cancelar')" />
 			</div>
 			<div align="right" height="100%">
 				<button id="btnCerrar" mold="trendy" width="auto"
