@@ -37,12 +37,12 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	
 	@Query("Select rec FROM Recaudo AS rec WHERE rec.tipoMotivo.idTipoMotivo = '1'")
 	public List<Recaudo> buscaRecaudosGenerales();
-		
+	
 	@Query("SELECT r FROM Recaudo AS r, TipoMotivo AS tm, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE la.codigoLapso = m.id.codigoLapso AND la.estatus = 'TRUE' " +
 			"AND r.tipoMotivo.idTipoMotivo = tm.idTipoMotivo " +
 			"AND m.id.cedulaEstudiante = :cedula " +
-			"AND m.id.idTipoMotivo = tm.idTipoMotivo")
+			"AND m.id.idTipoMotivo = tm.idTipoMotivo ORDER BY r.tipoMotivo.idTipoMotivo")
 	public List<Recaudo> listadoRecaudosPorApelacion(@Param("cedula") String cedula);
 	
 	@Query("SELECT r FROM Recaudo AS r, RecaudoEntregado AS re, LapsoAcademico AS la " +
