@@ -123,11 +123,11 @@
 			emptyMessage="No hay Usuarios registrados" mold="paging"
 			pageSize="5">
 			<listhead>
-				<listheader label="Cédula" align="center"
+				<listheader label="Cédula" align="lefth"
 					sort="auto(cedulaPersona)" />
-				<listheader label="Nombre Completo" align="center"
+				<listheader label="Nombre Completo" align="lefth"
 					sort="auto(nombreCompleto)" />
-				<listheader label="Usuario" align="center"
+				<listheader label="Usuario" align="lefth"
 					sort="auto(nombreUsuario)" />	
 			</listhead>
 			<template name="model">
