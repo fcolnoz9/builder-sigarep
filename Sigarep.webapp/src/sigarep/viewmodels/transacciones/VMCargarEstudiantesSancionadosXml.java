@@ -177,7 +177,7 @@ public class VMCargarEstudiantesSancionadosXml {
 						ProgramaAcademico programaacademico = new ProgramaAcademico();
 						programaacademico = servicioprogramaacademico.buscarUnPrograma(id_programa);//busca el programa academico
 						Estudiante estudiante = new Estudiante(cedula_estudiante, anio_ingreso, email,estatus, fecha_nacimiento, primer_apellido,primer_nombre, segundo_apellido,segundo_nombre, sexo, telefono,programaacademico);
-						servicioestudiante.guardarPrograma(estudiante);//Se guarda el estudiante
+						servicioestudiante.guardarEstudiante(estudiante);//Se guarda el estudiante
 						EstudianteSancionadoPK id =new EstudianteSancionadoPK();
 						id.setCedulaEstudiante(cedula_estudiante);
 						id.setCodigoLapso(codigo_lapso);
