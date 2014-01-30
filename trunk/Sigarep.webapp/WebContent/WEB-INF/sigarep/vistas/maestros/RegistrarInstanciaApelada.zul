@@ -62,20 +62,20 @@
 				onSelect="@command('mostrarSeleccionada')"
 				emptyMessage="No hay Instancias Apeladas registradas">
 				<listhead sizable="true">
-            		<listheader label="Instancia Apelada " sort="auto(instanciaApelada)" align="center">
+            		<listheader label="Instancia Apelada " sort="auto(instanciaApelada)" align="lefth">
             			<textbox id="filtroNombreInstancia" instant="true" mold="rounded"
 						width="100px" value="@bind(vm.filtros.nombreInstancia)"
 						onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
             		</listheader>
-            		<listheader label="Nombre del Recurso " sort="auto(nombreRecursoApelacion)" align="center">
+            		<listheader label="Nombre del Recurso " sort="auto(nombreRecursoApelacion)" align="lefth">
             			<textbox id="filtroNombreRecurso" instant="true" mold="rounded"
 						width="100px" value="@bind(vm.filtros.nombreRecurso)"
 						onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
             		</listheader>
             		<listheader label="Descripcion " sort="auto(descripcion)" 
-            		align="center">
+            		align="lefth">
             		</listheader>
         		</listhead>
         		<template name="model">

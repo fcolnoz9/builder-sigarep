@@ -90,13 +90,13 @@
 
 				<listhead>
 					<listheader label="Nombre"
-						align="center" sort="auto(nombreEstado)">
+						align="lefth" sort="auto(nombreEstado)">
 					</listheader>
 					<listheader
-						label="Descripción" align="center"
+						label="Descripción" align="lefth"
 						sort="auto(descripcion)">
 					</listheader>
-					<listheader label="Instancia Apelada" align="center"
+					<listheader label="Instancia Apelada" align="lefth"
 						sort="auto(instanciaApelada)" />
 				</listhead>
 				<template name="model">
