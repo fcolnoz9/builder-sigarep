@@ -7,21 +7,19 @@ import org.zkoss.zk.ui.Sessions;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class ReportConfig {
-	private String folder = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/");
-	private String source = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/sigarepReportes/RpAsignaturasSancionados.jasper");
+	private String source;
 	private Map<String, Object> parametros;
 	private JRBeanCollectionDataSource dataSource;
 	private ReportType type;
-	//private ProgramaAcademico programaAcademico;
 
-	public ReportConfig() {
+	public ReportConfig(String ruta) {
 		parametros = new HashMap<String, Object>();
 	 	parametros.put("ICON_LEFT_HEADER", "../../imagenes/imagenes-reportes/LOGO-UCLA.jpg"); // PASANDO POR PARAMETROS LAS IMAGENES DE DISEÑO DEL REPORTE
 		parametros.put("ICON_RIGHT_HEADER", "../../imagenes/imagenes-reportes/logo-decanato.jpg");
 		parametros.put("ICON_FOOTER", "../../imagenes/imagenes-reportes/pie-reporte.jpg");
 		parametros.put("ImagenSuperior", "../../imagenes/imagenes-reportes/cabecera-reporte.jpg");
-		//parametros.put("nombrePrograma", programaAcademico.getIdPrograma());
 		System.out.println(parametros);
+		source= Sessions.getCurrent().getWebApp().getRealPath(ruta);
 	}
 	
 	//***************METODOS SET Y GET NECESARIOS PARA SER LLAMADOS EN EL ZUL DEL REPORTE****************
@@ -50,13 +48,7 @@ public class ReportConfig {
 		this.dataSource = dataSource;
 	}
 
-	public String getFolder() {
-		return folder;
-	}
 
-	public void setFolder(String folder) {
-		this.folder = folder;
-	}
 	
 	
 }

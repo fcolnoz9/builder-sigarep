@@ -4,15 +4,13 @@ import java.math.BigDecimal;
 
 public class ListaAsignaturasMayorCantidadSancionados {
 
-	private String nombreAsignatura;
-	private BigDecimal cantidadSancionados;
+	private String asignatura;
+	private BigDecimal sanciones;
 	private BigDecimal apelaciones;
-	private BigDecimal enfermedad;
-	private BigDecimal judicial;
-	private BigDecimal economico;
-	private BigDecimal medico;
 	private BigDecimal procedentes;
 	private BigDecimal noprocedentes;
+	private BigDecimal totalsancion;
+	private BigDecimal totalapela;
 	//private String nombrePrograma;
 	
 	
@@ -21,39 +19,18 @@ public class ListaAsignaturasMayorCantidadSancionados {
 		
 	}
 	
-	public ListaAsignaturasMayorCantidadSancionados(String nombreAsignatura,BigDecimal cantidadSancionados,BigDecimal apelaciones, 
-			BigDecimal enfermedad,BigDecimal judicial, BigDecimal economico,BigDecimal medico, BigDecimal procedentes, BigDecimal noprocedentes) {
+	public ListaAsignaturasMayorCantidadSancionados(String asignatura,BigDecimal sanciones,BigDecimal apelaciones,
+			BigDecimal procedentes, BigDecimal noprocedentes,BigDecimal toltalsancion, BigDecimal totalapela) {
 		super();
-		this.nombreAsignatura= nombreAsignatura;
-		this.cantidadSancionados= cantidadSancionados;
+		this.asignatura= asignatura;
+		this.sanciones= sanciones;
 		this.apelaciones= apelaciones;
-		this.enfermedad= enfermedad;
-		this.judicial= judicial;
-		this.economico= economico;
-		this.medico= medico;
-		this.procedentes= procedentes;
+		this.setProcedentes(procedentes);
 		this.noprocedentes= noprocedentes;
+		this.totalsancion= toltalsancion;
+		this.totalapela= totalapela;
 		//this.nombrePrograma= nombrePrograma;
 	}
-
-	
-	public BigDecimal getCantidadSancionados() {
-		return cantidadSancionados;
-	}
-
-	public void setCantidadSancionados(BigDecimal cantidadSancionados) {
-		this.cantidadSancionados = cantidadSancionados;
-	}
-
-	public String getNombreAsignatura() {
-		return nombreAsignatura;
-	}
-
-
-	public void setNombreAsignatura(String nombreAsignatura) {
-		this.nombreAsignatura = nombreAsignatura;
-	}
-
 
 	public BigDecimal getApelaciones() {
 		return apelaciones;
@@ -63,36 +40,21 @@ public class ListaAsignaturasMayorCantidadSancionados {
 		this.apelaciones = apelaciones;
 	}
 
-	public BigDecimal getEnfermedad() {
-		return enfermedad;
+	
+	public String getAsignatura() {
+		return asignatura;
 	}
 
-	public void setEnfermedad(BigDecimal enfermedad) {
-		this.enfermedad = enfermedad;
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
 	}
 
-	public BigDecimal getJudicial() {
-		return judicial;
+	public BigDecimal getSanciones() {
+		return sanciones;
 	}
 
-	public void setJudicial(BigDecimal judicial) {
-		this.judicial = judicial;
-	}
-
-	public BigDecimal getEconomico() {
-		return economico;
-	}
-
-	public void setEconomico(BigDecimal economico) {
-		this.economico = economico;
-	}
-
-	public BigDecimal getMedico() {
-		return medico;
-	}
-
-	public void setMedico(BigDecimal medico) {
-		this.medico = medico;
+	public void setSanciones(BigDecimal sanciones) {
+		this.sanciones = sanciones;
 	}
 
 	public BigDecimal getProcedentes() {
@@ -111,11 +73,20 @@ public class ListaAsignaturasMayorCantidadSancionados {
 		this.noprocedentes = noprocedentes;
 	}
 
-	/*public String getNombrePrograma() {
-		return nombrePrograma;
+	public BigDecimal getTotalsancion() {
+		return totalsancion;
 	}
 
-	public void setNombrePrograma(String nombrePrograma) {
-		this.nombrePrograma = nombrePrograma;
-*/
+	public void setTotalsancion(BigDecimal totalsancion) {
+		this.totalsancion = totalsancion;
+	}
+
+	public BigDecimal getTotalapela() {
+		return totalapela;
+	}
+
+	public void setTotalapela(BigDecimal totalapela) {
+		this.totalapela = totalapela;
+	}
+
 }
