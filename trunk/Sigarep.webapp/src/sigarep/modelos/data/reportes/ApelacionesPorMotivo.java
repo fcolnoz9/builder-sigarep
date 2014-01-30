@@ -1,25 +1,27 @@
 package sigarep.modelos.data.reportes;
 
 public class ApelacionesPorMotivo {
-	private Integer cantidad;
+	private Integer apelaciones;
 	private String motivo;
-	private String resultado;
+	private Integer procedentes;
+	private Integer total;
 	
 	
-	public ApelacionesPorMotivo(Integer cantidad, String motivo, String resultado) {
+	public ApelacionesPorMotivo(String motivo, Integer apelaciones, Integer procedentes, Integer total) {
 		super();
-		this.cantidad = cantidad;
+		this.apelaciones = apelaciones;
 		this.motivo = motivo;
-		this.resultado = resultado;
+		this.procedentes = procedentes;
+		this.total = total;
 	}
 	
 
-	public Integer getCantidad() {
-		return cantidad;
+	public Integer getApelaciones() {
+		return apelaciones;
 	}
 	
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
+	public void setApelaciones(Integer apelaciones) {
+		this.apelaciones = apelaciones;
 	}
 	
 	public String getMotivo() {
@@ -31,12 +33,22 @@ public class ApelacionesPorMotivo {
 	}
 
 
-	public String getResultado() {
-		return resultado;
+	public Integer getProcedentes() {
+		return procedentes;
 	}
 
 
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
+	public void setProcedentes(Integer procedentes) {
+		this.procedentes = procedentes;
+	}
+
+
+	public Integer getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 }

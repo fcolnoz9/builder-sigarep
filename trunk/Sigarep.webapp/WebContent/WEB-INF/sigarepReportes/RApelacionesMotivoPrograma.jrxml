@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="115"/>
+	<property name="ireport.y" value="192"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -94,9 +94,10 @@
 				and sa.codigo_lapso = '2013-1'
 				GROUP BY timo.nombre_tipo_motivo, prog.nombre_programa]]>
 	</queryString>
-	<field name="cantidad" class="java.lang.Integer"/>
-	<field name="resultado" class="java.lang.String"/>
+	<field name="procedentes" class="java.lang.Integer"/>
+	<field name="apelaciones" class="java.lang.Integer"/>
 	<field name="motivo" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -109,7 +110,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="157" splitType="Stretch">
+		<band height="150" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9" x="87" y="89" width="59" height="24"/>
 				<textElement>
@@ -160,44 +161,48 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Programa}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="b6cc7138-ec8d-49d0-96b7-1252fd1a5081" style="table" mode="Opaque" x="380" y="130" width="75" height="20" forecolor="#FFFFFF" backcolor="#999999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Procedentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3aa5b50b-acd8-4bf4-a412-1665f6c4e626" style="table" mode="Opaque" x="304" y="130" width="76" height="20" forecolor="#FFFFFF" backcolor="#999999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Apelaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a60a6539-f6ab-4051-a10b-bf97cf18c79c" style="table" mode="Opaque" x="135" y="130" width="169" height="20" forecolor="#FFFFFF" backcolor="#999999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="36">
-			<staticText>
-				<reportElement uuid="b6cc7138-ec8d-49d0-96b7-1252fd1a5081" style="table" mode="Opaque" x="327" y="13" width="102" height="20" backcolor="#0033CC"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Resultado]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="3aa5b50b-acd8-4bf4-a412-1665f6c4e626" style="table" mode="Opaque" x="160" y="13" width="67" height="20" backcolor="#0033CC"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Cantidad]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="a60a6539-f6ab-4051-a10b-bf97cf18c79c" style="table" mode="Opaque" x="227" y="13" width="100" height="20" backcolor="#0033CC"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Motivo]]></text>
-			</staticText>
-		</band>
 		<band height="15">
 			<textField>
-				<reportElement uuid="b5c7dbad-7ac2-469a-9e7a-d9537d515336" x="160" y="0" width="67" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="b12052f1-c28f-4e11-a97f-1157e07d46a2" x="227" y="0" width="100" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement uuid="b12052f1-c28f-4e11-a97f-1157e07d46a2" x="135" y="0" width="169" height="15"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="166e9ab6-6f73-4096-a38a-780e3cfee7b7" x="327" y="0" width="102" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{resultado}]]></textFieldExpression>
+				<reportElement uuid="0f5e2ca0-5d5d-4ed2-91e5-48e4d15322bf" x="327" y="0" width="33" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apelaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="14ef81cf-495b-4212-9564-db58e7c88483" x="397" y="0" width="32" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{procedentes}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -210,70 +215,74 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="752" splitType="Stretch">
+		<band height="363" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="36" y="28" width="505" height="251" forecolor="#3366FF"/>
+				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="16" y="12" width="544" height="324" forecolor="#3366FF"/>
 			</rectangle>
 			<elementGroup/>
 			<bar3DChart>
-				<chart>
-					<reportElement uuid="cb165de8-29bd-45b4-83f3-dd09fc7cf562" x="36" y="28" width="505" height="251"/>
+				<chart theme="default">
+					<reportElement uuid="f375ace6-4e7c-4f5d-a682-4a0291c61696" x="16" y="12" width="544" height="324"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<categoryDataset>
 					<categorySeries>
-						<seriesExpression><![CDATA[$F{resultado}]]></seriesExpression>
+						<seriesExpression><![CDATA["Apelaciones Totales"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+						<valueExpression><![CDATA[($F{apelaciones}.doubleValue()*100)/$F{total}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{apelaciones}.doubleValue()*100)/$F{total})+ "%"]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Procedentes"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
+						<valueExpression><![CDATA[($F{procedentes}.doubleValue()*100)/18]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{procedentes}.doubleValue()*100)/18)+ "%"]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
-				<bar3DPlot isShowLabels="false">
-					<plot>
-						<seriesColor seriesOrder="0" color="#00B30E"/>
-						<seriesColor seriesOrder="1" color="#000DAA"/>
-						<seriesColor seriesOrder="2" color="#D47400"/>
-					</plot>
-					<itemLabel/>
+				<bar3DPlot isShowLabels="true">
+					<plot/>
+					<itemLabel color="#FFFFFF">
+						<font size="8"/>
+					</itemLabel>
 					<categoryAxisFormat>
-						<axisFormat verticalTickLabels="false"/>
+						<axisFormat>
+							<labelFont>
+								<font size="8"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="8"/>
+							</tickLabelFont>
+						</axisFormat>
 					</categoryAxisFormat>
 					<valueAxisFormat>
-						<axisFormat verticalTickLabels="false"/>
+						<axisFormat>
+							<labelFont>
+								<font size="8"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="8"/>
+							</tickLabelFont>
+						</axisFormat>
 					</valueAxisFormat>
 				</bar3DPlot>
 			</bar3DChart>
-			<stackedBarChart>
-				<chart>
-					<reportElement uuid="f2d40bf8-f11e-4b18-b80e-4b1a025e62aa" x="36" y="292" width="505" height="274"/>
-					<chartTitle position="Top"/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA[$F{resultado}]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
-						<labelExpression><![CDATA[$F{cantidad}.toString()]]></labelExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot>
-						<seriesColor seriesOrder="0" color="#0099FF"/>
-						<seriesColor seriesOrder="1" color="#FF3333"/>
-						<seriesColor seriesOrder="2" color="#00CC66"/>
-					</plot>
-					<itemLabel/>
-					<categoryAxisFormat>
-						<axisFormat/>
-					</categoryAxisFormat>
-					<valueAxisFormat>
-						<axisFormat/>
-					</valueAxisFormat>
-				</barPlot>
-			</stackedBarChart>
+			<textField>
+				<reportElement uuid="001da192-8390-48cc-915b-a84680c59065" x="411" y="343" width="94" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21" x="505" y="343" width="58" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="5da6db8b-f78e-472a-906b-3a5dda234459" x="16" y="343" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
