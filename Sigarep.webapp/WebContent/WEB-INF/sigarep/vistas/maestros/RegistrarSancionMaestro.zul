@@ -55,14 +55,14 @@
 			emptyMessage="No hay Sanciones registradas" mold="paging"
 			pageSize="10">
 			<listhead>
-				<listheader label="Nombre" align="center"
+				<listheader label="Nombre" align="lefth"
 					sort="auto(nombreSancion)">
 					<textbox id="filtroNombre" instant="true" mold="rounded"
 						width="100px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
-				<listheader label="Descripción" align="center"
+				<listheader label="Descripción" align="lefth"
 					sort="auto(descripcion)">
 				</listheader>
 			</listhead>
