@@ -34,7 +34,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 	
-	String ruta="/WEB-INF/sigarepReportes/RpAsignaturasSancionadosVsApelaciones.jasper";
+	String ruta="/WebContent/sigarepReportes/RpAsignaturasSancionadosVsApelaciones.jasper";
 	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable ServicioListaAsignaturasMayorCantidadSancionados servicioListaAsignaturasMayor;
 	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
