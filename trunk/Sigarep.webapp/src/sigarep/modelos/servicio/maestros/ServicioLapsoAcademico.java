@@ -26,8 +26,8 @@ public class ServicioLapsoAcademico{
 		lapsoacademico.setEstatus(false);
 		iLapsoAcademico.save(lapsoacademico);
 		}
-	public List<LapsoAcademico> buscarLapsoActivo(){
-		return iLapsoAcademico.buscarActivoLapso();
+	public LapsoAcademico buscarLapsoActivo(){
+		return iLapsoAcademico.buscarLapsoActivo();
 	}
 	public LapsoAcademico encontrarLapsoActivo(){
 		return iLapsoAcademico.buscarLapsoActivo();
