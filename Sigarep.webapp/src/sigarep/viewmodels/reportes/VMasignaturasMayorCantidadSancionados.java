@@ -2,6 +2,7 @@ package sigarep.viewmodels.reportes;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -32,6 +33,8 @@ public class VMasignaturasMayorCantidadSancionados {
 	//*************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
+	
+	String ruta="/WEB-INF/sigarepReportes/RpAsignaturasSancionadosVsApelaciones.jasper";
 	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable ServicioListaAsignaturasMayorCantidadSancionados servicioListaAsignaturasMayor;
 	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
@@ -55,7 +58,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	private LapsoAcademico lapsoAcademico;
 	private ProgramaAcademico programaAcademico;
 	private InstanciaApelada instanciaApelada;
-	
+	private Map<String, Object> parametros;
 	
 	//*******METODO DE INICIALIZACION*******
 	@Init
@@ -189,14 +192,14 @@ public class VMasignaturasMayorCantidadSancionados {
 	public void setListaAsig(ListModelList<ListaAsignaturasMayorCantidadSancionados> listaAsig) {
 		this.listaAsigMayor = listaAsig;
 	}
-
 	//===============================FIN DE LOS METODOS SET Y GET==============================
 	
-  //Lista que me permite llenar el combo para elegir el formato 
+ 
+
+	//Lista que me permite llenar el combo para elegir el formato 
   	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
   			Arrays.asList(
-  					new ReportType("PDF", "pdf"), 
-  					new ReportType("HTML", "html"), 
+  					new ReportType("PDF", "pdf"),  
   					new ReportType("Word (RTF)", "rtf"), 
   					new ReportType("Excel", "xls"), 
   					new ReportType("Excel (JXL)", "jxl"), 
@@ -249,21 +252,31 @@ public class VMasignaturasMayorCantidadSancionados {
 	@Command("GenerarReporteAsigMayor")
 	@NotifyChange({"reportConfig"})
 	public void GenerarReporteAsigMayor(){
-			
-			listaAsigMayor.clear();
-			idPrograma = programaAcademico.getIdPrograma();// OBTENER EL VALOR DE LOS COMBOS
-			codigoLapso = lapsoAcademico.getCodigoLapso();
-			idInstanciaApelada= instanciaApelada.getIdInstanciaApelada();
-			List<ListaAsignaturasMayorCantidadSancionados> lista= servicioListaAsignaturasMayor.buscarAsignaturasSancionados(idPrograma,codigoLapso,idInstanciaApelada);
-			listaAsigMayor.addAll(lista); 
-			reportConfig= new ReportConfig(); //INSTANCIANDO UNA NUEVA LLAMADA AL REPORTE
-			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE IMPRESION DEL REPORTE
-			reportConfig.setDataSource(new JRBeanCollectionDataSource(listaAsigMayor)); //ASIGNANDO MEDIANTE EL DATA SOURCE LOS DATOS PARA DIBUJAR EL REPORTE   
-	    
+		
+		
+				listaAsigMayor.clear();
+				idPrograma = programaAcademico.getIdPrograma();// OBTENER EL VALOR DE LOS COMBOS
+				codigoLapso = lapsoAcademico.getCodigoLapso();
+				idInstanciaApelada= instanciaApelada.getIdInstanciaApelada();
+		if(idPrograma!= null || codigoLapso!= null || idInstanciaApelada!= null){
+				List<ListaAsignaturasMayorCantidadSancionados> lista= servicioListaAsignaturasMayor.buscarAsignaturasSancionados(idPrograma,codigoLapso,idInstanciaApelada);
+				listaAsigMayor.addAll(lista);
+				
+			if(listaAsigMayor.size()> 0){	
+				reportConfig= new ReportConfig(ruta); //INSTANCIANDO UNA NUEVA LLAMADA AL REPORTE
+				reportConfig.getParameters().put("nombrePrograma", programaAcademico.getNombrePrograma());
+				reportConfig.getParameters().put("instanciaApelada", instanciaApelada.getInstanciaApelada());
+				reportConfig.getParameters().put("lapso", lapsoAcademico.getCodigoLapso());
+				//reportConfig.getParameters().put("lista2", listaAsigMayor);
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE IMPRESION DEL REPORTE
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(listaAsigMayor)); //ASIGNANDO MEDIANTE EL DATA SOURCE LOS DATOS PARA DIBUJAR EL REPORTE   
+			}
+			else 
+				Messagebox.show("No Hay Datos", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+		}
+		else
+			Messagebox.show("Seleccione los filtros de busqueda", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 	}
-	//#####################FIN DEL METODO##########################
-
-
 }
 
 
