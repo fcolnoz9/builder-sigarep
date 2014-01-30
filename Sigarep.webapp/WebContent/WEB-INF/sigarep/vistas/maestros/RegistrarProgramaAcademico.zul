@@ -49,7 +49,7 @@
 			emptyMessage="No hay programas académicos registrados" mold="paging"
 			pageSize="10">
 			<listhead>
-				<listheader label="Nombre" align="center"
+				<listheader label="Nombre" align="lefth"
 					sort="auto(nombrePrograma)">
 					<textbox id="filtroNombre" instant="true"
 						mold="rounded" width="100px" value="@bind(vm.nombreProgramaFiltro)"
