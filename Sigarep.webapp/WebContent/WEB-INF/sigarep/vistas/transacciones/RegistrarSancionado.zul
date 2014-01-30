@@ -185,30 +185,30 @@
 			emptyMessage="No hay estudiantes sancionados registrados">
 			<listhead sizable="true">
 				<listheader label="Cédula "
-					sort="auto(id.cedulaEstudiante)" align="center">
-					<textbox id="filtrocedula" instant="true"
-						width="50px" value="@bind(vm.cedulaFiltro)"
+					sort="auto(id.cedulaEstudiante)" align="lefth">
+					<textbox id="filtrocedula" instant="true" mold= "rounded"
+						width="100px" value="@bind(vm.cedulaFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Nombre "
-					sort="auto(estudiante.primerNombre)" align="center">
-					<textbox id="filtronombre" instant="true"
-						width="50px" value="@bind(vm.nombreFiltro)"
+					sort="auto(estudiante.primerNombre)" align="lefth">
+					<textbox id="filtronombre" instant="true" mold= "rounded"
+						width="100px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Apellido "
-					sort="auto(estudiante.primerApellido)" align="center">
-					<textbox id="filtroApellido" instant="true"
-						width="50px" value="@bind(vm.apellidoFiltro)"
+					sort="auto(estudiante.primerApellido)" align="lefth">
+					<textbox id="filtroApellido" instant="true" mold= "rounded"
+						width="100px" value="@bind(vm.apellidoFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
-				<listheader label="Sación "
-					sort="auto(sancionMaestro.nombreSancion)" align="center">
-					<textbox id="filtroSancion" instant="true"
-						width="50px" value="@bind(vm.sancionFiltro)"
+				<listheader label="Sanción "
+					sort="auto(sancionMaestro.nombreSancion)" align="lefth">
+					<textbox id="filtroSancion" instant="true" mold= "rounded"
+						width="100px" value="@bind(vm.sancionFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
