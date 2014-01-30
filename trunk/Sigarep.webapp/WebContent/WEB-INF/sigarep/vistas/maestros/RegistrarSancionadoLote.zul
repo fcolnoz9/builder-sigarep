@@ -10,8 +10,8 @@
 		</columns>
 		<rows>
 			<row>	
-				<label>Cantidad Estudiantes Sancionados</label>
-				<intbox id="tamanoXML" value="@bind(vm.tamanoXML)" readonly="true"/>
+				<label>Cantidad Estudiantes Sancionados:</label>
+				<intbox id="tamanoXML" value="@bind(vm.tamanoXML)" mold="rounded" readonly="true"/>
 				<button id="btnUpload" label="Seleccionar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192,multiple=false"/>
 			</row>
 			<row>
@@ -21,16 +21,16 @@
 		<listbox id="estListbox" height="270px" model="@bind(vm.listaEstudiante)"   
    			 emptyMessage="No hay Estudiantes Sancionados registrados" mold="paging" pageSize="5" tooltiptext="Estudiantes Sancionados">
 		<listhead>
-			<listheader label="Cedula" align="center"  width="90px"  sort="auto(estudiante.cedulaEstudiante)" tooltiptext="Click para Ordenar por Cedula" />
-			<listheader label="Primer Nombre" align="center"  width="110px" sort="auto(estudiante.primerNombre)" tooltiptext="Click para Ordenar por Primer Nombre" />
-			<listheader label="Primer Apellido" align="center"  width="110px" sort="auto(estudiante.primerApellido)" tooltiptext="Click para Ordenar por Primer Apellido"/>
-			<listheader label="Semestre" align="center"  width="70px" sort="auto(semestre)"/>
-			<listheader label="Programa Academico" align="center" width="140px" sort="auto(estudiante.programaAcademico.idPrograma)" tooltiptext="Click para Ordenar por Programa Academico"/>
-			<listheader label="Sancion" align="center" width="60px" sort="auto(sancionMaestro.nombreSancion)" tooltiptext="Click para Ordenar por Sancion"/>
-			<listheader label="Lapsos Sancion" align="center" width="110px" tooltiptext="Click para Ordenar por Sancion"/>
-			<listheader label="Periodo Sancion" align="center" width="110px" tooltiptext="Click para Ordenar por Periodo Sancion"/>
-			<listheader label="Email" align="center" width="110px"/>
-			<listheader label="Telefono" align="center" width="110px"/>
+			<listheader label="Cédula" align="lefth"  width="90px"  sort="auto(estudiante.cedulaEstudiante)" tooltiptext="Click para Ordenar por Cedula" />
+			<listheader label="Primer Nombre" align="lefth"  width="110px" sort="auto(estudiante.primerNombre)" tooltiptext="Click para Ordenar por Primer Nombre" />
+			<listheader label="Primer Apellido" align="lefth"  width="110px" sort="auto(estudiante.primerApellido)" tooltiptext="Click para Ordenar por Primer Apellido"/>
+			<listheader label="Semestre" align="lefth"  width="70px" sort="auto(semestre)"/>
+			<listheader label="Programa Académico" align="center" width="140px" sort="auto(estudiante.programaAcademico.idPrograma)" tooltiptext="Click para Ordenar por Programa Academico"/>
+			<listheader label="Sanción" align="lefth" width="60px" sort="auto(sancionMaestro.nombreSancion)" tooltiptext="Click para Ordenar por Sancion"/>
+			<listheader label="Lapsos Sanción" align="lefth" width="110px" tooltiptext="Click para Ordenar por Sancion"/>
+			<listheader label="Periodo Sanción" align="lefth" width="110px" tooltiptext="Click para Ordenar por Periodo Sancion"/>
+			<listheader label="Email" align="lefth" width="110px"/>
+			<listheader label="Teléfono" align="lefth" width="110px"/>
 		</listhead>
 		<template name="model">
 			<listitem selected="false">
