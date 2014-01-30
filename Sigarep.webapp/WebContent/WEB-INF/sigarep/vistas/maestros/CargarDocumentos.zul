@@ -91,27 +91,27 @@ style="overflow:auto" action="hide: slideUp"
    			 
 <!-- 		Busqueda Por Filtros -->
 <listhead>
-		<listheader label="Título" align="center" 
+		<listheader label="Título" align="lefth" 
 			sort="auto(titulo)">
-			<textbox id="filtroTitulo" instant="true"
+			<textbox id="filtroTitulo" instant="lefth"
 			mold="rounded" width="100px" value="@bind(vm.tituloF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
-		<listheader label="Categoría" align="center"
+		<listheader label="Categoría" align="lefth"
 		 sort="auto(categoria)" >
 		 <textbox id="filtroCategoria" instant="true"
 		mold="rounded" width="100px" value="@bind(vm.categoriaF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
-		<listheader label="Descripción"  align="center"
+		<listheader label="Descripción"  align="lefth"
 		 sort="auto(descripcion)" >
 		</listheader>
-		<listheader label="Fecha Subida" align="center" width="100px"
+		<listheader label="Fecha Subida" align="lefth" width="100px"
 		 sort="auto(fechaSubida)">
 		  </listheader>
-		<listheader label="Documento" align="center" width="100px"
+		<listheader label="Documento" align="lefth" width="100px"
 		sort="auto(documento)">
 		</listheader>
 		
