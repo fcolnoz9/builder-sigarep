@@ -20,6 +20,7 @@ public class ServicioLapsoAcademico{
 	public void guardarLapso(LapsoAcademico lapsoA) {
 		iLapsoAcademico.save(lapsoA);
 	}
+	
 	//metodo que permite eliminar
 	public void eliminarLapso(String codigoLapso){
 		LapsoAcademico  lapsoacademico = iLapsoAcademico.findOne(codigoLapso);
