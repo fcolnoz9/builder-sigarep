@@ -7,24 +7,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.reportes.ListaAsignaturasMayorCantidadSancionados;
-import sigarep.modelos.repositorio.reportes.IAsignaturasMayorCantidadSancionadosDAO;
 
 
 @Service("servicioListaAsignaturasMayor")
 public class ServicioListaAsignaturasMayorCantidadSancionados {
-	
-	/*private @Autowired IAsignaturasMayorCantidadSancionadosDAO asig ;
-	public List<ListaAsignaturasMayorCantidadSancionados> buscarAsignaturasSancionados(Integer idPrograma, String codigoLapso,Integer idInstanciaApelada){
-		List<ListaAsignaturasMayorCantidadSancionados> lis= asig.consultaAsignatura(idPrograma, codigoLapso, idInstanciaApelada);
-		System.out.println(lis.size());
-		return lis;
-	}*/
-	
-	
 	
 	@PersistenceContext
 	private EntityManager em;
