@@ -53,7 +53,7 @@
 					</grid>
 					<vlayout>
 						<button label="Cargar Imagen" id="btnImagen" src="/imagenes/iconos/cargar.png"
-						upload="true"
+						upload="true" mold="trendy"
 						onUpload="@command('cargarImagen',upload=event)">
 						</button >
 						<image id="imgImagenEnlace"  height="50%"
@@ -84,7 +84,7 @@
 		<groupbox id="grbListadoEnlaces">
 			<caption label="Listado de Enlaces" />
 		<separator />
-			<listbox id="lbxListaEnlaces" height="auto"
+			<listbox id="lbxListaEnlaces" height="100%"
 				model="@bind(vm.listaEnlaces)"
 				selectedItem="@bind(vm.enlaceSeleccionado)"
 				onSelect="@command('mostrarEnlace')"
@@ -92,25 +92,25 @@
 				pageSize="10">
 				
 				<listhead>
-					<listheader label="Nombre" align="center"
+					<listheader label="Nombre" align="lefth"
 						sort="auto(nombreEnlace)" >
-					<textbox id="filtroNombreEnlace" instant="true"
+					<textbox id="filtroNombreEnlace" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreEnlaceFiltro)"
 							onChange="@command('buscarEnlaceFiltroNombreEnlace')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					 </listheader>
-					 <listheader label="Dirección" align="center"
+					 <listheader label="Dirección" align="lefth"
 						sort="auto(direccionEnlace)" >
 					<textbox id="filtroDireccionEnlace"
-							instant="true" width="100px"
+							instant="true" mold="rounded"  width="100px"
 							value="@bind(vm.direccionEnlaceFiltro)"
 							onChange="@command('buscarEnlaceFiltroDireccionEnlace')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					 </listheader>
-					  <listheader label="Descripción" align="center"
+					  <listheader label="Descripción" align="lefth"
 						sort="auto(descripcion)" >
 					 </listheader>
-					 <listheader label="Imagen" align="center" > </listheader>
+					 <listheader label="Imagen" align="lefth" > </listheader>
 					 	 
 				</listhead>
 				<template name="model">

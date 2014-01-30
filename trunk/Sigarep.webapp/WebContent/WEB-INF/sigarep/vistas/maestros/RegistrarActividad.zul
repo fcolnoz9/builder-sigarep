@@ -58,7 +58,7 @@
 			mold="trendy" onClick="winRegistrarActividad.onClose()">
 		</button>
 	</div>
-	<separator />
+
 	<groupbox id="grbListaActividades">
 		<caption label="Lista de Actividades" />
 		<listbox id="lbxActividades" height="100%"
@@ -68,21 +68,21 @@
 			emptyMessage="No hay Actividades registradas" mold="paging"
 			pageSize="10">
 			<listhead>
-			     <listheader label="Instancia Apelada" align="center"
+			     <listheader label="Instancia Apelada" align="lefth"
 					sort="auto(instanciaApelada)">
 					<textbox id="filtroResponsable" instant="true"
 						mold="rounded" width="100px" value="@bind(vm.responsableFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
-				<listheader label="Nombre" align="center"
+				<listheader label="Nombre" align="lefth"
 					sort="auto(nombre)">
 					<textbox id="filtroNombre" instant="true"
 						mold="rounded" width="100px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
-				<listheader label="Descripción" align="center"
+				<listheader label="Descripción" align="lefth"
 					sort="auto(descripcion)">
 				</listheader>
 			</listhead>

@@ -1,130 +1,153 @@
 <zk>
-	<window id="winActualizarBanner" title="Configuración Web :: Actualizar Banner"
-		border="normal" width="auto" height="auto" closable="true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMBanner')">
+	<window id="winActualizarBanner"
+		title="Configuración Web :: Actualizar Banner" border="normal"
+		width="auto" height="auto" closable="true"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMBanner')">
 
-	<!-- Contiene los campos que requieren llenarse con los datos del Banner -->	
-	
-	
-	<groupbox id="grbDatosBanner"> 
-		<caption label="Datos del Banner"/>
-		<!-- Grid interior del Banner-->
-		<grid id="grdDatosDelBanner"> 
-		<columns>
-			<column label="" width="70%"></column>
-			<column label="" width="30%"></column>
-		</columns>
-		<rows>
-			<row>
-			
-			<!-- Grid interior del Banner -->
-			
-			<grid id="grdActualizarBanner">
-
-			<columns></columns>
-			<rows>
-				<row>
-					<label id="lblTituloBanner" value="Título de la Imagen:" />
-					<textbox id="txtTituloBanner" constraint="no empty" value="@bind(vm.titulo)"
-					width="80%" maxlength="30" cols="23" tabindex="5" mold="rounded" />
-					
-				</row>
+		<!-- Contiene los campos que requieren llenarse con los datos del Banner -->
 
 
+		<groupbox id="grbDatosBanner">
+			<caption label="Datos del Banner" />
+			<!-- Grid interior del Banner-->
+			<grid id="grdDatosDelBanner" width="auto">
+				<columns>
+					<column valign="top" label="" width="70%"></column>
+				     <column valign="top" label="" width="30%"></column>
+				</columns>
+				<rows>
+					<row>
 
-				<row>
-					<label id="lblLinkImagenBanner" value="Link Imagen:" />
-					<textbox id="txtLinkBanner" constraint="no empty" value="@bind(vm.enlace)"
-						width="80%" maxlength="30" cols="23" tabindex="5" mold="rounded" />
+						<!-- Grid interior del Banner -->
 
-				</row>
+						<grid id="grdActualizarBanner" width="auto">
+							<columns>
+							<column label="" width="40%" />
+							<column label="" width="60%" />
+							</columns>
+							<rows>
+								<row>
+									<label id="lblTituloBanner"
+										value="Título de la Imagen:" />
+									<textbox id="txtTituloBanner"
+										constraint="no empty" value="@bind(vm.titulo)" width="80%"
+										maxlength="30" cols="23" tabindex="5" mold="rounded" />
+								</row>
+
+								<row>
+									<label id="lblLinkImagenBanner"
+										value="Link Imagen:" />
+									<textbox id="txtLinkBanner"
+										constraint="no empty" value="@bind(vm.enlace)" width="80%"
+										maxlength="30" cols="23" tabindex="5" mold="rounded" />
+								</row>
+
+								<row>
+									<label id="lblDescripcionBanner"
+										value="Descripción Imagen:" />
+									<textbox id="txtDescripcionBanner"
+										constraint="no empty" value="@bind(vm.descripcion)" rows="3"
+										tabindex="2" width="77%" maxlength="255" mold="rounded" />
+								</row>
+								<row>
+									<label id="lblFechaVencimientoBanner" value="Fecha Vencimiento:" />
+									<datebox id="dtbFechaVencimientoBanner" width="80%" format="dd/MM/yyyy"
+									mold="rounded" value="@bind(vm.fechaVencimiento)" />
+								</row>
+							</rows>
+						</grid>
+						<vlayout>
+							<button label="Cargar Imagen"
+								id="btnCargarImagenBanner" 
+								src="/imagenes/iconos/cargar.png"
+								 upload="true" mold="trendy"
+								onUpload="@command('cargarImagenBanner',upload=event)" />
+							<image id="imgImagenBanner" height="50%"
+								width="100px" content="@bind(vm.imagenBanner)" />
+						</vlayout>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		<div align="right" height="100%">
+
+			<!-- Permite realizar acciones respecto al Banner -->
 
 
-
-				<row>
-					<label id="lblDescripcionBanner" value="Descripción Imagen:" />
-					<textbox id="txtDescripcionBanner" constraint="no empty" value="@bind(vm.descripcion)"
-						rows="3" tabindex="2" width="77%" maxlength="255" mold="rounded" />
-
-				</row>
-				<row>
-					<label id="lblFechaVencimientoBanner" value="Fecha Vencimiento:" />
-					<datebox id="dtbFechaVencimientoBanner" width="auto" height="auto" format="dd/MM/yyyy" mold="rounded" value="@bind(vm.fechaVencimiento)"/>
-
-				</row>
-
-
-			</rows>
-		</grid>
-		<vlayout>
-			<button label="Cargar Imagen" id="btnCargarImagenBanner" width="auto" height="auto"
-							src="/imagenes/iconos/cargar.png" orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarImagenBanner',upload=event)"/>
-				<image id="imgImagenBanner" height="50%" width="100px" content="@bind(vm.imagenBanner)"/>
-		</vlayout>
-		</row>
-		</rows>
-		</grid>
-	</groupbox>
-	<separator />
-	<div align="right" height="100%">
-	
-	<!-- Permite realizar acciones respecto al Banner -->
-			
-			
-			<button label="Guardar" id="btnGuardarBanner" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="@command('guardarBanner')"/>
-			<button label="Eliminar" id="btnEliminarBanner" image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="@command('eliminarImagenBanner')"/>
-			<button label="Cancelar" id="btnCancelarBanner" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
-			orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
+			<button label="Guardar" id="btnGuardarBanner"
+				image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy"
+				onClick="@command('guardarBanner')" />
+			<button label="Eliminar" id="btnEliminarBanner"
+				image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy"
+				onClick="@command('eliminarImagenBanner')" />
+			<button label="Cancelar" id="btnCancelarBanner"
+				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+				orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
 			<button label="Cerrar" id="btnCerrarBanner"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="winActualizarBanner.onClose()" />
+				orient="horizontal" mold="trendy"
+				onClick="winActualizarBanner.onClose()" />
 
 
 		</div>
-	
-<!-- 	//**************************************************** -->
-<!-- 	//LISTADO DE BANNER -->
-<!-- 	//**************************************************** -->
-<!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->
-	
-	
-	<groupbox id="grbListadoBanner"> 
-		<caption label="Listado del Banner"/>
-		<separator />
-		<listbox id="lbxListaBanner" rows="2" model="@bind(vm.listadoBanner)" selectedItem="@bind(vm.bannerSeleccionado)"  height="auto"  
-   			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay banner registrados" mold="paging" pageSize="2">
-        
-        <listhead>
-			
-			<listheader label="Título" align="center" sort="auto(titulo)">
-				<textbox instant="true" width="100px" value="@bind(vm.titulo)" onChange="@command('filtrosBanner')" />
-				<image src="/imagenes/iconos/buscar.png"/>
-			</listheader>
-			<listheader label="Link" align="center" sort="auto(enlace)">
-				<textbox instant="true"  width="100px"
-                    value="@bind(vm.enlace)" onChange="@command('filtrosBanner')"/>
-				<image src="/imagenes/iconos/buscar.png"/>
-			</listheader>
-			<listheader label="Descripción" align="center" sort="auto(descripcion)" width="220px">
-			</listheader>
-			<listheader label="Fecha Vencimiento" align="center"/>
-			<listheader label="Imagen" align="center"/>
-		</listhead>
-			
-			<template name="model">
-				<listitem>
-					<listcell label="${each.titulo}"/>
-					<listcell label="${each.enlace}"/>
-					<listcell label="${each.descripcion}"/>
-					<listcell label="${each.fechaVencimiento}"/>
-					<listcell label="">
-						<image height="30px" width="60px" content="${each.getFotoBanner().getAImage()}"/>
-					</listcell>
-				</listitem>
-			</template>
-		</listbox>
-	</groupbox>
+
+		<!-- 	//**************************************************** -->
+		<!-- 	//LISTADO DE BANNER -->
+		<!-- 	//**************************************************** -->
+		<!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->
+
+
+		<groupbox id="grbListadoBanner">
+			<caption label="Listado del Banner" />
+			<separator />
+			<listbox id="lbxListaBanner"  height="100%" 
+				model="@bind(vm.listadoBanner)"
+				selectedItem="@bind(vm.bannerSeleccionado)"
+				onSelect="@command('mostrarSeleccionado')"
+				emptyMessage="No hay banner registrados" mold="paging"
+				pageSize="10">
+
+				<listhead>
+
+					<listheader label="Título" align="lefth"
+						sort="auto(titulo)">
+						<textbox instant="true" mold="rounded"
+							width="100px" value="@bind(vm.titulo)"
+							onChange="@command('filtrosBanner')" />
+						<image src="/imagenes/iconos/buscar.png" />
+					</listheader>
+					<listheader label="Link" align="lefth"
+						sort="auto(enlace)">
+						<textbox instant="true" mold="rounded"
+							width="100px" value="@bind(vm.enlace)"
+							onChange="@command('filtrosBanner')" />
+						<image src="/imagenes/iconos/buscar.png" />
+					</listheader>
+					<listheader label="Descripción" align="lefth"
+						sort="auto(descripcion)">
+					</listheader>
+					<listheader label="Fecha Vencimiento" align="lefth" />
+					<listheader label="Imagen" align="lefth" />
+				</listhead>
+
+				<template name="model">
+					<listitem>
+						<listcell label="${each.titulo}" />
+						<listcell label="${each.enlace}" />
+						<listcell label="${each.descripcion}" />
+						<listcell label="${each.fechaVencimiento}" />
+						<listcell label="">
+							<image height="30px" width="60px"
+								content="${each.getFotoBanner().getAImage()}" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
 
 	</window>
 
