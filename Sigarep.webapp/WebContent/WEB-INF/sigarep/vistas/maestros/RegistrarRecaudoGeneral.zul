@@ -73,16 +73,16 @@
 				pageSize="10">
 				<!-- Busqueda por FILTROS recaudos -->
 				<listhead>
-					<listheader label="Nombre" align="center"
+					<listheader label="Nombre" align="lefth"
 						sort="auto(nombre)">
 						<textbox id="filtroNombre" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreRecaudoFiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
-					<listheader label="Descripciòn " align="center"
+					<listheader label="Descripciòn " align="lefth"
 						sort="auto(descripcion)" />
-					<listheader label="Observaciòn " align="center"
+					<listheader label="Observaciòn " align="lefth"
 						sort="auto(observacion)" />
 				</listhead>
 				<template name="model">
