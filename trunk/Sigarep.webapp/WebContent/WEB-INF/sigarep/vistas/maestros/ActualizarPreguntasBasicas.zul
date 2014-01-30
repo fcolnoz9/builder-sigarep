@@ -75,9 +75,9 @@
 				emptyMessage="No hay preguntas básicas registradas" mold="paging"
 				pageSize="5">
 				<listhead>
-					<listheader label="Preguntas" align="center"
+					<listheader label="Preguntas" align="lefth"
 						sort="auto(pregunta)" />
-					<listheader label="Respuestas" align="center"
+					<listheader label="Respuestas" align="lefth"
 						sort="auto(respuesta)" />
 				</listhead>
 				<template name="model">
