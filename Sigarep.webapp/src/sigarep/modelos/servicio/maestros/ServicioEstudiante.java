@@ -16,7 +16,7 @@ import sigarep.modelos.repositorio.maestros.IEstudianteDAO;
 public class ServicioEstudiante {
 	private @Autowired IEstudianteDAO est;
 
-	public void guardarPrograma(Estudiante estudiante) {
+	public void guardarEstudiante(Estudiante estudiante) {
 		est.save(estudiante);
 	}
 

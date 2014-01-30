@@ -56,18 +56,17 @@ public class ServicioEstudianteSancionado {
 	}
 	
 	
-	public List<EstudianteSancionado> buscarEstudianteSancionadofiltros(String cedula, String primerNombre, String segundoApellido, String sancion, String lapso) {
+	public List<EstudianteSancionado> buscarEstudianteSancionadofiltros(String cedula, String nombre, String apellido, String sancion) {
 		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
 		
-		if (cedula == null || primerNombre == null || segundoApellido == null|| sancion== null|| lapso== null) {
+		if (cedula == null || nombre == null || apellido == null|| sancion== null) {
 			resultado = listadoEstudianteSancionado();
 		} else {
 			for (EstudianteSancionado inst : listadoEstudianteSancionado()) {
-				if (inst.getId().getCedulaEstudiante().toLowerCase().contains(cedula)
-						&& inst.getEstudiante().getPrimerNombre().toLowerCase().contains(primerNombre)
-						&& inst.getEstudiante().getPrimerApellido().toLowerCase().contains(segundoApellido)
-						&& inst.getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion)
-						&& inst.getLapsoAcademico().getCodigoLapso().toLowerCase().contains(lapso)){
+				if (inst.getId().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())
+						&& inst.getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())
+						&& inst.getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())
+						&& inst.getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
 					resultado.add(inst);
 				}
 			}

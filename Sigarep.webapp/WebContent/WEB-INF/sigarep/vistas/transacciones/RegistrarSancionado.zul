@@ -18,52 +18,69 @@
 					<label id="lblCedula" value="Cédula:" />
 					<textbox id="txtCedula" mold="rounded" width="80%"
 						cols="23" maxlength="30" tabindex="1" value="@bind(vm.cedula)"
-						constraint="no empty:Introduzca la cédula" onChange="@command('buscarEstudiante')" />
+						onBlur="@command('buscarEstudiante')" />
 				</row>
 				<row>
 					<label id="lblPrimerNombre" value="Primer Nombre:" />
 					<textbox id="txtPrimerNombre" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.primerNombre)" readonly="true" />
+						value="@bind(vm.primerNombre)"  />
 					<label id="lblSegundoNombre"
 						value="Segundo Nombre:" />
 					<textbox id="txtSegundoNombre" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.segundoNombre)" readonly="true" />
+						value="@bind(vm.segundoNombre)"  />
 				</row>
 				<row>
 					<label id="lblPrimerApellido"
 						value="Primer Apellido:" />
 					<textbox id="txtPrimerApellido" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.primerApellido)" readonly="true" />
+						value="@bind(vm.primerApellido)"  />
 					<label id="lblSegundoApellido"
 						value="Segundo Apellido:" />
 					<textbox id="txtSegundoApellido" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.segundoApellido)" readonly="true" />
+						value="@bind(vm.segundoApellido)"  />
 				</row>
 				<row>
 					<label id="lblsexo" value="Sexo" />
 					<textbox id="txtSexo" mold="rounded" width="80%"
 						cols="23" maxlength="30" tabindex="1" value="@bind(vm.sexo)"
-						readonly="true" />
+						 />
 					<label id="lblFechaNacimiento"
 						value="Fecha de Nacimiento:" />
 					<datebox id="dtbFechaNacimiento" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.fechaNacimiento)" format="dd/MM/yyyy"
-						readonly="true" />
+						 />
 				</row>
 				<row>
 					<label id="lblTelefono" value="Teléfono:" />
 					<textbox id="txtTelefono" mold="rounded" width="80%"
 						cols="23" maxlength="30" tabindex="1" value="@bind(vm.telefono)"
-						readonly="true" />
+						 />
 					<label id="lblEmail" value="Email:" />
 					<textbox id="txtEmail" mold="rounded" width="80%"
 						cols="23" maxlength="30" tabindex="1" value="@bind(vm.email)"
-						readonly="true" />
+						 />
+				</row>
+				<row>
+					<label id="lblAnnoIngreso" value="Año Ingreso:" />
+					<datebox id="dtbAnnoIngreso" mold="rounded"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy"  />
+					<label id="lblPrograma" value="Programa:" />
+					<combobox readonly="true" id="cmbPrograma"
+						value="@bind(vm.programa.nombrePrograma)" width="80%" cols="23"
+						maxlength="30" tabindex="1" mold="rounded"
+						model="@load(vm.listaPrograma)"
+						selectedItem="@bind(vm.programa)">
+						<template name="model"
+							constraint="no empty:Seleccione el programa">
+							<comboitem label="${each.getNombrePrograma()}" />
+						</template>
+					</combobox>
 				</row>
 
 			</rows>
@@ -82,33 +99,26 @@
 			</columns>
 			<rows>
 				<row>
-					<label id="lblAnnoIngreso" value="Año Ingreso:" />
-					<datebox id="dtbAnnoIngreso" mold="rounded"
-						width="80%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy" readonly="true" />
-					<label id="lblPrograma" value="Programa:" />
-					<textbox id="txtPrograma" mold="rounded" width="80%"
-						value="@bind(vm.programa)" readonly="true" />
+					<label id="lblLapso" value="Lapso Académico:" />
+					<textbox id="txtLapsoAcademico" mold="rounded"
+						width="80%" maxlength="30" tabindex="1" readonly="true"
+						value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
+						
 				</row>
 				<row>
-					<label id="lblLapso" value="Lapso:" />
-					<combobox readonly="true" id="cmbLapso"
-						value="@bind(vm.lapsoAcademico.codigoLapso)" width="80%" cols="23"
-						maxlength="30" tabindex="1" mold="rounded"
-						model="@load(vm.listaLapso)"
-						selectedItem="@bind(vm.lapsoAcademico)"
-						onSelect="@command('objetoComboLapso')">
-						<template name="model"
-							constraint="no empty:Seleccione el lapso">
-							<comboitem label="${each.codigoLapso}" />
-						</template>
-					</combobox>
 					<label id="lblIndiceGrado" value="Indice de grado:" />
 					<textbox id="txtIndiceGrado" mold="rounded"
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="20%" cols="23" maxlength="30" tabindex="1"
 						constraint="no empty:Introduzca un el indice de grado"
 						value="@bind(vm.indiceGrado)" />
+					<label id="lblSemestre" value="Semestre:" />
+					<textbox id="txtSemestre" mold="rounded"
+						width="20%" cols="23" maxlength="30" tabindex="1"
+						constraint="no empty:Introduzca un el indice de grado"
+						value="@bind(vm.semestre)" />
+						
 				</row>
+				
 				<row>
 					<label id="lblUnidadCursadas"
 						value="Unidades/Horas  Cursada" />
@@ -129,8 +139,7 @@
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"
 						model="@load(vm.listaSancion)"
-						selectedItem="@bind(vm.sancionMaestro)"
-						onSelect="@command('objetoComboSancion')">
+						selectedItem="@bind(vm.sancionMaestro)">
 						<template name="model">
 							<comboitem label="${each.nombreSancion}" />
 						</template>
@@ -140,7 +149,7 @@
 					<textbox id="txtPeriodoSancion" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						constraint="no empty:Introduzca el período de la Sancion"
-						value="@bind(vm.semestre)" />
+						value="@bind(vm.periodoSancion)" />
 				</row>
 			</rows>
 		</grid>
@@ -178,28 +187,28 @@
 				<listheader label="Cédula "
 					sort="auto(id.cedulaEstudiante)" align="center">
 					<textbox id="filtrocedula" instant="true"
-						width="50px" value="@bind(vm.cedula)"
+						width="50px" value="@bind(vm.cedulaFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Nombre "
 					sort="auto(estudiante.primerNombre)" align="center">
 					<textbox id="filtronombre" instant="true"
-						width="50px" value="@bind(vm.primerNombre)"
+						width="50px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Apellido "
 					sort="auto(estudiante.primerApellido)" align="center">
 					<textbox id="filtroApellido" instant="true"
-						width="50px" value="@bind(vm.primerApellido)"
+						width="50px" value="@bind(vm.apellidoFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Sación "
 					sort="auto(sancionMaestro.nombreSancion)" align="center">
 					<textbox id="filtroSancion" instant="true"
-						width="50px" value="@bind(vm.nombreSancion)"
+						width="50px" value="@bind(vm.sancionFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
