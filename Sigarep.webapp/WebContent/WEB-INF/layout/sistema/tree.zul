@@ -96,16 +96,9 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Recaudos Generales"
-								id="RegistrarRecaudoGeneral" sclass="maestros"
-								onClick="createWin(RegistrarRecaudoGeneral.getId(), RegistrarRecaudoGeneral.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
 							<treecell label="Recaudos por Motivo"
-								id="RegistrarRecaudos" sclass="maestros"
-								onClick="createWin(RegistrarRecaudos.getId(), RegistrarRecaudos.getSclass())" />
+								id="RegistrarRecaudoMotivo" sclass="maestros"
+								onClick="createWin(RegistrarRecaudoMotivo.getId(), RegistrarRecaudoMotivo.getSclass())" />
 						</treerow>
 					</treeitem>
 					<treeitem open="false">
