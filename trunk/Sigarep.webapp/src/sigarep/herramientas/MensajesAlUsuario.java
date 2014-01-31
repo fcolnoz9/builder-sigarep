@@ -98,12 +98,45 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+	
+	public void advertenciaSeleccionarGrupoUsuario() {
+
+		Messagebox.show("Debe seleccionar al menos un grupo",
+				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
+	
+	
+	public static void informacionHemosEnviadoCorreo() {
+
+		Messagebox.show("Te hemos enviado un email con tu nombre de usuario y contraseña.",
+		"Información", Messagebox.OK, Messagebox.INFORMATION);
+
+	}
+	
+	
+	public static void informacionContrasennaAtualizada() {
+
+		Messagebox.show("Se ha actualizado su contraseña con éxito.",
+		"Información", Messagebox.OK, Messagebox.INFORMATION);
+
+	}
+	
+	public static void informacionContrasennaRecuperada() {
+
+		Messagebox.show("Te hemos enviado un email con tu contraseña.",
+		"Información", Messagebox.OK, Messagebox.INFORMATION);
+
+	}
+	
+
 	public static void informacionRegistroCorrecto() {
 
 		Messagebox.show("Se ha registrado correctamente.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 
 	}
+	
 
 	public void informacionEliminarCorrecto() {
 
@@ -122,6 +155,13 @@ public class MensajesAlUsuario {
 	public void ErrorImposibleGuardar() {
 
 		Messagebox.show("Imposible guardar el registro.", "Error",
+				Messagebox.OK, Messagebox.ERROR);
+
+	}
+	
+	public void ErrorUsuarioEmailNoRegistrado() {
+
+		Messagebox.show("Usuario o e-mail no registrado.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 
 	}
