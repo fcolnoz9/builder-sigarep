@@ -1,0 +1,124 @@
+<window id="winRegistrarRecaudoMotivo"
+	title="Registros Básicos:: Registrar Recaudos "
+	border="normal" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivo')">
+
+	<groupbox>
+		<caption label="Datos del Recaudo" />
+		<grid>
+			<columns>
+				<column width="10%" />
+				<column width="40%" />
+				<column width="10%" />
+				<column width="40%" />
+			</columns>
+
+			<rows>
+				<row></row>
+				
+				<row>
+					<label id="lblTipoMotivo" value="Tipo de Motivo:" />
+					<combobox readonly="true" id="cmbTipoMotivo" width="80%"
+						value="@bind(vm.nombreTipoMotivo)" 
+						mold="rounded" model="@load(vm.listaTipoMotivo)"
+						selectedItem="@bind(vm.tipoMotivo)"
+						onSelect="@command('objetoComboMotivo')">
+						<template name="model">
+							<comboitem label="${each.nombreTipoMotivo}" />
+						</template>
+					</combobox>
+					
+					<label id="lblNombreRecaudo" value="Nombre del Recaudo:" />
+					<textbox constraint="no empty: Ingrese el Nombre del Recaudo" 
+					id="txtNombreRecaudo" mold="rounded"
+					width="80%" tabindex="2"  value="@bind(vm.nombreRecaudo)">
+					</textbox>
+				</row>
+	
+				<row>
+					<label id="lblDescripcionRecaudo"
+						value="Descripción: " />
+					<textbox constraint="no empty: Ingrese la Descripción del Recaudo" 
+					id="txtDescripcionRecaudo" mold="rounded"
+					width="77%"  rows="3" tabindex="2"
+						value="@bind(vm.descripcion)" />
+						
+					<label id="lblObservacionRecaudo"
+						value="Observación: " />
+					<textbox constraint="no empty: Ingrese la Observación del Recaudo" 
+					 id="txtObservacionRecaudo" mold="rounded"
+								width="77%"  rows="3" tabindex="2"
+						value="@bind(vm.observacion)" />
+				</row>
+				<row>
+					
+				</row>
+			</rows>
+		</grid>
+		</groupbox>
+			<separator />
+		<!--Botones -->
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardar"
+				image="/imagenes/iconos/guardar.png"  mold="trendy" width="auto" height="auto"
+				orient="horizontal" onClick="@command('guardarRecaudo')" />
+			<button label="Eliminar" id="btnEliminar"
+				image="/imagenes/iconos/eliminar.png" mold="trendy"  width="auto" height="auto"
+				orient="horizontal" onClick="@command('eliminarRecaudo')" />
+			<button label="Cancelar" id="btnCancelar"
+				image="/imagenes/iconos/cancelar.png" mold="trendy"  width="auto" height="auto"
+				orient="horizontal" onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" mold="trendy"  width="auto" height="auto"
+				orient="horizontal" onClick="winRegistrarRecaudoMotivo.onClose()" />
+		</div>
+		
+		
+		<!-- Grupbox que contiene el listado de los recaudos -->
+		<groupbox>
+			<caption label="Listado de Recaudos" />
+			<separator />
+			<!-- Lista que contiene el listado de los recaudos -->
+			<listbox id="lbxrecaudo" 
+				model="@bind(vm.listaRecaudos)"
+				selectedItem="@bind(vm.recaudoSeleccionado)"
+				onSelect="@command('mostrarSeleccionado')"
+				emptyMessage="No hay recaudos registrados" mold="paging"
+				pageSize="10">
+				<!-- Busqueda por FILTROS recaudos -->
+				<listhead>
+					<listheader label="Tipo de Motivo" align="lefth"
+						sort="auto(nombreTipoMotivo)">
+						<textbox id="filtroTipoMotivo" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreTipoMotivofiltro)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+					</listheader>
+					<listheader label="Nombre del Recaudo" align="lefth"
+						sort="auto(nombreRecaudo)">
+						<textbox id="filtroNombre" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreRecaudofiltro)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+					</listheader>
+					<listheader label="Descripción " align="lefth"
+						sort="auto(descripcion)" />
+					<listheader label="Observación " align="lefth"
+						sort="auto(observacion)" />
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.tipoMotivo.nombreTipoMotivo}"></listcell> 
+						<listcell label="${each.nombreRecaudo}"></listcell>
+						<listcell label="${each.descripcion}"></listcell>
+						<listcell label="${each.observacion}"></listcell>
+					</listitem>
+				</template>
+			</listbox>
+
+		</groupbox>
+	
+</window>
+		
+		
+		
