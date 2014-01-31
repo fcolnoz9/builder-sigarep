@@ -98,6 +98,11 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+      public void advertenciaMenudelGrupoVacio(){
+		
+		Messagebox.show("¡Debe agregar al menos una función al menu del grupo!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
 	
 	public void advertenciaSeleccionarGrupoUsuario() {
 
@@ -105,9 +110,7 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
-	
-	
-	public static void informacionHemosEnviadoCorreo() {
+	public void informacionHemosEnviadoCorreo() {
 
 		Messagebox.show("Te hemos enviado un email con tu nombre de usuario y contraseña.",
 		"Información", Messagebox.OK, Messagebox.INFORMATION);
@@ -115,14 +118,14 @@ public class MensajesAlUsuario {
 	}
 	
 	
-	public static void informacionContrasennaAtualizada() {
+	public void informacionContrasennaAtualizada() {
 
 		Messagebox.show("Se ha actualizado su contraseña con éxito.",
 		"Información", Messagebox.OK, Messagebox.INFORMATION);
 
 	}
 	
-	public static void informacionContrasennaRecuperada() {
+	public void informacionContrasennaRecuperada() {
 
 		Messagebox.show("Te hemos enviado un email con tu contraseña.",
 		"Información", Messagebox.OK, Messagebox.INFORMATION);
@@ -130,18 +133,22 @@ public class MensajesAlUsuario {
 	}
 	
 
-	public static void informacionRegistroCorrecto() {
+	public static void informacionRegistroCorrectoStatic() {
 
-		Messagebox.show("Se ha registrado correctamente.", "Información",
-				Messagebox.OK, Messagebox.INFORMATION);
-
+		Messagebox.show("Se ha registrado correctamente.", 
+				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
+	public void informacionRegistroCorrecto() {
+
+		Messagebox.show("Se ha registrado correctamente.", 
+				"Información", Messagebox.OK, Messagebox.INFORMATION);
+	}
 
 	public void informacionEliminarCorrecto() {
 
-		Messagebox.show("Se ha eliminado correctamente.", "Información",
-				Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("Se ha eliminado correctamente.", 
+				"Información", Messagebox.OK, Messagebox.INFORMATION);
 
 	}
 

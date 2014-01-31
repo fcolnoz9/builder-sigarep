@@ -428,7 +428,7 @@ public class VMAnalizarValidezI {
 				serviciosolicitudapelacion.guardar(solicitudApelacionAux);									
 					
 				try {
-					MensajesAlUsuario.informacionRegistroCorrecto();				
+					MensajesAlUsuario.informacionRegistroCorrectoStatic();				
 					winAnalizarValidezI.detach();
 					
 					} catch (Exception e) {
