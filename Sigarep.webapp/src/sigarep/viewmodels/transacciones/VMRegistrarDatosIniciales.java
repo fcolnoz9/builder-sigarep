@@ -80,7 +80,7 @@ public class VMRegistrarDatosIniciales {
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 
 	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
-	private EstudianteSancionado estudianteseleccionado;
+	private EstudianteSancionado estudianteSeleccionado;
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String cedula;
@@ -177,12 +177,12 @@ public class VMRegistrarDatosIniciales {
 	}
 
 	public EstudianteSancionado getEstudianteseleccionado() {
-		return estudianteseleccionado;
+		return estudianteSeleccionado;
 	}
 
 	public void setEstudianteseleccionado(
-			EstudianteSancionado estudianteseleccionado) {
-		this.estudianteseleccionado = estudianteseleccionado;
+			EstudianteSancionado estudianteSeleccionado) {
+		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
 
 	public String getSegundoNombre() {
@@ -377,9 +377,9 @@ public class VMRegistrarDatosIniciales {
 	 */
 	public void concatenacionNombres() {
 
-		nombres = estudianteseleccionado.getEstudiante().getPrimerNombre()
+		nombres = estudianteSeleccionado.getEstudiante().getPrimerNombre()
 				+ " "
-				+ estudianteseleccionado.getEstudiante().getSegundoNombre();
+				+ estudianteSeleccionado.getEstudiante().getSegundoNombre();
 	}
 
 	/**
@@ -389,9 +389,9 @@ public class VMRegistrarDatosIniciales {
 	 */
 	public void concatenacionApellidos() {
 
-		apellidos = estudianteseleccionado.getEstudiante().getPrimerApellido()
+		apellidos = estudianteSeleccionado.getEstudiante().getPrimerApellido()
 				+ " "
-				+ estudianteseleccionado.getEstudiante().getSegundoApellido();
+				+ estudianteSeleccionado.getEstudiante().getSegundoApellido();
 
 	}
 
@@ -409,15 +409,15 @@ public class VMRegistrarDatosIniciales {
 
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("estudianteseleccionado") EstudianteSancionado v1)
+			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1)
 
 	{
 		Selectors.wireComponents(view, this, false);
-		this.estudianteseleccionado = v1;
+		this.estudianteSeleccionado = v1;
 		Date fecha = new Date();
-		cedula = estudianteseleccionado.getId().getCedulaEstudiante();
-		sancion = estudianteseleccionado.getSancionMaestro().getNombreSancion();
-		lapso = estudianteseleccionado.getId().getCodigoLapso();
+		cedula = estudianteSeleccionado.getId().getCedulaEstudiante();
+		sancion = estudianteSeleccionado.getSancionMaestro().getNombreSancion();
+		lapso = estudianteSeleccionado.getId().getCodigoLapso();
 
 		concatenacionNombres();
 		concatenacionApellidos();
@@ -432,7 +432,7 @@ public class VMRegistrarDatosIniciales {
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
 		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-			asignaturaLapsosConsecutivos = estudianteseleccionado
+			asignaturaLapsosConsecutivos = estudianteSeleccionado
 					.getLapsosAcademicosRp();
 		}
 		listamotivo = serviciotipomotivo.buscarTodas();
