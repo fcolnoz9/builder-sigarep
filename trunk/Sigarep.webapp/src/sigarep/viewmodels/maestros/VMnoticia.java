@@ -207,16 +207,16 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
-	@NotifyChange({"contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
+	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void limpiar(){
 		// se utiliza la fecha del sistema para colocarla al momento de limpiar
 		Date fecha = new Date();
 		idNoticia=null;
 		contenido="";
 		enlaceNoticia="";
-		fechaRegistro=fecha;
+		fechaRegistro=null;
 		titulo="";
-		vencimiento=fecha;
+		vencimiento=null;
 		mediaNoticia = null;
 		imagenNoticia = null;
 		fotoNoticia = new Archivo();
