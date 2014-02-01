@@ -146,5 +146,8 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 					"AND sa.id.idInstanciaApelada = '3'")
 			public List<SolicitudApelacion> BuscarAnalizarValidezIII();
 
+		@Query("SELECT sa FROM SolicitudApelacion AS sa WHERE sa.fechaSesion = (SELECT MAX(sa.fechaSesion) FROM SolicitudApelacion AS sa)")
+		public SolicitudApelacion buscarSolicitudParaDatosSesion();
+
 	
 }
