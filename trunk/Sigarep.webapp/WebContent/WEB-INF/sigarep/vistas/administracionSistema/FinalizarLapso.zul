@@ -7,8 +7,8 @@
 			<columns>
 				<column align="center">
 					<label id="lblLapsoActual" value="Lapso Académico Actual:" />
-					<textbox mold="rounded" id="txtLapsoActual" cols="23" readonly="true"
-							 value="@bind(vm.lapsoAcademico.getCodigoLapso())" width="200px">
+					<textbox mold="rounded" id="txtLapsoActual" cols="15" readonly="true"
+							 value="@bind(vm.lapsoAcademico.getCodigoLapso())" width="auto">
 					</textbox>
 				</column>
 				<column align="center">
