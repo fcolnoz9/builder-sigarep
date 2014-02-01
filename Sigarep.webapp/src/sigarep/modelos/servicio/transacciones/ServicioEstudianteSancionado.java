@@ -12,6 +12,7 @@ import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
 
 @Service("servicioestudiantesancionado")
@@ -73,7 +74,10 @@ public class ServicioEstudianteSancionado {
 		}
 		return resultado;
 	}
-	
-	
+
+//Maria Flores
+	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquico(){
+		return iEstudianteSancionadoDAO.buscarSancionadosRecursoJerarquico();
+	}
 	
 }
