@@ -22,7 +22,7 @@
 						<textbox id="txtLapsoAcademico"
 							constraint="no empty:Ingrese Lapso Académico"
 							value="@bind(vm1.codigoLapso)" width="80%" height="auto"
-							mold="rounded" maxlength="30" cols="23"  
+							mold="rounded" maxlength="30" cols="23"
 							onClick="@command('buscarActivoLapso')" />
 					</row>
 					<row>
@@ -30,14 +30,16 @@
 							value="Fecha de Inicio de Lapso:" />
 						<datebox id="dtbFechaInicio"
 							constraint="no empty:Ingrese Fecha de Inicio de Lapso Académico"
-							format="yyyy/MM/dd" height="auto" width="80%" tabindex="4" readonly="true" 
+							format="dd/MM/yyyy" onChange="@command('validarFecha')"
+							height="auto" width="80%" tabindex="4" readonly="true"
 							mold="rounded" value="@bind(vm1.fechaInicio)" />
 
 						<label id="lblFechaCierre"
 							value="Fecha de Fin de Lapso:" />
 						<datebox id="dbFechaCierre"
 							constraint="no empty:Ingrese Fecha Final de Lapso Académico"
-							format="yyyy/MM/dd" height="auto" width="80%" mold="rounded" readonly="true" 
+							format="dd/MM/yyyy" onChange="@command('validarFecha')"
+							height="auto" width="80%" mold="rounded" readonly="true"
 							value="@bind(vm1.fechaCierre)" />
 					</row>
 				</rows>
@@ -50,14 +52,14 @@
 			<button label="Guardar" mold="trendy" id="btnGuardar"
 				image="imagenes/iconos/guardar.png" width="auto" height="auto"
 				orient="horizontal" onClick="@command('guardarLapso')" />
-			<button label="Cancelar" mold="trendy"  id="btnCancelar"
+			<button label="Cancelar" mold="trendy" id="btnCancelar"
 				image="imagenes/iconos/cancelar.png" width="auto" height="auto"
 				orient="horizontal" onClick="@command('limpiarlapso')" />
-			<button label="Cerrar" mold="trendy"  id="btnCerrar"
+			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="imagenes/iconos/cerrar.png" width="auto" height="auto"
 				orient="horizontal" onClick="winRegistrarLapso.onClose()" />
 		</div>
-					
+
 		<!-- Grupbox que contiene el  Lapso Académico Actual -->
 		<groupbox id="grbRegistrarLapso3">
 			<caption label="Lapso Académico Actual" />
@@ -67,10 +69,10 @@
 				onSelect="@command('mostrarSeleccionadoLapso')"
 				emptyMessage="No hay Lapsos Academicos registradas" mold="paging"
 				pageSize="10">
-			
+
 				<listhead>
 					<listheader label="Lapso Académico"
-						id="lblLapsoAcademicos1" align="lefth" sort="auto(codigoLapso)"/>
+						id="lblLapsoAcademicos1" align="lefth" sort="auto(codigoLapso)" />
 					<listheader label="Fecha de Inicio de Lapso"
 						id="lblFechaInicios" align="lefth" sort="auto(fechaInicio)" />
 					<listheader label="Fecha de Final de Lapso"

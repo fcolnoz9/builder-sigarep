@@ -17,11 +17,17 @@ import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
-
+/**VM Lapso Academico
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMlapsoAcademico {
 	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
+
 	private String codigoLapso;
 	private Date fechaInicio ;
 	private Date fechaCierre;
@@ -29,6 +35,8 @@ public class VMlapsoAcademico {
 	private List<LapsoAcademico> listaLapsoAcademico;
 	private LapsoAcademico lapsoAcademicoseleccionado;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
+
     @Wire Textbox txtcodigoLapso;
     @Wire Window ventana;
   //Metodos set y get
@@ -75,14 +83,14 @@ public class VMlapsoAcademico {
 	   
 		//----------- OTROS METODOS
 	
-	//Metodo que busca una noticia partiendo por su titulo
+
 	@Init
 	public void init(){
         //initialization code
 		buscarActivoLapso();
 		buscarLapso();
     }
-	
+	//Metodo que busca un lapso partiendo por su titulo
 	@Command
 	@NotifyChange({"listaLapsoAcademico"})
 	public void buscarLapso(){
@@ -107,13 +115,25 @@ public class VMlapsoAcademico {
 		   }
 		}
 	}
-	//Metodo que limpia  todos los campos y pone la fecha actual 
+	@Command
+	@NotifyChange({"fechaInicio", "fechaCierre"})
+	public void validarFecha(){
+		if (fechaInicio != null && fechaCierre != null){
+			if (fechaInicio.compareTo(fechaCierre) > 0){
+				mensajesAlUsuario.ErrorRangoFechas();
+				fechaCierre=null;
+			}
+		}
+	}
+	//Metodo que limpia  todos los campos
 	@Command
 	@NotifyChange({"codigoLapso", "fechaInicio", "fechaCierre","codigoLapsoFiltro","listaLapsoAcademico"})
 	public void limpiarlapso(){
+		codigoLapso=null;
 		Date fecha = null;
 		codigoLapso = "";fechaInicio=fecha;fechaCierre=fecha;
 		buscarActivoLapso();
+		
 	}
 	 // Método que trae todos los registros en una lista de Lapso Academicos
 	@Command
@@ -123,7 +143,7 @@ public class VMlapsoAcademico {
 	}
 	//permite tomar los datos del objeto lapsoAcademico seleccionado
 	@Command
-	@NotifyChange({"codigoLapso", "fechaCierre", "fechaInicio","listaLapsoAcademico"})
+	@NotifyChange({"codigoLapso", "fechaInicio","fechaCierre", "listaLapsoAcademico"})
 	public void mostrarSeleccionadoLapso(){
 		LapsoAcademico lapsoAA =getLapsoAcademicoseleccionado();
 		codigoLapso=lapsoAA.getCodigoLapso();

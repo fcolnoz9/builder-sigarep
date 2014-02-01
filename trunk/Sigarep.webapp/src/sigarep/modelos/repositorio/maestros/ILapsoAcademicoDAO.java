@@ -8,7 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
-
+/**Lapso Academico DAO
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 public interface ILapsoAcademicoDAO extends JpaRepository<LapsoAcademico, String> {
 	
 	@Query("select  lapso from LapsoAcademico AS lapso  where estatus= TRUE")
