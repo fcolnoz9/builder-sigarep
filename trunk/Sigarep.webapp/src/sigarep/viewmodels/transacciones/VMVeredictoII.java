@@ -59,6 +59,10 @@ public class VMVeredictoII {
 	private String observacionGeneral;
 	private String veredicto;
 	
+	private String numeroSesion;
+	private String tipoSesion;
+	private Date fechaSesion;
+	
 	private SolicitudApelacion solicitudApelacion;
 	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 
@@ -167,7 +171,10 @@ public class VMVeredictoII {
 	@Init
 	public void init(
 		@ContextParam(ContextType.VIEW) Component view,
-		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
+		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa,
+		@ExecutionArgParam("numeroSesion") String numeroSesion,
+		@ExecutionArgParam("tipoSesion") String tipoSesion,
+		@ExecutionArgParam("fechaSesion") Date fechaSesion)
 	{
 		Selectors.wireComponents(view, this, false);
 		this.solicitudApelacion = sa;
@@ -187,6 +194,10 @@ public class VMVeredictoII {
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		this.observacionGeneral = sa.getObservacion();
+		
+		this.numeroSesion = numeroSesion;
+		this.tipoSesion = tipoSesion;
+		this.fechaSesion = fechaSesion;
 		
 		concatenacionNombres();
 		concatenacionApellidos();
@@ -288,11 +299,14 @@ public class VMVeredictoII {
 		
 		solicitudApelacion.setObservacion(observacionGeneral);
 		solicitudApelacion.setVeredicto(veredicto);
+		solicitudApelacion.setNumeroSesion(numeroSesion);
+		solicitudApelacion.setTipoSesion(tipoSesion);
+		solicitudApelacion.setFechaSesion(fechaSesion);
 		ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
 		ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
 		apelacionEstadoPK.setCedulaEstudiante(cedula);
 		apelacionEstadoPK.setCodigoLapso(lapso);
-		apelacionEstadoPK.setIdEstadoApelacion(4);
+		apelacionEstadoPK.setIdEstadoApelacion(8);
 		apelacionEstadoPK.setIdInstanciaApelada(instancia);
 		apelacionEstado.setId(apelacionEstadoPK);
 		apelacionEstado.setFechaEstado(new Date());
