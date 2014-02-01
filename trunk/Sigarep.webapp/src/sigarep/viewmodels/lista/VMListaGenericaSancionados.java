@@ -196,7 +196,7 @@ public class VMListaGenericaSancionados {
 			this.tipoSesion = tipoSesion;
 			this.fechaSesion = fechaSesion;
 		}
-		
+
 		buscarProgramaA ();
 		buscarSancionados();
     }
@@ -223,8 +223,8 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
 			lista = null;
-		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
-			lista = serviciosolicitudapelacion.buscarSancionadosRecursoJerarquico();
+//		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
+//			lista = serviciosolicitudapelacion.buscarSancionadosRecursoJerarquico();
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudos.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVerificarRecaudosI();
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosII.zul"))
@@ -240,6 +240,8 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul")){
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
 		}
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
+			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
 		
 }
 	
@@ -275,9 +277,7 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
 			lista = null; //serviciodatosiniciales.filtrarEstudianteSancionado(cedula, nombre, apellido, nombrePrograma, sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
-			lista = serviciosolicitudapelacion.filtrarApelacionesRecursoJerarquico(programa,cedula,nombre,apellido,sancion );
-		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
-			lista = serviciosolicitudapelacion.filtrarApelacionesRecursoJerarquico(programa,cedula,nombre,apellido,sancion );
+			listaEstudiantes = servicioestudiantesancionado.filtrarApelacionesRecursoJerarquico(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezI(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezII.zul"))
