@@ -176,15 +176,6 @@ public class VMRegistrarDatosIniciales {
 		this.listaSancionados = listaSancionados;
 	}
 
-	public EstudianteSancionado getEstudianteseleccionado() {
-		return estudianteSeleccionado;
-	}
-
-	public void setEstudianteseleccionado(
-			EstudianteSancionado estudianteSeleccionado) {
-		this.estudianteSeleccionado = estudianteSeleccionado;
-	}
-
 	public String getSegundoNombre() {
 		return segundoNombre;
 	}
@@ -414,7 +405,6 @@ public class VMRegistrarDatosIniciales {
 	{
 		Selectors.wireComponents(view, this, false);
 		this.estudianteSeleccionado = v1;
-		Date fecha = new Date();
 		cedula = estudianteSeleccionado.getId().getCedulaEstudiante();
 		sancion = estudianteSeleccionado.getSancionMaestro().getNombreSancion();
 		lapso = estudianteSeleccionado.getId().getCodigoLapso();
@@ -529,5 +519,14 @@ public class VMRegistrarDatosIniciales {
 		descripcion = "";
 		motivoseleccionado = null;
 		listaMotivoListBox.clear();
+	}
+
+	public EstudianteSancionado getEstudianteSeleccionado() {
+		return estudianteSeleccionado;
+	}
+
+	public void setEstudianteSeleccionado(
+			EstudianteSancionado estudianteSeleccionado) {
+		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
 }
