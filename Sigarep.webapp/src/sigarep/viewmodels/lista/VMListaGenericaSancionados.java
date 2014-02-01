@@ -1,5 +1,6 @@
 package sigarep.viewmodels.lista;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,15 +24,13 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-import sigarep.viewmodels.transacciones.VMVeredictoI;
-import sigarep.viewmodels.transacciones.VMVeredictoIII;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaGenericaSancionados {
 
 
 	private SolicitudApelacion sancionadoSeleccionado;
-	private EstudianteSancionado estudianteseleccionado;
+	private EstudianteSancionado estudianteSeleccionado;
 	
 	//Servicios para llenar los combos
 	@WireVariable
@@ -64,15 +63,18 @@ public class VMListaGenericaSancionados {
 	private String apellido="";
 	private String nombre="";
 	private String cedula="";
+	private String numeroSesion;
+	private String tipoSesion;
+	private Date fechaSesion;
 
 	
-	public EstudianteSancionado getEstudianteseleccionado() {
-		return estudianteseleccionado;
+	public EstudianteSancionado getEstudianteSeleccionado() {
+		return estudianteSeleccionado;
 	}
 
-	public void setEstudianteseleccionado(
-			EstudianteSancionado estudianteseleccionado) {
-		this.estudianteseleccionado = estudianteseleccionado;
+	public void setEstudianteSeleccionado(
+			EstudianteSancionado estudianteSeleccionado) {
+		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
 
 	public List<EstudianteSancionado> getListaEstudiantes() {
@@ -181,21 +183,23 @@ public class VMListaGenericaSancionados {
 	 */
 	
 	@Init
-    public void init(@ExecutionArgParam("rutaModal") String rutaModal){
+    public void init(@ExecutionArgParam("rutaModal") String rutaModal,
+    				 @ExecutionArgParam("numeroSesion") String numeroSesion,
+    				 @ExecutionArgParam("tipoSesion") String tipoSesion,
+    				 @ExecutionArgParam("fechaSesion") Date fechaSesion){
 		this.rutaModal=rutaModal;
-		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul")){
-		listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
+		
+		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
+				rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
+				rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
+			this.numeroSesion = numeroSesion;
+			this.tipoSesion = tipoSesion;
+			this.fechaSesion = fechaSesion;
 		}
-		buscarTipoMotivo();
+		
 		buscarProgramaA ();
 		buscarSancionados();
     }
-	
-	@Command
-  	@NotifyChange({"listaTipoMotivo"})
-  	public void buscarTipoMotivo(){
-  		listaTipoMotivo = serviciotipomotivo.buscarP(nombreTipoMotivo);
-  	}
 	
 	@Command
 	@NotifyChange({ "listaPrograma" })
@@ -229,22 +233,25 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.buscarSancionadosJerarquicoVerificar();
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
 			lista = serviciosolicitudapelacion.buscarAnalizarValidezI();
-	else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezII.zul"))
+		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezII.zul"))
 			lista = serviciosolicitudapelacion.buscarAnalizarValidezII();
-	else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
-		lista = serviciosolicitudapelacion.buscarAnalizarValidezIII();
+		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
+			lista = serviciosolicitudapelacion.buscarAnalizarValidezIII();
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul")){
+			listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
+		}
 		
 }
-
-
-
 	
 	@Command
 	public void showModal (){
-  		
-  		final HashMap<String, Object> map = new HashMap<String, Object>();
+  	
+		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("sancionadoSeleccionado", sancionadoSeleccionado);
-	 	map.put("estudianteseleccionado", estudianteseleccionado);
+	 	map.put("estudianteSeleccionado", estudianteSeleccionado);
+	 	map.put("numeroSesion", numeroSesion);
+	 	map.put("tipoSesion", tipoSesion);
+	 	map.put("fechaSesion", fechaSesion);
  
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/"+rutaModal, null, map);
@@ -285,30 +292,30 @@ public class VMListaGenericaSancionados {
 			rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
 			rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
 			buscarSancionados();
-			finalizarVeredicto(lista);
+			//finalizarVeredicto(lista);
 		}
 	}
 	
-	public void finalizarVeredicto(List<SolicitudApelacion> listaSancionados) {
-		if (listaSancionados.size() == 0)
-			mensajesAlUsuario.informacionFinalizarVeredictoApelacionesProcesadas();
-		else{
-			Boolean check = false;
-			for (int i = 0; i < listaSancionados.size(); i++) {
-				if (listaSancionados.get(i).getVeredicto()!=null)
-					check = true;
-			}
-			if (check == true){
-				final HashMap<String, Object> map = new HashMap<String, Object>();
-			 	map.put("listaSancionados", listaSancionados);
-		        final Window window = (Window) Executions.createComponents(
-		        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
-				window.setMaximizable(true);
-				window.doModal();
-			}else{
-				mensajesAlUsuario.ErrorNoHayVeredictosRegistrados();
-			}
-		}
+	public void finalizarVeredicto() {
+//		if (listaSancionados.size() == 0)
+//			mensajesAlUsuario.informacionFinalizarVeredictoApelacionesProcesadas();
+//		else{
+//			Boolean check = false;
+//			for (int i = 0; i < listaSancionados.size(); i++) {
+//				if (listaSancionados.get(i).getVeredicto()!=null)
+//					check = true;
+//			}
+//			if (check == true){
+//				final HashMap<String, Object> map = new HashMap<String, Object>();
+//			 	map.put("listaSancionados", listaSancionados);
+//		        final Window window = (Window) Executions.createComponents(
+//		        		"/WEB-INF/sigarep/vistas/transacciones/DatosSesionI.zul", null, map);
+//				window.setMaximizable(true);
+//				window.doModal();
+//			}else{
+//				mensajesAlUsuario.ErrorNoHayVeredictosRegistrados();
+//			}
+//		}
 	}
 }
 

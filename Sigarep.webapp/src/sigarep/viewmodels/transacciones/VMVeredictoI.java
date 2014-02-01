@@ -60,6 +60,10 @@ public class VMVeredictoI {
 	private String observacionGeneral;
 	private String veredicto;
 	
+	private String numeroSesion;
+	private String tipoSesion;
+	private Date fechaSesion;
+	
 	private SolicitudApelacion solicitudApelacion;
 	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 
@@ -168,7 +172,10 @@ public class VMVeredictoI {
 	@Init
 	public void init(
 		@ContextParam(ContextType.VIEW) Component view,
-		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
+		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa,
+		@ExecutionArgParam("numeroSesion") String numeroSesion,
+		@ExecutionArgParam("tipoSesion") String tipoSesion,
+		@ExecutionArgParam("fechaSesion") Date fechaSesion)
 	{
 		Selectors.wireComponents(view, this, false);
 		this.solicitudApelacion = sa;
@@ -188,6 +195,10 @@ public class VMVeredictoI {
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		this.observacionGeneral = sa.getObservacion();
+		
+		this.numeroSesion = numeroSesion;
+		this.tipoSesion = tipoSesion;
+		this.fechaSesion = fechaSesion;
 		
 		concatenacionNombres();
 		concatenacionApellidos();
@@ -286,6 +297,9 @@ public class VMVeredictoI {
 		}else{
 			solicitudApelacion.setObservacion(observacionGeneral);
 			solicitudApelacion.setVeredicto(veredicto);
+			solicitudApelacion.setNumeroSesion(numeroSesion);
+			solicitudApelacion.setTipoSesion(tipoSesion);
+			solicitudApelacion.setFechaSesion(fechaSesion);
 			ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
 			ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
 			apelacionEstadoPK.setCedulaEstudiante(cedula);

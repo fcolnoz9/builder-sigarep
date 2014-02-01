@@ -19,13 +19,13 @@
 						<label id="lblCedula" value="Cedula: " />
 						<textbox id="txtCedula" mold="rounded"
 							tabindex="1" width="80%" cols="23"
-							value="@bind(vm.estudianteseleccionado.estudiante.cedulaEstudiante)"
+							value="@bind(vm.estudianteSeleccionado.estudiante.cedulaEstudiante)"
 							readonly="true" maxlength="30">
 						</textbox>
 						<label id="lblPrograma" value="Programa: " />
 						<textbox id="txtPrograma" mold="rounded"
 							tabindex="2" width="80%" cols="23"
-							value="@bind(vm.estudianteseleccionado.estudiante.programaAcademico.nombrePrograma)"
+							value="@bind(vm.estudianteSeleccionado.estudiante.programaAcademico.nombrePrograma)"
 							readonly="true" maxlength="30">
 						</textbox>
 					</row>
@@ -60,14 +60,14 @@
 							value="Lapso de Sancion: " />
 						<textbox id="txtLapsosancion" mold="rounded"
 							tabindex="6" width="80%" cols="23" height="auto"
-							value="@bind(vm.estudianteseleccionado.lapsoAcademico.codigoLapso)"
+							value="@bind(vm.estudianteSeleccionado.lapsoAcademico.codigoLapso)"
 							readonly="true" maxlength="6">
 						</textbox>
 						<label id="lblTiposancion"
 							value="Tipo de Sancion: " />
 						<textbox id="txtTipoSancion" mold="rounded"
 							tabindex="7" width="80%" cols="23" height="auto"
-							value="@bind(vm.estudianteseleccionado.sancionMaestro.nombreSancion)"
+							value="@bind(vm.estudianteSeleccionado.sancionMaestro.nombreSancion)"
 							readonly="true" maxlength="30">
 						</textbox>
 					</row>
@@ -76,7 +76,7 @@
 							value="Periodo de la Sancion: " />
 						<textbox id="txtPeridoinicialsancion"
 							mold="rounded" tabindex="3" width="80%" cols="23" height="auto"
-							value="@bind(vm.estudianteseleccionado.periodoSancion)"
+							value="@bind(vm.estudianteSeleccionado.periodoSancion)"
 							readonly="true" maxlength="30">
 
 						</textbox>
