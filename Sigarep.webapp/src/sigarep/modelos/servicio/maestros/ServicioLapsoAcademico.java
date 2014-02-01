@@ -11,7 +11,12 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
-
+/**Servicio Lapso Academido
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 @Service("serviciolapsoacademico") //Definiendo la variable servicio
 public class ServicioLapsoAcademico{
 	private @Autowired ILapsoAcademicoDAO iLapsoAcademico ;

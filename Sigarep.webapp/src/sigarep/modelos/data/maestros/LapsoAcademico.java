@@ -11,17 +11,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-/**
- * The persistent class for the lapso_academico database table.
- * 
- */
+/**Instancia Apelada
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name="lapso_academico")
 public class LapsoAcademico implements Serializable {
         private static final long serialVersionUID = 1L;
 
-        @Id
+    	// Atributos de la clase
+    	@Id
+    	// Clave principal de la clase
         @Column(name="codigo_lapso", unique=true, nullable=false, length=6)
         private String codigoLapso;
 
@@ -48,15 +53,16 @@ public class LapsoAcademico implements Serializable {
         }
         
         public LapsoAcademico(String codigoLapso,
-				Date fechaCierre, Date fechaInicio, Boolean estatus) {
+				 Date fechaInicio, Date fechaCierre,Boolean estatus) {
 			super();
 			this.codigoLapso = codigoLapso;
 			this.estatus = estatus;
-			this.fechaCierre = fechaCierre;
 			this.fechaInicio = fechaInicio;
+			this.fechaCierre = fechaCierre;
+			
 		}
 
-
+    	// Métodos GET y SET
 
 		public String getCodigoLapso() {
                 return this.codigoLapso;
