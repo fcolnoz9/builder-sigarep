@@ -21,5 +21,21 @@ public interface IEstudianteSancionadoDAO extends JpaRepository<EstudianteSancio
 			" (select ap.id.cedulaEstudiante from ApelacionEstadoApelacion " +
 			"as ap where ap.id.idInstanciaApelada = '1')")		
 	public List<EstudianteSancionado> buscarSancionados();
+	
+//Maria
+	
+	@Query("SELECT es FROM EstudianteSancionado AS es, LapsoAcademico AS la " +
+			"WHERE (es.id.cedulaEstudiante NOT IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa) " +
+			"OR es.id.cedulaEstudiante NOT IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa " +
+			"WHERE sa.veredicto = 'PROCEDENTE')) " +
+			"AND es.id.cedulaEstudiante NOT IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE' " +
+			"AND sa.id.idInstanciaApelada = '3') " +
+			"AND es.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE'")		
+	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquico();
 
 }
