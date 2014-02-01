@@ -126,33 +126,6 @@ public class ServicioSolicitudApelacion {
 		return result;
 	} 
 	
-//Maria Flores
-	public List<SolicitudApelacion> buscarSancionadosRecursoJerarquico(){
-		return iSolicitudApelacionDAO.buscarSancionadosRecursoJerarquico();
-	}
-	
-	public List<SolicitudApelacion> filtrarApelacionesRecursoJerarquico(
-			String programa, String cedula, String nombre,
-			String apellido, String sancion){
-		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
-        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
-        	result= buscarSancionadosRecursoJerarquico();
-        }
-        else{
-			for (SolicitudApelacion sa : buscarSancionadosRecursoJerarquico())
-			{
-				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
-						sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
-					result.add(sa);
-				}
-			}
-        }
-		return result;
-	}
-
 	public List<SolicitudApelacion> buscarApelacionesVeredictoI() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoI();
 	} 
