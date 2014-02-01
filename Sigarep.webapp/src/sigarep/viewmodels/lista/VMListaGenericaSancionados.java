@@ -209,7 +209,7 @@ public class VMListaGenericaSancionados {
 	
 	//Metodo donde se decide cuales sancionados se deben buscar segun la transaccion
 	@Command
-	@NotifyChange({"lista"})
+	@NotifyChange({"lista","listaEstudiantes"})
 	public void buscarSancionados(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
@@ -235,9 +235,8 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.buscarAnalizarValidezII();
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
 			lista = serviciosolicitudapelacion.buscarAnalizarValidezIII();
-		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul")){
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
-		}
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
 		
