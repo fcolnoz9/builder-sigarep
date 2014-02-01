@@ -16,14 +16,8 @@
 						</template>
 					</combobox>
 				</column>
-				<column align="center">
-					<label id="lblMotivo" value="Motivo " />
-					<combobox id="cmbMotivo" mold="rounded" model="@load(vm.listaTipoMotivo)" value="" onChange="@command('filtros')">
-						<template name="model">
-							<comboitem  label="${each.nombreTipoMotivo}"/>
-						</template>
-					</combobox>
-				</column>
+ 				<column align="center">
+ 				</column> 
 			</columns>
 		</grid>
 

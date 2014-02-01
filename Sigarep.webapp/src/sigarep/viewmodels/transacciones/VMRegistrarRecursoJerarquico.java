@@ -36,6 +36,7 @@ import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
@@ -93,7 +94,7 @@ public class VMRegistrarRecursoJerarquico {
 
 	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
 
-	private SolicitudApelacion sancionadoSeleccionado;
+	private EstudianteSancionado estudianteSeleccionado;
 
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
@@ -115,9 +116,13 @@ public class VMRegistrarRecursoJerarquico {
 
 	// METODOS GETS Y DETS
 
-	
-	public SolicitudApelacion getSancionadoSeleccionado() {
-		return sancionadoSeleccionado;
+	public EstudianteSancionado getEstudianteSeleccionado() {
+		return estudianteSeleccionado;
+	}
+
+	public void setEstudianteSeleccionado(
+			EstudianteSancionado estudianteSeleccionado) {
+		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
 
 	public String getObservacion() {
@@ -144,10 +149,6 @@ public class VMRegistrarRecursoJerarquico {
 		this.apellidos = apellidos;
 	}
 
-	public void setSancionadoSeleccionado(
-			SolicitudApelacion sancionadoSeleccionado) {
-		this.sancionadoSeleccionado = sancionadoSeleccionado;
-	}
 
 	public String getLapsosConsecutivos() {
 		return lapsosConsecutivos;
@@ -220,23 +221,29 @@ public class VMRegistrarRecursoJerarquico {
 	// OTROS METODOS
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
+			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1)
 
 	// initialization code
 
 	{
 		Selectors.wireComponents(view, this, false);
-		this.sancionadoSeleccionado = v1;
-		cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
+		this.estudianteSeleccionado = v1;
+		//cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
+		cedula = estudianteSeleccionado.getEstudiante().getCedulaEstudiante();
+		buscarSolicitud(cedula);
 		concatenacionNombres();
 		concatenacionApellidos();
-		lapso = sancionadoSeleccionado.getEstudianteSancionado()
-				.getLapsoAcademico().getCodigoLapso();
-		sancion = sancionadoSeleccionado.getEstudianteSancionado()
-				.getSancionMaestro().getNombreSancion();
-		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado()
-				.getLapsosAcademicosRp();
-		caso = sancionadoSeleccionado.getNumeroCaso();
+//		lapso = sancionadoSeleccionado.getEstudianteSancionado()
+//				.getLapsoAcademico().getCodigoLapso();
+		lapso= estudianteSeleccionado.getLapsoAcademico().getCodigoLapso();
+//		sancion = sancionadoSeleccionado.getEstudianteSancionado()
+//				.getSancionMaestro().getNombreSancion();
+		sancion=estudianteSeleccionado.getSancionMaestro().getNombreSancion();
+//		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado()
+//				.getLapsosAcademicosRp();
+		lapsosConsecutivos=estudianteSeleccionado.getLapsosAcademicosRp();
+		//OJO: COMO HACER CON EL CASO
+		//System.out.println("dddddddddd " + estudianteseleccionado.getSolicitudApelacions().size());
 
 		buscarRecaudosEntregados(cedula);
 
@@ -266,11 +273,9 @@ public class VMRegistrarRecursoJerarquico {
 	 */
 	public void concatenacionNombres() {
 
-		nombres = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getPrimerNombre()
+		nombres = estudianteSeleccionado.getEstudiante().getPrimerNombre()
 				+ " "
-				+ sancionadoSeleccionado.getEstudianteSancionado()
-						.getEstudiante().getSegundoNombre();
+				+ estudianteSeleccionado.getEstudiante().getSegundoNombre();
 	}
 
 	/**
@@ -281,11 +286,9 @@ public class VMRegistrarRecursoJerarquico {
 	 */
 	public void concatenacionApellidos() {
 
-		apellidos = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getPrimerApellido()
+		apellidos = estudianteSeleccionado.getEstudiante().getPrimerApellido()
 				+ " "
-				+ sancionadoSeleccionado.getEstudianteSancionado()
-						.getEstudiante().getSegundoApellido();
+				+ estudianteSeleccionado.getEstudiante().getSegundoApellido();
 
 	}
 
@@ -393,6 +396,10 @@ public class VMRegistrarRecursoJerarquico {
 						listaRecaudos.get(j).getSoporte().getDocumento()
 								.getNombreDocumento());
 		}
+	}
+
+	public void buscarSolicitud(String cedula){
+		serviciosolicitudapelacion.buscarSolicitudRecursoJerarquico(cedula);	
 	}
 	// FIN OTROS METODOS
 }
