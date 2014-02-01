@@ -15,11 +15,13 @@ public interface IEstudianteSancionadoDAO extends JpaRepository<EstudianteSancio
 	@Query("Select esa FROM EstudianteSancionado AS esa where estatus = TRUE")		
 	public List<EstudianteSancionado> buscarSancionadosActivos();
 	
-	@Query("Select esa FROM EstudianteSancionado AS esa, LapsoAcademico la " +
-			" where la.estatus = TRUE " +
-			"and la.codigoLapso = esa.id.codigoLapso and esa.id.cedulaEstudiante not in " +
-			" (select ap.id.cedulaEstudiante from ApelacionEstadoApelacion " +
-			"as ap where ap.id.idInstanciaApelada = '1')")		
+	@Query("SELECT esa FROM EstudianteSancionado AS esa, LapsoAcademico AS la " +
+			"WHERE la.estatus = 'TRUE' " +
+			"AND la.codigoLapso = esa.id.codigoLapso " +
+			"AND esa.id.cedulaEstudiante NOT IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE la.codigoLapso = sa.id.codigoLapso " +
+			"AND la.estatus = 'TRUE')")		
 	public List<EstudianteSancionado> buscarSancionados();
 	
 //Maria
