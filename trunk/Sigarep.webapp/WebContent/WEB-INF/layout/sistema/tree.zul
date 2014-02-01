@@ -164,8 +164,8 @@
 										<treerow>
 											<treecell
 												label="Datos Iniciales"
-												id="ListadoSancionInicial" sclass="transacciones"
-												onClick='createWin(ListadoSancionInicial.getId(), ListadoSancionInicial.getSclass(),"transacciones/RegistrarDatosInicialesApelacion.zul")' />
+												id="ListaGenericaEstudiantesSancionados" sclass="transacciones"
+												onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarDatosInicialesApelacion.zul")' />
 										</treerow>
 									</treeitem>
 									<treeitem>
@@ -195,15 +195,15 @@
 										<treerow>
 											<treecell
 												label="Analizar Validez" sclass="transacciones"
-												id="AnalizarValidezI"
+												id="ListaGenericaSancionados"
 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezI.zul" )' />
 										</treerow>
 									</treeitem>
 									<treeitem>
 										<treerow>
 											<treecell label="Veredicto"
-												id="ListaGenericaSancionados" sclass="transacciones"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(), "transacciones/veredictoI.zul")' />
+												id="DatosSesionVeredicto" sclass="transacciones"
+												onClick='createWin(DatosSesionVeredicto.getId(), DatosSesionVeredicto.getSclass(), "transacciones/veredictoI.zul")' />
 										</treerow>
 									</treeitem>
 								</treechildren>
