@@ -285,14 +285,5 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezIII(programa,cedula,nombre,apellido,sancion );	
 	}
-
-	@Command
-	public void finalizar(){
-		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
-			rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
-			rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
-			buscarSancionados();
-		}
-	}
 }
 
