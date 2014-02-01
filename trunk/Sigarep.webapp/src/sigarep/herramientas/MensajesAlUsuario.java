@@ -244,7 +244,17 @@ public class MensajesAlUsuario {
 		Messagebox.show("Se almacenaron correctamente los datos de la sesión a " + contador + " apelaciones.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
-
+	
+	public void informacionDatosDeSesionNoEncontrados() {
+		Messagebox.show("Proporcione los datos de una nueva sesión.", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
+	}
+	
+	public void informacionDatosDeSesionEncontrados() {
+		Messagebox.show("Se encontró una Sesión activa. Puede continuar con la misma o indicar los datos de una nueva.", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
+	}
+	
 	public void ErrorImposibleEliminar() {
 
 		Messagebox.show("Imposible eliminar el registro.", "Error",

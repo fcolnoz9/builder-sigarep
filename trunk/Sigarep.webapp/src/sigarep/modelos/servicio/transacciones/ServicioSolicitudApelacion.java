@@ -320,6 +320,10 @@ public class ServicioSolicitudApelacion {
 			return result;
 		}
 
+		public SolicitudApelacion buscarSolicitudParaDatosSesion() {
+			return iSolicitudApelacionDAO.buscarSolicitudParaDatosSesion();
+		}
+
 
 
 
