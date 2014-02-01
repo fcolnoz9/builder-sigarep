@@ -269,7 +269,7 @@
 								<treerow>
 									<treecell
 										label="Registrar Recurso Jerárquico" id="RegistrarRecursoJerarquico" sclass="maestros" 
-										onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/RegistrarRecursoJerarquico.zul" )' />
+										onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarRecursoJerarquico.zul" )' />
 								</treerow>
 							</treeitem>
 							<treeitem open="false">
