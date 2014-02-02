@@ -1,0 +1,127 @@
+<zk>
+	<window id="winEstudianteSancionado" title="Reporte :: Configurable :: Estudiantes Sancionados" border="normal" width="auto" closable="true"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMEstudianteSancionado')">
+		<style src="/widgets/grid/simple/style.css" />
+		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
+			<caption label="Criterio de Selecciòn" />
+			<grid id="grdEstudianteSancionado">
+				<columns>
+					<column label="" width="30%" id="columna1" />
+					<column label="" width="70%" id="columna2" />
+					<column label="" width="30%" id="columna3" />
+					<column label="" width="70%" id="columna4" />
+					<column label="" width="30%" id="columna5" />
+					<column label="" width="70%" id="columna6" />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblLapsoAcademico" value="Lapso Academico:" />
+						<combobox id="cmbLapsoAcademico" mold="rounded" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.objLapso)" onSelect="@command('objCmbLapso')">
+							<template name="model">
+								<comboitem label="${each.codigoLapso}" />
+							</template>
+						</combobox>
+						<label id="lblTipodeSancion" value="Tipo de Sanciòn:" />
+						<combobox id="cmbTipoSancion" mold="rounded" readonly="true" model="@load(vm.listaSancion)" selectedItem="@bind(vm.objSancion)" onSelect="@command('objCmbSancion')">
+							<template name="model">
+								<comboitem label="${each.nombreSancion}" />
+							</template>
+						</combobox>
+						<label id="lblInstanciA" value="Instancia Apelada:" />
+						<combobox id="cmbInstanciaA" readonly="true" mold="rounded" model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)" onSelect="@command('objCmbinstanciaApelada')">
+							<template name="model">
+								<comboitem label="${each.instanciaApelada}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label id="lblPrograma" value="Programa:" />
+						<combobox id="cmbPrograma" mold="rounded" readonly="true" model="@load(vm.listaPrograma)" selectedItem="@bind(vm.objprograma)" onSelect="@command('objCmbprograma')" >
+					<template name="model">
+						<comboitem label="${each.nombrePrograma}" />
+					</template>
+				</combobox>
+						<label id="lblMateria" value="Materia:" />
+						<combobox id="cmbMateria" cols="12"
+							readonly="true" mold="rounded" tooltiptext="Elegir una opcion">
+							<comboitem label="Calculo IV" />
+							<comboitem label="Programacion 2" />
+							<comboitem label="Calculo I" />
+							<comboitem label="laboratorio 1" />
+							<comboitem label="Todos" />
+						</combobox>
+						<label id="lblSexo" value="Sexo:" />
+						<combobox id="cmbSexo" cols="12" readonly="true" mold="rounded" tooltiptext="Elegir una opcion" selectedItem="@bind(vm.parametroSexo)" >
+							<comboitem label="F" />
+							<comboitem label="M" />
+							<comboitem label="Todos" />
+						</combobox>
+					</row>
+					<row>
+						<label id="lblMotivo" value="Motivo: " />
+						<combobox id="cmbMotivo" readonly="true" mold="rounded" model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.objtipoMotivo)" onSelect="@command('objCmbtipoMotivo')">
+							<template name="model">
+								<comboitem
+									label="${each.nombreTipoMotivo}" />
+							</template>
+						</combobox>
+
+					</row>
+				</rows>
+			</grid>
+			<hbox width="90%" height="150%" pack="right">
+				<div align="right" height="100%">
+					<button label="Buscar" id="btnBuscar" image="imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudianteSancionado')">
+					</button>
+				</div>
+				<div align="right" height="100%">
+					<button label="Cancelar" id="btnCancelar1" image="imagenes/iconos/cancelar.png" width="auto" height="auto" onClick="@command('limpiarE')" orient="horizontal">
+					</button>
+				</div>
+			</hbox>
+		</groupbox>
+		<space />
+		<groupbox id="grbRegistrarLapso3">
+			<caption label="Listado de Estudiantes Sancionados" />
+			<listbox id="lbxLapsoAcademico" height="70%" model="@bind(vm.listaE)" mold="paging" pageSize="10">
+				<listhead>
+					<listheader label="Nombres" id="lblnombreEstudiante" align="center" sort="auto(primerNombre)" />
+					<listheader label="Apellidos" id="lblprimerApellido" align="center" sort="auto(primerApellido)" />
+					<listheader label="Sexo" id="lblSexo1" align="center" sort="auto(sexo)" />
+					<listheader label="Programas" id="lblNombrePrograma" align="center" sort="auto(nombrePrograma)" />
+					<listheader label="Sancion" id="lblNombreSancion" align="center" sort="auto(nombreSancion)" />
+					<listheader label="Motivos" id="lblTipo_motivo" align="center" sort="auto(nombreTipoMotivo)" />
+					<listheader label="Instacia Apelada" id="lblistacanciaApelada" align="center" sort="auto(instanciaApelada)" />
+					<listheader label="Lapsos Academidos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="${each.primerNombre}" />
+						<listcell label="${each.primerApellido}" />
+						<listcell label="${each.sexo}" />
+						<listcell label="${each.nombrePrograma}" />
+						<listcell label="${each.nombreSancion}" />
+						<listcell label="${each.nombreTipoMotivo}" />
+						<listcell label="${each.instanciaApelada}" />
+						<listcell label="${each.codigoLapso}" />
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+			<space />
+		</groupbox>
+		<!-- Grupbox de Botones -->
+		<hbox width="90%" height="150%" pack="right">
+			<div align="right" height="100%">
+				<hlayout id="lytDescargar">
+					<button label="Descargar" id="btnDescargar1" image="imagenes/iconos/descargar.png" width="auto" height="auto" orient="horizontal"></button>
+				</hlayout>
+			</div>
+			<hlayout id="lytCerrar">
+				<div align="right" height="100%">
+					<button label="Cerrar" id="btnCerrar" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionado.onClose()" orient="horizontal"> </button>
+				</div>
+			</hlayout>
+		</hbox>
+	</window>
+</zk>
