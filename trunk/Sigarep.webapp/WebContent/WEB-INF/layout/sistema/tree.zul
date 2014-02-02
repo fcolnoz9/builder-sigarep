@@ -61,7 +61,7 @@
 					</treeitem>
 				    <treeitem>
 						<treerow>
-							<treecell label="Estado de Apelacion"
+							<treecell label="Estado de Apelación"
 								id="RegistrarEstadoApelacion" sclass="maestros"
 								onClick="createWin(RegistrarEstadoApelacion.getId(), RegistrarEstadoApelacion.getSclass())" />
 						</treerow>
