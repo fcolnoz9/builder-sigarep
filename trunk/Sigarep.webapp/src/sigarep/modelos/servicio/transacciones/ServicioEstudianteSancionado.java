@@ -99,5 +99,23 @@ public class ServicioEstudianteSancionado {
 		return result;
 	}
 
+	public List<EstudianteSancionado> filtrarDatosIniciales(String programa, String cedula, String nombre, String apellido, String sancion ) {
+		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
+		
+		if (programa == null || cedula == null || nombre == null || apellido == null|| sancion== null) {
+			resultado = listadoEstudianteSancionado();
+		} else {
+			for (EstudianteSancionado inst : listadoEstudianteSancionado()) {
+				if (inst.getEstudiante().getProgramaAcademico().getNombrePrograma().toLowerCase().contains(programa.toLowerCase())
+						&& inst.getId().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())
+						&& inst.getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())
+						&& inst.getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())
+						&& inst.getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
+					resultado.add(inst);
+				}
+			}
+		}
+		return resultado;
+	}
 	
 }
