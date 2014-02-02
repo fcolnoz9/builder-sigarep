@@ -24,7 +24,7 @@ public class ServicioReporteEstudianteSancionado {
 	    "INNER JOIN instancia_apelada as iap ON iap.id_instancia_apelada=sap.id_instancia_apelada " +
 	    "INNER JOIN programa_academico as prog ON prog.id_programa=es.id_programa " +
 	    "INNER JOIN sancion_maestro as san ON san.id_sancion=esa.id_sancion " +
-	    "where es.id_programa="+""+programaAcademico+" and es.sexo='M' and sap.id_instancia_apelada="+""+instanciaApelada+" " +
+	    "where es.id_programa="+""+programaAcademico+" and es.sexo="+""+sexo+" and sap.id_instancia_apelada="+""+instanciaApelada+" " +
 	    "and mot.id_tipo_motivo="+""+tipoMotivo+" and sap.codigo_lapso="+""+lapsoAcademico+" and esa.id_sancion="+""+tiposancion+" order by es.primer_nombre " ;
 		System.out.println(queryStatement);
 		Query query = es.createNativeQuery(queryStatement);
