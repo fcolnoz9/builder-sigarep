@@ -3,12 +3,9 @@ package sigarep.modelos.servicio.transacciones;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.InstanciaApelada;
-import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
