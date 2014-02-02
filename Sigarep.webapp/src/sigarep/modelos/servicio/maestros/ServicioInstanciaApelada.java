@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.InstanciaApelada;
-import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.repositorio.maestros.IInstanciaApeladaDAO;
 /**Servicio Instancia Apelada
 * UCLA DCYT Sistemas de Informacion.
@@ -28,18 +27,14 @@ public class ServicioInstanciaApelada{
 		List<InstanciaApelada> instanciaApeladaLista = iInstancia.buscarInstanciaActivo();
 	    return instanciaApeladaLista ;
 	}
-	public List<InstanciaApelada> buscarInstancia(InstanciaApeladaFiltros filtros) {
+	public List<InstanciaApelada> buscarInstancia(String instancia, String recurso) {
 		List<InstanciaApelada> resultado = new LinkedList<InstanciaApelada>();
-		String nombreInstancia = filtros.getNombreInstancia().toLowerCase();
-		String nombreRecurso = filtros.getNombreRecurso().toLowerCase();
-		String descripcion = filtros.getDescripcion().toLowerCase();
-		if (nombreInstancia == null || descripcion == null || nombreRecurso == null) {
+		if (instancia == null || recurso == null) {
 			resultado = listadoInstanciaApelada();
 		} else {
 			for (InstanciaApelada inst : listadoInstanciaApelada()) {
-				if (inst.getInstanciaApelada().toLowerCase().contains(nombreInstancia)
-						&& inst.getDescripcion().toLowerCase().contains(descripcion)
-						&& inst.getNombreRecursoApelacion().toLowerCase().contains(nombreRecurso)) {
+				if (inst.getInstanciaApelada().toLowerCase().contains(instancia)
+						&& inst.getNombreRecursoApelacion().toLowerCase().contains(recurso)) {
 					resultado.add(inst);
 				}
 			}

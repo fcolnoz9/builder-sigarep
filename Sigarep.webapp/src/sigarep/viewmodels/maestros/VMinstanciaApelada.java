@@ -9,9 +9,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.mensajes;
-import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.InstanciaApelada;
-import sigarep.modelos.data.maestros.InstanciaApeladaFiltros;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 /**VM Instancia Apelada
 * UCLA DCYT Sistemas de Informacion.
@@ -26,11 +24,10 @@ public class VMinstanciaApelada {
 	private String instanciaApelada;
 	private String nombreRecursoApelacion;
 	private String descripcion;
-	private String nombreIFiltro;
-	private String nombreRFiltro;
+	private String instanciaFiltro = "";
+	private String recursoFiltro = "";
 	private String descripcionFiltro;
 	private Boolean estatus;
-	private InstanciaApeladaFiltros filtros = new InstanciaApeladaFiltros();
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private InstanciaApelada instanciaApeladaseleccionada;
 	private mensajes mensajeAlUsuario = new mensajes();
@@ -41,13 +38,21 @@ public class VMinstanciaApelada {
     public String getInstanciaApelada(){
     	return instanciaApelada;
     }
-    @NotifyChange({ "filtros" })
-    public InstanciaApeladaFiltros getFiltros() {
-		return filtros;
+
+	public String getInstanciaFiltro() {
+		return instanciaFiltro;
 	}
 
-	public void setFiltros(InstanciaApeladaFiltros filtros) {
-		this.filtros = filtros;
+	public void setInstanciaFiltro(String instanciaFiltro) {
+		this.instanciaFiltro = instanciaFiltro;
+	}
+
+	public String getRecursoFiltro() {
+		return recursoFiltro;
+	}
+
+	public void setRecursoFiltro(String recursoFiltro) {
+		this.recursoFiltro = recursoFiltro;
 	}
 
 	public String getNombreRecursoApelacion() {
@@ -99,22 +104,6 @@ public class VMinstanciaApelada {
 	}
 	public void setInstanciaApeladaseleccionada(InstanciaApelada instanciaApeladaseleccionada) {
 		this.instanciaApeladaseleccionada = instanciaApeladaseleccionada;
-	}
-	
-	public String getNombreIFiltro() {
-		return nombreIFiltro;
-	}
-
-	public void setNombreIFiltro(String nombreIFiltro) {
-		this.nombreIFiltro = nombreIFiltro;
-	}
-
-	public String getNombreRFiltro() {
-		return nombreRFiltro;
-	}
-
-	public void setNombreRFiltro(String nombreRFiltro) {
-		this.nombreRFiltro = nombreRFiltro;
 	}
 
 	public String getDescripcionFiltro() {
@@ -190,11 +179,11 @@ public class VMinstanciaApelada {
 		nombreRecursoApelacion = getInstanciaApeladaseleccionada().getNombreRecursoApelacion();
 		descripcion = getInstanciaApeladaseleccionada().getDescripcion();
 	}
-	
-	// Método que busca y filtra las instancias
+
 	@Command
-	@NotifyChange({ "listaInstanciaApelada" })
+	@NotifyChange({ "listaInstanciaApelada", "instanciaFiltro", "recursoFiltro" })
 	public void filtros() {
-		listaInstanciaApelada = servicioInstanciaApelada.buscarInstancia(filtros);
+		listaInstanciaApelada = servicioInstanciaApelada.buscarInstancia(instanciaFiltro,
+				recursoFiltro);
 	}
 }
