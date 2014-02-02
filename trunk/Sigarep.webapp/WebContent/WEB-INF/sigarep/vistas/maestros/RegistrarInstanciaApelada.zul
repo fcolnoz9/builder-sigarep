@@ -64,13 +64,13 @@
 				<listhead sizable="true">
             		<listheader label="Instancia Apelada " sort="auto(instanciaApelada)" align="lefth">
             			<textbox id="filtroNombreInstancia" instant="true" mold="rounded"
-						width="100px" value="@bind(vm.filtros.nombreInstancia)"
+						width="100px" value="@bind(vm.instanciaFiltro)"
 						onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
             		</listheader>
             		<listheader label="Nombre del Recurso " sort="auto(nombreRecursoApelacion)" align="lefth">
             			<textbox id="filtroNombreRecurso" instant="true" mold="rounded"
-						width="100px" value="@bind(vm.filtros.nombreRecurso)"
+						width="100px" value="@bind(vm.recursoFiltro)"
 						onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
             		</listheader>
