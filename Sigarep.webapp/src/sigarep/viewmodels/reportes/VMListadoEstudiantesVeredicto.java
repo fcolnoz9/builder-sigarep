@@ -79,7 +79,35 @@ public class VMListadoEstudiantesVeredicto {
 	@Wire private String de="";
 	@Wire private String contenido="";
 	
+	@Wire private String tituloinstancia="TODOS"; 
+	@Wire private String tituloprograma="TODOS";
+	@Wire private String titulosancion="TODOS";
 	
+	
+	public String getTitulosancion() {
+		return titulosancion;
+	}
+
+	public void setTitulosancion(String titulosancion) {
+		this.titulosancion = titulosancion;
+	}
+
+	public String getTituloprograma() {
+		return tituloprograma;
+	}
+
+	public void setTituloprograma(String tituloprograma) {
+		this.tituloprograma = tituloprograma;
+	}
+
+	public String getTituloInstancia() {
+		return tituloinstancia;
+	}
+
+	public void setTituloInstancia(String tituloinstancia) {
+		this.tituloinstancia = tituloinstancia;
+	}
+
 	public String getPara() {
 		return para;
 	}
@@ -134,14 +162,16 @@ public class VMListadoEstudiantesVeredicto {
 	}
 
 	@Command
-	@NotifyChange({ "sancionadosVeredicto" })
+	@NotifyChange({ "sancionadosVeredicto","tituloinstancia","tituloprograma","titulosancion" })
 	public void buscarSancionados() {
 		//System.out.println(objSancion.getNombreSancion());
 		//System.out.println(objLapso.getCodigoLapso());
 		// String radio = objRadio.getName();
 		// System.out.println(radio);
-		
-		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), objPrograma.getNombrePrograma());
+		System.out.println(tituloinstancia);
+		System.out.println(tituloprograma);
+		System.out.println(titulosancion);
+		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(tituloinstancia, tituloprograma, titulosancion);
 	
 		//if (!selected.equals("")) {
 			//if (getSelected().equals("resultado")) {
@@ -357,7 +387,7 @@ public class VMListadoEstudiantesVeredicto {
 
 	// ###############METODO PARA IMPRIMIR REPORTE#################
 	@Command("GenerarReporteApelacionesMotivo")
-	@NotifyChange({ "reportConfig","para","de","contenido" })
+	@NotifyChange({ "reportConfig","para","de","contenido","tituloinstancia","titulosancion","tituloprograma" })
 	public void GenerarReporte() {
 
 		sancionadosVeredicto.clear();
