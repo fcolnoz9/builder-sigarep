@@ -51,10 +51,8 @@
 							<comboitem label="Todos" />
 						</combobox>
 						<label id="lblSexo" value="Sexo:" />
-						<combobox id="cmbSexo" cols="12" readonly="true" mold="rounded" tooltiptext="Elegir una opcion" selectedItem="@bind(vm.parametroSexo)" >
-							<comboitem label="F" />
-							<comboitem label="M" />
-							<comboitem label="Todos" />
+						<combobox id="cmbSexo" cols="12" readonly="true"  model="@load(vm.cmbSexo)"  mold="rounded" tooltiptext="Elegir una opcion" selectedItem="@bind(vm.objsexo)" >
+							<comboitem label="" />
 						</combobox>
 					</row>
 					<row>
