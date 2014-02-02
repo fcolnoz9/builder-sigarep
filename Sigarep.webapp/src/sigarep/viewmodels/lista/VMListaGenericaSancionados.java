@@ -257,7 +257,7 @@ public class VMListaGenericaSancionados {
   	}
 	
 	@Command
-	@NotifyChange({"lista","programa","cedula","nombre","apellido","sancion"})
+	@NotifyChange({"lista","listaEstudiantes","programa","cedula","nombre","apellido","sancion"})
 	public void filtros(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);

@@ -103,7 +103,7 @@ public class ServicioEstudianteSancionado {
 		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
 		
 		if (programa == null || cedula == null || nombre == null || apellido == null|| sancion== null) {
-			resultado = listadoEstudianteSancionado();
+			resultado = buscarSancionados();
 		} else {
 			for (EstudianteSancionado inst : listadoEstudianteSancionado()) {
 				if (inst.getEstudiante().getProgramaAcademico().getNombrePrograma().toLowerCase().contains(programa.toLowerCase())
