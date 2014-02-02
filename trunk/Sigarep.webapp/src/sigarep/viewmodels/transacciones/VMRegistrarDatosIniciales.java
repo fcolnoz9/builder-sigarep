@@ -61,6 +61,7 @@ import sigarep.modelos.servicio.transacciones.ServicioSoporte;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarDatosIniciales {
+
 	@Wire("#modalDialog")
 	private Window window;
 
@@ -117,6 +118,17 @@ public class VMRegistrarDatosIniciales {
 	private Integer idTipoMotivo;
 
 	private int caso;
+	private Integer instancia;
+	private Integer idEstado;
+	private Integer idMotivoGeneral;
+
+	public int getCaso() {
+		return caso;
+	}
+
+	public void setCaso(int caso) {
+		this.caso = caso;
+	}
 
 	public String getObservacion() {
 		return observacion;
@@ -399,18 +411,34 @@ public class VMRegistrarDatosIniciales {
 	}
 
 	@Init
-	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1)
-
-	{
+	public void init(
+			@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1,
+			@ExecutionArgParam("instancia") Integer instancia,
+			@ExecutionArgParam("idMotivoGeneral") Integer idMotivoGeneral,
+			@ExecutionArgParam("idEstado") Integer idEstado) {
+		
 		Selectors.wireComponents(view, this, false);
 		this.estudianteSeleccionado = v1;
+		this.instancia = instancia;
+		this.idEstado = idEstado;
+		this.idMotivoGeneral = idMotivoGeneral;
+
+		System.out.println("--------------" + instancia + idEstado);
+
 		cedula = estudianteSeleccionado.getId().getCedulaEstudiante();
 		sancion = estudianteSeleccionado.getSancionMaestro().getNombreSancion();
 		lapso = estudianteSeleccionado.getId().getCodigoLapso();
 
 		concatenacionNombres();
 		concatenacionApellidos();
+		mostrarDatosDeSancion();
+		listamotivo = serviciotipomotivo.buscarTodas();
+		buscarMotivos();
+		buscarCaso();
+	}
+
+	private void mostrarDatosDeSancion() {
 		if (sancion.equalsIgnoreCase("RR")) {
 			asignaturas = servicioasignaturaestudiantesancionado
 					.buscarAsignaturaDeSancion(cedula, lapso);
@@ -425,9 +453,6 @@ public class VMRegistrarDatosIniciales {
 			asignaturaLapsosConsecutivos = estudianteSeleccionado
 					.getLapsosAcademicosRp();
 		}
-		listamotivo = serviciotipomotivo.buscarTodas();
-		buscarMotivos();
-		buscarCaso();
 	}
 
 	@Command
@@ -446,34 +471,43 @@ public class VMRegistrarDatosIniciales {
 
 	@Command
 	@NotifyChange({ "listaSancionados", "listaTipoMotivoListBox" })
-	public void registrarSolicitudApelacion(@BindingParam("window") Window winRegistrarDatosInicialesApelacion) {
+	public void registrarSolicitudApelacion(
+			@BindingParam("window") Window winRegistrarDatosInicialesApelacion) {
 
 		Date fecha = new Date();
 		Time hora = new Time(0);
 
 		solicitudApelacionPK.setCedulaEstudiante(cedula);
 		solicitudApelacionPK.setCodigoLapso(lapso);
-		solicitudApelacionPK.setIdInstanciaApelada(1);
-		solicitudApelacion.setId(solicitudApelacionPK);
 		solicitudApelacion.setFechaSolicitud(fecha);
 		solicitudApelacion.setEstatus(true);
 		solicitudApelacion.setAnalizado(false);
 		solicitudApelacion.setVerificado(false);
 		solicitudApelacion.setNumeroCaso(caso);
 		solicitudApelacion.setObservacion(observacion);
-		serviciosolicitudapelacion.guardar(solicitudApelacion);
 		apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 		apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-		apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
-		apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
+		if (instancia != null && idEstado != null || idMotivoGeneral != null) {
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(instancia);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(idEstado);
+			solicitudApelacionPK.setIdInstanciaApelada(instancia);
+			motivoPK.setIdInstanciaApelada(instancia);
+			motivoPK.setIdTipoMotivo(idMotivoGeneral);
+		} else {
+			solicitudApelacionPK.setIdInstanciaApelada(1);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(1);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(1);
+			motivoPK.setIdInstanciaApelada(1);
+			motivoPK.setIdTipoMotivo(1);
+		}
+		solicitudApelacion.setId(solicitudApelacionPK);
+		serviciosolicitudapelacion.guardar(solicitudApelacion);
 		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 		apelacionEstadoApelacion.setFechaEstado(hora);
 		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
-		
+
 		motivoPK.setCedulaEstudiante(cedula);
 		motivoPK.setCodigoLapso(lapso);
-		motivoPK.setIdInstanciaApelada(1);
-		motivoPK.setIdTipoMotivo(1);
 		motivos.setId(motivoPK);
 		motivos.setEstatus(true);
 		serviciomotivo.guardarMotivo(motivos);
@@ -485,7 +519,11 @@ public class VMRegistrarDatosIniciales {
 					.getIdTipoMotivo();
 			motivoPK.setCedulaEstudiante(cedula);
 			motivoPK.setCodigoLapso(lapso);
-			motivoPK.setIdInstanciaApelada(1);
+			if (instancia != null && idEstado != null
+					|| idMotivoGeneral != null)
+				motivoPK.setIdInstanciaApelada(instancia);
+			else
+				motivoPK.setIdInstanciaApelada(1);
 			motivoPK.setIdTipoMotivo(idTipoMotivo);
 			motivos.setId(motivoPK);
 			motivos.setEstatus(true);
@@ -514,8 +552,8 @@ public class VMRegistrarDatosIniciales {
 	}
 
 	@Command
-	@NotifyChange({"descripcion", "motivoseleccionado","listaMotivoListBox" })
-	public void cancelar() { 
+	@NotifyChange({ "descripcion", "motivoseleccionado", "listaMotivoListBox" })
+	public void cancelar() {
 		descripcion = "";
 		motivoseleccionado = null;
 		listaMotivoListBox.clear();
