@@ -464,7 +464,75 @@ public class ServicioApelacionesPorMotivo {
 		System.out.println(results.get(0).getCedula());
 		return results;
 	}
+	
+	public List<Sancionados> buscarSancionadosPrueba(String instancia, String programa, String sancion){
+		
+		String adicioninstancia;
+		String adicionprograma;
+		String adicionsancion;
+		
+		if(instancia.equals("TODOS")){
+			adicioninstancia="";
+			
+		}else{
+			adicioninstancia = " AND instancia_apelada.instancia_apelada = '"+sancion+ "' ";	;
+		}
+		
+		if(programa.equals("TODOS")){
+			adicionprograma	="";
+				
+		}else{adicionprograma	=" AND programa_academico.nombre_programa = '"+programa+ "' ";}
+			
+		if(sancion.equals("TODOS")){
+			adicionsancion="";	
+					
+		}else{adicionsancion=" AND sancion_maestro.nombre_sancion = '"+sancion+ "' ";	;	}
+		
+		System.out.println();
+		
+		String queryStatement =
+//				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
+//				"sanma.nombre_sancion, sa.veredicto, sa.observacion " +
+//				"FROM tipo_motivo timo, solicitud_apelacion sa " +
+//				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+//				"and essa.codigo_lapso = sa.codigo_lapso " +
+//				"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
+//				"and mo.codigo_lapso = sa.codigo_lapso " +
+//				"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
+//				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
+//				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+//				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+//				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
+//				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+//				"and prog.nombre_programa = "+ "'"+nombre_programa+"' ";
+				
+	" SELECT  estudiante.cedula_estudiante, estudiante.primer_nombre, estudiante.primer_apellido, " +
+	" sancion_maestro.nombre_sancion, solicitud_apelacion.veredicto, solicitud_apelacion.observacion" +
+	" FROM programa_academico, estudiante, lapso_academico, estudiante_sancionado, sancion_maestro, instancia_apelada, solicitud_apelacion" +
+	" WHERE programa_academico.id_programa = estudiante.id_programa AND estudiante.cedula_estudiante = estudiante_sancionado.cedula_estudiante AND" +
+	" lapso_academico.codigo_lapso = estudiante_sancionado.codigo_lapso AND estudiante_sancionado.cedula_estudiante = solicitud_apelacion.cedula_estudiante AND" +
+	" estudiante_sancionado.codigo_lapso = solicitud_apelacion.codigo_lapso AND sancion_maestro.id_sancion = estudiante_sancionado.id_sancion AND" +
+	" instancia_apelada.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada" +adicioninstancia+adicionprograma+adicionsancion+			  
+	" ;"
+				 ;
 
+
+		
+		Query query = em.createNativeQuery(queryStatement);
+		
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		
+		List<Sancionados> results = new ArrayList<Sancionados>();
+		for (Object[] resultRow : resultSet) {
+			results.add(new Sancionados((String) resultRow[0], (String) resultRow[1], (String) resultRow[2], 
+										(String) resultRow[3], (String) resultRow[4], (String) resultRow[5]));
+		}
+		System.out.println(results.get(0).getCedula());
+		return results;
+	}
 
 
 

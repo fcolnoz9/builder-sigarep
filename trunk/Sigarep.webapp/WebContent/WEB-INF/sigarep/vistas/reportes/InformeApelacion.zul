@@ -7,7 +7,6 @@
 
 		<groupbox vflex="true" closable="false" sclass="z-demo-config"
 			width="auto" height="auto">
-
 			<caption label="Criterio de Selecciòn" />
 			<grid id="grdApelacion">
 
@@ -34,6 +33,7 @@
 
 						<label id="lblPrograma" value="Programa" />
 						<combobox id="cmbPrograma" mold="rounded"
+						value="@bind(vm.tituloprograma)"
 							readonly="true" model="@load(vm.listaPrograma)"
 							selectedItem="@bind(vm.objPrograma)"
 							onSelect="@command('objCmbPrograma')">
@@ -50,6 +50,7 @@
 						<label id="lblTipodeSancion"
 							value="Tipo de Sanciòn" />
 						<combobox id="cmbTipoSancion" mold="rounded"
+							value="@bind(vm.titulosancion)"
 							readonly="true" model="@load(vm.listaTipoSancion)"
 							selectedItem="@bind(vm.objSancion)"
 							onSelect="@command('objCmbSancion')">
@@ -63,7 +64,7 @@
 							value="Instancia Apelada: " />
 						<combobox readonly="true"
 							id="cmbInstanciaApelada"
-							value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
+							value="@bind(vm.tituloInstancia)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
 							onSelect="@command('objetoComboEstadoApelacion')">
