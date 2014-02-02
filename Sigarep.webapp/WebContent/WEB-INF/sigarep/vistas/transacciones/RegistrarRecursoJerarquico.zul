@@ -8,8 +8,8 @@
 	<div>
 		<label id="lblNroCaso" value="Nro del Caso:" />
 		<textbox id="txtNroCaso" cols="23" maxlength="30"
-			readonly="true"> 
-<!-- 			value="@bind(vm.sancionadoSeleccionado.numeroCaso)" -->
+			readonly="true"
+ 			value="@bind(vm.caso)" >
 		</textbox>
 	</div>
 	<space />

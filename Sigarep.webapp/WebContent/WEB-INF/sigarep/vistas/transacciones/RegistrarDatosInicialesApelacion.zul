@@ -5,6 +5,13 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRegistrarDatosIniciales')">
 		<style src="/widgets/grid/simple/style.css" />
+		<div>
+		<label id="lblNroCaso" value="Nro del Caso:" />
+		<textbox id="txtNroCaso" cols="23" maxlength="30"
+			readonly="true"
+ 			value="@bind(vm.caso)" >
+		</textbox>
+	</div>
 		<groupbox id="grbDatosestudiante">
 			<caption id="lblDatosestudiante" label="Datos Estudiante" />
 			<grid id="grdDatosBasicos">

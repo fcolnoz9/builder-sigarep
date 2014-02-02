@@ -9,6 +9,7 @@ package sigarep.viewmodels.transacciones;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -62,6 +64,8 @@ public class VMRegistrarRecursoJerarquico {
 	private String nombres;
 	private String apellidos;
 	private Integer caso;
+	
+
 	private String cedula;
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos = "";
@@ -75,7 +79,8 @@ public class VMRegistrarRecursoJerarquico {
 
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-
+	private List<SolicitudApelacion> listaSolicitud = new LinkedList<SolicitudApelacion>();
+	
 	private Documento doc = new Documento();
 	private Media media;
 
@@ -114,10 +119,28 @@ public class VMRegistrarRecursoJerarquico {
 
 	Recaudo recaudos = new Recaudo();
 
-	// METODOS GETS Y DETS
+	
 
+	// METODOS GETS Y DETS
+	
+	public Integer getCaso() {
+		return caso;
+	}
+
+	public void setCaso(Integer caso) {
+		this.caso = caso;
+	}
+	
 	public EstudianteSancionado getEstudianteSeleccionado() {
 		return estudianteSeleccionado;
+	}
+
+	public List<SolicitudApelacion> getListaSolicitud() {
+		return listaSolicitud;
+	}
+
+	public void setListaSolicitud(List<SolicitudApelacion> listaSolicitud) {
+		this.listaSolicitud = listaSolicitud;
 	}
 
 	public void setEstudianteSeleccionado(
@@ -228,23 +251,20 @@ public class VMRegistrarRecursoJerarquico {
 	{
 		Selectors.wireComponents(view, this, false);
 		this.estudianteSeleccionado = v1;
-		//cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
 		cedula = estudianteSeleccionado.getEstudiante().getCedulaEstudiante();
-		buscarSolicitud(cedula);
+		buscarSolicitud(cedula);	
+		if(listaSolicitud.size() > 0)
+			caso = listaSolicitud.get(0).getNumeroCaso();
+		else{
+			registrarApelacionConMotivos();
+			
+		}
 		concatenacionNombres();
 		concatenacionApellidos();
-//		lapso = sancionadoSeleccionado.getEstudianteSancionado()
-//				.getLapsoAcademico().getCodigoLapso();
 		lapso= estudianteSeleccionado.getLapsoAcademico().getCodigoLapso();
-//		sancion = sancionadoSeleccionado.getEstudianteSancionado()
-//				.getSancionMaestro().getNombreSancion();
 		sancion=estudianteSeleccionado.getSancionMaestro().getNombreSancion();
-//		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado()
-//				.getLapsosAcademicosRp();
 		lapsosConsecutivos=estudianteSeleccionado.getLapsosAcademicosRp();
-		//OJO: COMO HACER CON EL CASO
-		//System.out.println("dddddddddd " + estudianteseleccionado.getSolicitudApelacions().size());
-
+		
 		buscarRecaudosEntregados(cedula);
 
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -262,6 +282,22 @@ public class VMRegistrarRecursoJerarquico {
 		}
 		media = null;
 		doc = new Documento();
+	}
+
+	public void registrarApelacionConMotivos() {
+		Integer instancia = 3;
+		Integer idEstado = 9;
+		Integer idMotivoGeneral = 3;
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("estudianteSeleccionado", estudianteSeleccionado);
+		map.put("instancia", instancia);
+		map.put("idEstado", idEstado);
+		map.put("idMotivoGeneral", idMotivoGeneral);
+		
+		final Window window = (Window) Executions.createComponents(
+        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarDatosInicialesApelacion.zul", null, map);
+		window.setMaximizable(true);
+		window.doModal();
 	}
 
 	/**
@@ -303,7 +339,6 @@ public class VMRegistrarRecursoJerarquico {
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudos = serviciorecaudoentregado
 				.buscarRecaudosEntregadosRecurso(cedula);
-		System.out.println(listaRecaudos);
 
 	}
 
@@ -355,7 +390,6 @@ public class VMRegistrarRecursoJerarquico {
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(hora);
 
-		
 				motivoPK.setCedulaEstudiante(cedula);
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(3);
@@ -399,7 +433,12 @@ public class VMRegistrarRecursoJerarquico {
 	}
 
 	public void buscarSolicitud(String cedula){
-		serviciosolicitudapelacion.buscarSolicitudRecursoJerarquico(cedula);	
+		listaSolicitud = serviciosolicitudapelacion.buscarSolicitudRecursoJerarquico(cedula);	
+	}
+	
+	@Command
+	public void buscarCaso() {
+		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
 	}
 	// FIN OTROS METODOS
 }
