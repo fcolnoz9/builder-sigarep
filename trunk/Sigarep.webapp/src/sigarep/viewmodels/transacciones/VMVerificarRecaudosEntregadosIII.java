@@ -451,9 +451,11 @@ public class VMVerificarRecaudosEntregadosIII {
 	}
 
 	@Command
-	@NotifyChange({ "cedula", "nombres", "apellidos", "listaRecaudosPorMotivo",
-			"programa", "lapsoAcademico", "telefono", "sancion", "asignatura" })
+	@NotifyChange({"listaRecaudosPorEntregar", "listaRecaudosEntregados","selected" })
 	public void limpiar() {
+		selected = "";
+		listaRecaudosEntregados = serviciorecaudoentregado.buscarRecaudosEntregadosVerificarRecaudosII(cedula);
+	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosII(cedula);
 		buscarRecaudos();
 	}
 

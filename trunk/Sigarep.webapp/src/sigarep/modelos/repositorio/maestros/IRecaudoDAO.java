@@ -45,21 +45,28 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 			"AND m.id.idTipoMotivo = tm.idTipoMotivo ORDER BY r.tipoMotivo.idTipoMotivo")
 	public List<Recaudo> listadoRecaudosPorApelacion(@Param("cedula") String cedula);
 	
-	@Query("SELECT r FROM Recaudo AS r, RecaudoEntregado AS re, LapsoAcademico AS la " +
+	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '3' " +
-			"AND re.id.cedulaEstudiante = :cedula " +
-			"AND re.id.codigoLapso = la.codigoLapso " +
-			"AND la.estatus = 'TRUE' " +
-			"AND r.idRecaudo != re.id.idRecaudo " +
-			"AND r.tipoMotivo.idTipoMotivo = re.id.idTipoMotivo")
+			"AND r.idRecaudo NOT IN " +
+			"(SELECT re.id.idRecaudo FROM RecaudoEntregado AS re, LapsoAcademico AS la " + 
+			"WHERE re.id.cedulaEstudiante = :cedula " +
+			"AND la.estatus = 'TRUE') " +
+			"AND r.tipoMotivo.idTipoMotivo = m.id.idTipoMotivo " +
+			"AND m.id.cedulaEstudiante = :cedula " +
+			"AND m.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE'")
 	public List<Recaudo> buscarRecaudosVerificarRecaudosII(@Param("cedula") String cedula);
 
-	@Query("SELECT r FROM Recaudo AS r, RecaudoEntregado AS re, LapsoAcademico AS la " +
+	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '2' " +
-			"AND re.id.cedulaEstudiante = :cedula " +
-			"AND re.id.codigoLapso = la.codigoLapso " +
-			"AND la.estatus = 'TRUE' " +
-			"AND r.idRecaudo != re.id.idRecaudo " +
-			"AND r.tipoMotivo.idTipoMotivo = re.id.idTipoMotivo")
+			"AND r.idRecaudo NOT IN " +
+			"(SELECT re.id.idRecaudo FROM RecaudoEntregado AS re, LapsoAcademico AS la " + 
+			"WHERE re.id.cedulaEstudiante = :cedula " +
+			"AND la.estatus = 'TRUE') " +
+			"AND r.tipoMotivo.idTipoMotivo = m.id.idTipoMotivo " +
+			"AND m.id.cedulaEstudiante = :cedula " +
+			"AND m.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE'")
 	public List<Recaudo> buscarRecaudosVerificarRecaudosIII(@Param("cedula") String cedula);
+
 }

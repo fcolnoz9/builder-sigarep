@@ -93,7 +93,7 @@
 							height="195px" oddRowSclass="non-odd" checkmark="true"
 							xmlns:ca="client/attribute" ca:data-scrollable="false"
 							 model="@bind(vm.listaRecaudosPorEntregar)"
-   			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="5" >
+   			 				emptyMessage="No hay recaudos por el motivo seleccionado">
 							<template name="model">
 								<listitem selected="false">
 									<listcell label="${each.getNombreRecaudo()}" ></listcell>
@@ -105,15 +105,13 @@
 				</panel>
 			</columnchildren>
 			<columnchildren width="40%">
-			</columnchildren>
-			<columnchildren width="40%">
 				<panel title="Recaudos Entregados">
 					<panelchildren>
 						<listbox id="left" multiple="true" 
 							height="195px" oddRowSclass="non-odd" checkmark="false"
 							xmlns:ca="client/attribute" ca:data-scrollable="false"
 							 model="@bind(vm.listaRecaudosEntregados)"
-   			 				emptyMessage="No hay recaudos por el motivo seleccionado" mold="paging" pageSize="5" >
+   			 				emptyMessage="No hay recaudos por el motivo seleccionado">
 							<template name="model">
 								<listitem selected="false">
 									<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
@@ -134,11 +132,16 @@
 				<rows>
 					<row>
 						<hbox>
-							<radio id="rbProcedenteSi" label="Procedente" value="procede"/>
+							<radio id="rbProcedenteSi" label="Procedente" value="CASO PROCEDENTE"/>
 						</hbox>
 					    <hbox>
-							<radio id="rbProcedenteNo" label="No Procedente" value="noprocede"/>
+							<radio id="rbProcedenteNo" label="No Procedente" value="CASO NO PROCEDENTE"/>
 						</hbox>
+						   <hlayout valign="center">
+						<label value="Observación General: " id="lblObservacion"  />
+						<separator></separator>
+						<textbox id="txtObservacion" mold="rounded"  cols="80" rows="2"></textbox>
+					</hlayout>
 					</row>
 				</rows>
 			</grid>
@@ -156,9 +159,9 @@
 			</attribute>
 		</button>
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
-		<button label="Cancelar" id="btnCancelar"
+		<button label="Limpiar" id="btnCancelar"
 			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-			orient="horizontal">
+			orient="horizontal" 	onClick="@command('limpiar')">
 		</button>
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar"
