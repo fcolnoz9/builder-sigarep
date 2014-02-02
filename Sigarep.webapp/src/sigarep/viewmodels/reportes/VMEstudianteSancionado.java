@@ -1,29 +1,19 @@
 package sigarep.viewmodels.reportes;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Messagebox;
-
-import com.sun.xml.internal.ws.api.message.Message;
-
+import org.zkoss.zul.ListModelList;
 import sigarep.modelos.data.maestros.LapsoAcademico;
-
-import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.reportes.EstudianteSancionado;
-import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
-
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
@@ -66,6 +56,7 @@ public class VMEstudianteSancionado {
 	private ProgramaAcademico  objprograma;
 	private TipoMotivo objtipoMotivo;
 	private InstanciaApelada objinstanciaApelada;
+	private String objsexo;
 	private List<EstudianteSancionado> listaE = new LinkedList<EstudianteSancionado>();
 	//Parametros para la lista
 	String parametroLapsoAcademico;
@@ -75,6 +66,7 @@ public class VMEstudianteSancionado {
 	String parametroProgramaAcademico;
 	String parametroSexo;
 	String sexo="";
+	private ListModelList<String> cmbSexo;
 	// SETS Y GETS
 	public SancionMaestro getObjSancion() {
 		return objSancion;
@@ -183,6 +175,16 @@ public class VMEstudianteSancionado {
 	public void setListaE(List<EstudianteSancionado> listaE) {
 		this.listaE = listaE;
 	}
+	
+	public ListModelList<String> getCmbSexo() {
+		cmbSexo.add("F");
+		cmbSexo.add("M");
+		cmbSexo.add("Todos");
+		return cmbSexo;
+	}
+	public void setCmbSexo(ListModelList<String> cmbSexo) {
+		this.cmbSexo = cmbSexo;
+	}
 	@Init
 	public void init() {
 		// initialization code
@@ -191,6 +193,7 @@ public class VMEstudianteSancionado {
 		buscarActivoLapso();
 		listadoSancion();
 		listadoInstancia();
+		cmbSexo = new ListModelList<String>();
 		//buscarEstudianteSancionado();
 	}
 	// Metodo que busca un motivo partiendo por su titulo
@@ -271,6 +274,7 @@ public class VMEstudianteSancionado {
 		configurarParametroInstanciaApelada();
 		configurarParametroMotivo();
 		configurarParametroProgramaAcademico();
+		configurarParametroSexo();
 		//tira = tira + " order by es.primer_nombre";
 		listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico,parametroTipoSancion,parametroInstanciaApelada,parametroMotivo,parametroProgramaAcademico,parametroSexo);
 		System.out.println("LapsoSeleccionado"+objLapso.getCodigoLapso());
@@ -324,6 +328,12 @@ public class VMEstudianteSancionado {
 	}
 	public void setParametroSexo(String parametroSexo) {
 		this.parametroSexo = parametroSexo;
+	}
+	public String getObjsexo() {
+		return objsexo;
+	}
+	public void setObjsexo(String objsexo) {
+		this.objsexo = objsexo;
 	}
 	@NotifyChange({"parametroLapsoAcademico"})
 	@Command
@@ -394,5 +404,19 @@ public class VMEstudianteSancionado {
 			System.out.println("programaAcademico:"+parametroProgramaAcademico);
 		}
 		return 	parametroProgramaAcademico;
+	}
+	@NotifyChange({"parametroSexo"}) //ParametroprogramaAcademico
+	@Command
+	public String configurarParametroSexo()
+	{
+		if(objsexo.equals("Todos")){
+			parametroSexo="es.sexo";
+			System.out.println("Sexo: Todos");
+		}
+		else{
+			parametroSexo= "'"+objsexo+"'";
+			System.out.println("sexoseleccionado:"+objsexo);
+		}
+		return 	parametroSexo;
 	}
 }
