@@ -6,7 +6,10 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
+
+import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -19,7 +22,11 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.reportes.ServicioReporteEstudianteSancionado;
-
+/**VM Reporte Estudiante Sancionado
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudianteSancionado {
 	 
@@ -58,15 +65,14 @@ public class VMEstudianteSancionado {
 	private InstanciaApelada objinstanciaApelada;
 	private String objsexo;
 	private List<EstudianteSancionado> listaE = new LinkedList<EstudianteSancionado>();
-	//Parametros para la lista
-	String parametroLapsoAcademico;
-	String parametroTipoSancion;
-	String parametroInstanciaApelada;
-	String parametroMotivo;
-	String parametroProgramaAcademico;
-	String parametroSexo;
-	String sexo="";
-	private ListModelList<String> cmbSexo;
+	//Parametros para la Tira Sql
+	private String parametroLapsoAcademico;
+	private String parametroTipoSancion;
+	private String parametroInstanciaApelada;
+	private String parametroMotivo;
+	private String parametroProgramaAcademico;
+	private String parametroSexo;
+	private ListModelList<String> cmbSexo;//Lista para llenar el combo de sexo
 	// SETS Y GETS
 	public SancionMaestro getObjSancion() {
 		return objSancion;
@@ -74,35 +80,27 @@ public class VMEstudianteSancionado {
 	public void setObjSancion(SancionMaestro objSancion) {
 		this.objSancion = objSancion;
 	}
-
 	public ProgramaAcademico getObjprograma() {
 		return objprograma;
 	}
-
 	public void setObjprograma(ProgramaAcademico objprograma) {
 		this.objprograma = objprograma;
 	}
-
 	public LapsoAcademico getObjLapso() {
 		return objLapso;
 	}
-
 	public void setObjLapso(LapsoAcademico objLapso) {
 		this.objLapso = objLapso;
 	}
-
 	public TipoMotivo getObjtipoMotivo() {
 		return objtipoMotivo;
 	}
-
 	public void setObjtipoMotivo(TipoMotivo objtipoMotivo) {
 		this.objtipoMotivo = objtipoMotivo;
 	}
-
 	public InstanciaApelada getObjinstanciaApelada() {
 		return objinstanciaApelada;
 	}
-
 	public void setObjinstanciaApelada(InstanciaApelada objinstanciaApelada) {
 		this.objinstanciaApelada = objinstanciaApelada;
 	}
@@ -139,8 +137,7 @@ public class VMEstudianteSancionado {
 	public List<InstanciaApelada> getListaInstanciaApelada() {
 		return listaInstanciaApelada;
 	}
-	public void setListaInstanciaApelada(
-			List<InstanciaApelada> listaInstanciaApelada) {
+	public void setListaInstanciaApelada(List<InstanciaApelada> listaInstanciaApelada) {
 		this.listaInstanciaApelada = listaInstanciaApelada;
 	}
 	public List<TipoMotivo> getListaTipoMotivo() {
@@ -167,15 +164,12 @@ public class VMEstudianteSancionado {
 	public void setListaSancion(List<SancionMaestro> listaSancion) {
 		this.listaSancion = listaSancion;
 	}
-
 	public List<EstudianteSancionado> getListaE() {
 		return listaE;
 	}
-
 	public void setListaE(List<EstudianteSancionado> listaE) {
 		this.listaE = listaE;
 	}
-	
 	public ListModelList<String> getCmbSexo() {
 		cmbSexo.add("F");
 		cmbSexo.add("M");
@@ -185,6 +179,49 @@ public class VMEstudianteSancionado {
 	public void setCmbSexo(ListModelList<String> cmbSexo) {
 		this.cmbSexo = cmbSexo;
 	}
+	public String getParametroLapsoAcademico() {
+		return parametroLapsoAcademico;
+	}
+	public void setParametroLapsoAcademico(String parametroLapsoAcademico) {
+		this.parametroLapsoAcademico = parametroLapsoAcademico;
+	}
+	public String getParametroTipoSancion() {
+		return parametroTipoSancion;
+	}
+	public void setParametroTipoSancion(String parametroTipoSancion) {
+		this.parametroTipoSancion = parametroTipoSancion;
+	}
+	public String getParametroMotivo() {
+		return parametroMotivo;
+	}
+	public void setParametroMotivo(String parametroMotivo) {
+		this.parametroMotivo = parametroMotivo;
+	}
+	public String getParametroInstanciaApelada() {
+		return parametroInstanciaApelada;
+	}
+	public void setParametroInstanciaApelada(String parametroInstanciaApelada) {
+		this.parametroInstanciaApelada = parametroInstanciaApelada;
+	}
+	public String getParametroProgramaAcademico() {
+		return parametroProgramaAcademico;
+	}
+	public void setParametroProgramaAcademico(String parametroProgramaAcademico) {
+		this.parametroProgramaAcademico = parametroProgramaAcademico;
+	}
+	public String getParametroSexo() {
+		return parametroSexo;
+	}
+	public void setParametroSexo(String parametroSexo) {
+		this.parametroSexo = parametroSexo;
+	}
+	public String getObjsexo() {
+		return objsexo;
+	}
+	public void setObjsexo(String objsexo) {
+		this.objsexo = objsexo;
+	}
+	//FINAL SETS GETS
 	@Init
 	public void init() {
 		// initialization code
@@ -194,14 +231,13 @@ public class VMEstudianteSancionado {
 		listadoSancion();
 		listadoInstancia();
 		cmbSexo = new ListModelList<String>();
-		//buscarEstudianteSancionado();
 	}
 	// Metodo que busca un motivo partiendo por su titulo
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
 	public void buscarTipoMotivo() {
 		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
-		TipoMotivo mot = new TipoMotivo(null,"Todos", null,"Todos",false); //new TipoMotivo(null, null, null,"Todos");
+		TipoMotivo mot = new TipoMotivo(null,"Todos", null,"Todos",false);
 		listaTipoMotivo.add(listaTipoMotivo.size()/*0*/, mot);
 	}
 	@Command
@@ -269,17 +305,21 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaE" })
 	public void buscarEstudianteSancionado() {
-		configurarParametro1();
-		configurarParametroSancion();
-		configurarParametroInstanciaApelada();
-		configurarParametroMotivo();
-		configurarParametroProgramaAcademico();
-		configurarParametroSexo();
-		//tira = tira + " order by es.primer_nombre";
-		listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico,parametroTipoSancion,parametroInstanciaApelada,parametroMotivo,parametroProgramaAcademico,parametroSexo);
-		System.out.println("LapsoSeleccionado"+objLapso.getCodigoLapso());
+		if(objinstanciaApelada==null|| objLapso==null || objprograma==null || objSancion.getDescripcion()==null || objsexo==null || objtipoMotivo==null){
+	        Clients.showNotification("Hola que hace");
+		}
+		else{
+			configurarParametro1();
+			configurarParametroSancion();
+			configurarParametroInstanciaApelada();
+			configurarParametroMotivo();
+			configurarParametroProgramaAcademico();
+			configurarParametroSexo();
+			listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico,parametroTipoSancion,parametroInstanciaApelada,
+					 parametroMotivo,parametroProgramaAcademico,parametroSexo);
+		}
+		
 	}
-
 	// Metodo que limpia todos los campos
 	@Command
 	@NotifyChange({ "programaAcademico", "tipoMotivo", "lapsoAcademico",
@@ -290,133 +330,71 @@ public class VMEstudianteSancionado {
 		lapsoAcademico = new LapsoAcademico();
 		sancionMaestro = new SancionMaestro();
 		instanciaApelada = new InstanciaApelada();
-		sexo= "";
 	}
-	public String getParametroLapsoAcademico() {
+	@NotifyChange({ "parametroLapsoAcademico" })
+	@Command
+	public String configurarParametro1() // parametro codigo Lapso
+	{
+		if (objLapso.getCodigoLapso() == "Todos") {
+			parametroLapsoAcademico = "sap.codigo_lapso";
+		} else {
+			parametroLapsoAcademico = "'" + objLapso.getCodigoLapso() + "'";
+		}
 		return parametroLapsoAcademico;
 	}
-	public void setParametroLapsoAcademico(String parametroLapsoAcademico) {
-		this.parametroLapsoAcademico = parametroLapsoAcademico;
-	}
-	public String getParametroTipoSancion() {
+	@NotifyChange({ "parametroTipoSancion" })// parametro Tipo sancion
+	@Command
+	public String configurarParametroSancion() {
+		if (objSancion.getNombreSancion() == "Todos") {
+			parametroTipoSancion = "esa.id_sancion";
+		} else {
+			parametroTipoSancion = "'" + objSancion.getIdSancion() + "'";
+		}
 		return parametroTipoSancion;
 	}
-	public void setParametroTipoSancion(String parametroTipoSancion) {
-		this.parametroTipoSancion = parametroTipoSancion;
-	}
-	public String getParametroMotivo() {
-		return parametroMotivo;
-	}
-	public void setParametroMotivo(String parametroMotivo) {
-		this.parametroMotivo = parametroMotivo;
-	}
-	public String getParametroInstanciaApelada() {
+
+	@NotifyChange({ "parametroInstanciaApelada" })// ParametroInstanciaApeldada
+	@Command
+	public String configurarParametroInstanciaApelada() {
+		if (objinstanciaApelada.getDescripcion() == "Todos") {
+			parametroInstanciaApelada = "sap.id_instancia_apelada";
+		} else {
+			parametroInstanciaApelada = "'"
+					+ objinstanciaApelada.getIdInstanciaApelada() + "'";
+		}
 		return parametroInstanciaApelada;
 	}
 
-	public void setParametroInstanciaApelada(String parametroInstanciaApelada) {
-		this.parametroInstanciaApelada = parametroInstanciaApelada;
+	@NotifyChange({ "parametroMotivo" })// ParametroMotivo
+	@Command
+	public String configurarParametroMotivo() {
+		if (objtipoMotivo.getDescripcion() == "Todos") {
+			parametroMotivo = "mot.id_tipo_motivo";
+		} else {
+			parametroMotivo = "'" + objtipoMotivo.getIdTipoMotivo() + "'";
+		}
+		return parametroMotivo;
 	}
-	public String getParametroProgramaAcademico() {
+	@NotifyChange({ "parametroProgramaAcademico" })// ParametroprogramaAcademico
+	@Command
+	public String configurarParametroProgramaAcademico() {
+		if (objprograma.getNombrePrograma() == "Todos") {
+			parametroProgramaAcademico = "es.id_programa";
+		} else {
+			parametroProgramaAcademico = "'" + objprograma.getIdPrograma()
+					+ "'";
+		}
 		return parametroProgramaAcademico;
 	}
-	public void setParametroProgramaAcademico(String parametroProgramaAcademico) {
-		this.parametroProgramaAcademico = parametroProgramaAcademico;
-	}
-	public String getParametroSexo() {
+	@NotifyChange({ "parametroSexo" })
+	// Parametro Sexo
+	@Command
+	public String configurarParametroSexo() {
+		if (objsexo.equals("Todos")) {
+			parametroSexo = "es.sexo";
+		} else {
+			parametroSexo = "'" + objsexo + "'";
+		}
 		return parametroSexo;
-	}
-	public void setParametroSexo(String parametroSexo) {
-		this.parametroSexo = parametroSexo;
-	}
-	public String getObjsexo() {
-		return objsexo;
-	}
-	public void setObjsexo(String objsexo) {
-		this.objsexo = objsexo;
-	}
-	@NotifyChange({"parametroLapsoAcademico"})
-	@Command
-	public String configurarParametro1() //parametro codigo Lapso
-	{
-		if(objLapso.getCodigoLapso()=="Todos"){
-			parametroLapsoAcademico="sap.codigo_lapso";
-			System.out.println("Pase Lapso: Todos");
-		}
-		else{
-			parametroLapsoAcademico= "'"+objLapso.getCodigoLapso()+"'";
-			System.out.println("Lapso Seleccionado"+parametroLapsoAcademico);
-		}
-		return 	parametroLapsoAcademico;
-	}
-	@NotifyChange({"parametroTipoSancion"})//parametro Tipo sancion
-	@Command
-	public String configurarParametroSancion()
-	{
-		if(objSancion.getNombreSancion()=="Todos"){
-			parametroTipoSancion="esa.id_sancion";
-			System.out.println("Pase Sancion : Todos");
-		}
-		else{
-			parametroTipoSancion= "'"+objSancion.getIdSancion()+"'";
-			System.out.println("sancion:"+parametroLapsoAcademico);
-		}
-		return 	parametroTipoSancion;
-	}
-	@NotifyChange({"parametroInstanciaApelada"})//ParametroInstanciaApeldada
-	@Command
-	public String configurarParametroInstanciaApelada()
-	{
-		if(objinstanciaApelada.getDescripcion()=="Todos"){
-			parametroInstanciaApelada="sap.id_instancia_apelada";
-			System.out.println("Pase Instancia");
-		}
-		else{
-			parametroInstanciaApelada= "'"+objinstanciaApelada.getIdInstanciaApelada()+"'";
-			System.out.println("Instancia:"+parametroInstanciaApelada);
-		}
-		return 	parametroInstanciaApelada;
-	}
-	@NotifyChange({"parametroMotivo"}) //ParametroMotivo
-	@Command
-	public String configurarParametroMotivo()
-	{
-		if(objtipoMotivo.getDescripcion()=="Todos"){
-			parametroMotivo="mot.id_tipo_motivo";
-			System.out.println("Pase Motivo : Todos");
-		}
-		else{
-			parametroMotivo= "'"+objtipoMotivo.getIdTipoMotivo()+"'";
-			System.out.println("Motivo:"+parametroInstanciaApelada);
-		}
-		return 	parametroMotivo;
-	}
-	@NotifyChange({"parametroProgramaAcademico"}) //ParametroprogramaAcademico
-	@Command
-	public String configurarParametroProgramaAcademico()
-	{
-		if(objprograma.getNombrePrograma()=="Todos"){
-			parametroProgramaAcademico="es.id_programa";
-			System.out.println("Pase Programa Academico: Todos");
-		}
-		else{
-			parametroProgramaAcademico= "'"+objprograma.getIdPrograma()+"'";
-			System.out.println("programaAcademico:"+parametroProgramaAcademico);
-		}
-		return 	parametroProgramaAcademico;
-	}
-	@NotifyChange({"parametroSexo"}) //ParametroprogramaAcademico
-	@Command
-	public String configurarParametroSexo()
-	{
-		if(objsexo.equals("Todos")){
-			parametroSexo="es.sexo";
-			System.out.println("Sexo: Todos");
-		}
-		else{
-			parametroSexo= "'"+objsexo+"'";
-			System.out.println("sexoseleccionado:"+objsexo);
-		}
-		return 	parametroSexo;
 	}
 }
