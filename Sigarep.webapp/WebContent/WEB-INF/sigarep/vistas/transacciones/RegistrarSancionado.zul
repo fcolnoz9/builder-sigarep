@@ -72,10 +72,11 @@
 						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy"  />
 					<label id="lblPrograma" value="Programa:" />
 					<combobox readonly="true" id="cmbPrograma"
-						value="@bind(vm.programa.nombrePrograma)" width="80%" cols="23"
-						maxlength="30" tabindex="1" mold="rounded"
+						value="@bind(vm.programa.nombrePrograma)" width="80%" cols="45"
+						maxlength="45" tabindex="1" mold="rounded"
 						model="@load(vm.listaPrograma)"
-						selectedItem="@bind(vm.programa)">
+						selectedItem="@bind(vm.programa)"
+						onSelect="@command('buscarAsignaturas')">
 						<template name="model"
 							constraint="no empty:Seleccione el programa">
 							<comboitem label="${each.getNombrePrograma()}" />
@@ -103,22 +104,12 @@
 					<textbox id="txtLapsoAcademico" mold="rounded"
 						width="80%" maxlength="30" tabindex="1" readonly="true"
 						value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
-						
-				</row>
-				<row>
-					<label id="lblIndiceGrado" value="Indice de grado:" />
-					<textbox id="txtIndiceGrado" mold="rounded"
-						width="20%" cols="23" maxlength="30" tabindex="1"
-						constraint="no empty:Introduzca un el indice de grado"
-						value="@bind(vm.indiceGrado)" />
-					<label id="lblSemestre" value="Semestre:" />
+						<label id="lblSemestre" value="Semestre:" />
 					<textbox id="txtSemestre" mold="rounded"
 						width="20%" cols="23" maxlength="30" tabindex="1"
 						constraint="no empty:Introduzca un el indice de grado"
 						value="@bind(vm.semestre)" />
-						
 				</row>
-				
 				<row>
 					<label id="lblUnidadCursadas"
 						value="Unidades/Horas  Cursada" />
@@ -133,26 +124,111 @@
 						value="@bind(vm.unidadesAprobadas)"
 						constraint="no empty:Introduzca un las Unidades Aprobadas" />
 				</row>
+				
 				<row>
+					<label id="lblIndiceGrado" value="Indice de grado:" />
+					<textbox id="txtIndiceGrado" mold="rounded"
+						width="20%" cols="23" maxlength="30" tabindex="1"
+						constraint="no empty:Introduzca un el indice de grado"
+						value="@bind(vm.indiceGrado)" />
 					<label id="lblSancion" value="Sancion:" />
 					<combobox readonly="true" id="cmbSancion"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"
 						model="@load(vm.listaSancion)"
-						selectedItem="@bind(vm.sancionMaestro)">
+						selectedItem="@bind(vm.sancionMaestro)"
+						onSelect="@command('seleccionarSancion', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)">
 						<template name="model">
 							<comboitem label="${each.nombreSancion}" />
 						</template>
 					</combobox>
+				</row>
+				
+				<row>
+				
 					<label id="lblPeriodoSancion"
 						value="Período de Sanción:" />
 					<textbox id="txtPeriodoSancion" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						constraint="no empty:Introduzca el período de la Sancion"
 						value="@bind(vm.periodoSancion)" />
+						
+<!-- 						nuevo OJO -->
+						<label id="lblLapsosConsecutivos"
+							value="Lapsos Consecutivos:" visible="false" />
+						<hlayout>
+							<textbox id="txtLapsoConsecutivo1" cols="23"
+								maxlength="6" value="@bind(vm.lapsoConsecutivo1)"
+								mold="rounded" width="70px" visible="false">
+							</textbox>
+							<textbox id="txtLapsoConsecutivo2" cols="23"
+								maxlength="6" value="@bind(vm.lapsoConsecutivo2)"
+								mold="rounded" width="70px" visible="false">
+							</textbox>
+						</hlayout>
+						
+						
 				</row>
 			</rows>
 		</grid>
+		
+		
+		<!-- 		Grupo que contiene las Asignaturas  -->
+		<groupbox id="grbAsignaturas" visible="false">
+			<caption id="lblAsig" label="Datos de la Asignaturas(s)" />
+			<grid id="grdDatosAsignaturas">
+				<columns>
+					<column width="20%" />
+					<column width="30%" />
+			</columns>
+				<rows>
+					<row>
+						<label id="lblAsign"  />
+					<combobox readonly="true" id="cmbAsignaturas"
+						width="80%" cols="23" maxlength="30" tabindex="1"
+					 mold="rounded"
+						model="@load(vm.listaAsignaturas)"
+						selectedItem="@bind(vm.asignaturaseleccionado)">
+						<template name="model">
+							<comboitem label="${each.nombreAsignatura}" />
+						</template>
+					</combobox>
+					<button id="btnAgregar" label="Agregar"
+							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
+							height="auto" orient="horizontal"
+							onClick="@command('agregarAsignatura',listBoxAsignaturas=lbxAsignaturas)">
+						</button>
+				</row>
+				</rows>
+			</grid>
+			
+<!-- 			Lista de Asignaturas  -->
+			
+			<listbox height="auto" id="lbxAsignaturas" mold="paging"
+				pageSize="10" model="@bind(vm.listaAsignaturaListBox)"
+				emptyMessage="No hay Asignaturas agregados">
+				
+				<listhead>
+					<listheader label="Asignatura" sort="auto" />
+					<listheader label="Condición" sort="auto" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell
+							label="${each.asignatura.nombreAsignatura}" />
+						<listcell height="%">
+			   			<textbox value="" mold="rounded"  rows="1" />
+			   			</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+		
+		
+
+		
+		
+<!--  Botones -->
 	</groupbox>
 	<separator />
 	<!-- Grupbox de Botones -->
