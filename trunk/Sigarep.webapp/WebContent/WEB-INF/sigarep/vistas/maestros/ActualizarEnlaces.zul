@@ -66,16 +66,16 @@
 <separator />
 <div align="right" height="100%">
 <!-- Permite realizar acciones respecto a los Enlaces -->
-			<button label="Guardar" id="btnGuardar" mold="trendy" width="auto"
+			<button label="Guardar" id="btnGuardarEnlace" mold="trendy" width="auto"
 				height="auto" image="imagenes/iconos/guardar.png"
 				onClick="@command('guardar')" />
-			<button label="Eliminar" id="btnEliminar" mold="trendy" width="auto"
+			<button label="Eliminar" id="btnEliminarEnlace" mold="trendy" width="auto"
 				height="auto" image="imagenes/iconos/eliminar.png"
 				onClick="@command('eliminarEnlaceSeleccionado')" />
-			<button label="Cancelar" id="btnCancelar" mold="trendy" width="auto"
-				height="auto" image="imagenes/iconos/cancelar.png"
+			<button label="Limpiar" id="btnLimpiarEnlace" mold="trendy" width="auto"
+				height="auto" image="imagenes/iconos/limpiar.png"
 				onClick="@command('limpiar')" />
-			<button label="Cerrar" id="btnCerrar" mold="trendy" width="auto"
+			<button label="Cerrar" id="btnCerrarEnlace" mold="trendy" width="auto"
 				height="auto" image="imagenes/iconos/cerrar.png"
 				onClick="winEnlaceinteres.onClose()" />
 </div>
@@ -92,14 +92,14 @@
 				pageSize="10">
 				
 				<listhead>
-					<listheader label="Nombre" align="lefth"
+					<listheader label="Nombre" align="left"
 						sort="auto(nombreEnlace)" >
 					<textbox id="filtroNombreEnlace" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreEnlaceFiltro)"
 							onChange="@command('buscarEnlaceFiltroNombreEnlace')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					 </listheader>
-					 <listheader label="Dirección" align="lefth"
+					 <listheader label="Dirección" align="left"
 						sort="auto(direccionEnlace)" >
 					<textbox id="filtroDireccionEnlace"
 							instant="true" mold="rounded"  width="100px"
@@ -107,10 +107,10 @@
 							onChange="@command('buscarEnlaceFiltroDireccionEnlace')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					 </listheader>
-					  <listheader label="Descripción" align="lefth"
+					  <listheader label="Descripción" align="left"
 						sort="auto(descripcion)" >
 					 </listheader>
-					 <listheader label="Imagen" align="lefth" > </listheader>
+					 <listheader label="Imagen" align="left" > </listheader>
 					 	 
 				</listhead>
 				<template name="model">

@@ -67,20 +67,22 @@
 		
 		<!-- Permite realizar acciones con respecto a las noticias -->
 		
-			<button id="btnGrabarNoticia" label="Guardar"
-				image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal"
+			<button label="Guardar" id="btnGrabarNoticia" 
+				 mold="trendy" width="auto"
+				height="auto" image="/imagenes/iconos/guardar.png"
 				onClick="@command('guardarNoticia')" />
-			<button id="btnEliminarNoticia" label="Eliminar"
-				image="/imagenes/iconos/eliminar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal"
+			<button label="Eliminar" id="btnEliminarNoticia" 
+				 mold="trendy" width="auto"
+				height="auto" image="/imagenes/iconos/eliminar.png"
 				onClick="@command('eliminarNoticia')" />
-			<button id="btnCancelarNoticia" label="Cancelar"
-				image="/imagenes/iconos/cancelar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="@command('limpiar')" />
+			<button label="Limpiar" id="btnLimpiarNoticia"
+				 mold="trendy" width="auto"
+				height="auto" image="/imagenes/iconos/limpiar.png"
+				onClick="@command('limpiar')" />
 		    <button id="btnCerrarNoticia" label="Cerrar"
-				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="winActualizarNoticia.onClose()" />
+				 mold="trendy" width="auto"
+				height="auto" image="/imagenes/iconos/cerrar.png"
+				 onClick="winActualizarNoticia.onClose()" />
 		</div>
 		
 		<!-- Muestra el listado de noticias registradas, permite la modificación y eliminacion de un registro-->

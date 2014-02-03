@@ -77,19 +77,20 @@
 
 
 			<button label="Guardar" id="btnGuardarBanner"
-				image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy"
+				mold="trendy"  width="auto" height="auto"
+				image="/imagenes/iconos/guardar.png"
 				onClick="@command('guardarBanner')" />
 			<button label="Eliminar" id="btnEliminarBanner"
-				image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy"
+				mold="trendy" width="auto" 
+				height="auto" image="/imagenes/iconos/eliminar.png"
 				onClick="@command('eliminarImagenBanner')" />
-			<button label="Cancelar" id="btnCancelarBanner"
-				image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
+			<button label="Limpiar" id="btnLimpiarBanner"
+				mold="trendy" width="auto" height="auto"
+			    image="/imagenes/iconos/limpiar.png"
+				onClick="@command('limpiar')" />
 			<button label="Cerrar" id="btnCerrarBanner"
-				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy"
+				mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/cerrar.png"
 				onClick="winActualizarBanner.onClose()" />
 
 

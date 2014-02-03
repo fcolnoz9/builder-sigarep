@@ -67,15 +67,22 @@ style="overflow:auto" action="hide: slideUp"
 </groupbox>
 <separator />
 		<div align="right" height="100%">
-			<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="@command('guardarReglamento')"/>
-			<button label="Eliminar" id="btnEliminar" image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="@command('eliminarReglamento')"/>
-			<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
-			orient="horizontal" mold="trendy" onClick="@command('limpiar')" />
-			<button label="Cerrar" id="btnCerrar"
-				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" mold="trendy" onClick="wincarga.onClose()" />
+			<button label="Guardar" id="btnGuardarDocumento" 
+			 mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/guardar.png" 
+				onClick="@command('guardarReglamento')"/>
+			<button label="Eliminar" id="btnEliminar"
+			 mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/eliminar.png"
+			onClick="@command('eliminarReglamento')"/>
+			<button label="Limpiar" id="btnLimpiarDocumeto" 
+			mold="trendy" width="auto" height="auto" 
+			 image="/imagenes/iconos/limpiar.png"
+			onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrarDocumento"
+				mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/cerrar.png" 
+				onClick="wincarga.onClose()" />
 		</div>
 <!-- 	//**************************************************** -->
 <!-- 	//LISTADO DE DOCUMENTOS REGISTRADOS -->
