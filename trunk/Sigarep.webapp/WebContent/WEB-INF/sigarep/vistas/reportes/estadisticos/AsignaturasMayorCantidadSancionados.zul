@@ -29,7 +29,7 @@
 				model="@load(vm.listaComboInstancia)" selectedItem="@bind(vm.instanciaApelada)" 
 				onSelect="@command('objetoComboInstancia')">
 					<template name="model">
-						<comboitem  label="${each.nombreRecursoApelacion}" />
+						<comboitem  label="${each.instanciaApelada}" />
 					</template>	
 				</combobox>
 			</row>
@@ -59,7 +59,6 @@
  </groupbox>
  <div align="right">
 		<button id="btnGenerarReporteAsignatura" width="auto" height="auto" label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteAsigMayor')"/>
-		<button id="btnImprimirReporteAsignatura" width="auto" height="auto" label="Imprimir" image="/imagenes/iconos/imprimir.png" orient="horizontal" mold="trendy"/>
 		<button id="btnCancelarReporteAsignatura" width="auto" height="auto" label="Cancelar" image="/imagenes/iconos/cancelar.png" orient="horizontal" mold="trendy"/>
 		
 
