@@ -142,5 +142,5 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 				"WHERE sa.id.cedulaEstudiante = :cedulaEstudiante " +
 				"AND sa.id.codigoLapso = la.codigoLapso " +
 			    "AND la.estatus = 'TRUE'")
-		public List<SolicitudApelacion> buscarSolicitudRecursoJerarquico(@Param("cedulaEstudiante")String cedulaEstudiante);
+		public List<SolicitudApelacion> buscarSolicitudEstudiante(@Param("cedulaEstudiante")String cedulaEstudiante);
 }
