@@ -2,9 +2,11 @@
 <?page title="Registrar Sancionado Por Lote" contentType="text/html;charset=UTF-8"?>
 <window  id="winRegistrarSancionadoLote" title="Registros Básicos :: Sancionados :: Registrar Sancionado Por Lote" border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="true"
     viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarEstudiantesSancionadosXml')">
-	<grid id="cargarXML">
+	<groupbox >
+		<caption label="Cargar Estudiantes Sancionados" />
+		<grid>
 		<columns>
-			<column label="Cargar"/>
+			<column label=""/>
 			<column label=""/>
 			<column label=""/>
 		</columns>
@@ -12,25 +14,28 @@
 			<row>	
 				<label>Cantidad Estudiantes Sancionados:</label>
 				<intbox id="tamanoXML" value="@bind(vm.tamanoXML)" mold="rounded" readonly="true"/>
-				<button id="btnUpload" label="Seleccionar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192,multiple=false"/>
+				<button id="btnUpload" label="Cargar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192,multiple=false"/>
 			</row>
 			<row>
 			</row>
 		</rows>
-	</grid>
-		<listbox id="estListbox" height="270px" model="@bind(vm.listaEstudiante)"   
+		</grid>
+	</groupbox>
+	<groupbox>
+	<caption label="Listado de Estudiantes Sancionados" />
+		<listbox id="estListbox" height="100%" model="@bind(vm.listaEstudiante)"   
    			 emptyMessage="No hay Estudiantes Sancionados registrados" mold="paging" pageSize="5" tooltiptext="Estudiantes Sancionados">
 		<listhead>
-			<listheader label="Cédula" align="lefth"  width="90px"  sort="auto(estudiante.cedulaEstudiante)" tooltiptext="Click para Ordenar por Cedula" />
-			<listheader label="Primer Nombre" align="lefth"  width="110px" sort="auto(estudiante.primerNombre)" tooltiptext="Click para Ordenar por Primer Nombre" />
-			<listheader label="Primer Apellido" align="lefth"  width="110px" sort="auto(estudiante.primerApellido)" tooltiptext="Click para Ordenar por Primer Apellido"/>
-			<listheader label="Semestre" align="lefth"  width="70px" sort="auto(semestre)"/>
-			<listheader label="Programa Académico" align="center" width="140px" sort="auto(estudiante.programaAcademico.idPrograma)" tooltiptext="Click para Ordenar por Programa Academico"/>
-			<listheader label="Sanción" align="lefth" width="60px" sort="auto(sancionMaestro.nombreSancion)" tooltiptext="Click para Ordenar por Sancion"/>
-			<listheader label="Lapsos Sanción" align="lefth" width="110px" tooltiptext="Click para Ordenar por Sancion"/>
-			<listheader label="Periodo Sanción" align="lefth" width="110px" tooltiptext="Click para Ordenar por Periodo Sancion"/>
-			<listheader label="Email" align="lefth" width="110px"/>
-			<listheader label="Teléfono" align="lefth" width="110px"/>
+			<listheader label="Cédula" align="center"  width="110px"  sort="auto(estudiante.cedulaEstudiante)" tooltiptext="Click para Ordenar por Cedula" />
+			<listheader label="Primer Nombre" align="center"  width="130px" sort="auto(estudiante.primerNombre)" tooltiptext="Click para Ordenar por Primer Nombre" />
+			<listheader label="Primer Apellido" align="center"  width="130px" sort="auto(estudiante.primerApellido)" tooltiptext="Click para Ordenar por Primer Apellido"/>
+			<listheader label="Semestre" align="center"  width="70px" sort="auto(semestre)"/>
+			<listheader label="Programa Académico" align="center" width="160px" sort="auto(estudiante.programaAcademico.idPrograma)" tooltiptext="Click para Ordenar por Programa Academico"/>
+			<listheader label="Sanción" align="center" width="60px" sort="auto(sancionMaestro.nombreSancion)" tooltiptext="Click para Ordenar por Sancion"/>
+			<listheader label="Lapsos Sanción" align="center" width="130px" tooltiptext="Click para Ordenar por Sancion"/>
+			<listheader label="Periodo Sanción" align="center" width="130px" tooltiptext="Click para Ordenar por Periodo Sancion"/>
+			<listheader label="Email" align="center" width="130px"/>
+			<listheader label="Teléfono" align="center" width="130px"/>
 		</listhead>
 		<template name="model">
 			<listitem selected="false">
@@ -47,5 +52,6 @@
 			</listitem>
 		</template>
 	</listbox>  
+	</groupbox>
 </window>
 </zk>
