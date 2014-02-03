@@ -1,33 +1,32 @@
 <zk>
-<window id="winHistorialEstudiante"
-	title="Gestión :: Reconsideraciones :: Registrar Reconsideracion"
-	border="normal" style="overflow:auto"
-	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
-	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
-	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialEstudiante')">
-	
+	<window id="winHistorialEstudiante"
+		title="Gestión :: Reconsideraciones :: Registrar Reconsideracion"
+		border="normal" style="overflow:auto" closable="true"
+		contentStyle="overflow:auto" action="hide: slideUp"
+		apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
+		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialEstudiante')">
 		<tabbox id="tb">
 			<tabs id="tabs">
 				<tab id="tbDatosBasicos" label="Datos Básicos" />
 				<tab id="tbDatosSancion" label="Datos de la Apelación" />
 			</tabs>
+			<!-- 			<tabpanels> -->
 			<tabpanels>
-				<tabpanel>
-                 <groupbox id="grbDatosBasicos"> 
-                 <caption>Datos Personales</caption>
-					<grid id="grdDatosEstudiante" >
-	                    <columns>
+			<tabpanel>
+				<groupbox id="grbDatosBasicos">
+					<caption>Datos Personales</caption>
+					<grid id="grdDatosEstudiante">
+						<columns>
 							<column align="left" width="auto" />
 							<column align="left" width="auto" />
 						</columns>
 						<rows>
 							<row></row>
 							<row>
-			                    
 								<label value="Cédula: "
 									id="lblCedulaEstudiante" />
 								<textbox id="txtCedulaEstudiante"
-									cols="23" width="200px" maxlength="30" readonly= "true"
+									cols="23" width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.cedula)">
 								</textbox>
 							</row>
@@ -35,26 +34,26 @@
 								<label value="Nombres: "
 									id="lblNombresEstudiante" />
 								<textbox id="txtNombresEstudiante"
-									cols="23" width="200px" maxlength="30" readonly= "true"
+									cols="23" width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.nombres)">
 								</textbox>
 								<label value="Apellidos: "
 									id="lblApellidosEstudiante" />
 								<textbox id="txtApellidosEstudiante"
-									cols="23" width="200px" maxlength="30" readonly= "true"
+									cols="23" width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.apellidos)">
 								</textbox>
 							</row>
 							<row>
 								<label value="Sexo: " id="lblSexo" />
 								<textbox id="txtSexo" cols="23"
-									width="200px" maxlength="30" readonly= "true"
+									width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.sexo)">
 								</textbox>
 								<label value="Fecha de Nacimiento: "
 									id="lblFechaNacimiento" />
 								<textbox id="txtFechaNacimiento"
-									cols="23" width="200px" maxlength="30" readonly= "true"
+									cols="23" width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.fechaNacimiento)">
 								</textbox>
 							</row>
@@ -62,22 +61,21 @@
 								<label value="Teléfono: "
 									id="lblTelefono" />
 								<textbox id="txtTelefono" cols="23"
-									width="200px" maxlength="30" readonly= "true"
+									width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.telefono)">
 								</textbox>
 								<label value="Email: " id="lblEmail" />
 								<textbox id="txtEmail" cols="23"
-									width="200px" maxlength="30" readonly= "true"
+									width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.email)">
 								</textbox>
 							</row>
 						</rows>
 					</grid>
-					</groupbox>
-			
-					<groupbox id ="grbDatosAcademicos">
+				</groupbox>
+				<groupbox id="grbDatosAcademicos">
 					<caption>Datos Académicos</caption>
-					<grid id="grdDatosAcademicos" >
+					<grid id="grdDatosAcademicos">
 						<columns>
 							<column align="left" width="auto" />
 							<column align="left" width="auto" />
@@ -88,89 +86,86 @@
 								<label value="Programa:"
 									id="lblProgramaAcademico" />
 								<textbox id="txtProgramaAcademico"
-									cols="23" width="200px" maxlength="30" readonly= "true"
+									cols="23" width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.programa)">
 								</textbox>
-								<label value="Unidades Cursadas: "
-									id="lblUnidadesCursadas" />
-								<textbox id="txtUnidadesCursadas"
-									cols="23" width="200px" maxlength="30" readonly= "true"
-									value="@bind(vm.unidadesCursadas)">
-								</textbox>
-							</row>
-							<row>
 								<label value="Año de Ingreso: "
 									id="lblAñoIngreso" />
 								<textbox id="txtAñoIngreso" cols="23"
-									width="200px" maxlength="30" readonly= "true"
+									width="200px" maxlength="30" readonly="true"
 									value="@bind(vm.anioIngreso)">
-								</textbox>
-								<label value="Unidades Aprobadas: "
-									id="lblUnidadesAprobadas" />
-								<textbox id="txtUnidadesAprobadas"
-									cols="23" width="200px" maxlength="30" readonly= "true"
-									value="@bind(vm.unidadesAprobadas)">
-								</textbox>
-							</row>
-							<row>
-								<label value="Indice de Grado: "
-									id="lblIndiceGrado" />
-								<textbox id="txtIndiceGrado" cols="23"
-									width="200px" maxlength="30" readonly= "true"
-									value="@bind(vm.indiceGrado)">
 								</textbox>
 							</row>
 						</rows>
 					</grid>
-					</groupbox>
+				</groupbox>
 			</tabpanel>
-			
-				<tabpanel>
+			<tabpanel>
 				<groupbox id="grbDatosSancion">
-			<space />
-			<listbox id="lbxDatosSancion" height="100%"
-				model="@bind(vm.listaVeredicto)"  mold="paging"
-				pageSize="10">
-				<listhead>
-					<listheader label="Lapso de la Sanción" align="center"
-						sort="auto(codigoLapso)" > 
-					</listheader>
-					<listheader label="Tipo de Sanción" align="center"
-						sort="auto(nombreSancion)" >
-					 </listheader>
-					  <listheader label="Asignatura" align="center"
-						sort="auto(asignatura)" >
-					 </listheader>
-					 <listheader label="Motivo de Apelación" align="center">
-					</listheader>
-					<listheader label="Veredicto Apelacion" align="center"
-						sort="auto(veredicto1)" > 
-						</listheader>
-						<listheader label="Veredicto Reconsideración" align="center"
-						sort="auto(veredicto2)" > 
-						</listheader>
-						<listheader label="Veredicto Recurso Jerárquico" align="center"
-						sort="auto(veredicto3)" > 
-						</listheader>
-				</listhead>
-				
-				<template name="model">
-					<listitem selected="false">
-						<listcell label="${each.codigoLapso}"></listcell>
-						<listcell label="${each.nombreSancion}"></listcell>
-						<listcell label="${each.nombreAsignatura}"></listcell>
-						<listcell label="${each.nombreTipoMotivo}"> </listcell>
-					<listcell label="${each.veredicto1}"></listcell>
-					<listcell label="${each.veredicto2}"></listcell>
-					<listcell label="${each.veredicto3}"></listcell>
-					</listitem>
-				</template>
-			</listbox>
-			<space />
-		</groupbox>
-	</tabpanel>
+					<space />
+					<listbox id="lbxDatosSancion" height="100%"
+						mold="paging" pageSize="10" onClick="@command('showModal')"
+						model="@bind(vm.apelacion)"
+						selectedItem="@bind(vm.apelacionseleccionada)">
+						<listhead>
+							<listheader label="Lapso de la Sanción"
+								align="center">
+							</listheader>
+							<listheader label="Tipo de Sanción"
+								align="center" >
+							</listheader>
+							<listheader label="Indice de Grado"
+								align="center">
+							</listheader>
+							<listheader label="Unidades Aprobadas"
+								align="center">
+							</listheader>
+							<listheader label="Unidades cursadas"
+								align="center" >
+							</listheader>
+							<listheader label="Asignatura(s)"
+								align="center" sort="auto(asignaturaLapsosConsecutivos)">
+							</listheader>
+							<listheader label="Motivos de Apelación"
+								align="center" sort="auto(motivosEstudiante)">
+							</listheader>
+						</listhead>
+						<template name="model">
+							<listitem selected="false">
+								<listcell
+									label="${each.getId().getCodigoLapso()}">
+								</listcell>
+								<listcell
+									label="${each.getSancionMaestro().getNombreSancion()}">
+								</listcell>
+								<listcell
+									label="${each.getIndiceGrado()}">
+								</listcell>
+								<listcell
+									label="${each.getUnidadesAprobadas()}">
+								</listcell>
+								<listcell
+									label="${each.getUnidadesCursadas()}">
+								</listcell>
+								<listcell>
+									<textbox cols="23" maxlength="30"
+										mold="rounded" value="@bind(vm.asignaturaLapsosConsecutivos)"
+										readonly="true" width="80%" >
+									</textbox>
+								</listcell>
+								<listcell>
+									<textbox cols="23" maxlength="30"
+										mold="rounded" value="@bind(vm.motivosEstudiante)" 
+										readonly="true" width="80%">
+									</textbox>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+					<space />
+				</groupbox>
+			</tabpanel>
 			</tabpanels>
 		</tabbox>
-	
-</window>
+	</window>
 </zk>
