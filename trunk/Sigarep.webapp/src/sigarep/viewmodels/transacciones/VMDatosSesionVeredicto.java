@@ -80,11 +80,11 @@ public class VMDatosSesionVeredicto {
 	
 	@NotifyChange ({"fechaSesion", "tipoSesion", "numeroSesion","titulo"})
 	public void buscarDatosSesion(){
-		SolicitudApelacion solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion();
-		if (solicitudApelacion != null){
-			fechaSesion = solicitudApelacion.getFechaSesion();
-			tipoSesion = solicitudApelacion.getTipoSesion();
-			numeroSesion = solicitudApelacion.getNumeroSesion();
+		List<SolicitudApelacion> solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion();
+		if (solicitudApelacion.size() > 0){
+			fechaSesion = solicitudApelacion.get(0).getFechaSesion();
+			tipoSesion = solicitudApelacion.get(0).getTipoSesion();
+			numeroSesion = solicitudApelacion.get(0).getNumeroSesion();
 			titulo = "Puede continuar con la siguiente sesión o proporcionar los datos de una nueva.";
 			mensajesAlUsuario.informacionDatosDeSesionEncontrados();
 		}else{

@@ -293,7 +293,7 @@ public class ServicioSolicitudApelacion {
 			return result;
 		}
 
-		public SolicitudApelacion buscarSolicitudParaDatosSesion() {
+		public List<SolicitudApelacion> buscarSolicitudParaDatosSesion() {
 			return iSolicitudApelacionDAO.buscarSolicitudParaDatosSesion();
 		}
 
