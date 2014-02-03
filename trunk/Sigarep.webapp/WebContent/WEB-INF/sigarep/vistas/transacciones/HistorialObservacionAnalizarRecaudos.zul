@@ -1,0 +1,60 @@
+<zk>
+	<window id="winRecaudosVeredicto1"
+		title="Gestión :: Reconsideraciones :: Evaluar Reconsideración :: Analizar Validez" border="normal"
+		width="auto" height="auto" contentStyle="overflow:auto"
+		apply="org.zkoss.bind.BindComposer" closable="true"
+		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialObservacionAnalizarRecaudos')">
+
+		<style src="/widgets/grid/simple/style.css" />
+
+		<groupbox>  
+		<caption label="Datos de los recaudos" />      
+        <grid id="grdRecaudosVeredicto1" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="3">
+	        <columns>
+	        	<column label="Motivo de Apelación" align="left" width="25%"></column>
+	            <column label="Recaudo Entregado" align="left" width="25%"></column>
+	            <column label="Observación" align="left" width="50%"></column>
+	        </columns>
+	       <rows sclass="narrow">
+	        	<template name="model">
+		            <row>
+		            	<label value="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
+		                <label value="${each.getRecaudo().getNombreRecaudo()}" /> 
+		                <textbox value="${each.getObservacionExperto()}" mold="rounded" cols="120" rows="2" readonly="true"></textbox>
+		            </row>
+	            </template>
+           </rows>
+        </grid>
+      
+		</groupbox> 
+		<div align="right" height="100%">
+									
+			<button label="Cerrar" mold="trendy" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal"  onClick="winRecaudosVeredicto1.onClose()">
+			</button>
+			
+		</div>
+	</window>
+</zk>
+
+
+<!-- <listbox id="lbxRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="20"> -->
+<!-- 	   	<listhead> -->
+<!-- 	   		<listheader hflex="3" label="Motivo de Apelación" align="left" width="25%" sort="auto(getMotivo().getTipoMotivo().getNombreTipoMotivo())" /> -->
+<!-- 	   		<listheader hflex="4" label="Recaudo Entregado" align="left" width="25%" sort="auto(getRecaudo().getNombreRecaudo())"  /> -->
+<!-- 	   		<listheader hflex="4" label="Observación"  align="left" width="50%" sort="auto(getObservacionExperto())" > -->
+	   		   
+<!-- 	   		</listheader> -->
+<!-- 	   	</listhead> -->
+<!-- 	   	<template name="model"> -->
+<!-- 	   		<listitem selected="false"> -->
+<!-- 	   			<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell> -->
+<!-- 	   			<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell> -->
+<!-- 	   			<listcell height="%"> -->
+<!-- 	   			<textbox value="" mold="rounded" cols="120" rows="2" /> -->
+<!-- 	   			</listcell> -->
+<!-- 	   		</listitem> -->
+<!-- 	   	</template> -->
+<!-- 	   </listbox> -->
+<!-- 	</groupbox> -->

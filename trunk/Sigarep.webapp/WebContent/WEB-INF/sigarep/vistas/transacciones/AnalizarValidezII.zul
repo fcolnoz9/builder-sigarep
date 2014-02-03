@@ -57,7 +57,7 @@
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55" maxlength="30"
+					<textbox     id="txtAsignatura" cols="55" maxlength="30"
 						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
@@ -85,7 +85,12 @@
 	   	<listhead>
 	   		<listheader hflex="3" label="Motivo de Apelación" align="left" width="25%" sort="auto(getMotivo().getTipoMotivo().getNombreTipoMotivo())" />
 	   		<listheader hflex="4" label="Recaudo Entregado" align="left" width="25%" sort="auto(getRecaudo().getNombreRecaudo())"  />
-	   		<listheader hflex="4" label="Observación"  align="left" width="50%" sort="auto(getObservacionExperto())" />
+	   		<listheader hflex="4" label="Observación"  align="left" width="50%" sort="auto(getObservacionExperto())" >
+	   			<button label="Analisis Anterior" mold="trendy" 
+					 width="50%" height="auto" orient="horizontal" 
+					 onClick="@command('mostrarHistorial')">
+				</button>
+	   		</listheader>
 	   	</listhead>
 	   	<template name="model">
 	   		<listitem selected="false">
@@ -97,7 +102,6 @@
 	   		</listitem>
 	   	</template>
 	   </listbox>
-        
 	</groupbox>
 	
 	
