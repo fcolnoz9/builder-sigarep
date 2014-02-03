@@ -698,11 +698,11 @@ public class VMEstudianteSancionado {
 		listaEstudianteSancionado = servicioestudiantesancionado.listadoEstudianteSancionado();
 	}
 	
-	@Command
-	@NotifyChange("listaSancionado")
-	public void filtros(){
-		listaSancionado = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedulaFiltro, nombreFiltro, apellidoFiltro, sancionFiltro);
-	}
+//	@Command
+//	@NotifyChange("listaSancionado")
+//	public void filtros(){
+//		listaSancionado = servicioestudiantesancionado.buscarEstudianteSancionadofiltros(cedulaFiltro, nombreFiltro, apellidoFiltro, sancionFiltro);
+//	}
 
 	public String getCedulaFiltro() {
 		return cedulaFiltro;

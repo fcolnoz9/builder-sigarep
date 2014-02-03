@@ -1,6 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
@@ -10,19 +10,29 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.TipoMotivo;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
+import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudiante;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
+import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioHistorialEstudiante;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+
 /**
- * HistorialEstudiante 
- * UCLA DCYT Sistemas de Informacion.
+ * HistorialEstudiante UCLA DCYT Sistemas de Informacion.
+ * 
  * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
  * @since 23/01/14
@@ -46,28 +56,111 @@ public class VMHistorialEstudiante {
 	private String apellidos;
 	private String nombreAsignatura;
 	private String sexo;
-	private String veredicto1;
-	private String veredicto2;
-	private String veredicto3;
 	private String fechaNacimiento;
 	private String anioIngreso;
 	private Float indiceGrado;
 	private Integer caso;
 	private Integer unidadesCursadas;
 	private Integer unidadesAprobadas;
+	private String asignaturaLapsosConsecutivos = "";
+	private String motivosEstudiante = "";
+	private String labelAsignaturaLapsosConsecutivos;
 	private ListaHistorialEstudiante listahistorialestudiante;
 	private List<TipoMotivo> listaTipoMotivo;
 	private String cedula;
-	mensajes msjs = new mensajes(); // para llamar a los diferentes mensajes de
-									// dialogo
-
+	private EstudianteSancionado apelacionseleccionada;
+	private String sancion;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioHistorialEstudiante serviciohistorial;
 	@WireVariable
 	private List<ListaHistorialEstudiante> lista = new LinkedList<ListaHistorialEstudiante>();
 	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	@WireVariable
+	private ServicioMotivo serviciomotivo;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	private List<ListaHistorialEstudianteVeredicto> listaVeredicto = new LinkedList<ListaHistorialEstudianteVeredicto>();
+	private List<ApelacionEstadoApelacion> apelacionestudiante = new LinkedList<ApelacionEstadoApelacion>();
+	private List<EstudianteSancionado> apelacion = new LinkedList<EstudianteSancionado>();
+	private List<AsignaturaEstudianteSancionado> asignaturas;
+	private List<Motivo> motivos;
+
 	
+	public String getMotivosEstudiante() {
+		return motivosEstudiante;
+	}
+
+	public void setMotivosEstudiante(String motivosEstudiante) {
+		this.motivosEstudiante = motivosEstudiante;
+	}
+
+	public List<Motivo> getMotivos() {
+		return motivos;
+	}
+
+	public void setMotivos(List<Motivo> motivos) {
+		this.motivos = motivos;
+	}
+
+	public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(
+			String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
+
+	public List<AsignaturaEstudianteSancionado> getAsignaturas() {
+		return asignaturas;
+	}
+
+	public void setAsignaturas(List<AsignaturaEstudianteSancionado> asignaturas) {
+		this.asignaturas = asignaturas;
+	}
+
+
+	public List<EstudianteSancionado> getApelacion() {
+		return apelacion;
+	}
+
+	public void setApelacion(List<EstudianteSancionado> apelacion) {
+		this.apelacion = apelacion;
+	}
+
+	public List<ApelacionEstadoApelacion> getApelacionestudiante() {
+		return apelacionestudiante;
+	}
+
+	public void setApelacionestudiante(
+			List<ApelacionEstadoApelacion> apelacionestudiante) {
+		this.apelacionestudiante = apelacionestudiante;
+	}
+
+	
+
+	public EstudianteSancionado getApelacionseleccionada() {
+		return apelacionseleccionada;
+	}
+
+	public void setApelacionseleccionada(EstudianteSancionado apelacionseleccionada) {
+		this.apelacionseleccionada = apelacionseleccionada;
+	}
+
 	// Metodos get y set
 	public List<ListaHistorialEstudianteVeredicto> getListaVeredicto() {
 		return listaVeredicto;
@@ -231,30 +324,7 @@ public class VMHistorialEstudiante {
 		this.sexo = sexo;
 	}
 
-	public String getVeredicto1() {
-		return veredicto1;
-	}
-
-	public void setVeredicto1(String veredicto1) {
-		this.veredicto1 = veredicto1;
-	}
-
-	public String getVeredicto2() {
-		return veredicto2;
-	}
-
-	public void setVeredicto2(String veredicto2) {
-		this.veredicto2 = veredicto2;
-	}
-
-	public String getVeredicto3() {
-		return veredicto3;
-	}
-
-	public void setVeredicto3(String veredicto3) {
-		this.veredicto3 = veredicto3;
-	}
-
+	
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -294,9 +364,12 @@ public class VMHistorialEstudiante {
 	public void setIndiceGrado(Float indiceGrado) {
 		this.indiceGrado = indiceGrado;
 	}
- // fin de metodos get y set
-	
-	/** concatenacionNombres
+
+	// fin de metodos get y set
+
+	/**
+	 * concatenacionNombres
+	 * 
 	 * @return devuelve primer y segundo nombre concatenados
 	 */
 	public void concatenacionNombres() {
@@ -306,7 +379,10 @@ public class VMHistorialEstudiante {
 		nombres = nombre1 + " " + nombre2;
 		System.out.println(nombres);
 	}
-	/** concatenacionApellidos
+
+	/**
+	 * concatenacionApellidos
+	 * 
 	 * @return devuelve primer y segundo apellido concatenados
 	 */
 	public void concatenacionApellidos() {
@@ -316,14 +392,11 @@ public class VMHistorialEstudiante {
 		apellidos = apellido1 + " " + apellido2;
 
 	}
-	/** buscarveredicto
-	 * @param cedula 
-	 * @return Lista de veredictps dados a un estudiante que apelo
-	 */
+
 	@Command
-	@NotifyChange({ "listaVeredicto" })
-	public void buscarVeredicto(String cedula) {
-		listaVeredicto = serviciohistorial.buscarVeredictos(cedula);
+	@NotifyChange({ "apelacion" })
+	public void buscarApelacion(String cedula) {
+		apelacion = servicioestudiantesancionado.buscarApelacion(cedula);
 	}
 
 	@Init
@@ -367,12 +440,58 @@ public class VMHistorialEstudiante {
 		this.codigoLapso = v15;
 		concatenacionNombres();
 		concatenacionApellidos();
-		buscarVeredicto(cedula);
+		buscarApelacion(cedula);
+		buscarAsignaturas();
+		buscarMotivos();
 	}
 
 	@Command
 	public void closeThis() {
 		window.detach();
+	}
+
+	@Command
+	public void buscarAsignaturas() {
+		sancion = apelacion.get(0).
+				getSancionMaestro().getNombreSancion();
+		cedula = apelacion.get(0).getId().getCedulaEstudiante();
+		codigoLapso = apelacion.get(0).getId().getCodigoLapso();
+		if (sancion.equalsIgnoreCase("RR")) {
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, codigoLapso);
+			if (asignaturas != null)
+				for (int i = 0; i < asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
+		}
+	}
+	
+	@Command
+	public void buscarMotivos() {
+			motivos = serviciomotivo.buscarMotivos(cedula, codigoLapso);
+			if (motivos != null)
+				for (int i = 0; i < motivos.size(); i++)
+					motivosEstudiante += motivos.get(i).getTipoMotivo().getNombreTipoMotivo()
+							+ ", ";
+		}
+	
+
+	@Command
+	public void showModal() {
+		cedula = apelacionseleccionada.getId().getCedulaEstudiante();
+		codigoLapso = apelacionseleccionada.getId().getCodigoLapso();
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("cedula", cedula);
+		map.put("codigoLapso", codigoLapso);
+		final Window window = (Window) Executions
+				.createComponents(
+						"/WEB-INF/sigarep/vistas/transacciones/DetalleHistorialEstudiante.zul",
+						null, map);
+		window.setMaximizable(true);
+		window.doModal();
+		System.out.println("envia" + cedula);
+		System.out.println("envia" + codigoLapso);
 	}
 
 }
