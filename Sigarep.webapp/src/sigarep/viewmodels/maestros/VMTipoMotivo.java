@@ -20,7 +20,13 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-
+/**
+ * TipoMotivo UCLA DCYT Sistemas de Informacion.
+ * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
+ */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMTipoMotivo {
@@ -92,6 +98,13 @@ public class VMTipoMotivo {
 	public void setTiposeleccionado(TipoMotivo tiposeleccionado) {
 		this.tiposeleccionado = tiposeleccionado;
 	}
+
+    public Integer getIdTipoMotivo() {
+		return idTipoMotivo;
+	}
+	public void setIdTipoMotivo(Integer idTipoMotivo) {
+		this.idTipoMotivo = idTipoMotivo;
+	}
 	//Fin de los metodod gets y sets
    
 	//----------- OTROS METODOS
@@ -99,10 +112,19 @@ public class VMTipoMotivo {
     public void init(){
       	listadoTipoMotivo();
       	
-    }   
-    //Metodos que Permite guardar los tipos de motivos
+    } 
+    
+    /**
+	 * guardarTipoMotivo
+	 * 
+	 * @param idTipoMotivo
+	 *            , nombreTipoMotivo, descripcion, listaTipoMotivo
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             debe haber campos en blanco
+	 */
     @Command
-	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
+	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarTipoMotivo(){
     	if (nombreTipoMotivo == null || nombreTipoMotivo.equals("") || descripcion.equals("") || descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
@@ -114,30 +136,49 @@ public class VMTipoMotivo {
 		}
 	}
     	
- 
-    public Integer getIdTipoMotivo() {
-		return idTipoMotivo;
-	}
-	public void setIdTipoMotivo(Integer idTipoMotivo) {
-		this.idTipoMotivo = idTipoMotivo;
-	}
-	// Método que trae todos los registros en una lista de tipo de motivos
+	/**
+	 * listaTipoMotivo
+	 * 
+	 * @param listaTipoMotivo
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+
  	@Command
  	@NotifyChange({ "listaTipoMotivo" })
  	public void listadoTipoMotivo() {
  		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
  	}	
 
-  //Metodo que limpia  todos los campos 
+ 	/**
+	 * limpiar
+	 * 
+	 * @param idTipoMotivo
+	 *            , nombreTipoMotivo, descripcion, listaTipoMotivo, estatus
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
     @Command
-	@NotifyChange({"listaTipoMotivo","idTipoMotivo","nombreTipoMotivo", "descripcion"})
+	@NotifyChange({"listaTipoMotivo","idTipoMotivo","nombreTipoMotivo", "estatus","descripcion"})
 	public void limpiar(){
-		nombreTipoMotivo = "";
+    	idTipoMotivo= null;
+    	nombreTipoMotivo = "";
 		descripcion="";
 		listadoTipoMotivo();
 	}
-   
-  //Metodo que elimina un tipo de motivo tomando en cuenta el idTipoMotivo
+    
+    
+    /**
+	 * eliminarTipoMotivo
+	 * 
+	 * @param idTipoMotivo
+	 *            , nombreTipoMotivo, estatus, descripcion, listaTipoMotivo
+	 * @return No devuelve ningun valor
+	 * @throws Debe
+	 *             seleccionar un registro para poder eliminarlo
+	 */
   	@Command
   	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion"})
   	public void eliminarTipoMotivo(){
@@ -152,18 +193,26 @@ public class VMTipoMotivo {
   	}
   	
   	
-  
-  	
-  	
- 
-  	
-  //permite tomar los datos del objeto tipo motivo seleccionado
+  	/**
+	 * mostrarSeleccionado
+	 * 
+	 * @param idTipoMotivo
+	 *            , nombreTipoMotivo, estatus, descripcion
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
     @Command
-	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion"})
+	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus"})
 	public void mostrarSeleccionado(){
+    	idTipoMotivo=getTiposeleccionado().getIdTipoMotivo();
 		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
 		descripcion=getTiposeleccionado().getDescripcion();	
 	}
+    
+    
+    
+    
     // Método que busca y filtra las sanciones
  	@Command
  	@NotifyChange({ "listaTipoMotivo" })
@@ -171,26 +220,3 @@ public class VMTipoMotivo {
  		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivo(filtros);
  	}
 }
-
-
-
-	
-//idTipoMotivo = 0;
-//if (nombreTipoMotivo==null|| descripcion==null ){
-//	mensajeAlUsuario.advertenciaLlenarCampos();
-//}
-//else{
-//	listaTipoMotivo= serviciotipomotivo.buscarTodas();
-//	if (listaTipoMotivo == null){
-//		idTipoMotivo = 1;
-//	} else {
-//		System.out.print(listaTipoMotivo.size());
-//		System.out.print(listaTipoMotivo.size()+1);
-//		idTipoMotivo = listaTipoMotivo.size()+1;
-//	}
-//	TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo);
-//	serviciotipomotivo.guardarTipoMotivo(tipo);
-//	limpiar();
-//	mensajeAlUsuario.informacionRegistroCorrecto();
-//}
-//}
