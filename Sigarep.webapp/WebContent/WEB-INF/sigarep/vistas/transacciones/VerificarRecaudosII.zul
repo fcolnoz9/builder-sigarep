@@ -9,7 +9,7 @@
 	<!-- Estos datos vienen precargados, pues el estudiante se registró (en un maestro), busca su cédula-->
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
-		<grid id="grdDatosEstudiante" sclass="fgrid">
+		<grid id="grdDatosEstudiante">
 			<columns>
 				<column align="left" width="auto" />
 				<column align="left" width="auto" />
@@ -18,23 +18,23 @@
 				<row>
 					<label value="Cédula: " id="lblCedulaEstudiante" width="40%" />
 					<textbox id="txtCedulaEstudiante" cols="23"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)">
+						 width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.cedula)">
 					</textbox>
 					<label value="Nombres: " id="lblNombresEstudiante" width="40%" />
 					<textbox id="txtNombresEstudiante" cols="23"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
+						 width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.nombres)">
 					</textbox>
 				</row>
 				<row>
 					<label value="Apellidos: "
 						id="lblApellidosEstudiante" />
 					<textbox id="txtApellidosEstudiante" cols="23"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
+						 width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
 					</textbox>
 					<label value="Programa: "
 						id="lblProgramaEstudiante" />
 					<textbox id="txtProgramaEstudiante" cols="23"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)">
+						 width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.programa)">
 					</textbox>
 				</row>
 			</rows>
@@ -48,22 +48,23 @@
 					<label id="lblTiposancion"
 						value="Tipo de Sancion: " />
 					<textbox id="txtTipoSancion" cols="23"
-						maxlength="30" readonly="true" value="@bind(vm.sancion)">
+						maxlength="30" width="80%" mold="rounded" readonly="true" value="@bind(vm.sancion)">
 					</textbox>
 							<label id="lblLapsosancion" value="Lapso de Sancion: " />
 					<textbox id="txtLapsosancion" cols="23"
-						maxlength="30" value="@bind(vm.lapso)" readonly="true">
+						maxlength="30" width="80%" mold="rounded" value="@bind(vm.lapso)" readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
-						maxlength="30" value="@bind(vm.semestreSancion)" readonly="true">
+						maxlength="30" width="80%" mold="rounded" value="@bind(vm.semestreSancion)" readonly="true">
 					</textbox>
-					<label id="lblAsignatura" value="Asignatura: " />
-					<textbox id="txtAsignatura" cols="23"
-						maxlength="30" value="@bind(vm.asignatura)" readonly="true">
+					<label id="lblAsignaturaPeriodos"
+						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55" maxlength="30" width="80%" mold="rounded"
+						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -75,11 +76,11 @@
 		<caption label="Datos del Recaudo" />
 		<div align="left">
 			<label id="lblnrocaso" value="Nro del Caso: " />
-			<textbox id="txtnrocaso" cols="10" maxlength="30"
+			<textbox id="txtnrocaso" cols="10" maxlength="30" mold="rounded"
 				value="@bind(vm.caso)" readonly="true">
 			</textbox>
 			<label id="lblFechaApelacion" value="Fecha de la Apelación: " />
-			<textbox id="txtFechaApelacion" cols="10" maxlength="30"
+			<textbox id="txtFechaApelacion" cols="10" maxlength="30" mold="rounded"
 				value="@bind(vm.fechaApelacion)" readonly="true">
 			</textbox>	
 		</div>
@@ -103,6 +104,9 @@
 						</listbox>
 					</panelchildren>
 				</panel>
+			</columnchildren>
+			<columnchildren>
+				<panel title=""  width="50px" />
 			</columnchildren>
 			<columnchildren width="40%">
 				<panel title="Recaudos Entregados">
@@ -137,11 +141,8 @@
 					    <hbox>
 							<radio id="rbProcedenteNo" label="No Procedente" value="CASO NO PROCEDENTE"/>
 						</hbox>
-						   <hlayout valign="center">
 						<label value="Observación General: " id="lblObservacion"  />
-						<separator></separator>
-						<textbox id="txtObservacion" mold="rounded"  cols="80" rows="2"></textbox>
-					</hlayout>
+						<textbox id="txtObservacion" mold="rounded" width="80%" cols="60" rows="2"></textbox>
 					</row>
 				</rows>
 			</grid>
@@ -153,7 +154,7 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" 
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items)">
+			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosII)">
 			<attribute name="onClick">
 				Set items = rigth.getSelectedItems();
 			</attribute>
