@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 
 public interface IEstudianteSancionadoDAO extends JpaRepository<EstudianteSancionado, EstudianteSancionadoPK> {
 			
@@ -40,4 +41,7 @@ public interface IEstudianteSancionadoDAO extends JpaRepository<EstudianteSancio
 			"AND la.estatus = 'TRUE'")		
 	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquico();
 
+	@Query("select distinct sa from EstudianteSancionado sa " +
+			"  where sa.id.cedulaEstudiante = :cedula ")
+	public List<EstudianteSancionado> buscarApelacion(@Param("cedula")String cedula);
 }
