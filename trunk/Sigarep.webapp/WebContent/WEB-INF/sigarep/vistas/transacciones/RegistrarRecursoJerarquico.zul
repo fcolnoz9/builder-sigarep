@@ -152,9 +152,9 @@
 					onClick="@command('registrarSolicitudApelacion')" />
 			</div>
 			<div align="right" height="100%">
-				<button id="btnCancelar" width="auto" height="auto"
-					label="Cancelar" image="/imagenes/iconos/cancelar.png"
-					mold="trendy" orient="horizontal" />
+				<button id="btnLimpiar" width="auto" height="auto"
+					label="Limpiar" image="/imagenes/iconos/cancelar.png"
+					mold="trendy" orient="horizontal" onClick="@command('cancelar')" />
 			</div>
 			<div align="right" height="100%">
 				<button id="btnCerrar" mold="trendy" width="auto"
