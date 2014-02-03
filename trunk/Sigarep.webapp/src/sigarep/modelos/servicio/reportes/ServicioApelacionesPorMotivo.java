@@ -491,9 +491,9 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
-	public List<Sancionados> buscarSancionadosPrueba(String instancia, String programa, String sancion){
+	public List<Sancionados> buscarSancionadosPrueba(/*String instancia, String programa, String sancion*/){
 		
-		String adicioninstancia;
+		/*String adicioninstancia;
 		String adicionprograma;
 		String adicionsancion;
 		
@@ -513,7 +513,7 @@ public class ServicioApelacionesPorMotivo {
 			adicionsancion="";	
 					
 		}else{adicionsancion=" AND sancion_maestro.nombre_sancion = '"+sancion+ "' ";	;	}
-		
+		*/
 		System.out.println();
 		
 		String queryStatement =
@@ -541,9 +541,9 @@ public class ServicioApelacionesPorMotivo {
 	" AND estudiante_sancionado.cedula_estudiante = solicitud_apelacion.cedula_estudiante AND" +
 	" estudiante_sancionado.codigo_lapso = solicitud_apelacion.codigo_lapso " +
 	" AND sancion_maestro.id_sancion = estudiante_sancionado.id_sancion AND" +
-	" instancia_apelada.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada" +adicioninstancia+adicionprograma+adicionsancion+			  
-	" ;"
-				 ;
+	" instancia_apelada.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada"; //+adicioninstancia+adicionprograma+adicionsancion+			  
+	//" ;"
+		//		 ;
 
 
 		

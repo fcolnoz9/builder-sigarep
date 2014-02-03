@@ -23,9 +23,8 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.reportes.ChartDataApelacionesPorMotivo;
-import sigarep.modelos.data.reportes.ReportConfigApelaciones;
-import sigarep.modelos.data.reportes.ReportConfigSancionados;
-import sigarep.modelos.data.reportes.ReportTypeApelaciones;
+import sigarep.modelos.data.reportes.ReportConfig;
+import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.reportes.Sancionados;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
@@ -37,8 +36,6 @@ import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListadoEstudiantesVeredicto {
 
-	CategoryModel model;
-	String type;
 	@WireVariable
 	private ServicioSancionMaestro serviciosancionmaestro;
 	@WireVariable
@@ -146,9 +143,12 @@ public class VMListadoEstudiantesVeredicto {
 	
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
 	// REPORTE***************************
-	ReportTypeApelaciones reportType = null;
-	private ReportConfigSancionados reportConfig = null;
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
 
+	String ruta="/WEB-INF/sigarepReportes/RApelacionesMotivoPrograma.jasper";
+	
+	
 	@Init
 	public void init() {
 		buscarInstanciaApelada();
@@ -157,8 +157,6 @@ public class VMListadoEstudiantesVeredicto {
 		buscarPrograma();
 		//buscarSancionados();
 		// prepare chart data
-		type = "column";
-		model = ChartDataApelacionesPorMotivo.getModel();
 	}
 
 	@Command
@@ -171,7 +169,7 @@ public class VMListadoEstudiantesVeredicto {
 		System.out.println(tituloinstancia);
 		System.out.println(tituloprograma);
 		System.out.println(titulosancion);
-		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(tituloinstancia, tituloprograma, titulosancion);
+		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(/*tituloinstancia, tituloprograma, titulosancion*/);
 	
 		//if (!selected.equals("")) {
 			//if (getSelected().equals("resultado")) {
@@ -286,44 +284,33 @@ public class VMListadoEstudiantesVeredicto {
 		this.listaInstanciaApelada = listaInstanciaApelada;
 	}
 	
-	public CategoryModel getModel() {
-		return model;
-	}
 
-	public String getType() {
-		return type;
-	}
-
-	public ListModelList<ReportTypeApelaciones> getReportTypesModel() {
+	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
 
-	public ReportConfigSancionados getReportConfig() {
+	public ReportConfig getReportConfig() {
 		return reportConfig;
 	}
 
-	public ReportTypeApelaciones getReportType() {
+	public ReportType getReportType() {
 		return reportType;
 	}
 
-	public void setReportType(ReportTypeApelaciones reportType) {
+	public void setReportType(ReportType reportType) {
 		this.reportType = reportType;
 	}
 
 	// Lista que me permite llenar el combo para elegir el formato
-	private ListModelList<ReportTypeApelaciones> reportTypesModel = new ListModelList<ReportTypeApelaciones>(
-			Arrays.asList(new ReportTypeApelaciones("PDF", "pdf"), new ReportTypeApelaciones("HTML",
-					"html"), new ReportTypeApelaciones("Word (RTF)", "rtf"),
-					new ReportTypeApelaciones("Excel", "xls"), new ReportTypeApelaciones(
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
+					"html"), new ReportType("Word (RTF)", "rtf"),
+					new ReportType("Excel", "xls"), new ReportType(
 							"Excel (JXL)", "jxl"),
-					new ReportTypeApelaciones("CSV", "csv"), new ReportTypeApelaciones(
+					new ReportType("CSV", "csv"), new ReportType(
 							"OpenOffice (ODT)", "odt")));
 
-	@GlobalCommand("configChanged")
-	@NotifyChange("type")
-	public void onConfigChanged(@BindingParam("type") String type) {
-		this.type = type;
-	}
+
 
 	/*public List<InstanciaApelada> getListaInstancia() {
 		return listaInstancia;
@@ -425,7 +412,7 @@ public class VMListadoEstudiantesVeredicto {
 		 * System.out.println(reportType); System.out.println(listaAsigMayor);
 		 */
 
-		reportConfig = new ReportConfigSancionados(prog, lap); // INSTANCIANDO UNA NUEVA LLAMADA AL
+		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
 		reportConfig.getParameters().put("De", de);
 		reportConfig.getParameters().put("Para", para);

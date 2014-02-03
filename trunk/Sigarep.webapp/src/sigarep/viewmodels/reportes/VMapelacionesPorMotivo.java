@@ -17,8 +17,8 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.CategoryModel;
 import org.zkoss.zul.ListModelList;
 
-import sigarep.modelos.data.reportes.ReportConfigApelaciones;
-import sigarep.modelos.data.reportes.ReportTypeApelaciones;
+import sigarep.modelos.data.reportes.ReportConfig;
+import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
@@ -33,8 +33,6 @@ import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMapelacionesPorMotivo {
 
-	CategoryModel model;
-	String type;
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -73,8 +71,10 @@ public class VMapelacionesPorMotivo {
 
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
 	// REPORTE***************************
-	ReportTypeApelaciones reportType = null;
-	private ReportConfigApelaciones reportConfig = null;
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	
+	String ruta="/WEB-INF/sigarepReportes/RApelacionesMotivoPrograma.jasper";
 
 	@Init
 	public void init() {
@@ -83,8 +83,6 @@ public class VMapelacionesPorMotivo {
 		buscarLapso();
 		// buscarApelacionesR();
 		// prepare chart data
-		type = "column";
-		model = ChartDataApelacionesPorMotivo.getModel();
 	}
 
 	@Command
@@ -166,44 +164,31 @@ public class VMapelacionesPorMotivo {
 
 	}
 
-	public CategoryModel getModel() {
-		return model;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public ListModelList<ReportTypeApelaciones> getReportTypesModel() {
+	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
 
-	public ReportConfigApelaciones getReportConfig() {
+	public ReportConfig getReportConfig() {
 		return reportConfig;
 	}
 
-	public ReportTypeApelaciones getReportType() {
+	public ReportType getReportType() {
 		return reportType;
 	}
 
-	public void setReportType(ReportTypeApelaciones reportType) {
+	public void setReportType(ReportType reportType) {
 		this.reportType = reportType;
 	}
 
 	// Lista que me permite llenar el combo para elegir el formato
-	private ListModelList<ReportTypeApelaciones> reportTypesModel = new ListModelList<ReportTypeApelaciones>(
-			Arrays.asList(new ReportTypeApelaciones("PDF", "pdf"), new ReportTypeApelaciones("HTML",
-					"html"), new ReportTypeApelaciones("Word (RTF)", "rtf"),
-					new ReportTypeApelaciones("Excel", "xls"), new ReportTypeApelaciones(
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
+					"html"), new ReportType("Word (RTF)", "rtf"),
+					new ReportType("Excel", "xls"), new ReportType(
 							"Excel (JXL)", "jxl"),
-					new ReportTypeApelaciones("CSV", "csv"), new ReportTypeApelaciones(
+					new ReportType("CSV", "csv"), new ReportType(
 							"OpenOffice (ODT)", "odt")));
 
-	@GlobalCommand("configChanged")
-	@NotifyChange("type")
-	public void onConfigChanged(@BindingParam("type") String type) {
-		this.type = type;
-	}
 
 	public List<ProgramaAcademico> getListaPrograma() {
 		return listaPrograma;
@@ -315,7 +300,7 @@ public class VMapelacionesPorMotivo {
 		 * System.out.println(reportType); System.out.println(listaAsigMayor);
 		 */
 		
-		reportConfig = new ReportConfigApelaciones(); // INSTANCIANDO UNA NUEVA LLAMADA AL
+		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
 		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES - MOTIVO / RESULTADO");
 		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
