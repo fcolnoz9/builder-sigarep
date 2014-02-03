@@ -1,8 +1,14 @@
 package sigarep.viewmodels.transacciones;
-
+/**VM Analizar validezII
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
@@ -17,6 +23,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -50,7 +57,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-//import sigarep.modelos.servicio.maestros.ServicioEstudiante;
+
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAnalizarValidezII {
@@ -86,23 +94,22 @@ public class VMAnalizarValidezII {
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@Wire
+	private SolicitudApelacion sancionadoSeleccionado;
+	private String telefono;
 	private Datebox dtbAnnoIngreso;
-
+	private TipoMotivo tipoMotivo;
 	private List<LapsoAcademico> listaLapso;
 	private List<SancionMaestro> listaSancion;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-
+	private List<Recaudo> listaRecaudosPorMotivo;
+	private List<RecaudoEntregado> listaRecaudo;
+	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
-	private SolicitudApelacion sancionadoSeleccionado;
 	mensajes msjs = new mensajes();
-	private TipoMotivo tipoMotivo;
-	private List<Recaudo> listaRecaudosPorMotivo;
-	private String telefono;
-	private List<RecaudoEntregado> listaRecaudo;
 
+	// Metodos setteres y getteres
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
 	}
@@ -289,22 +296,9 @@ public class VMAnalizarValidezII {
 	public void setObservacionexperto(String observacionexperto) {
 		this.observacionexperto = observacionexperto;
 	}
-
-	@Command
-	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
-	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo) {
-		listaRecaudosPorMotivo = serviciorecaudo
-				.listadoRecaudosPorMotivo(tipoMotivo);
-	}
-
-	@Command
-	@NotifyChange({ "listaRecaudo" })
-	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosAnalizarValidezI(cedula);
-		System.out.println(listaRecaudosPorMotivo);
-	}
-
+	//Fin de los metodos setters y getters
+	
+	//Metodo que inicializa el codigo del VM
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1) {
@@ -347,14 +341,43 @@ public class VMAnalizarValidezII {
 
 	}
 
+	/** buscarRecaudosPorTipoMotivo
+	 * @param tipoMotivo 
+	 * @return Lista de recaudos y motivos por estudiante
+	 */
+	@Command
+	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
+	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo) {
+		listaRecaudosPorMotivo = serviciorecaudo
+				.listadoRecaudosPorMotivo(tipoMotivo);
+	}
+	/** buscarRecaudosEntregados
+	 * @param cedula 
+	 * @return Lista de recaudos 
+	 */
+	@Command
+	@NotifyChange({ "listaRecaudo" })
+	public void buscarRecaudosEntregados(String cedula) {
+		listaRecaudo = serviciorecaudoentregado
+				.buscarRecaudosEntregadosAnalizarValidezI(cedula);
+		System.out.println("CEDULA"+cedula);
+		System.out.println(listaRecaudosPorMotivo);
+	}
+
+	
+
+	/** actualizarRecaudosEntregados
+	 * @return No devuelve ningun valor.
+	 * @throws  
+	 */	
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado",
-			"lapso", "observacionExperto", "observacion" })
+			"lapso", "observacionexperto", "observacion" })
 	public void actualizarRecaudosEntregados(
 			@BindingParam("recaudosEntregados") List<Listitem> recaudos,
 			@BindingParam("window") Window winAnalizarValidezII) {
 
-		if (selected == null || selected.equals("") || observacion == null
+		if ( observacionexperto == null|| observacionexperto.equals("")|| observacion == null
 				|| observacion.equals("")) {
 			Messagebox
 					.show("Debe Seleccionar una sugerencia de procedencia y emitir una observacón general del caso",
@@ -448,6 +471,10 @@ public class VMAnalizarValidezII {
 		}
 	}
 
+	/** Limpiar
+	 * @return No devuelve ningun valor.
+	 * @throws  
+	 */		
 	@Command
 	@NotifyChange({ "listaRecaudo", "observacion", "selected",
 			"observacionexperto" })
@@ -457,5 +484,19 @@ public class VMAnalizarValidezII {
 		listaRecaudo = serviciorecaudoentregado
 				.buscarRecaudosEntregados(cedula);
 	}
+	
+	
+	@Command
+	public void mostrarHistorial (){
+  		final HashMap<String, Object> map = new HashMap<String, Object>();
+	 	map.put("cedula", this.sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getCedulaEstudiante());
+	 	map.put("idInstancia", this.sancionadoSeleccionado.getInstanciaApelada().getIdInstanciaApelada());
+ 
+        final Window window = (Window) Executions.createComponents(
+        		"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos.zul", null, map);
+		window.setMaximizable(true);
+		window.doModal();
+  	}
+	
 
 }
