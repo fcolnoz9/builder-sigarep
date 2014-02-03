@@ -297,8 +297,8 @@ public class ServicioSolicitudApelacion {
 			return iSolicitudApelacionDAO.buscarSolicitudParaDatosSesion();
 		}
 
-		public List<SolicitudApelacion> buscarSolicitudRecursoJerarquico(String cedulaEstudiante){
-			return iSolicitudApelacionDAO.buscarSolicitudRecursoJerarquico(cedulaEstudiante);
+		public List<SolicitudApelacion> buscarSolicitudEstudiante(String cedulaEstudiante){
+			return iSolicitudApelacionDAO.buscarSolicitudEstudiante(cedulaEstudiante);
 		}
 
 

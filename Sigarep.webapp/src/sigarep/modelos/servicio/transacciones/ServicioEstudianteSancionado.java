@@ -118,8 +118,11 @@ public class ServicioEstudianteSancionado {
 		return resultado;
 	}
 	
-
 	public List<EstudianteSancionado> buscarApelacion(String cedula){
 		return iEstudianteSancionadoDAO.buscarApelacion(cedula);
+	}
+
+	public List<EstudianteSancionado> buscarSancionadosReconsideracion(){
+		return iEstudianteSancionadoDAO.buscarSancionadosReconsideracion();
 	}
 }
