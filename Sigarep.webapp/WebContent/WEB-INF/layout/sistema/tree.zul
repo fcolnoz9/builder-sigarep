@@ -349,10 +349,43 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Estudiantes Sancionados vs. Estudiante que Apelaron"
+										label="Comparativos"
 										id="EstudiantesSancionadosVsApelaron" sclass="reportes/estadisticos"
 										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
 								</treerow>
+								
+								
+								<treechildren>
+								<treeitem>
+								<treerow>
+									<treecell
+										label="Apelaciones por Motivo-Resultado"
+										id="ApelacionesPorMotivo" sclass="reportes/estadisticos"
+										onClick="createWin(ApelacionesPorMotivo.getId(), ApelacionesPorMotivo.getSclass())" />
+								</treerow>
+							</treeitem>
+							
+							<treeitem>
+								<treerow>
+									<treecell
+										label="Apelaciones por Instancia-Resultado"
+										id="ApelacionesPorInstancia" sclass="reportes/estadisticos"
+										onClick="createWin(ApelacionesPorInstancia.getId(), ApelacionesPorInstancia.getSclass())" />
+								</treerow>
+							</treeitem>
+							
+							<treeitem>
+								<treerow>
+									<treecell
+										label="Apelaciones Tipo de Sexo-Resultado"
+										id="ApelacionesPorTipoDeSexo" sclass="reportes/estadisticos"
+										onClick="createWin(ApelacionesPorTipoDeSexo.getId(), ApelacionesPorTipoDeSexo.getSclass())" />
+								</treerow>
+							</treeitem>
+						</treechildren>
+								
+								
+								
 							</treeitem>
 							<treeitem>
 								<treerow>
@@ -379,31 +412,8 @@
 										onClick="createWin(ApelacionesPorPrograma.getId(), ApelacionesPorPrograma.getSclass())" />
 								</treerow>
 							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Apelaciones por Motivo"
-										id="ApelacionesPorMotivo" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorMotivo.getId(), ApelacionesPorMotivo.getSclass())" />
-								</treerow>
-							</treeitem>
+						
 							
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Apelaciones por Tipo de Instancia"
-										id="ApelacionesPorInstancia" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorInstancia.getId(), ApelacionesPorInstancia.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Apelaciones por Sexo"
-										id="ApelacionesPorTipoDeSexo" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorTipoDeSexo.getId(), ApelacionesPorTipoDeSexo.getSclass())" />
-								</treerow>
-							</treeitem>
 							<treeitem>
 								<treerow>
 									<treecell
