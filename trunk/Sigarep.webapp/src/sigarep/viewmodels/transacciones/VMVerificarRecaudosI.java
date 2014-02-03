@@ -342,27 +342,30 @@ public class VMVerificarRecaudosI {
 		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
 		this.lapso = sa.getId().getCodigoLapso();
 		this.caso = sa.getNumeroCaso();
+		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
 
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.periodoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		buscarRecaudos();
-		mostrarDatosDeSancion();
-	}
 	
-	private void mostrarDatosDeSancion() {
-		if (sancion.equalsIgnoreCase("RR")){
-			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+		if (sancion.equalsIgnoreCase("RR")) {
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, lapso);
 			if (asignaturas != null)
-				for (int i=0; i<asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+				for (int i = 0; i < asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-		}
-		else{
+		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
 			asignaturaLapsosConsecutivos = lapsosConsecutivos;
 		}
+		
+		
 	}
+	
 	
 	@Command
 	@NotifyChange({"cedula","lapso","nombreRecaudo","nombreTipoMotivo","listaRecaudos" })
