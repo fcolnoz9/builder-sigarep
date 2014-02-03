@@ -9,8 +9,8 @@
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />
 		<textbox id="txtnrocaso" cols="23" maxlength="30"
-			value="@bind(vm.solicitudapelacionseleccionada.numeroCaso)"
-			readonly="true" mold="rounded">
+ 			value="@bind(vm.caso)" 
+ 			readonly="true" mold="rounded"> 
 		</textbox>
 	</div>
 	<space />
@@ -28,12 +28,12 @@
 					<label id="lblCedula" value="Cedula: " />
 					<textbox id="txtcedula" cols="23" maxlength="30"
 						readonly="true" mold="rounded"
-						value="@bind(vm.solicitudapelacionseleccionada.id.cedulaEstudiante)"
+						value="@bind(vm.estudianteSeleccionado.estudiante.cedulaEstudiante)"
 						width="80%">
 					</textbox>
 					<label id="lblPrograma" value="Programa: " />
 					<textbox id="txtPrograma" cols="23" maxlength="30"
-						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.estudiante.programaAcademico.nombrePrograma)"
+						value="@bind(vm.estudianteSeleccionado.estudiante.programaAcademico.nombrePrograma)"
 						readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
@@ -67,13 +67,13 @@
 						value="Tipo de Sancion: " />
 					<textbox id="txtTipoSancion" cols="23"
 						maxlength="30" readonly="true" mold="rounded" width="80%"
-						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.sancionMaestro.nombreSancion)">
+						value="@bind(vm.estudianteSeleccionado.sancionMaestro.nombreSancion)">
 					</textbox>
 					<label id="lblLapsosancion"
 						value="Lapso de Sancion: " />
 					<textbox id="txtLapsosancion" cols="23"
 						maxlength="30" mold="rounded" width="80%"
-						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.lapsoAcademico.codigoLapso)"
+						value="@bind(vm.estudianteSeleccionado.lapsoAcademico.codigoLapso)"
 						readonly="true">
 					</textbox>
 				</row>
@@ -82,7 +82,7 @@
 						value="Periodo de Sancion: " />
 					<textbox id="txtPeridosancion" cols="23"
 						mold="rounded" width="80%" maxlength="30"
-						value="@bind(vm.solicitudapelacionseleccionada.estudianteSancionado.periodoSancion)"
+						value="@bind(vm.estudianteSeleccionado.periodoSancion)"
 						readonly="true">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
@@ -95,10 +95,9 @@
 			</rows>
 		</grid>
 	</groupbox>
-
 	<groupbox id="grbDatosdeReconsideracion">
 		<caption id="lblDatosReconsideracion"
-			label="Datos Reconsideracion" />
+			label="Datos Reconsideración" />
 		<grid>
 			<columns>
 				<column width="10%" />
