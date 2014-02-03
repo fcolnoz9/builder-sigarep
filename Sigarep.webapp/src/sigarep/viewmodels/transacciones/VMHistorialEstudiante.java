@@ -16,11 +16,14 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
+
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudiante;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
@@ -65,7 +68,6 @@ public class VMHistorialEstudiante {
 	private String asignaturaLapsosConsecutivos = "";
 	private String motivosEstudiante = "";
 	private String labelAsignaturaLapsosConsecutivos;
-	private ListaHistorialEstudiante listahistorialestudiante;
 	private List<TipoMotivo> listaTipoMotivo;
 	private String cedula;
 	private EstudianteSancionado apelacionseleccionada;
@@ -177,15 +179,6 @@ public class VMHistorialEstudiante {
 
 	public void setLista(List<ListaHistorialEstudiante> lista) {
 		this.lista = lista;
-	}
-
-	public ListaHistorialEstudiante getListahistorialestudiante() {
-		return listahistorialestudiante;
-	}
-
-	public void setListahistorialestudiante(
-			ListaHistorialEstudiante listahistorialestudiante) {
-		this.listahistorialestudiante = listahistorialestudiante;
 	}
 
 	public List<TipoMotivo> getListaTipoMotivo() {
@@ -493,5 +486,7 @@ public class VMHistorialEstudiante {
 		System.out.println("envia" + cedula);
 		System.out.println("envia" + codigoLapso);
 	}
+
+
 
 }
