@@ -20,10 +20,8 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -33,8 +31,6 @@ import org.zkoss.zul.Window;
 
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.modelos.data.maestros.EstadoApelacion;
-import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
@@ -45,13 +41,11 @@ import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
-import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarRecursoJerarquico {
@@ -63,19 +57,14 @@ public class VMRegistrarRecursoJerarquico {
 	private String lapso;
 	private String nombres;
 	private String apellidos;
-	private Integer caso;
-	
-
 	private String cedula;
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
-	private String nombreDoc;
 	private String observacion;
 	
-
-	private Integer idTipoMotivo;
 	private Integer idRecaudo;
+	private Integer caso;
 
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
@@ -94,9 +83,7 @@ public class VMRegistrarRecursoJerarquico {
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
-	@WireVariable
-	private ServicioSoporte serviciosoporte;
-
+	
 	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
 
 	private EstudianteSancionado estudianteSeleccionado;
@@ -110,83 +97,17 @@ public class VMRegistrarRecursoJerarquico {
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 
-	Soporte soporte = new Soporte();
-
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
-
-	EstadoApelacion estadoApelacion = new EstadoApelacion();
-
-	Recaudo recaudos = new Recaudo();
-
 	
-
 	// METODOS GETS Y DETS
 	
-	public Integer getCaso() {
-		return caso;
-	}
-
-	public void setCaso(Integer caso) {
-		this.caso = caso;
-	}
-	
-	public EstudianteSancionado getEstudianteSeleccionado() {
-		return estudianteSeleccionado;
-	}
-
-	public List<SolicitudApelacion> getListaSolicitud() {
-		return listaSolicitud;
-	}
-
-	public void setListaSolicitud(List<SolicitudApelacion> listaSolicitud) {
-		this.listaSolicitud = listaSolicitud;
-	}
-
-	public void setEstudianteSeleccionado(
-			EstudianteSancionado estudianteSeleccionado) {
-		this.estudianteSeleccionado = estudianteSeleccionado;
-	}
-
-	public String getObservacion() {
-		return observacion;
-	}
-
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
-	}
-
 	public String getNombres() {
 		return nombres;
 	}
 
 	public String getApellidos() {
 		return apellidos;
-	}
-
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-
-
-	public String getLapsosConsecutivos() {
-		return lapsosConsecutivos;
-	}
-
-	public void setLapsosConsecutivos(String lapsosConsecutivos) {
-		this.lapsosConsecutivos = lapsosConsecutivos;
-	}
-
-	public List<RecaudoEntregado> getListaRecaudos() {
-		return listaRecaudos;
-	}
-
-	public List<AsignaturaEstudianteSancionado> getAsignaturas() {
-		return asignaturas;
 	}
 
 	public String getAsignaturaLapsosConsecutivos() {
@@ -197,28 +118,31 @@ public class VMRegistrarRecursoJerarquico {
 		return labelAsignaturaLapsosConsecutivos;
 	}
 
-	public String getNombreDoc() {
-		return nombreDoc;
+	public String getObservacion() {
+		return observacion;
 	}
 
-	public SolicitudApelacion getSolicitudApelacion() {
-		return solicitudApelacion;
+	public Integer getCaso() {
+		return caso;
 	}
 
-	public Integer getIdTipoMotivo() {
-		return idTipoMotivo;
+	public List<RecaudoEntregado> getListaRecaudos() {
+		return listaRecaudos;
 	}
 
-	public void setListaRecaudos(List<RecaudoEntregado> listaRecaudos) {
-		this.listaRecaudos = listaRecaudos;
+	public EstudianteSancionado getEstudianteSeleccionado() {
+		return estudianteSeleccionado;
 	}
 
-	public void setAsignaturas(List<AsignaturaEstudianteSancionado> asignaturas) {
-		this.asignaturas = asignaturas;
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
 
-	public void setAsignaturaLapsosConsecutivos(
-			String asignaturaLapsosConsecutivos) {
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
 		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
 	}
 
@@ -227,20 +151,24 @@ public class VMRegistrarRecursoJerarquico {
 		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
 	}
 
-	public void setNombreDoc(String nombreDoc) {
-		this.nombreDoc = nombreDoc;
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
-	public void setSolicitudApelacion(SolicitudApelacion solicitudApelacion) {
-		this.solicitudApelacion = solicitudApelacion;
+	public void setCaso(Integer caso) {
+		this.caso = caso;
 	}
 
-	public void setIdTipoMotivo(Integer idTipoMotivo) {
-		this.idTipoMotivo = idTipoMotivo;
+	public void setListaRecaudos(List<RecaudoEntregado> listaRecaudos) {
+		this.listaRecaudos = listaRecaudos;
 	}
 
+	public void setEstudianteSeleccionado(
+			EstudianteSancionado estudianteSeleccionado) {
+		this.estudianteSeleccionado = estudianteSeleccionado;
+	}
 	// FIN DE LOS METODOS GETS Y SET
-	
+
 	// OTROS METODOS
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
@@ -252,34 +180,20 @@ public class VMRegistrarRecursoJerarquico {
 		Selectors.wireComponents(view, this, false);
 		this.estudianteSeleccionado = v1;
 		cedula = estudianteSeleccionado.getEstudiante().getCedulaEstudiante();
-		buscarSolicitud(cedula);	
-		if(listaSolicitud.size() > 0)
-			caso = listaSolicitud.get(0).getNumeroCaso();
-		else{
-			registrarApelacionConMotivos();
-			
-		}
-		concatenacionNombres();
-		concatenacionApellidos();
 		lapso= estudianteSeleccionado.getLapsoAcademico().getCodigoLapso();
 		sancion=estudianteSeleccionado.getSancionMaestro().getNombreSancion();
 		lapsosConsecutivos=estudianteSeleccionado.getLapsosAcademicosRp();
 		
+		concatenacionNombres();
+		concatenacionApellidos();
 		buscarRecaudosEntregados(cedula);
-
-		if (sancion.equalsIgnoreCase("RR")) {
-			asignaturas = servicioasignaturaestudiantesancionado
-					.buscarAsignaturaDeSancion(cedula, lapso);
-			if (asignaturas != null)
-				for (int i = 0; i < asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i)
-							.getAsignatura().getNombreAsignatura()
-							+ ", ";
-			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-		} else {
-			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-			asignaturaLapsosConsecutivos = lapsosConsecutivos;
-		}
+		mostrarDatosDeSancion();
+		buscarSolicitud(cedula);	
+		if(listaSolicitud.size() > 0)
+			caso = listaSolicitud.get(0).getNumeroCaso();
+		else
+			registrarApelacionConMotivos();
+			
 		media = null;
 		doc = new Documento();
 	}
@@ -339,7 +253,6 @@ public class VMRegistrarRecursoJerarquico {
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudos = serviciorecaudoentregado
 				.buscarRecaudosEntregadosRecurso(cedula);
-
 	}
 
 	/**
@@ -385,7 +298,6 @@ public class VMRegistrarRecursoJerarquico {
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 				apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
-				//OJO CON ESTE ID QUE ES CON EL ESTADO DE LA APELACION
 				apelacionEstadoApelacionPK.setIdEstadoApelacion(9);
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(hora);
@@ -433,12 +345,39 @@ public class VMRegistrarRecursoJerarquico {
 	}
 
 	public void buscarSolicitud(String cedula){
-		listaSolicitud = serviciosolicitudapelacion.buscarSolicitudRecursoJerarquico(cedula);	
+		listaSolicitud = serviciosolicitudapelacion.buscarSolicitudEstudiante(cedula);	
 	}
 	
 	@Command
 	public void buscarCaso() {
 		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
+	}
+	
+	private void mostrarDatosDeSancion() {
+		if (sancion.equalsIgnoreCase("RR")) {
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, lapso);
+			if (asignaturas != null)
+				for (int i = 0; i < asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
+			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
+		} else {
+			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			asignaturaLapsosConsecutivos = estudianteSeleccionado
+					.getLapsosAcademicosRp();
+		}
+	}
+
+	/** cancelar
+	 * @param Ninguno
+	 * @return Ninguno
+	 */
+	@Command
+	@NotifyChange({"observacion"})
+	public void cancelar() {
+		observacion = ""; 
 	}
 	// FIN OTROS METODOS
 }
