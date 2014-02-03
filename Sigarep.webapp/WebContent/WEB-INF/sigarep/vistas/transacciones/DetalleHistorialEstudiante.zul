@@ -1,0 +1,114 @@
+<zk>
+<window id="winDetalleHistorialEstudiante"
+	title="Gestión :: HistorialEstudiante"
+	border="normal" style="overflow:auto"
+	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
+	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDetalleHistorialEstudiante')">
+		<groupbox id = "grbListaSancionados" width="auto">
+		<grid>
+			<rows>
+				<row valign="top">
+					<listbox id="lbxComision" height="100%"
+						     mold="paging"  model = "@bind(vm.apelacionestudiante)"
+							 pageSize="10"   emptyMessage="No hay Apelaciones" >
+						<listhead>
+							<listheader label="Comisión Sustanciadora" align="center" >
+							</listheader>
+						</listhead>
+						<template name="model">
+							<listitem selected="false">
+								<listcell>
+									<vlayout>
+										<hlayout>
+											<label value="Nombre de estado: "></label>
+											<label value="${each.getEstadoApelacion().getNombreEstado()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Fecha de estado: "></label>
+											<label value="${each.getFechaEstado()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Observación: "></label>
+											<label value="${each.getObservacion()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Sugerencia: "></label>
+											<label value="${each.getSugerencia()}"></label>
+										</hlayout>
+									</vlayout>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+					<listbox id="lbxConcejoDecanato" height="100%"
+						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia2)"
+							 pageSize="10"   emptyMessage="No hay Apelaciones" >
+						<listhead>
+							<listheader label="Concejo de Decanato" align="center" >
+							</listheader>
+						</listhead>
+						<template name="model">
+							<listitem selected="false">
+								<listcell>
+									<vlayout>
+										<hlayout>
+											<label value="Nombre de estado: "></label>
+											<label value="${each.getEstadoApelacion().getNombreEstado()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Fecha de estado: "></label>
+											<label value="${each.getFechaEstado()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Observación: "></label>
+											<label value="${each.getObservacion()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Sugerencia: "></label>
+											<label value="${each.getSugerencia()}"></label>
+										</hlayout>
+									</vlayout>
+									</listcell>
+							</listitem>
+						</template>
+					</listbox>
+					<listbox id="lbxConcejoUniversitario" height="100%"
+						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia3)"
+							 pageSize="10"   emptyMessage="No hay Apelaciones" >
+						<listhead>
+							<listheader label="Concejo Universitario" align="center" >
+							</listheader>
+						</listhead>
+						<template name="model">
+							<listitem selected="false">
+								<listcell>
+									<vlayout>
+										<hlayout>
+											<label value="Nombre de estado: "></label>
+											<label value="${each.getEstadoApelacion().getNombreEstado()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Fecha de estado: "></label>
+											<label value="${each.getFechaEstado()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Observación: "></label>
+											<label value="${each.getObservacion()}"></label>
+										</hlayout>
+										<hlayout>
+											<label value="Sugerencia: "></label>
+											<label value="${each.getSugerencia()}"></label>
+										</hlayout>
+									</vlayout>
+									</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</row>
+			</rows>
+		</grid>
+		</groupbox> 
+		<space />
+</window>
+</zk>
