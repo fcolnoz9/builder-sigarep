@@ -161,7 +161,7 @@
 		</button>
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
 		<button label="Limpiar" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 			orient="horizontal" 	onClick="@command('limpiar')">
 		</button>
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
