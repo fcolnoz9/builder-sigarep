@@ -396,9 +396,6 @@ public class VMVerificarRecaudosEntregadosIII {
 			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
 					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
-		else if (selected.equals("")) {
-			Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
-		}
 		else 
 		{
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
