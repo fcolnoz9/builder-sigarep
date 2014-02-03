@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpAsignaturasSancionadosVsApelaciones" language="groovy" printOrder="Horizontal" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="e4c809ca-4229-479e-9900-3377b8e4e298">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="nombrePrograma" class="java.lang.String"/>
+	<parameter name="instanciaApelada" class="java.lang.String"/>
+	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
+	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String"/>
+	<parameter name="ICON_FOOTER" class="java.lang.String"/>
+	<parameter name="ImagenSuperior" class="java.lang.String"/>
+	<parameter name="lapso" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="asignatura" class="java.lang.String"/>
+	<field name="sanciones" class="java.math.BigDecimal"/>
+	<field name="apelaciones" class="java.math.BigDecimal"/>
+	<field name="procedentes" class="java.math.BigDecimal"/>
+	<field name="noprocedentes" class="java.math.BigDecimal"/>
+	<field name="totalsancion" class="java.math.BigDecimal"/>
+	<field name="totalapela" class="java.math.BigDecimal"/>
+	<variable name="PorcSanciones" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[($F{sanciones}.doubleValue()*100)/$F{totalsancion}]]></variableExpression>
+	</variable>
+	<variable name="PorcApelaciones" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[($F{apelaciones}.doubleValue()*100)/$F{totalsancion}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="123" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="2" y="1" width="752" height="54" uuid="a83c9b37-672a-4479-9392-0d0ee700a241"/>
+				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="2" y="55" width="89" height="67" uuid="808d9210-f616-4886-9c21-e4ab3d76ff22"/>
+				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="179" y="59" width="402" height="36" uuid="2e70c249-3b80-40b9-8640-06cc0fcd1cb1"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
+UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
+DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="663" y="55" width="89" height="67" uuid="caa0f47c-488c-4c74-9f89-0358d910af20"/>
+				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="106" y="101" width="546" height="17" uuid="60631f44-28c8-405e-a513-b4ece7c9fa92"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de las 5 primeras Asignaturas con Mayor Sancionados Vs Apelaciones por Instancia]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="169" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="117" y="50" width="62" height="20" backcolor="#FFFFFF" uuid="174c9a2f-cefd-4f31-b6b1-56709a379fe7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Programa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="117" y="70" width="85" height="20" backcolor="#FFFFFF" uuid="004d668f-6bd4-40b5-a02b-023a46c27355"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Instancia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table" mode="Opaque" x="123" y="149" width="138" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="e4650c0e-f7a1-4341-ae1d-e110cfcb1210"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Asignaturas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table" mode="Opaque" x="424" y="149" width="100" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="fffe370d-1c77-4602-b927-55893d46cf11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Procedentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table" mode="Opaque" x="524" y="149" width="100" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="a462972b-ee2f-46f7-b419-df46925ce20a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No Procedentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table" mode="Opaque" x="261" y="149" width="77" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="19b8807a-3b11-48b2-926d-a5c9028f70e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Sanciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table" mode="Opaque" x="338" y="149" width="86" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="16cf7b26-fcb5-4603-950c-98f03e79c89c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[apelaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table" mode="Opaque" x="261" y="109" width="263" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="6cf91b13-99a1-4130-9575-1391de7a2ab6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Total de Sancionados por Programa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table" mode="Opaque" x="261" y="129" width="263" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="b86868a7-09eb-4d8a-a997-e7eef5c0c4e7"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Total de Apelaciones por Programa e Instancia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="table" mode="Transparent" x="524" y="129" width="100" height="20" backcolor="#FFFFFF" uuid="ee7146c1-8d03-4469-b367-fe15f4524b12"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalapela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table" mode="Transparent" x="524" y="109" width="100" height="20" backcolor="#FFFFFF" uuid="3050e373-4a5e-4fde-9dd2-444f0c15657a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalsancion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-19" y="1" width="793" height="1" forecolor="#0099CC" backcolor="#0099CC" uuid="d047612d-12f0-47e7-b21c-dbe7a90d199e"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="179" y="70" width="149" height="20" uuid="8572c6fd-fd24-430c-bd22-a666dfd5aa0b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{instanciaApelada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="50" width="149" height="20" uuid="83f6380d-568b-4c96-aeae-6757613f254a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombrePrograma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="328" y="18" width="50" height="20" uuid="5daa6187-9529-4911-ac6a-45aeee55b7a5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Lapso -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="378" y="18" width="48" height="20" uuid="0deecc5e-0846-4c7b-9798-d1537f893be0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lapso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="table" x="123" y="0" width="138" height="20" uuid="c8a1d8c0-9f36-4ab2-b10e-51c8931236ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{asignatura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table" x="424" y="0" width="100" height="20" uuid="1dd9876c-491b-4d52-928e-8db4edf99f37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{procedentes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table" x="524" y="0" width="100" height="20" uuid="136f8aa5-820e-4eb7-bd8d-fde5acc6ac9e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{noprocedentes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table" x="261" y="0" width="77" height="20" uuid="45d76ad2-9331-4832-897c-58464b086975"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sanciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table" x="338" y="0" width="86" height="20" uuid="0e2400f9-e24c-41cd-a34b-c2f8db3299e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apelaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="2" y="3" width="100" height="13" uuid="48c7956e-6101-446f-b3b0-4b675978da62"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="2" width="610" height="14" uuid="ff1bbc9a-5c3a-45a1-98ea-3a80f1b4a422"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="712" y="2" width="40" height="14" uuid="ac268581-ea21-478a-80c2-f20d832f3b48"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="19" width="752" height="35" uuid="bd67c706-05be-48fd-9270-514b95db3490"/>
+				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="380" splitType="Stretch">
+			<rectangle>
+				<reportElement x="21" y="105" width="707" height="227" uuid="d0b325a7-1de8-4238-b16b-f54d6813c93f"/>
+			</rectangle>
+			<bar3DChart>
+				<chart isShowLegend="true" renderType="draw" theme="default">
+					<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="36" y="115" width="676" height="204" uuid="fca06e7b-018e-4200-a49a-707ff5e49421"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Sanciones"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{asignatura}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{PorcSanciones}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{sanciones}.doubleValue()*100)/$F{totalsancion})+ "%"]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Apelaciones"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{asignatura}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{PorcApelaciones}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{apelaciones}.doubleValue()*100)/$F{totalsancion})+ "%"]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot labelRotation="0.0"/>
+					<itemLabel color="#FFFFFF" backgroundColor="#FFFFFF">
+						<font size="8" isBold="true"/>
+					</itemLabel>
+					<categoryAxisLabelExpression><![CDATA["ASIGNATURAS"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat labelRotation="0.0">
+						<axisFormat tickLabelMask="0" verticalTickLabels="true">
+							<labelFont>
+								<font size="10"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="8"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["PORCENTAJES"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>
