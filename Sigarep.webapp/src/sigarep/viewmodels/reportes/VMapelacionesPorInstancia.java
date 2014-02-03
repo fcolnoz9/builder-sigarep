@@ -99,7 +99,7 @@ public class VMapelacionesPorInstancia {
 			//if (getSelected().equals("resultado")) {
 				if (objSancion.getNombreSancion() == "Todos") {
 					apelacionesPrograma = servicioapelacionespormotivo
-							. buscarPorInstanciaResultado_Programa(
+							.buscarPorInstanciaResultado_Programa(
 									objLapso.getCodigoLapso(),
 									objPrograma.getNombrePrograma());
 				} else
