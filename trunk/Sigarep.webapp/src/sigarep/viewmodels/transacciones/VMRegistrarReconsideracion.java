@@ -402,7 +402,7 @@ public class VMRegistrarReconsideracion {
 			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
 			apelacionEstadoApelacionPK.setIdEstadoApelacion(5);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-			apelacionEstadoApelacion.setFechaEstado(hora);
+			apelacionEstadoApelacion.setFechaEstado(new Date());
 			motivoPK.setCedulaEstudiante(cedula);
 			motivoPK.setCodigoLapso(lapso);
 			motivoPK.setIdInstanciaApelada(2);

@@ -503,7 +503,7 @@ public class VMRegistrarDatosIniciales {
 		solicitudApelacion.setId(solicitudApelacionPK);
 		serviciosolicitudapelacion.guardar(solicitudApelacion);
 		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-		apelacionEstadoApelacion.setFechaEstado(hora);
+		apelacionEstadoApelacion.setFechaEstado(new Date());
 		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 
 		motivoPK.setCedulaEstudiante(cedula);
