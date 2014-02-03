@@ -2,7 +2,6 @@ package sigarep.viewmodels.transacciones;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -13,54 +12,63 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import sigarep.modelos.data.transacciones.HistoricoEstudiante;
-import sigarep.modelos.data.transacciones.ListaMomento;
-import sigarep.modelos.servicio.transacciones.ServicioHistoricoEstudiante;
+import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.TipoMotivo;
+import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
+import sigarep.modelos.data.transacciones.Motivo;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
+import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
+import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMHistoricoEstudiante {
 
-	@Wire("#modalDialog")
-	@WireVariable
-	private String cedula;
-	@WireVariable
+	private String cedulaEstudiante;
 	private String programa;
-	@WireVariable
-	private String nombre;
-	@WireVariable
-	private String apellido;
-	@WireVariable
+	private String nombres;
+	private String apellidos;
 	private String lapsoAcademico;
-	@WireVariable
 	private String tipoSancion;
-	@WireVariable
-	private String periodoInicial;
-	@WireVariable
-	private String periodoFinal;
-	@WireVariable
-	private String materia;
-	@WireVariable
+	private Integer periodoSancion;
 	private Integer numeroCaso;
-	@WireVariable
-	private String descripcionMotivo;
-	@WireVariable
 	private String fecha;
+	private MensajesAlUsuario msj = new MensajesAlUsuario();
+	private EstudianteSancionado estudianteSan;
+	private SolicitudApelacion solicitudEst;
+	private Boolean boton1;
+	private Boolean boton2;
+	private Boolean boton3;
+	private List<Motivo> listaMotivos;
+	private List<TipoMotivo> listaTipoMotivo;
+	private List<ApelacionEstadoApelacion> listaEstadoApelacion;
+	private List<SolicitudApelacion> listaSolicitudApelacion;
+
 	@WireVariable
-	private List<HistoricoEstudiante> listaHistoricoEstudiante;
-
-	private List<ListaMomento> listaMomento;
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
 
 	@WireVariable
-	private ServicioHistoricoEstudiante serviciohistoricoestudiante;
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 
-	public String getCedula() {
-		return cedula;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+
+	@WireVariable
+	private ServicioLapsoAcademico serviciolapsoacademico;
+
+	@WireVariable
+	private ServicioMotivo serviciomotivo;
+
+	public String getCedulaEstudiante() {
+		return cedulaEstudiante;
 	}
 
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
+	public void setCedulaEstudiante(String cedulaEstudiante) {
+		this.cedulaEstudiante = cedulaEstudiante;
 	}
 
 	public String getPrograma() {
@@ -71,20 +79,20 @@ public class VMHistoricoEstudiante {
 		this.programa = programa;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
-	public String getApellido() {
-		return apellido;
+	public String getNombres() {
+		return nombres;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
 
 	public String getLapsoAcademico() {
@@ -103,28 +111,12 @@ public class VMHistoricoEstudiante {
 		this.tipoSancion = tipoSancion;
 	}
 
-	public String getPeriodoInicial() {
-		return periodoInicial;
+	public Integer getPeriodoSancion() {
+		return periodoSancion;
 	}
 
-	public void setPeriodoInicial(String periodoInicial) {
-		this.periodoInicial = periodoInicial;
-	}
-
-	public String getPeriodoFinal() {
-		return periodoFinal;
-	}
-
-	public void setPeriodoFinal(String periodoFinal) {
-		this.periodoFinal = periodoFinal;
-	}
-
-	public String getMateria() {
-		return materia;
-	}
-
-	public void setMateria(String materia) {
-		this.materia = materia;
+	public void setPeriodoSancion(Integer periodoSancion) {
+		this.periodoSancion = periodoSancion;
 	}
 
 	public Integer getNumeroCaso() {
@@ -135,6 +127,40 @@ public class VMHistoricoEstudiante {
 		this.numeroCaso = numeroCaso;
 	}
 
+	public EstudianteSancionado getEstudianteSan() {
+		return estudianteSan;
+	}
+
+	public void setEstudianteSan(EstudianteSancionado estudianteSan) {
+		this.estudianteSan = estudianteSan;
+	}
+
+	public SolicitudApelacion getSolicitudEst() {
+		return solicitudEst;
+	}
+
+	public void setSolicitudEst(SolicitudApelacion solicitudEst) {
+		this.solicitudEst = solicitudEst;
+	}
+
+	public List<SolicitudApelacion> getListaSolicitudApelacion() {
+		return listaSolicitudApelacion;
+	}
+
+	public void setListaSolicitudApelacion(
+			List<SolicitudApelacion> listaSolicitudApelacion) {
+		this.listaSolicitudApelacion = listaSolicitudApelacion;
+	}
+
+	public List<ApelacionEstadoApelacion> getListaEstadoApelacion() {
+		return listaEstadoApelacion;
+	}
+
+	public void setListaEstadoApelacion(
+			List<ApelacionEstadoApelacion> listaEstadoApelacion) {
+		this.listaEstadoApelacion = listaEstadoApelacion;
+	}
+
 	public String getFecha() {
 		return fecha;
 	}
@@ -143,69 +169,133 @@ public class VMHistoricoEstudiante {
 		this.fecha = fecha;
 	}
 
-	public List<HistoricoEstudiante> getListaHistoricoEstudiante() {
-		return listaHistoricoEstudiante;
+	public List<TipoMotivo> getListaTipoMotivo() {
+		return listaTipoMotivo;
 	}
 
-	public void setListaHistoricoEstudiante(
-			List<HistoricoEstudiante> listaHistoricoEstudiante) {
-		this.listaHistoricoEstudiante = listaHistoricoEstudiante;
+	public void setListaTipoMotivo(List<TipoMotivo> listaTipoMotivo) {
+		this.listaTipoMotivo = listaTipoMotivo;
 	}
 
-	public List<ListaMomento> getListaMomento() {
-		return listaMomento;
+	public List<Motivo> getListaMotivos() {
+		return listaMotivos;
 	}
 
-	public void setListaMomento(List<ListaMomento> listaMomento) {
-		this.listaMomento = listaMomento;
+	public void setListaMotivos(List<Motivo> listaMotivos) {
+		this.listaMotivos = listaMotivos;
+	}
+
+	public Boolean getBoton1() {
+		return boton1;
+	}
+
+	public void setBoton1(Boolean boton1) {
+		this.boton1 = boton1;
+	}
+
+	public Boolean getBoton2() {
+		return boton2;
+	}
+
+	public void setBoton2(Boolean boton2) {
+		this.boton2 = boton2;
+	}
+
+	public Boolean getBoton3() {
+		return boton3;
+	}
+
+	public void setBoton3(Boolean boton3) {
+		this.boton3 = boton3;
 	}
 
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("cedula") String c) {
+			@ExecutionArgParam("cedula") String cedula) {
 		Selectors.wireComponents(view, this, false);
-		this.cedula = c;
-		buscarHistorialEstudiante(c);
-		mostrarHistoricoEstudiante();
+		this.cedulaEstudiante = cedula;
+
+		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
+			msj.ErrorLapsoActivoNoExistente();
+		else {
+			lapsoAcademico = serviciolapsoacademico.encontrarLapsoActivo()
+					.getCodigoLapso();
+			buscarEstadoEstudiante(cedula);
+			buscarSolicitudEstudiante(cedula, lapsoAcademico);
+			buscarListaTipoMotivo(cedula, lapsoAcademico);
+			mostrarHistoricoEstudiante();
+			buscarListaEstadoApelacion(3);
+			buscarListaEstadoApelacion(2);
+			buscarListaEstadoApelacion(1);
+		}
 	}
 
 	@Command
-	@NotifyChange({ "cedula", "programa", "nombre", "apellido",
-			"lapsoAcademico", "tipoSancion", "periodoInicial", "periodoFinal",
-			"materia", "numeroCaso", "fecha" })
-	public void buscarHistorialEstudiante(String cedula) {
-		listaHistoricoEstudiante = serviciohistoricoestudiante
-				.buscarHistoricoEstudiante(cedula);
+	@NotifyChange({ "cedulaEstudiante", "programa", "nombres", "apellidos",
+			"lapsoAcademico", "tipoSancion", "periodoSancion", "numeroCaso",
+			"fecha" })
+	public void buscarEstadoEstudiante(String cedula) {
+		setEstudianteSan(serviciosolicitudapelacion
+				.buscarEstudianteSancionadoxSolicitud(cedula));
 	}
 
 	@Command
-	@NotifyChange({ "listaMomento" })
-	public void buscarListaMomentos(@BindingParam("id") Integer id) {
-		listaMomento = serviciohistoricoestudiante.buscarListaMomentos(
-				this.cedula, id);
+	@NotifyChange({ "cedulaEstudiante", "programa", "nombres", "apellidos",
+			"lapsoAcademico", "tipoSancion", "periodoSancion", "numeroCaso",
+			"fecha" })
+	public void buscarSolicitudEstudiante(String cedula, String lapso) {
+		setListaSolicitudApelacion(serviciosolicitudapelacion
+				.buscarSolicitudesEstudianteLapsoActual(cedula, lapso));
+		for (int i = 0; i < listaSolicitudApelacion.size(); i++) {
+			System.out.println(listaSolicitudApelacion.get(i).getNumeroCaso()
+					+ " * ");
+		}
 	}
 
 	@Command
-	@NotifyChange({ "cedula", "programa", "nombre", "apellido",
-			"lapsoAcademico", "tipoSancion", "periodoInicial", "periodoFinal",
-			"materia", "numeroCaso", "fecha" })
+	@NotifyChange({ "cedulaEstudiante", "programa", "nombres", "apellidos",
+			"lapsoAcademico", "tipoSancion", "periodoSancion", "numeroCaso",
+			"fecha" })
 	public void mostrarHistoricoEstudiante() {
-		cedula = getListaHistoricoEstudiante().get(0).getCedula();
-		programa = getListaHistoricoEstudiante().get(0).getPrograma();
-		nombre = getListaHistoricoEstudiante().get(0).getNombre();
-		apellido = getListaHistoricoEstudiante().get(0).getApellido();
-		lapsoAcademico = getListaHistoricoEstudiante().get(0)
-				.getLapso_academico();
-		tipoSancion = getListaHistoricoEstudiante().get(0).getTipo_sancion();
-		periodoInicial = getListaHistoricoEstudiante().get(0)
-				.getPeriodo_inicial().substring(0, 6);
-		periodoFinal = getListaHistoricoEstudiante().get(0).getPeriodo_final()
-				.substring(7, 13);
-		materia = getListaHistoricoEstudiante().get(0).getMateria();
-		numeroCaso = getListaHistoricoEstudiante().get(0).getNumeroCaso();
+		cedulaEstudiante = getEstudianteSan().getId().getCedulaEstudiante();
+		programa = getEstudianteSan().getEstudiante().getProgramaAcademico()
+				.getNombrePrograma();
+		nombres = getEstudianteSan().getEstudiante().getPrimerNombre() + " "
+				+ getEstudianteSan().getEstudiante().getSegundoNombre();
+		apellidos = getEstudianteSan().getEstudiante().getPrimerApellido()
+				+ " " + getEstudianteSan().getEstudiante().getSegundoApellido();
+		lapsoAcademico = getEstudianteSan().getLapsoAcademico()
+				.getCodigoLapso();
+		tipoSancion = getEstudianteSan().getSancionMaestro().getNombreSancion();
+		periodoSancion = getEstudianteSan().getPeriodoSancion();
+		numeroCaso = getListaSolicitudApelacion().get(
+				getListaSolicitudApelacion().size() - 1).getNumeroCaso();
 		SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-		fecha = formateador.format(getListaHistoricoEstudiante().get(0)
-				.getFecha());
+		fecha = formateador.format(getListaSolicitudApelacion().get(
+				getListaSolicitudApelacion().size() - 1).getFechaSolicitud());
 	}
 
+	@Command
+	@NotifyChange({ "listaEstadoApelacion" })
+	public void buscarListaEstadoApelacion(@BindingParam("id") Integer id) {
+		setListaEstadoApelacion(servicioapelacionestadoapelacion
+				.buscarApelacionHistorial(cedulaEstudiante, lapsoAcademico, id));
+		if (listaEstadoApelacion.isEmpty() && id == 1) {
+			setBoton1(true);
+		}
+		if (listaEstadoApelacion.isEmpty() && id == 2) {
+			setBoton2(true);
+		}
+		if (listaEstadoApelacion.isEmpty() && id == 3) {
+			setBoton3(true);
+		}
+	}
+
+	@Command
+	@NotifyChange({ "listaMotivo" })
+	public void buscarListaTipoMotivo(String cedula, String lapso) {
+		System.out.println(cedula + " " + lapso);
+		setListaMotivos(serviciomotivo.buscarMotivos(cedula, lapso));
+		System.out.println(listaMotivos);
+	}
 }

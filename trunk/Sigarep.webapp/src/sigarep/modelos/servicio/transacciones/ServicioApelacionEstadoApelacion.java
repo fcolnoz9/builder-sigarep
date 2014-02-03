@@ -34,8 +34,11 @@ public class ServicioApelacionEstadoApelacion {
 	public ApelacionEstadoApelacion crear() {
 		return new ApelacionEstadoApelacion();
 	}
-	public List<ApelacionEstadoApelacion> buscarApelacionHistorial(String cedula, String codigoLapso, Integer instancia){
-		return iApelacionEstadoApelacionDAO.buscarApelacionHistorial(cedula, codigoLapso, instancia);
+
+	public List<ApelacionEstadoApelacion> buscarApelacionHistorial(
+			String cedula, String codigoLapso, Integer instancia) {
+		return iApelacionEstadoApelacionDAO.buscarApelacionHistorial(cedula,
+				codigoLapso, instancia);
 	}
 	
 }

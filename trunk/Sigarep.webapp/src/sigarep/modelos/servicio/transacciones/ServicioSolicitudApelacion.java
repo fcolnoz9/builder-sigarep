@@ -25,6 +25,11 @@ public class ServicioSolicitudApelacion {
 	private @Autowired ISolicitudApelacionDAO iSolicitudApelacionDAO;
 	private @Autowired IMotivoDAO iMotivoDAO;
 	
+	//Javier
+	public List<SolicitudApelacion> buscarSolicitudesEstudianteLapsoActual(String cedula, String lapso){
+		return iSolicitudApelacionDAO.buscarSolicitudesEstudianteLapsoActual(cedula, lapso);
+	}
+		
 	public SolicitudApelacion guardar(SolicitudApelacion solicitudapelacion) {
 		return iSolicitudApelacionDAO.save(solicitudapelacion);
 	}

@@ -77,9 +77,26 @@
 								</hbox>
 							</vbox>
 						</west>
-						<center title="Descargas">
-							<include
-								src="WEB-INF/layout/principal/Descargas.zul" />
+						<center>
+							<borderlayout>
+								<north border="none" title="Descargas"
+									size="70%">
+									<include
+										src="WEB-INF/layout/principal/Descargas.zul" />
+								</north>
+								<center border="none"
+									title="Preguntas Frecuentes">
+									<hbox align="center" pack="center"
+										vflex="1" hflex="1">
+										<label
+											value="¿Tienes alguna pregunta? Haz click aquí"
+											onClick="@command('modalPreguntasFrecuentes')"
+											id=" lblPreguntas "
+											style="font:arial;cursor:pointer;text-align:center;margin-left:10px;margin-right:10px;" />
+									</hbox>
+								</center>
+							</borderlayout>
+
 						</center>
 					</borderlayout>
 				</center>
@@ -110,7 +127,7 @@
 				<!-- Fin Cronograma de Actividades -->
 
 				<!-- Inicio Twitter -->
-				<south title="Twitter" size="45%">
+				<south title="Twitter" size="45%" autoscroll="true">
 					<include src="/widgets/twitter.html" />
 				</south>
 				<!-- Fin Twitter -->

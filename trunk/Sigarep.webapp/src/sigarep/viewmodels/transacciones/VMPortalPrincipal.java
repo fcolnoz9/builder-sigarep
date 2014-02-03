@@ -11,13 +11,14 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.Cronograma;
-import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMPortalPrincipal {
@@ -28,6 +29,8 @@ public class VMPortalPrincipal {
 	private ServicioEstudianteSancionado servicioestudiantesan;
 	@WireVariable
 	private ServicioCronograma serviciocronograma;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 
@@ -41,7 +44,6 @@ public class VMPortalPrincipal {
 	private String lugarActividad;
 	private Cronograma cronograma;
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
-	private String codigoLapso;
 	private MensajesAlUsuario msj = new MensajesAlUsuario();
 
 	public String getCedula() {
@@ -126,12 +128,6 @@ public class VMPortalPrincipal {
 
 	@Init
 	public void init() {
-//		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
-//			msj.ErrorLapsoActivoNoExistente();
-//		else
-//			codigoLapso = serviciolapsoacademico.encontrarLapsoActivo()
-//					.getCodigoLapso();
-//		buscarCronogramaLapsoActivo(codigoLapso);
 	}
 
 	@Command
@@ -139,21 +135,15 @@ public class VMPortalPrincipal {
 		if (cedula == "" || cedula == null) {
 			msj.advertenciaIngresarCedula();
 		} else {
-			System.out.println("1");
-			// no funciona esta validación
-			if (servicioestudiantesan.buscarTodos() == null) {
-				System.out.println("2");
-				msj.ErrorNoExisteEstudianteSancionado();
+			if (serviciosolicitudapelacion
+					.buscarEstudianteSancionadoxSolicitud(cedula) == null) {
+				msj.advertenciaNoExisteEstudianteSancionado();
 			} else {
-				List<EstudianteSancionado> listaEstudianteSan = servicioestudiantesan
-						.buscarTodos();
-				for (int i = 0; i < listaEstudianteSan.size(); i++) {
-					final HashMap<String, Object> map = new HashMap<String, Object>();
-					map.put("cedula", this.cedula);
-					System.out.println(cedula);
-					Executions.createComponents("/Modal/HistorialEst.zul",
-							null, map);
-				}
+				final HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("cedula", this.cedula);
+				System.out.println(cedula);
+				Executions.createComponents("/Modal/HistorialEst.zul", null,
+						map);
 			}
 		}
 	}
@@ -174,6 +164,21 @@ public class VMPortalPrincipal {
 		listaCronograma = serviciocronograma
 				.buscarTodosCronogramas(codigoLapso);
 	}
-	
+
+	/**
+	 * modalPreguntasFrecuentes.
+	 * 
+	 * @param Ninguno
+	 * @return Muestra la ventana con las preguntas frecuentes
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Command
+	public void modalPreguntasFrecuentes() {
+		final Window window = (Window) Executions.createComponents(
+				"/Modal/preguntasFrecuentes.zul", null, null);
+		window.setMaximizable(true);
+		window.doModal();
+	}
 
 }

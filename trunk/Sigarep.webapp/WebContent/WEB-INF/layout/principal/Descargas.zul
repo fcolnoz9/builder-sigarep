@@ -28,10 +28,4 @@
 			sclass="head2" id="lblRecaudos" style="font:arial;cursor:pointer" />
 		<listcell label="" />
 	</listitem>
-	<listitem>
-		<listcell label="Preguntas Frecuentes" sclass="head2"
-			onClick="@command('modalPreguntasFrecuentes')" id=" lblPreguntas "
-			style="font:arial;cursor:pointer" />
-		<listcell></listcell>
-	</listitem>
 </listbox>
