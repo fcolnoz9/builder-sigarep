@@ -29,10 +29,12 @@ public interface IEstudianteSancionadoDAO extends JpaRepository<EstudianteSancio
 	
 	@Query("SELECT es FROM EstudianteSancionado AS es, LapsoAcademico AS la " +
 			"WHERE (es.id.cedulaEstudiante NOT IN " +
-			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa) " +
-			"OR es.id.cedulaEstudiante NOT IN " +
-			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa " +
-			"WHERE sa.veredicto = 'PROCEDENTE')) " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE') " +
+			"OR es.id.cedulaEstudiante IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.veredicto = 'NO PROCEDENTE' " +
+			"AND sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE')) " +
 			"AND es.id.cedulaEstudiante NOT IN " +
 			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
 			"WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE' " +
@@ -40,7 +42,24 @@ public interface IEstudianteSancionadoDAO extends JpaRepository<EstudianteSancio
 			"AND es.id.codigoLapso = la.codigoLapso " +
 			"AND la.estatus = 'TRUE'")		
 	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquico();
-
+//Vanessa
+	@Query("SELECT es FROM EstudianteSancionado AS es, LapsoAcademico AS la " +
+			"WHERE (es.id.cedulaEstudiante NOT IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE') " +
+			"OR es.id.cedulaEstudiante IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.veredicto = 'NO PROCEDENTE' " +
+			"AND sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE')) " +
+			"AND es.id.cedulaEstudiante NOT IN " +
+			"(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE' " +
+			"AND (sa.id.idInstanciaApelada = '3' " +
+			"OR sa.id.idInstanciaApelada = '2')) " +
+			"AND es.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE'")		
+	public List<EstudianteSancionado> buscarSancionadosReconsideracion();
+	
 	@Query("select distinct sa from EstudianteSancionado sa " +
 			"  where sa.id.cedulaEstudiante = :cedula ")
 	public List<EstudianteSancionado> buscarApelacion(@Param("cedula")String cedula);
