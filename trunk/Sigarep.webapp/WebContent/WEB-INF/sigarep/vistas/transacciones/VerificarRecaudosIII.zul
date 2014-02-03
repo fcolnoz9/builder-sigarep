@@ -154,7 +154,7 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" 
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosII)">
+			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosIII)">
 			<attribute name="onClick">
 				Set items = rigth.getSelectedItems();
 			</attribute>
