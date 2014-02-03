@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.repositorio.transacciones.IApelacionEstadoApelacionDAO;
 
 @Service("servicioapelacionestadoapelacion")
@@ -33,4 +34,8 @@ public class ServicioApelacionEstadoApelacion {
 	public ApelacionEstadoApelacion crear() {
 		return new ApelacionEstadoApelacion();
 	}
+	public List<ApelacionEstadoApelacion> buscarApelacionHistorial(String cedula, String codigoLapso, Integer instancia){
+		return iApelacionEstadoApelacionDAO.buscarApelacionHistorial(cedula, codigoLapso, instancia);
+	}
+	
 }
