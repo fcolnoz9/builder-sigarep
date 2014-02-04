@@ -40,12 +40,6 @@
 	<field name="noprocedentes" class="java.math.BigDecimal"/>
 	<field name="totalsancion" class="java.math.BigDecimal"/>
 	<field name="totalapela" class="java.math.BigDecimal"/>
-	<variable name="PorcSanciones" class="java.math.BigDecimal">
-		<variableExpression><![CDATA[($F{sanciones}.doubleValue()*100)/$F{totalsancion}]]></variableExpression>
-	</variable>
-	<variable name="PorcApelaciones" class="java.math.BigDecimal">
-		<variableExpression><![CDATA[($F{apelaciones}.doubleValue()*100)/$F{totalsancion}]]></variableExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -85,7 +79,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="169" splitType="Stretch">
+		<band height="138" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Transparent" x="117" y="50" width="62" height="20" backcolor="#FFFFFF" uuid="174c9a2f-cefd-4f31-b6b1-56709a379fe7"/>
 				<textElement verticalAlignment="Middle">
@@ -101,93 +95,65 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Instancia:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table" mode="Opaque" x="123" y="149" width="138" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="e4650c0e-f7a1-4341-ae1d-e110cfcb1210"/>
+				<reportElement style="table" mode="Opaque" x="123" y="118" width="138" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="e4650c0e-f7a1-4341-ae1d-e110cfcb1210"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Asignaturas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table" mode="Opaque" x="424" y="149" width="100" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="fffe370d-1c77-4602-b927-55893d46cf11"/>
+				<reportElement style="table" mode="Opaque" x="424" y="118" width="100" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="fffe370d-1c77-4602-b927-55893d46cf11"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Procedentes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table" mode="Opaque" x="524" y="149" width="100" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="a462972b-ee2f-46f7-b419-df46925ce20a"/>
+				<reportElement style="table" mode="Opaque" x="524" y="118" width="100" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="a462972b-ee2f-46f7-b419-df46925ce20a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[No Procedentes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table" mode="Opaque" x="261" y="149" width="77" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="19b8807a-3b11-48b2-926d-a5c9028f70e9"/>
+				<reportElement style="table" mode="Opaque" x="261" y="118" width="77" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="19b8807a-3b11-48b2-926d-a5c9028f70e9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Sanciones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table" mode="Opaque" x="338" y="149" width="86" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="16cf7b26-fcb5-4603-950c-98f03e79c89c"/>
+				<reportElement style="table" mode="Opaque" x="338" y="118" width="86" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="16cf7b26-fcb5-4603-950c-98f03e79c89c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[apelaciones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table" mode="Opaque" x="261" y="109" width="263" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="6cf91b13-99a1-4130-9575-1391de7a2ab6"/>
+				<reportElement mode="Transparent" x="449" y="50" width="132" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="6cf91b13-99a1-4130-9575-1391de7a2ab6"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true" isItalic="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Total de Sancionados por Programa:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="table" mode="Opaque" x="261" y="129" width="263" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="b86868a7-09eb-4d8a-a997-e7eef5c0c4e7"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Total de Apelaciones por Programa e Instancia:]]></text>
+				<text><![CDATA[Total de Sancionados:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="table" mode="Transparent" x="524" y="129" width="100" height="20" backcolor="#FFFFFF" uuid="ee7146c1-8d03-4469-b367-fe15f4524b12"/>
+				<reportElement mode="Transparent" x="581" y="50" width="36" height="20" backcolor="#FFFFFF" uuid="3050e373-4a5e-4fde-9dd2-444f0c15657a"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{totalapela}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="table" mode="Transparent" x="524" y="109" width="100" height="20" backcolor="#FFFFFF" uuid="3050e373-4a5e-4fde-9dd2-444f0c15657a"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isItalic="true"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalsancion}]]></textFieldExpression>
 			</textField>
@@ -256,9 +222,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
@@ -283,11 +246,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<summary>
 		<band height="380" splitType="Stretch">
 			<rectangle>
-				<reportElement x="21" y="105" width="707" height="227" uuid="d0b325a7-1de8-4238-b16b-f54d6813c93f"/>
+				<reportElement x="14" y="74" width="727" height="258" uuid="d0b325a7-1de8-4238-b16b-f54d6813c93f"/>
 			</rectangle>
 			<bar3DChart>
 				<chart isShowLegend="true" renderType="draw" theme="default">
-					<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="36" y="115" width="676" height="204" uuid="fca06e7b-018e-4200-a49a-707ff5e49421"/>
+					<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="29" y="89" width="699" height="230" uuid="fca06e7b-018e-4200-a49a-707ff5e49421"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend position="Bottom"/>
@@ -296,14 +259,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<categorySeries>
 						<seriesExpression><![CDATA["Sanciones"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{asignatura}]]></categoryExpression>
-						<valueExpression><![CDATA[$V{PorcSanciones}]]></valueExpression>
-						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{sanciones}.doubleValue()*100)/$F{totalsancion})+ "%"]]></labelExpression>
+						<valueExpression><![CDATA[($F{sanciones}*100)/$F{sanciones}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{sanciones}.doubleValue()*100)/$F{sanciones})+ "%"]]></labelExpression>
 					</categorySeries>
 					<categorySeries>
 						<seriesExpression><![CDATA["Apelaciones"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{asignatura}]]></categoryExpression>
-						<valueExpression><![CDATA[$V{PorcApelaciones}]]></valueExpression>
-						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{apelaciones}.doubleValue()*100)/$F{totalsancion})+ "%"]]></labelExpression>
+						<valueExpression><![CDATA[($F{apelaciones}*100)/$F{sanciones}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{apelaciones}.doubleValue()*100)/$F{sanciones})+ "%"]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
 				<bar3DPlot isShowLabels="true">
