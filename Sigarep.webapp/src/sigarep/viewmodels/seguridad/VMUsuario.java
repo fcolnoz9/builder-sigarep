@@ -91,7 +91,8 @@ public class VMUsuario {
 	@WireVariable
 	private ServicioUsuario su;
 	
-
+	SecurityUtil seguridad = new SecurityUtil();
+	
 	public Grupo getGrupoSeleccionado() {
 		return grupoSeleccionado;
 	}
@@ -495,8 +496,6 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","listaUsuario"})
 	public void cancelarCambiarContrasenia() {
-		nombreUsuario = "";
-		clave = "";
 		confirmarcontrasenia = "";
 		nuevaContrasenia = "";
 	}	
@@ -546,14 +545,15 @@ public class VMUsuario {
 	
 	
 	@Command
-	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia", "nuevaContrasenia" })
+	@NotifyChange({"confirmarcontrasenia", "nuevaContrasenia" })
 	public void cambiarContrasenia() {
-	    if(nombreUsuario == null || clave==null || confirmarcontrasenia==null || nuevaContrasenia == null)
+	    if(confirmarcontrasenia==null || nuevaContrasenia == null)
 	    	mensajes.advertenciaLlenarCampos();
 	    else{
-	    	
-	    	if(su.cambiarContrasena(nombreUsuario, clave, nuevaContrasenia, confirmarcontrasenia)==true)
+	    	if(su.cambiarContrasena(seguridad.getUsuario().getUsername(),nuevaContrasenia, confirmarcontrasenia)==true){
 	    		mensajes.informacionContrasennaAtualizada();
+	    		cancelarCambiarContrasenia();
+	    	}
 	    }
 	}
 	

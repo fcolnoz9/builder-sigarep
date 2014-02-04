@@ -69,20 +69,19 @@
 	
 	<div align="right" height="100%">
 		<!-- Genera el historico seleccionado -->
-		<button label="Guardar" id="btnGuardar"
+		<button label="Guardar" id="btnGuardar" mold="trendy"
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
 			orient="horizontal" onClick="@command('generarHistorico')">
 		</button>
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
-		<button label="Cancelar" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+		<button label="Limpiar" id="btnCancelar" mold="trendy"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 			orient="horizontal">
 		</button>
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
-		<button label="Cerrar" id="btnCerrar"
+		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 			orient="horizontal" onClick="winHistoricosSigarepBD.onClose()">
-
 		</button>
 	</div>
 
