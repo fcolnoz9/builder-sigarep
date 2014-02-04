@@ -78,6 +78,7 @@ public class VMEstudianteSancionado {
 	private TipoMotivo objtipoMotivo;
 	private InstanciaApelada objinstanciaApelada;
 	private String objsexo;
+	private String objVeredicto;
 	private List<EstudianteSancionado> listaE = new LinkedList<EstudianteSancionado>();
 	//Parametros para la Tira Sql
 	private String parametroLapsoAcademico;
@@ -86,11 +87,13 @@ public class VMEstudianteSancionado {
 	private String parametroMotivo;
 	private String parametroProgramaAcademico;
 	private String parametroSexo;
+	private String parametroVeredicto;
 	//REPORTE
 	ReportType reportType = null;
 	ReportConfig reportConfig = null;
 	//***********************
 	private ListModelList<String> cmbSexo;//Lista para llenar el combo de sexo
+	private ListModelList<String> cmbVeredicto;//Lista para llenar el combo Veredicto
 	// SETS Y GETS
 	public SancionMaestro getObjSancion() {
 		return objSancion;
@@ -255,6 +258,28 @@ public class VMEstudianteSancionado {
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
+	public String getParametroVeredicto() {
+		return parametroVeredicto;
+	}
+	public void setParametroVeredicto(String parametroVeredicto) {
+		this.parametroVeredicto = parametroVeredicto;
+	}
+	
+	public String getObjVeredicto() {
+		return objVeredicto;
+	}
+	public void setObjVeredicto(String objVeredicto) {
+		this.objVeredicto = objVeredicto;
+	}
+	public ListModelList<String> getCmbVeredicto() {
+		cmbVeredicto.add("PROCEDENTE");
+		cmbVeredicto.add("NO PROCEDENTE");
+		cmbVeredicto.add("Todos");
+		return cmbVeredicto;
+	}
+	public void setCmbVeredicto(ListModelList<String> cmbVeredicto) {
+		this.cmbVeredicto = cmbVeredicto;
+	}
 	//FINAL SETS GETS
 	@Init
 	public void init() {
@@ -265,11 +290,11 @@ public class VMEstudianteSancionado {
 		listadoSancion();
 		listadoInstancia();
 		cmbSexo = new ListModelList<String>();
+		cmbVeredicto= new ListModelList<String>();
 	}
 	//REPORTE
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
   			Arrays.asList(
-  					new ReportType("PDF", "pdf"),  
   					new ReportType("Word (RTF)", "rtf"), 
   					new ReportType("Excel", "xls"), 
   					new ReportType("Excel (JXL)", "jxl"), 
@@ -358,8 +383,9 @@ public class VMEstudianteSancionado {
 			configurarParametroMotivo();
 			configurarParametroProgramaAcademico();
 			configurarParametroSexo();
+			configurarParametroVeredicto();
 			listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico,parametroTipoSancion,parametroInstanciaApelada,
-					 parametroMotivo,parametroProgramaAcademico,parametroSexo);
+					 parametroMotivo,parametroProgramaAcademico,parametroSexo,parametroVeredicto);
 		}
 		
 	}
@@ -440,7 +466,17 @@ public class VMEstudianteSancionado {
 		}
 		return parametroSexo;
 	}
-	
+	@NotifyChange({ "parametroVeredicto" })
+	// Parametro Sexo
+	@Command
+	public String configurarParametroVeredicto() {
+		if (objVeredicto.equals("Todos")) {
+			parametroVeredicto = "sap.veredicto";
+		} else {
+			parametroVeredicto = "'"+objVeredicto+"'";
+		}
+		return parametroVeredicto;
+	}
 	
 	@Command("GenerarReporteEstudiantesSancionadosConfigurable")
 	@NotifyChange({"reportConfig"})
