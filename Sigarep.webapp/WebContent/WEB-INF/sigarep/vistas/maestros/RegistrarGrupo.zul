@@ -29,12 +29,17 @@
     	</groupbox>
     	<space />
     	<div align="right">
-			<button id="btnGuardarRegistrarGrupo" label="Guardar"
-				image="imagenes/iconos/guardar.png" onClick="@command('guardarGrupo')" width="70" height="50"/>
-			<button id="btnCancelarRegistrarGrupo" label="Cancelar"
-				image="imagenes/iconos/cancelar.png" width="70" height="50"/>
-			<button id="btnSalirRegistrarGrupo" label="Cerrar" onClick="winRegistrarGrupo.onClose()"
-				image="/imagenes/iconos/cerrar.png" width="70" height="50"/>
+			<button label="Guardar" id="btnGuardarRegistrarGrupo" 
+				    mold="trendy" width="auto" height="auto"
+				    image="imagenes/iconos/guardar.png" 
+				   onClick="@command('guardarGrupo')" />
+			<button label="Limpiar" id="btnLimpiarRegistrarGrupo" 
+			        mold="trendy" width="auto" height="auto"
+				    image="imagenes/iconos/limpiar.png" />
+			<button label="Cerrar"  id="btnSalirRegistrarGrupo"
+			        mold="trendy" width="auto" height="auto"
+			        image="/imagenes/iconos/cerrar.png" 
+			        onClick="winRegistrarGrupo.onClose()"/>
 		</div>
     	<groupbox id="grbRegistrarFuncionesAGrupo">
     	<caption label="Seleccione las funciones del menu principal que desea cargar en el grupo de usuarios" />

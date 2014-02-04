@@ -29,21 +29,25 @@
 	</groupbox>
 	<separator />
 	<div align="right">
-		<button label="Guardar" id="btnGuardar"
-			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('guardarTipoSancion')">
+		<button label="Guardar" id="btnGuardarSancion"
+			mold="trendy" width="auto" height="auto"
+			image="imagenes/iconos/guardar.png" 
+			 onClick="@command('guardarTipoSancion')">
 		</button>
-		<button label="Eliminar" id="btnEliminar"
-			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('eliminarTipoSancion')">
+		<button label="Eliminar" id="btnEliminarSancion"
+			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/eliminar.png" 
+			onClick="@command('eliminarTipoSancion')">
 		</button>
-		<button label="Cancelar" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('limpiar')">
+		<button label="Limpiar" id="btnLimpiarSancion"
+			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/limpiar.png" 
+			 onClick="@command('limpiar')">
 		</button>
-		<button label="Cerrar" id="btnCerrar"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			mold="trendy" onClick="winRegistrarSancion.onClose()">
+		<button label="Cerrar" id="btnCerrarSancion"
+			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/cerrar.png" 
+			onClick="winRegistrarSancion.onClose()">
 		</button>
 	</div>
 	<groupbox id="grbListaSanciones">
