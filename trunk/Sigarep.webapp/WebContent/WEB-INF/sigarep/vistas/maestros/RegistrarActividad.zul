@@ -41,21 +41,25 @@
 	</groupbox>
 	<separator />
 	<div align="right">
-		<button label="Guardar" image="/imagenes/iconos/guardar.png"
+		<button label="Guardar"  id="btnGuardarActividad"
 			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/guardar.png"
 			onClick="@command('guardarActividad')">
 		</button>
-		<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
+		<button label="Eliminar" id="btnEliminarActividad"
 			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/eliminar.png"
 			onClick="@command('eliminarActividad')">
 		</button>
-		<button label="Cancelar" image="/imagenes/iconos/cancelar.png"
+		<button label="Limpiar" id="btnLimpiarActividad" 
 			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/limpiar.png"
 			onClick="@command('limpiar')">
 		</button>
-		<button label="Cerrar" id="btnCerrar"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			mold="trendy" onClick="winRegistrarActividad.onClose()">
+		<button label="Cerrar" id="btnCerrarActividad"
+			 mold="trendy" width="auto" height="auto"
+			 image="/imagenes/iconos/cerrar.png"
+			 onClick="winRegistrarActividad.onClose()">
 		</button>
 	</div>
 

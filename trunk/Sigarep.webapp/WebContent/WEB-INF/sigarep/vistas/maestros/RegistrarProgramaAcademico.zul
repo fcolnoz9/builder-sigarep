@@ -23,21 +23,25 @@
 	</groupbox>
 	<separator />
 	<div align="right">
-		<button label="Guardar" id="btnGuardar"
-			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('guardarPrograma')">
+		<button label="Guardar" id="btnGuardarPrograma"
+			mold="trendy" width="auto" height="auto"
+			image="imagenes/iconos/guardar.png" 
+			 onClick="@command('guardarPrograma')">
 		</button>
-		<button label="Eliminar" id="btnEliminar"
-			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('eliminarPrograma')">
+		<button label="Eliminar" id="btnEliminarPrograma"
+		    mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/eliminar.png" 
+			onClick="@command('eliminarPrograma')">
 		</button>
-		<button label="Cancelar" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-			mold="trendy" onClick="@command('limpiar')">
+		<button label="Limpiar" id="btnLimpiarPrograma"
+			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/limpiar.png" 
+			onClick="@command('limpiar')">
 		</button>
-		<button label="Cerrar" id="btnCerrar"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			mold="trendy" onClick="winRegistrarPrograma.onClose()">
+		<button label="Cerrar" id="btnCerrarPrograma"
+			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/cerrar.png" 
+			onClick="winRegistrarPrograma.onClose()">
 		</button>
 	</div>
 	<groupbox id="grbListaProgramas">

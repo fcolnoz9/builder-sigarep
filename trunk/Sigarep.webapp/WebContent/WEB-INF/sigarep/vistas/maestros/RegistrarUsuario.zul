@@ -183,21 +183,25 @@
 	</groupbox>
 	<separator />
 		<hbox width="100%" pack="end" align="center">
-		<button label="Guardar" image="/imagenes/iconos/guardar.png"
+		<button label="Guardar" id="GuardarUsuario"
 			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/guardar.png"
 			onClick="@command('guardarUsuario', gruposDelUsuario=listboxGruposPertenece.items,rowContrasenna=rowContrasenna)">
 		</button>
-		<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
+		<button label="Eliminar" id="EliminarUsuario"
 			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/eliminar.png"
 			onClick="@command('eliminarUsuario',rowContrasenna=rowContrasenna)">
 		</button>
-		<button label="Cancelar" image="/imagenes/iconos/cancelar.png"
+		<button label="Limpiar" id="LimpiarUsuario"
 			mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/cancelar.png"
 			onClick="@command('limpiar',rowContrasenna=rowContrasenna)">
 		</button>
-		<button label="Cerrar" id="btnCerrar"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			mold="trendy" onClick="winRegistrarUsuario.onClose()">
+		<button label="Cerrar" id="btnCerrarUsuario"
+			mold="trendy"  width="auto" height="auto"
+			image="/imagenes/iconos/cerrar.png" 
+			onClick="winRegistrarUsuario.onClose()">
 		</button>
 	</hbox>
 </window>

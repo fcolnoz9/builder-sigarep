@@ -36,18 +36,22 @@
 		<separator />
 		<!-- Grupbox de Botones -->
 		<div align="right" height="100%">
-			<button label="Guardar" id="btnGuardar"
-				image="/imagenes/iconos/guardar.png" mold="trendy" width="auto" height="auto"
-				orient="horizontal" onClick="@command('guardarTipoMotivo')" />
-			<button label="Eliminar" mold="trendy" id="btnEliminar"
-				image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('eliminarTipoMotivo')" />
-			<button label="Limpiar" mold="trendy" id="btnCancelar"
-				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('limpiar')" />
-			<button label="Cerrar" mold="trendy" id="btnCerrar"
-				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="winTipoMotivo.onClose()" />
+			<button label="Guardar" id="btnGuardarMotivo"
+				mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/guardar.png" 
+				onClick="@command('guardarTipoMotivo')" />
+			<button label="Eliminar"  id="btnEliminarMotivo"
+			     mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/eliminar.png"
+				onClick="@command('eliminarTipoMotivo')" />
+			<button label="Limpiar"  id="btnLimpiarMotivo"
+				 mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/limpiar.png"
+				onClick="@command('limpiar')" />
+			<button label="Cerrar"  id="btnCerrarMotivo"
+				 mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/cerrar.png"
+				onClick="winTipoMotivo.onClose()" />
 		</div>
 		<!-- Grupbox que contiene el listado de los tipos de motivos -->
 		<groupbox height="auto">

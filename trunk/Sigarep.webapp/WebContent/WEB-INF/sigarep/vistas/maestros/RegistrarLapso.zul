@@ -49,14 +49,17 @@
 		<separator />
 		<!-- Grupbox de Botones -->
 		<div align="right" height="100%">
-			<button label="Guardar" mold="trendy" id="btnGuardar"
-				image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			<button label="Guardar"  id="btnGuardarLapso"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/guardar.png" 
 				orient="horizontal" onClick="@command('guardarLapso')" />
-			<button label="Cancelar" mold="trendy" id="btnCancelar"
-				image="imagenes/iconos/cancelar.png" width="auto" height="auto"
+			<button label="Limpiar"  id="btnLimpiarLapso"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/limpiar.png" 
 				orient="horizontal" onClick="@command('limpiarlapso')" />
-			<button label="Cerrar" mold="trendy" id="btnCerrar"
-				image="imagenes/iconos/cerrar.png" width="auto" height="auto"
+			<button label="Cerrar"  id="btnCerrarLapso"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/cerrar.png" 
 				orient="horizontal" onClick="winRegistrarLapso.onClose()" />
 		</div>
 

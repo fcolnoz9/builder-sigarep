@@ -64,16 +64,16 @@
 		<!-- Grupo de botones -->
 		<separator />
 		<div align="right">
-					<button id="btnGuardarEstadoApelacion"
-						label="Guardar" mold="trendy" width="auto" height="auto"
-						orient="horizontal" image="imagenes/iconos/guardar.png"
+					<button label="Guardar" id="btnGuardarEstadoApelacion"
+						 mold="trendy" width="auto" height="auto"
+						image="imagenes/iconos/guardar.png"
 						onClick="@command('guardarEstadoApelacion')" />
-					<button id="btnCancelarEstado" label="Cancelar"
-						mold="trendy" width="auto" height="auto" orient="horizontal"
-						image="imagenes/iconos/cancelar.png"
+					<button label="Limpiar" id="btnLimpiarEstado" 
+						mold="trendy" width="auto" height="auto" 
+						image="imagenes/iconos/limpiar.png"
 						onClick="@command('limpiar')" />
-					<button id="btnCerrar" label="Cerrar" mold="trendy"
-						width="auto" height="auto" orient="horizontal"
+					<button label="Cerrar" id="btnCerrarEstado" 
+					     mold="trendy" width="auto" height="auto"
 						image="imagenes/iconos/cerrar.png"
 						onClick="winRegistarEstadoApelacion.onClose()" />
 			

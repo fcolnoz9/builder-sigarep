@@ -53,5 +53,12 @@
 		</template>
 	</listbox>  
 	</groupbox>
+	<separator />
+	<div align="right" height="100%">
+			<button label="Cerrar"  id="btnCerrarLapso"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/cerrar.png" 
+				orient="horizontal" onClick="winRegistrarSancionadoLote.onClose()" />
+		</div>
 </window>
 </zk>

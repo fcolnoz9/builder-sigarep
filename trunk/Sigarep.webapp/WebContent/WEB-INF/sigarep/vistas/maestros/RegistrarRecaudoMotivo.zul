@@ -59,18 +59,22 @@
 			<separator />
 		<!--Botones -->
 		<div align="right" height="100%">
-			<button label="Guardar" id="btnGuardar"
-				image="/imagenes/iconos/guardar.png"  mold="trendy" width="auto" height="auto"
-				orient="horizontal" onClick="@command('guardarRecaudo')" />
-			<button label="Eliminar" id="btnEliminar"
-				image="/imagenes/iconos/eliminar.png" mold="trendy"  width="auto" height="auto"
-				orient="horizontal" onClick="@command('eliminarRecaudo')" />
-			<button label="Cancelar" id="btnCancelar"
-				image="/imagenes/iconos/cancelar.png" mold="trendy"  width="auto" height="auto"
-				orient="horizontal" onClick="@command('limpiar')" />
-			<button label="Cerrar" id="btnCerrar"
-				image="/imagenes/iconos/cerrar.png" mold="trendy"  width="auto" height="auto"
-				orient="horizontal" onClick="winRegistrarRecaudoMotivo.onClose()" />
+			<button label="Guardar" id="btnGuardarRecaudoMotivo"
+				mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/guardar.png"  
+				onClick="@command('guardarRecaudo')" />
+			<button label="Eliminar" id="btnEliminarRecaudoMotivo"
+				mold="trendy"  width="auto" height="auto"
+				image="/imagenes/iconos/eliminar.png" 
+				onClick="@command('eliminarRecaudo')" />
+			<button label="Limpiar" id="btnLimpiarRecaudoMotivo"
+				mold="trendy"  width="auto" height="auto"
+				image="/imagenes/iconos/limpiar.png" 
+				onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrarRecaudoMotivo"
+				mold="trendy"  width="auto" height="auto"
+				image="/imagenes/iconos/cerrar.png" 
+				onClick="winRegistrarRecaudoMotivo.onClose()" />
 		</div>
 		
 		

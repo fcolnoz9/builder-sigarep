@@ -35,21 +35,24 @@
 					</row>
 				</rows>
 			</grid>
-			<space />
 		</groupbox>
 		<separator />
 		<div align="right" height="100%">
-				<button label="Guardar" mold="trendy" id="btnGuardar"
-					image="/imagenes/iconos/guardar.png" width="auto" height="auto" orient="horizontal"
+				<button label="Guardar" id="btnGuardarInstancia"
+					mold="trendy" width="auto" height="auto"
+					image="/imagenes/iconos/guardar.png"
 					onClick="@command('guardarInstancia')"/>	
-   				<button label="Eliminar" mold="trendy" id="btnEliminar"
-   					image="/imagenes/iconos/eliminar.png" width="auto" height="auto" orient="horizontal"
+   				<button label="Eliminar" id="btnEliminarInstancia"
+   					mold="trendy" width="auto" height="auto"
+   					image="/imagenes/iconos/eliminar.png"
    					onClick="@command('eliminarInstancia')"/>
-   				<button label="Cancelar" mold="trendy" id="btnCancelar"
-   					image="/imagenes/iconos/cancelar.png" width="auto" height="auto" orient="horizontal"
+   				<button label="Limpiar"  id="btnLimpiarInstancia"
+   					mold="trendy" width="auto" height="auto"
+   					image="/imagenes/iconos/limpiar.png"
    					onClick="@command('limpiar')"/>	
-		   		<button label="Cerrar" mold="trendy" id="btnSalir"
-		   			image="/imagenes/iconos/cerrar.png" width="auto" height="auto" orient="horizontal"
+		   		<button label="Cerrar"  id="btnCerrarIntancia"
+		   			mold="trendy" width="auto" height="auto"
+		   			image="/imagenes/iconos/cerrar.png"
 		   			onClick="winMaestroInstanciaApelada.onClose()" />
 			</div>
 		<!-- Grupbox que contiene el listado de las instancias -->
