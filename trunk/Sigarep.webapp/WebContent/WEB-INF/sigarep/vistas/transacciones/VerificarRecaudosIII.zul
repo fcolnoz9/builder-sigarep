@@ -136,10 +136,10 @@
 				<rows>
 					<row>
 						<hbox>
-							<radio id="rbProcedenteSi" label="Procedente" value="CASO PROCEDENTE"/>
+							<radio id="rbProcedenteSi" label="Procedente" value="PROCEDENTE"/>
 						</hbox>
 					    <hbox>
-							<radio id="rbProcedenteNo" label="No Procedente" value="CASO NO PROCEDENTE"/>
+							<radio id="rbProcedenteNo" label="No Procedente" value="NO PROCEDENTE"/>
 						</hbox>
 						<label value="Observación General: " id="lblObservacion"  />
 						<textbox id="txtObservacion" mold="rounded"  cols="60" rows="2" width="60%"></textbox>

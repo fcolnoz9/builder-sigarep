@@ -1,5 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -291,7 +292,7 @@ public class VMVeredictoIII {
 	}
 
 	@Command
-	public void registrarVeredicto(){
+	public void registrarVeredicto(@BindingParam("window") Window winVeredictoIII){
 		if (veredicto == null){
 			mensajesAlUsuario.advertenciaGuardarVeredicto();
 		}else{
@@ -311,8 +312,8 @@ public class VMVeredictoIII {
 			apelacionEstado.setObservacion(observacionGeneral);
 			solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
-		
 			mensajesAlUsuario.informacionVeredictoRegistrado();
+			winVeredictoIII.detach();
 		}
 	}
 	

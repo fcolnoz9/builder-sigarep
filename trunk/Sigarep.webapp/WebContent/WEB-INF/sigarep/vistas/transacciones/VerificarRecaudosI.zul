@@ -110,12 +110,12 @@
 								<row>
 									<hbox width="100%">
 										<radio id="rbSugerenciaSi"
-											label="Procedente" value="sugiere" />
+											label="Procedente" value="PROCEDENTE" />
 	
 									</hbox>
 									<hbox>
 										<radio id="rbSugerenciaNo"
-											label="No procedente" value="nosugiere" />
+											label="No procedente" value="NO PROCEDENTE" />
 									</hbox>
 								</row>
 							</rows>
@@ -137,9 +137,9 @@
 			</attribute>
 		</button>
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
-		<button label="Cancelar" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-			orient="horizontal">
+		<button label="Limpiar" id="btnCancelar"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+			orient="horizontal" 	onClick="@command('limpiar')">
 		</button>
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar"

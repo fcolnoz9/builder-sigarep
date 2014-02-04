@@ -27,20 +27,7 @@
     		</rows>
     	</grid>
     	</groupbox>
-    	<space />
-    	<div align="right">
-			<button label="Guardar" id="btnGuardarRegistrarGrupo" 
-				    mold="trendy" width="auto" height="auto"
-				    image="imagenes/iconos/guardar.png" 
-				   onClick="@command('guardarGrupo')" />
-			<button label="Limpiar" id="btnLimpiarRegistrarGrupo" 
-			        mold="trendy" width="auto" height="auto"
-				    image="imagenes/iconos/limpiar.png" />
-			<button label="Cerrar"  id="btnSalirRegistrarGrupo"
-			        mold="trendy" width="auto" height="auto"
-			        image="/imagenes/iconos/cerrar.png" 
-			        onClick="winRegistrarGrupo.onClose()"/>
-		</div>
+    	<separator />
     	<groupbox id="grbRegistrarFuncionesAGrupo">
     	<caption label="Seleccione las funciones del menu principal que desea cargar en el grupo de usuarios" />
     	<grid>
@@ -68,7 +55,18 @@
     		</rows>
     	</grid>
     </groupbox>
-    <space />
-    
-   
+       <separator />
+    	<div align="right">
+			<button label="Guardar" id="btnGuardarRegistrarGrupo" 
+				    mold="trendy" width="auto" height="auto"
+				    image="imagenes/iconos/guardar.png" 
+				   onClick="@command('guardarGrupo')" />
+			<button label="Limpiar" id="btnLimpiarRegistrarGrupo" 
+			        mold="trendy" width="auto" height="auto"
+				    image="imagenes/iconos/limpiar.png" />
+			<button label="Cerrar"  id="btnSalirRegistrarGrupo"
+			        mold="trendy" width="auto" height="auto"
+			        image="/imagenes/iconos/cerrar.png" 
+			        onClick="winRegistrarGrupo.onClose()"/>
+		</div>
 </window>
