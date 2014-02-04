@@ -1,14 +1,16 @@
 <zk>
-<window title="Gestion :: Apelaciones :: Lista de Estudiantes Sancionados"
+<window title="Gestión :: Apelaciones :: Lista de Estudiantes Sancionados"
 		id="winListaGenericaSancionados" border="normal" width="auto"
 	    closable = "true" contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 	    viewModel="@id('vm') @init('sigarep.viewmodels.lista.VMListaGenericaSancionados')"  
 	    action="hide: slideUp" >
 		<style src="/widgets/grid/simple/style.css" />
 		
+		<groupbox id = "grbFiltros">
+		<caption label="Filtro por Programa Académico" />
 		<grid id="grdFiltros">
 			<columns>
-				<column align="center">
+				<column align="left">
 					<label id="lblPrograma" value="Programa " />
 					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.programa)" onChange="@command('filtros')" >
 						<template name="model">
@@ -16,11 +18,10 @@
 						</template>
 					</combobox>
 				</column>
- 				<column align="center">
- 				</column> 
+ 				
 			</columns>
 		</grid>
-
+      </groupbox>
 		<groupbox id = "grbListaSancionados">
 			<caption label="Lista de Sancionados" />
 			<listbox id="lbxSancionados"  height="70%" model="@bind(vm.listaEstudiantes)" selectedItem="@bind(vm.estudianteSeleccionado)"   
@@ -53,11 +54,8 @@
 				</template>
 			</listbox>
 		</groupbox>
+		<separator /> 
 		<div align="right" height="100%">
-			<button label="Finalizar" mold="trendy" id="btnFinalizar"
-				image="/imagenes/iconos/finalizar.png" width="auto" height="auto"
-				orient="horizontal">
-			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 				orient="horizontal" onClick = "winListaGenericaSancionados.onClose()" >
