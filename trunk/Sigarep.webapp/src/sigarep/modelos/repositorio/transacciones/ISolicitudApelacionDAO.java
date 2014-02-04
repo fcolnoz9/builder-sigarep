@@ -48,8 +48,10 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"sap.id.idInstanciaApelada = ap.id.idInstanciaApelada and " +
 			"ap.id.idInstanciaApelada  = '3' " +
 			"and esa.id.cedulaEstudiante = " +
-			"sap.id.cedulaEstudiante and i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			" la.codigoLapso = esa.id.codigoLapso ")
+			"sap.id.cedulaEstudiante and " +
+			"i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
+			" la.codigoLapso = esa.id.codigoLapso " +
+			"sap.verificado = 'FALSE'")
 		public List<SolicitudApelacion> buscarSancionadosJerarquicoVerificar();
 
 	//Lilibeth Achji
