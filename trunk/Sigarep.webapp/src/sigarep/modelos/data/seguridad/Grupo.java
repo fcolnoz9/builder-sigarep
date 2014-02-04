@@ -4,10 +4,14 @@ package sigarep.modelos.data.seguridad;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,15 +55,15 @@ public class Grupo implements Serializable{
 	@JoinTable(name = "funcion_grupo",
 	joinColumns = { @JoinColumn(name = "idGrupo",referencedColumnName = "idGrupo") },
 	inverseJoinColumns = { @JoinColumn(name = "idnodo", referencedColumnName = "id") })
-    private List<Nodo> nodos = new ArrayList<Nodo>();
+    private Set<Nodo> nodos = new HashSet<Nodo>();
 	
 	//bi-directional many-to-one association to MiembroGrupo
-	@OneToMany(mappedBy="grupo")
-	private List<UsuarioGrupo> usuariosGrupos = new LinkedList<UsuarioGrupo>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="grupo",  cascade={CascadeType.ALL})
+	private Set<UsuarioGrupo> usuariosGrupos = new HashSet<UsuarioGrupo>();
 
 	public Grupo() {
 		super();
-		nodos = new ArrayList<Nodo>();
+		nodos = new HashSet<Nodo>();
 	}
 
 
@@ -94,11 +98,11 @@ public class Grupo implements Serializable{
 	public void setEstatus(boolean estatus) {
 		this.estatus = estatus;
 	}
-	 public List<Nodo> getNodos() {
+	 public Set<Nodo> getNodos() {
 		return nodos;
 	}
 
-	public void setNodos(List<Nodo> nodos) {
+	public void setNodos(Set<Nodo> nodos) {
 		this.nodos = nodos;
 	}
 	
@@ -107,12 +111,12 @@ public class Grupo implements Serializable{
         this.nodos.add(nodo);
     }
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.grupo")
-	public List<UsuarioGrupo> getUsuariosGrupos() {
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.grupo")
+	public Set<UsuarioGrupo> getUsuariosGrupos() {
 		return this.usuariosGrupos;
 	}
 
-	public void setUsuarioGrupos(List<UsuarioGrupo> usuarioGrupos) {
+	public void setUsuarioGrupos(Set<UsuarioGrupo> usuarioGrupos) {
 		this.usuariosGrupos = usuarioGrupos;
 	}
 

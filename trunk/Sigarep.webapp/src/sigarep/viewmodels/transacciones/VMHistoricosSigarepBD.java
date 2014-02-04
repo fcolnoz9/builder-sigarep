@@ -30,6 +30,7 @@ import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
 
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.herramientas.mensajes;
 
@@ -52,7 +53,7 @@ public class VMHistoricosSigarepBD {
 	private boolean checkTodos;
 	@WireVariable
 	private LapsoAcademico lapso;
-	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario msjs = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 	
 	@WireVariable
 	private Date fecha;
@@ -198,23 +199,17 @@ public class VMHistoricosSigarepBD {
 							String ln = System.getProperty("line.separator");
 							writer.write(listaElementosAInsertar.get(j) + ln);
 						}
-						Messagebox.show("Operacion Exitosa", "Informacion",Messagebox.OK, Messagebox.INFORMATION);
-						Messagebox.show("Se a Creado un archivo historico bajo el nombre de: "+ nombreHistorico + ".sql","Informacion", Messagebox.OK,Messagebox.INFORMATION);
+						msjs.informacionOperacionExitosa();
+						msjs.informacionCreacionHistorico(nombreHistorico);
 						writer.close();
 					} 
 					catch (Exception e) {
 						System.err.println(e);
 					}
 				}
-				else{ 
-					Messagebox.show("No hay nada a lo que hacer respaldo en el lapso seleccionado","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
-				}
+				else msjs.ErrorNoHayResgistrosParaRespaldo();
 			}
-			else {
-					Messagebox.show("Debe Seleccionar una Opción","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
-				}
-		} else {
-			Messagebox.show("Debe seleccionar un lapso academico", "Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
-		}
+			else msjs.advertenciaSeleccionarOpcion();
+		} else msjs.advertenciaSeleccionarLapso();
 	}
 }

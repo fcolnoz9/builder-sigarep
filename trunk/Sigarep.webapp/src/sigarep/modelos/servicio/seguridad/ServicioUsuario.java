@@ -65,7 +65,7 @@ public class ServicioUsuario {
 						guardarUsuario(usuario);
 						return true;
 					} else {
-						Messagebox.show("Las nuevas contraseñas no coinciden",
+						Messagebox.show("La nueva contraseña y la contraseña de confirmación no coinciden",
 							"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 					}
 				} else {

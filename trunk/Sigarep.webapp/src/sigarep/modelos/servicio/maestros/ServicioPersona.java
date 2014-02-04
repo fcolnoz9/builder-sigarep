@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Persona;
+import sigarep.modelos.data.maestros.Recaudo;
 
 import sigarep.modelos.repositorio.maestros.IPersonaDAO;
 
@@ -36,21 +37,22 @@ public class ServicioPersona {
 		return r;
 	}
 
-//	public List<Persona> buscarNoticia(String nombre) {
-//		List<Noticia> resultado = new LinkedList<Noticia>();
-//		if (nombre == null || "".equals(nombre)) {
-//			// si el codigo es null o vacio,el resultado va a ser la lista completa de
-//			//todas las noticias
-//			resultado = listadoNoticia();
-//		} else {// caso contrario se recorre toda la lista y busca las noticias.
-//			for (Noticia noticia : listadoNoticia()) {
-//				if (noticia.getTitulo().toLowerCase().contains(nombre.toLowerCase())) {
-//					resultado.add(noticia);
-//				}
-//			}
-//		}
-//		return resultado;
-//	}
+	public List<Persona> buscarPersonaFiltro(String cedulaPersona,String  nombreCompleto, String nombreUsuario) {
+		List<Persona> resultado = new LinkedList<Persona>();	
+		if (cedulaPersona == null || nombreCompleto==null || nombreUsuario==null) {
+			resultado = listadoPersona();
+		} else {
+			for (Persona persona : listadoPersona()) {
+				if (persona.getCedulaPersona().toLowerCase().contains(cedulaPersona)
+						&& persona.getNombreUsuario().getNombreCompleto().toLowerCase()
+						.contains(nombreCompleto)
+						&& persona.getNombreUsuario().getNombreUsuario().toLowerCase()
+						.contains(nombreUsuario))
+					resultado.add(persona);
+			}
+		}
+		return resultado;
+	}
 	
 	public List<Persona> buscarPersonas(Persona personas){
 		List<Persona> result = new ArrayList<Persona>();

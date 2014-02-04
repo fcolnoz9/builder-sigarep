@@ -8,6 +8,7 @@
 		//***************************************************************************
 			import java.io.File;
 			sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
+			sigarep.herramientas.MensajesAlUsuario mensajes = new sigarep.herramientas.MensajesAlUsuario();
 			ruta = obtenerRuta.obtenerDirectorio();
 			
 			//Accediendo a los archivos en el directorio
@@ -114,8 +115,7 @@
 							//METODO PARA OBTENER LA RUTA DEL DIRECTORIO DE LOS RESPALDOS
 							//***************************************************************************
 							if(txtdescripcion.getValue()==""){
-								alert("Debe escribir el nombre del archivo de respaldo");
-								System.out.println();
+								mensajes.advertenciaEscribirNombreDeRespaldo();
 							}
 							else if (rbLocal.isChecked()){
 							sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
@@ -129,7 +129,7 @@
 							}else if(rbDispositivo.isChecked()){
 								respaldarBD(txtRuta.getValue(),txtdescripcion.getValue());
 							}else{
-								alert("Debe seleccionar el destino para el respaldo");
+								mensajes.advertenciaSeleccionarDestinoRespaldo();
 							}
 						</attribute>
 					</button>
@@ -152,7 +152,6 @@
    		<groupbox id="grbListaBackups" height="181px">
    		<caption label="Lista de Backups "/>
    		<div id="divListBackups" align="center">
-<!--    		FALTA PROGRAMAR ESTA LISTA...No quiere verse el modelo NPI... -->
    		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados"
    		 mold="paging" pageSize="3" model="@{listaDirectorio1}" multiple="false">
 			<listhead sizable="true">
@@ -235,7 +234,7 @@
 				
 				}
 			   }catch (Exception e) {
-					alert("El intento de respaldo no fue exitoso");
+				   mensajes.informacionRespaldoNoExitosa();
 				}
 					
 		}
@@ -276,7 +275,7 @@
 	        pb.environment().put("PGPASSWORD", props.getProperty("contrasenna"));
 	        pb.redirectErrorStream(true);
 	        p = pb.start();       
-			alert("Respaldo realizado de manera exitosa");
+			mensajes.informacionRespaldoExitoso();
 			cancelar();
 			grbDispositivo.setVisible(false);
 		

@@ -82,10 +82,8 @@ public class MensajesAlUsuario {
 	}
 
 	public void advertenciaSeleccionarOpcion() {
-
 		Messagebox.show("Debe seleccionar alguna opción para continuar.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-
 	}
 
 	public void advertenciaCargarImagen() {
@@ -143,6 +141,10 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
+	public void advertenciaContrasennasNoCoinciden() {
+		Messagebox.show("Las contraseñas no coinciden","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+     }
+	
 	public void advertenciaSeleccionarUbicacionRespaldo() {
 
 		Messagebox.show(
@@ -157,6 +159,12 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
+	public void advertenciaEscribirNombreDeRespaldo() {
+		Messagebox.show("Debe escribir el nombre del archivo de respaldo.",
+		"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+     }
+	
+	
 	public void informacionHemosEnviadoCorreo() {
 
 		Messagebox
@@ -261,6 +269,16 @@ public class MensajesAlUsuario {
 	public void informacionRestauracionNoExitosa() {
 		Messagebox.show("El intento de restauración no fue exitoso",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
+	}
+
+	public void informacionRespaldoNoExitosa() {
+		Messagebox.show("El intento de respaldo no fue exitoso", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
+	}
+	
+	public void informacionRespaldoExitoso() {
+		Messagebox.show("Respaldo realizado de manera exitosa", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void ErrorImposibleGuardar() {

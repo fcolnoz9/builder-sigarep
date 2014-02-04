@@ -29,6 +29,7 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
@@ -55,7 +56,7 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 //import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMVerificarRecaudosI {
+public class VMVerificarRecaudosEntregadosI {
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
@@ -123,7 +124,7 @@ public class VMVerificarRecaudosI {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
-	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario msjs = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 
 	@WireVariable
 	private TipoMotivo tipoMotivo;
@@ -341,54 +342,45 @@ public class VMVerificarRecaudosI {
 		this.programa = sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
 		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
 		this.lapso = sa.getId().getCodigoLapso();
-		this.caso = sa.getNumeroCaso();
 		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
+		this.caso = sa.getNumeroCaso();
 
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.periodoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		buscarRecaudos();
-	
-		if (sancion.equalsIgnoreCase("RR")) {
-			asignaturas = servicioasignaturaestudiantesancionado
-					.buscarAsignaturaDeSancion(cedula, lapso);
+		
+		if (sancion.equalsIgnoreCase("RR")){
+			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(this.cedula, this.lapso);
 			if (asignaturas != null)
-				for (int i = 0; i < asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i)
-							.getAsignatura().getNombreAsignatura()
-							+ ", ";
-			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-		} else {
-			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
-			asignaturaLapsosConsecutivos = lapsosConsecutivos;
+				for (int i=0; i<asignaturas.size(); i++)
+					this.asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+			this.labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
 		}
-		
-		
+		else{
+			this.labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
+			this.asignaturaLapsosConsecutivos = lapsosConsecutivos;
+		}
 	}
-	
 	
 	@Command
 	@NotifyChange({"cedula","lapso","nombreRecaudo","nombreTipoMotivo","listaRecaudos" })
 	public void buscarRecaudos() {
-		listaRecaudos = serviciorecaudo.buscarRecaudosPorApelacion(cedula);
+		listaRecaudos = serviciorecaudo.buscarRecaudosPorApelacion(cedula, lapso, 1);
 	}
 	
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso"})
 	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudos) {
 		if (recaudos.size() == 0) {
-			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
-					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-		else if (selected.equals("")) {
-			Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+			msjs.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
 		}
 		else 
 		{
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
 			if (getSelected().equals("sugiere"))
 				apelacionEstadoApelacion.setSugerencia("Procedente");
-			else
+			else if((getSelected().equals("nosugiere")))
 				apelacionEstadoApelacion.setSugerencia("No Procedente");
 			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
