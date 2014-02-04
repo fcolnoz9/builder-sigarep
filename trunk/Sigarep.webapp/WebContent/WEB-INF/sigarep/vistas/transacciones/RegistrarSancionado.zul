@@ -46,7 +46,7 @@
 				<row>
 					<label id="lblsexo" value="Sexo" />
 					<textbox id="txtSexo" mold="rounded" width="80%"
-						cols="23" maxlength="30" tabindex="1" value="@bind(vm.sexo)"
+						cols="23" maxlength="1" tabindex="1" value="@bind(vm.sexo)"
 						 />
 					<label id="lblFechaNacimiento"
 						value="Fecha de Nacimiento:" />
@@ -237,7 +237,11 @@
 		<button label="Guardar" mold="trendy" id="btnGuardar"
 			image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 			orient="horizontal"
-			onClick="@command('registrarEstudianteSancionado')" />
+			onClick="@command('registrarEstudianteSancionado',asignaturaSancionado=items)">
+			<attribute name="onClick">
+				List items = lbxAsignaturas.getItems();
+			</attribute>
+			</button>
 		<button label="Eliminar" mold="trendy" id="btnEliminar"
 			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 			orient="horizontal"

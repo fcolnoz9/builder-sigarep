@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.maestros.Asignatura;
+import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
 
 public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
@@ -17,5 +18,8 @@ public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	@Query("SELECT a FROM Asignatura AS a WHERE estatus = 'TRUE' " +
 			"AND a.programaAcademico.idPrograma = :idPrograma")
 	public List<Asignatura> buscarAsignaturasPorPrograma(@Param("idPrograma")Integer idPrograma);
+	
+	@Query("Select a FROM Asignatura AS a WHERE a.nombreAsignatura = :nombreAsignatura")
+	public Asignatura buscarAsignaturaPorNombre(@Param("nombreAsignatura") String nombreAsignatura);
 
 }

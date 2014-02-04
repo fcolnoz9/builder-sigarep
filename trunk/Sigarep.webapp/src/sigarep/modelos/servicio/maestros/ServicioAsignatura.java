@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Asignatura;
+import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.repositorio.maestros.IAsignaturaDAO;
@@ -40,5 +41,12 @@ public class ServicioAsignatura {
 	public List<Asignatura> buscarAsignaturasPorPrograma (Integer idPrograma){
 		return iAsignatura.buscarAsignaturasPorPrograma(idPrograma);
 	}
+	
+	public Asignatura buscarAsignaturaNombre(String nombreAsignatura) {
+		Asignatura asignatura = iAsignatura.buscarAsignaturaPorNombre(nombreAsignatura);
+	    return asignatura;
+	}
+	
+
 	
 }

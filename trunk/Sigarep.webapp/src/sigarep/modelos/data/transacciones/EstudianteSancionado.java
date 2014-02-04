@@ -51,8 +51,8 @@ public class EstudianteSancionado implements Serializable {
 	private boolean estatus;
 
 	//bi-directional many-to-one association to AsignaturaEstudianteSancionado
-	@OneToMany(mappedBy="estudianteSancionado")
-	private List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados = new LinkedList<AsignaturaEstudianteSancionado>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy="estudianteSancionado")
+	private Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados = new HashSet<AsignaturaEstudianteSancionado>();
 
 	//bi-directional many-to-one association to Estudiante
 	@ManyToOne
@@ -143,11 +143,11 @@ public class EstudianteSancionado implements Serializable {
 		this.unidadesCursadas = unidadesCursadas;
 	}
 
-	public List<AsignaturaEstudianteSancionado> getAsignaturaEstudianteSancionados() {
+	public Set<AsignaturaEstudianteSancionado> getAsignaturaEstudianteSancionados() {
 		return this.asignaturaEstudianteSancionados;
 	}
 
-	public void setAsignaturaEstudianteSancionados(List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados) {
+	public void setAsignaturaEstudianteSancionados(Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados) {
 		this.asignaturaEstudianteSancionados = asignaturaEstudianteSancionados;
 	}
 

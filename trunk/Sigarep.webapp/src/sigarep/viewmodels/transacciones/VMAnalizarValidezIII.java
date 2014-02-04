@@ -8,6 +8,7 @@ package sigarep.viewmodels.transacciones;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
@@ -22,6 +23,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -482,4 +484,19 @@ public class VMAnalizarValidezIII {
 		selected = "";
 	}
 
+	
+	@Command
+	public void mostrarHistorial (){
+  		final HashMap<String, Object> map = new HashMap<String, Object>();
+	 	map.put("cedula", this.sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getCedulaEstudiante());
+ 
+        final Window window = (Window) Executions.createComponents(
+        		"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos.zul", null, map);
+		window.setMaximizable(true);
+		window.doModal();
+  	}
+	
+	
+	
+	
 }
