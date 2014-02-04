@@ -88,8 +88,6 @@ public class VMAnalizarValidezI {
 	private ServicioMotivo serviciomotivo;
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
-	private Combobox cmbSancion;
-	private Datebox dtbFechaNacimiento;
 	@Wire
 	private Datebox	dtbAnnoIngreso;
 
@@ -443,7 +441,7 @@ public class VMAnalizarValidezI {
 	public void limpiar(){
 		observacion = "";
 		selected = "";
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
 	}
 
 }
