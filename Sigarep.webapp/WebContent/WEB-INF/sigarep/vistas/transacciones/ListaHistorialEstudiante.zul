@@ -20,9 +20,12 @@
 	}
 ]]>
 	</zscript>
+	
+	<groupbox id = "grbFiltro">
+	<caption label="Filtro por Programa Académico"/>
 		<grid id="grdVerificarApelacionesBusqueda">
 			<columns>
-				<column align="center">
+				<column align="left">
 					<label id="lblPrograma" value="Programa " />
 					<combobox id="cmbPrograma" mold="rounded" model="@load(vm.listaPrograma)" value="@bind(vm.filtros.programa)" onChange="@command('filtros')" >
 							<template name="model">
@@ -32,6 +35,7 @@
 				</column>
           </columns>
 		</grid>
+		</groupbox>
 
 		<groupbox id = "grbListaSancionados">
 						<caption label="Lista de Sancionados" />
@@ -61,6 +65,7 @@
 						</template>
 						</listbox>
 					</groupbox>
+			<separator/>
 		<div align="right" height="100%">
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
