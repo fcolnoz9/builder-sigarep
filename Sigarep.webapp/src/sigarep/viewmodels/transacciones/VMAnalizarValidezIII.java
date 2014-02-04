@@ -379,22 +379,16 @@ public class VMAnalizarValidezIII {
 			@BindingParam("recaudosEntregados") List<Listitem> recaudos,
 			@BindingParam("window") Window winAnalizarValidezIII) {
 
-		if (selected == null || selected.equals("") || observacion == null
-				|| observacion.equals("")) {
-			Messagebox
-					.show("Debe Seleccionar una sugerencia de procedencia y emitir una observacón general del caso",
-							"Advertencia", Messagebox.OK,
-							Messagebox.EXCLAMATION);
-		} 		else if (selected.equals("")) {
-			Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+		if (observacion == null) {
+			Messagebox.show("Debe emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 		else 
 		{
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
-			if (getSelected().equals("sugiere"))
-				apelacionEstadoApelacion.setSugerencia("Procedente");
-			else
-				apelacionEstadoApelacion.setSugerencia("No procedente");
+			if (getSelected().equals("PROCEDENTE"))
+				apelacionEstadoApelacion.setSugerencia("PROCEDENTE");
+			else if(getSelected().equals("NO PROCEDENTE"))
+				apelacionEstadoApelacion.setSugerencia("NO PROCEDENTE");
 			
 
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();

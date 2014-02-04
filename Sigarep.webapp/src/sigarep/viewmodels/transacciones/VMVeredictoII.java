@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -291,7 +292,7 @@ public class VMVeredictoII {
 	}
 
 	@Command
-	public void registrarVeredicto(){
+	public void registrarVeredicto(@BindingParam("window") Window winVeredictoII){
 		if (veredicto == null){
 			mensajesAlUsuario.advertenciaGuardarVeredicto();
 			
@@ -314,7 +315,7 @@ public class VMVeredictoII {
 		solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
 		serviciosolicitudapelacion.guardar(solicitudApelacion);
 		mensajesAlUsuario.informacionVeredictoRegistrado();
-		
+		winVeredictoII.detach();
 	}
 }
 	

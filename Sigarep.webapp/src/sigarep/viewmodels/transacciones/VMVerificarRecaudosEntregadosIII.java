@@ -399,10 +399,10 @@ public class VMVerificarRecaudosEntregadosIII {
 		else 
 		{
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
-			if (getSelected().equals("sugiere"))
-				apelacionEstadoApelacion.setSugerencia("Procedente");
+			if (getSelected().equals("PROCEDENTE"))
+				apelacionEstadoApelacion.setSugerencia("PROCEDENTE");
 			else
-				apelacionEstadoApelacion.setSugerencia("No Procedente");
+				apelacionEstadoApelacion.setSugerencia("NO PROCEDENTE");
 			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);

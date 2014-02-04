@@ -384,10 +384,10 @@ public String getAsignaturaLapsosConsecutivos() {
 		else 
 		{
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
-			if (getSelected().equals("sugiere"))
-				apelacionEstadoApelacion.setSugerencia("Procedente");
-			else
-				apelacionEstadoApelacion.setSugerencia("No Procedente");
+			if (getSelected().equals("PROCEDENTE"))
+				apelacionEstadoApelacion.setSugerencia("PROCEDENTE");
+			else if((getSelected().equals("NO PROCEDENTE")))
+				apelacionEstadoApelacion.setSugerencia("NO PROCEDENTE");
 			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
