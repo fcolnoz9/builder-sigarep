@@ -39,16 +39,7 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"AND la.estatus = 'TRUE' " +
 			"AND sa.verificado = 'FALSE'")
 	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI();
-
 	
-	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
-			"EstudianteSancionado esa, ApelacionEstadoApelacion ap where la.estatus = 'TRUE' and " +
-			"ap.id.idInstanciaApelada  = '1' and sap.veredicto <> '' and esa.id.cedulaEstudiante = " +
-			"sap.id.cedulaEstudiante and i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			" la.codigoLapso = esa.id.codigoLapso and sap.veredicto = 'NO PROCEDENTE' " +
-			"and sap.id.cedulaEstudiante not in (select ap.id.cedulaEstudiante from ApelacionEstadoApelacion " +
-			"as ap where ap.id.idInstanciaApelada = '2') ")		
-	public List<SolicitudApelacion> buscarSancionadosReconsideracion();
     //Yelitza Camejo
 	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
 			"EstudianteSancionado esa, ApelacionEstadoApelacion ap " +
@@ -135,9 +126,13 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 					"AND sa.id.idInstanciaApelada = '3'")
 			public List<SolicitudApelacion> BuscarAnalizarValidezIII();
 
-		@Query("SELECT sa FROM SolicitudApelacion AS sa WHERE sa.fechaSesion = " +
+		@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+				"WHERE sa.id.codigoLapso = la.codigoLapso " +
+				"AND la.estatus = 'TRUE'" +
+				"AND sa.id.idInstanciaApelada = :instancia " +
+				"AND sa.fechaSesion = " +
 				"(SELECT MAX(sa.fechaSesion) FROM SolicitudApelacion AS sa) ")
-		public List<SolicitudApelacion> buscarSolicitudParaDatosSesion();
+		public List<SolicitudApelacion> buscarSolicitudParaDatosSesion(@Param("instancia")Integer instancia);
 
 		@Query("SELECT sa FROM SolicitudApelacion sa, LapsoAcademico la " +
 				"WHERE sa.id.cedulaEstudiante = :cedulaEstudiante " +
