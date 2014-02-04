@@ -68,6 +68,10 @@
 											<listitem value="@load(each)" label="@load(each.label)"></listitem>
 									</template>
 						</listbox>
+						<combobox id="cmbVeredicto" cols="20" readonly="true"  model="@load(vm.cmbVeredicto )"  mold="rounded" selectedItem="@bind(vm.objVeredicto)" tooltiptext="Elija Veredicto" >
+							<comboitem label="" />
+						</combobox>
+						
 					</row>
 				</rows>
 			</grid>
