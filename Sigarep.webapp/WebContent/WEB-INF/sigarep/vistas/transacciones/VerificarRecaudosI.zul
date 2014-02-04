@@ -1,9 +1,9 @@
 <zk>	
 <window title="Gestión :: Apelaciones :: Evaluar Apelación :: Verificar Recaudos"
-	id="winVerificiarRecaudos" border="normal" width="auto" height="auto"
+	id="winVerificiarRecaudosI" border="normal" width="auto" height="auto"
 	style="overflow:auto" closable="true" contentStyle="overflow:auto"
 	action="hide: slideUp" apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVerificarRecaudosI')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVerificarRecaudosEntregadosI')">
 	<style src="/widgets/grid/simple/style.css" />
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
@@ -55,10 +55,9 @@
 					<textbox id="txtPeridosancion" cols="23"
 						maxlength="30" value="@bind(vm.periodoSancion)" readonly="true">
 					</textbox>
-					<label id="lblAsignaturaPeriodos"
-						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55" maxlength="30"
-						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55"
+						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -78,11 +77,10 @@
 			</textbox>	
 		</div>
 		<separator/>
-	 	<listbox id="left" multiple="true" height="auto" width="auto"
+	 	<listbox id="lbxRecaudos" multiple="true" height="245px" width="auto"
 	   	oddRowSclass="non-odd" checkmark="true" xmlns:ca="client/attribute"
-	   	ca:data-scrollable="false" model="@bind(vm.listaRecaudos)"
-	   	emptyMessage="No hay recaudos entregados"
-	   	mold="paging" pageSize="3">
+	   	emptyMessage="No hay recaudos entregados" model="@bind(vm.listaRecaudos)"
+	   	mold="paging" vflex="1">
 	   	<listhead>
 	   		<listheader hflex="3" label="Nombre del recaudo" width="50%" sort="auto(nombreRecaudo)" height="20%"/>
 	   		<listheader hflex="4" label="Tipo de Motivo" width="50%" sort="auto(nombreTipoMotivo)" height="20%" />
@@ -133,9 +131,9 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" 
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudos)">
+			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosI)">
 			<attribute name="onClick">
-				Set items = left.getSelectedItems();
+				Set items = lbxRecaudos.getSelectedItems();
 			</attribute>
 		</button>
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
@@ -146,7 +144,7 @@
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="winVerificiarRecaudos.onClose()">
+			orient="horizontal" onClick="winVerificiarRecaudosI.onClose()">
 		</button>
 	</div>
 	</window>

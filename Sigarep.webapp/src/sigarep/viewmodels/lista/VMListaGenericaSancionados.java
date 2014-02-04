@@ -221,7 +221,7 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoII(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
-		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudos.zul"))
+		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosI.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVerificarRecaudosI();
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosII.zul"))
 			lista = serviciosolicitudapelacion.buscarSancionadosReconsideracionVerificar();	

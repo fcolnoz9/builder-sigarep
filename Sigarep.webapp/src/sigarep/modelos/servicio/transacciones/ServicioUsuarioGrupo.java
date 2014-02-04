@@ -1,6 +1,8 @@
 package sigarep.modelos.servicio.transacciones;
 
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import sigarep.modelos.repositorio.transacciones.IUsuarioGrupoDAO;
 @Service("serviciousuariogrupo")
 public class ServicioUsuarioGrupo {
 	
+	@PersistenceContext
+	private EntityManager em;
 
 	public @Autowired IUsuarioGrupoDAO iUsuarioGrupoDAO;
 	
@@ -25,27 +29,28 @@ public class ServicioUsuarioGrupo {
 		iUsuarioGrupoDAO.save(miUsuarioGrupo);
 	}
 		
-	/*public List<UsuarioGrupo> buscarPorUsuario(String nombreUsuario){
-		return iUsuarioGrupoDAO.buscarPorUsuario(nombreUsuario) ;
+	public void eliminarFisicamente(UsuarioGrupoPK id){
+		UsuarioGrupo miUsuarioGrupo = iUsuarioGrupoDAO.findOne(id);
+		iUsuarioGrupoDAO.delete(miUsuarioGrupo);
 	}
 	
-	public List<UsuarioGrupo> buscarPorUsuarioNO(String nombreUsuario){
-		return iUsuarioGrupoDAO.buscarPorUsuarioNO(nombreUsuario) ;
-	}*/
-	
-//	public List<UsuarioGrupo> buscarTodos() {
-//		return iUsuarioGrupoDAO.buscarSancionadosActivos();
-//	}
-	
-//	public EstudianteSancionado buscar(EstudianteSancionadoPK id) {
-//		return iEstudianteSancionadoDAO.findOne(id);
-//	}
-
 	public int contarTodos() {
 		return iUsuarioGrupoDAO.findAll().size();
 	}
 
 	public UsuarioGrupo crear() {
 		return new UsuarioGrupo();
+	}
+	
+	public void eliminarUsuarioGrupo(Integer idGrupo, String nombreUsuario) 
+	{
+		String queryStatement = "delete from usuario_grupo ug where " +
+		"ug.idgrupo = '"+idGrupo +"' and ug.nombreusuario = '"+nombreUsuario +"'";
+		Query query = em.createNativeQuery(queryStatement);
+		try {
+			query.getSingleResult();
+		} catch (Exception exp) {
+			System.out.println("");
+		}
 	}
 }

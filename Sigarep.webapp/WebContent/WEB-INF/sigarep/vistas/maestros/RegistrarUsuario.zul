@@ -86,17 +86,10 @@
 					<textbox id="txtNombreUsuario"  mold="rounded" width="80%"
 						constraint="/[a-z,0-9]+/: No deje espacios en blanco y solo use letras [A-Z]"  maxlength="45"
 						value="@bind(vm.nombreUsuario)" />
-				</row>
-				<row>
 					<label value="Correo electrónico: " id="lblCorreo" />
 					<textbox id="txtCorreo" width="80%"  mold="rounded"
 						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com"  maxlength="30"
 						value="@bind(vm.correo)" />
-					<label value="Repita el correo: " id="lblRepetirCorreo" />
-					<textbox id="txtRepetirCorreo" width="80%"  mold="rounded"
-						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com"  maxlength="30"
-						value="@bind(vm.correo)" />	
-						
 				</row>
 				<row id="rowContrasenna" visible="true">
 					<label value="Contraseña: " id="lblContraseña" width="auto" />
@@ -108,33 +101,46 @@
 					<textbox id="txtRepetirContraseña" type="password" width="80%" maxlength="30"  mold="rounded"
 						constraint="/[a-z,0-9] " 
 						value="@bind(vm.confirmarcontrasenia)" />
-					
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
-	<groupbox id="grbListaUsuarios">
+	<groupbox id="grbListaUsuarios" height="auto">
 		<caption label="Lista de Usuarios" />
-		<listbox id="lbxUsuario" height="100%"
+		<listbox id="lbxUsuario" height="170px"
 			model="@bind(vm.listaPersona)"
 			selectedItem="@bind(vm.personaSeleccionado)"
-			onSelect="@command('mostrarSeleccionado',rowContrasenna=rowContrasenna)"
+			onSelect="@command('mostrarSeleccionado')"
 			onClick="@command('pasepase')"
-			emptyMessage="No hay Usuarios registrados" mold="paging"
-			pageSize="5">
+			emptyMessage="No hay Usuarios registrados" mold="paging" hflex="1" vflex="1">
 			<listhead>
 				<listheader label="Cédula" align="lefth"
-					sort="auto(cedulaPersona)" />
+					sort="auto(cedulaPersona)">
+					<textbox id="filtroCedula" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.cedulaPersonafiltro)"
+							onChange="@command('filtros')" />
+							<image src="imagenes/iconos/buscar.png" />
+				</listheader>	
 				<listheader label="Nombre Completo" align="lefth"
-					sort="auto(nombreCompleto)" />
+					sort="auto(nombreUsuario.nombreCompleto)">
+						<textbox id="filtroNombreCompleto" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreCompletofiltro)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+				</listheader>
 				<listheader label="Usuario" align="lefth"
-					sort="auto(nombreUsuario)" />	
-			</listhead>
+					sort="auto(nombreUsuario.nombreUsuario)">
+						<textbox id="filtroNombreUsuario" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreUsuariofiltro)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+				</listheader>		
+			</listhead>				
 			<template name="model">
 				<listitem selected="false">
 					<listcell label="${each.cedulaPersona}" />
-					<listcell label="${each.nombreUsuario.getNombreCompleto()}" />
-					<listcell label="${each.nombreUsuario.getNombreUsuario()}" />
+					<listcell label="${each.nombreUsuario.nombreCompleto}" />
+					<listcell label="${each.nombreUsuario.nombreUsuario}" />
 				</listitem>
 			</template>
 		</listbox>
@@ -147,7 +153,7 @@
 				<panel title="Grupos a los cuales puede pertenecer el usuario">
 					<panelchildren>
 						<listbox id="listboxGruposNoPertenece" model="@bind(vm.listaGrupoNoPertenece)" onSelect="@command('agregarGrupo',itemGrupoNoPertenece=listboxGruposNoPertenece.selectedItem)"
-   			 				 emptyMessage="No hay grupos" mold="paging" pageSize="5">
+   			 				 emptyMessage="No hay grupos" mold="paging" hflex="1" vflex="1">
 							<listhead>
 								<listheader label="Nombre del grupo" align="center" />
 							</listhead>								
@@ -166,7 +172,7 @@
 				<panel title="Grupos a los que pertenece el usuario">
 					<panelchildren>
 						<listbox id="listboxGruposPertenece" model="@bind(vm.listaGrupoPertenece)" onSelect="@command('quitarGrupo',itemGrupoPertenece=listboxGruposPertenece.selectedItem)"
-   			 				 emptyMessage="Seleccione un grupo para mostrar sus grupos" mold="paging" pageSize="5">
+   			 				 emptyMessage="Seleccione un grupo para mostrar sus grupos" mold="paging" hflex="1" vflex="1">
 							<listhead>
 								<listheader label="Nombre del grupo" align="center" sort="auto(nombre)" />
 							</listhead>
@@ -183,25 +189,21 @@
 	</groupbox>
 	<separator />
 		<hbox width="100%" pack="end" align="center">
-		<button label="Guardar" id="GuardarUsuario"
+		<button label="Guardar" image="/imagenes/iconos/guardar.png"
 			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/guardar.png"
-			onClick="@command('guardarUsuario', gruposDelUsuario=listboxGruposPertenece.items,rowContrasenna=rowContrasenna)">
+			onClick="@command('guardarUsuario', gruposDelUsuario=listboxGruposPertenece.items)">
 		</button>
-		<button label="Eliminar" id="EliminarUsuario"
+		<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
 			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/eliminar.png"
-			onClick="@command('eliminarUsuario',rowContrasenna=rowContrasenna)">
+			onClick="@command('eliminarUsuario')">
 		</button>
-		<button label="Limpiar" id="LimpiarUsuario"
+		<button label="Cancelar" image="/imagenes/iconos/cancelar.png"
 			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/cancelar.png"
-			onClick="@command('limpiar',rowContrasenna=rowContrasenna)">
+			onClick="@command('limpiar')">
 		</button>
-		<button label="Cerrar" id="btnCerrarUsuario"
-			mold="trendy"  width="auto" height="auto"
-			image="/imagenes/iconos/cerrar.png" 
-			onClick="winRegistrarUsuario.onClose()">
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			mold="trendy" onClick="winRegistrarUsuario.onClose()">
 		</button>
 	</hbox>
 </window>

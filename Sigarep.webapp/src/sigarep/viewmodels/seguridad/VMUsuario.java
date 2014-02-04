@@ -1,23 +1,21 @@
 package sigarep.viewmodels.seguridad;
 
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Row;
 
 
 import sigarep.herramientas.EnviarCorreo;
-import sigarep.herramientas.mensajes;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.Persona;
 
@@ -62,20 +60,22 @@ public class VMUsuario {
 	
 	private List<Persona> listaPersona;
 	private Persona personaSeleccionado = new Persona();
-	private String nombreUsuario;
-	private String correo;
-	private String clave;
-	private String confirmarcontrasenia;
+	private String nombreUsuario="";
+	private String correo="";
+	private String clave="";
+	private String confirmarcontrasenia="";
 	private String nuevaContrasenia;
-	private String nombreCompleto;
-	private String estado;
+	private String nombreCompleto="";
+	private String cedulaPersonafiltro = "";
+	private String nombreCompletofiltro = "";
+	private String nombreUsuariofiltro = "";
 	private ListModelList<Grupo> modeloGrupo;
 	List<Grupo> listGrupo;
 	
 	@WireVariable
 	private String correoLogin;
 
-	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajes = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 	
 	private Usuario usuarioSeleccionado;
 	@WireVariable
@@ -245,14 +245,6 @@ public class VMUsuario {
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
 	public ListModelList<Grupo> getModeloGrupo() {
 		return modeloGrupo;
 	}
@@ -316,44 +308,61 @@ public class VMUsuario {
 	public void setCedulaPersona(String cedulaPersona) {
 		this.cedulaPersona = cedulaPersona;
 	}
+	
+	public String getCedulaPersonafiltro() {
+		return cedulaPersonafiltro;
+	}
+
+	public void setCedulaPersonafiltro(String cedulaPersonafiltro) {
+		this.cedulaPersonafiltro = cedulaPersonafiltro;
+	}
+
+	public String getNombreCompletofiltro() {
+		return nombreCompletofiltro;
+	}
+
+	public void setNombreCompletofiltro(String nombreCompletofiltro) {
+		this.nombreCompletofiltro = nombreCompletofiltro;
+	}
+
+	public String getNombreUsuariofiltro() {
+		return nombreUsuariofiltro;
+	}
+
+	public void setNombreUsuariofiltro(String nombreUsuariofiltro) {
+		this.nombreUsuariofiltro = nombreUsuariofiltro;
+	}
 
 	@Command
 	@NotifyChange({ "nombreUsuario","nombreCompleto", "clave","confirmarcontrasenia", "correo",
 			"listaUsuario","cedulaPersona","nombre","apellido","telefono","listaPersona" })
-	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario, @BindingParam("rowContrasenna") Row rowContrasenna) {
+	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario) {
 		boolean existeUsuario = false;
 		Usuario usuario = new Usuario();
 		if (nombreUsuario == null || correo == null || cedulaPersona == null || nombre == null || apellido == null
-				|| telefono == null) {
-			msjs.advertenciaLlenarCampos();
+				|| telefono == null || clave == null || confirmarcontrasenia == null) {
+			mensajes.advertenciaLlenarCampos();
+		}
+		else if(!clave.equals(confirmarcontrasenia)){
+			mensajes.advertenciaContrasennasNoCoinciden();
 		}
 		else if(gruposDelUsuario.size()==0){
-			Messagebox.show("Debe seleccionar al menos un grupo",
-					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajes.advertenciaSeleccionarGrupoUsuario();
 		}
-		else {
+		else
+		{
 			Usuario usuarioAux = su.encontrarUsuario(nombreUsuario);
-			if(usuarioAux==null){
-				usuario.setNombreUsuario(nombreUsuario);
-				usuario.setClave(clave);
-			}
-			else
-			{
-				usuario.setNombreUsuario(usuarioAux.getNombreUsuario());
-				usuario.setClave(usuarioAux.getClave());
+			if(usuarioAux!=null){
 				existeUsuario = true;
-//				System.out.println("tamanno: "+usuario.getUsuariosGrupos().size());
-				if(sg.listadoGrupoPerteneceUsuario(nombreUsuario).size()>0){
-					for(int j=0;j<sg.listadoGrupoPerteneceUsuario(nombreUsuario).size();j++){
-						UsuarioGrupo usuarioGrupoABorrar = usuarioAux.getUsuariosGrupos().get(j);
-						usuario.removeUsuarioGrupo(usuarioGrupoABorrar);
-//						System.out.println(usuarioAux.getUsuariosGrupos().get(j).getGrupo().getNombre());
-					}
+				for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
+					 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
 				}
 			}
+			usuario.setNombreUsuario(nombreUsuario);
+			usuario.setClave(clave);
 			usuario.setCorreo(correo);
 			nombreCompleto = nombre + " " + apellido;
-			usuario.setNombreCompleto(nombreCompleto); // esto se lo debería traer de la vista, ojo JM.
+			usuario.setNombreCompleto(nombreCompleto);
 			usuario.setEstatus(true);
 			
 			for(Listitem miGrupo :gruposDelUsuario){
@@ -392,34 +401,54 @@ public class VMUsuario {
 			serviciopersona.guardar(persona);
 			
 			if (tituloinstancia.equals("")) {
-				System.out.println("instancia vacia");
-			} else {
-				instanciaMiembroPK.setCedulaPersona(cedulaPersona);
-				instanciaMiembroPK
-						.setIdInstanciaApelada(getInstanciaseleccionada()
-								.getIdInstanciaApelada());
-				instanciaMiembro.setId(instanciaMiembroPK);
-				instanciaMiembro.setCargo(cargo);
-				instanciaMiembro.setEstatus(true);
-				instanciaMiembro.setFechaEntrada(new Date());
-				instanciaMiembro
-						.setInstanciaApelada(getInstanciaseleccionada());
-				instanciaMiembro.setPersona(persona);
-
+				System.out.println("instancia vacia");	
+			}
+			else
+			{
+			    if (cargo.equals(""))
+			    	mensajes.advertenciaLlenarCampos();
+			    else
+			    {
+					instanciaMiembroPK.setCedulaPersona(cedulaPersona);
+					instanciaMiembroPK.setIdInstanciaApelada(getInstanciaseleccionada().getIdInstanciaApelada());
+					instanciaMiembro.setId(instanciaMiembroPK);
+					instanciaMiembro.setCargo(cargo);
+					instanciaMiembro.setEstatus(true);
+					instanciaMiembro.setFechaEntrada(new Date());
+					instanciaMiembro.setInstanciaApelada(getInstanciaseleccionada());
+					instanciaMiembro.setPersona(persona);
+					try {
+						servicioInstanciaMiembro.guardar(instanciaMiembro);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}	
+			    }
+			}
+			
+			mensajes.informacionRegistroCorrecto();
+			if(existeUsuario==false){
 				try {
-					servicioInstanciaMiembro.guardar(instanciaMiembro);
+					UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
+					UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
+					usuarioGrupoPK.setIdGrupo(1);
+					usuarioGrupoPK.setNombreUsuario(nombreUsuario);
+					Grupo grupo = new Grupo();
+					grupo = sg.buscarGrupo(1); //Grupo de id=1 que tiene la función cambiar contraseña
+					usuarioGrupo.setId(usuarioGrupoPK);
+					usuarioGrupo.setUsuario(usuario);
+					usuarioGrupo.setGrupo(grupo);
+					usuarioGrupo.setEstatus(true);
+					usuario.addUsuarioGrupo(usuarioGrupo);
+					su.guardarUsuario(usuario); //Agregandole el grupo que tiene la función cambiar contraseña al usuario nuevo
+					EnviarCorreo enviar = new EnviarCorreo();
+					enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
+					mensajes.informacionHemosEnviadoCorreo();
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
+	
 			}
-			
-			msjs.informacionRegistroCorrecto();
-			if(existeUsuario==false){
-				EnviarCorreo enviar = new EnviarCorreo();
-				enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
-				Messagebox.show("Te hemos enviado un email con tu nombre de usuario y contraseña.","Información", Messagebox.OK, Messagebox.INFORMATION);	
-			}
-			limpiar(rowContrasenna);
+			limpiar();
 		}
 	}
 	
@@ -448,8 +477,8 @@ public class VMUsuario {
 
 	// Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","correo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre","apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece"})
-	public void limpiar(@BindingParam("rowContrasenna") Row rowContrasenna) {
+	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre","apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece"})
+	public void limpiar() {
 		nombreUsuario = "";
 		clave = "";
 		confirmarcontrasenia = "";
@@ -461,7 +490,6 @@ public class VMUsuario {
 		buscarUsuario();
 		listaGrupoPertenece.clear();
 		buscarListadoGrupos();
-		rowContrasenna.setVisible(true);
 	}
 	
 	@Command
@@ -476,18 +504,20 @@ public class VMUsuario {
 	// Metodo que elimina una actividad tomando en cuenta el idActividad
 	@Command
 	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
-	public void eliminarUsuario(@BindingParam("rowContrasenna") Row rowContrasenna) {
+	public void eliminarUsuario() {
 		su.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 		serviciopersona.eliminar(cedulaPersona);
-		msjs.informacionEliminarCorrecto();
-		limpiar(rowContrasenna);
+		mensajes.informacionEliminarCorrecto();
+		limpiar();
 	}
 
 	// permite tomar los datos del objeto usaurioseleccionado
 	@Command
-	@NotifyChange({ "nombreUsuario", "fechaCreacion","correo","cedulaPersona","apellido","nombre","telefono","listaGrupoPertenece", "listaGrupoNoPertenece", "personaSeleccionado"})
-	public void mostrarSeleccionado(@BindingParam("rowContrasenna") Row rowContrasenna) {	
+	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia","correo","cedulaPersona","apellido","nombre","telefono","listaGrupoPertenece", "listaGrupoNoPertenece", "personaSeleccionado"})
+	public void mostrarSeleccionado() {	
 		nombreUsuario = getPersonaSeleccionado().getNombreUsuario().getNombreUsuario();
+		clave = getPersonaSeleccionado().getNombreUsuario().getClave();
+		confirmarcontrasenia = getPersonaSeleccionado().getNombreUsuario().getClave();
 		correo = getPersonaSeleccionado().getCorreo();
 		cedulaPersona = getPersonaSeleccionado().getCedulaPersona();
 		nombre = getPersonaSeleccionado().getNombre();
@@ -496,7 +526,6 @@ public class VMUsuario {
 
 		listaGrupoPertenece = sg.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 		listaGrupoNoPertenece = sg.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
-		rowContrasenna.setVisible(false);
 	}
 	
 	@Command
@@ -520,11 +549,11 @@ public class VMUsuario {
 	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia", "nuevaContrasenia" })
 	public void cambiarContrasenia() {
 	    if(nombreUsuario == null || clave==null || confirmarcontrasenia==null || nuevaContrasenia == null)
-	    	msjs.advertenciaLlenarCampos();
+	    	mensajes.advertenciaLlenarCampos();
 	    else{
 	    	
 	    	if(su.cambiarContrasena(nombreUsuario, clave, nuevaContrasenia, confirmarcontrasenia)==true)
-	    		Messagebox.show("Se ha actualizado su contraseña", "Información",Messagebox.OK, Messagebox.EXCLAMATION);
+	    		mensajes.informacionContrasennaAtualizada();
 	    }
 	}
 	
@@ -534,7 +563,7 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		usuario.setNombreUsuario("-1");
 		if (correoLogin=="")
-			msjs.advertenciaLlenarCampos();
+			mensajes.advertenciaLlenarCampos();
 		else {
 			List<Usuario> listaUsuarios = su.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
@@ -548,16 +577,23 @@ public class VMUsuario {
 				if (usuario.getNombreUsuario()!="-1") {
 					EnviarCorreo enviar = new EnviarCorreo();
 					enviar.sendEmail(usuario.getCorreo(), usuario.getClave());
-					Messagebox.show("Te hemos enviado un email con tu contraseña.","Información", Messagebox.OK, Messagebox.INFORMATION);
+					mensajes.informacionContrasennaRecuperada();
 				}
 				else
-					Messagebox.show("Usuario o correo e-mail no registrados","Información", Messagebox.OK, Messagebox.INFORMATION);
+					mensajes.ErrorUsuarioEmailNoRegistrado();
 		}
+	}
+	
+	// Método que busca y filtra los recaudos
+	@Command
+	@NotifyChange({"listaPersona"})
+	public void filtros(){
+		listaPersona = serviciopersona.buscarPersonaFiltro(cedulaPersonafiltro, nombreCompletofiltro, nombreUsuariofiltro);
 	}
 	
 	@Command
 	@NotifyChange({ "listaUsuario","tituloinstancia" })
 	public void pasepase() {
-		System.out.println(tituloinstancia);
+		System.out.println("");
 	}
 }

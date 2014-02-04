@@ -3,8 +3,11 @@ package sigarep.modelos.data.seguridad;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.Fetch;
@@ -40,8 +43,8 @@ public class Usuario implements Serializable {
     private Boolean estatus;
 
 	//bi-directional many-to-one association to MiembroGrupo
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="usuario", cascade={CascadeType.ALL})
-	private List<UsuarioGrupo> usuariosGrupos = new LinkedList<UsuarioGrupo>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="usuario", cascade={CascadeType.ALL})
+	private Set<UsuarioGrupo> usuariosGrupos = new HashSet<UsuarioGrupo>();
 	
 	//bi-directional many-to-one association to Estudiante
 	@OneToMany(mappedBy="nombreUsuario")
@@ -108,12 +111,12 @@ public class Usuario implements Serializable {
 		this.estatus = estatus;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	public List<UsuarioGrupo> getUsuariosGrupos() {
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	public Set<UsuarioGrupo> getUsuariosGrupos() {
 		return this.usuariosGrupos;
 	}
 
-	public void setUsuariosGrupos(List<UsuarioGrupo> usuariosGrupos) {
+	public void setUsuariosGrupos(Set<UsuarioGrupo> usuariosGrupos) {
 		this.usuariosGrupos = usuariosGrupos;
 	}
 

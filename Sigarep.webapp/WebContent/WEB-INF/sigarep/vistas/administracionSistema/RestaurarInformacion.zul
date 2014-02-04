@@ -8,6 +8,7 @@
 		//***************************************************************************
 			import java.io.File;
 			sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
+			sigarep.herramientas.MensajesAlUsuario mensajes = new sigarep.herramientas.MensajesAlUsuario();
 			ruta = obtenerRuta.obtenerDirectorio();
 			
 			//Accediendo a los archivos en el directorio
@@ -120,7 +121,7 @@
 							 if (rbLocal.isChecked() || rbDispositivo.isChecked()){
 								restaurarBD();	
 							}else{
-								alert("Debe seleccionar la ubicación del respaldo a restaurar");
+								mensajes.advertenciaSeleccionarUbicacionRespaldo();
 							}								
 					</attribute>
 					</button>
@@ -206,12 +207,12 @@
 					.put("PGPASSWORD", props.getProperty("contrasenna"));
 			pb.redirectErrorStream(true);
 			p = pb.start();
-			alert("Restauración en proceso, debe esperar mientras el proceso es completado");
+			mensajes.ErrorRestauracionEnProceso();
 			cancelar();
 			divArchivosLocal.setVisible(false);
 			grbDispositivo.setVisible(false);
 		} catch (Exception e) {
-			alert("El intento de restauración no fue exitoso");
+			mensajes.informacionRestauracionNoExitosa();
 		}
 	}
 	//****************************************************
