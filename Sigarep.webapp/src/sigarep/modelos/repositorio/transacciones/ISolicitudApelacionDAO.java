@@ -30,7 +30,8 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	
 	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
 			"WHERE sa.id.codigoLapso = la.codigoLapso " +
-			"AND la.estatus = 'TRUE'")
+			"AND la.estatus = 'TRUE'" +
+			"AND sa.id.idInstanciaApelada = '1'")
 	public List<SolicitudApelacion> buscarSolicitudesCargarRecaudoEntregado();
 	
 	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
