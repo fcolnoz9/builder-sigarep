@@ -39,9 +39,10 @@
 				<button  label="Continuar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 					 orient="horizontal" onClick="@command('guardarDatosSesion')">
 				</button>
-				<button label="Cancelar" mold="trendy" id="btnCancelar" image="/imagenes/iconos/cancelar.png" width="auto" height="auto" 
-					 orient="horizontal" onClick="@command('limpiar')">
-				</button>
+				<button label="Limpiar" id="btnCancelar" mold="trendy"
+						image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+						orient="horizontal" 	onClick="@command('limpiar')">
+				</button>	
 				<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" 
 					 orient="horizontal" onClick="winDatosSesionVeredicto.onClose()">
 				</button>

@@ -76,10 +76,11 @@
 				height="auto" orient="horizontal"
 				onClick="@command('eliminar')" />
 				
-	    <button id="btnCancelarAgregarActividad" label="Cancelar"
-				image="/imagenes/iconos/cancelar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal"
-				onClick="@command('limpiar')" />
+        <button label="Limpiar" id="btnCancelarAgregarActividad" mold="trendy"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('limpiar')">
+		</button>
+        
         
         <button id="btnCerrar" label="Cerrar"
 				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
