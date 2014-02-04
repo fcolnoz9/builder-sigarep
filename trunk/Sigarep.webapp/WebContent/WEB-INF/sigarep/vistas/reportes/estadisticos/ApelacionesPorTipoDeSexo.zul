@@ -69,7 +69,20 @@
 			</template>
 		</listbox>
 
+       <div align="right" height="100%">
+			<button id="btnImprimir" width="auto" height="auto"
+				label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy"
+				onClick="@command('GenerarReporteApelacionesMotivo')">
 
+			</button>
+			<button id="btnCancelar" width="auto" height="auto"
+				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('buscarApelacionesR')">
+			</button>
+			<button id="btnCerrar" width="auto" height="auto"
+				label="Cerrar" image="/imagenes/iconos/cerrar.png"
+				orient="horizontal" mold="trendy" >
+			</button>
+		</div>
 
 		<jasperreport id="report" height="620px"
 			src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesMotivo')"
@@ -78,21 +91,6 @@
 			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteApelacionesMotivo')" />
 
 
-		<div align="right" height="100%">
-			<button id="btnImprimir" width="auto" height="auto"
-				label="Imprimir" image="/imagenes/iconos/guardar.png"
-				orient="vertical"
-				onClick="@command('GenerarReporteApelacionesMotivo')">
-
-			</button>
-			<button id="btnCancelar" width="auto" height="auto"
-				label="Cancelar" image="/imagenes/iconos/cancelar.png"
-				orient="vertical" onClick="@command('buscarApelacionesR')">
-			</button>
-			<button id="btnCerrar" width="auto" height="auto"
-				label="Cerrar" image="/imagenes/iconos/cerrar.png"
-				orient="vertical">
-			</button>
-		</div>
+		
 	</vlayout>
 </window>
