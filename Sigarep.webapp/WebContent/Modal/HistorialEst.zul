@@ -1,5 +1,5 @@
-<window title="Estado del proceso de Apelación" id="winHistorial"
-	border="normal" position="top,center" width="1200px" closable="true"
+<window title="Estado del proceso de Apelación" 
+	border="normal" position="top,center" width="90%" closable="true"
 	mode="modal" action="show: slideDown;hide: slideUp"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMHistoricoEstudiante')">
@@ -106,7 +106,7 @@
 						pageSize="5">
 						<template name="model">
 							<listitem>
-								<listcell label="${each.descripcion}" />
+								<listcell label="${each.tipoMotivo.nombreTipoMotivo}" />
 							</listitem>
 						</template>
 					</listbox>

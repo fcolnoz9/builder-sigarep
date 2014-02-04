@@ -1,7 +1,7 @@
 <listbox hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDescargas')">
 	<listhead>
-		<listheader label="" sort="auto" />
+		<listheader label="" sort="auto" width="80%"/>
 		<listheader label="" sort="auto" />
 	</listhead>
 	<listitem>
