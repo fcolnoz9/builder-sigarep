@@ -50,7 +50,7 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"and esa.id.cedulaEstudiante = " +
 			"sap.id.cedulaEstudiante and " +
 			"i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			" la.codigoLapso = esa.id.codigoLapso " +
+			" la.codigoLapso = esa.id.codigoLapso and " +
 			"sap.verificado = 'FALSE'")
 		public List<SolicitudApelacion> buscarSancionadosJerarquicoVerificar();
 
