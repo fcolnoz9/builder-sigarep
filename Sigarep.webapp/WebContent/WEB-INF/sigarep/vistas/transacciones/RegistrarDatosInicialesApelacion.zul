@@ -165,9 +165,9 @@
 				onClick="@command('registrarSolicitudApelacion', window=winRegistrarDatosInicialesApelacion)"
 				image="/imagenes/iconos/guardar.png">
 			</button>
-			<button id="btnCancelar" width="auto" height="auto"
-				mold="trendy" label="Cancelar" onClick="@command('cancelar')"
-				image="/imagenes/iconos/cancelar.png">
+			<button id="btnLimpiar" width="auto" height="auto"
+				mold="trendy" label="Limpiar" onClick="@command('cancelar')"
+				image="/imagenes/iconos/limpiar.png">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" mold="trendy" image="/imagenes/iconos/cerrar.png"
