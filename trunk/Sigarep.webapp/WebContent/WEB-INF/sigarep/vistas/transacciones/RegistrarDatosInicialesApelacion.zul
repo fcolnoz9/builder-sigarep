@@ -131,15 +131,6 @@
 							onClick="@command('agregarMotivo',listBoxMotivo=lbxMotivos)">
 						</button>
 					</row>
-					<row>
-						<label id="lblObservacion"
-							value="Observacion:">
-						</label>
-						<textbox id="txtObservacion" cols="23"
-							maxlength="255" rows="3" width="80%"
-							value="@bind(vm.observacion)" mold="rounded">
-						</textbox>
-					</row>
 				</rows>
 			</grid>
 			<listbox height="auto" id="lbxMotivos" mold="paging"
@@ -158,6 +149,21 @@
 				</template>
 			</listbox>
 		</groupbox>
+		<grid>
+			<rows>
+				<row>
+					<hlayout>
+						<label id="lblObservacion"
+							value="Observacion:">
+						</label>
+						<textbox id="txtObservacion" cols="100"
+							maxlength="255" rows="3" width="80%"
+							value="@bind(vm.observacion)" mold="rounded">
+						</textbox>
+					</hlayout>
+				</row>
+			</rows>
+		</grid>
 		<separator />
 		<div align="right" height="100%">
 			<button id="btnGuardar" width="auto" height="auto"
