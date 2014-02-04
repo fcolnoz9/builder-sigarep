@@ -9,11 +9,12 @@ public class EstudianteSancionado {
 	private String nombreTipoMotivo;
 	private String codigoLapso;
 	private String instanciaApelada;
+	private String veredicto;
 	
 	
 	public EstudianteSancionado(String primerNombre, String primerApellido,
 			String sexo, String nombrePrograma, String nombreSancion,
-			String nombreTipoMotivo, String instanciaApelada, String codigoLapso) {
+			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto) {
 		super();
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
@@ -23,6 +24,7 @@ public class EstudianteSancionado {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 		this.codigoLapso = codigoLapso;
 		this.instanciaApelada = instanciaApelada;
+		this.veredicto= veredicto;
 	}
 	
 	public String getInstanciaApelada() {
@@ -75,5 +77,14 @@ public class EstudianteSancionado {
 	public void setCodigoLapso(String codigoLapso) {
 		this.codigoLapso = codigoLapso;
 	}
+
+	public String getVeredicto() {
+		return veredicto;
+	}
+
+	public void setVeredicto(String veredicto) {
+		this.veredicto = veredicto;
+	}
+	
 
 }
