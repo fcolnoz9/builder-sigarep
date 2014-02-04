@@ -97,7 +97,7 @@
 	   			<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
 	   			<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
 	   			<listcell height="%">
-	   			<textbox value="" mold="rounded" cols="120" rows="2" />
+	   			<textbox value="${each.getObservacionExperto()}" mold="rounded" cols="120" rows="2" />
 	   			</listcell>
 	   		</listitem>
 	   	</template>
