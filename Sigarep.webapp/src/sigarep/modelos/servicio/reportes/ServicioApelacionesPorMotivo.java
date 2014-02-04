@@ -22,99 +22,6 @@ public class ServicioApelacionesPorMotivo {
 	@PersistenceContext
 	private EntityManager em;
 	
-	
-	public List<ApelacionesPorMotivo> buscarPorMotivoProgramaTodos(){
-		String queryStatement =
-				"SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa " +
-				"FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado essa, estudiante es, programa_academico prog " +
-				"WHERE sa.cedula_estudiante = mo.cedula_estudiante and mo.id_tipo_motivo = timo.id_tipo_motivo " +
-				"and sa.cedula_estudiante = essa.cedula_estudiante and essa.cedula_estudiante = es.cedula_estudiante " +
-				"and es.id_programa = prog.id_programa " +
-				"GROUP BY timo.nombre_tipo_motivo, prog.nombre_programa";
-
-		
-		Query query = em.createNativeQuery(queryStatement);
-		
-		
-		
-		@SuppressWarnings("unchecked")
-		List<Object[]> resultSet = query.getResultList();
-		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
-		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
-					(String) resultRow[0],
-					((BigDecimal) resultRow[1]).intValue(),
-					((BigDecimal) resultRow[2]).intValue(),
-					((BigDecimal) resultRow[3]).intValue()));
-		}
-		
-		return results;
-	}
-	
-	public List<ApelacionesPorMotivo> buscarPorMotivoProgramaTodos(String codigo_lapso) {
-		String queryStatement =
-				"SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa " +
-				"FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado essa, estudiante es, programa_academico prog " +
-				"WHERE sa.cedula_estudiante = mo.cedula_estudiante and mo.id_tipo_motivo = timo.id_tipo_motivo " +
-				"and sa.cedula_estudiante = essa.cedula_estudiante and essa.cedula_estudiante = es.cedula_estudiante " +
-				"and es.id_programa = prog.id_programa " +
-				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"GROUP BY timo.nombre_tipo_motivo, prog.nombre_programa";
-
-		
-		Query query = em.createNativeQuery(queryStatement);
-		
-		
-		
-		@SuppressWarnings("unchecked")
-		List<Object[]> resultSet = query.getResultList();
-		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
-		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
-					(String) resultRow[0],
-					((BigDecimal) resultRow[1]).intValue(),
-					((BigDecimal) resultRow[2]).intValue(),
-					((BigDecimal) resultRow[3]).intValue()));
-		}
-		
-		return results;
-	}
-	
-	public List<ApelacionesPorMotivo> buscarPorMotivoPrograma_TipoSancion(String codigo_lapso, String tipo_sancion) {
-		String queryStatement =
-				"SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa " +
-				"FROM sancion_maestro sanma, solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado essa, estudiante es, programa_academico prog " +
-				"WHERE sa.cedula_estudiante = mo.cedula_estudiante and mo.id_tipo_motivo = timo.id_tipo_motivo " +
-				"and sa.cedula_estudiante = essa.cedula_estudiante and essa.cedula_estudiante = es.cedula_estudiante " +
-				"and es.id_programa = prog.id_programa " +
-				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"and essa.id_sancion = sanma.id_sancion " +
-				"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
-				"GROUP BY timo.nombre_tipo_motivo, prog.nombre_programa";
-		
-						
-		Query query = em.createNativeQuery(queryStatement);
-		
-		
-		
-		@SuppressWarnings("unchecked")
-		List<Object[]> resultSet = query.getResultList();
-		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
-		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
-					(String) resultRow[0],
-					((BigDecimal) resultRow[1]).intValue(),
-					((BigDecimal) resultRow[2]).intValue(),
-					((BigDecimal) resultRow[3]).intValue()));
-		}
-		
-		return results;
-	}
-	
-	
 	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, String tipo_sancion, String programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes , " +
@@ -179,7 +86,8 @@ public class ServicioApelacionesPorMotivo {
 								"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
 								"and sa.veredicto = 'NO PROCEDENTE' " +
 								"group by timo.nombre_tipo_motivo) as v " +
-								"group by v.motivo";
+								"group by v.motivo " +
+								"order by apelaciones desc";
 						
 						
 								
@@ -263,7 +171,8 @@ public class ServicioApelacionesPorMotivo {
 				"and prog.nombre_programa = "+ "'"+programa+"' " +
 				"and sa.veredicto = 'NO PROCEDENTE' " +
 				"group by timo.nombre_tipo_motivo) as v " +
-				"group by v.motivo";
+				"group by v.motivo " +
+				"order by apelaciones desc";
 //		"" +
 //		"" +
 //		"" +
@@ -304,6 +213,8 @@ public class ServicioApelacionesPorMotivo {
 		
 		return results;
 	}
+	
+	
 	
 	public List<ApelacionesPorMotivo> buscarPorInstanciaResultado_Programa(String codigo_lapso, String programa) {
 		String queryStatement =
@@ -347,7 +258,8 @@ public class ServicioApelacionesPorMotivo {
 				"and prog.nombre_programa = "+ "'"+programa+"' " +
 				"and sa.veredicto = 'NO PROCEDENTE' " +
 				"group by instancia ) as v " +
-				"group by v.instancia";
+				"group by v.instancia " +
+				"order by apelaciones desc";
 		
 						
 		Query query = em.createNativeQuery(queryStatement);
@@ -433,7 +345,8 @@ public class ServicioApelacionesPorMotivo {
 						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
 						"and sa.veredicto = 'NO PROCEDENTE' " +
 						"group by timo.nombre_tipo_motivo) as v " +
-						"group by v.motivo";
+						"group by v.motivo " +
+						"order by apelaciones desc";
 				
 				
 						
@@ -457,6 +370,129 @@ public class ServicioApelacionesPorMotivo {
 	}
 	
 
+	public List<ApelacionesPorMotivo> buscarPorSexoResultado_Programa(String codigo_lapso, String programa) {
+		String queryStatement =
+				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
+				"(SELECT COUNT(*) total FROM solicitud_apelacion sa " +
+				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+				"and essa.codigo_lapso = sa.codigo_lapso " +
+				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+				"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+				"and prog.nombre_programa = "+ "'"+programa+"' )" +
+				"from " +
+				"(select b.sexo as sexo, sum(b.apelaciones) apelaciones, 0 as procedente " +
+				"from " +
+				"(SELECT es.sexo as sexo,count(sa.cedula_estudiante) as apelaciones, 0 as procedente " +
+				"from solicitud_apelacion sa " +
+				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+				"and essa.codigo_lapso = sa.codigo_lapso " +
+				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
+				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+				"WHERE sa.codigo_lapso = "+"'"+codigo_lapso+"' " +
+				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"group by sexo) as b " +
+				"group by b.sexo " +
+				"union all " +
+				"select es.sexo as sexo, 0 as apelaciones, count(sa.veredicto) as procedente " +
+				"from solicitud_apelacion sa " +
+				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+				"and essa.codigo_lapso = sa.codigo_lapso " +
+				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+				"WHERE sa.codigo_lapso = "+"'"+codigo_lapso+"' " +
+				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"and sa.veredicto = 'NO PROCEDENTE' " +
+				"group by sexo) as v " +
+				"group by v.sexo " +
+				"order by apelaciones desc";
+		
+						
+		Query query = em.createNativeQuery(queryStatement);
+		
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		
+		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+		for (Object[] resultRow : resultSet) {
+			results.add(new ApelacionesPorMotivo(
+					(String) resultRow[0],
+					((BigDecimal) resultRow[1]).intValue(),
+					((BigDecimal) resultRow[2]).intValue(),
+					((BigInteger) resultRow[3]).intValue()));
+		}
+		
+		return results;
+	}
+	
+	public List<ApelacionesPorMotivo> buscarPorSexoResultado_ProgramaSancion(String codigo_lapso, String tipo_sancion, String programa) {
+		String queryStatement =
+				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
+						"(SELECT COUNT(*) total FROM solicitud_apelacion sa " +
+						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+						"and essa.codigo_lapso = sa.codigo_lapso " +
+						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
+						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+						"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and prog.nombre_programa = "+ "'"+programa+"' " +
+						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"'" + ")" +
+						"from " +
+						"(select b.sexo as sexo, sum(b.apelaciones) apelaciones, 0 as procedente " +
+						"from " +
+						"(SELECT es.sexo as sexo,count(sa.cedula_estudiante) as apelaciones, 0 as procedente " +
+						"from solicitud_apelacion sa " +
+						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+						"and essa.codigo_lapso = sa.codigo_lapso " +
+						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
+						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+						"WHERE --ins.id_instancia_apelada = sa.id_instancia_apelada and " +
+						"sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and prog.nombre_programa = "+ "'"+programa+"' " +
+						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"'" +
+						"group by sexo) as b " +
+						"group by b.sexo " +
+						"union all " +
+						"select es.sexo as sexo, 0 as apelaciones, count(sa.veredicto) as procedente " +
+						"from solicitud_apelacion sa " +
+						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+						"and essa.codigo_lapso = sa.codigo_lapso " +
+						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
+						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+						"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and prog.nombre_programa = "+ "'"+programa+"' " +
+						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"'" +
+						"and sa.veredicto = 'NO PROCEDENTE' " +
+						"group by sexo ) as v " +
+						"group by v.sexo " +
+						"order by apelaciones desc";
+				
+				
+						
+		Query query = em.createNativeQuery(queryStatement);
+		
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> resultSet = query.getResultList();
+		
+		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+		for (Object[] resultRow : resultSet) {
+			results.add(new ApelacionesPorMotivo(
+					(String) resultRow[0],
+					((BigDecimal) resultRow[1]).intValue(),
+					((BigDecimal) resultRow[2]).intValue(),
+					((BigDecimal) resultRow[3]).intValue()));
+		}
+		
+		return results;
+	}
+	
 	public List<Sancionados> buscarSancionados(String codigo_lapso, String nombre_programa){
 		String queryStatement =
 				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
@@ -485,7 +521,7 @@ public class ServicioApelacionesPorMotivo {
 		List<Sancionados> results = new ArrayList<Sancionados>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new Sancionados((String) resultRow[0], (String) resultRow[1], (String) resultRow[2], 
-										(String) resultRow[3], (String) resultRow[4], (String) resultRow[5]));
+										(String) resultRow[3]));
 		}
 		System.out.println(results.get(0).getCedula());
 		return results;
@@ -531,21 +567,30 @@ public class ServicioApelacionesPorMotivo {
 //				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
 //				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
 //				"and prog.nombre_programa = "+ "'"+nombre_programa+"' ";
-				
-	" SELECT  estudiante.cedula_estudiante, estudiante.primer_nombre, estudiante.primer_apellido, " +
-	" sancion_maestro.nombre_sancion, solicitud_apelacion.veredicto, solicitud_apelacion.observacion" +
-	" FROM programa_academico, estudiante, lapso_academico, estudiante_sancionado, sancion_maestro, instancia_apelada, solicitud_apelacion" +
-	" WHERE programa_academico.id_programa = estudiante.id_programa " +
-	" AND estudiante.cedula_estudiante = estudiante_sancionado.cedula_estudiante AND" +
-	" lapso_academico.codigo_lapso = estudiante_sancionado.codigo_lapso " +
-	" AND estudiante_sancionado.cedula_estudiante = solicitud_apelacion.cedula_estudiante AND" +
-	" estudiante_sancionado.codigo_lapso = solicitud_apelacion.codigo_lapso " +
-	" AND sancion_maestro.id_sancion = estudiante_sancionado.id_sancion AND" +
-	" instancia_apelada.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada"; //+adicioninstancia+adicionprograma+adicionsancion+			  
-	//" ;"
-		//		 ;
+//				
+//	" SELECT  estudiante.cedula_estudiante, estudiante.primer_nombre, estudiante.primer_apellido, " +
+//	" sancion_maestro.nombre_sancion, solicitud_apelacion.veredicto, solicitud_apelacion.observacion" +
+//	" FROM programa_academico, estudiante, lapso_academico, estudiante_sancionado, sancion_maestro, instancia_apelada, solicitud_apelacion" +
+//	" WHERE programa_academico.id_programa = estudiante.id_programa " +
+//	" AND estudiante.cedula_estudiante = estudiante_sancionado.cedula_estudiante AND" +
+//	" lapso_academico.codigo_lapso = estudiante_sancionado.codigo_lapso " +
+//	" AND estudiante_sancionado.cedula_estudiante = solicitud_apelacion.cedula_estudiante AND" +
+//	" estudiante_sancionado.codigo_lapso = solicitud_apelacion.codigo_lapso " +
+//	" AND sancion_maestro.id_sancion = estudiante_sancionado.id_sancion AND" +
+//	" instancia_apelada.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada"; //+adicioninstancia+adicionprograma+adicionsancion+			  
+//	//" ;"
+//		//		 ;
+//
 
-
+		
+		"select es.cedula_estudiante, es.primer_nombre, es.primer_apellido, sa.veredicto " +
+		"from solicitud_apelacion sa " +
+		"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+		"and essa.codigo_lapso = sa.codigo_lapso " +
+		"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+		"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
+		"WHERE sa.codigo_lapso = '2013-2' " +
+		"and prog.nombre_programa = 'Ingeniería en Informática'";
 		
 		Query query = em.createNativeQuery(queryStatement);
 		
@@ -557,7 +602,7 @@ public class ServicioApelacionesPorMotivo {
 		List<Sancionados> results = new ArrayList<Sancionados>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new Sancionados((String) resultRow[0], (String) resultRow[1], (String) resultRow[2], 
-										(String) resultRow[3], (String) resultRow[4], (String) resultRow[5]));
+										(String) resultRow[3]));
 		}
 		//System.out.println(results.get(0).getCedula());
 		return results;

@@ -1,7 +1,10 @@
 package sigarep.viewmodels.reportes;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -10,18 +13,23 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.PieModel;
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
+import sigarep.modelos.data.reportes.ApelacionesPorMotivo;
 import sigarep.modelos.data.reportes.ApelacionesPorSexo;
 import sigarep.modelos.data.reportes.ChartDataTipoDeSexo;
+import sigarep.modelos.data.reportes.ReportConfig;
+import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
+import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
 import sigarep.modelos.servicio.reportes.ServicioApelacionesPorSexo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -30,95 +38,144 @@ public class VMapelacionesTipoDeSexo {
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
-	private ServicioTipoMotivo serviciotipomotivo;
-	@WireVariable
 	private ServicioSancionMaestro serviciosancionmaestro;
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
-	private ServicioApelacionesPorSexo servicioapelacionesporsexo;
+	private ServicioApelacionesPorMotivo servicioapelacionespormotivo;
+
+	//@WireVariable
+	//private String selected = "";
+
 	@WireVariable
 	private String nombrePrograma;
-	@WireVariable
-	private String nombreTipoMotivo;
 	@WireVariable
 	private String nombreSancion;
 	@WireVariable
 	private String codigoLapso;
 
-	PieModel model;
-
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<SancionMaestro> listaTipoSancion;
-	private List<LapsoAcademico> listaLapsoInicial;
-	private List<LapsoAcademico> listaLapsoFinal;
-	public String programa = "Informatica";
+	private List<LapsoAcademico> listaLapso;
 
-	private List<ApelacionesPorSexo> lista = new LinkedList<ApelacionesPorSexo>();
+	private List<ApelacionesPorMotivo> apelacionesPrograma = new LinkedList<ApelacionesPorMotivo>();
+
+	private SancionMaestro objSancion;
+
+	private LapsoAcademico objLapso;
+
+	private ProgramaAcademico objPrograma;
+
+	private String nombre_sancion;
+	private String codigo_lapso;
+	private String programa_academico;
+
+	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
+	// REPORTE***************************
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
 	
+	String ruta="/WEB-INF/sigarepReportes/RApelacionesMotivoPrograma.jasper";
+
 	@Init
 	public void init() {
-		buscarTipoMotivo();
 		buscarPrograma();
 		buscarTipoSancion();
-		buscarLapsoInicial();
-		buscarLapsoFinal();
-		//buscarApelacionesR();
-		// prepare chart data
-		model = ChartDataTipoDeSexo.getModel();
-		
-
+		buscarLapso();
+		// buscarApelacionesR();
 	}
-	
+
 	@Command
-	@NotifyChange({"lista"})
-	public void buscarApelacionesR(){
-	  			lista = servicioapelacionesporsexo.buscarPorPrograma(programa);
-	  			//model = ChartDataTipoDeSexo.getModel(lista);
-	  			
+	@NotifyChange({ "apelacionesPrograma" })
+	public void buscarApelacionesR() {
+		System.out.println(objSancion.getNombreSancion());
+		System.out.println(objLapso.getCodigoLapso());
+
+				if (objSancion.getNombreSancion() == "Todos") {
+					apelacionesPrograma = servicioapelacionespormotivo
+							.buscarPorSexoResultado_Programa(
+									objLapso.getCodigoLapso(),
+									objPrograma.getNombrePrograma());
+				} else
+					apelacionesPrograma = servicioapelacionespormotivo
+							.buscarPorSexoResultado_ProgramaSancion(
+									objLapso.getCodigoLapso(),
+									objSancion.getNombreSancion(),
+									objPrograma.getNombrePrograma());
 	}
 
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarPrograma() {
-		setListaPrograma(servicioprogramaacademico.buscarPrograma(nombrePrograma));
+		listaPrograma = servicioprogramaacademico.listadoProgramas();
+		/*ProgramaAcademico prog = new ProgramaAcademico(null, "Todos", null);
+
+		listaPrograma.add(0, prog);*/
 	}
 
 	@Command
-	@NotifyChange({ "listaTipoMotivo" })
-	public void buscarTipoMotivo() {
-		setListaTipoMotivo(serviciotipomotivo.buscarP(nombreTipoMotivo));
+	@NotifyChange({ "listaPrograma" })
+	public ProgramaAcademico objCmbPrograma() {
+		return objPrograma;
+
 	}
 
 	@Command
 	@NotifyChange({ "listaTipoSancion" })
 	public void buscarTipoSancion() {
-		setListaTipoSancion(serviciosancionmaestro.listaTipoSanciones());
+		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
+		SancionMaestro sanc = new SancionMaestro(null, null, null, "Todos");
+		listaTipoSancion.add(0, sanc);
 	}
 
 	@Command
-	@NotifyChange({ "listaLapsoInicial" })
-	public void buscarLapsoInicial() {
-		setListaLapsoInicial(serviciolapsoacademico.buscarLapsoAcademico(codigoLapso));
+	@NotifyChange({ "listaTipoSancion" })
+	public SancionMaestro objCmbSancion() {
+		return objSancion;
+
 	}
 
 	@Command
-	@NotifyChange({ "listaLapsoFinal" })
-	public void buscarLapsoFinal() {
-		setListaLapsoFinal(serviciolapsoacademico.buscarLapsoAcademico(codigoLapso));
+	@NotifyChange({ "listaLapso" })
+	public void buscarLapso() {
+		listaLapso = serviciolapsoacademico.buscarTodosLosLapsos();
+		/*LapsoAcademico lap = new LapsoAcademico("asd", null, null, null);
+		listaLapso.add(0, lap);*/
 	}
 
-	public PieModel getModel() {
-		return model;
+	@Command
+	@NotifyChange({ "listaLapso" })
+	public LapsoAcademico objCmbLapso() {
+		return objLapso;
+
 	}
 
-	@GlobalCommand("dataChanged")
-	@NotifyChange("model")
-	public void onDataChanged(@BindingParam("category") String category,
-			@BindingParam("num") Number num) {
-		model.setValue(category, num);
+	public ListModelList<ReportType> getReportTypesModel() {
+		return reportTypesModel;
 	}
+
+	public ReportConfig getReportConfig() {
+		return reportConfig;
+	}
+
+	public ReportType getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(ReportType reportType) {
+		this.reportType = reportType;
+	}
+
+	// Lista que me permite llenar el combo para elegir el formato
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
+					"html"), new ReportType("Word (RTF)", "rtf"),
+					new ReportType("Excel", "xls"), new ReportType(
+							"Excel (JXL)", "jxl"),
+					new ReportType("CSV", "csv"), new ReportType(
+							"OpenOffice (ODT)", "odt")));
+
 
 	public List<ProgramaAcademico> getListaPrograma() {
 		return listaPrograma;
@@ -144,27 +201,129 @@ public class VMapelacionesTipoDeSexo {
 		this.listaTipoSancion = listaTipoSancion;
 	}
 
-	public List<LapsoAcademico> getListaLapsoInicial() {
-		return listaLapsoInicial;
+	public List<LapsoAcademico> getListaLapso() {
+		return listaLapso;
 	}
 
-	public void setListaLapsoInicial(List<LapsoAcademico> listaLapsoInicial) {
-		this.listaLapsoInicial = listaLapsoInicial;
+	public void setListaLapso(List<LapsoAcademico> listaLapso) {
+		this.listaLapso = listaLapso;
 	}
 
-	public List<LapsoAcademico> getListaLapsoFinal() {
-		return listaLapsoFinal;
+	public List<ApelacionesPorMotivo> getapelacionesPrograma() {
+		return apelacionesPrograma;
 	}
 
-	public void setListaLapsoFinal(List<LapsoAcademico> listaLapsoFinal) {
-		this.listaLapsoFinal = listaLapsoFinal;
+	public void setapelacionesPrograma(
+			List<ApelacionesPorMotivo> apelacionesPrograma) {
+		this.apelacionesPrograma = apelacionesPrograma;
 	}
 
-	public List<ApelacionesPorSexo> getLista() {
-		return lista;
+	public SancionMaestro getObjSancion() {
+		return objSancion;
 	}
 
-	public void setLista(List<ApelacionesPorSexo> lista) {
-		this.lista = lista;
+	public void setObjSancion(SancionMaestro objSancion) {
+		this.objSancion = objSancion;
 	}
+
+	public LapsoAcademico getObjLapso() {
+		return objLapso;
+	}
+
+	public void setObjLapso(LapsoAcademico objLapso) {
+		this.objLapso = objLapso;
+	}
+
+	public ProgramaAcademico getObjPrograma() {
+		return objPrograma;
+	}
+
+	public void setObjPrograma(ProgramaAcademico objPrograma) {
+		this.objPrograma = objPrograma;
+	}
+
+	/*public String getSelected() {
+		return selected;
+	}
+
+	@NotifyChange
+	public void setSelected(String selected) {
+		this.selected = selected;
+	}*/
+
+	// ###############METODO PARA IMPRIMIR REPORTE#################
+	@Command("GenerarReporteApelacionesMotivo")
+	@NotifyChange({ "reportConfig" })
+	public void GenerarReporte() {
+
+		apelacionesPrograma.clear();
+
+
+		ProgramaAcademico prog = objPrograma;
+		LapsoAcademico lap = objLapso;
+		
+		System.out.println(objLapso.getCodigoLapso() +"   "+ objPrograma.getNombrePrograma());
+		
+		if (objSancion.getNombreSancion() == "Todos") {
+			apelacionesPrograma = servicioapelacionespormotivo.buscarPorSexoResultado_Programa(
+							objLapso.getCodigoLapso(),
+							objPrograma.getNombrePrograma());
+		} else
+			apelacionesPrograma = servicioapelacionespormotivo.buscarPorSexoResultado_ProgramaSancion(
+							objLapso.getCodigoLapso(),
+							objSancion.getNombreSancion(),
+							objPrograma.getNombrePrograma());
+		
+		
+		
+		
+
+		/*
+		 * System.out.println(programaAcademico.getIdPrograma());
+		 * System.out.println(lapsoAcademico.getCodigoLapso());
+		 * System.out.println(lapsoAcademicoFinal.getCodigoLapso());
+		 * System.out.println(reportType); System.out.println(listaAsigMayor);
+		 */
+		
+		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
+											// REPORTE
+		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES - SEXO / RESULTADO");
+		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
+		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
+		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
+										// IMPRESION DEL REPORTE
+		
+		reportConfig.setDataSource(new JRBeanCollectionDataSource(
+				apelacionesPrograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
+										// DATOS PARA DIBUJAR EL REPORTE
+
+	}
+
+	// #####################FIN DEL METODO##########################
+
+
+	public String getNombre_sancion() {
+		return nombre_sancion;
+	}
+
+	public void setNombre_sancion(String nombre_sancion) {
+		this.nombre_sancion = nombre_sancion;
+	}
+
+	public String getCodigo_lapso() {
+		return codigo_lapso;
+	}
+
+	public void setCodigo_lapso(String codigo_lapso) {
+		this.codigo_lapso = codigo_lapso;
+	}
+
+	public String getPrograma_academico() {
+		return programa_academico;
+	}
+
+	public void setPrograma_academico(String programa_academico) {
+		this.programa_academico = programa_academico;
+	}
+
 }

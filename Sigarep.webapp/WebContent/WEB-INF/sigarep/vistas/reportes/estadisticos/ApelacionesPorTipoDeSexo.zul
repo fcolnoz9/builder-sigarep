@@ -1,164 +1,96 @@
 <window id="winReporteApelacionesTipoDeSexo"
-	title="Apelaciones por Tipo de Sexo" border="normal" width="auto"
+	title="Reportes :: Estadísticos :: Comparativo Sexo-Veredicto" border="normal" width="auto"
 	height="auto" closable="true">
-
 
 	<vlayout apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMapelacionesTipoDeSexo')">
 
 
-		<groupbox id="grbParametros">
+		<groupbox id="grbParametros" visible="true">
+			<caption id="lblParametros" label="Seleccionar" />
+			<div>
+				<label id="lblLapso" value="Lapso" />
+				<combobox id="cmbLapso" mold="rounded" readonly="true"
+					model="@load(vm.listaLapso)" selectedItem="@bind(vm.objLapso)"
+					onSelect="@command('objCmbLapso')">
+					<template name="model">
+						<comboitem label="${each.codigoLapso}" />
+					</template>
+				</combobox>
+				<label id="lblPrograma" value="Programa" />
+				<combobox id="cmbPrograma" mold="rounded"
+					readonly="true" model="@load(vm.listaPrograma)"
+					selectedItem="@bind(vm.objPrograma)"
+					onSelect="@command('objCmbPrograma')">
+					<template name="model">
+						<comboitem label="${each.nombrePrograma}" />
+					</template>
+				</combobox>
+				<label id="lblSanciones" value="Tipo Sancion" />
+				<combobox id="cmbTipoSancion" mold="rounded"
+					readonly="true" model="@load(vm.listaTipoSancion)"
+					selectedItem="@bind(vm.objSancion)"
+					onSelect="@command('objCmbSancion')">
+					<template name="model">
+						<comboitem label="${each.nombreSancion}" />
+					</template>
+				</combobox>
 
-			<caption id="lblParametros" label="Parámetros de Selección" />
-			<hbox>
-
-				<grid width="auto">
-					<columns>
-						<column />
-						<column />
-						<column />
-						<column />
-					</columns>
-					<rows>
-						<row>
-							<label id="lblCarreras" value="Carrera" />
-							<combobox id="cmbPrograma" mold="rounded"
-								model="@load(vm.listaPrograma)">
-								<template name="model">
-									<comboitem
-										label="${each.nombrePrograma}" />
-								</template>
-							</combobox>
-							<label id="lblTipoMotivo"
-								value="Tipo de Motivo" />
-							<combobox id="cmbTipoMotivo" mold="rounded"
-								model="@load(vm.listaTipoMotivo)">
-								<template name="model">
-									<comboitem
-										label="${each.nombreTipoMotivo}" />
-								</template>
-							</combobox>
-
-						</row>
-						<row>
-							<label id="lblLapsoInicial"
-								value="Lapso Inicial" />
-							<combobox id="cmbLapsoInicial"
-								mold="rounded" model="@load(vm.listaLapsoInicial)">
-								<template name="model">
-									<comboitem
-										label="${each.codigoLapso}" />
-								</template>
-							</combobox>
-							<label id="lblLapsoFinal"
-								value="Lapso Final" />
-							<combobox id="cmbLapsoFinal" mold="rounded"
-								model="@load(vm.listaLapsoFinal)">
-								<template name="model">
-									<comboitem
-										label="${each.codigoLapso}" />
-								</template>
-							</combobox>
-
-						</row>
-						<row>
-
-							<label id="lblTipoSancion"
-								value="Tipo de Sanción" />
-							<combobox id="cmbTipoSancion" mold="rounded"
-								model="@load(vm.listaTipoSancion)">
-								<template name="model">
-									<comboitem
-										label="${each.nombreSancion}" />
-								</template>
-							</combobox>
-
-
-						</row>
-
-					</rows>
-				</grid>
-
-
-
-
-				<div align="right">
-					<button id="btnGenerar" width="auto" height="auto"
-						label="Generar" image="/imagenes/imagenesReportes/generar.png"
-						orient="vertical" onClick="@command('buscarApelacionesR')" >
-					</button>
-				</div>
-			</hbox>
-
-
-		</groupbox>
-
-
-
-		<groupbox id="grbGrafico">
-			<caption id="lblGrafico" label="Grafico" />
-			<flashchart id="mychart" width="500" height="250" type="pie"
-				model="@bind(vm.model)"  />
-		</groupbox>
-
-
-
-		<groupbox id="grbListadeDatos">
-			<caption id="lblListaDeDatos" label="Lista de Datos" />
-
-			<div apply="org.zkoss.bind.BindComposer"
-				viewModel="@id('vmg') @init('sigarep.viewmodels.reportes.PieChartConfigVM')">
-				<grid width="250px">
-					<columns>
-						<column label="Sexo" width="150px" />
-						<column label="Valor" />
-					</columns>
-					<rows>
-						<row>
-							<label value="Femenino" />
-							<doublebox value="@bind(vmg.value1)"
-								constraint="no empty"
-								onChange="@global-command('dataChanged', category='C/C++', num=vmg.value1)" />
-						</row>
-						<row>
-							<label value="Masculino" />
-							<doublebox value="@bind(vmg.value2)"
-								constraint="no empty"
-								onChange="@global-command('dataChanged', category='VB', num=vmg.value2)" />
-						</row>
-
-
-					</rows>
-				</grid>
+				Eliga el Tipo de Archivo :
+				<listbox id="format" mold="select"
+					model="@load(vm.reportTypesModel)"
+					selectedItem="@bind(vm.reportType)">
+					<template name="model">
+						<listitem value="@load(each)"
+							label="@load(each.label)">
+						</listitem>
+					</template>
+				</listbox>
 			</div>
-			<listbox id="lbxSancionados" height="70%"
-				model="@bind(vm.lista)">
-				<listhead>
-					<listheader label="Cédula" align="center"
-						sort="auto(Cantidad)" />
-					<listheader label="Nombre" align="center"
-						sort="auto(Sexo)" />
-				</listhead>
-				<template name="model">
-					<listitem>
-						<listcell label="${each.cantidad}" />
-						<listcell label="${each.sexo}" />
-					</listitem>
-				</template>
-			</listbox>
 		</groupbox>
+
+		
+		<listbox id="lbxApelacionesResultado" height="70%"
+			model="@bind(vm.apelacionesPrograma)" visible="false">
+			<listhead>
+				<listheader label="Cantidad" align="center"
+					sort="auto(Cantidad)" />
+				<listheader label="Motivo" align="center"
+					sort="auto(Motivo)" />
+				<listheader label="Resultado" align="center"
+					sort="auto(Resultado)" />
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell label="${each.cantidad}" />
+					<listcell label="${each.motivo}" />
+					<listcell label="${each.resultado}" />
+				</listitem>
+			</template>
+		</listbox>
+
+
+
+		<jasperreport id="report" height="620px"
+			src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesMotivo')"
+			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteApelacionesMotivo')"
+			type="@load(vm.reportConfig.type.value, after='GenerarReporteApelacionesMotivo')"
+			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteApelacionesMotivo')" />
+
 
 		<div align="right" height="100%">
 			<button id="btnImprimir" width="auto" height="auto"
 				label="Imprimir" image="/imagenes/iconos/guardar.png"
-				orient="vertical">
+				orient="vertical"
+				onClick="@command('GenerarReporteApelacionesMotivo')">
+
 			</button>
 			<button id="btnCancelar" width="auto" height="auto"
 				label="Cancelar" image="/imagenes/iconos/cancelar.png"
-				orient="vertical">
+				orient="vertical" onClick="@command('buscarApelacionesR')">
 			</button>
-			<button id="btnSalir" width="auto" height="auto"
-				label="Salir" image="/imagenes/iconos/salir.png"
+			<button id="btnCerrar" width="auto" height="auto"
+				label="Cerrar" image="/imagenes/iconos/cerrar.png"
 				orient="vertical">
 			</button>
 		</div>
