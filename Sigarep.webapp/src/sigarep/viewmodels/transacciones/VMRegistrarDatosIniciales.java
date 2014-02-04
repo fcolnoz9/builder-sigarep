@@ -476,7 +476,10 @@ public class VMRegistrarDatosIniciales {
 
 		Date fecha = new Date();
 		Time hora = new Time(0);
-
+		if (observacion == null ) {
+			Messagebox.show("Debe emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+		}
+		else {
 		solicitudApelacionPK.setCedulaEstudiante(cedula);
 		solicitudApelacionPK.setCodigoLapso(lapso);
 		solicitudApelacion.setFechaSolicitud(fecha);
@@ -530,7 +533,7 @@ public class VMRegistrarDatosIniciales {
 			motivos.setDescripcion(descripcion);
 			serviciomotivo.guardarMotivo(motivos);
 		}
-
+		
 		try {
 			mensajesusuario.informacionRegistroCorrecto();
 			winRegistrarDatosInicialesApelacion.detach();
@@ -538,7 +541,7 @@ public class VMRegistrarDatosIniciales {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	}
 	@Command
 	@NotifyChange({ "listaMotivo", "listaMotivoListBox", "motivoseleccionado",
 			"descripcion" })
