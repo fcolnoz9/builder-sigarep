@@ -5,7 +5,15 @@
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDetalleHistorialEstudiante')">
-		<groupbox id = "grbListaSancionados" width="auto">
+		<tabbox id="tbDetalleHistorialEstudiante" >
+    <tabs id="tabs">
+        <tab id="ComisionSustanciadora" label="Comisión Sustanciadora" />
+        <tab id="ConsejoDecanato" label="Consejo de Decanato" />
+        <tab id="ConsejoUniversitario" label="Consejo Universitario" />
+    </tabs>
+    <tabpanels>
+        <tabpanel>
+             <groupbox id = "grbListaSancionadosCominsionSustanciadora" width="auto">
 		<grid>
 			<rows>
 				<row valign="top">
@@ -13,7 +21,7 @@
 						     mold="paging"  model = "@bind(vm.apelacionestudiante)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Comisión Sustanciadora" align="center" >
+							<listheader label="Comisión Sustanciadora"  >
 							</listheader>
 						</listhead>
 						<template name="model">
@@ -41,11 +49,22 @@
 							</listitem>
 						</template>
 					</listbox>
-					<listbox id="lbxConsejoDecanato" height="100%"
+        </row>
+        </rows>
+        </grid>
+        </groupbox>
+       </tabpanel>
+
+        <tabpanel>
+               <groupbox id = "grbListaSancionadosConsejoDecanato" width="auto">
+		<grid>
+			<rows>
+				<row valign="top">
+				<listbox id="lbxConsejoDecanato" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia2)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Consejo de Decanato" align="center" >
+							<listheader label="Consejo de Decanato">
 							</listheader>
 						</listhead>
 						<template name="model">
@@ -73,11 +92,22 @@
 							</listitem>
 						</template>
 					</listbox>
-					<listbox id="lbxConsejoUniversitario" height="100%"
+				 </row>
+				</rows>
+        </grid>
+        </groupbox>
+        </tabpanel>
+        
+        <tabpanel>
+         <groupbox id = "grbListaSancionadosConsejoUniversitario" width="auto">
+		<grid>
+			<rows>
+				<row valign="top">
+        		<listbox id="lbxConsejoUniversitario" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia3)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Consejo Universitario" align="center" >
+							<listheader label="Consejo Universitario">
 							</listheader>
 						</listhead>
 						<template name="model">
@@ -105,10 +135,24 @@
 							</listitem>
 						</template>
 					</listbox>
-				</row>
-			</rows>
-		</grid>
-		</groupbox> 
-		<space />
+        		 </row>
+				</rows>
+        </grid>
+        </groupbox>
+        
+        
+       </tabpanel>
+    </tabpanels>
+</tabbox>
+			<separator/>
+				<div align="right" height="100%">
+			
+			<button label="Cerrar" mold="trendy" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal"  onClick="winDetalleHistorialEstudiante.onClose()">
+			</button>
+			
+		</div>
+
 </window>
 </zk>

@@ -21,12 +21,12 @@
 							<column align="left" width="auto" />
 						</columns>
 						<rows>
-							<row></row>
+							
 							<row>
 								<label value="Cédula: "
 									id="lblCedulaEstudiante" />
 								<textbox id="txtCedulaEstudiante"
-									cols="23" width="200px" maxlength="30" readonly="true"
+									cols="23" mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.cedula)">
 								</textbox>
 							</row>
@@ -34,26 +34,26 @@
 								<label value="Nombres: "
 									id="lblNombresEstudiante" />
 								<textbox id="txtNombresEstudiante"
-									cols="23" width="200px" maxlength="30" readonly="true"
+									cols="23" mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.nombres)">
 								</textbox>
 								<label value="Apellidos: "
 									id="lblApellidosEstudiante" />
 								<textbox id="txtApellidosEstudiante"
-									cols="23" width="200px" maxlength="30" readonly="true"
+									cols="23" mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.apellidos)">
 								</textbox>
 							</row>
 							<row>
 								<label value="Sexo: " id="lblSexo" />
 								<textbox id="txtSexo" cols="23"
-									width="200px" maxlength="30" readonly="true"
+									mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.sexo)">
 								</textbox>
 								<label value="Fecha de Nacimiento: "
 									id="lblFechaNacimiento" />
 								<textbox id="txtFechaNacimiento"
-									cols="23" width="200px" maxlength="30" readonly="true"
+									cols="23" mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.fechaNacimiento)">
 								</textbox>
 							</row>
@@ -61,12 +61,12 @@
 								<label value="Teléfono: "
 									id="lblTelefono" />
 								<textbox id="txtTelefono" cols="23"
-									width="200px" maxlength="30" readonly="true"
+									mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.telefono)">
 								</textbox>
 								<label value="Email: " id="lblEmail" />
 								<textbox id="txtEmail" cols="23"
-									width="200px" maxlength="30" readonly="true"
+									mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.email)">
 								</textbox>
 							</row>
@@ -86,13 +86,13 @@
 								<label value="Programa:"
 									id="lblProgramaAcademico" />
 								<textbox id="txtProgramaAcademico"
-									cols="23" width="200px" maxlength="30" readonly="true"
+									cols="23"  mold="rounded" width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.programa)">
 								</textbox>
 								<label value="Año de Ingreso: "
 									id="lblAñoIngreso" />
-								<textbox id="txtAñoIngreso" cols="23"
-									width="200px" maxlength="30" readonly="true"
+								<textbox id="txtAñoIngreso" cols="23" mold="rounded"
+									width="80%" maxlength="30" readonly="true"
 									value="@bind(vm.anioIngreso)">
 								</textbox>
 							</row>
