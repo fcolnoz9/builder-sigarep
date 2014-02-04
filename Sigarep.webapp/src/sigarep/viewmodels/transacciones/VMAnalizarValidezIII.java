@@ -1,5 +1,10 @@
 package sigarep.viewmodels.transacciones;
-
+/**VM Analizar validezIII
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -87,21 +92,23 @@ public class VMAnalizarValidezIII {
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@Wire
 	private Datebox dtbAnnoIngreso;
-
+	private TipoMotivo tipoMotivo;
+	private SolicitudApelacion sancionadoSeleccionado;
+	private String telefono;
 	private List<LapsoAcademico> listaLapso;
 	private List<SancionMaestro> listaSancion;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-
+	private List<Recaudo> listaRecaudosPorMotivo;
+	private List<RecaudoEntregado> listaRecaudo;
+	
+	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
-	private SolicitudApelacion sancionadoSeleccionado;
 	mensajes msjs = new mensajes();
-	private TipoMotivo tipoMotivo;
-	private List<Recaudo> listaRecaudosPorMotivo;
-	private String telefono;
-	private List<RecaudoEntregado> listaRecaudo;
+
+	
+	
 
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
@@ -289,22 +296,9 @@ public class VMAnalizarValidezIII {
 	public void setObservacionexperto(String observacionexperto) {
 		this.observacionexperto = observacionexperto;
 	}
-
-	@Command
-	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
-	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo) {
-		listaRecaudosPorMotivo = serviciorecaudo
-				.listadoRecaudosPorMotivo(tipoMotivo);
-	}
-
-	@Command
-	@NotifyChange({ "listaRecaudo" })
-	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosAnalizarValidezI(cedula);
-		System.out.println(listaRecaudosPorMotivo);
-	}
-
+	//Fin de los metodos setters y getters
+	
+	//Metodo que inicializa el codigo del VM
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1) {
@@ -347,6 +341,35 @@ public class VMAnalizarValidezIII {
 
 	}
 
+	/** buscarRecaudosPorTipoMotivo
+	 * @param tipoMotivo 
+	 * @return Lista de recaudos y motivos por estudiante
+	 */
+	@Command
+	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
+	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo) {
+		listaRecaudosPorMotivo = serviciorecaudo
+				.listadoRecaudosPorMotivo(tipoMotivo);
+	}
+	
+	/** buscarRecaudosEntregados
+	 * @param cedula 
+	 * @return Lista de recaudos 
+	 */
+	@Command
+	@NotifyChange({ "listaRecaudo" })
+	public void buscarRecaudosEntregados(String cedula) {
+		listaRecaudo = serviciorecaudoentregado
+				.buscarRecaudosEntregadosAnalizarValidezIII(cedula);
+		System.out.println(listaRecaudosPorMotivo);
+	}
+	
+
+
+	/** actualizarRecaudosEntregados
+	 * @return No devuelve ningun valor.
+	 * @throws  
+	 */	
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado",
 			"lapso", "observacionExperto", "observacion" })
@@ -446,15 +469,17 @@ public class VMAnalizarValidezIII {
 			}
 		}
 	}
-
+	
+	/** Limpiar
+	 * @return No devuelve ningun valor.
+	 * @throws  
+	 */		
 	@Command
-	@NotifyChange({ "listaRecaudo", "observacion", "selected",
+	@NotifyChange({"observacion", "selected",
 			"observacionexperto" })
 	public void limpiar() {
 		observacion = "";
 		selected = "";
-		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregados(cedula);
 	}
 
 }

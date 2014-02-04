@@ -28,6 +28,8 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Groupbox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
@@ -36,6 +38,7 @@ import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.mensajes;
+import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
@@ -359,7 +362,7 @@ public class VMAnalizarValidezII {
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosAnalizarValidezI(cedula);
+				.buscarRecaudosEntregadosAnalizarValidezII(cedula);
 		System.out.println("CEDULA"+cedula);
 		System.out.println(listaRecaudosPorMotivo);
 	}
@@ -476,13 +479,11 @@ public class VMAnalizarValidezII {
 	 * @throws  
 	 */		
 	@Command
-	@NotifyChange({ "listaRecaudo", "observacion", "selected",
+	@NotifyChange({"observacion", "selected",
 			"observacionexperto" })
 	public void limpiar() {
 		observacion = "";
 		selected = "";
-		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregados(cedula);
 	}
 	
 	
@@ -490,7 +491,6 @@ public class VMAnalizarValidezII {
 	public void mostrarHistorial (){
   		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("cedula", this.sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getCedulaEstudiante());
-	 	map.put("idInstancia", this.sancionadoSeleccionado.getInstanciaApelada().getIdInstanciaApelada());
  
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos.zul", null, map);
@@ -498,5 +498,6 @@ public class VMAnalizarValidezII {
 		window.doModal();
   	}
 	
-
+	
+	
 }

@@ -62,6 +62,7 @@ public class ServicioRecaudoEntregado {
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVerificarRecaudosIII(String cedula) {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
 	}
+	
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula){
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula);
 	}
@@ -87,12 +88,21 @@ public class ServicioRecaudoEntregado {
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezI(
 			String cedula) {
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVeredictoI(cedula);	
-		
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosAnalizarValidezI(cedula);	
 	}
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoII(
 			String cedula){
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVeredictoII(cedula);
+	}
+
+	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezII(
+			String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosAnalizarValidezII(cedula);
+	}
+
+	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezIII(
+			String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosAnalizarValidezIII(cedula);
 	}
 }

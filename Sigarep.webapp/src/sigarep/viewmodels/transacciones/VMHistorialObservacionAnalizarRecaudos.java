@@ -1,6 +1,5 @@
 package sigarep.viewmodels.transacciones;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,16 +10,12 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Window;
 
-import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -29,13 +24,9 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	private List<RecaudoEntregado> listaRecaudo;
-	private List<EstudianteSancionado> listaEstudiantes = new LinkedList<EstudianteSancionado>();
-	private String rutaModal; 
-	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	private SolicitudApelacion sancionadoSeleccionado;
 	private EstudianteSancionado estudianteseleccionado;
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
-	private Integer idInstancia;
 	
 	
 	public List<SolicitudApelacion> getLista() {
@@ -84,11 +75,8 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	@Init
     public void init(
     		@ContextParam(ContextType.VIEW) Component view, 
-    		@ExecutionArgParam("cedula") String cedula,
-			@ExecutionArgParam("idInstancia") Integer idInstancia){
+    		@ExecutionArgParam("cedula") String cedula){
 		this.cedula = cedula;
-		this.idInstancia = idInstancia;
-		System.out.println("CEDULA"+cedula);
 		buscarRecaudosEntregados(cedula); 
     }
 
