@@ -153,7 +153,7 @@
 			</div>
 			<div align="right" height="100%">
 				<button id="btnLimpiar" width="auto" height="auto"
-					label="Limpiar" image="/imagenes/iconos/cancelar.png"
+					label="Limpiar" image="/imagenes/iconos/limpiar.png"
 					mold="trendy" orient="horizontal" onClick="@command('cancelar')" />
 			</div>
 			<div align="right" height="100%">
