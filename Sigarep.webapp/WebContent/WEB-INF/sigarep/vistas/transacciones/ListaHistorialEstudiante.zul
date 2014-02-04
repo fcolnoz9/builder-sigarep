@@ -44,15 +44,15 @@
    			 					 emptyMessage="No hay Apelaciones" >
 							<listhead>
 								<listheader label="Cédula" align="center" sort="auto(cedulaEstudiante)" > 
- 								<textbox id="filtroCedula" instant="true"  width="100px" value="@bind(vm.filtros.cedula)" onChange="@command('filtros')"/>
+ 								<textbox id="filtroCedula" instant="true" mold="rounded"  width="100px" value="@bind(vm.filtros.cedula)" onChange="@command('filtros')"/>
  								 <image src= "imagenes/iconos/buscar.png" />
 								</listheader>
 								<listheader label="Nombre" align="center" sort="auto(primerNombre)">
- 								<textbox id="filtroNombre" instant="true"  width="100px" value="@bind(vm.filtros.nombre)" onChange="@command('filtros')" />
+ 								<textbox id="filtroNombre" instant="true" mold="rounded"  width="100px" value="@bind(vm.filtros.nombre)" onChange="@command('filtros')" />
  								<image src= "imagenes/iconos/buscar.png" />
 							</listheader>
 								<listheader label="Apellido" align="center" sort="auto(primerApellido)" >
- 								<textbox id="filtroApellido" instant="true"  width="100px" value="@bind(vm.filtros.apellido)" onChange="@command('filtros')" />
+ 								<textbox id="filtroApellido" instant="true" mold="rounded" width="100px" value="@bind(vm.filtros.apellido)" onChange="@command('filtros')" />
  								<image src= "imagenes/iconos/buscar.png" />
 								</listheader>
 							</listhead>
