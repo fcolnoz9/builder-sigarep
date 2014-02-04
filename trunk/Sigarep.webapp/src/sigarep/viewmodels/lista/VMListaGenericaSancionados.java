@@ -214,7 +214,7 @@ public class VMListaGenericaSancionados {
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul"))
-			lista = serviciosolicitudapelacion.buscarSancionadosReconsideracion();
+			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosReconsideracion();
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoI(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul"))
@@ -237,7 +237,6 @@ public class VMListaGenericaSancionados {
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
-		
 }
 	
 	@Command
