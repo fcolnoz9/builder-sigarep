@@ -80,7 +80,13 @@ public class VMDatosSesionVeredicto {
 	
 	@NotifyChange ({"fechaSesion", "tipoSesion", "numeroSesion","titulo"})
 	public void buscarDatosSesion(){
-		List<SolicitudApelacion> solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion();
+		List<SolicitudApelacion> solicitudApelacion;
+		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
+			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(1);
+		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul"))
+			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(2);
+		else solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(3);
+		
 		if (solicitudApelacion.size() > 0){
 			fechaSesion = solicitudApelacion.get(0).getFechaSesion();
 			tipoSesion = solicitudApelacion.get(0).getTipoSesion();

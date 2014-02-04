@@ -30,10 +30,6 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.save(solicitudapelacion);
 	}
 	
-	public List<SolicitudApelacion> buscarSancionadosReconsideracion (){
-		return iSolicitudApelacionDAO.buscarSancionadosReconsideracion();
-	}
-	
 	public List<SolicitudApelacion> buscarSancionadosReconsideracionVerificar (){
 		return iSolicitudApelacionDAO.buscarSancionadosReconsideracionVerificar();
 	}
@@ -104,28 +100,6 @@ public class ServicioSolicitudApelacion {
 	    }
 	    return listaElementosAInsertar;
 	}
-	
-	public List<SolicitudApelacion> filtrarApelacionesReconsideracion(
-			String programa, String cedula, String nombre,
-			String apellido, String sancion){
-		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
-        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
-        	result= buscarSancionadosReconsideracion();
-        }
-        else{
-			for (SolicitudApelacion sa : buscarSancionadosReconsideracion())
-			{
-				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
-						sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
-					result.add(sa);
-				}
-			}
-        }
-		return result;
-	} 
 	
 	public List<SolicitudApelacion> buscarApelacionesVeredictoI() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoI();
@@ -216,9 +190,6 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 	
-	
-
-
 	public List<SolicitudApelacion> filtrarApelacionesVeredictoIII(String cedula,
 			String nombre, String apellido, String programa, String sancion) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
@@ -239,7 +210,6 @@ public class ServicioSolicitudApelacion {
         }
 		return result;
 	}
-	
 	
 		//Flory Amanda
 		public List<SolicitudApelacion> buscarAnalizarValidezII(){
@@ -294,15 +264,11 @@ public class ServicioSolicitudApelacion {
 			return result;
 		}
 
-		public List<SolicitudApelacion> buscarSolicitudParaDatosSesion() {
-			return iSolicitudApelacionDAO.buscarSolicitudParaDatosSesion();
+		public List<SolicitudApelacion> buscarSolicitudParaDatosSesion(Integer instancia) {
+			return iSolicitudApelacionDAO.buscarSolicitudParaDatosSesion(instancia);
 		}
 
 		public List<SolicitudApelacion> buscarSolicitudEstudiante(String cedulaEstudiante){
 			return iSolicitudApelacionDAO.buscarSolicitudEstudiante(cedulaEstudiante);
 		}
-
-
-	
-
 }
