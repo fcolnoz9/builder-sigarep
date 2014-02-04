@@ -447,7 +447,7 @@ public class VMAnalizarValidezIII {
 			ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-			apelacionEstadoApelacionPK.setIdEstadoApelacion(7);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(11);
 			apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(new Date());

@@ -363,10 +363,10 @@ public class VMAnalizarValidezI {
 		}
 		else {
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
-			if (getSelected().equals("Procedente"))
-				apelacionEstadoApelacion.setSugerencia("Procedente");
+			if (getSelected().equals("PROCEDENTE"))
+				apelacionEstadoApelacion.setSugerencia("PROCEDENTE");
 			else
-				apelacionEstadoApelacion.setSugerencia("No procedente");
+				apelacionEstadoApelacion.setSugerencia("NO PROCEDENTE");
 			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);

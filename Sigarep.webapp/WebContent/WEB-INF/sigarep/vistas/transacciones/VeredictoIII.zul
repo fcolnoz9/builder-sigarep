@@ -119,7 +119,7 @@
 			<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 				 orient="horizontal" onClick="@command('registrarVeredicto',window=winVeredictoIII)">
 			</button>
-			<button label="Limpiar" id="btnCancelar"
+			<button label="Limpiar" id="btnCancelar" mold="trendy"
 				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 				orient="horizontal" 	onClick="@command('limpiar')">
 			</button>
