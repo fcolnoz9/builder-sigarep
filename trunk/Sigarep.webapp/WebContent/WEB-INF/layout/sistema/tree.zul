@@ -432,11 +432,49 @@
 							<treecell label="Informes" />
 						</treerow>
 						<treechildren>
-							<treeitem>
+						
+						     <treeitem>
+								<treerow>
+									<treecell
+										label="Especiales"
+										id="" sclass="reportes/estadisticos"
+										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
+								</treerow>
+								<treechildren>
+										<treeitem>
 								<treerow>
 									<treecell
 										label="Informe al Consejo Universitario"
 										id="GenerarInformeAlCU" sclass="reportes"
+										onClick="createWin(GenerarInformeAlCU.getId(), GenerarInformeAlCU.getSclass())" />
+								</treerow>
+							</treeitem>
+							<treeitem>
+								<treerow>
+									<treecell
+										label="Informe al Consejo de Decanato" id="" sclass="reportes"
+										onClick="createWin(.getId(), .getSclass())" />
+								</treerow>
+							</treeitem>
+								   
+								</treechildren>
+						</treeitem>
+						
+						 <treeitem>
+								<treerow>
+									<treecell
+										label="Estructurados"
+										id="" sclass="reportes/estadisticos"
+										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
+								</treerow>
+						<treechildren>
+						
+						
+							<treeitem>
+								<treerow>
+									<treecell
+										label="Informe al Consejo Universitario"
+										id="GenerarInformeAlC" sclass="reportes"
 										onClick="createWin(GenerarInformeAlCU.getId(), GenerarInformeAlCU.getSclass())" />
 								</treerow>
 							</treeitem>
@@ -462,6 +500,11 @@
 										sclass="reportes" onClick="createWin(InformeEstudiantes.getId(), InformeEstudiantes.getSclass())" />
 								</treerow>
 							</treeitem>
+							
+							
+							
+					    </treechildren>
+						</treeitem>		
 						</treechildren>
 					</treeitem>
 				</treechildren>
