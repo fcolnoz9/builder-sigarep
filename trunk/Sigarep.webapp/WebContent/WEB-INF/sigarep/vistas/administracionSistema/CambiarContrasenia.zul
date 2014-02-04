@@ -9,15 +9,9 @@
 <!-- 			<center> -->
 				<grid>
 			  <rows>
-				<row>
-					<label value="Nombre de Usuario: " id="lblNombreUsuario" width="40%" />
+				<row visible="false">
 					<textbox id="txtNombreUsuario" cols="23"
 						width="200px" maxlength="30" value="@bind(vm.nombreUsuario)">
-					</textbox>
-					<label value="Contraseña Actual: "
-						id="lblContraseniaActual" />
-					<textbox id="txtContraseniaActual" cols="23" type="password"
-						width="200px" maxlength="30" value="@bind(vm.clave)">
 					</textbox>
 				</row>
 				<row>
@@ -37,15 +31,15 @@
 <!-- 			<south height="48px"> -->
 				<div align="right" height="100%"
 					style="background:#c5e6ef">
-					<button label="Guardar" id="btnGuardar" 
+					<button label="Guardar" id="btnGuardar" mold="trendy"
 					image="imagenes/iconos/guardar.png" width="auto" height="auto"
 					orient="horizontal" onClick="@command('cambiarContrasenia')">
 					</button>
-					<button label="Cancelar" id="btnCancelar"
-						image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
-						orient="horizontal" onClick="@command('cancelarCambiarContrasenia')">
+					<button label="Limpiar" id="btnCancelar" mold="trendy"
+						image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+						orient="horizontal" 	onClick="@command('cancelarCambiarContrasenia')">
 					</button>
-					<button label="Cerrar" id="btnCerrar"
+					<button label="Cerrar" id="btnCerrar" mold="trendy"
 						image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 						orient="horizontal" onClick="winCambiarContrasenia.onClose()">
 					</button>

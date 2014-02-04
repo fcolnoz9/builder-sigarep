@@ -51,30 +51,17 @@ public class ServicioUsuario {
 		return resultado;
 	}
 	
-	public boolean cambiarContrasena(String nombreUsuario, String contrasenaAnterior,
-		String nuevaContrasena, String repetirContrasena) {
+	public boolean cambiarContrasena(String nombreUsuario,String nuevaContrasena, String repetirContrasena) {
 		Usuario usuario = encontrarUsuario(nombreUsuario);
-		if(usuario==null){
-			Messagebox.show("No existe el nombre de usuario que ha ingresado","Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);	}
-		else
-		{
-		    if (usuario.getClave().equals(contrasenaAnterior)) {
-				if (nuevaContrasena != null && nuevaContrasena.trim().length() > 0) {
-					if (nuevaContrasena.equals(repetirContrasena)) {
+		if (nuevaContrasena != null && nuevaContrasena.trim().length() > 0) {
+				if (nuevaContrasena.equals(repetirContrasena)) {
 						usuario.setClave(nuevaContrasena);
 						guardarUsuario(usuario);
 						return true;
-					} else {
-						Messagebox.show("La nueva contraseña y la contraseña de confirmación no coinciden",
-							"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-					}
-				} else {
-					Messagebox.show("La nueva contraseña no puede estar vacia", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-				}
-			} else {
-				Messagebox.show("La contraseña anterior no coincide con la de el usuario", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);			
-			}
-		}
+				} else Messagebox.show("La nueva contraseña y la contraseña de confirmación no coinciden","Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+		} else {
+				Messagebox.show("La nueva contraseña no puede estar vacia", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+		}			
 		return false;
 	}
 }

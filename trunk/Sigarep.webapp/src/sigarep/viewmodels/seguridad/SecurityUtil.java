@@ -16,6 +16,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.ModelMap;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.Window;
 
 import sigarep.modelos.data.seguridad.Usuario;
 
@@ -30,21 +32,30 @@ public class SecurityUtil {
          * Return the current Authentication object.
          */
 	
-	private User usuario;
+	private static User usuario;
 	
-        public static Usuario getUser() {
-                final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                if (auth != null) {
-                	try{
-                        Object p = auth.getPrincipal();
-                        if(p instanceof Usuario) return (Usuario) p; 
-                	}catch(RuntimeException e){
-                        e.printStackTrace();
-                        throw e;
-                	}
-                }
-                return null;
-        }
+	public static Usuario getUser() {
+		try {
+			Authentication auth = SecurityContextHolder.getContext()
+					.getAuthentication();
+			if (auth != null) {
+				try {
+					Object p = auth.getPrincipal();
+					if (p instanceof Usuario)
+						return (Usuario) p;
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+					throw e;
+				}
+			}
+			return null;
+		} catch (RuntimeException e) {
+			Window window = (Window)Executions.createComponents(
+					"/accesoDenegado.zul", null, null);
+			window.doModal();
+			throw e;
+		}
+	}
         /**
          * Return true if the authenticated principal is granted NONE of the roles 
          * specified in authorities.
@@ -78,10 +89,7 @@ public class SecurityUtil {
         	usuario = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			return usuario;
 		}
-		public void setUsuario(User usuario) {
-			this.usuario = usuario;
-		}
-		
+        
 		public static boolean isAllGranted(String authorities) {
                 if (null == authorities || "".equals(authorities)) {
                         return false;
