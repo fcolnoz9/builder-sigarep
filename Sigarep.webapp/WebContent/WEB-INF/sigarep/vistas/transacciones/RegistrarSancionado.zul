@@ -246,8 +246,8 @@
 			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 			orient="horizontal"
 			onClick="@command('eliminarEstudianteSancionado')" />
-		<button label="Cancelar" mold="trendy" id="btnCancelar"
-			image="/imagenes/iconos/cancelar.png" width="auto" height="auto"
+		<button label="Limpiar" mold="trendy" id="btnCancelar"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 			orient="horizontal" onClick="@command('limpiar')" />
 		<button label="Cerrar" mold="trendy" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
