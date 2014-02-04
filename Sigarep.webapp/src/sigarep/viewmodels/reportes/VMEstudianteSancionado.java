@@ -1,6 +1,18 @@
 package sigarep.viewmodels.reportes;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import javax.mail.Session;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -8,14 +20,16 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Messagebox;
 
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.reportes.EstudianteSancionado;
+import sigarep.modelos.data.reportes.ReportConfig;
+import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -29,7 +43,7 @@ import sigarep.modelos.servicio.reportes.ServicioReporteEstudianteSancionado;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudianteSancionado {
-	 
+	String ruta= "/WEB-INF/sigarepReportes/RpEstudiantesSancionadosConfigurable.jasper";
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -72,6 +86,10 @@ public class VMEstudianteSancionado {
 	private String parametroMotivo;
 	private String parametroProgramaAcademico;
 	private String parametroSexo;
+	//REPORTE
+	ReportType reportType = null;
+	ReportConfig reportConfig = null;
+	//***********************
 	private ListModelList<String> cmbSexo;//Lista para llenar el combo de sexo
 	// SETS Y GETS
 	public SancionMaestro getObjSancion() {
@@ -221,6 +239,22 @@ public class VMEstudianteSancionado {
 	public void setObjsexo(String objsexo) {
 		this.objsexo = objsexo;
 	}
+	//Reporte SET/GETS
+	public ReportType getReportType() {
+		return reportType;
+	}
+	public void setReportType(ReportType reportType) {
+		this.reportType = reportType;
+	}
+	public ReportConfig getReportConfig() {
+		return reportConfig;
+	}
+	public void setReportConfig(ReportConfig reportConfig) {
+		this.reportConfig = reportConfig;
+	}
+	public ListModelList<ReportType> getReportTypesModel() {
+		return reportTypesModel;
+	}
 	//FINAL SETS GETS
 	@Init
 	public void init() {
@@ -232,6 +266,15 @@ public class VMEstudianteSancionado {
 		listadoInstancia();
 		cmbSexo = new ListModelList<String>();
 	}
+	//REPORTE
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+  			Arrays.asList(
+  					new ReportType("PDF", "pdf"),  
+  					new ReportType("Word (RTF)", "rtf"), 
+  					new ReportType("Excel", "xls"), 
+  					new ReportType("Excel (JXL)", "jxl"), 
+  					new ReportType("CSV", "csv"), 
+  					new ReportType("OpenOffice (ODT)", "odt")));
 	// Metodo que busca un motivo partiendo por su titulo
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
@@ -306,7 +349,7 @@ public class VMEstudianteSancionado {
 	@NotifyChange({ "listaE" })
 	public void buscarEstudianteSancionado() {
 		if(objinstanciaApelada==null|| objLapso==null || objprograma==null || objSancion.getDescripcion()==null || objsexo==null || objtipoMotivo==null){
-	        Clients.showNotification("Hola que hace");
+			Messagebox.show("Debe Seleccionar Todos los Campos", "Informacion", Messagebox.OK, Messagebox.INFORMATION);;
 		}
 		else{
 			configurarParametro1();
@@ -397,4 +440,19 @@ public class VMEstudianteSancionado {
 		}
 		return parametroSexo;
 	}
+	
+	
+	@Command("GenerarReporteEstudiantesSancionadosConfigurable")
+	@NotifyChange({"reportConfig"})
+	public void GenerarReporteEstudiantesSancionadosConfigurable(){	
+			if(listaE.size()>0){
+				reportConfig =new ReportConfig(ruta);
+				reportConfig.setType(reportType);
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
+			}
+			else{
+				Messagebox.show("No Hay Coincidencias para Mostrar", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+			}
+	}
+			
 }
