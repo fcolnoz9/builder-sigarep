@@ -42,27 +42,19 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI();
 	
     //Yelitza Camejo
-	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
-			"EstudianteSancionado esa, ApelacionEstadoApelacion ap " +
-			"where la.estatus = 'TRUE' and " +
-			"sap.id.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			"ap.id.idInstanciaApelada  = '3' " +
-			"and esa.id.cedulaEstudiante = " +
-			"sap.id.cedulaEstudiante and " +
-			"i.idInstanciaApelada = ap.id.idInstanciaApelada and " +
-			" la.codigoLapso = esa.id.codigoLapso and " +
-			"sap.verificado = 'FALSE'")
+	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND sa.id.idInstanciaApelada = '3' " +
+			"AND la.estatus = 'TRUE' " +
+			"AND sa.verificado = 'FALSE'")
 		public List<SolicitudApelacion> buscarSancionadosJerarquicoVerificar();
 
 	//Lilibeth Achji
-	@Query("Select DISTINCT sap FROM SolicitudApelacion AS sap, LapsoAcademico la, InstanciaApelada i, " +
-			"EstudianteSancionado esa " +
-			"where la.estatus = 'TRUE' and " +
-			"sap.id.idInstanciaApelada  = '2' " +
-			"and esa.id.cedulaEstudiante = " +
-			"sap.id.cedulaEstudiante and " +
-			"sap.verificado = 'FALSE'" +
-			"and la.codigoLapso = esa.id.codigoLapso ")
+	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND sa.id.idInstanciaApelada = '2' " +
+			"AND la.estatus = 'TRUE' " +
+			"AND sa.verificado = 'FALSE'")
 		public List<SolicitudApelacion> buscarSancionadosReconsideracionVerificar();
 
 //Marinel, Bely y Jesus
