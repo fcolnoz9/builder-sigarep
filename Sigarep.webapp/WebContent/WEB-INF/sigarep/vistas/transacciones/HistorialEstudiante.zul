@@ -167,5 +167,14 @@
 			</tabpanel>
 			</tabpanels>
 		</tabbox>
+			<separator/>
+				<div align="right" height="100%">
+			
+			<button label="Cerrar" mold="trendy" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal"  onClick="winHistorialEstudiante.onClose()">
+			</button>
+			
+		</div>
 	</window>
 </zk>
