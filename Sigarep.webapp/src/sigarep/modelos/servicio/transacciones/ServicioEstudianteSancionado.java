@@ -125,4 +125,27 @@ public class ServicioEstudianteSancionado {
 	public List<EstudianteSancionado> buscarSancionadosReconsideracion(){
 		return iEstudianteSancionadoDAO.buscarSancionadosReconsideracion();
 	}
+
+	public List<EstudianteSancionado> filtrarApelacionesReconsideracion(
+			String programa, String cedula, String nombre, String apellido,
+			String sancion) {
+		
+		List<EstudianteSancionado> result = new ArrayList<EstudianteSancionado>();
+        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
+        	result= buscarSancionadosReconsideracion();
+        }
+        else{
+			for (EstudianteSancionado sa : buscarSancionadosReconsideracion())
+			{
+				if (sa.getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+						sa.getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+						sa.getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
+						sa.getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+						sa.getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
+					result.add(sa);
+				}
+			}
+        }
+		return result;
+	}
 }
