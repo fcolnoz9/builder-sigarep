@@ -52,36 +52,23 @@ public class VMVerificarRecaudosEntregadosIII {
 
 	private LapsoAcademico lapsoAcademico;
 	private String labelAsignaturaLapsosConsecutivos;
-
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos="";
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private String programa;
-
 	private String cedula;
-
+	private String observacion;
 	private String nombres;
-
 	private String apellidos;
-
 	private String asignatura;
-
 	private String sancion;
-
 	private String lapso;
-
 	private Integer semestreSancion;
-
 	private String selected = "";
-
 	private Integer caso;
-
 	private String fechaApelacion;
-
 	private List<RecaudoEntregado> listaRecaudosEntregados = new LinkedList<RecaudoEntregado>();
-
 	private List<Recaudo> listaRecaudos = new LinkedList<Recaudo>();
-	
 	private List<Recaudo> listaRecaudosPorEntregar = new LinkedList<Recaudo>();
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
@@ -101,7 +88,6 @@ public class VMVerificarRecaudosEntregadosIII {
 	private Datebox dtbFechaNacimiento;
 	@Wire
 	private Datebox dtbAnnoIngreso;
-
 	private List<LapsoAcademico> listaLapso;
 	private List<SancionMaestro> listaSancion;
 
@@ -144,13 +130,21 @@ public class VMVerificarRecaudosEntregadosIII {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
-
+	
 	public String getNombres() {
 		return nombres;
 	}
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	public String getApellidos() {
@@ -382,15 +376,15 @@ public class VMVerificarRecaudosEntregadosIII {
 	public void buscarRecaudos() {
 		listaRecaudosEntregados = serviciorecaudoentregado.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
 	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosIII(cedula);
-	    System.out.println("TAMANO: " + listaRecaudosPorEntregar.size());
-	    for (int i = 0; i < listaRecaudosPorEntregar.size(); i++) {
-			System.out.println(listaRecaudosPorEntregar.get(i).getNombreRecaudo());
+	    System.out.println("TAMANO: " + listaRecaudosEntregados.size());
+	    for (int i = 0; i < listaRecaudosEntregados.size(); i++) {
+			System.out.println(listaRecaudosEntregados.get(i).getRecaudo().getNombreRecaudo());
 		}
 }
 	
 
 	@Command
-	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso"})
+	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacion"})
 	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudosIII) {
 		if (recaudos.size() == 0) {
 			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
@@ -443,6 +437,7 @@ public class VMVerificarRecaudosEntregadosIII {
 				solicitudApelacionAux.setNumeroSesion(solicitudApelacion.getNumeroSesion());
 				solicitudApelacionAux.setVeredicto(solicitudApelacion.getVeredicto());
 				solicitudApelacionAux.setObservacion(solicitudApelacion.getObservacion());
+				solicitudApelacionAux.setObservacion(observacion);
 				solicitudApelacionAux.setVerificado(true);
 				solicitudApelacionAux.setAnalizado(false);
 				ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
@@ -450,7 +445,7 @@ public class VMVerificarRecaudosEntregadosIII {
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 				apelacionEstadoApelacionPK.setIdEstadoApelacion(10);
 				apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
-				
+				apelacionEstadoApelacion.setObservacion(observacion);
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
 				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
@@ -467,11 +462,12 @@ public class VMVerificarRecaudosEntregadosIII {
 		}
 	}
 	@Command
-	@NotifyChange({"listaRecaudosPorEntregar", "listaRecaudosEntregados","selected" })
+	@NotifyChange({"listaRecaudosPorEntregar","observacion","listaRecaudosEntregados","selected" })
 	public void limpiar() {
+		observacion = "";
 		selected = "";
-		listaRecaudosEntregados = serviciorecaudoentregado.buscarRecaudosEntregadosVerificarRecaudosII(cedula);
-	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosII(cedula);
+		listaRecaudosEntregados = serviciorecaudoentregado.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
+	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosIII(cedula);
 		buscarRecaudos();
 	}
 

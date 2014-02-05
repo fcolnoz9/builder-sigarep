@@ -59,6 +59,8 @@ public class VMVerificarRecaudosEntregadosII {
 	private String programa;
 
 	private String cedula;
+	
+	private String observacion;
 
 	private String nombres;
 
@@ -128,6 +130,14 @@ public class VMVerificarRecaudosEntregadosII {
 		this.cedula = cedula;
 	}
 
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+	
 	public String getNombres() {
 		return nombres;
 	}
@@ -375,7 +385,7 @@ public String getAsignaturaLapsosConsecutivos() {
 
 	
 	@Command
-	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso"})
+	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacion"})
 	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudosII) {
 		if (recaudos.size() == 0) {
 			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
@@ -435,7 +445,7 @@ public String getAsignaturaLapsosConsecutivos() {
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
 				apelacionEstadoApelacionPK.setIdEstadoApelacion(6);
 				apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
-				
+				apelacionEstadoApelacion.setObservacion(observacion);
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
 				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
