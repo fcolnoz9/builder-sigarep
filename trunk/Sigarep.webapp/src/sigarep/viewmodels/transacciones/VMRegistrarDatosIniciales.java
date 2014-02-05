@@ -118,9 +118,19 @@ public class VMRegistrarDatosIniciales {
 	private Integer idTipoMotivo;
 
 	private int caso;
+	private String numeroCaso;
 	private Integer instancia;
 	private Integer idEstado;
 	private Integer idMotivoGeneral;
+
+	
+	public String getNumeroCaso() {
+		return numeroCaso;
+	}
+
+	public void setNumeroCaso(String numeroCaso) {
+		this.numeroCaso = numeroCaso;
+	}
 
 	public int getCaso() {
 		return caso;
@@ -408,6 +418,9 @@ public class VMRegistrarDatosIniciales {
 	@Command
 	public void buscarCaso() {
 		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
+		Integer programa = estudianteSeleccionado.getEstudiante().getProgramaAcademico().getIdPrograma();
+		numeroCaso = lapso+ "."+programa+ "."+sancion+"."+caso;
+		
 	}
 
 	@Init
@@ -436,6 +449,7 @@ public class VMRegistrarDatosIniciales {
 		listamotivo = serviciotipomotivo.buscarTodas();
 		buscarMotivos();
 		buscarCaso();
+		System.out.println("caso:" +numeroCaso);
 	}
 
 	private void mostrarDatosDeSancion() {
@@ -470,14 +484,15 @@ public class VMRegistrarDatosIniciales {
 	 */
 
 	@Command
-	@NotifyChange({ "listaSancionados", "listaTipoMotivoListBox" })
+	@NotifyChange({ "listaSancionados", "listaMotivoListBox" })
 	public void registrarSolicitudApelacion(
 			@BindingParam("window") Window winRegistrarDatosInicialesApelacion) {
 
 		Date fecha = new Date();
-		Time hora = new Time(0);
-		if (observacion == null ) {
-			Messagebox.show("Debe emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+		
+		if (observacion == null || listaMotivoListBox.size() == 0) {
+			Messagebox.show("Debe emitir una observación general del caso o debe agregar un " +
+					"motivo al caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 		else {
 		solicitudApelacionPK.setCedulaEstudiante(cedula);
@@ -507,6 +522,7 @@ public class VMRegistrarDatosIniciales {
 		serviciosolicitudapelacion.guardar(solicitudApelacion);
 		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 		apelacionEstadoApelacion.setFechaEstado(new Date());
+		apelacionEstadoApelacion.setObservacion(observacion);
 		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 
 		motivoPK.setCedulaEstudiante(cedula);
