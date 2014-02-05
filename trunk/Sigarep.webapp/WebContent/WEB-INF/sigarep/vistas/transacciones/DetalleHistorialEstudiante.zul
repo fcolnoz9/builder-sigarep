@@ -13,134 +13,131 @@
     </tabs>
     <tabpanels>
         <tabpanel>
-             <groupbox id = "grbListaSancionadosCominsionSustanciadora" width="auto">
-		<grid>
-			<rows>
-				<row valign="top">
+        
+        <groupbox id = "grbListaSancionadosCominsionSustanciadora" width="auto">
+        <caption label="Estado de la Apelación Ante la Comisión Sustanciadora"/>
+					<space />
 					<listbox id="lbxComision" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudiante)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Comisión Sustanciadora"  >
+							<listheader label="Nombre del estado"
+								align="center">
+							</listheader>
+							<listheader label="Fecha del estado"
+								align="center" >
+							</listheader>
+							<listheader label="Observación"
+								align="center">
+							</listheader>
+							<listheader label="Sugerencia"
+								align="center">
 							</listheader>
 						</listhead>
 						<template name="model">
 							<listitem selected="false">
-								<listcell>
-									<vlayout>
-										<hlayout>
-											<label value="Nombre de estado: "></label>
-											<label value="${each.getEstadoApelacion().getNombreEstado()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Fecha de estado: "></label>
-											<label value="${each.getFechaEstado()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Observación: "></label>
-											<label value="${each.getObservacion()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Sugerencia: "></label>
-											<label value="${each.getSugerencia()}"></label>
-										</hlayout>
-									</vlayout>
+								<listcell
+									label="${each.getEstadoApelacion().getNombreEstado()}">
+								</listcell>
+								<listcell
+									label="${each.getFechaEstado()}">
+								</listcell>
+								<listcell
+									label="${each.getObservacion()}">
+								</listcell>
+								<listcell
+									label="${each.getSugerencia()}">
 								</listcell>
 							</listitem>
 						</template>
 					</listbox>
-        </row>
-        </rows>
-        </grid>
-        </groupbox>
+					<space />
+				</groupbox>
        </tabpanel>
 
         <tabpanel>
-               <groupbox id = "grbListaSancionadosConsejoDecanato" width="auto">
-		<grid>
-			<rows>
-				<row valign="top">
+             <groupbox id = "grbListaSancionadosConsejoDecanato" width="auto">
+              <caption label="Estado de la Apelación Ante el Consejo de Decanato"/>
+					<space />
 				<listbox id="lbxConsejoDecanato" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia2)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Consejo de Decanato">
+							<listheader label="Nombre del estado"
+								align="center">
+							</listheader>
+							<listheader label="Fecha del estado"
+								align="center" >
+							</listheader>
+							<listheader label="Observación"
+								align="center">
+							</listheader>
+							<listheader label="Veredicto"
+								align="center">
 							</listheader>
 						</listhead>
 						<template name="model">
 							<listitem selected="false">
-								<listcell>
-									<vlayout>
-										<hlayout>
-											<label value="Nombre de estado: "></label>
-											<label value="${each.getEstadoApelacion().getNombreEstado()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Fecha de estado: "></label>
-											<label value="${each.getFechaEstado()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Observación: "></label>
-											<label value="${each.getObservacion()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Sugerencia: "></label>
-											<label value="${each.getSugerencia()}"></label>
-										</hlayout>
-									</vlayout>
-									</listcell>
+								<listcell
+									label="${each.getEstadoApelacion().getNombreEstado()}">
+								</listcell>
+								<listcell
+									label="${each.getFechaEstado()}">
+								</listcell>
+								<listcell
+									label="${each.getObservacion()}">
+								</listcell>
+								<listcell
+									label="${each.getSugerencia()}">
+								</listcell>
 							</listitem>
 						</template>
 					</listbox>
-				 </row>
-				</rows>
-        </grid>
-        </groupbox>
+					<space />
+				</groupbox>
         </tabpanel>
         
         <tabpanel>
-         <groupbox id = "grbListaSancionadosConsejoUniversitario" width="auto">
-		<grid>
-			<rows>
-				<row valign="top">
-        		<listbox id="lbxConsejoUniversitario" height="100%"
+        
+        <groupbox  id = "grbListaSancionadosConsejoUniversitario" width="auto">
+         <caption label="Estado de la Apelación Ante el Consejo Universitario"/>
+					<space />
+				<listbox id="lbxConsejoUniversitario" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia3)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Consejo Universitario">
+							<listheader label="Nombre del estado"
+								align="center">
+							</listheader>
+							<listheader label="Fecha del estado"
+								align="center" >
+							</listheader>
+							<listheader label="Observación"
+								align="center">
+							</listheader>
+							<listheader label="Veredicto"
+								align="center">
 							</listheader>
 						</listhead>
 						<template name="model">
 							<listitem selected="false">
-								<listcell>
-									<vlayout>
-										<hlayout>
-											<label value="Nombre de estado: "></label>
-											<label value="${each.getEstadoApelacion().getNombreEstado()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Fecha de estado: "></label>
-											<label value="${each.getFechaEstado()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Observación: "></label>
-											<label value="${each.getObservacion()}"></label>
-										</hlayout>
-										<hlayout>
-											<label value="Sugerencia: "></label>
-											<label value="${each.getSugerencia()}"></label>
-										</hlayout>
-									</vlayout>
-									</listcell>
+								<listcell
+									label="${each.getEstadoApelacion().getNombreEstado()}">
+								</listcell>
+								<listcell
+									label="${each.getFechaEstado()}">
+								</listcell>
+								<listcell
+									label="${each.getObservacion()}">
+								</listcell>
+								<listcell
+									label="${each.getSugerencia()}">
+								</listcell>
 							</listitem>
 						</template>
 					</listbox>
-        		 </row>
-				</rows>
-        </grid>
-        </groupbox>
-        
-        
+					<space />
+				</groupbox>
        </tabpanel>
     </tabpanels>
 </tabbox>
