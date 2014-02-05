@@ -9,7 +9,7 @@
 		<label id="lblNroCaso" value="Nro del Caso:" />
 		<textbox id="txtNroCaso" cols="23" maxlength="30"
 			readonly="true"
- 			value="@bind(vm.caso)" >
+ 			value="@bind(vm.numeroCaso)" >
 		</textbox>
 	</div>
 		<groupbox id="grbDatosestudiante">
