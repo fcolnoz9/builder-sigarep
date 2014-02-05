@@ -478,8 +478,9 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Informe al Consejo de Decanato" id="" sclass="reportes"
-										onClick="createWin(.getId(), .getSclass())" />
+										label="Informe al Consejo de Decanato"
+										id="InformeApelacion" sclass="reportes"
+										onClick="createWin(InformeApelacion.getId(), InformeApelacion.getSclass())" />
 								</treerow>
 							</treeitem>
 					    </treechildren>
@@ -506,14 +507,6 @@
 									<treecell
 										label="Lista de Veredictos por Estudiante" id="" sclass="reportes"
 										onClick="createWin(.getId(), .getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Lista de Apelaciones y Estatus"
-										id="InformeApelacion" sclass="reportes"
-										onClick="createWin(InformeApelacion.getId(), InformeApelacion.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
