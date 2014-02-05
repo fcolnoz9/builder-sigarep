@@ -60,15 +60,15 @@ public class VMListadoEstudiantesVeredicto {
 
 	private List<Sancionados> sancionadosVeredicto = new LinkedList<Sancionados>();
 	private List<Sancionados> sancionadosVeredicto2 = new LinkedList<Sancionados>();
+	private List<Sancionados> sancionadosVeredicto3 = new LinkedList<Sancionados>();
+	private List<Sancionados> sancionadosVeredicto4 = new LinkedList<Sancionados>();
 	
-	private SancionMaestro objSancion;
 
 	private LapsoAcademico objLapso;
 
 	private ProgramaAcademico objPrograma;
 	
 	
-	private String nombre_sancion;
 	private String codigo_lapso;
 	private String programa_academico;
 	
@@ -128,31 +128,18 @@ public class VMListadoEstudiantesVeredicto {
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
-
-	
-
-	
-	
-	@WireVariable
-	private InstanciaApelada instanciaApelada;
-	
-	private List<InstanciaApelada> listaInstanciaApelada; 
-
-	private  @Wire Combobox cmbInstanciaApelada;
-
 	
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
 	// REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
+	private ReportConfig subReportConfig = null;
 
-	String ruta="/WEB-INF/sigarepReportes/RApelacionesMotivoPrograma.jasper";
+	String ruta="/WEB-INF/sigarepReportes/RpInformeDeComisionPorPrograma.jasper";
 	
 	
 	@Init
 	public void init() {
-		buscarInstanciaApelada();
-		buscarTipoSancion();
 		buscarLapso();
 		buscarPrograma();
 		//buscarSancionados();
@@ -169,7 +156,7 @@ public class VMListadoEstudiantesVeredicto {
 		System.out.println(tituloinstancia);
 		System.out.println(tituloprograma);
 		System.out.println(titulosancion);
-		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(/*tituloinstancia, tituloprograma, titulosancion*/);
+		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(1/*tituloinstancia, tituloprograma, titulosancion*/);
 	
 		//if (!selected.equals("")) {
 			//if (getSelected().equals("resultado")) {
@@ -198,21 +185,6 @@ public class VMListadoEstudiantesVeredicto {
 
 		
 		
-		
-	@Command
-	@NotifyChange({ "listaTipoSancion" })
-	public void buscarTipoSancion() {
-		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
-		SancionMaestro sanc = new SancionMaestro(null, null, null, "Todos");
-		listaTipoSancion.add(0, sanc);
-	}
-
-	@Command
-	@NotifyChange({ "listaTipoSancion" })
-	public SancionMaestro objCmbSancion() {
-		return objSancion;
-
-	}
 	
 	@Command
 	@NotifyChange({ "listaPrograma" })
@@ -252,38 +224,6 @@ public class VMListadoEstudiantesVeredicto {
 		return objLapso;
 
 	}
-	
-	@Command
-	@NotifyChange({ "listaInstanciaApelada" })
-	public void buscarInstanciaApelada() {
-		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
-		System.out.println("lista"+listaInstanciaApelada);
-	}
-	
-	public InstanciaApelada getInstanciaApelada() {
-		return instanciaApelada;
-	}
-	public void setInstanciaApelada(InstanciaApelada instanciaapelada) {
-		this.instanciaApelada = instanciaapelada;
-	}
-	
-	
-	//Combo
-		@Command
-		@NotifyChange({"listaInstanciaApelada"})
-		public InstanciaApelada objetoComboEstadoApelacion() {
-			System.out.println(instanciaApelada.getInstanciaApelada());
-			return instanciaApelada;
-		}
-	
-	public List<InstanciaApelada> getListaInstanciaApelada() {
-		return listaInstanciaApelada;
-	}
-	
-	public void setListaInstanciaApelada(List<InstanciaApelada> listaInstanciaApelada) {
-		this.listaInstanciaApelada = listaInstanciaApelada;
-	}
-	
 
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
@@ -347,14 +287,6 @@ public class VMListadoEstudiantesVeredicto {
 		this.sancionadosVeredicto = sancionadosVeredicto;
 	}
 
-	public SancionMaestro getObjSancion() {
-		return objSancion;
-	}
-
-	public void setObjSancion(SancionMaestro objSancion) {
-		this.objSancion = objSancion;
-	}
-
 	public LapsoAcademico getObjLapso() {
 		return objLapso;
 	}
@@ -380,8 +312,12 @@ public class VMListadoEstudiantesVeredicto {
 		sancionadosVeredicto.clear();
 		ProgramaAcademico prog = objPrograma;
 		LapsoAcademico lap = objLapso;
-		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), objPrograma.getNombrePrograma());
-		setSancionadosVeredicto2(servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), "Licenciatura en Matematicas"));
+		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(1/*tituloinstancia, tituloprograma, titulosancion*/);
+		sancionadosVeredicto2 = servicioapelacionespormotivo.buscarSancionadosPrueba(2/*tituloinstancia, tituloprograma, titulosancion*/);
+		sancionadosVeredicto3 = servicioapelacionespormotivo.buscarSancionadosPrueba(3/*tituloinstancia, tituloprograma, titulosancion*/);
+		sancionadosVeredicto4 = servicioapelacionespormotivo.buscarSancionadosPrueba(4/*tituloinstancia, tituloprograma, titulosancion*/);
+		//sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), objPrograma.getNombrePrograma());
+		//setSancionadosVeredicto2(servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), "Licenciatura en Matematicas"));
 		
 		/*nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
 		codigo_lapso = objLapso.getCodigoLapso();
@@ -411,19 +347,34 @@ public class VMListadoEstudiantesVeredicto {
 		 * System.out.println(lapsoAcademicoFinal.getCodigoLapso());
 		 * System.out.println(reportType); System.out.println(listaAsigMayor);
 		 */
-
+		
+		
+		//subReportConfig.setDataSource(new JRBeanCollectionDataSource(sancionadosVeredicto));
+		//$P{SUBREPORT_DIR} + "Lista de Resultado de Apelaciones_subreport2.jasper"
+		
 		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
 		reportConfig.getParameters().put("De", de);
+		//reportConfig.getParameters().put("SUBREPORT_DIR", "/WEB-INF/sigarepReportes/Lista de Resultado de Apelaciones_subreport2.jasper");
 		reportConfig.getParameters().put("Para", para);
 		reportConfig.getParameters().put("Contenido", contenido);
+		reportConfig.getParameters().put("codigoLapso", objLapso.getCodigoLapso());
+		reportConfig.getParameters().put("programa", objPrograma.getNombrePrograma());
+		reportConfig.getParameters().put("procedentes", 15);
+		reportConfig.getParameters().put("denegados", 5);
+		reportConfig.getParameters().put("listaInformatica", (new JRBeanCollectionDataSource(sancionadosVeredicto)));
+		reportConfig.getParameters().put("listaInformatica2", (new JRBeanCollectionDataSource(sancionadosVeredicto2)));
+		reportConfig.getParameters().put("listaInformatica3", (new JRBeanCollectionDataSource(sancionadosVeredicto3)));
+		reportConfig.getParameters().put("listaInformatica4", (new JRBeanCollectionDataSource(sancionadosVeredicto4)));
 		
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 											// IMPRESION DEL REPORTE
-		reportConfig.setDataSource(new JRBeanCollectionDataSource(
-				sancionadosVeredicto)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
+		//reportConfig.setDataSource(new JRBeanCollectionDataSource(sancionadosVeredicto)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
 										// DATOS PARA DIBUJAR EL REPORTE
-		
+		//String subruta = "/WEB-INF/sigarepReportes/Copy of Lista de Resultado de Apelaciones_subreport1.jasper";
+		//"C:\\Users\\Nicolas\\workspace\\Sigarep.webapp\\WebContent\\WEB-INF\\sigarepReportes\\Copy Lista de Resultado de Apelaciones_subreport1.jasper"
+		//subReportConfig = new ReportConfig(subruta);
+		//subReportConfig.setType(reportType);
 //			para ="";
 //			de="";
 //			contenido="";
@@ -431,15 +382,6 @@ public class VMListadoEstudiantesVeredicto {
 	}
 
 	// #####################FIN DEL METODO##########################
-
-
-	public String getNombre_sancion() {
-		return nombre_sancion;
-	}
-
-	public void setNombre_sancion(String nombre_sancion) {
-		this.nombre_sancion = nombre_sancion;
-	}
 
 	public String getCodigo_lapso() {
 		return codigo_lapso;
@@ -463,6 +405,14 @@ public class VMListadoEstudiantesVeredicto {
 
 	public void setSancionadosVeredicto2(List<Sancionados> sancionadosVeredicto2) {
 		this.sancionadosVeredicto2 = sancionadosVeredicto2;
+	}
+
+	public ReportConfig getSubReportConfig() {
+		return subReportConfig;
+	}
+
+	public void setSubReportConfig(ReportConfig subReportConfig) {
+		this.subReportConfig = subReportConfig;
 	}
 
 

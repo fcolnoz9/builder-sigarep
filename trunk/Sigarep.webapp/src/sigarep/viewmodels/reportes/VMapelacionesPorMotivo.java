@@ -305,6 +305,8 @@ public class VMapelacionesPorMotivo {
 		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES - MOTIVO / RESULTADO");
 		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
 		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
+		reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
+				apelacionesPrograma));
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 										// IMPRESION DEL REPORTE
 		
