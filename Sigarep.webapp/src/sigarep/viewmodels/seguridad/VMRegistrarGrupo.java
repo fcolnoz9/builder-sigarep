@@ -1,36 +1,15 @@
 package sigarep.viewmodels.seguridad;
 
-import java.util.HashMap;
-
-
-
-import java.util.List;
-
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.DropEvent;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.DefaultTreeNode;
-import org.zkoss.zul.Hlayout;
-import org.zkoss.zul.Image;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Tree;
 import org.zkoss.zul.TreeNode;
-import org.zkoss.zul.Treecell;
-import org.zkoss.zul.Treeitem;
-import org.zkoss.zul.TreeitemRenderer;
-import org.zkoss.zul.Treerow;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.mensajes;
@@ -38,6 +17,21 @@ import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Nodo;
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioNodo;
+
+/*
+ * @ (#) Grupo.java 
+ *
+ * Copyright 2013 Builder. Todos los derechos reservados.
+ * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
+ */
+/*
+ ** Esta clase es el ViewModel del registro del maestro "Grupo"
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo: Builder-SIGAREP 
+ * @Version 1.0,
+ * @Since  04/02/13
+ */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarGrupo {
 	@Wire
@@ -48,15 +42,6 @@ public class VMRegistrarGrupo {
 	private Tree tree2;
 	private mensajes msjs = new mensajes();
 	private @WireVariable ServicioNodo snodo;
-	
-	public ServicioNodo getsnodo() {
-		return snodo;
-	}
-
-
-	public void setsnodo(ServicioNodo snodo) {
-		this.snodo = snodo;
-	}
 
 	private VMAdvancedTreeModel contactTreeModel;
 	private VMAdvancedTreeModel contactTreeModel2;
@@ -64,7 +49,27 @@ public class VMRegistrarGrupo {
 	private static VMmenuTreeNode  root;
 	private static VMmenuTreeNode  root2;
 	
+	@WireVariable
+	private ServicioGrupo sg;
 
+	
+	private Integer idGrupo; // clave primaria de la tabla Grupo
+	private String nombre; 	// nombre del Grupo
+    private String descripcion; // descripción del Grupo
+    private String estado; 
+	private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
+	
+
+	// Metodos GETS Y SETS
+	
+	public ServicioNodo getsnodo() {
+		return snodo;
+	}
+
+	public void setsnodo(ServicioNodo snodo) {
+		this.snodo = snodo;
+	}
+	
 	public Tree getTree() {
 		return tree;
 	}
@@ -123,17 +128,6 @@ public class VMRegistrarGrupo {
 	public VMmenuTreeNode getRoot() {
 		return root;
 	}
-	
-	@WireVariable
-	private ServicioGrupo sg;
-
-	
-	private Integer idGrupo;
-	private String nombre;
-    private String descripcion;
-    private String estado;
-	private ListModelList<Nodo> modelonodos;
-
 
 	public Integer getIdGrupo() {
 		return idGrupo;
@@ -184,6 +178,10 @@ public class VMRegistrarGrupo {
 		this.modelonodos = modeloNodo;
 	}
 	
+	// Fin de los metodos gets y sets
+	// OTROS METODOS
+	
+	// Metodos que permite guardar el Grupo de usuario
 	@Command
 	@NotifyChange({ "idGrupo", "descripcion", "nombre"})
 	public void guardarGrupo(){
@@ -214,6 +212,7 @@ public class VMRegistrarGrupo {
 		contactTreeModel2 = new VMAdvancedTreeModel(root2);
 	}
 	
+	// Metodo que carga los nodos del menú arbol
 	public void cargarArbol(){
 		VMmenuTreeNode aux=null;
 		root = new VMmenuTreeNode(null,null);
@@ -224,7 +223,7 @@ public class VMRegistrarGrupo {
 		}
 	}
 
-
+	// Metodo que carga los nodos hijos a los nodos padres
 	public void cargarHijos(VMmenuTreeNode m1, Nodo a1) {
 		VMmenuTreeNode m2 = null;
 			for(Nodo a2:snodo.buscarPadre(a1.getId())){
@@ -235,6 +234,7 @@ public class VMRegistrarGrupo {
 			}
 	}
 	
+	// Metodo que carga los hijos del grupo de usuario
 	public void cargarHijosGrupo(TreeNode<Nodo> root, Grupo grupo) {
 		if (root.getChildCount() > 0) {
 			for (TreeNode<Nodo> a2 : root.getChildren()) {
