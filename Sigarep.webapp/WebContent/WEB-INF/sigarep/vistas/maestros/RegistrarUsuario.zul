@@ -197,9 +197,9 @@
 			mold="trendy" width="auto" height="auto"
 			onClick="@command('eliminarUsuario')">
 		</button>
-		<button label="Cancelar" image="/imagenes/iconos/cancelar.png"
-			mold="trendy" width="auto" height="auto"
-			onClick="@command('limpiar')">
+		<button label="Limpiar" id="btnCancelar" mold="trendy"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('limpiar')">
 		</button>
 		<button label="Cerrar" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"

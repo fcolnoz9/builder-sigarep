@@ -125,10 +125,12 @@
 							}								
 					</attribute>
 					</button>
-					<button label="Cancelar" id="btnCancelar" image="/imagenes/iconos/cancelar.png" mold="trendy" width="auto" height="auto" >
-						<attribute name="onClick">
+					<button label="Limpiar" id="btnCancelar" mold="trendy"
+							image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+							orient="horizontal">
+					<attribute name="onClick">
 							cancelar();
-						</attribute>
+					</attribute>
 					</button>
 					<button label="Cerrar" id="btnCerrar"
    							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"

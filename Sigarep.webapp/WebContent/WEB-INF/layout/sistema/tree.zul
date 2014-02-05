@@ -556,26 +556,18 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Crear grupo de usuarios" id="RegistrarGrupo"
+										label="Registrar grupo de usuarios" id="RegistrarGrupo"
 										sclass="maestros"
 										onClick="createWin(RegistrarGrupo.getId(), RegistrarGrupo.getSclass())" />
 								</treerow>
 							</treeitem>
 							<treeitem>
 								<treerow>
-									<treecell label="Crear usuario"
+									<treecell label="Registrar usuario"
 										id="RegistrarUsuario" sclass="maestros"
 										onClick="createWin(RegistrarUsuario.getId(), RegistrarUsuario.getSclass())" />
 								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell label="Asignar Usuario a Grupo"
-										id="RegistrarUsuarioGrupo" sclass="transacciones"
-										onClick="createWin(RegistrarUsuarioGrupo.getId(), RegistrarUsuarioGrupo.getSclass())" />
-								</treerow>
-							</treeitem>
-							
+							</treeitem>					
 						</treechildren>
 					</treeitem>
 				</treechildren>
