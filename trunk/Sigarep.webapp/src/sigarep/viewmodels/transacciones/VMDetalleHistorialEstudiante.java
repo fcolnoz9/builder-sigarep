@@ -1,6 +1,10 @@
 package sigarep.viewmodels.transacciones;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
@@ -31,6 +35,10 @@ public class VMDetalleHistorialEstudiante {
 	private Window window;
 	private String codigoLapso;
 	private String cedula;
+	private String lapso;
+	private String nombreEstudiante;
+	private String nombreSancion;
+	private String apellidoEstudiante;
 	private Integer instancia;
 	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
@@ -101,10 +109,41 @@ public class VMDetalleHistorialEstudiante {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
+	public String getLapso() {
+		return lapso;
+	}
 
-	
+	public void setLapso(String lapso) {
+		this.lapso = lapso;
+	}
+			
  // fin de metodos get y set
 	
+
+	public String getApellidoEstudiante() {
+		return apellidoEstudiante;
+	}
+
+	public void setApellidoEstudiante(String apellidoEstudiante) {
+		this.apellidoEstudiante = apellidoEstudiante;
+	}
+
+	public String getNombreEstudiante() {
+		return nombreEstudiante;
+	}
+
+	public void setNombreEstudiante(String nombreEstudiante) {
+		this.nombreEstudiante = nombreEstudiante;
+	}
+
+	public String getNombreSancion() {
+		return nombreSancion;
+	}
+
+	public void setNombreSancion(String nombreSancion) {
+		this.nombreSancion = nombreSancion;
+	}
+
 	@Command
 	@NotifyChange({ "apelacionestudiante" })
 	public void buscarSolicitud(String cedula, String codigoLapso, Integer instancia) {
@@ -122,6 +161,8 @@ public class VMDetalleHistorialEstudiante {
 	public void buscarSolicitudInstancia3(String cedula, String codigoLapso, Integer instancia) {
 		instancia = 3;
 		apelacionestudianteinstancia3 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
+	
+	
 	}
 	
 	@Init
@@ -142,6 +183,13 @@ public class VMDetalleHistorialEstudiante {
 		buscarSolicitud(cedula, codigoLapso, instancia);
 		buscarSolicitudInstancia2(cedula, codigoLapso, instancia);
 		buscarSolicitudInstancia3(cedula, codigoLapso, instancia);
+		
+		lapso = apelacionestudiante.get(0).getSolicitudApelacion().getId().getCodigoLapso();
+		cedula = apelacionestudiante.get(0).getSolicitudApelacion().getId().getCedulaEstudiante();
+		nombreEstudiante = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getEstudiante().getPrimerNombre();
+		apellidoEstudiante = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getEstudiante().getPrimerApellido();
+		nombreSancion = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
 	}
 
 	@Command

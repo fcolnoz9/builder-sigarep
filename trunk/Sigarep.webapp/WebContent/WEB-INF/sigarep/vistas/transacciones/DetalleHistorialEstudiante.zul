@@ -5,26 +5,71 @@
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDetalleHistorialEstudiante')">
-		<tabbox id="tbDetalleHistorialEstudiante" >
+			<zscript>
+	<![CDATA[
+         import java.text.SimpleDateFormat;
+         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		]]>
+	</zscript>	
+	
+	<groupbox id="grdDatosSesionActual">
+	   <caption label ="Datos Básicos" />
+	   <grid id="grdDatosSesion">
+	   <columns>
+					<column label="" width="20%" id="columna1" />
+					<column label="" width="30%" id="columna2" />
+					<column label="" width="20%" id="columna3" />
+					<column label="" width="30%" id="columna4" />
+	</columns>
+	   
+	   <rows>
+   <row>
+    <label value="Cédula: " id="lblCedula" />
+					<textbox id="txtCedula" cols="23" mold="rounded"
+						width="80%" maxlength="30" readonly="true" value="@bind(vm.cedula)">
+					</textbox>
+					
+	<label value="Nombre: " id="lblNombre" />
+					<textbox id="txtNombre" cols="23" mold="rounded"
+						width="80%" maxlength="30" readonly="true" value="@bind(vm.nombreEstudiante)">
+					</textbox>
+		</row>
+		 <row>
+    <label value="Lapso: " id="lblLapso" />
+					<textbox id="txtLapso" cols="23" mold="rounded"
+						width="80%" maxlength="30" readonly="true" value="@bind(vm.lapso)">
+					</textbox>
+	
+	<label value="Tipo de Sanción: " id="lblNombreSancion" />
+					<textbox id="txtNombreSancion" cols="23" mold="rounded"
+						width="80%" maxlength="30" readonly="true" value="@bind(vm.nombreSancion)">
+					</textbox>
+	 </row>
+		</rows>			
+		</grid>			
+    </groupbox>
+	<separator/>
+	<separator/>
+	
+	<tabbox id="tbDetalleHistorialEstudiante" >		
     <tabs id="tabs">
         <tab id="ComisionSustanciadora" label="Comisión Sustanciadora" />
         <tab id="ConsejoDecanato" label="Consejo de Decanato" />
         <tab id="ConsejoUniversitario" label="Consejo Universitario" />
     </tabs>
     <tabpanels>
-        <tabpanel>
-        
+    <tabpanel>
         <groupbox id = "grbListaSancionadosCominsionSustanciadora" width="auto">
-        <caption label="Estado de la Apelación Ante la Comisión Sustanciadora"/>
-					<space />
+        <caption label="Actividades en la Comisión Sustanciadora"/>
+       
 					<listbox id="lbxComision" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudiante)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Nombre del estado"
+							<listheader label="Actividad"
 								align="center">
 							</listheader>
-							<listheader label="Fecha del estado"
+							<listheader label="Fecha"
 								align="center" >
 							</listheader>
 							<listheader label="Observación"
@@ -40,7 +85,7 @@
 									label="${each.getEstadoApelacion().getNombreEstado()}">
 								</listcell>
 								<listcell
-									label="${each.getFechaEstado()}">
+									label="${sdf.format(each.getFechaEstado())}">
 								</listcell>
 								<listcell
 									label="${each.getObservacion()}">
@@ -57,16 +102,16 @@
 
         <tabpanel>
              <groupbox id = "grbListaSancionadosConsejoDecanato" width="auto">
-              <caption label="Estado de la Apelación Ante el Consejo de Decanato"/>
+              <caption label="Actividades en el Consejo de Decanato"/>
 					<space />
 				<listbox id="lbxConsejoDecanato" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia2)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Nombre del estado"
+							<listheader label="Actividad"
 								align="center">
 							</listheader>
-							<listheader label="Fecha del estado"
+							<listheader label="Fecha"
 								align="center" >
 							</listheader>
 							<listheader label="Observación"
@@ -82,7 +127,7 @@
 									label="${each.getEstadoApelacion().getNombreEstado()}">
 								</listcell>
 								<listcell
-									label="${each.getFechaEstado()}">
+									label="${sdf.format(each.getFechaEstado())}">
 								</listcell>
 								<listcell
 									label="${each.getObservacion()}">
@@ -98,18 +143,17 @@
         </tabpanel>
         
         <tabpanel>
-        
         <groupbox  id = "grbListaSancionadosConsejoUniversitario" width="auto">
-         <caption label="Estado de la Apelación Ante el Consejo Universitario"/>
+         <caption label="Actividades en el Consejo Universitario"/>
 					<space />
 				<listbox id="lbxConsejoUniversitario" height="100%"
 						     mold="paging"  model = "@bind(vm.apelacionestudianteinstancia3)"
 							 pageSize="10"   emptyMessage="No hay Apelaciones" >
 						<listhead>
-							<listheader label="Nombre del estado"
+							<listheader label="Actividad"
 								align="center">
 							</listheader>
-							<listheader label="Fecha del estado"
+							<listheader label="Fecha"
 								align="center" >
 							</listheader>
 							<listheader label="Observación"
@@ -125,7 +169,7 @@
 									label="${each.getEstadoApelacion().getNombreEstado()}">
 								</listcell>
 								<listcell
-									label="${each.getFechaEstado()}">
+									label="${sdf.format(each.getFechaEstado())}">
 								</listcell>
 								<listcell
 									label="${each.getObservacion()}">
