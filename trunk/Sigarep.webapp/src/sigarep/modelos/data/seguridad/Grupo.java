@@ -3,14 +3,11 @@ package sigarep.modelos.data.seguridad;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
-
-import java.util.List;
-
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,21 +20,34 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
-
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
+/*
+ * @ (#) Grupo.java 
+ *
+ * Copyright 2013 Builder. Todos los derechos reservados.
+ * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
+ */
+/*
+ ** Esta clase es del registro del maestro "Grupo"
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo: Builder-SIGAREP 
+ * @Version 1.0,
+ * @Since  04/02/13
+ */
 
 @Entity
+@Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name ="grupo")
 public class Grupo implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	// Clave primaria de la clase
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	// Genera el ID del Grupo
 	@Column(name="idgrupo", unique = true , nullable=false)
 	private Integer idGrupo;
 	
@@ -66,7 +76,7 @@ public class Grupo implements Serializable{
 		nodos = new HashSet<Nodo>();
 	}
 
-
+	// Métodos GET y SET
 	public Integer getIdGrupo() {
 		return idGrupo;
 	}
