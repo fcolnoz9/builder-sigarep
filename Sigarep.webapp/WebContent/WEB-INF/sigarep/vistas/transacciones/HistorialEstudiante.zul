@@ -21,7 +21,6 @@
 							<column align="left" width="auto" />
 						</columns>
 						<rows>
-							
 							<row>
 								<label value="Cédula: "
 									id="lblCedulaEstudiante" />
@@ -72,6 +71,7 @@
 							</row>
 						</rows>
 					</grid>
+					<separator/>
 				</groupbox>
 				<groupbox id="grbDatosAcademicos">
 					<caption>Datos Académicos</caption>
@@ -98,6 +98,7 @@
 							</row>
 						</rows>
 					</grid>
+					<separator/>
 				</groupbox>
 			</tabpanel>
 			<tabpanel>
@@ -148,15 +149,15 @@
 									label="${each.getUnidadesCursadas()}">
 								</listcell>
 								<listcell>
-									<textbox cols="23" maxlength="30"
-										mold="rounded" value="@bind(vm.asignaturaLapsosConsecutivos)"
-										readonly="true" width="80%" >
+									<textbox cols="23" rows="2" maxlength="300"
+										mold="rounded" readonly="true" width="70%" 
+										value="@bind(vm.asignaturaLapsosConsecutivos)">
 									</textbox>
 								</listcell>
 								<listcell>
-									<textbox cols="23" maxlength="30"
-										mold="rounded" value="@bind(vm.motivosEstudiante)" 
-										readonly="true" width="80%">
+									<textbox cols="23" rows="2" maxlength="300"
+										mold="rounded" readonly="true" width="70%"
+										value="@bind(vm.motivosEstudiante)">
 									</textbox>
 								</listcell>
 							</listitem>
