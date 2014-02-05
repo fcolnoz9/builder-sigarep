@@ -485,7 +485,7 @@ public class VMAnalizarValidezIII {
 	 	map.put("cedula", this.sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getCedulaEstudiante());
  
         final Window window = (Window) Executions.createComponents(
-        		"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos.zul", null, map);
+        		"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos2.zul", null, map);
 		window.setMaximizable(true);
 		window.doModal();
   	}
