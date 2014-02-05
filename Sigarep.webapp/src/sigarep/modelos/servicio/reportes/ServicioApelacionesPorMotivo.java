@@ -527,7 +527,7 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
-	public List<Sancionados> buscarSancionadosPrueba(/*String instancia, String programa, String sancion*/){
+	public List<Sancionados> buscarSancionadosPrueba(/*String instancia, */int programa/*, String sancion*/){
 		
 		/*String adicioninstancia;
 		String adicionprograma;
@@ -583,14 +583,20 @@ public class ServicioApelacionesPorMotivo {
 //
 
 		
-		"select es.cedula_estudiante, es.primer_nombre, es.primer_apellido, sa.veredicto " +
-		"from solicitud_apelacion sa " +
-		"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
-		"and essa.codigo_lapso = sa.codigo_lapso " +
-		"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+		"SELECT es.cedula_estudiante as cedula, es.primer_nombre as nombre, es.primer_apellido as apellido, aea.sugerencia as veredicto " +
+		"FROM apelacion_estado_apelacion as aea, estudiante es " +
+		"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante " +
 		"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-		"WHERE sa.codigo_lapso = '2013-2' " +
-		"and prog.nombre_programa = 'Ingeniería en Informática'";
+		"INNER JOIN solicitud_apelacion as sa on sa.cedula_estudiante = essa.cedula_estudiante " +
+		"and sa.codigo_lapso = essa.codigo_lapso " +
+		"WHERE sa.cedula_estudiante = aea.cedula_estudiante " +
+		"and sa.codigo_lapso = aea.codigo_lapso " +
+		"and sa.id_instancia_apelada = aea.id_instancia_apelada " +
+		"and aea.id_instancia_apelada = 1 " +
+		"and aea.sugerencia is not null " +
+		"and prog.id_programa = "+ "'"+programa+"' " +
+		//"and prog.nombre_programa = 'Ingeniería en Informática' " +
+		"and sa.codigo_lapso = '2013-2'";
 		
 		Query query = em.createNativeQuery(queryStatement);
 		

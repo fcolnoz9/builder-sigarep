@@ -47,32 +47,32 @@
 
 					<row>
 
-						<label id="lblTipodeSancion"
-							value="Tipo de Sanciòn" />
-						<combobox id="cmbTipoSancion" mold="rounded"
-							value="@bind(vm.titulosancion)"
-							readonly="true" model="@load(vm.listaTipoSancion)"
-							selectedItem="@bind(vm.objSancion)"
-							onSelect="@command('objCmbSancion')">
-							<template name="model">
-								<comboitem
-									label="${each.nombreSancion}" />
-							</template>
-						</combobox>
+<!-- 						<label id="lblTipodeSancion" -->
+<!-- 							value="Tipo de Sanciòn" /> -->
+<!-- 						<combobox id="cmbTipoSancion" mold="rounded" -->
+<!-- 							value="@bind(vm.titulosancion)" -->
+<!-- 							readonly="true" model="@load(vm.listaTipoSancion)" -->
+<!-- 							selectedItem="@bind(vm.objSancion)" -->
+<!-- 							onSelect="@command('objCmbSancion')"> -->
+<!-- 							<template name="model"> -->
+<!-- 								<comboitem -->
+<!-- 									label="${each.nombreSancion}" /> -->
+<!-- 							</template> -->
+<!-- 						</combobox> -->
 
-						<label id="lblInstanciaApelada"
-							value="Instancia Apelada: " />
-						<combobox readonly="true"
-							id="cmbInstanciaApelada"
-							value="@bind(vm.tituloInstancia)" width="80%"
-							mold="rounded" model="@load(vm.listaInstanciaApelada)"
-							selectedItem="@bind(vm.instanciaApelada)"
-							onSelect="@command('objetoComboEstadoApelacion')">
-							<template name="model">
-								<comboitem
-									label="${each.instanciaApelada }" />
-							</template>
-						</combobox>
+<!-- 						<label id="lblInstanciaApelada" -->
+<!-- 							value="Instancia Apelada: " /> -->
+<!-- 						<combobox readonly="true" -->
+<!-- 							id="cmbInstanciaApelada" -->
+<!-- 							value="@bind(vm.tituloInstancia)" width="80%" -->
+<!-- 							mold="rounded" model="@load(vm.listaInstanciaApelada)" -->
+<!-- 							selectedItem="@bind(vm.instanciaApelada)" -->
+<!-- 							onSelect="@command('objetoComboEstadoApelacion')"> -->
+<!-- 							<template name="model"> -->
+<!-- 								<comboitem -->
+<!-- 									label="${each.instanciaApelada }" /> -->
+<!-- 							</template> -->
+<!-- 						</combobox> -->
 
 
 
@@ -86,8 +86,8 @@
 						<textbox id="txtDe" value="@bind(vm.de)" mold="rounded" />
 					</row>
 					<row>
-						<label id="lblContenido"
-							value="Contenido: " />
+						<label id="lblAsunto"
+							value="Asunto: " />
 						<textbox id="txtContenido" value="@bind(vm.contenido)" rows="3" mold="rounded" tabindex="2" />
 					</row>
 
@@ -130,21 +130,21 @@
 					sort="auto(Nombre)" />
 				<listheader label="Apellido" align="center"
 					sort="auto(Apellido)" />
-				<listheader label="Sancion" align="center"
-					sort="auto(Sancion)" />
+<!-- 				<listheader label="Sancion" align="center" -->
+<!-- 					sort="auto(Sancion)" /> -->
 				<listheader label="Veredicto" align="center"
 					sort="auto(Veredicto)" />
-				<listheader label="Observacion" align="center"
-					sort="auto(Observacion)" />
+<!-- 				<listheader label="Observacion" align="center" -->
+<!-- 					sort="auto(Observacion)" /> -->
 			</listhead>
 			<template name="model">
 				<listitem>
 					<listcell label="${each.cedula}" />
 					<listcell label="${each.nombre}" />
 					<listcell label="${each.apellido}" />
-					<listcell label="${each.sancion}" />
+<!-- 					<listcell label="${each.sancion}" /> -->
 					<listcell label="${each.veredicto}" />
-					<listcell label="${each.observacion}" />
+<!-- 					<listcell label="${each.observacion}" /> -->
 				</listitem>
 			</template>
 		</listbox>
