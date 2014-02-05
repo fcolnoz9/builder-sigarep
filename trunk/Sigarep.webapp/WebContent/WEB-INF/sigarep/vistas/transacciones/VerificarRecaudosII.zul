@@ -142,7 +142,8 @@
 							<radio id="rbProcedenteNo" label="No Procedente" value="NO PROCEDENTE"/>
 						</hbox>
 						<label value="Observación General: " id="lblObservacion"  />
-						<textbox id="txtObservacion" mold="rounded" width="80%" cols="60" rows="2"></textbox>
+						<textbox id="txtObservacion" mold="rounded" width="80%" cols="60" rows="2"
+						value="@bind(vm.observacion)"></textbox>
 					</row>
 				</rows>
 			</grid>
