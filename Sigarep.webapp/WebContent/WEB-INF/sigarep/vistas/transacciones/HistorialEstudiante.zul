@@ -8,7 +8,7 @@
 		<tabbox id="tb">
 			<tabs id="tabs">
 				<tab id="tbDatosBasicos" label="Datos Básicos" />
-				<tab id="tbDatosSancion" label="Datos de la Apelación" />
+				<tab id="tbDatosSancion" label="Datos de las Apelaciones" />
 			</tabs>
 			<!-- 			<tabpanels> -->
 			<tabpanels>
