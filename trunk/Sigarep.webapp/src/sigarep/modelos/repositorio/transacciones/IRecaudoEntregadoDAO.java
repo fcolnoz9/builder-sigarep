@@ -16,7 +16,10 @@ public interface IRecaudoEntregadoDAO extends
 		   "WHERE re.id.cedulaEstudiante = :cedula AND re.id.codigoLapso = la.codigoLapso " +
 		   "AND la.estatus = 'TRUE'")
 	public List<RecaudoEntregado> buscarRecaudosEntregados(@Param("cedula") String cedula);
-	
+
+	/** busqueda de recaudos entregados, Verificar Recaudos - Recurso Reconsideracion  
+    * @param cedula
+    */
 	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la, InstanciaApelada i " +
 			   "WHERE re.id.cedulaEstudiante = :cedula AND re.id.codigoLapso = la.codigoLapso " +
 			   "AND re.id.idInstanciaApelada = i.idInstanciaApelada AND la.estatus = 'TRUE' AND re.id.idInstanciaApelada = '1'")

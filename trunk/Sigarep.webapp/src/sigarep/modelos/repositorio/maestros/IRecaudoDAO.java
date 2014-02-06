@@ -50,6 +50,10 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 			"AND m.id.idTipoMotivo = tm.idTipoMotivo ORDER BY r.tipoMotivo.idTipoMotivo")
 	public List<Recaudo> listadoRecaudosPorApelacion(@Param("cedula") String cedula, @Param("codigoLapso") String codigoLapso, @Param("idInstancia") Integer idInstancia);
 	
+	/** busqueda de recaudos faltantes, Verificar Recaudos - Recurso Reconsideracion  
+	 * @param cedula
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '3' " +
 			"AND r.idRecaudo NOT IN " +
