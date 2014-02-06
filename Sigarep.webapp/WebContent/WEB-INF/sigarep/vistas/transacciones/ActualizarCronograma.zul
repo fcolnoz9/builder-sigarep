@@ -7,10 +7,12 @@
 <!-- 		<style src="/widgets/grid/simple/style.css" > -->
 
     <!-- Contiene los campos que requieren llenarse con los datos de cronograma -->
-	 
-	<label value="Cronograma para el Lapso Académico: " id="lblLapsoAcademico" />
-	<label id="lblLapsoAcademicoActivo" value="          @bind(vm.codigoLapso)"/>
-	<separator spacing="30px" />
+	<separator spacing="15px" />
+	<div align="center" height="100%">
+		<label value="Cronograma para el Lapso Académico: " id="lblLapsoAcademico" sclass="head2" />
+	    <label id="lblLapsoAcademicoActivo" value="@bind(vm.codigoLapso)" sclass="head2"/>
+    </div>
+	<separator spacing="15px" />
 	<groupbox closable="false" id="grbDatosCronograma">
 		<caption label="Agregar Actividad" />
 		<grid id="grdDatosCronograma" width="auto">
@@ -66,25 +68,21 @@
 				
 	<div align="right" height="100%">	
 				
-	    <button id="btnGuardarActividad" label="Guardar"
-				image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal"
-				onClick="@command('guardarCronograma')" />
+	    <button label="Guardar" id="btnGuardarActividad" 
+				mold="trendy" width="auto" height="auto" image="/imagenes/iconos/guardar.png"  
+				onClick="@command('guardarCronograma')" orient="horizontal"/>
 				
-		<button id="btnEliminarCronograma" label="Eliminar"
-				image="/imagenes/iconos/eliminar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal"
-				onClick="@command('eliminar')" />
+		<button label="Eliminar" id="btnEliminarCronograma" 
+				mold="trendy" width="auto" height="auto" image="/imagenes/iconos/eliminar.png"  
+				onClick="@command('eliminar')" orient="horizontal" />
 				
         <button label="Limpiar" id="btnCancelarAgregarActividad" mold="trendy"
-			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('limpiar')">
-		</button>
-        
-        
-        <button id="btnCerrar" label="Cerrar"
-				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="winActualizarCronograma.onClose()" />
+				width="auto" height="auto" image="/imagenes/iconos/limpiar.png" 
+				onClick="@command('limpiar')" orient="horizontal" />
+              
+        <button label="Cerrar" id="btnCerrar" 
+				mold="trendy" width="auto" height="auto" image="/imagenes/iconos/cerrar.png" 
+				onClick="winActualizarCronograma.onClose()" orient="horizontal" />
 	</div>
 
     <!-- Muestra el listado de actividades agregadas al cronograma, permite la modificación y eliminacion de un registro-->
