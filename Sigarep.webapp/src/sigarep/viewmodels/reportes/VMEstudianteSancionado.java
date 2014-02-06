@@ -272,8 +272,8 @@ public class VMEstudianteSancionado {
 		this.objVeredicto = objVeredicto;
 	}
 	public ListModelList<String> getCmbVeredicto() {
-		cmbVeredicto.add("PROCEDENTE");
-		cmbVeredicto.add("NO PROCEDENTE");
+		cmbVeredicto.add("Procedente");
+		cmbVeredicto.add("No Procedente");
 		cmbVeredicto.add("Todos");
 		return cmbVeredicto;
 	}
@@ -296,7 +296,7 @@ public class VMEstudianteSancionado {
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
   			Arrays.asList(
   					new ReportType("Word (RTF)", "rtf"), 
-  					new ReportType("Excel", "xls"), 
+  					new ReportType("Reporte en Excel", "xls"), 
   					new ReportType("Excel (JXL)", "jxl"), 
   					new ReportType("CSV", "csv"), 
   					new ReportType("OpenOffice (ODT)", "odt")));
@@ -473,7 +473,7 @@ public class VMEstudianteSancionado {
 		if (objVeredicto.equals("Todos")) {
 			parametroVeredicto = "sap.veredicto";
 		} else {
-			parametroVeredicto = "'"+objVeredicto+"'";
+			parametroVeredicto = "'"+objVeredicto.toUpperCase()+"'";
 		}
 		return parametroVeredicto;
 	}
@@ -483,6 +483,7 @@ public class VMEstudianteSancionado {
 	public void GenerarReporteEstudiantesSancionadosConfigurable(){	
 			if(listaE.size()>0){
 				reportConfig =new ReportConfig(ruta);
+				reportConfig.getParameters().put("ListaSancionados", new JRBeanCollectionDataSource(listaE));
 				reportConfig.setType(reportType);
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
 			}
