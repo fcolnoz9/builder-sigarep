@@ -68,6 +68,7 @@
 											<listitem value="@load(each)" label="@load(each.label)"></listitem>
 									</template>
 						</listbox>
+						<label id="lblVeredicto" value="Veredicto: " />
 						<combobox id="cmbVeredicto" cols="20" readonly="true"  model="@load(vm.cmbVeredicto )"  mold="rounded" selectedItem="@bind(vm.objVeredicto)" tooltiptext="Elija Veredicto" >
 							<comboitem label="" />
 						</combobox>
@@ -93,12 +94,13 @@
 				<listhead>
 					<listheader label="Nombres" id="lblnombreEstudiante" align="center" sort="auto(primerNombre)" />
 					<listheader label="Apellidos" id="lblprimerApellido" align="center" sort="auto(primerApellido)" />
-					<listheader label="Sexo" id="lblSexo1" align="center" sort="auto(sexo)" />
+					<listheader label="Sexo" id="lblSexo1" align="center" sort="auto(sexo)" width="40px" />
 					<listheader label="Programas" id="lblNombrePrograma" align="center" sort="auto(nombrePrograma)" />
 					<listheader label="Sancion" id="lblNombreSancion" align="center" sort="auto(nombreSancion)" />
 					<listheader label="Motivos" id="lblTipo_motivo" align="center" sort="auto(nombreTipoMotivo)" />
 					<listheader label="Instacia Apelada" id="lblistacanciaApelada" align="center" sort="auto(instanciaApelada)" />
-					<listheader label="Lapsos Academidos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" />
+					<listheader label="Lapsos Academidos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
+					<listheader label="Veredicto" id="lblVeredicto1" align="center" sort="auto(veredicto)" />
 				</listhead>
 				<template name="model">
 					<listitem>
@@ -110,6 +112,7 @@
 						<listcell label="${each.nombreTipoMotivo}" />
 						<listcell label="${each.instanciaApelada}" />
 						<listcell label="${each.codigoLapso}" />
+						<listcell label="${each.veredicto}" />
 					</listitem>
 				</template>
 			</listbox>
