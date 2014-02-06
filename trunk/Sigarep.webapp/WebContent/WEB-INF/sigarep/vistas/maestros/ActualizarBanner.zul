@@ -87,7 +87,7 @@
 			<button label="Limpiar" id="btnLimpiarBanner"
 				mold="trendy" width="auto" height="auto"
 			    image="/imagenes/iconos/limpiar.png"
-				onClick="@command('limpiar')" />
+				onClick="@command('limpiarBanner')" />
 			<button label="Cerrar" id="btnCerrarBanner"
 				mold="trendy" width="auto" height="auto"
 				image="/imagenes/iconos/cerrar.png"

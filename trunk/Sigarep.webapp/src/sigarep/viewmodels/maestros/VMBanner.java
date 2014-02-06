@@ -21,6 +21,13 @@ import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.maestros.Banner;
 import sigarep.modelos.servicio.maestros.ServicioBanner;
 
+
+/** View Models de Banner.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 2.5.2
+ * @since 20/12/2013
+ */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMBanner {
 
@@ -134,6 +141,12 @@ public class VMBanner {
 	
 	//Fin de los Metodos Get y Set de la clase 
 
+	/**Inicialización
+	 * @param init
+	 * @return Carga de Variables y metodos inicializados
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
 	@Init
 	public void init(){
         //initialization code
@@ -155,9 +168,10 @@ public class VMBanner {
 			listadoBanner =servicioBanner.buscarFiltroBanner(titulo,enlace);
 		}
 	
+		
 		/** Guardar Datos del Banner.
 		 	* @param Ninguno
-		 	* @return Banner Guardado
+		 	* @return Objeto Banner Guardado
 		 	* @throws No dispara ninguna excepcion.
 		 */
 
@@ -170,15 +184,16 @@ public class VMBanner {
 				mensajeBanner.advertenciaCargarImagen();
 			else{
 					Banner ban = new Banner (idImagen,descripcion,enlace,fechaVencimiento,titulo,fotoBanner,true);
-					servicioBanner.guardarImagen(ban);
+					servicioBanner.guardarBanner(ban);
 					mensajeBanner.informacionRegistroCorrecto();
-					limpiar();
+					limpiarBanner();
 			}
 		}
 		
+		
 		/** Eliminar Banner.
 	 		* @param Integer idImagen
-	 		* @return Banner Eliminado
+	 		* @return Objeto Banner Eliminado
 	 		* @throws No dispara ninguna excepcion.
 	 	*/
 		
@@ -189,12 +204,12 @@ public class VMBanner {
 				mensajeBanner.advertenciaSeleccionarParaEliminar();
 			else{
 				servicioBanner.eliminarBanner(idImagen);
-				limpiar();
+				limpiarBanner();
 				mensajeBanner.informacionEliminarCorrecto();
 			}
 		}
 		
-		/** Limpiar.
+		/** Limpiar Banner.
 	 		* @param Ninguno
 	 		* @return Limpiar cada una de las cajas de texto de la vista
 	 		* @throws No dispara ninguna excepcion.
@@ -202,7 +217,7 @@ public class VMBanner {
 		
 		@Command
 		@NotifyChange({"descripcion","fechaVencimiento","enlace","titulo","imagenBanner","bannerSeleccionado","listadoBanner"})
-		public void limpiar(){
+		public void limpiarBanner(){
 			idImagen= null; 
 			descripcion="";
 			 enlace="";
@@ -217,8 +232,8 @@ public class VMBanner {
 		
 		
         /** Buscar Banner.
-	 		* @param String Titulo
-	 		* @return Todos los Banner en la lista que están registrados en la Base de Datos
+	 		* @param Ninguno
+	 		* @return Todos los Banner en la lista que están en estatus TRUE en la Base de Datos
 	 		* @throws No dispara ninguna excepcion.
 	 	*/
         
@@ -228,9 +243,9 @@ public class VMBanner {
 			listadoBanner =servicioBanner.buscarTodosBanner();
 		}
 		
-		/** Guardar Datos del Banner.
+		/** Mostrar Registro Seleccionado.
 	 		* @param Ninguno
-	 		* @return Llena cada una de las cajas de texto al seleccionar un elemento de la lista
+	 		* @return Llena cada una de las cajas de texto con los datos del registro seleccionado en la lista
 	 		* @throws No dispara ninguna excepcion.
 	 	*/
 		
@@ -279,6 +294,12 @@ public class VMBanner {
 			else
 				mensajeBanner.advertenciaCargarImagen();//Messagebox.show("Debe introducir una imagen", "Error", Messagebox.OK, Messagebox.ERROR);
 		}
+		
+		/** Cambiar Imagen en el Portal (Carrusel).
+ 		* @param Ninguno
+ 		* @return Muestra las imagenes de Banner en el portal en forma de carrusel
+ 		* @throws No dispara ninguna excepcion.
+ 		*/
 		
 		//Metodo que reordena la lista
 		@Command
