@@ -26,6 +26,7 @@ style="overflow:auto" action="hide: slideUp"
  						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
  						<comboitem value="calendario" id="cmiCalendario" label="Calendario Académico" /> 
+ 						<comboitem value="recaudo" id="cmiRecaudo" label="Recaudos por Motivos" /> 
  			 </combobox> 
          
          <label id="lblFechaSubida" value="Fecha de Subida:" />
