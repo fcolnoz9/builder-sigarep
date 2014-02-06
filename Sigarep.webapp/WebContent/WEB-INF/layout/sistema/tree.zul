@@ -441,7 +441,7 @@
 							<treeitem>
 								<treerow>
 									<treecell
-										label="Asignaturas por Motivo de Apelación y Resultado"
+										label="Asignaturas por Motivo de Apelación y Resultado Procedente"
 										id="AsignaturaMotivosApelacionesVsProcedentes" sclass="reportes/estadisticos"
 										onClick="createWin(AsignaturaMotivosApelacionesVsProcedentes.getId(), AsignaturaMotivosApelacionesVsProcedentes.getSclass())" />
 								</treerow>

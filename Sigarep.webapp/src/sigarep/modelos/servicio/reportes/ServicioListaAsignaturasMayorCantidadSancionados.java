@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import sigarep.modelos.data.reportes.ListaApelacionesMotivoPorAsignatura;
 import sigarep.modelos.data.reportes.ListaAsignaturasMayorCantidadSancionados;
 
 
@@ -37,5 +38,7 @@ public class ServicioListaAsignaturasMayorCantidadSancionados {
 		
 		return results;
 	} 
+	
+	
 
 }
