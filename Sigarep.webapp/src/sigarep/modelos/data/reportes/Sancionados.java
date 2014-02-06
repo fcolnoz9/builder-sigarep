@@ -4,18 +4,17 @@ public class Sancionados {
 	String cedula;
 	String nombre;
 	String apellido;
-	//String sancion;
 	String veredicto;
-	//String observacion;
-	public Sancionados(String cedula, String nombre, String apellido/*,
-			String sancion*/, String veredicto/*, String observacion*/) {
+	int procedentes; 
+	int noprocedentes; 
+	public Sancionados(String cedula, String nombre, String apellido, String veredicto, int procedentes, int noprocedentes) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		//this.sancion = sancion;
 		this.veredicto = veredicto;
-		//this.observacion = observacion;
+		this.procedentes = procedentes;
+		this.noprocedentes = noprocedentes;
 	}
 	public String getCedula() {
 		return cedula;
@@ -34,24 +33,23 @@ public class Sancionados {
 	}
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}/*
-	public String getSancion() {
-		return sancion;
 	}
-	public void setSancion(String sancion) {
-		this.sancion = sancion;
-	}*/
 	public String getVeredicto() {
 		return veredicto;
 	}
 	public void setVeredicto(String veredicto) {
 		this.veredicto = veredicto;
-	}/*
-	public String getObservacion() {
-		return observacion;
 	}
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
-	}*/
-	
+	public int getProcedentes() {
+		return procedentes;
+	}
+	public void setProcedentes(int procedentes){
+		this.procedentes = procedentes;
+	}
+	public int getNoProcedentes() {
+		return noprocedentes;
+	}
+	public void setNoProcedentes(int noprocedentes){
+		this.noprocedentes = noprocedentes;
+	}
 }
