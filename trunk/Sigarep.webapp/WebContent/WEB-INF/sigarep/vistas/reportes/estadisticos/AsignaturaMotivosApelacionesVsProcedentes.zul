@@ -18,7 +18,7 @@
 		<rows>
 			<row>
 					<label id="lblPrograma" value="Programa:" />
-	           	<combobox id="cmbprograma" model="@load(vm.listaPrograma)" 
+	           	<combobox id="cmbprograma" model="@load(vm.listaPrograma)" value="@bind(vm.contenidoProgramaA)"
 	                selectedItem="@bind(vm.programaseleccionado)"
 	               	onSelect="@command('onSelectPrograma')" width="auto" mold="rounded" readonly="true">
 	               	<template name="model" var="dpto">
@@ -38,15 +38,15 @@
            <row>
 				<label id="lblLapsos" value="Lapso:" />
 				
-				<combobox readonly="true" id= "cmbLapso" value="" width="auto" mold="rounded" 
-				model="@load(vm.listaComboLapsoAcademico)" selectedItem="@bind(vm.lapsosAcademicos)" 
+				<combobox readonly="true" id= "cmbLapso" width="auto" mold="rounded" 
+				model="@load(vm.listaComboLapsoAcademico)" selectedItem="@bind(vm.lapsosAcademicos)" value="@bind(vm.contenidoLapsos)"
 				onSelect="@command('objetoComboLapsos')">
 					<template name="model">
 						<comboitem  label="${each.codigoLapso}" />
 					</template>	
 				</combobox>
 			<label id="lblInstancias" value="Instancia:" />
-				<combobox readonly="true" id= "cmbInstancia" value="" width="auto" mold="rounded" 
+				<combobox readonly="true" id= "cmbInstancia" width="auto" mold="rounded" value="@bind(vm.contenidoInstancias)"
 				model="@load(vm.listaComboInstancias)" selectedItem="@bind(vm.instanciasApeladas)" 
 				onSelect="@command('objetoComboInstancias')">
 					<template name="model">
@@ -70,7 +70,7 @@
  </groupbox>
  <div align="right">
 		<button id="btnGenerarReporteAsignaturaApelaciones" width="auto" height="auto" label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteApelacionesMotivoPorAsignatura')"/>
-		<button id="btnLimpiarReporteAsignaturaApelaciones" width="auto" height="auto" label="Limpiar" image="/imagenes/iconos/limpiar.png" orient="horizontal" mold="trendy"/>
+		<button id="btnLimpiarReporteAsignaturaApelaciones" width="auto" height="auto" label="Limpiar" image="/imagenes/iconos/limpiar.png" orient="horizontal" mold="trendy" onClick="@command('limpiarAsignaturaMotivos')"/>
 		
 
 </div>
