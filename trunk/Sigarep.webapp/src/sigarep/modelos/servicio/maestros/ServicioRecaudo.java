@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.RecaudoFiltro;
+import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
 
 /*
@@ -105,6 +106,12 @@ public class ServicioRecaudo {
 	public List<Recaudo> buscarRecaudosPorApelacion(String cedula, String codigoLapso, Integer idInstancia) {
 		List<Recaudo> listaRecaudosApelacion = iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);	
 		return listaRecaudosApelacion;
+	}
+	   
+
+	public List<Recaudo> buscarRecaudosMotivosPortal(Integer idTipoMotivo) {
+		List<Recaudo> listaRecaudoMotivos = iRecaudoDAO.buscarRecaudosPorMotivoPortal(idTipoMotivo);
+		 return listaRecaudoMotivos;
 	}
 	
 }
