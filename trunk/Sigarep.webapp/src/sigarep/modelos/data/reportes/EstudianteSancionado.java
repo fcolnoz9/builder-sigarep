@@ -10,11 +10,12 @@ public class EstudianteSancionado {
 	private String codigoLapso;
 	private String instanciaApelada;
 	private String veredicto;
+	private String edoApelacion;
 	
 	
 	public EstudianteSancionado(String primerNombre, String primerApellido,
 			String sexo, String nombrePrograma, String nombreSancion,
-			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto) {
+			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,String edoApelacion) {
 		super();
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
@@ -25,8 +26,20 @@ public class EstudianteSancionado {
 		this.codigoLapso = codigoLapso;
 		this.instanciaApelada = instanciaApelada;
 		this.veredicto= veredicto;
+		this.edoApelacion=edoApelacion;
 	}
 	
+	
+	public String getEdoApelacion() {
+		return edoApelacion;
+	}
+
+
+	public void setEdoApelacion(String edoApelacion) {
+		this.edoApelacion = edoApelacion;
+	}
+
+
 	public String getInstanciaApelada() {
 		return instanciaApelada;
 	}
