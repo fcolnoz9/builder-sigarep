@@ -9,27 +9,23 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
+
 import org.zkoss.zul.Window;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
-import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
-/*
- * @ (#) EstadoApelacion.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- * Esta clase es del registro del maestro "EstadoApelacion"
- * @ Author Lilibeth Achji 
- * @ Version 1.0, 16/12/13
+/** Clase EstadoApelacion
+ * Registra y Modifica el Estado de Apelación asociado a Instancia Apelada
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013 
  */
 
-@SuppressWarnings("serial")
+
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstadoApelacion {
 	@WireVariable
@@ -58,7 +54,7 @@ public class VMEstadoApelacion {
 	@Wire
 	Window winRegistrarEstados;
 	private  @Wire Combobox cmbInstanciaApelada;
-	
+	// inicializador
 	@Init
 	public void init() {
 		// initialization code
@@ -141,7 +137,11 @@ public class VMEstadoApelacion {
 
 	// OTROS METODOS
 
-	// Metodos que permite guardar los Estados de Apelacion
+	/** Guardar Estado de Apelación 
+	 * @return nada
+	 * @parameters el objeto EstadoApelacion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({"listaEstadoApelacion", "nombreEstado", "descripcion", "instanciaapelada" })
 	// el notifychange le avisa a que parametros en la pantalla se van a
@@ -159,7 +159,11 @@ public class VMEstadoApelacion {
 			limpiar();
 		}
 	}
-	
+	/** Buscar Estado Apelacion
+	 * @return el estado de apelacion buscado de la lista 
+	 * @parameters nombreEstado, descripcion, instancia apelada y lista Estado Apelacion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({"nombreEstado","descripcion","instanciaapelada","listaEstadoApelacion"})
 	public void buscarEstadoApelacion(){
@@ -174,7 +178,11 @@ public class VMEstadoApelacion {
 	}
 	
 
-	// Metodo que limpia todos los campos
+	
+	/** Metodo que limpia todos los campos
+	 * @parameters nombreEstado, descripcion, lista Estado Apelacion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({ "nombreEstado", "descripcion","listaEstadoApelacion"})
 	public void limpiar() {
@@ -185,7 +193,11 @@ public class VMEstadoApelacion {
 		buscarEstadoApelacion();
 	}
 
-	// permite tomar los datos del objeto EstadoApelacion seleccionado
+	
+	/** permite tomar los datos del objeto EstadoApelacion seleccionado
+	 * @parameters idEstadoApelacion, nombreEstado, descripcion, lista Estado Apelacion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({ "idEstadoApelacion","nombreEstado", "descripcion", "instanciaApelada" })
 	public void mostrarSeleccionado() {
@@ -195,14 +207,22 @@ public class VMEstadoApelacion {
 		instanciaApelada = getEstadoseleccionado().getInstanciaApelada();
 	}
 
-	//Combo
+	/** llena el combo de Instancia Apelada
+	 * @parameters lista de instancia apelada
+	 * @return instancia apelada
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	 @NotifyChange({"listaInstanciaApelada"})
 	public InstanciaApelada objetoComboEstadoApelacion() {
 		System.out.println(instanciaApelada.getInstanciaApelada());
 		return instanciaApelada;
 	}
-	// Método que trae todos los registros en una lista de Estados de Apelacion
+
+	/** Método que trae todos los registros en una lista de Estados de Apelacion
+	 * @parameters lista de estado de apelacion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({ "listaEstadoApelacion"  })
 	public void listadoEstadoApelacion() {

@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window id="winVerificiarRecaudosII"
-		title="Gestión :: Reconsideraciones ::Evaluar Reconsideración :: Verificar Recaudos" border="normal"
+		title="Gestión :: Recurso de Reconsideración :: Evaluar Recurso de Reconsideración :: Verificar Recaudos" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVerificarRecaudosEntregadosII')">

@@ -1,44 +1,47 @@
 package sigarep.modelos.servicio.maestros;
 
-import java.util.LinkedList;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
-import sigarep.modelos.data.maestros.Recaudo;
+
 import sigarep.modelos.repositorio.maestros.IEstadoApelacionDAO;
 
-/*
- * @ (#) ServicioEstadoApelacion.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- */
-/*
- ** Servicio del registro del maestro "EstadoApelacion"
- * @ Author Lilibeth Achji 
- * @ Version 1.0, 16/12/13
- */
+
 
 @Service("servicioestadoapelacion")
 public class ServicioEstadoApelacion {
 	private @Autowired
 	IEstadoApelacionDAO ea;
+	
+	/** Guardar Estado de Apelación 
+	 * @return nada
+	 * @parameters el objeto EstadoApelacion
+	 * @throws No dispara ninguna excepcion.
+	   */
 
-	// metodo para guardar
 	public void guardarEstadoApelacion(EstadoApelacion estadoApelacion) {
 		ea.save(estadoApelacion);
 	}
-
+	
+	/** Lista de Estados de Apelación 
+	 * @return Lista de los Estados de Apelacion registrados y activos
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstadoApelacion> listadoEstadoApelacionActivas() {
 		List<EstadoApelacion> ListaEstadoApelacion = ea.buscarEstadoApelacionActivas();
 		return ListaEstadoApelacion;
 	}
+	
+	/** Buscar Estados de Apelación por nombre
+	 * @return el estado de apelacion buscado si existe
+	 * @parameters nombre del estado de apelacion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public EstadoApelacion buscarEstadoNombre(String nombreEstado) {
 		EstadoApelacion estadoapelacion=ea.buscarEstadoPorNombre(nombreEstado);
       return estadoapelacion;

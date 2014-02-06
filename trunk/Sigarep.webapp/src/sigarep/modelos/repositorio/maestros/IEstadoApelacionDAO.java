@@ -8,19 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
-import sigarep.modelos.data.maestros.Recaudo;
 
-/*
-  * @ (#) EstadoApelacion.java 
-  *
-  * Copyright 2013 Builder. Todos los derechos reservados.
-  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
-  */
-/*
- ** Archivo del repositorio  del registro del maestro "EstadoApelacion"
-  * @ Author Lilibeth Achji 
-  * @ Version 1.0, 16/12/13
+/** Clase EstadoApelacion
+ * Registra y Modifica el Estado de Apelación asociado a Instancia Apelada
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013 
  */
+
 
 public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Integer> {
 
