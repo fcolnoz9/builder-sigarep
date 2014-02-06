@@ -76,6 +76,15 @@ public class VMListadoEstudiantesVeredicto {
 	@Wire private String de="";
 	@Wire private String contenido="";
 	
+	private int procedentes;
+	private int procedentes2;
+	private int procedentes3;
+	private int procedentes4;
+	private int denegados;
+	private int denegados2;
+	private int denegados3;
+	private int denegados4;
+	
 	@Wire private String tituloinstancia="TODOS"; 
 	@Wire private String tituloprograma="TODOS";
 	@Wire private String titulosancion="TODOS";
@@ -313,11 +322,29 @@ public class VMListadoEstudiantesVeredicto {
 		ProgramaAcademico prog = objPrograma;
 		LapsoAcademico lap = objLapso;
 		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(1/*tituloinstancia, tituloprograma, titulosancion*/);
+		procedentes = sancionadosVeredicto.get(0).getProcedentes();
+		denegados = sancionadosVeredicto.get(0).getNoProcedentes();
 		sancionadosVeredicto2 = servicioapelacionespormotivo.buscarSancionadosPrueba(2/*tituloinstancia, tituloprograma, titulosancion*/);
+		procedentes2 = sancionadosVeredicto2.get(0).getProcedentes();
+		denegados2 = sancionadosVeredicto2.get(0).getNoProcedentes();
 		sancionadosVeredicto3 = servicioapelacionespormotivo.buscarSancionadosPrueba(3/*tituloinstancia, tituloprograma, titulosancion*/);
+		procedentes3 = sancionadosVeredicto3.get(0).getProcedentes();
+		denegados3 = sancionadosVeredicto3.get(0).getNoProcedentes();
 		sancionadosVeredicto4 = servicioapelacionespormotivo.buscarSancionadosPrueba(4/*tituloinstancia, tituloprograma, titulosancion*/);
+		procedentes4 = sancionadosVeredicto4.get(0).getProcedentes();
+		denegados4 = sancionadosVeredicto4.get(0).getNoProcedentes();
 		//sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), objPrograma.getNombrePrograma());
 		//setSancionadosVeredicto2(servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), "Licenciatura en Matematicas"));
+		
+		
+		System.out.println("Procedentes: " + procedentes);
+		System.out.println("Procedentes2: " + procedentes2);
+		System.out.println("Procedentes3: " + procedentes3);
+		System.out.println("Procedentes4: " + procedentes4);
+		System.out.println("No Procedentes: " + denegados);
+		System.out.println("No Procedentes2: " + denegados2);
+		System.out.println("No Procedentes3: " + denegados3);
+		System.out.println("No Procedentes4: " + denegados4);
 		
 		/*nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
 		codigo_lapso = objLapso.getCodigoLapso();
@@ -360,8 +387,14 @@ public class VMListadoEstudiantesVeredicto {
 		reportConfig.getParameters().put("Contenido", contenido);
 		reportConfig.getParameters().put("codigoLapso", objLapso.getCodigoLapso());
 		reportConfig.getParameters().put("programa", objPrograma.getNombrePrograma());
-		reportConfig.getParameters().put("procedentes", 15);
-		reportConfig.getParameters().put("denegados", 5);
+		reportConfig.getParameters().put("procedentes", procedentes);
+		reportConfig.getParameters().put("denegados", denegados);
+		reportConfig.getParameters().put("procedentes2", procedentes2);
+		reportConfig.getParameters().put("denegados2", denegados2);
+		reportConfig.getParameters().put("procedentes3", procedentes3);
+		reportConfig.getParameters().put("denegados3", denegados3);
+		reportConfig.getParameters().put("procedentes4", procedentes4);
+		reportConfig.getParameters().put("denegados4", denegados4);
 		reportConfig.getParameters().put("listaInformatica", (new JRBeanCollectionDataSource(sancionadosVeredicto)));
 		reportConfig.getParameters().put("listaInformatica2", (new JRBeanCollectionDataSource(sancionadosVeredicto2)));
 		reportConfig.getParameters().put("listaInformatica3", (new JRBeanCollectionDataSource(sancionadosVeredicto3)));
