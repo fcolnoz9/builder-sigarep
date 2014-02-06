@@ -2,8 +2,10 @@ package sigarep.viewmodels.transacciones;
 
 import java.util.Date;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.zkoss.bind.annotation.Command;
 
@@ -114,8 +116,8 @@ public class VMEstudianteSancionado {
 	private EstudianteSancionado estudianteSeleccionado;
 	private List<EstudianteSancionado> listaEstudianteSancionado;
 	private List<Asignatura> listaAsignaturas;
-	private List<AsignaturaEstudianteSancionado> listaAsignaturaListBox = new LinkedList<AsignaturaEstudianteSancionado>();
-	private List<AsignaturaEstudianteSancionado> asignatura; //de vanessaa
+	private Set<AsignaturaEstudianteSancionado> listaAsignaturaListBox = new HashSet<AsignaturaEstudianteSancionado>();
+	private Set<AsignaturaEstudianteSancionado> asignatura; //de vanessaa
 
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
@@ -346,7 +348,6 @@ public class VMEstudianteSancionado {
 	public void setlistaAsignaturas(List<Asignatura> listaTipoMotivo) {
 		this.listaAsignaturas = listaAsignaturas;
 	}
-
 	
 	public ServicioAsignatura getServicioAsignatura() {
 		return servicioAsignatura;
@@ -364,12 +365,12 @@ public class VMEstudianteSancionado {
 		this.asignaturaseleccionado = asignaturaseleccionado;
 	}
 
-	public List<AsignaturaEstudianteSancionado> getListaAsignaturaListBox() {
+	public Set<AsignaturaEstudianteSancionado> getListaAsignaturaListBox() {
 		return listaAsignaturaListBox;
 	}
 
 	public void setListaAsignaturaListBox(
-			List<AsignaturaEstudianteSancionado> listaAsignaturaListBox) {
+			Set<AsignaturaEstudianteSancionado> listaAsignaturaListBox) {
 		this.listaAsignaturaListBox = listaAsignaturaListBox;
 	}
 
@@ -380,8 +381,7 @@ public class VMEstudianteSancionado {
 	public void setAsignaturas(Asignatura asignaturas) {
 		this.asignaturas = asignaturas;
 	}
-	
-	
+
 	public AsignaturaEstudianteSancionado getAsignaturaestudiantesancionado() {
 		return asignaturaestudiantesancionado;
 	}
@@ -460,9 +460,9 @@ public class VMEstudianteSancionado {
 
 	@Command
 	@NotifyChange({"cedula" ,"indiceGrado" ,"lapsoAcademico", "sancionMaestro", "unidadesAprobadas", "sexo"
-		  ,"primerNombre","segundoNombre","primerApellido","segundoApellido","unidadesCursadas", "programa" 
-		  ,"semestre","lapsosAcademicosRP","telefono","email","fechaNacimiento","lapsoAcademico","annoIngreso","periodoSancion"})
-	public void mostrarSeleccionado(){
+		  ,"primerNombre","segundoNombre","primerApellido","segundoApellido","unidadesCursadas", "programa","listaAsignaturas" 
+		  ,"semestre","lapsosAcademicosRP","telefono","email","fechaNacimiento","lapsoAcademico","annoIngreso","periodoSancion","listaAsignaturaListBox"})
+	public void mostrarSeleccionado(@BindingParam("parametro1") Groupbox groupBoxAsignaturas,@BindingParam("parametro2")Textbox textboxlapsoConsecutivo1,@BindingParam("parametro3")Textbox textboxlapsoConsecutivo2,@BindingParam("parametro4")Label lbllapsoConsecutivo){
 		 EstudianteSancionado miSanc = getEstudianteSeleccionado();
 		 cedula = miSanc.getId().getCedulaEstudiante();
 		 primerNombre = miSanc.getEstudiante().getPrimerNombre();
@@ -482,6 +482,19 @@ public class VMEstudianteSancionado {
 		 unidadesCursadas = miSanc.getUnidadesCursadas();
 		 semestre = miSanc.getSemestre();
 		 periodoSancion= miSanc.getPeriodoSancion();
+		 
+		 seleccionarSancion(groupBoxAsignaturas,textboxlapsoConsecutivo1,textboxlapsoConsecutivo2,lbllapsoConsecutivo);
+//		 listaAsignaturaListBox = miSanc.getAsignaturaEstudianteSancionados();
+//		 buscarAsignaturas();
+		 if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RR")) {
+			 
+			 buscarAsignaturas();
+			 listaAsignaturaListBox = miSanc.getAsignaturaEstudianteSancionados();
+		 }
+		 
+		 asignatura= miSanc.getAsignaturaEstudianteSancionados();
+		
+		 
 	}
 	
 	@Command
@@ -505,7 +518,7 @@ public class VMEstudianteSancionado {
 	}
 
 	@Command
-	@NotifyChange({ "listaAsignaturas" })
+	@NotifyChange({ "listaAsignaturas","programa" })
 	public void buscarAsignaturas() {
 		listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
 	}
@@ -666,6 +679,9 @@ public class VMEstudianteSancionado {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+		
+		
 	}
 	 	@Command
 		@NotifyChange({"cedula", "primerNombre", "segundoNombre", "primerApellido", "segundoApellido"
@@ -740,7 +756,7 @@ public class VMEstudianteSancionado {
 		semestre = null;
 		buscarSancionados();
 		periodoSancion=null;
-		//listaAsignaturaListBox.clear();
+		listaAsignaturaListBox.clear();
 	}
 	
 	@Command
@@ -804,11 +820,11 @@ public class VMEstudianteSancionado {
 		this.periodoSancion = periodoSancion;
 	}
 
-	public List<AsignaturaEstudianteSancionado> getAsignatura() {
+	public Set<AsignaturaEstudianteSancionado> getAsignatura() {
 		return asignatura;
 	}
 
-	public void setAsignatura(List<AsignaturaEstudianteSancionado> asignatura) {
+	public void SetAsignatura(Set<AsignaturaEstudianteSancionado> asignatura) {
 		this.asignatura = asignatura;
 	}
 
@@ -830,11 +846,5 @@ public class VMEstudianteSancionado {
 
 	
 
-	
-
-
-	
-//	 else if ( servicioestudiante.buscarEstudiante(cedula)== null )
-//	 mensajeAlUsuario.advertenciaNoExiteCedula();
 	
 }

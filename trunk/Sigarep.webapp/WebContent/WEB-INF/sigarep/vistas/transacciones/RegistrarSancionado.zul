@@ -217,7 +217,7 @@
 						<listcell
 							label="${each.asignatura.nombreAsignatura}" />
 						<listcell height="%">
-			   			<textbox value="" mold="rounded"  rows="1" />
+			   			<textbox value="${each.condicionAsignatura}" mold="rounded"  rows="1" />
 			   			</listcell>
 					</listitem>
 				</template>
@@ -261,7 +261,7 @@
 		<listbox height="auto" id="lbxEstudianteSancionado"
 			mold="paging" pageSize="10" model="@load(vm.listaSancionado)"
 			selectedItem="@bind(vm.estudianteSeleccionado)"
-			onSelect="@command('mostrarSeleccionado')"
+			onSelect="@command('mostrarSeleccionado', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)"
 			emptyMessage="No hay estudiantes sancionados registrados">
 			<listhead sizable="true">
 				<listheader label="Cédula "
