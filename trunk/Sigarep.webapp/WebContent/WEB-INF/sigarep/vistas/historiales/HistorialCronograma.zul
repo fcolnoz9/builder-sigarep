@@ -77,9 +77,9 @@
 	<separator spacing="15px" />
 	<div align="right" height="100%">
         
-        <button id="btnCerrar" label="Cerrar"
-				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="winHistorialCronograma.onClose()" />
+        <button label="Cerrar" id="btnCerrar" 
+				mold="trendy" width="auto" height="auto" image="/imagenes/iconos/cerrar.png" 
+				onClick="winHistorialCronograma.onClose()" orient="horizontal"  />
 	</div>
 	<separator spacing="15px" />
 		
