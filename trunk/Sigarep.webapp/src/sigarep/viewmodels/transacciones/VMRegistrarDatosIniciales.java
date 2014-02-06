@@ -1,10 +1,8 @@
 package sigarep.viewmodels.transacciones;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -12,37 +10,24 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.image.AImage;
-import org.zkoss.util.media.Media;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Window;
-
-import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
-import sigarep.modelos.data.transacciones.RecaudoEntregado;
-import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
-import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.data.maestros.EstadoApelacion;
-import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
@@ -52,13 +37,12 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
-/**
- * VM Regisrar Datos Iniciales UCLA DCYT Sistemas de Informacion.
- * 
- * @author Equipo: Builder-SIGAREP
- * @version 1.0
- * @since 20/12/13
- */
+/**Clase VMRegistrarDatosIniciales
+* ViewModel para la interfaz RegistrarDatosIniciales.zul
+* @author Builder
+* @version 1.0
+* @since 20/12/13
+*/
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarDatosIniciales {
 
@@ -66,23 +50,23 @@ public class VMRegistrarDatosIniciales {
 	private Window window;
 
 	@WireVariable
-	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	private ServicioSolicitudApelacion serviciosolicitudapelacion; //Servicio para La Solicitud de Apelacion
 	@WireVariable
-	private ServicioTipoMotivo serviciotipomotivo;
+	private ServicioTipoMotivo serviciotipomotivo; //Servicio para el tipo de motivo
 	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion; //Servicio para la Apelacion y Estado Apelacion
 	@WireVariable
-	private ServicioMotivo serviciomotivo;
+	private ServicioMotivo serviciomotivo; //Servicio Motivo
 	@WireVariable
-	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	private ServicioRecaudoEntregado serviciorecaudoentregado; //Servicio Recaudo Entregado
 	@WireVariable
-	private ServicioSoporte serviciosoporte;
+	private ServicioSoporte serviciosoporte; //Servicio soporte
 	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado; //Servicio Estudiante sancionado
 
-	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>();
-	private EstudianteSancionado estudianteSeleccionado;
-	private String asignaturaLapsosConsecutivos = "";
+	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>(); //Listado de Estudiante sancionados
+	private EstudianteSancionado estudianteSeleccionado; //Estudiante Seleccionado
+	private String asignaturaLapsosConsecutivos = ""; 
 	private String labelAsignaturaLapsosConsecutivos;
 	private String cedula;
 	private String primerNombre;
@@ -123,7 +107,7 @@ public class VMRegistrarDatosIniciales {
 	private Integer idEstado;
 	private Integer idMotivoGeneral;
 
-	
+	//Metodos GET Y SET
 	public String getNumeroCaso() {
 		return numeroCaso;
 	}
@@ -383,6 +367,8 @@ public class VMRegistrarDatosIniciales {
 		this.motivoseleccionado = motivoseleccionado;
 	}
 
+	//Finalizacion de los Metodos SET y GET
+	
 	/**
 	 * concatenacionNombres
 	 * 
@@ -423,7 +409,7 @@ public class VMRegistrarDatosIniciales {
 		
 	}
 
-	@Init
+	@Init //Metodo que inicializa el VM
 	public void init(
 			@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1,

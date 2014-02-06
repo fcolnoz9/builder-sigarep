@@ -5,55 +5,102 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
-import sigarep.modelos.data.transacciones.RecaudoEntregado;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
 
-@Service("servicioestudiantesancionado")
+/**Clase ServicioEstudianteSancionado
+* Suministra los servicios al VMInstanciaApelada
+* @author Builder
+* @version 1.0
+* @since 20/12/13
+*/
+
+@Service("servicioestudiantesancionado") //Definiendo la variable servicio
 public class ServicioEstudianteSancionado {
 	
 	private @Autowired IEstudianteSancionadoDAO iEstudianteSancionadoDAO;
 	
+	/** Guardar EstudianteSancionado 
+	 * @return el Objeto estudianteSancionado
+	 * @parameters el objeto estudianteSancionado
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public EstudianteSancionado guardar(EstudianteSancionado estudianteSancionado) {
 		return iEstudianteSancionadoDAO.save(estudianteSancionado);
 	}
 	
+	/** Eliminar EstudianteSancionado
+	 * @return nada
+	 * @parameters Objeto EstudianteSancionadoPK
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public void eliminar(EstudianteSancionadoPK id){
 		EstudianteSancionado miEstudianteSancionado = iEstudianteSancionadoDAO.findOne(id);
 		miEstudianteSancionado.setEstatus(false);
 		iEstudianteSancionadoDAO.save(miEstudianteSancionado);
 	}
 	
+	/** Lista de EstudianteSancionado 
+	 * @return Lista de EstudianteSancionado registrados y activos
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> buscarTodos() {
 		return iEstudianteSancionadoDAO.buscarSancionadosActivos();
 	}
 	
+	/** Lista de EstudianteSancionado 
+	 * @return Lista de EstudianteSancionado registrados y activos
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> buscarSancionados() {
 		return iEstudianteSancionadoDAO.buscarSancionados();
 	}
 	
-	
+	/** Lista de EstudianteSancionado 
+	 * @return Lista de EstudianteSancionado registrados y activos
+	 * @parameters Objeto EstudianteSancionadoPK
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public EstudianteSancionado buscar(EstudianteSancionadoPK id) {
 		return iEstudianteSancionadoDAO.findOne(id);
 	}
-
+	
+	/** Contar EstudianteSancionado 
+	 * @return Integer con el numero de EstudianteSancionado registrados
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public int contarTodos() {
 		return iEstudianteSancionadoDAO.findAll().size();
 	}
 
+	/** Nuevo EstudianteSancionado 
+	 * @return Objeto EstudianteSancionado
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public EstudianteSancionado crear() {
 		return new EstudianteSancionado();
 	}
 	
+	/** Lista de EstudianteSancionado 
+	 * @return Lista de EstudianteSancionado registrados y activos
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> listadoEstudianteSancionado() {
 		List<EstudianteSancionado> estudiantesancionadoLista = iEstudianteSancionadoDAO.buscarSancionadosActivos();
 	    return estudiantesancionadoLista ;
 	}
 	
-	
+	/** Filtro de EstudianteSancionado 
+	 * @return Lista de EstudianteSancionado filtrados
+	 * @parameters String cedula, String nombre, String Apellido, String Sancion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> buscarEstudianteSancionadofiltros(String cedula, String nombre, String apellido, String sancion) {
 		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
 		
@@ -99,6 +146,11 @@ public class ServicioEstudianteSancionado {
 		return result;
 	}
 
+	/** Filtro de EstudianteSancionado ListaGenerica 
+	 * @return Lista de EstudianteSancionado filtrados
+	 * @parameters String cedula, String nombre, String Apellido, String Sancion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> filtrarDatosIniciales(String programa, String cedula, String nombre, String apellido, String sancion ) {
 		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
 		
@@ -118,14 +170,29 @@ public class ServicioEstudianteSancionado {
 		return resultado;
 	}
 	
+	/** Buscar Apelacion de EstudianteSancionado para ListaGenerica 
+	 * @return Lista de EstudianteSancionado
+	 * @parameters String cedula
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> buscarApelacion(String cedula){
 		return iEstudianteSancionadoDAO.buscarApelacion(cedula);
 	}
-
+	
+	/** Buscar Reconsideracion de EstudianteSancionado para ListaGenerica 
+	 * @return Lista de EstudianteSancionado
+	 * @parameters
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> buscarSancionadosReconsideracion(){
 		return iEstudianteSancionadoDAO.buscarSancionadosReconsideracion();
 	}
-
+	
+	/** Filtra Reconsideracines EstudianteSancionado para ListaGenerica 
+	 * @return Lista de EstudianteSancionado
+	 * @parameters String cedula, String programa, String nombre, String apellido, String Sancion
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<EstudianteSancionado> filtrarApelacionesReconsideracion(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion) {
