@@ -11,24 +11,25 @@ import org.zkoss.zul.Window;
 import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
-/**VM Instancia Apelada
-* UCLA DCYT Sistemas de Informacion.
-* @author Equipo: Builder-SIGAREP 
+
+/**Clase VMInstanciaApelada
+* ViewModel para la interfaz RegistrarInstanciaApelada.zul
+* @author Builder 
 * @version 1.0
 * @since 20/12/13
 */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMinstanciaApelada {
 	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
-	private Integer idInstanciaApelada;
-	private String instanciaApelada;
-	private String nombreRecursoApelacion;
-	private String descripcion;
+	private Integer idInstanciaApelada; //Clave principal de la tabla InstanciApelada
+	private String instanciaApelada; //Nombre de la InstanciaApelada
+	private String nombreRecursoApelacion; //Nombre del Recurso de la InstanciaApelada
+	private String descripcion; //Descripcion de la InstanciaApelada
 	private String instanciaFiltro = "";
 	private String recursoFiltro = "";
 	private String descripcionFiltro;
-	private Boolean estatus;
-	private List<InstanciaApelada> listaInstanciaApelada;
+	private Boolean estatus; //Estatus de la InstanciaApelada
+	private List<InstanciaApelada> listaInstanciaApelada; //Lista de InstanciaApelada
 	private InstanciaApelada instanciaApeladaseleccionada;
 	private mensajes mensajeAlUsuario = new mensajes();
     @Wire Textbox txtcodigoInstacia;
@@ -122,7 +123,11 @@ public class VMinstanciaApelada {
 		listadoInstancia();
     }
 	
-	//Metodo que permite guardar las instancias apeladas
+	/** Guardar InstaciaApelada 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
 	public void guardarInstancia(){
@@ -138,13 +143,22 @@ public class VMinstanciaApelada {
 		}
 	}
 	
-	// Metodo que muestra la lista de todas las instancias
+	/** Listado de InstaciaApelada registradas y activas 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
 	public void listadoInstancia() {
 		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
 	}
 
+	/** Método que limpia los campos en la interfaz RegistrarInstanciaApelada.zul 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
 	public void limpiar(){
@@ -155,7 +169,11 @@ public class VMinstanciaApelada {
 		listadoInstancia();
 	}
 	
-	// Metodo que elimina una actividad tomando en cuenta el idActividad
+	/** Eliminar logicamente InstaciaApelada 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
 	public void eliminarInstancia() {
@@ -170,7 +188,11 @@ public class VMinstanciaApelada {
 		}
 	}
 	
-	// Permite tomar los datos del objeto instanciaseleccionada
+	/** Metodo que indica la InstanciaApelada seleccionada del Listbox 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
 	public void mostrarSeleccionada() {
@@ -180,6 +202,11 @@ public class VMinstanciaApelada {
 		descripcion = getInstanciaApeladaseleccionada().getDescripcion();
 	}
 
+	/** Metodo que filtra el Listbox de las InstanciaApelada registradas 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada", "instanciaFiltro", "recursoFiltro" })
 	public void filtros() {

@@ -9,20 +9,37 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 
 import java.util.LinkedList;
 import java.util.List;
-/**Instancia Apelada
-* UCLA DCYT Sistemas de Informacion.
-* @author Equipo: Builder-SIGAREP 
+
+/**Clase InstanciaApelada
+* Registra y Modifica las distintas Instancias por las que pasan las apelaciones
+* @author Builder 
 * @version 1.0
 * @since 20/12/13
 */
+
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name="instancia_apelada")
 public class InstanciaApelada implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public InstanciaApelada(Integer idInstanciaApelada, String descripcion, Boolean estatus, String instanciaApelada, String nombreRecursoApelacion){
+		this.idInstanciaApelada = idInstanciaApelada;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.instanciaApelada = instanciaApelada;
+		this.nombreRecursoApelacion = nombreRecursoApelacion;
+	}
+	
+	public InstanciaApelada() {
+	}
+	
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	// Genera el ID del Estado de la apelacion
 	@Column(name="id_instancia_apelada", unique=true, nullable=false)
 	private Integer idInstanciaApelada;
 
@@ -58,16 +75,7 @@ public class InstanciaApelada implements Serializable {
 	@OneToMany(mappedBy="instanciaApelada")
 	private List<Actividad> actividads;
 
-	public InstanciaApelada(Integer idInstanciaApelada, String descripcion, Boolean estatus, String instanciaApelada, String nombreRecursoApelacion){
-		this.idInstanciaApelada = idInstanciaApelada;
-		this.descripcion = descripcion;
-		this.estatus = estatus;
-		this.instanciaApelada = instanciaApelada;
-		this.nombreRecursoApelacion = nombreRecursoApelacion;
-	}
-	
-	public InstanciaApelada() {
-	}
+	// Métodos GET y SET
 
 	public Integer getIdInstanciaApelada() {
 		return this.idInstanciaApelada;
