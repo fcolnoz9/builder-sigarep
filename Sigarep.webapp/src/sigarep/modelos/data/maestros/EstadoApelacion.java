@@ -3,18 +3,13 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/*
- * @ (#) EstadoApelacion.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
+/** Clase EstadoApelacion
+ * Registra y Modifica el Estado de Apelación asociado a Instancia Apelada
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013 
  */
-/*
- ** Esta clase es del registro del maestro-transacción "EstadoApelacion"
- * @Author Lilibeth Achji 
- * @Version 1.0,
- * @Since  16/12/13
- */
+
 
 @Entity
 @Access(AccessType.FIELD)
