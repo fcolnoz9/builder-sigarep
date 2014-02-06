@@ -16,22 +16,45 @@ public class ServicioBanner {
 
 	private @Autowired IBannerDAO banner ;
 	
-	public void guardarImagen(Banner ba) {
+	/** Guardar Banner
+	 * @param Banner ba
+	 * @return Guarda el objeto
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
+	public void guardarBanner(Banner ba) {
 		
 	    banner.save(ba);
 	}
-	public void actualizar(){
-		
-	}
+	
+	
+	/** Eliminar Banner
+	 * @param Integer idImagen
+	 * @return Elimina lógicamente el objeto
+	 * @throws Nodispara ninguna excepcion.
+	 */
 	
 	public void eliminarBanner(Integer idImagen){
 		Banner b= banner.findOne(idImagen);
 		b.setEstatus(false);
 		banner.save(b);
 	}
+	
+	/** Listado de los Banner
+	 * @param 
+	 * @return Busca todos Banner que estan en estatus TRUE
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
 	public List<Banner> listadoBanner() {
 		return banner.listaBanner();
 	}
+	
+	/**Buscar Banner filtrando por titulo y enlace
+	 * @param String titulo, String enlace
+	 * @return Busca un Banner por titulo y enlace
+	 * @throws No dispara ninguna excepcion.
+	 */
 	
 	public List<Banner> buscarFiltroBanner(String titulo, String enlace){
 		List<Banner> result = new ArrayList<Banner>();
@@ -50,6 +73,12 @@ public class ServicioBanner {
 		return result;
         } 
 	
+	
+	/** Buscar Todos Banner
+	 * @param 
+	 * @return Busca todos Banner que estan en estatus TRUE
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<Banner> buscarTodosBanner() {
 			return banner.listaBanner();
 	}
