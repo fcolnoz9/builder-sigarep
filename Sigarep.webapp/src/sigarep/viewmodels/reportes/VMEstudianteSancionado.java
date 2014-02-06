@@ -22,6 +22,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
 
+import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -30,6 +31,7 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.reportes.EstudianteSancionado;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
+import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -57,6 +59,8 @@ public class VMEstudianteSancionado {
 	@WireVariable
 	private ServicioInstanciaApelada servicioInstanciaApelada;
 	@WireVariable
+	private ServicioEstadoApelacion servicioestadoapelacion;
+	@WireVariable
 	private ProgramaAcademico programaAcademico = new ProgramaAcademico();
 	@WireVariable
 	private TipoMotivo tipoMotivo = new TipoMotivo();
@@ -71,6 +75,7 @@ public class VMEstudianteSancionado {
 	private List<LapsoAcademico> listaLapsoAcademico;
 	private List<SancionMaestro> listaSancion;
 	private List<InstanciaApelada> listaInstanciaApelada;
+	private List<EstadoApelacion> listaEdoApelacion;
 	public String programa = "Informatica";
 	private LapsoAcademico objLapso;
 	private SancionMaestro objSancion;
@@ -79,6 +84,7 @@ public class VMEstudianteSancionado {
 	private InstanciaApelada objinstanciaApelada;
 	private String objsexo;
 	private String objVeredicto;
+	private EstadoApelacion objEdoApelacion;
 	private List<EstudianteSancionado> listaE = new LinkedList<EstudianteSancionado>();
 	//Parametros para la Tira Sql
 	private String parametroLapsoAcademico;
@@ -88,12 +94,15 @@ public class VMEstudianteSancionado {
 	private String parametroProgramaAcademico;
 	private String parametroSexo;
 	private String parametroVeredicto;
+	private String parametroEdoApelacion;
+	private String parametroAsignatura;
 	//REPORTE
 	ReportType reportType = null;
 	ReportConfig reportConfig = null;
 	//***********************
 	private ListModelList<String> cmbSexo;//Lista para llenar el combo de sexo
 	private ListModelList<String> cmbVeredicto;//Lista para llenar el combo Veredicto
+	private ListModelList<String> cmbEdoApelacion;//Lista para llenar el combo Edo Apelacion
 	// SETS Y GETS
 	public SancionMaestro getObjSancion() {
 		return objSancion;
@@ -191,6 +200,13 @@ public class VMEstudianteSancionado {
 	public void setListaE(List<EstudianteSancionado> listaE) {
 		this.listaE = listaE;
 	}
+	
+	public List<EstadoApelacion> getListaEdoApelacion() {
+		return listaEdoApelacion;
+	}
+	public void setListaEdoApelacion(List<EstadoApelacion> listaEdoApelacion) {
+		this.listaEdoApelacion = listaEdoApelacion;
+	}
 	public ListModelList<String> getCmbSexo() {
 		cmbSexo.add("F");
 		cmbSexo.add("M");
@@ -277,8 +293,36 @@ public class VMEstudianteSancionado {
 		cmbVeredicto.add("Todos");
 		return cmbVeredicto;
 	}
+	
+
+	public EstadoApelacion getObjEdoApelacion() {
+		return objEdoApelacion;
+	}
+	public void setObjEdoApelacion(EstadoApelacion objEdoApelacion) {
+		this.objEdoApelacion = objEdoApelacion;
+	}
+	public ListModelList<String> getCmbEdoApelacion()
+	{      
+		return cmbEdoApelacion;
+	}
+	public void setCmbEdoApelacion(ListModelList<String> cmbEdoApelacion) {
+		this.cmbEdoApelacion = cmbEdoApelacion;
+	}
 	public void setCmbVeredicto(ListModelList<String> cmbVeredicto) {
 		this.cmbVeredicto = cmbVeredicto;
+	}
+	
+	public String getParametroEdoApelacion() {
+		return parametroEdoApelacion;
+	}
+	public void setParametroEdoApelacion(String parametroEdoApelacion) {
+		this.parametroEdoApelacion = parametroEdoApelacion;
+	}
+	public String getParametroAsignatura() {
+		return parametroAsignatura;
+	}
+	public void setParametroAsignatura(String parametroAsignatura) {
+		this.parametroAsignatura = parametroAsignatura;
 	}
 	//FINAL SETS GETS
 	@Init
@@ -289,6 +333,7 @@ public class VMEstudianteSancionado {
 		buscarActivoLapso();
 		listadoSancion();
 		listadoInstancia();
+		buscarEdoApelacion();
 		cmbSexo = new ListModelList<String>();
 		cmbVeredicto= new ListModelList<String>();
 	}
@@ -302,7 +347,21 @@ public class VMEstudianteSancionado {
   					new ReportType("OpenOffice (ODT)", "odt")));
 	// Metodo que busca un motivo partiendo por su titulo
 	@Command
-	@NotifyChange({ "listaTipoMotivo" })
+	@NotifyChange({ "listaEdoApelacion" })
+	public void buscarEdoApelacion() {
+		listaEdoApelacion = servicioestadoapelacion.listadoEstadoApelacionActivas();
+		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos", null);
+		listaEdoApelacion.add(listaEdoApelacion.size()/*0*/, edo_ape);
+	}
+	@Command
+	@NotifyChange({ "listaEdoApelacion" })
+	public EstadoApelacion objCmbEdoApelacion() {
+		return objEdoApelacion;
+
+	}
+	
+	@Command
+	@NotifyChange({ "lista" })
 	public void buscarTipoMotivo() {
 		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
 		TipoMotivo mot = new TipoMotivo(null,"Todos", null,"Todos",false);
@@ -373,7 +432,8 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaE" })
 	public void buscarEstudianteSancionado() {
-		if(objinstanciaApelada==null|| objLapso==null || objprograma==null || objSancion.getDescripcion()==null || objsexo==null || objtipoMotivo==null){
+		if(objinstanciaApelada==null|| objLapso==null || objprograma==null || objSancion.getDescripcion()==null || objsexo==null || objtipoMotivo==null
+				|| objVeredicto==null || objEdoApelacion==null){
 			Messagebox.show("Debe Seleccionar Todos los Campos", "Informacion", Messagebox.OK, Messagebox.INFORMATION);;
 		}
 		else{
@@ -384,8 +444,9 @@ public class VMEstudianteSancionado {
 			configurarParametroProgramaAcademico();
 			configurarParametroSexo();
 			configurarParametroVeredicto();
+			configurarParametroEdoApelacion();
 			listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico,parametroTipoSancion,parametroInstanciaApelada,
-					 parametroMotivo,parametroProgramaAcademico,parametroSexo,parametroVeredicto);
+					 parametroMotivo,parametroProgramaAcademico,parametroSexo,parametroVeredicto,parametroEdoApelacion);
 		}
 		
 	}
@@ -476,6 +537,17 @@ public class VMEstudianteSancionado {
 			parametroVeredicto = "'"+objVeredicto.toUpperCase()+"'";
 		}
 		return parametroVeredicto;
+	}
+	@NotifyChange({ "parametroEdoApelacion" })
+	// Parametro Sexo
+	@Command
+	public String configurarParametroEdoApelacion() {
+		if (objEdoApelacion.equals("Todos")) {
+			parametroEdoApelacion = "edo_ape.id_estado_apelacion";
+		} else {
+			parametroEdoApelacion = "'"+objEdoApelacion.getIdEstadoApelacion()+"'";
+		}
+		return parametroEdoApelacion;
 	}
 	
 	@Command("GenerarReporteEstudiantesSancionadosConfigurable")
