@@ -72,7 +72,15 @@
 						<combobox id="cmbVeredicto" cols="20" readonly="true"  model="@load(vm.cmbVeredicto )"  mold="rounded" selectedItem="@bind(vm.objVeredicto)" tooltiptext="Elija Veredicto" >
 							<comboitem label="" />
 						</combobox>
-						
+					</row>
+					<row>
+					<label id="lblEdoApelacion" value="Estado Apelacion: " />
+						<combobox id="cmbEdoApelacion" readonly="true" mold="rounded" model="@load(vm.listaEdoApelacion)" selectedItem="@bind(vm.objEdoApelacion)" onSelect="@command('objCmbEdoApelacion')" tooltiptext="Elija un Estado de Apelacion" >
+							<template name="model">
+								<comboitem
+									label="${each.nombreEstado}" />
+							</template>
+						</combobox>
 					</row>
 				</rows>
 			</grid>
@@ -90,7 +98,7 @@
 		
 		<groupbox id="grbRegistrarLapso3">
 			<caption label="Listado de Estudiantes Sancionados" />
-			<listbox id="lbxLapsoAcademico" height="70%" model="@bind(vm.listaE)" mold="paging" pageSize="10">
+			<listbox id="lbxLapsoAcademico" height="70%" model="@bind(vm.listaE)" mold="paging" pageSize="10" >
 				<listhead>
 					<listheader label="Nombres" id="lblnombreEstudiante" align="center" sort="auto(primerNombre)" />
 					<listheader label="Apellidos" id="lblprimerApellido" align="center" sort="auto(primerApellido)" />
@@ -101,6 +109,7 @@
 					<listheader label="Instacia Apelada" id="lblistacanciaApelada" align="center" sort="auto(instanciaApelada)" />
 					<listheader label="Lapsos Academidos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
 					<listheader label="Veredicto" id="lblVeredicto1" align="center" sort="auto(veredicto)" />
+					<listheader label="Edo.Apelacion" id="lblEdoApelacion1" align="center" sort="auto(nombreEstado)" />
 				</listhead>
 				<template name="model">
 					<listitem>
@@ -113,6 +122,7 @@
 						<listcell label="${each.instanciaApelada}" />
 						<listcell label="${each.codigoLapso}" />
 						<listcell label="${each.veredicto}" />
+						<listcell label="${each.nombreEstado}" />
 					</listitem>
 				</template>
 			</listbox>
