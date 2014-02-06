@@ -1,0 +1,93 @@
+<zk>
+<window id="winReporteAsignaturaMotivosApelacionesVsProcedentes" title="Reportes :: Estadisticos :: Asignaturas Mayor Cantidad de Sancionados" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
+	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMAsignaturaMotivosApelacionesVsResultado')">
+<vlayout>
+	
+<groupbox id="grbParametros">
+
+<caption id="lblParametros" label="Parámetros de Selección" />
+<hbox>
+
+<grid width="auto">
+		<columns>
+			<column  />
+			<column  />
+			<column  />
+			<column  />
+		</columns>
+		<rows>
+			<row>
+					<label id="lblPrograma" value="Programa:" />
+	           	<combobox id="cmbprograma" model="@load(vm.listaPrograma)" 
+	                selectedItem="@bind(vm.programaseleccionado)"
+	               	onSelect="@command('onSelectPrograma')" width="auto" mold="rounded" readonly="true">
+	               	<template name="model" var="dpto">
+	                <comboitem label="@load(dpto.nombrePrograma)"
+	                      value="@load(dpto.idPrograma)" />
+	               	</template>
+	           	</combobox>
+    
+          			<label id="lblAsignaturas" value="Asignatura:" />
+          		<combobox id="cmbasignatura" model="@load(vm.listaAsignatura)" selectedItem="@bind(vm.asignatura)" value="@bind(vm.contenido)" width="auto" mold="rounded" readonly="true" >
+               		<template name="model" var="asig">
+                   		<comboitem label="@load(asig.nombreAsignatura)"
+                       		value="@load(asig.codigoAsignatura)" />
+              		</template>
+           		</combobox>
+           </row>
+           <row>
+				<label id="lblLapsos" value="Lapso:" />
+				
+				<combobox readonly="true" id= "cmbLapso" value="" width="auto" mold="rounded" 
+				model="@load(vm.listaComboLapsoAcademico)" selectedItem="@bind(vm.lapsosAcademicos)" 
+				onSelect="@command('objetoComboLapsos')">
+					<template name="model">
+						<comboitem  label="${each.codigoLapso}" />
+					</template>	
+				</combobox>
+			<label id="lblInstancias" value="Instancia:" />
+				<combobox readonly="true" id= "cmbInstancia" value="" width="auto" mold="rounded" 
+				model="@load(vm.listaComboInstancias)" selectedItem="@bind(vm.instanciasApeladas)" 
+				onSelect="@command('objetoComboInstancias')">
+					<template name="model">
+						<comboitem  label="${each.instanciaApelada}" />
+					</template>	
+				</combobox>
+			</row>
+			<row>
+			Tipo de Archivo : <listbox id="format" mold="select" model="@load(vm.reportTypesModel)" 
+							selectedItem="@bind(vm.reportType)">
+					<template name="model">
+						<listitem value="@load(each)" label="@load(each.label)"></listitem>
+					</template>
+				</listbox>
+			</row>
+			</rows>
+	</grid>	
+	
+</hbox> 
+
+ </groupbox>
+ <div align="right">
+		<button id="btnGenerarReporteAsignaturaApelaciones" width="auto" height="auto" label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteApelacionesMotivoPorAsignatura')"/>
+		<button id="btnLimpiarReporteAsignaturaApelaciones" width="auto" height="auto" label="Limpiar" image="/imagenes/iconos/limpiar.png" orient="horizontal" mold="trendy"/>
+		
+
+</div>
+
+
+<separator/>	
+<separator/>	
+ 
+ <groupbox>
+ <caption label="Reporte Generado"/>
+<jasperreport id="reporte" height="360px" 
+		src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesMotivoPorAsignatura')" 
+		parameters="@load(vm.reportConfig.parameters, after='GenerarReporteApelacionesMotivoPorAsignatura')" 
+		type="@load(vm.reportConfig.type.value, after='GenerarReporteApelacionesMotivoPorAsignatura')" 
+		datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteApelacionesMotivoPorAsignatura')"/>            
+
+</groupbox>		
+ </vlayout>
+</window>
+</zk>
