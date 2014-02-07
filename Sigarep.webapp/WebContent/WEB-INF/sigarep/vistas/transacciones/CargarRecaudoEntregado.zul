@@ -104,7 +104,7 @@
 	</groupbox>
 	<div align="right" height="100%">
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
-		<button label="Cerrar" id="btnCerrar"
+		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 			orient="horizontal" onClick="winCargarRecaudoEntregadoEstudiante.onClose()">
 		</button>
