@@ -42,7 +42,8 @@ public class ServicioReporteEstudianteSancionado {
 					(String) resultRow[5],
 					(String) resultRow[6],
 					(String) resultRow[7],
-					(String) resultRow[8]));
+					(String) resultRow[8],
+					(String) resultRow[9]));
 		}
 		return results;
 	}
