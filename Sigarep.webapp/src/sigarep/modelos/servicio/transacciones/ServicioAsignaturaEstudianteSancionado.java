@@ -18,6 +18,7 @@ import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.repositorio.transacciones.IAsignaturaEstudianteSancionadoDAO;
 import sigarep.modelos.repositorio.transacciones.IMotivoDAO;
 
+
 @Service("servicioasignaturaestudiantesancionado")
 public class ServicioAsignaturaEstudianteSancionado {
 	private @Autowired IAsignaturaEstudianteSancionadoDAO iAsignaturaEstudianteSancionadoDAO;
@@ -26,7 +27,10 @@ public class ServicioAsignaturaEstudianteSancionado {
 	public void guardarAsignaturaEstudianteSancionado(AsignaturaEstudianteSancionado asignaturaEstudianteSancionado){
 		iAsignaturaEstudianteSancionadoDAO.save(asignaturaEstudianteSancionado);
 	}
-	
+	/**buscarAsignaturaDeSancion 
+	 * @param cedula y lapso
+	 * @return resultado es un listado de asignaturas por estudiante sancionado en un lapso academico
+	 */
 	public List<AsignaturaEstudianteSancionado> buscarAsignaturaDeSancion(String cedula, String lapso){
 		return iAsignaturaEstudianteSancionadoDAO.buscarAsignaturaDeSancionRR(cedula, lapso);
 	}
