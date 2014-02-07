@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-import sigarep.modelos.data.reportes.ListaApelacionesMotivoPorAsignatura;
 import sigarep.modelos.data.reportes.ListaAsignaturasMayorCantidadSancionados;
 
 
@@ -18,6 +17,13 @@ public class ServicioListaAsignaturasMayorCantidadSancionados {
 	
 	@PersistenceContext
 	private EntityManager em;
+	
+	
+	/** Buscar Asignaturas con Mayor Sancionados
+	 * @param Integer idPrograma,String codigoLapso, Integer idInstanciaApelada
+	 * @return Listado con las 5 Asignaturas con Mayor Cantidad de Sancionados y sus Apelaciones con Resultados
+	 * @throws No dispara ninguna excepcion.
+	 */
 	
 	public List<ListaAsignaturasMayorCantidadSancionados> buscarAsignaturasSancionados(Integer idPrograma,String codigoLapso, Integer idInstanciaApelada){
 		String queryStatement2= "select v.asignatura, sum(v.sanciones) as sanciones, sum(v.apelo) apelaciones, sum(v.procedente) procedentes, sum(v.noprocedente) noprocedentes,sum(v.totalsancion) as totalsancion, sum(v.TOTALAPELACIONES) TOTALAPELA from (select b.asignatura,count(b.sancionado) sanciones,0 as apelo, 0 as procedente,0 as noprocedente,(select sum(g.sanciones) from (select count(b.sancionado) sanciones from (SELECT distinct  (aes.cedula_estudiante) as Sancionado from asignatura as a, programa_academico as p, asignatura_estudiante_sancionado AS aes LEFT JOIN estudiante_sancionado  AS es ON (es.codigo_lapso = aes.codigo_lapso AND es.cedula_estudiante = aes.cedula_estudiante) WHERE p.id_programa= a.id_programa AND aes.codigo_asignatura= a.codigo_asignatura AND AES.CODIGO_LAPSO= "+ "'"+codigoLapso+"' and a.id_programa= "+ "'"+idPrograma+"') as b ) as g) as TOTALSANCION, (SELECT SUM(APELO) AS APELA FROM (SELECT  count(sa.cedula_estudiante) as apelo from asignatura as a, programa_academico as p, asignatura_estudiante_sancionado AS aes LEFT JOIN estudiante_sancionado  AS es ON (es.codigo_lapso = aes.codigo_lapso AND es.cedula_estudiante = aes.cedula_estudiante) LEFT JOIN solicitud_apelacion    AS sa ON (sa.codigo_lapso = es.codigo_lapso AND sa.cedula_estudiante = es.cedula_estudiante) WHERE p.id_programa= a.id_programa AND aes.codigo_asignatura= a.codigo_asignatura AND AES.CODIGO_LAPSO= "+ "'"+codigoLapso+"'  and sa.id_instancia_apelada= "+ "'"+idInstanciaApelada+"' and a.id_programa= "+ "'"+idPrograma+"' group by a.nombre_asignatura) AS F) AS TOTALAPELACIONES from (SELECT distinct a.nombre_asignatura as Asignatura, (aes.cedula_estudiante) as Sancionado from asignatura as a, programa_academico as p, asignatura_estudiante_sancionado AS aes LEFT JOIN estudiante_sancionado  AS es ON (es.codigo_lapso = aes.codigo_lapso AND es.cedula_estudiante = aes.cedula_estudiante) WHERE p.id_programa= a.id_programa AND aes.codigo_asignatura= a.codigo_asignatura AND AES.CODIGO_LAPSO= "+ "'"+codigoLapso+"' and a.id_programa= "+ "'"+idPrograma+"') as b group by b.asignatura union all SELECT  a.nombre_asignatura as asignatura,0 as sanciones,count(sa.cedula_estudiante) as apelo, 0 as procedente,0 as noprocedente,0 as totalsancion, 0 AS TOTALAPELACIONES from asignatura as a, programa_academico as p, asignatura_estudiante_sancionado AS aes " +

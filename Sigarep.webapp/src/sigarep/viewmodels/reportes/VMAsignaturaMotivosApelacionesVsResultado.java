@@ -28,18 +28,34 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioApelacionesMotivosPorAsignatura;
 import sigarep.modelos.servicio.reportes.ServicioListaAsignaturasMayorCantidadSancionados;
 
+
+/** View Models de Reporte Asignatura Motivos Apelaciones Vs Resultado Procedente.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 2.5.2
+ * @since 03/02/2014
+ */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAsignaturaMotivosApelacionesVsResultado {
-	@WireVariable
-	ServicioProgramaAcademico servicioprogramaacademico;
-	@WireVariable
-	ServicioAsignatura servicioAsignatura;
+	
+	
+	//*************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
+		ReportType reportType = null;
+		private ReportConfig reportConfig = null;
+		
+	//*************************RUTA DEL REPORTE***************************
+		String ruta= "/WEB-INF/sigarepReportes/RpAsignaturaApelacionesMotivoVsResultado.jasper";
+		
+	
+	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
+	@WireVariable ServicioProgramaAcademico servicioprogramaacademico;
+	@WireVariable ServicioAsignatura servicioAsignatura;
 	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
 	@WireVariable ServicioListaAsignaturasMayorCantidadSancionados servicioListaAsignaturasMayor;
 	@WireVariable ServicioApelacionesMotivosPorAsignatura servicioApelacionesMotivos;
 	
-	
+	//***********************************DECLARACION DE LAS VARIABLES*************************
 	private String contenido;
 	private String contenidoProgramaA;
 	private String contenidoLapsos;
@@ -48,24 +64,22 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	private String codigoLapso;
 	private Integer idInstanciaApelada;
 	private String codigoAsignatura;
-
+	
+	//***********************************DECLARACION DE LISTAS*************************
 	private  ListModelList<ListaApelacionesMotivoPorAsignatura> listaApelacionMotivoAsignatura;
 	private List<Asignatura> listaAsignatura;
 	private List<ProgramaAcademico> listaPrograma;
 	private List<LapsoAcademico> listaComboLapsoAcademico;
 	private List<InstanciaApelada> listaComboInstancias;
 	
+	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private ProgramaAcademico programaseleccionado;
 	private LapsoAcademico lapsosAcademicos;
 	private InstanciaApelada instanciasApeladas;
 	private Asignatura asignatura;
 	
 	
-	String ruta= "/WEB-INF/sigarepReportes/RpAsignaturaApelacionesMotivoVsResultado.jasper";
-	
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-	
+	//==================================METODOS SET Y GET====================================
 	public String getContenido() {
 		return contenido;
 	}
@@ -174,6 +188,8 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	public void setAsignatura(Asignatura asignatura){
 		this.asignatura= asignatura;
 	}
+	//===============================FIN DE LOS METODOS SET Y GET==============================
+	
 	
 	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	
@@ -206,57 +222,103 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	  					new ReportType("OpenOffice (ODT)", "odt")));
 	  	
 	
+	  //*******METODO DE INICIALIZACION*******
+	  	
+	  	/**Inicialización
+		 * @param init
+		 * @return Carga de Variables y metodos inicializados
+		 * @throws No dispara ninguna excepcion.
+		 */
+	
+		@Init
+	    public void init() {
+	        // Cargar todos los departamentos
+			contenido= "Seleccione una Opcion...";
+			contenidoProgramaA= "Seleccione una Opcion...";
+			contenidoLapsos= "Seleccione una Opcion...";
+			contenidoInstancias= "Seleccione una Opcion...";
+	    	listaPrograma = servicioprogramaacademico.listadoProgramas();
+	    	listaAsignatura= servicioAsignatura.listaAsignaturas();
+	    	buscarInstanciasApeladas();
+	    	buscarLapsos();
+	    	listaApelacionMotivoAsignatura = new ListModelList<ListaApelacionesMotivoPorAsignatura>();
+	    	
+	    	 
+	    }
+	//*******FIN DEL METODO*******
+	
+		/** Limpiar Asignatura Motivos.
+		* @param Ninguno
+		* @return Limpiar cada uno de los combos de la vista
+		* @throws No dispara ninguna excepcion.
+		*/
+	
+		@Command
+		@NotifyChange({"contenido","contenidoProgramaA","contenidoLapsos","contenidoInstancias"})
+		public void limpiarAsignaturaMotivos(){
+			contenido= "Seleccione una Opcion...";
+			contenidoProgramaA= "Seleccione una Opcion...";
+			contenidoLapsos= "Seleccione una Opcion...";
+			contenidoInstancias= "Seleccione una Opcion...";
+		}
 	
 	
-	@Init
-    public void init() {
-        // Cargar todos los departamentos
-		contenido= "Seleccione una Opcion...";
-		contenidoProgramaA= "Seleccione una Opcion...";
-		contenidoLapsos= "Seleccione una Opcion...";
-		contenidoInstancias= "Seleccione una Opcion...";
-    	listaPrograma = servicioprogramaacademico.listadoProgramas();
-    	listaAsignatura= servicioAsignatura.listaAsignaturas();
-    	buscarInstanciasApeladas();
-    	buscarLapsos();
-    	listaApelacionMotivoAsignatura = new ListModelList<ListaApelacionesMotivoPorAsignatura>();
-    	
-    	 
-    }
-    
-	@Command
-	@NotifyChange({"contenido","contenidoProgramaA","contenidoLapsos","contenidoInstancias"})
-	public void limpiarAsignaturaMotivos(){
-		contenido= "Seleccione una Opcion...";
-		contenidoProgramaA= "Seleccione una Opcion...";
-		contenidoLapsos= "Seleccione una Opcion...";
-		contenidoInstancias= "Seleccione una Opcion...";
-	}
-	
-    @Command
-	@NotifyChange({ "listaComboLapsoAcademico" })
-	public void buscarLapsos() {
-		setListaComboLapsoAcademico(serviciolapsoacademico.listadoLapsoAcademico());
-	}
-	@Command
-	 @NotifyChange({"listaComboLapsoAcademico"})
-	public LapsoAcademico objetoComboLapsos() {
-		return lapsosAcademicos;
+	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
 		
-	}
-	
-	@Command
-	@NotifyChange({ "listaComboInstancias" })
-	public void buscarInstanciasApeladas() {
-		setListaComboInstancias(servicioInstanciaApelada.buscarTodas());
-	}
-	@Command
-	 @NotifyChange({"listaComboInstancias"})
-	public InstanciaApelada objetoComboInstancias() {
-		return instanciasApeladas;
+		/** Buscar Lapsos.
+	 	* @param Ninguno
+	 	* @return Listado de Lapsos Academicos
+	 	* @throws No dispara ninguna excepcion.
+	 	*/
 		
-	}
+		@Command
+		@NotifyChange({ "listaComboLapsoAcademico" })
+		public void buscarLapsos() {
+			setListaComboLapsoAcademico(serviciolapsoacademico.listadoLapsoAcademico());
+		}
+		
+		/** Objeto Combo Lapsos.
+	 	* @param Ninguno
+	 	* @return Objeto Lapso Academico
+	 	* @throws No dispara ninguna excepcion.
+	 	*/
+		@Command
+		 @NotifyChange({"listaComboLapsoAcademico"})
+		public LapsoAcademico objetoComboLapsos() {
+			return lapsosAcademicos;
+			
+		}
+		
+		/** Buscar Instancias Apeladas.
+	 	* @param Ninguno
+	 	* @return Listado de Instancias
+	 	* @throws No dispara ninguna excepcion.
+	 	*/
+		@Command
+		@NotifyChange({ "listaComboInstancias" })
+		public void buscarInstanciasApeladas() {
+			setListaComboInstancias(servicioInstanciaApelada.buscarTodas());
+		}
+		
+		/** Objeto Combo Instancia.
+	 	* @param Ninguno
+	 	* @return Objeto Instancia Apelada
+	 	* @throws No dispara ninguna excepcion.
+	 	*/
+		@Command
+		@NotifyChange({"listaComboInstancias"})
+		public InstanciaApelada objetoComboInstancias() {
+			return instanciasApeladas;
+			
+		}
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FIN DEL METODO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
+	
+	/** Programa Seleccionado.
+	 * @param Integer IdPrograma
+	 * @return Lista de Asignaturas dependiendo del Programa Seleccionado
+	 * @throws No dispara ninguna excepcion
+	 */	
 	@Command
     @NotifyChange({"listaAsignatura","contenido"})
     public void onSelectPrograma()
@@ -266,6 +328,15 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		listaAsignatura = servicioAsignatura.buscarAsignaturasPorPrograma(programaseleccionado.getIdPrograma());
 		contenido="Seleccione una Opcion...";
     }
+	
+	
+	// ###############METODO PARA IMPRIMIR REPORTE#################
+	
+	/** Generar Reporte Apelaciones Motivo Por Asignatura.
+ 	* @param Ninguno
+ 	* @return Reporte de Apelaciones por Motivo y su Resultado Procedente por Asignatura generado en PDF u otro tipo de archivo
+ 	* @throws Si la lista esta vacia no genera el reporte
+ 	*/
 	
 	@Command("GenerarReporteApelacionesMotivoPorAsignatura")
 	@NotifyChange({"reportConfig"})

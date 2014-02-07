@@ -30,7 +30,11 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioListaAsignaturasMayorCantidadSancionados;
 import sun.jdbc.odbc.ee.DataSource;
 
-
+/** View Models de Reporte Asignaturas Mayor Cantidad Sancionados.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 2.5.2
+ * @since 20/01/2014
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMasignaturasMayorCantidadSancionados {
 	
@@ -38,7 +42,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 	
-
+	//*************************RUTA DEL REPORTE***************************
 	String ruta= "/WEB-INF/sigarepReportes/RpAsignaturasSancionadosVsApelaciones.jasper";
 	
 
@@ -47,12 +51,14 @@ public class VMasignaturasMayorCantidadSancionados {
 	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
+	
 	//***********************************DECLARACION DE LISTAS*************************
 	@WireVariable ListaAsignaturasMayorCantidadSancionados listaMayorSancionados;
 	private  ListModelList<ListaAsignaturasMayorCantidadSancionados> listaAsigMayor;
 	private List<ProgramaAcademico> listaComboPrograma;
 	private List<LapsoAcademico> listaLapsoAcademico;
 	private List<InstanciaApelada> listaComboInstancia;
+	
 	//***********************************DECLARACION DE LAS VARIABLES*************************
 	@WireVariable private String nombreAsignatura;
 	@WireVariable private Integer cantidadSancionados;
@@ -232,25 +238,62 @@ public class VMasignaturasMayorCantidadSancionados {
 	
 	
   //*******METODO DE INICIALIZACION*******
-  	@Init
-  	public void Init() {
-  		contenidoPrograma="Seleccione una Opcion...";
-  		contenidoLapso= "Seleccione una Opcion...";
-  		contenidoInstancia= "Seleccione una Opcion...";
-  		buscarProgramaAcademico();
-  		buscarLapso();
-  		buscarInstanciaApelada();
-  		listaAsigMayor = new ListModelList<ListaAsignaturasMayorCantidadSancionados>();
-  		
-  	}
+  	
+	  	/**Inicialización
+		 * @param init
+		 * @return Carga de Variables y metodos inicializados
+		 * @throws No dispara ninguna excepcion.
+		 */
+	  	
+	  	@Init
+	  	public void Init() {
+	  		contenidoPrograma="Seleccione una Opcion...";
+	  		contenidoLapso= "Seleccione una Opcion...";
+	  		contenidoInstancia= "Seleccione una Opcion...";
+	  		buscarProgramaAcademico();
+	  		buscarLapso();
+	  		buscarInstanciaApelada();
+	  		listaAsigMayor = new ListModelList<ListaAsignaturasMayorCantidadSancionados>();
+	  		
+	  	}
   	//*******FIN DEL METODO*******
   	
-	//@@@@@@@@@@@@@@@@@METODO PARA CARGAR COMBOS TANTO DE PROGRAMA COMO LAPSO ACADEMICO@@@@@@@@@@@@@@@@@@@
-	@Command
+  	
+	  	/** Limpiar Asignaturas Sancionados.
+		* @param Ninguno
+		* @return Limpiar cada uno de los combos de la vista
+		* @throws No dispara ninguna excepcion.
+		*/
+
+		@Command
+		@NotifyChange({"contenidoPrograma","contenidoLapso","contenidoInstancia"})
+		public void limpiarAsignaturasSancionados(){
+			contenidoPrograma="Seleccione una Opcion...";
+			contenidoLapso= "Seleccione una Opcion...";
+			contenidoInstancia= "Seleccione una Opcion...";
+		}
+
+  	
+	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
+	
+  	/** Buscar Programas Academicos.
+ 	* @param Ninguno
+ 	* @return Listado de Programas Academicos
+ 	* @throws No dispara ninguna excepcion.
+ 	*/
+  	
+  	@Command
 	@NotifyChange({ "listaComboPrograma" })
 	public void buscarProgramaAcademico() {
 		setListaComboPrograma(servicioprogramaacademico.listadoProgramas());
 	}
+  	
+  	/** Objeto Combo Programa.
+ 	* @param Ninguno
+ 	* @return Objeto Programa Academico
+ 	* @throws No dispara ninguna excepcion.
+ 	*/
+  	
 	@Command
 	 @NotifyChange({"listaComboPrograma"})
 	public ProgramaAcademico objetoComboPrograma() {
@@ -258,11 +301,24 @@ public class VMasignaturasMayorCantidadSancionados {
 		
 	}
 	
+	/** Buscar Lapsos.
+ 	* @param Ninguno
+ 	* @return Listado de Lapsos Academicos
+ 	* @throws No dispara ninguna excepcion.
+ 	*/
+	
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarLapso() {
 		setListaLapsoAcademico(serviciolapsoacademico.listadoLapsoAcademico());
 	}
+	
+	/** Objeto Combo Lapso.
+ 	* @param Ninguno
+ 	* @return Objeto Lapso Academico
+ 	* @throws No dispara ninguna excepcion.
+ 	*/
+	
 	@Command
 	 @NotifyChange({"listaLapsoAcademico"})
 	public LapsoAcademico objetoComboLapso() {
@@ -270,11 +326,24 @@ public class VMasignaturasMayorCantidadSancionados {
 		
 	}
 	
+	/** Buscar Instancias Apeladas.
+ 	* @param Ninguno
+ 	* @return Listado de Instancias
+ 	* @throws No dispara ninguna excepcion.
+ 	*/
+	
 	@Command
 	@NotifyChange({ "listaComboInstancia" })
 	public void buscarInstanciaApelada() {
 		setListaComboInstancia(servicioInstanciaApelada.buscarTodas());
 	}
+	
+	/** Objeto Combo Instancia.
+ 	* @param Ninguno
+ 	* @return Objeto Instancia Apelada
+ 	* @throws No dispara ninguna excepcion.
+ 	*/
+	
 	@Command
 	 @NotifyChange({"listaComboInstancia"})
 	public InstanciaApelada objetoComboInstancia() {
@@ -282,19 +351,19 @@ public class VMasignaturasMayorCantidadSancionados {
 		
 	}
 	
-	@Command
-	@NotifyChange({"contenidoPrograma","contenidoLapso","contenidoInstancia"})
-	public void limpiarAsignaturasSancionados(){
-		contenidoPrograma="Seleccione una Opcion...";
-		contenidoLapso= "Seleccione una Opcion...";
-		contenidoInstancia= "Seleccione una Opcion...";
-	}
 	
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FIN DEL METODO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
 	
 	
 	// ###############METODO PARA IMPRIMIR REPORTE#################
+	
+	/** Generar Reporte Asignaturas Mayor.
+ 	* @param Ninguno
+ 	* @return Reporte de las 5 asignaturas con mas sancionados generado en PDF u otro tipo de archivo
+ 	* @throws Si la lista esta vacia no genera el reporte
+ 	*/
+	
 	@Command("GenerarReporteAsigMayor")
 	@NotifyChange({"reportConfig"})
 	public void GenerarReporteAsigMayor(){
