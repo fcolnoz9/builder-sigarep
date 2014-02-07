@@ -35,18 +35,22 @@ public class ServicioLapsoAcademico{
 		List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarActivoLapso();
 	    return LapsoAcademicoLista ;
 	}
-	
-
+	public LapsoAcademico encontrarLapsoActivo(){
+	    return iLapsoAcademico.buscarLapsoActivo();
+	}
 	/** Buscar lapsos academicos por codigo de lapso
 	 * @return el lapso academico buscado si existe
 	 * @parameters codigo del lapso
 	 * @throws No dispara ninguna excepcion.
 	   */
-
 	public LapsoAcademico buscarLapsoActivo(){
 		return iLapsoAcademico.buscarLapsoActivo();
 	}
-	
+	// metodo del listado actualizado de los lapsos
+	public List<LapsoAcademico> listadoLapsoAcademicoInactivos() {
+	    List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarInactivoLapso();
+	    return LapsoAcademicoLista ;
+	}
 	public List<LapsoAcademico> buscarTodosLosLapsos(){
 		return iLapsoAcademico.buscarLapsosAcademicos();
 	}
