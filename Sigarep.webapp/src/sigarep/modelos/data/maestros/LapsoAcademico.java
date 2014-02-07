@@ -11,7 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-/**Instancia Apelada
+/**Clase Lapso Academico
+ * Registra y Modifica un lapso academico
 * UCLA DCYT Sistemas de Informacion.
 * @author Equipo: Builder-SIGAREP 
 * @version 1.0

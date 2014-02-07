@@ -11,53 +11,49 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
-/**Servicio Lapso Academido
-* UCLA DCYT Sistemas de Informacion.
-* @author Equipo: Builder-SIGAREP 
-* @version 1.0
-* @since 20/12/13
-*/
+
+
 @Service("serviciolapsoacademico") //Definiendo la variable servicio
 public class ServicioLapsoAcademico{
 	private @Autowired ILapsoAcademicoDAO iLapsoAcademico ;
-
-	//metodo que permite Guardar
+	
+	/** Guardar lapso academico 
+	 * @return nada
+	 * @parameters el objeto lapsoA
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public void guardarLapso(LapsoAcademico lapsoA) {
 		iLapsoAcademico.save(lapsoA);
 	}
 	
-	//metodo que permite eliminar
-	public void eliminarLapso(String codigoLapso){
-		LapsoAcademico  lapsoacademico = iLapsoAcademico.findOne(codigoLapso);
-		lapsoacademico.setEstatus(false);
-		iLapsoAcademico.save(lapsoacademico);
-		}
-	public LapsoAcademico buscarLapsoActivo(){
-		return iLapsoAcademico.buscarLapsoActivo();
-	}
-	public LapsoAcademico encontrarLapsoActivo(){
-		return iLapsoAcademico.buscarLapsoActivo();
-	}
-	public List<LapsoAcademico> buscarTodosLosLapsos(){
-		return iLapsoAcademico.buscarLapsosAcademicos();
-	}
-
-	// metodo del listado actualizado de los lapsos	
+	/** Lista de lapsos academicos activos
+	 * @return Lista de lapsos academicos  registrados y activos
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
+	   */
 	public List<LapsoAcademico> listadoLapsoAcademico() {
 		List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarActivoLapso();
 	    return LapsoAcademicoLista ;
 	}
 	
-	// metodo del listado actualizado de los lapsos	
-	public List<LapsoAcademico> listadoLapsoAcademicoInactivos() {
-		List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarInactivoLapso();
-	    return LapsoAcademicoLista ;
+
+	/** Buscar lapsos academicos por codigo de lapso
+	 * @return el lapso academico buscado si existe
+	 * @parameters codigo del lapso
+	 * @throws No dispara ninguna excepcion.
+	   */
+
+	public LapsoAcademico buscarLapsoActivo(){
+		return iLapsoAcademico.buscarLapsoActivo();
 	}
 	
+	public List<LapsoAcademico> buscarTodosLosLapsos(){
+		return iLapsoAcademico.buscarLapsosAcademicos();
+	}
 	public LapsoAcademico buscarUnLapsoAcademico(String codigoLapso){
 		return iLapsoAcademico.findOne(codigoLapso);
 	}
-	//metodo para buscar el lapso academico
+
 	public List<LapsoAcademico> buscarLapsoAcademico(String codigoLapso){
 		List<LapsoAcademico> result = new LinkedList<LapsoAcademico>();
 		if (codigoLapso==null || "".equals(codigoLapso)){

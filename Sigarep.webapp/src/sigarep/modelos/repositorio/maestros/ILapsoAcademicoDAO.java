@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
-/**Lapso Academico DAO
+/**Clase Lapso Academico 
 * UCLA DCYT Sistemas de Informacion.
+* Registra un lapso academico mientras no haya otro lapso activo  ya registrado
 * @author Equipo: Builder-SIGAREP 
 * @version 1.0
 * @since 20/12/13
