@@ -31,7 +31,10 @@ public class ServicioMotivo {
 		motivo.setEstatus(false);
 		iMotivoDAO.save(motivo);
 	}
-	
+	/** Lista de Motivos
+	 * @param cedulaEstudiante y codigoLapso
+	 * @return resultado es un lista de Motivos dado una cédula y un codigo de lapso
+	 */
 	public List<Motivo> buscarMotivos(String cedula, String codigoLapso){
 		return iMotivoDAO.buscarMotivos(cedula, codigoLapso);
 	}
