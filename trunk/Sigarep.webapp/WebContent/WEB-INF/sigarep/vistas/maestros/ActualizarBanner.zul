@@ -117,14 +117,14 @@
 					<listheader label="Título" align="lefth"
 						sort="auto(titulo)">
 						<textbox instant="true" mold="rounded"
-							width="100px" value="@bind(vm.titulo)"
+							width="100px" value="@bind(vm.tituloFiltro)"
 							onChange="@command('filtrosBanner')" />
 						<image src="/imagenes/iconos/buscar.png" />
 					</listheader>
 					<listheader label="Link" align="lefth"
 						sort="auto(enlace)">
 						<textbox instant="true" mold="rounded"
-							width="100px" value="@bind(vm.enlace)"
+							width="100px" value="@bind(vm.enlaceFiltro)"
 							onChange="@command('filtrosBanner')" />
 						<image src="/imagenes/iconos/buscar.png" />
 					</listheader>

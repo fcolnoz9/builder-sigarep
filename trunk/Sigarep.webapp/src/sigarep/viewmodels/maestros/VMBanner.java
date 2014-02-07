@@ -38,6 +38,8 @@ public class VMBanner {
 	private Date fechaVencimiento;
 	private String titulo;
 	private Boolean estatus;
+	private String tituloFiltro;
+	private String enlaceFiltro;
 	private List<Banner> listadoBanner;
 	private Banner bannerSeleccionado;
 	private Archivo fotoBanner = new Archivo();
@@ -99,6 +101,22 @@ public class VMBanner {
 		this.estatus = estatus;
 	}
 	
+	public String getTituloFiltro() {
+		return tituloFiltro;
+	}
+
+	public void setTituloFiltro(String tituloFiltro) {
+		this.tituloFiltro = tituloFiltro;
+	}
+
+	public String getEnlaceFiltro() {
+		return enlaceFiltro;
+	}
+
+	public void setEnlaceFiltro(String enlaceFiltro) {
+		this.enlaceFiltro = enlaceFiltro;
+	}
+
 	public List<Banner> getListadoBanner() {
 		return listadoBanner;
 	}
@@ -153,6 +171,8 @@ public class VMBanner {
 		fechaVencimiento= null;
 		titulo="";
 		enlace= "";
+		tituloFiltro= "";
+		enlaceFiltro= "";
 		descripcion= ""; 
 		media= null;
 		fotoBanner= new Archivo();
@@ -163,9 +183,9 @@ public class VMBanner {
 		// Metodos de la clase
 
 		@Command
-		@NotifyChange({"listadoBanner"})
+		@NotifyChange({"listadoBanner", "tituloFiltro","enlaceFiltro"})
 		public void filtrosBanner(){
-			listadoBanner =servicioBanner.buscarFiltroBanner(titulo,enlace);
+			listadoBanner =servicioBanner.buscarFiltroBanner(tituloFiltro,enlaceFiltro);
 		}
 	
 		
@@ -216,12 +236,14 @@ public class VMBanner {
 	 	*/
 		
 		@Command
-		@NotifyChange({"descripcion","fechaVencimiento","enlace","titulo","imagenBanner","bannerSeleccionado","listadoBanner"})
+		@NotifyChange({"descripcion","fechaVencimiento","enlace","titulo","imagenBanner","bannerSeleccionado","listadoBanner","tituloFiltro","enlaceFiltro"})
 		public void limpiarBanner(){
 			idImagen= null; 
 			descripcion="";
 			 enlace="";
 			 titulo="";
+			 tituloFiltro= "";
+			 enlaceFiltro= "";
 			 media= null;
 			 imagenBanner= null;
 			 fotoBanner = new Archivo();
