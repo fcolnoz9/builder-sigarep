@@ -8,7 +8,7 @@
 <caption id="lblParametros" label="Parámetros de Selección" />
 <hbox>
 
-<grid width="auto">
+<grid id="grdParametrosSeleccionAsignaturas" width="auto">
 		<columns>
 			<column  />
 			<column  />
@@ -43,7 +43,7 @@
 						<comboitem  label="${each.codigoLapso}" />
 					</template>	
 				</combobox>
-				Tipo de Archivo : <listbox id="format" mold="select" model="@load(vm.reportTypesModel)" 
+				Tipo de Archivo : <listbox id="lbxformat" mold="select" model="@load(vm.reportTypesModel)" 
 							selectedItem="@bind(vm.reportType)">
 					<template name="model">
 						<listitem value="@load(each)" label="@load(each.label)"></listitem>
