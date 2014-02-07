@@ -8,11 +8,13 @@ import sigarep.herramientas.Archivo;
 
 import java.util.Date;
 
-
-/**
- * The persistent class for the banner database table.
- * 
+/** Clase Banner
+ * Registra y Modifica los Datos del Banner
+ * @author BUILDER
+ * @version 1.3
+ * @since 15/12/2013 
  */
+
 @Entity
 @Access(AccessType.FIELD)
 @Table(name="banner")
