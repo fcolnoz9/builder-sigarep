@@ -542,10 +542,11 @@ public class VMEstudianteSancionado {
 	// Parametro Sexo
 	@Command
 	public String configurarParametroEdoApelacion() {
-		if (objEdoApelacion.equals("Todos")) {
-			parametroEdoApelacion = "edo_ape.id_estado_apelacion";
+		if (objEdoApelacion.getNombreEstado().equals("Todos")) {
+			parametroEdoApelacion ="edo_ape.id_estado_apelacion";
 		} else {
 			parametroEdoApelacion = "'"+objEdoApelacion.getIdEstadoApelacion()+"'";
+			System.out.println("ID EDO APELACION"+objEdoApelacion.getIdEstadoApelacion());
 		}
 		return parametroEdoApelacion;
 	}
