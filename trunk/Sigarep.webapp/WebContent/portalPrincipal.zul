@@ -1,3 +1,4 @@
+<?page title="Sistema Integrado en Apoyo a la Gestión del Régimen de Repitencia y Permanencia"?>
 <zk>
 	<!-- Css -->
 	<style src="widgets/css/style.css" />
@@ -17,11 +18,11 @@
 			<borderlayout>
 				<north size="95px" border="none">
 					<include
-						src="WEB-INF/layout/principal/bannerportal.zul" />
+						src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" />
 				</north>
 				<south border="none">
 					<include
-						src="WEB-INF/layout/principal/MenuHorizontal.zul" />
+						src="WEB-INF/sigarep/vistas/portal/externo/MenuHorizontal.zul" />
 				</south>
 			</borderlayout>
 		</north>
@@ -35,7 +36,7 @@
 					<borderlayout>
 						<north title="Noticias" size="55%"
 							border="none">
-							<include src="/portalNoticias.zul" />
+							<include src="WEB-INF/sigarep/vistas/portal/externo/Noticias.zul" />
 						</north>
 						<center title="Guía paso a paso">
 							<hbox vflex="1" hflex="1" align="center">
@@ -55,13 +56,13 @@
 				<center border="none">
 					<borderlayout>
 						<north size="55%" maxsize="300" border="none">
-							<include src="/PortalBanner.zul" />
+							<include src="WEB-INF/sigarep/vistas/portal/externo/Banner.zul" />
 						</north>
 						<west title="Consulta tu estado" size="50%">
 							<vbox vflex="1" hflex="1" align="center">
 								<space />
 								<div align="center">
-									<label value=" ¿Estas Sancionado?"
+									<label value=" ¿Estás Sancionado?"
 										style="color:Black;font:arial;font-size:18px;font-weight:bold" />
 								</div>
 								<space />
@@ -72,7 +73,7 @@
 									<intbox id="intcedula"
 										mold="rounded" maxlength="8" width="150px"
 										value="@bind(vm.cedula)" />
-									<button label="Buscar"
+									<button label="Buscar" 
 										onClick="@command('modalEstadoEstudiante')" />
 								</hbox>
 							</vbox>
@@ -82,7 +83,7 @@
 								<north border="none" title="Descargas"
 									size="70%">
 									<include
-										src="WEB-INF/layout/principal/Descargas.zul" />
+										src="WEB-INF/sigarep/vistas/portal/externo/Descargas.zul" />
 								</north>
 								<center border="none"
 									title="Preguntas Frecuentes">
@@ -104,7 +105,7 @@
 
 				<!-- Inicio enlaces de interes -->
 				<south size="80px" border="none">
-					<include src="enlaces.zul" />
+					<include src="WEB-INF/sigarep/vistas/portal/externo/EnlacesDeInteres.zul" />
 				</south>
 				<!-- Fin enlaces de interes -->
 			</borderlayout>
@@ -122,7 +123,7 @@
 
 				<!-- Inicio Cronograma de Actividades -->
 				<center title="Cronograma de Actividades">
-					<include src="/cronograma.zul" />
+					<include src="WEB-INF/sigarep/vistas/portal/externo/Cronograma.zul" />
 				</center>
 				<!-- Fin Cronograma de Actividades -->
 
@@ -139,7 +140,7 @@
 
 		<!-- Inicio Pie de Página -->
 		<south size="21px">
-			<include src="WEB-INF/layout/principal/footer.zul" />
+			<include src="WEB-INF/sigarep/vistas/portal/externo/Footer.zul" />
 		</south>
 		<!-- Fin Pie de Página -->
 

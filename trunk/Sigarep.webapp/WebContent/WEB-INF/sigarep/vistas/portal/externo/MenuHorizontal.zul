@@ -1,0 +1,5 @@
+<menubar autodrop="true">
+	<menuitem label="Inicio" />
+	<menuitem label="¿Quiénes somos?" />
+	<menuitem label="Contáctanos" />
+</menubar>
