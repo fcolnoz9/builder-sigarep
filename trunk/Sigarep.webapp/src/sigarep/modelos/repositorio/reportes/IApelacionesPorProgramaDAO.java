@@ -1,16 +1,11 @@
 package sigarep.modelos.repositorio.reportes;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-
 import sigarep.modelos.data.reportes.ApelacionesPorPrograma;
-import sigarep.modelos.data.reportes.ChartDataApelacionesPorPrograma;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
