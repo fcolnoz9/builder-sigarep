@@ -27,11 +27,12 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 
-/**
- * CargarEstudiante por XML UCLA DCYT Sistemas de Información.
- * 
+/** VMenlaceInteres
+ * Contiene métodos necesarios  para el funcionamiento de ActualizarEnlaces.zul, mostrado en el portal.
+ * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 2.5.2
+ * @version 1.0
+ * @since 22/01/14
  */
 
 @SuppressWarnings("serial")

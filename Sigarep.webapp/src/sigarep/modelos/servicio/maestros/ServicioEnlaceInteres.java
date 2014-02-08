@@ -7,6 +7,14 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.repositorio.maestros.IEnlaceInteresDAO;
 
+/** Servicio Enlace
+ * Contiene métodos necesarios  para el buen funcionamiento de ActualizarEnlaces.zul. Se utiliza en VMenlaceInteres.
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
+ */
+
 @Service("servicioenlacesinteres")
 public class ServicioEnlaceInteres {
 	private @Autowired
