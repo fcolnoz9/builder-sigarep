@@ -52,7 +52,8 @@ import org.zkoss.zk.ui.event.Event;
 
 import org.zkoss.zk.ui.Component;
 
-/**Noticia
+/** Clase Noticia
+ * Registra y modifica una noticia. Utilizada en el portal web.
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.0
@@ -64,17 +65,17 @@ import org.zkoss.zk.ui.Component;
 public class VMnoticia extends SelectorComposer<Component>  {
 
 	@WireVariable ServicioNoticia servicionoticia;
-	private Integer idNoticia;
-	private String contenido;
-	private String enlaceNoticia;
+	private Integer idNoticia; // clave principal de la tabla Noticia
+	private String contenido; // contenido de la Noticia
+	private String enlaceNoticia; // enlace de la Noticia
 	private Boolean estatus; //Estatus de la Noticia
-	private Date fechaRegistro; 
+	private Date fechaRegistro; // fecha de registro de la Noticia
 	private Archivo fotoNoticia = new Archivo();
 	private Media mediaNoticia;
 	private AImage imagenNoticia;
 	private String titulof="";
-	private String titulo;
-	private Date vencimiento;
+	private String titulo; // titulo de la Noticia
+	private Date vencimiento; // fecha de vencimiento de la Noticia
 	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
 	private Noticia noticiaSeleccionada;
 	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
@@ -166,13 +167,16 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	// OTROS METODOS
-	/** guardarNoticia
-	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
-	 * @return No devuelve ningun valor.
-	 * @throws las Excepciones son que se quiera registrar una Noticia y haya campos en blanco.
+	
+	/** Guardar Noticia
+	 * @parameters el objeto Noticia
+	 * @return No devuelve ningun valor
+	 * @throws las Excepciones son que se quiera registrar una Noticia y haya campos en blanco
 	 */
 	@Command
-	@NotifyChange({"idNoticia","contenido", "enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
+	@NotifyChange({"idNoticia","contenido", "enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
+	// el notifychange le avisa a que parametros en la pantalla se van a
+	// cambiar, en este caso es idNoticia, contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento
 	public void guardarNoticia(){
 		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia=="" || titulo=="" || contenido==""|| enlaceNoticia=="")
 			mensajesAlUsuario.advertenciaLlenarCampos();
@@ -185,6 +189,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	@Init
+	// inicializador
 	public void init(){
 		//initialization code
 		mediaNoticia = null;
@@ -192,8 +197,8 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		buscarNoticia();
 	}
 
-	/** buscarNoticia
-	 * @param listaNoticia cargada con  las noticias.
+	/** Busca una Noticia
+	 * @parameters listaNoticia cargada con  las noticias.
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
@@ -202,8 +207,8 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		listaNoticia =servicionoticia.listadoNoticia();
 	}
 
-	/** limpiar
-	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	/** Método que limpia los campos
+	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
@@ -223,8 +228,8 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		buscarNoticia();
 	}
 
-	/** eliminarNoticia
-	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	/** Elimina una Noticia
+	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
 	 * @return No devuelve ningun valor.
 	 * @throws la Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
 	 */
@@ -239,8 +244,8 @@ public class VMnoticia extends SelectorComposer<Component>  {
 			mensajesAlUsuario.informacionEliminarCorrecto();
 		}
 	}
-	/** mostrarSeleccionado
-	 * @param idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	/** Muestra una Noticia Seleccionada
+	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
@@ -267,7 +272,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	/** cargarImagenNoticia
-	 * @param imagenNoticia, UploadEvent event Zkoss UI.
+	 * @parameters imagenNoticia, UploadEvent event Zkoss UI.
 	 * @return No devuelve ningun valor.
 	 * @throws la Excepcion es que la media noticia sea null
 	 */
@@ -288,7 +293,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	/** mostrarMensaje
-	 * @param UploadEvent event Zkoss UI.
+	 * @parameters UploadEvent event Zkoss UI.
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
@@ -298,7 +303,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
-	 * @param contenido, enlaceNoticia, fechaRegistro, imagen, titulo, vencimiento, listaNoticia,fotoNoticia. 
+	 * @parameters contenido, enlaceNoticia, fechaRegistro, imagen, titulo, vencimiento, listaNoticia,fotoNoticia. 
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
@@ -323,7 +328,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	/** reordenarLista.Metodo que reordena la lista
-	 * @param listaNoticia cargada con las noticias. 
+	 * @parameters listaNoticia cargada con las noticias. 
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
@@ -339,7 +344,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	/** hacer. Maneja el timer de la  vista , se encarga de actualizar la lista cada 5 segundos
-	 * @param onTimer. 
+	 * @parameters onTimer. 
 	 * @return No devuelve ningun valor.
 	 */
 	@Listen("onTimer = #tiempo")
@@ -348,7 +353,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	}
 
 	/** doAfterCompose.
-	 * @param comp. 
+	 * @parameters comp. 
 	 * @return No devuelve ningun valor.
 	 */
 	@Override
@@ -358,7 +363,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		buscarNoticia();		
 	}
 	/** filtros. Filtra por la variable titulo
-	 * @param titulof,listaNoticia
+	 * @parameters titulof,listaNoticia
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
@@ -367,6 +372,10 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		listaNoticia = servicionoticia.filtrarApelacionesCargarRecaudo(titulof);
 	}
 	
+	/** Validación de fechas
+	 * @parameters fechaRegistro, fechaCierre
+	 * @return No devuelve ningun valor.
+	 */
 	@Command
 	@NotifyChange({ "fechaRegistro", "fechaCierre" })
 	public void validarFecha() {
