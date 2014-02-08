@@ -18,10 +18,9 @@ import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
-/**
- * VM Lapso Academico UCLA DCYT Sistemas de Informacion.
- * 
- * @author Equipo: Builder-SIGAREP
+/** Clase Lapso Academico
+ * REgistra y modifica un lapso academico 
+ *  @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 20/12/13
  */
@@ -31,19 +30,14 @@ public class VMlapsoAcademico {
 	@WireVariable
 	ServicioLapsoAcademico serviciolapsoacademico;
 
-	private String codigoLapso;
-	private Date fechaInicio;
-	private Date fechaCierre;
-	private Boolean estatus;
-	private List<LapsoAcademico> listaLapsoAcademico;
+	private String codigoLapso;// clave principal de la tabla lapso_academico
+	private Date fechaInicio;// fecha de inicio del lapso academico
+	private Date fechaCierre;//fecha de cierre del lapso academico
+	private Boolean estatus;// estatus del codigolapso
+	private List<LapsoAcademico> listaLapsoAcademico;// lista de los lapso academicos registrados
 	private LapsoAcademico lapsoAcademicoseleccionado;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();// Llama a los
-																	// diferentes
-																	// mensajes
-																	// de
-																	// dialogo
-
+	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 	@Wire
 	Textbox txtcodigoLapso;
 	@Wire
@@ -114,11 +108,9 @@ public class VMlapsoAcademico {
 
 	/**
 	 * Guardar lapso academico si no hay un lapso activo ya registrado
-	 * 
 	 * @return nada
 	 * @parameters el objeto lapsoacademico
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
@@ -146,10 +138,9 @@ public class VMlapsoAcademico {
 	/**
 	 * Metodo que valida la fecha de los calendarios que la fecha de inicoo de
 	 * menos q la fecha de cierre
-	 * 
+	 * @return nada
 	 * @parameters fechaInicio, fechaCierre
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "fechaInicio", "fechaCierre" })
@@ -164,11 +155,10 @@ public class VMlapsoAcademico {
 
 	/**
 	 * Metodo que limpia todos los campos
-	 * 
+	 * @return nada
 	 * @parameters codigoLapso, fechaInicio, fechaCierre y la
 	 *             listaLapsoAcademico
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
@@ -184,12 +174,11 @@ public class VMlapsoAcademico {
 	}
 
 	/**
-	 * Buscar un lapso academico
+	 * Buscar un lapso academico activo
 	 * 
 	 * @return el lapso academico buscado de la lista
 	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso academico
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
@@ -207,10 +196,9 @@ public class VMlapsoAcademico {
 
 	/**
 	 * permite tomar los datos del objeto lapso academico seleccionado
-	 * 
+	 * @return nada
 	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso academico
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
