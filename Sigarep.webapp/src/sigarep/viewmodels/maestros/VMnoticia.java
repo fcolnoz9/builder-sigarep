@@ -316,7 +316,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("noticiaSeleccionada", this.noticiaSeleccionada);
 		final Window win = (Window) Executions.createComponents(
-				"/Modal/ModalNoticia.zul", null, map);
+				"WEB-INF/sigarep/vistas/portal/externo/modales/DetalleNoticia.zul", null, map);
 		win.setMaximizable(true);
 		win.doModal();
 

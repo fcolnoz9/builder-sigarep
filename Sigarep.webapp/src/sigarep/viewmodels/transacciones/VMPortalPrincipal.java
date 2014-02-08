@@ -142,7 +142,7 @@ public class VMPortalPrincipal {
 				final HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("cedula", this.cedula);
 				System.out.println(cedula);
-				Executions.createComponents("/Modal/HistorialEst.zul", null,
+				Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/HistorialEstudiante.zul", null,
 						map);
 			}
 		}
@@ -176,7 +176,7 @@ public class VMPortalPrincipal {
 	@Command
 	public void modalPreguntasFrecuentes() {
 		final Window window = (Window) Executions.createComponents(
-				"/Modal/preguntasFrecuentes.zul", null, null);
+				"WEB-INF/sigarep/vistas/portal/externo/modales/PreguntasFrecuentes.zul", null, null);
 		window.setMaximizable(true);
 		window.doModal();
 	}

@@ -394,7 +394,7 @@ public class VMCronograma {
 		map.put("cronogramaSeleccionado", this.cronogramaSeleccionado);
 
 		final Window window = (Window) Executions.createComponents(
-				"/Modal/DescripcionCrog.zul", null, map);
+				"WEB-INF/sigarep/vistas/portal/externo/modales/DetalleCronograma.zul", null, map);
 		window.setMaximizable(true);
 		window.doModal();
 	}

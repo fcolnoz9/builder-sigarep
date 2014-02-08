@@ -1,7 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zul.Window;
@@ -16,12 +15,23 @@ import org.zkoss.zul.Window;
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDescargas {
-	
+
 	@Command
-	@NotifyChange({})
 	public void modalReglamento() {
-		final Window window = (Window) Executions.createComponents(
-				"/Modal/reglamentos.zul", null, null);
+		final Window window = (Window) Executions
+				.createComponents(
+						"WEB-INF/sigarep/vistas/portal/externo/modales/Reglamentos.zul",
+						null, null);
+		window.setMaximizable(true);
+		window.doModal();
+	}
+
+	@Command
+	public void modalRecaudosPorMotivo() {
+		final Window window = (Window) Executions
+				.createComponents(
+						"WEB-INF/sigarep/vistas/portal/externo/modales/RecaudosPorMotivo.zul",
+						null, null);
 		window.setMaximizable(true);
 		window.doModal();
 	}
