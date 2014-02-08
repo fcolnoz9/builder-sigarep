@@ -432,7 +432,7 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaE" })
 	public void buscarEstudianteSancionado() {
-		if(objinstanciaApelada==null|| objLapso==null || objprograma==null || objSancion.getDescripcion()==null || objsexo==null || objtipoMotivo==null
+		if(objinstanciaApelada==null|| objLapso==null || objprograma==null || objSancion==null || objsexo==null || objtipoMotivo==null
 				|| objVeredicto==null || objEdoApelacion==null){
 			Messagebox.show("Debe Seleccionar Todos los Campos", "Informacion", Messagebox.OK, Messagebox.INFORMATION);;
 		}

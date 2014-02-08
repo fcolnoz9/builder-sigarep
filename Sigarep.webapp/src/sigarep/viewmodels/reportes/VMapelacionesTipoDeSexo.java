@@ -22,7 +22,6 @@ import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.reportes.ApelacionesPorMotivo;
 import sigarep.modelos.data.reportes.ApelacionesPorSexo;
-import sigarep.modelos.data.reportes.ChartDataTipoDeSexo;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
