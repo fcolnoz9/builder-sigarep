@@ -32,31 +32,18 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
 
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListadoEstudiantesVeredicto {
 
 	@WireVariable
-	private ServicioSancionMaestro serviciosancionmaestro;
-	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
-	private ServicioInstanciaApelada servicioInstanciaApelada;
-	@WireVariable
-	private ServicioProgramaAcademico servicioprogramaacademico;
-	@WireVariable
 	private ServicioApelacionesPorMotivo servicioapelacionespormotivo;
-	//@WireVariable
-	//private String selected = "";
 
-	@WireVariable
-	private String nombreSancion;
 	@WireVariable
 	private String codigoLapso;
 
-	private List<SancionMaestro> listaTipoSancion;
 	private List<LapsoAcademico> listaLapso;
-	private List<ProgramaAcademico> listaPrograma;
 
 	private List<Sancionados> sancionadosVeredicto = new LinkedList<Sancionados>();
 	private List<Sancionados> sancionadosVeredicto2 = new LinkedList<Sancionados>();
@@ -65,12 +52,9 @@ public class VMListadoEstudiantesVeredicto {
 	
 
 	private LapsoAcademico objLapso;
-
-	private ProgramaAcademico objPrograma;
 	
 	
 	private String codigo_lapso;
-	private String programa_academico;
 	
 	@Wire private String para ="";
 	@Wire private String de="";
@@ -85,34 +69,34 @@ public class VMListadoEstudiantesVeredicto {
 	private int denegados3;
 	private int denegados4;
 	
-	@Wire private String tituloinstancia="TODOS"; 
-	@Wire private String tituloprograma="TODOS";
-	@Wire private String titulosancion="TODOS";
+//	@Wire private String tituloinstancia="TODOS"; 
+//	@Wire private String tituloprograma="TODOS";
+//	@Wire private String titulosancion="TODOS";
 	
 	
-	public String getTitulosancion() {
-		return titulosancion;
-	}
-
-	public void setTitulosancion(String titulosancion) {
-		this.titulosancion = titulosancion;
-	}
-
-	public String getTituloprograma() {
-		return tituloprograma;
-	}
-
-	public void setTituloprograma(String tituloprograma) {
-		this.tituloprograma = tituloprograma;
-	}
-
-	public String getTituloInstancia() {
-		return tituloinstancia;
-	}
-
-	public void setTituloInstancia(String tituloinstancia) {
-		this.tituloinstancia = tituloinstancia;
-	}
+//	public String getTitulosancion() {
+//		return titulosancion;
+//	}
+//
+//	public void setTitulosancion(String titulosancion) {
+//		this.titulosancion = titulosancion;
+//	}
+//
+//	public String getTituloprograma() {
+//		return tituloprograma;
+//	}
+//
+//	public void setTituloprograma(String tituloprograma) {
+//		this.tituloprograma = tituloprograma;
+//	}
+//
+//	public String getTituloInstancia() {
+//		return tituloinstancia;
+//	}
+//
+//	public void setTituloInstancia(String tituloinstancia) {
+//		this.tituloinstancia = tituloinstancia;
+//	}
 
 	public String getPara() {
 		return para;
@@ -142,7 +126,6 @@ public class VMListadoEstudiantesVeredicto {
 	// REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
-	private ReportConfig subReportConfig = null;
 
 	String ruta="/WEB-INF/sigarepReportes/RpInformeDeComisionPorPrograma.jasper";
 	
@@ -150,74 +133,73 @@ public class VMListadoEstudiantesVeredicto {
 	@Init
 	public void init() {
 		buscarLapso();
-		buscarPrograma();
 		//buscarSancionados();
 		// prepare chart data
 	}
 
-	@Command
-	@NotifyChange({ "sancionadosVeredicto","tituloinstancia","tituloprograma","titulosancion" })
-	public void buscarSancionados() {
-		//System.out.println(objSancion.getNombreSancion());
-		//System.out.println(objLapso.getCodigoLapso());
-		// String radio = objRadio.getName();
-		// System.out.println(radio);
-		System.out.println(tituloinstancia);
-		System.out.println(tituloprograma);
-		System.out.println(titulosancion);
-		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(1/*tituloinstancia, tituloprograma, titulosancion*/);
-	
-		//if (!selected.equals("")) {
-			//if (getSelected().equals("resultado")) {
-				/*if (objSancion.getNombreSancion() == "Todos") {
-					apelacionesPrograma = servicioapelacionespormotivo
-							.buscarPorMotivoResultado_Programa(
-									objLapso.getCodigoLapso(),
-									objPrograma.getNombrePrograma());
-				} else
-					apelacionesPrograma = servicioapelacionespormotivo
-							.buscarPorMotivoResultado_ProgramaSancion(
-									objLapso.getCodigoLapso(),
-									objSancion.getNombreSancion(),
-									objPrograma.getNombrePrograma());
-				*/
-				// model = ChartDataTipoDeSexo.getModel(lista);
-			//} else {
-			//	Messagebox.show("Debe Seleccionar una Opción", "Advertencia",
-			//			Messagebox.OK, Messagebox.EXCLAMATION);
-			//}
-		//} else {
-		//	Messagebox.show("Debe Seleccionar una Opción", "Advertencia",
-		//			Messagebox.OK, Messagebox.EXCLAMATION);
-		//}
-	}
+//	@Command
+//	@NotifyChange({ "sancionadosVeredicto","tituloinstancia","tituloprograma","titulosancion" })
+//	public void buscarSancionados() {
+//		System.out.println(objSancion.getNombreSancion());
+//		System.out.println(objLapso.getCodigoLapso());
+//		String radio = objRadio.getName();
+//		System.out.println(radio);
+//		System.out.println(tituloinstancia);
+//		System.out.println(tituloprograma);
+//		System.out.println(titulosancion);
+//		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(1/*tituloinstancia, tituloprograma, titulosancion*/);
+//	
+//		if (!selected.equals("")) {
+//			if (getSelected().equals("resultado")) {
+//				if (objSancion.getNombreSancion() == "Todos") {
+//					apelacionesPrograma = servicioapelacionespormotivo
+//							.buscarPorMotivoResultado_Programa(
+//									objLapso.getCodigoLapso(),
+//									objPrograma.getNombrePrograma());
+//				} else
+//					apelacionesPrograma = servicioapelacionespormotivo
+//							.buscarPorMotivoResultado_ProgramaSancion(
+//									objLapso.getCodigoLapso(),
+//									objSancion.getNombreSancion(),
+//									objPrograma.getNombrePrograma());
+//				
+//				 model = ChartDataTipoDeSexo.getModel(lista);
+//			} else {
+//				Messagebox.show("Debe Seleccionar una Opción", "Advertencia",
+//						Messagebox.OK, Messagebox.EXCLAMATION);
+//			}
+//		} else {
+//			Messagebox.show("Debe Seleccionar una Opción", "Advertencia",
+//					Messagebox.OK, Messagebox.EXCLAMATION);
+//		}
+//	}
 
 		
 		
 	
-	@Command
-	@NotifyChange({ "listaPrograma" })
-	public void buscarPrograma() {
-		listaPrograma = servicioprogramaacademico.listadoProgramas();
-		/*ProgramaAcademico prog = new ProgramaAcademico(null, "Todos", null);
-
-		listaPrograma.add(0, prog);*/
-	}
-
-	@Command
-	@NotifyChange({ "listaPrograma" })
-	public ProgramaAcademico objCmbPrograma() {
-		return objPrograma;
-
-	}
-
-	public ProgramaAcademico getObjPrograma() {
-		return objPrograma;
-	}
-
-	public void setObjPrograma(ProgramaAcademico objPrograma) {
-		this.objPrograma = objPrograma;
-	}
+//	@Command
+//	@NotifyChange({ "listaPrograma" })
+//	public void buscarPrograma() {
+//		listaPrograma = servicioprogramaacademico.listadoProgramas();
+//		/*ProgramaAcademico prog = new ProgramaAcademico(null, "Todos", null);
+//
+//		listaPrograma.add(0, prog);*/
+//	}
+//
+//	@Command
+//	@NotifyChange({ "listaPrograma" })
+//	public ProgramaAcademico objCmbPrograma() {
+//		return objPrograma;
+//
+//	}
+//
+//	public ProgramaAcademico getObjPrograma() {
+//		return objPrograma;
+//	}
+//
+//	public void setObjPrograma(ProgramaAcademico objPrograma) {
+//		this.objPrograma = objPrograma;
+//	}
 
 	@Command
 	@NotifyChange({ "listaLapso" })
@@ -261,23 +243,23 @@ public class VMListadoEstudiantesVeredicto {
 
 
 
-	/*public List<InstanciaApelada> getListaInstancia() {
-		return listaInstancia;
-	}
+//	public List<InstanciaApelada> getListaInstancia() {
+//		return listaInstancia;
+//	}
+//
+//	public void setListaInstancia(List<InstanciaApelada> listaInstancia) {
+//		this.listaInstancia = listaInstancia;
+//	}
 
-	public void setListaInstancia(List<InstanciaApelada> listaInstancia) {
-		this.listaInstancia = listaInstancia;
-	}*/
 
 
-
-	public List<SancionMaestro> getListaTipoSancion() {
-		return listaTipoSancion;
-	}
-
-	public void setListaTipoSancion(List<SancionMaestro> listaTipoSancion) {
-		this.listaTipoSancion = listaTipoSancion;
-	}
+//	public List<SancionMaestro> getListaTipoSancion() {
+//		return listaTipoSancion;
+//	}
+//
+//	public void setListaTipoSancion(List<SancionMaestro> listaTipoSancion) {
+//		this.listaTipoSancion = listaTipoSancion;
+//	}
 
 	public List<LapsoAcademico> getListaLapso() {
 		return listaLapso;
@@ -287,14 +269,14 @@ public class VMListadoEstudiantesVeredicto {
 		this.listaLapso = listaLapso;
 	}
 
-	public List<Sancionados> getsancionadosVeredicto() {
-		return sancionadosVeredicto;
-	}
-
-	public void setsancionadosVeredicto(
-			List<Sancionados> sancionadosVeredicto) {
-		this.sancionadosVeredicto = sancionadosVeredicto;
-	}
+//	public List<Sancionados> getsancionadosVeredicto() {
+//		return sancionadosVeredicto;
+//	}
+//
+//	public void setsancionadosVeredicto(
+//			List<Sancionados> sancionadosVeredicto) {
+//		this.sancionadosVeredicto = sancionadosVeredicto;
+//	}
 
 	public LapsoAcademico getObjLapso() {
 		return objLapso;
@@ -319,7 +301,7 @@ public class VMListadoEstudiantesVeredicto {
 	public void GenerarReporte() {
 
 		sancionadosVeredicto.clear();
-		ProgramaAcademico prog = objPrograma;
+//		ProgramaAcademico prog = objPrograma;
 		LapsoAcademico lap = objLapso;
 		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(1/*tituloinstancia, tituloprograma, titulosancion*/);
 		procedentes = sancionadosVeredicto.get(0).getProcedentes();
@@ -337,47 +319,43 @@ public class VMListadoEstudiantesVeredicto {
 		//setSancionadosVeredicto2(servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), "Licenciatura en Matematicas"));
 		
 		
-		System.out.println("Procedentes: " + procedentes);
-		System.out.println("Procedentes2: " + procedentes2);
-		System.out.println("Procedentes3: " + procedentes3);
-		System.out.println("Procedentes4: " + procedentes4);
-		System.out.println("No Procedentes: " + denegados);
-		System.out.println("No Procedentes2: " + denegados2);
-		System.out.println("No Procedentes3: " + denegados3);
-		System.out.println("No Procedentes4: " + denegados4);
+//		System.out.println("Procedentes: " + procedentes);
+//		System.out.println("Procedentes2: " + procedentes2);
+//		System.out.println("Procedentes3: " + procedentes3);
+//		System.out.println("Procedentes4: " + procedentes4);
+//		System.out.println("No Procedentes: " + denegados);
+//		System.out.println("No Procedentes2: " + denegados2);
+//		System.out.println("No Procedentes3: " + denegados3);
+//		System.out.println("No Procedentes4: " + denegados4);
 		
-		/*nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
-		codigo_lapso = objLapso.getCodigoLapso();
-		sancionadosVeredicto = objInstancia.getInstanciaApelada();
-		*/
-		//System.out.println(nombre_sancion +"   "+ codigo_lapso + "   " + instancia_apelada);
-		/*
-		if (objSancion.getNombreSancion() == "Todos") {
-			sancionadosVeredicto = servicioapelacionespormotivo
-					.buscarPorMotivoResultado_Programa(
-							objLapso.getCodigoLapso(),
-							objPrograma.getNombrePrograma());
-		} else
-			sancionadosVeredicto = servicioapelacionespormotivo
-					.buscarPorMotivoResultado_ProgramaSancion(
-							objLapso.getCodigoLapso(),
-							objSancion.getNombreSancion(),
-							objPrograma.getNombrePrograma());
-		*/
+//		nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
+//		codigo_lapso = objLapso.getCodigoLapso();
+//		sancionadosVeredicto = objInstancia.getInstanciaApelada();
 		
-		
-		
-
-		/*
-		 * System.out.println(programaAcademico.getIdPrograma());
-		 * System.out.println(lapsoAcademico.getCodigoLapso());
-		 * System.out.println(lapsoAcademicoFinal.getCodigoLapso());
-		 * System.out.println(reportType); System.out.println(listaAsigMayor);
-		 */
-		
-		
-		//subReportConfig.setDataSource(new JRBeanCollectionDataSource(sancionadosVeredicto));
-		//$P{SUBREPORT_DIR} + "Lista de Resultado de Apelaciones_subreport2.jasper"
+//		System.out.println(nombre_sancion +"   "+ codigo_lapso + "   " + instancia_apelada);
+//		
+//		if (objSancion.getNombreSancion() == "Todos") {
+//			sancionadosVeredicto = servicioapelacionespormotivo
+//					.buscarPorMotivoResultado_Programa(
+//							objLapso.getCodigoLapso(),
+//							objPrograma.getNombrePrograma());
+//		} else
+//			sancionadosVeredicto = servicioapelacionespormotivo
+//					.buscarPorMotivoResultado_ProgramaSancion(
+//							objLapso.getCodigoLapso(),
+//							objSancion.getNombreSancion(),
+//							objPrograma.getNombrePrograma());
+//		
+//		
+//		
+//		
+//
+//		
+//		  System.out.println(programaAcademico.getIdPrograma());
+//		  System.out.println(lapsoAcademico.getCodigoLapso());
+//		  System.out.println(lapsoAcademicoFinal.getCodigoLapso());
+//		  System.out.println(reportType); System.out.println(listaAsigMayor);
+		 
 		
 		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
@@ -386,7 +364,6 @@ public class VMListadoEstudiantesVeredicto {
 		reportConfig.getParameters().put("Para", para);
 		reportConfig.getParameters().put("Contenido", contenido);
 		reportConfig.getParameters().put("codigoLapso", objLapso.getCodigoLapso());
-		reportConfig.getParameters().put("programa", objPrograma.getNombrePrograma());
 		reportConfig.getParameters().put("procedentes", procedentes);
 		reportConfig.getParameters().put("denegados", denegados);
 		reportConfig.getParameters().put("procedentes2", procedentes2);
@@ -424,13 +401,13 @@ public class VMListadoEstudiantesVeredicto {
 		this.codigo_lapso = codigo_lapso;
 	}
 
-	public List<ProgramaAcademico> getListaPrograma() {
-		return listaPrograma;
-	}
-
-	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
-		this.listaPrograma = listaPrograma;
-	}
+//	public List<ProgramaAcademico> getListaPrograma() {
+//		return listaPrograma;
+//	}
+//
+//	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
+//		this.listaPrograma = listaPrograma;
+//	}
 
 	public List<Sancionados> getSancionadosVeredicto2() {
 		return sancionadosVeredicto2;
@@ -440,17 +417,12 @@ public class VMListadoEstudiantesVeredicto {
 		this.sancionadosVeredicto2 = sancionadosVeredicto2;
 	}
 
-	public ReportConfig getSubReportConfig() {
-		return subReportConfig;
-	}
+//	public ReportConfig getSubReportConfig() {
+//		return subReportConfig;
+//	}
+//
+//	public void setSubReportConfig(ReportConfig subReportConfig) {
+//		this.subReportConfig = subReportConfig;
+//	}
 
-	public void setSubReportConfig(ReportConfig subReportConfig) {
-		this.subReportConfig = subReportConfig;
-	}
-
-
-
-	
-
-	
 }

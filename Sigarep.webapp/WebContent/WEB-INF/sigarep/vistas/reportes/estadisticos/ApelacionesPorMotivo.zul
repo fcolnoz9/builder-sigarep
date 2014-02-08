@@ -208,7 +208,7 @@
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" image="/imagenes/iconos/cerrar.png"
-				onClick="winApelacionesPorMotivo.onClose()">
+				onClick="winApelacion.onClose()">
 			</button>
 		</div>
 

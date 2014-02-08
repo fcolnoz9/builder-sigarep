@@ -30,53 +30,8 @@
 								<comboitem label="${each.codigoLapso}" />
 							</template>
 						</combobox>
-
-						<label id="lblPrograma" value="Programa" />
-						<combobox id="cmbPrograma" mold="rounded"
-						value="@bind(vm.tituloprograma)"
-							readonly="true" model="@load(vm.listaPrograma)"
-							selectedItem="@bind(vm.objPrograma)"
-							onSelect="@command('objCmbPrograma')">
-							<template name="model">
-								<comboitem
-									label="${each.nombrePrograma}" />
-							</template>
-						</combobox>
-
 					</row>
 
-					<row>
-
-<!-- 						<label id="lblTipodeSancion" -->
-<!-- 							value="Tipo de Sanciòn" /> -->
-<!-- 						<combobox id="cmbTipoSancion" mold="rounded" -->
-<!-- 							value="@bind(vm.titulosancion)" -->
-<!-- 							readonly="true" model="@load(vm.listaTipoSancion)" -->
-<!-- 							selectedItem="@bind(vm.objSancion)" -->
-<!-- 							onSelect="@command('objCmbSancion')"> -->
-<!-- 							<template name="model"> -->
-<!-- 								<comboitem -->
-<!-- 									label="${each.nombreSancion}" /> -->
-<!-- 							</template> -->
-<!-- 						</combobox> -->
-
-<!-- 						<label id="lblInstanciaApelada" -->
-<!-- 							value="Instancia Apelada: " /> -->
-<!-- 						<combobox readonly="true" -->
-<!-- 							id="cmbInstanciaApelada" -->
-<!-- 							value="@bind(vm.tituloInstancia)" width="80%" -->
-<!-- 							mold="rounded" model="@load(vm.listaInstanciaApelada)" -->
-<!-- 							selectedItem="@bind(vm.instanciaApelada)" -->
-<!-- 							onSelect="@command('objetoComboEstadoApelacion')"> -->
-<!-- 							<template name="model"> -->
-<!-- 								<comboitem -->
-<!-- 									label="${each.instanciaApelada }" /> -->
-<!-- 							</template> -->
-<!-- 						</combobox> -->
-
-
-
-					</row>
 					<row>
 						<label id="lblPara"
 							value="Para: " />
@@ -88,7 +43,7 @@
 					<row>
 						<label id="lblAsunto"
 							value="Asunto: " />
-						<textbox id="txtContenido" value="@bind(vm.contenido)" rows="3" mold="rounded" tabindex="2" />
+						<textbox id="txtContenido" value="@bind(vm.contenido)" rows="1" mold="rounded" tabindex="2" />
 					</row>
 
 
@@ -104,52 +59,28 @@
 					<div align="right" height="100%">
 						<button label="Generar" id="btnGenerar"
 							image="imagenes/iconos/generar.png" width="auto" height="auto"
-							orient="horizontal" onClick="@command('buscarSancionados')">
+							orient="horizontal" onClick="@command('GenerarReporteApelacionesMotivo')">
 						</button>
 					</div>
 				</hlayout>
 
 				<hlayout id="lytBorrar">
 					<div align="right" height="100%">
-						<button label="Cancelar" id="btncancelar"
-							image="imagenes/iconos/cancelar.png" width="auto" height="auto"
-							orient="horizontal" onClick="@command('GenerarReporteApelacionesMotivo')">
-						</button>
+						<button id="btnCancelar" width="auto" height="auto"
+				         label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy"
+				         onClick="@command('buscarApelacionesR')">
+			            </button>
+			            
+			            
+			            <button id="btnCerrar" width="auto" height="auto"
+				label="Cerrar" image="/imagenes/iconos/cerrar.png"
+				onClick="winApelacion.onClose()">
+			</button>
 					</div>
 				</hlayout>
 			</hbox>
 
 		</groupbox>
-
-		<listbox id="lbxSancionados" height="70%"
-			model="@bind(vm.sancionadosVeredicto)" visible="true">
-			<listhead>
-				<listheader label="Cedula" align="center"
-					sort="auto(Cedula)" />
-				<listheader label="Nombre" align="center"
-					sort="auto(Nombre)" />
-				<listheader label="Apellido" align="center"
-					sort="auto(Apellido)" />
-<!-- 				<listheader label="Sancion" align="center" -->
-<!-- 					sort="auto(Sancion)" /> -->
-				<listheader label="Veredicto" align="center"
-					sort="auto(Veredicto)" />
-<!-- 				<listheader label="Observacion" align="center" -->
-<!-- 					sort="auto(Observacion)" /> -->
-			</listhead>
-			<template name="model">
-				<listitem>
-					<listcell label="${each.cedula}" />
-					<listcell label="${each.nombre}" />
-					<listcell label="${each.apellido}" />
-<!-- 					<listcell label="${each.sancion}" /> -->
-					<listcell label="${each.veredicto}" />
-<!-- 					<listcell label="${each.observacion}" /> -->
-				</listitem>
-			</template>
-		</listbox>
-		
-		
 		
 		<jasperreport id="report" height="620px"
 			src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesMotivo')"
