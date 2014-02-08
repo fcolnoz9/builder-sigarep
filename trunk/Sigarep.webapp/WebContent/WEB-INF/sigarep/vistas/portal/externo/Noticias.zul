@@ -9,7 +9,7 @@
 		</timer>
 		<listbox id="lbxNoticias" model="@bind(vm.listaNoticia)"
 			selectedItem="@bind(vm.noticiaSeleccionada)"
-			onClick="@command('mostrarSeleccionado2')"
+			onSelect="@command('mostrarSeleccionado2')"
 			emptyMessage="No hay noticias disponibles" mold="paging">
 			<auxhead sclass="category-center">
 				<auxheader colspan="1" align="center"></auxheader>
