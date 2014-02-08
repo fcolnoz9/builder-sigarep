@@ -79,18 +79,18 @@
 			</rows>
 		</grid>
 		</groupbox>
-		<groupbox>  
+			<groupbox>  
 		<caption label="Datos de los recaudos" />      
         <listbox id="lbxRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="20">
 	   	<listhead>
 	   		<listheader hflex="3" label="Motivo de Apelación" align="left" width="25%" sort="auto(getMotivo().getTipoMotivo().getNombreTipoMotivo())" />
 	   		<listheader hflex="4" label="Recaudo Entregado" align="left" width="25%" sort="auto(getRecaudo().getNombreRecaudo())"  />
 	   		<listheader hflex="4" label="Observación"  align="left" width="50%" sort="auto(getObservacionExperto())" >
-	   		<button label="Analisis Anterior" mold="trendy" 
+	   			<button label="Analisis Anterior" mold="trendy" 
 					 width="50%" height="auto" orient="horizontal" 
 					 onClick="@command('mostrarHistorial')">
-			</button>
-			</listheader>
+				</button>
+	   		</listheader>
 	   	</listhead>
 	   	<template name="model">
 	   		<listitem selected="false">
@@ -102,7 +102,6 @@
 	   		</listitem>
 	   	</template>
 	   </listbox>
-        
 	</groupbox>
 	
 	
