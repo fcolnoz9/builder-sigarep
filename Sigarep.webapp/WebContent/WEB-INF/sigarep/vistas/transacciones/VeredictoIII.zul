@@ -2,6 +2,29 @@
 	width="auto" height="auto"  style="overflow:auto" closable="true" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVeredictoIII')">
 	<style src="/widgets/grid/simple/style.css" />
+	<groupbox id="grbDatosSesion">
+		<caption id="lblDatossesion" label="Datos Sesión" />
+		<grid>
+			<rows>
+				<row>
+					<label id="lblNumerosesion"
+						value="Numero de Sesión: " />
+					<textbox id="txtNumeroSesion" cols="23" mold="rounded" 
+						maxlength="30" readonly="true" value="@bind(vm.numeroSesion)">
+					</textbox>
+					<label id="lblTiposesion" value="Tipo de Sesión: " />
+					<textbox id="txtTipoSesion" mold="rounded" cols="23" maxlength="30" value="@bind(vm.tipoSesion)" readonly="true"></textbox>
+				</row>
+				<row>
+					<label id="lblFechasesion"
+						value="Fecha de Sesión: " />
+					<textbox id="txtFechasesión" cols="23" mold="rounded"
+						maxlength="30" value="@bind(vm.fechaSesion)" readonly="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
 		<grid id="grdDatosEstudiante">
