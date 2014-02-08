@@ -366,4 +366,16 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	public void filtros(){
 		listaNoticia = servicionoticia.filtrarApelacionesCargarRecaudo(titulof);
 	}
+	
+	@Command
+	@NotifyChange({ "fechaRegistro", "fechaCierre" })
+	public void validarFecha() {
+		if (fechaRegistro != null && vencimiento != null) {
+			if (fechaRegistro.compareTo(vencimiento) > 0) {
+				mensajesAlUsuario.ErrorRangoFechas();
+				vencimiento = null;
+			}
+		}
+	}
+
 }
