@@ -15,27 +15,24 @@ import sigarep.modelos.data.maestros.NoticiaFiltro;
 import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.repositorio.maestros.INoticiaDAO;
 
-/**Noticia
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14
- */
 @Service("servicionoticia")
 public class ServicioNoticia {
 	private @Autowired
 	INoticiaDAO iNoticia;
 
-	/** guardar
-	 * @param noticia.
-	 * @return No devuelve ningun valor.
+	/** Guardar Noticia
+	 * @parameters el objeto Noticia
+	 * @return No devuelve ningun valor
+	 * @throws No dispara ninguna excepcion.
 	 */
 	public void guardar(Noticia noticia) {
 		iNoticia.save(noticia);
 	}
-	/** eliminar
-	 * @param idNoticia
+	
+	/** Eliminar Noticia
+	 * @parameters idNoticia
 	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion
 	 */
 	public void eliminar(Integer idNoticia) {
 		Noticia n = iNoticia.findOne(idNoticia);
@@ -43,9 +40,10 @@ public class ServicioNoticia {
 		iNoticia.save(n);
 	}
 
-	/** listadoNoticia
-	 * @param una listadoNoticia
-	 * @return No devuelve ningun valor.
+	/** Lista de Noticia
+	 * @parameters No devuelve ningun valor
+	 * @return Lista de las Noticias registradas y activas 
+	 * @throws No dispara ninguna excepcion
 	 */
 	public List<Noticia> listadoNoticia() {
 		List<Noticia> noticiaLista = iNoticia.busar();
@@ -53,7 +51,7 @@ public class ServicioNoticia {
 	}
 
 	/** buscarn
-	 * @param idNoticia
+	 * @parameters idNoticia
 	 * @return r es una lista de Noticia.
 	 */
 	public  List<Noticia> buscarn(Integer idNoticia) {
@@ -62,9 +60,9 @@ public class ServicioNoticia {
 		return r;
 	}
 
-	/** buscarNoticia
-	 * @param nombre
-	 * @return resultado es un listadoNoticia.
+	/** Buscar una Noticia por nombre
+	 * @parameters nombre
+	 * @return resultado que es un listadoNoticia.
 	 * @throws la Excepcion es que el nombre este en blanco.
 	 */
 	public List<Noticia> buscarNoticia(String nombre) {
@@ -83,8 +81,8 @@ public class ServicioNoticia {
 		return resultado;
 	}
 
-	/** buscarNoticias
-	 * @param noticias
+	/** buscar una Noticia por filtro de titulo y contenido
+	 * @parameters noticias
 	 * @return result que es un listadoNoticia.
 	 */
 	public List<Noticia> buscarNoticias(NoticiaFiltro noticias){
@@ -107,7 +105,7 @@ public class ServicioNoticia {
 	} 
 
 	/** filtrarApelacionesCargarRecaudo
-	 * @param titulof
+	 * @parameters titulof
 	 * @return result que es un listadoNoticia.
 	 * @throws las Excepciones son que el titulo sea null
 	 */
