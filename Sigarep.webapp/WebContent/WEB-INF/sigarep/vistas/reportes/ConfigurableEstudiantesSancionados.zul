@@ -84,15 +84,6 @@
 					</row>
 				</rows>
 			</grid>
-			<hbox width="90%" height="150%" pack="right">
-				<div align="right" height="100%">
-				   <button label="Buscar" id="btnBuscar" image="imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudianteSancionado')"></button>
-				</div>
-				<div align="right" height="100%">
-					<button label="Cancelar" id="btnCancelar1" image="imagenes/iconos/cancelar.png" width="auto" height="auto" onClick="@command('limpiarE')" orient="horizontal">
-					</button>
-				</div>
-			</hbox>
 		</groupbox>
 		<space />
 		
@@ -109,7 +100,7 @@
 					<listheader label="Instacia Apelada" id="lblistacanciaApelada" align="center" sort="auto(instanciaApelada)" />
 					<listheader label="Lapsos Academidos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
 					<listheader label="Veredicto" id="lblVeredicto1" align="center" sort="auto(veredicto)" />
-					<listheader label="Edo.Apelacion" id="lblEdoApelacion1" align="center" sort="auto(nombreEstado)" />
+					<listheader label="Edo.Apelacion" id="lblEdoApelacion1" align="center" sort="auto(edoApelacion)" />
 				</listhead>
 				<template name="model">
 					<listitem>
@@ -122,7 +113,7 @@
 						<listcell label="${each.instanciaApelada}" />
 						<listcell label="${each.codigoLapso}" />
 						<listcell label="${each.veredicto}" />
-						<listcell label="${each.nombreEstado}" />
+						<listcell label="${each.edoApelacion}" />
 					</listitem>
 				</template>
 			</listbox>
@@ -136,6 +127,7 @@
 		<hbox width="90%" height="150%" pack="right">
 			<div align="right" height="100%">
 				<hlayout id="lytDescargar">
+				    <button label="Buscar" id="btnBuscar" image="imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudianteSancionado')"></button>
 					<button label="Generar Reporte" id="btnGenerarReporte" image="imagenes/iconos/descargar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesSancionadosConfigurable')"></button>
 				</hlayout>
 			</div>
