@@ -162,6 +162,30 @@ public class VMVeredictoIII {
 		this.email = email;
 	}
 
+	public String getNumeroSesion() {
+		return numeroSesion;
+	}
+
+	public void setNumeroSesion(String numeroSesion) {
+		this.numeroSesion = numeroSesion;
+	}
+
+	public String getTipoSesion() {
+		return tipoSesion;
+	}
+
+	public void setTipoSesion(String tipoSesion) {
+		this.tipoSesion = tipoSesion;
+	}
+
+	public Date getFechaSesion() {
+		return fechaSesion;
+	}
+
+	public void setFechaSesion(Date fechaSesion) {
+		this.fechaSesion = fechaSesion;
+	}
+
 	public void concatenacionNombres() {
 		nombres = primerNombre + " " + segundoNombre;
 	}
