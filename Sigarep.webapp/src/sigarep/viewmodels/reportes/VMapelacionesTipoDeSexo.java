@@ -29,7 +29,6 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
-import sigarep.modelos.servicio.reportes.ServicioApelacionesPorSexo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMapelacionesTipoDeSexo {
