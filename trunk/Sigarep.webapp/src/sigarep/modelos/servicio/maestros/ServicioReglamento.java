@@ -98,5 +98,9 @@ public class ServicioReglamento {
 	public List<Reglamento> buscarRecaudosPortal(){
 		return rg.buscarRecaudos();
 	}
+	
+	public List<Reglamento> buscarFormatoPortal(){
+		return rg.buscarFormato();
+	}
 
 }
