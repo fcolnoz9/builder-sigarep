@@ -78,7 +78,15 @@ public interface IRecaudoEntregadoDAO extends
 	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
 			"WHERE re.id.codigoLapso = la.codigoLapso " +
 			"AND re.id.cedulaEstudiante = :cedula " +
-			"AND re.id.idInstanciaApelada = '2')")
+			"AND (re.id.idInstanciaApelada = '2' " +
+			"OR re.id.idInstanciaApelada = '3')")
 	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezIII(@Param("cedula") String cedula);
+	
+	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
+			"WHERE re.id.codigoLapso = la.codigoLapso " +
+			"AND re.id.cedulaEstudiante = :cedula " +
+			"AND (re.id.idInstanciaApelada = '2')")
+	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesanalizarIII(@Param("cedula") String cedula);
+	
 	
 }
