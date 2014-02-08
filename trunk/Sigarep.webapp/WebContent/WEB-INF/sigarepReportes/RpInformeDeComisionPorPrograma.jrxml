@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lista de Resultado de Apelaciones" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7da6540-11bf-427f-942b-b5cb25c64d55">
 	<property name="ireport.zoom" value="1.5000000000000007"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="970"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -261,14 +261,14 @@ and sa.codigo_lapso = '2013-2']]>
 				<text><![CDATA[Informe al Consejo de Decanato]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="12e8632f-d9b9-4d62-8a2d-7e55666fcd82" x="272" y="75" width="123" height="22"/>
+				<reportElement uuid="12e8632f-d9b9-4d62-8a2d-7e55666fcd82" x="255" y="75" width="123" height="22"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{codigoLapso}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="35fc36e2-332d-4072-a7ac-ee0341036a1a" x="182" y="75" width="56" height="23"/>
+				<reportElement uuid="35fc36e2-332d-4072-a7ac-ee0341036a1a" x="199" y="75" width="56" height="23"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -401,16 +401,16 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="638" splitType="Stretch">
+		<band height="601" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="50696fcb-9592-43b8-b06f-7f046fdd1eae" x="22" y="13" width="518" height="30"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement uuid="50696fcb-9592-43b8-b06f-7f046fdd1eae" x="22" y="13" width="518" height="65"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lista de Resultado de Apelaciones obtenidos en el Programa Ingeniería en Informática]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement uuid="1a1f60f7-a947-48e9-9e94-cdb002279b66" key="table 5" style="table 5" x="81" y="54" width="389" height="61"/>
+				<reportElement uuid="1a1f60f7-a947-48e9-9e94-cdb002279b66" key="table 5" style="table 5" x="81" y="87" width="389" height="61"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="TablaInformatica" uuid="99f3a79e-0a5c-4db4-bb7f-2831369c3152">
 						<dataSourceExpression><![CDATA[$P{listaInformatica}]]></dataSourceExpression>
@@ -508,10 +508,10 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<break>
-				<reportElement uuid="e4d94918-d72e-4e69-b498-244ee3b04e85" x="0" y="122" width="100" height="1"/>
+				<reportElement uuid="e4d94918-d72e-4e69-b498-244ee3b04e85" x="0" y="153" width="100" height="1"/>
 			</break>
 			<componentElement>
-				<reportElement uuid="6af50740-e3c0-4522-a00d-2fda7e56685e" key="table 5" style="table 5" x="81" y="223" width="389" height="61"/>
+				<reportElement uuid="6af50740-e3c0-4522-a00d-2fda7e56685e" key="table 5" style="table 5" x="81" y="234" width="389" height="61"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="TablaInformatica" uuid="8cebbb4e-ba16-49b1-b58b-40e101623463">
 						<dataSourceExpression><![CDATA[$P{listaInformatica2}]]></dataSourceExpression>
@@ -609,24 +609,24 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement uuid="a72052cf-7421-43cf-9552-72b4124b0fc4" x="22" y="183" width="518" height="30"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement uuid="a72052cf-7421-43cf-9552-72b4124b0fc4" x="22" y="159" width="518" height="65"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lista de Resultado de Apelaciones obtenidos en el Programa Ingeniería en Producción]]></text>
 			</staticText>
 			<break>
-				<reportElement uuid="21f8e644-69a6-4988-8f16-edd53a048474" x="0" y="289" width="100" height="1"/>
+				<reportElement uuid="21f8e644-69a6-4988-8f16-edd53a048474" x="0" y="303" width="100" height="1"/>
 			</break>
 			<staticText>
-				<reportElement uuid="e44a92b0-c6d1-476a-a9ff-27e41819716f" x="19" y="352" width="518" height="30"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement uuid="e44a92b0-c6d1-476a-a9ff-27e41819716f" x="22" y="310" width="518" height="65"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lista de Resultado de Apelaciones obtenidos en el Programa Análisis de Sistemas]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement uuid="b736c12b-d404-463a-9076-3b847d6bad88" key="table 5" style="table 5" x="78" y="392" width="389" height="61"/>
+				<reportElement uuid="b736c12b-d404-463a-9076-3b847d6bad88" key="table 5" style="table 5" x="81" y="386" width="389" height="61"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="TablaInformatica" uuid="4fcec0dd-d0a6-4756-adc9-0aa9f4715300">
 						<dataSourceExpression><![CDATA[$P{listaInformatica3}]]></dataSourceExpression>
@@ -724,7 +724,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement uuid="3a7656f9-7352-4674-a95b-f97bd1532fc1" key="table 5" style="table 5" x="78" y="577" width="389" height="61"/>
+				<reportElement uuid="3a7656f9-7352-4674-a95b-f97bd1532fc1" key="table 5" style="table 5" x="81" y="540" width="389" height="61"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="TablaInformatica" uuid="52be4d03-3c27-404b-8267-a713c3b3affe">
 						<dataSourceExpression><![CDATA[$P{listaInformatica4}]]></dataSourceExpression>
@@ -822,10 +822,10 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<break>
-				<reportElement uuid="6d466133-942f-42b8-b5e4-0e9c9f1d2783" x="0" y="472" width="100" height="1"/>
+				<reportElement uuid="6d466133-942f-42b8-b5e4-0e9c9f1d2783" x="0" y="454" width="100" height="1"/>
 			</break>
 			<staticText>
-				<reportElement uuid="6002e76a-dc5a-4ce4-8167-425328b80156" x="19" y="533" width="518" height="30"/>
+				<reportElement uuid="6002e76a-dc5a-4ce4-8167-425328b80156" x="22" y="465" width="518" height="65"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
