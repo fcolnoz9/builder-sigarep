@@ -7,7 +7,7 @@
 		
 		<style src="/widgets/input/form_sample/style.css"></style>
 		
-		<!-- Contiene los campos que requieren llenarse con los datos de noticia -->
+		<!-- Groupbox que contiene los campos que requieren llenarse con los datos de noticia -->
 		
 		<groupbox id="grbNoticia">
 			<caption label="Datos de Noticia" />
@@ -67,7 +67,7 @@
 		<separator/>
 		<div align="right" height="100%">
 		
-		<!-- Permite realizar acciones con respecto a las noticias -->
+		<!-- Grupo de botones -->
 		
 			<button label="Guardar" id="btnGrabarNoticia" 
 				 mold="trendy" width="auto"
@@ -87,8 +87,7 @@
 				 onClick="winActualizarNoticia.onClose()" />
 		</div>
 		
-		<!-- Muestra el listado de noticias registradas, permite la modificación y eliminacion de un registro-->
-		
+		<!-- Grupbox que contiene el listado de noticias almacenadas en base de datos-->
 		<groupbox id="grbListadoNoticias">
 			<caption label="Listado de Noticias"/>
 			<separator/>
