@@ -20,6 +20,7 @@
 	</listitem>
 	<listitem>
 		<listcell label="Formatos de Apelación" sclass="head2"
+			onClick="@command('modalFormato')"
 			id="lblFormatos" style="font:arial;cursor:pointer" />
 		<listcell label="" />
 	</listitem>
