@@ -7,6 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import sigarep.modelos.data.maestros.EnlaceInteres;
 
+/** IEnlaceInteresDAO
+ *  Permite el uso de query para consultas. se utiliza en ServicioEnlaceInteres.
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
+ */
 public interface IEnlaceInteresDAO extends JpaRepository<EnlaceInteres, Integer> {
 
 	//permite la busqueda de los registros por estatus, para mostrar los registros en true, luego de la eliminación lógica.
