@@ -1,11 +1,8 @@
 package sigarep.viewmodels.reportes;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -17,12 +14,10 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.CategoryModel;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
-
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
-import sigarep.modelos.data.reportes.ChartDataApelacionesPorMotivo;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.reportes.Sancionados;
