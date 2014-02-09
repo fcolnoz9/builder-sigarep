@@ -1,5 +1,9 @@
 package sigarep.viewmodels.transacciones;
-
+/** Transaccion para Analizar Validez II- recurso Jerárquico
+ * @author BUILDER
+ * @version 1.3
+ * @since 12/01/2014 
+ */
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -69,13 +73,13 @@ public class VMAnalizarValidezI {
 	private String labelAsignaturaLapsosConsecutivos;	
 	private String sancion;
 	private String lapso;
-	@WireVariable
-	private Integer semestreSancion;
 	private Integer caso;
 	private String fechaApelacion;
 	private String observacion;
 	private String selected = "";	
-	private String observacionexperto;
+	private String observacionexperto= "";
+	@WireVariable
+	private Integer semestreSancion;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -90,23 +94,22 @@ public class VMAnalizarValidezI {
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@Wire
 	private Datebox	dtbAnnoIngreso;
-
+	private SolicitudApelacion sancionadoSeleccionado;
+	private Integer periodoSancion; 
+	private TipoMotivo tipoMotivo;
+	private String telefono;
 	private List<LapsoAcademico> listaLapso;
 	private List<SancionMaestro> listaSancion;
+	private List<Recaudo> listaRecaudosPorMotivo;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-	
+	private List<RecaudoEntregado> listaRecaudo;
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
-	private SolicitudApelacion sancionadoSeleccionado;
 	mensajes msjs = new mensajes(); 
-	private TipoMotivo tipoMotivo;
-	private List<Recaudo> listaRecaudosPorMotivo;
-	private String telefono;
-	private List<RecaudoEntregado> listaRecaudo;
-	private Integer periodoSancion; 
 	
+	//Metodos SET Y GET 
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
 	}
@@ -299,7 +302,11 @@ public class VMAnalizarValidezI {
 	public void setPeriodoSancion(Integer periodoSancion) {
 		this.periodoSancion = periodoSancion;
 	}
+	// FIN DEL METODO GET Y SET
 
+		/** se llenan las listas de recaudos entregados por motivos
+	    * @param tipo motivo
+	    */
 	@Command
 	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
 	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo){
@@ -353,7 +360,10 @@ public class VMAnalizarValidezI {
 		this.fechaApelacion = fecha;
 		
 	}
-						
+	
+	/** guarda los recaudos entregados junto con su observacion
+	    * @param cedula, nombres, apellidos, estudianteSancionado,lapso,observacionExperto,observacion
+	   */
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacionExperto","observacion"})
 	public void actualizarRecaudosEntregados(@BindingParam("recaudosEntregados") List<Listitem> recaudos, @BindingParam("window") Window winAnalizarValidezI) {
@@ -435,7 +445,9 @@ public class VMAnalizarValidezI {
 					}
 		}
 	}	
-		
+	
+	/** Limpia los campos 
+	    */
 	@Command
 	@NotifyChange({ "listaRecaudo", "observacion", "selected", "observacionexperto"})
 	public void limpiar(){

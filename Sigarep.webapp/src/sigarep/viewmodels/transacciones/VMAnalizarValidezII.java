@@ -1,10 +1,15 @@
 package sigarep.viewmodels.transacciones;
 /**VM Analizar validezII
-* UCLA DCYT Sistemas de Informacion.
-* @author Equipo: Builder-SIGAREP 
+* Registra y modifica EL analizar Validez de la reconsideraciones
+* @author  Builder
 * @version 1.0
-* @since 20/12/13
+* @since 15/01/14
 */
+
+
+
+import org.zkoss.zul.Button;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -63,6 +68,8 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
 
 
+
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAnalizarValidezII {
 	@WireVariable
@@ -77,13 +84,14 @@ public class VMAnalizarValidezII {
 	private String labelAsignaturaLapsosConsecutivos;
 	private String sancion;
 	private String lapso;
-	@WireVariable
-	private Integer semestreSancion;
 	private Integer caso;
+	private String telefono;
 	private String fechaApelacion;
 	private String observacion;
 	private String selected = "";
 	private String observacionexperto;
+	@WireVariable
+	private Integer semestreSancion;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -98,7 +106,7 @@ public class VMAnalizarValidezII {
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@Wire
 	private SolicitudApelacion sancionadoSeleccionado;
-	private String telefono;
+	private boolean mostrarButtonObservacionAnterior = false;
 	private Datebox dtbAnnoIngreso;
 	private TipoMotivo tipoMotivo;
 	private List<LapsoAcademico> listaLapso;
@@ -299,12 +307,24 @@ public class VMAnalizarValidezII {
 	public void setObservacionexperto(String observacionexperto) {
 		this.observacionexperto = observacionexperto;
 	}
-	//Fin de los metodos setters y getters
 	
+	
+	public boolean isMostrarButtonObservacionAnterior() {
+		return mostrarButtonObservacionAnterior;
+	}
+
+	public void setMostrarButtonObservacionAnterior(
+			boolean mostrarButtonObservacionAnterior) {
+		this.mostrarButtonObservacionAnterior = mostrarButtonObservacionAnterior;
+	}
+	//Fin de los metodos setters y getters
+
+
 	//Metodo que inicializa el codigo del VM
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1) {
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1
+			) {
 		Selectors.wireComponents(view, this, false);
 		this.sancionadoSeleccionado = v1;
 		cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
@@ -341,10 +361,25 @@ public class VMAnalizarValidezII {
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		String fecha = sdf.format(fechaSA);
 		this.fechaApelacion = fecha;
-
+	
+		// para lo del Button
+		
+		for(RecaudoEntregado recaudoEntregado : buscarRecaudosEntregados(cedula)){
+			if(recaudoEntregado.getObservacionExperto() == null ){
+				System.out.println("paso por aqui");
+				System.out.println(" y la cedula es CEDULA"+cedula);
+				this.setMostrarButtonObservacionAnterior(false);
+			}else{
+				System.out.println("tambien por aca");
+				System.out.println(" y la cedula es CEDULA"+recaudoEntregado.getObservacionExperto());
+				this.setMostrarButtonObservacionAnterior(true);
+				break;
+			}
+		}
+		
 	}
-
-	/** buscarRecaudosPorTipoMotivo
+			
+	/** buscar Recaudos PorTipoMotivo
 	 * @param tipoMotivo 
 	 * @return Lista de recaudos y motivos por estudiante
 	 */
@@ -354,28 +389,34 @@ public class VMAnalizarValidezII {
 		listaRecaudosPorMotivo = serviciorecaudo
 				.listadoRecaudosPorMotivo(tipoMotivo);
 	}
-	/** buscarRecaudosEntregados
-	 * @param cedula 
-	 * @return Lista de recaudos 
-	 */
+	
+	/** Buscar Recaudos Entregados
+	 * @return el Listado de recaudos buscado de la lista 
+	 * @parameters cedula
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({ "listaRecaudo" })
-	public void buscarRecaudosEntregados(String cedula) {
+	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
 				.buscarRecaudosEntregadosAnalizarValidezII(cedula);
 		System.out.println("CEDULA"+cedula);
 		System.out.println(listaRecaudosPorMotivo);
+		return listaRecaudo;
 	}
 
 	
-
-	/** actualizarRecaudosEntregados
-	 * @return No devuelve ningun valor.
-	 * @throws  
-	 */	
+	/** Actualiza los RecaudosEntregados
+	* @return No devuelve ningun valor.
+	* @parameters el objeto EstadoApelacion
+	* @throws No dispara ninguna excepcion.  
+	*/	
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado",
 			"lapso", "observacionexperto", "observacion" })
+	// el notifychange le avisa a que parametros en la pantalla se van a
+	// cambiar, en este caso es cedula, nombre, apellidos, estudianteSancionado,lapso,observacionexperto, observacion
+	// al guardar
 	public void actualizarRecaudosEntregados(
 			@BindingParam("recaudosEntregados") List<Listitem> recaudos,
 			@BindingParam("window") Window winAnalizarValidezII) {
@@ -468,19 +509,25 @@ public class VMAnalizarValidezII {
 		}
 	}
 
-	/** Limpiar
-	 * @return No devuelve ningun valor.
-	 * @throws  
-	 */		
+	/** Metodo que limpia todos los campos
+	 * @parameters Observacion,selected, observacionexperto
+	 * @throws No dispara ninguna excepcion.
+	 */	
 	@Command
 	@NotifyChange({"observacion", "selected",
 			"observacionexperto" })
 	public void limpiar() {
 		observacion = "";
 		selected = "";
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezII(cedula);
+
 	}
 	
-	
+
+	/** Metodo que ;Muestra el Historial de Observaciones
+	 * @parameters cedula, sancioando seleccionado
+	 * @throws No dispara ninguna excepcion.
+	 */	
 	@Command
 	public void mostrarHistorial (){
   		final HashMap<String, Object> map = new HashMap<String, Object>();
@@ -491,6 +538,9 @@ public class VMAnalizarValidezII {
 		window.setMaximizable(true);
 		window.doModal();
   	}
+	
+	
+	
 	
 	
 	
