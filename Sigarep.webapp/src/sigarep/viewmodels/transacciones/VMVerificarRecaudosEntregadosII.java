@@ -24,7 +24,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Window;
 
-import sigarep.herramientas.mensajes;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
@@ -112,7 +112,7 @@ public class VMVerificarRecaudosEntregadosII {
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-	mensajes msjs = new mensajes(); // para llamar a los diferentes mensajes de
+	MensajesAlUsuario mensajeAlUsuario  = new MensajesAlUsuario();  // para llamar a los diferentes mensajes de
 									// dialogo
 
 	@WireVariable
@@ -470,7 +470,7 @@ public class VMVerificarRecaudosEntregadosII {
 			serviciosolicitudapelacion.guardar(solicitudApelacionAux);
 
 			try {
-				msjs.informacionRegistroCorrecto();
+				mensajeAlUsuario.informacionRegistroCorrecto();
 				winVerificarRecaudosII.detach(); // oculta el window
 				// falta actualizar la lista de apelaciones en este punto
 			} catch (Exception e) {

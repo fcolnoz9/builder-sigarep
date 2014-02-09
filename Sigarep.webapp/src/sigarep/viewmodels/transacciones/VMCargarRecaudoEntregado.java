@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import sigarep.herramientas.Documento;
+import sigarep.herramientas.MensajesAlUsuario;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -22,7 +23,6 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
@@ -60,7 +60,7 @@ public class VMCargarRecaudoEntregado {
 	
 	private Documento doc = new Documento();
 	private Media media;
-	mensajes msjs = new mensajes();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
@@ -277,7 +277,7 @@ public class VMCargarRecaudoEntregado {
 					serviciosoporte.guardar(soporte);
 					
 					buscarRecaudosEntregados(cedula);
-					msjs.informacionRegistroCorrecto();
+					mensajeAlUsuario.informacionRegistroCorrecto();
 			} else {
 				Messagebox.show(media.getName()+ " No es un tipo de archivo valido!", "Error",Messagebox.OK, Messagebox.ERROR);
 			}
@@ -291,7 +291,7 @@ public class VMCargarRecaudoEntregado {
 		if (serviciosoporte.buscarSoportePorID(idSoporte) != null){
 			serviciosoporte.eliminar(idSoporte);
 			buscarRecaudosEntregados(cedula);
-			msjs.informacionEliminarCorrecto();
+			mensajeAlUsuario.informacionEliminarCorrecto();
 		}
 	}
 
