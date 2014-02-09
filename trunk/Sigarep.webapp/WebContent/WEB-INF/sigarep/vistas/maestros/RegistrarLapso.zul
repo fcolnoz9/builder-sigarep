@@ -22,8 +22,7 @@
 						<textbox id="txtLapsoAcademico"
 							constraint="no empty:Ingrese Lapso Académico"
 							value="@bind(vm1.codigoLapso)" width="80%" height="auto"
-							mold="rounded" maxlength="6" cols="23"
-							onClick="@command('buscarActivoLapso')" />
+							mold="rounded" maxlength="6" cols="23" />
 					</row>
 					<row>
 						<label id="lblFechaInicio"
