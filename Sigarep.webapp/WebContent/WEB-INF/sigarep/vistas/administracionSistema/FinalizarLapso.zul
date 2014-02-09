@@ -1,6 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Administración de Sistema :: Finalizar Lapso Academico " id="winFinalizarLapso"
+<window title="Administración del Sistema :: Finalizar Lapso Académico " id="winFinalizarLapso"
 	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMFinalizarLapso')" 
 	width="auto" height="auto" closable="true">
 		<grid id="grdFinalizarLapso">
