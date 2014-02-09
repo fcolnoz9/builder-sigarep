@@ -20,6 +20,8 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -71,6 +73,9 @@ public class VMCargarEstudiantesSancionadosXml {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable private ServicioEstudianteSancionado servicioestudiantesancionado;
 	private Media media;//Archivo de tipo media que soporta la extension Xml
+	
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	
 	// Sets y gets 
 	public String getTextoXML() {
 		return textoXML;
@@ -232,7 +237,7 @@ public class VMCargarEstudiantesSancionadosXml {
 //						}
 					}
 					listaEstudiante();
-					Messagebox.show("Se han Finalizado la Operacion!","Informacion", Messagebox.OK,Messagebox.INFORMATION);	
+					mensajeAlUsuario.informacionOperacionExitosa();	
 				} catch (JDOMException e) {
 					// handle JDOMException
 				} catch (IOException e) {
@@ -240,7 +245,7 @@ public class VMCargarEstudiantesSancionadosXml {
 				}
 			}
 			else{
-				Messagebox.show("La Extension del Archivo no es XML", "ERROR",Messagebox.OK, Messagebox.ERROR);
+				mensajeAlUsuario.ErrorNoEsXML();
 			}
 		}
 	}

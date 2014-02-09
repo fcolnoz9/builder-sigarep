@@ -91,7 +91,7 @@ public class VMRegistrarDatosIniciales {
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<Motivo> listaMotivoListBox = new LinkedList<Motivo>();
-	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
@@ -477,8 +477,7 @@ public class VMRegistrarDatosIniciales {
 		Date fecha = new Date();
 		
 		if (observacion == null || listaMotivoListBox.size() == 0) {
-			Messagebox.show("Debe emitir una observación general del caso o debe agregar un " +
-					"motivo al caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+		mensajeAlUsuario.advertenciaAgregarObservacionMotivo();
 		}
 		else {
 		solicitudApelacionPK.setCedulaEstudiante(cedula);
@@ -537,7 +536,7 @@ public class VMRegistrarDatosIniciales {
 		}
 		
 		try {
-			mensajesusuario.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			winRegistrarDatosInicialesApelacion.detach();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
