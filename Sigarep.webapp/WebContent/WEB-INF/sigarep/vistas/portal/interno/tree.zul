@@ -307,7 +307,7 @@
 					</treeitem>
 					<treeitem>
 						<treerow>
-							<treecell label="Historial de Apelaciones"
+							<treecell label="Historial de Estudiantes"
 								id="ListaHistorialEstudiante" sclass="transacciones"
 										onClick="createWin(ListaHistorialEstudiante.getId(), ListaHistorialEstudiante.getSclass())" />
 						</treerow>
