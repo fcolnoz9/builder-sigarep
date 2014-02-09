@@ -123,7 +123,7 @@ public class MensajesAlUsuario {
 
 	public void advertenciaSeleccionarSugerenciaDeProcedencia() {
 
-		Messagebox.show("Debe Seleccionar una sugerencia de procedencia y emitir una observación general del caso.",
+		Messagebox.show("Debe seleccionar una sugerencia de procedencia y agregar una observación general del caso.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
