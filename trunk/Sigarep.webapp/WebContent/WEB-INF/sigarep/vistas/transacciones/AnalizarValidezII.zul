@@ -1,8 +1,8 @@
 <zk>
-	<window id="winAnalizarValidezII"
+	<window id="winAnalizarValidezII"  
 		title="Gestión :: Reconsideraciones :: Evaluar Reconsideración :: Analizar Validez" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
-		apply="org.zkoss.bind.BindComposer" closable="true"
+		apply="org.zkoss.bind.BindComposer" closable="true" 
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMAnalizarValidezII')">
 
 		<style src="/widgets/grid/simple/style.css" />
@@ -86,9 +86,10 @@
 	   		<listheader hflex="3" label="Motivo de Apelación" align="left" width="25%" sort="auto(getMotivo().getTipoMotivo().getNombreTipoMotivo())" />
 	   		<listheader hflex="4" label="Recaudo Entregado" align="left" width="25%" sort="auto(getRecaudo().getNombreRecaudo())"  />
 	   		<listheader hflex="4" label="Observación"  align="left" width="50%" sort="auto(getObservacionExperto())" >
-	   			<button label="Analisis Anterior" mold="trendy" 
-					 width="50%" height="auto" orient="horizontal" 
-					 onClick="@command('mostrarHistorial')">
+	   			
+	   			<button id= "idAnalisisAnterior" label="Analisis Anterior" visible="@bind(vm.mostrarButtonObservacionAnterior)"  mold="trendy" 
+					 width="50%" height="auto" orient="horizontal"
+					 onClick="@command('mostrarHistorial')"> 					 
 				</button>
 	   		</listheader>
 	   	</listhead>
