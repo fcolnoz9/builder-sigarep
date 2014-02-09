@@ -1,4 +1,4 @@
-<window title="Gestión :: Apelaciones :: Veredicto de Apelación"  id="winVeredictoI" border="normal"
+<window title="Gestión :: Apelaciones :: Evaluar Apelación :: Veredicto"  id="winVeredictoI" border="normal"
 	width="auto" height="auto"  style="overflow:auto" closable="true" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVeredictoI')">
 	<style src="/widgets/grid/simple/style.css" />
