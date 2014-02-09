@@ -102,5 +102,9 @@ public class ServicioReglamento {
 	public List<Reglamento> buscarFormatoPortal(){
 		return rg.buscarFormato();
 	}
+	
+	public Reglamento buscarGuia(){
+		return rg.buscarGuiaPasoAPaso();
+	}
 
 }

@@ -6,13 +6,18 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
@@ -142,8 +147,10 @@ public class VMPortalPrincipal {
 				final HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("cedula", this.cedula);
 				System.out.println(cedula);
-				Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/HistorialEstudiante.zul", null,
-						map);
+				Executions
+						.createComponents(
+								"WEB-INF/sigarep/vistas/portal/externo/modales/HistorialEstudiante.zul",
+								null, map);
 			}
 		}
 	}
@@ -152,7 +159,7 @@ public class VMPortalPrincipal {
 	 * buscarCronogramaLapsoActivo.
 	 * 
 	 * @param listaCronograma
-	 *            , codigoLapso. .
+	 *            , codigoLapso.
 	 * @return La listaCronograma cargada con los cronogramas en el lapso
 	 *         activo.
 	 * @throws No
@@ -175,10 +182,25 @@ public class VMPortalPrincipal {
 	 */
 	@Command
 	public void modalPreguntasFrecuentes() {
-		final Window window = (Window) Executions.createComponents(
-				"WEB-INF/sigarep/vistas/portal/externo/modales/PreguntasFrecuentes.zul", null, null);
+		final Window window = (Window) Executions
+				.createComponents(
+						"WEB-INF/sigarep/vistas/portal/externo/modales/PreguntasFrecuentes.zul",
+						null, null);
 		window.setMaximizable(true);
 		window.doModal();
+	}
+
+	@Command
+	public void descargarGuia() {
+		Reglamento guia = servicioreglamento.buscarGuia();
+		if (guia != null) {
+			Filedownload.save(servicioreglamento.buscarGuia().getDocumento()
+					.getContenidoDocumento(), servicioreglamento.buscarGuia()
+					.getDocumento().getTipoDocumento(), servicioreglamento
+					.buscarGuia().getDocumento().getNombreDocumento());
+		} else {
+			msj.advertenciaCargarDocumento();
+		}
 	}
 
 }

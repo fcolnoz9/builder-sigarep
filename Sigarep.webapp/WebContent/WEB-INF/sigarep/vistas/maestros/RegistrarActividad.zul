@@ -30,7 +30,7 @@
 						constraint="no empty: Ingrese nombre de la Actividad"
 						mold="rounded" width="80%" maxlength="30"
 						value="@bind(vm.nombre)" />
-					
+
 					<label value="Descripción: " id="lblDescripcion" />
 					<textbox id="txtDescripcionActividad"
 						constraint="no empty: Ingrese descripcion de la Actividad"
@@ -41,25 +41,21 @@
 	</groupbox>
 	<separator />
 	<div align="right">
-		<button label="Guardar"  id="btnGuardarActividad"
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/guardar.png"
+		<button label="Guardar" id="btnGuardarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/guardar.png"
 			onClick="@command('guardarActividad')">
 		</button>
-		<button label="Eliminar" id="btnEliminarActividad"
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/eliminar.png"
+		<button label="Eliminar" id="btnEliminarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
 			onClick="@command('eliminarActividad')">
 		</button>
-		<button label="Limpiar" id="btnLimpiarActividad" 
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/limpiar.png"
+		<button label="Limpiar" id="btnLimpiarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
 			onClick="@command('limpiar')">
 		</button>
-		<button label="Cerrar" id="btnCerrarActividad"
-			 mold="trendy" width="auto" height="auto"
-			 image="/imagenes/iconos/cerrar.png"
-			 onClick="winRegistrarActividad.onClose()">
+		<button label="Cerrar" id="btnCerrarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
+			onClick="winRegistrarActividad.onClose()">
 		</button>
 	</div>
 
@@ -72,7 +68,7 @@
 			emptyMessage="No hay Actividades registradas" mold="paging"
 			pageSize="10">
 			<listhead>
-			     <listheader label="Instancia Apelada" align="lefth"
+				<listheader label="Instancia Apelada" align="lefth"
 					sort="auto(instanciaApelada)">
 					<textbox id="filtroResponsable" instant="true"
 						mold="rounded" width="100px" value="@bind(vm.responsableFiltro)"
@@ -92,10 +88,11 @@
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="${each.nombre}" />
-					<listcell label="${each.descripcion}" />
 					<listcell
 						label="${each.instanciaApelada.instanciaApelada}" />
+					<listcell label="${each.nombre}" />
+					<listcell label="${each.descripcion}" />
+
 				</listitem>
 			</template>
 		</listbox>

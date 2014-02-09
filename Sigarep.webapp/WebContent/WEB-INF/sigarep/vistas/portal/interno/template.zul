@@ -10,7 +10,7 @@
 		<center sclass="center" style="background: .logofondo" id="mainContent" autoscroll="true" border="none" 
 			self="@insert(content)">
 		</center>
-		<south height="50px" border="none">
+		<south height="40px" border="none">
 			<include src="/WEB-INF/sigarep/vistas/portal/interno/footer.zul" />
 		</south>
 	</borderlayout>
