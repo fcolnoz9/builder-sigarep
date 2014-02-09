@@ -12,9 +12,9 @@ import org.zkoss.zul.Combobox;
 
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 /** Clase EstadoApelacion
@@ -48,7 +48,7 @@ public class VMEstadoApelacion {
 	private EstadoApelacion estadoseleccionado;
 	@WireVariable
 	private List<InstanciaApelada> listaInstanciaApelada; 
-	mensajes msjs = new mensajes();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
     
 	@Wire
@@ -149,13 +149,13 @@ public class VMEstadoApelacion {
 	// al guardar
 	public void guardarEstadoApelacion() {
 		if (nombreEstado==null || descripcion==null || instanciaApelada==null) {
-			msjs.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
 			//EstadoApelacion estadoapelacion = new EstadoApelacion(idEstadoApelacion,nombreEstado,descripcion,true,instanciaApelada);
 			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true);
 			estadoApelacion.setInstanciaApelada(instanciaApelada);
 			servicioestadoapelacion.guardarEstadoApelacion(estadoApelacion);
-			msjs.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
