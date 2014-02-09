@@ -123,7 +123,7 @@ public class MensajesAlUsuario {
 
 	public void advertenciaSeleccionarSugerenciaDeProcedencia() {
 
-		Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso.",
+		Messagebox.show("Debe Seleccionar una sugerencia de procedencia y emitir una observación general del caso.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -162,8 +162,13 @@ public class MensajesAlUsuario {
 	
 	
 	public void advertenciaAgregarObservacionMotivo() {
-		Messagebox.show("Debe emitir una observación general del caso y/o agregar un " +
+		Messagebox.show("Debe agregar una observación general del caso y/o agregar un " +
 				"motivo al caso.","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+     }
+	
+	public void advertenciaAgregarObservacionGeneral() {
+		Messagebox.show("Debe agregar una observación general del caso.",
+				"Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
      }
 	
 	

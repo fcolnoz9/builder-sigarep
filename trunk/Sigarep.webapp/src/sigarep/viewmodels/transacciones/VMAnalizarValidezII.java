@@ -118,7 +118,7 @@ public class VMAnalizarValidezII {
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-	mensajes msjs = new mensajes();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	// Metodos setteres y getteres
 	public String getLabelAsignaturaLapsosConsecutivos() {
@@ -422,7 +422,7 @@ public class VMAnalizarValidezII {
 			@BindingParam("window") Window winAnalizarValidezII) {
 
 		if ( observacion == null) {
-			Messagebox.show("Debe emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaAgregarObservacionGeneral();
 		}
 		else 
 		{
@@ -537,11 +537,6 @@ public class VMAnalizarValidezII {
         		"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos.zul", null, map);
 		window.setMaximizable(true);
 		window.doModal();
-  	}
-	
-	
-	
-	
-	
+  	}	
 	
 }

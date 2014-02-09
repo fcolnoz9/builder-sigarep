@@ -107,7 +107,7 @@ public class VMAnalizarValidezI {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
-	mensajes msjs = new mensajes(); 
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	//Metodos SET Y GET 
 	public String getLabelAsignaturaLapsosConsecutivos() {
@@ -369,7 +369,7 @@ public class VMAnalizarValidezI {
 	public void actualizarRecaudosEntregados(@BindingParam("recaudosEntregados") List<Listitem> recaudos, @BindingParam("window") Window winAnalizarValidezI) {
 
 		if (selected==null || selected.equals("") || observacion==null || observacion.equals("")) {
-			Messagebox.show("Debe Seleccionar una sugerencia de procedencia y emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);		
+			mensajeAlUsuario.advertenciaSeleccionarSugerenciaDeProcedencia();		
 		}
 		else {
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
