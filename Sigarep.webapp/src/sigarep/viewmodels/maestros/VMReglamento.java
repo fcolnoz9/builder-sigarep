@@ -21,7 +21,6 @@ import org.zkoss.zul.Messagebox;
 
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.maestros.ReglamentoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;

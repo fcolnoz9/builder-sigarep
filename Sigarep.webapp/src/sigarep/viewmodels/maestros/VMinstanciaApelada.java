@@ -8,7 +8,8 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-import sigarep.herramientas.mensajes;
+
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
@@ -31,7 +32,7 @@ public class VMinstanciaApelada {
 	private Boolean estatus; //Estatus de la InstanciaApelada
 	private List<InstanciaApelada> listaInstanciaApelada; //Lista de InstanciaApelada
 	private InstanciaApelada instanciaApeladaseleccionada;
-	private mensajes mensajeAlUsuario = new mensajes();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
     @Wire Textbox txtcodigoInstacia;
     @Wire Window ventana;
     

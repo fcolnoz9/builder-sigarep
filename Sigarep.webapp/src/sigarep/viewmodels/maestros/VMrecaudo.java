@@ -17,7 +17,7 @@ import org.zkoss.zul.Window;
 import org.zkoss.zul.Combobox;
 
 
-import sigarep.herramientas.mensajes;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.RecaudoFiltro;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
@@ -68,7 +68,6 @@ public class VMrecaudo {
 	private Recaudo recaudoSeleccionado;
 	private RecaudoFiltro filtros = new RecaudoFiltro();
 	//mensajes msjs = new mensajes();
-	mensajes mensajeAlUsuario = new mensajes();
 	
 	private  @Wire Textbox txtCodigoRecaudo;
 	private  @Wire Textbox txtDescripcionRecaudo;
@@ -79,7 +78,7 @@ public class VMrecaudo {
 	private List<Recaudo> listaRecaudos;
 	private String nombreRecaudofiltro="";
 	private String nombreTipoMotivofiltro="";
-	
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@Init
 	public void init() {
 		// initialization code

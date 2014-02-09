@@ -12,8 +12,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 
-
-import sigarep.herramientas.mensajes;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
@@ -35,14 +34,13 @@ public class VMTipoMotivo {
 	private String nombreTipoMotivo,nombreTipoMotivofiltro;
 	private String descripcion,descripcionfiltro;
 	private Integer idTipoMotivo;
-	  private mensajes mensajeAlUsuario = new mensajes();
 	private Boolean estatus;
 	private List<TipoMotivo> listaTipoMotivo;
 	private TipoMotivo tiposeleccionado;
 	private TipoMotivoFiltros filtros = new TipoMotivoFiltros();
 	@Wire Textbox txtnombreTipoMotivo;
     @Wire Window winTipoMotivo;
-  
+    MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
     //Metodos set y get
 

@@ -12,7 +12,7 @@ import org.zkoss.zul.Tree;
 import org.zkoss.zul.TreeNode;
 import org.zkoss.zul.Window;
 
-import sigarep.herramientas.mensajes;
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Nodo;
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
@@ -40,7 +40,7 @@ public class VMRegistrarGrupo {
 	private Tree tree;
 	@Wire
 	private Tree tree2;
-	private mensajes msjs = new mensajes();
+	
 	private @WireVariable ServicioNodo snodo;
 
 	private VMAdvancedTreeModel contactTreeModel;
@@ -58,7 +58,7 @@ public class VMRegistrarGrupo {
     private String descripcion; // descripción del Grupo
     private String estado; 
 	private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
-	
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	// Metodos GETS Y SETS
 	
@@ -186,7 +186,7 @@ public class VMRegistrarGrupo {
 	@NotifyChange({ "idGrupo", "descripcion", "nombre"})
 	public void guardarGrupo(){
 		if(nombre==null || descripcion==null)
-		 msjs.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else if(root2.getChildren().size() > 0){
 			Grupo grupo1=new Grupo();
 			grupo1.setIdGrupo(idGrupo);
@@ -199,9 +199,9 @@ public class VMRegistrarGrupo {
 				}	
 			}
 			sg.guardarGrupo(grupo1);
-			msjs.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 		}
-		else msjs.advertenciaMenudelGrupoVacio();
+		else mensajeAlUsuario.advertenciaMenudelGrupoVacio();
 	}
 
 	@AfterCompose
