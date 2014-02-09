@@ -70,8 +70,7 @@ public class MensajesAlUsuario {
 
 	public void advertenciaMenudelGrupoVacio() {
 
-		Messagebox.show(
-				"¡Debe agregar al menos una función al menú del grupo!",
+		Messagebox.show("¡Debe agregar al menos una función al menú del grupo!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -118,14 +117,13 @@ public class MensajesAlUsuario {
 
 	public void advertenciaSeleccionarAlMenosUnRecaudoEntregado() {
 
-		Messagebox.show("Debe seleccionar al menos un recaudo entregado",
+		Messagebox.show("Debe seleccionar al menos un recaudo entregado.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaSeleccionarSugerenciaDeProcedencia() {
 
-		Messagebox.show(
-				"Debe Seleccionar una sugerencia de procedencia del caso",
+		Messagebox.show("Debe Seleccionar una sugerencia de procedencia del caso.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -142,20 +140,18 @@ public class MensajesAlUsuario {
 	}
 
 	public void advertenciaContrasennasNoCoinciden() {
-		Messagebox.show("Las contraseñas no coinciden","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+		Messagebox.show("Las contraseñas no coinciden.","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
      }
 	
 	public void advertenciaSeleccionarUbicacionRespaldo() {
 
-		Messagebox.show(
-				"Debe seleccionar la ubicación del respaldo a restaurar.",
+		Messagebox.show("Debe seleccionar la ubicación del respaldo a restaurar.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaNoExisteEstudianteSancionado() {
 
-		Messagebox.show(
-				"Esta cédula no está en la lista de Estudiantes Sancionados.",
+		Messagebox.show("Esta cédula no está en la lista de Estudiantes Sancionados.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -165,10 +161,15 @@ public class MensajesAlUsuario {
      }
 	
 	
+	public void advertenciaAgregarObservacionMotivo() {
+		Messagebox.show("Debe emitir una observación general del caso y/o agregar un " +
+				"motivo al caso.","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+     }
+	
+	
 	public void informacionHemosEnviadoCorreo() {
 
-		Messagebox
-				.show("Te hemos enviado un email con tu nombre de usuario y contraseña.",
+		Messagebox.show("Te hemos enviado un email con tu nombre de usuario y contraseña.",
 						"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
@@ -367,8 +368,7 @@ public class MensajesAlUsuario {
 
 	public void ErrorNoCoincidenLasContraseñas() {
 
-		Messagebox
-				.show("La nueva contraseña y la contraseña de confirmación no coinciden.",
+		Messagebox.show("La nueva contraseña y la contraseña de confirmación no coinciden.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
@@ -380,10 +380,16 @@ public class MensajesAlUsuario {
 
 	public void ErrorNoHayResgistrosParaRespaldo() {
 
-		Messagebox.show(
-				"No hay nada a lo que hacer respaldo en el lapso seleccionado",
+		Messagebox.show("No hay nada a lo que hacer respaldo en el lapso seleccionado",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 	}
+	
+	public void ErrorNoEsXML() {
+
+		Messagebox.show("La Extensión del Archivo no es XML.", 
+				"ERROR",Messagebox.OK, Messagebox.ERROR);
+	}
+	
 
 	public void confirmacionSalir() {
 
