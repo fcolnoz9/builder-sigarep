@@ -20,7 +20,7 @@
     </param-value>
 	</context-param>
 	<welcome-file-list>
-		<welcome-file>index.zul</welcome-file>
+		<welcome-file>portalPrincipal.zul</welcome-file>
 	</welcome-file-list>
 
 	<servlet>
