@@ -102,8 +102,7 @@
 					</vlayout>
 					<label value="Motivo: " id="lblMotivo" />
 					<listbox id="lbxMotivo" height="100px" width="80%"
-						disabled="true" model="@bind(vm.listaMotivos)" mold="paging"
-						pageSize="5">
+						disabled="true" model="@bind(vm.listaMotivos)">
 						<template name="model">
 							<listitem>
 								<listcell

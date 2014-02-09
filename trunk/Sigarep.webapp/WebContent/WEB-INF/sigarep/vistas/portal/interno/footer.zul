@@ -1,6 +1,6 @@
 <div hflex="1" vflex="1" sclass="footer" align="center">
-	<hbox align="center">
+	<hbox align="center" pack="start">
 		<label value="© Desarrollado por Builder UCLA-DCYT 2014" />
-		<image src="imagenes/portal-principal/Builder.png" width="4em" />
+		<image src="imagenes/portal-principal/Builder.png" width="6em" />
 	</hbox>
 </div>
