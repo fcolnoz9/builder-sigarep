@@ -109,7 +109,7 @@ public class VMAnalizarValidezIII {
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-	mensajes msjs = new mensajes();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	
 	
@@ -415,7 +415,7 @@ public class VMAnalizarValidezIII {
 			@BindingParam("window") Window winAnalizarValidezIII) {
 
 		if (observacion == null) {
-			Messagebox.show("Debe emitir una observacón general del caso","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaAgregarObservacionGeneral();
 		}
 		else 
 		{
