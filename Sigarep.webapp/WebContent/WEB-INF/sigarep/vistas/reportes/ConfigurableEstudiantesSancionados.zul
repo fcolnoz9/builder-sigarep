@@ -85,8 +85,14 @@
 				</rows>
 			</grid>
 		</groupbox>
-		<space />
-		
+		<separator />
+		<!-- Grupbox de Botones -->
+		<div align="right" height="100%">
+				    <button label="Buscar" id="btnBuscar" image="imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudianteSancionado')"></button>
+					<button label="Generar Reporte" id="btnGenerarReporte" image="imagenes/iconos/descargar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesSancionadosConfigurable')"></button>
+					<button label="Limpiar" id="btnLimpiar" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarE')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrar" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionado.onClose()" orient="horizontal"> </button>
+		</div>
 		<groupbox id="grbRegistrarLapso3">
 			<caption label="Listado de Estudiantes Sancionados" />
 			<listbox id="lbxLapsoAcademico" height="70%" model="@bind(vm.listaE)" mold="paging" pageSize="10" >
@@ -123,19 +129,6 @@
 			<space />
 			<space />
 		</groupbox>
-		<!-- Grupbox de Botones -->
-		<hbox width="90%" height="150%" pack="right">
-			<div align="right" height="100%">
-				<hlayout id="lytDescargar">
-				    <button label="Buscar" id="btnBuscar" image="imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudianteSancionado')"></button>
-					<button label="Generar Reporte" id="btnGenerarReporte" image="imagenes/iconos/descargar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesSancionadosConfigurable')"></button>
-				</hlayout>
-			</div>
-			<hlayout id="lytCerrar">
-				<div align="right" height="100%">
-					<button label="Cerrar" id="btnCerrar" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionado.onClose()" orient="horizontal"> </button>
-				</div>
-			</hlayout>
-		</hbox>
+			
 	</window>
 </zk>
