@@ -42,7 +42,6 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;

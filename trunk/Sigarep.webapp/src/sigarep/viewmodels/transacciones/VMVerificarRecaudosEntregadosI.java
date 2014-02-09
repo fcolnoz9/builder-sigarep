@@ -30,7 +30,6 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.herramientas.mensajes;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
@@ -124,8 +123,8 @@ public class VMVerificarRecaudosEntregadosI {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
-	MensajesAlUsuario msjs = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
-
+	MensajesAlUsuario mensajeAlUsuario  = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
+	
 	@WireVariable
 	private TipoMotivo tipoMotivo;
 	@WireVariable
@@ -373,7 +372,7 @@ public class VMVerificarRecaudosEntregadosI {
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso"})
 	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudos) {
 		if (recaudos.size() == 0) {
-			msjs.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
+			mensajeAlUsuario.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
 		}
 		else 
 		{
@@ -436,7 +435,7 @@ public class VMVerificarRecaudosEntregadosI {
 				serviciosolicitudapelacion.guardar(solicitudApelacionAux);
 				
 				try {
-					msjs.informacionRegistroCorrecto();
+					mensajeAlUsuario.informacionRegistroCorrecto();
 					winVerificarRecaudos.detach(); //oculta el window
 					//falta actualizar la lista de apelaciones en este punto
 				} catch (Exception e) {

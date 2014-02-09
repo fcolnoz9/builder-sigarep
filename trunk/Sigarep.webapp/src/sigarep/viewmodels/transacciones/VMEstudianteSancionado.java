@@ -27,7 +27,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.herramientas.mensajes;
+
 import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -122,7 +122,7 @@ public class VMEstudianteSancionado {
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	
-	mensajes msjs = new mensajes(); //para llamar a los diferentes mensajes de dialogo
+	 //para llamar a los diferentes mensajes de dialogo
 	private List<EstudianteSancionado> listaSancionado;
 	
 	public String getSancion() {
@@ -697,7 +697,7 @@ public class VMEstudianteSancionado {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			msjs.informacionEliminarCorrecto();
+			mensajeAlUsuario.informacionEliminarCorrecto();
 			limpiar();
 		  }
 		}
