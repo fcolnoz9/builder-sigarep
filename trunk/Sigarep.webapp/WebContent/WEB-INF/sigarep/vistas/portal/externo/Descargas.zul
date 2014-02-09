@@ -7,7 +7,7 @@
 	<listitem>
 		<listcell sclass="head2" label=" Calendario Académico"
 			id="lblCalendario" style="font:arial;cursor:pointer"
-			onClick="@command('descargarArchivo', parametro=self)" />
+			onClick="@command('descargarCalendario')" />
 		<listcell>
 			<image src="/imagenes/iconos/descargar.png" />
 		</listcell>

@@ -25,5 +25,8 @@ public interface IReglamentoDAO extends JpaRepository<Reglamento, Integer> {
 
 	@Query("SELECT  r FROM Reglamento r WHERE r.estatus='TRUE' and r.categoria='guia'")
 	public Reglamento buscarGuiaPasoAPaso();
+	
+	@Query("SELECT  r FROM Reglamento r WHERE r.estatus='TRUE' and r.categoria='calendario'")
+	public Reglamento buscarCalendario();
 
 }

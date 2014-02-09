@@ -106,5 +106,9 @@ public class ServicioReglamento {
 	public Reglamento buscarGuia(){
 		return rg.buscarGuiaPasoAPaso();
 	}
+	
+	public Reglamento buscarCalendario(){
+		return rg.buscarCalendario();
+	}
 
 }

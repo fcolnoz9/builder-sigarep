@@ -184,7 +184,7 @@ public class VMPortalPrincipal {
 	public void modalPreguntasFrecuentes() {
 		final Window window = (Window) Executions
 				.createComponents(
-						"WEB-INF/sigarep/vistas/portal/externo/modales/PreguntasFrecuentes.zul",
+						"WEB-INF/sigarep/vistas/portal/externo/modales/Preguntas_Frecuentes.zul",
 						null, null);
 		window.setMaximizable(true);
 		window.doModal();
@@ -194,10 +194,9 @@ public class VMPortalPrincipal {
 	public void descargarGuia() {
 		Reglamento guia = servicioreglamento.buscarGuia();
 		if (guia != null) {
-			Filedownload.save(servicioreglamento.buscarGuia().getDocumento()
-					.getContenidoDocumento(), servicioreglamento.buscarGuia()
-					.getDocumento().getTipoDocumento(), servicioreglamento
-					.buscarGuia().getDocumento().getNombreDocumento());
+			Filedownload.save(guia.getDocumento().getContenidoDocumento(), guia
+					.getDocumento().getTipoDocumento(), guia.getDocumento()
+					.getNombreDocumento());
 		} else {
 			msj.advertenciaCargarDocumento();
 		}
