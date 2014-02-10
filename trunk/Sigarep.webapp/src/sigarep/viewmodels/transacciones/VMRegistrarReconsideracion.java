@@ -69,7 +69,7 @@ public class VMRegistrarReconsideracion {
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacion;
 	
-	private Integer caso;
+	private String caso;
 	private Integer idRecaudo;
 	
 	private Documento doc = new Documento();
@@ -123,11 +123,11 @@ public class VMRegistrarReconsideracion {
 		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
