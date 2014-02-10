@@ -9,13 +9,12 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 
 import java.sql.Time;
 import java.util.Date;
-/**Cronograma
+/**Cronograma de Actividades - Planificar
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14
+ * @version 1.1
+ * @since 10/02/14
  */
-
 /**
  * The persistent class for the cronograma database table.
  * 
