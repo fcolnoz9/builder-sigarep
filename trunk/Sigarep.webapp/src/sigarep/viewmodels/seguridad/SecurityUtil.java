@@ -122,8 +122,10 @@ public class SecurityUtil {
         	Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         	Iterator<? extends GrantedAuthority> iterador=currentUser.getAuthorities().iterator();
         	while(iterador.hasNext()){
-        		roles.add(iterador.next().getAuthority());
+        			roles.add(iterador.next().getAuthority());
         	}
+        	roles.add(roles.remove(0));
+        	
         	return roles;
     }
         
