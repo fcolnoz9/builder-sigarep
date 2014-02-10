@@ -99,18 +99,18 @@
 				<listhead>
 <!-- 					<listheader label="Id" align="center" -->
 <!-- 						sort="auto(idNoticia)" ></listheader> -->
-					<listheader label="Título" align="lefth"
+					<listheader label="Título" align="left"
 						sort="auto(titulo)" > 
 					<textbox id="filtroTitulo" instant="true"
 					mold="rounded" width="100px" value="@bind(vm.titulof)"
 							onChange="@command('filtros')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
-					<listheader label="Fecha Registro" align="lefth"
+					<listheader label="Fecha Registro" align="left"
 						sort="auto(fechaRegistro)" > </listheader>
-					<listheader label="Fecha Vencimiento" align="lefth"
+					<listheader label="Fecha Vencimiento" align="left"
 						sort="auto(vencimiento)" > </listheader>
-					<listheader label="Enlace" align="lefth"
+					<listheader label="Enlace" align="left"
 						sort="auto(enlaceNoticia)" > </listheader>
 				</listhead>
 				<template name="model">
