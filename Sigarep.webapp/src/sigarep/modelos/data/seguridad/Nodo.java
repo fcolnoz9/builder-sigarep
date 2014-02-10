@@ -16,12 +16,11 @@ public class Nodo {
 	@Column(name="estado")
 	private String estado;
 	
-	
 	@Column(name="tipo")
 	private String tipo;
 	
-	@Column(name="nombrefuncion")
-    private String nombrefuncion;
+	@Column(name="nombre_funcion")
+    private String nombreFuncion;
 	
 	@Column(name="padre")
 	private Integer padre;
@@ -31,10 +30,6 @@ public class Nodo {
 	
 	@Column(name="ruta_modal")
     private String rutaModal;
-   
-	//bi-directional many-to-one association to MiembroGrupo
-//	@OneToMany(mappedBy="grupo")
-//	private List<FuncionGrupo> funcionesGrupo = new LinkedList<FuncionGrupo>();
     
     public Nodo() {
 		super();
@@ -46,7 +41,7 @@ public class Nodo {
 		super();
 		this.id = id;
 		this.tipo = tipo;
-		this.nombrefuncion = nombrefuncion;
+		this.nombreFuncion = nombrefuncion;
 		this.vinculo = vinculo;
 		this.estado = estado;
 		this.padre = padre;
@@ -76,13 +71,12 @@ public class Nodo {
 		this.tipo = tipo;
 	}
 	
-	public String getNombrefuncion() {
-		return nombrefuncion;
+	public String getNombreFuncion() {
+		return nombreFuncion;
 	}
-	public void setNombrefuncion(String nombrefuncion) {
-		this.nombrefuncion = nombrefuncion;
+	public void setNombreFuncion(String nombreFuncion) {
+		this.nombreFuncion = nombreFuncion;
 	}
-	
 	
 	public Integer getPadre() {
 		return padre;
@@ -91,7 +85,6 @@ public class Nodo {
 	public void setPadre(Integer padre) {
 		this.padre = padre;
 	}
-	
 	
 	public String getVinculo() {
 		return vinculo;
@@ -107,28 +100,5 @@ public class Nodo {
 	public void setRutaModal(String rutaModal) {
 		this.rutaModal = rutaModal;
 	}
-	
-	
-	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.nodo")
-//	public List<FuncionGrupo> getFuncionesGrupo() {
-//		return this.funcionesGrupo;
-//	}
-//
-//	public void setFuncionesGrupo(List<FuncionGrupo> funcionesGrupo) {
-//		this.funcionesGrupo = funcionesGrupo;
-//	}
-//
-//	public FuncionGrupo addFuncionGrupo(FuncionGrupo funcionGrupo) {
-//		getFuncionesGrupo().add(funcionGrupo);
-//		funcionGrupo.setNodo(this);
-//		return funcionGrupo;
-//	}
-//
-//	public FuncionGrupo removeUsuarioGrupo(FuncionGrupo funcionGrupo) {
-//		getFuncionesGrupo().remove(funcionGrupo);
-//		funcionGrupo.setGrupo(null);
-//		return funcionGrupo;
-//	}
 }
 
