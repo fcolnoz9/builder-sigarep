@@ -3,11 +3,11 @@ package sigarep.modelos.data.transacciones;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/**Cronograma
+/**Cronograma de Actividades - Planificar
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14
+ * @version 1.1
+ * @since 10/02/14
  */
 
 /**
