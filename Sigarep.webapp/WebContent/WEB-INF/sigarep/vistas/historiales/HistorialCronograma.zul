@@ -27,46 +27,47 @@
 				model="@bind(vm.listaCronogramas)"
 				emptyMessage="No hay actividades registradas" mold="paging"
 				pageSize="10">
-				<listhead>
-					<listheader label="Actividad" align="center"
+		        <listhead>
+					<listheader label="Actividad" align="left"
 						sort="auto(actividad.getNombre)">
-					<textbox id="filtroActividad" instant="true"
-							width="50px" value="@bind(vm.actividadf)"
+					<textbox id="filtroActividad" mold="rounded" instant="true"
+							width="100px" value="@bind(vm.actividadf)"
 							onChange="@command('filtroCronograma')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
-					<listheader label="Fecha Inicio" align="center"
-						sort="auto(fechaInicio)" />
-					<listheader label="Fecha Fin" align="center"
-						sort="auto(fechaFin)" />
-					<listheader label="Lugar" align="center"
-						sort="auto(lugar)">
-					<textbox id="filtroLugar" instant="true"
-							width="50px" value="@bind(vm.lugarf)"
-							onChange="@command('filtroCronograma')" />	
-							<image src="/imagenes/iconos/buscar.png"/>
-					</listheader>
-					<listheader label="Hora" align="center"
-						sort="auto(horaInicio)" />
-					<listheader label="Observacion" align="center"
-						sort="auto(observacion)"/>
-					<listheader label="Responsable" align="center"
+					<listheader label="Responsable" align="left"
 						sort="auto(responsable.getInstanciaApelada)">
-					<textbox id="filtroResponsable" instant="true"
-							width="50px" value="@bind(vm.responsablef)"
+					<textbox id="filtroResponsable" mold="rounded" instant="true"
+							width="100px" value="@bind(vm.responsablef)"
 							onChange="@command('filtroCronograma')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
+					<listheader label="Lugar" align="left"
+						sort="auto(lugar)">
+					<textbox id="filtroLugar" mold="rounded" instant="true"
+							width="100px" value="@bind(vm.lugarf)"
+							onChange="@command('filtroCronograma')" />	
+							<image src="/imagenes/iconos/buscar.png"/>
+					</listheader>
+					<listheader label="Fecha Inicio" align="left"
+						sort="auto(fechaInicio)" />
+					<listheader label="Fecha Fin" align="left"
+						sort="auto(fechaFin)" />	
+					<listheader label="Hora" align="left"
+						sort="auto(horaInicio)" />
+					<listheader label="Observación" align="left"
+						sort="auto(observacion)"/>
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
 						<listcell label="${each.getActividad().getNombre()}"></listcell>
+						<listcell label="${each.getResponsable().getInstanciaApelada()}"></listcell>
+						<listcell label="${each.lugar}"></listcell>
 						<listcell label="${each.fechaInicio}"></listcell>
 						<listcell label="${each.fechaFin}"></listcell>
-						<listcell label="${each.lugar}"></listcell>
 						<listcell label="${each.horaInicio}"></listcell>
 						<listcell label="${each.observacion}"></listcell>
-						<listcell label="${each.getResponsable().getInstanciaApelada()}"></listcell>
+						
 					</listitem>
 				</template>
 			</listbox>
