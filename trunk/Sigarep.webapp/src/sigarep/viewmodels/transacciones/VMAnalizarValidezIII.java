@@ -74,7 +74,7 @@ public class VMAnalizarValidezIII {
 	private String lapso;
 	private boolean mostrarButtonObservacionAnterior = false;
 	
-	private Integer caso;
+	private String caso;
 	private String fechaApelacion;
 	private String observacion;
 	private String selected = "";
@@ -258,11 +258,11 @@ public class VMAnalizarValidezIII {
 		this.lapso = lapso;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
