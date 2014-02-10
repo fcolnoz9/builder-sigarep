@@ -83,7 +83,7 @@ public class VMAnalizarValidezII {
 	private String labelAsignaturaLapsosConsecutivos;
 	private String sancion;
 	private String lapso;
-	private Integer caso;
+	private String caso;
 	private String telefono;
 	private String fechaApelacion;
 	private String observacion;
@@ -265,11 +265,11 @@ public class VMAnalizarValidezII {
 		this.lapso = lapso;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
