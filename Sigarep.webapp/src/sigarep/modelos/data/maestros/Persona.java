@@ -37,7 +37,7 @@ public class Persona implements Serializable {
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="nombreusuario")
+	@JoinColumn(name="nombre_usuario")
 	private Usuario nombreUsuario;
 
 	public Persona() {
