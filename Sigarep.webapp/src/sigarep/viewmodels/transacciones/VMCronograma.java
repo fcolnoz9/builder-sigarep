@@ -23,11 +23,11 @@ import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 
-/**Cronograma
+/**Cronograma de Actividades - Planificar
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14
+ * @version 1.1
+ * @since 10/02/14
  */
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -201,7 +201,7 @@ public class VMCronograma {
 			codigoLapso = lapsoActivo.getCodigoLapso();
 	}
 
-	/** guardarCronograma. 
+	/** Guardar Cronograma
 	 * @param fechaInicio, fechaFin, horaInicio, lugar, observacion, responsable, listaCronograma, actividad.
 	 * @return No devuelve ningun valor.
 	 * @throws las Excepciones son que se quiera registrar un cronograma y no haya un lapso academico activo y
@@ -233,7 +233,7 @@ public class VMCronograma {
 		}
 	}
 
-	/** buscarDetalleActividadCombo. Al escoger una actividad en el combo, busca los datos asociados a ella(el detalle)
+	/** Buscar un Detalle de Actividad seleccionada en el Combo. Al escoger una actividad en el combo, busca los datos asociados a ella(el detalle)
 	 * @param fechaInicio, fechaFin, horaInicio, lugar, observacion, responsable, listaCronograma, actividad..
 	 * @return No devuelve ningun valor.
 	 * @throws la Excepcion es que el Id de actividad no coincida con el Id de la actividad que se encuentra 
@@ -267,8 +267,8 @@ public class VMCronograma {
 		}
 	}
 
-	/** listaCronograma.
-	 * @param listaCronograma.
+	/** Se llena la lista de Cronogramas activos
+	 * @param No recibe parametros
 	 * @return La listaCronograma cargada con los cronogramas.
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -278,8 +278,8 @@ public class VMCronograma {
 		listaCronograma =serviciocronograma.listadoCronograma();
 	}
 
-	/** listaResponsable.
-	 * @param listaResponsable.
+	/**  Se llena la lista de Responsables activos
+	 * @param No recibe parametros
 	 * @return La listaResponsable cargada con los responsables (Instancia Apelada).
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -289,8 +289,8 @@ public class VMCronograma {
 		listaResponsable =servicioInstanciaApelada.listadoInstanciaApelada(); 
 	}
 
-	/** listaActividad.
-	 * @param listaActividad.
+	/**  Se llena la lista de Actividades activas
+	 * @param No recibe parametros
 	 * @return La listaActividad cargada con las actividades.
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -301,7 +301,7 @@ public class VMCronograma {
 	}
 
 	/** limpiar. Limpia todos los campos.
-	 * @param fechaInicio, fechaFin, horaInicio, lugar, observacion, responsable, listaCronograma, actividad..
+	 * @param No recibe parametros
 	 * @return No devuelve ningun valor.
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -357,7 +357,7 @@ public class VMCronograma {
 		responsable=cro.getResponsable();
 	}
 
-	/** validarFecha.
+	/** Validar Fechas
 	 * @param fechaInicio, fechaFin.
 	 * @return No devuelve ningun valor.
 	 * @throws la Excepcion es que quiera introducir en fecha fin una fecha menor o antes que la fecha de inicio.
@@ -374,7 +374,7 @@ public class VMCronograma {
 	}
 
 	/** filtroCronograma. Hace filtrado de los campos mencionados que entran como parametro.
-	 * @param listaConograma, responsablef, lugarf, actividadf.
+	 * @param responsablef, lugarf, actividadf.
 	 * @return No devuelve ningun valor.
 	 * @throws No dispara ninguna excepcion.
 	 */
