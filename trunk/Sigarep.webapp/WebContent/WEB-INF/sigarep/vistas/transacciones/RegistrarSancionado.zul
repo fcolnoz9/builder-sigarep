@@ -44,7 +44,7 @@
 						value="@bind(vm.segundoApellido)"  />
 				</row>
 				<row>
-					<label id="lblsexo" value="Sexo" />
+					<label id="lblsexo" value="Sexo:" />
 					<textbox id="txtSexo" mold="rounded" width="80%"
 						cols="23" maxlength="1" tabindex="1" value="@bind(vm.sexo)"
 						 />
@@ -66,7 +66,7 @@
 						 />
 				</row>
 				<row>
-					<label id="lblAnnoIngreso" value="Año Ingreso:" />
+					<label id="lblAnnoIngreso" value="Año de Ingreso:" />
 					<datebox id="dtbAnnoIngreso" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy"  />
@@ -90,7 +90,7 @@
 
 	<!--  			Grupo que contiene los datos academicos -->
 	<groupbox>
-		<caption label="Datos academicos" />
+		<caption label="Datos Académicos" />
 		<grid>
 			<columns>
 				<column label="" width="20%" />
@@ -112,13 +112,13 @@
 				</row>
 				<row>
 					<label id="lblUnidadCursadas"
-						value="Unidades/Horas  Cursada" />
+						value="Unidades/Horas Cursadas:" />
 					<textbox id="txtUnidadCursadas" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.unidadesCursadas)"
 						constraint="no empty:Introduzca un las Unidades Cursadas" />
 					<label id="lblUnidadAprobadas"
-						value="Unidades/Horas Aprobadas" />
+						value="Unidades/Horas Aprobadas:" />
 					<textbox id="txtUnidadAprobadas" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.unidadesAprobadas)"
@@ -131,7 +131,7 @@
 						width="20%" cols="23" maxlength="30" tabindex="1"
 						constraint="no empty:Introduzca un el indice de grado"
 						value="@bind(vm.indiceGrado)" />
-					<label id="lblSancion" value="Sancion:" />
+					<label id="lblSancion" value="Sanción:" />
 					<combobox readonly="true" id="cmbSancion"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"

@@ -1,6 +1,6 @@
 <zk>
 	<window id="winRegistrarDatosInicialesApelacion"
-		title="Gestión :: Apelaciones :: Registrar Apelación :: Registrar Datos Iniciales de Apelación"
+		title="Gestión :: Apelaciones :: Registrar Apelación :: Datos Iniciales "
 		width="auto" height="auto" style="overflow:auto" closable="true"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRegistrarDatosIniciales')">
@@ -23,7 +23,7 @@
 				</columns>
 				<rows>
 					<row>
-						<label id="lblCedula" value="Cedula: " />
+						<label id="lblCedula" value="Cédula: " />
 						<textbox id="txtCedula" mold="rounded"
 							tabindex="1" width="80%" cols="23"
 							value="@bind(vm.estudianteSeleccionado.estudiante.cedulaEstudiante)"
@@ -64,14 +64,14 @@
 					<row></row>
 					<row>
 						<label id="lblLapsosancion"
-							value="Lapso de Sancion: " />
+							value="Lapso de Sanción: " />
 						<textbox id="txtLapsosancion" mold="rounded"
 							tabindex="6" width="80%" cols="23" height="auto"
 							value="@bind(vm.estudianteSeleccionado.lapsoAcademico.codigoLapso)"
 							readonly="true" maxlength="6">
 						</textbox>
 						<label id="lblTiposancion"
-							value="Tipo de Sancion: " />
+							value="Tipo de Sanción: " />
 						<textbox id="txtTipoSancion" mold="rounded"
 							tabindex="7" width="80%" cols="23" height="auto"
 							value="@bind(vm.estudianteSeleccionado.sancionMaestro.nombreSancion)"
@@ -80,7 +80,7 @@
 					</row>
 					<row>
 						<label id="lblPeriodosancion"
-							value="Periodo de la Sancion: " />
+							value="Periodo de la Sanción: " />
 						<textbox id="txtPeridoinicialsancion"
 							mold="rounded" tabindex="3" width="80%" cols="23" height="auto"
 							value="@bind(vm.estudianteSeleccionado.periodoSancion)"
@@ -120,7 +120,7 @@
 							</template>
 						</combobox>
 						<label id="lblDescripcionMotivo"
-							value="Descripcion: " />
+							value="Descripción: " />
 						<textbox id="txtDescripcion" rows="3"
 							width="80%" cols="23" maxlength="255"
 							value="@bind(vm.descripcion)" mold="rounded">
@@ -154,7 +154,7 @@
 				<row>
 					<hlayout>
 						<label id="lblObservacion"
-							value="Observacion:">
+							value="Observación:">
 						</label>
 						<textbox id="txtObservacion" cols="100"
 							maxlength="255" rows="3" width="80%"
