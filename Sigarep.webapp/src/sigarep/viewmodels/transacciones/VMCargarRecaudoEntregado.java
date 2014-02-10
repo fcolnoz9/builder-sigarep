@@ -51,7 +51,7 @@ public class VMCargarRecaudoEntregado {
 	private String nombres;
 	private String apellidos;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-	private Integer caso;
+	private String caso;
 	private String fechaApelacion;
 	private Integer peridoSancion;
 	private String lapsosConsecutivos;
@@ -89,11 +89,11 @@ public class VMCargarRecaudoEntregado {
 		this.media = media;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
