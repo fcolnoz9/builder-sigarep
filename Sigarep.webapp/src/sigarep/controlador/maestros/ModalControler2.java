@@ -48,7 +48,7 @@ public class ModalControler2 extends SelectorComposer<Component> {
 	public void showModal5(Event e) {
 		//create a window programmatically and use it as a modal dialog.
 		Window window = (Window)Executions.createComponents(
-				"/Modal/RecuperarContrasenna.zul", null, null);
+				"/WEB-INF/sigarep/vistas/portal/externo/modales/RecuperarContrasenna.zul", null, null);
 		window.doModal();
 	}
 }
