@@ -57,7 +57,7 @@ public class MensajesAlUsuario {
 
 	public void advertenciaContraseñaVacia() {
 
-		Messagebox.show("La nueva contraseña no puede ser vacia",
+		Messagebox.show("La nueva contraseña no puede ser vacía.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -76,7 +76,7 @@ public class MensajesAlUsuario {
 
 	public void advertenciaSeleccionarGrupoUsuario() {
 
-		Messagebox.show("Debe seleccionar al menos un grupo", "Advertencia",
+		Messagebox.show("Debe seleccionar al menos un grupo.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -267,8 +267,7 @@ public class MensajesAlUsuario {
 	}
 
 	public void informacionDatosDeSesionEncontrados() {
-		Messagebox
-				.show("Se encontró una Sesión activa. Puede continuar con la misma o indicar los datos de una nueva.",
+		Messagebox.show("Se encontró una Sesión activa. Puede continuar con la misma o indicar los datos de una nueva.",
 						"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
@@ -295,8 +294,7 @@ public class MensajesAlUsuario {
 
 	public void ErrorRestauracionEnProceso() {
 
-		Messagebox
-				.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
+		Messagebox.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
@@ -338,8 +336,7 @@ public class MensajesAlUsuario {
 
 	public void ErrorNoHayVeredictosRegistrados() {
 
-		Messagebox.show(
-				"No se ha podido finalizar. No hay veredictos registrados.",
+		Messagebox.show("No se ha podido finalizar. No hay veredictos registrados.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 
 	}
@@ -379,20 +376,20 @@ public class MensajesAlUsuario {
 
 	public void ErrorNoCoincideContraseñaUsuario() {
 
-		Messagebox.show("La contraseña ingresada no coincide con el usuario",
+		Messagebox.show("La contraseña ingresada no coincide con el usuario.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
 	public void ErrorNoHayResgistrosParaRespaldo() {
 
-		Messagebox.show("No hay nada a lo que hacer respaldo en el lapso seleccionado",
+		Messagebox.show("No hay nada a lo que hacer respaldo en el lapso seleccionado.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 	
 	public void ErrorNoEsXML() {
 
 		Messagebox.show("La Extensión del Archivo no es XML.", 
-				"ERROR",Messagebox.OK, Messagebox.ERROR);
+				"Error",Messagebox.OK, Messagebox.ERROR);
 	}
 	
 
