@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
 
-import java.sql.Time;
 import java.util.Date;
 
 
@@ -30,7 +29,8 @@ public class ApelacionEstadoApelacion implements Serializable {
 
 	@EmbeddedId
 	private ApelacionEstadoApelacionPK id;
-
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_estado", nullable=false)
 	private Date fechaEstado;
 	
