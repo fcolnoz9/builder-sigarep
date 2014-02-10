@@ -196,7 +196,7 @@
 					<button id="btnAgregar" label="Agregar"
 							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
 							height="auto" orient="horizontal"
-							onClick="@command('agregarAsignatura',listBoxAsignaturas=lbxAsignaturas)">
+							onClick="@command('agregarAsignatura',comboitem=cmbAsignaturas,listBoxAsignaturas=lbxAsignaturas)">
 						</button>
 				</row>
 				</rows>
