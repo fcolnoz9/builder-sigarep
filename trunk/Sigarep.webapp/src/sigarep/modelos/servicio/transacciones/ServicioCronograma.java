@@ -20,10 +20,11 @@ import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.CronogramaPK;
 import sigarep.modelos.repositorio.transacciones.ICronogramaDAO;
 
-/**Cronograma
+/**Cronograma de Actividades - Planificar
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
+ * @version 1.1
+ * @since 10/02/14
  */
 
 @Service("serviciocronograma")
@@ -93,7 +94,7 @@ public class ServicioCronograma {
     	return iCronograma.buscarUltimaFechaCronogramaActual();
     }
     
-    /** filtrarCronograma.
+    /** filtrarCronograma. Hace filtrado por responsable, lugar y actividad
    	 * @param responsablef, lugarf, actividadf
    	 * @return result que es una listadoCronograma.
    	 * @throws la Excepcion es que las variables que entran por parametro sean null
