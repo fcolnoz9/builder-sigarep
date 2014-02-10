@@ -76,7 +76,7 @@ public class VMVerificarRecaudosEntregadosII {
 
 	private String lapso;
 
-	private Integer caso;
+	private String caso;
 
 	private String fechaApelacion;
 
@@ -179,11 +179,11 @@ public class VMVerificarRecaudosEntregadosII {
 		return telefono;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
