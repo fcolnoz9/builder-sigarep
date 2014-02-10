@@ -51,7 +51,7 @@ public class VMVeredictoII {
 	private String nombres;
 	private String apellidos;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-	private Integer caso;
+	private String caso;
 	private String fechaApelacion;
 	private Integer peridoSancion;
 	private String lapsosConsecutivos;
@@ -107,11 +107,11 @@ public class VMVeredictoII {
 		this.fechaSesion = fechaSesion;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
