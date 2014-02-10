@@ -35,7 +35,7 @@ public class VMHistoricoEstudiante {
 	private String lapsoAcademico;
 	private String tipoSancion;
 	private Integer periodoSancion;
-	private Integer numeroCaso;
+	private String numeroCaso;
 	private String fecha;
 	private MensajesAlUsuario msj = new MensajesAlUsuario();
 	private EstudianteSancionado estudianteSan;
@@ -119,11 +119,11 @@ public class VMHistoricoEstudiante {
 		this.periodoSancion = periodoSancion;
 	}
 
-	public Integer getNumeroCaso() {
+	public String getNumeroCaso() {
 		return numeroCaso;
 	}
 
-	public void setNumeroCaso(Integer numeroCaso) {
+	public void setNumeroCaso(String numeroCaso) {
 		this.numeroCaso = numeroCaso;
 	}
 
