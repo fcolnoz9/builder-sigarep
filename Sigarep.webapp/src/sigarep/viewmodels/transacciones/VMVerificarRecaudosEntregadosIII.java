@@ -65,7 +65,7 @@ public class VMVerificarRecaudosEntregadosIII {
 	private String lapso;
 	private Integer semestreSancion;
 	private String selected = "";
-	private Integer caso;
+	private String caso;
 	private String fechaApelacion;
 	private List<RecaudoEntregado> listaRecaudosEntregados = new LinkedList<RecaudoEntregado>();
 	private List<Recaudo> listaRecaudos = new LinkedList<Recaudo>();
@@ -153,11 +153,11 @@ public class VMVerificarRecaudosEntregadosIII {
 
 	
 	
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
