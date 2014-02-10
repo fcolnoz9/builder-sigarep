@@ -64,7 +64,7 @@ public class VMRegistrarRecursoJerarquico {
 	private String observacion;
 	
 	private Integer idRecaudo;
-	private Integer caso;
+	private String caso;
 
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
@@ -122,7 +122,7 @@ public class VMRegistrarRecursoJerarquico {
 		return observacion;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
@@ -155,7 +155,7 @@ public class VMRegistrarRecursoJerarquico {
 		this.observacion = observacion;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
@@ -350,7 +350,7 @@ public class VMRegistrarRecursoJerarquico {
 	
 	@Command
 	public void buscarCaso() {
-		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
+		//caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
 	}
 	
 	private void mostrarDatosDeSancion() {
