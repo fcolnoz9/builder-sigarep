@@ -49,7 +49,7 @@ public class VMPortalPrincipal {
 	private String lugarActividad;
 	private Cronograma cronograma;
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
-	private MensajesAlUsuario msj = new MensajesAlUsuario();
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	public String getCedula() {
 		return cedula;
@@ -138,11 +138,11 @@ public class VMPortalPrincipal {
 	@Command
 	public void modalEstadoEstudiante() {
 		if (cedula == "" || cedula == null) {
-			msj.advertenciaIngresarCedula();
+			mensajeAlUsuario.advertenciaIngresarCedula();
 		} else {
 			if (serviciosolicitudapelacion
 					.buscarEstudianteSancionadoxSolicitud(cedula) == null) {
-				msj.advertenciaNoExisteEstudianteSancionado();
+				mensajeAlUsuario.advertenciaNoExisteEstudianteSancionado();
 			} else {
 				final HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("cedula", this.cedula);
@@ -198,7 +198,7 @@ public class VMPortalPrincipal {
 					.getDocumento().getTipoDocumento(), guia.getDocumento()
 					.getNombreDocumento());
 		} else {
-			msj.advertenciaCargarDocumento();
+			mensajeAlUsuario.advertenciaCargarDocumento();
 		}
 	}
 
