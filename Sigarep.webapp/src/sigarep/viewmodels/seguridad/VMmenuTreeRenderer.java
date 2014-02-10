@@ -33,7 +33,7 @@ public class VMmenuTreeRenderer implements TreeitemRenderer<VMmenuTreeNode> {
 		treeItem.setOpen(ctn.isOpen());
 		Hlayout hl = new Hlayout();
 		// hl.appendChild(new Image("/img/" + contact.getProfilepic()));
-		hl.appendChild(new Label(contact.getNombrefuncion()));
+		hl.appendChild(new Label(contact.getNombreFuncion()));
 		hl.setSclass("h-inline-block");
 		Treecell treeCell = new Treecell();
 		treeCell.appendChild(hl);
