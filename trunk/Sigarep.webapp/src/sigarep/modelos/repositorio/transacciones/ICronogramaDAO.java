@@ -10,6 +10,13 @@ import org.springframework.data.repository.query.Param;
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.CronogramaPK;
 
+/**Cronograma de Actividades - Planificar
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.1
+ * @since 10/02/14
+ */
+
 public interface ICronogramaDAO extends JpaRepository<Cronograma, CronogramaPK> {
 	 
 	@Query("select c from Cronograma c where c.estatus = true")
