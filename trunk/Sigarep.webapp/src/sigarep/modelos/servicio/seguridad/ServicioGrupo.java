@@ -7,53 +7,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.seguridad.Grupo;
-import sigarep.modelos.repositorio.seguridad.IGrupo;
+import sigarep.modelos.repositorio.seguridad.IGrupoDAO;
 
-@Service("sg")
+@Service("serviciogrupo")
 public class ServicioGrupo {
 
 	@Autowired
-	private IGrupo gru;
+	private IGrupoDAO iGrupoDAO;
 
 	public void guardarGrupo(Grupo grupo) {
-		gru.save(grupo);
+		iGrupoDAO.save(grupo);
 	}
 
 	public Grupo buscarGrupo(Integer idgrupo) {
-		return gru.findOne(idgrupo);
+		return iGrupoDAO.findOne(idgrupo);
 
 	}
 
 	public List<Grupo> buscarTodos(String... roles) {
-		return gru.findAll();
+		return iGrupoDAO.findAll();
 
 	}
 
 	public Grupo buscarGrupoNombre(String rol) {
 
-		return gru.findByNombre(rol);
+		return iGrupoDAO.findByNombre(rol);
 
 	}
 
 	public List<Grupo> listadoGrupo() {
-		List<Grupo> GrupoLista = gru.buscarGruposActivos();
+		List<Grupo> GrupoLista = iGrupoDAO.buscarGruposActivos();
 		return GrupoLista;
 	}
 	
 	public List<Grupo> listadoGrupoPerteneceUsuario(String nombreUsuario) {
-		List<Grupo> listaGrupoPertenece = gru.buscarGruposPerteneceUsuario(nombreUsuario);
+		List<Grupo> listaGrupoPertenece = iGrupoDAO.buscarGruposPerteneceUsuario(nombreUsuario);
 		return listaGrupoPertenece;
 	}
 	
 	public List<Grupo> listadoGrupoNoPerteneceUsuario(String nombreUsuario) {
-		List<Grupo> listaGrupoNoPertenece = gru.buscarGruposNoPerteneceUsuario(nombreUsuario);
+		List<Grupo> listaGrupoNoPertenece = iGrupoDAO.buscarGruposNoPerteneceUsuario(nombreUsuario);
 		return listaGrupoNoPertenece;
 	}
 
 	public void eliminar(Integer idGrupo) {
-		Grupo miGrupo = gru.findOne(idGrupo);
+		Grupo miGrupo = iGrupoDAO.findOne(idGrupo);
 		miGrupo.setEstatus(false);
-		gru.save(miGrupo);
+		iGrupoDAO.save(miGrupo);
 	}
 
 	public List<Grupo> buscarP(String nombre) {
@@ -70,9 +70,9 @@ public class ServicioGrupo {
 				// motivos con el nombre indicado en la caja de texto y tambien
 				// busca todos los que tengan las letras iniciales de ese
 				// nombre.
-			for (Grupo gru : listadoGrupo()) {
-				if (gru.getNombre().toLowerCase().contains(nombre.toLowerCase()) || gru.getDescripcion().toLowerCase().contains(nombre.toLowerCase())) {
-						result.add(gru);
+			for (Grupo grupo : listadoGrupo()) {
+				if (grupo.getNombre().toLowerCase().contains(nombre.toLowerCase()) || grupo.getDescripcion().toLowerCase().contains(nombre.toLowerCase())) {
+						result.add(grupo);
 				}
 			}
 		}

@@ -11,24 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.seguridad.Nodo;
-import sigarep.modelos.repositorio.seguridad.INodo;
+import sigarep.modelos.repositorio.seguridad.INodoDAO;
 // El servicio interactua con la base de datos
 
-@Service("snodo") //Definiendo la variable servicio
+@Service("servicionodo") //Definiendo la variable servicio
 public class ServicioNodo{
-	private @Autowired INodo ia;
+	private @Autowired INodoDAO iNodoDAO;
 
 	public List<Nodo> listadoArbol() {
-		List<Nodo> children=ia.findAll();
+		List<Nodo> children=iNodoDAO.findAll();
 	    return children ;
 	}
 	
 	public List<Nodo> buscarPadre(Integer idPadre) {
-		List<Nodo> children=ia.findByPadre(idPadre);
+		List<Nodo> children=iNodoDAO.findByPadre(idPadre);
 	    return children ;
 	}
 	public Nodo buscarNodo(Integer idNodo) {
-		Nodo nodo=ia.findOne(idNodo);
+		Nodo nodo=iNodoDAO.findOne(idNodo);
 	    return nodo ;
 	}
 	

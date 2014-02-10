@@ -15,18 +15,20 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-
-import org.zkoss.zhtml.Messagebox;
-
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Combobox;
 
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
@@ -343,7 +345,7 @@ public class VMVerificarRecaudosEntregadosI {
 		this.lapso = sa.getId().getCodigoLapso();
 		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
 		this.caso = sa.getNumeroCaso();
-
+		
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.periodoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
@@ -446,8 +448,9 @@ public class VMVerificarRecaudosEntregadosI {
 	}
 	
 	 @Command
-	 @NotifyChange({"cedula", "nombres", "apellidos", "listaRecaudosPorMotivo","programa","lapsoAcademico","telefono","sancion","asignatura"})
+	 @NotifyChange({"cedula", "nombres", "selected","apellidos", "listaRecaudosPorMotivo","programa","lapsoAcademico","telefono","sancion","asignatura"})
 	public void limpiar() {
+		 selected = "";
 		 buscarRecaudos();
 	}
 	
@@ -457,5 +460,12 @@ public class VMVerificarRecaudosEntregadosI {
 		System.out.println("tipo de motivo:"+tipoMotivo.getIdTipoMotivo());
 		buscarRecaudosPorTipoMotivo(tipoMotivo.getIdTipoMotivo());
 		return tipoMotivo;
+	}
+	
+	@Command
+	public void notificarRecaudoVerificado(@BindingParam("lbxRecaudos") Listbox lbxRecaudos) {
+		Listcell a = (Listcell)lbxRecaudos.getAttribute("identificadorListitem");
+		if(lbxRecaudos.getSelectedIndex()!=-1)	
+			Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,a,"middle_center",1000);
 	}
 }

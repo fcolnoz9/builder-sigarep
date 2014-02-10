@@ -84,7 +84,7 @@
 				value="@bind(vm.fechaApelacion)" readonly="true">
 			</textbox>	
 		</div>
-		
+		<separator/>
 		<columnlayout>
 					
 			<columnchildren width="40%">
@@ -96,7 +96,7 @@
 							 model="@bind(vm.listaRecaudosPorEntregar)"
    			 				emptyMessage="No hay recaudos por el motivo seleccionado">
 							<template name="model">
-								<listitem selected="false">
+								<listitem selected="false" onClick="@command('notificarRecaudoVerificado',lbxRecaudos=rigth)">
 									<listcell label="${each.getNombreRecaudo()}" ></listcell>
 									<listcell label="${each.getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
 								</listitem>

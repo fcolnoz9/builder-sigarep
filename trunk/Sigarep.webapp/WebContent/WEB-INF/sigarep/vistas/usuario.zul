@@ -3,7 +3,7 @@
 	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.SecurityUtil')">
 	<tablelayout columns="3">
 		<tablechildren>
-<!-- 			 				<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" /> -->
+			 				<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" />
 			<a href="">
 				<image src="imagenes/portal-principal/Builder.png"
 					width="50px" />

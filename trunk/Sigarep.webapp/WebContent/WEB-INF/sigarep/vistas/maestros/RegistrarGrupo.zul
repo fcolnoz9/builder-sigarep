@@ -16,7 +16,9 @@
     			   	<hbox>
     					Nombre:
     					<textbox id="txtNombreRegistrarGrupo" mold="rounded"
-    						value="@bind(vm.nombre)" />
+    						value="@bind(vm.nombre)"
+    						/>
+<!--     						onBlur="@command('buscarGrupo')"  -->
     				</hbox>
     				<hbox>
     					Descripción:
@@ -63,7 +65,8 @@
 				   onClick="@command('guardarGrupo')" />
 			<button label="Limpiar" id="btnLimpiarRegistrarGrupo" 
 			        mold="trendy" width="auto" height="auto"
-				    image="imagenes/iconos/limpiar.png" />
+				    image="imagenes/iconos/limpiar.png"
+				    onClick="@command('limpiar',menuDelGrupo=tree2)" />
 			<button label="Cerrar"  id="btnSalirRegistrarGrupo"
 			        mold="trendy" width="auto" height="auto"
 			        image="/imagenes/iconos/cerrar.png" 

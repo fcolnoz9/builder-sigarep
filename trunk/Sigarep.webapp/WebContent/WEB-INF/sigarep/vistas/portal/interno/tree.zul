@@ -1,642 +1,642 @@
-<window sclass="principal" border="0" height="auto" contentStyle="overflow:auto" id="winTree">
-<!-- 	apply="org.zkoss.bind.BindComposer" -->
-<!--     viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMmenuAplicacion')"> -->
+<window sclass="principal" border="0" height="auto" contentStyle="overflow:auto" id="winTree"
+	apply="org.zkoss.bind.BindComposer"
+    viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMmenuAplicacion')">
     
-<!-- 	<tree id="tree" Zclass="z-vfiletree" multiple="false"  -->
-<!--  		height="600px" hflex="true" vflex="true" model="@load(vm.contactTreeModel)" ItemRenderer="sigarep.viewmodels.seguridad.VMmenuTreeRenderer3">  -->
-<!--  		<treecols>  -->
-<!-- 			<treecol label="MENU SIGAREP" sclass="fondo_arbol1" />  -->
-<!--  		</treecols> -->
-<!--  	</tree>   -->
+	<tree id="tree" Zclass="z-vfiletree" multiple="false" 
+ 		height="600px" hflex="true" vflex="true" model="@load(vm.contactTreeModel)" ItemRenderer="sigarep.viewmodels.seguridad.VMmenuTreeRenderer3"> 
+ 		<treecols> 
+			<treecol label="MENU SIGAREP" sclass="fondo_arbol1" /> 
+ 		</treecols>
+ 	</tree>  
  		
-<div height="auto">
+<!-- <div height="auto"> -->
 	<zscript><![CDATA[
- 	import sigarep.controlador.maestros.WindowController; 
- 	public void createWin(String idNodo, String ruta) { 
- 		WindowController winController = new WindowController(); 
- 		try { 
- 			winController.onClickMenu2("/WEB-INF/sigarep/vistas/" + ruta + "/" 
- 					+ idNodo + ".zul"); 
- 		} catch (InterruptedException ex) { 
+// 	import sigarep.controlador.maestros.WindowController; 
+// 	public void createWin(String idNodo, String ruta) { 
+// 		WindowController winController = new WindowController(); 
+//		try { 
+// 			winController.onClickMenu2("/WEB-INF/sigarep/vistas/" + ruta + "/" 
+// 					+ idNodo + ".zul"); 
+// 		} catch (InterruptedException ex) { 
  			 //Ignore if can not get win. 
- 		} 
- 	}
+// 		} 
+// 	}
  	
- 	public void createWin(String idNodo, String ruta, String rutaModal) { 
- 		WindowController winController = new WindowController(); 
- 		try { 
- 			winController.onClickMenu2("/WEB-INF/sigarep/vistas/" + ruta + "/" 
- 					+ idNodo + ".zul", rutaModal); 
- 		} catch (InterruptedException ex) { 
+// 	public void createWin(String idNodo, String ruta, String rutaModal) { 
+// 		WindowController winController = new WindowController(); 
+// 		try { 
+// 			winController.onClickMenu2("/WEB-INF/sigarep/vistas/" + ruta + "/" 
+// 					+ idNodo + ".zul", rutaModal); 
+// 		} catch (InterruptedException ex) { 
  			 //Ignore if can not get win. 
- 		} 
- 	} 
+// 		} 
+// 	} 
 	]]> 
 	</zscript>
-	<tree id="tree" Zclass="z-vfiletree" multiple="false"
-		height="495px" hflex="true" vflex="true">
-		<treecols>
-			<treecol label="MENU SIGAREP" />
-		</treecols>
-		<treechildren>
-			<treeitem open="false">
-				<treerow>
-					<treecell label="Registros Básicos" />
-				</treerow>
-				<treechildren>
-					<treeitem>
-						<treerow>
-							<treecell label="Lapso Académico"
-								sclass="maestros" id="RegistrarLapso"
-								onClick="createWin(RegistrarLapso.getId(), RegistrarLapso.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Actividades"
-								sclass="maestros" id="RegistrarActividad"
-								onClick="createWin(RegistrarActividad.getId(), RegistrarActividad.getSclass())" />
-						</treerow>
-					</treeitem>
-				    <treeitem>
-						<treerow>
-							<treecell label="Estado de Apelación"
-								id="RegistrarEstadoApelacion" sclass="maestros"
-								onClick="createWin(RegistrarEstadoApelacion.getId(), RegistrarEstadoApelacion.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Programa Académico"
-								id="RegistrarProgramaAcademico" sclass="maestros"
-								onClick="createWin(RegistrarProgramaAcademico.getId(), RegistrarProgramaAcademico.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Tipo Motivo"
-								id="RegitrarTipoMotivo" sclass="maestros"
-								onClick="createWin(RegitrarTipoMotivo.getId(), RegitrarTipoMotivo.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Tipo Sanción"
-								id="RegistrarSancionMaestro" sclass="maestros"
-								onClick="createWin(RegistrarSancionMaestro.getId(), RegistrarSancionMaestro.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Instancia Apelada"
-								id="RegistrarInstanciaApelada" sclass="maestros"
-								onClick="createWin(RegistrarInstanciaApelada.getId(), RegistrarInstanciaApelada.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Recaudos por Motivo"
-								id="RegistrarRecaudoMotivo" sclass="maestros"
-								onClick="createWin(RegistrarRecaudoMotivo.getId(), RegistrarRecaudoMotivo.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Sancionados" />
-						</treerow>
-						<treechildren>
-							<treeitem>
-								<treerow>
-									<treecell label="Por Lote" id="RegistrarSancionadoLote"
-										sclass="maestros" onClick="createWin(RegistrarSancionadoLote.getId(), RegistrarSancionadoLote.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell label="Individual" id="RegistrarSancionado"
-										sclass="transacciones" onClick="createWin(RegistrarSancionado.getId(), RegistrarSancionado.getSclass())" />
-								</treerow>
-							</treeitem>
-						</treechildren>
-					</treeitem>
-				</treechildren>
-			</treeitem>
-			<treeitem open="false">
-				<treerow>
-					<treecell label="Gestión" />
-				</treerow>
-				<treechildren>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Planificar" />
-						</treerow>
-						<treechildren>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Actualizar Cronograma" id="ActualizarCronograma"
-										sclass="transacciones"
-										onClick="createWin(ActualizarCronograma.getId(), ActualizarCronograma.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Historial Cronograma" id="HistorialCronograma"
-										sclass="historiales"
-										onClick="createWin(HistorialCronograma.getId(), HistorialCronograma.getSclass())" />
-								</treerow>
-							</treeitem>
-						</treechildren>
-					</treeitem>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Apelaciones" />
-						</treerow>
-						<treechildren>
-							<treeitem open="false">
-								<treerow>
-									<treecell label="Registrar apelación"/>
-								</treerow>
-								<treechildren>
-									<treeitem>
-										<treerow>
-											<treecell
-												label="Datos Iniciales"
-												id="ListaGenericaEstudiantesSancionados" sclass="transacciones"
-												onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarDatosInicialesApelacion.zul")' />
-										</treerow>
-									</treeitem>
-									<treeitem>
-										<treerow>
-											<treecell
-												label="Cargar Recaudos" id="cargarRecaudosEntregados"
-												sclass="transacciones"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/CargarRecaudoEntregado.zul")' />
-										</treerow>
-									</treeitem>
-								</treechildren>
-							</treeitem>
-							<treeitem open="false">
-								<treerow>
-									<treecell label="Evaluar Apelación"/>
-								</treerow>
-								<treechildren>
-									<treeitem>
-										<treerow>
-											<treecell
-												label="Verificar Recaudos" sclass="transacciones"
-												id="VerificarApelacionesComision"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/VerificarRecaudosI.zul")' />
-										</treerow>
-									</treeitem>
-									<treeitem>
-										<treerow>
-											<treecell
-												label="Analizar Validez" sclass="transacciones"
-												id="ListaGenericaSancionados"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezI.zul" )' />
-										</treerow>
-									</treeitem>
-									<treeitem>
-										<treerow>
-											<treecell label="Veredicto"
-												id="DatosSesionVeredicto" sclass="transacciones"
-												onClick='createWin(DatosSesionVeredicto.getId(), DatosSesionVeredicto.getSclass(), "transacciones/veredictoI.zul")' />
-										</treerow>
-									</treeitem>
-								</treechildren>
-							</treeitem>
-						</treechildren>
-					</treeitem>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Recurso de Reconsideración" />
-						</treerow>
-						<treechildren>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Registrar Recurso de Reconsideración"  sclass="transacciones"
-										id="winActualizarEstadoEstudiante"
-										onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarReconsideracion.zul" )' />
-								</treerow>
-							</treeitem>
-							<treeitem open="false">
-								<treerow>
-									<treecell
-										label="Evaluar Recurso de Reconsideración" 
-										 />
-								</treerow>
-								<treechildren>
-									<treeitem>
-									<treerow>
-											<treecell
-												label="Verificar Recaudos" sclass="transacciones" id="VerificarApelacionConsejoDecanato"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/VerificarRecaudosII.zul" )' />
-										</treerow>
-									</treeitem>
-									<treeitem>
-										<treerow>
-											<treecell
-										label="Analizar Validez" sclass="transacciones"
-												id="AnalizarValidezII"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezII.zul" )' />
+<!-- 	<tree id="tree" Zclass="z-vfiletree" multiple="false" -->
+<!-- 		height="495px" hflex="true" vflex="true"> -->
+<!-- 		<treecols> -->
+<!-- 			<treecol label="MENU SIGAREP" /> -->
+<!-- 		</treecols> -->
+<!-- 		<treechildren> -->
+<!-- 			<treeitem open="false"> -->
+<!-- 				<treerow> -->
+<!-- 					<treecell label="Registros Básicos" /> -->
+<!-- 				</treerow> -->
+<!-- 				<treechildren> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Lapso Académico" -->
+<!-- 								sclass="maestros" id="RegistrarLapso" -->
+<!-- 								onClick="createWin(RegistrarLapso.getId(), RegistrarLapso.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Actividades" -->
+<!-- 								sclass="maestros" id="RegistrarActividad" -->
+<!-- 								onClick="createWin(RegistrarActividad.getId(), RegistrarActividad.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 				    <treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Estado de Apelación" -->
+<!-- 								id="RegistrarEstadoApelacion" sclass="maestros" -->
+<!-- 								onClick="createWin(RegistrarEstadoApelacion.getId(), RegistrarEstadoApelacion.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Programa Académico" -->
+<!-- 								id="RegistrarProgramaAcademico" sclass="maestros" -->
+<!-- 								onClick="createWin(RegistrarProgramaAcademico.getId(), RegistrarProgramaAcademico.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Tipo Motivo" -->
+<!-- 								id="RegitrarTipoMotivo" sclass="maestros" -->
+<!-- 								onClick="createWin(RegitrarTipoMotivo.getId(), RegitrarTipoMotivo.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Tipo Sanción" -->
+<!-- 								id="RegistrarSancionMaestro" sclass="maestros" -->
+<!-- 								onClick="createWin(RegistrarSancionMaestro.getId(), RegistrarSancionMaestro.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Instancia Apelada" -->
+<!-- 								id="RegistrarInstanciaApelada" sclass="maestros" -->
+<!-- 								onClick="createWin(RegistrarInstanciaApelada.getId(), RegistrarInstanciaApelada.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Recaudos por Motivo" -->
+<!-- 								id="RegistrarRecaudoMotivo" sclass="maestros" -->
+<!-- 								onClick="createWin(RegistrarRecaudoMotivo.getId(), RegistrarRecaudoMotivo.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Sancionados" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell label="Por Lote" id="RegistrarSancionadoLote" -->
+<!-- 										sclass="maestros" onClick="createWin(RegistrarSancionadoLote.getId(), RegistrarSancionadoLote.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell label="Individual" id="RegistrarSancionado" -->
+<!-- 										sclass="transacciones" onClick="createWin(RegistrarSancionado.getId(), RegistrarSancionado.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 				</treechildren> -->
+<!-- 			</treeitem> -->
+<!-- 			<treeitem open="false"> -->
+<!-- 				<treerow> -->
+<!-- 					<treecell label="Gestión" /> -->
+<!-- 				</treerow> -->
+<!-- 				<treechildren> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Planificar" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Actualizar Cronograma" id="ActualizarCronograma" -->
+<!-- 										sclass="transacciones" -->
+<!-- 										onClick="createWin(ActualizarCronograma.getId(), ActualizarCronograma.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Historial Cronograma" id="HistorialCronograma" -->
+<!-- 										sclass="historiales" -->
+<!-- 										onClick="createWin(HistorialCronograma.getId(), HistorialCronograma.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Apelaciones" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem open="false"> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell label="Registrar apelación"/> -->
+<!-- 								</treerow> -->
+<!-- 								<treechildren> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell -->
+<!-- 												label="Datos Iniciales" -->
+<!-- 												id="ListaGenericaEstudiantesSancionados" sclass="transacciones" -->
+<!-- 												onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarDatosInicialesApelacion.zul")' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell -->
+<!-- 												label="Cargar Recaudos" id="cargarRecaudosEntregados" -->
+<!-- 												sclass="transacciones" -->
+<!-- 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/CargarRecaudoEntregado.zul")' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 								</treechildren> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem open="false"> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell label="Evaluar Apelación"/> -->
+<!-- 								</treerow> -->
+<!-- 								<treechildren> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell -->
+<!-- 												label="Verificar Recaudos" sclass="transacciones" -->
+<!-- 												id="VerificarApelacionesComision" -->
+<!-- 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/VerificarRecaudosI.zul")' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell -->
+<!-- 												label="Analizar Validez" sclass="transacciones" -->
+<!-- 												id="ListaGenericaSancionados" -->
+<!-- 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezI.zul" )' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell label="Veredicto" -->
+<!-- 												id="DatosSesionVeredicto" sclass="transacciones" -->
+<!-- 												onClick='createWin(DatosSesionVeredicto.getId(), DatosSesionVeredicto.getSclass(), "transacciones/veredictoI.zul")' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 								</treechildren> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Recurso de Reconsideración" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Registrar Recurso de Reconsideración"  sclass="transacciones" -->
+<!-- 										id="winActualizarEstadoEstudiante" -->
+<!-- 										onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarReconsideracion.zul" )' /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem open="false"> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Evaluar Recurso de Reconsideración"  -->
+<!-- 										 /> -->
+<!-- 								</treerow> -->
+<!-- 								<treechildren> -->
+<!-- 									<treeitem> -->
+<!-- 									<treerow> -->
+<!-- 											<treecell -->
+<!-- 												label="Verificar Recaudos" sclass="transacciones" id="VerificarApelacionConsejoDecanato" -->
+<!-- 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/VerificarRecaudosII.zul" )' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell -->
+<!-- 										label="Analizar Validez" sclass="transacciones" -->
+<!-- 												id="AnalizarValidezII" -->
+<!-- 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezII.zul" )' /> -->
 									
 									
-<!-- 												label="Analizar Validez" sclass="transacciones" id="" -->
+<!--  												label="Analizar Validez" sclass="transacciones" id="" --> 
 <!-- 												onClick="createWin(AnalizarValidez.getId(), AnalizarValidez.getSclass())" /> -->
- 										</treerow> 
-									</treeitem>
-									<treeitem>
-										<treerow>
-											<treecell label="Veredicto"
-												id="DatosSesionVeredicto2" sclass="transacciones"
-												onClick='createWin(DatosSesionVeredicto.getId(), DatosSesionVeredicto.getSclass(), "transacciones/veredictoII.zul")' />
-										</treerow>
-									</treeitem>
-								</treechildren>
-							</treeitem>
-						</treechildren>
-					</treeitem>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Recurso Jerárquico" />
-						</treerow>
-						<treechildren>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Registrar Recurso Jerárquico" id="RegistrarRecursoJerarquico" sclass="maestros" 
-										onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarRecursoJerarquico.zul" )' />
-								</treerow>
-							</treeitem>
-							<treeitem open="false">
-								<treerow>
-									<treecell
-										label="Evaluar Recurso Jerárquico" id="VerificarApelacionRecaudo" sclass="transacciones" />
-								</treerow>
-								<treechildren>
-									<treeitem>
-										<treerow>
-											<treecell
-												label="Verificar Recaudos" sclass="transacciones" id="VerificarRecaudosIII"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/VerificarRecaudosIII.zul" )' />
-										</treerow>
-									</treeitem>
-									<treeitem>
-										<treerow>
-											<treecell
+<!--  										</treerow>  -->
+<!-- 									</treeitem> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell label="Veredicto" -->
+<!-- 												id="DatosSesionVeredicto2" sclass="transacciones" -->
+<!-- 												onClick='createWin(DatosSesionVeredicto.getId(), DatosSesionVeredicto.getSclass(), "transacciones/veredictoII.zul")' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 								</treechildren> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Recurso Jerárquico" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Registrar Recurso Jerárquico" id="RegistrarRecursoJerarquico" sclass="maestros"  -->
+<!-- 										onClick='createWin(ListaGenericaEstudiantesSancionados.getId(), ListaGenericaEstudiantesSancionados.getSclass(),"transacciones/RegistrarRecursoJerarquico.zul" )' /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem open="false"> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Evaluar Recurso Jerárquico" id="VerificarApelacionRecaudo" sclass="transacciones" /> -->
+<!-- 								</treerow> -->
+<!-- 								<treechildren> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell -->
+<!-- 												label="Verificar Recaudos" sclass="transacciones" id="VerificarRecaudosIII" -->
+<!-- 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/VerificarRecaudosIII.zul" )' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell -->
 											
-											label="Analizar Validez" sclass="transacciones"
-												id="AnalizarValidezIII"
-												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezIII.zul" )' />
-										</treerow>
-									</treeitem>
-									<treeitem>
-										<treerow>
-											<treecell label="Veredicto"
-												id="ListaGenericaSancionados3" sclass="transacciones"
-												onClick='createWin(DatosSesionVeredicto.getId(), DatosSesionVeredicto.getSclass(), "transacciones/veredictoIII.zul")' />
+<!-- 											label="Analizar Validez" sclass="transacciones" -->
+<!-- 												id="AnalizarValidezIII" -->
+<!-- 												onClick='createWin(ListaGenericaSancionados.getId(), ListaGenericaSancionados.getSclass(),"transacciones/AnalizarValidezIII.zul" )' /> -->
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 									<treeitem> -->
+<!-- 										<treerow> -->
+<!-- 											<treecell label="Veredicto" -->
+<!-- 												id="ListaGenericaSancionados3" sclass="transacciones" -->
+<!-- 												onClick='createWin(DatosSesionVeredicto.getId(), DatosSesionVeredicto.getSclass(), "transacciones/veredictoIII.zul")' /> -->
 										
-										</treerow>
-									</treeitem>
-								</treechildren>
-							</treeitem>
-						</treechildren>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Historial de Estudiantes"
-								id="ListaHistorialEstudiante" sclass="transacciones"
-										onClick="createWin(ListaHistorialEstudiante.getId(), ListaHistorialEstudiante.getSclass())" />
-						</treerow>
-					</treeitem>
-				</treechildren>
-			</treeitem>
-			<treeitem open="false">
-				<treerow>
-					<treecell label="Reportes" />
-				</treerow>
-				<treechildren>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Configurables" />
-						</treerow>
-						<treechildren>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Estudiantes Sancionados"
-										id="ConfigurableEstudiantesSancionados" sclass="reportes"
-										onClick="createWin(ConfigurableEstudiantesSancionados.getId(), ConfigurableEstudiantesSancionados.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell label="Apelaciones" id="ConfigurableApelaciones"
-										sclass="reportes" onClick="createWin(ConfigurableApelaciones.getId(), ConfigurableApelaciones.getSclass())" />
-								</treerow>
-							</treeitem>
-						</treechildren>
-					</treeitem>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Estadísticos" />
-						</treerow>
-						<treechildren>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativos Apelaciones"
-										id="EstudiantesSancionadosVsApelaron" sclass="reportes/estadisticos"
-										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
-								</treerow>
+<!-- 										</treerow> -->
+<!-- 									</treeitem> -->
+<!-- 								</treechildren> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Historial de Estudiantes" -->
+<!-- 								id="ListaHistorialEstudiante" sclass="transacciones" -->
+<!-- 										onClick="createWin(ListaHistorialEstudiante.getId(), ListaHistorialEstudiante.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 				</treechildren> -->
+<!-- 			</treeitem> -->
+<!-- 			<treeitem open="false"> -->
+<!-- 				<treerow> -->
+<!-- 					<treecell label="Reportes" /> -->
+<!-- 				</treerow> -->
+<!-- 				<treechildren> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Configurables" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Estudiantes Sancionados" -->
+<!-- 										id="ConfigurableEstudiantesSancionados" sclass="reportes" -->
+<!-- 										onClick="createWin(ConfigurableEstudiantesSancionados.getId(), ConfigurableEstudiantesSancionados.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell label="Apelaciones" id="ConfigurableApelaciones" -->
+<!-- 										sclass="reportes" onClick="createWin(ConfigurableApelaciones.getId(), ConfigurableApelaciones.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Estadísticos" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativos Apelaciones" -->
+<!-- 										id="EstudiantesSancionadosVsApelaron" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" /> -->
+<!-- 								</treerow> -->
 								
 								
-								<treechildren>
-								<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativo de Apelaciones por Motivo y Resultado"
-										id="ApelacionesPorMotivo" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorMotivo.getId(), ApelacionesPorMotivo.getSclass())" />
-								</treerow>
-							</treeitem>
+<!-- 								<treechildren> -->
+<!-- 								<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativo de Apelaciones por Motivo y Resultado" -->
+<!-- 										id="ApelacionesPorMotivo" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(ApelacionesPorMotivo.getId(), ApelacionesPorMotivo.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
 							
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativo de Apelaciones por Instancia y Resultado"
-										id="ApelacionesPorInstancia" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorInstancia.getId(), ApelacionesPorInstancia.getSclass())" />
-								</treerow>
-							</treeitem>
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativo de Apelaciones por Instancia y Resultado" -->
+<!-- 										id="ApelacionesPorInstancia" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(ApelacionesPorInstancia.getId(), ApelacionesPorInstancia.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
 							
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativo de Apelaciones por Tipo de Sexo y Resultado"
-										id="ApelacionesPorTipoDeSexo" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorTipoDeSexo.getId(), ApelacionesPorTipoDeSexo.getSclass())" />
-								</treerow>
-							</treeitem>
-						</treechildren>	
-							</treeitem>
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativo de Apelaciones por Tipo de Sexo y Resultado" -->
+<!-- 										id="ApelacionesPorTipoDeSexo" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(ApelacionesPorTipoDeSexo.getId(), ApelacionesPorTipoDeSexo.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren>	 -->
+<!-- 							</treeitem> -->
 							
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativos Sanciones"
-										id="" sclass="reportes/estadisticos"
-										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
-								</treerow>
-								<treechildren>
-								<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativo de Apelaciones por Motivo y Resultado"
-										id="" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorMotivo.getId(), ApelacionesPorMotivo.getSclass())" />
-								</treerow>
-							</treeitem>
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativos Sanciones" -->
+<!-- 										id="" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 								<treechildren> -->
+<!-- 								<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativo de Apelaciones por Motivo y Resultado" -->
+<!-- 										id="" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(ApelacionesPorMotivo.getId(), ApelacionesPorMotivo.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
 							
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativo de Apelaciones por Instancia y Resultado"
-										id="" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorInstancia.getId(), ApelacionesPorInstancia.getSclass())" />
-								</treerow>
-							</treeitem>
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativo de Apelaciones por Instancia y Resultado" -->
+<!-- 										id="" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(ApelacionesPorInstancia.getId(), ApelacionesPorInstancia.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
 							
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Comparativo de Apelaciones por Tipo de Sexo y Resultado"
-										id="" sclass="reportes/estadisticos"
-										onClick="createWin(ApelacionesPorTipoDeSexo.getId(), ApelacionesPorTipoDeSexo.getSclass())" />
-								</treerow>
-							</treeitem>
-						</treechildren>
-					</treeitem>
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Comparativo de Apelaciones por Tipo de Sexo y Resultado" -->
+<!-- 										id="" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(ApelacionesPorTipoDeSexo.getId(), ApelacionesPorTipoDeSexo.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
 							
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Asignaturas"
-										id="" sclass="reportes/estadisticos"
-										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
-								</treerow>
-								<treechildren>
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Asignaturas" -->
+<!-- 										id="" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 								<treechildren> -->
 							
-							    <treeitem>
-								<treerow>
-									<treecell
-										label="Top 5 de Asignaturas con Mayor Cantidad de Sancionados y Resultados"
-										id="AsignaturasMayorCantidadSancionados" sclass="reportes/estadisticos"
-										onClick="createWin(AsignaturasMayorCantidadSancionados.getId(), AsignaturasMayorCantidadSancionados.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Asignaturas por Motivo de Apelación y Resultado Procedente"
-										id="AsignaturaMotivosApelacionesVsProcedentes" sclass="reportes/estadisticos"
-										onClick="createWin(AsignaturaMotivosApelacionesVsProcedentes.getId(), AsignaturaMotivosApelacionesVsProcedentes.getSclass())" />
-								</treerow>
-							</treeitem>
-							</treechildren>
-					</treeitem>
-						</treechildren>
-					</treeitem>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Informes" />
-						</treerow>
-						<treechildren>
+<!-- 							    <treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Top 5 de Asignaturas con Mayor Cantidad de Sancionados y Resultados" -->
+<!-- 										id="AsignaturasMayorCantidadSancionados" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(AsignaturasMayorCantidadSancionados.getId(), AsignaturasMayorCantidadSancionados.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Asignaturas por Motivo de Apelación y Resultado Procedente" -->
+<!-- 										id="AsignaturaMotivosApelacionesVsProcedentes" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(AsignaturaMotivosApelacionesVsProcedentes.getId(), AsignaturaMotivosApelacionesVsProcedentes.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Informes" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
 						
 						
-						<treeitem>
-								<treerow>
-									<treecell
-										label="Estructurados"
-										id="" sclass="reportes/estadisticos"
-										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
-								</treerow>
-						<treechildren>
+<!-- 						<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Estructurados" -->
+<!-- 										id="" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 						<treechildren> -->
 						   
-						   <treeitem>
-								     <treerow>
-									<treecell
-										label="Informe al Consejo Universitario"
-										id="GenerarInformeAlCU" sclass="reportes"
-										onClick="createWin(GenerarInformeAlCU.getId(), GenerarInformeAlCU.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Informe al Consejo de Decanato"
-										id="InformeApelacion" sclass="reportes"
-										onClick="createWin(InformeApelacion.getId(), InformeApelacion.getSclass())" />
-								</treerow>
-							</treeitem>
-					    </treechildren>
-						</treeitem>		
+<!-- 						   <treeitem> -->
+<!-- 								     <treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Informe al Consejo Universitario" -->
+<!-- 										id="GenerarInformeAlCU" sclass="reportes" -->
+<!-- 										onClick="createWin(GenerarInformeAlCU.getId(), GenerarInformeAlCU.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Informe al Consejo de Decanato" -->
+<!-- 										id="InformeApelacion" sclass="reportes" -->
+<!-- 										onClick="createWin(InformeApelacion.getId(), InformeApelacion.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 					    </treechildren> -->
+<!-- 						</treeitem>		 -->
 						
-						     <treeitem>
-								<treerow>
-									<treecell
-										label="Especiales"
-										id="" sclass="reportes/estadisticos"
-										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" />
-								</treerow>
-								<treechildren>
-										<treeitem>
-								<treerow>
-									<treecell
-										label="Asignaturas y Resultados"
-										id="GenerarInformeAlC" sclass="reportes"
-										onClick="createWin(GenerarInformeAlCU.getId(), GenerarInformeAlCU.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Lista de Veredictos por Estudiante" id="" sclass="reportes"
-										onClick="createWin(.getId(), .getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Historiales de Apelaciones por Caso"
-										id="" sclass="reportes"
-										onClick="createWin(InformeApelacion.getId(), InformeApelacion.getSclass())" />
-								</treerow>
-							</treeitem>
+<!-- 						     <treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Especiales" -->
+<!-- 										id="" sclass="reportes/estadisticos" -->
+<!-- 										onClick="createWin(EstudiantesSancionadosVsApelaron.getId(), EstudiantesSancionadosVsApelaron.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 								<treechildren> -->
+<!-- 										<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Asignaturas y Resultados" -->
+<!-- 										id="GenerarInformeAlC" sclass="reportes" -->
+<!-- 										onClick="createWin(GenerarInformeAlCU.getId(), GenerarInformeAlCU.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Lista de Veredictos por Estudiante" id="" sclass="reportes" -->
+<!-- 										onClick="createWin(.getId(), .getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Historiales de Apelaciones por Caso" -->
+<!-- 										id="" sclass="reportes" -->
+<!-- 										onClick="createWin(InformeApelacion.getId(), InformeApelacion.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
 								   
-								</treechildren>
-						</treeitem>
+<!-- 								</treechildren> -->
+<!-- 						</treeitem> -->
 						
 						 
-						</treechildren>
-					</treeitem>
-				</treechildren>
-			</treeitem>
-			<treeitem open="false">
-				<treerow>
-					<treecell label="Administración del sistema" />
-				</treerow>
-				<treechildren>
-					<treeitem>
-						<treerow>
-							<treecell 	label="Cambiar Contraseña de Usuario"
-										id="CambiarContrasenia" sclass="administracionSistema"
-										onClick="createWin(CambiarContrasenia.getId(), CambiarContrasenia.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell 	label="Finalizar Lapso Academico"
-										id="FinalizarLapso" sclass="administracionSistema"
-										onClick="createWin(FinalizarLapso.getId(), FinalizarLapso.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell 	label="Respaldar Datos"
-										id="RespaldarDatos" sclass="administracionSistema"
-										onClick="createWin(RespaldarDatos.getId(), RespaldarDatos.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Guardar históricos" id="HistoricosSigarepBD" sclass="administracionSistema"
-										onClick="createWin(HistoricosSigarepBD.getId(), HistoricosSigarepBD.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell 	label="Restaurar Información"
-										id="RestaurarInformacion" sclass="administracionSistema"
-										onClick="createWin(RestaurarInformacion.getId(), RestaurarInformacion.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem open="false">
-						<treerow>
-							<treecell label="Seguridad funcional" />
-						</treerow>
-						<treechildren>
-							<treeitem>
-								<treerow>
-									<treecell
-										label="Registrar grupo de usuarios" id="RegistrarGrupo"
-										sclass="maestros"
-										onClick="createWin(RegistrarGrupo.getId(), RegistrarGrupo.getSclass())" />
-								</treerow>
-							</treeitem>
-							<treeitem>
-								<treerow>
-									<treecell label="Registrar usuario"
-										id="RegistrarUsuario" sclass="maestros"
-										onClick="createWin(RegistrarUsuario.getId(), RegistrarUsuario.getSclass())" />
-								</treerow>
-							</treeitem>					
-						</treechildren>
-					</treeitem>
-				</treechildren>
-			</treeitem>
-			<treeitem open="false">
-				<treerow>
-					<treecell label="Configuración Web" />
-				</treerow>
-				<treechildren>
-					<treeitem>
-						<treerow>
-							<treecell label="Actualizar Noticias"
-								id="ActualizarNoticiasPortal" sclass="maestros"
-								onClick="createWin(ActualizarNoticiasPortal.getId(), ActualizarNoticiasPortal.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Preguntas Básicas"
-								id="ActualizarPreguntasBasicas" sclass="maestros"
-								onClick="createWin(ActualizarPreguntasBasicas.getId(), ActualizarPreguntasBasicas.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Enlaces de Interés"
-								id="ActualizarEnlaces" sclass="maestros"
-								onClick="createWin(ActualizarEnlaces.getId(), ActualizarEnlaces.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Cargar Documentos"
-								id="CargarDocumentos" sclass="maestros"
-								onClick="createWin(CargarDocumentos.getId(), CargarDocumentos.getSclass())" />
-						</treerow>
-					</treeitem>
-					<treeitem>
-						<treerow>
-							<treecell label="Actualizar Banner"
-								id="ActualizarBanner" sclass="maestros"
-								onClick="createWin(ActualizarBanner.getId(), ActualizarBanner.getSclass())" />
-						</treerow>
-					</treeitem>
-				</treechildren>
-			</treeitem>
-			<treeitem>
-				<treerow>
-					<treecell label="Cerrar Sesión" />
-				</treerow>
-			</treeitem>
-		</treechildren>
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 				</treechildren> -->
+<!-- 			</treeitem> -->
+<!-- 			<treeitem open="false"> -->
+<!-- 				<treerow> -->
+<!-- 					<treecell label="Administración del sistema" /> -->
+<!-- 				</treerow> -->
+<!-- 				<treechildren> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell 	label="Cambiar Contraseña de Usuario" -->
+<!-- 										id="CambiarContrasenia" sclass="administracionSistema" -->
+<!-- 										onClick="createWin(CambiarContrasenia.getId(), CambiarContrasenia.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell 	label="Finalizar Lapso Academico" -->
+<!-- 										id="FinalizarLapso" sclass="administracionSistema" -->
+<!-- 										onClick="createWin(FinalizarLapso.getId(), FinalizarLapso.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell 	label="Respaldar Datos" -->
+<!-- 										id="RespaldarDatos" sclass="administracionSistema" -->
+<!-- 										onClick="createWin(RespaldarDatos.getId(), RespaldarDatos.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Guardar históricos" id="HistoricosSigarepBD" sclass="administracionSistema" -->
+<!-- 										onClick="createWin(HistoricosSigarepBD.getId(), HistoricosSigarepBD.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell 	label="Restaurar Información" -->
+<!-- 										id="RestaurarInformacion" sclass="administracionSistema" -->
+<!-- 										onClick="createWin(RestaurarInformacion.getId(), RestaurarInformacion.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem open="false"> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Seguridad funcional" /> -->
+<!-- 						</treerow> -->
+<!-- 						<treechildren> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell -->
+<!-- 										label="Registrar grupo de usuarios" id="RegistrarGrupo" -->
+<!-- 										sclass="maestros" -->
+<!-- 										onClick="createWin(RegistrarGrupo.getId(), RegistrarGrupo.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem> -->
+<!-- 							<treeitem> -->
+<!-- 								<treerow> -->
+<!-- 									<treecell label="Registrar usuario" -->
+<!-- 										id="RegistrarUsuario" sclass="maestros" -->
+<!-- 										onClick="createWin(RegistrarUsuario.getId(), RegistrarUsuario.getSclass())" /> -->
+<!-- 								</treerow> -->
+<!-- 							</treeitem>					 -->
+<!-- 						</treechildren> -->
+<!-- 					</treeitem> -->
+<!-- 				</treechildren> -->
+<!-- 			</treeitem> -->
+<!-- 			<treeitem open="false"> -->
+<!-- 				<treerow> -->
+<!-- 					<treecell label="Configuración Web" /> -->
+<!-- 				</treerow> -->
+<!-- 				<treechildren> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Actualizar Noticias" -->
+<!-- 								id="ActualizarNoticiasPortal" sclass="maestros" -->
+<!-- 								onClick="createWin(ActualizarNoticiasPortal.getId(), ActualizarNoticiasPortal.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Preguntas Básicas" -->
+<!-- 								id="ActualizarPreguntasBasicas" sclass="maestros" -->
+<!-- 								onClick="createWin(ActualizarPreguntasBasicas.getId(), ActualizarPreguntasBasicas.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Enlaces de Interés" -->
+<!-- 								id="ActualizarEnlaces" sclass="maestros" -->
+<!-- 								onClick="createWin(ActualizarEnlaces.getId(), ActualizarEnlaces.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Cargar Documentos" -->
+<!-- 								id="CargarDocumentos" sclass="maestros" -->
+<!-- 								onClick="createWin(CargarDocumentos.getId(), CargarDocumentos.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 					<treeitem> -->
+<!-- 						<treerow> -->
+<!-- 							<treecell label="Actualizar Banner" -->
+<!-- 								id="ActualizarBanner" sclass="maestros" -->
+<!-- 								onClick="createWin(ActualizarBanner.getId(), ActualizarBanner.getSclass())" /> -->
+<!-- 						</treerow> -->
+<!-- 					</treeitem> -->
+<!-- 				</treechildren> -->
+<!-- 			</treeitem> -->
+<!-- 			<treeitem> -->
+<!-- 				<treerow> -->
+<!-- 					<treecell label="Cerrar Sesión" /> -->
+<!-- 				</treerow> -->
+<!-- 			</treeitem> -->
+<!-- 		</treechildren> -->
 
-	</tree>
-</div>
+<!-- 	</tree> -->
+<!-- </div> -->
 </window>

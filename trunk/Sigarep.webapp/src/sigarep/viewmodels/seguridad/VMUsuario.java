@@ -87,9 +87,9 @@ public class VMUsuario {
 	@WireVariable
 	private List<Grupo> listaGrupoNoPertenece = new LinkedList<Grupo>();
 	@WireVariable
-	private ServicioGrupo sg;
+	private ServicioGrupo serviciogrupo;
 	@WireVariable
-	private ServicioUsuario su;
+	private ServicioUsuario serviciousuario;
 	
 	SecurityUtil seguridad = new SecurityUtil();
 	
@@ -123,7 +123,7 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "listaUsuario" })
 	public void buscarListadoUsuario() {
-		listaUsuario = su.listadoUsuario();
+		listaUsuario = serviciousuario.listadoUsuario();
 	}
 	
 	public InstanciaMiembro getInstanciaMiembro() {
@@ -352,7 +352,7 @@ public class VMUsuario {
 		}
 		else
 		{
-			Usuario usuarioAux = su.encontrarUsuario(nombreUsuario);
+			Usuario usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
 			if(usuarioAux!=null){
 				existeUsuario = true;
 				for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
@@ -369,7 +369,7 @@ public class VMUsuario {
 			for(Listitem miGrupo :gruposDelUsuario){
 				Grupo grupo = new Grupo();
 				String nombreGrupo = miGrupo.getLabel();
-				grupo = sg.buscarGrupoNombre(nombreGrupo);
+				grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
 				
 				UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
 				UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
@@ -387,7 +387,7 @@ public class VMUsuario {
 				usuarioGrupoAux.setUsuario(usuarioGrupo.getUsuario());
 				usuarioGrupoAux.setEstatus(true);
 				usuario.addUsuarioGrupo(usuarioGrupoAux);
-				su.guardarUsuario(usuario);
+				serviciousuario.guardarUsuario(usuario);
 			}
 			
 			Persona persona = new Persona();
@@ -434,13 +434,13 @@ public class VMUsuario {
 					usuarioGrupoPK.setIdGrupo(1);
 					usuarioGrupoPK.setNombreUsuario(nombreUsuario);
 					Grupo grupo = new Grupo();
-					grupo = sg.buscarGrupo(1); //Grupo de id=1 que tiene la función cambiar contraseña
+					grupo = serviciogrupo.buscarGrupo(1); //Grupo de id=1 que tiene la función cambiar contraseña
 					usuarioGrupo.setId(usuarioGrupoPK);
 					usuarioGrupo.setUsuario(usuario);
 					usuarioGrupo.setGrupo(grupo);
 					usuarioGrupo.setEstatus(true);
 					usuario.addUsuarioGrupo(usuarioGrupo);
-					su.guardarUsuario(usuario); //Agregandole el grupo que tiene la función cambiar contraseña al usuario nuevo
+					serviciousuario.guardarUsuario(usuario); //Agregandole el grupo que tiene la función cambiar contraseña al usuario nuevo
 					EnviarCorreo enviar = new EnviarCorreo();
 					enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
 					mensajes.informacionHemosEnviadoCorreo();
@@ -465,14 +465,14 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "listaUsuario","listaPersona","listaInstancia" })
 	public void buscarUsuario() {
-		listaUsuario = su.buscarUsuario(nombreUsuario);
+		listaUsuario = serviciousuario.buscarUsuario(nombreUsuario);
 		listaPersona = serviciopersona.buscarper(cedulaPersona);
 		listaInstancia = servicioInstanciaApelada.buscarTodas();
 	}
 	
 	@NotifyChange({ "listaGrupoNoPertenece" })
 	public void buscarListadoGrupos() {
-		List<Grupo> listadoGruposActivos = sg.listadoGrupo();
+		List<Grupo> listadoGruposActivos = serviciogrupo.listadoGrupo();
 		listaGrupoNoPertenece = listadoGruposActivos;
 	}
 
@@ -489,7 +489,7 @@ public class VMUsuario {
 		apellido = "";
 		telefono = "";
 		buscarUsuario();
-		listaGrupoPertenece.clear();
+//		listaGrupoPertenece.clear();
 		buscarListadoGrupos();
 	}
 	
@@ -504,7 +504,7 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void eliminarUsuario() {
-		su.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		serviciousuario.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 		serviciopersona.eliminar(cedulaPersona);
 		mensajes.informacionEliminarCorrecto();
 		limpiar();
@@ -523,14 +523,14 @@ public class VMUsuario {
 		apellido = getPersonaSeleccionado().getApellido();
 		telefono = getPersonaSeleccionado().getTelefono();
 
-		listaGrupoPertenece = sg.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
-		listaGrupoNoPertenece = sg.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		listaGrupoPertenece = serviciogrupo.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		listaGrupoNoPertenece = serviciogrupo.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 	}
 	
 	@Command
 	@NotifyChange({"listaGrupoNoPertenece","listaGrupoPertenece"})
 	public void quitarGrupo(@BindingParam("itemGrupoPertenece") Listitem itemGrupoPertenece) {
-		Grupo grupoAux1 = sg.buscarGrupoNombre(itemGrupoPertenece.getLabel());
+		Grupo grupoAux1 = serviciogrupo.buscarGrupoNombre(itemGrupoPertenece.getLabel());
 		listaGrupoNoPertenece.add(grupoAux1);
 		listaGrupoPertenece.remove(itemGrupoPertenece.getIndex());
 	}
@@ -538,7 +538,7 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({"listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void agregarGrupo(@BindingParam("itemGrupoNoPertenece") Listitem itemGrupoNoPertenece) {
-		Grupo grupoAux2 = sg.buscarGrupoNombre(itemGrupoNoPertenece.getLabel());
+		Grupo grupoAux2 = serviciogrupo.buscarGrupoNombre(itemGrupoNoPertenece.getLabel());
 		listaGrupoPertenece.add(grupoAux2);
 		listaGrupoNoPertenece.remove(itemGrupoNoPertenece.getIndex());		
 	}
@@ -550,7 +550,7 @@ public class VMUsuario {
 	    if(confirmarcontrasenia==null || nuevaContrasenia == null)
 	    	mensajes.advertenciaLlenarCampos();
 	    else{
-	    	if(su.cambiarContrasena(seguridad.getUsuario().getUsername(),nuevaContrasenia, confirmarcontrasenia)==true){
+	    	if(serviciousuario.cambiarContrasena(seguridad.getUsuario().getUsername(),nuevaContrasenia, confirmarcontrasenia)==true){
 	    		mensajes.informacionContrasennaAtualizada();
 	    		cancelarCambiarContrasenia();
 	    	}
@@ -565,7 +565,7 @@ public class VMUsuario {
 		if (correoLogin=="")
 			mensajes.advertenciaLlenarCampos();
 		else {
-			List<Usuario> listaUsuarios = su.listadoUsuario();
+			List<Usuario> listaUsuarios = serviciousuario.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
 				for (int i = 0; i < listaUsuarios.size(); i++) {
 					usuarioAux = listaUsuarios.get(i);

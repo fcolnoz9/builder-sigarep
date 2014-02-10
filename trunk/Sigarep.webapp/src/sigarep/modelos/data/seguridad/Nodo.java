@@ -1,4 +1,6 @@
 package sigarep.modelos.data.seguridad;
+import java.util.Comparator;
+
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "menu_arbol")
-public class Nodo {
+public class Nodo implements Comparator<Nodo>{
 	
 	@Id
 	@Column(name="id", unique = true ,length=10, nullable=false)
@@ -99,6 +101,18 @@ public class Nodo {
 
 	public void setRutaModal(String rutaModal) {
 		this.rutaModal = rutaModal;
+	}
+	
+	public boolean esFuncion()
+	{
+		if(this.tipo.equals("F"))
+			return true;
+		return false;
+	}
+
+	@Override
+	public int compare(Nodo nodo1, Nodo nodo2) {
+		return nodo1.getId().compareTo(nodo2.getId());
 	}
 }
 
