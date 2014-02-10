@@ -48,7 +48,7 @@ public class Grupo implements Serializable{
 	// Clave primaria de la clase
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	// Genera el ID del Grupo
-	@Column(name="idgrupo", unique = true , nullable=false)
+	@Column(name="id_grupo", unique = true , nullable=false)
 	private Integer idGrupo;
 	
 	@Column(name="nombre")
@@ -63,8 +63,8 @@ public class Grupo implements Serializable{
 	
 	@ManyToMany(fetch=FetchType.EAGER) 
 	@JoinTable(name = "funcion_grupo",
-	joinColumns = { @JoinColumn(name = "idGrupo",referencedColumnName = "idGrupo") },
-	inverseJoinColumns = { @JoinColumn(name = "idnodo", referencedColumnName = "id") })
+	joinColumns = { @JoinColumn(name = "id_grupo",referencedColumnName = "id_grupo") },
+	inverseJoinColumns = { @JoinColumn(name = "id_nodo", referencedColumnName = "id") })
     private Set<Nodo> nodos = new HashSet<Nodo>();
 	
 	//bi-directional many-to-one association to MiembroGrupo
