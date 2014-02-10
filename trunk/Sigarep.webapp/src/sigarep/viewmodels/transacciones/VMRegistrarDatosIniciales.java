@@ -101,7 +101,7 @@ public class VMRegistrarDatosIniciales {
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
 	private Integer idTipoMotivo;
 
-	private int caso;
+	private String caso;
 	private String numeroCaso;
 	private Integer instancia;
 	private Integer idEstado;
@@ -116,11 +116,11 @@ public class VMRegistrarDatosIniciales {
 		this.numeroCaso = numeroCaso;
 	}
 
-	public int getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(int caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
@@ -403,7 +403,7 @@ public class VMRegistrarDatosIniciales {
 
 	@Command
 	public void buscarCaso() {
-		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
+		//caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
 		Integer programa = estudianteSeleccionado.getEstudiante().getProgramaAcademico().getIdPrograma();
 		numeroCaso = lapso+ "."+programa+ "."+sancion+"."+caso;
 		
