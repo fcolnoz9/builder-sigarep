@@ -18,6 +18,8 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
@@ -427,12 +429,14 @@ public class VMEstudianteSancionado {
 	}
 	
 	@Command
-	@NotifyChange({ "listaAsignaturas", "listaAsignaturaListBox", "asignaturaseleccionado" })
-	public void agregarAsignatura(
+	@NotifyChange({ "listaAsignaturas", "listaAsignaturaListBox", "asignaturaseleccionado","listaAsignaturas"})
+	public void agregarAsignatura(@BindingParam("comboitem") Combobox comboItem ,
 			@BindingParam("listBoxAsignaturas") Listbox listBoxAsignaturas) {
 
 		AsignaturaEstudianteSancionado asignaturaLista = new AsignaturaEstudianteSancionado();
 		asignaturaLista.setAsignatura(asignaturaseleccionado);
+		listaAsignaturas.remove(comboItem.getSelectedItem().getIndex());
+		comboItem.setValue("");
 		listaAsignaturaListBox.add(asignaturaLista);
 	
 	//System.out.println(listaAsignaturaListBox);
@@ -451,6 +455,9 @@ public class VMEstudianteSancionado {
 			textboxlapsoConsecutivo2.setVisible(false);
 			lbllapsoConsecutivo.setVisible(false);
 		}
+		
+		
+		
 	}
 	
 	@NotifyChange({"listaPrograma"})
@@ -522,6 +529,13 @@ public class VMEstudianteSancionado {
 	public void buscarAsignaturas() {
 		listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
 	}
+	
+//	// seleccionar las distintas asignaturas
+//	@Command
+//	@NotifyChange({ "listaAsignaturas","cedula" })
+//	public void buscarAsignaturasNoSeleccionadas() {
+//		listaAsignaturas =  servicioAsignatura.buscarAsignaturasNoSeleccionadas(cedula);
+//	}
 
 	@Command
 	 @NotifyChange({"cedula" ,"indiceGrado" ,"lapsoAcademico", "sancionMaestro", "unidadesAprobadas"
@@ -550,6 +564,18 @@ public class VMEstudianteSancionado {
 					|| periodoSancion == null)
 				mensajeAlUsuario.advertenciaLlenarCampos();
 			else {
+				//--------
+
+				if (fechaNacimiento != null && annoIngreso != null) {
+					if (fechaNacimiento.compareTo(annoIngreso) > 0) {
+						mensajeAlUsuario.ErrorRangoFechas();
+						fechaNacimiento = null;
+					} else
+				
+				//---------------
+				
+				
+				
 				if (sancionMaestro == null)
 					mensajeAlUsuario.advertenciaLlenarCampos();
 				else {
@@ -629,7 +655,7 @@ public class VMEstudianteSancionado {
 				// } catch (Exception e) {
 				// System.out.println(e.getMessage());
 				// }
-
+				} // del if de las fechas
 			}
 		}
 	}
@@ -705,8 +731,9 @@ public class VMEstudianteSancionado {
 	 @Command
 	 @NotifyChange({"cedula", "primerNombre", "segundoNombre", "primerApellido", "segundoApellido"
 		  , "sexo", "fechaNacimiento", "telefono", "email", "annoIngreso", "nombreSancion", "programa"
-		  , "indiceGrado", "lapsoAcademico", "sancionMaestro", "unidadesAprobadas", "unidadesCursadas"
-		  , "semestre", "lapsosAcademicosRP","listaSancionado","periodoSancion","listaAsignaturaListBox"})
+		  , "indiceGrado", "lapsosAcademicosRP", "sancionMaestro", "unidadesAprobadas", "unidadesCursadas"
+		  , "semestre", "lapsosAcademicosRP","listaSancionado","periodoSancion","listaAsignaturaListBox"
+		  ,"lapsoConsecutivo1","lapsoConsecutivo2","cedulaFiltro","nombreFiltro","apellidoFiltro","sancionFiltro","asignatura", "init"})
 	public void limpiar() {
 		primerNombre = "";
 		segundoNombre = "";
@@ -729,13 +756,25 @@ public class VMEstudianteSancionado {
 		periodoSancion=null;
 		buscarSancionados();
 		listaAsignaturaListBox.clear();
+		lapsoConsecutivo1= "";
+		lapsoConsecutivo2= "";
+		cedulaFiltro= "";
+		nombreFiltro= "";
+		apellidoFiltro= "";
+		sancionFiltro= "";
+		init();
+		
+		
+		
 	}
 	 
 	 @Command
 	 @NotifyChange({"primerNombre", "segundoNombre", "primerApellido", "segundoApellido"
 		  , "sexo", "fechaNacimiento", "telefono", "email", "annoIngreso", "nombreSancion", "programa"
 		  , "indiceGrado", "lapsoAcademico", "sancionMaestro", "unidadesAprobadas", "unidadesCursadas"
-		  , "semestre", "lapsosAcademicosRP","listaSancionado","periodoSancion","listaAsignaturaListBox"})
+		  , "semestre", "lapsosAcademicosRP","listaSancionado","periodoSancion"
+		  ,"listaAsignaturaListBox","lapsoConsecutivo1","lapsoConsecutivo1"
+		  ,"cedulaFiltro","nombreFiltro","apellidoFiltro","sancionFiltro","asignatura"})
 	public void estudianteNoEncontrado() {
 		primerNombre = "";
 		segundoNombre = "";
@@ -757,6 +796,14 @@ public class VMEstudianteSancionado {
 		buscarSancionados();
 		periodoSancion=null;
 		listaAsignaturaListBox.clear();
+		lapsoConsecutivo1= "";
+		lapsoConsecutivo2= "";
+		cedulaFiltro= "";
+		nombreFiltro= "";
+		apellidoFiltro= "";
+		sancionFiltro= "";
+		init();
+	
 	}
 	
 	@Command

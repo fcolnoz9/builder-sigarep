@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.maestros.Asignatura;
+import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
 
@@ -22,4 +23,7 @@ public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	@Query("Select a FROM Asignatura AS a WHERE a.nombreAsignatura = :nombreAsignatura")
 	public Asignatura buscarAsignaturaPorNombre(@Param("nombreAsignatura") String nombreAsignatura);
 
+	@Query("SELECT DISTINCT a from Asignatura As a, Estudiante AS e where e.programaAcademico.idPrograma= a.programaAcademico.idPrograma and a.codigoAsignatura NOT IN (select a.codigoAsignatura from Estudiante AS e, EstudianteSancionado AS es, AsignaturaEstudianteSancionado AS aes, Asignatura AS a, ProgramaAcademico AS pa where e.cedulaEstudiante = es.id.cedulaEstudiante and es.id.cedulaEstudiante = aes.id.cedulaEstudiante and aes.id.codigoAsignatura = a.codigoAsignatura and a.programaAcademico.idPrograma= pa.idPrograma and e.programaAcademico.idPrograma = pa.idPrograma and e.programaAcademico.idPrograma= a.programaAcademico.idPrograma and aes.id.cedulaEstudiante = :cedula )")
+	 public List<Asignatura> BuscarAsignaturasNoSeleccionadas(@Param("cedula") String cedula);
+	
 }
