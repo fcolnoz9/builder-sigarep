@@ -27,9 +27,9 @@ import sigarep.modelos.data.seguridad.Usuario;
 @Table(name="usuario_grupo")
 @AssociationOverrides({
 	@AssociationOverride(name = "id.usuario", 
-		joinColumns = @JoinColumn(name = "nombreusuario")),
+		joinColumns = @JoinColumn(name = "nombre_usuario")),
 	@AssociationOverride(name = "id.grupo", 
-		joinColumns = @JoinColumn(name = "idgrupo")) })
+		joinColumns = @JoinColumn(name = "id_grupo")) })
 public class UsuarioGrupo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -41,12 +41,12 @@ public class UsuarioGrupo implements Serializable {
 
 	//bi-directional many-to-one association to Grupo
 	@ManyToOne(fetch = FetchType.EAGER,cascade={CascadeType.ALL})
-	@JoinColumn(name="idgrupo", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_grupo", nullable=false, insertable=false, updatable=false)
 	private Grupo grupo;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne(fetch = FetchType.EAGER,cascade={CascadeType.ALL})
-	@JoinColumn(name="nombreusuario", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="nombre_usuario", nullable=false, insertable=false, updatable=false)
 	private Usuario usuario;
 
 	public UsuarioGrupo() {
