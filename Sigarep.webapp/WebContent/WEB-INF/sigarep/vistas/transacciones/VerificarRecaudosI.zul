@@ -81,14 +81,24 @@
 	   	oddRowSclass="non-odd" checkmark="true" xmlns:ca="client/attribute"
 	   	emptyMessage="No hay recaudos entregados" model="@bind(vm.listaRecaudos)"
 	   	mold="paging" vflex="1">
+	   	 <attribute name="onCheckSelectAll"><![CDATA[
+       		 if (event.isChecked()) {
+          		  alert("Select All Checked");
+       		 } else {
+          		  alert("Select All Un-Checked");
+       		 }
+   			 ]]></attribute>
+	   	
 	   	<listhead>
-	   		<listheader hflex="3" label="Nombre del recaudo" width="50%" sort="auto(nombreRecaudo)" height="20%"/>
-	   		<listheader hflex="4" label="Tipo de Motivo" width="50%" sort="auto(nombreTipoMotivo)" height="20%" />
+	   		<listheader hflex="3" label="Nombre del recaudo" width="50%" sort="auto(nombreRecaudo)" height="20%"/> 
+	   		<listheader hflex="4" label="Tipo de Motivo" width="50%" sort="auto(nombreTipoMotivo)" height="20%" /> 	
 	   	</listhead>
 	   	<template name="model">
-	   		<listitem selected="false">
+	   		<listitem selected="false" onClick="@command('notificarRecaudoVerificado',lbxRecaudos=lbxRecaudos)">
 	   			<listcell label="${each.nombreRecaudo}" height="20%"></listcell>
-	   			<listcell label="${each.tipoMotivo.nombreTipoMotivo}" height="20%"></listcell>
+	   			<listcell label="${each.tipoMotivo.nombreTipoMotivo}" height="20%">
+	   			<custom-attributes identificadorListitem="${each.idRecaudo}" />
+	   			</listcell>
 	   		</listitem>
 	   	</template>
 	   </listbox>	
@@ -126,7 +136,7 @@
 			</rows>
 		</grid>	
 	</groupbox>
-	
+
 	<div align="right" height="100%">
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" mold="trendy"

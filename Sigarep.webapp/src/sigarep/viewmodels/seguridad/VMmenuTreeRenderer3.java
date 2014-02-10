@@ -32,20 +32,11 @@ public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
 	public void render(final Treeitem treeItem, VMmenuTreeNode treeNode, int index) throws Exception {
 		VMmenuTreeNode ctn = treeNode;
 		Nodo contact = (Nodo) ctn.getData();
-//		Treechildren treeChildren = new Treechildren();
-//		if(contact.getTipo().equals("F")){
-//			System.out.println("PLOP");
-//			treeChildren.setParent(treeItem.getParent());
-//			treeItem.setParent(treeChildren);
-//		}
+
 		Treerow dataRow = new Treerow();
 		dataRow.setParent(treeItem);
 		treeItem.setValue(ctn);
 			Hlayout hl = new Hlayout();		
-			//hl.appendChild(new Image("/img/" + contact.getProfilepic()));
-			//hl.appendChild(new Label(contact.getNombrefuncion())); //2
-//			hl.setSclass("h-inline-block");
-//			hl.setStyle("background: -moz-linear-gradient(-90deg, #abadb3, #eeeeef);background: -webkit-gradient(linear, left top, left bottom, from(#abadb3), to(#eeeeef));");
 			Treecell treeCell = new Treecell();
 			treeCell.setLabel(contact.getNombreFuncion()); //1
 			treeCell.appendChild(hl);
@@ -58,7 +49,7 @@ public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
 						if (w != null) {
 							w.detach();
 						}
-					winController.onClickMenu(clickedNodeValue.getData().getVinculo());
+					winController.onClickMenu(clickedNodeValue.getData().getVinculo(),clickedNodeValue.getData().getRutaModal());
 					}
 				}
 			});

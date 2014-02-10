@@ -169,8 +169,13 @@ public class MensajesAlUsuario {
 	public void advertenciaAgregarObservacionGeneral() {
 		Messagebox.show("Debe agregar una observación general del caso.",
 				"Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
-     }
+    }
 	
+	public void advertenciaGrupoYaExistente(String nombreGrupo) {
+
+		Messagebox.show("¡El grupo con nombre "+nombreGrupo+" ya se encuentra registrado!.",
+				"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+	}
 	
 	public void informacionHemosEnviadoCorreo() {
 

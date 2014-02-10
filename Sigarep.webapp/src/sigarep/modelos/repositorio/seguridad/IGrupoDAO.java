@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.seguridad.Grupo;
 
-public interface IGrupo extends JpaRepository<Grupo, Integer> {
+public interface IGrupoDAO extends JpaRepository<Grupo, Integer> {
 
 	public Grupo findByNombre(String rol);
 	
@@ -18,6 +18,6 @@ public interface IGrupo extends JpaRepository<Grupo, Integer> {
 	@Query("SELECT DISTINCT g FROM UsuarioGrupo AS ug, Usuario AS u, Grupo AS g WHERE u.nombreUsuario = ug.id.nombreUsuario AND ug.id.idGrupo = g.idGrupo AND g.idGrupo != '1' AND u.nombreUsuario = :nombreUsuario")
 	public List<Grupo> buscarGruposPerteneceUsuario(@Param("nombreUsuario") String nombreUsuario);
 
-	@Query("SELECT DISTINCT g FROM UsuarioGrupo AS ug, Usuario AS u, Grupo AS g WHERE g.idGrupo NOT IN (SELECT DISTINCT g.idGrupo FROM UsuarioGrupo AS ug, Usuario AS u, Grupo AS g WHERE u.nombreUsuario = ug.id.nombreUsuario AND ug.id.idGrupo = g.idGrupo AND u.nombreUsuario = :nombreUsuario)") 
+	@Query("SELECT DISTINCT g FROM UsuarioGrupo AS ug, Usuario AS u, Grupo AS g WHERE g.idGrupo != '1' AND g.idGrupo NOT IN (SELECT DISTINCT g.idGrupo FROM UsuarioGrupo AS ug, Usuario AS u, Grupo AS g WHERE u.nombreUsuario = ug.id.nombreUsuario AND ug.id.idGrupo = g.idGrupo AND u.nombreUsuario = :nombreUsuario)") 
 	public List<Grupo> buscarGruposNoPerteneceUsuario(@Param("nombreUsuario") String nombreUsuario);
 }

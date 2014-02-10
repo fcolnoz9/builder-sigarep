@@ -96,9 +96,10 @@
 							 model="@bind(vm.listaRecaudosPorEntregar)"
    			 				emptyMessage="No hay recaudos por el motivo seleccionado">
 							<template name="model">
-								<listitem selected="false">
+								<listitem selected="false" onClick="@command('notificarRecaudoVerificado',lbxRecaudos=rigth)">
 									<listcell label="${each.getNombreRecaudo()}" ></listcell>
 									<listcell label="${each.getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
+									<custom-attributes identificadorListitem="${each.idRecaudo}" />
 								</listitem>
 							</template>
 						</listbox>

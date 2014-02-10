@@ -20,36 +20,28 @@ public class VMmenuTreeRenderer implements TreeitemRenderer<VMmenuTreeNode> {
 		VMmenuTreeNode ctn = treeNode;
 		Nodo contact = (Nodo) ctn.getData();
 		Treerow dataRow = new Treerow();
-		Treechildren treeChildren = new Treechildren();
 		dataRow.setParent(treeItem);
-		int i=0;
-		if(contact.getTipo()=="F")
-		{
-			System.out.println("IIIIII: "+i++);
-			treeItem.setParent(treeChildren);
-		}
 		treeItem.setValue(ctn);
-
 		treeItem.setOpen(ctn.isOpen());
 		Hlayout hl = new Hlayout();
-		// hl.appendChild(new Image("/img/" + contact.getProfilepic()));
+
 		hl.appendChild(new Label(contact.getNombreFuncion()));
 		hl.setSclass("h-inline-block");
 		Treecell treeCell = new Treecell();
 		treeCell.appendChild(hl);
 		dataRow.appendChild(treeCell);
+		if(contact.esFuncion()==true)
 		dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 			@Override
 			public void onEvent(Event event) throws Exception {
 				VMmenuTreeNode clickedNodeValue = (VMmenuTreeNode) ((Treeitem) event.getTarget().getParent()).getValue();
-
 				VMmenuTreeNode padre = null;
 				if (clickedNodeValue.getParent().getData() != null) {
-					padre = obtenePadres(
-							(VMmenuTreeNode) clickedNodeValue.getParent(),clickedNodeValue);
+					padre = obtenePadres((VMmenuTreeNode) clickedNodeValue.getParent(),clickedNodeValue);
 				} else {
 					padre = clickedNodeValue;
 				}
+				
 				VMRegistrarGrupo dc = new VMRegistrarGrupo();
 				if (dc.getRoot2().getChildCount() == 0)
 					dc.getRoot2().add(padre);
@@ -70,15 +62,17 @@ public class VMmenuTreeRenderer implements TreeitemRenderer<VMmenuTreeNode> {
 						aux = new VMmenuTreeNode(padre.getData(), null);
 						aux.add(hijo);
 					}
+					aux.setOpen(true);
 					padre2 = obtenePadres(
 							(VMmenuTreeNode) padre.getParent(), aux);
-
 				} else {
 					padre2 = new VMmenuTreeNode(padre.getData(), null);
+					padre2.setOpen(true);
 					padre2.add(hijo);
 					if (padre.getChildCount() == 0)
 						padre.removeFromParent();
 				}
+				
 				return padre2;
 			}
 

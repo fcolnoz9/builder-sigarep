@@ -30,6 +30,7 @@ public class VMmenuTreeRenderer2 implements TreeitemRenderer<VMmenuTreeNode> {
 			Treecell treeCell = new Treecell();
 			treeCell.appendChild(hl);
 			dataRow.appendChild(treeCell);
+			if(contact.esFuncion()==true)
 			dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 				@Override
 				public void onEvent(Event event) throws Exception {

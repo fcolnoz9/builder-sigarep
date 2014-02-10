@@ -6,13 +6,12 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
  
- 
-<http auto-config='true'>
+<http use-expressions="true" access-denied-page="/accesoDenegado.zul">
   <port-mappings>
         <port-mapping http="8080" https="8443"/>
     </port-mappings>
-		
-		<intercept-url pattern="/index.zul*" requires-channel="any"/>
+    
+    <intercept-url pattern="/index.zul*" requires-channel="any" access="isAuthenticated()"/>
 		<session-management session-fixation-protection="none" />
 		<form-login login-page="/portalPrincipal.zul" login-processing-url="/j_spring_security_check" default-target-url="/index.zul"
 			authentication-failure-url="/accesoDenegado.zul" />
@@ -23,12 +22,12 @@
 		<jdbc-user-service data-source-ref="dataSource"
  
 			 users-by-username-query="
-		      select nombreusuario,clave,estado 
-		      from usuario where nombreusuario=?" 
+		      select nombre_usuario,clave,estado 
+		      from usuario where nombre_usuario=?" 
  
 		   authorities-by-username-query="
-		      select u.nombreusuario, g.nombre from usuario u, usuario_grupo ug,grupo g 
-		      where u.nombreusuario = ug.nombreusuario and ug.idgrupo = g.idgrupo and u.nombreusuario =?"
+		      select u.nombre_usuario, g.nombre from usuario u, usuario_grupo ug,grupo g 
+		      where u.nombre_usuario = ug.nombre_usuario and ug.id_grupo = g.id_grupo and u.nombre_usuario =?"
 
 		      />
 	   </authentication-provider>

@@ -9,30 +9,30 @@ import org.springframework.stereotype.Service;
 import org.zkoss.zhtml.Messagebox;
 
 import sigarep.modelos.data.seguridad.Usuario;
-import sigarep.modelos.repositorio.seguridad.IUsuario;
+import sigarep.modelos.repositorio.seguridad.IUsuarioDAO;
 
-@Service("su")
+@Service("serviciousuario")
 public class ServicioUsuario {
 
 	@Autowired
-	private IUsuario iUsuario;
+	private IUsuarioDAO iUsuarioDAO;
 
 	public void guardarUsuario(Usuario usuario) {
-		iUsuario.save(usuario);
+		iUsuarioDAO.save(usuario);
 	}
 	
 	public Usuario encontrarUsuario(String nombreusaurio){
-		return iUsuario.findOne(nombreusaurio);
+		return iUsuarioDAO.findOne(nombreusaurio);
 	}
 	
 	public void eliminar(String nombreusuario){
-		Usuario miUsuario = iUsuario.findOne(nombreusuario);
+		Usuario miUsuario = iUsuarioDAO.findOne(nombreusuario);
 		miUsuario.setEstatus(false);
-		iUsuario.save(miUsuario);
+		iUsuarioDAO.save(miUsuario);
 	}
 	
 	public List<Usuario> listadoUsuario() {
-		List<Usuario> usuarioLista = iUsuario.buscarGruposActivos();
+		List<Usuario> usuarioLista = iUsuarioDAO.buscarGruposActivos();
 		return usuarioLista;
 	}
 	
