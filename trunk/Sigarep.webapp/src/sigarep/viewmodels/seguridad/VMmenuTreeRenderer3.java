@@ -47,7 +47,7 @@ public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
 //			hl.setSclass("h-inline-block");
 //			hl.setStyle("background: -moz-linear-gradient(-90deg, #abadb3, #eeeeef);background: -webkit-gradient(linear, left top, left bottom, from(#abadb3), to(#eeeeef));");
 			Treecell treeCell = new Treecell();
-			treeCell.setLabel(contact.getNombrefuncion()); //1
+			treeCell.setLabel(contact.getNombreFuncion()); //1
 			treeCell.appendChild(hl);
 			dataRow.appendChild(treeCell);
 			dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
