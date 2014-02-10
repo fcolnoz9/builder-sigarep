@@ -47,6 +47,8 @@ public class ServicioAsignatura {
 	    return asignatura;
 	}
 	
-
+	public List<Asignatura> buscarAsignaturasNoSeleccionadas (String cedula){
+		return iAsignatura.BuscarAsignaturasNoSeleccionadas(cedula);
+	}
 	
 }
