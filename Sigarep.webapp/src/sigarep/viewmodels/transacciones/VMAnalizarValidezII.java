@@ -446,6 +446,8 @@ public class VMAnalizarValidezII {
 						1)).getLabel();
 				String observacionExperto = ((Textbox) (miRecaudo.getChildren()
 						.get(2)).getFirstChild()).getValue();
+				if(observacionExperto.equals(""))
+					observacionExperto=null;
 				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
 				RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 				recaudoEntregadoPK.setIdInstanciaApelada(2);
