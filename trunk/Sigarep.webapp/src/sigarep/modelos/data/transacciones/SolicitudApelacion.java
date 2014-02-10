@@ -42,8 +42,8 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 	@Column(length=255)
 	private String observacion;
 	
-	@Column(name="numero_caso", nullable=true)
-	private Integer numeroCaso;
+	@Column(name="numero_caso", length = 60, nullable=true)
+	private String numeroCaso;
 	
 	@Column(name="tipo_sesion", nullable=true, length=30)
 	private String tipoSesion;
@@ -205,11 +205,11 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 		return 0;
 	}
 	
-	public Integer getNumeroCaso() {
+	public String getNumeroCaso() {
 		return numeroCaso;
 	}
 
-	public void setNumeroCaso(Integer numeroCaso) {
+	public void setNumeroCaso(String numeroCaso) {
 		this.numeroCaso = numeroCaso;
 	}
 
