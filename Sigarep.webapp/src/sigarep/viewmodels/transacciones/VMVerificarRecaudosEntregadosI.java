@@ -79,7 +79,7 @@ public class VMVerificarRecaudosEntregadosI {
 	@WireVariable
 	private Integer semestreSancion;
 	@WireVariable
-	private Integer caso;
+	private String caso;
 	@WireVariable
 	private Integer periodoSancion;
 	@WireVariable
@@ -262,11 +262,11 @@ public class VMVerificarRecaudosEntregadosI {
 		this.lapso = lapso;
 	}
 
-	public Integer getCaso() {
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 	
