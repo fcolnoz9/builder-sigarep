@@ -79,6 +79,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
 	private Noticia noticiaSeleccionada;
 	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
+	Window win=null;
 
 	private @Wire Listbox lbxNoticias;
 
@@ -307,21 +308,16 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
-	@NotifyChange({"contenido", "enlaceNoticia", "fechaRegistro", "imagen", "titulo", "vencimiento", "listaNoticia","fotoNoticia"})
+	@NotifyChange({"noticiaSeleccionada"})
 	public void mostrarSeleccionado2(){
-		idNoticia=getNoticiaSeleccionada().getIdNoticia();
-		contenido=getNoticiaSeleccionada().getContenido();
-		enlaceNoticia=getNoticiaSeleccionada().getEnlaceNoticia();
-		fechaRegistro=getNoticiaSeleccionada().getFechaRegistro();
-		titulo=getNoticiaSeleccionada().getTitulo();
-		vencimiento=getNoticiaSeleccionada().getVencimiento();
-		fotoNoticia=getNoticiaSeleccionada().getFotoNoticia();
-
 		noticiaSeleccionada = getNoticiaSeleccionada();
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("noticiaSeleccionada", this.noticiaSeleccionada);
-		final Window win = (Window) Executions.createComponents(
-				"WEB-INF/sigarep/vistas/portal/externo/modales/DetalleNoticia.zul", null, map);
+		if(win!=null){
+			win.detach();
+			noticiaSeleccionada=null;
+		}
+		win= (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/DetalleNoticia.zul", null, map);
 		win.setMaximizable(true);
 		win.doModal();
 
