@@ -80,6 +80,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	private Noticia noticiaSeleccionada;
 	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
 	Window win=null;
+	int idcount=0;
 
 	private @Wire Listbox lbxNoticias;
 
@@ -316,10 +317,12 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		if(win!=null){
 			win.detach();
 			noticiaSeleccionada=null;
+			win.setId(null);
 		}
 		win= (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/DetalleNoticia.zul", null, map);
 		win.setMaximizable(true);
 		win.doModal();
+		win.setId("doModal"+""+idcount+"");
 
 	}
 
