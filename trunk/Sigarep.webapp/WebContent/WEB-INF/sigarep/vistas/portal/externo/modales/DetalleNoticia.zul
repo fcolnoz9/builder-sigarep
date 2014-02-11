@@ -1,4 +1,4 @@
-<window id="modalDialog" title="@bind(vm.titulo)" width="70%" vflex="1"
+<window  title="@bind(vm.titulo)" width="70%" vflex="1"
 	hflex="1" height="75%" border="normal" minimizable="false" mode="modal"
 	maximizable="false" closable="true" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
