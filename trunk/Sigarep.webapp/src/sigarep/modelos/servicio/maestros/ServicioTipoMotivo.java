@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
@@ -29,8 +30,8 @@ public class ServicioTipoMotivo {
 	}
 	
 	//metodo que permite eliminar
-	public void eliminarTipoMotivo(Integer tipo) {
-		TipoMotivo tip = tipomotivo.findOne(tipo);
+	public void eliminarTipoMotivo(Integer idTipoMotivo) {
+		TipoMotivo tip = tipomotivo.findOne(idTipoMotivo);
 		tip.setEstatus(false);
 		tipomotivo.save(tip);
 	}

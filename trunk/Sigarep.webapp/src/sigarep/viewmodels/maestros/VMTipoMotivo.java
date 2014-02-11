@@ -108,6 +108,7 @@ public class VMTipoMotivo {
 	//----------- OTROS METODOS
     @Init
     public void init(){
+
       	listadoTipoMotivo();
       	
     } 
@@ -178,7 +179,7 @@ public class VMTipoMotivo {
 	 *             seleccionar un registro para poder eliminarlo
 	 */
   	@Command
-  	@NotifyChange({"listaTipoMotivo","nombreTipoMotivo", "descripcion"})
+  	@NotifyChange({"listaTipoMotivo", "idTipoMotivo","nombreTipoMotivo", "descripcion"})
   	public void eliminarTipoMotivo(){
   		if (nombreTipoMotivo==null || nombreTipoMotivo.equals("") || descripcion==null || descripcion.equals("") ){
   			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
@@ -203,9 +204,10 @@ public class VMTipoMotivo {
     @Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus"})
 	public void mostrarSeleccionado(){
-    	idTipoMotivo=getTiposeleccionado().getIdTipoMotivo();
-		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
-		descripcion=getTiposeleccionado().getDescripcion();	
+    	TipoMotivo tipo = getTiposeleccionado();
+    	idTipoMotivo=tipo.getIdTipoMotivo();
+		nombreTipoMotivo= tipo.getNombreTipoMotivo();
+		descripcion=tipo.getDescripcion();	
 	}
     
     
