@@ -13,7 +13,6 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -48,7 +47,11 @@ import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancio
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-
+/** Transaccion para verificar recaudos - recurso de jerárquico
+ * @author BUILDER
+ * @version 1.3
+ * @since 12/01/2014 
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMVerificarRecaudosEntregadosIII {
 
@@ -57,7 +60,6 @@ public class VMVerificarRecaudosEntregadosIII {
 	private String labelAsignaturaLapsosConsecutivos;
 	private String lapsosConsecutivos;
 	private String asignaturaLapsosConsecutivos="";
-	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private String programa;
 	private String cedula;
 	private String observacion;
@@ -70,9 +72,13 @@ public class VMVerificarRecaudosEntregadosIII {
 	private String selected = "";
 	private String caso;
 	private String fechaApelacion;
+	private String telefono;
+	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<RecaudoEntregado> listaRecaudosEntregados = new LinkedList<RecaudoEntregado>();
 	private List<Recaudo> listaRecaudos = new LinkedList<Recaudo>();
 	private List<Recaudo> listaRecaudosPorEntregar = new LinkedList<Recaudo>();
+	private List<LapsoAcademico> listaLapso;
+	private List<SancionMaestro> listaSancion;
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -85,21 +91,6 @@ public class VMVerificarRecaudosEntregadosIII {
 	private ServicioMotivo serviciomotivo;
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
-	@Wire
-	private Combobox cmbSancion;
-	@Wire
-	private Datebox dtbFechaNacimiento;
-	@Wire
-	private Datebox dtbAnnoIngreso;
-	private List<LapsoAcademico> listaLapso;
-	private List<SancionMaestro> listaSancion;
-
-	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
-	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
-	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-	MensajesAlUsuario mensajeAlUsuario  = new MensajesAlUsuario();  // para llamar a los diferentes mensajes de
-									// dialogo
-
 	@WireVariable
 	private TipoMotivo tipoMotivo;
 	@WireVariable
@@ -107,25 +98,19 @@ public class VMVerificarRecaudosEntregadosIII {
 	@WireVariable
 	private List<Recaudo> listaRecaudoPorEntregar;
 	@WireVariable
-	private String telefono;
-	//private SolicitudApelacion sancionadoSeleccionado;
+	@Wire
+	private Combobox cmbSancion;
+	@Wire
+	private Datebox dtbFechaNacimiento;
+	@Wire
+	private Datebox dtbAnnoIngreso;
 	
-	public String getLabelAsignaturaLapsosConsecutivos() {
-		return labelAsignaturaLapsosConsecutivos;
-	}
-
-	public void setLabelAsignaturaLapsosConsecutivos(
-			String labelAsignaturaLapsosConsecutivos) {
-		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
-	}
-
-    public String getAsignaturaLapsosConsecutivos() {
-		return asignaturaLapsosConsecutivos;
-	}
-
-	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
-		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
-	}
+	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
+	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
+	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
+	MensajesAlUsuario mensajeAlUsuario  = new MensajesAlUsuario();  // para llamar a los diferentes mensajes de dialogo
+							
+	//metodos set y get
 	public String getCedula() {
 		return cedula;
 	}
@@ -153,8 +138,6 @@ public class VMVerificarRecaudosEntregadosIII {
 	public String getApellidos() {
 		return apellidos;
 	}
-
-	
 	
 	public String getCaso() {
 		return caso;
@@ -170,14 +153,6 @@ public class VMVerificarRecaudosEntregadosIII {
 
 	public void setFechaApelacion(String fechaApelacion) {
 		this.fechaApelacion = fechaApelacion;
-	}
-
-	public List<Recaudo> getListaRecaudoPorEntregar() {
-		return listaRecaudoPorEntregar;
-	}
-
-	public void setListaRecaudoPorEntregar(List<Recaudo> listaRecaudoPorEntregar) {
-		this.listaRecaudoPorEntregar = listaRecaudoPorEntregar;
 	}
 
 	public void setApellidos(String apellidos) {
@@ -239,9 +214,42 @@ public class VMVerificarRecaudosEntregadosIII {
 	public void setSancion(String sancion) {
 		this.sancion = sancion;
 	}
+	
+	public String getLapso() {
+		return lapso;
+	}
+
+	public void setLapso(String lapso) {
+		this.lapso = lapso;
+	}
 
 	public Integer getSemestreSancion() {
 		return semestreSancion;
+	}
+
+	public List<Recaudo> getListaRecaudoPorEntregar() {
+		return listaRecaudoPorEntregar;
+	}
+	
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
+
+    public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+	
+	public void setListaRecaudoPorEntregar(List<Recaudo> listaRecaudoPorEntregar) {
+		this.listaRecaudoPorEntregar = listaRecaudoPorEntregar;
 	}
 
 	public void setSemestreSancion(Integer semestreSancion) {
@@ -281,14 +289,6 @@ public class VMVerificarRecaudosEntregadosIII {
 		this.listaRecaudosEntregados = listaRecaudosEntregados;
 	}
 
-	public String getLapso() {
-		return lapso;
-	}
-
-	public void setLapso(String lapso) {
-		this.lapso = lapso;
-	}
-
 	public List<Recaudo> getListaRecaudos() {
 		return listaRecaudos;
 	}
@@ -297,8 +297,6 @@ public class VMVerificarRecaudosEntregadosIII {
 			List<Recaudo> listaRecaudos) {
 		this.listaRecaudos = listaRecaudos;
 	}
-	
-	
 
 	public List<Recaudo> getListaRecaudosPorEntregar() {
 		return listaRecaudosPorEntregar;
@@ -321,7 +319,7 @@ public class VMVerificarRecaudosEntregadosIII {
 	@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
 
-	// initialization code
+	// Cargar la pantalla modal con los datos necesarios de la lista de estudiante sancionado
 
 	{
 		Selectors.wireComponents(view, this, false);
@@ -352,6 +350,7 @@ public class VMVerificarRecaudosEntregadosIII {
 		
 		buscarRecaudos();
 		
+		//cargando asignatura para RR y lapso academico para RP
 		if (sancion.equalsIgnoreCase("RR")) {
 			asignaturas = servicioasignaturaestudiantesancionado
 					.buscarAsignaturaDeSancion(cedula, lapso);
@@ -367,6 +366,9 @@ public class VMVerificarRecaudosEntregadosIII {
 		}
 	}
 
+	/** se llenan las listas de recaudos entregados y de recaudos faltantes por entregar
+	    * @param cedula
+	    */
 	@Command
 	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
 	public void buscarRecaudosPorTipoMotivos(Integer tipoMotivo) {
@@ -378,20 +380,18 @@ public class VMVerificarRecaudosEntregadosIII {
 	@NotifyChange({"listaRecaudosEntregados","listaRecaudosPorEntregar"})
 	public void buscarRecaudos() {
 		listaRecaudosEntregados = serviciorecaudoentregado.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
-	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosIII(cedula);
-	    System.out.println("TAMANO: " + listaRecaudosEntregados.size());
-	    for (int i = 0; i < listaRecaudosEntregados.size(); i++) {
-			System.out.println(listaRecaudosEntregados.get(i).getRecaudo().getNombreRecaudo());
-		}
-}
+	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosIII(cedula);	
+   }
 	
-
+	/** guarda los recaudos seleccionados en el checkbox en la tabla de recaudos entregados y de ser el caso el veredicto 
+	    * @param cedula, nombre, apellidos, estudianteSancionado, lapso, observacion
+	   */
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacion"})
 	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudosIII) {
 		if (recaudos.size() == 0) {
-			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
-					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
+		
 		}
 		else 
 		{
@@ -457,13 +457,15 @@ public class VMVerificarRecaudosEntregadosIII {
 				try {
 					mensajeAlUsuario.informacionRegistroCorrecto();
 					winVerificarRecaudosIII.detach(); //oculta el window
-					//falta actualizar la lista de apelaciones en este punto
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
 				limpiar();
 		}
 	}
+	
+	/** Limpia los campos de recaudos y veredicto
+	    */
 	@Command
 	@NotifyChange({"listaRecaudosPorEntregar","observacion","listaRecaudosEntregados","selected" })
 	public void limpiar() {
@@ -482,6 +484,7 @@ public class VMVerificarRecaudosEntregadosIII {
 		return tipoMotivo;
 	}
 	
+	//Muestra un mensaje que el recaudo fue verificado
 	@Command
 	public void notificarRecaudoVerificado(@BindingParam("lbxRecaudos") Listbox lbxRecaudos) {
 		Listcell a = (Listcell)lbxRecaudos.getAttribute("identificadorListitem");

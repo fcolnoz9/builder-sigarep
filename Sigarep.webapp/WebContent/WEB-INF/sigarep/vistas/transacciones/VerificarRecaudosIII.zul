@@ -6,7 +6,7 @@
 		apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVerificarRecaudosEntregadosIII')">
 
-	<!-- Estos datos vienen precargados, pues el estudiante se registró (en un maestro), busca su cédula-->
+	<!-- Estos datos vienen precargados con el estudiante sancionado seleccionado en la lista -->
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
 		<grid id="grdDatosEstudiante">
@@ -41,23 +41,23 @@
 		</grid>
 	</groupbox>
 		<groupbox id="grbDatosSancion">
-		<caption id="lblDatossancion" label="Datos Sancion" />
+		<caption id="lblDatossancion" label="Datos Sanción" />
 		<grid>
 			<rows>
 				<row>
 					<label id="lblTiposancion"
-						value="Tipo de Sancion: " />
+						value="Tipo de Sanción: " />
 					<textbox id="txtTipoSancion" cols="23"
 						width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.sancion)">
 					</textbox>
-							<label id="lblLapsosancion" value="Lapso de Sancion: " />
+							<label id="lblLapsosancion" value="Lapso de Sanción: " />
 					<textbox id="txtLapsosancion" cols="23"
 						width="80%" mold="rounded" maxlength="30" value="@bind(vm.lapso)" readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
-						value="Periodo de Sancion: " />
+						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
 						width="80%" mold="rounded" maxlength="30" value="@bind(vm.semestreSancion)" readonly="true">
 					</textbox>
@@ -86,7 +86,7 @@
 		</div>
 		<separator/>
 		<columnlayout>
-					
+			<!-- Lista de los recaudos faltantes por entregar -->					
 			<columnchildren width="40%">
 				<panel title="Seleccionar Recaudos">
 					<panelchildren>
@@ -108,6 +108,8 @@
 			<columnchildren>
 				<panel title=""  width="50px" />
 			</columnchildren>
+			
+			<!--lista de los recaudos entregados-->
 			<columnchildren width="40%"  >
 				<panel title="Recaudos Entregados" >
 					<panelchildren  >
@@ -129,6 +131,8 @@
 
 		</columnlayout>
 	</groupbox>
+	
+	<!-- veredicto -->
 	<groupbox>
 		<caption style="font-weight:bold;font-size:14px;color:gray;" label="Veredicto" />
 		<radiogroup id="rgVeredicto" selectedItem="@bind(vm.selected)">
@@ -160,12 +164,12 @@
 				Set items = rigth.getSelectedItems();
 			</attribute>
 		</button>
-		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
+		<!-- limpia lo seleccionado-->
 		<button label="Limpiar" id="btnCancelar" mold="trendy"
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 			orient="horizontal" 	onClick="@command('limpiar')">
 		</button>
-		<!-- Sale del registro, es necesario mensajes de advertencia-->
+		<!-- Sale de la interfaz, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 			orient="horizontal" onClick="winVerificiarRecaudosIII.onClose()">
