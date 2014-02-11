@@ -3,7 +3,7 @@
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
 	<div apply="sigarep.viewmodels.maestros.VMnoticia" hflex="1"
 		vflex="1">
-		<timer id="tiempo" delay="5000" repeats="true">
+		<timer id="tiempo" delay="10000" repeats="true">
 			<attribute name="onTimer">
 			</attribute>
 		</timer>
