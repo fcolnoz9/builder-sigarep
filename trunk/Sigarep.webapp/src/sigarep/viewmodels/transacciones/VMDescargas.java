@@ -23,7 +23,8 @@ import sigarep.modelos.servicio.maestros.ServicioReglamento;
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDescargas {
-
+	
+	Window win=null;
 	@WireVariable
 	private ServicioReglamento servicioreglamento;
 	private MensajesAlUsuario msj = new MensajesAlUsuario();
@@ -32,34 +33,34 @@ public class VMDescargas {
 	public void modalReglamento() {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("categoria", "REGLAMENTO");
-		final Window window = (Window) Executions
-				.createComponents(
-						"WEB-INF/sigarep/vistas/portal/externo/modales/descargarArchivo.zul",
-						null, map);
-		window.setMaximizable(true);
-		window.doModal();
+		if(win!=null){
+			win.detach();
+		}
+		win = (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/descargarArchivo.zul",null, map);
+		win.setMaximizable(true);
+		win.doModal();
 	}
 
 	@Command
 	public void modalRecaudosPorMotivo() {
-		final Window window = (Window) Executions
-				.createComponents(
-						"WEB-INF/sigarep/vistas/portal/externo/modales/RecaudosPorMotivo.zul",
-						null, null);
-		window.setMaximizable(true);
-		window.doModal();
+		if(win!=null){
+			win.detach();
+		}
+		win = (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/RecaudosPorMotivo.zul",null, null);
+		win.setMaximizable(true);
+		win.doModal();
 	}
 
 	@Command
 	public void modalFormato() {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("categoria", "FORMATO");
-		final Window window = (Window) Executions
-				.createComponents(
-						"WEB-INF/sigarep/vistas/portal/externo/modales/descargarArchivo.zul",
-						null, map);
-		window.setMaximizable(true);
-		window.doModal();
+		if(win!=null){
+			win.detach();
+		}
+		win = (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/descargarArchivo.zul",null, map);
+		win.setMaximizable(true);
+		win.doModal();
 	}
 
 	@Command
