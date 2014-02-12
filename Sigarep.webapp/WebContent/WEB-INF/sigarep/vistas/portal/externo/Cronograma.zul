@@ -1,14 +1,11 @@
 <window apply="org.zkoss.bind.BindComposer" vflex="1" hflex="1"
 	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMCronograma')">
-	<listbox id="lbxCronograma" model="@bind(vm.listaCronograma)"
-		emptyMessage="No hay actividades programadas" vflex="1" hflex="1"
-		selectedItem="@bind(vm.cronogramaSeleccionado)"
-		onClick="@command('modalDetalleCronograma')">
+	<listbox id="lbxCronograma" model="@bind(vm.listaCronograma)" emptyMessage="No hay actividades programadas" vflex="1" hflex="1"
+		selectedItem="@bind(vm.cronogramaSeleccionado)" onSelect="@command('modalDetalleCronograma')">
 		<listhead>
 			<listheader label="Fecha" align="center" width="35%"
-				sort="auto(fecha_inicio)" />
-			<listheader label="Nombre" align="center"
-				sort="auto(nombre)" />
+				sort="auto(fechaInicio)" tooltiptext="Ordenar Actividades por Fecha" />
+			<listheader label="Nombre" align="center" />
 		</listhead>
 		<template name="model">
 			<listitem>
