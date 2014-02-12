@@ -50,7 +50,7 @@ public class VMPortalPrincipal {
 	private Cronograma cronograma;
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-
+	Window win=null;
 	public String getCedula() {
 		return cedula;
 	}
@@ -182,12 +182,12 @@ public class VMPortalPrincipal {
 	 */
 	@Command
 	public void modalPreguntasFrecuentes() {
-		final Window window = (Window) Executions
-				.createComponents(
-						"WEB-INF/sigarep/vistas/portal/externo/modales/Preguntas_Frecuentes.zul",
-						null, null);
-		window.setMaximizable(true);
-		window.doModal();
+		 if(win!=null){
+			win.detach(); 
+		 }
+		 win= (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/Preguntas_Frecuentes.zul",null, null);
+		 win.setMaximizable(true);
+		 win.doModal();
 	}
 
 	@Command
