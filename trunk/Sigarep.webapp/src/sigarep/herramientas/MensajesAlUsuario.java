@@ -21,40 +21,6 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void advertenciaSoloNumeros() {
-
-		Messagebox.show("El campo sólo admite números.", "Advertencia",
-				Messagebox.OK, Messagebox.EXCLAMATION);
-
-	}
-
-	public void advertenciaSoloLetras() {
-
-		Messagebox.show("El campo sólo admite letras.", "Advertencia",
-				Messagebox.OK, Messagebox.EXCLAMATION);
-
-	}
-
-	public void advertenciaNoCaracteres() {
-
-		Messagebox.show("El campo no permite caracteres especiales.",
-				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-	}
-
-	public void advertenciaIngresarUsuario() {
-
-		Messagebox.show("¡Debe ingresar un usuario!", "Advertencia",
-				Messagebox.OK, Messagebox.EXCLAMATION);
-
-	}
-
-	public void advertenciaIngresarContraseña() {
-
-		Messagebox.show("¡Debe ingresar una contraseña!", "Advertencia",
-				Messagebox.OK, Messagebox.EXCLAMATION);
-
-	}
-
 	public void advertenciaContraseñaVacia() {
 
 		Messagebox.show("La nueva contraseña no puede ser vacía.",
@@ -126,7 +92,17 @@ public class MensajesAlUsuario {
 		Messagebox.show("Debe seleccionar una sugerencia de procedencia y agregar una observación general del caso.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
-
+	
+	public void advertenciaAgregarObservacionMotivo() {
+		Messagebox.show("Debe agregar una observación general del caso y/o agregar un " +
+				"motivo al caso.","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+     }
+	
+	public void advertenciaAgregarObservacionGeneral() {
+		Messagebox.show("Debe agregar una observación general del caso.",
+				"Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+    }
+	
 	public void advertenciaSeleccionarLapso() {
 
 		Messagebox.show("¡Debe seleccionar un lapso académico!", "Advertencia",
@@ -139,15 +115,20 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
-	public void advertenciaContrasennasNoCoinciden() {
-		Messagebox.show("Las contraseñas no coinciden.","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
-     }
-	
 	public void advertenciaSeleccionarUbicacionRespaldo() {
 
 		Messagebox.show("Debe seleccionar la ubicación del respaldo a restaurar.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaEscribirNombreDeRespaldo() {
+		Messagebox.show("Debe escribir el nombre del archivo de respaldo.",
+		"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+     }
+	
+	public void advertenciaContrasennasNoCoinciden() {
+		Messagebox.show("Las contraseñas no coinciden.","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+     }
 
 	public void advertenciaNoExisteEstudianteSancionado() {
 
@@ -155,21 +136,6 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
-	public void advertenciaEscribirNombreDeRespaldo() {
-		Messagebox.show("Debe escribir el nombre del archivo de respaldo.",
-		"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
-     }
-	
-	
-	public void advertenciaAgregarObservacionMotivo() {
-		Messagebox.show("Debe agregar una observación general del caso y/o agregar un " +
-				"motivo al caso.","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
-     }
-	
-	public void advertenciaAgregarObservacionGeneral() {
-		Messagebox.show("Debe agregar una observación general del caso.",
-				"Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
-    }
 	
 	public void advertenciaGrupoYaExistente(String nombreGrupo) {
 
@@ -179,7 +145,7 @@ public class MensajesAlUsuario {
 	
 	public void informacionHemosEnviadoCorreo() {
 
-		Messagebox.show("Te hemos enviado un email con tu nombre de usuario y contraseña.",
+		Messagebox.show("Le hemos enviado un email con su nombre de usuario y contraseña.",
 						"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
@@ -191,7 +157,7 @@ public class MensajesAlUsuario {
 
 	public void informacionContrasennaRecuperada() {
 
-		Messagebox.show("Te hemos enviado un email con tu contraseña.",
+		Messagebox.show("Hemos enviado un email con su contraseña.",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
@@ -260,8 +226,7 @@ public class MensajesAlUsuario {
 	}
 
 	public void informacionGuardarDatosSesion(int contador) {
-		Messagebox.show(
-				"Se almacenaron correctamente los datos de la sesión a "
+		Messagebox.show("Se almacenaron correctamente los datos de la sesión a "
 						+ contador + " apelaciones.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
@@ -277,25 +242,21 @@ public class MensajesAlUsuario {
 	}
 
 	public void informacionRestauracionNoExitosa() {
-		Messagebox.show("El intento de restauración no fue exitoso",
+		Messagebox.show("El intento de restauración no fue exitoso.",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionRespaldoNoExitosa() {
-		Messagebox.show("El intento de respaldo no fue exitoso", "Información",
+		Messagebox.show("El intento de respaldo no fue exitoso.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
 	public void informacionRespaldoExitoso() {
-		Messagebox.show("Respaldo realizado de manera exitosa", "Información",
+		Messagebox.show("Respaldo realizado de manera exitosa.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
-	public void ErrorImposibleGuardar() {
-
-		Messagebox.show("Imposible guardar el registro.", "Error",
-				Messagebox.OK, Messagebox.ERROR);
-	}
+	
 
 	public void ErrorRestauracionEnProceso() {
 
@@ -353,24 +314,12 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void ErrorImposibleEliminar() {
-
-		Messagebox.show("Imposible eliminar el registro.", "Error",
-				Messagebox.OK, Messagebox.ERROR);
-
-	}
 
 	public void ErrorRangoFechas() {
 
 		Messagebox.show("Error de rango de fechas.", "Error", Messagebox.OK,
 				Messagebox.ERROR);
 
-	}
-
-	public void ErrorNoExiste() {
-
-		Messagebox.show("El elemento solicitado no existe.", "Error",
-				Messagebox.OK, Messagebox.ERROR);
 	}
 
 	public void ErrorNoCoincidenLasContraseñas() {
@@ -411,5 +360,14 @@ public class MensajesAlUsuario {
 				Messagebox.QUESTION);
 
 	}
+	
+	public void confirmacionEliminar() {
+
+		Messagebox.show("¿Está seguro de querer eliminar el registro?",
+				"Confirmación", Messagebox.OK | Messagebox.CANCEL,
+				Messagebox.QUESTION);
+
+	}
+	
 
 }
