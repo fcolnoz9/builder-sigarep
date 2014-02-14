@@ -7,21 +7,18 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
+
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.modelos.data.maestros.InstanciaApelada;
-import sigarep.modelos.data.maestros.SancionMaestro;
+
 import sigarep.modelos.data.maestros.TipoMotivo;
-import sigarep.modelos.data.maestros.TipoMotivoFiltros;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
 /**
  * TipoMotivo UCLA DCYT Sistemas de Informacion.
- * 
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.0
  * @since 22/01/14
@@ -30,14 +27,14 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMTipoMotivo {
 	@WireVariable ServicioTipoMotivo serviciotipomotivo;
-//	private Integer idTipoMotivo;
+
 	private String nombreTipoMotivo,nombreTipoMotivofiltro;
 	private String descripcion,descripcionfiltro;
 	private Integer idTipoMotivo;
 	private Boolean estatus;
+	private String nombreFiltro;
 	private List<TipoMotivo> listaTipoMotivo;
 	private TipoMotivo tiposeleccionado;
-	private TipoMotivoFiltros filtros = new TipoMotivoFiltros();
 	@Wire Textbox txtnombreTipoMotivo;
     @Wire Window winTipoMotivo;
     MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
@@ -72,13 +69,7 @@ public class VMTipoMotivo {
 	public void setDescripcionfiltro(String descripcionfiltro) {
 		this.descripcionfiltro = descripcionfiltro;
 	}
-	public TipoMotivoFiltros getFiltros() {
-		return filtros;
-	}
-
-	public void setFiltros(TipoMotivoFiltros filtros) {
-		this.filtros = filtros;
-	}
+	
 	public void setNombreTipoMotivo(String nombreTipoMotivo) {
 		this.nombreTipoMotivo = nombreTipoMotivo;
 	}
@@ -103,13 +94,19 @@ public class VMTipoMotivo {
 	public void setIdTipoMotivo(Integer idTipoMotivo) {
 		this.idTipoMotivo = idTipoMotivo;
 	}
+	public String getNombreFiltro() {
+		return nombreFiltro;
+	}
+	public void setNombreFiltro(String nombreFiltro) {
+		this.nombreFiltro = nombreFiltro;
+	}
 	//Fin de los metodod gets y sets
    
 	//----------- OTROS METODOS
     @Init
     public void init(){
 
-      	listadoTipoMotivo();
+      	listaTipoMotivo();
       	
     } 
     
@@ -146,10 +143,13 @@ public class VMTipoMotivo {
 
  	@Command
  	@NotifyChange({ "listaTipoMotivo" })
- 	public void listadoTipoMotivo() {
+ 	public void listaTipoMotivo() {
  		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
  	}	
 
+ 	
+ 	
+ 	
  	/**
 	 * limpiar
 	 * 
@@ -160,12 +160,14 @@ public class VMTipoMotivo {
 	 *             dispara ninguna excepción
 	 */
     @Command
-	@NotifyChange({"listaTipoMotivo","idTipoMotivo","nombreTipoMotivo", "estatus","descripcion"})
+	@NotifyChange({"listaTipoMotivo","idTipoMotivo","nombreTipoMotivo", "estatus","descripcion","nombreFiltro"})
 	public void limpiar(){
     	idTipoMotivo= null;
     	nombreTipoMotivo = "";
 		descripcion="";
-		listadoTipoMotivo();
+		nombreFiltro= "";
+		listaTipoMotivo();
+		
 	}
     
     
@@ -204,19 +206,27 @@ public class VMTipoMotivo {
     @Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus"})
 	public void mostrarSeleccionado(){
-    	TipoMotivo tipo = getTiposeleccionado();
-    	idTipoMotivo=tipo.getIdTipoMotivo();
-		nombreTipoMotivo= tipo.getNombreTipoMotivo();
-		descripcion=tipo.getDescripcion();	
+  
+    	idTipoMotivo= getTiposeleccionado().getIdTipoMotivo();
+		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
+		descripcion=getTiposeleccionado().getDescripcion();	
 	}
     
     
     
-    
-    // Método que busca y filtra las sanciones
- 	@Command
- 	@NotifyChange({ "listaTipoMotivo" })
- 	public void filtros() {
- 		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivo(filtros);
- 	}
+    /**
+	 * filtros
+	 * 
+	 * @param listaTipoMotivo
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "listaTipoMotivo", "nombreFiltro" })
+	public void filtros() {
+		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivo(nombreFiltro);
+	}
+
+
 }
