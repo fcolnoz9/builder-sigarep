@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -308,6 +309,22 @@ public class VMenlaceInteres {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
+//	@Command
+//	@NotifyChange({ "nombreEnlace", "direccionEnlace", "descripcion",
+//			"listaEnlaces", "imagenes" })
+//	public void eliminarEnlaceSeleccionado() {
+//		if (nombreEnlace == null || direccionEnlace == null
+//				|| descripcion == null || imagen.getTamano() < 1) {
+//			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+//		} else {
+//			servicioenlacesinteres.eliminar(idEnlace);
+//			mensajeAlUsuario.informacionEliminarCorrecto();
+//			limpiar();
+//		}
+//
+//	}
+	
+	
 	@Command
 	@NotifyChange({ "nombreEnlace", "direccionEnlace", "descripcion",
 			"listaEnlaces", "imagenes" })
@@ -316,12 +333,31 @@ public class VMenlaceInteres {
 				|| descripcion == null || imagen.getTamano() < 1) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-			servicioenlacesinteres.eliminar(idEnlace);
-			mensajeAlUsuario.informacionEliminarCorrecto();
-			limpiar();
+			Messagebox.show("Desea eliminar realmente el registro?",
+					"Confirmar",Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, 
+					new org.zkoss.zk.ui.event.EventListener() {
+		  			public void onEvent(Event evt) throws InterruptedException {
+						if (evt.getName().equals("onOK")) {
+							servicioenlacesinteres.eliminar(idEnlace);
+							mensajeAlUsuario.informacionEliminarCorrecto();
+							limpiar(); 								
+						}
+					}
+					});
 		}
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Mostrar Enlace
