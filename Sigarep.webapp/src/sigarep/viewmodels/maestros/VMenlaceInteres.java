@@ -321,7 +321,7 @@ public class VMenlaceInteres {
 				|| descripcion == null || imagen.getTamano() < 1) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-			Messagebox.show("Desea eliminar realmente el registro?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
 					Messagebox.QUESTION,new EventListener<ClickEvent>() {
 				@SuppressWarnings("incomplete-switch")
 				public void onEvent(ClickEvent e) throws Exception {
@@ -332,6 +332,10 @@ public class VMenlaceInteres {
 							//so, I post a delete to trigger to process it in binder controll.
 							//binder.postCommand("limpiar", null);
 							servicioenlacesinteres.eliminar(idEnlace);
+							mensajeAlUsuario.informacionEliminarCorrecto();
+							binder.postCommand("limpiar", null);
+						case NO:
+					
 							binder.postCommand("limpiar", null);
 					}
 				}
