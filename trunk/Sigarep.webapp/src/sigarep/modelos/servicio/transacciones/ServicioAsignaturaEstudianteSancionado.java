@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.TipoMotivo;
-import sigarep.modelos.data.maestros.TipoMotivoFiltros;
+
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
