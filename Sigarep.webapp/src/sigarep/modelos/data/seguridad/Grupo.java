@@ -20,6 +20,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.Index;
+
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
 /*
@@ -47,7 +50,7 @@ public class Grupo implements Serializable{
 	@Id
 	// Clave primaria de la clase
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	// Genera el ID del Grupo
+	@Index(name = "id_gruposIndex")
 	@Column(name="id_grupo", unique = true , nullable=false)
 	private Integer idGrupo;
 	
