@@ -84,7 +84,7 @@
 			<!-- Grupbox de Botones -->
 		<div align="right" height="100%">
 				    <button label="Buscar" id="btnBuscar" image="imagenes/iconos/buscar.png" mold="trendy" width="auto" height="auto" orient="horizontal" onClick="@command('buscarApelacion')"></button>
-					<button label="Generar Reporte" id="btnGenerarReporte" image="imagenes/iconos/generar.png" mold="trendy" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteConfigurableApelaciones')"></button>
+					<button label="Generar" id="btnGenerarReporte" image="imagenes/iconos/generar.png" mold="trendy" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteConfigurableApelaciones')"></button>
 					<button label="Limpiar" id="btnLimpiar" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarA')" orient="horizontal"> </button>
 					<button label="Cerrar"  id="btnCerrarLapso" mold="trendy" width="auto" height="auto" image="imagenes/iconos/cerrar.png" orient="horizontal" onClick="winConfigurableApelaciones.onClose()" />
 		</div>
@@ -96,7 +96,7 @@
 					<listheader label="Sancion" id="lblNombreSancion" align="center" sort="auto(nombreSancion)" />
 					<listheader label="Motivos" id="lblTipo_motivo" align="center" sort="auto(nombreTipoMotivo)" />
 					<listheader label="Instacia Apelada" id="lblistacanciaApelada" align="center" sort="auto(instanciaApelada)" />
-					<listheader label="Lapsos Academidos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
+					<listheader label="Lapsos Académicos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
 					<listheader label="Veredicto" id="lblVeredicto1" align="center" sort="auto(veredicto)" />
 					<listheader label="Edo.Apelacion" id="lblEdoApelacion1" align="center" sort="auto(edoApelacion)" />
 				</listhead>
