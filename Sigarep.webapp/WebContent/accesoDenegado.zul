@@ -1,9 +1,11 @@
 <zk>
-<vbox>
-<label value="Acceso Denegado, debe loguear con una cuenta de usuario válida"/>
-</vbox>
-<vbox>
-	<toolbarbutton href="/portalPrincipal.zul" label="volver a anterior"/>
-</vbox>
+<window  width="400px">
+	<window title="Acceso No Autorizado" border="normal" width="400px" >
+	<label value="Acceso Denegado, debe loguear con una cuenta de usuario válida" />
+		<vbox>
+			<toolbarbutton href="/portalPrincipal.zul" label="volver a anterior"/>
+		</vbox>
+	</window>
+</window>
 
 </zk>
