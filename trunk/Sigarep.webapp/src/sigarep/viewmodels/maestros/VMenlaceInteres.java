@@ -7,19 +7,24 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -52,7 +57,7 @@ public class VMenlaceInteres {
 	private Archivo imagen = new Archivo();
 	private AImage imagenes;
 	private Media media;
-	private List<EnlaceInteres> listaEnlaces;
+	private List<EnlaceInteres> listaEnlaces ;
 	private EnlaceInteres enlaceSeleccionado;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@Wire
@@ -241,13 +246,12 @@ public class VMenlaceInteres {
 	 *             dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({ "idEnlace", "nombreEnlace", "direccionEnlace",
-			"descripcion", "estatus", "imagenes" })
+	@NotifyChange({"nombreEnlace", "direccionEnlace","descripcion", "estatus", "imagenes","listaEnlaces" })
 	public void limpiar() {
-		nombreEnlace = null;
+		nombreEnlace =null;
 		direccionEnlace = null;
 		descripcion = null;
-		idEnlace = null;
+		//idEnlace =null;
 		media = null;
 		imagenes = null;
 		imagen = new Archivo();
@@ -309,56 +313,31 @@ public class VMenlaceInteres {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-//	@Command
-//	@NotifyChange({ "nombreEnlace", "direccionEnlace", "descripcion",
-//			"listaEnlaces", "imagenes" })
-//	public void eliminarEnlaceSeleccionado() {
-//		if (nombreEnlace == null || direccionEnlace == null
-//				|| descripcion == null || imagen.getTamano() < 1) {
-//			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-//		} else {
-//			servicioenlacesinteres.eliminar(idEnlace);
-//			mensajeAlUsuario.informacionEliminarCorrecto();
-//			limpiar();
-//		}
-//
-//	}
-	
-	
+	@SuppressWarnings("unchecked")
 	@Command
-	@NotifyChange({ "nombreEnlace", "direccionEnlace", "descripcion",
-			"listaEnlaces", "imagenes" })
-	public void eliminarEnlaceSeleccionado() {
+	@NotifyChange({"listaEnlaces","nombreEnlace", "direccionEnlace", "descripcion", "imagenes"})
+	public void eliminarEnlaceSeleccionado(@ContextParam(ContextType.BINDER) final Binder binder){
 		if (nombreEnlace == null || direccionEnlace == null
 				|| descripcion == null || imagen.getTamano() < 1) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-			Messagebox.show("Desea eliminar realmente el registro?",
-					"Confirmar",Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, 
-					new org.zkoss.zk.ui.event.EventListener() {
-		  			public void onEvent(Event evt) throws InterruptedException {
-						if (evt.getName().equals("onOK")) {
+			Messagebox.show("Desea eliminar realmente el registro?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+							//if you call super.delete here, since original zk event is not control by binder
+							//the change of viewmodel will not update to the ui.
+							//so, I post a delete to trigger to process it in binder controll.
+							//binder.postCommand("limpiar", null);
 							servicioenlacesinteres.eliminar(idEnlace);
-							mensajeAlUsuario.informacionEliminarCorrecto();
-							limpiar(); 								
-						}
+							binder.postCommand("limpiar", null);
 					}
-					});
+				}
+			});		
 		}
-
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	/**
 	 * Mostrar Enlace
 	 * 
