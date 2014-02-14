@@ -13,6 +13,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Index;
 
 import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.maestros.Estudiante;
@@ -29,6 +30,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Index(name = "nombreUsuarioIndeX")
 	@Column(name="nombre_usuario", unique = true ,length=35, nullable=false)
 	private String nombreUsuario;
 	
