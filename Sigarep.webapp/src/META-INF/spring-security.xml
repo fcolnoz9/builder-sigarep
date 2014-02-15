@@ -10,7 +10,7 @@
         <port-mapping http="8080" https="8443"/>
     </port-mappings>
     
-    <intercept-url pattern="/index.zul*" requires-channel="any" access="isAuthenticated()"/>
+    <intercept-url pattern="/index.zul*" requires-channel="any" access="hasAnyRole('deity,Seguridad,default')"/> <!--Se puede personalizar el acceso a las funciones con  hasAnyRole('grupo1,grupo2')-->
     <intercept-url pattern="/timeout.zul*" requires-channel="any" access="isAuthenticated()"/>
      <intercept-url pattern="/login.zul*" requires-channel="any" access="isAuthenticated()"/>
 		<session-management session-fixation-protection="newSession" />
