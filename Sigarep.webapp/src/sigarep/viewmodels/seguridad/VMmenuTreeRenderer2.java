@@ -64,10 +64,12 @@ public class VMmenuTreeRenderer2 implements TreeitemRenderer<VMmenuTreeNode> {
 							aux = new VMmenuTreeNode(padre.getData(),null);		
 							aux.add(hijo);
 						}
+						aux.setOpen(true);
 						padre2=obtenePadres((VMmenuTreeNode)padre.getParent(),aux);
 									
 					}else{
 						    padre2 = new VMmenuTreeNode(padre.getData(),null);
+						    padre2.setOpen(true);
 						    padre2.add(hijo);
 						    if(padre.getChildCount()==0)
 						    padre.removeFromParent();
