@@ -367,8 +367,11 @@ public class VMAnalizarValidezI {
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacionExperto","observacion"})
 	public void actualizarRecaudosEntregados(@BindingParam("recaudosEntregados") List<Listitem> recaudos, @BindingParam("window") Window winAnalizarValidezI) {
 
-		if (selected==null || selected.equals("") || observacion==null || observacion.equals("")) {
-			mensajeAlUsuario.advertenciaSeleccionarSugerenciaDeProcedencia();		
+		if (selected==null || selected.equals("")) {
+			mensajeAlUsuario.advertenciaSeleccionarSugerencia();		
+		}
+		else if (observacion==null || observacion.equals("")) {
+			mensajeAlUsuario.advertenciaAgregarObservacionGeneral();
 		}
 		else {
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();

@@ -476,8 +476,11 @@ public class VMRegistrarDatosIniciales {
 
 		Date fecha = new Date();
 		
-		if (observacion == null || listaMotivoListBox.size() == 0) {
-		mensajeAlUsuario.advertenciaAgregarObservacionMotivo();
+		if ( listaMotivoListBox.size() == 0) {
+		mensajeAlUsuario.advertenciaAgregarMotivo();
+		}
+		else if (observacion == null){
+			mensajeAlUsuario.advertenciaAgregarObservacionGeneral();
 		}
 		else {
 		solicitudApelacionPK.setCedulaEstudiante(cedula);
