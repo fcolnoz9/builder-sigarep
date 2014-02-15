@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Index(name = "nombreUsuarioIndeX")
+	//@Index(name = "nombreUsuarioIndeX")
 	@Column(name="nombre_usuario", unique = true ,length=35, nullable=false)
 	private String nombreUsuario;
 	
