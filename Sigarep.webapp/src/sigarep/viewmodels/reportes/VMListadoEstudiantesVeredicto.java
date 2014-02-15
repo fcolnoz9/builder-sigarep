@@ -314,14 +314,14 @@ public class VMListadoEstudiantesVeredicto {
 		//setSancionadosVeredicto2(servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), "Licenciatura en Matematicas"));
 		
 		
-//		System.out.println("Procedentes: " + procedentes);
-//		System.out.println("Procedentes2: " + procedentes2);
-//		System.out.println("Procedentes3: " + procedentes3);
-//		System.out.println("Procedentes4: " + procedentes4);
-//		System.out.println("No Procedentes: " + denegados);
-//		System.out.println("No Procedentes2: " + denegados2);
-//		System.out.println("No Procedentes3: " + denegados3);
-//		System.out.println("No Procedentes4: " + denegados4);
+		System.out.println("Procedentes: " + procedentes);
+		System.out.println("Procedentes2: " + procedentes2);
+		System.out.println("Procedentes3: " + procedentes3);
+		System.out.println("Procedentes4: " + procedentes4);
+		System.out.println("No Procedentes: " + denegados);
+		System.out.println("No Procedentes2: " + denegados2);
+		System.out.println("No Procedentes3: " + denegados3);
+		System.out.println("No Procedentes4: " + denegados4);
 		
 //		nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
 //		codigo_lapso = objLapso.getCodigoLapso();

@@ -22,7 +22,7 @@ public class ServicioApelacionesPorMotivo {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, String tipo_sancion, String programa) {
+	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, String tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes , " +
 						"(SELECT COUNT(*) total FROM tipo_motivo timo, solicitud_apelacion sa " +
@@ -39,7 +39,7 @@ public class ServicioApelacionesPorMotivo {
 						"and mo.id_tipo_motivo <> 2 " +
 						"and mo.id_tipo_motivo <> 3 " +
 						"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-						"and prog.nombre_programa = "+ "'"+programa+"' " +
+						"and prog.id_programa = "+ "'"+programa+"' " +
 						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' )" +
 								"from " +
 								"(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente " +
@@ -61,7 +61,7 @@ public class ServicioApelacionesPorMotivo {
 								"and mo.id_tipo_motivo <> 2 " +
 								"and mo.id_tipo_motivo <> 3 " +
 								"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-								"and prog.nombre_programa = "+ "'"+programa+"' " +
+								"and prog.id_programa = "+ "'"+programa+"' " +
 								"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
 								"group by motivo) as b " +
 								"group by b.motivo " +
@@ -82,7 +82,7 @@ public class ServicioApelacionesPorMotivo {
 								"and mo.id_tipo_motivo <> 2 " +
 								"and mo.id_tipo_motivo <> 3 " +
 								"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-								"and prog.nombre_programa = "+ "'"+programa+"' " +
+								"and prog.id_programa = "+ "'"+programa+"' " +
 								"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
 								"and sa.veredicto = 'NO PROCEDENTE' " +
 								"group by timo.nombre_tipo_motivo) as v " +
@@ -110,28 +110,18 @@ public class ServicioApelacionesPorMotivo {
 				return results;
 	}
 	
-	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_Programa(String codigo_lapso, String programa) {
+	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
-				"(SELECT COUNT(*) total FROM tipo_motivo timo, solicitud_apelacion sa " +
-				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
-				"and essa.codigo_lapso = sa.codigo_lapso " +
-				"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
-				"and mo.codigo_lapso = sa.codigo_lapso " +
-				"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-				"and mo.id_tipo_motivo <> 1 " +
-				"and mo.id_tipo_motivo <> 2 " +
-				"and mo.id_tipo_motivo <> 3 " +
+				"(SELECT COUNT(DISTINCT sa.cedula_estudiante) total FROM solicitud_apelacion sa, estudiante_sancionado essa, estudiante es " +
+				"WHERE sa.cedula_estudiante = essa.cedula_estudiante " +
+				"and essa.cedula_estudiante = es.cedula_estudiante " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' )" +
+				"and es.id_programa = "+ "'"+programa+"' )" +
 				"from " +
 				"(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente " +
 				"from " +
-				"(SELECT distinct timo.nombre_tipo_motivo as motivo,count(sa.cedula_estudiante) " +
+				"(SELECT distinct timo.nombre_tipo_motivo as motivo,count(distinct sa.cedula_estudiante) " +
 				"as apelaciones, 0 as procedente " +
 				"from tipo_motivo timo, solicitud_apelacion sa " +
 				"INNER JOIN estudiante_sancionado as essa " +
@@ -148,11 +138,11 @@ public class ServicioApelacionesPorMotivo {
 				"and mo.id_tipo_motivo <> 2 " +
 				"and mo.id_tipo_motivo <> 3 " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"and prog.id_programa = "+ "'"+programa+"' " +
 				"group by motivo) as b " +
 				"group by b.motivo " +
 				"union all " +
-				"select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(sa.veredicto) " +
+				"select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(distinct sa.veredicto) " +
 				"as procedente " +
 				"from tipo_motivo timo, solicitud_apelacion sa " +
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
@@ -168,7 +158,7 @@ public class ServicioApelacionesPorMotivo {
 				"and mo.id_tipo_motivo <> 2 " +
 				"and mo.id_tipo_motivo <> 3 " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"and prog.id_programa = "+ "'"+programa+"' " +
 				"and sa.veredicto = 'NO PROCEDENTE' " +
 				"group by timo.nombre_tipo_motivo) as v " +
 				"group by v.motivo " +
@@ -581,7 +571,7 @@ public class ServicioApelacionesPorMotivo {
 //	//" ;"
 //		//		 ;
 //
-		"SELECT es.cedula_estudiante as cedula, es.primer_nombre as nombre, es.primer_apellido as apellido, aea.sugerencia as veredicto, " +
+		"SELECT DISTINCT es.cedula_estudiante as cedula, es.primer_nombre as nombre, es.primer_apellido as apellido, aea.sugerencia as veredicto, " +
 		"(SELECT count(es.cedula_estudiante) FROM apelacion_estado_apelacion as aea, estudiante es " +
 		"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante " +
 		"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
@@ -591,9 +581,10 @@ public class ServicioApelacionesPorMotivo {
 		"and sa.codigo_lapso = aea.codigo_lapso " +
 		"and sa.id_instancia_apelada = aea.id_instancia_apelada " +
 		"and aea.id_instancia_apelada = 1 " +
-		"and aea.sugerencia = 'Procedente' " +
+		"and aea.sugerencia = 'PROCEDENTE' " +
 		"and prog.id_programa = "+ "'"+programa+"' " +
-		"and sa.codigo_lapso = '2013-2') as procedentes, " +
+		"and sa.codigo_lapso = '2013-2' " +
+		"and aea.id_estado_apelacion = 3) as procedentes, " +
 		"(SELECT count(es.cedula_estudiante) FROM apelacion_estado_apelacion as aea, estudiante es " +
 		"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante " +
 		"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
@@ -603,9 +594,10 @@ public class ServicioApelacionesPorMotivo {
 		"and sa.codigo_lapso = aea.codigo_lapso " +
 		"and sa.id_instancia_apelada = aea.id_instancia_apelada " +
 		"and aea.id_instancia_apelada = 1 " +
-		"and aea.sugerencia = 'No procedente' " +
+		"and aea.sugerencia = 'NO PROCEDENTE' " +
 		"and prog.id_programa = "+ "'"+programa+"' " +
-		"and sa.codigo_lapso = '2013-2') as noprocedentes " +
+		"and sa.codigo_lapso = '2013-2' " +
+		"and aea.id_estado_apelacion = 3) as noprocedentes " +
 		"FROM apelacion_estado_apelacion as aea, estudiante es " +
 		"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante " +
 		"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
