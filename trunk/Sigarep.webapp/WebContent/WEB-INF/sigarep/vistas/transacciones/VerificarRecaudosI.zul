@@ -35,23 +35,23 @@
 		</grid>
 	</groupbox>
 		<groupbox id="grbDatosSancion">
-		<caption id="lblDatossancion" label="Datos Sancion" />
+		<caption id="lblDatossancion" label="Datos Sanción:" />
 		<grid>
 			<rows>
 				<row>
 					<label id="lblTiposancion"
-						value="Tipo de Sancion: " />
+						value="Tipo de Sanción: " />
 					<textbox id="txtTipoSancion" cols="23"
 						maxlength="30" readonly="true" value="@bind(vm.sancion)">
 					</textbox>
-							<label id="lblLapsosancion" value="Lapso de Sancion: " />
+							<label id="lblLapsosancion" value="Lapso de Sanción: " />
 					<textbox id="txtLapsosancion" cols="23"
 						maxlength="30" value="@bind(vm.lapso)" readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
-						value="Periodo de Sancion: " />
+						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
 						maxlength="30" value="@bind(vm.periodoSancion)" readonly="true">
 					</textbox>

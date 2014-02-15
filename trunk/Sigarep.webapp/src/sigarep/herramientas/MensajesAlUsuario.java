@@ -1,6 +1,8 @@
 package sigarep.herramientas;
 
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 /*
  * Debe declarar una variable tipo MensajesAlUsuario como estándar mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) en donde usará los mensajes (su clase viewmodels), 
@@ -21,12 +23,12 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void advertenciaContraseñaVacia() {
-
-		Messagebox.show("La nueva contraseña no puede ser vacía.",
-				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-	}
-
+//	public void advertenciaContraseñaVacia() {
+//
+//		Messagebox.show("La nueva contraseña no puede ser vacía.",
+//				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+//	}
+//no se usa
 	public void advertenciaIngresarCedula() {
 
 		Messagebox.show("¡Debe ingresar una cédula!", "Advertencia",
@@ -87,15 +89,15 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
-	public void advertenciaSeleccionarSugerenciaDeProcedencia() {
+	public void advertenciaSeleccionarSugerencia() {
 
-		Messagebox.show("Debe seleccionar una sugerencia de procedencia y agregar una observación general del caso.",
+		Messagebox.show("Debe seleccionar una sugerencia del caso.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
-	public void advertenciaAgregarObservacionMotivo() {
-		Messagebox.show("Debe agregar una observación general del caso y/o agregar un " +
-				"motivo al caso.","Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
+	public void advertenciaAgregarMotivo() {
+		Messagebox.show("Debe agregar agregar un motivo al caso.",
+				"Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
      }
 	
 	public void advertenciaAgregarObservacionGeneral() {
@@ -356,14 +358,6 @@ public class MensajesAlUsuario {
 	public void confirmacionCerrarSesion() {
 
 		Messagebox.show("¿Está seguro de querer cerrar sesión?",
-				"Confirmación", Messagebox.OK | Messagebox.CANCEL,
-				Messagebox.QUESTION);
-
-	}
-	
-	public void confirmacionEliminar() {
-
-		Messagebox.show("¿Está seguro de querer eliminar el registro?",
 				"Confirmación", Messagebox.OK | Messagebox.CANCEL,
 				Messagebox.QUESTION);
 
