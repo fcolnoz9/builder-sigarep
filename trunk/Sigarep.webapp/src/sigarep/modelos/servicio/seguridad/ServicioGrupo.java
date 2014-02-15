@@ -56,10 +56,10 @@ public class ServicioGrupo {
 		iGrupoDAO.save(miGrupo);
 	}
 
-	public List<Grupo> buscarP(String nombre) {
+	public List<Grupo> buscarGrupoFiltro(String nombre, String descripcion) {
 		List<Grupo> result = new LinkedList<Grupo>();
-		if (nombre == null || "".equals(nombre)) {// si el nombre es null o
-													// vacio,el resultado va a
+		if (nombre == null || descripcion == null) {// si el nombre es null o
+													// descripcion es null,el resultado va a
 													// ser la lista completa de
 													// todos los s de motivo
 			// si el codigo es null o vacio,el resultado va a ser la lista
@@ -71,7 +71,7 @@ public class ServicioGrupo {
 				// busca todos los que tengan las letras iniciales de ese
 				// nombre.
 			for (Grupo grupo : listadoGrupo()) {
-				if (grupo.getNombre().toLowerCase().contains(nombre.toLowerCase()) || grupo.getDescripcion().toLowerCase().contains(nombre.toLowerCase())) {
+				if (grupo.getNombre().toLowerCase().contains(nombre.toLowerCase()) && grupo.getDescripcion().toLowerCase().contains(descripcion.toLowerCase())) {
 						result.add(grupo);
 				}
 			}

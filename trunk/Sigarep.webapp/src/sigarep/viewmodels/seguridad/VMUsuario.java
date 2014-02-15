@@ -584,7 +584,7 @@ public class VMUsuario {
 		}
 	}
 	
-	// Método que busca y filtra los recaudos
+	// Método que busca y filtra los usuarios
 	@Command
 	@NotifyChange({"listaPersona"})
 	public void filtros(){

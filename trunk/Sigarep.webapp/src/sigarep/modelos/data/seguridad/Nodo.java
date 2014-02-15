@@ -44,7 +44,7 @@ public class Nodo implements Comparator<Nodo>{
 	}
     
 	public Nodo(Integer id, String tipo, String nombrefuncion,
-			String vinculo, String estado, Integer padre) {
+			String vinculo, String estado, Integer padre, String rutaModal) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -52,6 +52,7 @@ public class Nodo implements Comparator<Nodo>{
 		this.vinculo = vinculo;
 		this.estado = estado;
 		this.padre = padre;
+		this.rutaModal = rutaModal;
 	}
 	
 	public Integer getId() {
