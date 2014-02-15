@@ -90,13 +90,13 @@ public class VMapelacionesPorMotivo {
 					apelacionesPrograma = servicioapelacionespormotivo
 							.buscarPorMotivoResultado_Programa(
 									objLapso.getCodigoLapso(),
-									objPrograma.getNombrePrograma());
+									objPrograma.getIdPrograma());
 				} else
 					apelacionesPrograma = servicioapelacionespormotivo
 							.buscarPorMotivoResultado_ProgramaSancion(
 									objLapso.getCodigoLapso(),
 									objSancion.getNombreSancion(),
-									objPrograma.getNombrePrograma());
+									objPrograma.getIdPrograma());
 
 				// model = ChartDataTipoDeSexo.getModel(lista);
 			//} else {
@@ -272,13 +272,13 @@ public class VMapelacionesPorMotivo {
 			apelacionesPrograma = servicioapelacionespormotivo
 					.buscarPorMotivoResultado_Programa(
 							objLapso.getCodigoLapso(),
-							objPrograma.getNombrePrograma());
+							objPrograma.getIdPrograma());
 		} else
 			apelacionesPrograma = servicioapelacionespormotivo
 					.buscarPorMotivoResultado_ProgramaSancion(
 							objLapso.getCodigoLapso(),
 							objSancion.getNombreSancion(),
-							objPrograma.getNombrePrograma());
+							objPrograma.getIdPrograma());
 		
 		
 		
