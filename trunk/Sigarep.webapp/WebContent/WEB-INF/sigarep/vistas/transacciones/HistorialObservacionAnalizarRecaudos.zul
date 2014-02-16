@@ -35,7 +35,7 @@
 								value="${each.getRecaudo().getNombreRecaudo()}" />
 							<textbox
 								value="${each.getObservacionExperto()}" mold="rounded"
-								cols="120" rows="2" readonly="true">
+								cols="120" maxlength="255" rows="2" readonly="true">
 							</textbox>
 						</row>
 					</template>
