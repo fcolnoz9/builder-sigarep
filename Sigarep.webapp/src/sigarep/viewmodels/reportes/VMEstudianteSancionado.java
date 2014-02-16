@@ -22,6 +22,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.InstanciaApelada;
@@ -103,6 +104,7 @@ public class VMEstudianteSancionado {
 	private ListModelList<String> cmbSexo;//Lista para llenar el combo de sexo
 	private ListModelList<String> cmbVeredicto;//Lista para llenar el combo Veredicto
 	private ListModelList<String> cmbEdoApelacion;//Lista para llenar el combo Edo Apelacion
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	// SETS Y GETS
 	public SancionMaestro getObjSancion() {
 		return objSancion;
@@ -434,7 +436,7 @@ public class VMEstudianteSancionado {
 	public void buscarEstudianteSancionado() {
 		if(objinstanciaApelada==null|| objLapso==null || objprograma==null || objSancion==null || objsexo==null || objtipoMotivo==null
 				|| objVeredicto==null || objEdoApelacion==null){
-			Messagebox.show("Debe Seleccionar Todos los Campos", "Informacion", Messagebox.OK, Messagebox.INFORMATION);;
+			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		}
 		else{
 			configurarParametro1();
@@ -561,7 +563,8 @@ public class VMEstudianteSancionado {
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
 			}
 			else{
-				Messagebox.show("No Hay Coincidencias para Mostrar", "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+				mensajeAlUsuario.informacionNoHayCoincidencias();
+			
 			}
 	}
 			
