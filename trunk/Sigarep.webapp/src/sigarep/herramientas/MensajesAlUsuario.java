@@ -70,6 +70,12 @@ public class MensajesAlUsuario {
 		Messagebox.show("Debe seleccionar un registro para eliminarlo.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaSeleccionarTodo() {
+
+		Messagebox.show("Debe Seleccionar Todos los Campos.",
+				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
 
 	public void advertenciaFormatoNoSoportado() {
 
@@ -226,6 +232,8 @@ public class MensajesAlUsuario {
 		Messagebox.show("No existen apelaciones para procesar.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
+	
+
 
 //	public void informacionGuardarDatosSesion(int contador) {
 //		Messagebox.show("Se almacenaron correctamente los datos de la sesión a "
@@ -258,7 +266,10 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
-	
+	public void informacionNoHayCoincidencias() {
+		Messagebox.show("No Hay coincidencias para mostrar.", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
+	}
 
 	public void ErrorRestauracionEnProceso() {
 
