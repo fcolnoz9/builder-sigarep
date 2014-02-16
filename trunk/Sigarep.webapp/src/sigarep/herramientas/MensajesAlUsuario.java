@@ -96,7 +96,7 @@ public class MensajesAlUsuario {
 	}
 	
 	public void advertenciaAgregarMotivo() {
-		Messagebox.show("Debe agregar agregar un motivo al caso.",
+		Messagebox.show("Debe agregar un motivo al caso.",
 				"Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
      }
 	
@@ -117,11 +117,11 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
-	public void advertenciaSeleccionarUbicacionRespaldo() {
-
-		Messagebox.show("Debe seleccionar la ubicación del respaldo a restaurar.",
-				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-	}
+//	public void advertenciaSeleccionarUbicacionRespaldo() {
+//
+//		Messagebox.show("Debe seleccionar la ubicación del respaldo a restaurar.",
+//				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+//	}
 	
 	public void advertenciaEscribirNombreDeRespaldo() {
 		Messagebox.show("Debe escribir el nombre del archivo de respaldo.",
@@ -227,16 +227,16 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
-	public void informacionGuardarDatosSesion(int contador) {
-		Messagebox.show("Se almacenaron correctamente los datos de la sesión a "
-						+ contador + " apelaciones.", "Información",
-				Messagebox.OK, Messagebox.INFORMATION);
-	}
+//	public void informacionGuardarDatosSesion(int contador) {
+//		Messagebox.show("Se almacenaron correctamente los datos de la sesión a "
+//						+ contador + " apelaciones.", "Información",
+//				Messagebox.OK, Messagebox.INFORMATION);
+//	} no se usa por ahora
 
-	public void informacionDatosDeSesionNoEncontrados() {
-		Messagebox.show("Proporcione los datos de una nueva sesión.",
-				"Información", Messagebox.OK, Messagebox.INFORMATION);
-	}
+//	public void informacionDatosDeSesionNoEncontrados() {
+//		Messagebox.show("Proporcione los datos de una nueva sesión.",
+//				"Información", Messagebox.OK, Messagebox.INFORMATION);
+//	}no se usa por ahora
 
 	public void informacionDatosDeSesionEncontrados() {
 		Messagebox.show("Se encontró una Sesión activa. Puede continuar con la misma o indicar los datos de una nueva.",
