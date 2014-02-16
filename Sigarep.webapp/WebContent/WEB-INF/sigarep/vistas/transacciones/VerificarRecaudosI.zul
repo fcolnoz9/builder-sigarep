@@ -10,23 +10,21 @@
 		<grid id="grdDatosEstudiante">
 			<rows>
 				<row>
-					<label value="Cédula: " id="lblCedulaEstudiante" width="40%" />
+					<label  id="lblCedulaEstudiante" value="Cédula: " width="40%" />
 					<textbox id="txtCedulaEstudiante" cols="23"
 						width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)">
 					</textbox>
-					<label value="Programa: "
-						id="lblProgramaEstudiante" />
+					<label id="lblProgramaEstudiante" value="Programa: "/>
 					<textbox id="txtProgramaEstudiante" cols="23"
 						width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)">
 					</textbox>
 				</row>
 				<row>
-					<label value="Nombres: " id="lblNombresEstudiante" width="40%" />
+					<label  id="lblNombresEstudiante" value="Nombres: " width="40%" />
 					<textbox id="txtNombresEstudiante" cols="23"
 						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
 					</textbox>
-					<label value="Apellidos: "
-						id="lblApellidosEstudiante" />
+					<label id="lblApellidosEstudiante" value="Apellidos: " />
 					<textbox id="txtApellidosEstudiante" cols="23"
 						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
 					</textbox>
@@ -67,7 +65,7 @@
 	<groupbox id="grbDatosApelacion">
 	   <caption label="Datos de la apelación" />
 	   	<div align="left">
-			<label id="lblnrocaso" value="Nro del Caso: " />
+			<label id="lblnrocaso" value="Número del Caso: " />
 			<textbox id="txtnrocaso" cols="10" maxlength="30"
 				value="@bind(vm.caso)" readonly="true">
 			</textbox>
@@ -141,7 +139,7 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" mold="trendy"
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosI)">
+			onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosI)">
 			<attribute name="onClick">
 				Set items = lbxRecaudos.getSelectedItems();
 			</attribute>
@@ -149,12 +147,12 @@
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
 		<button label="Limpiar" id="btnCancelar" mold="trendy"
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-			orient="horizontal" 	onClick="@command('limpiar')">
+			onClick="@command('limpiar')">
 		</button>
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="winVerificiarRecaudosI.onClose()">
+			onClick="winVerificiarRecaudosI.onClose()">
 		</button>
 	</div>
 	</window>

@@ -67,7 +67,7 @@
 	
 
 		<groupbox id="grbDatosRecaudo">
-		<caption label="Datos de la Apelacion" />
+		<caption label="Datos de la Apelación" />
 		<grid>
 			<rows>
 				<row>
