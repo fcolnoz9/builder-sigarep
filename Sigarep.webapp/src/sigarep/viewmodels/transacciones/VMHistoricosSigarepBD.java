@@ -53,7 +53,7 @@ public class VMHistoricosSigarepBD {
 	private boolean checkTodos;
 	@WireVariable
 	private LapsoAcademico lapso;
-	MensajesAlUsuario msjs = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 	
 	@WireVariable
 	private Date fecha;
@@ -199,17 +199,17 @@ public class VMHistoricosSigarepBD {
 							String ln = System.getProperty("line.separator");
 							writer.write(listaElementosAInsertar.get(j) + ln);
 						}
-						msjs.informacionOperacionExitosa();
-						msjs.informacionCreacionHistorico(nombreHistorico);
+						mensajeAlUsuario.informacionOperacionExitosa();
+						mensajeAlUsuario.informacionCreacionHistorico(nombreHistorico);
 						writer.close();
 					} 
 					catch (Exception e) {
 						System.err.println(e);
 					}
 				}
-				else msjs.ErrorNoHayResgistrosParaRespaldo();
+				else mensajeAlUsuario.ErrorNoHayResgistrosParaRespaldo();
 			}
-			else msjs.advertenciaSeleccionarOpcion();
-		} else msjs.advertenciaSeleccionarLapso();
+			else mensajeAlUsuario.advertenciaSeleccionarOpcion();
+		} else mensajeAlUsuario.advertenciaSeleccionarLapso();
 	}
 }
