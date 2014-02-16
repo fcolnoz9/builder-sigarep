@@ -1,6 +1,6 @@
 <zk>
 	<window id="winAnalizarValidezII"  
-		title="Gestión :: Reconsideraciones :: Evaluar Reconsideración :: Analizar Validez" border="normal"
+		title="Gestión :: Recurso de Reconsideración :: Evaluar Recurso de Reconsideración :: Analizar Validez" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer" closable="true" 
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMAnalizarValidezII')">
@@ -67,7 +67,7 @@
 	
 
 		<groupbox id="grbDatosRecaudo">
-		<caption label="Datos de la Apelacion" />
+		<caption label="Datos de la Apelación" />
 		<grid>
 			<rows>
 				<row>

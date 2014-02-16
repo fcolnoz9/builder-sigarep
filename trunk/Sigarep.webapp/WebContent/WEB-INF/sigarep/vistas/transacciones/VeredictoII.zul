@@ -1,4 +1,4 @@
-<window title="Gestión :: Apelaciones :: Veredicto de Reconsideración"  id="winVeredictoII" border="normal"
+<window title="Gestión :: Recurso de Reconsideración :: Evaluar Recurso de Reconsideración :: Veredicto "  id="winVeredictoII" border="normal"
 	width="auto" height="auto"  style="overflow:auto" closable="true" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVeredictoII')">
 	<style src="/widgets/grid/simple/style.css" />
@@ -8,7 +8,7 @@
 			<rows>
 				<row>
 					<label id="lblNumerosesion"
-						value="Numero de Sesión: " />
+						value="Número de Sesión: " />
 					<textbox id="txtNumeroSesion" cols="23" mold="rounded" 
 						maxlength="30" readonly="true" value="@bind(vm.numeroSesion)">
 					</textbox>
@@ -84,13 +84,13 @@
 		</grid>
 	</groupbox>
 		<groupbox id="grbDatosRecaudo">
-		<caption label="Datos de la Apelacion" />
+		<caption label="Datos de la Apelación" />
 		<grid>
 			<rows>
 				<row>
-					<label value="Número de Caso:" id="lblNumeroCaso" />
+					<label  id="lblNumeroCaso" value="Número de Caso:"/>
 					<textbox id="txtNumeroCaso" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.caso)"></textbox>
-					<label value="Fecha de Apelacion:" id="lblFechaApelacion" />
+					<label id="lblFechaApelacion" value="Fecha de Apelación:" />
 					<textbox id="txtFechaApelacion" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.fechaApelacion)"></textbox>
 				</row>
 			</rows>
@@ -132,7 +132,7 @@
 				     </radiogroup>
 				     
 				     <hlayout valign="center">
-						<label value="Observación General: " id="lblObservacion"  />
+						<label id="lblObservacion" value="Observación General: "   />
 						<separator></separator>
 						<textbox id="txtObservacion" mold="rounded"  cols="100" value="@bind(vm.observacionGeneral)" rows="2"></textbox>
 					</hlayout>
@@ -143,14 +143,14 @@
 		
 		<div align="right" height="100%">
 			<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				 orient="horizontal" onClick="@command('registrarVeredicto',window=winVeredictoII)">
+				 onClick="@command('registrarVeredicto',window=winVeredictoII)">
 			</button>
 			<button label="Limpiar" id="btnCancelar" mold="trendy"
 				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-				orient="horizontal" 	onClick="@command('limpiar')">
+				onClick="@command('limpiar')">
 			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" 
-				 orient="horizontal" onClick="winVeredictoII.onClose()">
+				 onClick="winVeredictoII.onClose()">
 			</button>
 		</div>  
 	</groupbox>
