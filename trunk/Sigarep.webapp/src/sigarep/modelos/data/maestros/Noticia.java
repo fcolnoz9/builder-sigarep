@@ -43,8 +43,6 @@ public class Noticia implements Serializable {
 	// Atributos de la clase
 	@Id
 	// Clave principal de la clase
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	// Genera el ID de la Noticia
 	@Column(name="id_noticia", unique=true, nullable=false)
 	private Integer idNoticia;
 	

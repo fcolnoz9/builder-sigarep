@@ -47,8 +47,6 @@ public class Recaudo implements Serializable {
 	// Atributos de la clase
 	@Id
 	// Clave principal de la clase
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	// Genera el ID del Recaudo
 	@Column(name="id_recaudo", unique=true, nullable=false)
 	private Integer idRecaudo;
 
