@@ -78,7 +78,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	private Date vencimiento; // fecha de vencimiento de la Noticia
 	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
 	private Noticia noticiaSeleccionada;
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
 	Window win=null;
 	int idcount=0;
 
@@ -181,11 +181,11 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	// cambiar, en este caso es idNoticia, contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento
 	public void guardarNoticia(){
 		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia=="" || titulo=="" || contenido==""|| enlaceNoticia=="")
-			mensajesAlUsuario.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else{
 			Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, fotoNoticia,titulo, vencimiento);
 			servicionoticia.guardar(noticia);
-			mensajesAlUsuario.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
@@ -239,11 +239,11 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void eliminarNoticia(){
 		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null)
-			mensajesAlUsuario.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else{
 			servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
 			limpiar();
-			mensajesAlUsuario.informacionEliminarCorrecto();
+			mensajeAlUsuario.informacionEliminarCorrecto();
 		}
 	}
 	/** Muestra una Noticia Seleccionada
@@ -380,7 +380,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	public void validarFecha() {
 		if (fechaRegistro != null && vencimiento != null) {
 			if (fechaRegistro.compareTo(vencimiento) > 0) {
-				mensajesAlUsuario.ErrorRangoFechas();
+				mensajeAlUsuario.ErrorRangoFechas();
 				vencimiento = null;
 			}
 		}

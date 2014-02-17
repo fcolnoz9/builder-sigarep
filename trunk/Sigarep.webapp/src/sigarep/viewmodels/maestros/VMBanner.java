@@ -45,7 +45,7 @@ public class VMBanner {
 	private Archivo fotoBanner = new Archivo();
 	private Media media;
 	private AImage imagenBanner;
-	MensajesAlUsuario mensajeBanner= new MensajesAlUsuario();
+	MensajesAlUsuario mensajeAlUsuario= new MensajesAlUsuario();
 	private int indiceBanner = 0;
 	private AImage contenidoBanner;
 	private Archivo fotoBannerPortal = new Archivo();
@@ -199,13 +199,13 @@ public class VMBanner {
 		@NotifyChange({"descripcion","enlace","fechaVencimiento","titulo","estatus","imagenBanner","listadoBanner"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 		public void guardarBanner(){
 			if (descripcion.equals("")||enlace.equals("")||titulo.equals(""))
-				mensajeBanner.advertenciaLlenarCampos();
+				mensajeAlUsuario.advertenciaLlenarCampos();
 			else if (fotoBanner.getTamano() < 1)
-				mensajeBanner.advertenciaCargarImagen();
+				mensajeAlUsuario.advertenciaCargarImagen();
 			else{
 					Banner ban = new Banner (idImagen,descripcion,enlace,fechaVencimiento,titulo,fotoBanner,true);
 					servicioBanner.guardarBanner(ban);
-					mensajeBanner.informacionRegistroCorrecto();
+					mensajeAlUsuario.informacionRegistroCorrecto();
 					limpiarBanner();
 			}
 		}
@@ -221,11 +221,11 @@ public class VMBanner {
 		@NotifyChange({"listadoBanner","descripcion","fechaVencimiento","enlace","titulo","imagenBanner"})
 		public void eliminarImagenBanner(){
 			if(titulo==null || enlace==null || descripcion==null || fechaVencimiento==null || fotoBanner==null)
-				mensajeBanner.advertenciaSeleccionarParaEliminar();
+				mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 			else{
 				servicioBanner.eliminarBanner(idImagen);
 				limpiarBanner();
-				mensajeBanner.informacionEliminarCorrecto();
+				mensajeAlUsuario.informacionEliminarCorrecto();
 			}
 		}
 		
@@ -314,7 +314,7 @@ public class VMBanner {
 				}
 			} 
 			else
-				mensajeBanner.advertenciaCargarImagen();//Messagebox.show("Debe introducir una imagen", "Error", Messagebox.OK, Messagebox.ERROR);
+				mensajeAlUsuario.advertenciaCargarImagen();//Messagebox.show("Debe introducir una imagen", "Error", Messagebox.OK, Messagebox.ERROR);
 		}
 		
 		/** Cambiar Imagen en el Portal (Carrusel).

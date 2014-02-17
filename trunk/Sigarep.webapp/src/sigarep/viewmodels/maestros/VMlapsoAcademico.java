@@ -35,8 +35,8 @@ public class VMlapsoAcademico {
 	private Boolean estatus;// estatus del codigolapso
 	private List<LapsoAcademico> listaLapsoAcademico;// lista de los lapso academicos registrados
 	private LapsoAcademico lapsoAcademicoseleccionado;
-	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
+	
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@Wire
 	Textbox txtcodigoLapso;
 	@Wire
@@ -146,7 +146,7 @@ public class VMlapsoAcademico {
 	public void validarFecha() {
 		if (fechaInicio != null && fechaCierre != null) {
 			if (fechaInicio.compareTo(fechaCierre) > 0) {
-				mensajesAlUsuario.ErrorRangoFechas();
+				mensajeAlUsuario.ErrorRangoFechas();
 				fechaCierre = null;
 			}
 		}
