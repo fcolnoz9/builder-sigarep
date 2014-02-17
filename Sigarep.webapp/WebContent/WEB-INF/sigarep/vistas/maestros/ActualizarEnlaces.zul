@@ -78,7 +78,7 @@
 				onClick="@command('limpiar')" />
 			<button label="Cerrar" id="btnCerrarEnlace" mold="trendy"
 				width="auto" height="auto" image="imagenes/iconos/cerrar.png"
-				onClick="winEnlaceinteres.onClose()" />
+				onClick="@command('cerrarVentana')" />
 		</div>
 
 		<!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->
