@@ -9,13 +9,13 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.data.maestros.MenuItem;
-import sigarep.modelos.servicio.maestros.ServicioEnlaceIntere;
+import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMenlace {
 
 	@WireVariable
-	ServicioEnlaceIntere servicioei;
+	ServicioEnlaceInteres servicioenlacesinteres;
 	public List<EnlaceInteres> listaEnlace;
 	private AImage imag;
 	private List<MenuItem> menuItems;
@@ -42,7 +42,7 @@ public class VMenlace {
 	}
 
 	public void Enlaces() {
-		listaEnlace = servicioei.listadoEnlaceIntere();
+		listaEnlace = servicioenlacesinteres.listadoEnlaceInteres();
 		menuItems = new ArrayList<MenuItem>();
 		MenuItem m1_Lv1 = new MenuItem("", null, "", 1);
 		// menuItems.add(m1_Lv1);
