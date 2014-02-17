@@ -1,5 +1,5 @@
 <window id="winNoticiaPortal" border="none" contentStyle="overflow:auto"
-	apply="org.zkoss.bind.BindComposer" hflex="1" vflex="1"
+	apply="org.zkoss.bind.BindComposer" hflex="1" vflex="1" tooltiptext="Noticias"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
 	<div apply="sigarep.viewmodels.maestros.VMnoticia" hflex="1"
 		vflex="1">
@@ -10,7 +10,7 @@
 		<listbox id="lbxNoticias" model="@bind(vm.listaNoticia)"
 			selectedItem="@bind(vm.noticiaSeleccionada)"
 			onSelect="@command('mostrarSeleccionado2')"
-			emptyMessage="No hay noticias disponibles" mold="paging">
+			emptyMessage="No hay noticias disponibles" mold="paging" tooltiptext="Noticias">
 			<auxhead sclass="category-center">
 				<auxheader colspan="1" align="center"></auxheader>
 			</auxhead>
