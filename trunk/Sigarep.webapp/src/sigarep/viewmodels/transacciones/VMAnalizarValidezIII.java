@@ -343,7 +343,7 @@ public class VMAnalizarValidezIII {
 		SolicitudApelacionPK solicitudApelacionPK2 = new SolicitudApelacionPK();
 		solicitudApelacionPK2.setCedulaEstudiante(cedula);
 		solicitudApelacionPK2.setCodigoLapso(lapso);
-		solicitudApelacionPK2.setIdInstanciaApelada(1);
+		solicitudApelacionPK2.setIdInstanciaApelada(3);
 		Date fechaSA = serviciosolicitudapelacion.buscarSolicitudPorID(
 				solicitudApelacionPK2).getFechaSolicitud();
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
