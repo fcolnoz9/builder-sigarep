@@ -88,6 +88,7 @@
 		<field name="apelaciones" class="java.lang.Integer"/>
 		<field name="motivo" class="java.lang.String"/>
 		<field name="total" class="java.lang.Integer"/>
+		<field name="sancionados" class="java.lang.Integer"/>
 	</subDataset>
 	<parameter name="ImagenSuperior" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -121,6 +122,7 @@
 	<field name="apelaciones" class="java.lang.Integer"/>
 	<field name="motivo" class="java.lang.String"/>
 	<field name="total" class="java.lang.Integer"/>
+	<field name="sancionados" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -208,7 +210,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<componentElement>
 				<reportElement uuid="ce392ef2-9896-4dd3-938f-86c453091cea" key="table 3" style="table 3" x="135" y="136" width="270" height="50"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Tabla" uuid="3bdcb987-3929-4bc1-b41e-368b5f31348c">
+					<datasetRun subDataset="Tabla" uuid="7b1028c8-0687-4c8a-a081-dc2223caba57">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="90" uuid="bf83a609-fcbe-4f84-902f-89338a606462">
@@ -311,13 +313,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<seriesExpression><![CDATA["Apelaciones Totales"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
 						<valueExpression><![CDATA[($F{apelaciones}.doubleValue()*100)/$F{total}]]></valueExpression>
-						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{apelaciones}.doubleValue()*100)/$F{total})+ "%"]]></labelExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{apelaciones}.doubleValue()*100)/$F{total})+ "%"]]></labelExpression>
 					</categorySeries>
 					<categorySeries>
 						<seriesExpression><![CDATA["Procedentes"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
 						<valueExpression><![CDATA[($F{procedentes}.doubleValue()*100)/$F{total}]]></valueExpression>
-						<labelExpression><![CDATA[new java.text.DecimalFormat("0.00").format(($F{procedentes}.doubleValue()*100)/$F{total})+ "%"]]></labelExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{procedentes}.doubleValue()*100)/$F{total})+ "%"]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
 				<bar3DPlot isShowLabels="true">
