@@ -13,7 +13,12 @@ public class ServicioActividad {
 	IActividadDAO iActividad;
 
 	public void guardar(Actividad actividad) {
-		iActividad.save(actividad);
+		if (actividad.getIdActividad() != null)
+			iActividad.save(actividad);
+		else{
+			actividad.setIdActividad(iActividad.buscarUltimoID()+1);
+			iActividad.save(actividad);
+		}
 	}
 
 	public void eliminar(Integer id_actividad) {
