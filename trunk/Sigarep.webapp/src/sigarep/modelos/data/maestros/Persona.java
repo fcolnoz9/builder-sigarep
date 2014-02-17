@@ -32,7 +32,7 @@ public class Persona implements Serializable {
 	private String telefono;
 
 	//bi-directional many-to-one association to InstanciaMiembro
-	@OneToMany(mappedBy="persona")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy="persona")
 	private List<InstanciaMiembro> instanciaMiembros;
 
 	//bi-directional many-to-one association to Usuario
