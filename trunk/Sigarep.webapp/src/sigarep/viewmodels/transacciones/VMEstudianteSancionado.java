@@ -498,7 +498,6 @@ public class VMEstudianteSancionado {
 	@NotifyChange({ "listaAsignaturas", "listaAsignaturaListBox", "asignaturaseleccionado","listaAsignaturas"})
 	public void agregarAsignatura(@BindingParam("comboitem") Combobox comboItem ,
 			@BindingParam("listBoxAsignaturas") Listbox listBoxAsignaturas) {
-
 		AsignaturaEstudianteSancionado asignaturaLista = new AsignaturaEstudianteSancionado();
 		asignaturaLista.setAsignatura(asignaturaseleccionado);
 		listaAsignaturas.remove(comboItem.getSelectedItem().getIndex());
@@ -830,11 +829,15 @@ public class VMEstudianteSancionado {
 		nombreFiltro= "";
 		apellidoFiltro= "";
 		sancionFiltro= "";
-		groupBoxAsignaturas.setVisible(false);
 		textboxlapsoConsecutivo1.setVisible(false);
 		textboxlapsoConsecutivo2.setVisible(false);
 		lbllapsoConsecutivo.setVisible(false);
+		groupBoxAsignaturas.setVisible(false);
 	}
+	
+	 
+	
+	 
 	 
 	 
 	 
