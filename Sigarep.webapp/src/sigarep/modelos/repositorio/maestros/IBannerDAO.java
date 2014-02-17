@@ -10,4 +10,7 @@ import sigarep.modelos.data.maestros.Banner;
 public interface IBannerDAO extends JpaRepository<Banner, Integer> {
 	@Query("select  bn from Banner bn where bn.estatus='true'")
 	public List<Banner> listaBanner();
+	
+	@Query("SELECT COALESCE(MAX(b.idImagen),0) FROM Banner AS b")
+	public int buscarUltimoID();
 }

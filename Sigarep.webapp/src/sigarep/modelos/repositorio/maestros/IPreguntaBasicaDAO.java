@@ -15,4 +15,7 @@ public interface IPreguntaBasicaDAO extends
 // Metodo que busca las preguntas basicas cuando su estatus es true 
 	@Query("select pr from PreguntaBasica pr where pr.estatus='true'")
 	public List<PreguntaBasica> buscarPreguntab();
+	
+	@Query("SELECT COALESCE(MAX(pb.idPreguntaBasica),0) FROM PreguntaBasica AS pb")
+	public int buscarUltimoID();
 }

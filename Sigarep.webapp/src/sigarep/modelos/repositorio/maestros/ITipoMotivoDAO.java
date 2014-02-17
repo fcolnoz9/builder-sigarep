@@ -17,4 +17,6 @@ public interface ITipoMotivoDAO extends JpaRepository<TipoMotivo, Integer> {
 	@Query("SELECT tipo from TipoMotivo AS tipo WHERE tipo.protegido = 'FAlSE'")
 	public List<TipoMotivo> buscarTodas();
 	
+	@Query("SELECT COALESCE(MAX(tp.idTipoMotivo),0) FROM TipoMotivo AS tp")
+	public int buscarUltimoID();
 }

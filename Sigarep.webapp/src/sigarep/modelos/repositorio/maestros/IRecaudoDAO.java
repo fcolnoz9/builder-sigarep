@@ -23,6 +23,9 @@ import sigarep.modelos.data.maestros.Recaudo;
 
 public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 
+	@Query("SELECT COALESCE(MAX(r.idRecaudo),0) FROM Recaudo AS r")
+	public int buscarUltimoID();
+	
 	@Query("Select rec FROM Recaudo AS rec WHERE rec.tipoMotivo.idTipoMotivo = :tipoMotivo")
 	public List<Recaudo> buscarRecaudosPorMotivo(@Param("tipoMotivo") Integer tipoMotivo);
 	

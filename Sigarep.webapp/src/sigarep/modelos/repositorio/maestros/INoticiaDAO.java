@@ -18,4 +18,6 @@ public interface INoticiaDAO extends JpaRepository<Noticia, Integer> {
 	@Query("select n from Noticia n where n.estatus = true")
 	public List<Noticia> busar();
 
+	@Query("SELECT COALESCE(MAX(n.idNoticia),0) FROM Noticia AS n")
+	public int buscarUltimoID();
 }
