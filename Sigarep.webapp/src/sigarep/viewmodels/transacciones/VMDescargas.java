@@ -36,7 +36,7 @@ public class VMDescargas {
 		if(win!=null){
 			win.detach();
 		}
-		win = (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/descargarArchivo.zul",null, map);
+		win = (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/DescargarArchivo.zul",null, map);
 		win.setMaximizable(true);
 		win.doModal();
 	}
@@ -58,7 +58,7 @@ public class VMDescargas {
 		if(win!=null){
 			win.detach();
 		}
-		win = (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/descargarArchivo.zul",null, map);
+		win = (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/DescargarArchivo.zul",null, map);
 		win.setMaximizable(true);
 		win.doModal();
 	}
