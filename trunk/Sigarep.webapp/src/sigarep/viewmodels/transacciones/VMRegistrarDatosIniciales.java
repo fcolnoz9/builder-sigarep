@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
@@ -423,7 +424,6 @@ public class VMRegistrarDatosIniciales {
 		this.idEstado = idEstado;
 		this.idMotivoGeneral = idMotivoGeneral;
 
-		System.out.println("--------------" + instancia + idEstado);
 
 		cedula = estudianteSeleccionado.getId().getCedulaEstudiante();
 		sancion = estudianteSeleccionado.getSancionMaestro().getNombreSancion();
@@ -548,22 +548,34 @@ public class VMRegistrarDatosIniciales {
 	}
 	@Command
 	@NotifyChange({ "listaMotivo", "listaMotivoListBox", "motivoseleccionado",
-			"descripcion" })
+			"descripcion", "listaTipoMotivo" })
 	public void agregarMotivo(
-			@BindingParam("listBoxMotivo") Listbox listBoxMotivo) {
+			@BindingParam("listBoxMotivo") Listbox listBoxMotivo, @BindingParam("comboitem") Combobox comboItem) {
 
-		Motivo motivoLista = new Motivo();
-		motivoLista.setDescripcion(descripcion);
-		motivoLista.setTipoMotivo(motivoseleccionado);
-		listaMotivoListBox.add(motivoLista);
+			
+		if (motivoseleccionado == null || descripcion == null ||
+				motivoseleccionado.equals("") || descripcion.equals("")){
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		}
+		else {
+			
+			Motivo motivoLista = new Motivo();
+			motivoLista.setDescripcion(descripcion);
+			motivoLista.setTipoMotivo(motivoseleccionado);
+			listaTipoMotivo.remove(comboItem.getSelectedItem().getIndex());
+			comboItem.setValue("");
+			listaMotivoListBox.add(motivoLista);
+			descripcion= ""; 
+		}
 	}
-
 	@Command
-	@NotifyChange({ "descripcion", "motivoseleccionado", "listaMotivoListBox" })
+	@NotifyChange({ "descripcion", "motivoseleccionado", "listaMotivoListBox", "listaTipoMotivo" })
 	public void cancelar() {
 		descripcion = "";
 		motivoseleccionado = null;
 		listaMotivoListBox.clear();
+		buscarMotivos();
+		
 	}
 
 	public EstudianteSancionado getEstudianteSeleccionado() {

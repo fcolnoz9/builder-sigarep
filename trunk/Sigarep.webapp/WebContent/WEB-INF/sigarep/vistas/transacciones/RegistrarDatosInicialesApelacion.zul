@@ -112,7 +112,7 @@
 					<row>
 						<label id="lblMotivo" value="Motivo: " />
 						<combobox id="cmbMotivo" mold="rounded"
-							model="@bind(vm.listaTipoMotivo)" tabindex="8" width="80%"
+							model="@load(vm.listaTipoMotivo)" tabindex="8" width="80%"
 							selectedItem="@bind(vm.motivoseleccionado)">
 							<template name="model">
 								<comboitem
@@ -128,7 +128,7 @@
 						<button id="btnAgregar" label="Agregar"
 							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
 							height="auto" orient="horizontal"
-							onClick="@command('agregarMotivo',listBoxMotivo=lbxMotivos)">
+							onClick="@command('agregarMotivo',comboitem=cmbMotivo,listBoxMotivo=lbxMotivos)">
 						</button>
 					</row>
 				</rows>
