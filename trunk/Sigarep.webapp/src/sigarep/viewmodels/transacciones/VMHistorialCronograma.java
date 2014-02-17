@@ -62,7 +62,7 @@ public class VMHistorialCronograma {
 	private InstanciaApelada  responsable = new InstanciaApelada();
 	private List<Cronograma> listaCronogramas = new LinkedList<Cronograma>();//Lista de Cronogramas
 	private List<LapsoAcademico> listaLapsoAcademico;//Lista de Lapso Academico
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
 
 	// Metodos GETS Y SETS
 	public String getLugarf() {

@@ -65,7 +65,7 @@ public class VMVeredictoII {
 	private Date fechaSesion;
 	
 	private SolicitudApelacion solicitudApelacion;
-	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 
 	@WireVariable
@@ -320,7 +320,7 @@ public class VMVeredictoII {
 	@Command
 	public void registrarVeredicto(@BindingParam("window") Window winVeredictoII){
 		if (veredicto == null){
-			mensajesAlUsuario.advertenciaGuardarVeredicto();
+			mensajeAlUsuario.advertenciaGuardarVeredicto();
 			
 		}else{
 		
@@ -340,7 +340,7 @@ public class VMVeredictoII {
 		apelacionEstado.setObservacion(observacionGeneral);
 		solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
 		serviciosolicitudapelacion.guardar(solicitudApelacion);
-		mensajesAlUsuario.informacionVeredictoRegistrado();
+		mensajeAlUsuario.informacionVeredictoRegistrado();
 		winVeredictoII.detach();
 	}
 }

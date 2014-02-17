@@ -37,7 +37,7 @@ public class VMHistoricoEstudiante {
 	private Integer periodoSancion;
 	private String numeroCaso;
 	private String fecha;
-	private MensajesAlUsuario msj = new MensajesAlUsuario();
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private EstudianteSancionado estudianteSan;
 	private SolicitudApelacion solicitudEst;
 	private Boolean boton1;
@@ -216,7 +216,7 @@ public class VMHistoricoEstudiante {
 		this.cedulaEstudiante = cedula;
 
 		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
-			msj.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 		else {
 			lapsoAcademico = serviciolapsoacademico.encontrarLapsoActivo()
 					.getCodigoLapso();

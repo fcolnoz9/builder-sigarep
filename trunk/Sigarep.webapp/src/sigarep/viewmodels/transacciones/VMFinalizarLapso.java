@@ -28,12 +28,12 @@ public class VMFinalizarLapso {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	
 	private LapsoAcademico lapsoAcademico;
-	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	@Init
     public void init(){
 		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
-			mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 		else
 			lapsoAcademico = serviciolapsoacademico.encontrarLapsoActivo();
 		
@@ -42,7 +42,7 @@ public class VMFinalizarLapso {
 	@Command
 	public void finalizarLapso(){
 		if (lapsoAcademico == null)
-			mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 		else{	
 			long apelacionesSinVeredicto = 0;
 			long apelacionesSinSesion = 0;
@@ -52,15 +52,15 @@ public class VMFinalizarLapso {
 			apelacionesSinVeredicto = serviciosolicitudapelacion.contarApelacionesSinVeredicto();
 			apelacionesSinSesion = serviciosolicitudapelacion.contarApelacionesSinSesion();
 			if (apelacionesSinVeredicto > 0)
-				mensajesAlUsuario.ErrorFinalizarLapsoVeredicto();
+				mensajeAlUsuario.ErrorFinalizarLapsoVeredicto();
 			else if (apelacionesSinSesion > 0)
-				mensajesAlUsuario.ErrorFinalizarLapsoSesion();
+				mensajeAlUsuario.ErrorFinalizarLapsoSesion();
 			else if (fechaActual.compareTo(ultimaFechaCronograma) < 0)
-				mensajesAlUsuario.ErrorFinalizarLapsoCronograma();
+				mensajeAlUsuario.ErrorFinalizarLapsoCronograma();
 			else{
 				lapsoAcademico.setEstatus(false);
 				serviciolapsoacademico.guardarLapso(lapsoAcademico);
-				mensajesAlUsuario.informacionFinalizarLapsoExitoso();
+				mensajeAlUsuario.informacionFinalizarLapsoExitoso();
 			}
 		}
 	}

@@ -84,7 +84,7 @@ public class VMRegistrarRecursoJerarquico {
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
 	
-	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	private EstudianteSancionado estudianteSeleccionado;
 
@@ -283,7 +283,7 @@ public class VMRegistrarRecursoJerarquico {
 			Time hora = new Time(0);
 
 			if (observacion==" " || observacion ==null) {
-				mensajesusuario.advertenciaLlenarCampos();
+				mensajeAlUsuario.advertenciaLlenarCampos();
 
 			} else {
 				solicitudApelacionPK.setCedulaEstudiante(cedula);
@@ -315,7 +315,7 @@ public class VMRegistrarRecursoJerarquico {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 			serviciomotivo.guardarMotivo(motivos);
-			mensajesusuario.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

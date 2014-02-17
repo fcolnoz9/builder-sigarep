@@ -97,7 +97,7 @@ public class VMRegistrarReconsideracion {
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	
 	// Para llamar a los diferentes mensajes de dialogo
-	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario();
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
@@ -292,7 +292,7 @@ public class VMRegistrarReconsideracion {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 			serviciomotivo.guardarMotivo(motivos);
-			mensajesusuario.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			winRegistrarReconsideracion.detach();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
