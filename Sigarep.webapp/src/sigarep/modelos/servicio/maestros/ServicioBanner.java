@@ -23,8 +23,12 @@ public class ServicioBanner {
 	 */
 	
 	public void guardarBanner(Banner ba) {
-		
-	    banner.save(ba);
+		if (ba.getIdImagen() != null)
+			banner.save(ba);
+		else{
+			ba.setIdImagen(banner.buscarUltimoID()+1);
+			banner.save(ba);
+		}
 	}
 	
 	

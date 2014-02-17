@@ -26,7 +26,12 @@ public class ServicioNoticia {
 	 * @throws No dispara ninguna excepcion.
 	 */
 	public void guardar(Noticia noticia) {
-		iNoticia.save(noticia);
+		if (noticia.getIdNoticia() != null)
+			iNoticia.save(noticia);
+		else{
+			noticia.setIdNoticia(iNoticia.buscarUltimoID()+1);
+			iNoticia.save(noticia);
+		}
 	}
 	
 	/** Eliminar Noticia
@@ -85,24 +90,24 @@ public class ServicioNoticia {
 	 * @parameters noticias
 	 * @return result que es un listadoNoticia.
 	 */
-	public List<Noticia> buscarNoticias(NoticiaFiltro noticias){
-		List<Noticia> result = new ArrayList<Noticia>();
-		String titulo = noticias.getTitulo().toLowerCase();
-		String contenido = noticias.getContenido().toLowerCase();
-		if(titulo==null || contenido==null){
-			result= listadoNoticia();
-		}
-		else{
-			for (Noticia n: listadoNoticia())
-			{
-				if (n.getTitulo().toLowerCase().contains(titulo)&&
-						n.getContenido().toLowerCase().contains(contenido)){
-					result.add(n);
-				}
-			}
-		}
-		return result;
-	} 
+//	public List<Noticia> buscarNoticias(NoticiaFiltro noticias){
+//		List<Noticia> result = new ArrayList<Noticia>();
+//		String titulo = noticias.getTitulo().toLowerCase();
+//		String contenido = noticias.getContenido().toLowerCase();
+//		if(titulo==null || contenido==null){
+//			result= listadoNoticia();
+//		}
+//		else{
+//			for (Noticia n: listadoNoticia())
+//			{
+//				if (n.getTitulo().toLowerCase().contains(titulo)&&
+//						n.getContenido().toLowerCase().contains(contenido)){
+//					result.add(n);
+//				}
+//			}
+//		}
+//		return result;
+//	} 
 
 	/** filtrarApelacionesCargarRecaudo
 	 * @parameters titulof

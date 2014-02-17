@@ -16,7 +16,12 @@ public class ServicioTipoMotivo {
 	
 	//metodo que permite Guardar
 	public void guardarTipoMotivo(TipoMotivo tipo){
-		tipomotivo.save(tipo);
+		if (tipo.getIdTipoMotivo() != null)
+			tipomotivo.save(tipo);
+		else{
+			tipo.setIdTipoMotivo(tipomotivo.buscarUltimoID()+1);
+			tipomotivo.save(tipo);
+		}
 	}
 	
 	public TipoMotivo buscarTipoMotivoPorCodigo(Integer codigoTipoMotivo){

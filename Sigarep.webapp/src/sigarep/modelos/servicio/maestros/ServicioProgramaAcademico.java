@@ -16,7 +16,12 @@ public class ServicioProgramaAcademico {
 	IProgramaAcademicoDAO pro;
 
 	public void guardarPrograma(ProgramaAcademico proa) {
-		pro.save(proa);
+		if (proa.getIdPrograma() != null)
+			pro.save(proa);
+		else{
+			proa.setIdPrograma(pro.buscarUltimoID()+1);
+			pro.save(proa);
+		}
 	}
 
 	public void actualizar(ProgramaAcademico proa) {

@@ -24,7 +24,12 @@ public class ServicioEstadoApelacion {
 	   */
 
 	public void guardarEstadoApelacion(EstadoApelacion estadoApelacion) {
-		ea.save(estadoApelacion);
+		if (estadoApelacion.getIdEstadoApelacion() != null)
+			ea.save(estadoApelacion);
+		else{
+			estadoApelacion.setIdEstadoApelacion(ea.buscarUltimoID()+1);
+			ea.save(estadoApelacion);
+		}
 	}
 	
 	/** Lista de Estados de Apelación 

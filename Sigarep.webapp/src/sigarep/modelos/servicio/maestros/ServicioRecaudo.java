@@ -30,7 +30,12 @@ public class ServicioRecaudo {
 	
 	//metodo que permite Guardar
 	public void guardarRecaudo(Recaudo recaudo){
-		iRecaudoDAO.save(recaudo);
+		if (recaudo.getIdRecaudo() != null)
+			iRecaudoDAO.save(recaudo);
+		else{
+			recaudo.setIdRecaudo(iRecaudoDAO.buscarUltimoID()+1);
+			iRecaudoDAO.save(recaudo);
+		}
 	}
 	
 	//metodo que permite eliminar

@@ -30,7 +30,12 @@ public class ServicioEnlaceInteres {
 	 *             dispara ninguna excepcion.
 	 */
 	public void guardarEnlace(EnlaceInteres enlace) {
-		enlaceinteres.save(enlace);
+		if (enlace.getIdEnlace() != null)
+			enlaceinteres.save(enlace);
+		else{
+			enlace.setIdEnlace(enlaceinteres.buscarUltimoID() + 1);
+			enlaceinteres.save(enlace);
+		}
 	}
 
 	/**

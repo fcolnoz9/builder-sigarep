@@ -20,8 +20,13 @@ public class ServicioInstanciaApelada{
 	 * @parameters el objeto InstanciaApelada
 	 * @throws No dispara ninguna excepcion.
 	   */
-	public void guardar(InstanciaApelada pro) {
-		iInstancia.save(pro);
+	public void guardar(InstanciaApelada instancia) {
+		if (instancia.getIdInstanciaApelada() != null)
+			iInstancia.save(instancia);
+		else{
+			instancia.setIdInstanciaApelada(iInstancia.buscarUltimoID()+1);
+			iInstancia.save(instancia);
+		}
 	}
 	
 	/** Eliminar Instancia apelada 

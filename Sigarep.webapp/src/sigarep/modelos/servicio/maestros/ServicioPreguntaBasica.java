@@ -27,8 +27,12 @@ public class ServicioPreguntaBasica{
 	 * @return No devuelve ningun valor.
 	 */
 	public void guardarPregunta(PreguntaBasica preb) {
-		
-    pre.save(preb);
+		if (preb.getIdPreguntaBasica() != null)
+			pre.save(preb);
+		else{
+			preb.setIdPreguntaBasica(pre.buscarUltimoID()+1);
+			pre.save(preb);
+		}
 	}
 	
 	/** eliminar
