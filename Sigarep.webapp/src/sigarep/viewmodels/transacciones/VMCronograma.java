@@ -59,7 +59,7 @@ public class VMCronograma {
 	private Cronograma cronogramaSeleccionado;
 	CronogramaPK cronogramaPK = new CronogramaPK();
 	Cronograma cronograma = new Cronograma();
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
 
 	// Metodos GETS Y SETS
 	public String getLugarf() {
@@ -194,7 +194,7 @@ public class VMCronograma {
 		buscarResponsable();
 		lapsoActivo = serviciolapsoacademico.encontrarLapsoActivo();
 		if (serviciolapsoacademico.encontrarLapsoActivo() == null){
-			mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 
 		}
 		else
@@ -211,10 +211,10 @@ public class VMCronograma {
 	@NotifyChange({"fechaInicio", "fechaFin", "horaInicio", "lugar", "observacion", "responsable", "listaCronograma", "actividad"})
 	public void guardarCronograma() {
 		if (codigoLapso == null)
-			mensajesAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 		else{
 			if(fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals(""))
-				mensajesAlUsuario.advertenciaLlenarCampos();
+				mensajeAlUsuario.advertenciaLlenarCampos();
 			else {
 				cronogramaPK.setIdActividad(actividad.getIdActividad());
 				cronogramaPK.setCodigoLapso(codigoLapso);
@@ -226,7 +226,7 @@ public class VMCronograma {
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
-				mensajesAlUsuario.informacionRegistroCorrecto();
+				mensajeAlUsuario.informacionRegistroCorrecto();
 				buscarCronograma();
 				limpiar();
 			}
@@ -329,11 +329,11 @@ public class VMCronograma {
 	public void eliminar(){
 
 		if(fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals(""))
-			mensajesAlUsuario.advertenciaSeleccionarParaEliminar();
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		else {
 			serviciocronograma.eliminarCronograma(getCronogramaSeleccionado().getId());
 			limpiar();
-			mensajesAlUsuario.informacionEliminarCorrecto();
+			mensajeAlUsuario.informacionEliminarCorrecto();
 			buscarCronograma();
 		}
 
@@ -367,7 +367,7 @@ public class VMCronograma {
 	public void validarFecha(){
 		if (fechaInicio != null && fechaFin != null){
 			if (fechaInicio.compareTo(fechaFin) > 0){
-				mensajesAlUsuario.ErrorRangoFechas();
+				mensajeAlUsuario.ErrorRangoFechas();
 				fechaFin=null;
 			}
 		}

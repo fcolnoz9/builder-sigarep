@@ -38,7 +38,7 @@ public class VMDatosSesionVeredicto {
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	
-	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private String rutaModal;
 	
 	public VMDatosSesionVeredicto() {
@@ -92,7 +92,7 @@ public class VMDatosSesionVeredicto {
 			tipoSesion = solicitudApelacion.get(0).getTipoSesion();
 			numeroSesion = solicitudApelacion.get(0).getNumeroSesion();
 			titulo = "Puede continuar con la siguiente sesión o proporcionar los datos de una nueva.";
-			mensajesAlUsuario.informacionDatosDeSesionEncontrados();
+			mensajeAlUsuario.informacionDatosDeSesionEncontrados();
 		}else{
 			titulo = "Proporcione los datos de una nueva sesión.";
 		}
@@ -101,7 +101,7 @@ public class VMDatosSesionVeredicto {
 	@Command
 	public void guardarDatosSesion(){
 		if (fechaSesion == null || tipoSesion == null || numeroSesion == null)
-			mensajesAlUsuario.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else{
 			mostrarListaSancionados();
 		}

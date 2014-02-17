@@ -27,7 +27,7 @@ public class VMDescargas {
 	Window win=null;
 	@WireVariable
 	private ServicioReglamento servicioreglamento;
-	private MensajesAlUsuario msj = new MensajesAlUsuario();
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	@Command
 	public void modalReglamento() {
@@ -72,7 +72,7 @@ public class VMDescargas {
 					calendario.getDocumento().getTipoDocumento(), calendario
 							.getDocumento().getNombreDocumento());
 		} else {
-			msj.advertenciaCargarDocumento();
+			mensajeAlUsuario.advertenciaCargarDocumento();
 		}
 	}
 
