@@ -115,7 +115,7 @@
 		<caption id="lblDatosRecaudos" label="Recaudos Entregados" />
 		<listbox model="@bind(vm.listaRecaudos)"
 			emptyMessage="No hay Recaudos Registrados" mold="paging"
-			pageSize="5">
+			pageSize="10">
 			<listhead>
 				<listheader label="Motivos" width="35%" align="center"
 					sort="auto(nombreMotivo)" />
@@ -161,7 +161,6 @@
 					height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png"
 					orient="horizontal"
 					onClick="@command(winRegistrarRecursoJerarquico.onClose())" />
-				<!-- 					onClick="@command('abrir',before=winRegistrarReconsideracion.onClose())" -->
 			</div>
 		</hbox>
 	</div>
