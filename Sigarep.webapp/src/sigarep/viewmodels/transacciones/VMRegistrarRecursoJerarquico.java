@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -50,8 +52,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarRecursoJerarquico {
 
-	@Wire("#modalDialog")
-	private Window window;
+	@Wire("#winRegistrarRecursoJerarquico")
+	private Window win;
 
 	private String sancion;
 	private String lapso;
@@ -172,7 +174,7 @@ public class VMRegistrarRecursoJerarquico {
 	// OTROS METODOS
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1)
+			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1, @ContextParam(ContextType.BINDER) final Binder binder)
 
 	// initialization code
 
@@ -191,8 +193,10 @@ public class VMRegistrarRecursoJerarquico {
 		buscarSolicitud(cedula);	
 		if(listaSolicitud.size() > 0)
 			caso = listaSolicitud.get(0).getNumeroCaso();
-		else
+		else{
 			registrarApelacionConMotivos();
+			binder.postCommand("closeThis", null);
+		}
 			
 		media = null;
 		doc = new Documento();
@@ -264,7 +268,7 @@ public class VMRegistrarRecursoJerarquico {
 	 */
 	@Command
 	public void closeThis() {
-		window.detach();
+		win.detach();
 	}
 
 	/**
@@ -348,11 +352,6 @@ public class VMRegistrarRecursoJerarquico {
 		listaSolicitud = serviciosolicitudapelacion.buscarSolicitudEstudiante(cedula);	
 	}
 	
-	@Command
-	public void buscarCaso() {
-		//caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
-	}
-	
 	private void mostrarDatosDeSancion() {
 		if (sancion.equalsIgnoreCase("RR")) {
 			asignaturas = servicioasignaturaestudiantesancionado
@@ -379,5 +378,6 @@ public class VMRegistrarRecursoJerarquico {
 	public void cancelar() {
 		observacion = ""; 
 	}
+
 	// FIN OTROS METODOS
 }
