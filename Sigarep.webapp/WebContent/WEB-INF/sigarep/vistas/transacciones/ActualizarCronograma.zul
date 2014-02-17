@@ -96,7 +96,7 @@
 				pageSize="10">
 				<!-- Busqueda por filtros cronograma -->
 				<listhead>
-					<listheader label="Actividad" align="left"
+					<listheader label="Actividad" align="left" 
 						sort="auto(actividad.getNombre)">
 					<textbox id="filtroActividad" mold="rounded" instant="true"
 							width="100px" value="@bind(vm.actividadf)"
@@ -110,20 +110,20 @@
 							onChange="@command('filtroCronograma')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
-					<listheader label="Lugar" align="left"
+					<listheader label="Lugar" align="left" 
 						sort="auto(lugar)">
 					<textbox id="filtroLugar" mold="rounded" instant="true"
 							width="100px" value="@bind(vm.lugarf)"
 							onChange="@command('filtroCronograma')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
-					<listheader label="Fecha Inicio" align="left"
+					<listheader label="Fecha Inicio" align="left" width="8%"
 						sort="auto(fechaInicio)" />
-					<listheader label="Fecha Fin" align="left"
+					<listheader label="Fecha Fin" align="left" width="8%"
 						sort="auto(fechaFin)" />	
-					<listheader label="Hora" align="left"
+					<listheader label="Hora" align="left" width="6%"
 						sort="auto(horaInicio)" />
-					<listheader label="Observación" align="left"
+					<listheader label="Observación" align="left" width="15%"
 						sort="auto(observacion)"/>
 				</listhead>
 				<template name="model">
