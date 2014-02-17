@@ -23,7 +23,7 @@ public class VMpreguntaBasica {
 	private Integer idPreguntaBasica;private String pregunta; private String respuesta;private Boolean estatus;
     private List<PreguntaBasica> listaPregunta;
 	private PreguntaBasica preguntaseleccionada;
-	MensajesAlUsuario mensajesusuario = new MensajesAlUsuario (); // Instancia de la Clase de mensajes 
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario (); // Instancia de la Clase de mensajes 
     
 	//Metodos Get y Set de la clase 
     public Integer getIdPreguntaBasica() {
@@ -86,11 +86,11 @@ public class VMpreguntaBasica {
 	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 	public void guardarPregunta(){
 		if (pregunta.equals("")||respuesta.equals(""))
-			mensajesusuario.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else{
 		PreguntaBasica preb = new PreguntaBasica (idPreguntaBasica,pregunta,respuesta,true);
 		serviciopreguntabasica.guardarPregunta(preb);
-		mensajesusuario.informacionRegistroCorrecto();
+		mensajeAlUsuario.informacionRegistroCorrecto();
 		limpiar();
 		}
 	}
@@ -122,12 +122,12 @@ public class VMpreguntaBasica {
 	@NotifyChange({"listaPregunta","pregunta","respuesta"})
 	public void eliminarPreguntaBasica(){
 		if (pregunta.equals("")|| respuesta.equals("")){
-			mensajesusuario.advertenciaSeleccionarParaEliminar();
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
   		}
 		else{
 		serviciopreguntabasica.eliminarPregunta(getPreguntaseleccionada().getIdPreguntaBasica());
 		limpiar();
-		mensajesusuario.informacionEliminarCorrecto();
+		mensajeAlUsuario.informacionEliminarCorrecto();
 	}
 	}
 	/** mostrarSeleccionada
