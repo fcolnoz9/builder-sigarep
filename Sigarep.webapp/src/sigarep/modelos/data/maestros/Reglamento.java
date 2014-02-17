@@ -26,7 +26,6 @@ public class Reglamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_documento", unique=true, nullable=false)
 	private Integer idDocumento;
 	
