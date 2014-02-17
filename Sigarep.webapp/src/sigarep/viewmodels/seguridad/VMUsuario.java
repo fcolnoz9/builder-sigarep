@@ -1,19 +1,27 @@
 package sigarep.viewmodels.seguridad;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.image.AImage;
+import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 
 
+import sigarep.herramientas.Archivo;
 import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
@@ -23,6 +31,7 @@ import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.InstanciaMiembro;
 import sigarep.modelos.data.transacciones.InstanciaMiembroPK;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 import sigarep.modelos.data.transacciones.UsuarioGrupoPK;
 
@@ -32,6 +41,7 @@ import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 import sigarep.modelos.servicio.transacciones.ServicioInstanciaMiembro;
 import sigarep.modelos.servicio.transacciones.ServicioUsuarioGrupo;
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMUsuario {
@@ -45,13 +55,15 @@ public class VMUsuario {
 	@WireVariable
 	private ServicioUsuarioGrupo serviciousuariogrupo;
 	
-	private List<InstanciaApelada> listaInstancia;	
+	private List<InstanciaApelada> listaInstancia = new LinkedList<InstanciaApelada>();	
 	private InstanciaApelada instanciaseleccionada;
 	private String tituloinstancia = "";
 	private String cargo ="";
 	
+	
 	private InstanciaMiembro instanciaMiembro = new InstanciaMiembro();
 	private InstanciaMiembroPK instanciaMiembroPK = new InstanciaMiembroPK();
+	private List<InstanciaMiembro> listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
 	
 	private String cedulaPersona="";
 	private String nombre="";
@@ -62,6 +74,7 @@ public class VMUsuario {
 	private Persona personaSeleccionado = new Persona();
 	private String nombreUsuario="";
 	private String correo="";
+	private String confirmarcorreo="";
 	private String clave="";
 	private String confirmarcontrasenia="";
 	private String nuevaContrasenia;
@@ -69,6 +82,12 @@ public class VMUsuario {
 	private String cedulaPersonafiltro = "";
 	private String nombreCompletofiltro = "";
 	private String nombreUsuariofiltro = "";
+	
+	private Archivo fotoUsuario = new Archivo();
+	private Media mediaUsuario;
+	private AImage imagenUsuario;
+	
+	
 	private ListModelList<Grupo> modeloGrupo;
 	List<Grupo> listGrupo;
 	
@@ -93,6 +112,47 @@ public class VMUsuario {
 	
 	SecurityUtil seguridad = new SecurityUtil();
 	
+	public List<InstanciaMiembro> getListaInstanciaMiembro() {
+		return listaInstanciaMiembro;
+	}
+
+	public void setListaInstanciaMiembro(
+			List<InstanciaMiembro> listaInstanciaMiembro) {
+		this.listaInstanciaMiembro = listaInstanciaMiembro;
+	}
+
+	public String getConfirmarcorreo() {
+		return confirmarcorreo;
+	}
+
+	public void setConfirmarcorreo(String confirmarcorreo) {
+		this.confirmarcorreo = confirmarcorreo;
+	}
+
+	public Archivo getFotoUsuario() {
+		return fotoUsuario;
+	}
+
+	public void setFotoUsuario(Archivo fotoUsuario) {
+		this.fotoUsuario = fotoUsuario;
+	}
+
+	public Media getMediaUsuario() {
+		return mediaUsuario;
+	}
+
+	public void setMediaUsuario(Media mediaUsuario) {
+		this.mediaUsuario = mediaUsuario;
+	}
+
+	public AImage getImagenUsuario() {
+		return imagenUsuario;
+	}
+
+	public void setImagenUsuario(AImage imagenUsuario) {
+		this.imagenUsuario = imagenUsuario;
+	}
+
 	public Grupo getGrupoSeleccionado() {
 		return grupoSeleccionado;
 	}
@@ -335,14 +395,17 @@ public class VMUsuario {
 	}
 
 	@Command
-	@NotifyChange({ "nombreUsuario","nombreCompleto", "clave","confirmarcontrasenia", "correo",
-			"listaUsuario","cedulaPersona","nombre","apellido","telefono","listaPersona" })
+	@NotifyChange({ "nombreUsuario","nombreCompleto", "clave","confirmarcontrasenia", "correo","confirmarcorreo",
+			"listaUsuario","cedulaPersona","nombre","apellido","telefono","listaPersona", "imagenUsuario","listaInstanciaMiembro."})
 	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario) {
 		boolean existeUsuario = false;
 		Usuario usuario = new Usuario();
-		if (nombreUsuario == null || correo == null || cedulaPersona == null || nombre == null || apellido == null
-				|| telefono == null || clave == null || confirmarcontrasenia == null) {
+		if (nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 
+				|| clave.equals("")  || confirmarcontrasenia.equals("") ) {
 			mensajes.advertenciaLlenarCampos();
+		}
+		else if(!correo.equals(confirmarcorreo)){
+			mensajes.advertenciaContrasennasNoCoinciden();
 		}
 		else if(!clave.equals(confirmarcontrasenia)){
 			mensajes.advertenciaContrasennasNoCoinciden();
@@ -365,7 +428,7 @@ public class VMUsuario {
 			nombreCompleto = nombre + " " + apellido;
 			usuario.setNombreCompleto(nombreCompleto);
 			usuario.setEstatus(true);
-			
+			usuario.setFoto(fotoUsuario);
 			for(Listitem miGrupo :gruposDelUsuario){
 				Grupo grupo = new Grupo();
 				String nombreGrupo = miGrupo.getLabel();
@@ -406,29 +469,28 @@ public class VMUsuario {
 			}
 			else
 			{
-			    if (cargo.equals(""))
-			    	mensajes.advertenciaLlenarCampos();
-			    else
-			    {
-					instanciaMiembroPK.setCedulaPersona(cedulaPersona);
-					instanciaMiembroPK.setIdInstanciaApelada(getInstanciaseleccionada().getIdInstanciaApelada());
-					instanciaMiembro.setId(instanciaMiembroPK);
-					instanciaMiembro.setCargo(cargo);
-					instanciaMiembro.setEstatus(true);
-					instanciaMiembro.setFechaEntrada(new Date());
-					instanciaMiembro.setInstanciaApelada(getInstanciaseleccionada());
-					instanciaMiembro.setPersona(persona);
-					try {
-						servicioInstanciaMiembro.guardar(instanciaMiembro);
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
-					}	
-			    }
+//			    if (cargo.equals(""))
+//			    	mensajes.advertenciaLlenarCampos();
+//			    else
+//			    {
+			    	for(int i=0;listaInstanciaMiembro.size()>i;i++){
+			    		instanciaMiembro = listaInstanciaMiembro.remove(i);
+				    	instanciaMiembro.getId().setCedulaPersona(cedulaPersona);
+				    	
+						instanciaMiembro.setPersona(persona);
+						try {
+							servicioInstanciaMiembro.guardar(instanciaMiembro);
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}	
+			    	}
+//			    }
 			}
 			
 			mensajes.informacionRegistroCorrecto();
 			if(existeUsuario==false){
 				try {
+					usuario.setFechaCreacion(new Date());
 					UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
 					UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
 					usuarioGrupoPK.setIdGrupo(1);
@@ -451,6 +513,61 @@ public class VMUsuario {
 			}
 			limpiar();
 		}
+	}
+	
+	@Command
+	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro" })
+	public void agregarInstancia() {
+		System.out.println("algoxxx");
+		
+		Integer cont =listaInstanciaMiembro.size();
+		System.out.println(cont);
+		InstanciaMiembro instanciaM = new InstanciaMiembro();
+		InstanciaMiembroPK instanciaMPK = new InstanciaMiembroPK();
+		if (tituloinstancia.equals("")) {
+			System.out.println("Debe seleccionar una instancia");	
+		}
+		else
+		{	System.out.println("preantes");
+			if(cargo.equals(""))cargo="No asignado";
+		
+			instanciaMPK.setCedulaPersona("0000");
+			instanciaMPK.setIdInstanciaApelada(getInstanciaseleccionada().getIdInstanciaApelada());
+			instanciaM.setId(instanciaMPK);
+			instanciaM.setCargo(cargo);
+			instanciaM.setEstatus(true);
+			instanciaM.setFechaEntrada(new Date());
+			instanciaM.setInstanciaApelada(getInstanciaseleccionada());System.out.println("preantes7"+instanciaseleccionada.getInstanciaApelada());
+			
+			System.out.println("antes"+cont.toString());
+			boolean llego = false;
+			
+			for(int j = 0;listaInstanciaMiembro.size()>j && !llego ;j++){
+				System.out.println("for");
+				if( (!listaInstanciaMiembro.get(j).getCargo().equals(instanciaM.getCargo())) && (listaInstanciaMiembro.get(j).getId().getIdInstanciaApelada() == instanciaM.getId().getIdInstanciaApelada()) ){
+					listaInstanciaMiembro.remove(j);
+					listaInstanciaMiembro.add(instanciaM); 
+					System.out.println("if");
+					llego = true;
+					break;
+				}else if( listaInstanciaMiembro.get(j).getCargo().equals(instanciaM.getCargo()) && (listaInstanciaMiembro.get(j).getId().getIdInstanciaApelada() == instanciaM.getId().getIdInstanciaApelada()) ){ break;}
+				if(listaInstanciaMiembro.size()-1==j  ){
+					listaInstanciaMiembro.add(instanciaM);
+					llego = true;
+					System.out.println("else");
+				}
+			}
+			if(listaInstanciaMiembro.size()==0)listaInstanciaMiembro.add(instanciaM);
+				
+			System.out.println("despues "+listaInstanciaMiembro.size());
+		}
+	}
+	@Command
+	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro","cargo"})
+	public void mostrarInstancia() {
+		
+		cargo = instanciaMiembro.getCargo();
+		tituloinstancia = instanciaMiembro.getInstanciaApelada().getInstanciaApelada();
 	}
 	
 	@Init
@@ -478,16 +595,29 @@ public class VMUsuario {
 
 	// Metodo que limpia todos los campos de la pantalla
 	@Command
-	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre","apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece"})
+	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre","apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo"})
 	public void limpiar() {
+		System.out.println("limpiar");
 		nombreUsuario = "";
 		clave = "";
 		confirmarcontrasenia = "";
 		correo = "";
+		
+		
 		cedulaPersona = "";
 		nombre = "";
 		apellido = "";
 		telefono = "";
+		mediaUsuario = null;
+		imagenUsuario = null;
+		fotoUsuario = new Archivo();
+		confirmarcorreo = "";
+		listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
+		instanciaMiembroPK = null;
+		instanciaMiembro= null;
+		tituloinstancia = "";
+		cargo = "";
+		instanciaseleccionada= null;
 		buscarUsuario();
 //		listaGrupoPertenece.clear();
 		buscarListadoGrupos();
@@ -509,19 +639,40 @@ public class VMUsuario {
 		mensajes.informacionEliminarCorrecto();
 		limpiar();
 	}
-
+	
+	
 	// permite tomar los datos del objeto usaurioseleccionado
 	@Command
-	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia","correo","cedulaPersona","apellido","nombre","telefono","listaGrupoPertenece", "listaGrupoNoPertenece", "personaSeleccionado"})
+	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia","confirmarcorreo","correo","cedulaPersona","apellido","nombre","telefono","listaGrupoPertenece", "listaGrupoNoPertenece", "personaSeleccionado","fotoUsuario","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo"})
 	public void mostrarSeleccionado() {	
+		limpiar();
+		listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
+		instanciaMiembroPK = null;
+		instanciaMiembro= null;
+		System.out.println("seleccionado");
 		nombreUsuario = getPersonaSeleccionado().getNombreUsuario().getNombreUsuario();
 		clave = getPersonaSeleccionado().getNombreUsuario().getClave();
 		confirmarcontrasenia = getPersonaSeleccionado().getNombreUsuario().getClave();
 		correo = getPersonaSeleccionado().getCorreo();
+		confirmarcorreo = getPersonaSeleccionado().getCorreo();
 		cedulaPersona = getPersonaSeleccionado().getCedulaPersona();
 		nombre = getPersonaSeleccionado().getNombre();
 		apellido = getPersonaSeleccionado().getApellido();
 		telefono = getPersonaSeleccionado().getTelefono();
+		fotoUsuario = getPersonaSeleccionado().getNombreUsuario().getFoto();
+		listaInstanciaMiembro = getPersonaSeleccionado().getInstanciaMiembros();
+		
+		if(fotoUsuario!=null){
+			System.out.println("esta no nula");
+			if (getPersonaSeleccionado().getNombreUsuario().getFoto().getTamano() > 0){
+				try {
+					imagenUsuario = new AImage(getPersonaSeleccionado().getNombreUsuario().getFoto().getNombreArchivo(),getPersonaSeleccionado().getNombreUsuario().getFoto().getContenidoArchivo());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+				}
+			}
+			else{imagenUsuario = null;}
+		}else{System.out.println("esta nula");}
 
 		listaGrupoPertenece = serviciogrupo.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 		listaGrupoNoPertenece = serviciogrupo.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
@@ -591,9 +742,26 @@ public class VMUsuario {
 		listaPersona = serviciopersona.buscarPersonaFiltro(cedulaPersonafiltro, nombreCompletofiltro, nombreUsuariofiltro);
 	}
 	
+	
+	
+	/** cargarImagenNoticia
+	 * @parameters imagenUsuario, UploadEvent event Zkoss UI.
+	 * @return No devuelve ningun valor.
+	 * @throws la Excepcion es que la media usuario sea null
+	 */
 	@Command
-	@NotifyChange({ "listaUsuario","tituloinstancia" })
-	public void pasepase() {
-		System.out.println("");
+	@NotifyChange("imagenUsuario")
+	public void cargarImagenUsuario(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
+		mediaUsuario = event.getMedia();
+		if (mediaUsuario != null) {
+			if (mediaUsuario instanceof org.zkoss.image.Image) {
+				fotoUsuario.setNombreArchivo(mediaUsuario.getName());
+				fotoUsuario.setTipo(mediaUsuario.getContentType());
+				fotoUsuario.setContenidoArchivo(mediaUsuario.getByteData());
+				imagenUsuario = (AImage) mediaUsuario;
+			} else {
+				Messagebox.show("El archivo: "+mediaUsuario+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
+			}
+		} 
 	}
 }

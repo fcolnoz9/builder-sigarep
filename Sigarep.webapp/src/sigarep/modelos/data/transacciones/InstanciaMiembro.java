@@ -44,7 +44,7 @@ public class InstanciaMiembro implements Serializable {
 	private InstanciaApelada instanciaApelada;
 
 	//bi-directional many-to-one association to Persona
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cedula_persona",insertable=false, updatable=false)
 	private Persona persona;
 
