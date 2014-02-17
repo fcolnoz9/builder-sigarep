@@ -8,6 +8,7 @@ import java.util.List;
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
 
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -56,8 +57,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarReconsideracion {
 	
-	@Wire("#modalDialog")
-	private Window window;
+	@Wire("#winRegistrarReconsideracion")
+	private Window win;
 	
 	private String sancion;
 	private String lapso;
@@ -182,7 +183,8 @@ public class VMRegistrarReconsideracion {
 	@Init
 	public void init(
 			@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1)
+			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1, 
+			@ContextParam(ContextType.BINDER) final Binder binder)
 
 	// initialization code
 	{
@@ -200,8 +202,10 @@ public class VMRegistrarReconsideracion {
 		buscarSolicitud(cedula);
 		if(listaSolicitud.size() > 0)
 			caso = listaSolicitud.get(0).getNumeroCaso();
-		else
+		else{
 			registrarApelacionConMotivos();
+			binder.postCommand("closeThis", null);
+		}
 	
 		media = null;
 		doc = new Documento();
@@ -360,6 +364,6 @@ public class VMRegistrarReconsideracion {
 	
 	@Command
 	public void closeThis() {
-		window.detach();
+		win.detach();
 	}
 }
