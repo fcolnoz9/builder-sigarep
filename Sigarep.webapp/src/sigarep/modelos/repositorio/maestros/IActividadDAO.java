@@ -11,4 +11,6 @@ public interface IActividadDAO extends JpaRepository<Actividad, Integer> {
 	@Query("Select act FROM Actividad AS act WHERE estatus = TRUE")
 	public List<Actividad> buscarActividadesActivas();
 
+	@Query("SELECT COALESCE(MAX(a.idActividad),0) FROM Actividad AS a")
+	public int buscarUltimoID();
 }
