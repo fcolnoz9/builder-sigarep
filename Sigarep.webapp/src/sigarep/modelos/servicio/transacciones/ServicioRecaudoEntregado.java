@@ -22,8 +22,6 @@ public class ServicioRecaudoEntregado {
 
 	private @Autowired IRecaudoEntregadoDAO iRecaudoEntregadoDAO;
 	private @Autowired ISolicitudApelacionDAO iSolicitudApelacionDAO;
-	@PersistenceContext
-	private EntityManager em;
 	
 	public RecaudoEntregado guardar(RecaudoEntregado recaudoentregado) {
 		return iRecaudoEntregadoDAO.save(recaudoentregado);
