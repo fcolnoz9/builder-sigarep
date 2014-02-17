@@ -16,7 +16,12 @@ public class ServicioSancionMaestro {
 	ISancionMaestroDAO san;
 
 	public void guardarSancion(SancionMaestro sanm) {
-		san.save(sanm);
+		if (sanm.getIdSancion() != null)
+			san.save(sanm);
+		else{
+			sanm.setIdSancion(san.buscarUltimoID()+1);
+			san.save(sanm);
+		}
 	}
 
 	public void eliminarSancion(Integer sanm) {

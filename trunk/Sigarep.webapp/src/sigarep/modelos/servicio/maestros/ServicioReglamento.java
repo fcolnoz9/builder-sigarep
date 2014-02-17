@@ -42,7 +42,12 @@ public class ServicioReglamento {
  */
 
 	public void guardarReglamento(Reglamento r){
-		rg.save(r);
+		if (r.getIdDocumento() != null)
+			rg.save(r);
+		else{
+			r.setIdDocumento(rg.buscarUltimoID()+1);
+			rg.save(r);
+		}
 	}
 	
 	/**elininar 
