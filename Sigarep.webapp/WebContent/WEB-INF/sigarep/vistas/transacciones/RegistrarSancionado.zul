@@ -237,7 +237,7 @@
 		<button label="Guardar" mold="trendy" id="btnGuardar"
 			image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 			orient="horizontal"
-			onClick="@command('registrarEstudianteSancionado',asignaturaSancionado=items)">
+			onClick="@command('registrarEstudianteSancionado',asignaturaSancionado=items,parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)">
 			<attribute name="onClick">
 				List items = lbxAsignaturas.getItems();
 			</attribute>
@@ -245,7 +245,7 @@
 		<button label="Eliminar" mold="trendy" id="btnEliminar"
 			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 			orient="horizontal"
-			onClick="@command('eliminarEstudianteSancionado')" />
+			onClick="@command('eliminarEstudianteSancionado',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)"/>
 		<button label="Limpiar" mold="trendy" id="btnCancelar"
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 			orient="horizontal" onClick="@command('limpiar',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
