@@ -17,4 +17,7 @@ public interface IInstanciaApeladaDAO extends JpaRepository<InstanciaApelada, In
 	
 	@Query("SELECT insta from InstanciaApelada AS insta")
 	public List<InstanciaApelada> buscarTodas();
+	
+	@Query("SELECT COALESCE(MAX(ia.idInstanciaApelada),0) FROM InstanciaApelada AS ia")
+	public int buscarUltimoID();
 }

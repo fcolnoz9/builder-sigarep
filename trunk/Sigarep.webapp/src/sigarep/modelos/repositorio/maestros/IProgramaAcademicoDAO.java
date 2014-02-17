@@ -11,4 +11,6 @@ public interface IProgramaAcademicoDAO extends
 	@Query("Select pro FROM ProgramaAcademico AS pro WHERE estatusPrograma = TRUE")
 	public List<ProgramaAcademico> buscarProgramasActivos();
 	
+	@Query("SELECT COALESCE(MAX(pa.idPrograma),0) FROM ProgramaAcademico AS pa")
+	public int buscarUltimoID();
 }

@@ -20,4 +20,7 @@ public interface IEnlaceInteresDAO extends JpaRepository<EnlaceInteres, Integer>
 	//se utiliza en ServicioEnlaceInteres public List<EnlaceInteres> listadoEnlaceInteres()
 		@Query("select  e from EnlaceInteres e where e.estatus='true'")
 		public List<EnlaceInteres> listaEnlaceLogico();
+		
+		@Query("SELECT COALESCE(MAX(ei.idEnlace),0) FROM EnlaceInteres AS ei")
+		public int buscarUltimoID();
 }

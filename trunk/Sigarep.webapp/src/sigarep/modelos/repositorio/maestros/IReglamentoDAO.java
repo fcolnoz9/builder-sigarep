@@ -6,7 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import sigarep.modelos.data.maestros.Reglamento;
 
 public interface IReglamentoDAO extends JpaRepository<Reglamento, Integer> {
-
+	
+	@Query("SELECT COALESCE(MAX(r.idDocumento),0) FROM Reglamento AS r")
+	public int buscarUltimoID();
+	
 	// permite la busqueda de los registros por estatus, para mostrar los
 	// registros en true, luego de la eliminación lógica.
 	// se utiliza en ServicioReglamento public List<Reglamento>

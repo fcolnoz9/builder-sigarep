@@ -25,4 +25,7 @@ public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Inte
 	@Query("Select ea FROM EstadoApelacion AS ea WHERE estatus = TRUE")
 	public List<EstadoApelacion> buscarEstadoApelacionActivas();
 	
+	@Query("SELECT COALESCE(MAX(ea.idEstadoApelacion),0) FROM EstadoApelacion AS ea")
+	public int buscarUltimoID();
+	
 }

@@ -12,4 +12,6 @@ public interface ISancionMaestroDAO extends
 	@Query("Select san FROM SancionMaestro AS san WHERE estatus = TRUE")
 	public List<SancionMaestro> buscarSancionesActivas();
 	
+	@Query("SELECT COALESCE(MAX(sm.idSancion),0) FROM SancionMaestro AS sm")
+	public int buscarUltimoID();
 }
