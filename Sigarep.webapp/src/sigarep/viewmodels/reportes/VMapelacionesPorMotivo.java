@@ -95,7 +95,7 @@ public class VMapelacionesPorMotivo {
 					apelacionesPrograma = servicioapelacionespormotivo
 							.buscarPorMotivoResultado_ProgramaSancion(
 									objLapso.getCodigoLapso(),
-									objSancion.getNombreSancion(),
+									objSancion.getIdSancion(),
 									objPrograma.getIdPrograma());
 
 				// model = ChartDataTipoDeSexo.getModel(lista);
@@ -277,7 +277,7 @@ public class VMapelacionesPorMotivo {
 			apelacionesPrograma = servicioapelacionespormotivo
 					.buscarPorMotivoResultado_ProgramaSancion(
 							objLapso.getCodigoLapso(),
-							objSancion.getNombreSancion(),
+							objSancion.getIdSancion(),
 							objPrograma.getIdPrograma());
 		
 		

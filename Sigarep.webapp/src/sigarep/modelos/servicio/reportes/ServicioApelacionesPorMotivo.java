@@ -22,29 +22,24 @@ public class ServicioApelacionesPorMotivo {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, String tipo_sancion, int programa) {
+	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes , " +
-						"(SELECT COUNT(*) total FROM tipo_motivo timo, solicitud_apelacion sa " +
-						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
-						"and essa.codigo_lapso = sa.codigo_lapso " +
-						"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
-						"and mo.codigo_lapso = sa.codigo_lapso " +
-						"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-						"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-						"and mo.id_tipo_motivo <> 1 " +
-						"and mo.id_tipo_motivo <> 2 " +
-						"and mo.id_tipo_motivo <> 3 " +
+						"(SELECT COUNT(DISTINCT sa.cedula_estudiante) totalapelaciones FROM solicitud_apelacion sa, estudiante_sancionado essa, estudiante es " +
+						"WHERE sa.cedula_estudiante = essa.cedula_estudiante " +
+						"and essa.cedula_estudiante = es.cedula_estudiante " +
 						"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-						"and prog.id_programa = "+ "'"+programa+"' " +
-						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' )" +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' ), " +
+						"(SELECT COUNT(DISTINCT essa.cedula_estudiante) sancionados FROM estudiante_sancionado essa, estudiante es " +
+						"WHERE essa.cedula_estudiante = es.cedula_estudiante " +
+						"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' )" +
 								"from " +
 								"(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente " +
 								"from " +
-								"(SELECT distinct timo.nombre_tipo_motivo as motivo,count(sa.cedula_estudiante) " +
+								"(SELECT distinct timo.nombre_tipo_motivo as motivo,count(distinct sa.cedula_estudiante) " +
 								"as apelaciones, 0 as procedente " +
 								"from tipo_motivo timo, solicitud_apelacion sa " +
 								"INNER JOIN estudiante_sancionado as essa " +
@@ -53,20 +48,18 @@ public class ServicioApelacionesPorMotivo {
 								"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
 								"and mo.codigo_lapso = sa.codigo_lapso " +
 								"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-								"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
 								"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-								"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 								"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
 								"and mo.id_tipo_motivo <> 1 " +
 								"and mo.id_tipo_motivo <> 2 " +
 								"and mo.id_tipo_motivo <> 3 " +
 								"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-								"and prog.id_programa = "+ "'"+programa+"' " +
-								"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
+								"and es.id_programa = "+ "'"+programa+"' " +
+								"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
 								"group by motivo) as b " +
 								"group by b.motivo " +
 								"union all " +
-								"select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(sa.veredicto) " +
+								"select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(distinct sa.veredicto) " +
 								"as procedente " +
 								"from tipo_motivo timo, solicitud_apelacion sa " +
 								"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
@@ -76,14 +69,13 @@ public class ServicioApelacionesPorMotivo {
 								"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
 								"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
 								"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-								"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 								"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
 								"and mo.id_tipo_motivo <> 1 " +
 								"and mo.id_tipo_motivo <> 2 " +
 								"and mo.id_tipo_motivo <> 3 " +
 								"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-								"and prog.id_programa = "+ "'"+programa+"' " +
-								"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
+								"and es.id_programa = "+ "'"+programa+"' " +
+								"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
 								"and sa.veredicto = 'NO PROCEDENTE' " +
 								"group by timo.nombre_tipo_motivo) as v " +
 								"group by v.motivo " +
@@ -104,7 +96,8 @@ public class ServicioApelacionesPorMotivo {
 							(String) resultRow[0],
 							((BigDecimal) resultRow[1]).intValue(),
 							((BigDecimal) resultRow[2]).intValue(),
-							((BigInteger) resultRow[3]).intValue()));
+							((BigInteger) resultRow[3]).intValue(),
+							((BigInteger) resultRow[4]).intValue()));
 				}
 				
 				return results;
@@ -117,7 +110,11 @@ public class ServicioApelacionesPorMotivo {
 				"WHERE sa.cedula_estudiante = essa.cedula_estudiante " +
 				"and essa.cedula_estudiante = es.cedula_estudiante " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"and es.id_programa = "+ "'"+programa+"' )" +
+				"and es.id_programa = "+ "'"+programa+"' ), " +
+				"(SELECT COUNT(essa.cedula_estudiante) sancionados FROM estudiante_sancionado essa, estudiante es " +
+				"WHERE essa.cedula_estudiante = es.cedula_estudiante " +
+				"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+				"and es.id_programa = "+ "'"+programa+"'  ) " +
 				"from " +
 				"(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente " +
 				"from " +
@@ -198,7 +195,8 @@ public class ServicioApelacionesPorMotivo {
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
-					((BigInteger) resultRow[3]).intValue()));
+					((BigInteger) resultRow[3]).intValue(),
+					((BigInteger) resultRow[4]).intValue()));
 		}
 		
 		return results;
@@ -265,7 +263,8 @@ public class ServicioApelacionesPorMotivo {
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
-					((BigInteger) resultRow[3]).intValue()));
+					((BigInteger) resultRow[3]).intValue(),
+					((BigInteger) resultRow[4]).intValue()));
 		}
 		
 		return results;
@@ -353,7 +352,8 @@ public class ServicioApelacionesPorMotivo {
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
-					((BigDecimal) resultRow[3]).intValue()));
+					((BigInteger) resultRow[3]).intValue(),
+					((BigInteger) resultRow[4]).intValue()));
 		}
 		
 		return results;
@@ -412,7 +412,8 @@ public class ServicioApelacionesPorMotivo {
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
-					((BigInteger) resultRow[3]).intValue()));
+					((BigInteger) resultRow[3]).intValue(),
+					((BigInteger) resultRow[4]).intValue()));
 		}
 		
 		return results;
@@ -477,7 +478,8 @@ public class ServicioApelacionesPorMotivo {
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
-					((BigDecimal) resultRow[3]).intValue()));
+					((BigInteger) resultRow[3]).intValue(),
+					((BigInteger) resultRow[4]).intValue()));
 		}
 		
 		return results;

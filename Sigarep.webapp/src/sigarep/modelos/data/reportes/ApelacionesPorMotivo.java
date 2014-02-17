@@ -5,14 +5,16 @@ public class ApelacionesPorMotivo {
 	private String motivo;
 	private Integer procedentes;
 	private Integer total;
+	private Integer sancionados;
 	
 	
-	public ApelacionesPorMotivo(String motivo, Integer apelaciones, Integer procedentes, Integer total) {
+	public ApelacionesPorMotivo(String motivo, Integer apelaciones, Integer procedentes, Integer total, Integer sancionados) {
 		super();
 		this.apelaciones = apelaciones;
 		this.motivo = motivo;
 		this.procedentes = procedentes;
 		this.total = total;
+		this.sancionados = sancionados;
 	}
 	
 
@@ -50,5 +52,15 @@ public class ApelacionesPorMotivo {
 
 	public void setTotal(Integer total) {
 		this.total = total;
+	}
+
+
+	public Integer getSancionados() {
+		return sancionados;
+	}
+
+
+	public void setSancionados(Integer sancionados) {
+		this.sancionados = sancionados;
 	}
 }
