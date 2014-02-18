@@ -1,6 +1,6 @@
 <zk>
 	<window id="winRecaudosVeredicto1"
-		title="Gestión :: Reconsideraciones :: Evaluar Reconsideración :: Analizar Validez"
+		title="Gestión :: Reconsideraciones :: Evaluar Reconsideración :: Analizar Validez :: Análisis Anterior"
 		border="normal" width="auto" height="auto"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 		closable="true"
@@ -10,7 +10,7 @@
 
 		<groupbox id="grbDatosRecaudo">
 			<caption
-				label="Observacion de recaudos ante la Comision Sustanciadora" />
+				label="Observación de recaudos ante la Comisión Sustanciadora" />
 			<grid id="grdRecaudosVeredicto1"
 				model="@bind(vm.listaRecaudo)"
 				emptyMessage="No se encontraron recaudos" mold="paging"
@@ -41,8 +41,7 @@
 					</template>
 				</rows>
 			</grid>
-
-		</groupboxid="grbBotones">
+		</groupbox >
 		<div align="right" height="100%">
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
