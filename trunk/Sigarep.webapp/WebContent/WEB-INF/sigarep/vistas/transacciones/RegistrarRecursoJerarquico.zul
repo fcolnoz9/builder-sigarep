@@ -24,25 +24,25 @@
 			</columns>
 			<rows>
 				<row>
-					<label id="lblCedula" value="Cedula: " />
+					<label id="lblCedula" value="Cédula: " />
 					<textbox id="txtCedula" cols="23" maxlength="30"
 						readonly="true"
 						value="@bind(vm.estudianteSeleccionado.getEstudiante().getCedulaEstudiante())"
 						width="80%" mold="rounded">
 					</textbox>
 					<label id="lblPrograma" value="Programa: " />
-					<textbox id="txtPrograma" cols="23" maxlength="30"
+					<textbox id="txtPrograma" cols="23" maxlength="60"
 						value="@bind(vm.estudianteSeleccionado.estudiante.programaAcademico.nombrePrograma)"
 						readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblNombres" value="Nombres: " />
-					<textbox id="txtNombres" cols="23" maxlength="30"
+					<textbox id="txtNombres" cols="23" maxlength="60"
 						value="@bind(vm.nombres)" readonly="true" width="80%" mold="rounded">
 					</textbox>
 					<label id="lblApellidos" value="Apellidos: " />
-					<textbox id="txtApellidos" cols="23" maxlength="30"
+					<textbox id="txtApellidos" cols="23" maxlength="60"
 						value="@bind(vm.apellidos)" readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
@@ -50,7 +50,7 @@
 		</grid>
 	</groupbox>
 	<groupbox id="grbDatosSancion">
-		<caption id="lblDatosSancion" label="Datos de la Sancion" />
+		<caption id="lblDatosSancion" label="Datos de la Sanción" />
 		<grid>
 			<columns>
 				<column width="10%" />
@@ -61,30 +61,30 @@
 			<rows>
 				<row>
 					<label id="lblTiposancion"
-						value="Tipo de Sancion: " />
+						value="Tipo de Sanción: " />
 					<textbox id="txtTipoSancion" cols="23"
-						maxlength="30" readonly="true"
+						maxlength="60" readonly="true"
 						value="@bind(vm.estudianteSeleccionado.sancionMaestro.nombreSancion)"
 						width="80%" mold="rounded">
 					</textbox>
 					<label id="lblLapsosancion"
-						value="Lapso de Sancion: " />
+						value="Lapso de Sanción: " />
 					<textbox id="txtLapsosancion" cols="23"
-						maxlength="30"
+						maxlength="6"
 						value="@bind(vm.estudianteSeleccionado.lapsoAcademico.codigoLapso)"
 						readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
-						value="Periodo de Sancion: " />
+						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
 						maxlength="30" value="@bind(vm.estudianteSeleccionado.periodoSancion)"
 						readonly="true" width="80%" mold="rounded">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55" maxlength="30"
+					<textbox id="txtAsignatura" cols="55" maxlength="255"
 						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true"
 						width="80%" mold="rounded">
 					</textbox>
@@ -102,10 +102,11 @@
 			<rows>
 				<row>		
 						<label id="lblObservacion"
-							value="Observacion:">
+							value="Observación:">
 						</label>
 						<textbox id="txtObservacion" cols="23"
-							maxlength="255" rows="4" width="99%" mold="rounded" value="@bind(vm.observacion)" >
+							maxlength="255" rows="4" width="99%" mold="rounded" value="@bind(vm.observacion)"
+							placeholder="Ingrese la observación del Recurso Jerárquico" >
 						</textbox>
 				</row>
 			</rows>
@@ -129,8 +130,7 @@
 					<listcell
 						label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
 					<listcell
-						label="${each.getRecaudo().getNombreRecaudo()}" />
-					<!-- 					<listcell label="${each.getSoporte().getDocumento().getNombreDocumento()}" /> -->
+						label="${each.getRecaudo().getNombreRecaudo()}"/>
 					<listcell>
 						<a
 							label="${each.getSoporte().getDocumento().getNombreDocumento()}"
@@ -160,7 +160,7 @@
 				<button id="btnCerrar" mold="trendy" width="auto"
 					height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png"
 					orient="horizontal"
-					onClick="@command(winRegistrarRecursoJerarquico.onClose())" />
+					onClick="@command('cerrarVentana')"  />
 			</div>
 		</hbox>
 	</div>
