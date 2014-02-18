@@ -18,21 +18,21 @@
 				<row>
 					<label  id="lblCedulaEstudiante" value="Cédula: " width="40%" />
 					<textbox id="txtCedulaEstudiante" cols="23"
-						width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.cedula)">
+						width="80%" mold="rounded" maxlength="8" readonly="true" value="@bind(vm.cedula)">
 					</textbox>
 					<label  id="lblNombresEstudiante" value="Nombres: " width="40%" />
 					<textbox id="txtNombresEstudiante" cols="23"
-						width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.nombres)">
+						width="80%" mold="rounded" maxlength="60" readonly="true" value="@bind(vm.nombres)">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblApellidosEstudiante" value="Apellidos: " />
 					<textbox id="txtApellidosEstudiante" cols="23"
-						width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
+						width="80%" mold="rounded" maxlength="60" readonly="true" value="@bind(vm.apellidos)">
 					</textbox>
 					<label id="lblProgramaEstudiante" value="Programa: " />
 					<textbox id="txtProgramaEstudiante" cols="23"
-						width="80%" mold="rounded" maxlength="30" readonly="true" value="@bind(vm.programa)">
+						width="80%" mold="rounded" maxlength="60" readonly="true" value="@bind(vm.programa)">
 					</textbox>
 				</row>
 			</rows>
@@ -50,18 +50,18 @@
 					</textbox>
 							<label id="lblLapsosancion" value="Lapso de Sanción: " />
 					<textbox id="txtLapsosancion" cols="23"
-						width="80%" mold="rounded" maxlength="30" value="@bind(vm.lapso)" readonly="true">
+						width="80%" mold="rounded" maxlength="15" value="@bind(vm.lapso)" readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
 						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
-						width="80%" mold="rounded" maxlength="30" value="@bind(vm.semestreSancion)" readonly="true">
+						width="80%" mold="rounded" maxlength="4" value="@bind(vm.semestreSancion)" readonly="true">
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="55" maxlength="30" width="80%" mold="rounded"
+					<textbox id="txtAsignatura" cols="55" maxlength="60" width="80%" mold="rounded"
 						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
@@ -74,11 +74,11 @@
 		<caption label="Datos del Recaudo" />
 		<div align="left">
 			<label id="lblnrocaso" value="Número del Caso: " />
-			<textbox id="txtnrocaso" cols="10" maxlength="30" mold="rounded"
+			<textbox id="txtnrocaso"  cols="10" maxlength="60" mold="rounded"
 				value="@bind(vm.caso)" readonly="true">
 			</textbox>
 			<label id="lblFechaApelacion" value="Fecha de la Apelación: " />
-			<textbox id="txtFechaApelacion" cols="10" maxlength="30" mold="rounded"
+			<textbox id="txtFechaApelacion" cols="10" mold="rounded"
 				value="@bind(vm.fechaApelacion)" readonly="true">
 			</textbox>	
 		</div>
@@ -144,7 +144,7 @@
 							<radio id="rbProcedenteNo" label="No Procedente" value="NO PROCEDENTE"/>
 						</hbox>
 						<label value="Observación General: " id="lblObservacion"  />
-						<textbox id="txtObservacion" mold="rounded"  cols="60" rows="2" width="60%" 
+						<textbox id="txtObservacion" placeholder="Ingrese la observación general." mold="rounded" maxlength="255"  cols="60" rows="2" width="60%" 
 						value="@bind(vm.observacion)"></textbox>
 					</row>
 				</rows>
@@ -167,10 +167,10 @@
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 			onClick="@command('limpiar')">
 		</button>
-		<!-- Sale de la interfaz, es necesario mensajes de advertencia-->
+		<!-- Sale de la interfaz,dependiendo de la opción que escoja el usuario-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			onClick="winVerificiarRecaudosIII.onClose()">
+			onClick="@command('cerrarVentana')">
 		</button>
 	</div>
 </window>
