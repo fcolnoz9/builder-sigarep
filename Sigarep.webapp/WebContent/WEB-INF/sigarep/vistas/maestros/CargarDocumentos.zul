@@ -1,4 +1,4 @@
-<window id = "wincarga" title="Configuración Web :: Cargar Documentos" 
+<window id = "winCargarDocumento" title="Configuración Web :: Cargar Documentos" 
 border="normal" width = "auto" height="auto" closable="true" contentStyle="overflow:auto"
 style="overflow:auto" action="hide: slideUp"
  apply="org.zkoss.bind.BindComposer"
@@ -40,7 +40,7 @@ style="overflow:auto" action="hide: slideUp"
            
            <label id="lblTituloDocumento" value="Título Documento:" />
 <!--            Título Documento: -->
-                    <textbox id= "txttitulo"   mold = "rounded" value="@bind(vm.titulo)"
+                    <textbox id= "txttitulo" placeholder="Please type some text"  mold = "rounded" value="@bind(vm.titulo)"
 			width="80%" maxlength="30" cols="23" tabindex="5"    />
            
            <label id="lblDocumento" value="Documento:" />
@@ -56,7 +56,7 @@ style="overflow:auto" action="hide: slideUp"
             <label id="lblDescripcion" value="Descripción:" />
 <!--             Descripción: -->
            
-                <textbox  id= "txtdescripcion" width="77%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+                <textbox  id= "txtdescripcion" placeholder="Please type some text" width="77%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
 					 maxlength="150" cols="23" tabindex="5" rows="3" >
                     <attribute name="value"> </attribute>
                 </textbox> 
@@ -83,7 +83,8 @@ style="overflow:auto" action="hide: slideUp"
 			<button label="Cerrar" id="btnCerrarDocumento"
 				mold="trendy" width="auto" height="auto"
 				image="/imagenes/iconos/cerrar.png" 
-				onClick="wincarga.onClose()" />
+				onClick="@command('cerrarVentana')" />
+
 		</div>
 <!-- 	//**************************************************** -->
 <!-- 	//LISTADO DE DOCUMENTOS REGISTRADOS -->

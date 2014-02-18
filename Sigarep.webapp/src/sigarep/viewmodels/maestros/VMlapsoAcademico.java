@@ -3,15 +3,23 @@ package sigarep.viewmodels.maestros;
 import java.util.Date;
 import java.util.List;
 
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+import org.zkoss.bind.Binder;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -39,8 +47,13 @@ public class VMlapsoAcademico {
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@Wire
 	Textbox txtcodigoLapso;
-	@Wire
+
+	@Wire("#winRegistrarLapso")//para conectarse a la ventana con el ID
 	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 
 	// Metodos set y get
 	public String getCodigoLapso() {
@@ -208,24 +221,49 @@ public class VMlapsoAcademico {
 		fechaInicio = lapsoAA.getFechaInicio();
 		fechaCierre = lapsoAA.getFechaCierre();
 	}
-	// Metodo que elimina el lapso Academico tomando en cuenta el codigoLaso
-	// @Command
-	// @NotifyChange({"listaLapsoAcademico"})
-	// public void eliminarLapsoAcademico(){
-	// if (codigoLapso==null||fechaInicio==null|| fechaCierre==null){
-	// Messagebox.show("Debes Seleccionar un lapso Académico", "Advertencia",
-	// Messagebox.OK, Messagebox.EXCLAMATION);
-	// }
-	// else{
-	// if(getListaLapsoAcademico().size()!=0){
-	// Messagebox.show("No Se Puede Eliminar el Lapso Actual ", "Informacion",
-	// Messagebox.OK, Messagebox.INFORMATION);
-	// }
-	// serviciolapsoacademico.eliminarLapso(getLapsoAcademicoseleccionado().getCodigoLapso());
-	// limpiarlapso();
-	// Messagebox.show("Se ha Eliminado Correctamente", "Informacion",
-	// Messagebox.OK, Messagebox.INFORMATION);
-	// }
-	// }
 
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
+	"listaLapsoAcademico" })
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (codigoLapso != null)
+		{
+			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					
+					}
+				}
+			});		
+		}
+	}
+	
 }

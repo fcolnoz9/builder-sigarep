@@ -41,7 +41,7 @@
 		<button label="Cerrar" id="btnCerrarPrograma"
 			mold="trendy" width="auto" height="auto"
 			image="/imagenes/iconos/cerrar.png" 
-			onClick="winRegistrarPrograma.onClose()">
+			onClick="@command('cerrarVentana')">
 		</button>
 	</div>
 	<groupbox id="grbListaProgramas">

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -11,10 +13,16 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.Archivo;
@@ -50,6 +58,12 @@ public class VMBanner {
 	private AImage contenidoBanner;
 	private Archivo fotoBannerPortal = new Archivo();
 	
+	@Wire("#winActualizarBanner")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 	
 	//Metodos Get y Set de la clase 
 	
@@ -169,13 +183,14 @@ public class VMBanner {
 	public void init(){
         //initialization code
 		fechaVencimiento= null;
-		titulo="";
-		enlace= "";
+		titulo= null;
+		enlace= null;
 		tituloFiltro= "";
 		enlaceFiltro= "";
-		descripcion= ""; 
+		descripcion= null; 
 		media= null;
 		fotoBanner= new Archivo();
+		imagenBanner = null;
 		buscarTodosLosBanner();
 		cambiarImagen();
     }
@@ -198,7 +213,7 @@ public class VMBanner {
 		@Command // Permite manipular la propiedad de ViewModel
 		@NotifyChange({"descripcion","enlace","fechaVencimiento","titulo","estatus","imagenBanner","listadoBanner"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 		public void guardarBanner(){
-			if (descripcion.equals("")||enlace.equals("")||titulo.equals(""))
+			if (descripcion == null||enlace == null||titulo == null)
 				mensajeAlUsuario.advertenciaLlenarCampos();
 			else if (fotoBanner.getTamano() < 1)
 				mensajeAlUsuario.advertenciaCargarImagen();
@@ -216,18 +231,36 @@ public class VMBanner {
 	 		* @return Objeto Banner Eliminado
 	 		* @throws No dispara ninguna excepcion.
 	 	*/
-		
+		@SuppressWarnings("unchecked")
 		@Command
 		@NotifyChange({"listadoBanner","descripcion","fechaVencimiento","enlace","titulo","imagenBanner"})
-		public void eliminarImagenBanner(){
-			if(titulo==null || enlace==null || descripcion==null || fechaVencimiento==null || fotoBanner==null)
+		public void eliminarImagenBanner(@ContextParam(ContextType.BINDER) final Binder binder){
+			if(titulo==null || enlace==null || descripcion==null || fechaVencimiento==null || fotoBanner.getTamano() < 1) {
 				mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-			else{
-				servicioBanner.eliminarBanner(idImagen);
-				limpiarBanner();
-				mensajeAlUsuario.informacionEliminarCorrecto();
+			} else {
+				Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+						Messagebox.QUESTION,new EventListener<ClickEvent>() {
+					@SuppressWarnings("incomplete-switch")
+					public void onEvent(ClickEvent e) throws Exception {
+						switch (e.getButton()) {
+							case YES:
+								//if you call super.delete here, since original zk event is not control by binder
+								//the change of viewmodel will not update to the ui.
+								//so, I post a delete to trigger to process it in binder controll.
+								//binder.postCommand("limpiar", null);
+								servicioBanner.eliminarBanner(idImagen);
+								mensajeAlUsuario.informacionEliminarCorrecto();
+								binder.postCommand("limpiarBanner", null);
+							case NO:
+						
+								binder.postCommand("limpiarBanner", null);
+						}
+					}
+				});		
 			}
 		}
+		
+	
 		
 		/** Limpiar Banner.
 	 		* @param Ninguno
@@ -239,9 +272,9 @@ public class VMBanner {
 		@NotifyChange({"descripcion","fechaVencimiento","enlace","titulo","imagenBanner","bannerSeleccionado","listadoBanner","tituloFiltro","enlaceFiltro"})
 		public void limpiarBanner(){
 			idImagen= null; 
-			descripcion="";
-			 enlace="";
-			 titulo="";
+			descripcion=null;
+			 enlace=null;
+			 titulo=null;
 			 tituloFiltro= "";
 			 enlaceFiltro= "";
 			 media= null;
@@ -336,4 +369,46 @@ public class VMBanner {
 			}
 		}
 		
+		/**
+		 * Cerrar Ventana
+		 * 
+		 * @param binder
+		 * @return cierra el .zul asociado al VM
+		 * @throws No
+		 *             dispara ninguna excepcion.
+		 */
+		@SuppressWarnings("unchecked")
+		@Command
+		@NotifyChange({"listadoBanner","descripcion","fechaVencimiento","enlace","titulo","imagenBanner"})
+		public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+				
+			if(titulo != null || enlace != null || descripcion != null || fechaVencimiento != null || fotoBanner.getTamano() > 1) 
+			{
+				Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+						Messagebox.QUESTION,new EventListener<ClickEvent>() {
+					@SuppressWarnings("incomplete-switch")
+					public void onEvent(ClickEvent e) throws Exception {
+						switch (e.getButton()) {
+							case YES:
+									ventana.detach();
+						
+						}
+					}
+				});		
+			}
+			else{
+			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+						Messagebox.QUESTION,new EventListener<ClickEvent>() {
+					@SuppressWarnings("incomplete-switch")
+					public void onEvent(ClickEvent e) throws Exception {
+						switch (e.getButton()) {
+							case YES:
+									ventana.detach();
+						
+						
+						}
+					}
+				});		
+			}
+		}	
 }

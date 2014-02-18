@@ -378,6 +378,16 @@ public class VMenlaceInteres {
 			imagenes = null;
 		}
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
 	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({"listaEnlaces","nombreEnlace", "direccionEnlace", "descripcion", "imagenes"})
@@ -386,7 +396,7 @@ public class VMenlaceInteres {
 		if (nombreEnlace != null || direccionEnlace != null
 				|| descripcion != null || imagen.getTamano() > 1)
 		{
-			Messagebox.show("¿Realemente desea cerrrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
 					Messagebox.QUESTION,new EventListener<ClickEvent>() {
 				@SuppressWarnings("incomplete-switch")
 				public void onEvent(ClickEvent e) throws Exception {

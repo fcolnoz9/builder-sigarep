@@ -53,8 +53,9 @@
 		   		<button label="Cerrar"  id="btnCerrarIntancia"
 		   			mold="trendy" width="auto" height="auto"
 		   			image="/imagenes/iconos/cerrar.png"
-		   			onClick="winMaestroInstanciaApelada.onClose()" />
+		   			onClick="@command('cerrarVentana')"/>
 			</div>
+			
 		<!-- Grupbox que contiene el listado de las instancias -->
 		<groupbox id="grbListadoInstanciaApelada">
 			<caption label="Listado de Instancias Apeladas" />

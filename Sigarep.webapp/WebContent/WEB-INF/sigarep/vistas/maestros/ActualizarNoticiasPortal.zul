@@ -84,7 +84,7 @@
 		    <button id="btnCerrarNoticia" label="Cerrar"
 				 mold="trendy" width="auto"
 				height="auto" image="/imagenes/iconos/cerrar.png"
-				 onClick="winActualizarNoticia.onClose()" />
+				 onClick="@command('cerrarVentana')"/>
 		</div>
 		
 		<!-- Grupbox que contiene el listado de noticias almacenadas en base de datos-->
