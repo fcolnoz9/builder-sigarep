@@ -22,13 +22,16 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.Documento;
@@ -52,9 +55,7 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarRecursoJerarquico {
 
-	@Wire("#winRegistrarRecursoJerarquico")
-	private Window win;
-
+	
 	private String sancion;
 	private String lapso;
 	private String nombres;
@@ -64,9 +65,9 @@ public class VMRegistrarRecursoJerarquico {
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacion;
+	private String caso;
 	
 	private Integer idRecaudo;
-	private String caso;
 
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
@@ -86,21 +87,20 @@ public class VMRegistrarRecursoJerarquico {
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
 	
-	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-
 	private EstudianteSancionado estudianteSeleccionado;
 
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
-
 	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 	ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
-
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
-
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
+	
+	@Wire("#winRegistrarRecursoJerarquico")
+	private Window ventana;
 	
 	// METODOS GETS Y DETS
 	
@@ -201,7 +201,15 @@ public class VMRegistrarRecursoJerarquico {
 		media = null;
 		doc = new Documento();
 	}
-
+	
+	/**
+	 * registrarApelacionConMotivos.
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
+	 * 
+	 */
 	public void registrarApelacionConMotivos() {
 		Integer instancia = 3;
 		Integer idEstado = 9;
@@ -248,7 +256,7 @@ public class VMRegistrarRecursoJerarquico {
 
 	/**
 	 * buscarRecaudosEntregados.
-	 * @param cedula, listaRecaudo
+	 * @param cedula.
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -268,13 +276,13 @@ public class VMRegistrarRecursoJerarquico {
 	 */
 	@Command
 	public void closeThis() {
-		win.detach();
+		ventana.detach();
 	}
 
 	/**
 	 * registrarSolicitudApelacion.
 	 * 
-	 * @param lista
+	 * @param Ninguno
 	 * @return Ninguno
 	 * @throws las Excepciones ocurren cuando se quiera registrar una Recurso Jerárquico
 	 * 			y no se ha cargado la carta
@@ -328,7 +336,6 @@ public class VMRegistrarRecursoJerarquico {
 	
 	/**
 	 * descargarDocumento.
-	 *  @param nombreDoc    .
 	 * @return Ninguno
 	 * @throws Ninguna.
 	 */
@@ -348,10 +355,22 @@ public class VMRegistrarRecursoJerarquico {
 		}
 	}
 
+	/**
+	 * buscarSolicitud.
+	 * @param String Cedula
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public void buscarSolicitud(String cedula){
 		listaSolicitud = serviciosolicitudapelacion.buscarSolicitudEstudiante(cedula);	
 	}
 	
+	/**
+	 * mostrarDatosDeSancion.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
+	 */
 	private void mostrarDatosDeSancion() {
 		if (sancion.equalsIgnoreCase("RR")) {
 			asignaturas = servicioasignaturaestudiantesancionado
@@ -379,5 +398,46 @@ public class VMRegistrarRecursoJerarquico {
 		observacion = ""; 
 	}
 
+	/**
+	 * cerrarVentana.
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
+	 */
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({"observacion"})
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+		if (observacion != null)
+		{
+			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();				
+					}
+				}
+			});		
+		}
+	}
+
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+	    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+	        Selectors.wireComponents(view, this, false);
+	    }
+	
 	// FIN OTROS METODOS
 }
