@@ -196,7 +196,13 @@ public class VMBanner {
     }
 	
 		// Metodos de la clase
-
+		
+		/** Filtros Banner.
+	 	* @param String tituloFiltro, String enlaceFiltro
+	 	* @return Registros de Banner por el tipo de filtrado (por titulo o enlace) 
+	 	* @throws No dispara ninguna excepcion.
+	 	*/
+		
 		@Command
 		@NotifyChange({"listadoBanner", "tituloFiltro","enlaceFiltro"})
 		public void filtrosBanner(){
@@ -244,10 +250,6 @@ public class VMBanner {
 					public void onEvent(ClickEvent e) throws Exception {
 						switch (e.getButton()) {
 							case YES:
-								//if you call super.delete here, since original zk event is not control by binder
-								//the change of viewmodel will not update to the ui.
-								//so, I post a delete to trigger to process it in binder controll.
-								//binder.postCommand("limpiar", null);
 								servicioBanner.eliminarBanner(idImagen);
 								mensajeAlUsuario.informacionEliminarCorrecto();
 								binder.postCommand("limpiarBanner", null);
@@ -280,7 +282,7 @@ public class VMBanner {
 			 media= null;
 			 imagenBanner= null;
 			 fotoBanner = new Archivo();
-			 fechaVencimiento= null;//new Date();
+			 fechaVencimiento= null;
 			 bannerSeleccionado= null;
 			 buscarTodosLosBanner();
 		}
@@ -341,14 +343,14 @@ public class VMBanner {
 					fotoBanner.setContenidoArchivo(media.getByteData());
 			
 					imagenBanner = (AImage) media;
-					//Messagebox.show("Archivo: " + imagen.getHeight(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+					
 				} else {
 					Messagebox.show("El archivo: "+media+" no es una imagen valida", "Error", Messagebox.OK, Messagebox.ERROR);
 				}
 			} 
 			else
-				mensajeAlUsuario.advertenciaCargarImagen();//Messagebox.show("Debe introducir una imagen", "Error", Messagebox.OK, Messagebox.ERROR);
-		}
+				mensajeAlUsuario.advertenciaCargarImagen();
+			}
 		
 		/** Cambiar Imagen en el Portal (Carrusel).
  		* @param Ninguno
