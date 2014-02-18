@@ -3,6 +3,9 @@ package sigarep.viewmodels.transacciones;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -12,6 +15,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -19,6 +23,8 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
+
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
@@ -47,26 +53,6 @@ import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarDatosIniciales {
 
-	@Wire("#modalDialog")
-	private Window window;
-
-	@WireVariable
-	private ServicioSolicitudApelacion serviciosolicitudapelacion; //Servicio para La Solicitud de Apelacion
-	@WireVariable
-	private ServicioTipoMotivo serviciotipomotivo; //Servicio para el tipo de motivo
-	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion; //Servicio para la Apelacion y Estado Apelacion
-	@WireVariable
-	private ServicioMotivo serviciomotivo; //Servicio Motivo
-	@WireVariable
-	private ServicioRecaudoEntregado serviciorecaudoentregado; //Servicio Recaudo Entregado
-	@WireVariable
-	private ServicioSoporte serviciosoporte; //Servicio soporte
-	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado; //Servicio Estudiante sancionado
-
-	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>(); //Listado de Estudiante sancionados
-	private EstudianteSancionado estudianteSeleccionado; //Estudiante Seleccionado
 	private String asignaturaLapsosConsecutivos = ""; 
 	private String labelAsignaturaLapsosConsecutivos;
 	private String cedula;
@@ -82,13 +68,39 @@ public class VMRegistrarDatosIniciales {
 	private String motivoCombo;
 	private String lapsosConsecutivos;
 	private Date fecha;
-	private List<TipoMotivo> listamotivo;
 	private String descripcion;
 	private Motivo motivo;
-	private List<Motivo> listamotivos;
 	private TipoMotivo motivoseleccionado;
 	private String listamotivoseleccionado;
 	private String observacion;
+	private Integer idTipoMotivo;
+	private Integer caso;
+	private String numeroCaso;
+	private Integer instancia;
+	private Integer idEstado;
+	private Integer idMotivoGeneral;
+
+	@Wire("#winRegistrarDatosInicialesApelacion")
+	private Window ventana;
+
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion; //Servicio para La Solicitud de Apelacion
+	@WireVariable
+	private ServicioTipoMotivo serviciotipomotivo; //Servicio para el tipo de motivo
+	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion; //Servicio para la Apelacion y Estado Apelacion
+	@WireVariable
+	private ServicioMotivo serviciomotivo; //Servicio Motivo
+	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado; //Servicio Recaudo Entregado
+	@WireVariable
+	private ServicioSoporte serviciosoporte; //Servicio soporte
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado; //Servicio Estudiante sancionado
+	private List<TipoMotivo> listamotivo;
+	private List<EstudianteSancionado> listaSancionados = new LinkedList<EstudianteSancionado>(); //Listado de Estudiante sancionados
+	private EstudianteSancionado estudianteSeleccionado; //Estudiante Seleccionado
+	private List<Motivo> listamotivos;
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<Motivo> listaMotivoListBox = new LinkedList<Motivo>();
@@ -100,13 +112,6 @@ public class VMRegistrarDatosIniciales {
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
-	private Integer idTipoMotivo;
-
-	private Integer caso;
-	private String numeroCaso;
-	private Integer instancia;
-	private Integer idEstado;
-	private Integer idMotivoGeneral;
 
 	//Metodos GET Y SET
 	public String getNumeroCaso() {
@@ -223,13 +228,6 @@ public class VMRegistrarDatosIniciales {
 		this.listamotivoseleccionado = listamotivoseleccionado;
 	}
 
-	public Window getWindow() {
-		return window;
-	}
-
-	public void setWindow(Window window) {
-		this.window = window;
-	}
 
 	public SolicitudApelacion getSolicitudApelacion() {
 		return solicitudApelacion;
@@ -435,7 +433,6 @@ public class VMRegistrarDatosIniciales {
 		listamotivo = serviciotipomotivo.buscarTodas();
 		buscarMotivos();
 		buscarCaso();
-		System.out.println("caso:" +numeroCaso);
 	}
 
 	private void mostrarDatosDeSancion() {
@@ -457,7 +454,7 @@ public class VMRegistrarDatosIniciales {
 
 	@Command
 	public void closeThis() {
-		window.detach();
+		ventana.detach();
 	}
 
 	/**
@@ -586,4 +583,46 @@ public class VMRegistrarDatosIniciales {
 			EstudianteSancionado estudianteSeleccionado) {
 		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
+	
+	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
+	
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({"descripcion", "listaMotivoListBox"})
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (descripcion != null || listaMotivoListBox.size() != 0)
+		{
+			Messagebox.show("¿Realemente desea cerrrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					
+					}
+				}
+			});		
+		}
+	}
+
+
 }

@@ -1,10 +1,11 @@
 <window id="winRegistrarReconsideracion"
-	title="Gestión :: Reconsideraciones :: Registrar Reconsideracion"
+	title="Gestión :: Reconsideraciones :: Registrar Reconsideración"
 	border="normal" width="100%" height="auto" style="overflow:auto"
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm')
      @init('sigarep.viewmodels.transacciones.VMRegistrarReconsideracion')">
+	<!-- Estilos de CSS para pantallas -->
 	<style src="/widgets/grid/simple/style.css" />
 	<div>
 		<label id="lblnrocaso" value="Nro del Caso: " />
@@ -14,6 +15,7 @@
 		</textbox>
 	</div>
 	<space />
+	<!-- Grupbox que contiene los datos basicos del estudiante -->
 	<groupbox id="grbDatosestudiante">
 		<caption id="lblDatosestudiante" label="Datos Estudiante" />
 		<grid id="grdDatosEstudiante">
@@ -25,26 +27,26 @@
 			</columns>
 			<rows>
 				<row>
-					<label id="lblCedula" value="Cedula: " />
+					<label id="lblCedula" value="Cédula: " />
 					<textbox id="txtcedula" cols="23" maxlength="30"
 						readonly="true" mold="rounded"
 						value="@bind(vm.estudianteSeleccionado.estudiante.cedulaEstudiante)"
 						width="80%">
 					</textbox>
 					<label id="lblPrograma" value="Programa: " />
-					<textbox id="txtPrograma" cols="23" maxlength="30"
+					<textbox id="txtPrograma" cols="23" maxlength="60"
 						value="@bind(vm.estudianteSeleccionado.estudiante.programaAcademico.nombrePrograma)"
 						readonly="true" width="80%" mold="rounded">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblNombres" value="Nombres: " />
-					<textbox id="txtNombres" cols="23" maxlength="30"
+					<textbox id="txtNombres" cols="23" maxlength="60"
 						mold="rounded" value="@bind(vm.nombres)" readonly="true"
 						width="80%">
 					</textbox>
 					<label id="lblApellidos" value="Apellidos: " />
-					<textbox id="txtApellidos" cols="23" maxlength="30"
+					<textbox id="txtApellidos" cols="23" maxlength="60"
 						mold="rounded" value="@bind(vm.apellidos)" readonly="true"
 						width="80%">
 					</textbox>
@@ -52,8 +54,9 @@
 			</rows>
 		</grid>
 	</groupbox>
+	<!-- Grupbox que contiene los datos de la sancion -->
 	<groupbox id="grbDatosSancion">
-		<caption id="lblDatossancion" label="Datos Sancion" />
+		<caption id="lblDatossancion" label="Datos Sanción" />
 		<grid>
 			<columns>
 				<column width="10%" />
@@ -64,22 +67,22 @@
 			<rows>
 				<row>
 					<label id="lblTiposancion"
-						value="Tipo de Sancion: " />
+						value="Tipo de Sanción: " />
 					<textbox id="txtTipoSancion" cols="23"
-						maxlength="30" readonly="true" mold="rounded" width="80%"
+						maxlength="60" readonly="true" mold="rounded" width="80%"
 						value="@bind(vm.estudianteSeleccionado.sancionMaestro.nombreSancion)">
 					</textbox>
 					<label id="lblLapsosancion"
-						value="Lapso de Sancion: " />
+						value="Lapso de Sanción: " />
 					<textbox id="txtLapsosancion" cols="23"
-						maxlength="30" mold="rounded" width="80%"
+						maxlength="6" mold="rounded" width="80%"
 						value="@bind(vm.estudianteSeleccionado.lapsoAcademico.codigoLapso)"
 						readonly="true">
 					</textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
-						value="Periodo de Sancion: " />
+						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
 						mold="rounded" width="80%" maxlength="30"
 						value="@bind(vm.estudianteSeleccionado.periodoSancion)"
@@ -87,7 +90,7 @@
 					</textbox>
 					<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="23" maxlength="30"
+					<textbox id="txtAsignatura" cols="23" maxlength="255"
 						mold="rounded" value="@bind(vm.asignaturaLapsosConsecutivos)"
 						readonly="true" width="80%">
 					</textbox>
@@ -95,6 +98,7 @@
 			</rows>
 		</grid>
 	</groupbox>
+	<!-- Grupbox que contiene los datos del recurso de reconsideracion -->
 	<groupbox id="grbDatosdeReconsideracion">
 		<caption id="lblDatosReconsideracion"
 			label="Datos Reconsideración" />
@@ -105,16 +109,17 @@
 			</columns>
 			<rows>
 				<row>
-					<label id="lblObservacion" value="Observacion:">
+					<label id="lblObservacion" value="Observación:">
 					</label>
 					<textbox id="txtObservacion" cols="23"
 						maxlength="255" rows="3" width="80%" mold="rounded"
-						value="@bind(vm.observacion)">
+						value="@bind(vm.observacion)"  placeholder="Ingrese la observación del Recurso de Reconsideración">
 					</textbox>
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
+	<!-- Grupbox que contiene los datos de los recaudos -->
 	<groupbox>
 		<caption id="lblDatosRecaudos" label="Recaudos Entregados" />
 		<listbox model="@bind(vm.listaRecaudos)"
@@ -146,6 +151,7 @@
 			</template>
 		</listbox>
 	</groupbox>
+	<!-- Grupo de botones -->
 	<div align="right">
 		<hbox>
 			<div align="right" height="100%">
@@ -163,7 +169,7 @@
 				<button id="btnCerrar" mold="trendy" width="auto"
 					height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png"
 					orient="horizontal"
-					onClick="@command(winRegistrarReconsideracion.onClose())" />
+					onClick="@command('cerrarVentana')" />
 			</div>
 		</hbox>
 	</div>
