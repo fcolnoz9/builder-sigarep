@@ -66,20 +66,21 @@
 	</groupbox>
 	
 
-		<groupbox id="grbDatosRecaudo">
+		<groupbox id="grbDatoApelacion">
 		<caption label="Datos de la Apelación" />
 		<grid>
 			<rows>
 				<row>
 					<label value="Número de Caso:" id="lblNumeroCaso" />
 					<textbox id="txtNumeroCaso" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.caso)"></textbox>
-					<label value="Fecha de Apelacion:" id="lblFechaApelacion" />
+					<label value="Fecha de Apelación:" id="lblFechaApelacion" />
 					<textbox id="txtFechaApelacion" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.fechaApelacion)"></textbox>
 				</row>
 			</rows>
 		</grid>
 		</groupbox>
-		<groupbox>  
+		
+		<groupbox id="grbDatosRecaudo">  
 		<caption label="Datos de los recaudos" />      
         <listbox id="lbxRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="20">
 	   	<listhead>
@@ -92,7 +93,7 @@
 	   			<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
 	   			<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
 	   			<listcell height="%">
-	   			<textbox value="" mold="rounded" cols="120" rows="2" />
+	   			<textbox value="" mold="rounded" cols="120" rows="2" maxlength="255"/>
 	   			</listcell>
 	   		</listitem>
 	   	</template>
@@ -102,7 +103,7 @@
 	
 	
 	
-	<groupbox>
+	<groupbox id="grbDatosSugerencia">
 			<caption id="lblsugerencia" label="Sugerencia" />
 			<grid>
 			<columns>
@@ -125,7 +126,7 @@
 				     <hlayout valign="center">
 						<label value="Observación General: " id="lblObservacion"  />
 						<separator></separator>
-						<textbox id="txtObservacion" mold="rounded"  cols="100" value="@bind(vm.observacion)" rows="2"></textbox>
+						<textbox id="txtObservacion" mold="rounded" maxlength="255" cols="100" value="@bind(vm.observacion)" rows="2"></textbox>
 					</hlayout>
 				</row>
 		    </rows>
