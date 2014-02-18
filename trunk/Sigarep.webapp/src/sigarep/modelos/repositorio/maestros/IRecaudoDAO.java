@@ -55,7 +55,9 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	
 	/** busqueda de recaudos faltantes, Verificar Recaudos - Recurso Reconsideracion  
 	 * @param cedula
-	 * @throws No dispara ninguna excepcion.
+	 * @return recaudos faltantes por entregar de un estudiante sancionado
+	 * @throws Todos losrecaudos menos los que haya entregado, y los generales
+	 *  correspondientes a las apelaciones 1 y 3
 	   */
 	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '3' " +
@@ -69,6 +71,13 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 			"AND la.estatus = 'TRUE'")
 	public List<Recaudo> buscarRecaudosVerificarRecaudosII(@Param("cedula") String cedula);
 
+
+	/** busqueda de recaudos faltantes, Verificar Recaudos - Recurso Jerarquico 
+	 * @param cedula
+	 * @return recaudos faltantes por entregar de un estudiante sancionado
+	 * @throws Todos losrecaudos menos los que haya entregado, y los generales
+	 *  correspondientes a las apelaciones 1 y 2
+	 */
 	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '2' " +
 			"AND r.idRecaudo NOT IN " +

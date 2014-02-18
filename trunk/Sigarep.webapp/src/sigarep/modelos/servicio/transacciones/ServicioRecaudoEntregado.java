@@ -53,10 +53,20 @@ public class ServicioRecaudoEntregado {
 		return result;
 	} 
 	
+	/** lista de recaudos entregados de un estudiante sancionado
+	 * en la segunda apelacion
+	 * @param cedula
+	 * @return lista de recaudos faltantes por entregar
+	 */
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVerificarRecaudosII(String cedula){
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVerificarRecaudosII(cedula);
 	}
 
+	/** lista de recaudos entregados de un estudiante sancionado
+	 * en la tercera apelacion
+	 * @param cedula
+	 * @return lista de recaudos faltantes por entregar
+	 */
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVerificarRecaudosIII(String cedula) {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
 	}

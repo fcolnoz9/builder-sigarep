@@ -97,12 +97,23 @@ public class ServicioRecaudo {
 		}
 		return resultado;
 	}
+	
+	/** lista de recaudos faltantes por entregar de un estudiante sancionado
+	 *  en la segunda apelacion
+	 * @param cedula
+	 * @return lista de recaudos faltantes por entregar
+	 */
 	public List<Recaudo> buscarRecaudosVerificarRecaudosII(
 			String cedula) {
 		// TODO Auto-generated method stub
 		return iRecaudoDAO.buscarRecaudosVerificarRecaudosII(cedula);
 	}
 	
+	/** lista de recaudos faltantes por entregar de un estudiante sancionado
+	 * en la tercera apelacion
+	 * @param cedula
+	 * @return lista de recaudos faltantes por entregar
+	 */
 	public List<Recaudo> buscarRecaudosVerificarRecaudosIII(
 			String cedula) {
 		// TODO Auto-generated method stub
