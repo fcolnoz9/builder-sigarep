@@ -28,7 +28,7 @@
 			<rows>
 				<row>
 					<label id="lblCedula" value="Cédula: " />
-					<textbox id="txtcedula" cols="23" maxlength="30"
+					<textbox id="txtcedula" cols="23" maxlength="8"
 						readonly="true" mold="rounded"
 						value="@bind(vm.estudianteSeleccionado.estudiante.cedulaEstudiante)"
 						width="80%">
