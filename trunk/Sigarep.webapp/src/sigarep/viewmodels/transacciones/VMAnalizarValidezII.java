@@ -8,7 +8,6 @@ package sigarep.viewmodels.transacciones;
 
 
 
-import org.zkoss.zul.Button;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,24 +24,18 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
-import org.zkoss.zhtml.Messagebox;
-
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Groupbox;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
@@ -63,10 +56,6 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
-
-
-
-
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -106,7 +95,6 @@ public class VMAnalizarValidezII {
 	@Wire
 	private SolicitudApelacion sancionadoSeleccionado;
 	private boolean mostrarButtonObservacionAnterior = false;
-	private Datebox dtbAnnoIngreso;
 	private TipoMotivo tipoMotivo;
 	private List<LapsoAcademico> listaLapso;
 	private List<SancionMaestro> listaSancion;
@@ -343,8 +331,7 @@ public class VMAnalizarValidezII {
 			if (asignaturas != null)
 				for (int i = 0; i < asignaturas.size(); i++)
 					asignaturaLapsosConsecutivos += asignaturas.get(i)
-							.getAsignatura().getNombreAsignatura()
-							+ ", ";
+							.getAsignatura().getNombreAsignatura() + ", ";
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
 		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
@@ -361,16 +348,12 @@ public class VMAnalizarValidezII {
 		String fecha = sdf.format(fechaSA);
 		this.fechaApelacion = fecha;
 	
-		// para lo del Button
+		// para lo del Button Analisis anterior
 		
 		for(RecaudoEntregado recaudoEntregado : buscarRecaudosEntregados(cedula)){
 			if(recaudoEntregado.getObservacionExperto() == null ){
-				System.out.println("paso por aqui");
-				System.out.println(" y la cedula es CEDULA"+cedula);
 				this.setMostrarButtonObservacionAnterior(false);
 			}else{
-				System.out.println("tambien por aca");
-				System.out.println(" y la cedula es CEDULA"+recaudoEntregado.getObservacionExperto());
 				this.setMostrarButtonObservacionAnterior(true);
 				break;
 			}

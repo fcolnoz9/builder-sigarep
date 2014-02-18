@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.springframework.web.filter.OncePerRequestFilter;
 import org.zkoss.bind.annotation.Command;
 
 import org.zkoss.bind.annotation.BindingParam;
@@ -20,14 +19,11 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
-import org.zkoss.zhtml.Messagebox;
-
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
@@ -55,8 +51,6 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
-
-//import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAnalizarValidezI {
@@ -108,7 +102,7 @@ public class VMAnalizarValidezI {
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
-	//Metodos SET Y GET 
+	//Metodos SETs Y GETs 
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
 	}
@@ -389,7 +383,6 @@ public class VMAnalizarValidezI {
 			
 			Recaudo recaudo = new Recaudo();
 			for(Listitem miRecaudo: recaudos){
-				//System.out.println(((Listcell) miRecaudo.getChildren().get(1)).getLabel());
 				String nombreRecaudo = ((Listcell) miRecaudo.getChildren().get(1)).getLabel();
 				String observacionExperto = ((Textbox)(miRecaudo.getChildren().get(2)).getFirstChild()).getValue();
 				if(observacionExperto.equals(""))
