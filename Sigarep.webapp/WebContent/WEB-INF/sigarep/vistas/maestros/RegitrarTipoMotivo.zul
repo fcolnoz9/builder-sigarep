@@ -22,16 +22,15 @@
 						<label id="lblTipoMotivo"
 							value="Motivo de Apelación:" />
 						<textbox id="txtnombreTipoMotivo" width="80%"
-							height="auto" mold="rounded" constraint="no empty:Introduzca un Nombre" cols="23" maxlength="30"
+							height="auto" mold="rounded"  placeholder = "Ingrese un nombre del motivo"  cols="23" maxlength="60"
 							value="@bind(vm.nombreTipoMotivo)" />
 						<label id="lblDescripción" value="Descripción:" />
 						<textbox id="txtDescripción" width="80%" rows="3" 
-						height="auto" mold="rounded" constraint="no empty:Introduzca una Descripción"  value="@bind(vm.descripcion)">
+						height="auto" mold="rounded" placeholder = " Ingrese una Descripción del Motivo" maxlength="255" value="@bind(vm.descripcion)">
 						</textbox>
 					</row>
 				</rows>
 			</grid>
-
 		</groupbox>
 		<separator />
 		<!-- Grupbox de Botones -->
