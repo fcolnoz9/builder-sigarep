@@ -91,13 +91,13 @@ public class VMapelacionesPorInstancia {
 					apelacionesPrograma = servicioapelacionespormotivo
 							.buscarPorInstanciaResultado_Programa(
 									objLapso.getCodigoLapso(),
-									objPrograma.getNombrePrograma());
+									objPrograma.getIdPrograma());
 				} else
 					apelacionesPrograma = servicioapelacionespormotivo
 							.buscarPorInstanciaResultado_ProgramaSancion(
 									objLapso.getCodigoLapso(),
-									objSancion.getNombreSancion(),
-									objPrograma.getNombrePrograma());
+									objSancion.getIdSancion(),
+									objPrograma.getIdPrograma());
 
 				// model = ChartDataTipoDeSexo.getModel(lista);
 			//} else {
@@ -272,13 +272,13 @@ public class VMapelacionesPorInstancia {
 			apelacionesPrograma = servicioapelacionespormotivo
 					.buscarPorInstanciaResultado_Programa(
 							objLapso.getCodigoLapso(),
-							objPrograma.getNombrePrograma());
+							objPrograma.getIdPrograma());
 		} else
 			apelacionesPrograma = servicioapelacionespormotivo
 					.buscarPorInstanciaResultado_ProgramaSancion(
 							objLapso.getCodigoLapso(),
-							objSancion.getNombreSancion(),
-							objPrograma.getNombrePrograma());
+							objSancion.getIdSancion(),
+							objPrograma.getIdPrograma());
 
 		/*
 		 * System.out.println(programaAcademico.getIdPrograma());
