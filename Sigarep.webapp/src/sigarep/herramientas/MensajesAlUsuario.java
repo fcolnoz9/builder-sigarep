@@ -5,12 +5,12 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
 /*
- * Debe declarar una variable tipo MensajesAlUsuario como estándar mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) en donde usará los mensajes (su clase viewmodels), 
+ * Debe declarar una variable tipo MensajesAlUsuario como estï¿½ndar mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) en donde usarï¿½ los mensajes (su clase viewmodels), 
  * primero importe el paquete herramientas
- * Cuando vaya a usar algún mensaje coloca mensajeAlUsuario.NombreDelMetodo();
+ * Cuando vaya a usar algï¿½n mensaje coloca mensajeAlUsuario.NombreDelMetodo();
  * por ejemplo: mensajeAlUsuario.advertenciaLlenarCampos();
- * Si necesita algún otro mensaje agréguelo a esta clase, en orden.
- * por ejemplo: si es de advertencia, debajo del último de advertencia.
+ * Si necesita algï¿½n otro mensaje agrï¿½guelo a esta clase, en orden.
+ * por ejemplo: si es de advertencia, debajo del ï¿½ltimo de advertencia.
  * 
  * */
 
@@ -18,27 +18,27 @@ public class MensajesAlUsuario {
 
 	public void advertenciaLlenarCampos() {
 
-		Messagebox.show("¡Debe llenar todos los campos!", "Advertencia",
+		Messagebox.show("ï¿½Debe llenar todos los campos!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 
-//	public void advertenciaContraseñaVacia() {
+//	public void advertenciaContraseï¿½aVacia() {
 //
-//		Messagebox.show("La nueva contraseña no puede ser vacía.",
+//		Messagebox.show("La nueva contraseï¿½a no puede ser vacï¿½a.",
 //				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 //	}
 //no se usa
 	public void advertenciaIngresarCedula() {
 
-		Messagebox.show("¡Debe ingresar una cédula!", "Advertencia",
+		Messagebox.show("ï¿½Debe ingresar una cï¿½dula!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 
 	public void advertenciaMenudelGrupoVacio() {
 
-		Messagebox.show("¡Debe agregar al menos una función al menú del grupo!",
+		Messagebox.show("ï¿½Debe agregar al menos una funciï¿½n al menï¿½ del grupo!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -49,19 +49,19 @@ public class MensajesAlUsuario {
 	}
 
 	public void advertenciaSeleccionarOpcion() {
-		Messagebox.show("Debe seleccionar alguna opción para continuar.",
+		Messagebox.show("Debe seleccionar alguna opciï¿½n para continuar.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaCargarImagen() {
 
-		Messagebox.show("¡Debe Cargar una Imagen!", "Advertencia",
+		Messagebox.show("ï¿½Debe Cargar una Imagen!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaCargarDocumento() {
 
-		Messagebox.show("¡Debe Cargar un Documento!", "Advertencia",
+		Messagebox.show("ï¿½Debe Cargar un Documento!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -107,13 +107,13 @@ public class MensajesAlUsuario {
      }
 	
 	public void advertenciaAgregarObservacionGeneral() {
-		Messagebox.show("Debe agregar una observación general del caso.",
+		Messagebox.show("Debe agregar una observaciï¿½n general del caso.",
 				"Advertencia", Messagebox.OK,Messagebox.EXCLAMATION);
     }
 	
 	public void advertenciaSeleccionarLapso() {
 
-		Messagebox.show("¡Debe seleccionar un lapso académico!", "Advertencia",
+		Messagebox.show("ï¿½Debe seleccionar un lapso acadï¿½mico!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -125,7 +125,7 @@ public class MensajesAlUsuario {
 
 //	public void advertenciaSeleccionarUbicacionRespaldo() {
 //
-//		Messagebox.show("Debe seleccionar la ubicación del respaldo a restaurar.",
+//		Messagebox.show("Debe seleccionar la ubicaciï¿½n del respaldo a restaurar.",
 //				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 //	}
 	
@@ -135,76 +135,76 @@ public class MensajesAlUsuario {
      }
 	
 	public void advertenciaContrasennasNoCoinciden() {
-		Messagebox.show("Las contraseñas no coinciden.","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+		Messagebox.show("Las contraseï¿½as no coinciden.","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
      }
 
 	public void advertenciaNoExisteEstudianteSancionado() {
 
-		Messagebox.show("Esta cédula no está en la lista de Estudiantes Sancionados.",
+		Messagebox.show("Esta cï¿½dula no estï¿½ en la lista de Estudiantes Sancionados.",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	
 	public void advertenciaGrupoYaExistente(String nombreGrupo) {
 
-		Messagebox.show("¡El grupo con nombre "+nombreGrupo+" ya se encuentra registrado!.",
+		Messagebox.show("ï¿½El grupo con nombre "+nombreGrupo+" ya se encuentra registrado!.",
 				"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
 	public void informacionHemosEnviadoCorreo() {
 
-		Messagebox.show("Le hemos enviado un email con su nombre de usuario y contraseña.",
-						"Información", Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("Le hemos enviado un email con su nombre de usuario y contraseï¿½a.",
+						"Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionContrasennaAtualizada() {
 
-		Messagebox.show("Se ha actualizado su contraseña con éxito.",
-				"Información", Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("Se ha actualizado su contraseï¿½a con ï¿½xito.",
+				"Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionContrasennaRecuperada() {
 
-		Messagebox.show("Hemos enviado un email con su contraseña.",
-				"Información", Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("Hemos enviado un email con su contraseï¿½a.",
+				"Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public static void informacionRegistroCorrectoStatic() {
 
-		Messagebox.show("Se ha registrado correctamente.", "Información",
+		Messagebox.show("Se ha registrado correctamente.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionRegistroCorrecto() {
 
-		Messagebox.show("Se ha registrado correctamente.", "Información",
+		Messagebox.show("Se ha registrado correctamente.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionEliminarCorrecto() {
 
-		Messagebox.show("Se ha eliminado correctamente.", "Información",
+		Messagebox.show("Se ha eliminado correctamente.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 
 	}
 
 	public void informacionFinalizarLapsoExitoso() {
 
-		Messagebox.show("¡Lapso Académico finalizado exitosamente!",
-				"Información", Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("ï¿½Lapso Acadï¿½mico finalizado exitosamente!",
+				"Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 
 	}
 
 	public void informacionOperacionExitosa() {
 
-		Messagebox.show("¡Operación realizada exitosamente!", "Informacion",
+		Messagebox.show("ï¿½Operaciï¿½n realizada exitosamente!", "Informacion",
 				Messagebox.OK, Messagebox.INFORMATION);
 
 	}
 
 	public void informacionCreacionHistorico(String nombreHistorico) {
 
-		Messagebox.show("Se ha Creado un archivo histórico bajo el nombre de: "
+		Messagebox.show("Se ha Creado un archivo histï¿½rico bajo el nombre de: "
 				+ "" + nombreHistorico + ".sql", "Informacion", Messagebox.OK,
 				Messagebox.INFORMATION);
 
@@ -212,68 +212,68 @@ public class MensajesAlUsuario {
 
 	public void informacionArchivoCargado() {
 
-		Messagebox.show("Archivo cargado correctamente.", "Información",
+		Messagebox.show("Archivo cargado correctamente.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 
 	}
 
 	public void informacionArchivoEliminado() {
 
-		Messagebox.show("Archivo eliminado correctamente.", "Información",
+		Messagebox.show("Archivo eliminado correctamente.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionVeredictoRegistrado() {
-		Messagebox.show("Veredicto registrado correctamente.", "Información",
+		Messagebox.show("Veredicto registrado correctamente.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionFinalizarVeredictoApelacionesProcesadas() {
-		Messagebox.show("No existen apelaciones para procesar.", "Información",
+		Messagebox.show("No existen apelaciones para procesar.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
 
 
 //	public void informacionGuardarDatosSesion(int contador) {
-//		Messagebox.show("Se almacenaron correctamente los datos de la sesión a "
-//						+ contador + " apelaciones.", "Información",
+//		Messagebox.show("Se almacenaron correctamente los datos de la sesiï¿½n a "
+//						+ contador + " apelaciones.", "Informaciï¿½n",
 //				Messagebox.OK, Messagebox.INFORMATION);
 //	} no se usa por ahora
 
 //	public void informacionDatosDeSesionNoEncontrados() {
-//		Messagebox.show("Proporcione los datos de una nueva sesión.",
-//				"Información", Messagebox.OK, Messagebox.INFORMATION);
+//		Messagebox.show("Proporcione los datos de una nueva sesiï¿½n.",
+//				"Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 //	}no se usa por ahora
 
 	public void informacionDatosDeSesionEncontrados() {
-		Messagebox.show("Se encontró una Sesión activa. Puede continuar con la misma o indicar los datos de una nueva.",
-						"Información", Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("Se encontrï¿½ una Sesiï¿½n activa. Puede continuar con la misma o indicar los datos de una nueva.",
+						"Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionRestauracionNoExitosa() {
-		Messagebox.show("El intento de restauración no fue exitoso.",
-				"Información", Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("El intento de restauraciï¿½n no fue exitoso.",
+				"Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionRespaldoNoExitosa() {
-		Messagebox.show("El intento de respaldo no fue exitoso.", "Información",
+		Messagebox.show("El intento de respaldo no fue exitoso.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
 	public void informacionRespaldoExitoso() {
-		Messagebox.show("Respaldo realizado de manera exitosa.", "Información",
+		Messagebox.show("Respaldo realizado de manera exitosa.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionNoHayCoincidencias() {
-		Messagebox.show("No Hay coincidencias para mostrar.", "Información",
+		Messagebox.show("No Hay coincidencias para mostrar.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void ErrorRestauracionEnProceso() {
 
-		Messagebox.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
+		Messagebox.show("Restauraciï¿½n en proceso, debe esperar mientras el proceso es completado.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
@@ -293,7 +293,7 @@ public class MensajesAlUsuario {
 	public void ErrorFinalizarLapsoSesion() {
 
 		Messagebox.show("No puede finalizar el lapso actual. "
-				+ "Existen apelaciones sin número de sesión.", "Error",
+				+ "Existen apelaciones sin nï¿½mero de sesiï¿½n.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 
 	}
@@ -308,7 +308,7 @@ public class MensajesAlUsuario {
 
 	public void ErrorLapsoActivoNoExistente() {
 
-		Messagebox.show("No existe un lapso académico activo.", "Error",
+		Messagebox.show("No existe un lapso acadï¿½mico activo.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 
 	}
@@ -322,7 +322,7 @@ public class MensajesAlUsuario {
 
 	public void ErrorLapsoActivoExistente() {
 
-		Messagebox.show("Ya existe un lapso académico activo.", "Error",
+		Messagebox.show("Ya existe un lapso acadï¿½mico activo.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 
 	}
@@ -335,15 +335,15 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void ErrorNoCoincidenLasContraseñas() {
+	public void ErrorNoCoincidenLasContrasenias() {
 
-		Messagebox.show("La nueva contraseña y la contraseña de confirmación no coinciden.",
+		Messagebox.show("La nueva contraseï¿½a y la contraseï¿½a de confirmaciï¿½n no coinciden.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
-	public void ErrorNoCoincideContraseñaUsuario() {
+	public void ErrorNoCoincideContraseniaUsuario() {
 
-		Messagebox.show("La contraseña ingresada no coincide con el usuario.",
+		Messagebox.show("La contraseï¿½a ingresada no coincide con el usuario.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
@@ -355,21 +355,21 @@ public class MensajesAlUsuario {
 	
 	public void ErrorNoEsXML() {
 
-		Messagebox.show("La Extensión del Archivo no es XML.", 
+		Messagebox.show("La Extensiï¿½n del Archivo no es XML.", 
 				"Error",Messagebox.OK, Messagebox.ERROR);
 	}
 	
 
 	public void confirmacionSalir() {
 
-		Messagebox.show("¿Realmente desea salir?", "Confirmación",
+		Messagebox.show("ï¿½Realmente desea salir?", "Confirmaciï¿½n",
 				Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
 	}
 
 	public void confirmacionCerrarSesion() {
 
-		Messagebox.show("¿Está seguro de querer cerrar sesión?",
-				"Confirmación", Messagebox.OK | Messagebox.CANCEL,
+		Messagebox.show("ï¿½Estï¿½ seguro de querer cerrar sesiï¿½n?",
+				"Confirmaciï¿½n", Messagebox.OK | Messagebox.CANCEL,
 				Messagebox.QUESTION);
 
 	}
