@@ -17,17 +17,20 @@
 				<row>
 					<label id="lblCedula" value="Cédula:" />
 					<textbox id="txtCedula" mold="rounded" width="80%"
-						cols="23" maxlength="30" tabindex="1" value="@bind(vm.cedula)"
+						placeholder = "Ingrese Cédula" 
+						cols="23" maxlength="8" tabindex="1" value="@bind(vm.cedula)"
 						onBlur="@command('buscarEstudiante')" />
 				</row>
 				<row>
 					<label id="lblPrimerNombre" value="Primer Nombre:" />
 					<textbox id="txtPrimerNombre" mold="rounded"
+						placeholder = "Ingrese el primer nombre" 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.primerNombre)"  />
 					<label id="lblSegundoNombre"
 						value="Segundo Nombre:" />
 					<textbox id="txtSegundoNombre" mold="rounded"
+						placeholder = "Ingrese el segundo  nombre" 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.segundoNombre)"  />
 				</row>
@@ -35,22 +38,25 @@
 					<label id="lblPrimerApellido"
 						value="Primer Apellido:" />
 					<textbox id="txtPrimerApellido" mold="rounded"
+					placeholder = "Ingrese el primer apellido" 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.primerApellido)"  />
 					<label id="lblSegundoApellido"
 						value="Segundo Apellido:" />
 					<textbox id="txtSegundoApellido" mold="rounded"
+						placeholder = "Ingrese el segundo apellido" 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.segundoApellido)"  />
 				</row>
 				<row>
 					<label id="lblsexo" value="Sexo:" />
-					<textbox id="txtSexo" mold="rounded" width="80%"
+					<textbox id="txtSexo" mold="rounded" width="20%"
 						cols="23" maxlength="1" tabindex="1" value="@bind(vm.sexo)"
-						 />
+						 placeholder = "F/M" />
 					<label id="lblFechaNacimiento"
 						value="Fecha de Nacimiento:" />
 					<datebox id="dtbFechaNacimiento" mold="rounded"
+						placeholder = "Ingrese la fecha de nacimiento" 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.fechaNacimiento)" format="dd/MM/yyyy"
 						 />
@@ -58,21 +64,23 @@
 				<row>
 					<label id="lblTelefono" value="Teléfono:" />
 					<textbox id="txtTelefono" mold="rounded" width="80%"
-						cols="23" maxlength="30" tabindex="1" value="@bind(vm.telefono)"
-						 />
+						cols="23" maxlength="11" tabindex="1" value="@bind(vm.telefono)"
+						 placeholder = "Ingrese el teléfono"  />
 					<label id="lblEmail" value="Email:" />
 					<textbox id="txtEmail" mold="rounded" width="80%"
-						cols="23" maxlength="30" tabindex="1" value="@bind(vm.email)"
-						 />
+						cols="23" maxlength="50" tabindex="1" value="@bind(vm.email)"
+						 placeholder = "Ingrese el E-Mail"  />
 				</row>
 				<row>
 					<label id="lblAnnoIngreso" value="Año de Ingreso:" />
 					<datebox id="dtbAnnoIngreso" mold="rounded"
+						placeholder = "Ingrese el año de ingreso" 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy"  />
 					<label id="lblPrograma" value="Programa:" />
 					<combobox readonly="true" id="cmbPrograma"
 						value="@bind(vm.programa.nombrePrograma)" width="80%" cols="45"
+						placeholder = "Seleccione un programa"
 						maxlength="45" tabindex="1" mold="rounded"
 						model="@load(vm.listaPrograma)"
 						selectedItem="@bind(vm.programa)"
@@ -102,39 +110,39 @@
 				<row>
 					<label id="lblLapso" value="Lapso Académico:" />
 					<textbox id="txtLapsoAcademico" mold="rounded"
-						width="80%" maxlength="30" tabindex="1" readonly="true"
+						width="80%" maxlength="6" tabindex="1" readonly="true"
 						value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
 						<label id="lblSemestre" value="Semestre:" />
 					<textbox id="txtSemestre" mold="rounded"
-						width="20%" cols="23" maxlength="30" tabindex="1"
-						constraint="no empty:Introduzca un el indice de grado"
+						width="20%" cols="23" maxlength="2" tabindex="1"
+						placeholder = "Ingrese el semestre"
 						value="@bind(vm.semestre)" />
 				</row>
 				<row>
 					<label id="lblUnidadCursadas"
 						value="Unidades/Horas Cursadas:" />
 					<textbox id="txtUnidadCursadas" mold="rounded"
-						width="80%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.unidadesCursadas)"
-						constraint="no empty:Introduzca un las Unidades Cursadas" />
+						placeholder = "Ingrese las Unidades/Horas Cursadas"
+						width="80%" cols="23" maxlength="4" tabindex="1"
+						value="@bind(vm.unidadesCursadas)" />
 					<label id="lblUnidadAprobadas"
 						value="Unidades/Horas Aprobadas:" />
 					<textbox id="txtUnidadAprobadas" mold="rounded"
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="80%" cols="23" maxlength="4" tabindex="1"
 						value="@bind(vm.unidadesAprobadas)"
-						constraint="no empty:Introduzca un las Unidades Aprobadas" />
+						placeholder = "Ingrese las Unidades/Horas Aprobadas" />
 				</row>
 				
 				<row>
 					<label id="lblIndiceGrado" value="Indice de grado:" />
 					<textbox id="txtIndiceGrado" mold="rounded"
 						width="20%" cols="23" maxlength="30" tabindex="1"
-						constraint="no empty:Introduzca un el indice de grado"
 						value="@bind(vm.indiceGrado)" />
 					<label id="lblSancion" value="Sanción:" />
 					<combobox readonly="true" id="cmbSancion"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"
+						placeholder = "Seleccione el tipo de sancion"
 						model="@load(vm.listaSancion)"
 						selectedItem="@bind(vm.sancionMaestro)"
 						onSelect="@command('seleccionarSancion', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)">
@@ -150,19 +158,20 @@
 						value="Período de Sanción:" />
 					<textbox id="txtPeriodoSancion" mold="rounded"
 						width="80%" cols="23" maxlength="30" tabindex="1"
-						constraint="no empty:Introduzca el período de la Sancion"
+						placeholder = "Ingrese el Período de sancion"
 						value="@bind(vm.periodoSancion)" />
 						
-<!-- 						nuevo OJO -->
 						<label id="lblLapsosConsecutivos"
 							value="Lapsos Consecutivos:" visible="false" />
 						<hlayout>
 							<textbox id="txtLapsoConsecutivo1" cols="23"
 								maxlength="6" value="@bind(vm.lapsoConsecutivo1)"
+								placeholder = "Ingrese el año"
 								mold="rounded" width="70px" visible="false">
 							</textbox>
 							<textbox id="txtLapsoConsecutivo2" cols="23"
 								maxlength="6" value="@bind(vm.lapsoConsecutivo2)"
+								placeholder = "Ingrese el año de año"
 								mold="rounded" width="70px" visible="false">
 							</textbox>
 						</hlayout>
@@ -188,6 +197,7 @@
 						width="80%" cols="23" maxlength="30" tabindex="1"
 					 mold="rounded"
 						model="@load(vm.listaAsignaturas)"
+						placeholder = "Seleccione una asignatura"
 						selectedItem="@bind(vm.asignaturaseleccionado)">
 						<template name="model">
 							<comboitem label="${each.nombreAsignatura}" />
@@ -311,7 +321,6 @@
 					<listcell
 						label="${each.sancionMaestro.nombreSancion}">
 				</listcell> 
-<!-- 				<listcell label="${each.id.codigoLapso}"></listcell> -->
 		</listitem> 
 			</template>
 		</listbox>
@@ -320,38 +329,6 @@
 		<space />
 		<space />
 	</groupbox>
-
-
-
-
-
-	<!--    	<groupbox> -->
-	<!--    	<caption label="Lista de Estudiantes Sancionados" /> -->
-	<!--    	<space /> -->
-	<!--    	<space /> -->
-	<!--    	<listbox id="estListbox" height="130px" model="@bind(vm.listaSancionados)" selectedItem="@bind(vm.estudianteSeleccionado)"    -->
-	<!--    			 onSelect="@command('mostrarSeleccionado')" emptyMessage="No hay estudiantes sancionados registrados" mold="paging" pageSize="10"> -->
-	<!-- 		<listhead> -->
-	<!-- 			<listheader label="Cedula" align="center" sort="auto(id.cedulaEstudiante)" /> -->
-	<!-- 			<listheader label="Nombre" align="center" sort="auto(estudiante.primerNombre)" /> -->
-	<!-- 			<listheader label="Apellido" align="center" sort="auto(estudiante.primerApellido)" /> -->
-	<!-- 			<listheader label="Sanción" align="center" sort="auto(sancionMaestro.nombreSancion)" /> -->
-	<!-- 			<listheader label="Lapso Academico" align="center" sort="auto(id.codigoLapso)" /> -->
-	<!-- 		</listhead> -->
-	<!-- 		<template name="model"> -->
-	<!-- 			<listitem selected="false"> -->
-	<!-- 				<listcell label="${each.id.cedulaEstudiante}" ></listcell> -->
-	<!-- 				<listcell label="${each.estudiante.primerNombre}" ></listcell> -->
-	<!-- 				<listcell label="${each.estudiante.primerApellido}" ></listcell> -->
-	<!-- 				<listcell label="${each.sancionMaestro.nombreSancion}" ></listcell> -->
-	<!-- 				<listcell label="${each.id.codigoLapso}" ></listcell> -->
-	<!-- 			</listitem> -->
-	<!-- 		</template> -->
-	<!-- 	</listbox> -->
-	<!-- 	<space /> -->
-	<!-- 	<space /> -->
-	<!-- 	</groupbox> -->
-
 
 
 </window>
