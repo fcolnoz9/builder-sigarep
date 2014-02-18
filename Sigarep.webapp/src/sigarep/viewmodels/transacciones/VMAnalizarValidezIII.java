@@ -73,7 +73,6 @@ public class VMAnalizarValidezIII {
 	private String sancion;
 	private String lapso;
 	private boolean mostrarButtonObservacionAnterior = false;
-	
 	private String caso;
 	private String fechaApelacion;
 	private String observacion;
@@ -109,10 +108,6 @@ public class VMAnalizarValidezIII {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-
-	
-	
-
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
 	}
@@ -349,28 +344,28 @@ public class VMAnalizarValidezIII {
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		String fecha = sdf.format(fechaSA);
 		this.fechaApelacion = fecha;
-		
-		
+
 		// para lo del Button
-		
-				for(RecaudoEntregado recaudoEntregado : buscarRecaudosEntregados(cedula)){
-					if(recaudoEntregado.getObservacionExperto() == null ){
-						System.out.println("paso por aqui");
-						System.out.println(" y la cedula es CEDULA"+cedula);
-						this.setMostrarButtonObservacionAnterior(false);
-					}else{
-						System.out.println("tambien por aca");
-						System.out.println(" y la cedula es CEDULA"+recaudoEntregado.getObservacionExperto());
-						this.setMostrarButtonObservacionAnterior(true);
-						break;
-					}
-				}
-		
+
+		for (RecaudoEntregado recaudoEntregado : buscarRecaudosEntregados(cedula)) {
+			if (recaudoEntregado.getObservacionExperto() == null) {
+				System.out.println("paso por aqui");
+				System.out.println(" y la cedula es CEDULA" + cedula);
+				this.setMostrarButtonObservacionAnterior(false);
+			} else {
+				System.out.println("tambien por aca");
+				System.out.println(" y la cedula es CEDULA"
+						+ recaudoEntregado.getObservacionExperto());
+				this.setMostrarButtonObservacionAnterior(true);
+				break;
+			}
+		}
 
 	}
 
-	/** buscar Recaudos PorTipoMotivo
-	 * @param tipoMotivo 
+	/**
+	 * buscar Recaudos PorTipoMotivo
+	 * @param tipoMotivo
 	 * @return Lista de recaudos y motivos por estudiante
 	 */
 	@Command
@@ -380,13 +375,13 @@ public class VMAnalizarValidezIII {
 				.listadoRecaudosPorMotivo(tipoMotivo);
 	}
 	
-	
-	
-	/** Buscar Recaudos Entregados
-	 * @return el Listado de recaudos buscado de la lista 
+	/**
+	 * Buscar Recaudos Entregados
+	 * @return el Listado de recaudos buscado de la lista
 	 * @parameters cedula
-	 * @throws No dispara ninguna excepcion.
-	   */
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula) {
@@ -396,18 +391,20 @@ public class VMAnalizarValidezIII {
 		return listaRecaudo;
 	}
 
-
-
-	/** Actualiza los RecaudosEntregados
-	* @return No devuelve ningun valor.
-	* @parameters el objeto EstadoApelacion
-	* @throws No dispara ninguna excepcion.  
-	*/	
+	/**
+	 * Actualiza los RecaudosEntregados
+	 * 
+	 * @return No devuelve ningun valor.
+	 * @parameters el objeto EstadoApelacion
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado",
 			"lapso", "observacionExperto", "observacion" })
 	// el notifychange le avisa a que parametros en la pantalla se van a
-	// cambiar, en este caso es cedula, nombre, apellidos, estudianteSancionado,lapso,observacionexperto, observacion
+	// cambiar, en este caso es cedula, nombre, apellidos,
+	// estudianteSancionado,lapso,observacionexperto, observacion
 	// al guardar
 	public void actualizarRecaudosEntregados(
 			@BindingParam("recaudosEntregados") List<Listitem> recaudos,
@@ -415,15 +412,12 @@ public class VMAnalizarValidezIII {
 
 		if (observacion == null) {
 			mensajeAlUsuario.advertenciaAgregarObservacionGeneral();
-		}
-		else 
-		{
+		} else {
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
 			if (getSelected().equals("PROCEDENTE"))
 				apelacionEstadoApelacion.setSugerencia("PROCEDENTE");
-			else if(getSelected().equals("NO PROCEDENTE"))
+			else if (getSelected().equals("NO PROCEDENTE"))
 				apelacionEstadoApelacion.setSugerencia("NO PROCEDENTE");
-			
 
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
@@ -439,9 +433,9 @@ public class VMAnalizarValidezIII {
 						1)).getLabel();
 				String observacionExperto = ((Textbox) (miRecaudo.getChildren()
 						.get(2)).getFirstChild()).getValue();
-				
-				if(observacionExperto.equals(""))
-					observacionExperto=null;
+
+				if (observacionExperto.equals(""))
+					observacionExperto = null;
 				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
 				RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 				recaudoEntregadoPK.setIdInstanciaApelada(3);
@@ -489,9 +483,10 @@ public class VMAnalizarValidezIII {
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(new Date());
 			apelacionEstadoApelacion.setObservacion(observacion);
-			solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
+			solicitudApelacionAux
+					.addApelacionEstadosApelacion(apelacionEstadoApelacion);
 			serviciosolicitudapelacion.guardar(solicitudApelacionAux);
-						
+
 			try {
 				MensajesAlUsuario.informacionRegistroCorrectoStatic();
 				winAnalizarValidezIII.detach();
@@ -516,22 +511,23 @@ public class VMAnalizarValidezIII {
 	}
 
 	
-	/** Metodo que ;Muestra el Historial de Observaciones
+	/**
+	 * Metodo que ;Muestra el Historial de Observaciones
 	 * @parameters cedula, sancioando seleccionado
-	 * @throws No dispara ninguna excepcion.
-	 */		
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
-	public void mostrarHistorial (){
-  		final HashMap<String, Object> map = new HashMap<String, Object>();
-	 	map.put("cedula", this.sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getCedulaEstudiante());
- 
-        final Window window = (Window) Executions.createComponents(
-        		"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos2.zul", null, map);
+	public void mostrarHistorial() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("cedula", this.sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getCedulaEstudiante());
+
+		final Window window = (Window) Executions
+				.createComponents(
+						"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos2.zul",
+						null, map);
 		window.setMaximizable(true);
 		window.doModal();
-  	}
-	
-	
-	
-	
+	}		
 }
