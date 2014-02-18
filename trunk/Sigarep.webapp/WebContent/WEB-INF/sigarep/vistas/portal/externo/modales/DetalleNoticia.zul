@@ -1,30 +1,35 @@
-<window  title="@bind(vm.titulo)" width="70%" vflex="1"
-	hflex="1" height="75%" border="normal" minimizable="false" mode="modal"
+<window  title="@bind(vm.titulo)" width="75%" vflex="1"
+	hflex="1" height="85%" border="normal" minimizable="false" mode="modal"
 	maximizable="false" closable="true" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMWindow')">
-	<borderlayout>
-		<north size="80px" border="none">
-			<hbox align="center" pack="center" vflex="1" hflex="1">
-				<label value="@bind(vm.titulo)" sclass="textTitulo" />
-			</hbox>
-		</north>
-		<west size="40%" border="none">
-			<hbox pack="center" vflex="1" hflex="1">
-				<image height="auto" width="400px"
-					content="@bind(vm.fotoNoticia.getAImage())" />
-			</hbox>
-		</west>
-		<center border="none">
-			<vbox vflex="1" hflex="1">
-				<textbox width="650px"
-					style="border-style : none; background: #FFF" readonly="true"
-					rows="10" sclass="textNoticia" value="@bind(vm.contenido)">
-				</textbox>
-				<a href="@bind(vm.enlaceNoticia)" sclass="textNoticia">
-					Enlace
-				</a>
-			</vbox>
-		</center>
-	</borderlayout>
+	
+	
+	<groupbox height="100%" width="100%" > 
+		<borderlayout>
+			<north size="80px" border="none">
+				<hbox align="center" pack="center" vflex="1" hflex="1">
+					<label value="@bind(vm.titulo)" sclass="textTitulo" />
+				</hbox>
+			</north>
+			<west size="40%" border="none">
+				<hbox pack="center" vflex="1" hflex="1">
+					<image height="100%" width="100%"
+						content="@bind(vm.fotoNoticia.getAImage())" />
+				</hbox>
+			</west>
+			<center border="none">
+				<vbox  vflex="1" hflex="1">
+					<textbox width="85%" readonly="true"
+						rows="10" mold="rounded" cols="60"   sclass="textNoticia" value="@bind(vm.contenido)">
+					</textbox>
+					<a href="@bind(vm.enlaceNoticia)" sclass="textNoticia">
+						Enlace de Noticia
+					</a>
+				</vbox>
+			</center>
+		</borderlayout>
+	</groupbox>
+	
+
 </window>
