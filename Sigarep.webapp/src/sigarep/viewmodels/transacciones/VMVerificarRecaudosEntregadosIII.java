@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -14,6 +16,7 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -24,7 +27,9 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -47,6 +52,8 @@ import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancio
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+
+
 /** Transaccion para verificar recaudos - recurso de jerárquico
  * @author BUILDER
  * @version 1.3
@@ -54,7 +61,6 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMVerificarRecaudosEntregadosIII {
-
 
 	private LapsoAcademico lapsoAcademico;
 	private String labelAsignaturaLapsosConsecutivos;
@@ -109,7 +115,14 @@ public class VMVerificarRecaudosEntregadosIII {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	MensajesAlUsuario mensajeAlUsuario  = new MensajesAlUsuario();  // para llamar a los diferentes mensajes de dialogo
-							
+	
+	@Wire("#winVerificiarRecaudosIII")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
+	 
 	//metodos set y get
 	public String getCedula() {
 		return cedula;
@@ -458,7 +471,7 @@ public class VMVerificarRecaudosEntregadosIII {
 					mensajeAlUsuario.informacionRegistroCorrecto();
 					winVerificarRecaudosIII.detach(); //oculta el window
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					
 				}
 				limpiar();
 		}
@@ -479,7 +492,6 @@ public class VMVerificarRecaudosEntregadosIII {
 	@Command
 	@NotifyChange({ "listaTipoMotivo", "tipoMotivo", "listaRecaudosPorMotivo" })
 	public TipoMotivo objetoTipoMotivo() {
-		System.out.println("tipo de motivo:" + tipoMotivo.getIdTipoMotivo());
 		buscarRecaudosPorTipoMotivo(tipoMotivo.getIdTipoMotivo());
 		return tipoMotivo;
 	}
@@ -491,4 +503,38 @@ public class VMVerificarRecaudosEntregadosIII {
 		if(lbxRecaudos.getSelectedIndex()!=-1)	
 			Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,a,"middle_center",1000);
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({"listaRecaudosPorEntregar","observacion","listaRecaudosEntregados","selected" })
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (listaRecaudosPorEntregar != null )
+		{
+			Messagebox.show("¿Realmente desea cerrar la ventana sin realizar cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		
+	}
+	
+	
+	
 }
