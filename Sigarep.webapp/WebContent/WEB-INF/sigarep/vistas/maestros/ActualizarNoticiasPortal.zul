@@ -32,26 +32,26 @@
 							<row>
 								<label id="lblTitulo" value="Título:" />
 								<textbox id="txtTitulo" cols="23"
-										maxlength="90" readonly="false" constraint="no empty: Ingrese el Título de la Noticia" 
+										maxlength="60" readonly="false" placeholder=" Ingrese el título de la noticia" 
 										mold="rounded" width="80%" tabindex="2" value="@bind(vm.titulo)" />
 								<label id="lblEnlace" value="Enlace:" />
-								<textbox id="txtEnlace" cols="23" constraint="no empty: Ingrese el Enlace de la Noticia"
-									maxlength="90" readonly="false" mold="rounded" width="80%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
+								<textbox id="txtEnlace" cols="23" placeholder="Ingrese el enlace de la noticia"
+									maxlength="255" readonly="false" mold="rounded" width="80%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
 							</row>
 							<row>
 								<label id="lblFecha" value="Fecha Publicación:" />
 								<datebox id="dbfechaPublicacion" mold="rounded" format="dd/MM/yyyy" width="80%" tabindex="4"
-									constraint="no empty:Ingrese Fecha de Inicio de la Noticia" onChange="@command('validarFecha')"
+									placeholder="Ingrese fecha de inicio de la noticia" onChange="@command('validarFecha')"
 									value="@bind(vm.fechaRegistro)" />
 								<label id="lblFechaVencimiento" value="Fecha Vencimiento:" />
 								<datebox id="dbfechaVencimiento" mold="rounded" format="dd/MM/yyyy" width="80%" tabindex="4"
-									constraint="no empty:Ingrese Fecha de Vencimiento de la noticia" onChange="@command('validarFecha')"
+									placeholder="Ingrese fecha de vencimiento de la noticia" onChange="@command('validarFecha')"
 									value="@bind(vm.vencimiento)" />
 							</row>
 							<row>
 						        <label id="lblContenido" value="Contenido:" />
-								<textbox id="txtContenido" width="77%" constraint="no empty: Ingrese el Contenido de la Noticia"
-									rows="3" mold="rounded" tabindex="2" value="@bind(vm.contenido)" />
+								<textbox id="txtContenido" width="77%" placeholder="Ingrese el contenido de la noticia"
+									rows="3" maxlength="255" mold="rounded" tabindex="2" value="@bind(vm.contenido)" />
 							</row>
 						</rows>
 					</grid>
