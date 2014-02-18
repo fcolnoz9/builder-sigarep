@@ -239,19 +239,20 @@
 			orient="horizontal"
 			onClick="@command('registrarEstudianteSancionado',asignaturaSancionado=items,parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)">
 			<attribute name="onClick">
-				List items = lbxAsignaturas.getItems();
-			</attribute>
-			</button>
+	List items = lbxAsignaturas.getItems();
+</attribute>
+		</button>
 		<button label="Eliminar" mold="trendy" id="btnEliminar"
 			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 			orient="horizontal"
-			onClick="@command('eliminarEstudianteSancionado',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)"/>
+			onClick="@command('eliminarEstudianteSancionado',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
 		<button label="Limpiar" mold="trendy" id="btnCancelar"
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('limpiar',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
+			orient="horizontal"
+			onClick="@command('limpiar',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
 		<button label="Cerrar" mold="trendy" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="winRegistrarSancionados.onClose()" />
+			orient="horizontal" onClick="@command('cerrarVentana')" />
 	</div>
 
 	<!-- 		Grupo que contiene la lista de estudiante sancionados -->
