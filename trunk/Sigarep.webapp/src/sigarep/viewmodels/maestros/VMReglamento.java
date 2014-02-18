@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -13,11 +15,17 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
@@ -54,22 +62,16 @@ private String tituloF ="";
 private String categoriaF ="";
 private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
+@Wire("#winCargarDocumento")//para conectarse a la ventana con el ID
+Window ventana;
+ @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+    Selectors.wireComponents(view, this, false);
+}
 
 public VMReglamento() {
 	super();
 	// TODO Auto-generated constructor stub
-}
-
-@Init 
-
-public void init(){
-	
-	
-	fechaSubida = new Date();
-	media = null;
-	documento = new Documento();
-	filtros();
-	
 }
 
 
@@ -179,6 +181,18 @@ public void setCategoriaF(String categoriaF) {
 	this.categoriaF = categoriaF;
 }
 
+@Init 
+
+public void init(){
+	
+	
+	fechaSubida = new Date();
+	media = null;
+	documento = new Documento();
+	filtros();
+	
+}
+
 /** guardarReglamento
  * @param "titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc"
  * @return No devuelve ningun valor
@@ -265,25 +279,35 @@ public void mostrarSeleccionado(){
  * @throws La Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
  */
 
-@Command 
+@SuppressWarnings("unchecked")
+@Command
 @NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
-public void eliminarReglamento(){
-if (titulo == null || descripcion ==null || categoria ==null|| documento ==null)
-	mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-	//Messagebox.show("IdDocumento de Reglamento no encontrado, no se pudo eliminar", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-	else{
-		try{
-			servicioreglamento.eliminar(getReglamentoSeleccionado().getIdDocumento());
-		}
-		catch(Exception e){
-		    System.out.println(e.getMessage());
-		}
-		mensajeAlUsuario.informacionArchivoEliminado();
-		//msjs.informacionEliminarCorrecto();
-		limpiar();
-		filtros();
+public void eliminarReglamento(@ContextParam(ContextType.BINDER) final Binder binder){
+	if (titulo == null || descripcion ==null || categoria ==null|| documento ==null) {
+		mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+	} else {
+		Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+				Messagebox.QUESTION,new EventListener<ClickEvent>() {
+			@SuppressWarnings("incomplete-switch")
+			public void onEvent(ClickEvent e) throws Exception {
+				switch (e.getButton()) {
+					case YES:
+						//if you call super.delete here, since original zk event is not control by binder
+						//the change of viewmodel will not update to the ui.
+						//so, I post a delete to trigger to process it in binder controll.
+						//binder.postCommand("limpiar", null);
+						servicioreglamento.eliminar(getReglamentoSeleccionado().getIdDocumento());
+						mensajeAlUsuario.informacionEliminarCorrecto();
+						binder.postCommand("limpiar", null);
+					case NO:
+				
+						binder.postCommand("limpiar", null);
+				}
+			}
+		});		
 	}
 }
+
 /**cargarDocumento
  * @param nombreDoc,UploadEvent event Zkoss UI.
  * @return No devuelve ningun valor
@@ -332,7 +356,49 @@ public void descargarDocumento(){
 			listaReglamento = servicioreglamento.buscarReglamento(tituloF,categoriaF);
 
 		}
-		
+	
+		/**
+		 * Cerrar Ventana
+		 * 
+		 * @param binder
+		 * @return cierra el .zul asociado al VM
+		 * @throws No
+		 *             dispara ninguna excepcion.
+		 */
+		@SuppressWarnings("unchecked")
+		@Command
+		@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
+		public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+				
+			if (titulo != null || descripcion !=null || categoria !=null) 
+			{
+				Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+						Messagebox.QUESTION,new EventListener<ClickEvent>() {
+					@SuppressWarnings("incomplete-switch")
+					public void onEvent(ClickEvent e) throws Exception {
+						switch (e.getButton()) {
+							case YES:
+									ventana.detach();
+						
+						}
+					}
+				});		
+			}
+			else{
+			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+						Messagebox.QUESTION,new EventListener<ClickEvent>() {
+					@SuppressWarnings("incomplete-switch")
+					public void onEvent(ClickEvent e) throws Exception {
+						switch (e.getButton()) {
+							case YES:
+									ventana.detach();
+						
+						
+						}
+					}
+				});		
+			}
+		}
 	
 }
 

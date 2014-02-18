@@ -47,7 +47,7 @@
 		<button label="Cerrar" id="btnCerrarSancion"
 			mold="trendy" width="auto" height="auto"
 			image="/imagenes/iconos/cerrar.png" 
-			onClick="winRegistrarSancion.onClose()">
+			onClick="@command('cerrarVentana')">
 		</button>
 	</div>
 	<groupbox id="grbListaSanciones">

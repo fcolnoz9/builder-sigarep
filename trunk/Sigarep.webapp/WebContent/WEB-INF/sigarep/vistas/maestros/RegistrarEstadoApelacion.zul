@@ -75,7 +75,7 @@
 					<button label="Cerrar" id="btnCerrarEstado" 
 					     mold="trendy" width="auto" height="auto"
 						image="imagenes/iconos/cerrar.png"
-						onClick="winRegistarEstadoApelacion.onClose()" />
+						onClick="@command('cerrarVentana')" />
 			
 		</div>
 		<!-- Grupbox que contiene el listado de estados almacenados en base de datos -->
@@ -90,13 +90,13 @@
 
 				<listhead>
 					<listheader label="Nombre"
-						align="lefth" sort="auto(nombreEstado)">
+						align="left" sort="auto(nombreEstado)">
 					</listheader>
 					<listheader
-						label="Descripción" align="lefth"
+						label="Descripción" align="left"
 						sort="auto(descripcion)">
 					</listheader>
-					<listheader label="Instancia Apelada" align="lefth"
+					<listheader label="Instancia Apelada" align="left"
 						sort="auto(instanciaApelada)" />
 				</listhead>
 				<template name="model">

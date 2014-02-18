@@ -29,28 +29,24 @@ import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.data.maestros.NoticiaFiltro;
 import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.servicio.maestros.ServicioNoticia;
-
 import java.util.LinkedList;
-
 import org.springframework.stereotype.Controller;
 import org.zkoss.bind.annotation.BindingParam;
-
-
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
-
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Timer;
-
-
-
 import org.zkoss.zk.ui.event.Event;
-
 import org.zkoss.zk.ui.Component;
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.zk.ui.select.Selectors;
 
 /** Clase Noticia
  * Registra y modifica una noticia. Utilizada en el portal web.
@@ -83,6 +79,13 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	int idcount=0;
 
 	private @Wire Listbox lbxNoticias;
+	
+	@Wire("#winActualizarNoticia")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 
 	// Metodos GETS Y SETS
 	public String getTitulof() {
@@ -180,7 +183,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	// el notifychange le avisa a que parametros en la pantalla se van a
 	// cambiar, en este caso es idNoticia, contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento
 	public void guardarNoticia(){
-		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia=="" || titulo=="" || contenido==""|| enlaceNoticia=="")
+		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia== null )
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		else{
 			Noticia noticia = new Noticia(idNoticia, contenido, enlaceNoticia, true, fechaRegistro, fotoNoticia,titulo, vencimiento);
@@ -219,10 +222,10 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		// se utiliza la fecha del sistema para colocarla al momento de limpiar
 		Date fecha = new Date();
 		idNoticia=null;
-		contenido="";
-		enlaceNoticia="";
+		contenido=null;
+		enlaceNoticia=null;
 		fechaRegistro=null;
-		titulo="";
+		titulo=null;
 		vencimiento=null;
 		mediaNoticia = null;
 		imagenNoticia = null;
@@ -235,17 +238,36 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	 * @return No devuelve ningun valor.
 	 * @throws la Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
 	 */
+	
+	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
-	public void eliminarNoticia(){
-		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null)
-			mensajeAlUsuario.advertenciaLlenarCampos();
-		else{
-			servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
-			limpiar();
-			mensajeAlUsuario.informacionEliminarCorrecto();
+	public void eliminarNoticia(@ContextParam(ContextType.BINDER) final Binder binder){
+		if (titulo==null||contenido==null|| fechaRegistro==null|| enlaceNoticia==null || vencimiento==null) {
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+		} else {
+			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+							//if you call super.delete here, since original zk event is not control by binder
+							//the change of viewmodel will not update to the ui.
+							//so, I post a delete to trigger to process it in binder controll.
+							//binder.postCommand("limpiar", null);
+							servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
+							mensajeAlUsuario.informacionEliminarCorrecto();
+							binder.postCommand("limpiar", null);
+						case NO:
+					
+							binder.postCommand("limpiar", null);
+					}
+				}
+			});		
 		}
 	}
+
 	/** Muestra una Noticia Seleccionada
 	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
 	 * @return No devuelve ningun valor.
@@ -383,6 +405,48 @@ public class VMnoticia extends SelectorComposer<Component>  {
 				mensajeAlUsuario.ErrorRangoFechas();
 				vencimiento = null;
 			}
+		}
+	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (titulo!=null||contenido!=null|| fechaRegistro!=null|| enlaceNoticia!= null ){
+			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					
+					}
+				}
+			});		
 		}
 	}
 
