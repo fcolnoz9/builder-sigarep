@@ -25,12 +25,12 @@
 						<textbox id="txtPregunta" width="80%" rows="3"
 							maxlength="255" mold="rounded" tabindex="1"
 							value="@bind(vm.pregunta)"
-							constraint="no empty:Introduzca la pregunta" />
+							placeholder="Ingrese la pregunta" />
 						<label id="lblRespuesta" value="Respuesta:" />
 						<textbox id="txtRespuesta" width="80%"
 							rows="3" maxlength="255" mold="rounded" tabindex="2"
 							value="@bind(vm.respuesta)"
-							constraint="no empty:Introduzca la respuesta" />
+							placeholder="Ingrese la respuesta" />
 					</row>
 				</rows>
 			</grid>
