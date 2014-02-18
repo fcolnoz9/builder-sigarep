@@ -94,13 +94,13 @@ public class VMapelacionesTipoDeSexo {
 					apelacionesPrograma = servicioapelacionespormotivo
 							.buscarPorSexoResultado_Programa(
 									objLapso.getCodigoLapso(),
-									objPrograma.getNombrePrograma());
+									objPrograma.getIdPrograma());
 				} else
 					apelacionesPrograma = servicioapelacionespormotivo
 							.buscarPorSexoResultado_ProgramaSancion(
 									objLapso.getCodigoLapso(),
-									objSancion.getNombreSancion(),
-									objPrograma.getNombrePrograma());
+									objSancion.getIdSancion(),
+									objPrograma.getIdPrograma());
 	}
 
 	@Command
@@ -265,12 +265,12 @@ public class VMapelacionesTipoDeSexo {
 		if (objSancion.getNombreSancion() == "Todos") {
 			apelacionesPrograma = servicioapelacionespormotivo.buscarPorSexoResultado_Programa(
 							objLapso.getCodigoLapso(),
-							objPrograma.getNombrePrograma());
+							objPrograma.getIdPrograma());
 		} else
 			apelacionesPrograma = servicioapelacionespormotivo.buscarPorSexoResultado_ProgramaSancion(
 							objLapso.getCodigoLapso(),
-							objSancion.getNombreSancion(),
-							objPrograma.getNombrePrograma());
+							objSancion.getIdSancion(),
+							objPrograma.getIdPrograma());
 		
 		
 		

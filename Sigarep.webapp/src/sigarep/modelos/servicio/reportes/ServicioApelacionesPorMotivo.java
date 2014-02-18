@@ -204,18 +204,19 @@ public class ServicioApelacionesPorMotivo {
 	
 	
 	
-	public List<ApelacionesPorMotivo> buscarPorInstanciaResultado_Programa(String codigo_lapso, String programa) {
+	public List<ApelacionesPorMotivo> buscarPorInstanciaResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
 				"select v.instancia as instancia, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
-				"(SELECT COUNT(*) total FROM solicitud_apelacion sa " +
+				"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
-				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
 				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				//"and sanma.nombre_sancion = 'RR' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' )" +
+				"and es.id_programa = "+ "'"+programa+"' ), " +
+				"(SELECT COUNT(essa.cedula_estudiante) sancionados FROM estudiante_sancionado essa, estudiante es " +
+				"WHERE essa.cedula_estudiante = es.cedula_estudiante " +
+				"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+				"and es.id_programa = "+ "'"+programa+"' )" +
 				"from " +
 				"(select b.instancia as instancia, sum(b.apelaciones) apelaciones, 0 as procedente " +
 				"from " +
@@ -224,12 +225,9 @@ public class ServicioApelacionesPorMotivo {
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
 				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE ins.id_instancia_apelada = sa.id_instancia_apelada " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				//"and sanma.nombre_sancion = 'RR' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"and es.id_programa = "+ "'"+programa+"' " +
 				"group by instancia) as b " +
 				"group by b.instancia " +
 				"union all " +
@@ -238,12 +236,9 @@ public class ServicioApelacionesPorMotivo {
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
 				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE ins.id_instancia_apelada = sa.id_instancia_apelada " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				//"and sanma.nombre_sancion = 'RR' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"and es.id_programa = "+ "'"+programa+"' " +
 				"and sa.veredicto = 'NO PROCEDENTE' " +
 				"group by instancia ) as v " +
 				"group by v.instancia " +
@@ -270,71 +265,48 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
-	public List<ApelacionesPorMotivo> buscarPorInstanciaResultado_ProgramaSancion(String codigo_lapso, String tipo_sancion, String programa) {
+	public List<ApelacionesPorMotivo> buscarPorInstanciaResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
-				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes , " +
-				"(SELECT COUNT(*) total FROM tipo_motivo timo, solicitud_apelacion sa " +
-				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
-				"and essa.codigo_lapso = sa.codigo_lapso " +
-				"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
-				"and mo.codigo_lapso = sa.codigo_lapso " +
-				"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-				"and mo.id_tipo_motivo <> 1 " +
-				"and mo.id_tipo_motivo <> 2 " +
-				"and mo.id_tipo_motivo <> 3 " +
-				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' " +
-				"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
-						"from " +
-						"(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente " +
-						"from " +
-						"(SELECT distinct timo.nombre_tipo_motivo as motivo,count(sa.cedula_estudiante) " +
-						"as apelaciones, 0 as procedente " +
-						"from tipo_motivo timo, solicitud_apelacion sa " +
-						"INNER JOIN estudiante_sancionado as essa " +
-						"on essa.cedula_estudiante = sa.cedula_estudiante " +
-						"and essa.codigo_lapso = sa.codigo_lapso " +
-						"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
-						"and mo.codigo_lapso = sa.codigo_lapso " +
-						"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-						"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-						"and mo.id_tipo_motivo <> 1 " +
-						"and mo.id_tipo_motivo <> 2 " +
-						"and mo.id_tipo_motivo <> 3 " +
-						"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-						"and prog.nombre_programa = "+ "'"+programa+"' " +
-						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
-						"group by motivo) as b " +
-						"group by b.motivo " +
-						"union all " +
-						"select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(sa.veredicto) " +
-						"as procedente " +
-						"from tipo_motivo timo, solicitud_apelacion sa " +
+				"select v.instancia as instancia, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
+						"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
 						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 						"and essa.codigo_lapso = sa.codigo_lapso " +
-						"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
-						"and mo.codigo_lapso = sa.codigo_lapso " +
-						"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
 						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-						"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-						"and mo.id_tipo_motivo <> 1 " +
-						"and mo.id_tipo_motivo <> 2 " +
-						"and mo.id_tipo_motivo <> 3 " +
+						"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' ), " +
+						"(SELECT COUNT(essa.cedula_estudiante) sancionados FROM estudiante_sancionado essa, estudiante es " +
+						"WHERE essa.cedula_estudiante = es.cedula_estudiante " +
+						"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' ), " +
+						"from " +
+						"(select b.instancia as instancia, sum(b.apelaciones) apelaciones, 0 as procedente " +
+						"from " +
+						"(SELECT ins.instancia_apelada as instancia,count(sa.cedula_estudiante) as apelaciones, 0 as procedente " +
+						"from instancia_apelada ins, solicitud_apelacion sa " +
+						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+						"and essa.codigo_lapso = sa.codigo_lapso " +
+						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+						"WHERE ins.id_instancia_apelada = sa.id_instancia_apelada " +
 						"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-						"and prog.nombre_programa = "+ "'"+programa+"' " +
-						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"' " +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
+						"group by instancia) as b " +
+						"group by b.instancia " +
+						"union all " +
+						"select ins.instancia_apelada as instancia, 0 as apelaciones, count(sa.veredicto) as procedente " +
+						"from instancia_apelada ins, solicitud_apelacion sa " +
+						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
+						"and essa.codigo_lapso = sa.codigo_lapso " +
+						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
+						"WHERE ins.id_instancia_apelada = sa.id_instancia_apelada " +
+						"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
 						"and sa.veredicto = 'NO PROCEDENTE' " +
-						"group by timo.nombre_tipo_motivo) as v " +
-						"group by v.motivo " +
+						"group by instancia ) as v " +
+						"group by v.instancia " +
 						"order by apelaciones desc";
 				
 				
@@ -360,16 +332,19 @@ public class ServicioApelacionesPorMotivo {
 	}
 	
 
-	public List<ApelacionesPorMotivo> buscarPorSexoResultado_Programa(String codigo_lapso, String programa) {
+	public List<ApelacionesPorMotivo> buscarPorSexoResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
 				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
-				"(SELECT COUNT(*) total FROM solicitud_apelacion sa " +
+				"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
 				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' )" +
+				"and es.id_programa = "+ "'"+programa+"' ), " +
+				"(SELECT COUNT(essa.cedula_estudiante) sancionados FROM estudiante_sancionado essa, estudiante es " +
+				"WHERE essa.cedula_estudiante = es.cedula_estudiante " +
+				"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+				"and es.id_programa = "+ "'"+programa+"' ) " +
 				"from " +
 				"(select b.sexo as sexo, sum(b.apelaciones) apelaciones, 0 as procedente " +
 				"from " +
@@ -379,9 +354,8 @@ public class ServicioApelacionesPorMotivo {
 				"and essa.codigo_lapso = sa.codigo_lapso " +
 				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
 				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE sa.codigo_lapso = "+"'"+codigo_lapso+"' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"and es.id_programa = "+ "'"+programa+"' " +
 				"group by sexo) as b " +
 				"group by b.sexo " +
 				"union all " +
@@ -390,9 +364,8 @@ public class ServicioApelacionesPorMotivo {
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
 				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE sa.codigo_lapso = "+"'"+codigo_lapso+"' " +
-				"and prog.nombre_programa = "+ "'"+programa+"' " +
+				"and es.id_programa = "+ "'"+programa+"' " +
 				"and sa.veredicto = 'NO PROCEDENTE' " +
 				"group by sexo) as v " +
 				"group by v.sexo " +
@@ -419,18 +392,21 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
-	public List<ApelacionesPorMotivo> buscarPorSexoResultado_ProgramaSancion(String codigo_lapso, String tipo_sancion, String programa) {
+	public List<ApelacionesPorMotivo> buscarPorSexoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
-						"(SELECT COUNT(*) total FROM solicitud_apelacion sa " +
+						"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
 						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 						"and essa.codigo_lapso = sa.codigo_lapso " +
-						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
 						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
 						"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-						"and prog.nombre_programa = "+ "'"+programa+"' " +
-						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"'" + ")" +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"'), " +
+						"(SELECT COUNT(essa.cedula_estudiante) sancionados FROM estudiante_sancionado essa, estudiante es " +
+						"WHERE essa.cedula_estudiante = es.cedula_estudiante " +
+						"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
+						"and es.id_programa = "+ "'"+programa+"' ) " +
 						"from " +
 						"(select b.sexo as sexo, sum(b.apelaciones) apelaciones, 0 as procedente " +
 						"from " +
@@ -440,11 +416,9 @@ public class ServicioApelacionesPorMotivo {
 						"and essa.codigo_lapso = sa.codigo_lapso " +
 						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
 						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-						"WHERE --ins.id_instancia_apelada = sa.id_instancia_apelada and " +
-						"sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-						"and prog.nombre_programa = "+ "'"+programa+"' " +
-						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"'" +
+						"WHERE sa.codigo_lapso = "+"'"+codigo_lapso+"' " +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
 						"group by sexo) as b " +
 						"group by b.sexo " +
 						"union all " +
@@ -453,13 +427,11 @@ public class ServicioApelacionesPorMotivo {
 						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 						"and essa.codigo_lapso = sa.codigo_lapso " +
 						"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-						"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-						"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-						"WHERE sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-						"and prog.nombre_programa = "+ "'"+programa+"' " +
-						"and sanma.nombre_sancion = "+ "'"+tipo_sancion+"'" +
+						"WHERE sa.codigo_lapso = "+"'"+codigo_lapso+"' " +
+						"and es.id_programa = "+ "'"+programa+"' " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
 						"and sa.veredicto = 'NO PROCEDENTE' " +
-						"group by sexo ) as v " +
+						"group by sexo) as v " +
 						"group by v.sexo " +
 						"order by apelaciones desc";
 				
@@ -484,6 +456,7 @@ public class ServicioApelacionesPorMotivo {
 		
 		return results;
 	}
+	
 	
 	public List<Sancionados> buscarSancionados(String codigo_lapso, String nombre_programa){
 		String queryStatement =
