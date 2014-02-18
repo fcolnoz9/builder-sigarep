@@ -53,7 +53,6 @@ public class VMasignaturasMayorCantidadSancionados {
 	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
 	
 	//***********************************DECLARACION DE LISTAS*************************
-	@WireVariable ListaAsignaturasMayorCantidadSancionados listaMayorSancionados;
 	private  ListModelList<ListaAsignaturasMayorCantidadSancionados> listaAsigMayor;
 	private List<ProgramaAcademico> listaComboPrograma;
 	private List<LapsoAcademico> listaLapsoAcademico;
@@ -66,9 +65,6 @@ public class VMasignaturasMayorCantidadSancionados {
 	private String nombrePrograma;
 	private String codigoLapso;
 	private Integer idInstanciaApelada;
-	private String contenidoPrograma;
-	private String contenidoLapso;
-	private String contenidoInstancia;
 	
 	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private LapsoAcademico lapsoAcademico;
@@ -132,29 +128,6 @@ public class VMasignaturasMayorCantidadSancionados {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
 
-	public String getContenidoPrograma() {
-		return contenidoPrograma;
-	}
-
-	public void setContenidoPrograma(String contenidoPrograma) {
-		this.contenidoPrograma = contenidoPrograma;
-	}
-
-	public String getContenidoLapso() {
-		return contenidoLapso;
-	}
-
-	public void setContenidoLapso(String contenidoLapso) {
-		this.contenidoLapso = contenidoLapso;
-	}
-
-	public String getContenidoInstancia() {
-		return contenidoInstancia;
-	}
-
-	public void setContenidoInstancia(String contenidoInstancia) {
-		this.contenidoInstancia = contenidoInstancia;
-	}
 
 	public ProgramaAcademico getProgramaAcademico() {
 		return programaAcademico;
@@ -206,14 +179,6 @@ public class VMasignaturasMayorCantidadSancionados {
 		this.listaLapsoAcademico = listaLapsoAcademico;
 	}
 
-	public ListaAsignaturasMayorCantidadSancionados getListaMayorSancionados() {
-		return listaMayorSancionados;
-	}
-
-	public void setListaMayorSancionados(ListaAsignaturasMayorCantidadSancionados listaMayorSancionados) {
-		this.listaMayorSancionados = listaMayorSancionados;
-	}
-
 	public ListModelList<ListaAsignaturasMayorCantidadSancionados> getListaAsig() {
 		return listaAsigMayor;
 	}
@@ -247,9 +212,6 @@ public class VMasignaturasMayorCantidadSancionados {
 	  	
 	  	@Init
 	  	public void Init() {
-	  		contenidoPrograma="Seleccione una Opcion...";
-	  		contenidoLapso= "Seleccione una Opcion...";
-	  		contenidoInstancia= "Seleccione una Opcion...";
 	  		buscarProgramaAcademico();
 	  		buscarLapso();
 	  		buscarInstanciaApelada();
@@ -266,11 +228,11 @@ public class VMasignaturasMayorCantidadSancionados {
 		*/
 
 		@Command
-		@NotifyChange({"contenidoPrograma","contenidoLapso","contenidoInstancia"})
+		@NotifyChange({"programaAcademico","lapsoAcademico","instanciaApelada"})
 		public void limpiarAsignaturasSancionados(){
-			contenidoPrograma="Seleccione una Opcion...";
-			contenidoLapso= "Seleccione una Opcion...";
-			contenidoInstancia= "Seleccione una Opcion...";
+			programaAcademico= null;
+			lapsoAcademico= null;
+			instanciaApelada= null;
 		}
 
   	
@@ -369,7 +331,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	public void GenerarReporteAsigMayor(){
 		
 				
-			if(contenidoPrograma=="Seleccione una Opcion..." || contenidoLapso== "Seleccione una Opcion..." || contenidoInstancia== "Seleccione una Opcion...")
+			if(programaAcademico==null || lapsoAcademico== null || instanciaApelada== null)
 				Messagebox.show("Debe seleccionar todos los campos", "Informacion", Messagebox.OK,Messagebox.INFORMATION);
 			else{
 				

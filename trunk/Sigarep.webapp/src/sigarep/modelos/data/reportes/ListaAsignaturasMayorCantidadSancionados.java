@@ -11,7 +11,6 @@ public class ListaAsignaturasMayorCantidadSancionados {
 	private BigDecimal noprocedentes;
 	private BigDecimal totalsancion;
 	private BigDecimal totalapela;
-	//private String nombrePrograma;
 	
 	
 
@@ -29,7 +28,6 @@ public class ListaAsignaturasMayorCantidadSancionados {
 		this.noprocedentes= noprocedentes;
 		this.totalsancion= toltalsancion;
 		this.totalapela= totalapela;
-		//this.nombrePrograma= nombrePrograma;
 	}
 
 	public BigDecimal getApelaciones() {

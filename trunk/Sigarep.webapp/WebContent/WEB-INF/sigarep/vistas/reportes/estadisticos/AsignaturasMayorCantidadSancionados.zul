@@ -1,4 +1,4 @@
-<window id="winReporteAsignaturasMayorCantidadSancionados" title="Reportes :: Estadisticos :: Asignaturas Mayor Cantidad de Sancionados" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
+<window id="winReporteAsignaturasMayorCantidadSancionados" title="Reportes :: Estadísticos :: Asignaturas Mayor Cantidad de Sancionados" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
 	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMasignaturasMayorCantidadSancionados')">
 
 <vlayout>
@@ -18,14 +18,14 @@
 		<rows>
 			<row>
 				<label id="lblProgramas" value="Programa:" />
-                <combobox readonly="true" id= "cmbPrograma" value="@bind(vm.contenidoPrograma)" width="auto" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
+                <combobox readonly="true" id= "cmbPrograma" placeholder="Seleccione una Opción..." width="auto" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
 						  <template name="model">
 								<comboitem  label="${each.nombrePrograma}"/>
 						  </template>				
 				</combobox>
 				
 				<label id="lblInstancia" value="Instancia:" />
-				<combobox readonly="true" id= "cmbInstancia" value="@bind(vm.contenidoInstancia)" width="auto" mold="rounded" 
+				<combobox readonly="true" id= "cmbInstancia" placeholder="Seleccione una Opción..." width="auto" mold="rounded" 
 				model="@load(vm.listaComboInstancia)" selectedItem="@bind(vm.instanciaApelada)" 
 				onSelect="@command('objetoComboInstancia')">
 					<template name="model">
@@ -36,14 +36,14 @@
 			<row>
 				<label id="lblLapso" value="Lapso:" />
 				
-				<combobox readonly="true" id= "cmbLapso" value="@bind(vm.contenidoLapso)" width="auto" mold="rounded" 
+				<combobox readonly="true" id= "cmbLapso" placeholder="Seleccione una Opción..." width="auto" mold="rounded" 
 				model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" 
 				onSelect="@command('objetoComboLapso')">
 					<template name="model">
 						<comboitem  label="${each.codigoLapso}" />
 					</template>	
 				</combobox>
-				Tipo de Archivo : <listbox id="lbxformat" mold="select" model="@load(vm.reportTypesModel)" 
+				Tipo de Archivo : <listbox id="lbxformat" mold="select" model="@load(vm.reportTypesModel)"
 							selectedItem="@bind(vm.reportType)">
 					<template name="model">
 						<listitem value="@load(each)" label="@load(each.label)"></listitem>

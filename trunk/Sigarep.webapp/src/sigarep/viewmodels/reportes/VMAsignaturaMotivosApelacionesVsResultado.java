@@ -57,9 +57,6 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	
 	//***********************************DECLARACION DE LAS VARIABLES*************************
 	private String contenido;
-	private String contenidoProgramaA;
-	private String contenidoLapsos;
-	private String contenidoInstancias;
 	private Integer idPrograma;
 	private String codigoLapso;
 	private Integer idInstanciaApelada;
@@ -85,25 +82,6 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	}
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
-	}
-	
-	public String getContenidoProgramaA() {
-		return contenidoProgramaA;
-	}
-	public void setContenidoProgramaA(String contenidoProgramaA) {
-		this.contenidoProgramaA = contenidoProgramaA;
-	}
-	public String getContenidoLapsos() {
-		return contenidoLapsos;
-	}
-	public void setContenidoLapsos(String contenidoLapsos) {
-		this.contenidoLapsos = contenidoLapsos;
-	}
-	public String getContenidoInstancias() {
-		return contenidoInstancias;
-	}
-	public void setContenidoInstancias(String contenidoInstancias) {
-		this.contenidoInstancias = contenidoInstancias;
 	}
 	
 	public String getCodigoAsignatura() {
@@ -233,10 +211,6 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		@Init
 	    public void init() {
 	        // Cargar todos los departamentos
-			contenido= "Seleccione una Opcion...";
-			contenidoProgramaA= "Seleccione una Opcion...";
-			contenidoLapsos= "Seleccione una Opcion...";
-			contenidoInstancias= "Seleccione una Opcion...";
 	    	listaPrograma = servicioprogramaacademico.listadoProgramas();
 	    	listaAsignatura= servicioAsignatura.listaAsignaturas();
 	    	buscarInstanciasApeladas();
@@ -254,12 +228,12 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		*/
 	
 		@Command
-		@NotifyChange({"contenido","contenidoProgramaA","contenidoLapsos","contenidoInstancias"})
+		@NotifyChange({"programaseleccionado","asignatura","lapsosAcademicos","instanciasApeladas"})
 		public void limpiarAsignaturaMotivos(){
-			contenido= "Seleccione una Opcion...";
-			contenidoProgramaA= "Seleccione una Opcion...";
-			contenidoLapsos= "Seleccione una Opcion...";
-			contenidoInstancias= "Seleccione una Opcion...";
+			programaseleccionado= null;
+			asignatura= null;
+			lapsosAcademicos= null;
+			instanciasApeladas= null;
 		}
 	
 	
@@ -326,7 +300,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		
 		listaAsignatura.clear();
 		listaAsignatura = servicioAsignatura.buscarAsignaturasPorPrograma(programaseleccionado.getIdPrograma());
-		contenido="Seleccione una Opcion...";
+		contenido="";
     }
 	
 	
@@ -343,7 +317,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	public void GenerarReporteApelacionesMotivoPorAsignatura(){
 				
 				
-				if(contenido== "Seleccione una Opcion..." || contenidoLapsos== "Seleccione una Opcion..." || contenidoInstancias== "Seleccione una Opcion...")
+				if(asignatura== null || lapsosAcademicos== null || instanciasApeladas== null)
 					Messagebox.show("Debe seleccionar todos los campos", "Informacion", Messagebox.OK,Messagebox.INFORMATION);
 				else{
 					
