@@ -19,9 +19,13 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
+
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
+import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 /**
  * DetalleHistorialEstudiante 
  * UCLA DCYT Sistemas de Informacion.
@@ -41,18 +45,31 @@ public class VMDetalleHistorialEstudiante {
 	private String apellidoEstudiante;
 	private Integer instancia;
 	@WireVariable
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	private List<ApelacionEstadoApelacion> apelacionestudiante  = new LinkedList<ApelacionEstadoApelacion>(); 
 	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia2  = new LinkedList<ApelacionEstadoApelacion>(); 
 	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia3  = new LinkedList<ApelacionEstadoApelacion>(); 
 	private SolicitudApelacion apelacionseleccionada;
+	private List<EstudianteSancionado> estudiante = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> apelacion = new LinkedList<SolicitudApelacion>();
+	// Para llamar a los diferentes mensajes de dialogo
+		MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	
 	// Metodos get y set
 
 	public Integer getInstancia() {
 		return instancia;
+	}
+
+	public List<EstudianteSancionado> getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(List<EstudianteSancionado> estudiante) {
+		this.estudiante = estudiante;
 	}
 
 	public void setInstancia(Integer instancia) {
@@ -161,10 +178,13 @@ public class VMDetalleHistorialEstudiante {
 	public void buscarSolicitudInstancia3(String cedula, String codigoLapso, Integer instancia) {
 		instancia = 3;
 		apelacionestudianteinstancia3 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
-	
-	
 	}
 	
+	@Command
+	@NotifyChange({ "estudiante" })
+	public void buscarEstudiante(String cedula) {
+		estudiante = servicioestudiantesancionado.buscarApelacion(cedula);
+	}
 	@Init
 	public void init(
 
@@ -183,7 +203,9 @@ public class VMDetalleHistorialEstudiante {
 		buscarSolicitud(cedula, codigoLapso, instancia);
 		buscarSolicitudInstancia2(cedula, codigoLapso, instancia);
 		buscarSolicitudInstancia3(cedula, codigoLapso, instancia);
+		buscarEstudiante(cedula);
 		
+		if (apelacionestudiante.size() != 0) {
 		lapso = apelacionestudiante.get(0).getSolicitudApelacion().getId().getCodigoLapso();
 		cedula = apelacionestudiante.get(0).getSolicitudApelacion().getId().getCedulaEstudiante();
 		nombreEstudiante = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getEstudiante().getPrimerNombre();
@@ -191,7 +213,15 @@ public class VMDetalleHistorialEstudiante {
 		nombreSancion = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getSancionMaestro().getNombreSancion();
 		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
 	}
-
+		else {
+		cedula = estudiante.get(0).getId().getCedulaEstudiante();
+		lapso = estudiante.get(0).getId().getCodigoLapso();
+		nombreSancion = estudiante.get(0).getSancionMaestro().getNombreSancion();
+		nombreEstudiante = estudiante.get(0).getEstudiante().getPrimerNombre();
+		apellidoEstudiante = estudiante.get(0).getEstudiante().getPrimerApellido();
+		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
+		}
+	}
 	@Command
 	public void closeThis() {
 		window.detach();
