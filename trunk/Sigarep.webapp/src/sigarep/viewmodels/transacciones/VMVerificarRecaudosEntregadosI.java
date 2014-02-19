@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -19,6 +21,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -30,8 +33,10 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -129,12 +134,20 @@ public class VMVerificarRecaudosEntregadosI {
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
 	MensajesAlUsuario mensajeAlUsuario  = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 	
+
 	@WireVariable
 	private TipoMotivo tipoMotivo;
 	@WireVariable
 	private List<Recaudo> listaRecaudosPorMotivo;
 	@WireVariable
 	private String telefono;
+	
+	@Wire("#winVerificiarRecaudosI")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 	
 	public String getCedula() {
 		return cedula;
@@ -474,4 +487,54 @@ public class VMVerificarRecaudosEntregadosI {
 		if(lbxRecaudos.getSelectedIndex()!=-1)	
 			Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,a,"middle_center",1000);
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder, @BindingParam("recaudosEntregados") Set<Listitem> recaudos){
+			
+		
+		if (recaudos.size() != 0)
+		{
+			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else
+		{
+			Messagebox.show("¿Realmente desea cerrar la ventana sin realizar cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		
+	}
+	
+	
+	
+	
 }
