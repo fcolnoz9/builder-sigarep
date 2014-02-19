@@ -152,7 +152,10 @@
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			onClick="winVerificiarRecaudosI.onClose()">
+			onClick="@command('cerrarVentana', recaudosEntregados=items)">
+			<attribute name="onClick">
+				Set items = lbxRecaudos.getSelectedItems();
+			</attribute>
 		</button>
 	</div>
 	</window>
