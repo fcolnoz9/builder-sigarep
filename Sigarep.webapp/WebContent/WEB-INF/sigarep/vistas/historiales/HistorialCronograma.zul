@@ -11,7 +11,7 @@
 	<separator spacing="15px" />
 			 
 	<label value="Lapso academico: " id="lblLapsoAcademico" />
-	<combobox readonly="true" id= "cmbLapsoAcademico" value="@bind(vm.lapsoAcademico.codigoLapso)" 
+	<combobox readonly="true" id="cmbLapsoAcademico" placeholder="Elija un lapso académico" value="@bind(vm.lapsoAcademico.codigoLapso)" 
 	 width="150px" mold="rounded" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" onSelect="@command('buscarDetalleLapsoAcademicoCombo')">
 			<template name="model">
 				<comboitem  label="${each.codigoLapso}"/>
@@ -49,15 +49,15 @@
 							onChange="@command('filtroCronograma')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
-					<listheader label="Fecha Inicio" align="left"
+					<listheader label="Fecha Inicio" align="left" width="8%"
 						sort="auto(fechaInicio)" />
-					<listheader label="Fecha Fin" align="left"
+					<listheader label="Fecha Fin" align="left" width="8%"
 						sort="auto(fechaFin)" />	
-					<listheader label="Hora" align="left"
+					<listheader label="Hora" align="left" width="6%"
 						sort="auto(horaInicio)" />
-					<listheader label="Observación" align="left"
+					<listheader label="Observación" align="left" width="15%"
 						sort="auto(observacion)"/>
-				</listhead>
+					</listhead>
 				<template name="model">
 					<listitem selected="false">
 						<listcell label="${each.getActividad().getNombre()}"></listcell>
@@ -80,7 +80,7 @@
         
         <button label="Cerrar" id="btnCerrar" 
 				mold="trendy" width="auto" height="auto" image="/imagenes/iconos/cerrar.png" 
-				onClick="winHistorialCronograma.onClose()" orient="horizontal"  />
+				onClick="@command('cerrarVentana')" orient="horizontal"  />
 	</div>
 	<separator spacing="15px" />
 		
