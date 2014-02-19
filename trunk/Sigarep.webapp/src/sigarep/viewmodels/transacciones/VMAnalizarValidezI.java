@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 
@@ -18,6 +19,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
@@ -446,7 +448,7 @@ public class VMAnalizarValidezI {
 				try {
 					MensajesAlUsuario.informacionRegistroCorrectoStatic();				
 					winAnalizarValidezI.detach();
-					
+					actualizarListaSancionados();
 					} catch (Exception e) {
 					System.out.println(e.getMessage());
 
@@ -463,6 +465,10 @@ public class VMAnalizarValidezI {
 		selected = "";
 		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
 	}
+	@GlobalCommand
+    public void actualizarListaSancionados(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+    }
 
 	/**
 	 * Cerrar Ventana

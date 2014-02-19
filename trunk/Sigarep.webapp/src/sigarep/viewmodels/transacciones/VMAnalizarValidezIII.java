@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 
@@ -22,6 +23,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
@@ -512,6 +514,7 @@ public class VMAnalizarValidezIII {
 			try {
 				MensajesAlUsuario.informacionRegistroCorrectoStatic();
 				winAnalizarValidezIII.detach();
+				actualizarListaSancionados();
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -519,7 +522,10 @@ public class VMAnalizarValidezIII {
 			}
 		}
 	}
-	
+	@GlobalCommand
+    public void actualizarListaSancionados(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+    }
 	/** Metodo que limpia todos los campos
 	 * @parameters Observacion,selected, observacionexperto
 	 * @throws No dispara ninguna excepcion.
