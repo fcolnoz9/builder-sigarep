@@ -28,7 +28,7 @@
 								<label id="lblNombreEnlace"
 								value="Nombre:"/>
 								<textbox id="txtNombreEnlace"
-								placeholder="Ingrese el nombre del Enlace."
+								placeholder="Ingrese el nombre del enlace."
 								 mold="rounded" maxlength="60"
 								width="80%" tabindex="2" 
 								value="@bind(vm.nombreEnlace)" />
@@ -46,7 +46,7 @@
 								<label id="lblDescripcionEnlace"
 								value="Descripción:"/>
 								<textbox id="txtDescripcionEnlace"
-								 placeholder="Ingrese la descripción del Enlace."
+								 placeholder="Ingrese la descripción del enlace."
 								 mold="rounded" maxlength="255"
 								width="77%"  rows="3" tabindex="2"
 								value="@bind(vm.descripcion)" />
@@ -85,7 +85,7 @@
 
 		<!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->
 		<groupbox id="grbListadoEnlaces">
-			<caption label="Listado de Enlaces" />
+			<caption label="Lista de Enlaces" />
 		<separator />
 			<listbox id="lbxListaEnlaces" height="100%"
 				model="@bind(vm.listaEnlaces)"
