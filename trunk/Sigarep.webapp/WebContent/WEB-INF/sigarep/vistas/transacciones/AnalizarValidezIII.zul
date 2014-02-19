@@ -105,7 +105,8 @@
 				</rows>
 			</grid>
 		</groupbox>
-		<groupbox>
+		
+		<groupbox id="grbDatosRecaudos">
 			<caption label="Datos de los recaudos" />
 			<listbox id="lbxRecaudos" model="@bind(vm.listaRecaudo)"
 				emptyMessage="No se encontraron recaudos" mold="paging"
@@ -137,16 +138,14 @@
 						<listcell height="%">
 							<textbox
 								value="${each.getObservacionExperto()}" mold="rounded"
-								cols="120" maxlength="255" rows="2" />
+								cols="120" maxlength="255" rows="2" placeholder="Ingrese una observación del recaudo"/>
 						</listcell>
 					</listitem>
 				</template>
 			</listbox>
 		</groupbox>
 
-
-
-		<groupbox>
+		<groupbox id="grbDatosSugerencia">
 			<caption id="lblsugerencia" label="Sugerencia" />
 			<grid>
 				<columns>
@@ -171,14 +170,13 @@
 							<separator></separator>
 							<textbox id="txtObservacion" mold="rounded"
 								cols="100" maxlength="255" value="@bind(vm.observacion)"
-								rows="2" placeholder = "Por favor, ingrese una Observación" >
+								rows="2" placeholder = "Ingrese una observación general del caso" >
 							</textbox>
 						</hlayout>
 					</row>
 				</rows>
 			</grid>
 			<label value="" />
-
 		</groupbox>
 
 		<div align="right" height="100%">
@@ -196,7 +194,7 @@
 			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="winAnalizarValidezIII.onClose()">
+				orient="horizontal" onClick="@command('cerrarVentana')">
 			</button>
 
 		</div>

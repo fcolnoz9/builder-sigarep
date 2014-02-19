@@ -140,7 +140,7 @@
 						<listcell height="%">
 							<textbox
 								value="${each.getObservacionExperto()}" mold="rounded"
-								cols="120" maxlength="255" rows="2" />
+								cols="120" maxlength="255" rows="2" placeholder="Ingrese una observación del recaudo" />
 						</listcell>
 					</listitem>
 				</template>
@@ -172,7 +172,7 @@
 							<separator></separator>
 							<textbox id="txtObservacion" mold="rounded"
 								maxlength="255" cols="100" value="@bind(vm.observacion)"
-								rows="2">
+								placeholder="Ingrese una observación general del caso" rows="2">
 							</textbox>
 						</hlayout>
 					</row>
@@ -196,7 +196,7 @@
 			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="winAnalizarValidezII.onClose()">
+				orient="horizontal" onClick="@command('cerrarVentana')">
 			</button>
 		</div>
 	</window>

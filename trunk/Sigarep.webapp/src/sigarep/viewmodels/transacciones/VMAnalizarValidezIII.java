@@ -1,5 +1,7 @@
 package sigarep.viewmodels.transacciones;
 /**VM Analizar validezIII
+
+
 * UCLA DCYT Sistemas de Informacion.
 * @author Equipo: Builder-SIGAREP 
 * @version 1.0
@@ -11,8 +13,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -24,6 +29,7 @@ import org.zkoss.zhtml.Messagebox;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -33,6 +39,7 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -108,6 +115,15 @@ public class VMAnalizarValidezIII {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	
+	@Wire("#winAnalizarValidezIII")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }	
+		
+	// Metodos setteres y getteres	
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
 	}
@@ -475,6 +491,12 @@ public class VMAnalizarValidezIII {
 					.getVeredicto());
 			solicitudApelacionAux.setVerificado(true);
 			solicitudApelacionAux.setAnalizado(true);
+			
+			if (getSelected().equals("PROCEDENTE"))
+				solicitudApelacionAux.setVeredicto("PROCEDENTE");
+			else if((getSelected().equals("NO PROCEDENTE")))
+				solicitudApelacionAux.setVeredicto("NO PROCEDENTE");
+			
 			ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
@@ -530,4 +552,44 @@ public class VMAnalizarValidezIII {
 		window.setMaximizable(true);
 		window.doModal();
 	}		
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
+	@Command
+	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacionExperto","observacion"})
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if ( observacion != null ||	selected != null || observacionexperto != null){
+			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+	}
 }
