@@ -68,7 +68,7 @@
 										src="/imagenes/portal-principal/busquedaico.png" />
 									<label value="Cedula:" />
 									<intbox id="intcedula"
-										mold="rounded" maxlength="8" width="150px"
+										placeholder="Ingrese la Cédula" mold="rounded" maxlength="8" width="150px"
 										value="@bind(vm.cedula)" />
 									<button label="Buscar" 
 										onClick="@command('modalEstadoEstudiante')" />

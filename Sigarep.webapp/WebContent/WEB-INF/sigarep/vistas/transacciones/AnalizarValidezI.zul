@@ -93,15 +93,13 @@
 	   			<listcell label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
 	   			<listcell label="${each.getRecaudo().getNombreRecaudo()}" ></listcell>
 	   			<listcell height="%">
-	   			<textbox value="" mold="rounded" cols="120" rows="2" maxlength="255"/>
+	   			<textbox value="" mold="rounded" cols="120" rows="2" maxlength="255" placeholder="Ingrese una observación del recaudo"/>
 	   			</listcell>
 	   		</listitem>
 	   	</template>
 	   </listbox>
         
 	</groupbox>
-	
-	
 	
 	<groupbox id="grbDatosSugerencia">
 			<caption id="lblsugerencia" label="Sugerencia" />
@@ -120,13 +118,12 @@
 				        <radio id="rbNoProcedente" label="No Procedente"  value="NO PROCEDENTE" />
 				     </hlayout>
 				     </radiogroup>
-<!-- 				     <label value="@bind(vm.selected)" -->
-<!-- 							visible="false" /> -->
 				     
 				     <hlayout valign="center">
 						<label value="Observación General: " id="lblObservacion"  />
 						<separator></separator>
-						<textbox id="txtObservacion" mold="rounded" maxlength="255" cols="100" value="@bind(vm.observacion)" rows="2"></textbox>
+						<textbox id="txtObservacion" mold="rounded" maxlength="255" cols="100" value="@bind(vm.observacion)" rows="2" placeholder="Ingrese una observación general del caso">
+						</textbox>
 					</hlayout>
 				</row>
 		    </rows>
@@ -149,7 +146,7 @@
 		</button>					
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal"  onClick="winAnalizarValidezI.onClose()">
+				orient="horizontal"  onClick="@command('cerrarVentana')">
 			</button>
 			
 		</div>
