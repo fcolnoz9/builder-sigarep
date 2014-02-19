@@ -1,4 +1,4 @@
-<window id="winRegistrarRecaudoMotivo"
+<window id="winRegistrarRecaudoMotivo" closable="true"
 	title="Registros Básicos:: Registrar Recaudos "
 	border="normal" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivo')">
