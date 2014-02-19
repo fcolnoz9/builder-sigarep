@@ -27,16 +27,16 @@
 					<row>
 						<label id="lblFechaInicio"
 							value="Fecha de Inicio de Lapso:" />
-						<datebox id="dtbFechaInicio"
+						<datebox id="dtbFechaInicio" placeholder="Seleccione..."
 							format="dd/MM/yyyy" onChange="@command('validarFecha')"
-							maxlength="255" width="80%"  readonly="true"
+							width="80%"  readonly="true"
 							mold="rounded" value="@bind(vm1.fechaInicio)" />
 
 						<label id="lblFechaCierre"
 							value="Fecha de Finalización de Lapso:" />
-						<datebox id="dbFechaCierre"
+						<datebox id="dbFechaCierre" placeholder="Seleccione..."
 							format="dd/MM/yyyy" onChange="@command('validarFecha')"
-							maxlength="255" width="80%" mold="rounded" tabindex="2"  readonly="true"
+							width="80%" mold="rounded" tabindex="2"  readonly="true"
 							value="@bind(vm1.fechaCierre)" />
 					</row>
 				</rows>

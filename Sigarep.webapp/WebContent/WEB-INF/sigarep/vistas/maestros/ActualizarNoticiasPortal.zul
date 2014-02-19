@@ -33,24 +33,26 @@
 								<label id="lblTitulo" value="Título:" />
 								<textbox id="txtTitulo" cols="23"
 										maxlength="60" readonly="false" placeholder=" Ingrese el título de la noticia" 
-										mold="rounded" width="80%" tabindex="2" value="@bind(vm.titulo)" />
+										mold="rounded" width="100%" tabindex="2" value="@bind(vm.titulo)" />
 								<label id="lblEnlace" value="Enlace:" />
 								<textbox id="txtEnlace" cols="23" placeholder="Ingrese el enlace de la noticia"
-									maxlength="255" readonly="false" mold="rounded" width="80%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
+									maxlength="255" readonly="false" mold="rounded" width="100%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
 							</row>
 							<row>
 								<label id="lblFecha" value="Fecha Publicación:" />
-								<datebox id="dbfechaPublicacion" mold="rounded" format="dd/MM/yyyy" width="80%" tabindex="4"
-									placeholder="Ingrese fecha de inicio de la noticia" onChange="@command('validarFecha')"
+								<datebox id="dbfechaPublicacion" placeholder="Seleccione..."
+								mold="rounded" format="dd/MM/yyyy" width="100%" tabindex="4"
+									 onChange="@command('validarFecha')"
 									value="@bind(vm.fechaRegistro)" />
 								<label id="lblFechaVencimiento" value="Fecha Vencimiento:" />
-								<datebox id="dbfechaVencimiento" mold="rounded" format="dd/MM/yyyy" width="80%" tabindex="4"
-									placeholder="Ingrese fecha de vencimiento de la noticia" onChange="@command('validarFecha')"
+								<datebox id="dbfechaVencimiento" placeholder="Seleccione..."
+								mold="rounded" format="dd/MM/yyyy" width="100%" tabindex="4"
+									 onChange="@command('validarFecha')"
 									value="@bind(vm.vencimiento)" />
 							</row>
 							<row>
 						        <label id="lblContenido" value="Contenido:" />
-								<textbox id="txtContenido" width="77%" placeholder="Ingrese el contenido de la noticia"
+								<textbox id="txtContenido" width="96%" placeholder="Ingrese el contenido de la noticia"
 									rows="3" maxlength="255" mold="rounded" tabindex="2" value="@bind(vm.contenido)" />
 							</row>
 						</rows>

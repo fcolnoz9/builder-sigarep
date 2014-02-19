@@ -21,7 +21,7 @@ style="overflow:auto" action="hide: slideUp"
     	<row>
     	<label id="lblCategoria" value="Categoría:" />
 <!--             Categoría: -->
-              <combobox id="cmbCategoria" mold="rounded" width="80%" maxlength="30" placeholder="Seleccione una Categoría..." selectedItem=" @bind(vm.categoria)">
+              <combobox id="cmbCategoria" mold="rounded" width="80%" maxlength="30" placeholder="Seleccione una categoría..." selectedItem=" @bind(vm.categoria)">
 						<comboitem value="guia" id="cmiGuiaPaso" label="Guía Paso a Paso" />
  						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
@@ -42,13 +42,13 @@ style="overflow:auto" action="hide: slideUp"
            
            <label id="lblTituloDocumento" value="Título Documento:" />
 <!--            Título Documento: -->
-                    <textbox id= "txttitulo" placeholder="Ingrese un Título del Documento"  mold = "rounded" value="@bind(vm.titulo)"
+                    <textbox id= "txttitulo" placeholder="Ingrese un título del documento"  mold = "rounded" value="@bind(vm.titulo)"
 			width="80%" maxlength="255" cols="23" tabindex="5"    />
 			
 			 <label id="lblDescripcion" value="Descripción:" />
 <!--             Descripción: -->
            
-                <textbox  id= "txtdescripcion" placeholder="Ingrese una Descripción del Documento" width="80%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+                <textbox  id= "txtdescripcion" placeholder="Ingrese una descripción del documento" width="80%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
 					 maxlength="255" cols="23" tabindex="5" rows="3" >
                     <attribute name="value"> </attribute>
                 </textbox> 

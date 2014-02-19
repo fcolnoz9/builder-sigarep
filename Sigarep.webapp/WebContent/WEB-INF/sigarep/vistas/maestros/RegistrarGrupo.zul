@@ -15,7 +15,9 @@
     			<row>
     			   	<hbox>
     					Nombre:
-    					<textbox id="txtNombreRegistrarGrupo" mold="rounded"
+    					<textbox id="txtNombreRegistrarGrupo" 
+    					placeholder= "Ingrese el nombre del grupo"
+    					mold="rounded" 
     						value="@bind(vm.nombre)"/>
 <!--     						    						onBlur="@command('buscarGrupo')"  -->
     						
@@ -23,8 +25,9 @@
     				</hbox>
     				<hbox>
     					Descripción:
-    					<textbox id="txtDescripcionRegistrarGrupo" mold="rounded"
-    						value="@bind(vm.descripcion)" rows="2" />
+    					<textbox id="txtDescripcionRegistrarGrupo" 
+    					placeholder= "Ingrese la descripción del grupo"
+    					mold="rounded"  value="@bind(vm.descripcion)" rows="2" />
     				</hbox>
     			</row>
     		</rows>
