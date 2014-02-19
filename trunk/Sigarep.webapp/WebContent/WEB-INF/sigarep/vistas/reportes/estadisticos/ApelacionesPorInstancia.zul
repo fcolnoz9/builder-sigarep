@@ -78,8 +78,8 @@
 				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('buscarApelacionesR')">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
-				label="Cerrar" image="/imagenes/iconos/cerrar.png" mold="trendy" 
-				orient="horizontal" onClick="winApelacionesPorInstancia.onClose()">
+				label="Cerrar" image="/imagenes/iconos/cerrar.png"
+				onClick="@command('cerrarVentana')">
 			</button>
 		</div>
 
