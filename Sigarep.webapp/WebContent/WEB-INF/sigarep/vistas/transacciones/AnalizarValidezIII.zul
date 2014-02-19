@@ -183,7 +183,7 @@
 			<button label="Guardar" mold="trendy" id="btnGuardar"
 				image="imagenes/iconos/guardar.png" width="auto" height="auto"
 				orient="horizontal"
-				onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidezIII)">
+				onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidezIII) @global-command('actualizarListaSancionados')">
 				<attribute name="onClick">
 	List items = lbxRecaudos.getItems();
 </attribute>
