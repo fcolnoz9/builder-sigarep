@@ -7,7 +7,7 @@
 		<caption label="Seleccione un Tipo de Motivo de Apelacion" />
 
 		<label id="lblTipoMotivo" value="Tipo de Motivo:" />
-		<combobox readonly="true" id="cmbTipoMotivo" width="auto"
+		<combobox readonly="true" id="cmbTipoMotivo" width="auto" placeholder="Seleccione un Tipo de Motivo"
 			value="@bind(vm.nombreTipoMotivo)" mold="rounded"
 			model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.tipoMotivo)"
 			onSelect="@command('buscarRecaudoMotivoCombo')">
