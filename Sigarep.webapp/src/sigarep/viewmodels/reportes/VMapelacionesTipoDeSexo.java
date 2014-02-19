@@ -7,13 +7,24 @@ import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -68,6 +79,15 @@ public class VMapelacionesTipoDeSexo {
 	private String nombre_sancion;
 	private String codigo_lapso;
 	private String programa_academico;
+	
+	
+	@Wire("#winReporteApelacionesTipoDeSexo")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
+	
 
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
 	// REPORTE***************************
@@ -274,18 +294,12 @@ public class VMapelacionesTipoDeSexo {
 		
 		
 		
+	
 		
-
-		/*
-		 * System.out.println(programaAcademico.getIdPrograma());
-		 * System.out.println(lapsoAcademico.getCodigoLapso());
-		 * System.out.println(lapsoAcademicoFinal.getCodigoLapso());
-		 * System.out.println(reportType); System.out.println(listaAsigMayor);
-		 */
 		
 		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
-		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES - SEXO / RESULTADO");
+		reportConfig.getParameters().put("Titulo", "Reporte Comparativo de Apelaciones por Sexo y Veredicto");
 		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
 		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
@@ -298,7 +312,41 @@ public class VMapelacionesTipoDeSexo {
 	}
 
 	// #####################FIN DEL METODO##########################
-
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({ "objLapso", "programa_academico", "nombre_sancion",
+	 })
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (objLapso != null)
+		{
+			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					
+					}
+				}
+			});		
+		}
+	}
 
 	public String getNombre_sancion() {
 		return nombre_sancion;
