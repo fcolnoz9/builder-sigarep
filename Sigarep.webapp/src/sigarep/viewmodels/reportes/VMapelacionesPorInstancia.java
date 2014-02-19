@@ -66,7 +66,7 @@ public class VMapelacionesPorInstancia {
 	// REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
-	String ruta="/WEB-INF/sigarepReportes/RApelacionesMotivoPrograma.jasper";
+	String ruta="/WEB-INF/sigarepReportes/RApelacionesInstancia-Veredicto.jasper";
 
 	@Init
 	public void init() {
@@ -247,14 +247,7 @@ public class VMapelacionesPorInstancia {
 		this.objPrograma = objPrograma;
 	}
 
-	/*public String getSelected() {
-		return selected;
-	}
 
-	@NotifyChange
-	public void setSelected(String selected) {
-		this.selected = selected;
-	}*/
 
 	// ###############METODO PARA IMPRIMIR REPORTE#################
 	@Command("GenerarReporteApelacionesInstancia")
@@ -280,19 +273,13 @@ public class VMapelacionesPorInstancia {
 							objSancion.getIdSancion(),
 							objPrograma.getIdPrograma());
 
-		/*
-		 * System.out.println(programaAcademico.getIdPrograma());
-		 * System.out.println(lapsoAcademico.getCodigoLapso());
-		 * System.out.println(lapsoAcademicoFinal.getCodigoLapso());
-		 * System.out.println(reportType); System.out.println(listaAsigMayor);
-		 */
-
+	
 		
 		
 		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
 											// REPORTE
 		
-		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES - INSTANCIA / RESULTADO");
+		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES y VEREDICTO");
 		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
 		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
 		
