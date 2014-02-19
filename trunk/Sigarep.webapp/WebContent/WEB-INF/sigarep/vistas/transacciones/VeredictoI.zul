@@ -10,17 +10,17 @@
 				<row>
 					<label id="lblNumerosesion"
 						value="Número de Sesión: " />
-					<textbox id="txtNumeroSesion" cols="23" mold="rounded" 
+					<textbox id="txtNumeroSesion" cols="23" mold="rounded" width="80%"
 						maxlength="15" readonly="true" value="@bind(vm.numeroSesion)">
 					</textbox>
 					<label id="lblTiposesion" value="Tipo de Sesión: " />
-					<textbox id="txtTipoSesion" mold="rounded" cols="23" maxlength="30" value="@bind(vm.tipoSesion)" readonly="true"></textbox>
+					<textbox id="txtTipoSesion" mold="rounded" cols="23" width="80%" maxlength="30" value="@bind(vm.tipoSesion)" readonly="true"></textbox>
 				</row>
 				<row>
 					<label id="lblFechasesion"
 						value="Fecha de Sesión: " />
 					<textbox id="txtFechasesión" cols="23" mold="rounded"
-						maxlength="30" value="@bind(vm.fechaSesion)" readonly="true">
+						maxlength="30" width="80%"  value="@bind(vm.fechaSesion)" readonly="true">
 					</textbox>
 				</row>
 			</rows>
@@ -34,19 +34,19 @@
 				<row></row>
 				<row>
 					<label value="Cédula:" id="lblCedulaEstudiante" />
-					<textbox id="txtCedulaEstudiante" mold="rounded" cols="23" width="200px" maxlength="8" readonly="true" value="@bind(vm.cedula)"></textbox>
+					<textbox id="txtCedulaEstudiante" mold="rounded" cols="23" width="80%" maxlength="8" readonly="true" value="@bind(vm.cedula)"></textbox>
 					<label value="Programa:" id="lblProgramaEstudiante" />
-					<textbox id="txtProgramaEstudiante" mold="rounded" cols="23" width="200px" maxlength="60" readonly="true" value="@bind(vm.programa)"></textbox>
+					<textbox id="txtProgramaEstudiante" mold="rounded" cols="23" width="80%" maxlength="60" readonly="true" value="@bind(vm.programa)"></textbox>
 				</row>
 				<row>
 					<label value="Nombres: " id="lblNombresEstudiante" />
 					<textbox id="txtNombresEstudiante" cols="23" mold="rounded"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
+						width="80%" maxlength="30" readonly="true" value="@bind(vm.nombres)">
 					</textbox>
 					<label value="Apellidos: "
 						id="lblApellidosEstudiante" />
 					<textbox id="txtApellidosEstudiante" cols="23" mold="rounded"
-						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
+						width="80%" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
 					</textbox>
 				</row>
 				<row>
@@ -63,21 +63,21 @@
 				<row>
 					<label id="lblTiposancion"
 						value="Tipo de Sanción: " />
-					<textbox id="txtTipoSancion" cols="23" mold="rounded"
+					<textbox id="txtTipoSancion" cols="23" mold="rounded" width="80%"
 						maxlength="30" readonly="true" value="@bind(vm.sancion)">
 					</textbox>
 					<label id="lblLapsosancion" value="Lapso de Sanción: " />
-					<textbox id="txtLapsosancion" mold="rounded" cols="23" maxlength="30" value="@bind(vm.lapso)" readonly="true"></textbox>
+					<textbox id="txtLapsosancion" mold="rounded" cols="23" maxlength="30" width="80%" value="@bind(vm.lapso)" readonly="true"></textbox>
 				</row>
 				<row>
 					<label id="lblPeriodosancion"
 						value="Periodo de Sanción: " />
-					<textbox id="txtPeridosancion" cols="23" mold="rounded"
+					<textbox id="txtPeridosancion" cols="23" mold="rounded" width="80%" 
 						maxlength="30" value="@bind(vm.peridoSancion)" readonly="true">
 					</textbox>
 						<label id="lblAsignaturaPeriodos"
 						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
-					<textbox id="txtAsignatura" cols="45" maxlength="30"
+					<textbox id="txtAsignatura" cols="45" maxlength="30" width="80%" 
 						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
 					</textbox>
 				</row>
@@ -91,9 +91,9 @@
 			<rows>
 				<row>
 					<label id="lblNumeroCaso"  value="Número de Caso:" />
-					<textbox id="txtNumeroCaso" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.caso)"></textbox>
+					<textbox id="txtNumeroCaso" mold="rounded" cols="23" width="80%"  maxlength="60" readonly="true" value="@bind(vm.caso)"></textbox>
 					<label id="lblFechaApelacion"  value="Fecha de Apelación:" />
-					<textbox id="txtFechaApelacion" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.fechaApelacion)"></textbox>
+					<textbox id="txtFechaApelacion" mold="rounded" cols="23" width="80%"  maxlength="30" readonly="true" value="@bind(vm.fechaApelacion)"></textbox>
 				</row>
 			</rows>
 		</grid>
@@ -109,7 +109,7 @@
 		            <row>
 		            	<label value="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
 		                <label value="${each.getRecaudo().getNombreRecaudo()}" /> 
-		                <textbox value="${each.getObservacionExperto()}" mold="rounded" cols="120" rows="2" readonly="true"></textbox>
+		                <textbox value="${each.getObservacionExperto()}" mold="rounded" cols="120" width="80%" rows="2" readonly="true"></textbox>
 		            </row>
 	            </template>
            </rows>
