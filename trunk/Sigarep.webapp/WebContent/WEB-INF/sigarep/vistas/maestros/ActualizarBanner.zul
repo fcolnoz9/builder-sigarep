@@ -30,7 +30,7 @@
 								<row>
 									<label id="lblTituloBanner"
 										value="Título de la Imagen:" />
-									<textbox id="txtTituloBanner" placeholder="Ingrese el Título del Banner"
+									<textbox id="txtTituloBanner" placeholder="Ingrese el título de la imagen"
 										 value="@bind(vm.titulo)" width="80%"
 										maxlength="60" cols="23" tabindex="5" mold="rounded" />
 								</row>
@@ -38,21 +38,22 @@
 								<row>
 									<label id="lblLinkImagenBanner"
 										value="Link Imagen:" />
-									<textbox id="txtLinkBanner" placeholder="Ingrese el Enlace del Banner"
-										 value="@bind(vm.enlace)" width="80%"
-										maxlength="255" cols="23" tabindex="5" mold="rounded" />
+									<textbox id="txtLinkBanner" placeholder="Ingrese el enlace de la imagen"
+										     cols="23" tabindex="5" width="80%" maxlength="255" mold="rounded"
+										     value="@bind(vm.enlace)"  />
 								</row>
 
 								<row>
 									<label id="lblDescripcionBanner"
 										value="Descripción Imagen:" />
-									<textbox id="txtDescripcionBanner" placeholder="Ingrese la Descripción del Banner"
-										 value="@bind(vm.descripcion)" rows="3"
-										tabindex="2" width="77%" maxlength="255" mold="rounded" />
+									<textbox id="txtDescripcionBanner" placeholder="Ingrese la descripción de la imagen"
+										  width="77%" rows="3" tabindex="2" maxlength="255" mold="rounded" 
+										value="@bind(vm.descripcion)" />
 								</row>
 								<row>
 									<label id="lblFechaVencimientoBanner" value="Fecha Vencimiento:" />
-									<datebox id="dtbFechaVencimientoBanner" width="80%" format="dd/MM/yyyy"
+									<datebox id="dtbFechaVencimientoBanner" placeholder="Seleccione..."
+									width="80%" format="dd/MM/yyyy"
 									mold="rounded" value="@bind(vm.fechaVencimiento)" />
 								</row>
 							</rows>

@@ -22,15 +22,17 @@
 				<rows>
 					<row>
 						<label id="lblPregunta" value="Pregunta:" />
-						<textbox id="txtPregunta" width="80%" rows="3"
+						<textbox id="txtPregunta" 
+						    placeholder="Ingrese la pregunta"
+						    width="80%" rows="3"
 							maxlength="255" mold="rounded" tabindex="1"
-							value="@bind(vm.pregunta)"
-							placeholder="Ingrese la pregunta" />
+							value="@bind(vm.pregunta)"/>
 						<label id="lblRespuesta" value="Respuesta:" />
-						<textbox id="txtRespuesta" width="80%"
+						<textbox id="txtRespuesta"
+						     placeholder="Ingrese la respuesta"
+						    width="80%"
 							rows="3" maxlength="255" mold="rounded" tabindex="2"
-							value="@bind(vm.respuesta)"
-							placeholder="Ingrese la respuesta" />
+							value="@bind(vm.respuesta)"/>
 					</row>
 				</rows>
 			</grid>

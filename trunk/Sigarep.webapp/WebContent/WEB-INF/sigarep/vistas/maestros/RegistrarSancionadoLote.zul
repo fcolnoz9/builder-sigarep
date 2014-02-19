@@ -13,7 +13,7 @@
 		<rows>
 			<row>	
 				<label>Cantidad Estudiantes Sancionados:</label>
-				<intbox id="tamanoXML" value="@bind(vm.tamanoXML)" mold="rounded" readonly="true"/>
+				<intbox id="tamanoXML" placeholder="cantidad" value="@bind(vm.tamanoXML)" mold="rounded" readonly="true"/>
 				<button id="btnUpload" label="Cargar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarEstudiante',upload=event)" upload="true,maxsize=8192,multiple=false"/>
 			</row>
 			<row>

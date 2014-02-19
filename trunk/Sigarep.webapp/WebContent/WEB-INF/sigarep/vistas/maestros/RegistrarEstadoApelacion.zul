@@ -30,6 +30,7 @@
 							value="Instancia Apelada:" />
 						<combobox readonly="true"
 							id="cmbInstanciaApelada"
+							placeholder= "Seleccione una instancia..."
 							value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
@@ -45,7 +46,7 @@
 						<label id="lblNombreEstado" value="Nombre:" />
 
 						<textbox id="txtNombreEstado"
-							placeholder= "Ingrese el nombre del Estado de Apelación"
+							placeholder= "Ingrese el nombre del estado de apelación"
 							width="80%" cols="23" maxlength="100" mold="rounded" tabindex="1"
 							value="@bind(vm.nombreEstado)" />
 
@@ -53,7 +54,7 @@
 
 						<textbox
 							id="txtDescripcion"
-							placeholder= "Ingrese la descripción del Estado de Apelación"
+							placeholder= "Ingrese la descripción del estado de apelación"
 							width="80%" rows="3" maxlength="255" mold="rounded" tabindex="2"
 							value="@bind(vm.descripcion)" />
 
