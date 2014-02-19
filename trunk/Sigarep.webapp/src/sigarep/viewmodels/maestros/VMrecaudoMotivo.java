@@ -199,16 +199,7 @@ public class VMrecaudoMotivo {
 			limpiar();
 		}
 	}
-	
-	/**
-	 * Eliminar Recaudo
-	 * 
-	 * @param eliminarRecaudo
-	 * @return Metodo que elimina un recaudo tomando en cuenta el idRecaudo
-	 * @throws No
-	 * dispara ninguna excepcion.
-	 */
-			
+		
 	
 	/**
 	 * Buscar Recaudos

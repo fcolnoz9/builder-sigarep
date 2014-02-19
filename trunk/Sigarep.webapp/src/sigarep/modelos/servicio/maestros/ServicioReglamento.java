@@ -1,18 +1,10 @@
 package sigarep.modelos.servicio.maestros;
 
-
-
 import java.util.LinkedList;
 import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-
 import sigarep.modelos.data.maestros.Reglamento;
-import sigarep.modelos.data.maestros.ReglamentoFiltros;
 import sigarep.modelos.repositorio.maestros.IReglamentoDAO;
 
 /**Reglamento
