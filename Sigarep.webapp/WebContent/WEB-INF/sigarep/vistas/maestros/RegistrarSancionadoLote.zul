@@ -22,7 +22,7 @@
 		</grid>
 	</groupbox>
 	<groupbox>
-	<caption label="Listado de Estudiantes Sancionados" />
+	<caption label="Lista de Estudiantes Sancionados" />
 		<listbox id="estListbox" height="100%" model="@bind(vm.listaEstudiante)"   
    			 emptyMessage="No hay Estudiantes Sancionados registrados" mold="paging" pageSize="5" tooltiptext="Estudiantes Sancionados">
 		<listhead>

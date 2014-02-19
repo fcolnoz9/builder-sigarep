@@ -51,7 +51,7 @@
 		</button>
 	</div>
 	<groupbox id="grbListaSanciones">
-		<caption label="Listado de Tipos de Sanciones" />
+		<caption label="Lista de Tipos de Sanciones" />
 		<listbox id="lbxSancion" height="100%"
 			model="@bind(vm.listaTipoSancion)"
 			selectedItem="@bind(vm.tipoSancionSeleccionada)"

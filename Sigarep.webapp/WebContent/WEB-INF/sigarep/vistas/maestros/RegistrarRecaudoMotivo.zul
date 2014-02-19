@@ -83,7 +83,7 @@
 		
 		<!-- Grupbox que contiene el listado de los recaudos -->
 		<groupbox>
-			<caption label="Listado de Recaudos" />
+			<caption label="Lista de Recaudos" />
 			<separator />
 			<!-- Lista que contiene el listado de los recaudos -->
 			<listbox id="lbxrecaudo" 
