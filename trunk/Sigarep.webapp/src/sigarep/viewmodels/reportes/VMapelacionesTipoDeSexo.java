@@ -6,28 +6,28 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.zkoss.bind.annotation.BindingParam;
+
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.GlobalCommand;
+
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.PieModel;
+
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.reportes.ApelacionesPorMotivo;
-import sigarep.modelos.data.reportes.ApelacionesPorSexo;
+
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
-import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
+
 import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -74,7 +74,7 @@ public class VMapelacionesTipoDeSexo {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 	
-	String ruta="/WEB-INF/sigarepReportes/RApelacionesMotivoPrograma.jasper";
+	String ruta="/WEB-INF/sigarepReportes/RApelacionesTipoSexo-Veredicto.jasper";
 
 	@Init
 	public void init() {
