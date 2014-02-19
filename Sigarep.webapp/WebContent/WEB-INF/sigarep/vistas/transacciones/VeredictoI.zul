@@ -2,6 +2,7 @@
 	width="auto" height="auto"  style="overflow:auto" closable="true" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVeredictoI')">
 	<style src="/widgets/grid/simple/style.css" />
+<!--El groupbox Contiene los datos de Sesion -->	
 	<groupbox id="grbDatosSesion">
 		<caption id="lblDatossesion" label="Datos Sesión" />
 		<grid>
@@ -10,7 +11,7 @@
 					<label id="lblNumerosesion"
 						value="Número de Sesión: " />
 					<textbox id="txtNumeroSesion" cols="23" mold="rounded" 
-						maxlength="30" readonly="true" value="@bind(vm.numeroSesion)">
+						maxlength="15" readonly="true" value="@bind(vm.numeroSesion)">
 					</textbox>
 					<label id="lblTiposesion" value="Tipo de Sesión: " />
 					<textbox id="txtTipoSesion" mold="rounded" cols="23" maxlength="30" value="@bind(vm.tipoSesion)" readonly="true"></textbox>
@@ -25,6 +26,7 @@
 			</rows>
 		</grid>
 	</groupbox>
+<!--El groupbox Contiene los datos del estudiante -->
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
 		<grid id="grdDatosEstudiante">
@@ -32,9 +34,9 @@
 				<row></row>
 				<row>
 					<label value="Cédula:" id="lblCedulaEstudiante" />
-					<textbox id="txtCedulaEstudiante" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)"></textbox>
+					<textbox id="txtCedulaEstudiante" mold="rounded" cols="23" width="200px" maxlength="8" readonly="true" value="@bind(vm.cedula)"></textbox>
 					<label value="Programa:" id="lblProgramaEstudiante" />
-					<textbox id="txtProgramaEstudiante" mold="rounded" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)"></textbox>
+					<textbox id="txtProgramaEstudiante" mold="rounded" cols="23" width="200px" maxlength="60" readonly="true" value="@bind(vm.programa)"></textbox>
 				</row>
 				<row>
 					<label value="Nombres: " id="lblNombresEstudiante" />
@@ -53,6 +55,7 @@
 			</rows>
 		</grid>
 	</groupbox>
+<!--El groupbox Contiene los datos de la sancion-->
 		<groupbox id="grbDatosSancion">
 		<caption id="lblDatossancion" label="Datos Sanción" />
 		<grid>
@@ -81,6 +84,7 @@
 			</rows>
 		</grid>
 	</groupbox>
+<!--El groupbox Contiene los datos de la apelacion-->
 		<groupbox id="grbDatosRecaudo">
 		<caption label="Datos de la Apelación" />
 		<grid>
@@ -93,7 +97,7 @@
 				</row>
 			</rows>
 		</grid>
-		<grid id="grdRecaudosVeredicto" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="3">
+		<grid id="grdRecaudosVeredicto" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" >
 	        <columns>
 	        	<column label="Motivo de Apelación" align="left" width="25%"></column>
 	            <column label="Recaudo Entregado" align="left" width="25%"></column>
@@ -111,6 +115,7 @@
            </rows>
         </grid>
 	</groupbox>
+<!--El groupbox Contiene los campos que requieren llenarse para el Veredicto I -->
 	<groupbox id="grbDatosVeredicto">
 		<caption label="Datos del Veredicto" />
 		
@@ -130,15 +135,15 @@
 				     </radiogroup>
 				     
 				     <hlayout valign="center">
-<!-- 						<label id="lblObservacion"  value="Observación General: "  /> -->
+ 						<label id="lblObservacion"  value="Observación General: "  /> 
 						<separator></separator>
-						<textbox id="txtObservacion" mold="rounded"  cols="100" value="@bind(vm.observacionGeneral)" rows="2"></textbox>
+						<textbox id="txtObservacion" placeholder="Ingrese la Descripción General del Veredicto" width="80%" rows="2" maxlength="255"  mold="rounded"  cols="100" value="@bind(vm.observacionGeneral)" ></textbox>
 					</hlayout>
 				</row>
 		    </rows>
 		</grid>	 
 		<label value=""/>
-		
+<!-- Permite realizar acciones respecto a Veredicto I (Botones) -->			
 		<div align="right" height="100%">
 			<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 				 onClick="@command('registrarVeredicto',window=winVeredictoI) @global-command('actualizarListaSancionados')">
@@ -148,7 +153,7 @@
 				onClick="@command('limpiar')">
 			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" 
-				 onClick="winVeredictoI.onClose()">
+				 onClick="@command('cerrarVentana')">
 			</button>
 		</div>  
 	</groupbox>
