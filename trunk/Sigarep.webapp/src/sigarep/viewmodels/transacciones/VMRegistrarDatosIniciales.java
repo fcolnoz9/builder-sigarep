@@ -540,7 +540,7 @@ public class VMRegistrarDatosIniciales {
 		try {
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			winRegistrarDatosInicialesApelacion.detach();
-			actualizar();
+			actualizarListaSancionados();//Actualiza la Lista Generica de Estudiantes sancionados con un comando Global
 			 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -594,7 +594,7 @@ public class VMRegistrarDatosIniciales {
     }
 
     @GlobalCommand
-    public void actualizar(){
+    public void actualizarListaSancionados(){
     	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
     }
 	
