@@ -3,23 +3,17 @@ package sigarep.viewmodels.maestros;
 import java.io.IOException;
 import java.util.List;
 
-import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
@@ -28,9 +22,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
-import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EnlaceInteres;
@@ -50,11 +42,8 @@ public class VMenlaceInteres {
 	@WireVariable
 	ServicioEnlaceInteres servicioenlacesinteres;
 	private Integer idEnlace;
-	private Integer idEnlaceFiltro;
 	private String nombreEnlace;
-	private String nombreEnlaceFiltro;
 	private String direccionEnlace;
-	private String direccionEnlaceFiltro;
 	private String descripcion;
 	private Boolean estatus;
 	private Archivo imagen = new Archivo();
@@ -63,8 +52,10 @@ public class VMenlaceInteres {
 	private List<EnlaceInteres> listaEnlaces ;
 	private EnlaceInteres enlaceSeleccionado;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	@Wire
-	Textbox txtnombre_enlace;
+	//Variables filtros
+	private String nombreEnlaceFiltro ="";
+	private String direccionEnlaceFiltro ="";
+	
 	@Wire("#winEnlaceinteres")//para conectarse a la ventana con el ID
 	Window ventana;
 	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
@@ -81,13 +72,6 @@ public class VMenlaceInteres {
 		this.idEnlace = idEnlace;
 	}
 
-	public Integer getIdEnlaceFiltro() {
-		return idEnlaceFiltro;
-	}
-
-	public void setIdEnlaceFiltro(Integer idEnlaceFiltro) {
-		this.idEnlaceFiltro = idEnlaceFiltro;
-	}
 
 	public String getNombreEnlace() {
 		return nombreEnlace;
@@ -97,13 +81,6 @@ public class VMenlaceInteres {
 		this.nombreEnlace = nombreEnlace;
 	}
 
-	public String getNombreEnlaceFiltro() {
-		return nombreEnlaceFiltro;
-	}
-
-	public void setNombreEnlaceFiltro(String nombreEnlaceFiltro) {
-		this.nombreEnlaceFiltro = nombreEnlaceFiltro;
-	}
 
 	public String getDireccionEnlace() {
 		return direccionEnlace;
@@ -113,13 +90,6 @@ public class VMenlaceInteres {
 		this.direccionEnlace = direccionEnlace;
 	}
 
-	public String getDireccionEnlaceFiltro() {
-		return direccionEnlaceFiltro;
-	}
-
-	public void setDireccionEnlaceFiltro(String direccionEnlaceFiltro) {
-		this.direccionEnlaceFiltro = direccionEnlaceFiltro;
-	}
 
 	public String getDescripcion() {
 		return descripcion;
@@ -169,7 +139,22 @@ public class VMenlaceInteres {
 	public void setEnlaceSeleccionado(EnlaceInteres enlaceSeleccionado) {
 		this.enlaceSeleccionado = enlaceSeleccionado;
 	}
+	
+	public String getNombreEnlaceFiltro() {
+		return nombreEnlaceFiltro;
+	}
 
+	public void setNombreEnlaceFiltro(String nombreEnlaceFiltro) {
+		this.nombreEnlaceFiltro = nombreEnlaceFiltro;
+	}
+
+	public String getDireccionEnlaceFiltro() {
+		return direccionEnlaceFiltro;
+	}
+
+	public void setDireccionEnlaceFiltro(String direccionEnlaceFiltro) {
+		this.direccionEnlaceFiltro = direccionEnlaceFiltro;
+	}
 	// fin Getters and Setters
 
 	/**
@@ -280,37 +265,21 @@ public class VMenlaceInteres {
 	}
 
 	/**
-	 * Buscar enlaces de interés por nombre
+	 * Filtros
 	 * 
-	 * @param buscarEnlaceFiltroNombreEnlace
-	 * @return Permite la búsqueda por nombre en el filtro, en
-	 *         ActualizarEnlace.zul,viene de VMenlaceInteres
+	 * @param filtros
+	 * @return Método que busca y filtra los enlaces por nombre y dirección web
 	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
+	 * dispara ninguna excepcion.
+	 */	
+	
 	@Command
-	@NotifyChange({ "listaEnlaces" })
-	public void buscarEnlaceFiltroNombreEnlace() {
-		listaEnlaces = servicioenlacesinteres
-				.buscarEnlacesNombre(nombreEnlaceFiltro);
+	@NotifyChange({"listaEnlaces","nombreEnlacefiltro","direccionEnlacefiltro"})
+	public void filtrosEnlace(){
+		listaEnlaces = servicioenlacesinteres.buscarEnlacesFiltro(nombreEnlaceFiltro,direccionEnlaceFiltro);
 	}
 
-	/**
-	 * Buscar enlaces de interés por dirección
-	 * 
-	 * @param buscarEnlaceFiltroDireccionEnlace
-	 * @return Permite la búsqueda por dirección en el filtro, en
-	 *         ActualizarEnlace.zul,viene de VMenlaceInteres
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-
-	@Command
-	@NotifyChange({ "listaEnlaces" })
-	public void buscarEnlaceFiltroDireccionEnlace() {
-		listaEnlaces = servicioenlacesinteres
-				.buscarEnlacesDireccion(direccionEnlaceFiltro);
-	}
+	
 
 	/**
 	 * Eliminar un enlace
@@ -396,7 +365,7 @@ public class VMenlaceInteres {
 		if (nombreEnlace != null || direccionEnlace != null
 				|| descripcion != null || imagen.getTamano() > 1)
 		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
 					Messagebox.QUESTION,new EventListener<ClickEvent>() {
 				@SuppressWarnings("incomplete-switch")
 				public void onEvent(ClickEvent e) throws Exception {

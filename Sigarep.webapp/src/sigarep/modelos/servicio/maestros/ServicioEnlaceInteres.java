@@ -64,51 +64,25 @@ public class ServicioEnlaceInteres {
 		return enlaceinteres.findAll();
 	}
 
-	/**
-	 * Buscar Enlaces Codigo
-	 * 
-	 * @param Integer
-	 *            idEnlace
-	 * @return busca un enlace por id.
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	public List<EnlaceInteres> buscarEnlacesCodigo(Integer idEnlace) {
-		List<EnlaceInteres> result = new LinkedList<EnlaceInteres>();
-		if (idEnlace == null) {// si el id es null,el resultado va a ser la
-								// lista completa de todos los enlaces
-			result = listadoEnlaceInteres();
-		} else {// caso contrario, se recorre toda la lista y busca los enlaces
-				// con el id indicado en el intbox. Realiza la busqueda por el
-				// primer número y número completo.
-			for (EnlaceInteres ei : listadoEnlaceInteres()) {
-				if (ei.getIdEnlace().toString().contains(idEnlace.toString())) {
-					result.add(ei);
-				}
-			}
-		}
-		return result;
-	}
 
 	/**
-	 * Buscar Enlaces Nombre
+	 *buscarEnlacesFiltro
 	 * 
-	 * @param String
-	 *            nombreEnlace
-	 * @return busca un enlace por nombre en el filtro
-	 *         buscarEnlaceFiltroNombreEnlace() de VMenlaceInteres.
+	 * @param String nombreEnlace, String direccionEnlace
+	 * @return busca un enlace por nombre o dirección en el filtro
+	 *         filtros() de VMenlaceInteres.
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
 
-	public List<EnlaceInteres> buscarEnlacesNombre(String nombreEnlace) {
+	public List<EnlaceInteres> buscarEnlacesFiltro(String nombreEnlace, String direccionEnlace) {
 		List<EnlaceInteres> result = new LinkedList<EnlaceInteres>();
-		if (nombreEnlace == null || "".equals(nombreEnlace)) {// si el nombre es null o  vacio,el  resultado va  a ser la lista  completa de  todos los enlaces.
+		if (nombreEnlace == null || direccionEnlace == null ) {// si el nombre es null o  vacio,el  resultado va  a ser la lista  completa de  todos los enlaces.
 			result = listadoEnlaceInteres();
 		} else {// caso contrario, se recorre toda la lista y busca los enlaces con el nombre indicado en la caja de texto y tambien busca todos los que tengan las letras iniciales de ese nombre. Realiza la busqueda por nombre y por inicial del nombre.
 			for (EnlaceInteres e : listadoEnlaceInteres()) {
-				if (e.getNombreEnlace().toLowerCase()
-						.contains(nombreEnlace.toLowerCase())) {
+				if (e.getNombreEnlace().toLowerCase().contains(nombreEnlace) && 
+					e.getDireccionEnlace().toLowerCase().contains(direccionEnlace)) {
 					result.add(e);
 				}
 			}
@@ -116,29 +90,6 @@ public class ServicioEnlaceInteres {
 		return result;
 	}
 
-	/**
-	 * Buscar Enlaces Direccion
-	 * 
-	 * @param String
-	 *            nombreEnlace
-	 * @return busca un enlace por direccion en el filtro
-	 *         buscarEnlaceFiltroDireccionEnlace() de VMenlaceInteres.
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	public List<EnlaceInteres> buscarEnlacesDireccion(String direccionEnlace) {
-		List<EnlaceInteres> result = new LinkedList<EnlaceInteres>();
-		if (direccionEnlace == null || "".equals(direccionEnlace)) {// si la  dirección  es null o  vacio,el  resultado va a ser la lista  completa  de todos los  enlaces
-			result = listadoEnlaceInteres();
-		} else {// caso contrario, se recorre toda la lista y busca los enlaces  con la dirección indicada en la caja de texto. Realiza la busqueda con la dirección y con la inicial de la dirección.
-			for (EnlaceInteres e : listadoEnlaceInteres()) {
-				if (e.getDireccionEnlace().toLowerCase()
-						.contains(direccionEnlace.toLowerCase())) {
-					result.add(e);
-				}
-			}
-		}
-		return result;
-	}
+	
 }// fin ServicioEnlaceInteres
 
