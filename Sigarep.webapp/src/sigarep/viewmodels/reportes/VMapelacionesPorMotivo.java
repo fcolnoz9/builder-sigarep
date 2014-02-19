@@ -315,21 +315,7 @@ public class VMapelacionesPorMotivo {
 	 })
 	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
 			
-		if (objLapso != null)
-		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
+		
 		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
 					Messagebox.QUESTION,new EventListener<ClickEvent>() {
 				@SuppressWarnings("incomplete-switch")
@@ -343,7 +329,7 @@ public class VMapelacionesPorMotivo {
 				}
 			});		
 		}
-	}
+	
 
 	public String getNombre_sancion() {
 		return nombre_sancion;
