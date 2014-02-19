@@ -27,6 +27,8 @@ style="overflow:auto" action="hide: slideUp"
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
  						<comboitem value="calendario" id="cmiCalendario" label="Calendario Académico" /> 
  						<comboitem value="recaudo" id="cmiRecaudo" label="Recaudos por Motivos" /> 
+ 						<comboitem value="ManualUsuario" id="cmiManualUsuario" label="Manual de Usuario" />
+ 						<comboitem value="ManualSistema" id="cmiManualSistema" label="Manual del Sistema" />
  			 </combobox> 
          
          <label id="lblFechaSubida" value="Fecha de Subida:" />
@@ -40,7 +42,7 @@ style="overflow:auto" action="hide: slideUp"
            
            <label id="lblTituloDocumento" value="Título Documento:" />
 <!--            Título Documento: -->
-                    <textbox id= "txttitulo" placeholder="Please type some text"  mold = "rounded" value="@bind(vm.titulo)"
+                    <textbox id= "txttitulo" placeholder="Ingrese un título"  mold = "rounded" value="@bind(vm.titulo)"
 			width="80%" maxlength="30" cols="23" tabindex="5"    />
            
            <label id="lblDocumento" value="Documento:" />
@@ -56,7 +58,7 @@ style="overflow:auto" action="hide: slideUp"
             <label id="lblDescripcion" value="Descripción:" />
 <!--             Descripción: -->
            
-                <textbox  id= "txtdescripcion" placeholder="Please type some text" width="77%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+                <textbox  id= "txtdescripcion" placeholder="Ingrese una descripción" width="77%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
 					 maxlength="150" cols="23" tabindex="5" rows="3" >
                     <attribute name="value"> </attribute>
                 </textbox> 
