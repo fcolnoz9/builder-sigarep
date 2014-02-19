@@ -86,7 +86,7 @@ public class VMapelacionesPorInstancia {
 	// REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
-	String ruta="/WEB-INF/sigarepReportes/RApelacionesInstancia-Veredicto.jasper";
+	String ruta="/WEB-INF/sigarepReportes/estadisticos/RApelacionesInstancia-Veredicto.jasper";
 
 	@Init
 	public void init() {

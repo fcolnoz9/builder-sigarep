@@ -94,7 +94,7 @@ public class VMapelacionesTipoDeSexo {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 	
-	String ruta="/WEB-INF/sigarepReportes/RApelacionesTipoSexo-Veredicto.jasper";
+	String ruta="/WEB-INF/sigarepReportes/estadisticos/RApelacionesTipoSexo-Veredicto.jasper";
 
 	@Init
 	public void init() {

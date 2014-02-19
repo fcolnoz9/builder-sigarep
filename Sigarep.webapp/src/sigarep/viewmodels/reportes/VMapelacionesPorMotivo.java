@@ -78,7 +78,7 @@ public class VMapelacionesPorMotivo {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 	
-	String ruta="/WEB-INF/sigarepReportes/RApelacionesMotivoPrograma.jasper";
+	String ruta="/WEB-INF/sigarepReportes/estadisticos/RApelacionesMotivoPrograma.jasper";
 	@Wire("#winApelacionesPorMotivo")//para conectarse a la ventana con el ID
 	Window ventana;
 	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
