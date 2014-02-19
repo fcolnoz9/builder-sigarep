@@ -52,7 +52,7 @@
 								</row>
 								<row>
 									<label id="lblFechaVencimientoBanner" value="Fecha Vencimiento:" />
-									<datebox id="dtbFechaVencimientoBanner" width="80%" format="dd/MM/yyyy" placeholder="Ingrese la Fecha de Vencimiento del Banner"
+									<datebox id="dtbFechaVencimientoBanner" width="80%" format="dd/MM/yyyy"
 									mold="rounded" value="@bind(vm.fechaVencimiento)" />
 								</row>
 							</rows>
