@@ -43,7 +43,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	private ReportConfig reportConfig = null;
 	
 	//*************************RUTA DEL REPORTE***************************
-	String ruta= "/WEB-INF/sigarepReportes/RpAsignaturasSancionadosVsApelaciones.jasper";
+	String ruta= "/WEB-INF/sigarepReportes/estadisticos/RpAsignaturasSancionadosVsApelaciones.jasper";
 	
 
 	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************

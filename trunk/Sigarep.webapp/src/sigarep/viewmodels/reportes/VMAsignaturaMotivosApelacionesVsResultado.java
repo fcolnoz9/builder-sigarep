@@ -44,7 +44,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		private ReportConfig reportConfig = null;
 		
 	//*************************RUTA DEL REPORTE***************************
-		String ruta= "/WEB-INF/sigarepReportes/RpAsignaturaApelacionesMotivoVsResultado.jasper";
+		String ruta= "/WEB-INF/sigarepReportes/estadisticos/RpAsignaturaApelacionesMotivoVsResultado.jasper";
 		
 	
 	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
