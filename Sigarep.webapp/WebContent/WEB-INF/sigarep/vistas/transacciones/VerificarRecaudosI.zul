@@ -139,7 +139,7 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" mold="trendy"
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosI)">
+			onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosI) @global-command('actualizarListaSancionados')">
 			<attribute name="onClick">
 				Set items = lbxRecaudos.getSelectedItems();
 			</attribute>
