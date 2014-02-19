@@ -1,10 +1,12 @@
 package sigarep.viewmodels.transacciones;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -338,6 +340,7 @@ public class VMVeredictoIII {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			mensajeAlUsuario.informacionVeredictoRegistrado();
 			winVeredictoIII.detach();
+			actualizarListaSancionados();
 		}
 	}
 	
@@ -347,6 +350,10 @@ public class VMVeredictoIII {
 		observacionGeneral = solicitudApelacion.getObservacion();
 		veredicto = "";
 	}
+	@GlobalCommand
+    public void actualizarListaSancionados(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+    }
 }
     
 

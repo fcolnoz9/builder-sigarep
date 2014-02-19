@@ -141,7 +141,7 @@
 		
 		<div align="right" height="100%">
 			<button  label="Guardar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
-				 onClick="@command('registrarVeredicto',window=winVeredictoI)">
+				 onClick="@command('registrarVeredicto',window=winVeredictoI) @global-command('actualizarListaSancionados')">
 			</button>
 			<button label="Limpiar" id="btnCancelar" mold="trendy"
 				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
