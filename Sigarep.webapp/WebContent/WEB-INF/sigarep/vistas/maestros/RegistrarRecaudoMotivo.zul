@@ -18,7 +18,9 @@
 				
 				<row>
 					<label id="lblTipoMotivo" value="Tipo de Motivo:" />
-					<combobox readonly="true" id="cmbTipoMotivo" width="80%"
+					<combobox  id="cmbTipoMotivo" 
+					    placeholder="Seleccione un motivo..." 
+					    readonly="true"   width="80%"
 						value="@bind(vm.nombreTipoMotivo)" 
 						mold="rounded" model="@load(vm.listaTipoMotivo)"
 						selectedItem="@bind(vm.tipoMotivo)"
@@ -28,26 +30,27 @@
 						</template>
 					</combobox>
 					
-					<label id="lblNombreRecaudo" value="Nombre del Recaudo:" />
-					<textbox constraint="no empty: Ingrese el Nombre del Recaudo" 
-					id="txtNombreRecaudo" mold="rounded"
-					width="80%" tabindex="2"  value="@bind(vm.nombreRecaudo)">
+					<label id="lblNombreRecaudo" 
+					value="Nombre del Recaudo:" />
+					<textbox  id="txtNombreRecaudo"
+					 placeholder="Ingrese el nombre del Recaudo." 
+					mold="rounded" width="80%" tabindex="2"  value="@bind(vm.nombreRecaudo)">
 					</textbox>
 				</row>
 	
 				<row>
 					<label id="lblDescripcionRecaudo"
 						value="Descripción: " />
-					<textbox constraint="no empty: Ingrese la Descripción del Recaudo" 
-					id="txtDescripcionRecaudo" mold="rounded"
-					width="77%"  rows="3" tabindex="2"
+					<textbox id="txtDescripcionRecaudo" 
+					placeholder="Ingrese la descripción del Recaudo." 
+					mold="rounded" width="77%"  rows="3" tabindex="2"
 						value="@bind(vm.descripcion)" />
 						
 					<label id="lblObservacionRecaudo"
 						value="Observación: " />
-					<textbox constraint="no empty: Ingrese la Observación del Recaudo" 
-					 id="txtObservacionRecaudo" mold="rounded"
-								width="77%"  rows="3" tabindex="2"
+					<textbox  id="txtObservacionRecaudo"
+					placeholder="Ingrese la observación del Recaudo." 
+					mold="rounded" width="77%"  rows="3" tabindex="2"
 						value="@bind(vm.observacion)" />
 				</row>
 				<row>

@@ -360,7 +360,7 @@ public class VMrecaudoMotivo {
 				
 			if (nombreRecaudo!=null|| nombreTipoMotivo!=null || descripcion !=null || observacion !=null)
 			{
-				Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+				Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
 						Messagebox.QUESTION,new EventListener<ClickEvent>() {
 					@SuppressWarnings("incomplete-switch")
 					public void onEvent(ClickEvent e) throws Exception {
