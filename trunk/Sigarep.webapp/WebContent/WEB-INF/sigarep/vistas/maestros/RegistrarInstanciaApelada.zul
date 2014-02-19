@@ -1,5 +1,5 @@
 <zk>
-	<window id="winMaestroInstanciaApelada" title="Registros Basicos :: Instancia Apelada" 
+	<window id="winMaestroInstanciaApelada" title="Registros Básicos :: Instancia Apelada" 
 			border="normal" width="auto"  height="auto" closable="true"
 			contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 			viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMinstanciaApelada')" action="hide: slideUp">
@@ -18,13 +18,14 @@
 						<label id = "lblInstancia" value="Instancia Apelada:" />
 						<textbox id = "txtInstancia" mold="rounded" width="80%" 
 						constraint="no empty: Ingrese nombre de la instancia" tabindex="1"
-						value="@bind(vm.instanciaApelada)" cols="23" maxlength="100" placeholder="Ingrese el Nombre de la Instancia Apelada"/>
+						value="@bind(vm.instanciaApelada)" cols="23" maxlength="100"
+						placeholder="Ingrese el Nombre de la Instancia Apelada"/>
 						
 						<label value="Descripción: " id="lblDescripcion" />
 					    <textbox id="txtDescripcionActividad"
 						constraint="no empty: Ingrese la descripción de la Instancia"
 						mold="rounded" width="77%" rows="3" value="@bind(vm.descripcion)"
-						placeholder="Ingrese la Descripcion de la Instancia Apelada" />
+						placeholder="Ingrese la Descripción de la Instancia Apelada" />
 						
 						
 					</row>
