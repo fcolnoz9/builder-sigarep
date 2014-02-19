@@ -79,7 +79,7 @@
 		</div>
 		<!-- Grupbox que contiene el listado de estados almacenados en base de datos -->
 		<groupbox id="grbListaEstadoApelacion">
-			<caption label="Listado de Estados de Apelación" />
+			<caption label="Lista de Estados de Apelación" />
 			<listbox id="lbxNombreEstadoApelacion" height="100%"
 				model="@bind(vm.listaEstadoApelacion)"
 				selectedItem="@bind(vm.estadoseleccionado)"

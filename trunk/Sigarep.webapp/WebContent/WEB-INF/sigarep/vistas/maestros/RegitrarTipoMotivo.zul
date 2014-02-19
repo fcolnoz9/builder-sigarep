@@ -54,7 +54,7 @@
 		</div>
 		<!-- Grupbox que contiene el listado de los tipos de motivos -->
 		<groupbox height="auto">
-			<caption label="Listado de Tipos de Motivos de Apelación" />
+			<caption label="Lista de Tipos de Motivos de Apelación" />
 			<!-- Lista que contiene el listado de los tipos de motivos -->
 			<listbox id="lbxtipomotivoListbox" height="auto"
 				model="@bind(vm.listaTipoMotivo)"

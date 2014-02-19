@@ -59,9 +59,9 @@
 		   			onClick="@command('cerrarVentana')"/>
 			</div>
 			
-		<!-- Grupbox que contiene el listado de las instancias -->
+		<!-- Grupbox que contiene el lista de las instancias -->
 		<groupbox id="grbListadoInstanciaApelada">
-			<caption label="Listado de Instancias Apeladas" />
+			<caption label="Lista de Instancias Apeladas" />
 			<separator />
 			<listbox height="auto" id="lbxInstanciaApelada" mold="paging" pageSize="10"
 				model="@load(vm.listaInstanciaApelada)"
