@@ -336,9 +336,7 @@ public class VMEstudianteSancionado {
 		cmbVeredicto.add("Todos");
 		return cmbVeredicto;
 	}
-	
-
-	public EstadoApelacion getObjEdoApelacion() {
+		public EstadoApelacion getObjEdoApelacion() {
 		return objEdoApelacion;
 	}
 	public void setObjEdoApelacion(EstadoApelacion objEdoApelacion) {

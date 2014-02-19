@@ -38,21 +38,18 @@
 						<label id="lblPrograma" value="Programa:" />
 						<combobox readonly="true" id="cmbPrograma"
 						value="@bind(vm.programa.nombrePrograma)" width="80%" cols="45"
-						placeholder = "Seleccione un programa"
 						maxlength="45" tabindex="1" mold="rounded"
 						model="@load(vm.listaPrograma)"
 						selectedItem="@bind(vm.programa)"
 						onSelect="@command('buscarAsignaturas')">
-						<template name="model"
-							constraint="no empty:Seleccione el programa">
+						<template name="model">
 							<comboitem label="${each.getNombrePrograma()}" />
 						</template>
 					</combobox>
-						<label id="lblMateria" value="Asignatura:" />
+						<label id="lblAsignaturas" value="Asignatura:" />
 							<combobox readonly="true" id="cmbAsignaturas"
 						width="80%" cols="23" maxlength="30" tabindex="1"
-					 mold="rounded" model="@load(vm.listaAsignaturas)"
-						placeholder = "Seleccione una asignatura">
+					 mold="rounded" model="@load(vm.listaAsignaturas)">
 						<template name="model">
 							<comboitem label="${each.nombreAsignatura}" />
 						</template>

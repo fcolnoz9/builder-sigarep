@@ -16,7 +16,11 @@ import sigarep.modelos.data.reportes.ConfigurableApelaciones;
 public class ServicioReporteConfigurableApelaciones {
 	@PersistenceContext
 	private EntityManager es;
-	
+	/** Buscar todos los atributos de las apelaciones
+	 * @param String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String veredicto,String edoApelacion
+	 * @return Listado del Resultado de la busqueda 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<ConfigurableApelaciones> buscarTodasApelaciones(String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String veredicto,String edoApelacion) {
 		String queryStatement = 
 		"SELECT Distinct es.primer_nombre, es.primer_apellido, es.sexo,prog.nombre_programa,san.nombre_sancion, tm.nombre_tipo_motivo,iap.instancia_apelada,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado  " +
