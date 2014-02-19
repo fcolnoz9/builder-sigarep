@@ -1,6 +1,6 @@
-<window id="winMostrarRecaudoMotivoPortal" width="75%"
-	title="Mostrar Recaudos Por Motivos " border="normal"
-	apply="org.zkoss.bind.BindComposer" closable="true"
+<window id="winMostrarRecaudoMotivoPortal" closable="true"
+	title="Mostrar Recaudos Por Motivos " 
+	border="normal" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivoPortal')">
 
 	<groupbox>
@@ -17,7 +17,7 @@
 		</combobox>
 	</groupbox>
 	<separator />
-	<!-- Muestra el listado de actividades registradas en un cronograma del lapso seleccionado previamente en el combobox -->
+	<!-- Muestra el listado de recaudos por motivos registrados previamente-->
 
 	<groupbox id="grbRecaudosMotivos">
 		<caption label="Lista de Recaudos Por Motivos" />
@@ -44,7 +44,7 @@
 		</listbox>
 	</groupbox>
 	<separator />
-
+<!-- Muestra el enlace para descargar un archivo que contiene todos los recaudos por motivos-->
 	<groupbox id="grbRecaudosMotivosPortal">
 		<caption
 			label="Enlace para Descargar la Lita de Recaudos por Motivos " />
@@ -53,13 +53,13 @@
 			emptyMessage="No hay reglamentos seleccionados" mold="paging"
 			pageSize="10">
 			<listhead>
-				<listheader label="Titulo" align="center"
+				<listheader label="Titulo" align="lefth"
 					sort="auto(titulo)" />
-				<listheader label="Fecha Subida" align="center"
+				<listheader label="Fecha Subida" align="lefth"
 					sort="auto(fechaSubida)" />
-				<listheader label="Descripcion" align="center"
+				<listheader label="Descripcion" align="lefth"
 					sort="auto(descripcion)" />
-				<listheader label="Archivo" align="center" />
+				<listheader label="Archivo" align="lefth" />
 			</listhead>
 			<template name="model">
 				<listitem selected="true">
@@ -82,9 +82,9 @@
 
 	<!-- Permite cerrar la interfaz -->
 	<div align="right" height="100%">
-		<button id="btnCerrar" label="Cerrar"
-			image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-			height="auto" orient="horizontal"
-			onClick="winMostrarRecaudoMotivoPortal.onClose()" />
+		<button label="Cerrar" id="btnCerrarRecaudoMotivo"
+				mold="trendy"  width="auto" height="auto"
+				image="/imagenes/iconos/cerrar.png" 
+				onClick="@command('cerrarVentana')" />
 	</div>
 </window>
