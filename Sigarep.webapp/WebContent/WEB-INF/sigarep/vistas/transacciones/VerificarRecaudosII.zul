@@ -159,7 +159,7 @@
 		<!-- Guarda todos los registros seleccionados en la base de datos -->
 		<button label="Guardar" id="btnGuardar" mold="trendy"
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			 onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosII)">
+			 onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosII) @global-command('actualizarListaSancionados')">
 			<attribute name="onClick">
 				Set items = rigth.getSelectedItems();
 			</attribute>
