@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -14,16 +16,29 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+
+/** VMDatosSesionVeredicto
+ * Contiene métodos necesarios  para el funcionamiento de DatosSesionVeredicto.zul
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0
+ * @since 22/01/14
+ */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDatosSesionVeredicto {
@@ -44,7 +59,15 @@ public class VMDatosSesionVeredicto {
 	public VMDatosSesionVeredicto() {
 		
 	}
-	
+	@Wire
+	Textbox txtnombre_enlace;
+	@Wire("#winDatosSesionVeredicto")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
+	// Getters and Setters
 	public String getNumeroSesion() {
 		return numeroSesion;
 	}
@@ -69,17 +92,37 @@ public class VMDatosSesionVeredicto {
 		this.fechaSesion = fechaSesion;
 	}
 	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}	
+	// fin Getters and Setters
+	/**
+	 * inicialización
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-					 @ExecutionArgParam("rutaModal") String rutaModal){
+					 @ExecutionArgParam("rutaModal") String rutaModal,
+					 @ContextParam(ContextType.BINDER) final Binder binder){
 		
 		Selectors.wireComponents(view, this, false);
 		this.rutaModal=rutaModal;
-		buscarDatosSesion();
+		buscarDatosSesion(binder);
 	}
-	
+	/**
+	 * Buscar datos de sesión
+	 * @param binder
+	 * @return Permite Buscar los datos de la sesion activa .
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@NotifyChange ({"fechaSesion", "tipoSesion", "numeroSesion","titulo"})
-	public void buscarDatosSesion(){
+	public void buscarDatosSesion(final Binder binder){
 		List<SolicitudApelacion> solicitudApelacion;
 		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
 			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(1);
@@ -91,13 +134,27 @@ public class VMDatosSesionVeredicto {
 			fechaSesion = solicitudApelacion.get(0).getFechaSesion();
 			tipoSesion = solicitudApelacion.get(0).getTipoSesion();
 			numeroSesion = solicitudApelacion.get(0).getNumeroSesion();
-			titulo = "Puede continuar con la siguiente sesión o proporcionar los datos de una nueva.";
-			mensajeAlUsuario.informacionDatosDeSesionEncontrados();
+			Messagebox.show("Se encontró una sesión activa ¿Desea continuar con la misma sesión?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case NO:
+							binder.postCommand("limpiar", null);
+					}
+				}
+			});	
 		}else{
 			titulo = "Proporcione los datos de una nueva sesión.";
 		}
 	}
-	
+	/**
+	 * Guardar Datos de Sesión
+	 * @param guardarDatosSesion
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	public void guardarDatosSesion(){
 		if (fechaSesion == null || tipoSesion == null || numeroSesion == null)
@@ -107,6 +164,13 @@ public class VMDatosSesionVeredicto {
 		}
 	}
 	
+	/**
+	 * Limpiar.
+	 * @param limpiar
+	 * @return inicializa las cajas de texto
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
 	@Command
 	@NotifyChange ({"fechaSesion", "tipoSesion", "numeroSesion"})
 	public void limpiar(){
@@ -115,6 +179,12 @@ public class VMDatosSesionVeredicto {
 		numeroSesion = null;
 	}
 	
+	/**
+	 * Mostrar Lista de Sancionados
+	 * @param mostrarListaSancionados
+	 * @return muestra la lista de estudiantes sancionados
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public void mostrarListaSancionados(){
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("rutaModal", rutaModal);
@@ -131,13 +201,48 @@ public class VMDatosSesionVeredicto {
 			Messagebox.show(e.toString());
 		}
 	}
-
-	public String getTitulo() {
-		return titulo;
+	/**
+	 * Cerrar Ventana
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No dispara ninguna excepcion.
+	 */
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({"numeroSesion", "tipoSesion", "", "fechaSesion"})
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (numeroSesion != null || tipoSesion != null
+				|| fechaSesion != null )
+		{
+			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					
+					}
+				}
+			});		
+		}
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
 
+	
 }
