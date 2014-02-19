@@ -289,7 +289,7 @@ public class VMRegistrarRecursoJerarquico {
 	 */
 	@NotifyChange({ "lista" , "observacion"})
 	@Command
-	public void registrarSolicitudApelacion() {
+	public void registrarSolicitudApelacion(@ContextParam(ContextType.BINDER) final Binder binder) {
 		
 			Date fecha = new Date();
 			Time hora = new Time(0);
@@ -328,6 +328,7 @@ public class VMRegistrarRecursoJerarquico {
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 			serviciomotivo.guardarMotivo(motivos);
 			mensajeAlUsuario.informacionRegistroCorrecto();
+			ventana.detach();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
