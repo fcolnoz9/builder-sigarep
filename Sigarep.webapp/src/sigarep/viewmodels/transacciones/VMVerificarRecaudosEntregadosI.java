@@ -7,12 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -439,6 +441,7 @@ public class VMVerificarRecaudosEntregadosI {
 				try {
 					mensajeAlUsuario.informacionRegistroCorrecto();
 					winVerificarRecaudos.detach(); //oculta el window
+					actualizarListaSancionados();
 					//falta actualizar la lista de apelaciones en este punto
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -446,7 +449,10 @@ public class VMVerificarRecaudosEntregadosI {
 				limpiar();
 		}
 	}
-	
+	@GlobalCommand
+    public void actualizarListaSancionados(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+    }
 	 @Command
 	 @NotifyChange({"cedula", "nombres", "selected","apellidos", "listaRecaudosPorMotivo","programa","lapsoAcademico","telefono","sancion","asignatura"})
 	public void limpiar() {
