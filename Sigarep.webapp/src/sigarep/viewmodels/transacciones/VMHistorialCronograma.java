@@ -1,40 +1,30 @@
 package sigarep.viewmodels.transacciones;
-import java.io.IOException;
-import java.sql.Time;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
 
-
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Timebox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.Cronograma;
-import sigarep.modelos.data.transacciones.CronogramaPK;
-import sigarep.modelos.servicio.maestros.ServicioActividad;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 
@@ -63,6 +53,15 @@ public class VMHistorialCronograma {
 	private List<Cronograma> listaCronogramas = new LinkedList<Cronograma>();//Lista de Cronogramas
 	private List<LapsoAcademico> listaLapsoAcademico;//Lista de Lapso Academico
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
+	Window win=null;
+	int idcount=0;
+	
+	@Wire("#winHistorialCronograma")//para conectarse a la ventana con el ID
+	Window ventana;
+	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 
 	// Metodos GETS Y SETS
 	public String getLugarf() {
@@ -166,4 +165,45 @@ public class VMHistorialCronograma {
 		listaCronogramas = serviciocronograma.filtrarCronograma(responsablef, lugarf, actividadf);
 	}
 
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({"fechaInicio", "fechaFin", "horaInicio", "lugar", "observacion", "responsable", "listaCronograma", "actividad"})
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (lapsoAcademico.getCodigoLapso()!=null){
+			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					
+					}
+				}
+			});		
+		}
+	}
 }
