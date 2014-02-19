@@ -15,10 +15,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Combobox;
-
-
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.modelos.data.maestros.RecaudoFiltro;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
@@ -66,7 +63,6 @@ public class VMrecaudo {
 	private List<TipoMotivo> listaTipoMotivo;
 	@WireVariable
 	private Recaudo recaudoSeleccionado;
-	private RecaudoFiltro filtros = new RecaudoFiltro();
 	//mensajes msjs = new mensajes();
 	
 	private  @Wire Textbox txtCodigoRecaudo;
@@ -182,13 +178,6 @@ public class VMrecaudo {
 	}
 	public void setNombreTipoMotivo(String nombreTipoMotivo) {
 		this.nombreTipoMotivo = nombreTipoMotivo;
-	}
-	
-	public RecaudoFiltro getFiltros() {
-		return filtros;
-	}
-	public void setFiltros(RecaudoFiltro filtros) {
-		this.filtros = filtros;
 	}
 	
 	
