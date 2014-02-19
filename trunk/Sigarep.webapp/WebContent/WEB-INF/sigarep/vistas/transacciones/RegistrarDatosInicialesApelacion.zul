@@ -124,7 +124,7 @@
 						<textbox id="txtDescripcion" rows="3"
 							width="80%" cols="23" maxlength="255"
 							value="@bind(vm.descripcion)" mold="rounded"
-							placeholder="Ingrese la Descripcion del Motivo de la Apelacion">
+							placeholder="Ingrese la Descripcion del Motivo de la Apelación">
 						</textbox>
 						<button id="btnAgregar" label="Agregar"
 							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
@@ -160,7 +160,7 @@
 						<textbox id="txtObservacion" cols="100"
 							maxlength="255" rows="3" width="80%"
 							value="@bind(vm.observacion)" mold="rounded"
-							placeholder="Ingrese la Observación de la Solicitud de Apelacion">
+							placeholder="Ingrese la Observación de la Solicitud de Apelación">
 						</textbox>
 					</hlayout>
 				</row>
