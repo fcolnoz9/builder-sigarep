@@ -11,7 +11,11 @@ import sigarep.modelos.data.reportes.EstudianteSancionado;
 public class ServicioReporteEstudianteSancionado {
 	@PersistenceContext
 	private EntityManager es;
-	
+	/** Buscar todos los atributos del estudiante sancionado
+	 * @param String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String sexo,String veredicto,String edoApelacion
+	 * @return Listado del Resultado de la busqueda 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<EstudianteSancionado> buscarTodosSancionado(String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String sexo,String veredicto,String edoApelacion) {
 		String queryStatement = 
 		"SELECT Distinct es.primer_nombre, es.primer_apellido, es.sexo,prog.nombre_programa,san.nombre_sancion, tm.nombre_tipo_motivo,iap.instancia_apelada,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado  " +

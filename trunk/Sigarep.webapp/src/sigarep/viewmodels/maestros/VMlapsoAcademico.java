@@ -96,8 +96,7 @@ public class VMlapsoAcademico {
 		this.listaLapsoAcademico = listaLapsoAcademico;
 	}
 
-	// @Command
-	// @NotifyChange({"codigoLapso", "fechaCierre", "fechaInicio","estatus"})
+	
 	public LapsoAcademico getLapsoAcademicoseleccionado() {
 		return lapsoAcademicoseleccionado;
 	}
@@ -187,7 +186,6 @@ public class VMlapsoAcademico {
 
 	/**
 	 * Buscar un lapso academico activo
-	 * 
 	 * @return el lapso academico buscado de la lista
 	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso academico
 	 * @throws No dispara ninguna excepcion.
