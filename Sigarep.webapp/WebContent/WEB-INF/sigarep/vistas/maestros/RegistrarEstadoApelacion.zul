@@ -18,10 +18,10 @@
 			<caption label="Datos de los Estados de Apelación" />
 			<grid id="grdEstadoApelacion">
 				<columns>
-				<column label="" width="10%" />
-				<column label="" width="40%" />
-				<column label="" width="10%" />
-				<column label="" width="40%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
 				</columns>
 				<rows>
 					<row>
@@ -30,32 +30,33 @@
 							value="Instancia Apelada:" />
 						<combobox readonly="true"
 							id="cmbInstanciaApelada"
-						
 							value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
 							onSelect="@command('objetoComboEstadoApelacion')">
 							<template name="model">
-								<comboitem label="${each.instanciaApelada }" />
+								<comboitem
+									label="${each.instanciaApelada }" />
 							</template>
 						</combobox>
-					
+
 					</row>
 					<row>
 						<label id="lblNombreEstado" value="Nombre:" />
-				
-							<textbox
-								constraint="no empty: Ingrese el Nombre del Estado de Apelación"
-								id="txtNombreEstado" width="80%" cols="23" maxlength="100"  
-								mold="rounded" tabindex="1" value="@bind(vm.nombreEstado)" />
-					
+
+						<textbox id="txtNombreEstado"
+							placeholder= "Ingrese el nombre del Estado de Apelación"
+							width="80%" cols="23" maxlength="100" mold="rounded" tabindex="1"
+							value="@bind(vm.nombreEstado)" />
+
 						<label id="lblDescripcion" value="Descripción:" />
-					
-							<textbox
-								constraint="no empty: Ingrese la Descripción del Estado de Apelación"
-								id="txtDescripcion" width="80%" rows="3" maxlength="255" 
-								mold="rounded" tabindex="2" value="@bind(vm.descripcion)" />
-					
+
+						<textbox
+							id="txtDescripcion"
+							placeholder= "Ingrese la descripción del Estado de Apelación"
+							width="80%" rows="3" maxlength="255" mold="rounded" tabindex="2"
+							value="@bind(vm.descripcion)" />
+
 					</row>
 				</rows>
 			</grid>
@@ -64,19 +65,17 @@
 		<!-- Grupo de botones -->
 		<separator />
 		<div align="right">
-					<button label="Guardar" id="btnGuardarEstadoApelacion"
-						 mold="trendy" width="auto" height="auto"
-						image="imagenes/iconos/guardar.png"
-						onClick="@command('guardarEstadoApelacion')" />
-					<button label="Limpiar" id="btnLimpiarEstado" 
-						mold="trendy" width="auto" height="auto" 
-						image="imagenes/iconos/limpiar.png"
-						onClick="@command('limpiar')" />
-					<button label="Cerrar" id="btnCerrarEstado" 
-					     mold="trendy" width="auto" height="auto"
-						image="imagenes/iconos/cerrar.png"
-						onClick="@command('cerrarVentana')" />
-			
+			<button label="Guardar" id="btnGuardarEstadoApelacion"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/guardar.png"
+				onClick="@command('guardarEstadoApelacion')" />
+			<button label="Limpiar" id="btnLimpiarEstado" mold="trendy"
+				width="auto" height="auto" image="imagenes/iconos/limpiar.png"
+				onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrarEstado" mold="trendy"
+				width="auto" height="auto" image="imagenes/iconos/cerrar.png"
+				onClick="@command('cerrarVentana')" />
+
 		</div>
 		<!-- Grupbox que contiene el listado de estados almacenados en base de datos -->
 		<groupbox id="grbListaEstadoApelacion">
@@ -89,11 +88,10 @@
 				pageSize="10">
 
 				<listhead>
-					<listheader label="Nombre"
-						align="left" sort="auto(nombreEstado)">
+					<listheader label="Nombre" align="left"
+						sort="auto(nombreEstado)">
 					</listheader>
-					<listheader
-						label="Descripción" align="left"
+					<listheader label="Descripción" align="left"
 						sort="auto(descripcion)">
 					</listheader>
 					<listheader label="Instancia Apelada" align="left"
