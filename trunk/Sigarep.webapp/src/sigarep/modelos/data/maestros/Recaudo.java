@@ -6,22 +6,12 @@ import javax.persistence.*;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 
 import java.util.List;
-/*
- * @ (#) Recaudo.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- */
-/*
- ** Esta clase es del registro del maestro "Recaudo"
- * @ Author Lilibeth Achji 
- * @ Version 1.0, 16/12/13
- */
+
 /** Clase Recaudo
- * Registra y elimina el maestro recaudo
- * @author Beleanny Atacho 
+ * Registra y Modifica Recaudo de Registros Básicos
+ * @author BUILDER
  * @version 1
- * @since 20/01/2014 
+ * @since 15/12/2013 
  */
 
 /**
