@@ -27,25 +27,27 @@
 							<row>
 								<label id="lblNombreEnlace"
 								value="Nombre:"/>
-								<textbox 
-								constraint="no empty: Ingrese en Nombre del Enlace"
-								id="txtNombreEnlace" mold="rounded" maxlength="60"
+								<textbox id="txtNombreEnlace"
+								placeholder="Ingrese el nombre del Enlace."
+								 mold="rounded" maxlength="60"
 								width="80%" tabindex="2" 
 								value="@bind(vm.nombreEnlace)" />
 							</row>
 							<row>
 								<label id="lblDireccionEnlace"
 								value="Dirección:"/>
-								<textbox constraint="no empty: Ingrese la Direción del Enlace"
-								id="txtDireccionEnlace" mold="rounded" maxlength="255"
+								<textbox id="txtDireccionEnlace"
+								placeholder="Ej: http://www.ucla.edu.ve/"
+								 mold="rounded" maxlength="255"
 								width="80%" tabindex="2" 
 								value="@bind(vm.direccionEnlace)" />
 							</row>
 							<row>
 								<label id="lblDescripcionEnlace"
 								value="Descripción:"/>
-								<textbox constraint="no empty: Ingrese la Descripción del Enlace"
-								id="txtDescripcionEnlace" mold="rounded" maxlength="255"
+								<textbox id="txtDescripcionEnlace"
+								 placeholder="Ingrese la descripción del Enlace."
+								 mold="rounded" maxlength="255"
 								width="77%"  rows="3" tabindex="2"
 								value="@bind(vm.descripcion)" />
 							</row>
@@ -97,7 +99,7 @@
 						sort="auto(nombreEnlace)" >
 					<textbox id="filtroNombreEnlace" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreEnlaceFiltro)"
-							onChange="@command('buscarEnlaceFiltroNombreEnlace')" />	
+							onChange="@command('filtrosEnlace')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					 </listheader>
 					 <listheader label="Dirección" align="left"
@@ -105,7 +107,7 @@
 					<textbox id="filtroDireccionEnlace"
 							instant="true" mold="rounded"  width="100px"
 							value="@bind(vm.direccionEnlaceFiltro)"
-							onChange="@command('buscarEnlaceFiltroDireccionEnlace')" />	
+							onChange="@command('filtrosEnlace')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					 </listheader>
 					  <listheader label="Descripción" align="left"

@@ -5,19 +5,24 @@ import javax.persistence.*;
 
 import sigarep.herramientas.Archivo;
 
-
-
-/**
- * The persistent class for the enlace_interes database table.
- * 
+/** Clase EnlaceInteres
+ * Registra y Modifica el Enlaces de Interés mostrados en el portal principal.
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013 
  */
+
+
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name="enlace_interes")
 public class EnlaceInteres implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name="id_enlace", unique=true, nullable=false)
 	private Integer idEnlace;
 
@@ -35,12 +40,12 @@ public class EnlaceInteres implements Serializable {
 
 	@Embedded
 	private Archivo imagen = new Archivo();
-
+	// Constructor por defecto
 	public EnlaceInteres() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	// Constructor con parámetros
 	public EnlaceInteres(Integer idEnlace, String nombreEnlace,
 			String direccionEnlace, String descripcion, Boolean estatus,
 			Archivo imagen) {
@@ -52,7 +57,7 @@ public class EnlaceInteres implements Serializable {
 		this.estatus = estatus;
 		this.imagen = imagen;
 	}
-
+	// Métodos GET y SET
 	public Integer getIdEnlace() {
 		return idEnlace;
 	}
