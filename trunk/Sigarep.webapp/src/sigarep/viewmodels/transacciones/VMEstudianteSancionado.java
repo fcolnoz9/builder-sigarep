@@ -1,7 +1,7 @@
 package sigarep.viewmodels.transacciones;
 
-import java.awt.Component;
 import java.util.Date;
+
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -19,8 +19,10 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import org.zkoss.zhtml.Messagebox;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;
+
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -36,6 +38,7 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
+
 
 import sigarep.herramientas.MensajesAlUsuario;
 
@@ -71,10 +74,10 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
  * @since 23/01/14
  */
 
-
+@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudianteSancionado {
-	
+	 
 	private String cedula;
 	private String primerNombre;
 	private String segundoNombre;
@@ -135,12 +138,13 @@ public class VMEstudianteSancionado {
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	private List<EstudianteSancionado> listaSancionado; 
-	@Wire ("#winRegistrarSancionados") //para conectarse a la ventana con el ID
+
+	@Wire("#winRegistrarSancionados")//para conectarse a la ventana con el ID
 	Window ventana;
-//	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-//    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-//        Selectors.wireComponents(view, this, false);
-//    }
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 
 	
 	
@@ -570,8 +574,8 @@ public class VMEstudianteSancionado {
 			"segundoNombre", "primerApellido", "segundoApellido",
 			"unidadesCursadas", "programa", "listaAsignaturas", "semestre",
 			"lapsosAcademicosRP", "telefono", "email", "fechaNacimiento",
-			"lapsoAcademico", "annoIngreso", "periodoSancion",
-			"listaAsignaturaListBox" })
+			"lapsoAcademico", "annoIngreso", "periodoSancion","lapsoConsecutivo1",
+			"lapsoConsecutivo2", "listaAsignaturaListBox" })
 	public void mostrarSeleccionado(
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
@@ -604,7 +608,13 @@ public class VMEstudianteSancionado {
 					.getAsignaturaEstudianteSancionados();
 		}
 		asignatura = miSanc.getAsignaturaEstudianteSancionados();
-	}
+		
+		lapsoConsecutivo1 = miSanc.getLapsosAcademicosRp();
+		lapsoConsecutivo2 = miSanc.getLapsosAcademicosRp();
+		
+				
+ 
+		}
 	
 	/** buscar Sancionados
 	 * @param  
@@ -769,7 +779,8 @@ public class VMEstudianteSancionado {
 			"segundoNombre", "primerApellido", "unidadesCursadas", "semestre",
 			"lapsosAcademicosRP", "telefono", "email", "fechaNacimiento",
 			"lapsoAcademico", "annoIngreso", "listaSancionado",
-			"segundoApellido", "sexo", "periodoSancion" })
+			"segundoApellido", "sexo", "periodoSancion","programa",
+			"lapsoConsecutivo1","lapsoConsecutivo2"})
 	public void buscarEstudiante(
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
@@ -808,6 +819,9 @@ public class VMEstudianteSancionado {
 							.getUnidadesCursadas();
 					semestre = estudianteSancionado.getSemestre();
 					periodoSancion = estudianteSancionado.getPeriodoSancion();
+					lapsoConsecutivo1 = estudianteSancionado.getLapsosAcademicosRp();
+					lapsoConsecutivo2= estudianteSancionado.getLapsosAcademicosRp();
+					programa = estudianteSancionado.getEstudiante().getProgramaAcademico();
 				} else {
 					estudianteNoEncontrado(groupBoxAsignaturas,
 							textboxlapsoConsecutivo1, textboxlapsoConsecutivo2,
