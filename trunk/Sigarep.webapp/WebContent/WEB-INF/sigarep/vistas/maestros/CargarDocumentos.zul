@@ -21,7 +21,7 @@ style="overflow:auto" action="hide: slideUp"
     	<row>
     	<label id="lblCategoria" value="Categoría:" />
 <!--             Categoría: -->
-              <combobox id="cmbCategoria" mold="rounded" width="80%" selectedItem=" @bind(vm.categoria)">
+              <combobox id="cmbCategoria" mold="rounded" width="80%" maxlength="30" placeholder="Seleccione una Categoría..." selectedItem=" @bind(vm.categoria)">
 						<comboitem value="guia" id="cmiGuiaPaso" label="Guía Paso a Paso" />
  						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
@@ -34,7 +34,7 @@ style="overflow:auto" action="hide: slideUp"
          <label id="lblFechaSubida" value="Fecha de Subida:" />
 <!--             Fecha de subida: -->
             
-            	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" width="46%" value="@bind(vm.fechaSubida)"/>
+            	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" width="auto" value="@bind(vm.fechaSubida)"/>
            
               
         </row>
@@ -42,26 +42,25 @@ style="overflow:auto" action="hide: slideUp"
            
            <label id="lblTituloDocumento" value="Título Documento:" />
 <!--            Título Documento: -->
-                    <textbox id= "txttitulo" placeholder="Ingrese un título"  mold = "rounded" value="@bind(vm.titulo)"
-			width="80%" maxlength="30" cols="23" tabindex="5"    />
+                    <textbox id= "txttitulo" placeholder="Ingrese un Título del Documento"  mold = "rounded" value="@bind(vm.titulo)"
+			width="80%" maxlength="255" cols="23" tabindex="5"    />
+			
+			 <label id="lblDescripcion" value="Descripción:" />
+<!--             Descripción: -->
            
-           <label id="lblDocumento" value="Documento:" />
+                <textbox  id= "txtdescripcion" placeholder="Ingrese una Descripción del Documento" width="80%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+					 maxlength="255" cols="23" tabindex="5" rows="3" >
+                    <attribute name="value"> </attribute>
+                </textbox> 
+           </row>
+           <row>  
+            <label id="lblDocumento" value="Documento:" />
 <!--            Documento: -->
        
-                    <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" 
+                    <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
 							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarDocumento',upload=event)"></button>
                     <a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
                                 
-          
-           </row>
-           <row>  
-            <label id="lblDescripcion" value="Descripción:" />
-<!--             Descripción: -->
-           
-                <textbox  id= "txtdescripcion" placeholder="Ingrese una descripción" width="77%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
-					 maxlength="150" cols="23" tabindex="5" rows="3" >
-                    <attribute name="value"> </attribute>
-                </textbox> 
           </row> 
     </rows>
 </grid>
