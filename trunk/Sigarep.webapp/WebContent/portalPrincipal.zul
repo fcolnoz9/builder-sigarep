@@ -70,7 +70,7 @@
 									<intbox id="intcedula"
 										placeholder="Ingrese la Cédula" mold="rounded" maxlength="8" width="150px"
 										value="@bind(vm.cedula)" />
-									<button label="Buscar" 
+									<button label="Buscar" image="/imagenes/iconos/buscar.png"
 										onClick="@command('modalEstadoEstudiante')" />
 								</hbox>
 							</vbox>
@@ -113,7 +113,7 @@
 
 				<!-- Inicio Login -->
 				<north title="Iniciar Sesión" size="22%">
-					<include src="/login.zul" />
+					<include src="WEB-INF/sigarep/vistas/portal/externo/login.zul" />
 				</north>
 				<!-- Fin Login -->
 
