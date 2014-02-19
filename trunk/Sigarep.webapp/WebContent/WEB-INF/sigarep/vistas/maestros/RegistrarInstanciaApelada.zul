@@ -19,13 +19,13 @@
 						<textbox id = "txtInstancia" mold="rounded" width="80%" 
 						constraint="no empty: Ingrese nombre de la instancia" tabindex="1"
 						value="@bind(vm.instanciaApelada)" cols="23" maxlength="100"
-						placeholder="Ingrese el Nombre de la Instancia Apelada"/>
+						placeholder="Ingrese el nombre de la instancia apelada"/>
 						
 						<label value="Descripción: " id="lblDescripcion" />
 					    <textbox id="txtDescripcionActividad"
 						constraint="no empty: Ingrese la descripción de la Instancia"
 						mold="rounded" width="77%" rows="3" value="@bind(vm.descripcion)"
-						placeholder="Ingrese la Descripción de la Instancia Apelada" />
+						placeholder="Ingrese la descripción de la instancia apelada" />
 						
 						
 					</row>
@@ -34,7 +34,7 @@
 						<textbox id="txtRecurso" mold="rounded" width="80%" 
 						constraint="no empty: Ingrese el nombre del recurso" tabindex="2"
 						value="@bind(vm.nombreRecursoApelacion)" cols="23" maxlength="60"
-						placeholder="Ingrese el Nombre del Recurso de la Instancia Apelada"/>
+						placeholder="Ingrese el nombre del recurso de la instancia apelada"/>
 					</row>
 				</rows>
 			</grid>
