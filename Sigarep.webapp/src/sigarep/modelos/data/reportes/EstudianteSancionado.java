@@ -1,5 +1,11 @@
 package sigarep.modelos.data.reportes;
-
+/** Reporte Configurable
+ * Reporte Configurable  Reporte Configurable
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 public class EstudianteSancionado {
 	private String primerNombre;
 	private String primerApellido;
@@ -29,7 +35,7 @@ public class EstudianteSancionado {
 		this.edoApelacion=edoApelacion;
 	}
 	
-	
+	// Métodos GET y SET
 	public String getEdoApelacion() {
 		return edoApelacion;
 	}
