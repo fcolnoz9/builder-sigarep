@@ -96,7 +96,7 @@
 				</row>
 			</rows>
 		</grid>
-		<grid id="grdRecaudosVeredicto" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="3">
+		<grid id="grdRecaudosVeredicto" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" >
 	        <columns>
 	        	<column label="Motivo de Apelación" align="left" width="25%"></column>
 	            <column label="Recaudo Entregado" align="left" width="25%"></column>
@@ -108,7 +108,7 @@
 		            <row>
 		            	<label value="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
 		                <label value="${each.getRecaudo().getNombreRecaudo()}" /> 
-		                <textbox value="${each.getObservacionExperto()}" mold="rounded" cols="120" width="80%" rows="2" readonly="true"></textbox>
+		                <textbox value="${each.getObservacionExperto()}" mold="rounded" cols="120" width="80%" rows="3" readonly="true"></textbox>
 		            </row>
 	            </template>
            </rows>
@@ -136,7 +136,7 @@
 				     <hlayout valign="center">
 						<label id="lblObservacion" value="Observación General: " />
 						<separator></separator>
-						<textbox id="txtObservacion" mold="rounded"  cols="100" maxlength="255"  placeholder="Ingrese la Descripción General del Veredicto" value="@bind(vm.observacionGeneral)" rows="2"></textbox>
+						<textbox id="txtObservacion" mold="rounded"  cols="100" maxlength="255" tabindex="2"  placeholder="Ingrese la Descripción General del Veredicto" value="@bind(vm.observacionGeneral)" rows="2"></textbox>
 					</hlayout>
 				</row>
 		    </rows>
