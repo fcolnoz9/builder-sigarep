@@ -1,5 +1,11 @@
 package sigarep.modelos.data.reportes;
-
+/** Apelaciones
+ * Reporte Configurable   por apelaciones
+* UCLA DCYT Sistemas de Informacion.
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 public class ConfigurableApelaciones {
 	
 		
@@ -25,7 +31,7 @@ public class ConfigurableApelaciones {
 			this.edoApelacion=edoApelacion;
 		}
 		
-		
+		// Métodos GET y SET
 		public String getEdoApelacion() {
 			return edoApelacion;
 		}

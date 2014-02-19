@@ -1,6 +1,6 @@
 package sigarep.modelos.data.reportes;
-/** Reporte Configurable
- * Reporte Configurable  Reporte Configurable
+/** Estudiante Sancionado
+ * Reporte Configurable   Estudiante Sancionado
 * UCLA DCYT Sistemas de Informacion.
 * @author Equipo: Builder-SIGAREP 
 * @version 1.0
