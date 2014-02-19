@@ -10,6 +10,7 @@ import sigarep.herramientas.MensajesAlUsuario;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -17,6 +18,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
@@ -307,6 +309,7 @@ public class VMRegistrarReconsideracion {
 			serviciomotivo.guardarMotivo(motivos);
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			winRegistrarReconsideracion.detach();
+			actualizarListaSancionados();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -440,5 +443,9 @@ public class VMRegistrarReconsideracion {
 					});
 		}
 	}
+	@GlobalCommand
+    public void actualizarListaSancionados(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+    }
 
 }
