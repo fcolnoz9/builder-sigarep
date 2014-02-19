@@ -20,7 +20,7 @@
 						<label id="lblLapsoAcademico"
 							value="Lapso Académico:" />
 						<textbox id="txtLapsoAcademico"
-							placeholder = "Ingrese un lapso Académico"
+							placeholder = "Ingrese un lapso académico"
 							value="@bind(vm1.codigoLapso)" width="80%" 
 							 mold="rounded" maxlength="6" cols="23" />
 					</row>
@@ -28,15 +28,13 @@
 						<label id="lblFechaInicio"
 							value="Fecha de Inicio de Lapso:" />
 						<datebox id="dtbFechaInicio"
-							placeholder = "Ingrese Fecha de Inicio de Lapso Académico"
 							format="dd/MM/yyyy" onChange="@command('validarFecha')"
 							maxlength="255" width="80%"  readonly="true"
 							mold="rounded" value="@bind(vm1.fechaInicio)" />
 
 						<label id="lblFechaCierre"
-							value="Fecha de Fin de Lapso:" />
+							value="Fecha de Finalización de Lapso:" />
 						<datebox id="dbFechaCierre"
-							placeholder ="Ingrese Fecha Final de Lapso Académico"
 							format="dd/MM/yyyy" onChange="@command('validarFecha')"
 							maxlength="255" width="80%" mold="rounded" tabindex="2"  readonly="true"
 							value="@bind(vm1.fechaCierre)" />
@@ -77,7 +75,7 @@
 						id="lblLapsoAcademicos1" align="lefth" sort="auto(codigoLapso)" />
 					<listheader label="Fecha de Inicio de Lapso"
 						id="lblFechaInicios" align="lefth" sort="auto(fechaInicio)" />
-					<listheader label="Fecha de Final de Lapso"
+					<listheader label="Fecha de Finalización de Lapso"
 						id="lblFechafinal" align="lefth" sort="auto(fechaCierre)" />
 				</listhead>
 
