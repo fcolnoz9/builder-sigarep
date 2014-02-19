@@ -13,12 +13,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
@@ -329,6 +331,7 @@ public class VMRegistrarRecursoJerarquico {
 			serviciomotivo.guardarMotivo(motivos);
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			ventana.detach();
+			actualizarListaSancionados();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -439,6 +442,9 @@ public class VMRegistrarRecursoJerarquico {
 	    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
 	        Selectors.wireComponents(view, this, false);
 	    }
-	
+	 @GlobalCommand
+	    public void actualizarListaSancionados(){
+	    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+	    }
 	// FIN OTROS METODOS
 }

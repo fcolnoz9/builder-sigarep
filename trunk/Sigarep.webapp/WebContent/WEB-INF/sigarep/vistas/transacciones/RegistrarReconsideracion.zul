@@ -158,7 +158,7 @@
 				<button id="btnGuardar" width="auto" height="auto"
 					label="Guardar" image="/imagenes/iconos/guardar.png"
 					orient="horizontal" mold="trendy"
-					onClick="@command('registrarSolicitudApelacion', window=winRegistrarReconsideracion)" />
+					onClick="@command('registrarSolicitudApelacion', window=winRegistrarReconsideracion) @global-command('actualizarListaSancionados')" />
 			</div>
 			<div align="right" height="100%">
 				<button id="btnLimpiar" width="auto" height="auto"
