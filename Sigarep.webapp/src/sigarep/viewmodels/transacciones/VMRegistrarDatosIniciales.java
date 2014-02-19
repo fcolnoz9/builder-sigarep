@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -11,6 +12,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
@@ -79,7 +81,7 @@ public class VMRegistrarDatosIniciales {
 	private Integer instancia;
 	private Integer idEstado;
 	private Integer idMotivoGeneral;
-
+	
 	@Wire("#winRegistrarDatosInicialesApelacion")
 	private Window ventana;
 
@@ -538,6 +540,8 @@ public class VMRegistrarDatosIniciales {
 		try {
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			winRegistrarDatosInicialesApelacion.detach();
+			actualizar();
+			 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -587,6 +591,11 @@ public class VMRegistrarDatosIniciales {
 	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);
+    }
+
+    @GlobalCommand
+    public void actualizar(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
     }
 	
 	@SuppressWarnings("unchecked")
