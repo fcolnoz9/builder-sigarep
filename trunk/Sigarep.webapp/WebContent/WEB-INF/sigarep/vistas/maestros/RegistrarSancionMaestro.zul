@@ -15,38 +15,35 @@
 			<rows>
 				<row>
 					<label value="Nombre:" id="lblSancion" />
-					<textbox id="txtNombreSancion" cols="23" mold="rounded"
-						constraint="no empty: Ingrese nombre de la sanción" width="80%"
-						maxlength="30" value="@bind(vm.nombre)">
+					<textbox id="txtNombreSancion" cols="23"
+						mold="rounded" placeholder="Ingrese nombre de la sanción."
+						width="80%" maxlength="60" value="@bind(vm.nombre)">
 					</textbox>
 					<label value="Descripción: " id="lblDescripcion" />
-					<textbox id="txtDescripcionSancion" width="77%" mold="rounded"
-						constraint="no empty: Ingrese la descripción del tipo de sanción"
-						rows="3" value="@bind(vm.descripcion)" />
+					<textbox id="txtDescripcionSancion" width="77%"
+						mold="rounded"
+						placeholder="Ingrese la descripción del tipo de sanción."
+						maxlength="255" rows="3" value="@bind(vm.descripcion)" />
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
 	<separator />
 	<div align="right">
-		<button label="Guardar" id="btnGuardarSancion"
-			mold="trendy" width="auto" height="auto"
-			image="imagenes/iconos/guardar.png" 
-			 onClick="@command('guardarTipoSancion')">
+		<button label="Guardar" id="btnGuardarSancion" mold="trendy"
+			width="auto" height="auto" image="imagenes/iconos/guardar.png"
+			onClick="@command('guardarTipoSancion')">
 		</button>
-		<button label="Eliminar" id="btnEliminarSancion"
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/eliminar.png" 
+		<button label="Eliminar" id="btnEliminarSancion" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
 			onClick="@command('eliminarTipoSancion')">
 		</button>
-		<button label="Limpiar" id="btnLimpiarSancion"
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/limpiar.png" 
-			 onClick="@command('limpiar')">
+		<button label="Limpiar" id="btnLimpiarSancion" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
+			onClick="@command('limpiar')">
 		</button>
-		<button label="Cerrar" id="btnCerrarSancion"
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/cerrar.png" 
+		<button label="Cerrar" id="btnCerrarSancion" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
 			onClick="@command('cerrarVentana')">
 		</button>
 	</div>
@@ -61,8 +58,8 @@
 			<listhead>
 				<listheader label="Nombre" align="lefth"
 					sort="auto(nombreSancion)">
-					<textbox id="filtroNombre" instant="true" mold="rounded"
-						width="100px" value="@bind(vm.nombreFiltro)"
+					<textbox id="filtroNombre" instant="true"
+						mold="rounded" width="100px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>

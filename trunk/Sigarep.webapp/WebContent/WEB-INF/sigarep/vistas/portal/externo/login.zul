@@ -7,7 +7,9 @@
 			<label value="Clave" style="font-size:11px" />
 			<textbox id="log_clave" width="80%" type="password"
 				name="j_password" />
-			<h:input type="submit" value="Entrar" />
+			<button image="/imagenes/iconos/iniciarSesion.png"
+				type="submit" label="Entrar">
+			</button>
 		</hbox>
 	</h:form>
 	<div apply="sigarep.controlador.maestros.ModalControler2"

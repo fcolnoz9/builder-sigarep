@@ -14,8 +14,8 @@
 					<label value="Nombre del Programa: "
 						id="lblPrograma" />
 					<textbox id="txtNombrePrograma" mold="rounded"
-						cols="23" constraint="no empty: Ingrese nombre del programa"
-						width="80%" maxlength="60" value="@bind(vm.nombrePrograma)">
+						cols="23" placeholder="Ingrese nombre del programa." width="80%"
+						maxlength="60" value="@bind(vm.nombrePrograma)">
 					</textbox>
 				</row>
 			</rows>
@@ -23,24 +23,20 @@
 	</groupbox>
 	<separator />
 	<div align="right">
-		<button label="Guardar" id="btnGuardarPrograma"
-			mold="trendy" width="auto" height="auto"
-			image="imagenes/iconos/guardar.png" 
-			 onClick="@command('guardarPrograma')">
+		<button label="Guardar" id="btnGuardarPrograma" mold="trendy"
+			width="auto" height="auto" image="imagenes/iconos/guardar.png"
+			onClick="@command('guardarPrograma')">
 		</button>
-		<button label="Eliminar" id="btnEliminarPrograma"
-		    mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/eliminar.png" 
+		<button label="Eliminar" id="btnEliminarPrograma" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
 			onClick="@command('eliminarPrograma')">
 		</button>
-		<button label="Limpiar" id="btnLimpiarPrograma"
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/limpiar.png" 
+		<button label="Limpiar" id="btnLimpiarPrograma" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
 			onClick="@command('limpiar')">
 		</button>
-		<button label="Cerrar" id="btnCerrarPrograma"
-			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/cerrar.png" 
+		<button label="Cerrar" id="btnCerrarPrograma" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
 			onClick="@command('cerrarVentana')">
 		</button>
 	</div>
@@ -56,7 +52,8 @@
 				<listheader label="Nombre" align="lefth"
 					sort="auto(nombrePrograma)">
 					<textbox id="filtroNombre" instant="true"
-						mold="rounded" width="100px" value="@bind(vm.nombreProgramaFiltro)"
+						mold="rounded" width="100px"
+						value="@bind(vm.nombreProgramaFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>

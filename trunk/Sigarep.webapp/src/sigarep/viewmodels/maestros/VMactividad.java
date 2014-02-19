@@ -1,7 +1,6 @@
 package sigarep.viewmodels.maestros;
 
 import java.util.List;
-
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -18,7 +17,6 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.InstanciaApelada;
@@ -41,7 +39,6 @@ public class VMactividad {
 	ServicioActividad servicioactividad;
 	@WireVariable
 	ServicioInstanciaApelada servicioInstanciaApelada;
-
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer id_actividad;
 	private String nombre;
@@ -52,15 +49,18 @@ public class VMactividad {
 	private List<Actividad> listaActividad;
 	private Actividad actividadSeleccionada;
 	private InstanciaApelada instanciaApelada;
-	@WireVariable
 	private List<InstanciaApelada> listaInstanciaApelada;
-	
-	@Wire("#winRegistrarActividad")//para conectarse a la ventana con el ID
+
+	// para conectarse a la ventana con el ID
+	@Wire("#winRegistrarActividad")
 	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+
+	// para poder conectarse con los componentes en la vista, es necesario si no
+	// da null Pointer
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
+	}
 
 	// Metodos GETS Y SETS
 	public void setId_Actividad(Integer id_actividad) {
@@ -179,7 +179,7 @@ public class VMactividad {
 	}
 
 	/**
-	 * listaActividad
+	 * listaActividad tiene todas las actividades registradas
 	 * 
 	 * @param listaActividad
 	 * @return No devuelve ningun valor
@@ -195,15 +195,16 @@ public class VMactividad {
 	/**
 	 * limpiar
 	 * 
-	 * @param id_actividad, nombre
-	 *            , descripcion, listaActividad, instanciaApelada
+	 * @param id_actividad
+	 *            , nombre , descripcion, listaActividad, instanciaApelada
 	 * @return No devuelve ningun valor
 	 * @throws No
 	 *             dispara ninguna excepción
 	 */
 	@Command
-	@NotifyChange({ "id_actividad", "nombre", "descripcion", "instanciaApelada",
-			"nombreFiltro", "responsableFiltro", "listaActividad" })
+	@NotifyChange({ "id_actividad", "nombre", "descripcion",
+			"instanciaApelada", "nombreFiltro", "responsableFiltro",
+			"listaActividad" })
 	public void limpiar() {
 		id_actividad = null;
 		nombre = null;
@@ -224,33 +225,40 @@ public class VMactividad {
 	 * @throws Debe
 	 *             seleccionar un registro para poder eliminarlo
 	 */
-	
+
 	@SuppressWarnings("unchecked")
 	@Command
-	@NotifyChange({ "listaActividad", "nombre", "instanciaApelada","descripcion" })
-	public void eliminarActividad(@ContextParam(ContextType.BINDER) final Binder binder){
-		if (nombre == null || descripcion == null)  {
+	@NotifyChange({ "listaActividad", "nombre", "instanciaApelada",
+			"descripcion" })
+	public void eliminarActividad(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		if (nombre == null || descripcion == null) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
-							//binder.postCommand("limpiar", null);
-							servicioactividad.eliminar(id_actividad);
-							mensajeAlUsuario.informacionEliminarCorrecto();
-							binder.postCommand("limpiar", null);
-						case NO:
-					
-							binder.postCommand("limpiar", null);
-					}
-				}
-			});		
+			Messagebox.show("¿Desea eliminar el registro realmente?",
+					"Confirmar", new Messagebox.Button[] {
+							Messagebox.Button.YES, Messagebox.Button.NO },
+					Messagebox.QUESTION, new EventListener<ClickEvent>() {
+						@SuppressWarnings("incomplete-switch")
+						public void onEvent(ClickEvent e) throws Exception {
+							switch (e.getButton()) {
+							case YES:
+								// if you call super.delete here, since original
+								// zk event is not control by binder
+								// the change of viewmodel will not update to
+								// the ui.
+								// so, I post a delete to trigger to process it
+								// in binder controll.
+								// binder.postCommand("limpiar", null);
+								servicioactividad.eliminar(id_actividad);
+								mensajeAlUsuario.informacionEliminarCorrecto();
+								binder.postCommand("limpiar", null);
+							case NO:
+
+								binder.postCommand("limpiar", null);
+							}
+						}
+					});
 		}
 	}
 
@@ -315,7 +323,7 @@ public class VMactividad {
 		listaActividad = servicioactividad.buscarActividad(nombreFiltro,
 				responsableFiltro);
 	}
-	
+
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -326,36 +334,40 @@ public class VMactividad {
 	 */
 	@SuppressWarnings("unchecked")
 	@Command
-	@NotifyChange({ "listaActividad", "nombre", "instanciaApelada","descripcion" })
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (nombre != null || descripcion != null) 
-		{
-			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
+	@NotifyChange({ "listaActividad", "nombre", "instanciaApelada",
+			"descripcion" })
+	public void cerrarVentana(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		if (nombre != null || descripcion != null) {
+			Messagebox
+					.show("¿Realmente desea cerrar la ventana sin guardar los cambios?",
+							"Confirmar",
+							new Messagebox.Button[] { Messagebox.Button.YES,
+									Messagebox.Button.NO },
+							Messagebox.QUESTION,
+							new EventListener<ClickEvent>() {
+								@SuppressWarnings("incomplete-switch")
+								public void onEvent(ClickEvent e)
+										throws Exception {
+									switch (e.getButton()) {
+									case YES:
+										ventana.detach();
+									}
+								}
+							});
+		} else {
+			Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
+					new Messagebox.Button[] { Messagebox.Button.YES,
+							Messagebox.Button.NO }, Messagebox.QUESTION,
+					new EventListener<ClickEvent>() {
+						@SuppressWarnings("incomplete-switch")
+						public void onEvent(ClickEvent e) throws Exception {
+							switch (e.getButton()) {
+							case YES:
 								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
+							}
+						}
+					});
 		}
 	}
 }

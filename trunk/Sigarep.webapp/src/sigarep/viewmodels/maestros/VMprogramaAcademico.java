@@ -20,6 +20,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
+
 /**
  * ProgramaAcademico UCLA DCYT Sistemas de Informacion.
  * 
@@ -33,7 +34,6 @@ import org.zkoss.zul.Window;
 public class VMprogramaAcademico {
 	@WireVariable
 	ServicioProgramaAcademico servicioprogramaacademico;
-
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer idPrograma;
 	private String nombrePrograma;
@@ -41,14 +41,17 @@ public class VMprogramaAcademico {
 	private Boolean estatus;
 	private List<ProgramaAcademico> listaPrograma;
 	private ProgramaAcademico programaseleccionado;
-	
 
-@Wire("#winRegistrarPrograma")//para conectarse a la ventana con el ID
+	// para conectarse a la ventana con el ID
+	@Wire("#winRegistrarPrograma")
 	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+
+	// para poder conectarse con los componentes en la vista, es necesario si no
+	// da null Pointer
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
+	}
 
 	// Inicio Métodos Sets y Gets
 	public Integer getIdProgramaAcademico() {
@@ -171,36 +174,43 @@ public class VMprogramaAcademico {
 	 * @throws Debe
 	 *             seleccionar un registro para poder eliminarlo
 	 */
-	
+
 	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
-	public void eliminarPrograma(@ContextParam(ContextType.BINDER) final Binder binder){
+	public void eliminarPrograma(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
 		if (nombrePrograma == null) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
-							//binder.postCommand("limpiar", null);
-							servicioprogramaacademico.eliminarPrograma(getProgramaseleccionado().getIdPrograma());
-							mensajeAlUsuario.informacionEliminarCorrecto();
-							binder.postCommand("limpiar", null);
-						case NO:
-					
-							binder.postCommand("limpiar", null);
-					}
-				}
-			});		
+			Messagebox.show("¿Desea eliminar el registro realmente?",
+					"Confirmar", new Messagebox.Button[] {
+							Messagebox.Button.YES, Messagebox.Button.NO },
+					Messagebox.QUESTION, new EventListener<ClickEvent>() {
+						@SuppressWarnings("incomplete-switch")
+						public void onEvent(ClickEvent e) throws Exception {
+							switch (e.getButton()) {
+							case YES:
+								// if you call super.delete here, since original
+								// zk event is not control by binder
+								// the change of viewmodel will not update to
+								// the ui.
+								// so, I post a delete to trigger to process it
+								// in binder controll.
+								// binder.postCommand("limpiar", null);
+								servicioprogramaacademico
+										.eliminarPrograma(getProgramaseleccionado()
+												.getIdPrograma());
+								mensajeAlUsuario.informacionEliminarCorrecto();
+								binder.postCommand("limpiar", null);
+							case NO:
+
+								binder.postCommand("limpiar", null);
+							}
+						}
+					});
 		}
 	}
-
 
 	/**
 	 * mostrarSeleccionado
@@ -232,7 +242,7 @@ public class VMprogramaAcademico {
 		listaPrograma = servicioprogramaacademico
 				.buscarPrograma(nombreProgramaFiltro);
 	}
-	
+
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -244,42 +254,40 @@ public class VMprogramaAcademico {
 	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (nombrePrograma != null)
-		{
-			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
+	public void cerrarVentana(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		if (nombrePrograma != null) {
+			Messagebox
+					.show("¿Realmente desea cerrar la ventana sin guardar los cambios?",
+							"Confirmar",
+							new Messagebox.Button[] { Messagebox.Button.YES,
+									Messagebox.Button.NO },
+							Messagebox.QUESTION,
+							new EventListener<ClickEvent>() {
+								@SuppressWarnings("incomplete-switch")
+								public void onEvent(ClickEvent e)
+										throws Exception {
+									switch (e.getButton()) {
+									case YES:
+										ventana.detach();
+
+									}
+								}
+							});
+		} else {
+			Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
+					new Messagebox.Button[] { Messagebox.Button.YES,
+							Messagebox.Button.NO }, Messagebox.QUESTION,
+					new EventListener<ClickEvent>() {
+						@SuppressWarnings("incomplete-switch")
+						public void onEvent(ClickEvent e) throws Exception {
+							switch (e.getButton()) {
+							case YES:
 								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
+
+							}
+						}
+					});
 		}
 	}
-	
-	
-	
-	
-	
-	
 }
-
