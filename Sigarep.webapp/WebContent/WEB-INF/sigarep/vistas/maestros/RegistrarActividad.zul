@@ -14,7 +14,7 @@
 			<rows>
 				<row>
 					<label value="Responsable: " id="lblResponsable" />
-					<combobox readonly="true" id="cmbInstanciaApelada"
+					<combobox readonly="true" id="cmbInstanciaApelada" placeholder="Seleccione responsable..."
 						value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
 						mold="rounded" model="@load(vm.listaInstanciaApelada)"
 						selectedItem="@bind(vm.instanciaApelada)"
@@ -26,13 +26,11 @@
 				</row>
 				<row>
 					<label value="Nombre: " id="lblNombreActividad" />
-					<textbox id="txtNombreActividad" cols="23"
-						constraint="no empty: Ingrese nombre de la Actividad"
-						mold="rounded" width="80%" maxlength="30"
+					<textbox id="txtNombreActividad" cols="23" placeholder="Ingrese el nombre de la actividad."
+						mold="rounded" width="80%" maxlength="60"
 						value="@bind(vm.nombre)" />
-
 					<label value="Descripción: " id="lblDescripcion" />
-					<textbox id="txtDescripcionActividad"
+					<textbox id="txtDescripcionActividad" maxlength="255" placeholder="Ingrese la descripción de la actividad."
 						constraint="no empty: Ingrese descripcion de la Actividad"
 						mold="rounded" width="77%" rows="3" value="@bind(vm.descripcion)" />
 				</row>
@@ -57,9 +55,7 @@
 			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
 			onClick="@command('cerrarVentana')">
 		</button>
-		
 	</div>
-
 	<groupbox id="grbListaActividades">
 		<caption label="Lista de Actividades" />
 		<listbox id="lbxActividades" height="100%"
@@ -93,7 +89,6 @@
 						label="${each.instanciaApelada.instanciaApelada}" />
 					<listcell label="${each.nombre}" />
 					<listcell label="${each.descripcion}" />
-
 				</listitem>
 			</template>
 		</listbox>

@@ -36,7 +36,6 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 public class VMsancionMaestro {
 	@WireVariable
 	ServicioSancionMaestro serviciosancionmaestro;
-
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private Integer id_sancion;
 	private String nombre;
@@ -45,13 +44,18 @@ public class VMsancionMaestro {
 	private Boolean estatus;
 	private List<SancionMaestro> listaTipoSancion;
 	private SancionMaestro tipoSancionSeleccionada;
-	
-	@Wire("#winRegistrarSancion")//para conectarse a la ventana con el ID
+
+	// para conectarse a la ventana con el ID
+	@Wire("#winRegistrarSancion")
 	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+
+	// para poder conectarse con los componentes en la vista, es necesario si no
+	// da null Pointer
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
+	}
+
 	// Inicion Métodos Sets y Gets
 	public Integer getIdSancion() {
 		return id_sancion;
@@ -190,29 +194,30 @@ public class VMsancionMaestro {
 	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({ "listaTipoSancion", "nombre", "descripcion", "estatus" })
-	public void eliminarTipoSancion(@ContextParam(ContextType.BINDER) final Binder binder){
-		if (nombre == null ||  descripcion == null)  {
+	public void eliminarTipoSancion(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		if (nombre == null || descripcion == null) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
-			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
-							//binder.postCommand("limpiar", null);
-							serviciosancionmaestro.eliminarSancion(getTipoSancionSeleccionada().getIdSancion());
-							mensajeAlUsuario.informacionEliminarCorrecto();
-							binder.postCommand("limpiar", null);
-						case NO:
-					
-							binder.postCommand("limpiar", null);
-					}
-				}
-			});		
+			Messagebox.show("¿Desea eliminar el registro realmente?",
+					"Confirmar", new Messagebox.Button[] {
+							Messagebox.Button.YES, Messagebox.Button.NO },
+					Messagebox.QUESTION, new EventListener<ClickEvent>() {
+						@SuppressWarnings("incomplete-switch")
+						public void onEvent(ClickEvent e) throws Exception {
+							switch (e.getButton()) {
+							case YES:
+								serviciosancionmaestro
+										.eliminarSancion(getTipoSancionSeleccionada()
+												.getIdSancion());
+								mensajeAlUsuario.informacionEliminarCorrecto();
+								binder.postCommand("limpiar", null);
+							case NO:
+
+								binder.postCommand("limpiar", null);
+							}
+						}
+					});
 		}
 	}
 
@@ -247,7 +252,7 @@ public class VMsancionMaestro {
 		listaTipoSancion = serviciosancionmaestro
 				.buscarTipoSancion(nombreFiltro);
 	}
-	
+
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -256,40 +261,42 @@ public class VMsancionMaestro {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
+
 	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({ "listaTipoSancion", "nombre", "descripcion", "estatus" })
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (nombre != null || descripcion != null) 
-		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
+	public void cerrarVentana(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		if (nombre != null || descripcion != null) {
+			Messagebox
+					.show("¿Realemente desea cerrar la ventana sin guardar los cambios?",
+							"Confirmar",
+							new Messagebox.Button[] { Messagebox.Button.YES,
+									Messagebox.Button.NO },
+							Messagebox.QUESTION,
+							new EventListener<ClickEvent>() {
+								@SuppressWarnings("incomplete-switch")
+								public void onEvent(ClickEvent e)
+										throws Exception {
+									switch (e.getButton()) {
+									case YES:
+										ventana.detach();
+									}
+								}
+							});
+		} else {
+			Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
+					new Messagebox.Button[] { Messagebox.Button.YES,
+							Messagebox.Button.NO }, Messagebox.QUESTION,
+					new EventListener<ClickEvent>() {
+						@SuppressWarnings("incomplete-switch")
+						public void onEvent(ClickEvent e) throws Exception {
+							switch (e.getButton()) {
+							case YES:
 								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
+							}
+						}
+					});
 		}
 	}
-
 }

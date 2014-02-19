@@ -270,6 +270,11 @@ public class MensajesAlUsuario {
 		Messagebox.show("No Hay coincidencias para mostrar.", "Informaciï¿½n",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
+	
+	public void informacionEstudianteSinSolicitudApelacion(){
+		Messagebox.show("Usted no ha realizado solicitudes de apelación", "Información",
+				Messagebox.OK, Messagebox.INFORMATION);
+	}
 
 	public void ErrorRestauracionEnProceso() {
 
