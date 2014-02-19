@@ -6,11 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
@@ -378,7 +380,10 @@ public class VMVerificarRecaudosEntregadosII {
 			asignaturaLapsosConsecutivos = lapsosConsecutivos;
 		}
 	}
-
+	@GlobalCommand
+    public void actualizarListaSancionados(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+    }
 	/** se llenan las listas de recaudos entregados y de recaudos faltantes por entregar
 	    * @param cedula
 	    */
@@ -475,7 +480,7 @@ public class VMVerificarRecaudosEntregadosII {
 			try {
 				mensajeAlUsuario.informacionRegistroCorrecto();
 				winVerificarRecaudosII.detach(); // oculta el window
-				// falta actualizar la lista de apelaciones en este punto
+				actualizarListaSancionados();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
