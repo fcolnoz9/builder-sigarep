@@ -1,5 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -7,6 +8,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -391,9 +393,9 @@ public class VMVeredictoI {
 			apelacionEstado.setObservacion(observacionGeneral);
 			solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
-		
 			mensajeAlUsuario.informacionVeredictoRegistrado();
 			winVeredictoI.detach();
+			actualizarListaSancionados();
 		}
 	}
 	
@@ -409,6 +411,17 @@ public class VMVeredictoI {
 		observacionGeneral = solicitudApelacion.getObservacion();
 		veredicto = "";
 	}
+	
+	/**
+	 * Actualizar Lista de Sancionados
+	 * @param actualizarListaSancionados
+	 * @return La lista de estudiantes en veredicto se actualiza cuando se termina ese proceso.
+	 * @throws No dispara ninguna excepcion.
+	 */
+	@GlobalCommand
+    public void actualizarListaSancionados(){
+    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+    }
 	
 	/**
 	 * Cerrar Ventana
