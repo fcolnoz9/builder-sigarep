@@ -14,7 +14,7 @@
     </div>
 	<separator spacing="15px" />
 	<groupbox closable="false" id="grbDatosCronograma">
-		<caption label="Agregar Actividad" />
+		<caption label="Datos del Cronograma" />
 		<grid id="grdDatosCronograma" width="auto">
 			<columns>
 				<column label="" width="10"/>
@@ -26,7 +26,7 @@
 			<rows>
 			    <row>
 			        <label id="lblactividad" value="Actividad: "  />
-                    <combobox readonly="true" id= "cmbActividad" value="@bind(vm.actividad.nombre)" 
+                    <combobox readonly="true" id= "cmbActividad" placeholder="Elija una actividad" value="@bind(vm.actividad.nombre)" 
 				    width="80%" mold="rounded" model="@load(vm.listaActividad)" selectedItem="@bind(vm.actividad)" onSelect="@command('buscarDetalleActividadCombo')">
 							<template name="model">
 								<comboitem  label="${each.nombre}"/>
@@ -42,18 +42,17 @@
 					<datebox value="@bind(vm.fechaFin)" id="dtbFechaFin" mold="rounded" onChange="@command('validarFecha')"
                     format="dd/MM/yyyy" width="80%"  tabindex="7"/> 
                     <label value="Hora Inicio: " id="lblHora"/>
-					<timebox format="a hh:mm:ss" mold="rounded" width="80%" id="tmbHora" 
-                    value="@bind(vm.horaInicio)" />
+					<timebox format="a hh:mm:ss" id="tmbHora" mold="rounded" width="80%" value="@bind(vm.horaInicio)" />
 				</row>
-				 <row>
+				<row>
 					<label value="Lugar: " id="lbllugar"/>
-					<textbox id="txtLugar" cols="23" maxlength="30" readonly="false" constraint="no empty: Escribe el lugar a realizarse la actividad. Ej: sala de conferencias" 
+					<textbox id="txtLugar" placeholder="Ingrese el lugar donde se realizará la actividad" cols="23" maxlength="30" readonly="false"  
 					mold="rounded" width="80%" tabindex="1" value="@bind(vm.lugar)" />
 					<label value="Observación: " id="lblObservacion"  />
-					<textbox id="txtObservacion" mold="rounded" constraint="no empty: Escribe una observacion. Ej: Llegar 10min antes" value="@bind(vm.observacion)"
-					width="77%" rows="3" readonly="false"></textbox>
+					<textbox id="txtObservacion" placeholder="Ingrese la descripción de la actividad a realizarse" mold="rounded" 
+					value="@bind(vm.observacion)" width="80%" rows="3" maxlength="255" tabindex="2" readonly="false"></textbox>
 					<label value="Responsable: " id="lblResponsable"  />
-					<combobox readonly="true" id= "cmbResponsable" value="@bind(vm.responsable.instanciaApelada)" 
+					<combobox readonly="true" placeholder="Elija el responsable de la actividad" id= "cmbResponsable" value="@bind(vm.responsable.instanciaApelada)" 
 				    width="80%" mold="rounded" model="@load(vm.listaResponsable)" selectedItem="@bind(vm.responsable)">
 							<template name="model">
 								<comboitem  label="${each.instanciaApelada}"/>
@@ -74,7 +73,7 @@
 				
 		<button label="Eliminar" id="btnEliminarCronograma" 
 				mold="trendy" width="auto" height="auto" image="/imagenes/iconos/eliminar.png"  
-				onClick="@command('eliminar')" orient="horizontal" />
+				onClick="@command('eliminarCronogramaSeleccionado')" orient="horizontal" />
 				
         <button label="Limpiar" id="btnCancelarAgregarActividad" mold="trendy"
 				width="auto" height="auto" image="/imagenes/iconos/limpiar.png" 
@@ -82,7 +81,7 @@
               
         <button label="Cerrar" id="btnCerrar" 
 				mold="trendy" width="auto" height="auto" image="/imagenes/iconos/cerrar.png" 
-				onClick="winActualizarCronograma.onClose()" orient="horizontal" />
+				onClick="@command('cerrarVentana')" orient="horizontal" />
 	</div>
 
     <!-- Muestra el listado de actividades agregadas al cronograma, permite la modificación y eliminacion de un registro-->
@@ -110,7 +109,7 @@
 							onChange="@command('filtroCronograma')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>
-					<listheader label="Lugar" align="left" 
+					<listheader label="Lugar" align="left"
 						sort="auto(lugar)">
 					<textbox id="filtroLugar" mold="rounded" instant="true"
 							width="100px" value="@bind(vm.lugarf)"
