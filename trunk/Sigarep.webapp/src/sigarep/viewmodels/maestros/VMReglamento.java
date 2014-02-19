@@ -32,9 +32,10 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
+
 /**Reglamento
  * UCLA-DCYT Sistemas de Información
- * @author Equipo:Builder-SIGAREP
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
  * @since 22/01/14
  */
@@ -73,7 +74,7 @@ public VMReglamento() {
 	// TODO Auto-generated constructor stub
 }
 
-
+//Metodos Get y Set de la clase 
 public String getNombreDoc() {
 	return nombreDoc;
 }
@@ -179,11 +180,15 @@ public String getCategoriaF() {
 public void setCategoriaF(String categoriaF) {
 	this.categoriaF = categoriaF;
 }
-
+//Fin de los Metodos Get y Set de la clase 
+/**
+ * inicialización
+ * @param init
+ * @return código de inicialización
+ * @throws No dispara ninguna excepcion.
+ */
 @Init 
-
 public void init(){
-	
 	
 	fechaSubida = new Date();
 	media = null;
@@ -194,7 +199,7 @@ public void init(){
 
 /** guardarReglamento
  * @param "titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc"
- * @return No devuelve ningun valor
+ * @return Guarda el registro completo.
  * @throws las excepciones son que los datos a guardar esten vacios
  */
 
@@ -205,7 +210,6 @@ if (titulo == null || descripcion ==null|| categoria==null )
 	mensajeAlUsuario.advertenciaLlenarCampos();	
 
 else if (documento.getTamanoDocumento() < 1)
-//else if (documento.getNombreDocumento().equals(""))
 	mensajeAlUsuario.advertenciaCargarDocumento();
 	else{
 		Reglamento reg = new Reglamento(IdDocumento,documento ,titulo, descripcion,true, fechaSubida,categoria);
@@ -223,8 +227,8 @@ else if (documento.getTamanoDocumento() < 1)
 }
 /** limpiar
  * @param "IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"
- * @return no devuelve nada
- * @throws 
+ * @return inicializa las cajas de texto
+ * @throws No dispara ninguna excepcion.
  * 
  */
 
@@ -245,7 +249,8 @@ public void limpiar(){
 
 /**mostrarSeleccionado
  *@param IdDocumento,titulo,descripcion,categoria,fechaSubida,listaReglamento,nombreDoc
- *@return No devuelve ningun valor 
+ *@return  Llena cada una de las cajas de texto con los datos del registro seleccionado en la lista
+ *@throws No dispara ninguna excepcion.
  */
 
 
@@ -259,13 +264,6 @@ public void mostrarSeleccionado(){
 	categoria = reg.getCategoria();
 	fechaSubida = reg.getFechaSubida();
 	documento = reg.getDocumento();
-//	
-//	IdDocumento =  reglamentoSeleccionado.getIdDocumento();
-//	titulo =  reglamentoSeleccionado.getTitulo();
-//	descripcion =  reglamentoSeleccionado.getDescripcion();
-//	categoria =  reglamentoSeleccionado.getCategoria();
-//	fechaSubida =  reglamentoSeleccionado.getFechaSubida();
-//	documento =  reglamentoSeleccionado.getDocumento();
 	if (reg.getDocumento().getNombreDocumento()!=null){
 	nombreDoc=reg.getDocumento().getNombreDocumento();
 	}
@@ -291,10 +289,6 @@ public void eliminarReglamento(@ContextParam(ContextType.BINDER) final Binder bi
 			public void onEvent(ClickEvent e) throws Exception {
 				switch (e.getButton()) {
 					case YES:
-						//if you call super.delete here, since original zk event is not control by binder
-						//the change of viewmodel will not update to the ui.
-						//so, I post a delete to trigger to process it in binder controll.
-						//binder.postCommand("limpiar", null);
 						servicioreglamento.eliminar(getReglamentoSeleccionado().getIdDocumento());
 						mensajeAlUsuario.informacionEliminarCorrecto();
 						binder.postCommand("limpiar", null);
@@ -309,10 +303,9 @@ public void eliminarReglamento(@ContextParam(ContextType.BINDER) final Binder bi
 
 /**cargarDocumento
  * @param nombreDoc,UploadEvent event Zkoss UI.
- * @return No devuelve ningun valor
- * @throws La excepcion es que media sea null
+ * @return  Muestra Documento Seleccionado
+ * @throws La excepcion es que media sea distinto de null
  */
-
 @Command
 @NotifyChange("nombreDoc")
 public void cargarDocumento(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
