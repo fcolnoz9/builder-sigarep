@@ -2,27 +2,6 @@
 	id="winRegistrarUsuario" border="normal" closable="true"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUsuario')">
-
-	<zscript><![CDATA[
-        class MyConst implements Constraint, CustomConstraint {
-            //Constraint//
-            public void validate(Component comp, Object value) {
-                if (value == null || ((Integer)value).intValue() < 100)
-                    throw new WrongValueException(comp, "At least 100 must be specified"+txtCorreo.getInstant());
-            }
-            //CustomConstraint//
-            public void showCustomError(Component comp, WrongValueException ex) {
-                errmsg.setValue(ex != null ? ex.getMessage(): "");
-            }
-        }
-        Constraint ctt = new MyConst();
-    ]]>
-    </zscript>
-<!--     <hlayout> -->
-<!--         Enter a number at least 100: -->
-<!--         <intbox constraint="${ctt}" /> -->
-<!--         <label id="errmsg" /> -->
-<!--     </hlayout> -->
 	
 	<groupbox>
 		<caption label="Datos personales" />
@@ -36,21 +15,21 @@
 			<rows>
 				<row>
 					<label value="Cédula del usuario: " id="lblCedulaUsuario" />
-					<textbox id="txtCedulaUsuario"   mold="rounded"
+					<textbox id="txtCedulaUsuario"   mold="rounded" placeholder="Ingrese su cédula" 
 						 width="80%" maxlength="30"
 						 value="@bind(vm.cedulaPersona)" />
 					<label value="Teléfono: " id="lblTelefono" />
-					<textbox id="txttelefono"  mold="rounded"
+					<textbox id="txttelefono"  mold="rounded" placeholder="Ingrese su teléfono"
 						 width="80%" maxlength="30"
 						 value="@bind(vm.telefono)" />
 				</row>
 				<row>
 					<label value="Nombre: " id="lblNombre" />
-					<textbox id="txtNombre"  mold="rounded"
+					<textbox id="txtNombre"  mold="rounded" placeholder="Ingrese su nombre"
 						width="80%" maxlength="30"
 						value="@bind(vm.nombre)" />
 					<label value="Apellido: " id="lblApellido" />
-					<textbox id="txtApellido" mold="rounded"
+					<textbox id="txtApellido" mold="rounded" placeholder="Ingrese su apellido"
 						width="80%" maxlength="30"
 						value="@bind(vm.apellido)" />		
 				</row>
@@ -79,7 +58,7 @@
 							</template>
 						</combobox>
 						<label value="Cargo: (Opcional)" id="lblCargo" />
-						<textbox id="txtCargo"  mold="rounded"
+						<textbox id="txtCargo"  mold="rounded" placeholder="Ingrese un cargo"
 							width="80%" maxlength="30"
 							value="@bind(vm.cargo)" />
 						<button id="btnAgregar" label="Agregar"
@@ -122,7 +101,7 @@
 				<row>
 					<label value="Nombre del usuario: " id="lblNombreUsuario" />
 					<textbox id="txtNombreUsuario"  mold="rounded" width="80%"
-						constraint="/[a-z,0-9]+/: No deje espacios en blanco y solo use letras [A-Z] o números [0-9]"  maxlength="45"
+						placeholder="Ingrese un nombre de usuario"  maxlength="45"
 						value="@bind(vm.nombreUsuario)" />
 					<button label="Cargar Imagen" id="btnImagen" upload="true" image="/imagenes/iconos/cargar.png" 
 						 onUpload="@command('cargarImagenUsuario',upload=event)" >
@@ -133,22 +112,22 @@
 				<row>
 					<label value="Correo electrónico: " id="lblCorreo" />
 					<textbox id="txtCorreo" width="80%"  mold="rounded"
-						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com"  maxlength="30"
+						placeholder="Ingrese su correo electrónico"  maxlength="30"
 						value="@bind(vm.correo)" />
-					<label value="Correo electrónico: " id="lblRepetirCorreo" />
+					<label value="Repetir electrónico: " id="lblRepetirCorreo" />
 					<textbox id="txtRepetirCorreo" width="80%"  mold="rounded"
-						constraint="/.+@.+\.[a-z]+/: Por favor ingrese un correo valido, por ejemplo: abc123@abc.com"  maxlength="30"
+						placeholder="Repita su correo"  maxlength="30"
 						value="@bind(vm.confirmarcorreo)" />
 				</row>
 				<row id="rowContrasenna" visible="true">
 					<label value="Contraseña: " id="lblContraseña" width="auto" />
 					<textbox id="txtContraseña" type="password" width="80%" maxlength="30"  mold="rounded"
-						constraint="/[a-z,0-9]+/: No deje espacios en blanco y solo use letras [A-Z] o números [0-9]"  
+						placeholder="Ingrese su contraseña"  
 						value="@bind(vm.clave)" />
 					
 					<label value="Repetir contraseña: " id="lblRepetirContraseña" />
 					<textbox id="txtRepetirContraseña" type="password" width="80%" maxlength="30"  mold="rounded"
-						constraint="/[a-z,0-9]+/: No deje espacios en blanco y solo use letras [A-Z] o números [0-9]" 
+						placeholder="Repita su contreseña" 
 						value="@bind(vm.confirmarcontrasenia)" />
 				</row>
 				
