@@ -14,7 +14,6 @@ import org.zkoss.zul.Filedownload;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDescargarArchivo {
 	
@@ -22,6 +21,18 @@ public class VMDescargarArchivo {
 	
 	@WireVariable
 	private ServicioReglamento servicioreglamento;
+	
+	
+//COMIENZO DE LOS MÉTODOS GET Y SET
+
+	public List<Reglamento> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<Reglamento> lista) {
+		this.lista = lista;
+	}
+// FIN DE LOS MÉTODOS GET Y SET
 	
 	@Init
 	public void init(@ExecutionArgParam("categoria") String categoria){
@@ -31,26 +42,25 @@ public class VMDescargarArchivo {
 		else
 			buscarFormato();
     }
-	
-	
-		
-	public List<Reglamento> getLista() {
-		return lista;
-	}
 
-	public void setLista(List<Reglamento> lista) {
-		this.lista = lista;
-	}
-
-
+	/**
+	 * buscarReglamento.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({ "lista" })
 	 public void buscarReglamentos() {
-		lista = servicioreglamento.buscarReglamentoPortal();
-		
+		lista = servicioreglamento.buscarReglamentoPortal();		
 	 }
 
-		
+	/**
+	 * descargarArchivo.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	public void descargarArchivo(@ContextParam(ContextType.COMPONENT) Component componente){
 		int idDocumento = Integer.parseInt(componente.getAttribute("idReglamento").toString());
@@ -62,10 +72,15 @@ public class VMDescargarArchivo {
 		}
 	}
 	
-	
+	/**
+	 * buscarFormato.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
-	 @NotifyChange({ "lista" })
-	 public void buscarFormato() {
+	@NotifyChange({ "lista" })
+	public void buscarFormato() {
 		lista = servicioreglamento.buscarFormatoPortal();
 	 }
 	
