@@ -6,11 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
@@ -31,14 +27,13 @@ public class VMPortalPrincipal {
 	@WireVariable
 	private ServicioReglamento servicioreglamento;
 	@WireVariable
-	private ServicioEstudianteSancionado servicioestudiantesan;
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioCronograma serviciocronograma;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
-
 	private String cedula;
 	private String nombreActividad;
 	private String descripcionActividad;
@@ -50,7 +45,8 @@ public class VMPortalPrincipal {
 	private Cronograma cronograma;
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	Window win=null;
+	Window win = null;
+
 	public String getCedula() {
 		return cedula;
 	}
@@ -140,36 +136,23 @@ public class VMPortalPrincipal {
 		if (cedula == "" || cedula == null) {
 			mensajeAlUsuario.advertenciaIngresarCedula();
 		} else {
-			if (serviciosolicitudapelacion
-					.buscarEstudianteSancionadoxSolicitud(cedula) == null) {
+			if (servicioestudiantesancionado
+					.buscarEstudianteSancionadoLapsoActual(cedula) == null) {
 				mensajeAlUsuario.advertenciaNoExisteEstudianteSancionado();
 			} else {
+				if (serviciosolicitudapelacion
+						.buscarSolicitudEstudiante(cedula).isEmpty()) {
+					mensajeAlUsuario
+							.informacionEstudianteSinSolicitudApelacion();
+				}
 				final HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("cedula", this.cedula);
-				System.out.println(cedula);
 				Executions
 						.createComponents(
 								"WEB-INF/sigarep/vistas/portal/externo/modales/HistorialEstudiante.zul",
 								null, map);
 			}
 		}
-	}
-
-	/**
-	 * buscarCronogramaLapsoActivo.
-	 * 
-	 * @param listaCronograma
-	 *            , codigoLapso.
-	 * @return La listaCronograma cargada con los cronogramas en el lapso
-	 *         activo.
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	@Command
-	@NotifyChange({ "listaCronograma" })
-	public void buscarCronogramaLapsoActivo(String codigoLapso) {
-		listaCronograma = serviciocronograma
-				.buscarTodosCronogramas(codigoLapso);
 	}
 
 	/**
@@ -182,12 +165,15 @@ public class VMPortalPrincipal {
 	 */
 	@Command
 	public void modalPreguntasFrecuentes() {
-		 if(win!=null){
-			win.detach(); 
-		 }
-		 win= (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/Preguntas_Frecuentes.zul",null, null);
-		 win.setMaximizable(true);
-		 win.doModal();
+		if (win != null) {
+			win.detach();
+		}
+		win = (Window) Executions
+				.createComponents(
+						"WEB-INF/sigarep/vistas/portal/externo/modales/Preguntas_Frecuentes.zul",
+						null, null);
+		win.setMaximizable(true);
+		win.doModal();
 	}
 
 	@Command
@@ -201,5 +187,4 @@ public class VMPortalPrincipal {
 			mensajeAlUsuario.advertenciaCargarDocumento();
 		}
 	}
-
 }

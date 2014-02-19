@@ -215,4 +215,14 @@ public class ServicioEstudianteSancionado {
         }
 		return result;
 	}
+	
+	
+	/** EstudianteSancionado en el Lapso Actual
+	 * @return EstudianteSancionado en el Lapso Actual
+	 * @parameters cedula
+	 * @throws No dispara ninguna excepcion.
+	   */
+	public EstudianteSancionado buscarEstudianteSancionadoLapsoActual(String cedula) {
+			return iEstudianteSancionadoDAO.buscarSancionadoLapsoActual(cedula);
+	}
 }
