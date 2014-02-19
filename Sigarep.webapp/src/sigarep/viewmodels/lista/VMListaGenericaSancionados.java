@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
@@ -209,6 +210,7 @@ public class VMListaGenericaSancionados {
 	
 	//Metodo donde se decide cuales sancionados se deben buscar segun la transaccion
 	@Command
+	@GlobalCommand
 	@NotifyChange({"lista","listaEstudiantes"})
 	public void buscarSancionados(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
