@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
-	<property name="ireport.x" value="26"/>
-	<property name="ireport.y" value="53"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="221"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -137,7 +137,7 @@
 	<pageHeader>
 		<band height="188" splitType="Stretch">
 			<staticText>
-				<reportElement x="359" y="91" width="59" height="24" uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9"/>
+				<reportElement x="352" y="89" width="59" height="24" uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -166,21 +166,21 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="100" y="90" width="94" height="24" uuid="ec363724-09d5-4efb-947e-41d6f8d42610"/>
+				<reportElement x="99" y="89" width="94" height="24" uuid="ec363724-09d5-4efb-947e-41d6f8d42610"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROGRAMA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="418" y="91" width="57" height="24" uuid="ace45e21-827f-4270-b413-143832ea4bd0"/>
+				<reportElement x="411" y="89" width="57" height="24" uuid="ace45e21-827f-4270-b413-143832ea4bd0"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Lapso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="90" width="226" height="24" uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435"/>
+				<reportElement x="185" y="89" width="226" height="24" uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -199,7 +199,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
-								<text><![CDATA[MOTIVO]]></text>
+								<text><![CDATA[TIPO DE SEXO ]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
@@ -210,14 +210,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="112" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
+					<jr:column width="179" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="112" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099"/>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
-								<text><![CDATA[APELACIONES]]></text>
+								<text><![CDATA[CANTIDAD DE APELACIONES]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
@@ -228,14 +228,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="130" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
+					<jr:column width="224" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="130" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992"/>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="224" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
-								<text><![CDATA[PROCEDENTES]]></text>
+								<text><![CDATA[CANTIDAD DE PROCEDENTES]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
