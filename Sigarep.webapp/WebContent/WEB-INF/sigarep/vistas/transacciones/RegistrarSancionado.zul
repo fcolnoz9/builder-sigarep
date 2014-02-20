@@ -65,7 +65,7 @@
 					<label id="lblTelefono" value="Teléfono:" />
 					<textbox id="txtTelefono" mold="rounded" width="80%"
 						cols="23" maxlength="11" tabindex="1" value="@bind(vm.telefono)"
-						 placeholder = "Ej: 0251-2320457"  />
+						 placeholder = "Ej: 02512320457"  />
 					<label id="lblEmail" value="Email:" />
 					<textbox id="txtEmail" 
 					placeholder = "Ej: alguien@ejemplo.com" 
