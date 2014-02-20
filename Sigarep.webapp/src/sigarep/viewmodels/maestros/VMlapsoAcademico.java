@@ -185,12 +185,11 @@ public class VMlapsoAcademico {
 	}
 
 	/**
-	 * Buscar un lapso academico activo
-	 * @return el lapso academico buscado de la lista
-	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso academico
-	 * @throws No dispara ninguna excepcion.
+	 * 
+	 * @return
+	 * @parameters 
+	 * @throws
 	 */
-	
 	//JESUS PALENCIA:
 	//EL RESPONSABLE POR FAVOR REVISAR PARA QUE USA LOS SIGUIENTES METODOS
 	//DEPENDIENDO PARA QUE LOS USA MODIFICAR CON LOS METODOS EXISTENTES EN EL SERVICIO
