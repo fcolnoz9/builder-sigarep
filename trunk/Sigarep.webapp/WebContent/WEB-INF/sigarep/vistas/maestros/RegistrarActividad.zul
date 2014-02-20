@@ -20,12 +20,7 @@
 						readonly="true" mold="rounded" width="80%"
 						value="@bind(vm.instanciaApelada.instanciaApelada)"
 						 model="@load(vm.listaInstanciaApelada)"
-
-					<combobox readonly="true" id="cmbInstanciaApelada" placeholder="Seleccione responsable..."
-						value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
-						mold="rounded" model="@load(vm.listaInstanciaApelada)"
-
-						selectedItem="@bind(vm.instanciaApelada)"
+						 selectedItem="@bind(vm.instanciaApelada)"
 						onSelect="@command('comboResponsable')">
 						<template name="model">
 							<comboitem label="${each.instanciaApelada}" />
@@ -35,13 +30,11 @@
 				<row>
 					<label value="Nombre: " id="lblNombreActividad" />
 					<textbox id="txtNombreActividad" 
-					placeholder= "Ingrese el nombre de la actividad"
-					cols="23"  mold="rounded" width="80%" maxlength="60"
-					<textbox id="txtNombreActividad" cols="23" placeholder="Ingrese el nombre de la actividad."
-						mold="rounded" width="80%" maxlength="60"
+					 placeholder="Ingrese el nombre de la actividad."
+						mold="rounded" cols="23" width="80%" maxlength="60"
 						value="@bind(vm.nombre)" />
 					<label value="Descripción: " id="lblDescripcion" />
-					<textbox id="txtDescripcionActividad" maxlength="255" placeholder="Ingrese la descripción de la actividad."
+					<textbox id="txtDescripcionActividad"
 					placeholder= "Ingrese la descripción de la actividad"
 					mold="rounded" width="77%" rows="3" maxlength="255"
 					 value="@bind(vm.descripcion)" />
