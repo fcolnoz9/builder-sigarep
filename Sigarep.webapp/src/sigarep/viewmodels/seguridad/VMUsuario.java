@@ -24,6 +24,7 @@ import org.zkoss.zul.Messagebox;
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.Persona;
 
@@ -86,6 +87,7 @@ public class VMUsuario {
 	private Archivo fotoUsuario = new Archivo();
 	private Media mediaUsuario;
 	private AImage imagenUsuario;
+	String ruta = UtilidadesSigarep.obtenerDirectorio();
 	
 	
 	private ListModelList<Grupo> modeloGrupo;
@@ -393,10 +395,16 @@ public class VMUsuario {
 	public void setNombreUsuariofiltro(String nombreUsuariofiltro) {
 		this.nombreUsuariofiltro = nombreUsuariofiltro;
 	}
-
+	
+	
+	/**Guardar usuario
+	 * @parameters Todos los asociados al registro de usuario.
+	 * @return Registrar en el sistema un usuario .
+	 * @throws Dispara excepción imagenUsuario es nula, servicioInstanciaMiembro, serviciousuario y al enviar correo .
+	 */
 	@Command
-	@NotifyChange({ "nombreUsuario","nombreCompleto", "clave","confirmarcontrasenia", "correo","confirmarcorreo",
-			"listaUsuario","cedulaPersona","nombre","apellido","telefono","listaPersona", "imagenUsuario","listaInstanciaMiembro."})
+	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre",
+		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo", "imagenUsuario"})
 	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario) {
 		boolean existeUsuario = false;
 		Usuario usuario = new Usuario();
@@ -428,6 +436,19 @@ public class VMUsuario {
 			nombreCompleto = nombre + " " + apellido;
 			usuario.setNombreCompleto(nombreCompleto);
 			usuario.setEstatus(true);
+			
+			if(imagenUsuario == null){
+				try {
+					imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				fotoUsuario.setNombreArchivo(imagenUsuario.getName());
+				fotoUsuario.setTipo(imagenUsuario.getContentType());
+				fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
+			}
+			
 			usuario.setFoto(fotoUsuario);
 			for(Listitem miGrupo :gruposDelUsuario){
 				Grupo grupo = new Grupo();
@@ -503,73 +524,96 @@ public class VMUsuario {
 					usuarioGrupo.setEstatus(true);
 					usuario.addUsuarioGrupo(usuarioGrupo);
 					serviciousuario.guardarUsuario(usuario); //Agregandole el grupo que tiene la función cambiar contraseña al usuario nuevo
-					EnviarCorreo enviar = new EnviarCorreo();
-					enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
-					mensajes.informacionHemosEnviadoCorreo();
+					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
 	
 			}
+			try {
+				EnviarCorreo enviar = new EnviarCorreo();
+				enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
+				mensajes.informacionHemosEnviadoCorreo();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
+			instanciaMiembroPK = null;
+			instanciaMiembro= null;
+			tituloinstancia = "";
+			cargo = "";
 			limpiar();
 		}
 	}
 	
+	/**Agregar Instancia
+	 * @parameters instanciaMiembro.
+	 * @return Llena la lista listaInstanciaMiembro .
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro" })
 	public void agregarInstancia() {
-		System.out.println("algoxxx");
 		
-		Integer cont =listaInstanciaMiembro.size();
-		System.out.println(cont);
 		InstanciaMiembro instanciaM = new InstanciaMiembro();
 		InstanciaMiembroPK instanciaMPK = new InstanciaMiembroPK();
 		if (tituloinstancia.equals("")) {
+			//falta el msj
 			System.out.println("Debe seleccionar una instancia");	
 		}
 		else
-		{	System.out.println("preantes");
+		{	
 			if(cargo.equals(""))cargo="No asignado";
-		
 			instanciaMPK.setCedulaPersona("0000");
 			instanciaMPK.setIdInstanciaApelada(getInstanciaseleccionada().getIdInstanciaApelada());
 			instanciaM.setId(instanciaMPK);
 			instanciaM.setCargo(cargo);
 			instanciaM.setEstatus(true);
 			instanciaM.setFechaEntrada(new Date());
-			instanciaM.setInstanciaApelada(getInstanciaseleccionada());System.out.println("preantes7"+instanciaseleccionada.getInstanciaApelada());
+			instanciaM.setInstanciaApelada(getInstanciaseleccionada());
 			
-			System.out.println("antes"+cont.toString());
+			
 			boolean llego = false;
 			
 			for(int j = 0;listaInstanciaMiembro.size()>j && !llego ;j++){
-				System.out.println("for");
+				
 				if( (!listaInstanciaMiembro.get(j).getCargo().equals(instanciaM.getCargo())) && (listaInstanciaMiembro.get(j).getId().getIdInstanciaApelada() == instanciaM.getId().getIdInstanciaApelada()) ){
 					listaInstanciaMiembro.remove(j);
 					listaInstanciaMiembro.add(instanciaM); 
-					System.out.println("if");
+					
 					llego = true;
 					break;
 				}else if( listaInstanciaMiembro.get(j).getCargo().equals(instanciaM.getCargo()) && (listaInstanciaMiembro.get(j).getId().getIdInstanciaApelada() == instanciaM.getId().getIdInstanciaApelada()) ){ break;}
 				if(listaInstanciaMiembro.size()-1==j  ){
 					listaInstanciaMiembro.add(instanciaM);
-					llego = true;
-					System.out.println("else");
+					
 				}
 			}
 			if(listaInstanciaMiembro.size()==0)listaInstanciaMiembro.add(instanciaM);
 				
-			System.out.println("despues "+listaInstanciaMiembro.size());
+		
 		}
 	}
+	
+	/**Mostrar instancia seleccionada
+	 * @parameters instanciaMiembro.
+	 * @return Llena los campos cargo y tituloinstancia .
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro","cargo"})
 	public void mostrarInstancia() {
 		
 		cargo = instanciaMiembro.getCargo();
 		tituloinstancia = instanciaMiembro.getInstanciaApelada().getInstanciaApelada();
+		instanciaseleccionada = instanciaMiembro.getInstanciaApelada();
 	}
 	
+	/**Inicializar 
+	 * @parameters No posee parametros.
+	 * @return Llena las listas requeridas para el registro de usuario.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Init
 	public void init() {
 		// initialization code
@@ -577,8 +621,12 @@ public class VMUsuario {
 		buscarListadoUsuario();
 		buscarListadoGrupos();
 	}
-
-	// Metodo que busca una noticia partiendo por su titulo
+//REVISAR
+	/**Busca los usuarios  
+	 * @parameters No posee parametros.
+	 * @return Llena la lista de listadoGruposActivos.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "listaUsuario","listaPersona","listaInstancia" })
 	public void buscarUsuario() {
@@ -587,23 +635,31 @@ public class VMUsuario {
 		listaInstancia = servicioInstanciaApelada.buscarTodas();
 	}
 	
+	/**Busca grupos 
+	 * @parameters No posee parametros.
+	 * @return Llena la lista de listadoGruposActivos.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@NotifyChange({ "listaGrupoNoPertenece" })
 	public void buscarListadoGrupos() {
 		List<Grupo> listadoGruposActivos = serviciogrupo.listadoGrupo();
 		listaGrupoNoPertenece = listadoGruposActivos;
 	}
 
-	// Metodo que limpia todos los campos de la pantalla
+	/**Limpiar los campos
+	 * @parameters confirmarcontrasenia,nuevaContrasenia.
+	 * @return Metodo que limpia todos los campos asociados al registro de usuario.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
-	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre","apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo"})
+	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre",
+		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo","listaGrupoPertenece"})
 	public void limpiar() {
-		System.out.println("limpiar");
+		
 		nombreUsuario = "";
 		clave = "";
 		confirmarcontrasenia = "";
 		correo = "";
-		
-		
 		cedulaPersona = "";
 		nombre = "";
 		apellido = "";
@@ -618,11 +674,17 @@ public class VMUsuario {
 		tituloinstancia = "";
 		cargo = "";
 		instanciaseleccionada= null;
+		listaGrupoPertenece.clear();
 		buscarUsuario();
 //		listaGrupoPertenece.clear();
 		buscarListadoGrupos();
 	}
 	
+	/**Cancelar cambiar contraseña
+	 * @parameters confirmarcontrasenia,nuevaContrasenia.
+	 * @return Limpia los campos.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","listaUsuario"})
 	public void cancelarCambiarContrasenia() {
@@ -630,7 +692,11 @@ public class VMUsuario {
 		nuevaContrasenia = "";
 	}	
 
-	// Metodo que elimina una actividad tomando en cuenta el idActividad
+	/**Eliminar usuario seleccionado
+	 * @parameters personaSeleccionado.
+	 * @return Elimina un usuario seleccionado.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void eliminarUsuario() {
@@ -640,8 +706,11 @@ public class VMUsuario {
 		limpiar();
 	}
 	
-	
-	// permite tomar los datos del objeto usaurioseleccionado
+	/**Mostrar usuario seleccionado
+	 * @parameters personaSeleccionado.
+	 * @return Llena los campos asociados al registro de usaurio.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "nombreUsuario","clave","confirmarcontrasenia","confirmarcorreo","correo","cedulaPersona","apellido","nombre","telefono","listaGrupoPertenece", "listaGrupoNoPertenece", "personaSeleccionado","fotoUsuario","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo"})
 	public void mostrarSeleccionado() {	
@@ -649,7 +718,7 @@ public class VMUsuario {
 		listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
 		instanciaMiembroPK = null;
 		instanciaMiembro= null;
-		System.out.println("seleccionado");
+		
 		nombreUsuario = getPersonaSeleccionado().getNombreUsuario().getNombreUsuario();
 		clave = getPersonaSeleccionado().getNombreUsuario().getClave();
 		confirmarcontrasenia = getPersonaSeleccionado().getNombreUsuario().getClave();
@@ -678,6 +747,11 @@ public class VMUsuario {
 		listaGrupoNoPertenece = serviciogrupo.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 	}
 	
+	/**Quitar grupo a un usuario
+	 * @parameters listaGrupoPertenece,listaGrupoNoPertenece.
+	 * @return Actualiza la lista de los grupos a los que pertenece un usuario y la lista de los grupos a los que no pertenece un usuario.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({"listaGrupoNoPertenece","listaGrupoPertenece"})
 	public void quitarGrupo(@BindingParam("itemGrupoPertenece") Listitem itemGrupoPertenece) {
@@ -686,6 +760,11 @@ public class VMUsuario {
 		listaGrupoPertenece.remove(itemGrupoPertenece.getIndex());
 	}
 	
+	/**Agregar grupo a un usuario
+	 * @parameters listaGrupoPertenece,listaGrupoNoPertenece.
+	 * @return Actualiza la lista de los grupos a los que pertenece un usuario y la lista de los grupos a los que no pertenece un usuario.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({"listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void agregarGrupo(@BindingParam("itemGrupoNoPertenece") Listitem itemGrupoNoPertenece) {
@@ -694,7 +773,11 @@ public class VMUsuario {
 		listaGrupoNoPertenece.remove(itemGrupoNoPertenece.getIndex());		
 	}
 	
-	
+	/**Cambiar contraseña
+	 * @parameters confirmarcontrasenia,nuevaContrasenia.
+	 * @return Actualiza contraseña de usuario.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({"confirmarcontrasenia", "nuevaContrasenia" })
 	public void cambiarContrasenia() {
@@ -708,6 +791,11 @@ public class VMUsuario {
 	    }
 	}
 	
+	/**Recuperar contraseña
+	 * @parameters correoLogin.
+	 * @return Envia contraseña a correo de usuario.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "correoLogin" })
 	public void recuperarContrasenna() {
@@ -735,7 +823,11 @@ public class VMUsuario {
 		}
 	}
 	
-	// Método que busca y filtra los usuarios
+	/** Filtro de lista de usuarios
+	 * @parameters cedulaPersonafiltro, nombreCompletofiltro, nombreUsuariofiltro.
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({"listaPersona"})
 	public void filtros(){
@@ -744,21 +836,26 @@ public class VMUsuario {
 	
 	
 	
-	/** cargarImagenNoticia
+	/** cargarImagenUsuario
 	 * @parameters imagenUsuario, UploadEvent event Zkoss UI.
 	 * @return No devuelve ningun valor.
-	 * @throws la Excepcion es que la media usuario sea null
+	 * @throws la Excepcion es que la mediaUsuario sea null
 	 */
 	@Command
 	@NotifyChange("imagenUsuario")
 	public void cargarImagenUsuario(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
 		mediaUsuario = event.getMedia();
 		if (mediaUsuario != null) {
+			
 			if (mediaUsuario instanceof org.zkoss.image.Image) {
 				fotoUsuario.setNombreArchivo(mediaUsuario.getName());
 				fotoUsuario.setTipo(mediaUsuario.getContentType());
 				fotoUsuario.setContenidoArchivo(mediaUsuario.getByteData());
-				imagenUsuario = (AImage) mediaUsuario;
+				if(fotoUsuario.getTamano()>500000){
+					Messagebox.show("Por favor, seleccione una imagen con tamaño menor a "+500+" Kbytes.");
+					fotoUsuario = new Archivo();
+					}else{imagenUsuario = (AImage) mediaUsuario;}
+				
 			} else {
 				Messagebox.show("El archivo: "+mediaUsuario+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
 			}

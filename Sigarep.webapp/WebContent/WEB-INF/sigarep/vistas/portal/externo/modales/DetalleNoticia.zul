@@ -2,7 +2,7 @@
 	hflex="1" height="85%" border="normal" minimizable="false" mode="modal"
 	maximizable="false" closable="true" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMWindow')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMDetalleNoticia')">
 	<groupbox height="100%" width="100%" > 
 		<borderlayout>
 			<north size="80px" border="none">
@@ -13,7 +13,7 @@
 			<west size="40%" border="none">
 				<hbox pack="center" vflex="1" hflex="1">
 					<image height="100%" width="100%"
-						content="@bind(vm.fotoNoticia.getAImage())" />
+						content="@bind(vm.imagen)" />
 				</hbox>
 			</west>
 			<center border="none">
