@@ -16,8 +16,8 @@ public interface IBannerDAO extends JpaRepository<Banner, Integer> {
 	public List<Banner> findByEstatusTrue();
 	
 	/**
-	 * Busca el ultimo id insertado en la tabla Actividad
-	 * @return Ultimo id insertado en la tabla Actividad
+	 * Busca el ultimo id insertado en la tabla Banner
+	 * @return Ultimo id insertado en la tabla Banner
 	 */
 	@Query("SELECT COALESCE(MAX(b.idImagen),0) FROM Banner AS b")
 	public int buscarUltimoID();
