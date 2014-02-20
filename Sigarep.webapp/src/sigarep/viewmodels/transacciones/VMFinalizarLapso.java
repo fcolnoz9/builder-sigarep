@@ -32,10 +32,10 @@ public class VMFinalizarLapso {
 	
 	@Init
     public void init(){
-		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
+		if (serviciolapsoacademico.buscarLapsoActivo() == null)
 			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 		else
-			lapsoAcademico = serviciolapsoacademico.encontrarLapsoActivo();
+			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
 		
     }
 	
