@@ -18,7 +18,6 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.reportes.ListaApelacionesMotivoPorAsignatura;
-import sigarep.modelos.data.reportes.ListaAsignaturasMayorCantidadSancionados;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
