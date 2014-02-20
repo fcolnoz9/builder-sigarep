@@ -13,13 +13,13 @@ public interface IEstudianteSancionadoDAO extends
 	@Query("Select esa FROM EstudianteSancionado AS esa where estatus = TRUE")
 	public List<EstudianteSancionado> buscarSancionadosActivos();
 
-	@Query("SELECT esa FROM EstudianteSancionado AS esa, LapsoAcademico AS la "
+	@Query("SELECT esa FROM EstudianteSancionado AS esa, LapsoAcademico AS la  "
 			+ "WHERE la.estatus = 'TRUE' "
 			+ "AND la.codigoLapso = esa.id.codigoLapso "
 			+ "AND esa.id.cedulaEstudiante NOT IN "
 			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
 			+ "WHERE la.codigoLapso = sa.id.codigoLapso "
-			+ "AND la.estatus = 'TRUE')")
+			+ "AND la.estatus = 'TRUE' and sa.id.idInstanciaApelada = '1') " )
 	public List<EstudianteSancionado> buscarSancionados();
 
 	// Maria
