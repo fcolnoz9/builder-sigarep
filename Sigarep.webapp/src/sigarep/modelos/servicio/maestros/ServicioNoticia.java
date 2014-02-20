@@ -44,18 +44,8 @@ public class ServicioNoticia {
 	 * @throws No dispara ninguna excepcion
 	 */
 	public List<Noticia> listadoNoticia() {
-		List<Noticia> noticiaLista = iNoticia.busar();
+		List<Noticia> noticiaLista = iNoticia.findByEstatusTrue();
 		return noticiaLista;
-	}
-
-	/** buscarn
-	 * @parameters idNoticia
-	 * @return r es una lista de Noticia.
-	 */
-	public  List<Noticia> buscarn(Integer idNoticia) {
-		List<Noticia> r = new LinkedList<Noticia>();
-		r = iNoticia.findAll();
-		return r;
 	}
 
 	/** Buscar una Noticia por nombre
@@ -63,7 +53,7 @@ public class ServicioNoticia {
 	 * @return resultado que es un listadoNoticia.
 	 * @throws la Excepcion es que el nombre este en blanco.
 	 */
-	public List<Noticia> buscarNoticia(String nombre) {
+	public List<Noticia> buscarNoticiaPorNombre(String nombre) {
 		List<Noticia> resultado = new LinkedList<Noticia>();
 		if (nombre == null || "".equals(nombre)) {
 			// si el codigo es null o vacio,el resultado va a ser la lista completa de
@@ -85,7 +75,7 @@ public class ServicioNoticia {
 	 * @return result que es un listadoNoticia.
 	 * @throws las Excepciones son que el titulo sea null
 	 */
-	public List<Noticia> filtrarApelacionesCargarRecaudo(String titulof){
+	public List<Noticia> filtrarNoticias(String titulof){
 		List<Noticia> result = new ArrayList<Noticia>();
 		if(titulof==null){
 			result= listadoNoticia();

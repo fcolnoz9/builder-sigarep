@@ -133,9 +133,7 @@ public class VMWindow {
 	@Command
 	@NotifyChange({"listaNoticia1"})
 	public void buscarNoticia2(){
-		System.out.println("buscarnotcia");
-		listaNoticia1 =servicionoticia.buscarn(null);
-		
+		listaNoticia1 =servicionoticia.listadoNoticia();
 	}
     
    
