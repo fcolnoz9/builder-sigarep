@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpAsignaturasSancionadosVsApelaciones" language="groovy" printOrder="Horizontal" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="e4c809ca-4229-479e-9900-3377b8e4e298">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="268"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -79,51 +79,51 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="361" splitType="Stretch">
+		<band height="386" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="147" y="169" width="62" height="20" backcolor="#FFFFFF" uuid="174c9a2f-cefd-4f31-b6b1-56709a379fe7"/>
+				<reportElement mode="Transparent" x="74" y="193" width="80" height="20" backcolor="#FFFFFF" uuid="174c9a2f-cefd-4f31-b6b1-56709a379fe7"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Programa:]]></text>
+				<text><![CDATA[PROGRAMA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="435" y="169" width="85" height="20" backcolor="#FFFFFF" uuid="004d668f-6bd4-40b5-a02b-023a46c27355"/>
+				<reportElement mode="Transparent" x="441" y="193" width="85" height="20" backcolor="#FFFFFF" uuid="004d668f-6bd4-40b5-a02b-023a46c27355"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Instancia:]]></text>
+				<text><![CDATA[INSTANCIA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="497" y="169" width="149" height="20" uuid="8572c6fd-fd24-430c-bd22-a666dfd5aa0b"/>
+				<reportElement x="514" y="193" width="171" height="20" uuid="8572c6fd-fd24-430c-bd22-a666dfd5aa0b"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="false" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{instanciaApelada}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="214" y="169" width="149" height="20" uuid="83f6380d-568b-4c96-aeae-6757613f254a"/>
+				<reportElement x="156" y="193" width="225" height="20" uuid="83f6380d-568b-4c96-aeae-6757613f254a"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="false" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombrePrograma}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="331" y="137" width="50" height="20" uuid="5daa6187-9529-4911-ac6a-45aeee55b7a5"/>
+				<reportElement x="334" y="158" width="50" height="20" uuid="5daa6187-9529-4911-ac6a-45aeee55b7a5"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Lapso -]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="381" y="137" width="48" height="20" uuid="0deecc5e-0846-4c7b-9798-d1537f893be0"/>
+				<reportElement x="384" y="158" width="48" height="20" uuid="0deecc5e-0846-4c7b-9798-d1537f893be0"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{lapso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="table" mode="Transparent" x="218" y="189" width="149" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1d1a1178-5916-4e6d-8bb1-e4fc398be6f1"/>
+				<reportElement style="table" mode="Transparent" x="162" y="213" width="162" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1d1a1178-5916-4e6d-8bb1-e4fc398be6f1"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -132,19 +132,19 @@
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="false" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{asignatura}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="147" y="189" width="73" height="20" backcolor="#FFFFFF" uuid="ef65745c-26a8-4a90-a59b-ef959747840f"/>
+				<reportElement mode="Transparent" x="74" y="213" width="86" height="20" backcolor="#FFFFFF" uuid="ef65745c-26a8-4a90-a59b-ef959747840f"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Asignatura:]]></text>
+				<text><![CDATA[ASIGNATURA:]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="172" y="233" width="369" height="128" uuid="e6988a01-0344-4b3b-8216-bccb9a6ba190"/>
+				<reportElement key="table 1" style="table 1" x="177" y="258" width="369" height="128" uuid="e6988a01-0344-4b3b-8216-bccb9a6ba190"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="TablaApelaciones" uuid="2687d6d5-ea2c-45f2-bdf2-7025510d83ad">
 						<dataSourceExpression><![CDATA[$P{ListaAsignaturaMotivos}]]></dataSourceExpression>
@@ -154,7 +154,7 @@
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="223" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="6fc75196-69f9-4131-bc65-472c9a4c15cb"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[Motivos]]></text>
 							</staticText>
@@ -163,15 +163,17 @@
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="223" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="8ec4f735-6f36-4e76-8b1a-b9e8d09cb476"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[Totales]]></text>
 							</staticText>
 						</jr:columnFooter>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
-							<textField>
+							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="223" height="20" uuid="3db5289d-5f3d-4635-a1f3-dedea7d1278f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -181,22 +183,26 @@
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="16cc87c7-f888-49a7-a51d-5bf64bf2573e"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[Apelaciones]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 1_CH" height="20" rowSpan="1">
-							<textField>
+							<textField isStretchWithOverflow="true">
 								<reportElement mode="Opaque" x="0" y="0" width="90" height="20" backcolor="#CCCCCC" uuid="fc8672c1-9052-4d0a-ab0f-e1007e0083a7"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalApelaciones}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
-							<textField>
+							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="90" height="20" uuid="fed43de5-57d5-4a2a-a2de-8b442d107a1a"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{apelaciones}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -206,22 +212,26 @@
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="870bd233-ce6d-4171-a956-e07c37142766"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[Procedentes]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 1_CH" height="20" rowSpan="1">
-							<textField>
+							<textField isStretchWithOverflow="true">
 								<reportElement mode="Opaque" x="0" y="0" width="90" height="20" backcolor="#CCCCCC" uuid="0beb028f-1a62-4f6d-b9a2-1f8f4e8bb075"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$V{TotalProcedentes}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
-							<textField>
+							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="90" height="20" uuid="e8cf5f54-b63f-43d4-babb-595ffedd4868"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{procedentes}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -237,9 +247,9 @@
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="177" y="58" width="402" height="36" uuid="2e70c249-3b80-40b9-8640-06cc0fcd1cb1"/>
+				<reportElement x="177" y="58" width="402" height="46" uuid="2e70c249-3b80-40b9-8640-06cc0fcd1cb1"/>
 				<textElement textAlignment="Center">
-					<font size="9"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
@@ -250,14 +260,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="106" y="104" width="546" height="17" uuid="60631f44-28c8-405e-a513-b4ece7c9fa92"/>
+				<reportElement x="106" y="110" width="546" height="35" uuid="60631f44-28c8-405e-a513-b4ece7c9fa92"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Apelaciones por Motivo y sus Resultados Procedentes por Asignatura]]></text>
+				<text><![CDATA[APELACIONES POR MOTIVO Y SUS RESULTADOS PROCEDENTES POR ASIGNATURA]]></text>
 			</staticText>
 			<line>
-				<reportElement x="-21" y="124" width="793" height="1" uuid="3859d781-885e-4bc2-90f0-6430534c6f2e"/>
+				<reportElement x="-21" y="146" width="793" height="1" uuid="3859d781-885e-4bc2-90f0-6430534c6f2e"/>
 				<graphicElement>
 					<pen lineWidth="3.0" lineColor="#0099CC"/>
 				</graphicElement>
@@ -266,23 +276,41 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	</title>
 	<pageFooter>
 		<band height="54" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="2" y="3" width="100" height="13" uuid="48c7956e-6101-446f-b3b0-4b675978da62"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="102" y="2" width="610" height="14" uuid="ff1bbc9a-5c3a-45a1-98ea-3a80f1b4a422"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="712" y="2" width="40" height="14" uuid="ac268581-ea21-478a-80c2-f20d832f3b48"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 			<image scaleImage="FillFrame">
 				<reportElement x="0" y="19" width="752" height="35" uuid="bd67c706-05be-48fd-9270-514b95db3490"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="152" height="14" uuid="5772240b-e360-4ac5-ad2b-6483b06532f6"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Emisión del Reporte:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="154" y="1" width="100" height="13" uuid="e923f5f2-465a-4c7c-9c2a-c59a273bdc70"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="710" y="0" width="40" height="14" uuid="d571d23d-c071-40cb-8d41-0b349f15dd59"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="0" width="346" height="14" uuid="74752ee9-6b9a-4f10-8cf5-2c4d9e99915d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="13" width="752" height="1" uuid="eab2b8de-640d-4c90-bc6c-460400f665f2"/>
+			</line>
 		</band>
 	</pageFooter>
 	<summary>
@@ -290,9 +318,15 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<bar3DChart>
 				<chart isShowLegend="true" renderType="draw" theme="default">
 					<reportElement style="table" stretchType="RelativeToTallestObject" mode="Transparent" x="36" y="115" width="676" height="204" uuid="fca06e7b-018e-4200-a49a-707ff5e49421"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend position="Bottom"/>
+					<chartTitle>
+						<font fontName="Arial"/>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="Arial"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="Arial"/>
+					</chartLegend>
 				</chart>
 				<categoryDataset>
 					<categorySeries>
@@ -311,22 +345,29 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<bar3DPlot isShowLabels="true">
 					<plot labelRotation="0.0"/>
 					<itemLabel color="#FFFFFF" backgroundColor="#FFFFFF">
-						<font size="8" isBold="true"/>
+						<font fontName="Arial" size="5" isBold="true"/>
 					</itemLabel>
 					<categoryAxisLabelExpression><![CDATA[$P{asignatura}]]></categoryAxisLabelExpression>
 					<categoryAxisFormat labelRotation="0.0">
 						<axisFormat tickLabelMask="0" verticalTickLabels="true">
 							<labelFont>
-								<font size="10"/>
+								<font fontName="Arial" size="10"/>
 							</labelFont>
 							<tickLabelFont>
-								<font size="8"/>
+								<font fontName="Arial" size="8"/>
 							</tickLabelFont>
 						</axisFormat>
 					</categoryAxisFormat>
 					<valueAxisLabelExpression><![CDATA["PORCENTAJES"]]></valueAxisLabelExpression>
 					<valueAxisFormat>
-						<axisFormat/>
+						<axisFormat>
+							<labelFont>
+								<font fontName="Arial"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="Arial"/>
+							</tickLabelFont>
+						</axisFormat>
 					</valueAxisFormat>
 					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
 				</bar3DPlot>
