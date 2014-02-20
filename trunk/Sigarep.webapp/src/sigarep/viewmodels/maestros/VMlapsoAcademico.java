@@ -113,8 +113,8 @@ public class VMlapsoAcademico {
 	@Init
 	public void init() {
 		// initialization code
-		buscarActivoLapso();
-		buscarLapso();
+	buscarTodosLapsoAcademicos();
+	
 	}
 
 	/**
@@ -180,33 +180,25 @@ public class VMlapsoAcademico {
 		codigoLapso = "";
 		fechaInicio = fecha;
 		fechaCierre = fecha;
-		buscarActivoLapso();
+		buscarTodosLapsoAcademicos();
 
 	}
 
 	/**
-	 * 
-	 * @return
+	 * permite mostrar la lista de todos los lapso academicos 
+	 * @return la lista de lapso academicos
 	 * @parameters 
-	 * @throws
+	 * @throws No dispara ninguna excepcion.
 	 */
-	//JESUS PALENCIA:
-	//EL RESPONSABLE POR FAVOR REVISAR PARA QUE USA LOS SIGUIENTES METODOS
-	//DEPENDIENDO PARA QUE LOS USA MODIFICAR CON LOS METODOS EXISTENTES EN EL SERVICIO
-	//Y BORRAR ESTE COMENTARIO.
-	@Command
-	@NotifyChange({ "listaLapsoAcademico" })
-	public List<LapsoAcademico> buscarActivoLapso() {
-		return listaLapsoAcademico = serviciolapsoacademico
-				.buscarLapsoAcademico(codigoLapso);
-	}
 
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
-	public void buscarLapso() {
-		listaLapsoAcademico = serviciolapsoacademico
-				.buscarLapsoAcademico(codigoLapso);
+	public List<LapsoAcademico> buscarTodosLapsoAcademicos() {
+		return listaLapsoAcademico =  serviciolapsoacademico
+				.buscarTodosLosLapsos();
 	}
+
+
 
 	/**
 	 * permite tomar los datos del objeto lapso academico seleccionado
