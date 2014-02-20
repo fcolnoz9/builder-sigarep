@@ -111,7 +111,6 @@ public class VMAnalizarValidezIII {
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<Recaudo> listaRecaudosPorMotivo;
 	private List<RecaudoEntregado> listaRecaudo;
-	
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
 	RecaudoEntregado recaudoEntregado = new RecaudoEntregado();
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
@@ -491,6 +490,7 @@ public class VMAnalizarValidezIII {
 					.getNumeroSesion());
 			solicitudApelacionAux.setVeredicto(solicitudApelacion
 					.getVeredicto());
+			solicitudApelacionAux.setObservacion(observacion);
 			solicitudApelacionAux.setVerificado(true);
 			solicitudApelacionAux.setAnalizado(true);
 			
@@ -540,7 +540,7 @@ public class VMAnalizarValidezIII {
 
 	
 	/**
-	 * Metodo que ;Muestra el Historial de Observaciones
+	 * Metodo que Muestra el Historial de Observaciones
 	 * @parameters cedula, sancioando seleccionado
 	 * @throws No
 	 *             dispara ninguna excepcion.
