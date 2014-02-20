@@ -632,7 +632,7 @@ public class VMUsuario {
 	public void buscarUsuario() {
 		listaUsuario = serviciousuario.buscarUsuario(nombreUsuario);
 		listaPersona = serviciopersona.buscarper(cedulaPersona);
-		listaInstancia = servicioInstanciaApelada.buscarTodas();
+		listaInstancia = servicioInstanciaApelada.listadoInstanciaApelada();
 	}
 	
 	/**Busca grupos 

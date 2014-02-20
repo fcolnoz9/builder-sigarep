@@ -293,7 +293,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	@Command
 	@NotifyChange({ "listaComboInstancia" })
 	public void buscarInstanciaApelada() {
-		setListaComboInstancia(servicioInstanciaApelada.buscarTodas());
+		setListaComboInstancia(servicioInstanciaApelada.listadoInstanciaApelada());
 	}
 	
 	/** Objeto Combo Instancia.

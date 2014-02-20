@@ -12,12 +12,17 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 */
 
 public interface IInstanciaApeladaDAO extends JpaRepository<InstanciaApelada, Integer> {
-	@Query("SELECT insta from InstanciaApelada AS insta WHERE estatus = TRUE")
-	public List<InstanciaApelada> buscarInstanciaActivo();
 	
-	@Query("SELECT insta from InstanciaApelada AS insta")
-	public List<InstanciaApelada> buscarTodas();
+	/**
+	 * Busca las todas las instancias apeladas que poseen estatus true
+	 * @return List<InstanciaApelada> Lista de InstanciaApelada con estatus true
+	 */
+	public List<InstanciaApelada> findByEstatusTrue();
 	
+	/**
+	 * Busca el ultimo id insertado en la tabla InstanciaApelada
+	 * @return Ultimo id insertado en la tabla InstanciaApelada
+	 */
 	@Query("SELECT COALESCE(MAX(ia.idInstanciaApelada),0) FROM InstanciaApelada AS ia")
 	public int buscarUltimoID();
 }
