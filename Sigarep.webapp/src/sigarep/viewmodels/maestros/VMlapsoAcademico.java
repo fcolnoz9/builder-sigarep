@@ -135,6 +135,7 @@ public class VMlapsoAcademico {
 					//SE SELECCIONO UN LAPSO QUE YA FINALIZO
 					//ANDREA: AQUI VA EL MENSAJE: "No se puede modificar un lapso academico que esta finalizado."
 					//ESO ES CON KAROL SI NO EXISTE EN LA CLASE DE MENSAJES
+					limpiarlapso();
 				}
 				else if (serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso) != null){
 					//SE SELECCIONO EL LAPSO ACTIVO Y POR LO TANTO PUEDE MODIFICARLO
@@ -148,16 +149,24 @@ public class VMlapsoAcademico {
 			else{
 				//SE ESTA CREANDO UN LAPSO DESDE CERO
 				if (serviciolapsoacademico.buscarLapsoActivo()!=null){
+					mensajeAlUsuario.ErrorLapsoActivoExistente();
 					//EXISTE UN LAPSO ACTIVO ASI QUE NO PUEDE GUARDAR
 					//AQUI VA UN MENSAJE: "No puede registrar el lapso debido a que existe uno activo"
 				}
 				else{
+					{
 					//SI NO HAY LAPSO ACTIVO DEBES DEJAR QUE GUARDE EL QUE ESTACREANDO
+						LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,
+								fechaInicio, fechaCierre, true);
+						serviciolapsoacademico.guardarLapso(lapsoA);
+						mensajeAlUsuario.informacionRegistroCorrecto(); //ESTE MENSAJE DEBE DECIR QUE SE GUARDO CORRECTAMENTE
+						limpiarlapso();
 				}
-			}
+					
+					}
 		}
 	}
-
+	}
 	/**
 	 * Metodo que valida la fecha de los calendarios que la fecha de inicoo de
 	 * menos q la fecha de cierre

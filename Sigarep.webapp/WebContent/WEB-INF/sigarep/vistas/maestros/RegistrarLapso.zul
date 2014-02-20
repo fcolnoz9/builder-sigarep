@@ -65,7 +65,7 @@
 			<caption label="Lapso Académico Actual" />
 			<listbox id="lbxLapsoAcademico" height="auto"
 				model="@bind(vm1.listaLapsoAcademico)"
-				selectedItem="@bind(vm1.lapsoAcademicoseleccionado)"
+				selectedItem="@bind(vm1.lapsoAcademicoSeleccionado)"
 				onSelect="@command('mostrarSeleccionadoLapso')"
 				emptyMessage="No hay Lapsos  Académicos registrados" mold="paging"
 				pageSize="10">
