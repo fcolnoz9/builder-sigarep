@@ -64,34 +64,7 @@ public class VMListadoEstudiantesVeredicto {
 	private int denegados3;
 	private int denegados4;
 	
-//	@Wire private String tituloinstancia="TODOS"; 
-//	@Wire private String tituloprograma="TODOS";
-//	@Wire private String titulosancion="TODOS";
-	
-	
-//	public String getTitulosancion() {
-//		return titulosancion;
-//	}
-//
-//	public void setTitulosancion(String titulosancion) {
-//		this.titulosancion = titulosancion;
-//	}
-//
-//	public String getTituloprograma() {
-//		return tituloprograma;
-//	}
-//
-//	public void setTituloprograma(String tituloprograma) {
-//		this.tituloprograma = tituloprograma;
-//	}
-//
-//	public String getTituloInstancia() {
-//		return tituloinstancia;
-//	}
-//
-//	public void setTituloInstancia(String tituloinstancia) {
-//		this.tituloinstancia = tituloinstancia;
-//	}
+
 
 	public String getPara() {
 		return para;
@@ -122,7 +95,7 @@ public class VMListadoEstudiantesVeredicto {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 
-	String ruta="/WEB-INF/sigarepReportes/RpInformeDeComisionPorPrograma.jasper";
+	String ruta="/WEB-INF/sigarepReportes/informes/estructurados/RpInformeDeComisionPorPrograma.jasper";
 	
 	
 	@Init
