@@ -51,7 +51,7 @@ public class ServicioBanner {
 	 */
 	
 	public List<Banner> listadoBanner() {
-		return banner.listaBanner();
+		return banner.findByEstatusTrue();
 	}
 	
 	/**Buscar Banner filtrando por titulo y enlace
@@ -84,7 +84,7 @@ public class ServicioBanner {
 	 * @throws No dispara ninguna excepcion.
 	 */
 	public List<Banner> buscarTodosBanner() {
-			return banner.listaBanner();
+			return banner.findByEstatusTrue();
 	}
 	
 }
