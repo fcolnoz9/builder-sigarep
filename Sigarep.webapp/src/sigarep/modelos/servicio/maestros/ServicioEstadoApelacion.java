@@ -38,7 +38,7 @@ public class ServicioEstadoApelacion {
 	 * @throws No dispara ninguna excepcion.
 	   */
 	public List<EstadoApelacion> listadoEstadoApelacionActivas() {
-		List<EstadoApelacion> ListaEstadoApelacion = ea.buscarEstadoApelacionActivas();
+		List<EstadoApelacion> ListaEstadoApelacion = ea.findByEstatusTrue();
 		return ListaEstadoApelacion;
 	}
 	
@@ -48,7 +48,7 @@ public class ServicioEstadoApelacion {
 	 * @throws No dispara ninguna excepcion.
 	   */
 	public EstadoApelacion buscarEstadoNombre(String nombreEstado) {
-		EstadoApelacion estadoapelacion=ea.buscarEstadoPorNombre(nombreEstado);
+		EstadoApelacion estadoapelacion=ea.findByNombreEstado(nombreEstado);
       return estadoapelacion;
 	}
 
