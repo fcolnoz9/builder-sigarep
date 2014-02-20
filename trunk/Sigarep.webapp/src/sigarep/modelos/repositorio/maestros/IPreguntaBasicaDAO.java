@@ -9,10 +9,11 @@ import sigarep.modelos.data.maestros.PreguntaBasica;
 
 public interface IPreguntaBasicaDAO extends
 		JpaRepository<PreguntaBasica, Integer> {
-//	@Query("select  pre from PreguntaBasica pre where pre.estatus = 'true'")
-//	public List<PreguntaBasica> buscarPregunta();
 
-// Metodo que busca las preguntas basicas cuando su estatus es true 
+	/**
+	 * Busca las todas las preguntas básicas que poseen estatus == true
+	 * @return List<PreguntaBasica> Lista de preguntas basicas con estatus == true
+	 */
 	@Query("select pr from PreguntaBasica pr where pr.estatus='true'")
 	public List<PreguntaBasica> buscarPreguntab();
 	
