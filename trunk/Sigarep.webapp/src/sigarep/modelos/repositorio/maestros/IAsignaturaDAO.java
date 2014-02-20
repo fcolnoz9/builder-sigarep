@@ -7,23 +7,47 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.maestros.Asignatura;
-import sigarep.modelos.data.maestros.Estudiante;
-import sigarep.modelos.data.maestros.Recaudo;
-import sigarep.modelos.data.maestros.SancionMaestro;
 
 public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	
-	@Query("Select san FROM Asignatura AS san WHERE estatus = TRUE")
-	public List<Asignatura> buscarAsignaturasActivas();
+	/**
+	 * Busca las todas las asignaturas que poseen estatus == true
+	 * @return List<Asignatura> Lista de asignaturas con estatus == true
+	 */
+	public List<Asignatura> findByEstatusTrue();
 
-	@Query("SELECT a FROM Asignatura AS a WHERE estatus = 'TRUE' " +
-			"AND a.programaAcademico.idPrograma = :idPrograma")
-	public List<Asignatura> buscarAsignaturasPorPrograma(@Param("idPrograma")Integer idPrograma);
+	/**
+	 * Busca asignaturas por programa que poseen estatus == true
+	 * @param idPrograma identificador unico de Asignaturas
+	 * @return List<Asignatura> Lista de asignaturas por programa con estatus == true
+	 */
+	public List<Asignatura> findByProgramaAcademicoAndEstatusTrue(Integer idPrograma);
 	
-	@Query("Select a FROM Asignatura AS a WHERE a.nombreAsignatura = :nombreAsignatura")
-	public Asignatura buscarAsignaturaPorNombre(@Param("nombreAsignatura") String nombreAsignatura);
+	/**
+	 * Busca una Asignatura por nombre su nombre
+	 * @param nombreAsignatura Nombre de la asignatura que se pretende encontrar
+	 * @return Asignatura encontrada por su nombre
+	 */
+	public Asignatura findByNombreAsignatura(String nombreAsignatura);
 
-	@Query("SELECT DISTINCT a from Asignatura As a, Estudiante AS e where e.programaAcademico.idPrograma= a.programaAcademico.idPrograma and a.codigoAsignatura NOT IN (select a.codigoAsignatura from Estudiante AS e, EstudianteSancionado AS es, AsignaturaEstudianteSancionado AS aes, Asignatura AS a, ProgramaAcademico AS pa where e.cedulaEstudiante = es.id.cedulaEstudiante and es.id.cedulaEstudiante = aes.id.cedulaEstudiante and aes.id.codigoAsignatura = a.codigoAsignatura and a.programaAcademico.idPrograma= pa.idPrograma and e.programaAcademico.idPrograma = pa.idPrograma and e.programaAcademico.idPrograma= a.programaAcademico.idPrograma and aes.id.cedulaEstudiante = :cedula )")
+	
+	/**
+	 * ¡HEY TU!, RESPONSABLE COMENTAME
+	 * @param 
+	 * @return 
+	 */
+	@Query("SELECT DISTINCT a FROM Asignatura As a, Estudiante AS e "
+			+ "WHERE e.programaAcademico.idPrograma= a.programaAcademico.idPrograma "
+			+ "AND a.codigoAsignatura NOT IN "
+				+ "(SELECT a.codigoAsignatura FROM Estudiante AS e, EstudianteSancionado AS es,"
+					+ "AsignaturaEstudianteSancionado AS aes, Asignatura AS a, ProgramaAcademico AS pa "
+					+ "WHERE e.cedulaEstudiante = es.id.cedulaEstudiante "
+					+ "AND es.id.cedulaEstudiante = aes.id.cedulaEstudiante "
+					+ "AND aes.id.codigoAsignatura = a.codigoAsignatura "
+					+ "AND a.programaAcademico.idPrograma= pa.idPrograma "
+					+ "AND e.programaAcademico.idPrograma = pa.idPrograma "
+					+ "AND e.programaAcademico.idPrograma= a.programaAcademico.idPrograma "
+					+ "AND aes.id.cedulaEstudiante = :cedula )")
 	 public List<Asignatura> BuscarAsignaturasNoSeleccionadas(@Param("cedula") String cedula);
 	
 }
