@@ -48,29 +48,7 @@ public class ServicioNoticia {
 		return noticiaLista;
 	}
 
-	/** Buscar una Noticia por nombre
-	 * @parameters nombre
-	 * @return resultado que es un listadoNoticia.
-	 * @throws la Excepcion es que el nombre este en blanco.
-	 */
-	public List<Noticia> buscarNoticiaPorNombre(String nombre) {
-		List<Noticia> resultado = new LinkedList<Noticia>();
-		if (nombre == null || "".equals(nombre)) {
-			// si el codigo es null o vacio,el resultado va a ser la lista completa de
-			//todas las noticias
-			resultado = listadoNoticia();
-		} else {// caso contrario se recorre toda la lista y busca las noticias.
-			for (Noticia noticia : listadoNoticia()) {
-				if (noticia.getTitulo().toLowerCase().contains(nombre.toLowerCase())) {
-					resultado.add(noticia);
-				}
-			}
-		}
-		return resultado;
-	}
- 
-
-	/** filtrarApelacionesCargarRecaudo
+	/** filtrar Noticias
 	 * @parameters titulof
 	 * @return result que es un listadoNoticia.
 	 * @throws las Excepciones son que el titulo sea null
