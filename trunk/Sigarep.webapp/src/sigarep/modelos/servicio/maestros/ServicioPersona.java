@@ -1,6 +1,5 @@
 package sigarep.modelos.servicio.maestros;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Persona;
-import sigarep.modelos.data.maestros.Recaudo;
 
 import sigarep.modelos.repositorio.maestros.IPersonaDAO;
 
@@ -46,9 +44,5 @@ public class ServicioPersona {
 		}
 		return resultado;
 	}
-	
-//	public Persona buscarPersonaPorNombreUsuario(String nombreUsuario) {
-// 		return iPersona.findByNombreUsuario(nombreUsuario);
-//	}
 }
 
