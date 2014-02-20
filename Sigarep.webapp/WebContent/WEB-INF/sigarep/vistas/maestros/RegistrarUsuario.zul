@@ -15,22 +15,24 @@
 			<rows>
 				<row>
 					<label value="Cédula del usuario: " id="lblCedulaUsuario" />
-					<textbox id="txtCedulaUsuario"   mold="rounded" placeholder="Ingrese su cédula" 
-						 width="80%" maxlength="30"
+					<textbox id="txtCedulaUsuario"  
+					         placeholder="Ingrese su cédula" 
+				             mold="rounded"  width="80%" maxlength="8"
 						 value="@bind(vm.cedulaPersona)" />
 					<label value="Teléfono: " id="lblTelefono" />
-					<textbox id="txttelefono"  mold="rounded" placeholder="Ingrese su teléfono"
-						 width="80%" maxlength="30"
-						 value="@bind(vm.telefono)" />
+					<textbox id="txttelefono"   
+					         placeholder="Ingrese su teléfono"
+						    mold="rounded" width="80%" maxlength="11"
+						     value="@bind(vm.telefono)" />
 				</row>
 				<row>
 					<label value="Nombre: " id="lblNombre" />
-					<textbox id="txtNombre"  mold="rounded" placeholder="Ingrese su nombre"
-						width="80%" maxlength="30"
+					<textbox id="txtNombre" placeholder="Ingrese su nombre"
+						mold="rounded" width="80%" maxlength="30"
 						value="@bind(vm.nombre)" />
 					<label value="Apellido: " id="lblApellido" />
-					<textbox id="txtApellido" mold="rounded" placeholder="Ingrese su apellido"
-						width="80%" maxlength="30"
+					<textbox id="txtApellido"  placeholder="Ingrese su apellido"
+						mold="rounded" width="80%" maxlength="30"
 						value="@bind(vm.apellido)" />		
 				</row>
 				<row>
@@ -51,15 +53,15 @@
 				<rows>
 					<row>
 						<label value="Instancia: (Opcional)" id="lblInstancia" />
-						<combobox  readonly="true" id= "cmbIntancia" value="@bind(vm.tituloinstancia)"
+						<combobox  readonly="true" id= "cmbIntancia" placeholder="Seleccione una instancia..." value="@bind(vm.tituloinstancia)"
 					    width="80%" mold="rounded" model="@load(vm.listaInstancia)" selectedItem="@bind(vm.instanciaseleccionada)" >
 							<template name="model">
 									<comboitem  label="${each.instanciaApelada}"/>
 							</template>
 						</combobox>
 						<label value="Cargo: (Opcional)" id="lblCargo" />
-						<textbox id="txtCargo"  mold="rounded" placeholder="Ingrese un cargo"
-							width="80%" maxlength="30"
+						<textbox id="txtCargo" placeholder="Ingrese un cargo"
+							mold="rounded"  width="80%" maxlength="30"
 							value="@bind(vm.cargo)" />
 						<button id="btnAgregar" label="Agregar"
 							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
