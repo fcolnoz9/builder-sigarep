@@ -17,7 +17,7 @@
 					<textbox id="txtNombrePrograma"
 					placeholder="Ingrese el nombre del programa" 
 					mold="rounded" cols="23" 
-					width="80%" maxlength="60" value="@bind(vm.nombrePrograma)">
+					width="80%" maxlength="60" value="@bind(vm.nombrePrograma)"/>
 				</row>
 			</rows>
 		</grid>
