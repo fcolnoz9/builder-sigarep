@@ -25,18 +25,11 @@ import org.hibernate.annotations.Index;
 
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
-/*
- * @ (#) Grupo.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- */
-/*
- ** Esta clase es del registro del maestro "Grupo"
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo: Builder-SIGAREP 
- * @Version 1.0,
- * @Since  04/02/13
+/** Clase EstadoApelacion
+ * Registra y Modifica el Grupo de usuarios del sistema.
+ * @author BUILDER
+ * @version 1
+ * @since 04/02/2014 
  */
 
 @Entity
@@ -60,7 +53,7 @@ public class Grupo implements Serializable{
 	@Column(name = "descripcion")
     private String descripcion;
 	
-	@Column(name = "estado")
+	@Column(name = "estatus")
     private boolean estatus;
 	
 	
@@ -124,7 +117,6 @@ public class Grupo implements Serializable{
         this.nodos.add(nodo);
     }
 	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.grupo")
 	public Set<UsuarioGrupo> getUsuariosGrupos() {
 		return this.usuariosGrupos;
 	}

@@ -9,17 +9,25 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Index;
 
+/** Clase Nodo
+ * Registra y Modifica el Menu tipo arbol de los grupos de usuarios del sistema.
+ * @author BUILDER
+ * @version 1
+ * @since 04/02/2014 
+ */
+
 @Entity
 @Table(name = "menu_arbol")
 public class Nodo implements Comparator<Nodo>{
 	
 	@Id
+	// Clave primaria de la clase
 	@Column(name="id", unique = true ,length=10, nullable=false)
 	//@Index(name = "id_index")
 	private Integer id;
 	
-	@Column(name="estado")
-	private String estado;
+	@Column(name="estatus")
+	private boolean estatus;
 	
 	@Column(name="tipo")
 	private String tipo;
@@ -44,17 +52,18 @@ public class Nodo implements Comparator<Nodo>{
 	}
     
 	public Nodo(Integer id, String tipo, String nombrefuncion,
-			String vinculo, String estado, Integer padre, String rutaModal) {
+			String vinculo, boolean estatus, Integer padre, String rutaModal) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
 		this.nombreFuncion = nombrefuncion;
 		this.vinculo = vinculo;
-		this.estado = estado;
+		this.estatus = estatus;
 		this.padre = padre;
 		this.rutaModal = rutaModal;
 	}
 	
+	// Métodos GET y SET
 	public Integer getId() {
 		return id;
 	}
@@ -63,12 +72,12 @@ public class Nodo implements Comparator<Nodo>{
 		this.id = id;
 	}
 	
-	public String getEstado() {
-		return estado;
+	public boolean getEstatus() {
+		return estatus;
 	}
 	
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstado(boolean estatus) {
+		this.estatus = estatus;
 	}
 	
 	public String getTipo() {

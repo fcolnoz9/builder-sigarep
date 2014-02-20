@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -16,9 +17,16 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.ModelMap;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Path;
+import org.zkoss.zul.Borderlayout;
+import org.zkoss.zul.Center;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import sigarep.controlador.maestros.WindowController;
 import sigarep.modelos.data.seguridad.Usuario;
 
 
@@ -33,7 +41,7 @@ public class SecurityUtil {
          */
 	
 	private static User usuario;
-	
+	WindowController winController = new WindowController();
 	public static Usuario getUser() {
 		try {
 			Authentication auth = SecurityContextHolder.getContext()
@@ -89,6 +97,23 @@ public class SecurityUtil {
         	usuario = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			return usuario;
 		}
+                
+    	@Command
+    	public void editarPerfil() {
+    				try {
+    					// get an instance of the borderlayout defined in the zul-file
+    					Borderlayout bl = (Borderlayout) Path
+    							.getComponent("/mainBorderLayout");
+    					// get an instance of the searched CENTER layout area
+    					Center center = bl.getCenter();
+    					// clear the center child comps
+    					center.getChildren().clear();
+    					// call the zul-file and put it in the center layout area
+    					Executions.createComponents("/EditarPerfilUsuario.zul", center, null);
+    				} catch (Exception e) {
+    					Messagebox.show(e.toString());
+    				}
+    	}
         
 		public static boolean isAllGranted(String authorities) {
                 if (null == authorities || "".equals(authorities)) {

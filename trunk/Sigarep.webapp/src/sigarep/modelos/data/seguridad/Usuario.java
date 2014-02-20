@@ -2,23 +2,24 @@
 package sigarep.modelos.data.seguridad;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Index;
-
 import sigarep.herramientas.Archivo;
 import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.Persona;
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
+
+/** Clase Usuario
+ * Registra y Modifica el Usuario autorizado para ingresar al sistema.
+ * @author BUILDER
+ * @version 1
+ * @since 04/12/2013 
+ */
 
 @Entity
 @Table(name = "usuario")
@@ -29,7 +30,9 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	//@Index(name = "nombreUsuarioIndeX")
 	@Column(name="nombre_usuario", unique = true ,length=35, nullable=false)
 	private String nombreUsuario;
@@ -79,12 +82,12 @@ public class Usuario implements Serializable {
 		this.estatus = estatus;
 	}
 
-
 	public Usuario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+	// Métodos GET y SET
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
@@ -126,7 +129,6 @@ public class Usuario implements Serializable {
 		this.estatus = estatus;
 	}
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
 	public Set<UsuarioGrupo> getUsuariosGrupos() {
 		return this.usuariosGrupos;
 	}

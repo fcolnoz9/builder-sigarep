@@ -71,5 +71,10 @@ public class ServicioPersona {
         }
 		return result;
         } 
+	
+	public Persona buscarPersonaNombreUsuario(String nombreUsuario) {
+		Persona  persona = iPersona.buscarPersonaPorNombreUsuario(nombreUsuario);
+		return persona;
+	}
 }
 
