@@ -43,6 +43,7 @@ import sigarep.modelos.servicio.reportes.ServicioReporteConfigurableApelaciones;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMConfigurableApelaciones {
 	String ruta= "/WEB-INF/sigarepReportes/RpEstudiantesSancionadosConfigurable.jasper";
+	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -59,17 +60,7 @@ public class VMConfigurableApelaciones {
 	private ServicioEstadoApelacion servicioestadoapelacion;
 	@WireVariable
 	private ServicioAsignatura servicioAsignatura;
-	
-	@WireVariable
-	private ProgramaAcademico programaAcademico = new ProgramaAcademico();
-	@WireVariable
-	private TipoMotivo tipoMotivo = new TipoMotivo();
-	@WireVariable
-	private LapsoAcademico lapsoAcademico = new LapsoAcademico();
-	@WireVariable
-	private SancionMaestro sancionMaestro = new SancionMaestro();
-	@WireVariable
-	private InstanciaApelada instanciaApelada = new InstanciaApelada();
+		//***********************************DECLARACION DE LISTAS*************************
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<LapsoAcademico> listaLapsoAcademico;
@@ -77,7 +68,7 @@ public class VMConfigurableApelaciones {
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private List<EstadoApelacion> listaEdoApelacion;
 	private List<Asignatura> listaAsignaturas;
-
+	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private LapsoAcademico objLapso;
 	private SancionMaestro objSancion;
 	private ProgramaAcademico  objprograma;
@@ -89,7 +80,8 @@ public class VMConfigurableApelaciones {
 	private ProgramaAcademico programa;
 	private List<ConfigurableApelaciones> listaA = new LinkedList<ConfigurableApelaciones>();
 
-	//Parametros para la Tira Sql
+
+	//*********************************Parametros para la Tira Sql***************************************
 	private String parametroLapsoAcademico;
 	private String parametroTipoSancion;
 	private String parametroInstanciaApelada;
@@ -98,14 +90,16 @@ public class VMConfigurableApelaciones {
 	private String parametroVeredicto;
 	private String parametroEdoApelacion;
 	private String parametroAsignatura;
-	//REPORTE
+	//*****************************************REPORTE******************************************
 	ReportType reportType = null;
 	ReportConfig reportConfig = null;
-	//***********************
+	
 	private ListModelList<String> cmbVeredicto;//Lista para llenar el combo Veredicto
 	private ListModelList<String> cmbEdoApelacion;//Lista para llenar el combo Edo Apelacion
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	// SETS Y GETS
+
+	
+	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	
 	public SancionMaestro getObjSancion() {
 		return objSancion;
@@ -161,36 +155,7 @@ public class VMConfigurableApelaciones {
 	public void setObjinstanciaApelada(InstanciaApelada objinstanciaApelada) {
 		this.objinstanciaApelada = objinstanciaApelada;
 	}
-	public InstanciaApelada getInstanciaApelada() {
-		return instanciaApelada;
-	}
-	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
-		this.instanciaApelada = instanciaApelada;
-	}
-	public ProgramaAcademico getProgramaAcademico() {
-		return programaAcademico;
-	}
-	public void setProgramaAcademico(ProgramaAcademico programaAcademico) {
-		this.programaAcademico = programaAcademico;
-	}
-	public TipoMotivo getTipoMotivo() {
-		return tipoMotivo;
-	}
-	public void setTipoMotivo(TipoMotivo tipoMotivo) {
-		this.tipoMotivo = tipoMotivo;
-	}
-	public LapsoAcademico getLapsoAcademico() {
-		return lapsoAcademico;
-	}
-	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
-		this.lapsoAcademico = lapsoAcademico;
-	}
-	public SancionMaestro getSancionMaestro() {
-		return sancionMaestro;
-	}
-	public void setSancionMaestro(SancionMaestro sancionMaestro) {
-		this.sancionMaestro = sancionMaestro;
-	}
+
 	public List<InstanciaApelada> getListaInstanciaApelada() {
 		return listaInstanciaApelada;
 	}
@@ -266,7 +231,36 @@ public class VMConfigurableApelaciones {
 	public void setParametroProgramaAcademico(String parametroProgramaAcademico) {
 		this.parametroProgramaAcademico = parametroProgramaAcademico;
 	}
+
+	public EstadoApelacion getObjEdoApelacion() {
+		return objEdoApelacion;
+	}
+	public void setObjEdoApelacion(EstadoApelacion objEdoApelacion) {
+		this.objEdoApelacion = objEdoApelacion;
+	}
+	public ListModelList<String> getCmbEdoApelacion()
+	{      
+		return cmbEdoApelacion;
+	}
+	public void setCmbEdoApelacion(ListModelList<String> cmbEdoApelacion) {
+		this.cmbEdoApelacion = cmbEdoApelacion;
+	}
+	public void setCmbVeredicto(ListModelList<String> cmbVeredicto) {
+		this.cmbVeredicto = cmbVeredicto;
+	}
 	
+	public String getParametroEdoApelacion() {
+		return parametroEdoApelacion;
+	}
+	public void setParametroEdoApelacion(String parametroEdoApelacion) {
+		this.parametroEdoApelacion = parametroEdoApelacion;
+	}
+	public String getParametroAsignatura() {
+		return parametroAsignatura;
+	}
+	public void setParametroAsignatura(String parametroAsignatura) {
+		this.parametroAsignatura = parametroAsignatura;
+	}
 
 	//Reporte SET/GETS
 	public ReportType getReportType() {
@@ -305,36 +299,12 @@ public class VMConfigurableApelaciones {
 	}
 	
 
-	public EstadoApelacion getObjEdoApelacion() {
-		return objEdoApelacion;
-	}
-	public void setObjEdoApelacion(EstadoApelacion objEdoApelacion) {
-		this.objEdoApelacion = objEdoApelacion;
-	}
-	public ListModelList<String> getCmbEdoApelacion()
-	{      
-		return cmbEdoApelacion;
-	}
-	public void setCmbEdoApelacion(ListModelList<String> cmbEdoApelacion) {
-		this.cmbEdoApelacion = cmbEdoApelacion;
-	}
-	public void setCmbVeredicto(ListModelList<String> cmbVeredicto) {
-		this.cmbVeredicto = cmbVeredicto;
-	}
-	
-	public String getParametroEdoApelacion() {
-		return parametroEdoApelacion;
-	}
-	public void setParametroEdoApelacion(String parametroEdoApelacion) {
-		this.parametroEdoApelacion = parametroEdoApelacion;
-	}
-	public String getParametroAsignatura() {
-		return parametroAsignatura;
-	}
-	public void setParametroAsignatura(String parametroAsignatura) {
-		this.parametroAsignatura = parametroAsignatura;
-	}
-	//FINAL SETS GETS
+	//===============================FIN DE LOS METODOS SET Y GET==============================
+		/**Inicialización
+		 * @param init
+		 * @return Carga de Variables y metodos inicializados
+		 * @throws No dispara ninguna excepcion.
+		 */
 	@Init
 	public void init() {
 		// initialization code
@@ -361,6 +331,7 @@ public class VMConfigurableApelaciones {
 	 * @param  
 	 * @return modelos de la lista
 	 */
+	
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
   			Arrays.asList(
   					new ReportType("Word (RTF)", "rtf"), 
@@ -373,6 +344,7 @@ public class VMConfigurableApelaciones {
 	 * @param  
 	 * @return lista de estado de Apelación
 	 */
+	
 	@Command
 	@NotifyChange({ "listaEdoApelacion" })
 	public void buscarEdoApelacion() {
@@ -380,16 +352,24 @@ public class VMConfigurableApelaciones {
 		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos", null);
 		listaEdoApelacion.add(listaEdoApelacion.size()/*0*/, edo_ape);
 	}
+	
+	/** Objeto Combo Estado  Apelación.
+ 	* @param Ninguno
+ 	* @return Objeto Estado  Apelación
+ 	* @throws No dispara ninguna excepción.
+ 	*/
+	
 	@Command
 	@NotifyChange({ "listaEdoApelacion" })
 	public EstadoApelacion objCmbEdoApelacion() {
 		return objEdoApelacion;
-
 	}
+	
 	/** buscar tipo motivo
 	 * @param  
 	 * @return lista de tipo motivo
 	 */
+	
 	@Command
 	@NotifyChange({ "lista" })
 	public void buscarTipoMotivo() {
@@ -397,16 +377,24 @@ public class VMConfigurableApelaciones {
 		TipoMotivo mot = new TipoMotivo(null,"Todos", null,"Todos",false);
 		listaTipoMotivo.add(listaTipoMotivo.size()/*0*/, mot);
 	}
+	
+	/** Objeto Combo Tipo Motivo.
+ 	* @param Ninguno
+ 	* @return Objeto Tipo Motivo
+ 	* @throws No dispara ninguna excepción.
+ 	*/
+	
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
 	public TipoMotivo objCmbtipoMotivo() {
 		return objtipoMotivo;
-
 	}
+	
 	/** buscar Programa academico
 	 * @param  
 	 * @return lista de programa Académico
 	 */
+	
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
@@ -414,16 +402,24 @@ public class VMConfigurableApelaciones {
 		ProgramaAcademico prog = new ProgramaAcademico(null, "Todos",null);
 		listaPrograma.add(listaPrograma.size(),prog);
 	}
+	
+	/** Objeto Combo Programa.
+ 	* @param Ninguno
+ 	* @return Objeto Programa Académico
+ 	* @throws No dispara ninguna excepción.
+ 	*/
+	
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public ProgramaAcademico objCmbprograma() {
 		return objprograma;
-
 	}
+	
 	/** buscar Lapso Academico
 	 * @param  
 	 * @return lista de lapso Académico
 	 */
+	
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarActivoLapso() {
@@ -431,16 +427,24 @@ public class VMConfigurableApelaciones {
 		LapsoAcademico lap = new LapsoAcademico("Todos", null, null, null);
 		listaLapsoAcademico.add(listaLapsoAcademico.size(),lap);
 	}
+	
+	/** Objeto Combo Lapso.
+ 	* @param Ninguno
+ 	* @return Objeto Lapso Académico
+ 	* @throws No dispara ninguna excepción.
+ 	*/
+	
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public LapsoAcademico objCmbLapso() {
 		return objLapso;
-
 	}
+	
 	/** buscar Sancionados
 	 * @param  
 	 * @return lista de sancion
 	 */
+	
 	@Command
 	@NotifyChange({ "listaSancion" })
 	public void listadoSancion() {
@@ -448,29 +452,44 @@ public class VMConfigurableApelaciones {
 		SancionMaestro san = new  SancionMaestro(null,"Todos", null, "Todos");
 		listaSancion.add(listaSancion.size(),san);
 	}
+	
+	/** Objeto Combo Sanción.
+ 	* @param Ninguno
+ 	* @return Objeto Sanción
+ 	* @throws No dispara ninguna excepción.
+ 	*/
+	
 	@Command
 	@NotifyChange({ "listaSancion" })
 	public SancionMaestro objCmbSancion() {
 		return objSancion;
-
 	}
+	
 	/** buscar Instancia
 	 * @param  
 	 * @return lista de instacias apeladas
 	 */
-		@Command
-		@NotifyChange({ "listaInstanciaApelada" })
-		public void listadoInstancia() {
-			listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
-			InstanciaApelada ins = new InstanciaApelada(null,"Todos", null, "Todos", null);
-			listaInstanciaApelada.add(listaInstanciaApelada.size(),ins);
-		}
-		@Command
-		@NotifyChange({ "listaInstanciaApelada" })
-		public InstanciaApelada objCmbinstanciaApelada() {
-			return objinstanciaApelada;
+	
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void listadoInstancia() {
+		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
+		InstanciaApelada ins = new InstanciaApelada(null,"Todos", null, "Todos", null);
+		listaInstanciaApelada.add(listaInstanciaApelada.size(),ins);
+	}
+	
+	/** Objeto Combo Instancia.
+ 	* @param Ninguno
+ 	* @return Objeto Instancia Apelada
+ 	* @throws No dispara ninguna excepción.
+ 	*/
+	
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public InstanciaApelada objCmbinstanciaApelada() {
+		return objinstanciaApelada;
 
-		}
+	}
 
 	@Command
 	@NotifyChange({ "listaA" })
@@ -492,16 +511,25 @@ public class VMConfigurableApelaciones {
 		}
 		
 	}
-	// Metodo que limpia todos los campos
+	/** Limpiar apelaciones 
+	* @param Ninguno
+	* @return Limpiar cada uno de los combos de la vista
+	* @throws No dispara ninguna excepcion.
+	*/
+	
 	@Command
-	@NotifyChange({ "programaAcademico", "tipoMotivo", "lapsoAcademico",
-			"sancionMaestro", "instanciaApelada" })
-	public void limpiarA() {
-		programaAcademico = new ProgramaAcademico();
-		tipoMotivo = new TipoMotivo();
-		lapsoAcademico = new LapsoAcademico();
-		sancionMaestro = new SancionMaestro();
-		instanciaApelada = new InstanciaApelada();
+	@NotifyChange({ "programa", "objSancion","objtipoMotivo", "objinstanciaApelada","objLapso",
+		"objVeredicto", "objEdoApelacion","asignaturas"})
+	public void limpiarCombos() {
+		programa = null;
+		objSancion = null;
+		objtipoMotivo = null;
+		objinstanciaApelada = null;
+		objLapso =null ;
+		objVeredicto= null;
+		objEdoApelacion= null;
+		asignaturas= null;
+		
 	}
 	@NotifyChange({ "parametroLapsoAcademico" })
 	@Command
