@@ -14,6 +14,10 @@ public interface IActividadDAO extends JpaRepository<Actividad, Integer> {
 	 */
 	public List<Actividad> findByEstatusTrue();
 
+	/**
+	 * Busca el ultimo id insertado en la tabla Actividad
+	 * @return Ultimo id insertado en la tabla Actividad
+	 */
 	@Query("SELECT COALESCE(MAX(a.idActividad),0) FROM Actividad AS a")
 	public int buscarUltimoID();
 }
