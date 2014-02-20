@@ -28,7 +28,7 @@ public class ServicioActividad {
 	}
 
 	public List<Actividad> listadoActividad() {
-		List<Actividad> actividadLista = iActividad.buscarActividadesActivas();
+		List<Actividad> actividadLista = iActividad.findByEstatusTrue();
 		return actividadLista;
 	}
 
