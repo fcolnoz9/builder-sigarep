@@ -380,7 +380,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	@Command
 	@NotifyChange({"titulof","listaNoticia"})
 	public void filtros(){
-		listaNoticia = servicionoticia.filtrarApelacionesCargarRecaudo(titulof);
+		listaNoticia = servicionoticia.filtrarNoticias(titulof);
 	}
 	
 	/** Validación de fechas
