@@ -19,9 +19,6 @@
     					placeholder= "Ingrese el nombre del grupo"
     					mold="rounded" 
     						value="@bind(vm.nombre)"/>
-<!--     						    						onBlur="@command('buscarGrupo')"  -->
-    						
-
     				</hbox>
     				<hbox>
     					Descripción:
