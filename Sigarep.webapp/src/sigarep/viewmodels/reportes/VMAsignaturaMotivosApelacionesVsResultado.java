@@ -247,7 +247,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		@Command
 		@NotifyChange({ "listaComboLapsoAcademico" })
 		public void buscarLapsos() {
-			setListaComboLapsoAcademico(serviciolapsoacademico.listadoLapsoAcademico());
+			setListaComboLapsoAcademico(serviciolapsoacademico.buscarTodosLosLapsos());
 		}
 		
 		/** Objeto Combo Lapsos.
