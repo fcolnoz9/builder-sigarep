@@ -61,7 +61,7 @@ public class ServicioEnlaceInteres {
 	 *             dispara ninguna excepcion.
 	 */
 	public List<EnlaceInteres> listadoEnlaceInteres() {
-		return enlaceinteres.findAll();
+		return enlaceinteres.findByEstatusTrue();
 	}
 
 
