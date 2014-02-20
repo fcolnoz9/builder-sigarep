@@ -16,11 +16,16 @@ import sigarep.modelos.data.maestros.EnlaceInteres;
  */
 public interface IEnlaceInteresDAO extends JpaRepository<EnlaceInteres, Integer> {
 
-	//permite la busqueda de los registros por estatus, para mostrar los registros en true, luego de la eliminación lógica.
-	//se utiliza en ServicioEnlaceInteres public List<EnlaceInteres> listadoEnlaceInteres()
-		@Query("select  e from EnlaceInteres e where e.estatus='true'")
-		public List<EnlaceInteres> listaEnlaceLogico();
+	/**
+	 * Busca las todas los Enlaces de Interes que poseen estatus == true
+	 * @return List<EnlacesInteres> Lista de Enlaces con estatus == true
+	 */
+	public List<EnlaceInteres> findByEstatusTrue();
 		
-		@Query("SELECT COALESCE(MAX(ei.idEnlace),0) FROM EnlaceInteres AS ei")
-		public int buscarUltimoID();
+	/**
+	 * Busca el ultimo id insertado en la tabla Banner
+	 * @return Ultimo id insertado en la tabla Banner
+	 */
+	@Query("SELECT COALESCE(MAX(ei.idEnlace),0) FROM EnlaceInteres AS ei")
+	public int buscarUltimoID();
 }
