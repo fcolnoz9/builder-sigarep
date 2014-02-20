@@ -101,53 +101,39 @@
 						</textbox>
 					</vlayout>
 					<label value="Motivo: " id="lblMotivo" />
-					<listbox id="lbxMotivo" height="100px" width="80%"
-						disabled="true" model="@bind(vm.listaMotivos)">
-						<template name="model">
-							<listitem>
-								<listcell
-									label="${each.tipoMotivo.nombreTipoMotivo}" />
-							</listitem>
-						</template>
-					</listbox>
+					<textbox id="txtMotivo" mold="rounded" cols="15"
+						width="80%" maxlength="200" value="@bind(vm.motivos)"
+						readonly="true">
+					</textbox>
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
 	<separator />
-	<separator />
-	<separator />
-	<div align="center" height="100%">
+	<div align="center">
 		<hbox>
-			<vbox>
-				<button label="Comision Sustanciadora" mold="trendy"
-					disabled="@bind(vm.boton1)" id="btn2" width="170px" height="10px"
-					orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
-					onClick="@command('buscarListaEstadoApelacion', id=1)">
-				</button>
-			</vbox>
-			<vbox>
-				<button label="Consejo Decanato" mold="trendy" id="btn3"
-					disabled="@bind(vm.boton2)" width="170px" height="10px"
-					orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
-					onClick="@command('buscarListaEstadoApelacion', id=2)">
-				</button>
-			</vbox>
-			<vbox>
-				<button label="Consejo Universitario" mold="trendy" 
-					disabled="@bind(vm.boton3)" id="btn4" width="170px" height="10px"
-					orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
-					onClick="@command('buscarListaEstadoApelacion', id=3)">
-				</button>
-			</vbox>
+			<button label="Comision Sustanciadora" mold="trendy"
+				disabled="@bind(vm.boton1)" id="btn2" width="170px" height="10px"
+				orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
+				onClick="@command('buscarListaEstadoApelacion', id=1)">
+			</button>
+			<button label="Consejo Decanato" mold="trendy" id="btn3"
+				disabled="@bind(vm.boton2)" width="170px" height="10px"
+				orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
+				onClick="@command('buscarListaEstadoApelacion', id=2)">
+			</button>
+			<button label="Consejo Universitario" mold="trendy"
+				disabled="@bind(vm.boton3)" id="btn4" width="170px" height="10px"
+				orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
+				onClick="@command('buscarListaEstadoApelacion', id=3)">
+			</button>
 		</hbox>
 		<separator />
 		<separator />
 		<separator />
 		<separator />
 		<separator />
-		<separator />
-		<listbox id="box" width="1000px"
+		<listbox id="box" width="85%"
 			model="@bind(vm.listaEstadoApelacion)"
 			emptyMessage="No ha realizado solicitud de apelación ante esta instancia">
 			<listhead>
@@ -156,6 +142,8 @@
 					align="center" />
 				<listheader label="Observación" sort="auto"
 					align="center" />
+				<listheader label="Sugerencia / Veredicto" sort="auto"
+					align="center" />
 			</listhead>
 			<template name="model">
 				<listitem>
@@ -163,6 +151,7 @@
 					<listcell
 						label="${each.estadoApelacion.nombreEstado}" />
 					<listcell label="${each.observacion}" />
+					<listcell label="${each.sugerencia}" />
 				</listitem>
 			</template>
 		</listbox>

@@ -3,8 +3,6 @@
 	maximizable="false" closable="true" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMWindow')">
-	
-	
 	<groupbox height="100%" width="100%" > 
 		<borderlayout>
 			<north size="80px" border="none">
@@ -21,7 +19,7 @@
 			<center border="none">
 				<vbox  vflex="1" hflex="1">
 					<textbox width="85%" readonly="true"
-						rows="10" mold="rounded" cols="60"   sclass="textNoticia" value="@bind(vm.contenido)">
+						rows="10" mold="rounded" cols="80" sclass="textNoticia" value="@bind(vm.contenido)">
 					</textbox>
 					<a href="@bind(vm.enlaceNoticia)" sclass="textNoticia">
 						Enlace de Noticia
@@ -30,6 +28,4 @@
 			</center>
 		</borderlayout>
 	</groupbox>
-	
-
 </window>

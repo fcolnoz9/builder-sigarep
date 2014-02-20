@@ -3,9 +3,9 @@
 		method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
 		<hbox>
 			<label value="Usuario" style="font-size:11px" />
-			<textbox id="u" name="j_username" width="80%" />
+			<textbox id="u" name="j_username" width="80%" placeholder="Ingrese el usuario." />
 			<label value="Clave" style="font-size:11px" />
-			<textbox id="log_clave" width="80%" type="password"
+			<textbox id="log_clave" width="80%" type="password" placeholder="Ingrese la contraseña."
 				name="j_password" />
 			<button image="/imagenes/iconos/iniciarSesion.png"
 				type="submit" label="Entrar">

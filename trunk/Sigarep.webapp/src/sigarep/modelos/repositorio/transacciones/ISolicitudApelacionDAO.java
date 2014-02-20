@@ -136,4 +136,10 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 				"AND sa.id.codigoLapso = la.codigoLapso " +
 			    "AND la.estatus = 'TRUE'")
 		public List<SolicitudApelacion> buscarSolicitudEstudiante(@Param("cedulaEstudiante")String cedulaEstudiante);
+		
+		@Query("SELECT distinct sa FROM SolicitudApelacion sa WHERE sa.id.codigoLapso=:codigoLapso "
+				+ "AND sa.id.cedulaEstudiante = :cedulaEstudiante")
+		public List<SolicitudApelacion> buscarSolicitudApelacionLapsoActual(
+				@Param("cedulaEstudiante") String cedulaEstudiante,
+				@Param("codigoLapso") String codigoLapso);
 }

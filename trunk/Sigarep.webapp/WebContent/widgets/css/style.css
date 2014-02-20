@@ -51,14 +51,8 @@
 
 .banner-head {
 	font-size: 20px;
-}
-
-.banner-titulo {
-	font-weight: bold;
-	font-size: 25px;
 	padding-left: 5%;
 	padding-right: 5%;
-	
 }
 
 .banner .logout {

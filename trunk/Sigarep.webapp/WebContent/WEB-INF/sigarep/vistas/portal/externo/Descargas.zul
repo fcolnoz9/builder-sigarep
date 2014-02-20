@@ -7,7 +7,8 @@
 	<listitem>
 		<listcell sclass="head2" label=" Calendario Académico"
 			id="lblCalendario" style="font:arial;cursor:pointer"
-			onClick="@command('descargarCalendario')" />
+			onClick="@command('descargarCalendario')"
+			tooltiptext="Descargar Calendario Académico" />
 		<listcell>
 			<image src="/imagenes/iconos/descargar.png" />
 		</listcell>
@@ -15,19 +16,21 @@
 	<listitem>
 		<listcell label="Reglamentos" sclass="head2" id="lblReglamento"
 			onClick="@command('modalReglamento')"
-			style="font:arial;cursor:pointer" />
-		<listcell label="" />
+			tooltiptext="Abrir Reglamentos" style="font:arial;cursor:pointer" />
+		<listcell />
 	</listitem>
 	<listitem>
 		<listcell label="Formatos de Apelación" sclass="head2"
 			onClick="@command('modalFormato')"
-			id="lblFormatos" style="font:arial;cursor:pointer" />
-		<listcell label="" />
+			tooltiptext="Abrir Formatos de Apelación" id="lblFormatos"
+			style="font:arial;cursor:pointer" />
+		<listcell />
 	</listitem>
 	<listitem>
 		<listcell label="Recaudos por Motivo de Apelación"
-			onClick="@command('modalRecaudosPorMotivo')" sclass="head2" id="lblRecaudos"
-			style="font:arial;cursor:pointer" />
-		<listcell label="" />
+			onClick="@command('modalRecaudosPorMotivo')"
+			tooltiptext="Abrir Recaudos por Motivos" sclass="head2"
+			id="lblRecaudos" style="font:arial;cursor:pointer" />
+		<listcell />
 	</listitem>
 </listbox>
