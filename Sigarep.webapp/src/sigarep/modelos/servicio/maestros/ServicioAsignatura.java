@@ -30,20 +30,20 @@ public class ServicioAsignatura {
 	 * @throws 
 	 */
 	public List<Asignatura> listaAsignaturas() {
-		List<Asignatura> asignaturasLista = iAsignatura.buscarAsignaturasActivas();
+		List<Asignatura> asignaturasLista = iAsignatura.findByEstatusTrue();
 		return asignaturasLista;
 	}
 	
 	public List<Asignatura> buscarTodas(){
-		return iAsignatura.buscarAsignaturasActivas();
+		return iAsignatura.findByEstatusTrue();
 	}
 	
 	public List<Asignatura> buscarAsignaturasPorPrograma (Integer idPrograma){
-		return iAsignatura.buscarAsignaturasPorPrograma(idPrograma);
+		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(idPrograma);
 	}
 	
 	public Asignatura buscarAsignaturaNombre(String nombreAsignatura) {
-		Asignatura asignatura = iAsignatura.buscarAsignaturaPorNombre(nombreAsignatura);
+		Asignatura asignatura = iAsignatura.findByNombreAsignatura(nombreAsignatura);
 	    return asignatura;
 	}
 	
