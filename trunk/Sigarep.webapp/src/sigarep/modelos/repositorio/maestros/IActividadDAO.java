@@ -7,9 +7,12 @@ import org.springframework.data.repository.query.Param;
 import sigarep.modelos.data.maestros.Actividad;
 
 public interface IActividadDAO extends JpaRepository<Actividad, Integer> {
-	
-	@Query("Select act FROM Actividad AS act WHERE estatus = TRUE")
-	public List<Actividad> buscarActividadesActivas();
+
+	/**
+	 * Busca las todas las actividades que poseen estatus == true
+	 * @return List<Actividad> Lista de actividades con estatus == true
+	 */
+	public List<Actividad> findByEstatusTrue();
 
 	@Query("SELECT COALESCE(MAX(a.idActividad),0) FROM Actividad AS a")
 	public int buscarUltimoID();
