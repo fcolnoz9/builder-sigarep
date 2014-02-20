@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="219"/>
+	<property name="ireport.y" value="258"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -84,9 +84,8 @@
 		</box>
 	</style>
 	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
-		<field name="fecha_fin" class="java.lang.Integer"/>
-		<field name="fecha_inicio" class="java.lang.Integer"/>
-		<field name="lapso" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.Integer"/>
+		<field name="descripcion" class="java.lang.Integer"/>
 	</subDataset>
 	<parameter name="ImagenSuperior" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -154,7 +153,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LAPSOS ACADÉMICOS]]></text>
+				<text><![CDATA[LISTA DE MOTIVOS DE APELACIÓN]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -194,50 +193,32 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
-								<text><![CDATA[LAPSO]]></text>
+								<text><![CDATA[NOMBRE ]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="195" height="20" uuid="43a0a227-a08e-4d66-80dc-79b28090a21c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{lapso}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="179" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
+					<jr:column width="319" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099"/>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="319" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
-								<text><![CDATA[FECHA DE INICIO DE LAPSO]]></text>
+								<text><![CDATA[DESCRIPCIÓN]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="112" height="20" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
+								<reportElement x="0" y="0" width="319" height="20" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="224" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
-						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="224" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
-								</textElement>
-								<text><![CDATA[FECHA DE FINALIZACIÓN DE LAPSO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="130" height="20" uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{fecha_fin}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

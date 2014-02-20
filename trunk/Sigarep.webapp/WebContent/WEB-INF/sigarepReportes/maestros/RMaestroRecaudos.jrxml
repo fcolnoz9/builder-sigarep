@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="219"/>
+	<property name="ireport.y" value="152"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -83,10 +83,31 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
-		<field name="fecha_fin" class="java.lang.Integer"/>
-		<field name="fecha_inicio" class="java.lang.Integer"/>
-		<field name="lapso" class="java.lang.String"/>
+		<field name="tipo_motivo" class="java.lang.Integer"/>
+		<field name="descripcion" class="java.lang.Integer"/>
+		<field name="observacion" class="java.lang.String"/>
+		<field name="recaudo" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="ImagenSuperior" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -154,7 +175,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LAPSOS ACADÉMICOS]]></text>
+				<text><![CDATA[LISTA DE RECAUDOS]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -181,68 +202,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<reportElement x="505" y="349" width="58" height="20" uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<componentElement>
-				<reportElement key="table 3" style="table 3" x="0" y="0" width="572" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Tabla" uuid="7b1028c8-0687-4c8a-a081-dc2223caba57">
-						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="195" uuid="bf83a609-fcbe-4f84-902f-89338a606462">
-						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="195" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8358ab7d-2ca3-416f-bac6-bc5c6a063136"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
-								</textElement>
-								<text><![CDATA[LAPSO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="195" height="20" uuid="43a0a227-a08e-4d66-80dc-79b28090a21c"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{lapso}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="179" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
-						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
-								</textElement>
-								<text><![CDATA[FECHA DE INICIO DE LAPSO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="112" height="20" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="224" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
-						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="224" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
-								</textElement>
-								<text><![CDATA[FECHA DE FINALIZACIÓN DE LAPSO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="130" height="20" uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{fecha_fin}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
 			<staticText>
 				<reportElement x="0" y="349" width="137" height="20" uuid="c2ad4f53-1321-43c8-95f8-a2109052e4f4"/>
 				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
@@ -254,6 +213,80 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<reportElement x="137" y="349" width="100" height="20" uuid="b96ee4c8-f9e7-4ee5-8e4f-23887d3826cb"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement key="table 4" style="table 4" mode="Opaque" x="0" y="0" width="572" height="50" forecolor="#FFFFFF" uuid="08fd69f4-c8bd-4bdb-bf83-d986fea46282"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Tabla" uuid="86255fd3-5a18-4860-9153-d66add4bab97"/>
+					<jr:column width="112" uuid="6851bbe9-d74c-4bbb-b2db-e6cd43cea755">
+						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="112" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="15e22488-3279-47fb-9d19-5182e4457ff4"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TIPO MOTIVO]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="112" height="20" uuid="c17d5193-d84c-4f35-9daa-b01450bdd9e9"/>
+								<textFieldExpression><![CDATA[$F{tipo_motivo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="157" uuid="633b35ee-6b49-4ce4-afb1-3ddde0d10314">
+						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="157" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8b263862-b855-4861-9b9b-e0ce3b8dcdeb"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[RECAUDO]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="157" height="20" uuid="4c2c692d-fce5-4458-949c-2152f53e4f54"/>
+								<textFieldExpression><![CDATA[$F{recaudo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="209" uuid="7b27c74f-56ea-4c45-9b06-002df10bf397">
+						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="209" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="ba561f3a-99c8-4dfd-9ff6-37411039f72b"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DESCRIPCIÓN]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="209" height="20" uuid="3418c9a5-c277-4bc8-a75b-55d6d858807d"/>
+								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="306" uuid="863d6dbb-69a6-44bc-be25-e7af83d483f7">
+						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="306" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="ae2a611d-1220-4d75-a3b4-d07c74b24033"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[OBSERVACIÓN]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="306" height="20" uuid="b17d0eba-0010-4d72-9ecb-1cd14b4873cb"/>
+								<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 	</summary>
 </jasperReport>
