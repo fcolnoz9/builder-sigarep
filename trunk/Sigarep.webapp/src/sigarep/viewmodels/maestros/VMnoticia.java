@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
 
@@ -59,7 +56,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	private Archivo fotoNoticia = new Archivo();
 	private Media mediaNoticia;
 	private AImage imagenNoticia;
-	private String titulof="";
+	private String tituloFiltro="";
 	private String titulo; // titulo de la Noticia
 	private Date vencimiento; // fecha de vencimiento de la Noticia
 	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
@@ -78,12 +75,6 @@ public class VMnoticia extends SelectorComposer<Component>  {
     }
 
 	// Metodos GETS Y SETS
-	public String getTitulof() {
-		return titulof;
-	}
-	public void setTitulof(String titulof) {
-		this.titulof = titulof;
-	}
 	public Integer getIdNoticia() {
 		return idNoticia;
 	}
@@ -242,10 +233,6 @@ public class VMnoticia extends SelectorComposer<Component>  {
 				public void onEvent(ClickEvent e) throws Exception {
 					switch (e.getButton()) {
 						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
-							//binder.postCommand("limpiar", null);
 							servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
 							mensajeAlUsuario.informacionEliminarCorrecto();
 							binder.postCommand("limpiar", null);
@@ -378,9 +365,9 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	 * @return No devuelve ningun valor.
 	 */
 	@Command
-	@NotifyChange({"titulof","listaNoticia"})
+	@NotifyChange({"tituloFiltro","listaNoticia"})
 	public void filtros(){
-		listaNoticia = servicionoticia.filtrarNoticias(titulof);
+		listaNoticia = servicionoticia.filtrarNoticias(tituloFiltro);
 	}
 	
 	/** Validación de fechas
@@ -406,7 +393,6 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
