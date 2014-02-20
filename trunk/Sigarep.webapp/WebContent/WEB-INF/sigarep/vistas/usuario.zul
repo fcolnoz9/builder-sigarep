@@ -1,27 +1,23 @@
-<window title="Usuario" border="normal"
+<panel  border="normal"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.SecurityUtil')">
+	<panelchildren>
 	<tablelayout columns="3">
 		<tablechildren>
-			 				<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" />
 			<a href="">
-				<image src="imagenes/portal-principal/Builder.png"
-					width="50px" />
+			<image src="imagenes/iconos/male.png" width="60px" height="60px" />
 			</a>
+			<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" />
 		</tablechildren>
-		<tablechildren>
+		<tablechildren >
 			<button label="Cerrar Sesión"
 				href="j_spring_security_logout" id="btnCerrarSesion"
 				image="/imagenes/iconos/cerrarSesion.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal">
-				<!-- 			   				<attribute name="onClick"> -->
-
-				<!-- 			   				</attribute> -->
-				<!-- 					<attribute name="onClick"> -->
-				<!-- 					</attribute> -->
+				height="auto" orient="horizontal" >
 			</button>
 			<!-- 				<a href="j_spring_security_logout">Cerrar Sesion</a> -->
 			<!-- 					<a href="/Portal.zul">Cerrar Sesion</a> -->
 		</tablechildren>
 	</tablelayout>
-</window>
+	</panelchildren>
+</panel>
