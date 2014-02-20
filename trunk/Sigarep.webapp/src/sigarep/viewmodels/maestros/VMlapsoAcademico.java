@@ -42,7 +42,7 @@ public class VMlapsoAcademico {
 	private Date fechaCierre;//fecha de cierre del lapso academico
 	private Boolean estatus;// estatus del codigolapso
 	private List<LapsoAcademico> listaLapsoAcademico;// lista de los lapso academicos registrados
-	private LapsoAcademico lapsoAcademicoseleccionado;
+	private LapsoAcademico lapsoAcademicoSeleccionado;
 	
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@Wire
@@ -97,13 +97,13 @@ public class VMlapsoAcademico {
 	}
 
 	
-	public LapsoAcademico getLapsoAcademicoseleccionado() {
-		return lapsoAcademicoseleccionado;
+	public LapsoAcademico getLapsoAcademicoSeleccionado() {
+		return lapsoAcademicoSeleccionado;
 	}
 
-	public void setLapsoAcademicoseleccionado(
+	public void setLapsoAcademicoSeleccionado(
 			LapsoAcademico lapsoAcademicoseleccionado) {
-		this.lapsoAcademicoseleccionado = lapsoAcademicoseleccionado;
+		this.lapsoAcademicoSeleccionado = lapsoAcademicoseleccionado;
 	}
 
 	// Fin de los metodod gets y sets
@@ -113,8 +113,7 @@ public class VMlapsoAcademico {
 	@Init
 	public void init() {
 		// initialization code
-	buscarTodosLapsoAcademicos();
-	
+		buscarTodosLapsoAcademicos();
 	}
 
 	/**
@@ -126,22 +125,35 @@ public class VMlapsoAcademico {
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
 			"listaLapsoAcademico" })
-	// el notifychange le avisa a que parametros en la pantalla se van a
-	// cambiar, en este caso es se va a colocar en blanco al guardar!!
 	public void guardarLapso() {
 		if (codigoLapso == null || fechaInicio == null || fechaCierre == null)
 			mensajeAlUsuario.advertenciaLlenarCampos();
-		else {
-			if (getListaLapsoAcademico().size() != 0) {
-				System.out.println("ESTATUS"
-						+ getListaLapsoAcademico().get(0).getEstatus());
-				mensajeAlUsuario.ErrorLapsoActivoExistente();
-			} else {
-				LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,
-						fechaInicio, fechaCierre, true);
-				serviciolapsoacademico.guardarLapso(lapsoA);
-				mensajeAlUsuario.informacionRegistroCorrecto();
-				limpiarlapso();
+		else{
+			if (lapsoAcademicoSeleccionado != null){
+				//SE SELECCIONO UN LAPSO DEL LISTBOX
+				if (!lapsoAcademicoSeleccionado.getEstatus()) {
+					//SE SELECCIONO UN LAPSO QUE YA FINALIZO
+					//ANDREA: AQUI VA EL MENSAJE: "No se puede modificar un lapso academico que esta finalizado."
+					//ESO ES CON KAROL SI NO EXISTE EN LA CLASE DE MENSAJES
+				}
+				else if (serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso) != null){
+					//SE SELECCIONO EL LAPSO ACTIVO Y POR LO TANTO PUEDE MODIFICARLO
+						LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,
+								fechaInicio, fechaCierre, true);
+						serviciolapsoacademico.guardarLapso(lapsoA);
+						mensajeAlUsuario.informacionRegistroCorrecto(); //ESTE MENSAJE DEBE DECIR QUE SE GUARDO CORRECTAMENTE
+						limpiarlapso();
+				}
+			}
+			else{
+				//SE ESTA CREANDO UN LAPSO DESDE CERO
+				if (serviciolapsoacademico.buscarLapsoActivo()!=null){
+					//EXISTE UN LAPSO ACTIVO ASI QUE NO PUEDE GUARDAR
+					//AQUI VA UN MENSAJE: "No puede registrar el lapso debido a que existe uno activo"
+				}
+				else{
+					//SI NO HAY LAPSO ACTIVO DEBES DEJAR QUE GUARDE EL QUE ESTACREANDO
+				}
 			}
 		}
 	}
@@ -176,12 +188,11 @@ public class VMlapsoAcademico {
 			"listaLapsoAcademico" })
 	public void limpiarlapso() {
 		codigoLapso = null;
-		Date fecha = null;
 		codigoLapso = "";
-		fechaInicio = fecha;
-		fechaCierre = fecha;
+		fechaInicio = null;
+		fechaCierre = null;
+		lapsoAcademicoSeleccionado = new LapsoAcademico();
 		buscarTodosLapsoAcademicos();
-
 	}
 
 	/**
@@ -198,8 +209,6 @@ public class VMlapsoAcademico {
 				.buscarTodosLosLapsos();
 	}
 
-
-
 	/**
 	 * permite tomar los datos del objeto lapso academico seleccionado
 	 * @return nada
@@ -207,13 +216,11 @@ public class VMlapsoAcademico {
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico" })
+	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre" })
 	public void mostrarSeleccionadoLapso() {
-		LapsoAcademico lapsoAA = getLapsoAcademicoseleccionado();
-		codigoLapso = lapsoAA.getCodigoLapso();
-		fechaInicio = lapsoAA.getFechaInicio();
-		fechaCierre = lapsoAA.getFechaCierre();
+		codigoLapso = lapsoAcademicoSeleccionado.getCodigoLapso();
+		fechaInicio = lapsoAcademicoSeleccionado.getFechaInicio();
+		fechaCierre = lapsoAcademicoSeleccionado.getFechaCierre();
 	}
 
 	/**
