@@ -122,6 +122,7 @@
 						align="left" width="50%" sort="auto(getObservacionExperto())">
 						<button label="Analisis Anterior"
 							visible="@bind(vm.mostrarButtonObservacionAnterior)"
+							image="/imagenes/iconos/analizar.png" 
 							mold="trendy" width="50%" height="auto" orient="horizontal"
 							onClick="@command('mostrarHistorial')">
 						</button>
