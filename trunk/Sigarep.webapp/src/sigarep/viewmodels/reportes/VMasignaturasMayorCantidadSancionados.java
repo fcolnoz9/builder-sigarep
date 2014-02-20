@@ -268,7 +268,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarLapso() {
-		setListaLapsoAcademico(serviciolapsoacademico.listadoLapsoAcademico());
+		setListaLapsoAcademico(serviciolapsoacademico.buscarTodosLosLapsos());
 	}
 	
 	/** Objeto Combo Lapso.
