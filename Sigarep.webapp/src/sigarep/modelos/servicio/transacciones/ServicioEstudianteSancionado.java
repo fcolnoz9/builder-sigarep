@@ -157,7 +157,7 @@ public class ServicioEstudianteSancionado {
 		if (programa == null || cedula == null || nombre == null || apellido == null|| sancion== null) {
 			resultado = buscarSancionados();
 		} else {
-			for (EstudianteSancionado inst : listadoEstudianteSancionado()) {
+			for (EstudianteSancionado inst : buscarSancionados()) {
 				if (inst.getEstudiante().getProgramaAcademico().getNombrePrograma().toLowerCase().contains(programa.toLowerCase())
 						&& inst.getId().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())
 						&& inst.getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())
