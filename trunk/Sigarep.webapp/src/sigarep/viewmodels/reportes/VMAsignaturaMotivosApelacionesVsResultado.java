@@ -270,7 +270,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		@Command
 		@NotifyChange({ "listaComboInstancias" })
 		public void buscarInstanciasApeladas() {
-			setListaComboInstancias(servicioInstanciaApelada.buscarTodas());
+			setListaComboInstancias(servicioInstanciaApelada.listadoInstanciaApelada());
 		}
 		
 		/** Objeto Combo Instancia.

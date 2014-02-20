@@ -46,8 +46,8 @@ public class ServicioInstanciaApelada{
 	 * @throws No dispara ninguna excepcion.
 	   */
 	public List<InstanciaApelada> listadoInstanciaApelada() {
-		List<InstanciaApelada> instanciaApeladaLista = iInstancia.buscarInstanciaActivo();
-	    return instanciaApeladaLista ;
+		List<InstanciaApelada> instanciaApeladaLista = iInstancia.findByEstatusTrue();
+	    return instanciaApeladaLista;
 	}
 	
 	/** Buscar Instancia Apelada 
@@ -77,23 +77,5 @@ public class ServicioInstanciaApelada{
 	   */
 	public InstanciaApelada buscar(Integer codigoInstancia){
 		return iInstancia.findOne(codigoInstancia);
-	}
-	
-	/** Lista de Instancia Apelada 
-	 * @return Lista de todas las InstanciasApeladas activas e inactivas
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
-	public List<InstanciaApelada> buscarTodas(){
-		return iInstancia.buscarTodas();
-	}
-	
-	/** Lista de Instancia Apelada 
-	 * @return Lista de las InstanciasApeladas registradas y activas
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
-	public List<InstanciaApelada> buscarTodasLasInstancias(){
-		return iInstancia.buscarInstanciaActivo();
 	}
 }
