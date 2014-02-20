@@ -17,7 +17,7 @@
 				<row>
 					<label id="lblCedula" value="Cédula:" />
 					<textbox id="txtCedula" mold="rounded" width="80%"
-						placeholder = "Ingrese Cédula" 
+						placeholder = "Ej: 19185479" 
 						cols="23" maxlength="8" tabindex="1" value="@bind(vm.cedula)"
 						onBlur="@command('buscarEstudiante')" />
 				</row>
@@ -56,7 +56,7 @@
 					<label id="lblFechaNacimiento"
 						value="Fecha de Nacimiento:" />
 					<datebox id="dtbFechaNacimiento" mold="rounded"
-						placeholder = "Ingrese la fecha de nacimiento" 
+						placeholder = "Seleccione..." 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.fechaNacimiento)" format="dd/MM/yyyy"
 						 />
@@ -65,28 +65,29 @@
 					<label id="lblTelefono" value="Teléfono:" />
 					<textbox id="txtTelefono" mold="rounded" width="80%"
 						cols="23" maxlength="11" tabindex="1" value="@bind(vm.telefono)"
-						 placeholder = "Ingrese el teléfono"  />
+						 placeholder = "Ej: 0251-2320457"  />
 					<label id="lblEmail" value="Email:" />
-					<textbox id="txtEmail" mold="rounded" width="80%"
-						cols="23" maxlength="50" tabindex="1" value="@bind(vm.email)"
-						 placeholder = "Ingrese el E-Mail"  />
+					<textbox id="txtEmail" 
+					placeholder = "Ej: alguien@ejemplo.com" 
+					mold="rounded" width="80%"
+						cols="23" maxlength="50" tabindex="1" value="@bind(vm.email)"/>
 				</row>
 				<row>
 					<label id="lblAnnoIngreso" value="Año de Ingreso:" />
 					<datebox id="dtbAnnoIngreso" mold="rounded"
-						placeholder = "Ingrese el año de ingreso" 
+						placeholder = "Seleccione..." 
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy"  />
 					<label id="lblPrograma" value="Programa:" />
-					<combobox readonly="true" id="cmbPrograma"
-						value="@bind(vm.programa.nombrePrograma)" width="80%" cols="45"
-						placeholder = "Seleccione un programa"
+					<combobox  id="cmbPrograma" readonly="true"
+						placeholder = "Seleccione un programa..."
+						width="80%" cols="45"
 						maxlength="45" tabindex="1" mold="rounded"
+						value="@bind(vm.programa.nombrePrograma)" 
 						model="@load(vm.listaPrograma)"
 						selectedItem="@bind(vm.programa)"
 						onSelect="@command('buscarAsignaturas')">
-						<template name="model"
-							constraint="no empty:Seleccione el programa">
+						<template name="model">
 							<comboitem label="${each.getNombrePrograma()}" />
 						</template>
 					</combobox>
@@ -114,23 +115,23 @@
 						value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
 						<label id="lblSemestre" value="Semestre:" />
 					<textbox id="txtSemestre" mold="rounded"
+						placeholder = "Ej: XI"
 						width="20%" cols="23" maxlength="2" tabindex="1"
-						placeholder = "Ingrese el semestre"
 						value="@bind(vm.semestre)" />
 				</row>
 				<row>
 					<label id="lblUnidadCursadas"
 						value="Unidades/Horas Cursadas:" />
-					<textbox id="txtUnidadCursadas" mold="rounded"
-						placeholder = "Ingrese las Unidades/Horas Cursadas"
-						width="80%" cols="23" maxlength="4" tabindex="1"
+					<textbox id="txtUnidadCursadas"
+						placeholder = "Ej: 100 UC/300 hrs"
+						mold="rounded" width="80%" cols="23" maxlength="4" tabindex="1"
 						value="@bind(vm.unidadesCursadas)" />
 					<label id="lblUnidadAprobadas"
 						value="Unidades/Horas Aprobadas:" />
-					<textbox id="txtUnidadAprobadas" mold="rounded"
-						width="80%" cols="23" maxlength="4" tabindex="1"
-						value="@bind(vm.unidadesAprobadas)"
-						placeholder = "Ingrese las Unidades/Horas Aprobadas" />
+					<textbox id="txtUnidadAprobadas"
+						placeholder = "Ej: 100 UC/300 hrs"
+						 mold="rounded" width="80%" cols="23" maxlength="4" tabindex="1"
+						value="@bind(vm.unidadesAprobadas)" />
 				</row>
 				
 				<row>
@@ -139,10 +140,10 @@
 						width="20%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.indiceGrado)" />
 					<label id="lblSancion" value="Sanción:" />
-					<combobox readonly="true" id="cmbSancion"
+					<combobox  id="cmbSancion" readonly="true"
+					    placeholder = "Seleccione el tipo de sanción..."
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"
-						placeholder = "Seleccione el tipo de sancion"
 						model="@load(vm.listaSancion)"
 						selectedItem="@bind(vm.sancionMaestro)"
 						onSelect="@command('seleccionarSancion', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)">
@@ -156,22 +157,21 @@
 				
 					<label id="lblPeriodoSancion"
 						value="Período de Sanción:" />
-					<textbox id="txtPeriodoSancion" mold="rounded"
-						width="80%" cols="23" maxlength="30" tabindex="1"
-						placeholder = "Ingrese el Período de sancion"
-						value="@bind(vm.periodoSancion)" />
+					<textbox id="txtPeriodoSancion"
+					 placeholder = "Ej: 2"
+					 mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
+					value="@bind(vm.periodoSancion)" />
 						
 						<label id="lblLapsosConsecutivos"
 							value="Lapsos Consecutivos:" visible="false" />
 						<hlayout>
 							<textbox id="txtLapsoConsecutivo1" cols="23"
-								maxlength="6" value="@bind(vm.lapsoConsecutivo1)"
-								placeholder = "Ingrese el año"
-								mold="rounded" width="70px" visible="false">
-							</textbox>
+								placeholder = "Ej: 2013-1"
+								mold="rounded" width="70px" visible="false" maxlength="6" 
+								value="@bind(vm.lapsoConsecutivo1)"/>
 							<textbox id="txtLapsoConsecutivo2" cols="23"
 								maxlength="6" value="@bind(vm.lapsoConsecutivo2)"
-								placeholder = "Ingrese el año de año"
+								placeholder = "Ej: 2013-2"
 								mold="rounded" width="70px" visible="false">
 							</textbox>
 						</hlayout>
@@ -194,10 +194,9 @@
 					<row>
 						<label id="lblAsign"  />
 					<combobox readonly="true" id="cmbAsignaturas"
-						width="80%" cols="23" maxlength="30" tabindex="1"
-					 mold="rounded"
-						model="@load(vm.listaAsignaturas)"
-						placeholder = "Seleccione una asignatura"
+						placeholder = "Seleccione una asignatura..."
+						 mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
+					    model="@load(vm.listaAsignaturas)"
 						selectedItem="@bind(vm.asignaturaseleccionado)">
 						<template name="model">
 							<comboitem label="${each.nombreAsignatura}" />
