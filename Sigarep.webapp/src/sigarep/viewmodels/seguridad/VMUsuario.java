@@ -631,7 +631,7 @@ public class VMUsuario {
 	@NotifyChange({ "listaUsuario","listaPersona","listaInstancia" })
 	public void buscarUsuario() {
 		listaUsuario = serviciousuario.buscarUsuario(nombreUsuario);
-		listaPersona = serviciopersona.buscarper(cedulaPersona);
+		listaPersona = serviciopersona.listadoPersona();
 		listaInstancia = servicioInstanciaApelada.listadoInstanciaApelada();
 	}
 	

@@ -27,14 +27,7 @@ public class ServicioPersona {
 	}
 
 	public List<Persona> listadoPersona() {
-		List<Persona> personaLista = iPersona.buscarpersona();
-		return personaLista;
-	}
-	
-	public  List<Persona> buscarper(String cedulaPersona) {
-		List<Persona> r = new LinkedList<Persona>();
-		r = iPersona.buscarpersona();
-		return r;
+		return iPersona.findByEstatusTrue();
 	}
 
 	public List<Persona> buscarPersonaFiltro(String cedulaPersona,String  nombreCompleto, String nombreUsuario) {
@@ -54,27 +47,8 @@ public class ServicioPersona {
 		return resultado;
 	}
 	
-	public List<Persona> buscarPersonas(Persona personas){
-		List<Persona> result = new ArrayList<Persona>();
-        String cedula = personas.getCedulaPersona();
-       
-        if(cedula==null){
-        	result= listadoPersona();
-        }
-        else{
-			for (Persona per: listadoPersona())
-			{
-				if (per.getCedulaPersona()==cedula){
-					result.add(per);
-				}
-			}
-        }
-		return result;
-        } 
-	
-	public Persona buscarPersonaNombreUsuario(String nombreUsuario) {
-		Persona  persona = iPersona.buscarPersonaPorNombreUsuario(nombreUsuario);
-		return persona;
-	}
+//	public Persona buscarPersonaPorNombreUsuario(String nombreUsuario) {
+// 		return iPersona.findByNombreUsuario(nombreUsuario);
+//	}
 }
 
