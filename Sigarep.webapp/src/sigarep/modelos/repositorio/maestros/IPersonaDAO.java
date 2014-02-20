@@ -14,11 +14,4 @@ public interface IPersonaDAO extends JpaRepository<Persona, String> {
 	 * @return List<Persona> Lista de Personas con estatus true
 	 */
 	public List<Persona> findByEstatusTrue();
-	
-//	/**
-//	 * Busca Personas por nombre de usuario
-//	 * @param nombreUsuario Nombre de usuario asignado a la persona
-//	 * @return Persona encontrada dado un nombre de usuario
-//	 */
-//	public Persona findByNombreUsuario(String nombreUsuario);
 }
