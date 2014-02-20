@@ -214,8 +214,8 @@ public class VMCronograma {
 		buscarCronograma();
 		buscarActividad();
 		buscarResponsable();
-		lapsoActivo = serviciolapsoacademico.encontrarLapsoActivo();
-		if (serviciolapsoacademico.encontrarLapsoActivo() == null){
+		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
+		if (serviciolapsoacademico.buscarLapsoActivo() == null){
 			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 
 		}

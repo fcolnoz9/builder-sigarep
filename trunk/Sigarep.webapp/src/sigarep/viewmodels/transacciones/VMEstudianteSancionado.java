@@ -672,10 +672,10 @@ public class VMEstudianteSancionado {
 					,@BindingParam("parametro4")Label lbllapsoConsecutivo ){
 
 		Boolean estudienteRR = false;
-		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
+		if (serviciolapsoacademico.buscarLapsoActivo() == null)
 			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 		else {
-			lapsoAcademico = serviciolapsoacademico.encontrarLapsoActivo();
+			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
 			if (cedula == null || cedula.equals("") || primerNombre == null
 					|| primerNombre.equals("") || segundoNombre == null
 					|| segundoNombre.equals("") || primerApellido == null

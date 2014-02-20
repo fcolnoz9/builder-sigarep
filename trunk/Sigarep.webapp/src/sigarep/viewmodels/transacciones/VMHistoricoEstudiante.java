@@ -237,10 +237,10 @@ public class VMHistoricoEstudiante {
 			@ExecutionArgParam("cedula") String cedula) {
 		Selectors.wireComponents(view, this, false);
 		this.cedulaEstudiante = cedula;
-		if (serviciolapsoacademico.encontrarLapsoActivo() == null)
+		if (serviciolapsoacademico.buscarLapsoActivo() == null)
 			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
 		else {
-			lapsoAcademico = serviciolapsoacademico.encontrarLapsoActivo()
+			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo()
 					.getCodigoLapso();
 			buscarEstadoEstudiante(cedula);
 			mostrarHistoricoEstudiante(cedula);

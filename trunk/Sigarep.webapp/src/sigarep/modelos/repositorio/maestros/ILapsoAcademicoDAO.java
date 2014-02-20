@@ -17,14 +17,22 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 */
 public interface ILapsoAcademicoDAO extends JpaRepository<LapsoAcademico, String> {
 	
+	/**
+	 * Busca el lapso academico ACTIVO, es decir, donde su estatus es true
+	 * @return LapsoAcademico activo encontrado
+	 */
+	public LapsoAcademico findByEstatusTrue();
+	
 	@Query("select  lapso from LapsoAcademico AS lapso  where estatus= TRUE")
 	public List<LapsoAcademico> buscarActivoLapso();
 	
-	@Query("select  lapso from LapsoAcademico AS lapso  where estatus= FALSE")
-	public List<LapsoAcademico> buscarInactivoLapso();
+	/**
+	 * Busca los lapsos academicos INACTIVOS, es decir, donde su estatus es false
+	 * @return List<LapsoAcademico> Lapsos academicos inactivos
+	 */
+	public List<LapsoAcademico> findByEstatusFalse();
 	
-	@Query("SELECT la FROM LapsoAcademico la WHERE  estatus = TRUE ")
-	public LapsoAcademico buscarLapsoActivo();
+	
 	
 	@Query("SELECT la FROM LapsoAcademico la")
 	public List<LapsoAcademico> buscarLapsosAcademicos();
