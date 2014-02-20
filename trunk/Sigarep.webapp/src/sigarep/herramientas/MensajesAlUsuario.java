@@ -331,7 +331,13 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.ERROR);
 
 	}
+    
+	public void errorLapsoFinalizadoNoModificable() {
 
+		Messagebox.show("Lapso académico finalizado. No puede realizar cambios sobre él.", "Error",
+				Messagebox.OK, Messagebox.ERROR);
+
+	}
 
 	public void ErrorRangoFechas() {
 
