@@ -14,7 +14,7 @@
 		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
 
 		<!-- Inicio del encabezado y el menú horizontal -->
-		<north size="120px">
+		<north size="120px" border="none">
 			<borderlayout>
 				<north size="95px" border="none">
 					<include
@@ -135,7 +135,7 @@
 		<!-- Fin del cuerpo de la página -->
 
 		<!-- Inicio Pie de Página -->
-		<south size="21px">
+		<south size="21px" border="none">
 			<include src="WEB-INF/sigarep/vistas/portal/externo/Footer.zul" />
 		</south>
 		<!-- Fin Pie de Página -->
