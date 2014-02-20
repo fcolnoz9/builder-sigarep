@@ -423,7 +423,7 @@ public class VMConfigurableApelaciones {
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarActivoLapso() {
-		listaLapsoAcademico = serviciolapsoacademico.listadoLapsoAcademico();
+		listaLapsoAcademico = serviciolapsoacademico.buscarTodosLosLapsos();
 		LapsoAcademico lap = new LapsoAcademico("Todos", null, null, null);
 		listaLapsoAcademico.add(listaLapsoAcademico.size(),lap);
 	}

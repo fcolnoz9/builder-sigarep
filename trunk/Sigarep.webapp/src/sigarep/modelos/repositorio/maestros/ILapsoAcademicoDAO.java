@@ -23,17 +23,9 @@ public interface ILapsoAcademicoDAO extends JpaRepository<LapsoAcademico, String
 	 */
 	public LapsoAcademico findByEstatusTrue();
 	
-	@Query("select  lapso from LapsoAcademico AS lapso  where estatus= TRUE")
-	public List<LapsoAcademico> buscarActivoLapso();
-	
 	/**
 	 * Busca los lapsos academicos INACTIVOS, es decir, donde su estatus es false
 	 * @return List<LapsoAcademico> Lapsos academicos inactivos
 	 */
 	public List<LapsoAcademico> findByEstatusFalse();
-	
-	
-	
-	@Query("SELECT la FROM LapsoAcademico la")
-	public List<LapsoAcademico> buscarLapsosAcademicos();
 }

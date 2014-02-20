@@ -190,6 +190,11 @@ public class VMlapsoAcademico {
 	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso academico
 	 * @throws No dispara ninguna excepcion.
 	 */
+	
+	//JESUS PALENCIA:
+	//EL RESPONSABLE POR FAVOR REVISAR PARA QUE USA LOS SIGUIENTES METODOS
+	//DEPENDIENDO PARA QUE LOS USA MODIFICAR CON LOS METODOS EXISTENTES EN EL SERVICIO
+	//Y BORRAR ESTE COMENTARIO.
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public List<LapsoAcademico> buscarActivoLapso() {

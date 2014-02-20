@@ -26,16 +26,6 @@ public class ServicioLapsoAcademico{
 		iLapsoAcademico.save(lapsoA);
 	}
 	
-	/** Lista de lapsos academicos activos
-	 * @return Lista de lapsos academicos  registrados y activos
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
-	public List<LapsoAcademico> listadoLapsoAcademico() {
-		List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.buscarActivoLapso();
-	    return LapsoAcademicoLista ;
-	}
-	
 	/**
 	 * @return 
 	 * @parameters
@@ -59,7 +49,7 @@ public class ServicioLapsoAcademico{
 	 * @throws No dispara ninguna excepcion.
 	   */
 	public List<LapsoAcademico> buscarTodosLosLapsos(){
-		return iLapsoAcademico.buscarLapsosAcademicos();
+		return iLapsoAcademico.findAll();
 	}
 	/** Buscar un lapso academico 
 	 * @return lapso academico  buscada
@@ -75,12 +65,12 @@ public class ServicioLapsoAcademico{
 	 * 	  @throws No dispara ninguna excepcion.
 	 */
 	
-	public List<LapsoAcademico> buscarLapsoAcademico(String codigoLapso){
+	public List<LapsoAcademico> filtrarLapsoAcademico(String codigoLapso){
 		List<LapsoAcademico> result = new LinkedList<LapsoAcademico>();
 		if (codigoLapso==null || "".equals(codigoLapso)){
-			result = listadoLapsoAcademico();
+			result = iLapsoAcademico.findAll();
 		}else{
-			for (LapsoAcademico lapso: listadoLapsoAcademico()){
+			for (LapsoAcademico lapso: iLapsoAcademico.findAll()){
 				if (lapso.getCodigoLapso().toLowerCase().contains(codigoLapso.toLowerCase()))
 				{
 					result.add(lapso);
