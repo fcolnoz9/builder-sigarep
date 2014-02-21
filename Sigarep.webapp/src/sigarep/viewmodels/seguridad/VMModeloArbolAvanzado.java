@@ -7,12 +7,12 @@ import org.zkoss.zul.DefaultTreeNode;
 import sigarep.modelos.data.seguridad.Nodo;
 
 
-public class VMAdvancedTreeModel extends DefaultTreeModel<Nodo> {
+public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 	private static final long serialVersionUID = -5513180500300189445L;
 	
 	DefaultTreeNode<Nodo> _root;
 
-	public VMAdvancedTreeModel(VMmenuTreeNode contactTreeNode) {
+	public VMModeloArbolAvanzado(VMNodoMenuArbol contactTreeNode) {
 		super(contactTreeNode);
 		_root = contactTreeNode;
 	}

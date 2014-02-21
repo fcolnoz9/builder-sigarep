@@ -14,10 +14,10 @@ import org.zkoss.zul.TreeitemRenderer;
 import org.zkoss.zul.Treerow;
 import sigarep.modelos.data.seguridad.Nodo;
 
-public class VMmenuTreeRenderer2 implements TreeitemRenderer<VMmenuTreeNode> {
+public class VMRenderizarMenuArbolGrupo implements TreeitemRenderer<VMNodoMenuArbol> {
 	@Override
-	public void render(final Treeitem treeItem, VMmenuTreeNode treeNode, int index) throws Exception {
-		VMmenuTreeNode ctn = treeNode;
+	public void render(final Treeitem treeItem, VMNodoMenuArbol treeNode, int index) throws Exception {
+		VMNodoMenuArbol ctn = treeNode;
 		Nodo contact = (Nodo) ctn.getData();
 		Treerow dataRow = new Treerow();
 		dataRow.setParent(treeItem);
@@ -34,12 +34,12 @@ public class VMmenuTreeRenderer2 implements TreeitemRenderer<VMmenuTreeNode> {
 			dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 				@Override
 				public void onEvent(Event event) throws Exception {
-					VMmenuTreeNode clickedNodeValue = (VMmenuTreeNode) ((Treeitem) event.getTarget().getParent())
+					VMNodoMenuArbol clickedNodeValue = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent())
 							.getValue();
 					
-					VMmenuTreeNode padre=null;
+					VMNodoMenuArbol padre=null;
 					if(clickedNodeValue.getParent().getData()!=null){
-							padre=obtenePadres((VMmenuTreeNode)clickedNodeValue.getParent(),clickedNodeValue);
+							padre=obtenePadres((VMNodoMenuArbol)clickedNodeValue.getParent(),clickedNodeValue);
 							}else{
 								padre=clickedNodeValue;
 							}
@@ -53,22 +53,22 @@ public class VMmenuTreeRenderer2 implements TreeitemRenderer<VMmenuTreeNode> {
 
 				
 
-				private VMmenuTreeNode obtenePadres(VMmenuTreeNode padre,VMmenuTreeNode hijo) {
-					VMmenuTreeNode aux=null;
-					VMmenuTreeNode padre2=null;
+				private VMNodoMenuArbol obtenePadres(VMNodoMenuArbol padre,VMNodoMenuArbol hijo) {
+					VMNodoMenuArbol aux=null;
+					VMNodoMenuArbol padre2=null;
 					if(padre.getParent().getData()!=null){
 						
 						if(padre.getChildCount()==1){
 						aux=padre;	
 						}else{
-							aux = new VMmenuTreeNode(padre.getData(),null);		
+							aux = new VMNodoMenuArbol(padre.getData(),null);		
 							aux.add(hijo);
 						}
 						aux.setOpen(true);
-						padre2=obtenePadres((VMmenuTreeNode)padre.getParent(),aux);
+						padre2=obtenePadres((VMNodoMenuArbol)padre.getParent(),aux);
 									
 					}else{
-						    padre2 = new VMmenuTreeNode(padre.getData(),null);
+						    padre2 = new VMNodoMenuArbol(padre.getData(),null);
 						    padre2.setOpen(true);
 						    padre2.add(hijo);
 						    if(padre.getChildCount()==0)
@@ -77,11 +77,11 @@ public class VMmenuTreeRenderer2 implements TreeitemRenderer<VMmenuTreeNode> {
 					return padre2;
 				}
 				
-				private void agregarNodo(VMmenuTreeNode nodo,VMmenuTreeNode root) { 
+				private void agregarNodo(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
 					boolean encontro=false;
 					 for(int j=0;j< root.getChildCount();j++){
 						    if(root.getChildAt(j).getData()==nodo.getData()){	
-						    	agregarNodo((VMmenuTreeNode) nodo.getChildAt(0),(VMmenuTreeNode) root.getChildAt(j));
+						    	agregarNodo((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));
 						        encontro=true;
 						    	break;
 						    }

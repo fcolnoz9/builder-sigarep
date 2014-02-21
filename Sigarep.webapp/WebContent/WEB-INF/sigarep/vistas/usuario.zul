@@ -1,23 +1,51 @@
-<panel  border="normal"
-	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.SecurityUtil')">
-	<panelchildren>
-	<tablelayout columns="3">
-		<tablechildren>
-			<a href="">
-			<image src="imagenes/iconos/male.png" width="60px" height="60px" />
-			</a>
-			<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" />
-		</tablechildren>
-		<tablechildren >
-			<button label="Cerrar Sesión"
-				href="j_spring_security_logout" id="btnCerrarSesion"
-				image="/imagenes/iconos/cerrarSesion.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" >
-			</button>
-			<!-- 				<a href="j_spring_security_logout">Cerrar Sesion</a> -->
-			<!-- 					<a href="/Portal.zul">Cerrar Sesion</a> -->
-		</tablechildren>
-	</tablelayout>
-	</panelchildren>
-</panel>
+<zk>
+<!-- 	<style> -->
+<!-- 		.z-menubar-hor, .z-menubar-ver { border: 1px solid #D8D8D8; } -->
+<!-- 		.content {overflow-x: hidden;overflow-y: scroll;} -->
+<!-- 	</style> -->
+	<panel border="normal" apply="org.zkoss.bind.BindComposer"
+		width="150px"
+		viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad')" >
+		<panelchildren >
+			<tablelayout columns="2" >
+				<tablechildren >
+									<hlayout>
+					<a href="">
+						<image width="60px" height="60px" content="@bind(vm.imagenUsuario)" />
+					</a>
+									</hlayout>
+<!-- 									<hlayout>	 -->
+									   <hbox > 
+									 	
+														<label value="@bind(vm.usuario.username)"
+						style="color: black; font: 24 bold monospace;" />
+										</hbox>
+<!-- 									</hlayout> -->
+
+
+				</tablechildren>
+				<tablechildren>
+					<separator/>
+					<separator/>
+					<separator/>
+					<hbox align="center" > 
+						<separator/>
+						<separator/>
+						<menubar>
+							<menu image="/imagenes/iconos/configurar.PNG">
+	<!-- 						style="background-color:#ffffff;" -->
+								<menupopup>
+									<menuitem label="Editar Perfil"
+										image="/imagenes/iconos/editar.png" onClick="@command('editarPerfil')" />
+									<menuitem label="Cerrar Sesión"
+										image="/imagenes/iconos/cerrarSesion.png" onClick="@command('cerrarSesion')" />
+								</menupopup>
+							</menu>
+						</menubar>
+					</hbox>
+				</tablechildren>
+			</tablelayout>
+		</panelchildren>
+	</panel>
+</zk>
+

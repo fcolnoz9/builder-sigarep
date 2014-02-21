@@ -112,7 +112,7 @@ public class VMUsuario {
 	@WireVariable
 	private ServicioUsuario serviciousuario;
 	
-	SecurityUtil seguridad = new SecurityUtil();
+	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
 	
 	public List<InstanciaMiembro> getListaInstanciaMiembro() {
 		return listaInstanciaMiembro;
