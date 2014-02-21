@@ -24,21 +24,14 @@ public class ServicioProgramaAcademico {
 		}
 	}
 
-	public void actualizar(ProgramaAcademico proa) {
-	}
-
 	public void eliminarPrograma(Integer idPrograma) {
 		ProgramaAcademico miPrograma = pro.findOne(idPrograma);
 		miPrograma.setEstatusPrograma(false);
 		pro.save(miPrograma);
 	}
 
-	public ProgramaAcademico buscarUnPrograma(Integer idProgramaAcademico) {
-		return pro.findOne(idProgramaAcademico);
-	}
-
 	public List<ProgramaAcademico> listadoProgramas() {
-		List<ProgramaAcademico> programasLista = pro.buscarProgramasActivos();
+		List<ProgramaAcademico> programasLista = pro.findByEstatusTrue();
 		return programasLista;
 	}
 

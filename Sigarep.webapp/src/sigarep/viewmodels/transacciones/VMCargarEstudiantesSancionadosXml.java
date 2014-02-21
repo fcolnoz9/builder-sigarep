@@ -180,7 +180,7 @@ public class VMCargarEstudiantesSancionadosXml {
 						semestre=Integer.parseInt(node.getChildText("semestre"));
 						periodo_sancion=Integer.parseInt(node.getChildText("periodo_sancion"));
 						ProgramaAcademico programaacademico = new ProgramaAcademico();
-						programaacademico = servicioprogramaacademico.buscarUnPrograma(id_programa);//busca el programa academico
+						programaacademico = servicioprogramaacademico.buscarPrograma(id_programa);//busca el programa academico
 						Estudiante estudiante = new Estudiante(cedula_estudiante, anio_ingreso, email,estatus, fecha_nacimiento, primer_apellido,primer_nombre, segundo_apellido,segundo_nombre, sexo, telefono,programaacademico);
 						servicioestudiante.guardarEstudiante(estudiante);//Se guarda el estudiante
 						EstudianteSancionadoPK id =new EstudianteSancionadoPK();
