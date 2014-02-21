@@ -65,7 +65,7 @@ public class VMDescargas {
 
 	@Command
 	public void descargarCalendario() {
-		Reglamento calendario = servicioreglamento.buscarCalendario();
+		Reglamento calendario = servicioreglamento.buscarCalendario().get(0);
 		if (calendario != null) {
 			Filedownload.save(
 					calendario.getDocumento().getContenidoDocumento(),
