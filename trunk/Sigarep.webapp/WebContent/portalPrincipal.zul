@@ -66,9 +66,9 @@
 								<hbox align="center">
 									<image
 										src="/imagenes/portal-principal/busquedaico.png" />
-									<label value="Cedula:" />
+									<label value="Cédula:" />
 									<intbox id="intcedula"
-										placeholder="Ingrese la Cédula" mold="rounded" maxlength="8" width="150px"
+										placeholder="Ingrese la cédula" mold="rounded" maxlength="8" width="150px"
 										value="@bind(vm.cedula)" />
 									<button label="Buscar" image="/imagenes/iconos/buscar.png"
 										onClick="@command('modalEstadoEstudiante')" />
