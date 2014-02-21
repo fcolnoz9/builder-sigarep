@@ -9,9 +9,16 @@ import sigarep.modelos.data.maestros.SancionMaestro;
 public interface ISancionMaestroDAO extends
 		JpaRepository<SancionMaestro, Integer> {
 
-	@Query("Select san FROM SancionMaestro AS san WHERE estatus = TRUE")
-	public List<SancionMaestro> buscarSancionesActivas();
+	/**
+	 * Busca las Sanciones activas, es decir, que poseen estatus true
+	 * @return List<SancionMaestro> Lista de Sanciones con estatus true
+	 */
+	public List<SancionMaestro> findByEstatusTrue();
 	
+	/**
+	 * Busca el ultimo id insertado en la tabla SancionMaestro
+	 * @return Ultimo id insertado en la tabla SancionMaestro
+	 */
 	@Query("SELECT COALESCE(MAX(sm.idSancion),0) FROM SancionMaestro AS sm")
 	public int buscarUltimoID();
 }

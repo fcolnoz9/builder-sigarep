@@ -250,7 +250,7 @@ public class VMsancionMaestro {
 	@NotifyChange({ "listaTipoSancion", "nombreFiltro" })
 	public void filtros() {
 		listaTipoSancion = serviciosancionmaestro
-				.buscarTipoSancion(nombreFiltro);
+				.filtrarSancion(nombreFiltro);
 	}
 
 	/**
