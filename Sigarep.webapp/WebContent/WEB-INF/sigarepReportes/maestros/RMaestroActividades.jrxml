@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="254"/>
+	<property name="ireport.x" value="199"/>
+	<property name="ireport.y" value="247"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -127,7 +127,7 @@
 	<title>
 		<band height="50" splitType="Stretch">
 			<image scaleImage="RealHeight">
-				<reportElement x="0" y="0" width="572" height="50" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
+				<reportElement x="0" y="0" width="752" height="50" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
 		</band>
@@ -135,22 +135,22 @@
 	<pageHeader>
 		<band height="125" splitType="Stretch">
 			<image>
-				<reportElement x="16" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
+				<reportElement x="51" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="466" y="0" width="106" height="64" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
+				<reportElement x="593" y="0" width="106" height="64" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="125" y="0" width="304" height="50" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
+				<reportElement x="222" y="0" width="304" height="50" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="145" y="64" width="304" height="50" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
+				<reportElement x="222" y="64" width="304" height="50" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -164,7 +164,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<pageFooter>
 		<band height="50" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="572" height="50" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
+				<reportElement x="0" y="0" width="752" height="50" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
 		</band>
@@ -182,7 +182,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 3" style="table 3" x="0" y="0" width="572" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
+				<reportElement key="table 3" style="table 3" x="75" y="0" width="572" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Tabla" uuid="7b1028c8-0687-4c8a-a081-dc2223caba57">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
@@ -217,7 +217,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="112" height="20" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
+								<reportElement x="0" y="0" width="179" height="20" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 							</textField>
@@ -235,7 +235,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="130" height="20" uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5"/>
+								<reportElement x="0" y="0" width="224" height="20" uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{responsable}]]></textFieldExpression>
 							</textField>
