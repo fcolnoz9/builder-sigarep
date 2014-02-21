@@ -7,20 +7,28 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.DefaultTreeModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tree;
 import org.zkoss.zul.TreeNode;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 
@@ -48,12 +56,12 @@ public class VMRegistrarGrupo {
 
 	private @WireVariable ServicioNodo servicionodo;
 
-	private VMAdvancedTreeModel contactTreeModel;
-	private VMAdvancedTreeModel contactTreeModel2;
-	private VMAdvancedTreeModel contactTreeModelAux; //Modelo del arbol que almacenará todos los nodos existentes
+	private VMModeloArbolAvanzado contactTreeModel;
+	private VMModeloArbolAvanzado contactTreeModel2;
+	private VMModeloArbolAvanzado contactTreeModelAux; //Modelo del arbol que almacenará todos los nodos existentes
 	
-	private static VMmenuTreeNode  root;
-	private static VMmenuTreeNode  root2;
+	private static VMNodoMenuArbol  root;
+	private static VMNodoMenuArbol  root2;
 	
 	@WireVariable
 	private ServicioGrupo serviciogrupo;
@@ -70,7 +78,7 @@ public class VMRegistrarGrupo {
     private List<Grupo> listaGrupos = new LinkedList<Grupo>();
     private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-
+	
 	// Metodos GETS Y SETS
 	
 	public ServicioNodo getsnodo() {
@@ -101,49 +109,49 @@ public class VMRegistrarGrupo {
 	}
 
 
-	public VMAdvancedTreeModel getContactTreeModel() {
+	public VMModeloArbolAvanzado getContactTreeModel() {
 		return contactTreeModel;
 	}
 
 
-	public void setContactTreeModel(VMAdvancedTreeModel contactTreeModel) {
+	public void setContactTreeModel(VMModeloArbolAvanzado contactTreeModel) {
 		this.contactTreeModel = contactTreeModel;
 	}
 
 
-	public VMAdvancedTreeModel getContactTreeModel2() {
+	public VMModeloArbolAvanzado getContactTreeModel2() {
 		return contactTreeModel2;
 	}
 
 
-	public void setContactTreeModel2(VMAdvancedTreeModel contactTreeModel2) {
+	public void setContactTreeModel2(VMModeloArbolAvanzado contactTreeModel2) {
 		this.contactTreeModel2 = contactTreeModel2;
 	}
 
-	public VMAdvancedTreeModel getContactTreeModelAux() {
+	public VMModeloArbolAvanzado getContactTreeModelAux() {
 		return contactTreeModelAux;
 	}
 
-	public void setContactTreeModelAux(VMAdvancedTreeModel contactTreeModelAux) {
+	public void setContactTreeModelAux(VMModeloArbolAvanzado contactTreeModelAux) {
 		this.contactTreeModelAux = contactTreeModelAux;
 	}
 
-	public VMmenuTreeNode getRoot2() {
+	public VMNodoMenuArbol getRoot2() {
 		return root2;
 	}
 
 
-	public void setRoot2(VMmenuTreeNode root2) {
+	public void setRoot2(VMNodoMenuArbol root2) {
 		this.root2 = root2;
 	}
 
 
-	public void setRoot(VMmenuTreeNode root) {
+	public void setRoot(VMNodoMenuArbol root) {
 		this.root = root;
 	}
 
 
-	public VMmenuTreeNode getRoot() {
+	public VMNodoMenuArbol getRoot() {
 		return root;
 	}
 
@@ -252,7 +260,13 @@ public class VMRegistrarGrupo {
 			if (grupoAux == null) {
 				grupo1 = new Grupo();
 				grupo1.setIdGrupo(idGrupo);
-			} else grupo1 = grupoAux;
+				System.out.println("LOL");
+			} 
+			else 
+			{
+				grupo1 = grupoAux;
+				System.out.println("PLOP");
+			}
 
 			grupo1.setDescripcion(descripcion);
 			grupo1.setNombre(nombre);
@@ -271,13 +285,16 @@ public class VMRegistrarGrupo {
 			mensajeAlUsuario.advertenciaMenudelGrupoVacio();
 	}
 
+	@Wire("#winRegistrarGrupo")//para conectarse a la ventana con el ID
+	Window ventana;
 	@AfterCompose
-	public void Init(Component comp) throws Exception {
+	public void Init(@ContextParam(ContextType.VIEW) Component view, Component comp) throws Exception {
+		Selectors.wireComponents(view, this, false);
 		cargarArbol();	
-		contactTreeModel = new VMAdvancedTreeModel(root); //modelo del menú arbol de las funciones que no tiene el grupo (es variable)
+		contactTreeModel = new VMModeloArbolAvanzado(root); //modelo del menú arbol de las funciones que no tiene el grupo (es variable)
 		contactTreeModelAux = contactTreeModel; //modelo de menú arbol que contendrá todos los nodos (no es variable) para restaurar el contactTreeModel en el comando limpiar. 
-		root2 = new VMmenuTreeNode(null,null); 
-		contactTreeModel2 = new VMAdvancedTreeModel(root2); //modelo del menú arbol de las funciones del grupo (es variable).
+		root2 = new VMNodoMenuArbol(null,null); 
+		contactTreeModel2 = new VMModeloArbolAvanzado(root2); //modelo del menú arbol de las funciones del grupo (es variable).
 		buscarListadoGrupos();
 //		cargarArbol();	
 //		contactTreeModel = new VMAdvancedTreeModel(root);
@@ -293,12 +310,12 @@ public class VMRegistrarGrupo {
 	 */
 	
 	public void cargarArbol(){
-		root = new VMmenuTreeNode(null,null);
-		VMmenuTreeNode aux=null;
+		root = new VMNodoMenuArbol(null,null);
+		VMNodoMenuArbol aux=null;
 		ArrayList<Nodo> nodosPorPadreOrdenados = new ArrayList<Nodo>(servicionodo.buscarNodosPorPadre(0));
 		Collections.sort(nodosPorPadreOrdenados, new Nodo());
 		for(Nodo a:nodosPorPadreOrdenados){
-			aux=new VMmenuTreeNode(a,null);
+			aux=new VMNodoMenuArbol(a,null);
 		    this.cargarHijos(aux,a);
 			root.add(aux);
 		}
@@ -312,16 +329,16 @@ public class VMRegistrarGrupo {
 	 * @throws no ocurren excepciones 
 	 */
 
-	public void cargarHijos(VMmenuTreeNode m1, Nodo a1) {
-		VMmenuTreeNode m2 = null;
+	public void cargarHijos(VMNodoMenuArbol m1, Nodo a1) {
+		VMNodoMenuArbol m2 = null;
 		ArrayList<Nodo> buscarPadreOrdenadamente = new ArrayList<Nodo>(servicionodo.buscarNodosPorPadre(a1.getId()));
 		Collections.sort(buscarPadreOrdenadamente, new Nodo());
 		for (Nodo a2 : buscarPadreOrdenadamente) {
 			m1.setOpen(true);
 			if (a2.esFuncion() == false)
-				m2 = new VMmenuTreeNode(a2, null);
+				m2 = new VMNodoMenuArbol(a2, null);
 			else
-				m2 = new VMmenuTreeNode(a2);
+				m2 = new VMNodoMenuArbol(a2);
 			m1.add(m2);
 			if (!servicionodo.buscarNodosPorPadre(a2.getId()).isEmpty())
 				cargarHijos(m2, a2);
@@ -360,14 +377,16 @@ public class VMRegistrarGrupo {
 	 */
 	
 	@Command
-	@NotifyChange({ "nombre", "descripcion", "contactTreeModel2","contactTreeModel","contactTreeModelAux","root","root2","listaGrupos"})
+	@NotifyChange({ "nombre", "descripcion", "contactTreeModel2","contactTreeModel","contactTreeModelAux","root","root2","listaGrupos","grupoSeleccionado","grupoAux"})
 	public void limpiar(){
 		nombre = null;
 		descripcion = null;
-		root = new VMmenuTreeNode(null,null);
+		root = new VMNodoMenuArbol(null,null);
 		contactTreeModel = contactTreeModelAux;
-		root2 = new VMmenuTreeNode(null,null);
-		contactTreeModel2 = new VMAdvancedTreeModel(root2);
+		root2 = new VMNodoMenuArbol(null,null);
+		contactTreeModel2 = new VMModeloArbolAvanzado(root2);
+		grupoSeleccionado = null;
+		grupoAux = null;
 		buscarListadoGrupos();
 	}
 	
@@ -387,12 +406,12 @@ public class VMRegistrarGrupo {
 			Grupo g = serviciogrupo.buscarGrupoNombre(grupoSeleccionado.getNombre());
 			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());		
 			Collections.sort(nodosOrdenados, new Nodo());
-			root2 = new VMmenuTreeNode(null,null);
+			root2 = new VMNodoMenuArbol(null,null);
 			cargarMenu(nodosOrdenados,root2);
-			contactTreeModel2 = new VMAdvancedTreeModel(root2);
-			root = new VMmenuTreeNode(null,null);
+			contactTreeModel2 = new VMModeloArbolAvanzado(root2);
+			root = new VMNodoMenuArbol(null,null);
 			cargarMenu(servicionodo.funcionesGrupoNoPerteneceGrupo(g.getIdGrupo()), root);
-			contactTreeModel = new VMAdvancedTreeModel(root);
+			contactTreeModel = new VMModeloArbolAvanzado(root);
 			grupoAux = g;
 			nombre = grupoAux.getNombre();
 			descripcion = grupoAux.getDescripcion();				
@@ -406,11 +425,11 @@ public class VMRegistrarGrupo {
 	 * @throws no ocurren excepciones 
 	 */
 	
-	public void cargarMenu(List<Nodo> nodos, VMmenuTreeNode root){
-		VMmenuTreeNode aux=null;
+	public void cargarMenu(List<Nodo> nodos, VMNodoMenuArbol root){
+		VMNodoMenuArbol aux=null;
 		for(Nodo a:nodos){
-			aux=new VMmenuTreeNode(a);
-			VMmenuTreeNode ctreenodo = this.cargarPadre(aux);
+			aux=new VMNodoMenuArbol(a);
+			VMNodoMenuArbol ctreenodo = this.cargarPadre(aux);
 			ctreenodo.setOpen(true);
 			Integer j = root.getChildCount();
 			if(!(j.compareTo(0)==0)){
@@ -424,16 +443,16 @@ public class VMRegistrarGrupo {
 	/**
 	 * cargarPadre
 	 * metodo que permite cargar el nodo padre (nodo del menú arbol) dado un nodo en especifico
-	 * @param VMmenuTreeNode nodo. 
+	 * @param VMNodoMenuArbol nodo. 
 	 * @return VMmenuTreeNode nodo del ultimo padre cargado recursivamente.
 	 * @throws no ocurren excepciones 
 	 */
 	
-	public VMmenuTreeNode cargarPadre(VMmenuTreeNode nodo) {
-		VMmenuTreeNode padre=null;
+	public VMNodoMenuArbol cargarPadre(VMNodoMenuArbol nodo) {
+		VMNodoMenuArbol padre=null;
 			if(nodo.getData().getPadre()!=0){
 				Nodo npadre=servicionodo.buscarNodo(nodo.getData().getPadre());
-				padre=new VMmenuTreeNode(npadre,null);
+				padre=new VMNodoMenuArbol(npadre,null);
 				nodo.setOpen(true);
 				padre.add(nodo);
 				nodo=cargarPadre(padre);		
@@ -441,16 +460,16 @@ public class VMRegistrarGrupo {
 			return nodo;
 	}
 	
-	private void cargarNodos(VMmenuTreeNode nodo,VMmenuTreeNode root) { 
+	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
 		boolean encontro=false;
 		 for(int j=0;j< root.getChildCount();j++){
 			  if(root.getChildAt(j).getData().getId().compareTo(nodo.getData().getId())==0){
 				  for(int i=0;i< nodo.getChildCount();i++){
 				    if(nodo.getChildCount()==1)
-				    	 cargarNodos((VMmenuTreeNode) nodo.getChildAt(0),(VMmenuTreeNode) root.getChildAt(j));  
+				    	 cargarNodos((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));  
 				    else{
-				    	 VMmenuTreeNode aux = new VMmenuTreeNode(nodo.getChildAt(i).getData(),null);
-				    	 cargarNodos(aux,(VMmenuTreeNode) root.getChildAt(j));
+				    	 VMNodoMenuArbol aux = new VMNodoMenuArbol(nodo.getChildAt(i).getData(),null);
+				    	 cargarNodos(aux,(VMNodoMenuArbol) root.getChildAt(j));
 				     }
 				  }
 				    encontro=true;
@@ -473,5 +492,24 @@ public class VMRegistrarGrupo {
 	public void filtros(){
 		listaGrupos = serviciogrupo.buscarGrupoFiltro(nombreGrupofiltro, descripcionfiltro);
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+//	@Command
+//	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+//		boolean condicion = false;
+//		if(root2.getChildCount() > 0)
+//			condicion = true;
+//		mensajeAlUsuario.confirmacionCerrarVentana(ventana,condicion);		
+//	}
+	
+
 	
 }

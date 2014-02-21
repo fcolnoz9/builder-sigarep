@@ -24,13 +24,13 @@ import org.zkoss.zul.Window;
 import sigarep.controlador.maestros.WindowController;
 import sigarep.modelos.data.seguridad.Nodo;
 
-public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
+public class VMRenderizarMenuArbolAplicacion implements TreeitemRenderer<VMNodoMenuArbol> {
 	
 	Window w=null;
 	WindowController winController = new WindowController();
 	@Override
-	public void render(final Treeitem treeItem, VMmenuTreeNode treeNode, int index) throws Exception {
-		VMmenuTreeNode ctn = treeNode;
+	public void render(final Treeitem treeItem, VMNodoMenuArbol treeNode, int index) throws Exception {
+		VMNodoMenuArbol ctn = treeNode;
 		Nodo contact = (Nodo) ctn.getData();
 
 		Treerow dataRow = new Treerow();
@@ -44,7 +44,7 @@ public class VMmenuTreeRenderer3 implements TreeitemRenderer<VMmenuTreeNode> {
 			dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 				@Override
 				public void onEvent(Event event) throws Exception {
-					VMmenuTreeNode clickedNodeValue = (VMmenuTreeNode) ((Treeitem) event.getTarget().getParent()).getValue();
+					VMNodoMenuArbol clickedNodeValue = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent()).getValue();
 					if (clickedNodeValue.getData().getVinculo() != null) {
 						if (w != null) {
 							w.detach();

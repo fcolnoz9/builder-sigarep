@@ -1,7 +1,14 @@
 package sigarep.herramientas;
 
+import java.awt.MenuItem;
+
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
 /*
@@ -378,12 +385,17 @@ public class MensajesAlUsuario {
 	}
 
 	public void confirmacionCerrarSesion() {
+		
+		Messagebox.show("¿Está seguro de querer cerrar sesión?","Confirmación",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.CANCEL },
+				Messagebox.QUESTION,new EventListener<ClickEvent>() {
+			@SuppressWarnings("incomplete-switch")
+			public void onEvent(ClickEvent e) throws Exception {
+				switch (e.getButton()) {
+					case YES:
+						Executions.sendRedirect("j_spring_security_logout");
+				}
+			}
+		});
 
-		Messagebox.show("ï¿½Estï¿½ seguro de querer cerrar sesiï¿½n?",
-				"Confirmaciï¿½n", Messagebox.OK | Messagebox.CANCEL,
-				Messagebox.QUESTION);
-
-	}
-	
-
+	}	
 }

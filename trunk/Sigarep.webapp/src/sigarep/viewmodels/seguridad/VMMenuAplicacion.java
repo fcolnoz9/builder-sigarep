@@ -13,26 +13,25 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Nodo;
-import sigarep.modelos.data.seguridad.Usuario;
 
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioNodo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMmenuAplicacion{
+public class VMMenuAplicacion{
 	
-	private VMmenuTreeRenderer3 rendererPortalAplicacion=new VMmenuTreeRenderer3();
-	public VMmenuTreeRenderer3 getRendererPortalAplicacion() {
-		return rendererPortalAplicacion;
+	private VMRenderizarMenuArbolAplicacion renderizarPortalAplicacion=new VMRenderizarMenuArbolAplicacion();
+	public VMRenderizarMenuArbolAplicacion getRendererPortalAplicacion() {
+		return renderizarPortalAplicacion;
 	}
 
 
 	public void setRendererPortalAplicacion(
-			VMmenuTreeRenderer3 rendererPortalAplicacion) {
-		this.rendererPortalAplicacion = rendererPortalAplicacion;
+			VMRenderizarMenuArbolAplicacion rendererPortalAplicacion) {
+		this.renderizarPortalAplicacion = rendererPortalAplicacion;
 	}
-	private VMAdvancedTreeModel contactTreeModel;
-	private static VMmenuTreeNode  rootPortalInicial;
+	private VMModeloArbolAvanzado contactTreeModel;
+	private static VMNodoMenuArbol  rootPortalInicial;
 	private @WireVariable ServicioNodo servicionodo;
 	private @WireVariable ServicioGrupo serviciogrupo;
 	private @WireVariable ServicioUsuario serviciousuario;
@@ -57,34 +56,34 @@ public class VMmenuAplicacion{
 		this.imagen = imagen;
 	}
 	private static String ruta="timeout.zul";
-    public VMAdvancedTreeModel getContactTreeModel() {
+    public VMModeloArbolAvanzado getContactTreeModel() {
 		return contactTreeModel;
 	}
 
 
-	public void setContactTreeModel(VMAdvancedTreeModel contactTreeModel) {
+	public void setContactTreeModel(VMModeloArbolAvanzado contactTreeModel) {
 		this.contactTreeModel = contactTreeModel;
 	}
-	public static VMmenuTreeNode getRootPortalInicial() {
+	public static VMNodoMenuArbol getRootPortalInicial() {
 		return rootPortalInicial;
 	}
 
 
-	public static void setRootPortalInicial(VMmenuTreeNode rootPortalInicial) {
-		VMmenuAplicacion.rootPortalInicial = rootPortalInicial;
+	public static void setRootPortalInicial(VMNodoMenuArbol rootPortalInicial) {
+		VMMenuAplicacion.rootPortalInicial = rootPortalInicial;
 	}
 	
 	@AfterCompose
 	public void Init(@ContextParam(ContextType.COMPONENT) Component windowindex,@ContextParam(ContextType.VIEW) Component view) {
-		rootPortalInicial = new VMmenuTreeNode(null,null);		
-		for(String rol:SecurityUtil.roles()){
+		rootPortalInicial = new VMNodoMenuArbol(null,null);		
+		for(String rol:VMUtilidadesDeSeguridad.roles()){
 			Grupo g=serviciogrupo.buscarGrupoNombre(rol);
-			VMmenuTreeNode aux=null;
+			VMNodoMenuArbol aux=null;
 			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());
 			Collections.sort(nodosOrdenados, new Nodo());
 			for(Nodo a:nodosOrdenados){
-				aux=new VMmenuTreeNode(a);
-				VMmenuTreeNode ctreenodo= this.cargarPadre(aux);
+				aux=new VMNodoMenuArbol(a);
+				VMNodoMenuArbol ctreenodo= this.cargarPadre(aux);
 				Integer j = rootPortalInicial.getChildCount();
 				if(!(j.compareTo(0)==0)){
 					this.cargarNodos(ctreenodo,rootPortalInicial);
@@ -93,31 +92,31 @@ public class VMmenuAplicacion{
 				}	
 			}
 		}		
-		contactTreeModel = new VMAdvancedTreeModel(rootPortalInicial);
+		contactTreeModel = new VMModeloArbolAvanzado(rootPortalInicial);
 	}
 
 
-	public VMmenuTreeNode cargarPadre(VMmenuTreeNode nodo) {
-		VMmenuTreeNode padre=null;
+	public VMNodoMenuArbol cargarPadre(VMNodoMenuArbol nodo) {
+		VMNodoMenuArbol padre=null;
 			if(nodo.getData().getPadre()!=0){
 				Nodo npadre=servicionodo.buscarNodo(nodo.getData().getPadre());
-				padre=new VMmenuTreeNode(npadre,null);
+				padre=new VMNodoMenuArbol(npadre,null);
 				padre.add(nodo);
 				nodo=cargarPadre(padre);		
 			}
 			return nodo;
 	}
-	private void cargarNodos(VMmenuTreeNode nodo,VMmenuTreeNode root) { 
+	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
 		boolean encontro=false;
 		
 		 for(int j=0;j< root.getChildCount();j++){
 			  if(root.getChildAt(j).getData().getId().compareTo(nodo.getData().getId())==0){
 				  for(int i=0;i< nodo.getChildCount();i++){
 				    if(nodo.getChildCount()==1)
-					cargarNodos((VMmenuTreeNode) nodo.getChildAt(0),(VMmenuTreeNode) root.getChildAt(j));  
+					cargarNodos((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));  
 				    else{
-				    	 VMmenuTreeNode aux = new VMmenuTreeNode(nodo.getChildAt(i).getData(),null);
-				         cargarNodos(aux,(VMmenuTreeNode) root.getChildAt(j));
+				    	 VMNodoMenuArbol aux = new VMNodoMenuArbol(nodo.getChildAt(i).getData(),null);
+				         cargarNodos(aux,(VMNodoMenuArbol) root.getChildAt(j));
 				     }
 				  }
 				    encontro=true;

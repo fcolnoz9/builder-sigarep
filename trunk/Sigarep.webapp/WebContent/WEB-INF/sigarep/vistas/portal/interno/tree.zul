@@ -1,9 +1,9 @@
 <window sclass="principal" border="0" height="auto" contentStyle="overflow:auto" id="winTree"
 	apply="org.zkoss.bind.BindComposer"
-    viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMmenuAplicacion')">
+    viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMMenuAplicacion')">
     
 	<tree id="tree" Zclass="z-vfiletree" multiple="false" 
- 		height="600px" hflex="true" vflex="true" model="@load(vm.contactTreeModel)" ItemRenderer="sigarep.viewmodels.seguridad.VMmenuTreeRenderer3"> 
+ 		height="600px" hflex="true" vflex="true" model="@load(vm.contactTreeModel)" ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarMenuArbolAplicacion"> 
  		<treecols> 
 			<treecol label="MENU SIGAREP" sclass="fondo_arbol1" /> 
  		</treecols>
