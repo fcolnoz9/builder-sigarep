@@ -344,9 +344,7 @@ public void descargarDocumento(){
 		@Command
 		@NotifyChange({ "listaReglamento","tituloF","categoriaF" })
 		public void filtros() {
-			
-			listaReglamento = servicioreglamento.buscarReglamento(tituloF,categoriaF);
-
+			listaReglamento = servicioreglamento.filtrarReglamento(tituloF,categoriaF);
 		}
 	
 		/**

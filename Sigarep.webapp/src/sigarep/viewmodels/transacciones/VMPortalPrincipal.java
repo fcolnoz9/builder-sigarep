@@ -178,7 +178,7 @@ public class VMPortalPrincipal {
 
 	@Command
 	public void descargarGuia() {
-		Reglamento guia = servicioreglamento.buscarGuia();
+		Reglamento guia = servicioreglamento.buscarGuia().get(0);
 		if (guia != null) {
 			Filedownload.save(guia.getDocumento().getContenidoDocumento(), guia
 					.getDocumento().getTipoDocumento(), guia.getDocumento()

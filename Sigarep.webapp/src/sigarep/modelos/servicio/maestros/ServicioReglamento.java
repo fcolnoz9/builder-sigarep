@@ -19,20 +19,18 @@ import sigarep.modelos.repositorio.maestros.IReglamentoDAO;
 public class ServicioReglamento {
 	private @Autowired IReglamentoDAO rg;
 
-
-/**Constructor Vacio
- * @param constructor sin parametros	
- */
+	/**Constructor Vacio
+	 * @param constructor sin parametros	
+	 */
 	public ServicioReglamento() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-/**guardarReglamento
- * @param r
- * @return No devuelve ningun valor
- */
-
+	/**guardarReglamento
+	 * @param r
+	 * @return No devuelve ningun valor
+	 */
 	public void guardarReglamento(Reglamento r){
 		if (r.getIdDocumento() != null)
 			rg.save(r);
@@ -46,13 +44,11 @@ public class ServicioReglamento {
 	 * @param idDocumento
 	 * @return No devuelve ningun valor
 	 */
-	//Permite la eliminación lógica del registro, por id, busca el id y cambia su estatus a false, 
-		//la llamada reglamento.save(enlaceBorrarLogico); actualiza el estatus del registro.
-			public void eliminar(Integer idDocumento) {
-				Reglamento reglamentoBorrarLogico = rg.findOne(idDocumento);
-				reglamentoBorrarLogico.setEstatus(false);
-				rg.save(reglamentoBorrarLogico);
-			}
+	public void eliminar(Integer idDocumento) {
+		Reglamento reglamentoBorrarLogico = rg.findOne(idDocumento);
+		reglamentoBorrarLogico.setEstatus(false);
+		rg.save(reglamentoBorrarLogico);
+	}
 	
 	/**buscarReglamento		
 	 * @param idDocumento
@@ -66,46 +62,44 @@ public class ServicioReglamento {
 	 * @param IDAO, el cual trae todos los registros en true,los que no han sido eliminado logicamente
 	 * @return listaReglamentoLogico
 	 */
-			public List<Reglamento> listaReglamento() {
-				return rg.listaReglamentoLogico();
-			}
-			
-			public List<Reglamento> buscarReglamento(String tituloF,String  categoriaF) {
-				List<Reglamento> resultado = new LinkedList<Reglamento>();	
-				if (tituloF == null ||categoriaF==null ) {
-					resultado = listaReglamento();
-				} else {
-					for (Reglamento r : listaReglamento()) {
-						if (r.getTitulo().toLowerCase().contains(tituloF)
-								&& r.getCategoria().toLowerCase()
-								.contains(categoriaF))
-						{
-							resultado.add(r);
-						}
-					}
-				}
-				return resultado;
-			}
-			
+	public List<Reglamento> listaReglamento() {
+		return rg.findByEstatusTrue();
+	}
 	
+	public List<Reglamento> filtrarReglamento(String tituloF,String  categoriaF) {
+		List<Reglamento> resultado = new LinkedList<Reglamento>();	
+		if (tituloF == null ||categoriaF==null ) {
+			resultado = listaReglamento();
+		} else {
+			for (Reglamento r : listaReglamento()) {
+				if (r.getTitulo().toLowerCase().contains(tituloF)
+						&& r.getCategoria().toLowerCase()
+						.contains(categoriaF))
+				{
+					resultado.add(r);
+				}
+			}
+		}
+		return resultado;
+	}
+			
 	public List<Reglamento> buscarReglamentoPortal(){
-		return rg.buscarReglamento();
+		return rg.findByCategoriaAndEstatusTrue("Reglamento");
 	}
 	
 	public List<Reglamento> buscarRecaudosPortal(){
-		return rg.buscarRecaudos();
+		return rg.findByCategoriaAndEstatusTrue("Recaudo");
 	}
 	
 	public List<Reglamento> buscarFormatoPortal(){
-		return rg.buscarFormato();
+		return rg.findByCategoriaAndEstatusTrue("Formato");
 	}
 	
-	public Reglamento buscarGuia(){
-		return rg.buscarGuiaPasoAPaso();
+	public List<Reglamento> buscarGuia(){
+		return rg.findByCategoriaAndEstatusTrue("Guia");
 	}
 	
-	public Reglamento buscarCalendario(){
-		return rg.buscarCalendario();
+	public List<Reglamento> buscarCalendario(){
+		return rg.findByCategoriaAndEstatusTrue("Calendario");
 	}
-
 }
