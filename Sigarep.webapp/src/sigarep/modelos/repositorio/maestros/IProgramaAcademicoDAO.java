@@ -12,7 +12,7 @@ public interface IProgramaAcademicoDAO extends
 	 * Busca las todas los Programas Academicos que poseen estatus true
 	 * @return List<ProgramaAcademico> Lista de programas academicos con estatus true
 	 */
-	public List<ProgramaAcademico> findByEstatusTrue();
+	public List<ProgramaAcademico> findByEstatusProgramaTrue();
 	
 	/**
 	 * Busca el ultimo id insertado en la tabla ProgramaAcademico

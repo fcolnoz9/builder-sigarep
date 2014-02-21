@@ -31,7 +31,7 @@ public class ServicioProgramaAcademico {
 	}
 
 	public List<ProgramaAcademico> listadoProgramas() {
-		List<ProgramaAcademico> programasLista = pro.findByEstatusTrue();
+		List<ProgramaAcademico> programasLista = pro.findByEstatusProgramaTrue();
 		return programasLista;
 	}
 
