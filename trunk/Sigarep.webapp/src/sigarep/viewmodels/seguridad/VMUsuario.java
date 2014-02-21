@@ -404,7 +404,7 @@ public class VMUsuario {
 	 */
 	@Command
 	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre",
-		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo", "imagenUsuario"})
+		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo", "imagenUsuario","fotoUsuario"})
 	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario) {
 		boolean existeUsuario = false;
 		Usuario usuario = new Usuario();
@@ -440,13 +440,18 @@ public class VMUsuario {
 			if(imagenUsuario == null){
 				try {
 					imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
+					fotoUsuario = new Archivo();
+					
+					fotoUsuario.setNombreArchivo(imagenUsuario.getName());
+					fotoUsuario.setTipo(imagenUsuario.getContentType());
+					fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				fotoUsuario.setNombreArchivo(imagenUsuario.getName());
-				fotoUsuario.setTipo(imagenUsuario.getContentType());
-				fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
+				
+				
 			}
 			
 			usuario.setFoto(fotoUsuario);
@@ -552,8 +557,28 @@ public class VMUsuario {
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
-	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro" })
+	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro","fotoUsuario","imagenUsuario"})
 	public void agregarInstancia() {
+		
+		if(imagenUsuario == null){
+			try {
+				imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
+				if(imagenUsuario != null)System.out.println("tiene");
+				else System.out.println("no tiene");
+				fotoUsuario.setNombreArchivo(imagenUsuario.getName());
+				fotoUsuario.setTipo(imagenUsuario.getContentType());
+				fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
+				fotoUsuario.setAImage(imagenUsuario);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		
+		
 		
 		InstanciaMiembro instanciaM = new InstanciaMiembro();
 		InstanciaMiembroPK instanciaMPK = new InstanciaMiembroPK();
@@ -603,7 +628,7 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro","cargo"})
 	public void mostrarInstancia() {
-		
+	
 		cargo = instanciaMiembro.getCargo();
 		tituloinstancia = instanciaMiembro.getInstanciaApelada().getInstanciaApelada();
 		instanciaseleccionada = instanciaMiembro.getInstanciaApelada();
@@ -653,7 +678,7 @@ public class VMUsuario {
 	 */
 	@Command
 	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre",
-		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo","listaGrupoPertenece"})
+		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","fotoUsuario","listaInstanciaMiembro","tituloinstancia","cargo","listaGrupoPertenece"})
 	public void limpiar() {
 		
 		nombreUsuario = "";
@@ -666,7 +691,7 @@ public class VMUsuario {
 		telefono = "";
 		mediaUsuario = null;
 		imagenUsuario = null;
-		fotoUsuario = new Archivo();
+		fotoUsuario = null;
 		confirmarcorreo = "";
 		listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
 		instanciaMiembroPK = null;
@@ -676,7 +701,6 @@ public class VMUsuario {
 		instanciaseleccionada= null;
 		listaGrupoPertenece.clear();
 		buscarUsuario();
-//		listaGrupoPertenece.clear();
 		buscarListadoGrupos();
 	}
 	
@@ -741,7 +765,22 @@ public class VMUsuario {
 				}
 			}
 			else{imagenUsuario = null;}
-		}else{System.out.println("esta nula");}
+		}else{
+			System.out.println("esta nula");
+			try {
+				imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
+				
+				fotoUsuario = new Archivo();
+				
+				fotoUsuario.setNombreArchivo(imagenUsuario.getName());
+				fotoUsuario.setTipo(imagenUsuario.getContentType());
+				fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		listaGrupoPertenece = serviciogrupo.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 		listaGrupoNoPertenece = serviciogrupo.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
@@ -845,6 +884,7 @@ public class VMUsuario {
 	@NotifyChange("imagenUsuario")
 	public void cargarImagenUsuario(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
 		mediaUsuario = event.getMedia();
+		fotoUsuario = new Archivo();
 		if (mediaUsuario != null) {
 			
 			if (mediaUsuario instanceof org.zkoss.image.Image) {
