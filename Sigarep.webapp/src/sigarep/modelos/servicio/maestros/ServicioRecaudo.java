@@ -18,8 +18,6 @@ import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
  * @ Version 1.0, 16/12/13
  */
 
-
-
 @Service("serviciorecaudo")
 public class ServicioRecaudo {
 	private @Autowired IRecaudoDAO iRecaudoDAO;
@@ -42,23 +40,15 @@ public class ServicioRecaudo {
 	}
 	
 	public List<Recaudo> listadoRecaudosPorMotivo(Integer idMotivo) {
-		List<Recaudo> listaRecaudosPorMotivo=iRecaudoDAO.findByTipoMotivoAndEstatusTrue(idMotivo);
-	    return listaRecaudosPorMotivo;
+	    return iRecaudoDAO.findByTipoMotivoAndEstatusTrue(idMotivo);
 	}
 	
 	public Recaudo buscarRecaudoPorNombre(String nombreRecaudo) {
-		Recaudo recaudo=iRecaudoDAO.findByNombreRecaudo(nombreRecaudo);
-	    return recaudo;
+	    return iRecaudoDAO.findByNombreRecaudo(nombreRecaudo);
 	}
 	
 	public List<Recaudo> listadoRecaudosActivos() {
-		List<Recaudo> listaRecaudos=iRecaudoDAO.buscaRecaudosActivos();
-	    return listaRecaudos;
-	}
-	
-	public List<Recaudo> listadoRecaudos() {
-		List<Recaudo> listaRecaudos=iRecaudoDAO.buscaRecaudos();
-	    return listaRecaudos;
+	    return iRecaudoDAO.findByEstatusTrue();
 	}
 	
 	//Busca en la lista de Recaudo
@@ -99,9 +89,7 @@ public class ServicioRecaudo {
 	 * @param cedula
 	 * @return lista de recaudos faltantes por entregar
 	 */
-	public List<Recaudo> buscarRecaudosVerificarRecaudosII(
-			String cedula) {
-		// TODO Auto-generated method stub
+	public List<Recaudo> buscarRecaudosVerificarRecaudosII(String cedula) {
 		return iRecaudoDAO.buscarRecaudosVerificarRecaudosII(cedula);
 	}
 	
@@ -110,13 +98,10 @@ public class ServicioRecaudo {
 	 * @param cedula
 	 * @return lista de recaudos faltantes por entregar
 	 */
-	public List<Recaudo> buscarRecaudosVerificarRecaudosIII(
-			String cedula) {
-		// TODO Auto-generated method stub
+	public List<Recaudo> buscarRecaudosVerificarRecaudosIII(String cedula) {
 		return iRecaudoDAO.buscarRecaudosVerificarRecaudosIII(cedula);
 	}
-	public List<Recaudo> buscarRecaudosPorApelacion(String cedula, String codigoLapso, Integer idInstancia) {
-		List<Recaudo> listaRecaudosApelacion = iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);	
-		return listaRecaudosApelacion;
+	public List<Recaudo> buscarRecaudosPorApelacion(String cedula, String codigoLapso, Integer idInstancia) {	
+		return iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);
 	}
 }
