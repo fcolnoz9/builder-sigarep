@@ -49,25 +49,7 @@
 			</div>
 		</groupbox>
 
-		
-		<listbox id="lbxApelacionesResultado" height="70%"
-			model="@bind(vm.apelacionesPrograma)" visible="false">
-			<listhead>
-				<listheader label="Cantidad" align="center"
-					sort="auto(Cantidad)" />
-				<listheader label="Motivo" align="center"
-					sort="auto(Motivo)" />
-				<listheader label="Resultado" align="center"
-					sort="auto(Resultado)" />
-			</listhead>
-			<template name="model">
-				<listitem>
-					<listcell label="${each.cantidad}" />
-					<listcell label="${each.motivo}" />
-					<listcell label="${each.resultado}" />
-				</listitem>
-			</template>
-		</listbox>
+
 
        <div align="right" height="100%">
 			<button id="btnImprimir" width="auto" height="auto"
@@ -76,7 +58,7 @@
 
 			</button>
 			<button id="btnCancelar" width="auto" height="auto"
-				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('buscarApelacionesR')">
+				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" image="/imagenes/iconos/cerrar.png"

@@ -5,97 +5,6 @@
 	<vlayout apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMapelacionesPorMotivo')">
 
-
-<!--		<groupbox id="grbParametros1">
-			<caption id="lblParametrosA"
-				label="Parametros de Agrupación" />
-
-			<grid id="grdColumn" width="99%" style="border:normal;"
-				height="100%">
-				<columns>
-					<column label="" width="100%" height="100%" />
-				</columns>
-				<rows>
-					<row>
-						<radiogroup id="rgDestino"
-							selectedItem="@bind(vm.selected)"
-							onCheck="choice.value = self.selectedItem.label">
-							<grid id="grdRadioButtons ">
-								<rows>
-									<row>
-										<hbox>
-											<radio id="rbSancion"
-												value="sancion">
-												<attribute name="onCheck"> 
-														<![CDATA[
-	grbParametros.setVisible(true);
-	lblSanciones.setVisible(false);
-	cmbTipoSancion.setVisible(false);
-	lblResultados.setVisible(true);
-	cmbResultado.setVisible(true);
-	lblPrograma.setVisible(true);
-	cmbPrograma.setVisible(true);
-	lbxApelacionesSancion.setVisible(true);
-	lbxApelacionesPrograma.setVisible(false);
-	lbxApelacionesResultado.setVisible(false);
-]]>
-														</attribute>
-											</radio>
-											<label id="lblSancion"
-												value="Sanción" />
-										</hbox>
-										<hbox>
-											<radio id="rbResultado"
-												value="resultado">
-												<attribute name="onCheck">
-														<![CDATA[
-	grbParametros.setVisible(true);
-	lblResultados.setVisible(false);
-	cmbResultado.setVisible(false);
-	lblPrograma.setVisible(true);
-	cmbPrograma.setVisible(true);
-	lblSanciones.setVisible(true);
-	cmbTipoSancion.setVisible(true);
-	lbxApelacionesSancion.setVisible(false);
-	lbxApelacionesPrograma.setVisible(false);
-	lbxApelacionesResultado.setVisible(true);
-]]>
-														</attribute>
-											</radio>
-											<label id="lblResultado"
-												value="Resultado" />
-										</hbox>
-										<hbox>
-											<radio id="rbPrograma"
-												value="programa">
-												<attribute name="onCheck">
-													<![CDATA[
-	grbParametros.setVisible(true);
-	lblPrograma.setVisible(false);
-	cmbPrograma.setVisible(false);
-	lblResultados.setVisible(true);
-	cmbResultado.setVisible(true);
-	lblSanciones.setVisible(true);
-	cmbTipoSancion.setVisible(true);
-	lbxApelacionesSancion.setVisible(false);
-	lbxApelacionesPrograma.setVisible(true);
-	lbxApelacionesResultado.setVisible(false);
-]]>
-														</attribute>
-											</radio>
-											<label id="lblProgramas"
-												value="Programa" />
-										</hbox>
-
-									</row>
-								</rows>
-							</grid>
-						</radiogroup>
-						<label value="@bind(vm.selected)" />
-					</row>
-				</rows>
-			</grid>
-		</groupbox>-->
 		<groupbox id="grbParametros" visible="true">
 			<caption id="lblParametros" label="Seleccionar" />
 			<div>
@@ -139,61 +48,24 @@
 			</div>
 		</groupbox>
 
-		<!--  ->
-			<listbox id="lbxApelacionesPrograma" height="70%">
-			<listhead>
-			<listheader label="Cantidad" align="center"
-			sort="auto(Cantidad)" />
-			<listheader label="Motivo" align="center"
-			sort="auto(Motivo)" />
-			<listheader label="Programa" align="center"
-			sort="auto(Programa)" />
-			</listhead>
-			<template name="model">
-			<listitem>
-			<listcell label="${each.cantidad}" />
-			<listcell label="${each.motivo}" />
-			<listcell label="${each.programa}" />
-			</listitem>
-			</template>
-			</listbox>
-			
-			<listbox id="lbxApelacionesSancion" height="70%">
-			<listhead>
-			<listheader label="Cantidad" align="center"
-			sort="auto(Cantidad)" />
-			<listheader label="Motivo" align="center"
-			sort="auto(Motivo)" />
-			<listheader label="Tipo Sancion" align="center"
-			sort="auto(Programa)" />
-			</listhead>
-			<template name="model">
-			<listitem>
-			<listcell label="${each.cantidad}" />
-			<listcell label="${each.motivo}" />
-			<listcell label="${each.tiposancion}" />
-			</listitem>
-			</template>
-			</listbox>
-		-->
-		<listbox id="lbxApelacionesResultado" height="70%"
-			model="@bind(vm.apelacionesPrograma)" visible="false">
-			<listhead>
-				<listheader label="Cantidad" align="center"
-					sort="auto(Cantidad)" />
-				<listheader label="Motivo" align="center"
-					sort="auto(Motivo)" />
-				<listheader label="Resultado" align="center"
-					sort="auto(Resultado)" />
-			</listhead>
-			<template name="model">
-				<listitem>
-					<listcell label="${each.cantidad}" />
-					<listcell label="${each.motivo}" />
-					<listcell label="${each.resultado}" />
-				</listitem>
-			</template>
-		</listbox>
+<!-- 		<listbox id="lbxApelacionesResultado" height="70%" -->
+<!-- 			model="@bind(vm.apelacionesPrograma)" visible="false"> -->
+<!-- 			<listhead> -->
+<!-- 				<listheader label="Cantidad" align="center" -->
+<!-- 					sort="auto(Cantidad)" /> -->
+<!-- 				<listheader label="Motivo" align="center" -->
+<!-- 					sort="auto(Motivo)" /> -->
+<!-- 				<listheader label="Resultado" align="center" -->
+<!-- 					sort="auto(Resultado)" /> -->
+<!-- 			</listhead> -->
+<!-- 			<template name="model"> -->
+<!-- 				<listitem> -->
+<!-- 					<listcell label="${each.cantidad}" /> -->
+<!-- 					<listcell label="${each.motivo}" /> -->
+<!-- 					<listcell label="${each.resultado}" /> -->
+<!-- 				</listitem> -->
+<!-- 			</template> -->
+<!-- 		</listbox> -->
 
 	<div align="right" height="100%">
 			<button id="btnImprimir" width="auto" height="auto"
@@ -203,8 +75,7 @@
 
 			</button>
 			<button id="btnCancelar" width="auto" height="auto"
-				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy"
-				 onClick="@command('buscarApelacionesR')">
+				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" image="/imagenes/iconos/cerrar.png"

@@ -31,7 +31,7 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
-import sigarep.modelos.data.reportes.ApelacionesPorMotivo;
+import sigarep.modelos.data.reportes.ApelacionesComparativos;
 
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
@@ -39,7 +39,7 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
-import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
+import sigarep.modelos.servicio.reportes.ServicioReportes;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMapelacionesTipoDeSexo {
@@ -51,7 +51,7 @@ public class VMapelacionesTipoDeSexo {
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
-	private ServicioApelacionesPorMotivo servicioapelacionespormotivo;
+	private ServicioReportes servicioreportes;
 
 	//@WireVariable
 	//private String selected = "";
@@ -68,7 +68,7 @@ public class VMapelacionesTipoDeSexo {
 	private List<SancionMaestro> listaTipoSancion;
 	private List<LapsoAcademico> listaLapso;
 
-	private List<ApelacionesPorMotivo> apelacionesPrograma = new LinkedList<ApelacionesPorMotivo>();
+	private List<ApelacionesComparativos> apelacionesComparativos = new LinkedList<ApelacionesComparativos>();
 
 	private SancionMaestro objSancion;
 
@@ -101,26 +101,6 @@ public class VMapelacionesTipoDeSexo {
 		buscarPrograma();
 		buscarTipoSancion();
 		buscarLapso();
-		// buscarApelacionesR();
-	}
-
-	@Command
-	@NotifyChange({ "apelacionesPrograma" })
-	public void buscarApelacionesR() {
-		System.out.println(objSancion.getNombreSancion());
-		System.out.println(objLapso.getCodigoLapso());
-
-				if (objSancion.getNombreSancion() == "Todos") {
-					apelacionesPrograma = servicioapelacionespormotivo
-							.buscarPorSexoResultado_Programa(
-									objLapso.getCodigoLapso(),
-									objPrograma.getIdPrograma());
-				} else
-					apelacionesPrograma = servicioapelacionespormotivo
-							.buscarPorSexoResultado_ProgramaSancion(
-									objLapso.getCodigoLapso(),
-									objSancion.getIdSancion(),
-									objPrograma.getIdPrograma());
 	}
 
 	@Command
@@ -227,13 +207,13 @@ public class VMapelacionesTipoDeSexo {
 		this.listaLapso = listaLapso;
 	}
 
-	public List<ApelacionesPorMotivo> getapelacionesPrograma() {
-		return apelacionesPrograma;
+	public List<ApelacionesComparativos> getapelacionesComparativos() {
+		return apelacionesComparativos;
 	}
 
 	public void setapelacionesPrograma(
-			List<ApelacionesPorMotivo> apelacionesPrograma) {
-		this.apelacionesPrograma = apelacionesPrograma;
+			List<ApelacionesComparativos> apelacionesComparativos) {
+		this.apelacionesComparativos = apelacionesComparativos;
 	}
 
 	public SancionMaestro getObjSancion() {
@@ -274,7 +254,7 @@ public class VMapelacionesTipoDeSexo {
 	@NotifyChange({ "reportConfig" })
 	public void GenerarReporte() {
 
-		apelacionesPrograma.clear();
+		apelacionesComparativos.clear();
 
 
 		ProgramaAcademico prog = objPrograma;
@@ -283,11 +263,11 @@ public class VMapelacionesTipoDeSexo {
 		System.out.println(objLapso.getCodigoLapso() +"   "+ objPrograma.getNombrePrograma());
 		
 		if (objSancion.getNombreSancion() == "Todos") {
-			apelacionesPrograma = servicioapelacionespormotivo.buscarPorSexoResultado_Programa(
+			apelacionesComparativos = servicioreportes.buscarPorSexoResultado_Programa(
 							objLapso.getCodigoLapso(),
 							objPrograma.getIdPrograma());
 		} else
-			apelacionesPrograma = servicioapelacionespormotivo.buscarPorSexoResultado_ProgramaSancion(
+			apelacionesComparativos = servicioreportes.buscarPorSexoResultado_ProgramaSancion(
 							objLapso.getCodigoLapso(),
 							objSancion.getIdSancion(),
 							objPrograma.getIdPrograma());
@@ -302,11 +282,13 @@ public class VMapelacionesTipoDeSexo {
 		reportConfig.getParameters().put("Titulo", "Reporte Comparativo de Apelaciones por Sexo y Veredicto");
 		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
 		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
+		reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
+				apelacionesComparativos));
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 										// IMPRESION DEL REPORTE
 		
 		reportConfig.setDataSource(new JRBeanCollectionDataSource(
-				apelacionesPrograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
+				apelacionesComparativos)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
 										// DATOS PARA DIBUJAR EL REPORTE
 
 	}

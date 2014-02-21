@@ -28,11 +28,11 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
-import sigarep.modelos.data.reportes.ApelacionesPorMotivo;
+import sigarep.modelos.data.reportes.ApelacionesComparativos;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
-import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
+import sigarep.modelos.servicio.reportes.ServicioReportes;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -45,7 +45,7 @@ public class VMapelacionesPorMotivo {
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
-	private ServicioApelacionesPorMotivo servicioapelacionespormotivo;
+	private ServicioReportes servicioreportes;
 
 	
 
@@ -61,7 +61,7 @@ public class VMapelacionesPorMotivo {
 	private List<SancionMaestro> listaTipoSancion;
 	private List<LapsoAcademico> listaLapso;
 
-	private List<ApelacionesPorMotivo> apelacionesPrograma = new LinkedList<ApelacionesPorMotivo>();
+	private List<ApelacionesComparativos> apelacionesComparativos = new LinkedList<ApelacionesComparativos>();
 
 	private SancionMaestro objSancion;
 
@@ -103,12 +103,12 @@ public class VMapelacionesPorMotivo {
 		System.out.println(objLapso.getCodigoLapso());
 	
 				if (objSancion.getNombreSancion() == "Todos") {
-					apelacionesPrograma = servicioapelacionespormotivo
+					apelacionesComparativos = servicioreportes
 							.buscarPorMotivoResultado_Programa(
 									objLapso.getCodigoLapso(),
 									objPrograma.getIdPrograma());
 				} else
-					apelacionesPrograma = servicioapelacionespormotivo
+					apelacionesComparativos = servicioreportes
 							.buscarPorMotivoResultado_ProgramaSancion(
 									objLapso.getCodigoLapso(),
 									objSancion.getIdSancion(),
@@ -221,13 +221,13 @@ public class VMapelacionesPorMotivo {
 		this.listaLapso = listaLapso;
 	}
 
-	public List<ApelacionesPorMotivo> getapelacionesPrograma() {
-		return apelacionesPrograma;
+	public List<ApelacionesComparativos> getapelacionesComparativos() {
+		return apelacionesComparativos;
 	}
 
-	public void setapelacionesPrograma(
-			List<ApelacionesPorMotivo> apelacionesPrograma) {
-		this.apelacionesPrograma = apelacionesPrograma;
+	public void setapelacionesComparativos(
+			List<ApelacionesComparativos> apelacionesComparativos) {
+		this.apelacionesComparativos = apelacionesComparativos;
 	}
 
 	public SancionMaestro getObjSancion() {
@@ -261,7 +261,7 @@ public class VMapelacionesPorMotivo {
 	@NotifyChange({ "reportConfig" })
 	public void GenerarReporte() {
 
-		apelacionesPrograma.clear();
+		apelacionesComparativos.clear();
 
 
 		ProgramaAcademico prog = objPrograma;
@@ -270,12 +270,12 @@ public class VMapelacionesPorMotivo {
 		System.out.println(objLapso.getCodigoLapso() +"   "+ objPrograma.getNombrePrograma());
 		
 		if (objSancion.getNombreSancion() == "Todos") {
-			apelacionesPrograma = servicioapelacionespormotivo
+			apelacionesComparativos = servicioreportes
 					.buscarPorMotivoResultado_Programa(
 							objLapso.getCodigoLapso(),
 							objPrograma.getIdPrograma());
 		} else
-			apelacionesPrograma = servicioapelacionespormotivo
+			apelacionesComparativos = servicioreportes
 					.buscarPorMotivoResultado_ProgramaSancion(
 							objLapso.getCodigoLapso(),
 							objSancion.getIdSancion(),
@@ -298,12 +298,12 @@ public class VMapelacionesPorMotivo {
 		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
 		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
 		reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-				apelacionesPrograma));
+				apelacionesComparativos));
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 										// IMPRESION DEL REPORTE
 		
 		reportConfig.setDataSource(new JRBeanCollectionDataSource(
-				apelacionesPrograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
+				apelacionesComparativos)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
 										// DATOS PARA DIBUJAR EL REPORTE
 
 	}

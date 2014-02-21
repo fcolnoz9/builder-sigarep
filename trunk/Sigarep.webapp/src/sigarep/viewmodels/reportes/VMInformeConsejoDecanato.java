@@ -3,47 +3,37 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.CategoryModel;
-import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
-import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.ProgramaAcademico;
-import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.reportes.Sancionados;
-import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
-import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
-import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
-import sigarep.modelos.servicio.reportes.ServicioApelacionesPorMotivo;
+import sigarep.modelos.servicio.reportes.ServicioReportes;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMListadoEstudiantesVeredicto {
+public class VMInformeConsejoDecanato {
 
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
-	private ServicioApelacionesPorMotivo servicioapelacionespormotivo;
+	private ServicioReportes servicioreportes;
 
 	@WireVariable
 	private String codigoLapso;
 
 	private List<LapsoAcademico> listaLapso;
 
-	private List<Sancionados> sancionadosVeredicto = new LinkedList<Sancionados>();
-	private List<Sancionados> sancionadosVeredicto2 = new LinkedList<Sancionados>();
-	private List<Sancionados> sancionadosVeredicto3 = new LinkedList<Sancionados>();
-	private List<Sancionados> sancionadosVeredicto4 = new LinkedList<Sancionados>();
+	private List<Sancionados> listaInformatica = new LinkedList<Sancionados>();
+	private List<Sancionados> listaAnalisis = new LinkedList<Sancionados>();
+	private List<Sancionados> listaProduccion = new LinkedList<Sancionados>();
+	private List<Sancionados> listaMatematicas= new LinkedList<Sancionados>();
 	
 
 	private LapsoAcademico objLapso;
@@ -55,14 +45,14 @@ public class VMListadoEstudiantesVeredicto {
 	@Wire private String de="";
 	@Wire private String contenido="";
 	
-	private int procedentes;
-	private int procedentes2;
-	private int procedentes3;
-	private int procedentes4;
-	private int denegados;
-	private int denegados2;
-	private int denegados3;
-	private int denegados4;
+	private int procedentesInf;
+	private int procedentesPro;
+	private int procedentesAna;
+	private int procedentesMat;
+	private int denegadosInf;
+	private int denegadosPro;
+	private int denegadosAna;
+	private int denegadosMat;
 	
 
 
@@ -268,33 +258,35 @@ public class VMListadoEstudiantesVeredicto {
 	@NotifyChange({ "reportConfig","para","de","contenido","tituloinstancia","titulosancion","tituloprograma" })
 	public void GenerarReporte() {
 
-		sancionadosVeredicto.clear();
+		listaInformatica.clear();
+		listaAnalisis.clear();
+		listaProduccion.clear();
+		listaMatematicas.clear();
 //		ProgramaAcademico prog = objPrograma;
-		LapsoAcademico lap = objLapso;
-		sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionadosPrueba(1/*tituloinstancia, tituloprograma, titulosancion*/);
-		procedentes = sancionadosVeredicto.get(0).getProcedentes();
-		denegados = sancionadosVeredicto.get(0).getNoProcedentes();
-		sancionadosVeredicto2 = servicioapelacionespormotivo.buscarSancionadosPrueba(2/*tituloinstancia, tituloprograma, titulosancion*/);
-		procedentes2 = sancionadosVeredicto2.get(0).getProcedentes();
-		denegados2 = sancionadosVeredicto2.get(0).getNoProcedentes();
-		sancionadosVeredicto3 = servicioapelacionespormotivo.buscarSancionadosPrueba(3/*tituloinstancia, tituloprograma, titulosancion*/);
-		procedentes3 = sancionadosVeredicto3.get(0).getProcedentes();
-		denegados3 = sancionadosVeredicto3.get(0).getNoProcedentes();
-		sancionadosVeredicto4 = servicioapelacionespormotivo.buscarSancionadosPrueba(4/*tituloinstancia, tituloprograma, titulosancion*/);
-		procedentes4 = sancionadosVeredicto4.get(0).getProcedentes();
-		denegados4 = sancionadosVeredicto4.get(0).getNoProcedentes();
+		listaInformatica = servicioreportes.buscarEstudiantesComision(1);
+		procedentesInf = listaInformatica.get(0).getProcedentes();
+		denegadosInf = listaInformatica.get(0).getNoProcedentes();
+		listaProduccion = servicioreportes.buscarEstudiantesComision(2);
+		procedentesPro = listaProduccion.get(0).getProcedentes();
+		denegadosPro = listaProduccion.get(0).getNoProcedentes();
+		listaAnalisis = servicioreportes.buscarEstudiantesComision(3);
+		procedentesAna = listaAnalisis.get(0).getProcedentes();
+		denegadosAna = listaAnalisis.get(0).getNoProcedentes();
+		listaMatematicas = servicioreportes.buscarEstudiantesComision(4);
+		procedentesMat = listaMatematicas.get(0).getProcedentes();
+		denegadosMat = listaMatematicas.get(0).getNoProcedentes();
 		//sancionadosVeredicto = servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), objPrograma.getNombrePrograma());
 		//setSancionadosVeredicto2(servicioapelacionespormotivo.buscarSancionados(objLapso.getCodigoLapso(), "Licenciatura en Matematicas"));
 		
 		
-		System.out.println("Procedentes: " + procedentes);
-		System.out.println("Procedentes2: " + procedentes2);
-		System.out.println("Procedentes3: " + procedentes3);
-		System.out.println("Procedentes4: " + procedentes4);
-		System.out.println("No Procedentes: " + denegados);
-		System.out.println("No Procedentes2: " + denegados2);
-		System.out.println("No Procedentes3: " + denegados3);
-		System.out.println("No Procedentes4: " + denegados4);
+//		System.out.println("Procedentes: " + procedentes);
+//		System.out.println("Procedentes2: " + procedentes2);
+//		System.out.println("Procedentes3: " + procedentes3);
+//		System.out.println("Procedentes4: " + procedentes4);
+//		System.out.println("No Procedentes: " + denegados);
+//		System.out.println("No Procedentes2: " + denegados2);
+//		System.out.println("No Procedentes3: " + denegados3);
+//		System.out.println("No Procedentes4: " + denegados4);
 		
 //		nombre_sancion = objSancion.getNombreSancion(); // OBTENER EL VALOR DE LOS COMBOS
 //		codigo_lapso = objLapso.getCodigoLapso();
@@ -332,18 +324,18 @@ public class VMListadoEstudiantesVeredicto {
 		reportConfig.getParameters().put("Para", para);
 		reportConfig.getParameters().put("Contenido", contenido);
 		reportConfig.getParameters().put("codigoLapso", objLapso.getCodigoLapso());
-		reportConfig.getParameters().put("procedentes", procedentes);
-		reportConfig.getParameters().put("denegados", denegados);
-		reportConfig.getParameters().put("procedentes2", procedentes2);
-		reportConfig.getParameters().put("denegados2", denegados2);
-		reportConfig.getParameters().put("procedentes3", procedentes3);
-		reportConfig.getParameters().put("denegados3", denegados3);
-		reportConfig.getParameters().put("procedentes4", procedentes4);
-		reportConfig.getParameters().put("denegados4", denegados4);
-		reportConfig.getParameters().put("listaInformatica", (new JRBeanCollectionDataSource(sancionadosVeredicto)));
-		reportConfig.getParameters().put("listaInformatica2", (new JRBeanCollectionDataSource(sancionadosVeredicto2)));
-		reportConfig.getParameters().put("listaInformatica3", (new JRBeanCollectionDataSource(sancionadosVeredicto3)));
-		reportConfig.getParameters().put("listaInformatica4", (new JRBeanCollectionDataSource(sancionadosVeredicto4)));
+		reportConfig.getParameters().put("procedentesInf", procedentesInf);
+		reportConfig.getParameters().put("denegadosInf", denegadosInf);
+		reportConfig.getParameters().put("procedentesAna", procedentesAna);
+		reportConfig.getParameters().put("denegadosAna", denegadosAna);
+		reportConfig.getParameters().put("procedentesPro", procedentesPro);
+		reportConfig.getParameters().put("denegadosPro", denegadosPro);
+		reportConfig.getParameters().put("procedentesMat", procedentesMat);
+		reportConfig.getParameters().put("denegadosMat", denegadosMat);
+		reportConfig.getParameters().put("listaInformatica", (new JRBeanCollectionDataSource(listaInformatica)));
+		reportConfig.getParameters().put("listaAnalisis", (new JRBeanCollectionDataSource(listaAnalisis)));
+		reportConfig.getParameters().put("listaProduccion", (new JRBeanCollectionDataSource(listaProduccion)));
+		reportConfig.getParameters().put("listaMatematicas", (new JRBeanCollectionDataSource(listaMatematicas)));
 		
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 											// IMPRESION DEL REPORTE
@@ -376,14 +368,6 @@ public class VMListadoEstudiantesVeredicto {
 //	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
 //		this.listaPrograma = listaPrograma;
 //	}
-
-	public List<Sancionados> getSancionadosVeredicto2() {
-		return sancionadosVeredicto2;
-	}
-
-	public void setSancionadosVeredicto2(List<Sancionados> sancionadosVeredicto2) {
-		this.sancionadosVeredicto2 = sancionadosVeredicto2;
-	}
 
 //	public ReportConfig getSubReportConfig() {
 //		return subReportConfig;
