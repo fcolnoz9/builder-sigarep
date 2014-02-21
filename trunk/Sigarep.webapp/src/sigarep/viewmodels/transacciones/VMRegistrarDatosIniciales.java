@@ -398,8 +398,7 @@ public class VMRegistrarDatosIniciales {
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
 	public void buscarMotivos() {
-		listaTipoMotivo = serviciotipomotivo.buscarTodas();
-
+		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivoNoProtegido();
 	}
 
 	@Command
@@ -432,7 +431,7 @@ public class VMRegistrarDatosIniciales {
 		concatenacionNombres();
 		concatenacionApellidos();
 		mostrarDatosDeSancion();
-		listamotivo = serviciotipomotivo.buscarTodas();
+		listamotivo = serviciotipomotivo.buscarTipoMotivoNoProtegido();
 		buscarMotivos();
 		buscarCaso();
 	}

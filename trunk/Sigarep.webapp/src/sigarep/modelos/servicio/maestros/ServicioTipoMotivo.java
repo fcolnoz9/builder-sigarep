@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.repositorio.maestros.ITipoMotivoDAO;
 //El servicio interactua con la base de datos
@@ -14,7 +13,6 @@ import sigarep.modelos.repositorio.maestros.ITipoMotivoDAO;
 public class ServicioTipoMotivo {
 	private @Autowired ITipoMotivoDAO tipomotivo;
 	
-	//metodo que permite Guardar
 	public void guardarTipoMotivo(TipoMotivo tipo){
 		if (tipo.getIdTipoMotivo() != null)
 			tipomotivo.save(tipo);
@@ -24,12 +22,10 @@ public class ServicioTipoMotivo {
 		}
 	}
 	
-	public TipoMotivo buscarTipoMotivoPorCodigo(Integer codigoTipoMotivo){
-		TipoMotivo tipmotivo = tipomotivo.findOne(codigoTipoMotivo);
-		return tipmotivo;
+	public TipoMotivo buscarTipoMotivoPorId(Integer codigoTipoMotivo){
+		return tipomotivo.findOne(codigoTipoMotivo);
 	}
 	
-	//metodo que permite eliminar
 	public void eliminarTipoMotivo(Integer idTipoMotivo) {
 		TipoMotivo tip = tipomotivo.findOne(idTipoMotivo);
 		tip.setEstatus(false);
@@ -37,37 +33,18 @@ public class ServicioTipoMotivo {
 	}
 	
 	public List<TipoMotivo> listadoTipoMotivo() {
-		List<TipoMotivo> TipoMotivoLista=tipomotivo.buscarTipoMotivoActivas();
-	    return TipoMotivoLista ;
+	    return tipomotivo.findByEstatusTrue();
+	}	
+	
+	public List<TipoMotivo> buscarTipoMotivoNoProtegido(){
+		return tipomotivo.findByProtegidoFalseAndEstatusTrue();
 	}
 	
-	public List<TipoMotivo> buscarTipoMotivo(String nombre) {
+	public List<TipoMotivo> filtrarTipoMotivo(String nombreTipoMotivo){
 		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
-		if (nombre == null) {
+		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){
 			result = listadoTipoMotivo();
-		} else {
-			for (TipoMotivo tipo : listadoTipoMotivo()) {
-				if (tipo.getNombreTipoMotivo().toLowerCase().contains(nombre)) {
-					result.add(tipo);
-				}
-			}
-		}
-		return result;
-	}
-	
-	
-	public List<TipoMotivo> buscarTodas(){
-		return tipomotivo.buscarTodas();
-	}
-	
-	//Metodo de Busqueda
-	public List<TipoMotivo> buscarP(String nombreTipoMotivo){
-		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
-		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los tipos de motivo
-			// si el codigo es null o vacio,el resultado va a ser la lista completa de
-			//todas los motivos
-			result = listadoTipoMotivo();
-		}else{//caso contrario se recorre toda la lista y busca los tipos de motivos con el nombre indicado en la caja de texto y tambien busca todos los que tengan  las letras iniciales de ese nombre.
+		}else{
 			for (TipoMotivo tip: listadoTipoMotivo()){
 				if (tip.getNombreTipoMotivo().toLowerCase().contains(nombreTipoMotivo.toLowerCase())||
 					tip.getDescripcion().toLowerCase().contains(nombreTipoMotivo.toLowerCase())){

@@ -257,7 +257,7 @@ public class VMTipoMotivo {
 	@Command
 	@NotifyChange({ "listaTipoMotivo", "nombreFiltro" })
 	public void filtros() {
-		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivo(nombreFiltro);
+		listaTipoMotivo = serviciotipomotivo.filtrarTipoMotivo(nombreFiltro);
 	}
 	
 	/**
