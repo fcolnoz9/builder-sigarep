@@ -1,17 +1,17 @@
 package sigarep.modelos.data.reportes;
 
-public class ApelacionesPorMotivo {
+public class ApelacionesComparativos {
 	private Integer apelaciones;
-	private String motivo;
+	private String categoria;
 	private Integer procedentes;
 	private Integer total;
 	private Integer sancionados;
 	
 	
-	public ApelacionesPorMotivo(String motivo, Integer apelaciones, Integer procedentes, Integer total, Integer sancionados) {
+	public ApelacionesComparativos(String categoria, Integer apelaciones, Integer procedentes, Integer total, Integer sancionados) {
 		super();
 		this.apelaciones = apelaciones;
-		this.motivo = motivo;
+		this.categoria = categoria;
 		this.procedentes = procedentes;
 		this.total = total;
 		this.sancionados = sancionados;
@@ -26,12 +26,12 @@ public class ApelacionesPorMotivo {
 		this.apelaciones = apelaciones;
 	}
 	
-	public String getMotivo() {
-		return motivo;
+	public String getCategoria() {
+		return categoria;
 	}
 	
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 

@@ -11,18 +11,16 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 
-
-
-import sigarep.modelos.data.reportes.ApelacionesPorMotivo;
+import sigarep.modelos.data.reportes.ApelacionesComparativos;
 import sigarep.modelos.data.reportes.Sancionados;
 
-@Service("servicioapelacionespormotivo")
-public class ServicioApelacionesPorMotivo {
+@Service("servicioreportes")
+public class ServicioReportes {
 	
 	@PersistenceContext
 	private EntityManager em;
 	
-	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
+	public List<ApelacionesComparativos> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes , " +
 						"(SELECT COUNT(DISTINCT sa.cedula_estudiante) totalapelaciones FROM solicitud_apelacion sa, estudiante_sancionado essa, estudiante es " +
@@ -90,9 +88,9 @@ public class ServicioApelacionesPorMotivo {
 				@SuppressWarnings("unchecked")
 				List<Object[]> resultSet = query.getResultList();
 				
-				List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+				List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 				for (Object[] resultRow : resultSet) {
-					results.add(new ApelacionesPorMotivo(
+					results.add(new ApelacionesComparativos(
 							(String) resultRow[0],
 							((BigDecimal) resultRow[1]).intValue(),
 							((BigDecimal) resultRow[2]).intValue(),
@@ -103,7 +101,7 @@ public class ServicioApelacionesPorMotivo {
 				return results;
 	}
 	
-	public List<ApelacionesPorMotivo> buscarPorMotivoResultado_Programa(String codigo_lapso, int programa) {
+	public List<ApelacionesComparativos> buscarPorMotivoResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
 				"(SELECT COUNT(DISTINCT sa.cedula_estudiante) total FROM solicitud_apelacion sa, estudiante_sancionado essa, estudiante es " +
@@ -189,9 +187,9 @@ public class ServicioApelacionesPorMotivo {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
+			results.add(new ApelacionesComparativos(
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
@@ -204,9 +202,9 @@ public class ServicioApelacionesPorMotivo {
 	
 	
 	
-	public List<ApelacionesPorMotivo> buscarPorInstanciaResultado_Programa(String codigo_lapso, int programa) {
+	public List<ApelacionesComparativos> buscarPorInstanciaResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
-				"select v.instancia as instancia, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
+				"select v.apelacion as apelacion, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
 				"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
@@ -218,9 +216,9 @@ public class ServicioApelacionesPorMotivo {
 				"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
 				"and es.id_programa = "+ "'"+programa+"' )" +
 				"from " +
-				"(select b.instancia as instancia, sum(b.apelaciones) apelaciones, 0 as procedente " +
+				"(select b.apelacion as apelacion, sum(b.apelaciones) apelaciones, 0 as procedente " +
 				"from " +
-				"(SELECT ins.instancia_apelada as instancia,count(sa.cedula_estudiante) as apelaciones, 0 as procedente " +
+				"(SELECT ins.nombre_recurso_apelacion as apelacion,count(sa.cedula_estudiante) as apelaciones, 0 as procedente " +
 				"from instancia_apelada ins, solicitud_apelacion sa " +
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
@@ -228,10 +226,10 @@ public class ServicioApelacionesPorMotivo {
 				"WHERE ins.id_instancia_apelada = sa.id_instancia_apelada " +
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
 				"and es.id_programa = "+ "'"+programa+"' " +
-				"group by instancia) as b " +
-				"group by b.instancia " +
+				"group by apelacion) as b " +
+				"group by b.apelacion " +
 				"union all " +
-				"select ins.instancia_apelada as instancia, 0 as apelaciones, count(sa.veredicto) as procedente " +
+				"select ins.nombre_recurso_apelacion as apelacion, 0 as apelaciones, count(sa.veredicto) as procedente " +
 				"from instancia_apelada ins, solicitud_apelacion sa " +
 				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
@@ -240,8 +238,8 @@ public class ServicioApelacionesPorMotivo {
 				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
 				"and es.id_programa = "+ "'"+programa+"' " +
 				"and sa.veredicto = 'NO PROCEDENTE' " +
-				"group by instancia ) as v " +
-				"group by v.instancia " +
+				"group by apelacion) as v " +
+				"group by v.apelacion " +
 				"order by apelaciones desc";
 		
 						
@@ -252,9 +250,9 @@ public class ServicioApelacionesPorMotivo {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
+			results.add(new ApelacionesComparativos(
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
@@ -265,9 +263,9 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
-	public List<ApelacionesPorMotivo> buscarPorInstanciaResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
+	public List<ApelacionesComparativos> buscarPorInstanciaResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
-				"select v.instancia as instancia, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
+				"select v.apelacion as apelacion, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
 						"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
 						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 						"and essa.codigo_lapso = sa.codigo_lapso " +
@@ -281,9 +279,9 @@ public class ServicioApelacionesPorMotivo {
 						"and es.id_programa = "+ "'"+programa+"' " +
 						"and essa.id_sancion = "+ "'"+tipo_sancion+"' ), " +
 						"from " +
-						"(select b.instancia as instancia, sum(b.apelaciones) apelaciones, 0 as procedente " +
+						"(select b.apelacion as apelacion, sum(b.apelaciones) apelaciones, 0 as procedente " +
 						"from " +
-						"(SELECT ins.instancia_apelada as instancia,count(sa.cedula_estudiante) as apelaciones, 0 as procedente " +
+						"(SELECT ins.nombre_recurso_apelacion as apelacion,count(sa.cedula_estudiante) as apelaciones, 0 as procedente " +
 						"from instancia_apelada ins, solicitud_apelacion sa " +
 						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 						"and essa.codigo_lapso = sa.codigo_lapso " +
@@ -292,10 +290,10 @@ public class ServicioApelacionesPorMotivo {
 						"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
 						"and es.id_programa = "+ "'"+programa+"' " +
 						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
-						"group by instancia) as b " +
-						"group by b.instancia " +
+						"group by apelacion) as b " +
+						"group by b.apelacion " +
 						"union all " +
-						"select ins.instancia_apelada as instancia, 0 as apelaciones, count(sa.veredicto) as procedente " +
+						"select ins.nombre_recurso_apelacion as instancia, 0 as apelaciones, count(sa.veredicto) as procedente " +
 						"from instancia_apelada ins, solicitud_apelacion sa " +
 						"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 						"and essa.codigo_lapso = sa.codigo_lapso " +
@@ -305,8 +303,8 @@ public class ServicioApelacionesPorMotivo {
 						"and es.id_programa = "+ "'"+programa+"' " +
 						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
 						"and sa.veredicto = 'NO PROCEDENTE' " +
-						"group by instancia ) as v " +
-						"group by v.instancia " +
+						"group by apelacion) as v " +
+						"group by v.apelacion " +
 						"order by apelaciones desc";
 				
 				
@@ -318,9 +316,9 @@ public class ServicioApelacionesPorMotivo {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
+			results.add(new ApelacionesComparativos(
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
@@ -332,7 +330,7 @@ public class ServicioApelacionesPorMotivo {
 	}
 	
 
-	public List<ApelacionesPorMotivo> buscarPorSexoResultado_Programa(String codigo_lapso, int programa) {
+	public List<ApelacionesComparativos> buscarPorSexoResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
 				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
 				"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
@@ -379,9 +377,9 @@ public class ServicioApelacionesPorMotivo {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
+			results.add(new ApelacionesComparativos(
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
@@ -392,7 +390,7 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
-	public List<ApelacionesPorMotivo> buscarPorSexoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
+	public List<ApelacionesComparativos> buscarPorSexoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
 						"(SELECT COUNT(sa.cedula_estudiante) total FROM solicitud_apelacion sa " +
@@ -444,9 +442,9 @@ public class ServicioApelacionesPorMotivo {
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 		
-		List<ApelacionesPorMotivo> results = new ArrayList<ApelacionesPorMotivo>();
+		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
-			results.add(new ApelacionesPorMotivo(
+			results.add(new ApelacionesComparativos(
 					(String) resultRow[0],
 					((BigDecimal) resultRow[1]).intValue(),
 					((BigDecimal) resultRow[2]).intValue(),
@@ -492,7 +490,7 @@ public class ServicioApelacionesPorMotivo {
 		return results;
 	}
 	
-	public List<Sancionados> buscarSancionadosPrueba(/*String instancia, */int programa/*, String sancion*/){
+	public List<Sancionados> buscarEstudiantesComision(/*String instancia, */int programa/*, String sancion*/){
 		
 		/*String adicioninstancia;
 		String adicionprograma;

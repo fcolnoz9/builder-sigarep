@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="574"/>
+	<property name="ireport.y" value="334"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -86,7 +86,7 @@
 	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
 		<field name="procedentes" class="java.lang.Integer"/>
 		<field name="apelaciones" class="java.lang.Integer"/>
-		<field name="motivo" class="java.lang.String"/>
+		<field name="categoria" class="java.lang.String"/>
 		<field name="total" class="java.lang.Integer"/>
 		<field name="sancionados" class="java.lang.Integer"/>
 	</subDataset>
@@ -120,7 +120,7 @@
 	</queryString>
 	<field name="procedentes" class="java.lang.Integer"/>
 	<field name="apelaciones" class="java.lang.Integer"/>
-	<field name="motivo" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
 	<field name="total" class="java.lang.Integer"/>
 	<field name="sancionados" class="java.lang.Integer"/>
 	<background>
@@ -129,73 +129,73 @@
 	<title>
 		<band height="50" splitType="Stretch">
 			<image scaleImage="RealHeight">
-				<reportElement x="0" y="0" width="572" height="50" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
+				<reportElement uuid="533041e4-814f-4e94-bf01-782c97c499e2" x="0" y="0" width="572" height="50"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="188" splitType="Stretch">
+		<band height="217" splitType="Stretch">
 			<staticText>
-				<reportElement x="352" y="89" width="59" height="24" uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9"/>
+				<reportElement uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9" x="379" y="96" width="59" height="24"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LAPSO:]]></text>
 			</staticText>
 			<image>
-				<reportElement x="16" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
+				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="16" y="0" width="109" height="64"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="466" y="0" width="106" height="64" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
+				<reportElement uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014" x="466" y="0" width="106" height="64"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="125" y="0" width="304" height="50" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
+				<reportElement uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb" x="125" y="0" width="304" height="50"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="99" y="64" width="387" height="25" uuid="1746cfeb-c243-4787-a69e-089c523bd0eb"/>
+				<reportElement uuid="1746cfeb-c243-4787-a69e-089c523bd0eb" x="125" y="50" width="304" height="38"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="99" y="89" width="94" height="24" uuid="ec363724-09d5-4efb-947e-41d6f8d42610"/>
+				<reportElement uuid="ec363724-09d5-4efb-947e-41d6f8d42610" x="52" y="96" width="94" height="24"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROGRAMA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="411" y="89" width="57" height="24" uuid="ace45e21-827f-4270-b413-143832ea4bd0"/>
+				<reportElement uuid="ace45e21-827f-4270-b413-143832ea4bd0" x="438" y="96" width="57" height="24"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Lapso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="185" y="89" width="226" height="24" uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435"/>
+				<reportElement uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435" x="146" y="96" width="226" height="24"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Programa}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 3" style="table 3" x="85" y="138" width="438" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
+				<reportElement uuid="ce392ef2-9896-4dd3-938f-86c453091cea" key="table 3" style="table 3" x="8" y="167" width="559" height="50"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Tabla" uuid="7b1028c8-0687-4c8a-a081-dc2223caba57">
+					<datasetRun subDataset="Tabla" uuid="c5ca79a7-7492-4b2b-bafa-bb9c0e1ecc46">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="195" uuid="bf83a609-fcbe-4f84-902f-89338a606462">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="195" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8358ab7d-2ca3-416f-bac6-bc5c6a063136"/>
+								<reportElement uuid="8358ab7d-2ca3-416f-bac6-bc5c6a063136" style="table" mode="Opaque" x="0" y="0" width="195" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
@@ -204,16 +204,16 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="195" height="20" uuid="43a0a227-a08e-4d66-80dc-79b28090a21c"/>
+								<reportElement uuid="43a0a227-a08e-4d66-80dc-79b28090a21c" x="0" y="0" width="195" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="179" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099"/>
+								<reportElement uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099" style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
@@ -222,16 +222,16 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="112" height="20" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
+								<reportElement uuid="f1b4361f-72f4-4374-8818-0560c222a5f7" x="0" y="0" width="179" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{apelaciones}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="224" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
+					<jr:column width="184" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table" mode="Opaque" x="0" y="0" width="224" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992"/>
+								<reportElement uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992" style="table" mode="Opaque" x="0" y="0" width="184" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true" isItalic="true"/>
 								</textElement>
@@ -240,7 +240,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="130" height="20" uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5"/>
+								<reportElement uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5" x="0" y="0" width="184" height="20"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{procedentes}]]></textFieldExpression>
 							</textField>
@@ -256,20 +256,20 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<pageFooter>
 		<band height="50" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="572" height="50" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
+				<reportElement uuid="95306347-0c44-4d80-b0bb-925f8fb76ead" x="0" y="0" width="572" height="50"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="389" splitType="Stretch">
+		<band height="410" splitType="Stretch">
 			<rectangle>
-				<reportElement x="16" y="14" width="544" height="324" forecolor="#3366FF" uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3"/>
+				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="16" y="54" width="544" height="324" forecolor="#3366FF"/>
 			</rectangle>
 			<elementGroup/>
 			<bar3DChart>
 				<chart theme="default">
-					<reportElement x="16" y="14" width="544" height="324" uuid="f375ace6-4e7c-4f5d-a682-4a0291c61696"/>
+					<reportElement uuid="f375ace6-4e7c-4f5d-a682-4a0291c61696" x="16" y="54" width="544" height="324"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -277,19 +277,19 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<categoryDataset>
 					<categorySeries>
 						<seriesExpression><![CDATA["Sancionados"]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
 						<valueExpression><![CDATA[($F{sancionados}.doubleValue()*100)/$F{sancionados}]]></valueExpression>
 						<labelExpression><![CDATA[new java.text.DecimalFormat("0").format(($F{sancionados}.doubleValue()*100)/$F{sancionados})+ "%"]]></labelExpression>
 					</categorySeries>
 					<categorySeries>
 						<seriesExpression><![CDATA["Apelaciones"]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
 						<valueExpression><![CDATA[($F{apelaciones}.doubleValue()*100)/$F{sancionados}]]></valueExpression>
 						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{apelaciones}.doubleValue()*100)/$F{sancionados})+ "%"]]></labelExpression>
 					</categorySeries>
 					<categorySeries>
 						<seriesExpression><![CDATA["Procedentes"]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
 						<valueExpression><![CDATA[($F{procedentes}.doubleValue()*(($F{apelaciones}.doubleValue()*100)/$F{sancionados}))/$F{apelaciones}]]></valueExpression>
 						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format($F{procedentes}.doubleValue()*(($F{apelaciones}.doubleValue()*100)/$F{sancionados})/$F{apelaciones})+ "%"]]></labelExpression>
 					</categorySeries>
@@ -326,24 +326,27 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</bar3DPlot>
 			</bar3DChart>
 			<textField>
-				<reportElement x="411" y="349" width="94" height="20" uuid="001da192-8390-48cc-915b-a84680c59065"/>
+				<reportElement uuid="001da192-8390-48cc-915b-a84680c59065" x="411" y="389" width="94" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="505" y="349" width="58" height="20" uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21"/>
+				<reportElement uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21" x="505" y="389" width="58" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="137" y="349" width="100" height="20" uuid="5da6db8b-f78e-472a-906b-3a5dda234459"/>
+				<reportElement uuid="5da6db8b-f78e-472a-906b-3a5dda234459" x="139" y="388" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="349" width="137" height="20" uuid="383aced6-f45c-488b-9bc1-2095e02d90e9"/>
+				<reportElement uuid="383aced6-f45c-488b-9bc1-2095e02d90e9" x="2" y="388" width="137" height="20"/>
+				<textElement/>
 				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="369" width="572" height="1" uuid="df91b77d-96ec-4bae-ba69-9473c3ec8688"/>
+				<reportElement uuid="df91b77d-96ec-4bae-ba69-9473c3ec8688" x="0" y="409" width="572" height="1"/>
 			</line>
 		</band>
 	</summary>
