@@ -70,7 +70,7 @@
 			emptyMessage="No hay Actividades registradas" mold="paging"
 			pageSize="10">
 			<listhead>
-				<listheader label="Instancia Apelada" align="lefth"
+				<listheader label="Responsable" align="lefth"
 					sort="auto(instanciaApelada)">
 					<textbox id="filtroResponsable" instant="true"
 						mold="rounded" width="100px" value="@bind(vm.responsableFiltro)"

@@ -83,6 +83,23 @@ public class VMDetalleCronograma {
 		this.lugar = lugar;
 	}
 
+	public Cronograma getCronograma() {
+		return cronogramaSeleccionado;
+	}
+
+	public void setCronograma(Cronograma cronograma) {
+		cronogramaSeleccionado = cronograma;
+	}
+
+	/**
+	 * init
+	 * 
+	 * @param recibe
+	 *            la clase cronogrmaSeleccionado
+	 * @return muestra el detalle de la actividad seleccionada en una lista.
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("cronogramaSeleccionado") Cronograma v1) {
@@ -98,13 +115,4 @@ public class VMDetalleCronograma {
 		this.lugar = cronogramaSeleccionado.getLugar();
 		this.observacion = cronogramaSeleccionado.getObservacion();
 	}
-
-	public Cronograma getCronograma() {
-		return cronogramaSeleccionado;
-	}
-
-	public void setCronograma(Cronograma cronograma) {
-		cronogramaSeleccionado = cronograma;
-	}
-
 }
