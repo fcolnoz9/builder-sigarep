@@ -453,7 +453,7 @@ public class VMAnalizarValidezIII {
 
 				if (observacionExperto.equals(""))
 					observacionExperto = null;
-				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
+				recaudo = serviciorecaudo.buscarRecaudoPorNombre(nombreRecaudo);
 				RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 				recaudoEntregadoPK.setIdInstanciaApelada(3);
 				recaudoEntregadoPK.setCedulaEstudiante(cedula);
