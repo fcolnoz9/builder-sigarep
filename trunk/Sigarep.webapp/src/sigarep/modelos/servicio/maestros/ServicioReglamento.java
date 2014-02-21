@@ -18,14 +18,6 @@ import sigarep.modelos.repositorio.maestros.IReglamentoDAO;
 @Service("servicioreglamento")
 public class ServicioReglamento {
 	private @Autowired IReglamentoDAO rg;
-
-	/**Constructor Vacio
-	 * @param constructor sin parametros	
-	 */
-	public ServicioReglamento() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
 	/**guardarReglamento
 	 * @param r

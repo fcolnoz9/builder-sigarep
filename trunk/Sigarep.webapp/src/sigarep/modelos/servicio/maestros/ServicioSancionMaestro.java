@@ -35,11 +35,10 @@ public class ServicioSancionMaestro {
 	}
 
 	public List<SancionMaestro> listaTipoSanciones() {
-		List<SancionMaestro> sancionesLista = san.buscarSancionesActivas();
-		return sancionesLista;
+		return san.findByEstatusTrue();
 	}
 
-	public List<SancionMaestro> buscarTipoSancion(String nombre) {
+	public List<SancionMaestro> filtrarSancion(String nombre) {
 		List<SancionMaestro> result = new LinkedList<SancionMaestro>();
 		if (nombre == null) {
 			result = listaTipoSanciones();
