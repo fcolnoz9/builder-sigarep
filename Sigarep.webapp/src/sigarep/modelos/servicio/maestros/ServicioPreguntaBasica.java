@@ -2,10 +2,6 @@ package sigarep.modelos.servicio.maestros;
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.PreguntaBasica;
@@ -49,9 +45,8 @@ public class ServicioPreguntaBasica{
 	 * @param una listadoPreguntas
 	 * @return listadoPreguntas.
 	 */
-	
 	public List<PreguntaBasica> listadoPreguntas() {
-	    return pre.buscarPreguntab() ;
+	    return pre.findByEstatusTrue() ;
 	}
 	
 	/** buscarPr
@@ -59,7 +54,7 @@ public class ServicioPreguntaBasica{
 	 * @return resultado es un listadoPregunta.
 	 * @throws la Excepcion es que la pregunta o respuesta este en blanco.
 	 */
-	public List<PreguntaBasica> buscarPr(String pregunta){
+	public List<PreguntaBasica> filtrarPreguntaBasica(String pregunta){
 		List<PreguntaBasica> result = new LinkedList<PreguntaBasica>();
 		if (pregunta==null || "".equals(pregunta)){//si el nombre es null o vacio,el resultado va a ser la lista completa de todos los profesores
 			result = listadoPreguntas();
@@ -72,7 +67,6 @@ public class ServicioPreguntaBasica{
 			}
 		}
 		return result;
-
 	}
 }
 
