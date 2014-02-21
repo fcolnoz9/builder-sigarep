@@ -426,7 +426,7 @@ public class VMVerificarRecaudosEntregadosIII {
 			Recaudo recaudo = new Recaudo();
 			for(Listitem miRecaudo: recaudos){
 				String nombreRecaudo = miRecaudo.getLabel();
-				recaudo = serviciorecaudo.buscarRecaudoNombre(nombreRecaudo);
+				recaudo = serviciorecaudo.buscarRecaudoPorNombre(nombreRecaudo);
 				recaudoEntregadoPK.setIdInstanciaApelada(3);
 				recaudoEntregadoPK.setCedulaEstudiante(cedula);
 				recaudoEntregadoPK.setIdTipoMotivo(recaudo.getTipoMotivo().getIdTipoMotivo());

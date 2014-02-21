@@ -42,12 +42,12 @@ public class ServicioRecaudo {
 	}
 	
 	public List<Recaudo> listadoRecaudosPorMotivo(Integer idMotivo) {
-		List<Recaudo> listaRecaudosPorMotivo=iRecaudoDAO.buscarRecaudosPorMotivo(idMotivo);
+		List<Recaudo> listaRecaudosPorMotivo=iRecaudoDAO.findByTipoMotivoAndEstatusTrue(idMotivo);
 	    return listaRecaudosPorMotivo;
 	}
 	
-	public Recaudo buscarRecaudoNombre(String nombreRecaudo) {
-		Recaudo recaudo=iRecaudoDAO.buscarRecaudoPorNombre(nombreRecaudo);
+	public Recaudo buscarRecaudoPorNombre(String nombreRecaudo) {
+		Recaudo recaudo=iRecaudoDAO.findByNombreRecaudo(nombreRecaudo);
 	    return recaudo;
 	}
 	
@@ -119,11 +119,4 @@ public class ServicioRecaudo {
 		List<Recaudo> listaRecaudosApelacion = iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);	
 		return listaRecaudosApelacion;
 	}
-	   
-
-	public List<Recaudo> buscarRecaudosMotivosPortal(Integer idTipoMotivo) {
-		List<Recaudo> listaRecaudoMotivos = iRecaudoDAO.buscarRecaudosPorMotivoPortal(idTipoMotivo);
-		 return listaRecaudoMotivos;
-	}
-	
 }

@@ -23,17 +23,26 @@ import sigarep.modelos.data.maestros.Recaudo;
 
 public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 
+	/**
+	 * Busca el ultimo id insertado en la tabla Recaudo
+	 * @return Ultimo id insertado en la tabla Recaudo
+	 */
 	@Query("SELECT COALESCE(MAX(r.idRecaudo),0) FROM Recaudo AS r")
 	public int buscarUltimoID();
 	
-	@Query("Select rec FROM Recaudo AS rec WHERE rec.tipoMotivo.idTipoMotivo = :tipoMotivo")
-	public List<Recaudo> buscarRecaudosPorMotivo(@Param("tipoMotivo") Integer tipoMotivo);
-	
-	@Query("Select rec FROM Recaudo AS rec WHERE rec.tipoMotivo.idTipoMotivo = :tipoMotivo AND rec.estatus = TRUE")
-	public List<Recaudo> buscarRecaudosPorMotivoPortal(@Param("tipoMotivo") Integer tipoMotivo);
+	/**
+	 * Busca los recaudos activos de un tipo de motivo dado
+	 * @param idTipoMotivo identificador del tipo de motivo al que se le buscaran los recaudos
+	 * @return List<Recaudo> Lista de recaudos activos para el tipo de motivo dado
+	 */
+	public List<Recaudo> findByTipoMotivoAndEstatusTrue(Integer tipoMotivo);
 
-	@Query("Select rec FROM Recaudo AS rec WHERE rec.nombreRecaudo = :nombreRecaudo")
-	public Recaudo buscarRecaudoPorNombre(@Param("nombreRecaudo") String nombreRecaudo);
+	/**
+	 * Busca un recaudo por su nombre
+	 * @param nombreRecaudo Nombre del recaudo que se quiere encontrar
+	 * @return Recaudo Recaudo encontrado por su nombre
+	 */
+	public Recaudo findByNombreRecaudo(String nombreRecaudo);
 	
 	@Query("Select rec FROM Recaudo AS rec WHERE rec.estatus = TRUE")
 	public List<Recaudo> buscaRecaudosActivos();
