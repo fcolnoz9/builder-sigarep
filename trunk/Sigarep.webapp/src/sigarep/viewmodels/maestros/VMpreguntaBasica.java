@@ -133,7 +133,7 @@ public class VMpreguntaBasica {
 	@Command
 	@NotifyChange({"listaPregunta"})
 	public void buscarPregunta(){
-		listaPregunta =serviciopreguntabasica.buscarPr(pregunta);
+		listaPregunta =serviciopreguntabasica.filtrarPreguntaBasica(pregunta);
 	}
 	/** eliminarPreguntaBasica
 	 * @param id_pregunta_basica, pregunta, respuesta, estatus, listaPregunta.
