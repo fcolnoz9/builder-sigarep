@@ -673,7 +673,7 @@ public class VMEstudianteSancionado {
 
 		Boolean estudienteRR = false;
 		if (serviciolapsoacademico.buscarLapsoActivo() == null)
-			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.errorLapsoActivoNoExistente();
 		else {
 			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
 			if (cedula == null || cedula.equals("") || primerNombre == null
@@ -693,7 +693,7 @@ public class VMEstudianteSancionado {
 				//-------- Validacion de las fechas 
 				if (fechaNacimiento != null && annoIngreso != null) {
 					if (fechaNacimiento.compareTo(annoIngreso) > 0) {
-						mensajeAlUsuario.ErrorRangoFechas();
+						mensajeAlUsuario.errorRangoFechas();
 						fechaNacimiento = null;
 					} else
 				if (sancionMaestro == null)

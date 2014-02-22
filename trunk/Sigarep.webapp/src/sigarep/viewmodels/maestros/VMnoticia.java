@@ -379,7 +379,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	public void validarFecha() {
 		if (fechaRegistro != null && vencimiento != null) {
 			if (fechaRegistro.compareTo(vencimiento) > 0) {
-				mensajeAlUsuario.ErrorRangoFechas();
+				mensajeAlUsuario.errorRangoFechas();
 				vencimiento = null;
 			}
 		}

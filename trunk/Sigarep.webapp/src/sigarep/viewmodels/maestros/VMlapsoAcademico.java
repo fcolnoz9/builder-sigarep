@@ -149,7 +149,7 @@ public class VMlapsoAcademico {
 			else{
 				//SE ESTA CREANDO UN LAPSO DESDE CERO
 				if (serviciolapsoacademico.buscarLapsoActivo()!=null){
-					mensajeAlUsuario.ErrorLapsoActivoExistente();
+					mensajeAlUsuario.errorLapsoActivoExistente();
 					//EXISTE UN LAPSO ACTIVO ASI QUE NO PUEDE GUARDAR
 					//AQUI VA UN MENSAJE: "No puede registrar el lapso debido a que existe uno activo"
 				}
@@ -179,7 +179,7 @@ public class VMlapsoAcademico {
 	public void validarFecha() {
 		if (fechaInicio != null && fechaCierre != null) {
 			if (fechaInicio.compareTo(fechaCierre) > 0) {
-				mensajeAlUsuario.ErrorRangoFechas();
+				mensajeAlUsuario.errorRangoFechas();
 				fechaCierre = null;
 			}
 		}

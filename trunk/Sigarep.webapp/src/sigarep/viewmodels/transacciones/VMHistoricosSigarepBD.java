@@ -207,7 +207,7 @@ public class VMHistoricosSigarepBD {
 						System.err.println(e);
 					}
 				}
-				else mensajeAlUsuario.ErrorNoHayResgistrosParaRespaldo();
+				else mensajeAlUsuario.errorNoHayResgistrosParaRespaldo();
 			}
 			else mensajeAlUsuario.advertenciaSeleccionarOpcion();
 		} else mensajeAlUsuario.advertenciaSeleccionarLapso();

@@ -238,7 +238,7 @@ public class VMHistoricoEstudiante {
 		Selectors.wireComponents(view, this, false);
 		this.cedulaEstudiante = cedula;
 		if (serviciolapsoacademico.buscarLapsoActivo() == null)
-			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.errorLapsoActivoNoExistente();
 		else {
 			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo()
 					.getCodigoLapso();

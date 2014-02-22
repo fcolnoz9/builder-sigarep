@@ -302,7 +302,7 @@ public class MensajesAlUsuario {
 				Messagebox.ERROR);
 	}
 
-	public void ErrorFinalizarLapsoSesion() {
+	public void errorFinalizarLapsoSesion() {
 
 		Messagebox.show("No puede finalizar el lapso actual. "
 				+ "Existen apelaciones sin n�mero de sesi�n.", "Error",
@@ -310,7 +310,7 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void ErrorFinalizarLapsoCronograma() {
+	public void errorFinalizarLapsoCronograma() {
 
 		Messagebox.show("No puede finalizar el lapso actual. "
 				+ "Existen actividades sin ejecutarse en el cronograma.",
@@ -318,21 +318,21 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void ErrorLapsoActivoNoExistente() {
+	public void errorLapsoActivoNoExistente() {
 
 		Messagebox.show("No existe un lapso acad�mico activo.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 
 	}
 
-	public void ErrorNoHayVeredictosRegistrados() {
+	public void errorNoHayVeredictosRegistrados() {
 
 		Messagebox.show("No se ha podido finalizar. No hay veredictos registrados.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 
 	}
 
-	public void ErrorLapsoActivoExistente() {
+	public void errorLapsoActivoExistente() {
 
 		Messagebox.show("Ya existe un lapso acad�mico activo.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
@@ -346,32 +346,32 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void ErrorRangoFechas() {
+	public void errorRangoFechas() {
 
 		Messagebox.show("Error de rango de fechas.", "Error", Messagebox.OK,
 				Messagebox.ERROR);
 
 	}
 
-	public void ErrorNoCoincidenLasContrasenias() {
+	public void errorNoCoincidenLasContrasenias() {
 
 		Messagebox.show("La nueva contrase�a y la contrase�a de confirmaci�n no coinciden.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
-	public void ErrorNoCoincideContraseniaUsuario() {
+	public void errorNoCoincideContraseniaUsuario() {
 
 		Messagebox.show("La contrase�a ingresada no coincide con el usuario.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
-	public void ErrorNoHayResgistrosParaRespaldo() {
+	public void errorNoHayResgistrosParaRespaldo() {
 
 		Messagebox.show("No hay nada a lo que hacer respaldo en el lapso seleccionado.",
 				"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 	
-	public void ErrorNoEsXML() {
+	public void errorNoEsXML() {
 
 		Messagebox.show("La Extensi�n del Archivo no es XML.", 
 				"Error",Messagebox.OK, Messagebox.ERROR);

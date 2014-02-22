@@ -216,7 +216,7 @@ public class VMCronograma {
 		buscarResponsable();
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		if (serviciolapsoacademico.buscarLapsoActivo() == null){
-			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.errorLapsoActivoNoExistente();
 
 		}
 		else
@@ -233,7 +233,7 @@ public class VMCronograma {
 	@NotifyChange({"fechaInicio", "fechaFin", "horaInicio", "lugar", "observacion", "responsable", "listaCronograma", "actividad"})
 	public void guardarCronograma() {
 		if (codigoLapso == null)
-			mensajeAlUsuario.ErrorLapsoActivoNoExistente();
+			mensajeAlUsuario.errorLapsoActivoNoExistente();
 		else{
 			if(fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals(""))
 				mensajeAlUsuario.advertenciaLlenarCampos();
@@ -404,7 +404,7 @@ public class VMCronograma {
 	public void validarFecha(){
 		if (fechaInicio != null && fechaFin != null){
 			if (fechaInicio.compareTo(fechaFin) > 0){
-				mensajeAlUsuario.ErrorRangoFechas();
+				mensajeAlUsuario.errorRangoFechas();
 				fechaFin=null;
 			}
 		}
