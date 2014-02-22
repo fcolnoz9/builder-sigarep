@@ -42,7 +42,6 @@ public class Grupo implements Serializable{
 
 	@Id
 	// Clave primaria de la clase
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	//@Index(name = "id_gruposIndex")
 	@Column(name="id_grupo", unique = true , nullable=false)
 	private Integer idGrupo;
@@ -55,7 +54,6 @@ public class Grupo implements Serializable{
 	
 	@Column(name = "estatus")
     private boolean estatus;
-	
 	
 	@ManyToMany(fetch=FetchType.EAGER) 
 	@JoinTable(name = "funcion_grupo",
