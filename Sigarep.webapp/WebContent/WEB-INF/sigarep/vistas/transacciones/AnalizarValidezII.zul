@@ -8,7 +8,7 @@
 
 		<style src="/widgets/grid/simple/style.css" />
 
-
+<!-- Gruoupbox que contiene los datos del estudiante -->
 		<groupbox id="grbDatosEstudiante">
 			<caption label="Datos del Estudiante" />
 			<grid id="grdDatosEstudiante">
@@ -48,6 +48,7 @@
 				</rows>
 			</grid>
 		</groupbox>
+			<!-- Gruoupbox que contiene los datos de la sanción -->
 		<groupbox id="grbDatosSancion">
 			<caption id="lblDatossancion" label="Datos Sanción" />
 			<grid>
@@ -83,7 +84,7 @@
 				</rows>
 			</grid>
 		</groupbox>
-
+<!-- Gruoupbox que contiene los datos de la apelación -->
 		<groupbox id="grbDatosApelacion">
 			<caption label="Datos de la Apelación" />
 			<grid>
@@ -105,9 +106,9 @@
 				</rows>
 			</grid>
 		</groupbox>
-
+<!-- Gruoupbox que contiene los datos de los recaudos-->
 		<groupbox id="grbDatosRecaudo">
-			<caption label="Datos de los recaudos" />
+			<caption label="Datos de los Recaudos" />
 			<listbox id="lbxRecaudos" model="@bind(vm.listaRecaudo)"
 				emptyMessage="No se encontraron recaudos" mold="paging"
 				pageSize="20">
@@ -140,14 +141,15 @@
 						</listcell>
 						<listcell height="%">
 							<textbox
-								value="${each.getObservacionExperto()}" mold="rounded"
-								cols="120" maxlength="255" rows="2" placeholder="Ingrese una observación del recaudo" />
+								value="${each.getObservacionExperto()}" 
+								placeholder="Ingrese una observación del recaudo" 
+								mold="rounded" cols="120" maxlength="255" rows="2" />
 						</listcell>
 					</listitem>
 				</template>
 			</listbox>
 		</groupbox>
-
+<!-- Gruoupbox que contiene los datos de la segerencia -->
 		<groupbox id="grbDatosSugerencia">
 			<caption id="lblsugerencia" label="Sugerencia" />
 			<grid>
@@ -171,9 +173,10 @@
 							<label value="Observación General: "
 								id="lblObservacion" />
 							<separator></separator>
-							<textbox id="txtObservacion" mold="rounded"
-								maxlength="255" cols="100" value="@bind(vm.observacion)"
-								placeholder="Ingrese una observación general del caso" rows="2">
+							<textbox id="txtObservacion" 
+							placeholder="Ingrese una observación general del caso"
+								mold="rounded" maxlength="255" cols="100" rows="2" 
+								 value="@bind(vm.observacion)">
 							</textbox>
 						</hlayout>
 					</row>
@@ -181,7 +184,7 @@
 			</grid>
 			<label value="" />
 		</groupbox>
-
+<!-- Botones de acción -->
 		<div align="right" height="100%">
 			<button label="Guardar" mold="trendy" id="btnGuardar"
 				image="imagenes/iconos/guardar.png" width="auto" height="auto"
