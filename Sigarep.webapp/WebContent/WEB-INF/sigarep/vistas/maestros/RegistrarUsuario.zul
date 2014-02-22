@@ -116,7 +116,7 @@
 					<textbox id="txtCorreo" width="80%"  mold="rounded"
 						placeholder="Ingrese su correo electrónico"  maxlength="30"
 						value="@bind(vm.correo)" />
-					<label value="Repetir electrónico: " id="lblRepetirCorreo" />
+					<label value="Repetir correo electrónico: " id="lblRepetirCorreo" />
 					<textbox id="txtRepetirCorreo" width="80%"  mold="rounded"
 						placeholder="Repita su correo"  maxlength="30"
 						value="@bind(vm.confirmarcorreo)" />
