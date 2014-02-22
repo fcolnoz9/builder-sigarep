@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -13,13 +15,18 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 
 import sigarep.herramientas.Archivo;
@@ -48,7 +55,6 @@ import sigarep.modelos.servicio.transacciones.ServicioUsuarioGrupo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMUsuario {
-
 	@WireVariable 
 	private ServicioPersona serviciopersona;
 	@WireVariable 
@@ -98,7 +104,9 @@ public class VMUsuario {
 	@WireVariable
 	private String correoLogin;
 
+
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
+
 	
 	private Usuario usuarioSeleccionado;
 	@WireVariable
@@ -115,6 +123,13 @@ public class VMUsuario {
 	private ServicioUsuario serviciousuario;
 	
 	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
+	
+	@Wire("#winRegistrarUsuario")//para conectarse a la ventana con el ID
+	Window ventana;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 	
 	public List<InstanciaMiembro> getListaInstanciaMiembro() {
 		return listaInstanciaMiembro;
@@ -412,15 +427,21 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		if (nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 
 				|| clave.equals("")  || confirmarcontrasenia.equals("") ) {
+
 			mensajeAlUsuario.advertenciaLlenarCampos();
+
 		}
 		else if(!correo.equals(confirmarcorreo)){
+
 			mensajeAlUsuario.advertenciaContrasennasNoCoinciden();
+
 		}
 		else if(!clave.equals(confirmarcontrasenia)){
+
 			mensajeAlUsuario.advertenciaContrasennasNoCoinciden();
 		}
 		else if(gruposDelUsuario.size()==0){
+
 			mensajeAlUsuario.advertenciaSeleccionarGrupoUsuario();
 		}
 		else
@@ -441,7 +462,7 @@ public class VMUsuario {
 			
 			if(imagenUsuario == null){
 				try {
-					imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
+					imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
 					fotoUsuario = new Archivo();
 					
 					fotoUsuario.setNombreArchivo(imagenUsuario.getName());
@@ -515,7 +536,9 @@ public class VMUsuario {
 //			    }
 			}
 			
+
 			mensajeAlUsuario.informacionRegistroCorrecto();
+
 			if(existeUsuario==false){
 				try {
 					usuario.setFechaCreacion(new Date());
@@ -540,6 +563,7 @@ public class VMUsuario {
 			try {
 				EnviarCorreo enviar = new EnviarCorreo();
 				enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
+
 				mensajeAlUsuario.informacionHemosEnviadoCorreo();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -560,28 +584,7 @@ public class VMUsuario {
 	 */
 	@Command
 	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro","fotoUsuario","imagenUsuario"})
-	public void agregarInstancia() {
-		
-		if(imagenUsuario == null){
-			try {
-				imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
-				if(imagenUsuario != null)System.out.println("tiene");
-				else System.out.println("no tiene");
-				fotoUsuario.setNombreArchivo(imagenUsuario.getName());
-				fotoUsuario.setTipo(imagenUsuario.getContentType());
-				fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
-				fotoUsuario.setAImage(imagenUsuario);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-		}
-		
-		
-		
-		
+	public void agregarInstancia() {		
 		InstanciaMiembro instanciaM = new InstanciaMiembro();
 		InstanciaMiembroPK instanciaMPK = new InstanciaMiembroPK();
 		if (tituloinstancia.equals("")) {
@@ -598,8 +601,6 @@ public class VMUsuario {
 			instanciaM.setEstatus(true);
 			instanciaM.setFechaEntrada(new Date());
 			instanciaM.setInstanciaApelada(getInstanciaseleccionada());
-			
-			
 			boolean llego = false;
 			
 			for(int j = 0;listaInstanciaMiembro.size()>j && !llego ;j++){
@@ -727,7 +728,7 @@ public class VMUsuario {
 	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void eliminarUsuario() {
 		serviciousuario.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
-		serviciopersona.eliminar(cedulaPersona);
+
 		mensajeAlUsuario.informacionEliminarCorrecto();
 		limpiar();
 	}
@@ -770,7 +771,7 @@ public class VMUsuario {
 		}else{
 			System.out.println("esta nula");
 			try {
-				imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
+				imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
 				
 				fotoUsuario = new Archivo();
 				
@@ -823,10 +824,14 @@ public class VMUsuario {
 	@NotifyChange({"confirmarcontrasenia", "nuevaContrasenia" })
 	public void cambiarContrasenia() {
 	    if(confirmarcontrasenia==null || nuevaContrasenia == null)
+
 	    	mensajeAlUsuario.advertenciaLlenarCampos();
+
 	    else{
 	    	if(serviciousuario.cambiarContrasena(seguridad.getUsuario().getUsername(),nuevaContrasenia, confirmarcontrasenia)==true){
+
 	    		mensajeAlUsuario.informacionContrasennaAtualizada();
+
 	    		cancelarCambiarContrasenia();
 	    	}
 	    }
@@ -843,7 +848,9 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		usuario.setNombreUsuario("-1");
 		if (correoLogin=="")
+
 			mensajeAlUsuario.advertenciaLlenarCampos();
+
 		else {
 			List<Usuario> listaUsuarios = serviciousuario.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
@@ -857,10 +864,14 @@ public class VMUsuario {
 				if (usuario.getNombreUsuario()!="-1") {
 					EnviarCorreo enviar = new EnviarCorreo();
 					enviar.sendEmail(usuario.getCorreo(), usuario.getClave());
+
 					mensajeAlUsuario.informacionContrasennaRecuperada();
+
 				}
 				else
+
 					mensajeAlUsuario.ErrorUsuarioEmailNoRegistrado();
+
 		}
 	}
 	
@@ -903,6 +914,53 @@ public class VMUsuario {
 			}
 		} 
 	}
+
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@SuppressWarnings("unchecked")
+	@Command
+	@NotifyChange({ "nombreUsuario","correo","cedulaPersona","nombre","apellido","clave","confirmarcontrasenia" })
+	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+			
+		if (!nombreUsuario.equals("") || !correo.equals("") || !cedulaPersona.equals("") || !nombre.equals("")  || !apellido.equals("") 
+				|| !clave.equals("")  || !confirmarcontrasenia.equals("") )
+		{
+			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					}
+				}
+			});		
+		}
+		else{
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+			
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					
+					
+					}
+				}
+		});		
+		}
+	}
+
 	
 	/**
 	 * Cerrar Ventana
@@ -923,7 +981,5 @@ public class VMUsuario {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 	
-	
-	
-	
+
 }
