@@ -146,7 +146,10 @@ public class MensajesAlUsuario {
 	public void advertenciaContrasennasNoCoinciden() {
 		Messagebox.show("Las contrase�as no coinciden.","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
      }
-
+	
+	public void advertenciaCorreosNoCoinciden() {
+		Messagebox.show("Los correos no coinciden.","Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+     }
 	public void advertenciaNoExisteEstudianteSancionado() {
 
 		Messagebox.show("Esta c�dula no est� en la lista de Estudiantes Sancionados.",
