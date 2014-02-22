@@ -7,6 +7,7 @@
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVerificarRecaudosEntregadosII')">
 
 	<!-- Estos datos vienen precargados con el estudiante sancionado seleccionado en la lista -->
+	<!--El groupbox contiene los datos del estudiante -->
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
 		<grid id="grdDatosEstudiante">
@@ -38,6 +39,7 @@
 			</rows>
 		</grid>
 	</groupbox>
+	<!--El groupbox contiene los datos de la sanción -->
 		<groupbox id="grbDatosSancion">
 		<caption id="lblDatossancion" label="Datos Sanción" />
 		<grid>
@@ -69,9 +71,9 @@
 		</grid>
 	</groupbox>
 	
-
-	<groupbox id="grbDatosRecaudo" height="auto">
-		<caption label="Datos del Recaudo" />
+<!--El groupbox contiene los datos de la apelación-->
+	<groupbox id="grbDatosApelacion" height="auto">
+		<caption label="Datos de la apelación" />
 		<div align="left">
 			<label id="lblnrocaso" value="Número del Caso: " />
 			<textbox id="txtnrocaso" cols="10" maxlength="30" mold="rounded"
@@ -146,7 +148,7 @@
 							<radio id="rbProcedenteNo" label="No Procedente" value="NO PROCEDENTE"/>
 						</hbox>
 						<label  id="lblObservacion" value="Observación General: " />
-						<textbox id="txtObservacion" mold="rounded" width="80%" cols="60" rows="2"
+						<textbox id="txtObservacion"   placeholder="Ingrese la observación general del caso"  mold="rounded" width="80%" cols="60" rows="2"
 						value="@bind(vm.observacion)"></textbox>
 					</row>
 				</rows>
