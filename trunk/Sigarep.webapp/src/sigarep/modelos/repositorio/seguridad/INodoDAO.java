@@ -9,5 +9,5 @@ import sigarep.modelos.data.seguridad.Nodo;
 
 public interface INodoDAO extends JpaRepository<Nodo,Integer> {
 
-public List<Nodo> findByPadre(int i);
+	public List<Nodo> findByPadre(int i);
 }

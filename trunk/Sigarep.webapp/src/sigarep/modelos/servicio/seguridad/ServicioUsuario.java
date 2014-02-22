@@ -32,7 +32,7 @@ public class ServicioUsuario {
 	}
 	
 	public List<Usuario> listadoUsuario() {
-		List<Usuario> usuarioLista = iUsuarioDAO.buscarGruposActivos();
+		List<Usuario> usuarioLista = iUsuarioDAO.findByEstatusTrue();
 		return usuarioLista;
 	}
 	
