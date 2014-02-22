@@ -245,7 +245,7 @@ public class VMCargarEstudiantesSancionadosXml {
 				}
 			}
 			else{
-				mensajeAlUsuario.ErrorNoEsXML();
+				mensajeAlUsuario.errorNoEsXML();
 			}
 		}
 	}
