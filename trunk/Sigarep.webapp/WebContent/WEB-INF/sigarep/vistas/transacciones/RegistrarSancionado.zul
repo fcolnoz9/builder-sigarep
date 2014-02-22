@@ -261,7 +261,7 @@
 			onClick="@command('limpiar',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
 		<button label="Cerrar" mold="trendy" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('cerrarVentana')" />
+			orient="horizontal" onClick="@command('cerrarVentana', ventana = winRegistrarSancionados)" />
 	</div>
 
 	<!-- 		Grupo que contiene la lista de estudiante sancionados -->

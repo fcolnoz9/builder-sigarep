@@ -4,32 +4,17 @@ import java.util.Date;
 
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
-
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-
 import org.zkoss.zhtml.Messagebox;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.EventListener;
-
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
@@ -37,33 +22,24 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
-
-
 import sigarep.herramientas.MensajesAlUsuario;
-
 import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
-import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.maestros.Estudiante;
-import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
-import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
-
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
-import sigarep.modelos.servicio.maestros.ServicioNoticia;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
-import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
+
 
 
 /**
@@ -139,15 +115,9 @@ public class VMEstudianteSancionado {
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	private List<EstudianteSancionado> listaSancionado; 
 
-	@Wire("#winRegistrarSancionados")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
 
 	
-	
+	//Métodos setters y getters
 	public String getSancion() {
 		return sancion;
 	}
@@ -676,17 +646,17 @@ public class VMEstudianteSancionado {
 			mensajeAlUsuario.errorLapsoActivoNoExistente();
 		else {
 			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
-			if (cedula == null || cedula.equals("") || primerNombre == null
-					|| primerNombre.equals("") || segundoNombre == null
-					|| segundoNombre.equals("") || primerApellido == null
-					|| segundoApellido.equals("") || telefono == null
-					|| telefono.equals("") || email == null || email.equals("")
-					|| sexo == null || sexo.equals("") || programa == null
-					|| programa.equals("") || fechaNacimiento == null
-					|| fechaNacimiento.equals("") || unidadesCursadas == null
+			if (cedula == null  || primerNombre == null
+					|| segundoNombre == null
+					||  primerApellido == null
+					||  telefono == null
+					||  email == null 
+					|| sexo == null ||  programa == null
+				    || fechaNacimiento == null
+					|| unidadesCursadas == null
 					|| unidadesAprobadas == null || annoIngreso == null
-					|| annoIngreso.equals("") || sancionMaestro == null
-					|| sancionMaestro.equals("") || semestre == null
+					|| sancionMaestro == null
+					|| semestre == null
 					|| periodoSancion == null)
 				mensajeAlUsuario.advertenciaLlenarCampos();
 			else {
@@ -701,9 +671,7 @@ public class VMEstudianteSancionado {
 				else {
 					if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RP")) {
 						if (lapsoConsecutivo1 == null
-								|| lapsoConsecutivo1.equals("")
-								|| lapsoConsecutivo2 == null
-								|| lapsoConsecutivo2.equals(""))
+								|| lapsoConsecutivo2 == null)
 							mensajeAlUsuario.advertenciaLlenarCampos();
 						else
 							estudianteSancionado.setLapsosAcademicosRp(lapsoConsecutivo1+ ": " + lapsoConsecutivo2);
@@ -894,17 +862,17 @@ public class VMEstudianteSancionado {
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
 			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
-		primerNombre = "";
-		segundoNombre = "";
-		primerApellido = "";
-		segundoApellido = "";
-		telefono = "";
-		email = "";
-		lapsosAcademicosRP = "";
-		nombreSancion = "";
-		sexo = "";
+		primerNombre = null;
+		segundoNombre = null;
+		primerApellido = null;
+		segundoApellido = null;
+		telefono = null;
+		email = null;
+		lapsosAcademicosRP = null;
+		nombreSancion = null;
+		sexo = null;
 		programa = null;
-		cedula = "";
+		cedula = null;
 		indiceGrado = 0;
 		fechaNacimiento = null;
 		unidadesCursadas = null;
@@ -915,8 +883,8 @@ public class VMEstudianteSancionado {
 		periodoSancion = null;
 		buscarSancionados();
 		listaAsignaturaListBox.clear();
-		lapsoConsecutivo1 = "";
-		lapsoConsecutivo2 = "";
+		lapsoConsecutivo1 = null;
+		lapsoConsecutivo2 = null;
 		cedulaFiltro = "";
 		nombreFiltro = "";
 		apellidoFiltro = "";
@@ -943,15 +911,15 @@ public class VMEstudianteSancionado {
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
 			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
-			primerNombre = "";
-			segundoNombre = "";
-			primerApellido = "";
-			segundoApellido = "";
-			telefono = "";
-			email = "";
-			lapsosAcademicosRP = "";
-			nombreSancion= "";
-			sexo = "";
+			primerNombre = null;
+			segundoNombre = null;
+			primerApellido = null;
+			segundoApellido = null;
+			telefono = null;
+			email = null;
+			lapsosAcademicosRP = null;
+			nombreSancion= null;
+			sexo = null;
 			programa = null;
 			indiceGrado = 0;
 			fechaNacimiento = null;
@@ -963,8 +931,8 @@ public class VMEstudianteSancionado {
 			buscarSancionados();
 			periodoSancion=null;
 			listaAsignaturaListBox.clear();
-			lapsoConsecutivo1= "";
-			lapsoConsecutivo2= "";
+			lapsoConsecutivo1= null;
+			lapsoConsecutivo2= null;
 			cedulaFiltro= "";
 			nombreFiltro= "";
 			apellidoFiltro= "";
@@ -1012,55 +980,28 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
-	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({"cedula" ,"indiceGrado" ,"lapsoAcademico", "sancionMaestro", "unidadesAprobadas"
 		  ,"primerNombre","segundoNombre","primerApellido","unidadesCursadas" ,"semestre","lapsosAcademicosRP"
 		  ,"telefono","email","fechaNacimiento","lapsoAcademico","annoIngreso","listaSancionado"
 		  ,"segundoApellido", "sexo","programa","periodoSancion","semestre"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (cedula == null || cedula.equals("") || primerNombre == null
-				|| primerNombre.equals("") || segundoNombre == null
-				|| segundoNombre.equals("") || primerApellido == null
-				|| segundoApellido.equals("") || telefono == null
-				|| telefono.equals("") || email == null || email.equals("")
-				|| sexo == null || sexo.equals("") || programa == null
-				|| programa.equals("") || fechaNacimiento == null
-				|| fechaNacimiento.equals("") || unidadesCursadas == null
-				|| unidadesAprobadas == null || annoIngreso == null
-				|| annoIngreso.equals("") || sancionMaestro == null
-				|| sancionMaestro.equals("") || semestre == null
-				|| periodoSancion == null)
-		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
+	
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(cedula != null  || primerNombre != null
+				|| segundoNombre != null
+				||  primerApellido != null
+				||  telefono != null
+				||  email != null 
+				|| sexo != null ||  programa != null
+			    || fechaNacimiento != null
+				|| unidadesCursadas != null
+				|| unidadesAprobadas != null || annoIngreso != null
+				|| sancionMaestro != null
+				|| semestre != null
+				|| periodoSancion != null || lapsoConsecutivo1 != null || lapsoConsecutivo2 != null)
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-	
-	
+
 }
