@@ -1,6 +1,6 @@
 <zk>
 	<window id="winRegistrarDatosInicialesApelacion"
-		title="Gestión :: Apelaciones :: Registrar Apelación :: Datos Iniciales "
+		title="Gestión :: Apelaciones :: Registrar Apelación "
 		width="auto" height="auto" style="overflow:auto" closable="true"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRegistrarDatosIniciales')">
@@ -12,6 +12,7 @@
  			value="@bind(vm.numeroCaso)" >
 		</textbox>
 	</div>
+	<!-- Grupbox que contiene los datos básicos del estudiante -->
 		<groupbox id="grbDatosestudiante">
 			<caption id="lblDatosestudiante" label="Datos Estudiante" />
 			<grid id="grdDatosBasicos">
@@ -51,6 +52,7 @@
 				</rows>
 			</grid>
 		</groupbox>
+<!-- Grupbox que contiene los datos de la sanción -->
 		<groupbox id="grbDatosSancion">
 			<caption id="lblDatossancion" label="Datos Sanción" />
 			<grid id="grdDatosSancion">
@@ -98,6 +100,7 @@
 				</rows>
 			</grid>
 		</groupbox>
+		<!-- Grupbox que contiene los datos de la apelación -->
 		<groupbox id="grbDatosdeapelacion">
 			<caption id="lblDatosapelacion" label="Datos Apelación" />
 			<grid id="grdDatosapelacion">
@@ -122,10 +125,10 @@
 						</combobox>
 						<label id="lblDescripcionMotivo"
 							value="Descripción: " />
-						<textbox id="txtDescripcion" rows="3"
+						<textbox id="txtDescripcion" 
+							rows="3" placeholder="Ingrese la descripción del motivo de la apelación"
 							width="80%" cols="23" maxlength="255"
-							value="@bind(vm.descripcion)" mold="rounded"
-							placeholder="Ingrese la descripcion del motivo de la apelación">
+							value="@bind(vm.descripcion)" mold="rounded">
 						</textbox>
 						<button id="btnAgregar" label="Agregar"
 							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
@@ -151,6 +154,7 @@
 				</template>
 			</listbox>
 		</groupbox>
+			<!-- Observación de la solicitud -->
 		<grid>
 			<rows>
 				<row>
@@ -168,6 +172,7 @@
 			</rows>
 		</grid>
 		<separator />
+		<!-- Botones de acción sobre l registro de la apelación-->
 		<div align="right" height="100%">
 			<button id="btnGuardar" width="auto" height="auto"
 				mold="trendy" label="Guardar"
