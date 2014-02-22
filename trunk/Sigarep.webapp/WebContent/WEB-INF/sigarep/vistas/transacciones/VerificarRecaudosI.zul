@@ -5,6 +5,8 @@
 	action="hide: slideUp" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVerificarRecaudosEntregadosI')">
 	<style src="/widgets/grid/simple/style.css" />
+	<!-- Estos datos vienen precargados con el estudiante sancionado seleccionado en la lista -->
+	<!--El groupbox contiene los datos del estudiante -->
 	<groupbox id="grbDatosEstudiante">
 		<caption label="Datos del Estudiante" />
 		<grid id="grdDatosEstudiante">
@@ -32,6 +34,7 @@
 			</rows>
 		</grid>
 	</groupbox>
+	<!--El groupbox contiene los datos de la sanción -->
 		<groupbox id="grbDatosSancion">
 		<caption id="lblDatossancion" label="Datos Sanción:" />
 		<grid>
@@ -61,7 +64,7 @@
 			</rows>
 		</grid>
  	</groupbox>
-
+<!--El groupbox contiene los datos de la apelación-->
 	<groupbox id="grbDatosApelacion">
 	   <caption label="Datos de la apelación" />
 	   	<div align="left">
@@ -101,7 +104,7 @@
 	   	</template>
 	   </listbox>	
 	</groupbox>
-	
+	<!--El groupbox contiene la sugerencia respecto a verificar recaudos en la primera instancia-->
 	<groupbox>
 	<caption label="Sugerencia" />
 		<grid>
