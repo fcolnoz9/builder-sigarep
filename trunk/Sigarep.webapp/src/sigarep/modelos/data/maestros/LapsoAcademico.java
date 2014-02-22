@@ -11,8 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-/**Clase Lapso Academico
- * Registra y Modifica un lapso academico
+/**Clase Lapso Académico
+ * Registra y Modifica un lapso académico
 * UCLA DCYT Sistemas de Informacion.
 * @author Equipo: Builder-SIGAREP 
 * @version 1.0
