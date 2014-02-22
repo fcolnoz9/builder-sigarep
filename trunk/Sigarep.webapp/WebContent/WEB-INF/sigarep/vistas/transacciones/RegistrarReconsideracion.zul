@@ -1,5 +1,5 @@
 <window id="winRegistrarReconsideracion"
-	title="Gestión :: Reconsideraciones :: Registrar Reconsideración"
+	title="Gestión :: Recurso de Reconsideración  :: Registrar Recurso de Reconsideración"
 	border="normal" width="100%" height="auto" style="overflow:auto"
 	closable="true" contentStyle="overflow:auto" action="hide: slideUp"
 	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
@@ -15,7 +15,7 @@
 		</textbox>
 	</div>
 	<space />
-	<!-- Grupbox que contiene los datos basicos del estudiante -->
+	<!-- Grupbox que contiene los datos básicos del estudiante -->
 	<groupbox id="grbDatosestudiante">
 		<caption id="lblDatosestudiante" label="Datos Estudiante" />
 		<grid id="grdDatosEstudiante">
@@ -98,7 +98,7 @@
 			</rows>
 		</grid>
 	</groupbox>
-	<!-- Grupbox que contiene los datos del recurso de reconsideracion -->
+	<!-- Grupbox que contiene los datos del recurso de reconsideración -->
 	<groupbox id="grbDatosdeReconsideracion">
 		<caption id="lblDatosReconsideracion"
 			label="Datos Reconsideración" />
@@ -113,7 +113,7 @@
 					</label>
 					<textbox id="txtObservacion" cols="23"
 						maxlength="255" rows="3" width="80%" mold="rounded"
-						value="@bind(vm.observacion)"  placeholder="Ingrese la observación del Recurso de Reconsideración">
+						value="@bind(vm.observacion)"  placeholder="Ingrese la observación del recurso de reconsideración">
 					</textbox>
 				</row>
 			</rows>

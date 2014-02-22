@@ -51,7 +51,7 @@
 			</rows>
 		</grid>
 	</groupbox>
-	<!-- Grupbox que contiene los datos de la sancion -->
+	<!-- Grupbox que contiene los datos de la sanción -->
 	<groupbox id="grbDatosSancion">
 		<caption id="lblDatosSancion" label="Datos de la Sanción" />
 		<grid>
@@ -111,7 +111,7 @@
 					<textbox id="txtObservacion" cols="23"
 						maxlength="255" rows="4" width="99%" mold="rounded"
 						value="@bind(vm.observacion)"
-						placeholder="Ingrese la observación del Recurso Jerárquico">
+						placeholder="Ingrese la observación del recurso jerárquico">
 					</textbox>
 				</row>
 			</rows>
