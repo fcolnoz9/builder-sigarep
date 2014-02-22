@@ -10,8 +10,11 @@ import sigarep.modelos.data.seguridad.Usuario;
 
 public interface IUsuarioDAO extends JpaRepository<Usuario, String> {
 
-	@Query("Select usu FROM Usuario AS usu where estado = TRUE")		
-	public List<Usuario> buscarGruposActivos();
+	/**
+	 * Busca los Usuarios que poseen estatus true
+	 * @return List<Usuario> Lista de Usuarios con estatus true
+	 */
+	public List<Usuario> findByEstatusTrue();
 	
 	//public Usuario findByIdUsuario(Integer IdUsuario);
 }
