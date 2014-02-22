@@ -1,5 +1,5 @@
-<window title="Registros Básicos :: Tipo Sanción"
-	id="winRegistrarSancion" border="normal" width="auto" height="auto"
+<window  id="winRegistrarSancion" title="Registros Básicos :: Tipo Sanción"
+	 border="normal" width="auto" height="auto"
 	closable="true" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMsancionMaestro')">
@@ -45,7 +45,7 @@
 		</button>
 		<button label="Cerrar" id="btnCerrarSancion" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
-			onClick="@command('cerrarVentana')">
+			onClick="@command('cerrarVentana', ventana = winRegistrarSancion)">
 		</button>
 	</div>
 	<groupbox id="grbListaSanciones">

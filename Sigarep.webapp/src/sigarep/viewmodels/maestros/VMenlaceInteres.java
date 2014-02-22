@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -56,12 +57,12 @@ public class VMenlaceInteres {
 	private String nombreEnlaceFiltro ="";
 	private String direccionEnlaceFiltro ="";
 	
-	@Wire("#winEnlaceinteres")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+//	@Wire("#winEnlaceinteres")//para conectarse a la ventana con el ID
+//	Window ventana;
+//	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+//    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+//        Selectors.wireComponents(view, this, false);
+//    }
 
 	// Getters and Setters
 	public Integer getIdEnlace() {
@@ -289,10 +290,26 @@ public class VMenlaceInteres {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	@SuppressWarnings("unchecked")
+	
 	@Command
 	@NotifyChange({"listaEnlaces","nombreEnlace", "direccionEnlace", "descripcion", "imagenes"})
-	public void eliminarEnlaceSeleccionado(@ContextParam(ContextType.BINDER) final Binder binder){
+	
+//	public void eliminarEnlaceSeleccionado(@BindingParam("ventana") final Window ventana, @ContextParam(ContextType.BINDER) final Binder binder){
+//		boolean condicion = false;
+//		if(nombreEnlace == null || direccionEnlace == null || descripcion == null || imagen.getTamano() < 1){
+//			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+//		}
+//		else if {
+//			condicion = true;
+//		   mensajeAlUsuario.confirmacionEliminarRegistro(ventana,condicion);	
+//		   servicioenlacesinteres.eliminar(idEnlace);
+//		   mensajeAlUsuario.informacionEliminarCorrecto();
+//		   binder.postCommand("limpiar", null);
+//		
+//		}
+//	}
+	
+public void eliminarEnlaceSeleccionado(@ContextParam(ContextType.BINDER) final Binder binder){
 		if (nombreEnlace == null || direccionEnlace == null
 				|| descripcion == null || imagen.getTamano() < 1) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
@@ -357,41 +374,16 @@ public class VMenlaceInteres {
 	 *             dispara ninguna excepcion.
 	 */
 	
-	@SuppressWarnings("unchecked")
+	
 	@Command
 	@NotifyChange({"listaEnlaces","nombreEnlace", "direccionEnlace", "descripcion", "imagenes"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (nombreEnlace != null || direccionEnlace != null
-				|| descripcion != null || imagen.getTamano() > 1)
-		{
-			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(nombreEnlace != null || direccionEnlace != null || descripcion != null || imagen.getTamano() > 1)
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
+	
 	
 }// fin VMenlaceInteres.
 

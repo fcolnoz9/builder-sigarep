@@ -104,6 +104,6 @@
 				    onClick="@command('limpiar')" />
 			<button label="Cerrar"  id="btnSalirRegistrarGrupo"
 			        image="/imagenes/iconos/cerrar.png" 
-			        onClick="winRegistrarGrupo.onClose()"/>
+			        onClick="@command('cerrarVentana', ventana= winRegistrarGrupo)"/>
 		</div>
 </window>

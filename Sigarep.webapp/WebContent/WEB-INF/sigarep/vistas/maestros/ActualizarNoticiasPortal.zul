@@ -86,7 +86,7 @@
 		    <button id="btnCerrarNoticia" label="Cerrar"
 				 mold="trendy" width="auto"
 				height="auto" image="/imagenes/iconos/cerrar.png"
-				 onClick="@command('cerrarVentana')"/>
+				 onClick="@command('cerrarVentana', ventana = winActualizarNoticia)"/>
 		</div>
 		
 		<!-- Grupbox que contiene el listado de noticias almacenadas en base de datos-->
@@ -104,7 +104,7 @@
 					<listheader label="Título" align="left"
 						sort="auto(titulo)" > 
 					<textbox id="filtroTitulo" instant="true"
-					mold="rounded" width="100px" value="@bind(vm.titulof)"
+					mold="rounded" width="100px" value="@bind(vm.tituloFiltro)"
 							onChange="@command('filtros')" />	
 							<image src="/imagenes/iconos/buscar.png"/>
 					</listheader>

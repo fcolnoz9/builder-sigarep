@@ -10,6 +10,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -20,6 +21,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Asignatura;
@@ -249,5 +251,16 @@ public class VMCargarEstudiantesSancionadosXml {
 			}
 		}
 	}
+	
+	
+	@Command
+	@NotifyChange({"textoXML","tamanoXML","listaEstudiante"})
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+	}
+	
+	
+	
 }
 

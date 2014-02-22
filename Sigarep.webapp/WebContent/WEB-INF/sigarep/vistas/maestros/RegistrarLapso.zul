@@ -57,7 +57,7 @@
 			<button label="Cerrar"  id="btnCerrarLapso"
 				mold="trendy" width="auto" height="auto"
 				image="imagenes/iconos/cerrar.png" 
-				 onClick="@command('cerrarVentana')"  />
+				 onClick="@command('cerrarVentana', ventana = winRegistrarLapso)"  />
 		</div>
 
 		<!-- Grupbox que contiene el  Lapso Académico Actual -->

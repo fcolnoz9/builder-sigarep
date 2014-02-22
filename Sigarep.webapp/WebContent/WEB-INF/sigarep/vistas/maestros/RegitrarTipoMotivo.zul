@@ -50,7 +50,7 @@
 			<button label="Cerrar"  id="btnCerrarMotivo"
 				 mold="trendy" width="auto" height="auto"
 				image="/imagenes/iconos/cerrar.png"
-				onClick="@command('cerrarVentana')" />
+				onClick="@command('cerrarVentana', ventana = winTipoMotivo)" />
 		</div>
 		<!-- Grupbox que contiene el listado de los tipos de motivos -->
 		<groupbox height="auto">

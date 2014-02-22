@@ -74,13 +74,13 @@
 			<button label="Eliminar" id="btnEliminarEnlace"
 				mold="trendy" width="auto" height="auto"
 				image="imagenes/iconos/eliminar.png"
-				onClick="@command('eliminarEnlaceSeleccionado')" />
+				onClick="@command('eliminarEnlaceSeleccionado', ventana = winEnlaceinteres)" />
 			<button label="Limpiar" id="btnLimpiarEnlace" mold="trendy"
 				width="auto" height="auto" image="imagenes/iconos/limpiar.png"
 				onClick="@command('limpiar')" />
 			<button label="Cerrar" id="btnCerrarEnlace" mold="trendy"
 				width="auto" height="auto" image="imagenes/iconos/cerrar.png"
-				onClick="@command('cerrarVentana')" />
+				onClick="@command('cerrarVentana', ventana = winEnlaceinteres)" />
 		</div>
 
 		<!-- Muestra el listado de enlaces registrados, permiten la modificación y eliminacion de un registro -->

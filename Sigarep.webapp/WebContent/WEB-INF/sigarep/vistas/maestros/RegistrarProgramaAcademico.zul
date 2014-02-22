@@ -1,5 +1,5 @@
-<window title="Registros Básicos :: Programa Académico" closable="true"
-	id="winRegistrarPrograma" border="normal" width="auto" height="auto"
+<window  id="winRegistrarPrograma"  title="Registros Básicos :: Programa Académico" closable="true"
+	 border="normal" width="auto" height="auto"
 	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademico')">
 	<groupbox>
@@ -38,7 +38,7 @@
 		</button>
 		<button label="Cerrar" id="btnCerrarPrograma" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
-			onClick="@command('cerrarVentana')">
+			onClick="@command('cerrarVentana', ventana = winRegistrarPrograma)">
 		</button>
 	</div>
 	<groupbox id="grbListaProgramas">

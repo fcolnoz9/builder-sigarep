@@ -502,13 +502,13 @@ public class VMRegistrarGrupo {
 	 *             dispara ninguna excepcion.
 	 */
 	
-//	@Command
-//	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-//		boolean condicion = false;
-//		if(root2.getChildCount() > 0)
-//			condicion = true;
-//		mensajeAlUsuario.confirmacionCerrarVentana(ventana,condicion);		
-//	}
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(root2.getChildCount() > 0)
+				condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+	}
 	
 
 	

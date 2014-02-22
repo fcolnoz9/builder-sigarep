@@ -75,7 +75,7 @@
 				onClick="@command('limpiar')" />
 			<button label="Cerrar" id="btnCerrarEstado" mold="trendy"
 				width="auto" height="auto" image="imagenes/iconos/cerrar.png"
-				onClick="@command('cerrarVentana')" />
+				onClick="@command('cerrarVentana', ventana = winRegistarEstadoApelacion)" />
 
 		</div>
 		<!-- Grupbox que contiene el listado de estados almacenados en base de datos -->
