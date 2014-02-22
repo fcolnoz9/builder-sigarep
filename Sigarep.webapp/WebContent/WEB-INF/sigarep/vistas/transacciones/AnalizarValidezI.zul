@@ -168,7 +168,7 @@
 							<separator></separator>
 							<textbox id="txtObservacion" 
 							     placeholder="Ingrese una observación general del caso"
-							    mold="rounded"maxlength="255" cols="100" rows="2"
+							    mold="rounded" maxlength="255" cols="100" rows="2"
 								 value="@bind(vm.observacion)">
 							</textbox>
 						</hlayout>
