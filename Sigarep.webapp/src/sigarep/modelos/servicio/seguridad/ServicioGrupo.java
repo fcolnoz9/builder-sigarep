@@ -16,7 +16,12 @@ public class ServicioGrupo {
 	private IGrupoDAO iGrupoDAO;
 
 	public void guardarGrupo(Grupo grupo) {
-		iGrupoDAO.save(grupo);
+		if (grupo.getIdGrupo() != null)
+			iGrupoDAO.save(grupo);
+		else{
+			grupo.setIdGrupo(iGrupoDAO.buscarUltimoID() + 1);
+			iGrupoDAO.save(grupo);
+		}
 	}
 
 	public Grupo buscarGrupo(Integer idgrupo) {
