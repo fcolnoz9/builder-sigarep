@@ -2,15 +2,13 @@ package sigarep.viewmodels.maestros;
 import java.util.List;
 
 import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
@@ -48,13 +46,7 @@ public class VMTipoMotivo {
     @Wire Window winTipoMotivo;
     MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
     
-    @Wire("#winTipoMotivo")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
-	
+ 
     //Metodos set y get
 
     public String getNombreTipoMotivo() {
@@ -269,40 +261,14 @@ public class VMTipoMotivo {
 	 *             dispara ninguna excepcion.
 	 */
 	
-	@SuppressWarnings("unchecked")
+	
 	@Command
 	@NotifyChange({"listaTipoMotivo", "idTipoMotivo","nombreTipoMotivo", "descripcion"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (nombreTipoMotivo !=null  || descripcion !=null ) 
-		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(nombreTipoMotivo !=null  || descripcion !=null )
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-
-
+	
 }

@@ -59,7 +59,7 @@
 		   		<button label="Cerrar"  id="btnCerrarIntancia"
 		   			mold="trendy" width="auto" height="auto"
 		   			image="/imagenes/iconos/cerrar.png"
-		   			onClick="@command('cerrarVentana')"/>
+		   			onClick="@command('cerrarVentana', ventana = winMaestroInstanciaApelada)"/>
 			</div>
 			
 		<!-- Grupbox que contiene el lista de las instancias -->

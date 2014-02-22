@@ -58,7 +58,7 @@
 		</button>
 		<button label="Cerrar" id="btnCerrarActividad" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
-			onClick="@command('cerrarVentana')">
+			onClick="@command('cerrarVentana', ventana = winRegistrarActividad)">
 		</button>
 	</div>
 	<groupbox id="grbListaActividades">

@@ -7,6 +7,7 @@ import java.util.List;
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -32,8 +33,6 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.zk.ui.select.Selectors;
 
 /** Clase Noticia
  * Registra y modifica una noticia. Utilizada en el portal web.
@@ -67,12 +66,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 
 	private @Wire Listbox lbxNoticias;
 	
-	@Wire("#winActualizarNoticia")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+	
 
 	// Metodos GETS Y SETS
 	public Integer getIdNoticia() {
@@ -151,8 +145,16 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	public void setMediaNoticia(Media mediaNoticia) {
 		this.mediaNoticia = mediaNoticia;
 	}
+	
+	public String getTituloFiltro() {
+		return tituloFiltro;
+	}
+	public void setTituloFiltro(String tituloFiltro) {
+		this.tituloFiltro = tituloFiltro;
+	}
 
 	// OTROS METODOS
+	
 	
 	/** Guardar Noticia
 	 * @parameters el objeto Noticia
@@ -395,35 +397,12 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (titulo!=null||contenido!=null|| fechaRegistro!=null|| enlaceNoticia!= null ){
-			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(titulo!=null||contenido!=null|| fechaRegistro!=null|| enlaceNoticia!= null )
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
+	
 
 }

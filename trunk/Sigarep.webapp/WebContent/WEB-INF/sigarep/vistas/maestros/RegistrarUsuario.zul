@@ -198,7 +198,7 @@
 			</button>
 			<button label="Cerrar" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				mold="trendy" onClick="winRegistrarUsuario.onClose()">
+				mold="trendy" onClick="@command('cerrarVentana', ventana= winRegistrarUsuario)">
 			</button>
 		</hbox>
 		<groupbox id="grbListaUsuarios" height="auto">

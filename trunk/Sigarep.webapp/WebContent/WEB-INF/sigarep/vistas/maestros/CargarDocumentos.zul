@@ -84,7 +84,7 @@ style="overflow:auto" action="hide: slideUp"
 			<button label="Cerrar" id="btnCerrarDocumento"
 				mold="trendy" width="auto" height="auto"
 				image="/imagenes/iconos/cerrar.png" 
-				onClick="@command('cerrarVentana')" />
+				onClick="@command('cerrarVentana', ventana = winCargarDocumento)" />
 
 		</div>
 <!-- 	//**************************************************** -->

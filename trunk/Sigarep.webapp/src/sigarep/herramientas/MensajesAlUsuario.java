@@ -3,8 +3,10 @@ package sigarep.herramientas;
 import java.awt.MenuItem;
 
 import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
@@ -378,12 +380,23 @@ public class MensajesAlUsuario {
 	}
 	
 
-	public void confirmacionSalir() {
-
-		Messagebox.show("ï¿½Realmente desea salir?", "Confirmaciï¿½n",
-				Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
-	}
-
+//	public void confirmacionEliminarRegistro(final Window ventana, boolean condicion) {
+//		if(condicion==true){
+//			Messagebox.show("¿Realmente desea eliminar el registro?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+//					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+//				@SuppressWarnings("incomplete-switch")
+//				public void onEvent(ClickEvent e) throws Exception {
+//					switch (e.getButton()) {
+//						case YES:
+//								ventana.detach();
+//					}
+//				}
+//			});		
+//		}
+//			
+//	}
+	
+	
 	public void confirmacionCerrarSesion() {
 		
 		Messagebox.show("¿Está seguro de querer cerrar sesión?","Confirmación",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.CANCEL },
@@ -397,5 +410,49 @@ public class MensajesAlUsuario {
 			}
 		});
 
-	}	
+	}
+	
+	public void confirmacionCerrarVentanaMaestros(final Window ventana, boolean condicion) {
+		if(condicion==true){
+			Messagebox.show("¿Realmente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					}
+				}
+			});		
+		}
+		else 
+			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					}
+				}
+			});	
+	}
+	
+	
+	public void confirmacionCerrarVentanaSimple(final Window ventana, boolean condicion) {
+		if(condicion==true){
+			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					}
+				}
+			});		
+		}
+	}
+	
+
 }

@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 
 import sigarep.herramientas.Archivo;
@@ -42,6 +43,7 @@ import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 import sigarep.modelos.servicio.transacciones.ServicioInstanciaMiembro;
 import sigarep.modelos.servicio.transacciones.ServicioUsuarioGrupo;
+
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -96,7 +98,7 @@ public class VMUsuario {
 	@WireVariable
 	private String correoLogin;
 
-	MensajesAlUsuario mensajes = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 	
 	private Usuario usuarioSeleccionado;
 	@WireVariable
@@ -410,16 +412,16 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		if (nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 
 				|| clave.equals("")  || confirmarcontrasenia.equals("") ) {
-			mensajes.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		}
 		else if(!correo.equals(confirmarcorreo)){
-			mensajes.advertenciaContrasennasNoCoinciden();
+			mensajeAlUsuario.advertenciaContrasennasNoCoinciden();
 		}
 		else if(!clave.equals(confirmarcontrasenia)){
-			mensajes.advertenciaContrasennasNoCoinciden();
+			mensajeAlUsuario.advertenciaContrasennasNoCoinciden();
 		}
 		else if(gruposDelUsuario.size()==0){
-			mensajes.advertenciaSeleccionarGrupoUsuario();
+			mensajeAlUsuario.advertenciaSeleccionarGrupoUsuario();
 		}
 		else
 		{
@@ -513,7 +515,7 @@ public class VMUsuario {
 //			    }
 			}
 			
-			mensajes.informacionRegistroCorrecto();
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			if(existeUsuario==false){
 				try {
 					usuario.setFechaCreacion(new Date());
@@ -538,7 +540,7 @@ public class VMUsuario {
 			try {
 				EnviarCorreo enviar = new EnviarCorreo();
 				enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
-				mensajes.informacionHemosEnviadoCorreo();
+				mensajeAlUsuario.informacionHemosEnviadoCorreo();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -726,7 +728,7 @@ public class VMUsuario {
 	public void eliminarUsuario() {
 		serviciousuario.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
 		serviciopersona.eliminar(cedulaPersona);
-		mensajes.informacionEliminarCorrecto();
+		mensajeAlUsuario.informacionEliminarCorrecto();
 		limpiar();
 	}
 	
@@ -821,10 +823,10 @@ public class VMUsuario {
 	@NotifyChange({"confirmarcontrasenia", "nuevaContrasenia" })
 	public void cambiarContrasenia() {
 	    if(confirmarcontrasenia==null || nuevaContrasenia == null)
-	    	mensajes.advertenciaLlenarCampos();
+	    	mensajeAlUsuario.advertenciaLlenarCampos();
 	    else{
 	    	if(serviciousuario.cambiarContrasena(seguridad.getUsuario().getUsername(),nuevaContrasenia, confirmarcontrasenia)==true){
-	    		mensajes.informacionContrasennaAtualizada();
+	    		mensajeAlUsuario.informacionContrasennaAtualizada();
 	    		cancelarCambiarContrasenia();
 	    	}
 	    }
@@ -841,7 +843,7 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		usuario.setNombreUsuario("-1");
 		if (correoLogin=="")
-			mensajes.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
 			List<Usuario> listaUsuarios = serviciousuario.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
@@ -855,10 +857,10 @@ public class VMUsuario {
 				if (usuario.getNombreUsuario()!="-1") {
 					EnviarCorreo enviar = new EnviarCorreo();
 					enviar.sendEmail(usuario.getCorreo(), usuario.getClave());
-					mensajes.informacionContrasennaRecuperada();
+					mensajeAlUsuario.informacionContrasennaRecuperada();
 				}
 				else
-					mensajes.ErrorUsuarioEmailNoRegistrado();
+					mensajeAlUsuario.ErrorUsuarioEmailNoRegistrado();
 		}
 	}
 	
@@ -901,4 +903,27 @@ public class VMUsuario {
 			}
 		} 
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre",
+		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","fotoUsuario","listaInstanciaMiembro","tituloinstancia","cargo","listaGrupoPertenece"})
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 
+				|| clave.equals("")  || confirmarcontrasenia.equals("") )
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+	}
+	
+	
+	
+	
 }
