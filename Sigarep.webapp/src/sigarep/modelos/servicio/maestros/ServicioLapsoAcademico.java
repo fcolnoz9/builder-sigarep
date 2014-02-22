@@ -17,7 +17,7 @@ import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
 public class ServicioLapsoAcademico{
 	private @Autowired ILapsoAcademicoDAO iLapsoAcademico ;
 	
-	/** Guardar lapso academico 
+	/** Guardar lapso académico 
 	 * @return nada
 	 * @parameters el objeto lapsoA
 	 * @throws No dispara ninguna excepcion.
@@ -26,16 +26,16 @@ public class ServicioLapsoAcademico{
 		iLapsoAcademico.save(lapsoA);
 	}
 	
-	/**
-	 * @return 
-	 * @parameters
-	 * @throws 
+	/**lapso académico activo
+	 * @return  el lapso académico activo
+	 * @parameters vacio
+	 * @throws No dispara ninguna excepcion.
 	   */
 	public LapsoAcademico buscarLapsoActivo(){
 		return iLapsoAcademico.findByEstatusTrue();
 	}
-	/** Lista de lapsos academicos inactivos
-	 * @return Lista de lapsos academicos inactivos
+	/** Lista de lapsos académico inactivos
+	 * @return Lista de lapsos académicos inactivos
 	 * @parameters vacio
 	 * @throws No dispara ninguna excepcion.
 	   */
@@ -43,25 +43,25 @@ public class ServicioLapsoAcademico{
 	    List<LapsoAcademico> LapsoAcademicoLista=iLapsoAcademico.findByEstatusFalse();
 	    return LapsoAcademicoLista ;
 	}
-	/** Lista de lapso academico
-	 * @return Lista de todos los lapsos academicos activas e inactivas
+	/** Lista de lapso académico
+	 * @return Lista de todos los lapsos académicos activas e inactivas
 	 * @parameters vacio
 	 * @throws No dispara ninguna excepcion.
 	   */
 	public List<LapsoAcademico> buscarTodosLosLapsos(){
 		return iLapsoAcademico.findAll();
 	}
-	/** Buscar un lapso academico 
-	 * @return lapso academico  buscada
+	/** Buscar un lapso académico 
+	 * @return lapso académico  buscada
 	 * @parameters  String codigolapso
 	 * @throws No dispara ninguna excepcion.
 	   */
 	public LapsoAcademico buscarUnLapsoAcademico(String codigoLapso){
 		return iLapsoAcademico.findOne(codigoLapso);
 	}
-	/**Buscar un lapso academico por codigo lapso
+	/**Buscar un lapso académico por codigo lapso
 	 * @param String codigo lapso
-	 * @return Busca un lapso academico por codigo lapso
+	 * @return Busca un lapso académico por codigo lapso
 	 * 	  @throws No dispara ninguna excepcion.
 	 */
 	
