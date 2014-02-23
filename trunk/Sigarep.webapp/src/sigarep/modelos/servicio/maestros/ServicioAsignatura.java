@@ -35,9 +35,15 @@ public class ServicioAsignatura {
 		return iAsignatura.findByEstatusTrue();
 	}
 	
-	public List<Asignatura> buscarAsignaturasPorPrograma (ProgramaAcademico programa){
-		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(programa);
+	public List<Asignatura> buscarAsignaturasPorProgramaS (ProgramaAcademico programa){
+		return iAsignatura.findByProgramaAcademicoAndEstatusTrueS(programa);
 	}
+	
+	public List<Asignatura> buscarAsignaturasPorPrograma (Integer idPrograma){
+		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(idPrograma);
+	}
+
+	
 	
 	public Asignatura buscarAsignaturaNombre(String nombreAsignatura) {
 		Asignatura asignatura = iAsignatura.findByNombreAsignatura(nombreAsignatura);
