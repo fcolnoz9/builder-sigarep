@@ -69,6 +69,7 @@ public class VMEstudianteSancionado {
 	private String lapsoConsecutivo1;
 	private String lapsoConsecutivo2;
 	private String lbllapsoConsecutivo;
+	private String nombrePrograma;
 	//Variables para los filtros
 	private String cedulaFiltro="";
 	private String nombreFiltro="";
@@ -467,6 +468,16 @@ public class VMEstudianteSancionado {
 	public void setLbllapsoConsecutivo(String lbllapsoConsecutivo) {
 		this.lbllapsoConsecutivo = lbllapsoConsecutivo;
 	}
+
+	public String getNombrePrograma() {
+		return nombrePrograma;
+	}
+
+	public void setNombrePrograma(String nombrePrograma) {
+		this.nombrePrograma = nombrePrograma;
+	}
+
+	
 	// fin del metodo get y set
 	
 	//Comienzo Otros Metodos
@@ -475,7 +486,7 @@ public class VMEstudianteSancionado {
 		buscarLapsoAcademico();
 		buscarSancion();
 		buscarSancionados();
-		buscarProgramas();
+		buscarProgramaA();
 	}
 	
 	/** AgregarAsignatura
@@ -523,10 +534,15 @@ public class VMEstudianteSancionado {
 	 * @param  
 	 * @return lista de programa
 	 */
+	@Command
 	@NotifyChange({ "listaPrograma" })
-	private void buscarProgramas() {
-		listaPrograma = servicioprogramaacademico.buscarPrograma("");
+	public void buscarProgramaA() {
+		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
 	}
+	
+	
+	
+	
 
 	/** mostrar Seleccionado
 	 * @param  cedula, indiceGrado, lapsoAcademico,
@@ -624,8 +640,10 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaAsignaturas","programa" })
 	public void buscarAsignaturas() {
-		listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
+		listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa);
 	}
+	
+	
 	
 
 	/** registrarEstudianteSancionado
@@ -722,7 +740,6 @@ public class VMEstudianteSancionado {
 						asignaturaEstudianteSancionado.setAsignatura(asignaturaSacion);
 						estudianteSancionado.addAsignaturaEstudianteSancionado(asignaturaEstudianteSancionado);
 						servicioestudiantesancionado.guardar(estudianteSancionado);
-						System.out.println("paso por aca");
 					}
 
 				} else
@@ -790,6 +807,22 @@ public class VMEstudianteSancionado {
 					lapsoConsecutivo1 = estudianteSancionado.getLapsosAcademicosRp();
 					lapsoConsecutivo2= estudianteSancionado.getLapsosAcademicosRp();
 					programa = estudianteSancionado.getEstudiante().getProgramaAcademico();
+					
+					
+					if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RR")) {
+						buscarAsignaturas();
+						listaAsignaturaListBox = estudianteSancionado
+								.getAsignaturaEstudianteSancionados();
+
+					} else{
+					asignatura = estudianteSancionado.getAsignaturaEstudianteSancionados();
+					textboxlapsoConsecutivo1.setVisible(true);
+					lapsoConsecutivo1 = estudianteSancionado.getLapsosAcademicosRp();
+					lapsoConsecutivo2 = estudianteSancionado.getLapsosAcademicosRp();
+					System.out.println("paso por aca" +lapsoConsecutivo2);
+					}
+					
+					
 				} else {
 					estudianteNoEncontrado(groupBoxAsignaturas,
 							textboxlapsoConsecutivo1, textboxlapsoConsecutivo2,
