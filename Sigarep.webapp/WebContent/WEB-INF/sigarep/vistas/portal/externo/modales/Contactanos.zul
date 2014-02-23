@@ -1,0 +1,68 @@
+<window title="Contáctanos" id="winContactanos" border="normal"
+	height="65%" width="70%" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
+	<separator />
+	<separator />
+	<label
+		value="Escribenos a sistemasigarep@gmail.com, o a través del siguiente formulario:"
+		sclass="head2" />
+	<separator />
+	<separator />
+	<grid>
+		<columns>
+			<column width="20%" />
+			<column width="80%" />
+		</columns>
+		<rows>
+			<row>
+
+			</row>
+			<row>
+				<label value="Nombre: " id="lblNombres" />
+				<textbox id="txtNombres" mold="rounded" cols="23"
+					value="@bind(vm.nombre)" placeholder="Ingrese su nombre."
+					width="80%" maxlength="100">
+				</textbox>
+			</row>
+			<row>
+				<label value="Teléfono: " id="lblTelefono" />
+				<textbox id="txtTelefono" mold="rounded" cols="23"
+					value="@bind(vm.telefono)"
+					placeholder="Ingrese el número de teléfono. Ej. 04161234567."
+					width="80%" maxlength="11">
+				</textbox>
+			</row>
+			<row>
+				<label value="Correo Electrónico: " id="lblCorreo" />
+				<textbox id="txtCorreo" mold="rounded" cols="23"
+					value="@bind(vm.correo)"
+					placeholder="Ingrese su correo. Ej. micorreo@sigarep.com"
+					width="80%" maxlength="50">
+				</textbox>
+			</row>
+			<row>
+				<label value="Consulta/Mensaje: " id="lblConsulta" />
+				<textbox id="txtConsulta" mold="rounded" cols="23"
+					value="@bind(vm.consulta)" placeholder="Ingrese su consulta o mensaje."
+					width="80%" maxlength="1000" rows="5">
+				</textbox>
+			</row>
+		</rows>
+	</grid>
+	<separator />
+	<div align="right">
+		<button label="Enviar" id="btnEnviar" mold="trendy" width="auto"
+			height="auto" image="/imagenes/iconos/guardar.png"
+			onClick="@command('enviarCorreoContactanos')">
+		</button>
+		<button label="Limpiar" id="btnLimpiarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
+			onClick="@command('limpiar')">
+		</button>
+		<button label="Cerrar" id="btnCerrarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
+			onClick="winContactanos.onClose()">
+		</button>
+	</div>
+</window>

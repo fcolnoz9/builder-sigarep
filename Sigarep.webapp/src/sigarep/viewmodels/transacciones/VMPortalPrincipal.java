@@ -7,11 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
+
+import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.transacciones.Cronograma;
@@ -45,6 +48,10 @@ public class VMPortalPrincipal {
 	private Cronograma cronograma;
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	private String nombre;
+	private String correo;
+	private String telefono;
+	private String consulta;
 	Window win = null;
 
 	public String getCedula() {
@@ -127,10 +134,52 @@ public class VMPortalPrincipal {
 		this.listaCronograma = listaCronograma;
 	}
 
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(String consulta) {
+		this.consulta = consulta;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	@Init
 	public void init() {
 	}
 
+	/**
+	 * modalEstadoEstudiante.
+	 * 
+	 * @param Ninguno
+	 * @return Muestra la ventana con el historial del estudiante sancionado.
+	 * @throws Debe
+	 *             agregar una cédula y esta debe estar en la lista de
+	 *             estudiantes sancionados.
+	 * 
+	 */
 	@Command
 	public void modalEstadoEstudiante() {
 		if (cedula == "" || cedula == null) {
@@ -161,7 +210,7 @@ public class VMPortalPrincipal {
 	 * @param Ninguno
 	 * @return Muestra la ventana con las preguntas frecuentes
 	 * @throws No
-	 *             dispara ninguna excepcion.
+	 *             dispara ninguna excepción.
 	 */
 	@Command
 	public void modalPreguntasFrecuentes() {
@@ -176,6 +225,15 @@ public class VMPortalPrincipal {
 		win.doModal();
 	}
 
+	/**
+	 * descargarGuia.
+	 * 
+	 * @param Ninguno
+	 * @return Descarga la Guía paso a paso.
+	 * @throws Debe
+	 *             haber un documento cargado.
+	 * 
+	 */
 	@Command
 	public void descargarGuia() {
 		Reglamento guia = servicioreglamento.buscarGuia().get(0);
@@ -187,4 +245,45 @@ public class VMPortalPrincipal {
 			mensajeAlUsuario.advertenciaCargarDocumento();
 		}
 	}
+
+	/**
+	 * modalContactanos.
+	 * 
+	 * @param Ninguno
+	 * @return Muestra la ventana contáctanos.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 * 
+	 */
+	@Command
+	public void modalContactanos() {
+		if (win != null) {
+			win.detach();
+		}
+		win = (Window) Executions
+				.createComponents(
+						"WEB-INF/sigarep/vistas/portal/externo/modales/Contactanos.zul",
+						null, null);
+		win.setMaximizable(true);
+		win.doModal();
+	}
+
+	@Command
+	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
+	public void limpiar() {
+		nombre = "";
+		telefono = "";
+		correo = "";
+		consulta = "";
+	}
+
+	@Command
+	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
+	public void enviarCorreoContactanos() {
+		EnviarCorreo enviar = new EnviarCorreo();
+		enviar.sendEmailContactanos(correo, nombre, telefono, consulta);
+		mensajeAlUsuario.informacionCorreoEnviado();
+		limpiar();
+	}
+
 }
