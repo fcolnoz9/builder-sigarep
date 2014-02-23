@@ -40,23 +40,6 @@ public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	public Asignatura findByNombreAsignatura(String nombreAsignatura);
 
 	
-	/**
-	 * ¡HEY TU!, RESPONSABLE COMENTAME
-	 * @param 
-	 * @return 
-	 */
-	@Query("SELECT DISTINCT a FROM Asignatura As a, Estudiante AS e "
-			+ "WHERE e.programaAcademico.idPrograma= a.programaAcademico.idPrograma "
-			+ "AND a.codigoAsignatura NOT IN "
-				+ "(SELECT a.codigoAsignatura FROM Estudiante AS e, EstudianteSancionado AS es,"
-					+ "AsignaturaEstudianteSancionado AS aes, Asignatura AS a, ProgramaAcademico AS pa "
-					+ "WHERE e.cedulaEstudiante = es.id.cedulaEstudiante "
-					+ "AND es.id.cedulaEstudiante = aes.id.cedulaEstudiante "
-					+ "AND aes.id.codigoAsignatura = a.codigoAsignatura "
-					+ "AND a.programaAcademico.idPrograma= pa.idPrograma "
-					+ "AND e.programaAcademico.idPrograma = pa.idPrograma "
-					+ "AND e.programaAcademico.idPrograma= a.programaAcademico.idPrograma "
-					+ "AND aes.id.cedulaEstudiante = :cedula )")
-	 public List<Asignatura> BuscarAsignaturasNoSeleccionadas(@Param("cedula") String cedula);
+	
 	
 }
