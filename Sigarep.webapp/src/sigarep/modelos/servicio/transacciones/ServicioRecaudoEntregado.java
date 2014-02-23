@@ -82,7 +82,19 @@ public class ServicioRecaudoEntregado {
 	
 //Maria Flores
 	public List<RecaudoEntregado> buscarRecaudosEntregadosRecurso(String cedula){
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosRecurso(cedula);
+		List<RecaudoEntregado> listaRecaudos = iRecaudoEntregadoDAO.buscarRecaudosEntregadosRecurso(cedula);
+		for (int i = 0; i < listaRecaudos.size(); i++) {
+			int idRecaudo = listaRecaudos.get(i).getRecaudo().getIdRecaudo();
+			int cont = 0;
+			for (int j = i; j < listaRecaudos.size(); j++) 
+				if (listaRecaudos.get(j).getRecaudo().getIdRecaudo() == idRecaudo)
+					cont++;
+			if (cont > 1)
+				for (int h = 0; h < listaRecaudos.size(); h++)
+					if (listaRecaudos.get(h).getId().getIdRecaudo() == idRecaudo && listaRecaudos.get(h).getId().getIdInstanciaApelada() == 1)
+						listaRecaudos.remove(h);
+		}
+		return listaRecaudos;
 	}
 
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoI(

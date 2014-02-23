@@ -30,10 +30,12 @@ public interface IRecaudoEntregadoDAO extends
 	    * @param cedula
 	    * @return lista de recaudos entregados de un estudiante sancionado
 	    */
-	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la, InstanciaApelada i " +
-			   "WHERE re.id.cedulaEstudiante = :cedula AND re.id.codigoLapso = la.codigoLapso " +
-			   "AND re.id.idInstanciaApelada = i.idInstanciaApelada AND la.estatus = 'TRUE'")
+	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la "
+			+ "WHERE re.id.cedulaEstudiante = :cedula "
+			+ "AND re.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus = 'TRUE'")
 	public List<RecaudoEntregado> buscarRecaudosEntregadosRecurso(@Param("cedula") String cedula);
+	
 	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
 			"WHERE re.id.codigoLapso = la.codigoLapso " +
 			"AND re.id.cedulaEstudiante = :cedula " +
