@@ -121,7 +121,11 @@ public class ServicioEstudianteSancionado {
 
 //Maria Flores
 	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquico(){
-		return iEstudianteSancionadoDAO.buscarSancionadosRecursoJerarquico();
+		List<EstudianteSancionado> listaRecursoJerarquico = new ArrayList<EstudianteSancionado>();
+		listaRecursoJerarquico = iEstudianteSancionadoDAO.buscarSancionadosRecursoJerarquicoParte1();
+		for (EstudianteSancionado es : iEstudianteSancionadoDAO.buscarSancionadosRecursoJerarquicoParte2())
+			listaRecursoJerarquico.add(es);
+		return listaRecursoJerarquico;
 	}
 	
 	public List<EstudianteSancionado> filtrarApelacionesRecursoJerarquico(
