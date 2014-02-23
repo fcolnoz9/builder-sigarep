@@ -172,8 +172,12 @@
 		<!-- Sale de la interfaz,dependiendo de la opción que escoja el usuario-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			onClick="@command('cerrarVentana')">
+			onClick="@command('cerrarVentana', ventana = winVerificiarRecaudosIII, recaudosEntregados=items)">
+		<attribute name="onClick">
+				Set items = rigth.getSelectedItems();
+			</attribute>
 		</button>
+		
 	</div>
 </window>
 </zk>

@@ -91,7 +91,7 @@
 
 		<button label="Cerrar" id="btnCerrar" mold="trendy" width="auto"
 			height="auto" image="/imagenes/iconos/cerrar.png"
-			onClick="@command('cerrarVentana')" orient="horizontal" />
+			onClick="@command('cerrarVentana', ventana = winHistorialCronograma)" />
 	</div>
 	<separator spacing="15px" />
 

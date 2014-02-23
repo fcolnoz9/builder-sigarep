@@ -252,6 +252,14 @@ public class VMCargarEstudiantesSancionadosXml {
 		}
 	}
 	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	
 	@Command
 	@NotifyChange({"textoXML","tamanoXML","listaEstudiante"})

@@ -3,44 +3,29 @@ package sigarep.viewmodels.transacciones;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-
 import java.util.List;
-
-
-
 import org.zkoss.bind.annotation.Command;
-
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-
 import org.zkoss.zhtml.Messagebox;
-
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
-
-
+import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
-
-
-
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-
-
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMHistoricosSigarepBD {	
@@ -212,4 +197,22 @@ public class VMHistoricosSigarepBD {
 			else mensajeAlUsuario.advertenciaSeleccionarOpcion();
 		} else mensajeAlUsuario.advertenciaSeleccionarLapso();
 	}
+	
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+	}
+	
+	
 }

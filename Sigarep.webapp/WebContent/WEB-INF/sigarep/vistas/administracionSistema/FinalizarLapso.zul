@@ -1,6 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Administración del Sistema :: Finalizar Lapso Académico " id="winFinalizarLapso"
+<window id="winFinalizarLapso" title="Administración del Sistema :: Finalizar Lapso Académico " 
 	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMFinalizarLapso')" 
 	width="auto" height="auto" closable="true">
 		<grid id="grdFinalizarLapso">
@@ -16,7 +16,7 @@
 						 orient="horizontal" onClick="@command('finalizarLapso')">
 					</button>
 					<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" 
-						 orient="horizontal" onClick="winFinalizarLapso.onClose()">
+						 orient="horizontal" onClick="@command('cerrarVentana', ventana = winFinalizarLapso)">
 					</button>
 				</column>
 			</columns>

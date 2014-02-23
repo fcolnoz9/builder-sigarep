@@ -3,6 +3,7 @@ package sigarep.viewmodels.transacciones;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -12,7 +13,9 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
@@ -27,7 +30,8 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	private SolicitudApelacion sancionadoSeleccionado;
 	private EstudianteSancionado estudianteseleccionado;
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
-	
+	// Para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	public List<SolicitudApelacion> getLista() {
 		return lista;
@@ -89,6 +93,21 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
+	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
 	
 }

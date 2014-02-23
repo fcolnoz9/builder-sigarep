@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -14,6 +15,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 
 import org.zkoss.zul.Window;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.*;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.servicio.maestros.*;
@@ -65,7 +67,8 @@ public class VMListaHistorialEstudiante {
 	private Integer unidadesCursadas;
 	private Integer unidadesAprobadas;
 	private ListaHistorialEstudianteFiltros filtrosHistorial = new ListaHistorialEstudianteFiltros();
-
+	// Para llamar a los diferentes mensajes de dialogo
+				MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	public String getAnioIngreso() {
 		return anioIngreso;
 	}
@@ -369,6 +372,21 @@ public class VMListaHistorialEstudiante {
 	public void setFiltros(ListaHistorialEstudianteFiltros filtrosHistorial) {
 		this.filtrosHistorial = filtrosHistorial;
 
+	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
 
 }

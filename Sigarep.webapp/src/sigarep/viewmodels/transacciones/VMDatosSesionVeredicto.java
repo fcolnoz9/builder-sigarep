@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -27,7 +27,6 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
@@ -61,12 +60,7 @@ public class VMDatosSesionVeredicto {
 	}
 	@Wire
 	Textbox txtnombre_enlace;
-	@Wire("#winDatosSesionVeredicto")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+	
 	// Getters and Setters
 	public String getNumeroSesion() {
 		return numeroSesion;
@@ -207,42 +201,15 @@ public class VMDatosSesionVeredicto {
 	 * @return cierra el .zul asociado al VM
 	 * @throws No dispara ninguna excepcion.
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Command
 	@NotifyChange({"numeroSesion", "tipoSesion", "", "fechaSesion"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (numeroSesion != null || tipoSesion != null
-				|| fechaSesion != null )
-		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(numeroSesion != null || tipoSesion != null
+				|| fechaSesion != null)
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-
-
 	
 }

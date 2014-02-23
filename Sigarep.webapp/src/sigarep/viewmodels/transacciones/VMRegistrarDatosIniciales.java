@@ -3,9 +3,7 @@ package sigarep.viewmodels.transacciones;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -15,18 +13,13 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
@@ -82,8 +75,8 @@ public class VMRegistrarDatosIniciales {
 	private Integer idEstado;
 	private Integer idMotivoGeneral;
 	
-	@Wire("#winRegistrarDatosInicialesApelacion")
-	private Window ventana;
+	
+
 
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion; //Servicio para La Solicitud de Apelacion
@@ -453,10 +446,6 @@ public class VMRegistrarDatosIniciales {
 		}
 	}
 
-	@Command
-	public void closeThis() {
-		ventana.detach();
-	}
 
 	/**
 	 * registrarSolicitudApelacion
@@ -553,8 +542,7 @@ public class VMRegistrarDatosIniciales {
 			@BindingParam("listBoxMotivo") Listbox listBoxMotivo, @BindingParam("comboitem") Combobox comboItem) {
 
 			
-		if (motivoseleccionado == null || descripcion == null ||
-				motivoseleccionado.equals("") || descripcion.equals("")){
+		if (motivoseleccionado == null || descripcion == null ){
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		}
 		else {
@@ -565,13 +553,13 @@ public class VMRegistrarDatosIniciales {
 			listaTipoMotivo.remove(comboItem.getSelectedItem().getIndex());
 			comboItem.setValue("");
 			listaMotivoListBox.add(motivoLista);
-			descripcion= ""; 
+			descripcion= null; 
 		}
 	}
 	@Command
 	@NotifyChange({ "descripcion", "motivoseleccionado", "listaMotivoListBox", "listaTipoMotivo" })
 	public void cancelar() {
-		descripcion = "";
+		descripcion = null;
 		motivoseleccionado = null;
 		listaMotivoListBox.clear();
 		buscarMotivos();
@@ -597,40 +585,14 @@ public class VMRegistrarDatosIniciales {
     	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
     }
 	
-	@SuppressWarnings("unchecked")
+
 	@Command
-	@NotifyChange({"descripcion", "listaMotivoListBox"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (descripcion != null || listaMotivoListBox.size() != 0)
-		{
-			Messagebox.show("¿Realemente desea cerrrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
+	@NotifyChange({"descripcion", "listaMotivoListBox", "motivoseleccionado"})
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(descripcion != null || listaMotivoListBox.size() != 0 || motivoseleccionado != null)
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-
-
+	
 }

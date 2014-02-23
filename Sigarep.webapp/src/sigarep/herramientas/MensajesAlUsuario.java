@@ -442,6 +442,22 @@ public class MensajesAlUsuario {
 	}
 	
 	
+	public void confirmacionCerrarVentanaTransacciones(final Window ventana, boolean condicion) {
+		if(condicion==true){
+			Messagebox.show("¿Realmente desea cerrar la ventana sin realizar cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+						case YES:
+								ventana.detach();
+					}
+				}
+			});		
+		}	
+	}
+	
+	
 	public void confirmacionCerrarVentanaSimple(final Window ventana, boolean condicion) {
 		if(condicion==true){
 			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },

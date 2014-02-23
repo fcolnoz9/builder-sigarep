@@ -98,22 +98,20 @@
 
 		<button label="Guardar" id="btnGuardarActividad" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/guardar.png"
-			onClick="@command('guardarCronograma')" orient="horizontal" />
+			onClick="@command('guardarCronograma')"/>
 
 		<button label="Eliminar" id="btnEliminarCronograma"
 			mold="trendy" width="auto" height="auto"
 			image="/imagenes/iconos/eliminar.png"
-			onClick="@command('eliminarCronogramaSeleccionado')"
-			orient="horizontal" />
+			onClick="@command('eliminarCronogramaSeleccionado')"/>
 
 		<button label="Limpiar" id="btnCancelarAgregarActividad"
 			mold="trendy" width="auto" height="auto"
-			image="/imagenes/iconos/limpiar.png" onClick="@command('limpiar')"
-			orient="horizontal" />
+			image="/imagenes/iconos/limpiar.png" onClick="@command('limpiar')" />
 
 		<button label="Cerrar" id="btnCerrar" mold="trendy" width="auto"
 			height="auto" image="/imagenes/iconos/cerrar.png"
-			onClick="@command('cerrarVentana')" orient="horizontal" />
+			onClick="@command('cerrarVentana', ventana = winActualizarCronograma)" />
 	</div>
 
 	<!-- Muestra el listado de actividades agregadas al cronograma, permite la modificación y eliminacion de un registro-->
