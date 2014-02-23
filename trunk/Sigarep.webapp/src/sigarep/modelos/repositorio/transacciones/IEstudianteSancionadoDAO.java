@@ -23,22 +23,44 @@ public interface IEstudianteSancionadoDAO extends
 	public List<EstudianteSancionado> buscarSancionados();
 
 	// Maria
-
 	@Query("SELECT es FROM EstudianteSancionado AS es, LapsoAcademico AS la "
-			+ "WHERE (es.id.cedulaEstudiante NOT IN "
-			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
-			+ "WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE') "
-			+ "OR es.id.cedulaEstudiante IN "
+			+ "WHERE es.id.cedulaEstudiante IN "
 			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
 			+ "WHERE sa.veredicto = 'NO PROCEDENTE' "
-			+ "AND sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE')) "
+			+ "AND sa.id.idInstanciaApelada = '2' "
+			+ "AND sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE') "
 			+ "AND es.id.cedulaEstudiante NOT IN "
 			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
 			+ "WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE' "
 			+ "AND sa.id.idInstanciaApelada = '3') "
 			+ "AND es.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus = 'TRUE' ")
+	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquicoParte1();
+	
+	@Query("SELECT es FROM EstudianteSancionado AS es, LapsoAcademico AS la "
+			+ "WHERE ((es.id.cedulaEstudiante NOT IN "
+			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
+			+ "WHERE sa.id.idInstanciaApelada = '2' "
+			+ "AND sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE') "
+			+ ""
+			+ "AND es.id.cedulaEstudiante IN (SELECT sa.id.cedulaEstudiante "
+			+ "FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
+			+ "WHERE sa.id.idInstanciaApelada = '1' "
+			+ "AND sa.veredicto = 'NO PROCEDENTE' "
+			+ "AND sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE') "
+			+ ""
+			+ "AND es.id.cedulaEstudiante NOT IN "
+			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
+			+ "WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE' "
+			+ "AND sa.id.idInstanciaApelada = '3')) "
+			+ ""
+			+ "OR es.id.cedulaEstudiante NOT IN "
+			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
+			+ "WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE')) "
+			+ ""
+			+ "AND es.id.codigoLapso = la.codigoLapso "
 			+ "AND la.estatus = 'TRUE'")
-	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquico();
+	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquicoParte2();
 
 	// Vanessa
 	@Query("SELECT es FROM EstudianteSancionado AS es, LapsoAcademico AS la "
