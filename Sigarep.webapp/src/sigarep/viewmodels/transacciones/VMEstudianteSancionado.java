@@ -632,6 +632,7 @@ public class VMEstudianteSancionado {
 	public void buscarSancion() {
 		listaSancion = serviciosancionmaestro.listaTipoSanciones();
 	}
+	
 
 	/** buscar Asignaturas
 	 * @param  IdPrograma
@@ -640,7 +641,7 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaAsignaturas","programa" })
 	public void buscarAsignaturas() {
-		listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorProgramaS(programa);
+		listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa);
 	}
 	
 	
