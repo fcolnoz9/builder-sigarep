@@ -359,7 +359,10 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaAsignaturas","programa" })
 	public void buscarAsignaturas() {
-	 listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
+	 //Responsable Amanda
+		//listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
+		listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa);
+		
 	}
 	
 	

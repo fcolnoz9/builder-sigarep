@@ -323,7 +323,10 @@ public class VMConfigurableApelaciones {
 	@Command
 	@NotifyChange({ "listaAsignaturas","programa" })
 	public void buscarAsignaturas() {
-	 listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
+	//Respnsable Amanda
+	//	listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
+	 listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa);
+		
 	}
 	
 	//REPORTE
