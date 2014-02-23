@@ -68,9 +68,9 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
-	public void advertenciaTamannoImagen( int ancho) {
+	public void advertenciaTamannoImagen(int pesoKB) {
 
-		Messagebox.show("Debe seleccionar una imagen con tamaño menor a "+ancho+" Kbytes." , 
+		Messagebox.show("Debe seleccionar una imagen con tamaño menor a "+pesoKB+" Kbytes." , 
 	"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
