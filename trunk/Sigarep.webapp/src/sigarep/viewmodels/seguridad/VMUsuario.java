@@ -906,7 +906,8 @@ public class VMUsuario {
 				fotoUsuario.setTipo(mediaUsuario.getContentType());
 				fotoUsuario.setContenidoArchivo(mediaUsuario.getByteData());
 				if(fotoUsuario.getTamano()>500000){
-					Messagebox.show("Por favor, seleccione una imagen con tamaño menor a "+500+" Kbytes.");
+					mensajeAlUsuario.advertenciaTamannoImagen(500);
+					
 					fotoUsuario = new Archivo();
 					}else{imagenUsuario = (AImage) mediaUsuario;}
 				
@@ -925,42 +926,42 @@ public class VMUsuario {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	@SuppressWarnings("unchecked")
-	@Command
-	@NotifyChange({ "nombreUsuario","correo","cedulaPersona","nombre","apellido","clave","confirmarcontrasenia" })
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (!nombreUsuario.equals("") || !correo.equals("") || !cedulaPersona.equals("") || !nombre.equals("")  || !apellido.equals("") 
-				|| !clave.equals("")  || !confirmarcontrasenia.equals("") )
-		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-			
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-		});		
-		}
-	}
+//	@SuppressWarnings("unchecked")
+//	@Command
+//	@NotifyChange({ "nombreUsuario","correo","cedulaPersona","nombre","apellido","clave","confirmarcontrasenia" })
+//	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
+//			
+//		if (!nombreUsuario.equals("") || !correo.equals("") || !cedulaPersona.equals("") || !nombre.equals("")  || !apellido.equals("") 
+//				|| !clave.equals("")  || !confirmarcontrasenia.equals("") )
+//		{
+//			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+//					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+//				@SuppressWarnings("incomplete-switch")
+//				public void onEvent(ClickEvent e) throws Exception {
+//					switch (e.getButton()) {
+//						case YES:
+//								ventana.detach();
+//					
+//					}
+//				}
+//			});		
+//		}
+//		else{
+//		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+//					Messagebox.QUESTION,new EventListener<ClickEvent>() {
+//			
+//				@SuppressWarnings("incomplete-switch")
+//				public void onEvent(ClickEvent e) throws Exception {
+//					switch (e.getButton()) {
+//						case YES:
+//								ventana.detach();
+//					
+//					
+//					}
+//				}
+//		});		
+//		}
+//	}
 
 	
 	/**
@@ -976,8 +977,8 @@ public class VMUsuario {
 		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","fotoUsuario","listaInstanciaMiembro","tituloinstancia","cargo","listaGrupoPertenece"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if(nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 
-				|| clave.equals("")  || confirmarcontrasenia.equals("") )
+		if( !nombreUsuario.equals("") || !correo.equals("") || !cedulaPersona.equals("") || !nombre.equals("")  || !apellido.equals("") 
+				|| !clave.equals("")  || !confirmarcontrasenia.equals("") )
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
