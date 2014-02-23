@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -25,6 +26,7 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaGenericaSancionados {
@@ -67,7 +69,7 @@ public class VMListaGenericaSancionados {
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
-
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	public EstudianteSancionado getEstudianteSeleccionado() {
 		return estudianteSeleccionado;
@@ -281,5 +283,21 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezIII(programa,cedula,nombre,apellido,sancion );	
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+	}
+
 }
 
