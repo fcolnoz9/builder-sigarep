@@ -373,7 +373,6 @@ public class VMHistorialEstudiante {
 		String nombre1 = nombre;
 		String nombre2 = segundoNombre;
 		nombres = nombre1 + " " + nombre2;
-		System.out.println(nombres);
 	}
 
 	/**
@@ -486,8 +485,7 @@ public class VMHistorialEstudiante {
 						null, map);
 		window.setMaximizable(true);
 		window.doModal();
-		System.out.println("envia" + cedula);
-		System.out.println("envia" + codigoLapso);
+
 	}
 
 	/**
