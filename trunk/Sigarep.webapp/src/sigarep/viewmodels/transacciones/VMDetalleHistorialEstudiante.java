@@ -1,12 +1,11 @@
 package sigarep.viewmodels.transacciones;
 
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.LinkedList;
 import java.util.List;
+
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -26,6 +25,7 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+
 /**
  * DetalleHistorialEstudiante 
  * UCLA DCYT Sistemas de Informacion.
@@ -226,4 +226,20 @@ public class VMDetalleHistorialEstudiante {
 	public void closeThis() {
 		window.detach();
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+	}
+
 }

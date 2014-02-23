@@ -185,7 +185,7 @@
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" mold="trendy" image="/imagenes/iconos/cerrar.png"
-				onClick="@command('cerrarVentana')">
+				onClick="@command('cerrarVentana', ventana = winRegistrarDatosInicialesApelacion)">
 			</button>
 		</div>
 	</window>

@@ -516,4 +516,24 @@ public class VMVerificarRecaudosEntregadosII {
 		if(lbxRecaudos.getSelectedIndex()!=-1)	
 			Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,a,"middle_center",1000);
 	}
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
+public void cerrarVentana(@BindingParam("ventana") final Window ventana, @BindingParam("recaudosEntregados") Set<Listitem> recaudos){
+			boolean condicion = false;
+			if(recaudos.size() != 0)
+				condicion = true;
+			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+		}
+	
+	
+	
 }

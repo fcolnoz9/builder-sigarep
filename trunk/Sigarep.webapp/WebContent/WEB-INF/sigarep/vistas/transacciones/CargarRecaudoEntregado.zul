@@ -1,4 +1,5 @@
-<window title="Gestión :: Apelaciones :: Registrar Apelación :: Cargar Recaudos" id="winCargarRecaudoEntregadoEstudiante"
+<window id="winCargarRecaudoEntregadoEstudiante"
+title="Gestión :: Apelaciones :: Registrar Apelación :: Cargar Recaudos" 
 	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarRecaudoEntregado')" 
 	width="auto" height="auto" closable="true">
 	<groupbox id="grbDatosEstudiante">
@@ -106,7 +107,7 @@
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="winCargarRecaudoEntregadoEstudiante.onClose()">
+			orient="horizontal" onClick="@command('cerrarVentana', ventana = winCargarRecaudoEntregadoEstudiante)">
 		</button>
 	</div>
 

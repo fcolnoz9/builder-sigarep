@@ -219,7 +219,7 @@
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 				orient="horizontal"
-				onClick="winDetalleHistorialEstudiante.onClose()">
+				onClick="@command('cerrarVentana', ventana = winDetalleHistorialEstudiante)">
 			</button>
 			<!--Fin Botón Cerrar-->
 		</div>

@@ -7,6 +7,7 @@ import java.util.List;
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -32,6 +33,7 @@ import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarRecaudoEntregado {
@@ -169,6 +171,48 @@ public class VMCargarRecaudoEntregado {
 		this.email = email;
 	}
 
+	public String getAsignaturaLapsosConsecutivos() {
+		return asignaturaLapsosConsecutivos;
+	}
+
+	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
+	}
+
+	public String getLabelAsignaturaLapsosConsecutivos() {
+		return labelAsignaturaLapsosConsecutivos;
+	}
+
+	public void setLabelAsignaturaLapsosConsecutivos(
+			String labelAsignaturaLapsosConsecutivos) {
+		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
+	}
+
+	public List<RecaudoEntregado> getListaRecaudo() {
+		return listaRecaudo;
+	}
+
+	public void setListaRecaudo(List<RecaudoEntregado> listaRecaudo) {
+		this.listaRecaudo = listaRecaudo;
+	}
+
+	public String getFechaApelacion() {
+		return fechaApelacion;
+	}
+
+	public void setFechaApelacion(String fechaApelacion) {
+		this.fechaApelacion = fechaApelacion;
+	}
+
+	public Integer getPeridoSancion() {
+		return peridoSancion;
+	}
+
+	public void setPeridoSancion(Integer peridoSancion) {
+		this.peridoSancion = peridoSancion;
+	}
+	
+	
 	public void concatenacionNombres() {
 		nombres = primerNombre + " " + segundoNombre;
 	}
@@ -295,44 +339,27 @@ public class VMCargarRecaudoEntregado {
 		}
 	}
 
-	public String getAsignaturaLapsosConsecutivos() {
-		return asignaturaLapsosConsecutivos;
+	
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	@NotifyChange({ "listaRecaudo" })
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(listaRecaudo != null)
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-
-	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
-		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
-	}
-
-	public String getLabelAsignaturaLapsosConsecutivos() {
-		return labelAsignaturaLapsosConsecutivos;
-	}
-
-	public void setLabelAsignaturaLapsosConsecutivos(
-			String labelAsignaturaLapsosConsecutivos) {
-		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
-	}
-
-	public List<RecaudoEntregado> getListaRecaudo() {
-		return listaRecaudo;
-	}
-
-	public void setListaRecaudo(List<RecaudoEntregado> listaRecaudo) {
-		this.listaRecaudo = listaRecaudo;
-	}
-
-	public String getFechaApelacion() {
-		return fechaApelacion;
-	}
-
-	public void setFechaApelacion(String fechaApelacion) {
-		this.fechaApelacion = fechaApelacion;
-	}
-
-	public Integer getPeridoSancion() {
-		return peridoSancion;
-	}
-
-	public void setPeridoSancion(Integer peridoSancion) {
-		this.peridoSancion = peridoSancion;
-	}
+	
+	
+	
+	
 }

@@ -88,7 +88,7 @@
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 				orient="horizontal"
-				onClick="winListaHistorialEstudiante.onClose()">
+				onClick="@command('cerrarVentana', ventana= winListaHistorialEstudiante)">
 			</button>
 		</div>
 	</window>

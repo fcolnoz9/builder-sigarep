@@ -96,12 +96,7 @@ public class VMVeredictoI {
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	private List<RecaudoEntregado> listaRecaudo; 
 	
-	@Wire("#winVeredictoI")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+	
 	// Getters and Setters
 	public String getCaso() {
 		return caso;
@@ -429,40 +424,17 @@ public class VMVeredictoI {
 	 * @return Cierra el .zul asociado al VM
 	 * @throws No dispara ninguna excepcion.
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Command
 	@NotifyChange({"veredicto", "observacionGeneral"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if (veredicto !=null|| observacionGeneral !=null)
-		{
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(veredicto !=null|| observacionGeneral !=null)
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaTransacciones(ventana,condicion);		
 	}
+	
+
 }
     
 

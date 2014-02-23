@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Gestión :: Evaluar Apelación :: Veredicto :: Datos de la Sesión " id="winDatosSesionVeredicto"
+<window id="winDatosSesionVeredicto"  title="Gestión :: Evaluar Apelación :: Veredicto :: Datos de la Sesión " 
 	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDatosSesionVeredicto')" 
 	width="auto" height="auto" closable="true">
 
@@ -47,7 +47,7 @@
 						orient="horizontal" 	onClick="@command('limpiar')">
 				</button>	
 				<button label="Cerrar" mold="trendy" id="btnCerrar" image="/imagenes/iconos/cerrar.png" width="auto" height="auto" 
-					 orient="horizontal" onClick="@command('cerrarVentana')">
+					 orient="horizontal" onClick="@command('cerrarVentana', ventana = winDatosSesionVeredicto)">
 				</button>
 			</groupbox>
 		</div>

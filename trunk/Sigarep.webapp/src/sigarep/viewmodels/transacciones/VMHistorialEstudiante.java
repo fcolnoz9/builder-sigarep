@@ -3,6 +3,8 @@ package sigarep.viewmodels.transacciones;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -91,7 +93,8 @@ public class VMHistorialEstudiante {
 	private List<EstudianteSancionado> apelacion = new LinkedList<EstudianteSancionado>();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<Motivo> motivos;
-
+	// Para llamar a los diferentes mensajes de dialogo
+			MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	public String getMotivosEstudiante() {
 		return motivosEstudiante;
@@ -487,6 +490,19 @@ public class VMHistorialEstudiante {
 		System.out.println("envia" + codigoLapso);
 	}
 
-
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+	}
 
 }

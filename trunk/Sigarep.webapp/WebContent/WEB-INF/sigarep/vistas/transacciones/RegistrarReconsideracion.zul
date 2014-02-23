@@ -169,7 +169,7 @@
 				<button id="btnCerrar" mold="trendy" width="auto"
 					height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png"
 					orient="horizontal"
-					onClick="@command('cerrarVentana')" />
+					onClick="@command('cerrarVentana', ventana = winRegistrarReconsideracion)" />
 			</div>
 		</hbox>
 	</div>

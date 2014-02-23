@@ -46,7 +46,7 @@
 		<div align="right" height="100%">
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="winRecaudosVeredicto1.onClose()">
+				orient="horizontal" onClick="@command('cerrarVentana', ventana = winRecaudosVeredicto1)">
 			</button>
 		</div>
 	</window>
