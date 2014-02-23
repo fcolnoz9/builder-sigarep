@@ -453,6 +453,7 @@ public class VMUsuario {
 					 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
 				}
 			}
+			if(!existeUsuario)System.out.println("no existia");usuario.setFechaCreacion(new Date());
 			usuario.setNombreUsuario(nombreUsuario);
 			usuario.setClave(clave);
 			usuario.setCorreo(correo);
