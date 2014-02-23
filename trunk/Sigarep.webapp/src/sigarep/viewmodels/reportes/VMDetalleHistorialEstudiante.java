@@ -1,12 +1,12 @@
-package sigarep.viewmodels.transacciones;
+package sigarep.viewmodels.reportes;
 
 
-
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.zkoss.bind.annotation.BindingParam;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -19,15 +19,19 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.LapsoAcademico;
+import sigarep.modelos.data.maestros.ProgramaAcademico;
+import sigarep.modelos.data.reportes.ReportConfig;
+import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-
 /**
  * DetalleHistorialEstudiante 
  * UCLA DCYT Sistemas de Informacion.
@@ -39,9 +43,8 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 public class VMDetalleHistorialEstudiante {
 	@Wire("#modalDialog")
 	private Window window;
-	private String codigoLapso;
 	private String cedula;
-	private String lapso;
+	private String codigoLapso;
 	private String nombreEstudiante;
 	private String nombreSancion;
 	private String apellidoEstudiante;
@@ -56,16 +59,35 @@ public class VMDetalleHistorialEstudiante {
 	private SolicitudApelacion apelacionseleccionada;
 	private List<EstudianteSancionado> estudiante = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> apelacion = new LinkedList<SolicitudApelacion>();
+	
 	// Para llamar a los diferentes mensajes de dialogo
 		MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	
+		ReportType reportType = null;
+		private ReportConfig reportConfig = null;
+		
+		String ruta="/WEB-INF/sigarepReportes/informes/RHistorialEstudiante.jasper";
+
 	// Metodos get y set
+		
+
+		public ReportConfig getReportConfig() {
+			return reportConfig;
+		}
+
+		public ReportType getReportType() {
+			return reportType;
+		}
+
+		public void setReportType(ReportType reportType) {
+			this.reportType = reportType;
+		}
 
 	public Integer getInstancia() {
 		return instancia;
 	}
 
+	
 	public List<EstudianteSancionado> getEstudiante() {
 		return estudiante;
 	}
@@ -95,7 +117,9 @@ public class VMDetalleHistorialEstudiante {
 			List<ApelacionEstadoApelacion> apelacionestudianteinstancia3) {
 		this.apelacionestudianteinstancia3 = apelacionestudianteinstancia3;
 	}
-
+	
+	
+	
 	public List<ApelacionEstadoApelacion> getApelacionestudiante() {
 		return apelacionestudiante;
 	}
@@ -128,12 +152,12 @@ public class VMDetalleHistorialEstudiante {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
-	public String getLapso() {
-		return lapso;
+	public String getCodigoLapso() {
+		return codigoLapso;
 	}
 
-	public void setLapso(String lapso) {
-		this.lapso = lapso;
+	public void setCodigoLapso(String codigoLapso) {
+		this.codigoLapso = codigoLapso;
 	}
 			
  // fin de metodos get y set
@@ -187,82 +211,53 @@ public class VMDetalleHistorialEstudiante {
 	public void buscarEstudiante(String cedula) {
 		estudiante = servicioestudiantesancionado.buscarApelacion(cedula);
 	}
+		
+		@Command("GenerarReporteHistorial")
+		@NotifyChange({ "reportConfig" })
+		public void generarReporte() {
+
+			reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
+												// REPORTE
+			reportConfig.getParameters().put("Titulo", "Historial de Estudiante");
+			reportConfig.getParameters().put("codigoLapso", codigoLapso);
+			reportConfig.getParameters().put("cedula", cedula);
+			reportConfig.getParameters().put("nombre", estudiante.get(0).getEstudiante().getPrimerNombre());
+			reportConfig.getParameters().put("apellido", estudiante.get(0).getEstudiante().getPrimerApellido());
+			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
+//											// IMPRESION DEL REPORTE
+			reportConfig.setDataSource(new JRBeanCollectionDataSource(
+					apelacionestudiante));				// DATOS PARA DIBUJAR EL REPORTE
+//			reportConfig.setDataSource(new JRBeanCollectionDataSource(
+//					apelacionestudianteinstancia2));
+//			reportConfig.setDataSource(new JRBeanCollectionDataSource(
+//					apelacionestudianteinstancia3));
+		}
 	@Init
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("cedula") String v1,
-			@ExecutionArgParam("codigoLapso") String v2)
+			@ExecutionArgParam("apelacionestudiante") List<ApelacionEstadoApelacion> v3,
+			@ExecutionArgParam("apelacionestudianteinstancia2") List<ApelacionEstadoApelacion> v4,
+			@ExecutionArgParam("apelacionestudianteinstancia3") List<ApelacionEstadoApelacion> v5,
+			@ExecutionArgParam("apelacion") List<SolicitudApelacion> v1,
+			@ExecutionArgParam("estudiante") List<EstudianteSancionado> v2,
+			@ExecutionArgParam("cedula") String v6,
+			@ExecutionArgParam("codigoLapso") String v7
+			)
 
 	// initialization code
 	{
+	
 		Selectors.wireComponents(view, this, false);
-		this.cedula = v1;
-		this.codigoLapso = v2;
-		buscarSolicitud(cedula, codigoLapso, instancia);
-		buscarSolicitudInstancia2(cedula, codigoLapso, instancia);
-		buscarSolicitudInstancia3(cedula, codigoLapso, instancia);
-		buscarEstudiante(cedula);
-		
-		if (apelacionestudiante.size() != 0) {
-		lapso = apelacionestudiante.get(0).getSolicitudApelacion().getId().getCodigoLapso();
-		cedula = apelacionestudiante.get(0).getSolicitudApelacion().getId().getCedulaEstudiante();
-		nombreEstudiante = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getEstudiante().getPrimerNombre();
-		apellidoEstudiante = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getEstudiante().getPrimerApellido();
-		nombreSancion = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getSancionMaestro().getNombreSancion();
-		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
-	}
-		else {
-		cedula = estudiante.get(0).getId().getCedulaEstudiante();
-		lapso = estudiante.get(0).getId().getCodigoLapso();
-		nombreSancion = estudiante.get(0).getSancionMaestro().getNombreSancion();
-		nombreEstudiante = estudiante.get(0).getEstudiante().getPrimerNombre();
-		apellidoEstudiante = estudiante.get(0).getEstudiante().getPrimerApellido();
-		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
+
+		this.apelacionestudiante = v3;
+		this.apelacionestudianteinstancia2 = v4;
+		this.apelacionestudianteinstancia3 = v5;
+		this.apelacion = v1;
+		this.estudiante = v2;
+		this.cedula = v6;
+		this.codigoLapso = v7;
 		}
 	}
-	@Command
-	public void closeThis() {
-		window.detach();
-	}
-	
-	@Command
-	public void showModal() {
-		apelacionestudiante = getApelacionestudiante ();
-		apelacionestudianteinstancia2 = getApelacionestudianteinstancia2 ();
-		apelacionestudianteinstancia3 = getApelacionestudianteinstancia3 ();
-		estudiante = getEstudiante ();
-		apelacion = getApelacion ();
-		apelacionseleccionada = getApelacionseleccionada();
-		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("apelacionestudiante", this.apelacionestudiante);
-		map.put("apelacionestudianteinstancia2", this.apelacionestudianteinstancia2);
-		map.put("apelacionestudianteinstancia3", this.apelacionestudianteinstancia3);
-		map.put("apelacion", this.apelacion);
-		map.put("estudiante", this.estudiante);
-		map.put("cedula", this.cedula);
-		map.put("codigoLapso", this.codigoLapso);
-		final Window window = (Window) Executions
-				.createComponents(
-						"/WEB-INF/sigarep/vistas/reportes/Informes/Historialestudiante.zul",
-						null, map);
-		window.setMaximizable(true);
-		window.doModal();
-	}
-	
-	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	
-	@Command
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = true;
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
-	}
 
-}
+
