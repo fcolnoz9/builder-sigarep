@@ -35,7 +35,7 @@ public class ServicioAsignatura {
 		return iAsignatura.findByEstatusTrue();
 	}
 	
-	public List<Asignatura> buscarAsignaturasPorProgramaS (ProgramaAcademico programa){
+	public List<Asignatura> buscarAsignaturasPorPrograma (ProgramaAcademico programa){
 		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(programa);
 	}
 	
