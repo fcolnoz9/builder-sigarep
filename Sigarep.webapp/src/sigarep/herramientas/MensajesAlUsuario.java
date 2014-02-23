@@ -67,6 +67,14 @@ public class MensajesAlUsuario {
 		Messagebox.show("ï¿½Debe Cargar una Imagen!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaTamannoImagen( int ancho) {
+
+		Messagebox.show("Debe seleccionar una imagen con tamaño menor a "+ancho+" Kbytes." , 
+	"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
+	
 
 	public void advertenciaCargarDocumento() {
 
