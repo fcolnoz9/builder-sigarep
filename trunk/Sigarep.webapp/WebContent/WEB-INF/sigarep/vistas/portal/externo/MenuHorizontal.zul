@@ -1,5 +1,6 @@
-<menubar autodrop="true">
+<menubar autodrop="true" >
 	<menuitem label="Inicio" />
 	<menuitem label="¿Quiénes somos?" />
-	<menuitem label="Contáctanos" />
+	<menuitem label="Contáctanos"
+		onClick="@command('modalContactanos')" />
 </menubar>
