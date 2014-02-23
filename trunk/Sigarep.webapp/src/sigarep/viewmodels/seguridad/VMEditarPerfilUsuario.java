@@ -47,7 +47,7 @@ public class VMEditarPerfilUsuario {
 	@WireVariable
 	private Persona persona = new Persona();
 	@WireVariable
-	private Archivo fotoUsuario;
+	private Archivo fotoUsuario = new Archivo();
 	@WireVariable
 	private AImage imagenUsuario;
 	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
@@ -55,7 +55,7 @@ public class VMEditarPerfilUsuario {
 	ServicioUsuario serviciousuario;
 	@WireVariable
 	ServicioPersona serviciopersona;
-	MensajesAlUsuario mensajes = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajesAlusuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 	
 	String ruta = UtilidadesSigarep.obtenerDirectorio();
 	public Archivo getFotoUsuario() {
@@ -142,7 +142,7 @@ public class VMEditarPerfilUsuario {
     }
 	
 	@Command
-	@NotifyChange({"correo","fechaCreacion","nombre","apellido","telefono","fotoUsuario","telefonoEntero"})
+	@NotifyChange({"correo","fechaCreacion","nombre","apellido","telefono","fotoUsuario","telefonoEntero","imagenUsuario"})
 	public void buscarUsuario() {
 		Persona persona = serviciopersona.buscarPersonaNombreUsuario(seguridad.getUsuario().getUsername());
 		this.persona = persona;
@@ -152,21 +152,13 @@ public class VMEditarPerfilUsuario {
 		this.nombre = persona.getNombre();
 		this.apellido = persona.getApellido();
 		this.telefono = persona.getTelefono();
-		this.telefonoEntero = Integer.parseInt(persona.getTelefono());
-		if (persona.getNombreUsuario().getFoto()==null)
-			try {
-				imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		else
-			try {
-				imagenUsuario = new AImage("fotoUsuario", persona.getNombreUsuario().getFoto().getContenidoArchivo());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		this.telefonoEntero = Integer.parseInt(this.telefono);
+		try {
+			imagenUsuario = persona.getNombreUsuario().getFoto().getAImage();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	@Command
@@ -176,9 +168,8 @@ public class VMEditarPerfilUsuario {
 	}
 
 	@Command
-	@NotifyChange("imagenUsuario")
+	@NotifyChange({"imagenUsuario","fotoUsuario"})
 	public void upload(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
-		fotoUsuario = new Archivo();
 		UploadEvent upEvent = null;
 		Object objUploadEvent = ctx.getTriggerEvent();
 		if (objUploadEvent != null && (objUploadEvent instanceof UploadEvent)) {
@@ -193,49 +184,37 @@ public class VMEditarPerfilUsuario {
 			int ancho = 500;
 			if (media instanceof Image) {
 				if (tamanhoImagen > ancho * 1024) {
-					Messagebox.show("Por favor, seleccione una imagen con tamaño menor a "+ancho+" Kbytes.");
-					return;
+					mensajesAlusuario.advertenciaTamannoImagen(500);
 				} else {
-					imagenUsuario = (AImage) media;// Initialize the bind object to
-												// show image in zul page and
-												// Notify it also
+					imagenUsuario = (AImage) media;// Initialize the bind object to show image in zul page and Notify it also
 				}
 			} else {
-				mensajes.advertenciaCargarImagen();
+				mensajesAlusuario.advertenciaCargarImagen();
 			}
 		}
 	}
 	
 	@Command
-	@NotifyChange({"imagenUsuario","nombre","apellido", "correo","telefono"})
+	@NotifyChange({"imagenUsuario","nombre","apellido", "correo","telefonoEntero"})
 	public void guardarPerfilUsuario() {
 		Usuario usuario = new Usuario();
 		usuario = this.persona.getNombreUsuario();
 		if(nombre.equals("") || apellido.equals("") || correo.equals("") || telefonoEntero == null){
-			mensajes.advertenciaLlenarCampos();
+			mensajesAlusuario.advertenciaLlenarCampos();
 		}
 		else
 		{
 			this.persona.setNombre(nombre);
 			this.persona.setApellido(apellido);
-			this.persona.setTelefono(telefono);
+			this.persona.setTelefono(String.valueOf(telefonoEntero));
 			usuario.setCorreo(correo);
-			if (imagenUsuario == null) {
-				try {
-					imagenUsuario = new AImage(ruta
-							+ "/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				fotoUsuario.setNombreArchivo(imagenUsuario.getName());
-				fotoUsuario.setTipo(imagenUsuario.getContentType());
-				fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
-			}
+			fotoUsuario.setNombreArchivo(imagenUsuario.getName());
+			fotoUsuario.setTipo(imagenUsuario.getContentType());
+			fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
 			usuario.setFoto(fotoUsuario);
 			serviciopersona.guardar(this.persona);
 			serviciousuario.guardarUsuario(usuario);
-			mensajes.informacionRegistroCorrecto();
+			mensajesAlusuario.informacionRegistroCorrecto();
 		}	
 	}	
 	
@@ -248,7 +227,7 @@ public class VMEditarPerfilUsuario {
 		correo = "";
 		if(persona.getNombreUsuario().getFoto()!=null)
 		try {
-			imagenUsuario = persona.getNombreUsuario().getFoto().getAImage();
+			imagenUsuario = this.persona.getNombreUsuario().getFoto().getAImage();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

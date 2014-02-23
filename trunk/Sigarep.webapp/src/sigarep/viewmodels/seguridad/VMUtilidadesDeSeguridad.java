@@ -178,21 +178,15 @@ public class VMUtilidadesDeSeguridad {
 		imagenUsuario = null;
 		Usuario usuario = new Usuario();
 		usuario = serviciousuario.encontrarUsuario(getUsuario().getUsername());
-		if (usuario.getFoto() == null) {
-			try {
-				imagenUsuario = new AImage(ruta
-						+ "/Sigarep.webapp/WebContent/imagenes/iconos/male.png");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else
-			try {
-				imagenUsuario = usuario.getFoto().getAImage();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//		System.out.println(usuario.getFoto().getNombreArchivo());
+		try {
+			if (usuario.getFoto().getNombreArchivo().equals("usuario.png")) {
+				imagenUsuario = new AImage(ruta + "/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
+			} else imagenUsuario = usuario.getFoto().getAImage();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 	}
 		
 	@Command
@@ -213,10 +207,8 @@ public class VMUtilidadesDeSeguridad {
 	}
 	
 	@Command
-	@NotifyChange({"href"})
 	public void cerrarSesion() {
 		mensajes.confirmacionCerrarSesion();
-		
 	}	
        
 	public static boolean isAllGranted(String authorities) {

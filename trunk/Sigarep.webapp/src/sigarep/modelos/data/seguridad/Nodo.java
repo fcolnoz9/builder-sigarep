@@ -16,6 +16,13 @@ import org.hibernate.annotations.Index;
  * @since 04/02/2014 
  */
 
+
+@org.hibernate.annotations.Table(
+		   appliesTo = "menu_arbol",
+		   indexes = {
+				   @Index(name="menu_arbol_index", columnNames={"estatus","tipo","nombre_funcion","padre","vinculo","ruta_modal"}),
+		   }
+)
 @Entity
 @Table(name = "menu_arbol")
 public class Nodo implements Comparator<Nodo>{
