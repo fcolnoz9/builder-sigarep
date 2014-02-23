@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Asignatura;
+import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.repositorio.maestros.IAsignaturaDAO;
 
 @Service("servicioAsignatura")
@@ -34,8 +35,8 @@ public class ServicioAsignatura {
 		return iAsignatura.findByEstatusTrue();
 	}
 	
-	public List<Asignatura> buscarAsignaturasPorPrograma (Integer idPrograma){
-		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(idPrograma);
+	public List<Asignatura> buscarAsignaturasPorPrograma (ProgramaAcademico programa){
+		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(programa);
 	}
 	
 	public Asignatura buscarAsignaturaNombre(String nombreAsignatura) {

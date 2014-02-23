@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.maestros.Asignatura;
+import sigarep.modelos.data.maestros.ProgramaAcademico;
 
 public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	
@@ -21,7 +22,7 @@ public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	 * @param idPrograma identificador unico de Asignaturas
 	 * @return List<Asignatura> Lista de asignaturas por programa con estatus == true
 	 */
-	public List<Asignatura> findByProgramaAcademicoAndEstatusTrue(Integer idPrograma);
+	public List<Asignatura> findByProgramaAcademicoAndEstatusTrue(ProgramaAcademico programa);
 	
 	/**
 	 * Busca una Asignatura por su nombre
