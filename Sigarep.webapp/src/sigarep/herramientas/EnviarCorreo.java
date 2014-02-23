@@ -17,11 +17,9 @@ public class EnviarCorreo {
 
 	private final Properties properties = new Properties();
 
-	private final String username = "jorgechaviel@gmail.com"; // Nota: este
-																// correo emisor
-																// está aun sin
-																// existencia.
-	private final String password = "87997872";
+	private final String username = "sigarep_ucla@cacei.com.ve";
+
+	private final String password = "sigarep_ucla1";
 
 	private Session session;
 
@@ -37,10 +35,10 @@ public class EnviarCorreo {
 		properties.put("mail.smtp.ssl.socketFactory", sf);
 		properties.put("mail.smtp.auth", true);
 		properties.put("mail.smtp.starttls.enable", true);
-		properties.put("mail.smtp.host", "smtp.gmail.com");
-		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.host", "mail.cacei.com.ve");
+		properties.put("mail.smtp.port", "26");
 		properties.put("mail.smtp.debug", "true");
-		properties.put("mail.smtp.mail.sender", "jorgechaviel@gmail.com");
+		properties.put("mail.smtp.mail.sender", "sigarep_ucla@cacei.com.ve");
 		session = Session.getInstance(properties,
 				new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
@@ -86,7 +84,7 @@ public class EnviarCorreo {
 			message.setSubject("Bienvenida al sistema SIGAREP - Envio de login y password de usuario autorizado");
 			message.setText("Usted ha sido autorizado para acceder al sistema "
 					+ "integrado para el Apoyo a la Gestión del Regimen de Repitencia y Permanencia"
-					+ "\n\n ingresando con login: " + nombreUsuario + "y "
+					+ "\n\n ingresando con login: " + nombreUsuario + " y "
 					+ "password: " + clave + "\n\n\t\t" + "");
 			Transport.send(message);
 			System.out.println("Enviado");
