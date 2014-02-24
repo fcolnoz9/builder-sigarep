@@ -8,8 +8,11 @@ import sigarep.modelos.data.transacciones.Cronograma;
 import java.util.List;
 
 /**
- * The persistent class for the actividad database table.
+ * Clase Actividad Registra y Modifica las Actividad del cronograma
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -17,7 +20,9 @@ import java.util.List;
 public class Actividad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "id_actividad", unique = true, nullable = false)
 	private Integer idActividad;
 
@@ -34,16 +39,23 @@ public class Actividad implements Serializable {
 	@OneToMany(mappedBy = "actividad")
 	private List<Cronograma> cronogramas;
 
-	//bi-directional many-to-one association to InstanciaApelada
+	// bi-directional many-to-one association to InstanciaApelada
 	@ManyToOne
-	@JoinColumn(name="id_instancia_apelada", nullable = true)
+	@JoinColumn(name = "id_instancia_apelada", nullable = true)
 	private InstanciaApelada instanciaApelada;
-	
+
 	public Actividad() {
 	}
 
-	public Actividad(Integer id_actividad, String nombre, String descripcion, InstanciaApelada instanciaApelada,
-			Boolean estatus) {
+	/**
+	 * Constructor Actividad
+	 * 
+	 * @param id_actividad
+	 *            , nombre, descripcion, instanciaApelada, estatus
+	 * @return Constructor lleno
+	 */
+	public Actividad(Integer id_actividad, String nombre, String descripcion,
+			InstanciaApelada instanciaApelada, Boolean estatus) {
 		super();
 		this.idActividad = id_actividad;
 		this.nombre = nombre;
@@ -52,6 +64,7 @@ public class Actividad implements Serializable {
 		this.estatus = estatus;
 	}
 
+	// Métodos GET y SET
 	public Integer getIdActividad() {
 		return this.idActividad;
 	}

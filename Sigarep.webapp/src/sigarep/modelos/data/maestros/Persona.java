@@ -8,17 +8,19 @@ import sigarep.modelos.data.transacciones.InstanciaMiembro;
 
 import java.util.List;
 
-
 /**
- * The persistent class for the persona database table.
+ * Clase persona Registra y Modifica los datos deuna persona
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 10/12/2013
  */
 @Entity
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="cedula_persona")
+	@Column(name = "cedula_persona")
 	private String cedulaPersona;
 
 	private String apellido;
@@ -31,18 +33,20 @@ public class Persona implements Serializable {
 
 	private String telefono;
 
-	//bi-directional many-to-one association to InstanciaMiembro
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy="persona")
+	// bi-directional many-to-one association to InstanciaMiembro
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "persona")
 	private List<InstanciaMiembro> instanciaMiembros;
 
-	//bi-directional many-to-one association to Usuario
+	// bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="nombre_usuario")
+	@JoinColumn(name = "nombre_usuario")
 	private Usuario nombreUsuario;
 
+	// Constructor por defecto
 	public Persona() {
 	}
 
+	// metodos set y get
 	public String getCedulaPersona() {
 		return this.cedulaPersona;
 	}
@@ -99,20 +103,23 @@ public class Persona implements Serializable {
 		this.instanciaMiembros = instanciaMiembros;
 	}
 
-	public InstanciaMiembro addInstanciaMiembro(InstanciaMiembro instanciaMiembro) {
+	public InstanciaMiembro addInstanciaMiembro(
+			InstanciaMiembro instanciaMiembro) {
 		getInstanciaMiembros().add(instanciaMiembro);
 		instanciaMiembro.setPersona(this);
 
 		return instanciaMiembro;
 	}
 
-	public InstanciaMiembro removeInstanciaMiembro(InstanciaMiembro instanciaMiembro) {
+	public InstanciaMiembro removeInstanciaMiembro(
+			InstanciaMiembro instanciaMiembro) {
 		getInstanciaMiembros().remove(instanciaMiembro);
 		instanciaMiembro.setPersona(null);
 
 		return instanciaMiembro;
 	}
 
+	// metodos get y set
 	public Usuario getNombreUsuario() {
 		return this.nombreUsuario;
 	}

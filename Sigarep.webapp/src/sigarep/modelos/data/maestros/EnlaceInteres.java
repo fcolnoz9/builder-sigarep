@@ -5,47 +5,56 @@ import javax.persistence.*;
 
 import sigarep.herramientas.Archivo;
 
-/** Clase EnlaceInteres
- * Registra y Modifica el Enlaces de Interés mostrados en el portal principal.
+/**
+ * Clase EnlaceInteres Registra y Modifica el Enlaces de Interés mostrados en el
+ * portal principal.
+ * 
  * @author BUILDER
  * @version 1
- * @since 15/12/2013 
+ * @since 15/12/2013
  */
-
 
 @Entity
 @Access(AccessType.FIELD)
-//anotación indica que el JavaBean es una entidad persistente
-@Table(name="enlace_interes")
+// anotación indica que el JavaBean es una entidad persistente
+@Table(name = "enlace_interes")
 public class EnlaceInteres implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// Atributos de la clase
 	@Id
 	// Clave principal de la clase
-	@Column(name="id_enlace", unique=true, nullable=false)
+	@Column(name = "id_enlace", unique = true, nullable = false)
 	private Integer idEnlace;
 
-	@Column(name="nombre_enlace", nullable=false, length=60)
+	@Column(name = "nombre_enlace", nullable = false, length = 60)
 	private String nombreEnlace;
-	
-	@Column(name="direccion_enlace", nullable=false, length=255)
+
+	@Column(name = "direccion_enlace", nullable = false, length = 255)
 	private String direccionEnlace;
-	
-	@Column(length=255)
+
+	@Column(length = 255)
 	private String descripcion;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
 	@Embedded
 	private Archivo imagen = new Archivo();
+
 	// Constructor por defecto
 	public EnlaceInteres() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	// Constructor con parámetros
+
+	/**
+	 * Constructor EnlacesInteres
+	 * 
+	 * @param idEnlace
+	 *            , nombreEnlace, direccionEnlace, descripcion, estatus, imagen
+	 * @return Constructor lleno
+	 */
 	public EnlaceInteres(Integer idEnlace, String nombreEnlace,
 			String direccionEnlace, String descripcion, Boolean estatus,
 			Archivo imagen) {
@@ -57,6 +66,7 @@ public class EnlaceInteres implements Serializable {
 		this.estatus = estatus;
 		this.imagen = imagen;
 	}
+
 	// Métodos GET y SET
 	public Integer getIdEnlace() {
 		return idEnlace;
@@ -106,5 +116,4 @@ public class EnlaceInteres implements Serializable {
 		this.imagen = imagen;
 	}
 
-	
 }

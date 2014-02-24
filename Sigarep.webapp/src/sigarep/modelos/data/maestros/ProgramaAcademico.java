@@ -7,15 +7,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * The persistent class for the programa_academico database table.
+ * Clase Programa academico Registra y Modifica un programa academico
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013
  */
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "programa_academico")
 public class ProgramaAcademico implements Serializable {
 	private static final long serialVersionUID = 1L;
- 
+
 	@Id
 	@Column(name = "id_programa", unique = true, nullable = false)
 	private Integer idPrograma;
@@ -34,9 +37,17 @@ public class ProgramaAcademico implements Serializable {
 	@OneToMany(mappedBy = "programaAcademico")
 	private List<Estudiante> estudiantes = new LinkedList<Estudiante>();
 
+	// constructor por defecto
 	public ProgramaAcademico() {
 	}
 
+	/**
+	 * Constructor ProgramaAcademico
+	 * 
+	 * @param idPrograma
+	 *            , nombrePrograma, estatus
+	 * @return Constructor lleno
+	 */
 	public ProgramaAcademico(Integer idPrograma, String nombrePrograma,
 			Boolean estatus) {
 		super();
@@ -45,6 +56,7 @@ public class ProgramaAcademico implements Serializable {
 		this.estatusPrograma = estatus;
 	}
 
+	// metodos set y get
 	public Integer getIdPrograma() {
 		return this.idPrograma;
 	}

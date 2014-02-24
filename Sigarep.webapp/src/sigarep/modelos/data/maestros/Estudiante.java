@@ -1,4 +1,5 @@
 package sigarep.modelos.data.maestros;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -9,74 +10,85 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * The persistent class for the estudiante database table.
+ * Clase Estudiante Registra y Modifica un estudiante
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 10/12/2013
  */
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="estudiante")
+@Table(name = "estudiante")
 public class Estudiante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="cedula_estudiante", unique=true, nullable=false, length=8)
+	// Clave principal de la clase
+	@Column(name = "cedula_estudiante", unique = true, nullable = false, length = 8)
 	private String cedulaEstudiante;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="anio_ingreso", nullable=false)
+	@Column(name = "anio_ingreso", nullable = false)
 	private Date anioIngreso;
 
-	@Column(length=50)
+	@Column(length = 50)
 	private String email;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_nacimiento", nullable=false)
+	@Column(name = "fecha_nacimiento", nullable = false)
 	private Date fechaNacimiento;
 
-	@Column(name="primer_apellido", nullable=false, length=30)
+	@Column(name = "primer_apellido", nullable = false, length = 30)
 	private String primerApellido;
 
-	@Column(name="primer_nombre", nullable=false, length=30)
+	@Column(name = "primer_nombre", nullable = false, length = 30)
 	private String primerNombre;
 
-	@Column(name="segundo_apellido", length=30)
+	@Column(name = "segundo_apellido", length = 30)
 	private String segundoApellido;
 
-	@Column(name="segundo_nombre", length=30)
+	@Column(name = "segundo_nombre", length = 30)
 	private String segundoNombre;
 
-	@Column(nullable=false, length=1)
+	@Column(nullable = false, length = 1)
 	private String sexo;
 
-	@Column(length=11)
+	@Column(length = 11)
 	private String telefono;
-	
-	//bi-directional many-to-one association to Usuario
+
+	// bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="nombreusuario", nullable=true)
+	@JoinColumn(name = "nombreusuario", nullable = true)
 	private Usuario nombreUsuario;
 
-	//bi-directional many-to-one association to ProgramaAcademico
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="id_programa", nullable=false)
+	// bi-directional many-to-one association to ProgramaAcademico
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "id_programa", nullable = false)
 	private ProgramaAcademico programaAcademico;
 
-	//bi-directional many-to-one association to EstudianteSancionado
-	@OneToMany(mappedBy="estudiante",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	// bi-directional many-to-one association to EstudianteSancionado
+	@OneToMany(mappedBy = "estudiante", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
-
-//se le agrego el constructor con parametros
+	// constructorpor defecto
 	public Estudiante() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
- 
+
+	/**
+	 * Constructor Estudiante
+	 * 
+	 * @param cedulaEstudiante
+	 *            , anioIngreso, email, estatus, fechaNacimiento,
+	 *            primerApellido, primerNombre, segundoApellido, segundoNombre,
+	 *            sexo, telefono, programaAcademico
+	 * @return Constructor lleno
+	 */
 	public Estudiante(String cedulaEstudiante, Date anioIngreso, String email,
 			Boolean estatus, Date fechaNacimiento, String primerApellido,
 			String primerNombre, String segundoApellido, String segundoNombre,
@@ -96,6 +108,7 @@ public class Estudiante implements Serializable {
 		this.programaAcademico = programaAcademico;
 	}
 
+	// metodos set y get
 	public String getCedulaEstudiante() {
 		return this.cedulaEstudiante;
 	}
@@ -196,18 +209,21 @@ public class Estudiante implements Serializable {
 		return this.estudianteSancionados;
 	}
 
-	public void setEstudianteSancionados(List<EstudianteSancionado> estudianteSancionados) {
+	public void setEstudianteSancionados(
+			List<EstudianteSancionado> estudianteSancionados) {
 		this.estudianteSancionados = estudianteSancionados;
 	}
 
-	public EstudianteSancionado addEstudianteSancionado(EstudianteSancionado estudianteSancionado) {
+	public EstudianteSancionado addEstudianteSancionado(
+			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
 		estudianteSancionado.setEstudiante(this);
 
 		return estudianteSancionado;
 	}
 
-	public EstudianteSancionado removeEstudianteSancionado(EstudianteSancionado estudianteSancionado) {
+	public EstudianteSancionado removeEstudianteSancionado(
+			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);
 		estudianteSancionado.setEstudiante(null);
 

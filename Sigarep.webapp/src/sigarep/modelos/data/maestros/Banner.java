@@ -5,58 +5,69 @@ import javax.persistence.*;
 
 import sigarep.herramientas.Archivo;
 
-
 import java.util.Date;
 
-/** Clase Banner
- * Registra y Modifica los Datos del Banner
+/**
+ * Clase Banner Registra y Modifica los Datos del Banner
+ * 
  * @author BUILDER
  * @version 1.3
- * @since 15/12/2013 
+ * @since 15/12/2013
  */
 
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="banner")
+@Table(name = "banner")
 public class Banner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_imagen", unique=true, nullable=false)
+	@Column(name = "id_imagen", unique = true, nullable = false)
 	private Integer idImagen;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String descripcion;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String enlace;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_vencimiento")
+	@Column(name = "fecha_vencimiento")
 	private Date fechaVencimiento;
 
-	@Column(length=60)
+	@Column(length = 60)
 	private String titulo;
-	
+
 	@Embedded()
 	private Archivo fotoBanner;
-	
+
 	public Banner() {
 	}
-	public Banner(Integer idImagen,String descripcion, String enlace,Date fechaVencimiento, String titulo,Archivo fotoBanner, Boolean estatus){
+
+	/**
+	 * Constructor Banner
+	 * @param idImagen
+	 *            , descripcion, enlace, fechaVencimiento,
+	 *             titulo, fotoBanner,  estatus
+	 * @return Constructor lleno
+	 */
+	public Banner(Integer idImagen, String descripcion, String enlace,
+			Date fechaVencimiento, String titulo, Archivo fotoBanner,
+			Boolean estatus) {
 		super();
 		this.idImagen = idImagen;
 		this.descripcion = descripcion;
 		this.enlace = enlace;
-		this.fechaVencimiento= fechaVencimiento;
-		this.titulo= titulo;
-		this.fotoBanner= fotoBanner;
-		this.estatus= estatus;
+		this.fechaVencimiento = fechaVencimiento;
+		this.titulo = titulo;
+		this.fotoBanner = fotoBanner;
+		this.estatus = estatus;
 	}
 
+	// Métodos GET y SET
 	public Integer getIdImagen() {
 		return this.idImagen;
 	}
@@ -64,7 +75,6 @@ public class Banner implements Serializable {
 	public void setIdImagen(Integer idImagen) {
 		this.idImagen = idImagen;
 	}
-
 
 	public String getDescripcion() {
 		return this.descripcion;

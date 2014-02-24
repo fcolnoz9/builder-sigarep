@@ -7,39 +7,46 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 
 import java.util.List;
 
-
 /**
- * The persistent class for the asignatura database table.
+ * Clase EstadoApelacion Registra y Modifica el Estado de Apelación asociado a
+ * Instancia Apelada
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013
  */
+
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="asignatura")
+@Table(name = "asignatura")
 public class Asignatura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
-	@Column(name="codigo_asignatura", unique=true, nullable=false, length=8)
+	// Clave principal de la clase
+	@Column(name = "codigo_asignatura", unique = true, nullable = false, length = 8)
 	private String codigoAsignatura;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
-	@Column(name="nombre_asignatura", nullable=false, length=60)
+	@Column(name = "nombre_asignatura", nullable = false, length = 60)
 	private String nombreAsignatura;
 
-	@Column(name="unidades_academicas", nullable=false)
+	@Column(name = "unidades_academicas", nullable = false)
 	private Integer unidadesAcademicas;
 
-	//bi-directional many-to-one association to ProgramaAcademico
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="id_programa", nullable=false)
+	// bi-directional many-to-one association to ProgramaAcademico
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "id_programa", nullable = false)
 	private ProgramaAcademico programaAcademico;
 
-	//bi-directional many-to-one association to AsignaturaEstudianteSancionado
-	@OneToMany(mappedBy="asignatura")
+	// bi-directional many-to-one association to AsignaturaEstudianteSancionado
+	@OneToMany(mappedBy = "asignatura")
 	private List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados;
 
+	// Métodos GET y SET
 	public Asignatura() {
 	}
 
@@ -87,19 +94,24 @@ public class Asignatura implements Serializable {
 		return this.asignaturaEstudianteSancionados;
 	}
 
-	public void setAsignaturaEstudianteSancionados(List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados) {
+	public void setAsignaturaEstudianteSancionados(
+			List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados) {
 		this.asignaturaEstudianteSancionados = asignaturaEstudianteSancionados;
 	}
 
-	public AsignaturaEstudianteSancionado addAsignaturaEstudianteSancionado(AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
-		getAsignaturaEstudianteSancionados().add(asignaturaEstudianteSancionado);
+	public AsignaturaEstudianteSancionado addAsignaturaEstudianteSancionado(
+			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
+		getAsignaturaEstudianteSancionados()
+				.add(asignaturaEstudianteSancionado);
 		asignaturaEstudianteSancionado.setAsignatura(this);
 
 		return asignaturaEstudianteSancionado;
 	}
 
-	public AsignaturaEstudianteSancionado removeAsignaturaEstudianteSancionado(AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
-		getAsignaturaEstudianteSancionados().remove(asignaturaEstudianteSancionado);
+	public AsignaturaEstudianteSancionado removeAsignaturaEstudianteSancionado(
+			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
+		getAsignaturaEstudianteSancionados().remove(
+				asignaturaEstudianteSancionado);
 		asignaturaEstudianteSancionado.setAsignatura(null);
 
 		return asignaturaEstudianteSancionado;
