@@ -370,6 +370,7 @@ public class VMVeredictoII {
 		apelacionEstado.setId(apelacionEstadoPK);
 		apelacionEstado.setFechaEstado(new Date());
 		apelacionEstado.setObservacion(observacionGeneral);
+		apelacionEstado.setSugerencia(veredicto);
 		solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
 		serviciosolicitudapelacion.guardar(solicitudApelacion);
 		mensajeAlUsuario.informacionVeredictoRegistrado();
