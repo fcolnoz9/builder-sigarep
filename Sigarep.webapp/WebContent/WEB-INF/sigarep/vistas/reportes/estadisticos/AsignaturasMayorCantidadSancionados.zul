@@ -18,16 +18,16 @@
 		<rows>
 			<row>
 				<label id="lblProgramas" value="Programa:" />
-                <combobox readonly="true" id= "cmbPrograma" placeholder="Seleccione una Opción..." width="auto" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
+                <combobox readonly="true" id= "cmbPrograma" maxlength="60" placeholder="Seleccione un programa académico..." width="80%" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
 						  <template name="model">
 								<comboitem  label="${each.nombrePrograma}"/>
 						  </template>				
 				</combobox>
 				
 				<label id="lblInstancia" value="Instancia:" />
-				<combobox readonly="true" id= "cmbInstancia" placeholder="Seleccione una Opción..." width="auto" mold="rounded" 
+				<combobox readonly="true" id= "cmbInstancia" placeholder="Seleccione una instancia apelada..." width="80%" mold="rounded" 
 				model="@load(vm.listaComboInstancia)" selectedItem="@bind(vm.instanciaApelada)" 
-				onSelect="@command('objetoComboInstancia')">
+				onSelect="@command('objetoComboInstancia')" maxlength="100">
 					<template name="model">
 						<comboitem  label="${each.instanciaApelada}" />
 					</template>	
@@ -36,15 +36,15 @@
 			<row>
 				<label id="lblLapso" value="Lapso:" />
 				
-				<combobox readonly="true" id= "cmbLapso" placeholder="Seleccione una Opción..." width="auto" mold="rounded" 
+				<combobox readonly="true" id= "cmbLapso" placeholder="Seleccione un lapso académico..." width="80%" mold="rounded" 
 				model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" 
-				onSelect="@command('objetoComboLapso')">
+				onSelect="@command('objetoComboLapso')" maxlength="6">
 					<template name="model">
 						<comboitem  label="${each.codigoLapso}" />
 					</template>	
 				</combobox>
 				Tipo de Archivo : <listbox id="lbxformat" mold="select" model="@load(vm.reportTypesModel)"
-							selectedItem="@bind(vm.reportType)">
+							selectedItem="@bind(vm.reportType)" width="80%">
 					<template name="model">
 						<listitem value="@load(each)" label="@load(each.label)"></listitem>
 					</template>

@@ -18,9 +18,9 @@
 		<rows>
 			<row>
 					<label id="lblPrograma" value="Programa:" />
-	           	<combobox id="cmbprograma" model="@load(vm.listaPrograma)" placeholder="Seleccione una Opción..."
-	                selectedItem="@bind(vm.programaseleccionado)"
-	               	onSelect="@command('onSelectPrograma')" width="auto" mold="rounded" readonly="true">
+	           	<combobox id="cmbprograma" model="@load(vm.listaPrograma)" placeholder="Seleccione un programa académico..."
+	                selectedItem="@bind(vm.programaseleccionado)" maxlength="60"
+	               	onSelect="@command('onSelectPrograma')" width="80%" mold="rounded" readonly="true">
 	               	<template name="model" var="dpto">
 	                <comboitem label="@load(dpto.nombrePrograma)"
 	                      value="@load(dpto.idPrograma)" />
@@ -28,7 +28,7 @@
 	           	</combobox>
     
           			<label id="lblAsignaturas" value="Asignatura:" />
-          		<combobox id="cmbasignatura" model="@load(vm.listaAsignatura)" selectedItem="@bind(vm.asignatura)" value="@bind(vm.contenido)" placeholder="Seleccione una Opción..." width="auto" mold="rounded" readonly="true" >
+          		<combobox id="cmbasignatura" maxlength="60" model="@load(vm.listaAsignatura)" selectedItem="@bind(vm.asignatura)" value="@bind(vm.contenido)" placeholder="Seleccione una asignatura..." width="80%" mold="rounded" readonly="true" >
                		<template name="model" var="asig">
                    		<comboitem label="@load(asig.nombreAsignatura)"
                        		value="@load(asig.codigoAsignatura)" />
@@ -38,15 +38,15 @@
            <row>
 				<label id="lblLapsos" value="Lapso:" />
 				
-				<combobox readonly="true" id= "cmbLapso" width="auto" mold="rounded" 
-				model="@load(vm.listaComboLapsoAcademico)" selectedItem="@bind(vm.lapsosAcademicos)" placeholder="Seleccione una Opción..."
+				<combobox readonly="true" maxlength="6" id= "cmbLapso" width="80%" mold="rounded" 
+				model="@load(vm.listaComboLapsoAcademico)" selectedItem="@bind(vm.lapsosAcademicos)" placeholder="Seleccione un lapso académico..."
 				onSelect="@command('objetoComboLapsos')">
 					<template name="model">
 						<comboitem  label="${each.codigoLapso}" />
 					</template>	
 				</combobox>
 			<label id="lblInstancias" value="Instancia:" />
-				<combobox readonly="true" id= "cmbInstancia" width="auto" mold="rounded" placeholder="Seleccione una Opción..."
+				<combobox readonly="true" maxlength="100" id= "cmbInstancia" width="80%" mold="rounded" placeholder="Seleccione una instancia apelada..."
 				model="@load(vm.listaComboInstancias)" selectedItem="@bind(vm.instanciasApeladas)" 
 				onSelect="@command('objetoComboInstancias')">
 					<template name="model">
@@ -56,7 +56,7 @@
 			</row>
 			<row>
 			Tipo de Archivo : <listbox id="lbxformatarchivo" mold="select" model="@load(vm.reportTypesModel)" 
-							selectedItem="@bind(vm.reportType)">
+							selectedItem="@bind(vm.reportType)" width="80%">
 					<template name="model">
 						<listitem value="@load(each)" label="@load(each.label)"></listitem>
 					</template>
