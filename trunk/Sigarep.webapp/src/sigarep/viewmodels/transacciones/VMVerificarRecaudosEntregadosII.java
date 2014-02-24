@@ -465,6 +465,12 @@ public class VMVerificarRecaudosEntregadosII {
 					.getObservacion());
 			solicitudApelacionAux.setVerificado(true);
 			solicitudApelacionAux.setAnalizado(false);
+
+			if (getSelected().equals("PROCEDENTE"))
+				solicitudApelacionAux.setVeredicto("PROCEDENTE");
+			else if ((getSelected().equals("NO PROCEDENTE")))
+				solicitudApelacionAux.setVeredicto("NO PROCEDENTE");
+			
 			ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 			apelacionEstadoApelacionPK.setCodigoLapso(lapso);

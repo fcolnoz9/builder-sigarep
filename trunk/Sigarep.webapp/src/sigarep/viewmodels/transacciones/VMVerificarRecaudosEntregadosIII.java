@@ -407,7 +407,7 @@ public class VMVerificarRecaudosEntregadosIII {
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
 			if (getSelected().equals("PROCEDENTE"))
 				apelacionEstadoApelacion.setSugerencia("PROCEDENTE");
-			else
+			else if ((getSelected().equals("NO PROCEDENTE")))
 				apelacionEstadoApelacion.setSugerencia("NO PROCEDENTE");
 			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
@@ -452,6 +452,12 @@ public class VMVerificarRecaudosEntregadosIII {
 				solicitudApelacionAux.setObservacion(observacion);
 				solicitudApelacionAux.setVerificado(true);
 				solicitudApelacionAux.setAnalizado(false);
+				
+				if (getSelected().equals("PROCEDENTE"))
+					solicitudApelacionAux.setVeredicto("PROCEDENTE");
+				else if ((getSelected().equals("NO PROCEDENTE")))
+					solicitudApelacionAux.setVeredicto("NO PROCEDENTE");
+				
 				ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
@@ -462,7 +468,7 @@ public class VMVerificarRecaudosEntregadosIII {
 				apelacionEstadoApelacion.setFechaEstado(new Date());
 				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
 				serviciosolicitudapelacion.guardar(solicitudApelacionAux);
-				
+			
 				try {
 					mensajeAlUsuario.informacionRegistroCorrecto();
 					winVerificarRecaudosIII.detach(); //oculta el window
