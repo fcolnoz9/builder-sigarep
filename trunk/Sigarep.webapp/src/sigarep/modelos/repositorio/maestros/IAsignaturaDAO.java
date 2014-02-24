@@ -21,10 +21,10 @@ public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	
 	/**
 	 * Busca asignaturas por programa que poseen estatus == true
-	 * @param idPrograma identificador unico de Asignaturas
+	 * @param programa identificador unico de Programa academico
 	 * @return List<Asignatura> Lista de asignaturas por programa con estatus == true
 	 */
-	public List<Asignatura> findByProgramaAcademicoAndEstatusTrue(ProgramaAcademico idPrograma);
+	public List<Asignatura> findByProgramaAcademicoAndEstatusTrue(ProgramaAcademico programa);
 	
 	
 	/**
