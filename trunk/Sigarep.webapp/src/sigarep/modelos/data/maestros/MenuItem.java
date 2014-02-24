@@ -5,24 +5,36 @@ import java.util.List;
 
 import org.zkoss.image.AImage;
 
-import sigarep.herramientas.Archivo;
+/**
+ * Clase MenuItem Se utiliza para mostrar las imagenes en los maestros
+ * 
+ * @author BUILDER
+ * @version 1
+ * @since 15/01/2014
+ */
 
 public class MenuItem {
 	private String name;
-	private Archivo imagen = new Archivo();
 	private AImage img;
 	private String href;
 	private List<MenuItem> children;
 	private int level;
 
-	public MenuItem(String name,AImage img,String href,int level) {
+	/**
+	 * Constructor MenuItem
+	 * 
+	 * @param name
+	 *            , img, href, level
+	 * @return Constructor lleno
+	 */
+	public MenuItem(String name, AImage img, String href, int level) {
 		this.name = name;
-		this.img= img;
+		this.img = img;
 		this.level = level;
-		this.href= href;
+		this.href = href;
 		children = new ArrayList<MenuItem>();
 	}
-	
+
 	public void addChild(MenuItem node) {
 		children.add(node);
 	}
@@ -32,7 +44,8 @@ public class MenuItem {
 			children = new ArrayList<MenuItem>();
 		children.add(child);
 	}
-	
+
+	// metodos set y get
 	public String getName() {
 		return name;
 	}
@@ -48,7 +61,7 @@ public class MenuItem {
 	public void setImg(AImage img) {
 		this.img = img;
 	}
-	
+
 	public String getHref() {
 		return href;
 	}
@@ -56,7 +69,7 @@ public class MenuItem {
 	public void setHref(String href) {
 		this.href = href;
 	}
-	
+
 	public List<MenuItem> getChildren() {
 		return children;
 	}

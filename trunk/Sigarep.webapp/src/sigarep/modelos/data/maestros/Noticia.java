@@ -3,74 +3,80 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 import sigarep.herramientas.Archivo;
 
 import java.util.Date;
-/**Noticia
- * Registra y modifica una noticia. Utilizada en el portal web.
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14 
- */
 
 /**
- * The persistent class for the noticia database table.
+ * Noticia Registra y modifica una noticia. Utilizada en el portal web. UCLA
+ * DCYT Sistemas de Informacion.
  * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ * @since 22/01/14
  */
+
 @Entity
 @Access(AccessType.FIELD)
-//anotación indica que el JavaBean es una entidad persistente
-@Table(name="noticia")
+// anotación indica que el JavaBean es una entidad persistente
+@Table(name = "noticia")
 public class Noticia implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * Constructor Noticia
+	 * 
+	 * @param idNoticia
+	 *            , contenido, enlaceNoticia, estatus, fechaRegistro,
+	 *            fotoNoticia, titulo, vencimiento
+	 * @return Constructor lleno
+	 */
 	public Noticia(Integer idNoticia, String contenido, String enlaceNoticia,
-			Boolean estatus, Date fechaRegistro, Archivo fotoNoticia, String titulo,
-			Date vencimiento) {
+			Boolean estatus, Date fechaRegistro, Archivo fotoNoticia,
+			String titulo, Date vencimiento) {
 		super();
 		this.idNoticia = idNoticia;
 		this.contenido = contenido;
 		this.enlaceNoticia = enlaceNoticia;
 		this.estatus = estatus;
 		this.fechaRegistro = fechaRegistro;
-		this.fotoNoticia= fotoNoticia;
+		this.fotoNoticia = fotoNoticia;
 		this.titulo = titulo;
 		this.vencimiento = vencimiento;
 	}
-	
+
 	// Atributos de la clase
 	@Id
 	// Clave principal de la clase
-	@Column(name="id_noticia", unique=true, nullable=false)
+	@Column(name = "id_noticia", unique = true, nullable = false)
 	private Integer idNoticia;
-	
-	@Column(nullable=false, length=255)
+
+	@Column(nullable = false, length = 255)
 	private String contenido;
-	
-	@Column(name="enlace_noticia", length=255)
+
+	@Column(name = "enlace_noticia", length = 255)
 	private String enlaceNoticia;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Boolean estatus;
-	
-	@Column(name="fecha_registro")
+
+	@Column(name = "fecha_registro")
 	@Temporal(TemporalType.DATE)
 	private Date fechaRegistro;
 
 	private Archivo fotoNoticia = new Archivo();
-	
-	@Column(nullable=false, length=60)
+
+	@Column(nullable = false, length = 60)
 	private String titulo;
-	
-	@Column(name="fecha_vencimiento")
+
+	@Column(name = "fecha_vencimiento")
 	@Temporal(TemporalType.DATE)
 	private Date vencimiento;
 
 	public Noticia() {
 	}
 
+	// metodos set y get
 	public Integer getIdNoticia() {
 		return this.idNoticia;
 	}
@@ -126,8 +132,9 @@ public class Noticia implements Serializable {
 	public void setVencimiento(Date vencimiento) {
 		this.vencimiento = vencimiento;
 	}
+
 	/**
-	 * fotoNoticia Se crea un nuevo tipo de dato que en este caso va ser la foto 
+	 * fotoNoticia Se crea un nuevo tipo de dato que en este caso va ser la foto
 	 */
 	@Embedded()
 	public Archivo getFotoNoticia() {

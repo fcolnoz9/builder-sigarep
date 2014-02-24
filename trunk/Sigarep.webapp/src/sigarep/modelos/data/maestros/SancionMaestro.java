@@ -9,8 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * The persistent class for the sancion_maestro database table.
+ * Clase Sancion Registra y Modifica una sancion
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 15/12/2013
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -35,9 +38,17 @@ public class SancionMaestro implements Serializable {
 	@OneToMany(mappedBy = "sancionMaestro")
 	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
+	// Constructor por defecto
 	public SancionMaestro() {
 	}
 
+	/**
+	 * Constructor Sancion
+	 * 
+	 * @param idSancion
+	 *            , descripcion, estatus, nombreSancion
+	 * @return Constructor lleno
+	 */
 	public SancionMaestro(Integer idSancion, String descripcion,
 			Boolean estatus, String nombreSancion) {
 		super();

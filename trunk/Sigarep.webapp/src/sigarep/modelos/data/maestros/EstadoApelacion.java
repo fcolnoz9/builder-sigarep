@@ -3,13 +3,14 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/** Clase EstadoApelacion
- * Registra y Modifica el Estado de Apelación asociado a Instancia Apelada
+/**
+ * Clase EstadoApelacion Registra y Modifica el Estado de Apelación asociado a
+ * Instancia Apelada
+ * 
  * @author BUILDER
  * @version 1
- * @since 15/12/2013 
+ * @since 15/12/2013
  */
-
 
 @Entity
 @Access(AccessType.FIELD)
@@ -18,8 +19,15 @@ import javax.persistence.*;
 public class EstadoApelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public EstadoApelacion(Integer idEstadoApelacion, String nombreEstado, String descripcion,
-			Boolean estatus) {
+	/**
+	 * Constructor Estado apelacion
+	 * 
+	 * @param idEstadoApelacion
+	 *            , nombreEstado, descripcion, estatus
+	 * @return Constructor lleno
+	 */
+	public EstadoApelacion(Integer idEstadoApelacion, String nombreEstado,
+			String descripcion, Boolean estatus) {
 		super();
 		this.idEstadoApelacion = idEstadoApelacion;
 		this.nombreEstado = nombreEstado;
@@ -41,10 +49,10 @@ public class EstadoApelacion implements Serializable {
 
 	@Column(name = "descripcion", length = 255)
 	private String descripcion;
-	
-	//bi-directional many-to-one association to InstanciaApelada
+
+	// bi-directional many-to-one association to InstanciaApelada
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="id_instancia_apelada", nullable=false)
+	@JoinColumn(name = "id_instancia_apelada", nullable = false)
 	private InstanciaApelada instanciaApelada;
 
 	public EstadoApelacion() {
