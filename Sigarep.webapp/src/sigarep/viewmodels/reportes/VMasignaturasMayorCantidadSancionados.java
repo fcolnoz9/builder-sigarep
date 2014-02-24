@@ -15,6 +15,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -33,6 +34,8 @@ import sigarep.modelos.servicio.reportes.ServicioListaAsignaturasMayorCantidadSa
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMasignaturasMayorCantidadSancionados {
+	
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	//*************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 	ReportType reportType = null;
@@ -202,8 +205,8 @@ public class VMasignaturasMayorCantidadSancionados {
   	
 	  	/**Inicialización
 		 * @param init
-		 * @return Carga de Variables y metodos inicializados
-		 * @throws No dispara ninguna excepcion.
+		 * @return Carga de Variables y métodos inicializados
+		 * @throws No dispara ninguna excepción.
 		 */
 	  	
 	  	@Init
@@ -220,7 +223,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	  	/** Limpiar Asignaturas Sancionados.
 		* @param Ninguno
 		* @return Limpiar cada uno de los combos de la vista
-		* @throws No dispara ninguna excepcion.
+		* @throws No dispara ninguna excepción.
 		*/
 
 		@Command
@@ -234,10 +237,10 @@ public class VMasignaturasMayorCantidadSancionados {
   	
 	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
 	
-  	/** Buscar Programas Academicos.
+  	/** Buscar Programas Académicos.
  	* @param Ninguno
- 	* @return Listado de Programas Academicos
- 	* @throws No dispara ninguna excepcion.
+ 	* @return Listado de Programas Académicos
+ 	* @throws No dispara ninguna excepción.
  	*/
   	
   	@Command
@@ -248,8 +251,8 @@ public class VMasignaturasMayorCantidadSancionados {
   	
   	/** Objeto Combo Programa.
  	* @param Ninguno
- 	* @return Objeto Programa Academico
- 	* @throws No dispara ninguna excepcion.
+ 	* @return Objeto Programa Académico
+ 	* @throws No dispara ninguna excepción.
  	*/
   	
 	@Command
@@ -261,8 +264,8 @@ public class VMasignaturasMayorCantidadSancionados {
 	
 	/** Buscar Lapsos.
  	* @param Ninguno
- 	* @return Listado de Lapsos Academicos
- 	* @throws No dispara ninguna excepcion.
+ 	* @return Listado de Lapsos Académicos
+ 	* @throws No dispara ninguna excepción.
  	*/
 	
 	@Command
@@ -273,8 +276,8 @@ public class VMasignaturasMayorCantidadSancionados {
 	
 	/** Objeto Combo Lapso.
  	* @param Ninguno
- 	* @return Objeto Lapso Academico
- 	* @throws No dispara ninguna excepcion.
+ 	* @return Objeto Lapso Académico
+ 	* @throws No dispara ninguna excepción.
  	*/
 	
 	@Command
@@ -287,7 +290,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	/** Buscar Instancias Apeladas.
  	* @param Ninguno
  	* @return Listado de Instancias
- 	* @throws No dispara ninguna excepcion.
+ 	* @throws No dispara ninguna excepción.
  	*/
 	
 	@Command
@@ -299,7 +302,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	/** Objeto Combo Instancia.
  	* @param Ninguno
  	* @return Objeto Instancia Apelada
- 	* @throws No dispara ninguna excepcion.
+ 	* @throws No dispara ninguna excepción.
  	*/
 	
 	@Command
@@ -328,7 +331,7 @@ public class VMasignaturasMayorCantidadSancionados {
 		
 				
 			if(programaAcademico==null || lapsoAcademico== null || instanciaApelada== null)
-				Messagebox.show("Debe seleccionar todos los campos", "Informacion", Messagebox.OK,Messagebox.INFORMATION);
+				mensajeAlUsuario.advertenciaSeleccionarTodo();
 			else{
 				
 				listaAsigMayor.clear();
@@ -349,8 +352,7 @@ public class VMasignaturasMayorCantidadSancionados {
 					reportConfig.setDataSource(new JRBeanCollectionDataSource(listaAsigMayor)); //ASIGNANDO MEDIANTE EL DATA SOURCE LOS DATOS PARA DIBUJAR EL REPORTE   
 				}
 				else
-					Messagebox.show("No existen datos para la seleccion", "Informacion", Messagebox.OK,Messagebox.INFORMATION);
-
+					mensajeAlUsuario.informacionNoHayCoincidencias();
 			}
 				
 	}

@@ -13,6 +13,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -38,6 +39,7 @@ import sigarep.modelos.servicio.reportes.ServicioListaAsignaturasMayorCantidadSa
 public class VMAsignaturaMotivosApelacionesVsResultado {
 	
 	
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	//*************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 		ReportType reportType = null;
 		private ReportConfig reportConfig = null;
@@ -204,7 +206,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	  	/**Inicialización
 		 * @param init
 		 * @return Carga de Variables y metodos inicializados
-		 * @throws No dispara ninguna excepcion.
+		 * @throws No dispara ninguna excepción.
 		 */
 	
 		@Init
@@ -223,7 +225,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		/** Limpiar Asignatura Motivos.
 		* @param Ninguno
 		* @return Limpiar cada uno de los combos de la vista
-		* @throws No dispara ninguna excepcion.
+		* @throws No dispara ninguna excepción.
 		*/
 	
 		@Command
@@ -240,8 +242,8 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		
 		/** Buscar Lapsos.
 	 	* @param Ninguno
-	 	* @return Listado de Lapsos Academicos
-	 	* @throws No dispara ninguna excepcion.
+	 	* @return Listado de Lapsos Académicos
+	 	* @throws No dispara ninguna excepción.
 	 	*/
 		
 		@Command
@@ -252,8 +254,8 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		
 		/** Objeto Combo Lapsos.
 	 	* @param Ninguno
-	 	* @return Objeto Lapso Academico
-	 	* @throws No dispara ninguna excepcion.
+	 	* @return Objeto Lapso Académico
+	 	* @throws No dispara ninguna excepción.
 	 	*/
 		@Command
 		 @NotifyChange({"listaComboLapsoAcademico"})
@@ -265,7 +267,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		/** Buscar Instancias Apeladas.
 	 	* @param Ninguno
 	 	* @return Listado de Instancias
-	 	* @throws No dispara ninguna excepcion.
+	 	* @throws No dispara ninguna excepción.
 	 	*/
 		@Command
 		@NotifyChange({ "listaComboInstancias" })
@@ -276,7 +278,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 		/** Objeto Combo Instancia.
 	 	* @param Ninguno
 	 	* @return Objeto Instancia Apelada
-	 	* @throws No dispara ninguna excepcion.
+	 	* @throws No dispara ninguna excepción.
 	 	*/
 		@Command
 		@NotifyChange({"listaComboInstancias"})
@@ -290,7 +292,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	/** Programa Seleccionado.
 	 * @param Integer IdPrograma
 	 * @return Lista de Asignaturas dependiendo del Programa Seleccionado
-	 * @throws No dispara ninguna excepcion
+	 * @throws No dispara ninguna excepción
 	 */	
 	@Command
     @NotifyChange({"listaAsignatura","contenido"})
@@ -317,7 +319,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 				
 				
 				if(asignatura== null || lapsosAcademicos== null || instanciasApeladas== null)
-					Messagebox.show("Debe seleccionar todos los campos", "Informacion", Messagebox.OK,Messagebox.INFORMATION);
+					mensajeAlUsuario.advertenciaSeleccionarTodo();
 				else{
 					
 					listaApelacionMotivoAsignatura.clear();
@@ -339,8 +341,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 						reportConfig.setDataSource(new JRBeanCollectionDataSource(listaApelacionMotivoAsignatura)); //ASIGNANDO MEDIANTE EL DATA SOURCE LOS DATOS PARA DIBUJAR EL REPORTE   
 					}
 					else
-						Messagebox.show("No existen datos para la seleccion", "Informacion", Messagebox.OK,Messagebox.INFORMATION);
-	
+						mensajeAlUsuario.informacionNoHayCoincidencias();	
 				}
 	}
 	
