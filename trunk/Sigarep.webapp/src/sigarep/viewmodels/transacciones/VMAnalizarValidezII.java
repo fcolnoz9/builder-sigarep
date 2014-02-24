@@ -358,19 +358,6 @@ public class VMAnalizarValidezII {
 	}
 
 	/**
-	 * buscar Recaudos PorTipoMotivo
-	 * 
-	 * @param tipoMotivo
-	 * @return Lista de recaudos y motivos por estudiante
-	 */
-	@Command
-	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
-	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo) {
-		listaRecaudosPorMotivo = serviciorecaudo
-				.listadoRecaudosPorMotivo(tipoMotivo);
-	}
-
-	/**
 	 * Buscar Recaudos Entregados
 	 * 
 	 * @return el Listado de recaudos buscado de la lista

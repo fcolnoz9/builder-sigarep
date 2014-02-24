@@ -14,12 +14,14 @@ import java.util.List;
  * @ Version 1.0, 16/12/13
 */
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.Recaudo;
+import sigarep.modelos.data.maestros.TipoMotivo;
 
 public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 
@@ -32,10 +34,10 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	
 	/**
 	 * Busca los recaudos activos de un tipo de motivo dado
-	 * @param idTipoMotivo identificador del tipo de motivo al que se le buscaran los recaudos
+	 * @param motivo identificador del tipo de motivo al que se le buscaran los recaudos
 	 * @return List<Recaudo> Lista de recaudos activos para el tipo de motivo dado
 	 */
-	public List<Recaudo> findByTipoMotivoAndEstatusTrue(Integer tipoMotivo);
+	public List<Recaudo> findByTipoMotivoAndEstatusTrue(TipoMotivo motivo);
 
 	/**
 	 * Busca un recaudo por su nombre

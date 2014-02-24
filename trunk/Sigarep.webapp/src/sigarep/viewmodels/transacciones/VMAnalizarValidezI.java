@@ -310,15 +310,6 @@ public class VMAnalizarValidezI {
 	}
 	// FIN DEL METODO GET Y SET
 
-		/** se llenan las listas de recaudos entregados por motivos
-	    * @param tipo motivo
-	    */
-	@Command
-	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
-	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo){
-			listaRecaudosPorMotivo  = serviciorecaudo.listadoRecaudosPorMotivo(tipoMotivo);
-	}
-		
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
