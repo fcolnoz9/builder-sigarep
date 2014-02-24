@@ -298,7 +298,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
     {
 		
 		listaAsignatura.clear();
-		listaAsignatura = servicioAsignatura.buscarAsignaturasPorPrograma(programaseleccionado.getIdPrograma());
+		listaAsignatura = servicioAsignatura.buscarAsignaturasPorPrograma(programaseleccionado);
 		contenido="";
     }
 	
