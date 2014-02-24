@@ -35,7 +35,7 @@ public class VMlapsoAcademico {
 	private Boolean estatus;// estatus del codigolapso
 	private List<LapsoAcademico> listaLapsoAcademico;// lista de los lapso académico registrados
 	private LapsoAcademico lapsoAcademicoSeleccionado;
-	
+	private LapsoAcademico lapsoAcademico;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@Wire
 	Textbox txtcodigoLapso;
@@ -82,7 +82,6 @@ public class VMlapsoAcademico {
 		this.listaLapsoAcademico = listaLapsoAcademico;
 	}
 
-	
 	public LapsoAcademico getLapsoAcademicoSeleccionado() {
 		return lapsoAcademicoSeleccionado;
 	}
@@ -91,14 +90,27 @@ public class VMlapsoAcademico {
 			LapsoAcademico lapsoAcademicoseleccionado) {
 		this.lapsoAcademicoSeleccionado = lapsoAcademicoseleccionado;
 	}
+	public LapsoAcademico getLapsoAcademico() {
+		return lapsoAcademico;
+	}
 
+	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
+		this.lapsoAcademico = lapsoAcademico;
+	}
+	
+
+	
 	// Fin de los metodos gets y sets
 
 	// ----------- OTROS METODOS
 
+
+
+
 	@Init
 	public void init() {
 		// initialization code
+		buscarLapsoAcademico();
 		buscarTodosLapsoAcademicos();
 	}
 
@@ -110,7 +122,7 @@ public class VMlapsoAcademico {
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico" })
+			"listaLapsoAcademico", "lapsoAcademico"})
 	public void guardarLapso() {
 		if (codigoLapso == null || fechaInicio == null || fechaCierre == null || codigoLapso.equals(""))
 			mensajeAlUsuario.advertenciaLlenarCampos();
@@ -119,7 +131,10 @@ public class VMlapsoAcademico {
 				LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,
 						fechaInicio, fechaCierre, true);
 					serviciolapsoacademico.guardarLapso(lapsoA);
+					mensajeAlUsuario.informacionRegistroCorrecto();
 					limpiarlapso();
+					buscarLapsoAcademico();
+					
 			}else if(serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso) == null && serviciolapsoacademico.buscarLapsoActivo() != null){
 				mensajeAlUsuario.errorLapsoActivoExistente();
 			}
@@ -133,10 +148,14 @@ public class VMlapsoAcademico {
 						serviciolapsoacademico.guardarLapso(lapsoA);
 						mensajeAlUsuario.informacionRegistroCorrecto();
 						limpiarlapso();
+						buscarLapsoAcademico();
+						
+						
 					}
 			}
 
 		}
+		buscarLapsoAcademico();
 	}
 	
 	/**
@@ -166,13 +185,14 @@ public class VMlapsoAcademico {
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico", "estatus" })
+			"listaLapsoAcademico","estatus" })
 	public void limpiarlapso() {
 		codigoLapso = "";
 		fechaInicio = null;
 		fechaCierre = null;
 		lapsoAcademicoSeleccionado = new LapsoAcademico();
 		buscarTodosLapsoAcademicos();
+		
 	}
 
 	/**
@@ -188,7 +208,16 @@ public class VMlapsoAcademico {
 		return listaLapsoAcademico =  serviciolapsoacademico
 				.buscarTodosLosLapsos();
 	}
-
+	/** buscar   Lapso Academico
+	 * @return lapso activo
+	 * @param  
+	 * @throws No dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "lapsoAcademico" })
+	public void buscarLapsoAcademico() {
+		lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
+	}
 	/**
 	 * permite tomar los datos del objeto lapso académico seleccionado
 	 * @return nada
