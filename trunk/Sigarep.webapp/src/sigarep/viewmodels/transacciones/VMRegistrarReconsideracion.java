@@ -282,6 +282,10 @@ public class VMRegistrarReconsideracion {
 	public void registrarSolicitudApelacion(
 			@BindingParam("window") Window winRegistrarReconsideracion) {
 		Date fecha = new Date();
+		if (observacion==" " || observacion ==null) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
+
+		} else {
 		solicitudApelacionPK.setCedulaEstudiante(cedula);
 		solicitudApelacionPK.setCodigoLapso(lapso);
 		solicitudApelacionPK.setIdInstanciaApelada(2);
@@ -303,7 +307,7 @@ public class VMRegistrarReconsideracion {
 		motivoPK.setIdTipoMotivo(2);
 		motivos.setId(motivoPK);
 		motivos.setEstatus(true);
-
+		}
 		try {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);

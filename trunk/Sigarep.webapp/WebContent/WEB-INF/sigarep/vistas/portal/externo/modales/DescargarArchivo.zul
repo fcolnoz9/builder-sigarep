@@ -10,8 +10,6 @@
 			<listhead>
 				<listheader label="Titulo" align="center"
 					sort="auto(titulo)" />
-				<listheader label="Fecha Subida" align="center"
-					sort="auto(fechaSubida)" />
 				<listheader label="Descripcion" align="center"
 					sort="auto(descripcion)" />
 				<listheader label="Archivo" align="center" />
@@ -19,7 +17,6 @@
 			<template name="model">
 				<listitem selected="true">
 					<listcell label="${each.titulo}"></listcell>
-					<listcell label="${each.fechaSubida}"></listcell>
 					<listcell label="${each.descripcion}"></listcell>
 					<listcell>
 						<button
