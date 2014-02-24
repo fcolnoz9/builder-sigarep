@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroInstanciaApelada" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="140"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -84,9 +84,9 @@
 		</box>
 	</style>
 	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
-		<field name="instancia_apelada" class="java.lang.Integer"/>
-		<field name="descripcion" class="java.lang.Integer"/>
-		<field name="recurso_apelacion" class="java.lang.String"/>
+		<field name="instanciaApelada" class="java.lang.String"/>
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="nombreRecursoApelacion" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="ImagenSuperior" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -116,18 +116,13 @@
 				and sa.codigo_lapso = '2013-1'
 				GROUP BY timo.nombre_tipo_motivo, prog.nombre_programa]]>
 	</queryString>
-	<field name="procedentes" class="java.lang.Integer"/>
-	<field name="apelaciones" class="java.lang.Integer"/>
-	<field name="motivo" class="java.lang.String"/>
-	<field name="total" class="java.lang.Integer"/>
-	<field name="sancionados" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="50" splitType="Stretch">
 			<image scaleImage="RealHeight">
-				<reportElement x="0" y="0" width="572" height="50" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
+				<reportElement x="0" y="0" width="752" height="50" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
 		</band>
@@ -135,26 +130,26 @@
 	<pageHeader>
 		<band height="125" splitType="Stretch">
 			<image>
-				<reportElement x="16" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
+				<reportElement x="53" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="466" y="0" width="106" height="64" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
+				<reportElement x="610" y="0" width="106" height="64" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="125" y="0" width="304" height="50" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
+				<reportElement x="237" y="0" width="304" height="50" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="145" y="64" width="304" height="50" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
+				<reportElement x="237" y="64" width="304" height="50" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LISTA DE INSTANCIA DE APELACIÓN]]></text>
+				<text><![CDATA[LISTA DE INSTANCIAS DE APELACIÓN]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -162,29 +157,40 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<pageFooter>
-		<band height="50" splitType="Stretch">
+		<band height="87" splitType="Stretch">
+			<textField>
+				<reportElement x="598" y="0" width="94" height="20" uuid="001da192-8390-48cc-915b-a84680c59065"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="692" y="0" width="58" height="20" uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="137" height="20" uuid="c2ad4f53-1321-43c8-95f8-a2109052e4f4"/>
+				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="752" height="1" uuid="27fdbe67-a73f-41f3-924b-fe5b94e1bf6b"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="137" y="0" width="100" height="20" uuid="b96ee4c8-f9e7-4ee5-8e4f-23887d3826cb"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 			<image>
-				<reportElement x="0" y="0" width="572" height="50" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
+				<reportElement x="0" y="31" width="752" height="50" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="374" splitType="Stretch">
+		<band height="65" splitType="Stretch">
 			<elementGroup/>
-			<textField>
-				<reportElement x="411" y="349" width="94" height="20" uuid="001da192-8390-48cc-915b-a84680c59065"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="505" y="349" width="58" height="20" uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 			<componentElement>
-				<reportElement key="table 3" style="table 3" x="0" y="0" width="572" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
+				<reportElement key="table 3" style="table 3" x="53" y="0" width="572" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Tabla" uuid="7b1028c8-0687-4c8a-a081-dc2223caba57">
+					<datasetRun subDataset="Tabla" uuid="8be9c817-860f-4ea2-a223-44cfe385e3be">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="195" uuid="bf83a609-fcbe-4f84-902f-89338a606462">
@@ -199,9 +205,9 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="195" height="20" uuid="43a0a227-a08e-4d66-80dc-79b28090a21c"/>
+								<reportElement x="0" y="0" width="195" height="20" uuid="625fa464-7292-4648-9f7e-09b1a8cac8ff"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{instancia_apelada}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{instanciaApelada}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -217,9 +223,9 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="254" height="20" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
+								<reportElement x="0" y="0" width="254" height="20" uuid="7f3492a5-e333-4bab-b0ce-168e288b9141"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{recurso_apelacion}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{nombreRecursoApelacion}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -243,17 +249,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<staticText>
-				<reportElement x="0" y="349" width="137" height="20" uuid="c2ad4f53-1321-43c8-95f8-a2109052e4f4"/>
-				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
-			</staticText>
-			<line>
-				<reportElement x="0" y="369" width="572" height="1" uuid="27fdbe67-a73f-41f3-924b-fe5b94e1bf6b"/>
-			</line>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="137" y="349" width="100" height="20" uuid="b96ee4c8-f9e7-4ee5-8e4f-23887d3826cb"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>
