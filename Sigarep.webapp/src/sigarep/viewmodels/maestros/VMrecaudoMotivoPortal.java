@@ -231,7 +231,7 @@ public class VMrecaudoMotivoPortal {
 		@Command
 		@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "tipoMotivo","nombreTipoMotivo","listaRecaudos","listaTipoMotivo","listaRecaudosMotivos"})
 		public void buscarRecaudoMotivoCombo() {
-			listaRecaudosMotivos = serviciorecaudo.listadoRecaudosPorMotivo(tipoMotivo.getIdTipoMotivo());
+			listaRecaudosMotivos = serviciorecaudo.listadoRecaudosPorMotivo(tipoMotivo);
 		}
 
 		/**

@@ -1,9 +1,12 @@
 package sigarep.modelos.servicio.maestros;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import sigarep.modelos.data.maestros.Recaudo;
+import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
 
 /*
@@ -39,8 +42,8 @@ public class ServicioRecaudo {
 		iRecaudoDAO.save(rec);
 	}
 	
-	public List<Recaudo> listadoRecaudosPorMotivo(Integer idMotivo) {
-	    return iRecaudoDAO.findByTipoMotivoAndEstatusTrue(idMotivo);
+	public List<Recaudo> listadoRecaudosPorMotivo(TipoMotivo motivo) {
+	    return iRecaudoDAO.findByTipoMotivoAndEstatusTrue(motivo);
 	}
 	
 	public Recaudo buscarRecaudoPorNombre(String nombreRecaudo) {

@@ -321,12 +321,6 @@ public class VMVerificarRecaudosEntregadosI {
 		this.labelAsignaturaLapsosConsecutivos = labelAsignaturaLapsosConsecutivos;
 	}
 
-	@Command
-	@NotifyChange({"tipoMotivo", "nombreRecaudo","listaRecaudosPorMotivo"})
-	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo){
-			listaRecaudosPorMotivo  = serviciorecaudo.listadoRecaudosPorMotivo(tipoMotivo);
-	}
-	
 	@Init
 	public void init(
 
@@ -457,15 +451,7 @@ public class VMVerificarRecaudosEntregadosI {
 		 selected = "";
 		 buscarRecaudos();
 	}
-	
-	@Command
-	@NotifyChange({"listaTipoMotivo","tipoMotivo","listaRecaudosPorMotivo"})
-	public TipoMotivo objetoTipoMotivo() {
-		System.out.println("tipo de motivo:"+tipoMotivo.getIdTipoMotivo());
-		buscarRecaudosPorTipoMotivo(tipoMotivo.getIdTipoMotivo());
-		return tipoMotivo;
-	}
-	
+
 	@Command
 	public void notificarRecaudoVerificado(@BindingParam("lbxRecaudos") Listbox lbxRecaudos) {
 		Listcell a = (Listcell)lbxRecaudos.getAttribute("identificadorListitem");

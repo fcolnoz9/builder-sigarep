@@ -315,13 +315,6 @@ public class VMVerificarRecaudosEntregadosIII {
 		this.listaRecaudosPorEntregar = listaRecaudosPorEntregar;
 	}
 
-	@Command
-	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
-	public void buscarRecaudosPorTipoMotivo(Integer tipoMotivo) {
-		listaRecaudosPorMotivo = serviciorecaudo
-				.listadoRecaudosPorMotivo(tipoMotivo);
-	}
-
 	@Init
 	public void init(
 
@@ -373,16 +366,6 @@ public class VMVerificarRecaudosEntregadosIII {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
 			asignaturaLapsosConsecutivos = lapsosConsecutivos;
 		}
-	}
-
-	/** se llenan las listas de recaudos entregados y de recaudos faltantes por entregar
-	    * @param cedula
-	    */
-	@Command
-	@NotifyChange({ "tipoMotivo", "nombreRecaudo", "listaRecaudosPorMotivo" })
-	public void buscarRecaudosPorTipoMotivos(Integer tipoMotivo) {
-		listaRecaudosPorMotivo = serviciorecaudo
-				.listadoRecaudosPorMotivo(tipoMotivo);
 	}
 
 	@Command
@@ -494,13 +477,6 @@ public class VMVerificarRecaudosEntregadosIII {
 		listaRecaudosEntregados = serviciorecaudoentregado.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
 	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosIII(cedula);
 		buscarRecaudos();
-	}
-
-	@Command
-	@NotifyChange({ "listaTipoMotivo", "tipoMotivo", "listaRecaudosPorMotivo" })
-	public TipoMotivo objetoTipoMotivo() {
-		buscarRecaudosPorTipoMotivo(tipoMotivo.getIdTipoMotivo());
-		return tipoMotivo;
 	}
 	
 	//Muestra un mensaje que el recaudo fue verificado
