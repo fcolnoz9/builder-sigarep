@@ -21,8 +21,14 @@ public class ServicioSoporte {
 	private @Autowired ISoporteDAO iSoporteDAO;
 	
 	
-	public Soporte guardar(Soporte soporte) {
-		return iSoporteDAO.save(soporte);
+	public void guardar(Soporte soporte) {
+		if (soporte.getIdSoporte() != null)
+			iSoporteDAO.save(soporte);
+		else{
+			soporte.setIdSoporte(iSoporteDAO.buscarUltimoID()+1);
+			iSoporteDAO.save(soporte);
+		}
+		
 	}
 	
 	public void eliminar(Integer idSoporte){
