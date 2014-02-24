@@ -47,6 +47,7 @@ public class VMPortalPrincipal {
 	private String lugarActividad;
 	private Cronograma cronograma;
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
+	private List<Reglamento> listaReglamento = new LinkedList<Reglamento>();
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private String nombre;
 	private String correo;
@@ -236,11 +237,16 @@ public class VMPortalPrincipal {
 	 */
 	@Command
 	public void descargarGuia() {
-		Reglamento guia = servicioreglamento.buscarGuia().get(0);
-		if (guia != null) {
-			Filedownload.save(guia.getDocumento().getContenidoDocumento(), guia
-					.getDocumento().getTipoDocumento(), guia.getDocumento()
-					.getNombreDocumento());
+		listaReglamento = servicioreglamento.buscarGuia();
+		if (listaReglamento.size() > 0) {
+			Reglamento guia = servicioreglamento.buscarGuia().get(0);
+			if (guia != null) {
+				Filedownload.save(guia.getDocumento().getContenidoDocumento(),
+						guia.getDocumento().getTipoDocumento(), guia
+								.getDocumento().getNombreDocumento());
+			} else {
+				mensajeAlUsuario.advertenciaCargarDocumento();
+			}
 		} else {
 			mensajeAlUsuario.advertenciaCargarDocumento();
 		}
@@ -268,6 +274,15 @@ public class VMPortalPrincipal {
 		win.doModal();
 	}
 
+	/**
+	 * limpiar.
+	 * 
+	 * @param Ninguno
+	 * @return Limpiar todos los campos de la ventana.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 * 
+	 */
 	@Command
 	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
 	public void limpiar() {
@@ -277,6 +292,15 @@ public class VMPortalPrincipal {
 		consulta = "";
 	}
 
+	/**
+	 * enviarCorreoContactanos.
+	 * 
+	 * @param Ninguno
+	 * @return envía el correo con el mensaje/consulta al sistema.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 * 
+	 */
 	@Command
 	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
 	public void enviarCorreoContactanos() {
