@@ -138,7 +138,7 @@
 					<label id="lblIndiceGrado" value="Indice de grado:" />
 					<textbox id="txtIndiceGrado" mold="rounded"
 						width="20%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.indiceGrado)" />
+						value="@bind(vm.indiceGrado)"  />
 					<label id="lblSancion" value="Sanción:" />
 					<combobox  id="cmbSancion" readonly="true"
 					    placeholder = "Seleccione el tipo de sanción..."
@@ -226,7 +226,7 @@
 						<listcell
 							label="${each.asignatura.nombreAsignatura}" />
 						<listcell height="%">
-			   			<textbox value="${each.condicionAsignatura}" mold="rounded"  rows="1" />
+			   			<textbox value="${each.condicionAsignatura}" placeholder = "Ej: 2" mold="rounded"  rows="1" />
 			   			</listcell>
 					</listitem>
 				</template>
@@ -302,13 +302,6 @@
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
-<!-- 				<listheader label="Lapso " sort="auto(id.codigoLapso)" -->
-<!-- 					align="center"> -->
-<!-- 					<textbox id="filtroLapso" instant="true" -->
-<!-- 						width="50px" value="@bind(vm.lapsoAcademico)" -->
-<!-- 						onChange="@command('filtros')" /> -->
-<!-- 					<image src="imagenes/iconos/buscar.png" /> -->
-<!-- 				</listheader> -->
 			</listhead>
 			<template name="model">
 				<listitem>
