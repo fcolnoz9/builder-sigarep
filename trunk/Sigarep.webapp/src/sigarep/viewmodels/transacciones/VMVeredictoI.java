@@ -386,6 +386,7 @@ public class VMVeredictoI {
 			apelacionEstado.setId(apelacionEstadoPK);
 			apelacionEstado.setFechaEstado(new Date());
 			apelacionEstado.setObservacion(observacionGeneral);
+			apelacionEstado.setSugerencia(veredicto);
 			solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			mensajeAlUsuario.informacionVeredictoRegistrado();
@@ -429,7 +430,8 @@ public class VMVeredictoI {
 	@NotifyChange({"veredicto", "observacionGeneral"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if(veredicto !=null|| observacionGeneral !=null)
+		//if(veredicto !=null || observacionGeneral !=null)
+		if (!veredicto.equals("") )
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaTransacciones(ventana,condicion);		
 	}
