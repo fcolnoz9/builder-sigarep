@@ -1,3 +1,4 @@
+<?page title="Sistema Integrado en Apoyo a la Gestión del Régimen de Repitencia y Permanencia"?>
 <?link rel="stylesheet" type="text/css" href="/widgets/css/style.css"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="WEB-INF/sigarep/vistas/portal/interno/template.zul"?>
 <zk>
