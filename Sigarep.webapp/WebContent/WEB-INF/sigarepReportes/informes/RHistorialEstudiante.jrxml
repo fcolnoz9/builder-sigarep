@@ -112,7 +112,6 @@
 		<field name="fechaEstado" class="java.lang.String"/>
 		<field name="observacion" class="java.lang.String"/>
 		<field name="sugerencia" class="java.lang.String"/>
-		<field name="EstadoApelacion.nombreEstado" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="ImagenSuperior" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -127,7 +126,6 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Lapso" class="java.lang.String"/>
-	<parameter name="Programa" class="java.lang.String"/>
 	<parameter name="Titulo" class="java.lang.String"/>
 	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="cedula" class="java.lang.String"/>
@@ -276,7 +274,12 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 								<text><![CDATA[Observación]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 4_TD" height="20" rowSpan="1"/>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="03830832-a28e-4405-b00c-5dc57c92d80a"/>
+								<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="9b9abea3-6d85-4360-b8a8-ab355d3c6f91">
 						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
@@ -288,7 +291,12 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 								<text><![CDATA[Sugerencia]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 4_TD" height="20" rowSpan="1"/>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f9d12cbb-7b22-4c9a-9a92-85908fcaac54"/>
+								<textFieldExpression><![CDATA[$F{sugerencia}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>

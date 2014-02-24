@@ -223,6 +223,8 @@ public class VMDetalleHistorialEstudiante {
 			reportConfig.getParameters().put("cedula", cedula);
 			reportConfig.getParameters().put("nombre", estudiante.get(0).getEstudiante().getPrimerNombre());
 			reportConfig.getParameters().put("apellido", estudiante.get(0).getEstudiante().getPrimerApellido());
+			reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
+					apelacionestudiante));
 			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 //											// IMPRESION DEL REPORTE
 			reportConfig.setDataSource(new JRBeanCollectionDataSource(
