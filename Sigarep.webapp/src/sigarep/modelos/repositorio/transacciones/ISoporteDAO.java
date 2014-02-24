@@ -16,4 +16,11 @@ public interface ISoporteDAO extends JpaRepository<Soporte, Integer> {
 	public Soporte buscarSoportePorIdRecaudoEntregado(@Param("idRecaudo")Integer idRecaudo,
 			@Param("idTipoMotivo")Integer idTipoMotivo, @Param("idInstanciaApelada")Integer idInstanciaApelada,
 			@Param("cedula")String cedula, @Param("codigoLapso")String codigoLapso);
+	
+	/**
+	 * Busca el ultimo id insertado en la tabla Soporte
+	 * @return Ultimo id insertado en la tabla Soporte
+	 */
+	@Query("SELECT COALESCE(MAX(s.idSoporte),0) FROM Soporte AS s")
+	public int buscarUltimoID();
 }
