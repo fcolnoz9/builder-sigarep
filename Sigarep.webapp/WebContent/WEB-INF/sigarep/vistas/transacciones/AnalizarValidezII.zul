@@ -106,7 +106,7 @@
 				</rows>
 			</grid>
 		</groupbox>
-		
+<!-- Gruoupbox que contiene los datos del analisis anterior-->
 		<groupbox id= "amanda">
 		<caption label="Datos del Análisis Anterior" />
 			<button id="idAnalisisAnterior"
