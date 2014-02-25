@@ -87,9 +87,9 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	public List<SolicitudApelacion> buscarApelacionesVeredictoIII();
 	
 	
-	@Query("select max(sa.numeroCaso) from SolicitudApelacion AS sa, LapsoAcademico la where la.estatus = 'TRUE' " +
+	@Query("select max(SUBSTR(sa.numeroCaso,13,14)) from SolicitudApelacion AS sa, LapsoAcademico la where la.estatus = 'TRUE' " +
 			"and la.codigoLapso = sa.id.codigoLapso")
-	public int mayorNumeroCaso();
+	public String mayorNumeroCaso();
 	
 	//Flor/Amanda
 		//lista de estudiantes sancionados Analizar Validez/Primera Apelación 

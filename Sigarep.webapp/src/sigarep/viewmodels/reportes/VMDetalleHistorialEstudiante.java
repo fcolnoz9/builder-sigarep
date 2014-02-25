@@ -225,10 +225,14 @@ public class VMDetalleHistorialEstudiante {
 			reportConfig.getParameters().put("apellido", estudiante.get(0).getEstudiante().getPrimerApellido());
 			reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
 					apelacionestudiante));
+			reportConfig.getParameters().put("ListaInstancia2", new JRBeanCollectionDataSource(
+					apelacionestudianteinstancia2));
+			reportConfig.getParameters().put("ListaInstancia3", new JRBeanCollectionDataSource(
+					apelacionestudianteinstancia3));
 			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 //											// IMPRESION DEL REPORTE
-			reportConfig.setDataSource(new JRBeanCollectionDataSource(
-					apelacionestudiante));				// DATOS PARA DIBUJAR EL REPORTE
+//			reportConfig.setDataSource(new JRBeanCollectionDataSource(
+//					apelacionestudiante));				// DATOS PARA DIBUJAR EL REPORTE
 //			reportConfig.setDataSource(new JRBeanCollectionDataSource(
 //					apelacionestudianteinstancia2));
 //			reportConfig.setDataSource(new JRBeanCollectionDataSource(
