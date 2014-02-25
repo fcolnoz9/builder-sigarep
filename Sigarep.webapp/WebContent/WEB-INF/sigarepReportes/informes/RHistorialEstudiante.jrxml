@@ -358,6 +358,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<jr:detailCell style="table 4_TD" height="36" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="16" width="90" height="20" uuid="7873e0c3-ed85-41d2-a4ba-17a6a11a7b75"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{sugerencia}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -436,6 +437,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<jr:detailCell style="table 5_TD" height="32" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="12" width="94" height="20" uuid="b3b4b59b-e5de-4508-9d6f-2ceb18839516"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{sugerencia}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -514,6 +516,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<jr:detailCell style="table 6_TD" height="32" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="12" width="93" height="20" uuid="f9089e90-ad51-4392-892a-c82781ad71e4"/>
+								<textElement textAlignment="Center"/>
 								<textFieldExpression><![CDATA[$F{sugerencia}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>

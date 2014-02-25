@@ -223,9 +223,24 @@ public class VMDetalleHistorialEstudiante {
 			reportConfig.getParameters().put("cedula", cedula);
 			reportConfig.getParameters().put("nombre", estudiante.get(0).getEstudiante().getPrimerNombre());
 			reportConfig.getParameters().put("apellido", estudiante.get(0).getEstudiante().getPrimerApellido());
-			reportConfig.getParameters().put("sugerencia1", apelacionestudiante.get(0).getSugerencia());
-			reportConfig.getParameters().put("sugerencia2", apelacionestudianteinstancia2.get(0).getSugerencia());
-			reportConfig.getParameters().put("sugerencia3", apelacionestudianteinstancia3.get(0).getSugerencia());
+			for (int i = 0; i < apelacionestudiante.size(); i++) {
+				String sugerencia = apelacionestudiante.get(i).getSugerencia();
+				if (sugerencia == null){
+				 apelacionestudiante.get(i).setSugerencia("-----");
+					}
+				}
+			for (int i = 0; i < apelacionestudianteinstancia2.size(); i++) {
+				String sugerencia = apelacionestudianteinstancia2.get(i).getSugerencia();
+				if (sugerencia == null){
+				 apelacionestudianteinstancia2.get(i).setSugerencia("-----");
+					}
+				}
+			for (int i = 0; i < apelacionestudianteinstancia3.size(); i++) {
+				String sugerencia = apelacionestudianteinstancia3.get(i).getSugerencia();
+				if (sugerencia == null){
+				 apelacionestudianteinstancia3.get(i).setSugerencia("-----");
+					}
+				}
 			reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
 					apelacionestudiante));
 			reportConfig.getParameters().put("ListaInstancia2", new JRBeanCollectionDataSource(
@@ -234,12 +249,6 @@ public class VMDetalleHistorialEstudiante {
 					apelacionestudianteinstancia3));
 			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 //											// IMPRESION DEL REPORTE
-//			reportConfig.setDataSource(new JRBeanCollectionDataSource(
-//					apelacionestudiante));				// DATOS PARA DIBUJAR EL REPORTE
-//			reportConfig.setDataSource(new JRBeanCollectionDataSource(
-//					apelacionestudianteinstancia2));
-//			reportConfig.setDataSource(new JRBeanCollectionDataSource(
-//					apelacionestudianteinstancia3));
 		}
 	@Init
 	public void init(
