@@ -243,6 +243,8 @@ public class VMListaGenericaSancionados {
 			listaEstudiantes = servicioestudiantesancionado.buscarEstudiante();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
+		else if (rutaModal.equalsIgnoreCase("reportes/Informes/InformeCU.zul"))
+			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
 }
 	
 	@Command
