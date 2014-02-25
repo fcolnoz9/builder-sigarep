@@ -106,6 +106,19 @@
 				</rows>
 			</grid>
 		</groupbox>
+		
+		<!-- Gruoupbox que contiene los datos del analisis anterior-->
+		<groupbox id= "amanda">
+		<caption label="Datos del Análisis Anterior" />
+			<button id="idAnalisisAnterior"
+					label=" Ver Análisis Anterior"
+					visible="@bind(vm.mostrarButtonObservacionAnterior)"
+					image="/imagenes/iconos/analizar.png" 
+					mold="trendy" width="auto" height="auto" orient="horizontal"
+					onClick="@command('mostrarHistorial')">
+			</button>
+			<separator></separator>
+		</groupbox>
 		<!-- Gruoupbox que contiene los datos de los recaudos-->
 		<groupbox id="grbDatosRecaudos">
 			<caption label="Datos de los Recaudos" />
@@ -121,12 +134,6 @@
 						sort="auto(getRecaudo().getNombreRecaudo())" />
 					<listheader hflex="4" label="Observación"
 						align="left" width="50%" sort="auto(getObservacionExperto())">
-						<button label="Analisis Anterior"
-							visible="@bind(vm.mostrarButtonObservacionAnterior)"
-							image="/imagenes/iconos/analizar.png" 
-							mold="trendy" width="50%" height="auto" orient="horizontal"
-							onClick="@command('mostrarHistorial')">
-						</button>
 					</listheader>
 				</listhead>
 				<template name="model">
