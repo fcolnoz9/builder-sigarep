@@ -100,11 +100,6 @@
 			<listhead sizable="true">
 				<listheader label="Descripción" align="center" />
 			</listhead>	
-<!-- 				<attribute name="onSelect"> -->
-<!-- 				<![CDATA[ -->
-<!-- 						String archivoSelec = backupsListbox.getSelectedItem().getValue(); -->
-<!-- 				]]>				 -->
-<!-- 				</attribute> -->
 <!-- 				<listheader label="Tamaño de Archivo" width="20%" align="center" sort="auto(tamanno)" /> -->
 <!-- 				<listheader label="Acciones" align="center" /> -->
 
