@@ -1,3 +1,4 @@
+
 package sigarep.modelos.repositorio.maestros;
 
 import java.util.List;
@@ -17,6 +18,11 @@ public interface IPersonaDAO extends JpaRepository<Persona, String> {
 	 */
 	public List<Persona> findByEstatusTrue();
 	
+	/**
+	 * Busca una persona por su nombre
+	 * @param nombreUsuario Nombre n que se pretende encontrar
+	 * @return persona encontrado por su nombre
+	 */
 	@Query("select persona from Persona persona where persona.nombreUsuario.nombreUsuario = :nombreUsuario")
 	public Persona buscarPersonaPorNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
 	

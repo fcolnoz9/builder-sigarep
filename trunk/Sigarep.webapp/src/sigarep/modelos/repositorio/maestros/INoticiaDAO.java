@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import sigarep.modelos.data.maestros.Noticia;
 
 /**Noticia
- * Registra y modifica una noticia. Utilizada en el portal web.
+ *  Permite el uso de query para consultas. se utiliza en ServicioNoticia.
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.0
