@@ -67,9 +67,6 @@
 }
 
 form {
-	border: 1px solid #E1E1E1;
-	padding: 10px ;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	padding-bottom: 2%;
+	padding-top: 2%;
 }

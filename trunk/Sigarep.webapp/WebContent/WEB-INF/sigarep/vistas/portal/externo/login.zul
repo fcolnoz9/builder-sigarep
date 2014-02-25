@@ -1,20 +1,23 @@
 <window id="winLogin" vflex="1" hflex="1">
 	<h:form id="f" name="f" action="j_spring_security_check"
 		method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
-		<hbox align="center" pack="center" vflex="1" hflex="1">
-			<vbox>
-				<hbox align="center">
+		<hbox align="center" pack="center" hflex="1">
+			<div>
+				<vbox pack="center" vflex="1">
 					<label value="Usuario:" />
-					<textbox id="u" name="j_username" width="120%"
-						mold="rounded" placeholder="Ingrese el usuario." />
-				</hbox>
-				<hbox align="center">
+					<separator />
 					<label value="Clave:  " />
-					<textbox id="log_clave" width="120%" type="password"
-						mold="rounded" placeholder="Ingrese la contraseña."
-						name="j_password" />
-				</hbox>
-			</vbox>
+				</vbox>
+			</div>
+			<div align="center">
+				<vbox>
+					<textbox id="u" name="j_username" width="150px" cols="23"
+						mold="rounded" placeholder="Ingrese el usuario." />
+					<textbox id="log_clave" width="150px"
+						type="password" mold="rounded" cols="23"
+						placeholder="Ingrese la contraseña." name="j_password" />
+				</vbox>
+			</div>
 			<button image="/imagenes/iconos/iniciarSesion.png"
 				type="submit" label="Entrar">
 			</button>
