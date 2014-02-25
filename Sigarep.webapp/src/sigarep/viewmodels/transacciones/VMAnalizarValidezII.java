@@ -317,6 +317,8 @@ public class VMAnalizarValidezII {
 		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado()
 				.getLapsosAcademicosRp();
 		caso = sancionadoSeleccionado.getNumeroCaso();
+		
+		this.observacion = v1.getObservacion();
 
 		buscarRecaudosEntregados(cedula);
 
