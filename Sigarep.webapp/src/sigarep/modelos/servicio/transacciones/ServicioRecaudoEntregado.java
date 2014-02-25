@@ -80,9 +80,9 @@ public class ServicioRecaudoEntregado {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosReconsideracion(cedula);
 	}
 	
-//Maria Flores
-	public List<RecaudoEntregado> buscarRecaudosEntregadosRecurso(String cedula){
-		List<RecaudoEntregado> listaRecaudos = iRecaudoEntregadoDAO.buscarRecaudosEntregadosRecurso(cedula);
+
+	public List<RecaudoEntregado> buscarRecaudosEntregadosRecursoJerarquico(String cedula){
+		List<RecaudoEntregado> listaRecaudos = iRecaudoEntregadoDAO.buscarRecaudosEntregadosRecursoJerarquico(cedula);
 		for (int i = 0; i < listaRecaudos.size(); i++) {
 			int idRecaudo = listaRecaudos.get(i).getRecaudo().getIdRecaudo();
 			int cont = 0;
