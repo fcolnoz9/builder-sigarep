@@ -16,9 +16,6 @@
 		</columns>
 		<rows>
 			<row>
-
-			</row>
-			<row>
 				<label value="Nombre: " id="lblNombres" />
 				<textbox id="txtNombres" mold="rounded" cols="23"
 					value="@bind(vm.nombre)" placeholder="Ingrese su nombre."
@@ -53,7 +50,7 @@
 	<separator />
 	<div align="right">
 		<button label="Enviar" id="btnEnviar" mold="trendy" width="auto"
-			height="auto" image="/imagenes/iconos/guardar.png"
+			height="auto" image="/imagenes/iconos/enviarCorreo.png"
 			onClick="@command('enviarCorreoContactanos')">
 		</button>
 		<button label="Limpiar" id="btnLimpiarActividad" mold="trendy"
