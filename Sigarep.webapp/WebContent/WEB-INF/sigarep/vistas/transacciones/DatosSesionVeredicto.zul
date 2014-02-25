@@ -39,7 +39,7 @@
 <!-- Permite realizar acciones respecto al Cargar Documentos (Botones) -->	
 		<div align="right" height="100%">
 			<groupbox>
-				<button  label="Continuar" mold="trendy" id="btnGuardar" image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				<button  label="Continuar" mold="trendy" id="btnContinuar" image="/imagenes/iconos/continuar.png" width="auto" height="auto"
 					 orient="horizontal" onClick="@command('guardarDatosSesion')">
 				</button>
 				<button label="Limpiar" id="btnCancelar" mold="trendy"
