@@ -1,29 +1,7 @@
  <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./lstArchivosLocal"?>
 <zk>
-<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="auto" width="auto" closable="true" >	
-<zscript>
-<![CDATA[
-		//***************************************************************************
-		//METODO PARA OBTENER LA RUTA DEL DIRECTORIO DE LOS BACKUPS
-		//***************************************************************************
-			import java.io.File;
-			sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
-			sigarep.herramientas.MensajesAlUsuario mensajes = new sigarep.herramientas.MensajesAlUsuario();
-			ruta = obtenerRuta.obtenerDirectorio();
-			
-			//Accediendo a los archivos en el directorio
-			File directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
-			String[] listaDirectorio2 = directorio.list();
-			List listaDirectorio = new ArrayList();
-			for (int i=0; i<listaDirectorio2.length;i++)
-			{
-				if (!(listaDirectorio2[i].equals(".svn")))
-				{
-					listaDirectorio.add(listaDirectorio2[i]);
-				}
-			}
-		]]>
-</zscript>
+<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="auto" width="auto" closable="true"
+apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRestaurarInformacionBD')" >	
 			<div align="center" style="overflow:auto;">
 				<groupbox style="margin:5px;" width="85%" mold="3d">
 					<caption style="margin:5px;border:normal;"
@@ -35,37 +13,24 @@
 						<rows>
 							<row>
 								<radiogroup id="rgDestino"
-									onCheck="choice.value = self.selectedItem.label">
+									onCheck="choice.value = self.selectedItem.label" selectedItem="@bind(vm.selected)">
 									<grid>
 										<rows>
 											<row>
 												<hbox>
-													<radio id="rbLocal">
-														<attribute name="onCheck">
-														<![CDATA[
-															grbDispositivo.setVisible(false);
-															divArchivosLocal.setVisible(true);
-														]]>
-														</attribute>
-													</radio>
+													<radio id="rbLocal" onCheck="@command('deshabilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)" value="local"/>
 													<label id="lblLocal" value="Local" />
 												</hbox>
 
 												<hbox>
-													<radio id="rbDispositivo">
-														<attribute name="onCheck">
-														<![CDATA[
-															grbDispositivo.setVisible(true);
-															divArchivosLocal.setVisible(false);
-														]]>
-														</attribute>
-													</radio>
+													<radio id="rbDispositivo" onCheck="@command('habilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)" value="dispositivo"/>
 													<label id="lblDispositivoExterno" value="Dispositivo Externo" />
 												</hbox>
 											</row>
 										</rows>
 									</grid>
 								</radiogroup>
+								<label value="@bind(vm.selected)"/>
 							</row>
 						</rows>
 					</grid>
@@ -77,18 +42,10 @@
 						<rows>
 							<row>
 								<listbox id="lstArchivosLocal" height="186px" multiple="false"
-									mold="paging" rows="10" pageSize="10" model="@{listaDirectorio}">
+									mold="paging" rows="10" pageSize="10" model="@bind(vm.listaDirectorio)">
 									<listhead sizable="true">
 										<listheader label="Nombre Respaldo " width="30%" sort="auto" />
 									</listhead>
-									<attribute name="onSelect">
-									<![CDATA[
-									//*********************************************************************************
-									//METODO PARA OBTENER EL RESPALDO SELECCIONADO DE LA LISTA DE RESPALDOS LOCALES
-									//*********************************************************************************
-										String archivoSelec = lstArchivosLocal.getSelectedItem().getValue();
-  									]]>
-									</attribute>
 								</listbox>
 							</row>
 						</rows>
@@ -102,180 +59,23 @@
 						<rows>
 							<row>
 								<hbox>
-									<textbox id="txtPaquetesZip" width="350px" />
-									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png">
-										<attribute name="onClick">
-											<![CDATA[
-												seleccionarRuta();
-											]]>
-										</attribute>
-									</button>
+									<textbox id="txtPaquetesZip" width="350px" value="@bind(vm.txtPaquetesZip)" />
+									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png" onClick="@command('seleccionarRuta')"/>
 								</hbox>
 							</row>
 						</rows>
 					</grid>
 				</groupbox>
 				<div align="right">
-					<button label="Restaurar" id="btnRestaurar" image="/imagenes/iconos/restaurarBD.png" mold="trendy" width="auto" height="auto">
-						<attribute name="onClick">
-							 if (rbLocal.isChecked() || rbDispositivo.isChecked()){
-								restaurarBD();	
-							}else{
-								mensajes.advertenciaSeleccionarUbicacionRespaldo();
-							}								
-					</attribute>
-					</button>
+					<button label="Restaurar" id="btnRestaurar" image="/imagenes/iconos/restaurarBD.png" mold="trendy" width="auto" height="auto" onClick="@command('restaurarInformacion',aplication=application, groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal, backupseleccionado=lstArchivosLocal.selectedItem)"/>
 					<button label="Limpiar" id="btnCancelar" mold="trendy"
 							image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-							orient="horizontal">
-					<attribute name="onClick">
-							cancelar();
-					</attribute>
-					</button>
+							orient="horizontal"
+							onClick="@command('limpiar')"/>
 					<button label="Cerrar" id="btnCerrar"
    							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-   							height="auto" orient="horizontal" onClick="winRestaurarInformacion.onClose()">
-   					</button>
+   							height="auto" orient="horizontal" onClick="winRestaurarInformacion.onClose()"/>
 				</div>
 			</div>
-	<zscript>
-		<![CDATA[
-	import java.io.BufferedInputStream;
-	import java.io.BufferedOutputStream;
-	import java.io.FileInputStream;
-	import java.io.FileOutputStream;
-	import java.io.FileWriter;
-	import java.io.PrintStream;
-	import sigarep.herramientas.UtilidadesSigarep;
-	import java.sql.*;
-	//************************************************************************************
-	//METODO QUE PERMITE SELECCIONAR EL ARCHIVO A RESTAURAR
-	//************************************************************************************
-	import javax.swing.*;
-	public void seleccionarRuta() {
-
-		JFileChooser chooser = new JFileChooser();
-		// Titulo que llevara la ventana
-		chooser.setDialogTitle("Examinar...");
-		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.showOpenDialog(null);
-
-		// Si seleccionamos algún archivo retornaremos su ubicacion
-		if (chooser.getSelectedFile() != null) {
-			txtPaquetesZip.setValue(chooser.getSelectedFile().getPath());
-		}
-	}
-	//************************************************************************************
-	//METODO QUE PERMITE RESTAURAR LA BD
-	//************************************************************************************
-	public void restaurarBD() {
-		try {
-			borrarEsquema("SIGAREP-BD");
-			borrarEsquema("public");
-			crearEsquema("public");
-			Properties props = new Properties();
-			java.io.FileInputStream lector = new java.io.FileInputStream(
-					application
-							.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
-			props.load(lector);
-			lector.close();
-			Runtime r = Runtime.getRuntime();
-			String archivoBD;
-			if (!(txtPaquetesZip.getValue().equals(""))) {
-				archivoBD = txtPaquetesZip.getValue();
-				System.out.println("Ruta externa: " + archivoBD);
-			} else if (!(archivoSelec.equals(""))) {
-				//Trabajando con el proyecto directamente
-				archivoBD = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD" + "/"+ archivoSelec;
-			}
-			Process p;
-			ProcessBuilder pb;
-			r = Runtime.getRuntime();
-			List lista = new ArrayList();
-			lista.add(props.getProperty("pgrestore"));
-			lista.add("-i");
-			lista.add("-h");
-			lista.add(props.getProperty("host"));
-			lista.add("-p");
-			lista.add(props.getProperty("puerto"));
-			lista.add("-U");
-			lista.add(props.getProperty("usuario"));
-			lista.add("-d");
-			lista.add(props.getProperty("nombrebd"));
-			lista.add("-v");
-			lista.add(archivoBD);
-			pb = new ProcessBuilder(lista);
-			pb.environment()
-					.put("PGPASSWORD", props.getProperty("contrasenna"));
-			pb.redirectErrorStream(true);
-			p = pb.start();
-			mensajes.ErrorRestauracionEnProceso();
-			cancelar();
-			divArchivosLocal.setVisible(false);
-			grbDispositivo.setVisible(false);
-		} catch (Exception e) {
-			mensajes.informacionRestauracionNoExitosa();
-		}
-	}
-	//****************************************************
-	//METODO QUE PERMITE LIMPIAR LOS CAMPOS DEL FORMULARIO
-	//****************************************************
-	public void cancelar() {
-		txtPaquetesZip.setValue("");
-	}
-	//****************************************************
-	//METODO QUE PERMITE BORRAR LOS ESQUEMAS DE LA BASE DE DATOS
-	//****************************************************
-	public void borrarEsquema(String nombreEsquema) {
-		String driver = "org.postgresql.Driver";
-		String connectString = "jdbc:postgresql://localhost:5432/postgres";
-		String user = "postgres";
-		String password = "postgres";
-		try {
-			Class.forName(driver);
-			Connection con = DriverManager.getConnection(connectString, user,
-					password);
-			Statement stmt = con.createStatement();
-			// Borrando el esquema				       
-			int count = stmt.executeUpdate("DROP SCHEMA " + nombreEsquema
-					+ " CASCADE");
-			System.out.println("Esquema eliminado.");
-			stmt.close();
-			con.close();
-		} catch (java.lang.ClassNotFoundException e) {
-			System.err.println("ClassNotFoundException: " + e.getMessage());
-		} catch (SQLException e) {
-			System.err.println("SQLException: " + e.getMessage());
-		}
-	}
-	//****************************************************
-	//METODO QUE PERMITE CREAR LOS ESQUEMAS DE LA BASE DE DATOS
-	//****************************************************
-	public void crearEsquema(String nombreEsquema) {
-		String driver = "org.postgresql.Driver";
-		String connectString = "jdbc:postgresql://localhost:5432/SIGAREP-BD";
-		String user = "postgres";
-		String password = "postgres";
-		try {
-			Class.forName(driver);
-			Connection con = DriverManager.getConnection(connectString, user,
-					password);
-			Statement stmt = con.createStatement();
-
-			// Borrando el esquema
-
-			int count = stmt.executeUpdate("CREATE SCHEMA " + nombreEsquema
-					+ "");
-			System.out.println("Esquema creado.");
-			stmt.close();
-			con.close();
-		} catch (java.lang.ClassNotFoundException e) {
-			System.err.println("ClassNotFoundException: " + e.getMessage());
-		} catch (SQLException e) {
-			System.err.println("SQLException: " + e.getMessage());
-		}
-	}
-	]]>
-	</zscript>
 </window>
 </zk>	
