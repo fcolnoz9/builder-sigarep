@@ -12,6 +12,9 @@ public interface IEstudianteSancionadoDAO extends
 
 	@Query("Select esa FROM EstudianteSancionado AS esa where estatus = TRUE")
 	public List<EstudianteSancionado> buscarSancionadosActivos();
+	
+	@Query("Select esa FROM EstudianteSancionado AS esa")
+	public List<EstudianteSancionado> buscarEstudiante();
 
 	@Query("SELECT esa FROM EstudianteSancionado AS esa, LapsoAcademico AS la  "
 			+ "WHERE la.estatus = 'TRUE' "

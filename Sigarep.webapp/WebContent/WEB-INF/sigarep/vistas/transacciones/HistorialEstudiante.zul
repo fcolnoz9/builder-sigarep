@@ -51,13 +51,13 @@
 									<label value="Sexo: " id="lblSexo" />
 									<textbox id="txtSexo" cols="23"
 										mold="rounded" width="80%" maxlength="30" readonly="true"
-										value="@bind(vm.sexo)">
+										value="@bind(vm.estudianteSeleccionado.estudiante.sexo)">
 									</textbox>
 									<label value="Fecha de Nacimiento: "
 										id="lblFechaNacimiento" />
 									<textbox id="txtFechaNacimiento"
 										cols="23" mold="rounded" width="80%" maxlength="30"
-										readonly="true" value="@bind(vm.fechaNacimiento)">
+										readonly="true" value="@bind(vm.estudianteSeleccionado.estudiante.fechaNacimiento)">
 									</textbox>
 								</row>
 								<row>
@@ -65,13 +65,13 @@
 										id="lblTelefono" />
 									<textbox id="txtTelefono" cols="23"
 										mold="rounded" width="80%" maxlength="30" readonly="true"
-										value="@bind(vm.telefono)">
+										value="@bind(vm.estudianteSeleccionado.estudiante.telefono)">
 									</textbox>
 									<label value="Email: "
 										id="lblEmail" />
 									<textbox id="txtEmail" cols="23"
 										mold="rounded" width="80%" maxlength="30" readonly="true"
-										value="@bind(vm.email)">
+										value="@bind(vm.estudianteSeleccionado.estudiante.email)">
 									</textbox>
 								</row>
 							</rows>
@@ -92,13 +92,13 @@
 										id="lblProgramaAcademico" />
 									<textbox id="txtProgramaAcademico"
 										cols="23" mold="rounded" width="80%" maxlength="30"
-										readonly="true" value="@bind(vm.programa)">
+										readonly="true" value="@bind(vm.estudianteSeleccionado.estudiante.programaAcademico.nombrePrograma)">
 									</textbox>
 									<label value="Año de Ingreso: "
 										id="lblAñoIngreso" />
 									<textbox id="txtAñoIngreso"
 										cols="23" mold="rounded" width="80%" maxlength="30"
-										readonly="true" value="@bind(vm.anioIngreso)">
+										readonly="true" value="@bind(vm.estudianteSeleccionado.estudiante.anioIngreso)">
 									</textbox>
 								</row>
 							</rows>
