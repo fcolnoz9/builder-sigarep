@@ -316,6 +316,7 @@ public class VMRegistrarRecursoJerarquico {
 				apelacionEstadoApelacionPK.setIdEstadoApelacion(9);
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(hora);
+				apelacionEstadoApelacion.setObservacion(observacion);
 
 				motivoPK.setCedulaEstudiante(cedula);
 				motivoPK.setCodigoLapso(lapso);
