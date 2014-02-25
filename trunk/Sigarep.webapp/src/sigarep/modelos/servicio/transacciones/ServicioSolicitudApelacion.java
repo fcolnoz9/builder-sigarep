@@ -172,11 +172,11 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoIII();
 	}
 
-	public int mayorNumeroCaso() {
+	public String mayorNumeroCaso() {
 		try {
 			return iSolicitudApelacionDAO.mayorNumeroCaso();
 		} catch (Exception e) {
-			return 0;
+			return "";
 		}
 	}
 

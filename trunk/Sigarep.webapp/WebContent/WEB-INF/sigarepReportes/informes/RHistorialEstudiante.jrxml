@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="263"/>
+	<property name="ireport.y" value="296"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -103,12 +103,65 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
 		<field name="fecha_fin" class="java.lang.Integer"/>
 		<field name="fecha_inicio" class="java.lang.Integer"/>
 		<field name="lapso" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="DatasetComisionSustanciadora" uuid="233fca31-19e6-46a3-b033-ce254af47283">
+		<field name="fechaEstado" class="java.lang.String"/>
+		<field name="observacion" class="java.lang.String"/>
+		<field name="sugerencia" class="java.lang.String"/>
+		<field name="estadoApelacion.nombreEstado" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="DatasetConsejoDecanato" uuid="ef3d0e22-947b-4f37-9ece-ba8032fedd03">
+		<field name="fechaEstado" class="java.lang.String"/>
+		<field name="observacion" class="java.lang.String"/>
+		<field name="sugerencia" class="java.lang.String"/>
+		<field name="estadoApelacion.nombreEstado" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="DatasetConsejoUniversitario" uuid="451a71b1-af92-4975-8c27-0fb85d8113b2">
+		<field name="estadoApelacion.nombreEstado" class="java.lang.String"/>
 		<field name="fechaEstado" class="java.lang.String"/>
 		<field name="observacion" class="java.lang.String"/>
 		<field name="sugerencia" class="java.lang.String"/>
@@ -132,6 +185,8 @@
 	<parameter name="codigoLapso" class="java.lang.String"/>
 	<parameter name="nombre" class="java.lang.String"/>
 	<parameter name="apellido" class="java.lang.String"/>
+	<parameter name="ListaInstancia2" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="ListaInstancia3" class="JRDataSource"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
 				FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado
@@ -156,7 +211,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="125" splitType="Stretch">
+		<band height="116" splitType="Stretch">
 			<image>
 				<reportElement x="16" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
@@ -173,7 +228,7 @@ UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="145" y="64" width="304" height="50" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
+				<reportElement x="145" y="64" width="304" height="24" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -216,23 +271,23 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="102" y="16" width="100" height="20" uuid="f79b32e7-8ed9-42c3-999e-770c9fa8ddcc"/>
+				<reportElement x="102" y="0" width="100" height="20" uuid="f79b32e7-8ed9-42c3-999e-770c9fa8ddcc"/>
 				<textFieldExpression><![CDATA[$P{cedula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="16" width="100" height="20" uuid="ba741df5-c585-49d1-869e-a47e83272fd2"/>
+				<reportElement x="349" y="0" width="100" height="20" uuid="ba741df5-c585-49d1-869e-a47e83272fd2"/>
 				<textFieldExpression><![CDATA[$P{codigoLapso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="102" y="47" width="100" height="20" uuid="0cbe9eba-01fe-4c1b-8197-13399ab28c4d"/>
+				<reportElement x="102" y="20" width="100" height="20" uuid="0cbe9eba-01fe-4c1b-8197-13399ab28c4d"/>
 				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="47" width="100" height="20" uuid="fe0f7ac7-6881-4c89-9f07-374fb253722f"/>
+				<reportElement x="349" y="20" width="100" height="20" uuid="fe0f7ac7-6881-4c89-9f07-374fb253722f"/>
 				<textFieldExpression><![CDATA[$P{apellido}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 4" style="table 4" x="86" y="139" width="360" height="50" forecolor="#FFFFFF" backcolor="#999999" uuid="2f8685a5-af58-4e2c-a44f-ec355a35cd59"/>
+				<reportElement key="table 4" style="table 4" x="106" y="60" width="360" height="50" forecolor="#FFFFFF" backcolor="#999999" uuid="2f8685a5-af58-4e2c-a44f-ec355a35cd59"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DatasetComisionSustanciadora" uuid="f4b519f6-6e57-405a-a542-e85f31be7cef">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
@@ -245,7 +300,12 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 								<text><![CDATA[Actividad]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 4_TD" height="20" rowSpan="1"/>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="c69944a7-0d02-4ee2-9730-a47ac22dc2ae"/>
+								<textFieldExpression><![CDATA[$F{estadoApelacion.nombreEstado}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="e98d760f-75e1-4978-a59e-7b0a37159176">
 						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
@@ -300,6 +360,179 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<componentElement>
+				<reportElement key="table 5" style="table 5" mode="Opaque" x="106" y="187" width="360" height="50" forecolor="#FFFFFF" backcolor="#999999" uuid="c2620389-a283-4b06-ad24-749279e638d2"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DatasetConsejoDecanato" uuid="e013ec90-3e44-4d9a-91e5-40e1b43bcac4">
+						<dataSourceExpression><![CDATA[$P{ListaInstancia2}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="a452df50-6832-4724-83e2-db0a14027ef7">
+						<jr:tableHeader style="table 5_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="d60a0650-44b1-4a18-8127-11d66bdf069d"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Actividad]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="97fb7c94-53a1-47a8-bf1b-c2c16008868a"/>
+								<textFieldExpression><![CDATA[$F{estadoApelacion.nombreEstado}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="c037936f-e12c-420e-a281-838d9297285b">
+						<jr:tableHeader style="table 5_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="bb9d8627-7ca5-4e53-b89d-ff21b5fc241d"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Fecha]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="adb7dac0-04bc-4f53-b07b-759d2f248ff4"/>
+								<textFieldExpression><![CDATA[$F{fechaEstado}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="e70d4b69-679a-4e92-9318-4bd3bc774cba">
+						<jr:tableHeader style="table 5_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="dfafc4be-a538-44b1-b58e-5fdc6285e5fe"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Observación]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="ce37f6a6-ac8e-4cd6-bd43-52c775d9edf4"/>
+								<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d1c9b98c-becc-42e4-8c9f-7d6d4f03e23d">
+						<jr:tableHeader style="table 5_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="9218d830-7fce-4957-b421-840587cddabd"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Sugerencia]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 5_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="2c691660-e4f6-41e5-940c-084f64fba0bf"/>
+								<textFieldExpression><![CDATA[$F{sugerencia}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 6" style="table 6" x="106" y="318" width="360" height="31" uuid="be73b646-b524-4315-96d7-a3b572830e28"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DatasetConsejoUniversitario" uuid="817fa768-88c4-4dd7-9e7b-6c2ed3eaab58">
+						<dataSourceExpression><![CDATA[$P{ListaInstancia3}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="32d97d64-fdfb-46db-a2bb-1d2dfe44d3e6">
+						<jr:tableHeader style="table 6_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="087e4d08-9bac-4985-b712-272749943be1"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Actividad]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 6_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="91474796-123d-4b81-9c00-f6bcd1b9eda2"/>
+								<textFieldExpression><![CDATA[$F{estadoApelacion.nombreEstado}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="b1385129-2550-4b35-9e2e-2fa8adb8905d">
+						<jr:tableHeader style="table 6_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="3614a231-020e-4607-8aaa-03e19dfa0e96"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Fecha]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 6_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="77220549-ff91-4efb-9751-55de1330c57f"/>
+								<textFieldExpression><![CDATA[$F{fechaEstado}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="c2abd545-6745-449d-b18b-43eb162d9d6a">
+						<jr:tableHeader style="table 6_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="ae05e368-5354-4b4c-906c-07ad5c424e33"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Observación]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 6_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="5b70e711-fdc0-4443-93d4-825f72bd6495"/>
+								<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d0a28215-bd6a-4736-b093-f85dbb2d3be5">
+						<jr:tableHeader style="table 6_TH" height="30">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="7271ee6f-56a1-4964-be21-b7d320ff812c"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Sugerencia]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 6_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="b200ed10-27ab-4b0c-a34c-ec8b86db0b17"/>
+								<textFieldExpression><![CDATA[$F{sugerencia}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="208" y="40" width="177" height="20" uuid="fa9acaf9-f783-4ffc-bf8a-276c33fe6a16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apelación a Comisión Sutanciadora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="167" width="177" height="20" uuid="121de8a3-1315-42d9-b102-580b0bbcb2af"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apelación a Consejo de Decanato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="298" width="167" height="20" uuid="47a2ed16-a1bb-4953-8f33-aebd41d8cb57"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apelación a Consejo Universitario]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

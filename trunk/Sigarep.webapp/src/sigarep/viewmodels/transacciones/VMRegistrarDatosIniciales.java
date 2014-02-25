@@ -69,7 +69,7 @@ public class VMRegistrarDatosIniciales {
 	private String listamotivoseleccionado;
 	private String observacion;
 	private Integer idTipoMotivo;
-	private Integer caso;
+	private String caso;
 	private String numeroCaso;
 	private Integer instancia;
 	private Integer idEstado;
@@ -117,11 +117,12 @@ public class VMRegistrarDatosIniciales {
 		this.numeroCaso = numeroCaso;
 	}
 
-	public Integer getCaso() {
+
+	public String getCaso() {
 		return caso;
 	}
 
-	public void setCaso(Integer caso) {
+	public void setCaso(String caso) {
 		this.caso = caso;
 	}
 
@@ -396,9 +397,12 @@ public class VMRegistrarDatosIniciales {
 
 	@Command
 	public void buscarCaso() {
-		caso = serviciosolicitudapelacion.mayorNumeroCaso() + 1;
+		caso = serviciosolicitudapelacion.mayorNumeroCaso();
+		int entero = Integer.parseInt(caso);
+		entero = entero + 1;
 		Integer programa = estudianteSeleccionado.getEstudiante().getProgramaAcademico().getIdPrograma();
-		numeroCaso = lapso+ "."+programa+ "."+sancion+"."+caso;
+		numeroCaso = lapso+ "."+programa+ "."+sancion+"."+entero;
+		
 		
 	}
 
@@ -427,6 +431,8 @@ public class VMRegistrarDatosIniciales {
 		listamotivo = serviciotipomotivo.buscarTipoMotivoNoProtegido();
 		buscarMotivos();
 		buscarCaso();
+		
+	
 	}
 
 	private void mostrarDatosDeSancion() {

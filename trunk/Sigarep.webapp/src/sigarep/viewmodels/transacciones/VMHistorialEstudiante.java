@@ -92,7 +92,7 @@ public class VMHistorialEstudiante {
 	private List<ApelacionEstadoApelacion> apelacionestudiante = new LinkedList<ApelacionEstadoApelacion>();
 	private List<EstudianteSancionado> apelacion = new LinkedList<EstudianteSancionado>();
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-	private List<Motivo> motivos;
+	private List<String> motivos;
 	// Para llamar a los diferentes mensajes de dialogo
 			MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
@@ -104,11 +104,13 @@ public class VMHistorialEstudiante {
 		this.motivosEstudiante = motivosEstudiante;
 	}
 
-	public List<Motivo> getMotivos() {
+
+
+	public List<String> getMotivos() {
 		return motivos;
 	}
 
-	public void setMotivos(List<Motivo> motivos) {
+	public void setMotivos(List<String> motivos) {
 		this.motivos = motivos;
 	}
 
@@ -464,10 +466,10 @@ public class VMHistorialEstudiante {
 	
 	@Command
 	public void buscarMotivos() {
-			motivos = serviciomotivo.buscarMotivos(cedula, codigoLapso);
+			motivos = serviciomotivo.buscarMotivosApelacion(cedula, codigoLapso);
 			if (motivos != null)
 				for (int i = 0; i < motivos.size(); i++)
-					motivosEstudiante += motivos.get(i).getTipoMotivo().getNombreTipoMotivo()
+					motivosEstudiante += motivos.get(i)
 							+ ", ";
 		}
 	
