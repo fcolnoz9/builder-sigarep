@@ -76,7 +76,7 @@ public class MensajesAlUsuario {
 
 	public void advertenciaSeleccionarTodo() {
 
-		Messagebox.show("Debe Seleccionar Todos los Campos.", "Advertencia",
+		Messagebox.show("Debe seleccionar todas las opciones.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -126,11 +126,11 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
-	// public void advertenciaSeleccionarUbicacionRespaldo() {
-	//
-	// Messagebox.show("Debe seleccionar la ubicaciï¿½n del respaldo a restaurar.",
-	// "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
-	// }
+	 public void advertenciaSeleccionarUbicacionRestauracion() {
+	
+	 Messagebox.show("Debe seleccionar la ubicación de origen de su archivo backup.",
+	 "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	 }
 
 	public void advertenciaEscribirNombreDeRespaldo() {
 		Messagebox.show("Debe escribir el nombre del archivo de respaldo.",
@@ -295,8 +295,7 @@ public class MensajesAlUsuario {
 
 	public void ErrorRestauracionEnProceso() {
 
-		Messagebox
-				.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
+		Messagebox.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
 	}
 
