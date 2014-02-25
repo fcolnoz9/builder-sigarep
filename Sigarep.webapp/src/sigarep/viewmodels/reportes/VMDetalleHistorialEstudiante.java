@@ -223,6 +223,9 @@ public class VMDetalleHistorialEstudiante {
 			reportConfig.getParameters().put("cedula", cedula);
 			reportConfig.getParameters().put("nombre", estudiante.get(0).getEstudiante().getPrimerNombre());
 			reportConfig.getParameters().put("apellido", estudiante.get(0).getEstudiante().getPrimerApellido());
+			reportConfig.getParameters().put("sugerencia1", apelacionestudiante.get(0).getSugerencia());
+			reportConfig.getParameters().put("sugerencia2", apelacionestudianteinstancia2.get(0).getSugerencia());
+			reportConfig.getParameters().put("sugerencia3", apelacionestudianteinstancia3.get(0).getSugerencia());
 			reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
 					apelacionestudiante));
 			reportConfig.getParameters().put("ListaInstancia2", new JRBeanCollectionDataSource(
