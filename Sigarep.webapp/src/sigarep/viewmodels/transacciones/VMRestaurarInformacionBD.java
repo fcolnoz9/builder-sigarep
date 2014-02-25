@@ -173,7 +173,7 @@ public class VMRestaurarInformacionBD {
 				pb.environment().put("PGPASSWORD", props.getProperty("contrasenna"));
 				pb.redirectErrorStream(true);
 				p = pb.start();
-				mensajesAlUsuario.ErrorRestauracionEnProceso();
+				mensajesAlUsuario.informacionRestauracionEnProceso();
 				limpiar();
 				divArchivosLocal.setVisible(false);
 				groupboxDispositivo.setVisible(false);

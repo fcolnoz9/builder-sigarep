@@ -56,7 +56,7 @@ public class VMFinalizarLapso {
 			apelacionesSinVeredicto = serviciosolicitudapelacion.contarApelacionesSinVeredicto();
 			apelacionesSinSesion = serviciosolicitudapelacion.contarApelacionesSinSesion();
 			if (apelacionesSinVeredicto > 0)
-				mensajeAlUsuario.ErrorFinalizarLapsoVeredicto();
+				mensajeAlUsuario.errorFinalizarLapsoVeredicto();
 			else if (apelacionesSinSesion > 0)
 				mensajeAlUsuario.errorFinalizarLapsoSesion();
 			else if (fechaActual.compareTo(ultimaFechaCronograma) < 0)

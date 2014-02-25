@@ -18,6 +18,7 @@ import org.zkoss.zul.Messagebox.ClickEvent;
 
 public class MensajesAlUsuario {
 
+	/*-------------------------------------------Mensajes de Advertencia-----------------------------------*/
 	public void advertenciaLlenarCampos() {
 
 		Messagebox.show("¡Debe llenar todos los campos!", "Advertencia",
@@ -160,7 +161,7 @@ public class MensajesAlUsuario {
 				+ " ya se encuentra registrado!.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
-
+/*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
 
 		Messagebox
@@ -292,20 +293,22 @@ public class MensajesAlUsuario {
 		Messagebox.show("Usted no ha realizado solicitudes de apelación",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
-
-	public void ErrorRestauracionEnProceso() {
+	
+	public void informacionRestauracionEnProceso() {
 
 		Messagebox.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
 	}
+	/*-------------------------------------------Mensajes de Error-----------------------------------*/
+	
 
-	public void ErrorUsuarioEmailNoRegistrado() {
+	public void errorUsuarioEmailNoRegistrado() {
 
 		Messagebox.show("Usuario o e-mail no registrado.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 	}
 
-	public void ErrorFinalizarLapsoVeredicto() {
+	public void errorFinalizarLapsoVeredicto() {
 
 		Messagebox.show("No puede finalizar el lapso actual. "
 				+ "Existen apelaciones sin veredicto.", "Error", Messagebox.OK,
@@ -392,24 +395,7 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.ERROR);
 	}
 
-	// public void confirmacionEliminarRegistro(final Window ventana, boolean
-	// condicion) {
-	// if(condicion==true){
-	// Messagebox.show("¿Realmente desea eliminar el registro?","Confirmar",new
-	// Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-	// Messagebox.QUESTION,new EventListener<ClickEvent>() {
-	// @SuppressWarnings("incomplete-switch")
-	// public void onEvent(ClickEvent e) throws Exception {
-	// switch (e.getButton()) {
-	// case YES:
-	// ventana.detach();
-	// }
-	// }
-	// });
-	// }
-	//
-	// }
-
+	/*-------------------------------------------Mensajes de Confirmación-----------------------------------*/
 	public void confirmacionCerrarSesion() {
 
 		Messagebox.show("¿Está seguro de querer cerrar sesión?",

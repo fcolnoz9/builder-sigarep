@@ -871,7 +871,7 @@ public class VMUsuario {
 				}
 				else
 
-					mensajeAlUsuario.ErrorUsuarioEmailNoRegistrado();
+					mensajeAlUsuario.errorUsuarioEmailNoRegistrado();
 
 		}
 	}
