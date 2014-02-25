@@ -380,7 +380,7 @@ public class VMVerificarRecaudosEntregadosIII {
 	   */
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacion"})
-	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudosIII) {
+	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudosIII,@BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		if (recaudos.size() == 0) {
 			mensajeAlUsuario.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
 		
@@ -459,7 +459,7 @@ public class VMVerificarRecaudosEntregadosIII {
 				} catch (Exception e) {
 					
 				}
-				limpiar();
+				limpiar(listaRecaudos);
 		}
 	}
 	
@@ -471,12 +471,13 @@ public class VMVerificarRecaudosEntregadosIII {
 	    */
 	@Command
 	@NotifyChange({"listaRecaudosPorEntregar","observacion","listaRecaudosEntregados","selected" })
-	public void limpiar() {
+	public void limpiar(@BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		observacion = "";
 		selected = "";
 		listaRecaudosEntregados = serviciorecaudoentregado.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
 	    listaRecaudosPorEntregar = serviciorecaudo.buscarRecaudosVerificarRecaudosIII(cedula);
 		buscarRecaudos();
+		listaRecaudos.clearSelection();
 	}
 	
 	//Muestra un mensaje que el recaudo fue verificado

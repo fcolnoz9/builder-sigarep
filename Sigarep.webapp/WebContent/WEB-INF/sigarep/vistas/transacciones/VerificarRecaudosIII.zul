@@ -159,7 +159,7 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" mold="trendy" 
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosIII) @global-command('actualizarListaSancionados')">
+			onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosIII,listaRecaudos=rigth) @global-command('actualizarListaSancionados')">
 			<attribute name="onClick">
 				Set items = rigth.getSelectedItems();
 			</attribute>
@@ -167,7 +167,7 @@
 		<!-- limpia lo seleccionado-->
 		<button label="Limpiar" id="btnCancelar" mold="trendy"
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-			onClick="@command('limpiar')">
+			onClick="@command('limpiar',listaRecaudos=rigth)">
 		</button>
 		<!-- Sale de la interfaz,dependiendo de la opción que escoja el usuario-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"
