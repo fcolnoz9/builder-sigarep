@@ -65,9 +65,10 @@ style="overflow:auto" action="hide: slideUp"
     </rows>
 </grid>
 
-	<!-- Permite realizar acciones respecto al Cargar Documentos (Botones) -->
+	
 </groupbox>
 <separator />
+<!-- Permite realizar acciones respecto al Cargar Documentos (Botones) -->
 		<div align="right" height="100%">
 			<button label="Guardar" id="btnGuardarDocumento" 
 			 mold="trendy" width="auto" height="auto"
@@ -88,7 +89,7 @@ style="overflow:auto" action="hide: slideUp"
 
 		</div>
 <!-- 	//**************************************************** -->
-<!-- 	//LISTADO DE DOCUMENTOS REGISTRADOS -->
+<!-- 	//LISTA DE DOCUMENTOS REGISTRADOS -->
 <!-- 	//**************************************************** -->
 <groupbox> 
 
@@ -103,15 +104,15 @@ style="overflow:auto" action="hide: slideUp"
 <listhead>
 		<listheader label="Título" align="lefth" 
 			sort="auto(titulo)">
-			<textbox id="filtroTitulo" instant="lefth"
+			<textbox id="filtroTitulo" instant="true"
 			mold="rounded" width="100px" value="@bind(vm.tituloF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
 		<listheader label="Categoría" align="lefth"
-		 sort="auto(categoria)" >
-		 <textbox id="filtroCategoria" instant="true"
-		mold="rounded" width="100px" value="@bind(vm.categoriaF)"
+		 	sort="auto(categoria)" >
+		 	<textbox id="filtroCategoria" instant="true"
+			mold="rounded" width="100px" value="@bind(vm.categoriaF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
@@ -132,8 +133,8 @@ style="overflow:auto" action="hide: slideUp"
 	<template name="model">
 				<listitem selected="false">
 					<listcell label="${each.titulo}" />
-					<listcell label="${each.descripcion}" />
 					<listcell label="${each.categoria}" />
+					<listcell label="${each.descripcion}" />
 					<listcell label="${each.fechaSubida}" />
 					<listcell label="${each.documento.nombreDocumento}" />
 				</listitem>
