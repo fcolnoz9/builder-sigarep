@@ -3,6 +3,7 @@ package sigarep.viewmodels.maestros;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -51,7 +52,7 @@ private Date fechaSubida;
 private  Documento documento = new Documento();
 private String categoria;
 private Media media;
-private List<Reglamento> listaReglamento;
+private List<Reglamento> listaReglamento = new LinkedList<Reglamento>();
 private Reglamento reglamentoSeleccionado;
 private String nombreDoc;
 private String tituloF ="";
@@ -184,8 +185,21 @@ public void init(){
 	fechaSubida = new Date();
 	media = null;
 	documento = new Documento();
-	filtros();
+	tituloF ="";
+	categoriaF ="";
+	buscarReglamento();
 	
+	
+}
+
+/** Busca un Reglamento
+ * @parameters listaReglamento cargado con  los reglamentos.
+ * @return No devuelve ningun valor.
+ */
+@Command
+@NotifyChange({"listaReglamento"})
+public void buscarReglamento(){
+	listaReglamento =servicioreglamento.listaReglamento();
 }
 
 /** guardarReglamento
@@ -210,9 +224,8 @@ else if (documento.getTamanoDocumento() < 1)
 		catch(Exception e){
 		    System.out.println(e.getMessage());
 		}
-		limpiar();
-		filtros();
 		mensajeAlUsuario.informacionArchivoCargado();
+		limpiar();
 		
 	}
 }
@@ -234,7 +247,9 @@ public void limpiar(){
 	media = null;
 	documento = new Documento();
 	nombreDoc=null;
-	filtros();
+	tituloF ="";
+	categoriaF ="";
+	buscarReglamento();
 	
 }
 
@@ -246,7 +261,7 @@ public void limpiar(){
 
 
 @Command
-@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida","listaReglamento","nombreDoc"})
+@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida","listaReglamento","nombreDoc","documento"})
 public void mostrarSeleccionado(){
 	Reglamento reg = getReglamentoSeleccionado();
 	IdDocumento = reg.getIdDocumento();
@@ -269,7 +284,7 @@ public void mostrarSeleccionado(){
 
 @SuppressWarnings("unchecked")
 @Command
-@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
+@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc","documento"})
 public void eliminarReglamento(@ContextParam(ContextType.BINDER) final Binder binder){
 	if (titulo == null || descripcion ==null || categoria ==null|| documento ==null) {
 		mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
