@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
 
-/** Clase EstadoApelacion
- * Registra y Modifica el Estado de Apelación asociado a Instancia Apelada
+/** IEstadoApelacionDAO
+ *  Permite el uso de query para consultas. se utiliza en ServicioEstadoApelacion.
+ * UCLA DCYT Sistemas de Informacion.
  * @author BUILDER
  * @version 1
  * @since 15/12/2013 

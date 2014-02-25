@@ -18,8 +18,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
 
@@ -60,7 +58,7 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	public List<Recaudo> buscaRecaudosGenerales();
 	
 	/**
-	 * Busca los Recaudos asociados a una apelacion de un estudiante en un lapaso especifico.
+	 * Busca los Recaudos asociados a una apelacion de un estudiante en un lapso especifico.
 	 * @param cedulaEstudiante Cedula del estudiante sancionado
 	 * @param codigoLapso Lapso Academico en el cual ocurrio la apelacion
 	 * @param idInstanciaApelada Instancia ante la cual se registro la apelacion

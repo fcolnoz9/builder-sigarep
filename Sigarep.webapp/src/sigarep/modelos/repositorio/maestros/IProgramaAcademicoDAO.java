@@ -9,7 +9,7 @@ public interface IProgramaAcademicoDAO extends
 		JpaRepository<ProgramaAcademico, Integer> {
 
 	/**
-	 * Busca las todas los Programas Academicos que poseen estatus true
+	 * Busca  todos los Programas Academicos que poseen estatus true
 	 * @return List<ProgramaAcademico> Lista de programas academicos con estatus true
 	 */
 	public List<ProgramaAcademico> findByEstatusProgramaTrue();
