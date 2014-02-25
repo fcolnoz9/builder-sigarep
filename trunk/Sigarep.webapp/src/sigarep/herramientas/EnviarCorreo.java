@@ -102,7 +102,7 @@ public class EnviarCorreo {
 			message.setFrom(new InternetAddress((String) properties
 					.get("mail.smtp.mail.sender")));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					"javier.kllao@gmail.com"));
+					"sigarep_ucla@cacei.com.ve"));
 			message.setSubject("Mensaje o consulta enviado por: " + nombre);
 			message.setText(nombre + ", "
 					+ "\nNúmero de teléfono: " + telefono

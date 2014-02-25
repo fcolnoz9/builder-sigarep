@@ -366,7 +366,7 @@ public class VMVerificarRecaudosEntregadosI {
 	
 	@Command
 	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso"})
-	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudos) {
+	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudos, @BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		if (recaudos.size() == 0) {
 			mensajeAlUsuario.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
 		}
@@ -438,7 +438,7 @@ public class VMVerificarRecaudosEntregadosI {
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
-				limpiar();
+				limpiar(listaRecaudos);
 		}
 	}
 	@GlobalCommand
@@ -447,9 +447,10 @@ public class VMVerificarRecaudosEntregadosI {
     }
 	 @Command
 	 @NotifyChange({"cedula", "nombres", "selected","apellidos", "listaRecaudosPorMotivo","programa","lapsoAcademico","telefono","sancion","asignatura"})
-	public void limpiar() {
+	public void limpiar(@BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		 selected = "";
 		 buscarRecaudos();
+		 listaRecaudos.clearSelection();
 	}
 
 	@Command

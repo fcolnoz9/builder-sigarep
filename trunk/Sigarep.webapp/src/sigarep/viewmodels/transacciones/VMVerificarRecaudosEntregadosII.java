@@ -397,7 +397,8 @@ public class VMVerificarRecaudosEntregadosII {
 			"lapso", "observacion" })
 	public void registrarRecaudosEntregados(
 			@BindingParam("recaudosEntregados") Set<Listitem> recaudos,
-			@BindingParam("window") Window winVerificarRecaudosII) {
+			@BindingParam("window") Window winVerificarRecaudosII,
+			@BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		if (recaudos.size() == 0) {
 			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
 					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -483,7 +484,7 @@ public class VMVerificarRecaudosEntregadosII {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			limpiar();
+			limpiar(listaRecaudos);
 		}
 	}
 
@@ -492,13 +493,14 @@ public class VMVerificarRecaudosEntregadosII {
 	@Command
 	@NotifyChange({ "listaRecaudosPorEntregar", "listaRecaudosEntregados",
 			"selected" })
-	public void limpiar() {
+	public void limpiar(@BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		selected = "";
 		listaRecaudosEntregados = serviciorecaudoentregado
 				.buscarRecaudosEntregadosVerificarRecaudosII(cedula);
 		listaRecaudosPorEntregar = serviciorecaudo
 				.buscarRecaudosVerificarRecaudosII(cedula);
 		buscarRecaudos();
+		listaRecaudos.clearSelection();
 	}
 
 	@Command

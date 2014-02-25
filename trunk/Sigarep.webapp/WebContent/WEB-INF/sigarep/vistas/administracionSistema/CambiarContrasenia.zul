@@ -17,11 +17,13 @@
 				<row>
 					<label value="Nueva Contraseña: " id="lblNuevaContrasenia" width="40%" />
 					<textbox id="txtNuevaContrasenia" cols="23" type="password"
+						placeholder="Ingrese su nueva contraseña"
 						width="200px" maxlength="30" value="@bind(vm.nuevaContrasenia)">
 					</textbox>
 					<label value="Confirmar Contraseña: "
 						id="lblConfirmarContrasenia" />
 					<textbox id="txtConfirmarContrasenia" cols="23" type="password"
+						placeholder="Confirme su nueva contraseña"
 						width="200px" maxlength="30" value="@bind(vm.confirmarcontrasenia)">
 					</textbox>
 				</row>

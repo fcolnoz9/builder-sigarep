@@ -142,7 +142,7 @@
 		<!-- Guarda todos los registros agregados a la lista en la base de datos -->
 		<button label="Guardar" id="btnGuardar" mold="trendy"
 			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosI) @global-command('actualizarListaSancionados')">
+			onClick="@command('registrarRecaudosEntregados',recaudosEntregados=items, window=winVerificiarRecaudosI,listaRecaudos=lbxRecaudos) @global-command('actualizarListaSancionados')">
 			<attribute name="onClick">
 				Set items = lbxRecaudos.getSelectedItems();
 			</attribute>
@@ -150,7 +150,7 @@
 		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
 		<button label="Limpiar" id="btnCancelar" mold="trendy"
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-			onClick="@command('limpiar')">
+			onClick="@command('limpiar',listaRecaudos=lbxRecaudos)">
 		</button>
 		<!-- Sale del registro, es necesario mensajes de advertencia-->
 		<button label="Cerrar" id="btnCerrar" mold="trendy"

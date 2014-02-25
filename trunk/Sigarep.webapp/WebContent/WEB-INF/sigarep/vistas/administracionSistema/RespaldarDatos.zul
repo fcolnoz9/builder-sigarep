@@ -1,29 +1,7 @@
  <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./backupsListbox"?>
 <zk>
-<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" width="auto" height="auto" closable="true" >
-	<zscript>
-	<![CDATA[
-		//***************************************************************************
-		//METODO PARA OBTENER LA RUTA DEL DIRECTORIO DE LOS BACKUPS
-		//***************************************************************************
-			import java.io.File;
-			sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
-			sigarep.herramientas.MensajesAlUsuario mensajes = new sigarep.herramientas.MensajesAlUsuario();
-			ruta = obtenerRuta.obtenerDirectorio();
-			
-			//Accediendo a los archivos en el directorio
-			File directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
-			String[] listaDirectorio2 = directorio.list();
-			List listaDirectorio1 = new ArrayList();
-			for (int i=0; i<listaDirectorio2.length;i++)
-			{
-				if (!(listaDirectorio2[i].equals(".svn")))
-				{
-					listaDirectorio1.add(listaDirectorio2[i]);
-				}
-			}
-		]]>
-	</zscript>
+<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" width="auto" height="auto" closable="true"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRespaldarBaseDatos')" >
 			<div width="100%" height="auto" style="overflow:auto;" align="center">
 				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d" >
 					<caption style="border:normal;"
@@ -36,7 +14,9 @@
 					<rows>
 							<row>
 								<label id="lblDescripcion" value="Descripción: "/>
-								<textbox id= "txtdescripcion" value=""  width="150px" tabindex="2"/>	
+								<textbox id= "txtdescripcion" value="@bind(vm.descripcion)"  tabindex="2"
+								placeholder="Ingrese la descripción del backup"
+								cols="29" />	
 							</row>
 					</rows>
 				</grid>		
@@ -47,27 +27,17 @@
 						<rows>
 							<row>
 								<radiogroup id="rgDestino"
-									onCheck="choice.value = self.selectedItem.label">
+									onCheck="choice.value = self.selectedItem.label" selectedItem="@bind(vm.selected)">
 									<grid id="grdRadioButtons ">
 										<rows>
 											<row>
 												<hbox>
-													<radio id="rbLocal">
-														<attribute name="onCheck">
-															<![CDATA[
-																grbDispositivo.setVisible(false);
-															]]>
-														</attribute>
+													<radio id="rbLocal" onCheck="@command('deshabilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo)" value="local">
 													</radio>
 													<label id="lblLocal" value="Local" />
 												</hbox>
 												<hbox>
-													<radio id="rbDispositivo">
-														<attribute name="onCheck">
-														<![CDATA[
-															grbDispositivo.setVisible(true);
-														]]>
-														</attribute>
+													<radio id="rbDispositivo" onCheck="@command('habilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo)" value="dispositivo">
 													</radio>
 													<label id="lblDispositivoExterno" value="Dispositivo Externo" />
 												</hbox>
@@ -75,6 +45,7 @@
 										</rows>
 									</grid>
 								</radiogroup>
+								<label value="@bind(vm.selected)"/>
 							</row>
 						</rows>
 					</grid>
@@ -88,57 +59,25 @@
 						<rows>
 							<row>
 								<hbox>
-									<textbox id="txtRuta" width="350px" />
-									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png">
-										<attribute name="onClick">
-											seleccionarRuta();
-										</attribute>
+									<textbox id="txtRuta" width="350px" value="@bind(vm.txtRuta)" />
+									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png" onClick="@command('seleccionarRuta')">
 									</button>
 								</hbox>
 							</row>
 						</rows>
 					</grid>
 				</groupbox>
-			<div  width="99%" height="70%">
+			<div  width="91%" height="70%">
 				<grid id="grdGuardarYCancelar" width="99%">
    				<rows>
    					<row  align="right">
 				<hbox>
 				<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal">
-						<attribute name="onClick">
-						    <![CDATA[
-							backupsListbox.setVisible(false);													
-							backupsListbox.setVisible(true);
-							]]>
-							//***************************************************************************
-							//METODO PARA OBTENER LA RUTA DEL DIRECTORIO DE LOS RESPALDOS
-							//***************************************************************************
-							if(txtdescripcion.getValue()==""){
-								mensajes.advertenciaEscribirNombreDeRespaldo();
-							}
-							else if (rbLocal.isChecked()){
-							sigarep.herramientas.UtilidadesSigarep obtenerRuta = new sigarep.herramientas.UtilidadesSigarep();
-							ruta = obtenerRuta.obtenerDirectorio();
-							//Aqui hay que pasar la ruta local para el método donde esta el código para respaldar
-							//esta ruta es para la carpeta respaldos
-							//Asi es para guardar directamente en el proyecto
-							respaldarBD(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD",txtdescripcion.getValue());
-							//Asi guarda en .metadata
-							//respaldarBD(application.getRealPath("/WEB-INF/sigarep/administracionBaseDatos/respaldosBD"),txtdescripcion.getValue());
-							}else if(rbDispositivo.isChecked()){
-								respaldarBD(txtRuta.getValue(),txtdescripcion.getValue());
-							}else{
-								mensajes.advertenciaSeleccionarDestinoRespaldo();
-							}
-						</attribute>
+				height="auto" orient="horizontal" onClick="@command('guardarRespaldo',groupboxDispositivo=grbDispositivo,aplication=application)">
 					</button>
 					<button label="Limpiar" id="btnCancelar" mold="trendy"
 						image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-						orient="horizontal">
-					<attribute name="onClick">
-							cancelar();
-					</attribute>
+						orient="horizontal" onClick="@command('limpiar')">
 					</button>
 					
 					<button label="Cerrar" id="btnCerrar"
@@ -151,20 +90,21 @@
    			</grid>
 		</div>
 		</div>					
-		   		
-   		<groupbox id="grbListaBackups" height="181px">
+		
+		<div width="100%" height="auto" style="overflow:auto;" align="center">   		
+   		<groupbox id="grbListaBackups" height="181px" width="90%">
    		<caption label="Lista de Backups "/>
    		<div id="divListBackups" align="center">
-   		<listbox id="backupsListbox" height="140px" width="90%"  emptyMessage="No hay backups realizados"
-   		 mold="paging" pageSize="3" model="@{listaDirectorio1}" multiple="false">
+   		<listbox id="backupsListbox" height="140px" width="100%"  emptyMessage="No hay backups realizados" onSelect="@command('buscarBackups',listaBackups=backupsListbox)"
+   		 mold="paging" pageSize="3" model="@bind(vm.listaDirectorio1)" multiple="false">
 			<listhead sizable="true">
 				<listheader label="Descripción" align="center" />
 			</listhead>	
-				<attribute name="onSelect">
-				<![CDATA[
-						String archivoSelec = backupsListbox.getSelectedItem().getValue();
-				]]>				
-				</attribute>
+<!-- 				<attribute name="onSelect"> -->
+<!-- 				<![CDATA[ -->
+<!-- 						String archivoSelec = backupsListbox.getSelectedItem().getValue(); -->
+<!-- 				]]>				 -->
+<!-- 				</attribute> -->
 <!-- 				<listheader label="Tamaño de Archivo" width="20%" align="center" sort="auto(tamanno)" /> -->
 <!-- 				<listheader label="Acciones" align="center" /> -->
 
@@ -172,125 +112,6 @@
 		</div>
 			<space />
 		</groupbox>
-		<zscript>
-		<![CDATA[
-			//************************************************************************************
-			//METODO QUE PERMITE SELECCIONAR EL DIRECTORIO PARA EL RESPALDO EN DISPOSITIVO EXTERNO
-			//************************************************************************************
-			import javax.swing.*;
-			import java.util.Date;
-			import java.text.SimpleDateFormat;
-			public void seleccionarRuta(){
-				JFileChooser chooser = new JFileChooser();
-				// Titulo que llevara la ventana
-				chooser.setDialogTitle("Guardar en...");
-				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				chooser.setVisible(true);
-				chooser.showOpenDialog(null);
-				//Retornando el directorio destino directorio
-				if(chooser.getSelectedFile()!=null){
-			 		txtRuta.setValue(chooser.getSelectedFile().getPath());
-			 	}	
-			}
-		//************************************************************************************
-		//METODO QUE PERMITE REALIZAR EL RESPALDO
-		//************************************************************************************
-		public void respaldarBD(String path2, String namespace){
-	
-			try {
-		        String nombreRespaldo;
-		        Properties props = new Properties();
-				java.io.FileInputStream lector = new java.io.FileInputStream(application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
-				props.load(lector);
-				lector.close();
-				
-				Date ahora = new Date();
-				SimpleDateFormat sdf=new java.text.SimpleDateFormat("ddMMyyyy");
-				String fecha =  sdf.format(ahora);
-				
-				String nroRespaldo = props.getProperty("nrorespaldo");
-				
-				if (Integer.valueOf(nroRespaldo)!=5){
-					Object[] arg = new Object[] { new Date(),
-							Integer.valueOf(nroRespaldo) + 1 };
-					nombreRespaldo = String.format(fecha, arg);		
-					nombreRespaldo = "/" + namespace + "-" + nombreRespaldo + ".backup";
-					props.setProperty("nrorespaldo", String.valueOf(Integer.valueOf(nroRespaldo) + 1));
-					java.io.FileOutputStream escritor = new java.io.FileOutputStream(
-					application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
-					props.store(escritor, "Incremento");
-					ejecutarComandos(nombreRespaldo, props, path2);
-				}else{
-					//Cuando existen mas de 5 respaldos de la BD
-					Messagebox.show("Se ha alcanzado el limite de respaldos,¿Desea reemplazar alguno de los ya existentes?",
-					"Confirmar",Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, 
-					new org.zkoss.zk.ui.event.EventListener() {
-	      			public void onEvent(Event evt) throws InterruptedException {
-						if (evt.getName().equals("onOK")) {
-							Object[] arg = new Object[] { new Date(), 1 };
-							nombreRespaldo = String.format(fecha, arg);		
-							nombreRespaldo = "/" + namespace + "-" + nombreRespaldo + ".backup";
-							ejecutarComandos(nombreRespaldo, props, path2); 								
-						}
-					}
-					});
-				
-				}
-			   }catch (Exception e) {
-				   mensajes.informacionRespaldoNoExitosa();
-				}
-					
-		}
-		//**************************************************************************************
-		//METODO QUE PERMITE EJECUTAR LOS COMANDOS NECESARIOS PARA REALIZAR EL RESPALDO DE LA BD
-		//**************************************************************************************
-		public void ejecutarComandos(String nombreRespaldo, Properties props, String path2){
-			//Ruta del respaldo y nombre del respaldo
-	        String path3 = path2 + nombreRespaldo;
-	        
-	        System.out.println("Ruta: " + path3);	
-	         
-	        Runtime r = Runtime.getRuntime();
-	       
-	
-	        Process p;
-	        ProcessBuilder pb;
-	
-	        r = Runtime.getRuntime();    
-	        List lista = new ArrayList();
-	        lista.add(props.getProperty("pgdump"));
-	        lista.add("-i"); 
-			lista.add("-h"); 
-			lista.add(props.getProperty("host")); 
-			lista.add("-p"); 
-			lista.add(props.getProperty("puerto")); 
-			lista.add("-U"); 
-			lista.add(props.getProperty("usuario")); 
-			lista.add("-F"); 
-			lista.add("c"); 
-			lista.add("-b"); 
-			lista.add("-v"); 
-			lista.add("-f"); 
-			lista.add(path3);
-			lista.add(props.getProperty("nombrebd"));
-	            
-	        pb = new ProcessBuilder(lista);
-	        pb.environment().put("PGPASSWORD", props.getProperty("contrasenna"));
-	        pb.redirectErrorStream(true);
-	        p = pb.start();       
-			mensajes.informacionRespaldoExitoso();
-			cancelar();
-			grbDispositivo.setVisible(false);
-		
-		}		
-		//****************************************************
-		//METODO QUE PERMITE LIMPIAR LOS CAMPOS DEL FORMULARIO
-		//****************************************************
-		public void cancelar(){
-			txtRuta.setValue("");
-			txtdescripcion.setValue("");
-		}
-		]]>
-	</zscript>
+		</div>
 </window>
 </zk>
