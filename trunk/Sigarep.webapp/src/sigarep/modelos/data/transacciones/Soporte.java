@@ -20,7 +20,6 @@ public class Soporte implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_soporte", unique=true, nullable=false)
 	private Integer idSoporte;
 
@@ -34,11 +33,9 @@ public class Soporte implements Serializable {
 	@Embedded
 	private Documento documento;
 
-	
-	public Soporte(Integer idSoporte, Boolean estatus, Date fechaSubida,
+	public Soporte(Boolean estatus, Date fechaSubida,
 			Documento documento, RecaudoEntregado recaudoEntregado) {
 		super();
-		this.idSoporte = idSoporte;
 		this.estatus = estatus;
 		this.fechaSubida = fechaSubida;
 		this.documento = documento;

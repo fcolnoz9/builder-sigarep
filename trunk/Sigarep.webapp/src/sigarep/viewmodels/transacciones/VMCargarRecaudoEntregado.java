@@ -316,7 +316,7 @@ public class VMCargarRecaudoEntregado {
 					if (serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK)!= null)
 						soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
 					else
-						soporte= new Soporte(null,true,new Date(),doc,recaudoEntregado);
+						soporte= new Soporte(true,new Date(),doc,recaudoEntregado);
 					
 					serviciosoporte.guardar(soporte);
 					
