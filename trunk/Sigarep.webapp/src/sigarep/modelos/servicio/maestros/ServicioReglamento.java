@@ -1,5 +1,6 @@
 package sigarep.modelos.servicio.maestros;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,14 +60,13 @@ public class ServicioReglamento {
 	}
 	
 	public List<Reglamento> filtrarReglamento(String tituloF,String  categoriaF) {
-		List<Reglamento> resultado = new LinkedList<Reglamento>();	
-		if (tituloF == null ||categoriaF==null ) {
+		List<Reglamento> resultado = new ArrayList<Reglamento>();	
+		if (tituloF == null ||categoriaF == null ) {
 			resultado = listaReglamento();
 		} else {
 			for (Reglamento r : listaReglamento()) {
-				if (r.getTitulo().toLowerCase().contains(tituloF)
-						&& r.getCategoria().toLowerCase()
-						.contains(categoriaF))
+				if (r.getTitulo().toLowerCase().contains(tituloF.toLowerCase())&&
+					r.getCategoria().toLowerCase().contains(categoriaF.toLowerCase()))
 				{
 					resultado.add(r);
 				}
