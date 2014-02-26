@@ -13,6 +13,14 @@ import sigarep.modelos.repositorio.maestros.ITipoMotivoDAO;
 public class ServicioTipoMotivo {
 	private @Autowired ITipoMotivoDAO tipomotivo;
 	
+	/**
+	 *GuardarTipoMotivo
+	 * 
+	 * @param TipoMotivo tipo
+	 * @return guarda el objeto 
+	 * @throws No  dispara ninguna excepcion.
+	 */
+
 	public void guardarTipoMotivo(TipoMotivo tipo){
 		if (tipo.getIdTipoMotivo() != null)
 			tipomotivo.save(tipo);
@@ -26,6 +34,12 @@ public class ServicioTipoMotivo {
 		return tipomotivo.findOne(codigoTipoMotivo);
 	}
 	
+	/**
+	 *Elimina logicamente un tipoMotivo
+	 * @param idTipoMotivo
+	 * @return objeto con status false
+	 * @throws No  dispara ninguna excepcion.
+	 */
 	public void eliminarTipoMotivo(Integer idTipoMotivo) {
 		TipoMotivo tip = tipomotivo.findOne(idTipoMotivo);
 		tip.setEstatus(false);
@@ -36,10 +50,25 @@ public class ServicioTipoMotivo {
 	    return tipomotivo.findByEstatusTrue();
 	}	
 	
+	/**
+	 * Buscar tipo motivo no protegido
+	 * @param 
+	 * @return objeto tipo motivo
+	 * @throws Tipo motivo no protegido
+	 */
 	public List<TipoMotivo> buscarTipoMotivoNoProtegido(){
 		return tipomotivo.findByProtegidoFalseAndEstatusTrue();
 	}
 	
+	/**
+	 *fitrar TipoMotivo por nombre
+	 * 
+	 * @param String nombreTipoMotivo
+	 * @return busca un tipoMotivo por nombre en el filtro
+	 *         filtros() de VMTipoMotivo.
+	 * @throws No  dispara ninguna excepcion.
+	 */
+
 	public List<TipoMotivo> filtrarTipoMotivo(String nombreTipoMotivo){
 		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
 		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){

@@ -13,17 +13,29 @@ public class ServicioAsignatura {
 	IAsignaturaDAO iAsignatura;
 	
 
-	
+	/**
+	 * Buscar Asignatura
+	 * @param codigoAsignatura
+	 * @return el objeto buscado
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public Asignatura buscarAsignatura(String codigoAsignatura){
 		return iAsignatura.findOne(codigoAsignatura);
 	}
+	
+	/**
+	 * Guardar Asignatura
+	 * @param Asignatura asignatura
+	 * @return Guarda el objeto
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public void guardarAsignatura(Asignatura asignatura){
 		iAsignatura.save(asignatura);
 	}
 	
 	/** buscarTodas
 	 * @param todos
-	 * @return resultado todos los tipos de motivo
+	 * @return lista de asignaturas
 	 * @throws 
 	 */
 	public List<Asignatura> listaAsignaturas() {
@@ -35,11 +47,25 @@ public class ServicioAsignatura {
 		return iAsignatura.findByEstatusTrue();
 	}
 	
+	/**
+	 * Buscar Asignatura filtrando por Programa
+	 * 
+	 * @param String ProgramaAcedemico
+	 * @return Busca una asignatura por Programa
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<Asignatura> buscarAsignaturasPorPrograma (ProgramaAcademico programa){
 		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(programa);
 	}
 	
 		
+	/**
+	 * Buscar Asignatura filtrando por nombre
+	 * 
+	 * @param String NombreAsignatura
+	 * @return Busca una asignatura por nombre
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public Asignatura buscarAsignaturaNombre(String nombreAsignatura) {
 		Asignatura asignatura = iAsignatura.findByNombreAsignatura(nombreAsignatura);
 	    return asignatura;

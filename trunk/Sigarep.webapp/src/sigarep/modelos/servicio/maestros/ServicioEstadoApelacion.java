@@ -18,7 +18,7 @@ public class ServicioEstadoApelacion {
 	IEstadoApelacionDAO ea;
 	
 	/** Guardar Estado de Apelación 
-	 * @return nada
+	 * @return guarda el objeto
 	 * @parameters el objeto EstadoApelacion
 	 * @throws No dispara ninguna excepcion.
 	   */

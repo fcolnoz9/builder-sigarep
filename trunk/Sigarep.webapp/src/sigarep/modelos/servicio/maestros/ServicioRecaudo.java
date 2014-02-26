@@ -15,10 +15,10 @@ import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
  * Copyright 2013 Builder. Todos los derechos reservados.
  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
  */
-/*
+/**
  ** Servicio del registro del maestro "Recaudo"
- * @ Author Beleanny Atacho
- * @ Version 1.0, 16/12/13
+ * @Author BUILDER
+ * @Version 1.0, 16/12/13
  */
 
 @Service("serviciorecaudo")
