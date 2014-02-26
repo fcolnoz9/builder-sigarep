@@ -131,9 +131,18 @@ public class VMVerificarRecaudosEntregadosI {
 	private List<Recaudo> listaRecaudosPorMotivo;
 	@WireVariable
 	private String telefono;
+	private String observacion;
 	
 	
 	
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
 	public String getCedula() {
 		return cedula;
 	}
@@ -427,6 +436,7 @@ public class VMVerificarRecaudosEntregadosI {
 				
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
+				apelacionEstadoApelacion.setObservacion(observacion);
 				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
 				serviciosolicitudapelacion.guardar(solicitudApelacionAux);
 				
