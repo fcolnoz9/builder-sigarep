@@ -62,6 +62,13 @@ public class MensajesAlUsuario {
 				+ pesoKB + " Kbytes.", "Advertencia", Messagebox.OK,
 				Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaTamannoArchivo(int pesoKB) {
+
+		Messagebox.show("Debe seleccionar un archivo con tamaño menor a "
+				+ pesoKB + " Kbytes.", "Advertencia", Messagebox.OK,
+				Messagebox.EXCLAMATION);
+	}
 
 	public void advertenciaCargarDocumento() {
 
@@ -164,15 +171,14 @@ public class MensajesAlUsuario {
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
 
-		Messagebox
-				.show("Le hemos enviado un email con su nombre de usuario y contraseña.",
+		Messagebox.show("Le hemos enviado un email con su nombre de usuario y contraseña.",
 						"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionContrasennaAtualizada() {
 
 		Messagebox.show("Se ha actualizado su contraseña con éxito.",
-				"Informaión", Messagebox.OK, Messagebox.INFORMATION);
+				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
 	public void informacionContrasennaRecuperada() {
@@ -297,14 +303,13 @@ public class MensajesAlUsuario {
 	public void informacionRestauracionEnProceso() {
 
 		Messagebox.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
-						"Error", Messagebox.OK, Messagebox.ERROR);
+						"Error", Messagebox.OK, Messagebox.INFORMATION);
 	}
 	/*-------------------------------------------Mensajes de Error-----------------------------------*/
 	
 
 	public void errorUsuarioEmailNoRegistrado() {
-
-		Messagebox.show("Usuario o e-mail no registrado.", "Error",
+       Messagebox.show("Usuario o e-mail no registrado.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 	}
 
