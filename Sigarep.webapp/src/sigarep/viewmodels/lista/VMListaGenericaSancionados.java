@@ -237,14 +237,15 @@ public class VMListaGenericaSancionados {
 			lista = serviciosolicitudapelacion.buscarAnalizarValidezII();
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
 			lista = serviciosolicitudapelacion.buscarAnalizarValidezIII();
+		else if (rutaModal.equalsIgnoreCase("reportes/Informes/InformeCU.zul"))
+			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
 		else if (rutaModal.equalsIgnoreCase("transacciones/HistorialEstudiante.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarEstudiante();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
-		else if (rutaModal.equalsIgnoreCase("reportes/Informes/InformeCU.zul"))
-			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
+
 }
 	
 	@Command
@@ -256,6 +257,7 @@ public class VMListaGenericaSancionados {
 	 	map.put("numeroSesion", numeroSesion);
 	 	map.put("tipoSesion", tipoSesion);
 	 	map.put("fechaSesion", fechaSesion);
+	 	System.out.println("envia"+sancionadoSeleccionado);
  
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/"+rutaModal, null, map);
