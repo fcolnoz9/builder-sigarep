@@ -398,14 +398,19 @@ public class VMRegistrarDatosIniciales {
 	@Command
 	public void buscarCaso() {
 		caso = serviciosolicitudapelacion.mayorNumeroCaso();
+		if (caso != null){ 
 		int entero = Integer.parseInt(caso);
 		entero = entero + 1;
 		Integer programa = estudianteSeleccionado.getEstudiante().getProgramaAcademico().getIdPrograma();
-		numeroCaso = lapso+ "."+programa+ "."+sancion+"."+entero;
-		
-		
+		numeroCaso = lapso+ "."+programa+ "."+sancion+"."+entero;		
 	}
-
+		else{
+			int entero = 1;
+			Integer programa = estudianteSeleccionado.getEstudiante().getProgramaAcademico().getIdPrograma();
+			numeroCaso = lapso+ "."+programa+ "."+sancion+"."+entero;		
+		}
+			
+	}
 	@Init //Metodo que inicializa el VM
 	public void init(
 			@ContextParam(ContextType.VIEW) Component view,
