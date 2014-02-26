@@ -107,35 +107,27 @@
 	<!--El groupbox contiene la sugerencia respecto a verificar recaudos en la primera instancia-->
 	<groupbox>
 	<caption label="Sugerencia" />
-		<grid>
-			<columns>
-				<column align="center" />
-				<column align="center" />
-			</columns>
-			<rows>
-				<row width="100%">
 					<radiogroup id="rgSugerencia"
 						selectedItem="@bind(vm.selected)">
 						<grid>
 							<rows>
 								<row>
-									<hbox width="100%">
+									<hbox>
 										<radio id="rbSugerenciaSi"
 											label="Procedente" value="PROCEDENTE" />
-	
 									</hbox>
 									<hbox>
 										<radio id="rbSugerenciaNo"
 											label="No procedente" value="NO PROCEDENTE" />
 									</hbox>
+									<label  id="lblObservacion" value="Observación General: " />
+									<textbox id="txtObservacion"   placeholder="Ingrese la observación general del caso"  mold="rounded" width="80%" cols="60" rows="2"
+									value="@bind(vm.observacion)"></textbox>
 								</row>
 							</rows>
 						</grid>
 					</radiogroup>
 					<label value="@bind(vm.selected)" visible="false" />
-				</row>
-			</rows>
-		</grid>	
 	</groupbox>
 
 	<div align="right" height="100%">
