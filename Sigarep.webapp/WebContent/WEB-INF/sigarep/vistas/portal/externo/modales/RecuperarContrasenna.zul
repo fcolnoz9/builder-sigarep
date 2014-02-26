@@ -6,11 +6,11 @@
 		<div align="center">
 		<groupbox style="margin:5px;" width="98%" mold="3d">
 			<caption style="font-size:14px;color:gray;"
-				label="Completa este formulario y te enviaremos las instrucciones para recuperar tu contraseña a tu e-mail" />
+				label="Completa este formulario y te enviaremos las instrucciones para recuperar tu contraseña a tu email" />
 			<grid>
 				<rows>
 					<row>
-						<label id= "lblUsuarioEmail" value="Usuario o E-mail:"/>
+						<label id= "lblUsuarioEmail" value="Usuario o Email:"/>
 						<textbox id="txtCorreoLogin" width="180px" value="@bind(vm.correoLogin)" />
 					</row>
 				</rows>
@@ -19,7 +19,7 @@
 		</div>
 		<div align="center">
 			<button id="btnRecuperar" label="Recuperar" 
-			image="/imagenes/iconos/guardar.png" width="auto" height="auto" 
+			image="/imagenes/iconos/recuperarContrasenia.png" width="auto" height="auto" 
 			orient="horizontal" onClick="@command('recuperarContrasenna')">
 			</button>
 			<button label="Cerrar" id="btnCerrar"
