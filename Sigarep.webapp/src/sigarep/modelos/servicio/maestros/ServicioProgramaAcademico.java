@@ -7,6 +7,13 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.repositorio.maestros.IProgramaAcademicoDAO;
 
+
+/**Servicio Programa Academico
+ * UCLA DCYT Sistemas de Información
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0 
+ *@since 22/01/14
+ */
 // El servicio interactua con la base de datos
 
 @Service("servicioprogramaacademico")
@@ -15,6 +22,10 @@ public class ServicioProgramaAcademico {
 	private @Autowired
 	IProgramaAcademicoDAO pro;
 
+	/**guardarPrograma academico
+	 * @param proa
+	 * @return pbjeto guardado
+	 */
 	public void guardarPrograma(ProgramaAcademico proa) {
 		if (proa.getIdPrograma() != null)
 			pro.save(proa);

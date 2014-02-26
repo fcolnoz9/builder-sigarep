@@ -16,6 +16,12 @@ import sigarep.modelos.repositorio.maestros.IEstudianteDAO;
 public class ServicioEstudiante {
 	private @Autowired IEstudianteDAO est;
 
+	/**
+	 *Guarda un estudiante
+	 * @param Estudiante estudiante
+	 * @return objeto guardado
+	 * @throws No  dispara ninguna excepcion.
+	 */
 	public void guardarEstudiante(Estudiante estudiante) {
 		
 		est.save(estudiante);
@@ -25,6 +31,10 @@ public class ServicioEstudiante {
 	
 	}
 
+	/**
+	 *Elimina logicamente un estudiante
+	 * @throws No  dispara ninguna excepcion.
+	 */
 	public void eliminarEstudiante(String estudiante) {
 		est.delete(estudiante);
 	}
@@ -33,11 +43,23 @@ public class ServicioEstudiante {
 		return est.findOne(cedula);
 	}
 
+	/**
+	 *Lista de estudiante
+	 * @param 
+	 * @return lista de estudiantes
+	 * @throws No  dispara ninguna excepcion.
+	 */
 	public List<Estudiante> listadoEstudiantes() {
 		List<Estudiante> estudiantesLista = est.findAll();
 		return estudiantesLista;
 	}
 
+	/**
+	 *buscar estudiante por su cedula
+	 * @param String cedula
+	 * @return busca un estudiante en una lista
+	 * @throws No  dispara ninguna excepcion.
+	 */
 	public List<Estudiante> buscarEst(String cedula) {
 		List<Estudiante> result = new LinkedList<Estudiante>();
 		if (cedula == null || "".equals(cedula)) {

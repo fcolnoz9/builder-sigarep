@@ -23,11 +23,9 @@ public class ServicioEnlaceInteres {
 	/**
 	 * Guardar Enlace
 	 * 
-	 * @param EnlaceInteres
-	 *            enlace
+	 * @param EnlaceInteres enlace
 	 * @return Guarda el objeto
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	public void guardarEnlace(EnlaceInteres enlace) {
 		if (enlace.getIdEnlace() != null)
@@ -41,11 +39,9 @@ public class ServicioEnlaceInteres {
 	/**
 	 * Eliminar enlace
 	 * 
-	 * @param Integer
-	 *            idEnlace
+	 * @param Integer idEnlace
 	 * @return permite la eliminación física
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	public void eliminar(Integer idEnlace) {
 		EnlaceInteres enlaceBorrarFisico = enlaceinteres.findOne(idEnlace);
@@ -57,8 +53,7 @@ public class ServicioEnlaceInteres {
 	 * 
 	 * @param listadoEnlaceInteres
 	 * @return buscar todos los enlaces
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	public List<EnlaceInteres> listadoEnlaceInteres() {
 		return enlaceinteres.findByEstatusTrue();
@@ -71,8 +66,7 @@ public class ServicioEnlaceInteres {
 	 * @param String nombreEnlace, String direccionEnlace
 	 * @return busca un enlace por nombre o dirección en el filtro
 	 *         filtros() de VMenlaceInteres.
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepcion.
 	 */
 
 	public List<EnlaceInteres> buscarEnlacesFiltro(String nombreEnlace, String direccionEnlace) {

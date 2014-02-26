@@ -15,6 +15,12 @@ public class ServicioSancionMaestro {
 	private @Autowired
 	ISancionMaestroDAO san;
 
+	/**
+	 *Guardar Sancion
+	 * @param SancionMaestro
+	 * @return Objeto guardado
+	 * @throws No  dispara ninguna excepcion.
+	 */
 	public void guardarSancion(SancionMaestro sanm) {
 		if (sanm.getIdSancion() != null)
 			san.save(sanm);
@@ -24,6 +30,12 @@ public class ServicioSancionMaestro {
 		}
 	}
 
+	/**
+	 *Eliminar logicamente el objeto Sancion
+	 * @param id
+	 * @return Objeto con estatus false
+	 * @throws No  dispara ninguna excepcion.
+	 */
 	public void eliminarSancion(Integer sanm) {
 		SancionMaestro sancion = san.findOne(sanm);
 		sancion.setEstatus(false);
