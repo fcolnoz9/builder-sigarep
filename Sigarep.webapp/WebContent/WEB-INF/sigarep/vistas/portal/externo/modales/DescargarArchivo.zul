@@ -3,7 +3,7 @@
 	apply="org.zkoss.bind.BindComposer" closable="true"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMDescargarArchivo')">
 	<groupbox closable="false">
-		<caption label="Lista de Archivos de Apelaciones" />
+		<caption label="Lista de Archivos" />
 		<listbox id="lbxDescargaArchivo" model="@bind(vm.lista)"
 			emptyMessage="No hay Archivos Guardados" mold="paging"
 			pageSize="10">
