@@ -280,7 +280,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	 * @throws la Excepcion es que la media noticia sea null
 	 */
 	@Command
-	@NotifyChange("imagenNoticia")
+	@NotifyChange({"imagenNoticia","fotoNoticia"})
 	public void cargarImagenNoticia(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
 		mediaNoticia = event.getMedia();
 		if (mediaNoticia != null) {
@@ -288,7 +288,13 @@ public class VMnoticia extends SelectorComposer<Component>  {
 				fotoNoticia.setNombreArchivo(mediaNoticia.getName());
 				fotoNoticia.setTipo(mediaNoticia.getContentType());
 				fotoNoticia.setContenidoArchivo(mediaNoticia.getByteData());
-				imagenNoticia = (AImage) mediaNoticia;
+				
+				if(fotoNoticia.getTamano()>500000){
+					mensajeAlUsuario.advertenciaTamannoImagen(500);
+					
+					fotoNoticia = new Archivo();
+					}else{imagenNoticia = (AImage) mediaNoticia;}
+				
 			} else {
 				Messagebox.show("El archivo: "+mediaNoticia+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
 			}

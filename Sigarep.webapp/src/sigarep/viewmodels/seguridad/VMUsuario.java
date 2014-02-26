@@ -523,12 +523,14 @@ public class VMUsuario {
 //			    	mensajes.advertenciaLlenarCampos();
 //			    else
 //			    {
+					
 			    	for(int i=0;listaInstanciaMiembro.size()>i;i++){
 			    		instanciaMiembro = listaInstanciaMiembro.remove(i);
 				    	instanciaMiembro.getId().setCedulaPersona(cedulaPersona);
 				    	
 						instanciaMiembro.setPersona(persona);
 						try {
+							
 							servicioInstanciaMiembro.guardar(instanciaMiembro);
 						} catch (Exception e) {
 							System.out.println(e.getMessage());
@@ -729,6 +731,18 @@ public class VMUsuario {
 	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void eliminarUsuario() {
 		serviciousuario.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		listaInstanciaMiembro = getPersonaSeleccionado().getInstanciaMiembros();
+		serviciopersona.eliminar(getPersonaSeleccionado().getCedulaPersona());
+		for(int i=0;listaInstanciaMiembro.size()>i;i++){
+    		instanciaMiembro = listaInstanciaMiembro.remove(i);
+
+			try {
+				
+				servicioInstanciaMiembro.eliminar(instanciaMiembro.getId());
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}	
+    	}
 
 		mensajeAlUsuario.informacionEliminarCorrecto();
 		limpiar();
@@ -758,6 +772,12 @@ public class VMUsuario {
 		telefono = getPersonaSeleccionado().getTelefono();
 		fotoUsuario = getPersonaSeleccionado().getNombreUsuario().getFoto();
 		listaInstanciaMiembro = getPersonaSeleccionado().getInstanciaMiembros();
+		
+		for(int i=0;listaInstanciaMiembro.size()>i;i++){
+			if(listaInstanciaMiembro.get(i).getEstatus()==false)
+    		instanciaMiembro = listaInstanciaMiembro.remove(i);
+    					
+    	}
 		
 		if(fotoUsuario!=null){
 			System.out.println("esta no nula");
@@ -918,51 +938,7 @@ public class VMUsuario {
 	}
 
 	
-	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-//	@SuppressWarnings("unchecked")
-//	@Command
-//	@NotifyChange({ "nombreUsuario","correo","cedulaPersona","nombre","apellido","clave","confirmarcontrasenia" })
-//	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-//			
-//		if (!nombreUsuario.equals("") || !correo.equals("") || !cedulaPersona.equals("") || !nombre.equals("")  || !apellido.equals("") 
-//				|| !clave.equals("")  || !confirmarcontrasenia.equals("") )
-//		{
-//			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-//					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-//				@SuppressWarnings("incomplete-switch")
-//				public void onEvent(ClickEvent e) throws Exception {
-//					switch (e.getButton()) {
-//						case YES:
-//								ventana.detach();
-//					
-//					}
-//				}
-//			});		
-//		}
-//		else{
-//		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-//					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-//			
-//				@SuppressWarnings("incomplete-switch")
-//				public void onEvent(ClickEvent e) throws Exception {
-//					switch (e.getButton()) {
-//						case YES:
-//								ventana.detach();
-//					
-//					
-//					}
-//				}
-//		});		
-//		}
-//	}
-
+	
 	
 	/**
 	 * Cerrar Ventana

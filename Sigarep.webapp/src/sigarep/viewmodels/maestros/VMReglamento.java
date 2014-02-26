@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
@@ -24,6 +25,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
+import sigarep.herramientas.Archivo;
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
@@ -313,7 +315,7 @@ public void eliminarReglamento(@ContextParam(ContextType.BINDER) final Binder bi
  * @throws La excepcion es que media sea distinto de null
  */
 @Command
-@NotifyChange("nombreDoc")
+@NotifyChange({"nombreDoc","documento"})
 public void cargarDocumento(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
 	media = event.getMedia();
 	if (media != null) {
@@ -327,7 +329,14 @@ public void cargarDocumento(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent
 			documento.setNombreDocumento(media.getName());
 			documento.setTipoDocumento(media.getContentType());
 			documento.setContenidoDocumento(media.getByteData());
-			nombreDoc=documento.getNombreDocumento();
+			
+			if(documento.getTamanoDocumento()>3000000){
+				mensajeAlUsuario.advertenciaTamannoArchivo(3000);
+				
+				documento=new Documento();
+				}else{nombreDoc=documento.getNombreDocumento();}
+			
+			
 		} else {
 			mensajeAlUsuario.advertenciaFormatoNoSoportado();
 		}

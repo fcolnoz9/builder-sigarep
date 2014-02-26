@@ -307,21 +307,30 @@ public class VMCargarRecaudoEntregado {
 					doc.setTipoDocumento(media.getContentType());
 					doc.setContenidoDocumento(media.getByteData());
 					
-					Integer idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
-					Integer idTipoMotivo = Integer.parseInt(componente.getAttribute("idTipoMotivo").toString());
+					if(doc.getTamanoDocumento()>3000000){
+						mensajeAlUsuario.advertenciaTamannoArchivo(3000);
+						
+						doc=new Documento();
+						}else{ 
+							
+							Integer idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
+							Integer idTipoMotivo = Integer.parseInt(componente.getAttribute("idTipoMotivo").toString());
+							
+							RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia);
+							RecaudoEntregado recaudoEntregado = new RecaudoEntregado(recaudoEntregadoPK, true, "");
+							Soporte soporte = null;
+							if (serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK)!= null)
+								soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
+							else
+								soporte= new Soporte(true,new Date(),doc,recaudoEntregado);
+							
+							serviciosoporte.guardar(soporte);
+							
+							buscarRecaudosEntregados(cedula);
+							mensajeAlUsuario.informacionRegistroCorrecto();
+						}
 					
-					RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia);
-					RecaudoEntregado recaudoEntregado = new RecaudoEntregado(recaudoEntregadoPK, true, "");
-					Soporte soporte = null;
-					if (serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK)!= null)
-						soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
-					else
-						soporte= new Soporte(true,new Date(),doc,recaudoEntregado);
 					
-					serviciosoporte.guardar(soporte);
-					
-					buscarRecaudosEntregados(cedula);
-					mensajeAlUsuario.informacionRegistroCorrecto();
 			} else {
 				Messagebox.show(media.getName()+ " No es un tipo de archivo valido!", "Error",Messagebox.OK, Messagebox.ERROR);
 			}
