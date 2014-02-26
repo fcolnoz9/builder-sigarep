@@ -323,7 +323,7 @@ public class VMBanner {
 	 		* @throws No dispara ninguna excepcion.
 	 	*/
 		@Command
-		@NotifyChange("imagenBanner")
+		@NotifyChange({"imagenBanner","fotoBanner"})
 		public void cargarImagenBanner(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
 			media = event.getMedia();
 			if (media != null) {
@@ -331,8 +331,12 @@ public class VMBanner {
 					fotoBanner.setNombreArchivo(media.getName());
 					fotoBanner.setTipo(media.getContentType());
 					fotoBanner.setContenidoArchivo(media.getByteData());
-			
-					imagenBanner = (AImage) media;
+					if(fotoBanner.getTamano()>50000){
+						mensajeAlUsuario.advertenciaTamannoImagen(50);
+						
+						fotoBanner = new Archivo();
+						}else{imagenBanner = (AImage) media;}
+					
 					
 				} else {
 					Messagebox.show("El archivo: "+media+" no es una imagen valida", "Error", Messagebox.OK, Messagebox.ERROR);

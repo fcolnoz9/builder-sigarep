@@ -211,7 +211,7 @@ public class VMenlaceInteres {
 	 *             dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange("imagenes")
+	@NotifyChange({"imagenes","imagen"})
 	public void cargarImagen(
 			@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event) {
 		media = event.getMedia();
@@ -220,6 +220,12 @@ public class VMenlaceInteres {
 				imagen.setNombreArchivo(media.getName());
 				imagen.setTipo(media.getContentType());
 				imagen.setContenidoArchivo(media.getByteData());
+				
+				if(imagen.getTamano()>50000){
+					mensajeAlUsuario.advertenciaTamannoImagen(50);
+					
+					imagen = new Archivo();
+					}else{imagenes = (AImage) media;}
 
 				imagenes = (AImage) media;
 			} else {
