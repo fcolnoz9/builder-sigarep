@@ -51,9 +51,8 @@
 						<combobox readonly="true" id="cmbPrograma"  mold="rounded"
 						placeholder = "Seleccione un programa académico..."
 						width="80%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.programa.nombrePrograma)" 
 						model="@load(vm.listaPrograma)"
-						selectedItem="@bind(vm.programa)"
+						selectedItem="@bind(vm.objprograma)"
 						onSelect="@command('buscarAsignaturas')">
 						<template name="model">
 							<comboitem label="${each.getNombrePrograma()}" />
@@ -63,6 +62,7 @@
 						<combobox readonly="true" id="cmbAsignaturas"
 						placeholder = "Seleccione una asignatura..."
 						width="80%" cols="20" maxlength="30" tabindex="1"
+						selectedItem="@bind(vm.objAsignatura)"
 					 	mold="rounded" model="@load(vm.listaAsignaturas)">
 						<template name="model">
 							<comboitem label="${each.nombreAsignatura}" />
@@ -142,6 +142,7 @@
 					<listheader label="Lapsos Académicos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
 					<listheader label="Veredicto" id="lblVeredicto1" align="center" sort="auto(veredicto)" />
 					<listheader label="Edo.Apelación" id="lblEdoApelacion1" align="center" sort="auto(edoApelacion)" />
+					<listheader label="Asignatura" id="lblAsignatura" align="center"/>
 				</listhead>
 				<template name="model">
 					<listitem>
@@ -155,6 +156,7 @@
 						<listcell label="${each.codigoLapso}" />
 						<listcell label="${each.veredicto}" />
 						<listcell label="${each.edoApelacion}" />
+						<listcell label="${each.asignatura}" />
 					</listitem>
 				</template>
 			</listbox>

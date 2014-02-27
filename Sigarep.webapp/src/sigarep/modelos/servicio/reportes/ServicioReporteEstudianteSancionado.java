@@ -16,10 +16,10 @@ public class ServicioReporteEstudianteSancionado {
 	 * @return Listado del Resultado de la busqueda 
 	 * @throws No dispara ninguna excepcion.
 	 */
-	public List<EstudianteSancionado> buscarTodosSancionado(String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String sexo,String veredicto,String edoApelacion) {
+	public List<EstudianteSancionado> buscarTodosSancionado(String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String sexo,String veredicto,String edoApelacion,String asignatura) {
 		String queryStatement = 
-		"SELECT Distinct es.primer_nombre, es.primer_apellido, es.sexo,prog.nombre_programa,san.nombre_sancion, tm.nombre_tipo_motivo,iap.instancia_apelada,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado  " +
-		"FROM estado_apelacion edo_ape, estudiante es  " +
+		"SELECT Distinct es.primer_nombre, es.primer_apellido, es.sexo,prog.nombre_programa,san.nombre_sancion, tm.nombre_tipo_motivo,iap.instancia_apelada,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado,asig.nombre_asignatura " +
+		"FROM asignatura asig, estado_apelacion edo_ape, estudiante es  " +
 		"INNER JOIN estudiante_sancionado as esa ON esa.cedula_estudiante=es.cedula_estudiante " +
 	    "INNER JOIN solicitud_apelacion as sap ON sap.cedula_estudiante=esa.cedula_estudiante " +
 	    "INNER JOIN lapso_academico as lapso ON lapso.codigo_lapso=sap.codigo_lapso " +
@@ -28,9 +28,11 @@ public class ServicioReporteEstudianteSancionado {
 	    "INNER JOIN instancia_apelada as iap ON iap.id_instancia_apelada=sap.id_instancia_apelada " +
 	    "INNER JOIN programa_academico as prog ON prog.id_programa=es.id_programa " +
 	    "INNER JOIN sancion_maestro as san ON san.id_sancion=esa.id_sancion " +
+	    "LEFT  JOIN asignatura_estudiante_sancionado as asig_san ON asig_san.cedula_estudiante=esa.cedula_estudiante " +
 	    "INNER JOIN apelacion_estado_apelacion as ap_edo ON ap_edo.cedula_estudiante =sap.cedula_estudiante " +
 	    "where es.id_programa="+""+programaAcademico+" and es.sexo="+""+sexo+" and sap.id_instancia_apelada="+""+instanciaApelada+" " +
-	    "and mot.id_tipo_motivo="+""+tipoMotivo+" and sap.codigo_lapso="+""+lapsoAcademico+" and esa.id_sancion="+""+tiposancion+" and sap.veredicto="+""+veredicto+" and edo_ape.id_estado_apelacion="+""+edoApelacion+" order by es.primer_nombre " ;
+	    "and mot.id_tipo_motivo="+""+tipoMotivo+" and sap.codigo_lapso="+""+lapsoAcademico+" and esa.id_sancion="+""+tiposancion+" " +
+	    "and sap.veredicto="+""+veredicto+" and edo_ape.id_estado_apelacion="+""+edoApelacion+"  and asig.codigo_asignatura="+""+asignatura+" order by es.primer_nombre " ;
 		System.out.println(queryStatement);
 		Query query = es.createNativeQuery(queryStatement);
 		@SuppressWarnings("unchecked")
@@ -47,7 +49,8 @@ public class ServicioReporteEstudianteSancionado {
 					(String) resultRow[6],
 					(String) resultRow[7],
 					(String) resultRow[8],
-					(String) resultRow[9]));
+					(String) resultRow[9],
+					(String) resultRow[10]));
 		}
 		return results;
 	}
