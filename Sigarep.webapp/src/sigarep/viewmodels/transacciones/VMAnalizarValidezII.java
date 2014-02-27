@@ -75,6 +75,8 @@ public class VMAnalizarValidezII {
 	private String selected = "";
 	private String observacionexperto;
 	private Integer semestreSancion;
+	private String veredicto;
+
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
 	@WireVariable
@@ -90,6 +92,8 @@ public class VMAnalizarValidezII {
 	@Wire
 	private SolicitudApelacion sancionadoSeleccionado;
 	private boolean mostrarButtonObservacionAnterior = false;
+	private boolean mostrarLabelVeredicto = false;
+	private boolean mostrarGroupAnalisisAnterior = false;
 	private TipoMotivo tipoMotivo;
 	private List<LapsoAcademico> listaLapso;
 	private List<SancionMaestro> listaSancion;
@@ -101,8 +105,6 @@ public class VMAnalizarValidezII {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-
-
 
 	// Metodos setteres y getteres
 	public String getLabelAsignaturaLapsosConsecutivos() {
@@ -300,6 +302,31 @@ public class VMAnalizarValidezII {
 			boolean mostrarButtonObservacionAnterior) {
 		this.mostrarButtonObservacionAnterior = mostrarButtonObservacionAnterior;
 	}
+	
+	public boolean isMostrarLabelVeredicto() {
+		return mostrarLabelVeredicto;
+	}
+
+	public void setMostrarLabelVeredicto(boolean mostrarLabelVeredicto) {
+		this.mostrarLabelVeredicto = mostrarLabelVeredicto;
+	}
+
+	public boolean isMostrarGroupAnalisisAnterior() {
+		return mostrarGroupAnalisisAnterior;
+	}
+
+	public void setMostrarGroupAnalisisAnterior(boolean mostrarGroupAnalisisAnterior) {
+		this.mostrarGroupAnalisisAnterior = mostrarGroupAnalisisAnterior;
+	}
+	
+	public String getVeredicto() {
+		return veredicto;
+	}
+
+	public void setVeredicto(String veredicto) {
+		this.veredicto = veredicto;
+	}
+
 
 	// Fin de los metodos setters y getters
 
@@ -317,9 +344,9 @@ public class VMAnalizarValidezII {
 		lapsosConsecutivos = sancionadoSeleccionado.getEstudianteSancionado()
 				.getLapsosAcademicosRp();
 		caso = sancionadoSeleccionado.getNumeroCaso();
-		
 		this.observacion = v1.getObservacion();
-
+		this.veredicto = sancionadoSeleccionado.getVeredicto();
+			
 		buscarRecaudosEntregados(cedula);
 
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -340,6 +367,7 @@ public class VMAnalizarValidezII {
 		solicitudApelacionPK2.setCedulaEstudiante(cedula);
 		solicitudApelacionPK2.setCodigoLapso(lapso);
 		solicitudApelacionPK2.setIdInstanciaApelada(2);
+
 		Date fechaSA = serviciosolicitudapelacion.buscarSolicitudPorID(
 				solicitudApelacionPK2).getFechaSolicitud();
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
@@ -351,12 +379,14 @@ public class VMAnalizarValidezII {
 		for (RecaudoEntregado recaudoEntregado : buscarRecaudosEntregados(cedula)) {
 			if (recaudoEntregado.getObservacionExperto() == null) {
 				this.setMostrarButtonObservacionAnterior(false);
+				this.setMostrarGroupAnalisisAnterior(false);
 			} else {
 				this.setMostrarButtonObservacionAnterior(true);
+				this.setMostrarGroupAnalisisAnterior(true);
 				break;
 			}
 		}
-
+      
 	}
 
 	/**
@@ -372,8 +402,6 @@ public class VMAnalizarValidezII {
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
 				.buscarRecaudosEntregadosAnalizarValidezII(cedula);
-		System.out.println("CEDULA" + cedula);
-		System.out.println(listaRecaudosPorMotivo);
 		return listaRecaudo;
 	}
 
@@ -495,13 +523,12 @@ public class VMAnalizarValidezII {
 	 */
 	@Command
 	@NotifyChange({ "observacion", "selected", "observacionexperto" })
-	public void limpiar() {
+	public void limpiar(){
 		observacion = "";
 		selected = "";
-		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosAnalizarValidezII(cedula);
-
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezII(cedula);
 	}
+	
 	@GlobalCommand
     public void actualizarListaSancionados(){
     	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
@@ -545,6 +572,5 @@ public class VMAnalizarValidezII {
 					|| observacionexperto != null)
 				condicion = true;
 			mensajeAlUsuario.confirmacionCerrarVentanaTransacciones(ventana,condicion);		
-		}
-		
+		}		
 }

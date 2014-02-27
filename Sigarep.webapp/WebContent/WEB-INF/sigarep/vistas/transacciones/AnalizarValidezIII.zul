@@ -108,7 +108,7 @@
 		</groupbox>
 		
 		<!-- Gruoupbox que contiene los datos del analisis anterior-->
-		<groupbox id= "amanda">
+		<groupbox id= "grbAnalisisAnterior" visible="@bind(vm.mostrarGroupAnalisisAnterior)">
 		<caption label="Datos del Análisis Anterior" />
 			<button id="idAnalisisAnterior"
 					label=" Ver Análisis Anterior"
@@ -119,6 +119,7 @@
 			</button>
 			<separator></separator>
 		</groupbox>
+		
 		<!-- Gruoupbox que contiene los datos de los recaudos-->
 		<groupbox id="grbDatosRecaudos">
 			<caption label="Datos de los Recaudos" />
@@ -156,7 +157,14 @@
 		</groupbox>
 <!-- Gruoupbox que contiene los datos de la segerencia -->
 		<groupbox id="grbDatosSugerencia">
-			<caption id="lblsugerencia" label="Sugerencia" />
+			<caption label="Sugerencia" />
+			<separator></separator>
+			<separator></separator>
+			<label value = "    Sugerencia del caso al ser Verificado:          "
+					visible="@bind(vm.mostrarLabelVeredicto)"/>			
+			<label value = "@bind(vm.veredicto)"/>
+			<separator></separator>
+			<separator></separator>					
 			<grid>
 				<columns>
 					<column align="left" width="25%" />
