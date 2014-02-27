@@ -14,12 +14,14 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
+import sigarep.modelos.data.transacciones.ListaMomento;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
@@ -58,6 +60,7 @@ public class VMListaGenericaSancionados {
 	//Variables para el filtrado por combos o textbox
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
+	private ListModelList<String> cmbVeredicto;//Lista para llenar el combo Veredicto
 	private String nombrePrograma;
 	private String nombreTipoMotivo;
 	private String rutaModal="";
@@ -66,6 +69,7 @@ public class VMListaGenericaSancionados {
 	private String apellido="";
 	private String nombre="";
 	private String cedula="";
+	private String veredicto="";
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
@@ -180,6 +184,26 @@ public class VMListaGenericaSancionados {
 	public void setLista(List<SolicitudApelacion> lista) {
 		this.lista = lista;
 	}
+	
+	public String getVeredicto() {
+		return veredicto;
+	}
+
+	public void setVeredicto(String veredicto) {
+		this.veredicto = veredicto;
+	}
+	
+	public ListModelList<String> getCmbVeredicto() {
+		cmbVeredicto.add("PROCEDENTE");
+		cmbVeredicto.add("NO PROCEDENTE");
+		cmbVeredicto.add("TODOS");
+		cmbVeredicto.add("SIN VEREDICTO");
+		return cmbVeredicto;		
+	}
+
+	public void setCmbVeredicto(ListModelList<String> cmbVeredicto) {
+		this.cmbVeredicto = cmbVeredicto;
+	}
 
 	/**
 	 * Otros Metodos
@@ -202,6 +226,7 @@ public class VMListaGenericaSancionados {
 
 		buscarProgramaA ();
 		buscarSancionados();
+		cmbVeredicto= new ListModelList<String>();
     }
 	
 	@Command
@@ -291,6 +316,7 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezIII(programa,cedula,nombre,apellido,sancion );	
 		
+		filtrarVeredicto(lista);
 	}
 	
 	/**
@@ -307,6 +333,18 @@ public class VMListaGenericaSancionados {
 		boolean condicion = true;
         mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
-
+	
+	@Command
+	@NotifyChange({"lista","veredicto"})
+	public void filtrarVeredicto(List<SolicitudApelacion> listaFiltrarVeredicto){
+		if(!veredicto.equalsIgnoreCase("TODOS") && !veredicto.equals(""))
+			lista = serviciosolicitudapelacion.filtrarComboVeredictoListaGenerica(listaFiltrarVeredicto,veredicto);
+//		else if(veredicto.equalsIgnoreCase("SIN VEREDICTO")){
+//			veredicto="null";
+//			filtros();
+//		}
+//		else
+//			filtros();
+	}
 }
 

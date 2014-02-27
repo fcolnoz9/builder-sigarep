@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
@@ -402,5 +404,20 @@ public class ServicioSolicitudApelacion {
 			String cedula, String lapso) {
 		return iSolicitudApelacionDAO.buscarSolicitudApelacionLapsoActual(
 				cedula, lapso);
+	}
+
+	public List<SolicitudApelacion> filtrarComboVeredictoListaGenerica(
+			List<SolicitudApelacion> listaFiltrarVeredicto, String veredicto) {
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+		if (veredicto.equalsIgnoreCase("SIN VEREDICTO"))
+			for (SolicitudApelacion sa1 : listaFiltrarVeredicto)
+				if (sa1.getVeredicto() == null)
+					result.add(sa1);
+		else
+			for (SolicitudApelacion sa2 : listaFiltrarVeredicto)
+				if (sa2.getVeredicto() != null)
+					if (sa2.getVeredicto().equalsIgnoreCase(veredicto))
+						result.add(sa2);
+			return result;
 	}
 }
