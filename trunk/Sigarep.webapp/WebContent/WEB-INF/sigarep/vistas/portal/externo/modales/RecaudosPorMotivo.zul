@@ -4,7 +4,7 @@
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivoPortal')">
 
 	<groupbox>
-		<caption label="Seleccione un Tipo de Motivo de Apelacion" />
+		<caption label="Seleccione un Tipo de Motivo de Apelación" />
 
 		<label id="lblTipoMotivo" value="Tipo de Motivo:" />
 		<combobox readonly="true" id="cmbTipoMotivo" width="auto" placeholder="Seleccione un Tipo de Motivo"
@@ -47,7 +47,7 @@
 <!-- Muestra el enlace para descargar un archivo que contiene todos los recaudos por motivos-->
 	<groupbox id="grbRecaudosMotivosPortal">
 		<caption
-			label="Enlace para Descargar la Lita de Recaudos por Motivos " />
+			label="Enlace para Descargar la Lista de Recaudos por Motivos " />
 		<listbox id="lbxReglamento"
 			model="@bind(vm.listaRecaudosMotivosPortal)"
 			emptyMessage="No hay reglamentos seleccionados" mold="paging"
@@ -57,7 +57,7 @@
 					sort="auto(titulo)" />
 				<listheader label="Fecha Subida" align="lefth"
 					sort="auto(fechaSubida)" />
-				<listheader label="Descripcion" align="lefth"
+				<listheader label="Descripción" align="lefth"
 					sort="auto(descripcion)" />
 				<listheader label="Archivo" align="lefth" />
 			</listhead>
