@@ -71,11 +71,14 @@ public class VMAnalizarValidezIII {
 	private String sancion;
 	private String lapso;
 	private boolean mostrarButtonObservacionAnterior = false;
+	private boolean mostrarLabelVeredicto = false;
+	private boolean mostrarGroupAnalisisAnterior = false;
 	private String caso;
 	private String fechaApelacion;
 	private String observacion;
 	private String selected = "";
 	private String observacionexperto;
+	private String veredicto;
 	@WireVariable
 	private Integer semestreSancion;
 	@WireVariable
@@ -105,8 +108,6 @@ public class VMAnalizarValidezIII {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
-
 		
 	// Metodos setteres y getteres	
 	public String getLabelAsignaturaLapsosConsecutivos() {
@@ -303,12 +304,38 @@ public class VMAnalizarValidezIII {
 			boolean mostrarButtonObservacionAnterior) {
 		this.mostrarButtonObservacionAnterior = mostrarButtonObservacionAnterior;
 	}
+
+	public boolean isMostrarLabelVeredicto() {
+		return mostrarLabelVeredicto;
+	}
+
+	public void setMostrarLabelVeredicto(boolean mostrarLabelVeredicto) {
+		this.mostrarLabelVeredicto = mostrarLabelVeredicto;
+	}
+
+	public boolean isMostrarGroupAnalisisAnterior() {
+		return mostrarGroupAnalisisAnterior;
+	}
+
+	public void setMostrarGroupAnalisisAnterior(boolean mostrarGroupAnalisisAnterior) {
+		this.mostrarGroupAnalisisAnterior = mostrarGroupAnalisisAnterior;
+	}
+	
+	public String getVeredicto() {
+		return veredicto;
+	}
+
+	public void setVeredicto(String veredicto) {
+		this.veredicto = veredicto;
+	}
+	
 	//Fin de los metodos setters y getters
+	
 	
 	//Metodo que inicializa el codigo del VM
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1) {
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1, String veredicto) {
 		Selectors.wireComponents(view, this, false);
 		this.sancionadoSeleccionado = v1;
 		cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
@@ -320,8 +347,8 @@ public class VMAnalizarValidezIII {
 				.getLapsosAcademicosRp();
 		caso = sancionadoSeleccionado.getNumeroCaso();
 		this.observacion = sancionadoSeleccionado.getObservacion();
+		this.veredicto = sancionadoSeleccionado.getVeredicto();
 		
-
 		buscarRecaudosEntregados(cedula);
 
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -347,23 +374,25 @@ public class VMAnalizarValidezIII {
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		String fecha = sdf.format(fechaSA);
 		this.fechaApelacion = fecha;
-
-		// para lo del Button
+		
+		// para lo del Button y el Group
 
 		for (RecaudoEntregado recaudoEntregado : buscarRecaudosEntregados(cedula)) {
 			if (recaudoEntregado.getObservacionExperto() == null) {
-				System.out.println("paso por aqui");
-				System.out.println(" y la cedula es CEDULA" + cedula);
 				this.setMostrarButtonObservacionAnterior(false);
+				this.setMostrarGroupAnalisisAnterior(false);
 			} else {
-				System.out.println("tambien por aca");
-				System.out.println(" y la cedula es CEDULA"
-						+ recaudoEntregado.getObservacionExperto());
 				this.setMostrarButtonObservacionAnterior(true);
+				this.setMostrarGroupAnalisisAnterior(true);
 				break;
 			}
 		}
-
+		
+		if (sancionadoSeleccionado.getVeredicto() == null){
+			this.setMostrarLabelVeredicto(false);
+		} else {
+			this.setMostrarLabelVeredicto(true);
+		}
 	}
 
 	/**
@@ -378,7 +407,6 @@ public class VMAnalizarValidezIII {
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
 				.buscarRecaudosEntregadosAnalizarValidezIII(cedula);
-		System.out.println(listaRecaudosPorMotivo);
 		return listaRecaudo;
 	}
 
@@ -397,6 +425,7 @@ public class VMAnalizarValidezIII {
 	// cambiar, en este caso es cedula, nombre, apellidos,
 	// estudianteSancionado,lapso,observacionexperto, observacion
 	// al guardar
+	
 	public void actualizarRecaudosEntregados(
 			@BindingParam("recaudosEntregados") List<Listitem> recaudos,
 			@BindingParam("window") Window winAnalizarValidezIII) {
@@ -510,6 +539,9 @@ public class VMAnalizarValidezIII {
 	public void limpiar() {
 		observacion = "";
 		selected = "";
+		listaRecaudo = serviciorecaudoentregado
+				.buscarRecaudosEntregadosAnalizarValidezIII(cedula);
+
 	}
 
 	
