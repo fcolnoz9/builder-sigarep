@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -18,6 +19,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
@@ -232,5 +234,15 @@ public class VMEditarPerfilUsuario {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@Command
+	@NotifyChange({"nombre","apellido", "correo","telefonoEntero"})
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(!nombre.equals("") || !apellido.equals("") || !correo.equals("") || telefonoEntero != null)
+			condicion = true;
+		mensajesAlusuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 }

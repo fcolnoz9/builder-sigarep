@@ -39,11 +39,11 @@
 					</button>
 					<button label="Limpiar" id="btnCancelar" mold="trendy"
 						image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-						orient="horizontal" 	onClick="@command('cancelarCambiarContrasenia')">
+						orient="horizontal" 	onClick="@command('limpiarCambiarContrasenia')">
 					</button>
 					<button label="Cerrar" id="btnCerrar" mold="trendy"
 						image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-						orient="horizontal" onClick="winCambiarContrasenia.onClose()">
+						orient="horizontal" onClick="@command('cerrarVentanaCambiarContrasenha',ventana=winCambiarContrasenia)">
 					</button>
 				</div>
 <!-- 			</south> -->
