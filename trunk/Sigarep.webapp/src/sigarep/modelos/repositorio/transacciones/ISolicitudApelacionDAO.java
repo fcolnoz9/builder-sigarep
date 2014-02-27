@@ -70,7 +70,8 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
 			"WHERE sa.id.codigoLapso = la.codigoLapso " +
 			"AND la.estatus = 'TRUE' " +
-			"AND sa.analizado = 'TRUE' " +
+			"AND ( sa.verificado = 'TRUE'" +
+			"OR sa.analizado = 'TRUE') " +
 			"AND sa.id.idInstanciaApelada = '2' " +
 			"AND (sa.veredicto IS NULL " +
 			"OR sa.numeroSesion IS NULL)")
@@ -80,7 +81,8 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
 			"WHERE sa.id.codigoLapso = la.codigoLapso " +
 			"AND la.estatus = 'TRUE' " +
-			"AND sa.analizado = 'TRUE' " +
+			"AND ( sa.verificado = 'TRUE'" +
+			"OR sa.analizado = 'TRUE') " +
 			"AND sa.id.idInstanciaApelada = '3'" +
 			"AND (sa.veredicto IS NULL " +
 			"OR sa.numeroSesion IS NULL)")
