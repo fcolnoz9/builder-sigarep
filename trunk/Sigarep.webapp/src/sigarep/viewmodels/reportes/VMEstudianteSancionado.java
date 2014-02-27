@@ -18,10 +18,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Messagebox;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.EstadoApelacion;
@@ -87,9 +84,7 @@ public class VMEstudianteSancionado {
 	private String objsexo;
 	private String objVeredicto;
 	private EstadoApelacion objEdoApelacion;
-	private ProgramaAcademico programa;
-	private Asignatura asignaturas;
-	
+	private Asignatura asignaturas,objAsignatura;
 	private List<EstudianteSancionado> listaE = new LinkedList<EstudianteSancionado>();
 	//*********************************Parametros para la Tira Sql***************************************
 	private String parametroLapsoAcademico;
@@ -104,14 +99,10 @@ public class VMEstudianteSancionado {
 	//*****************************************REPORTE******************************************
 	ReportType reportType = null;
 	ReportConfig reportConfig = null;
-	
 	private ListModelList<String> cmbSexo;//Lista para llenar el combo de sexo
 	private ListModelList<String> cmbVeredicto;//Lista para llenar el combo Veredicto
 	private ListModelList<String> cmbEdoApelacion;//Lista para llenar el combo Edo Apelacion
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
-	
-	
 	
 	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	
@@ -130,7 +121,6 @@ public class VMEstudianteSancionado {
 	public LapsoAcademico getObjLapso() {
 		return objLapso;
 	}
-	
 	public void setObjLapso(LapsoAcademico objLapso) {
 		this.objLapso = objLapso;
 	}
@@ -146,14 +136,6 @@ public class VMEstudianteSancionado {
 	public void setObjinstanciaApelada(InstanciaApelada objinstanciaApelada) {
 		this.objinstanciaApelada = objinstanciaApelada;
 	}
-	
-	public ProgramaAcademico getPrograma() {
-		return programa;
-	}
-	public void setPrograma(ProgramaAcademico programa) {
-		this.programa = programa;
-	}
-
 	public Asignatura getAsignaturas() {
 		return asignaturas;
 	}
@@ -314,6 +296,13 @@ public class VMEstudianteSancionado {
 	public void setParametroAsignatura(String parametroAsignatura) {
 		this.parametroAsignatura = parametroAsignatura;
 	}
+	
+	public Asignatura getObjAsignatura() {
+		return objAsignatura;
+	}
+	public void setObjAsignatura(Asignatura objAsignatura) {
+		this.objAsignatura = objAsignatura;
+	}
 	//Reporte SET/GETS
 	public ReportType getReportType() {
 		return reportType;
@@ -357,12 +346,15 @@ public class VMEstudianteSancionado {
 	 */
 	
 	@Command
-	@NotifyChange({ "listaAsignaturas","programa" })
+	@NotifyChange({ "listaAsignaturas","objprograma" })// *********BUSCAR ASIGNATURAS POR PROGRAMAS
 	public void buscarAsignaturas() {
 	 //Responsable Amanda
-		//listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa.getIdPrograma());
-		listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(programa);
-		
+		if(objprograma.getNombrePrograma()=="Todos"){
+			listaAsignaturas= servicioAsignatura.listaAsignaturas();
+		}
+		else{
+			listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(objprograma);
+		}
 	}
 	
 	
@@ -439,7 +431,7 @@ public class VMEstudianteSancionado {
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
 		listaPrograma = servicioprogramaacademico.listadoProgramas();
-		ProgramaAcademico prog = new ProgramaAcademico(null, "Todos",null);
+		ProgramaAcademico prog = new ProgramaAcademico(null,"Todos",null);
 		listaPrograma.add(listaPrograma.size(),prog);
 	}
 	
@@ -546,8 +538,9 @@ public class VMEstudianteSancionado {
 			configurarParametroSexo();
 			configurarParametroVeredicto();
 			configurarParametroEdoApelacion();
+			configurarParametroAsignatura();
 			listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico,parametroTipoSancion,parametroInstanciaApelada,
-					 parametroMotivo,parametroProgramaAcademico,parametroSexo,parametroVeredicto,parametroEdoApelacion);
+					 parametroMotivo,parametroProgramaAcademico,parametroSexo,parametroVeredicto,parametroEdoApelacion,parametroAsignatura);
 		}
 		
 	}
@@ -562,7 +555,7 @@ public class VMEstudianteSancionado {
 	@NotifyChange({ "programa", "objSancion","objtipoMotivo", "objinstanciaApelada","objLapso",
 		"objVeredicto", "objEdoApelacion","asignaturas","objsexo"})
 	public void limpiarCombos() {
-		programa = null;
+		objprograma = null;
 		objSancion = null;
 		objtipoMotivo = null;
 		objinstanciaApelada = null;
@@ -619,18 +612,17 @@ public class VMEstudianteSancionado {
 		}
 		return parametroMotivo;
 	}
-	@NotifyChange({ "parametroProgramaAcademico" })// ParametroprogramaAcademico
+	@NotifyChange({ "parametroProgramaAcademico" })//******CONFIGURAR PROGRAMA ACADEMICO********
 	@Command
 	public String configurarParametroProgramaAcademico() {
 		if (objprograma.getNombrePrograma() == "Todos") {
 			parametroProgramaAcademico = "es.id_programa";
 		} else {
-			parametroProgramaAcademico = "'" + objprograma.getIdPrograma()
-					+ "'";
+			parametroProgramaAcademico = "'" + objprograma.getIdPrograma()+ "'";
 		}
 		return parametroProgramaAcademico;
 	}
-	@NotifyChange({ "parametroSexo" })
+	@NotifyChange({ "parametroSexo" })  //******CONFIGURAR SEXO********
 	// Parametro Sexo
 	@Command
 	public String configurarParametroSexo() {
@@ -644,7 +636,7 @@ public class VMEstudianteSancionado {
 	@NotifyChange({ "parametroVeredicto" })
 	// Parametro Sexo
 	@Command
-	public String configurarParametroVeredicto() {
+	public String configurarParametroVeredicto() {//******CONFIGURAR VEREDICTO********
 		if (objVeredicto.equals("Todos")) {
 			parametroVeredicto = "sap.veredicto";
 		} else {
@@ -652,20 +644,30 @@ public class VMEstudianteSancionado {
 		}
 		return parametroVeredicto;
 	}
-	@NotifyChange({ "parametroEdoApelacion" })
-	// Parametro Sexo
+	@NotifyChange({ "parametroEdoApelacion" })//******CONFIGURAR EDO APELACION********
+	// Parametro Edo.Apelacion
 	@Command
 	public String configurarParametroEdoApelacion() {
 		if (objEdoApelacion.getNombreEstado().equals("Todos")) {
 			parametroEdoApelacion ="edo_ape.id_estado_apelacion";
 		} else {
 			parametroEdoApelacion = "'"+objEdoApelacion.getIdEstadoApelacion()+"'";
-			System.out.println("ID EDO APELACION"+objEdoApelacion.getIdEstadoApelacion());
 		}
 		return parametroEdoApelacion;
 	}
+	@NotifyChange({ "parametroAsignatura" })//******CONFIGURAR ASIGNATURA********
+	// Parametro Asignatura
+	@Command
+	public String configurarParametroAsignatura() {
+		if (objAsignatura.getNombreAsignatura()=="Todos") {
+			parametroAsignatura ="asig.codigo_asignatura";
+		} else {
+			parametroAsignatura = "'"+objAsignatura.getCodigoAsignatura()+"'";
+		}
+		return parametroAsignatura;
+	}
 	
-	@Command("GenerarReporteEstudiantesSancionadosConfigurable")
+	@Command("GenerarReporteEstudiantesSancionadosConfigurable") //********CONFIGURAR REPORTE**********
 	@NotifyChange({"reportConfig"})
 	public void GenerarReporteEstudiantesSancionadosConfigurable(){	
 			if(listaE.size()>0){

@@ -17,11 +17,12 @@ public class EstudianteSancionado {
 	private String instanciaApelada;
 	private String veredicto;
 	private String edoApelacion;
+	private String asignatura;
 	
 	
 	public EstudianteSancionado(String primerNombre, String primerApellido,
 			String sexo, String nombrePrograma, String nombreSancion,
-			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,String edoApelacion) {
+			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,String edoApelacion,String asignatura) {
 		super();
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
@@ -33,6 +34,7 @@ public class EstudianteSancionado {
 		this.instanciaApelada = instanciaApelada;
 		this.veredicto= veredicto;
 		this.edoApelacion=edoApelacion;
+		this.asignatura=asignatura;
 	}
 	
 	// Métodos GET y SET
@@ -103,6 +105,14 @@ public class EstudianteSancionado {
 
 	public void setVeredicto(String veredicto) {
 		this.veredicto = veredicto;
+	}
+
+	public String getAsignatura() {
+		return asignatura;
+	}
+
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
 	}
 	
 
