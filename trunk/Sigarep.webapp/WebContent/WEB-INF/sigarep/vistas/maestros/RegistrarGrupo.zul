@@ -10,21 +10,29 @@
     <groupbox id="gbxDatosGrupo">
     	<caption label="Datos Grupo"></caption>
     	<grid id="grdDatosGrupo">
-    		<columns></columns>
+    		<columns>
+    		<column width="10%"></column>
+    		<column></column>
+    		<column width="10%"></column>
+    		<column></column>
+    		</columns>
     		<rows>
     			<row>
     			   	<hbox>
     					Nombre:
+    				</hbox>
+    				<hbox>	
     					<textbox id="txtNombreRegistrarGrupo" 
     					placeholder= "Ingrese el nombre del grupo"
-    					mold="rounded" 
-    						value="@bind(vm.nombre)"/>
+    					mold="rounded" value="@bind(vm.nombre)" cols="30"/>
     				</hbox>
     				<hbox>
     					Descripción:
+    				</hbox>
+    				<hbox>	
     					<textbox id="txtDescripcionRegistrarGrupo" 
     					placeholder= "Ingrese la descripción del grupo"
-    					mold="rounded"  value="@bind(vm.descripcion)" rows="2" />
+    					mold="rounded"  value="@bind(vm.descripcion)" rows="2" cols="30" />
     				</hbox>
     			</row>
     		</rows>

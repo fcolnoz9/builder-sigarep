@@ -68,12 +68,12 @@ public class VMRegistrarGrupo {
 
 	
 	private Integer idGrupo; // clave primaria de la tabla Grupo
-	private String nombre; 	// nombre del Grupo
-    private String descripcion; // descripción del Grupo
+	private String nombre = ""; 	// nombre del Grupo
+    private String descripcion = ""; // descripción del Grupo
     private String estado;
 	private String nombreGrupofiltro = "";
 	private String descripcionfiltro = "";
-    private Grupo grupoAux = new Grupo();
+    private Grupo grupoAux = null;
     private Grupo grupoSeleccionado = new Grupo();
     private List<Grupo> listaGrupos = new LinkedList<Grupo>();
     private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
@@ -240,51 +240,13 @@ public class VMRegistrarGrupo {
 	// OTROS METODOS
 
 	/**
-	 * guardarGrupo
-	 * guarda el grupo así como las funciones asociadas a éste o en su defecto los modifica si se trata de un grupo existente
-	 * @param idGrupo, descripcion, nombre 
-	 * @return No devuelve ningun valor.
-	 * @throws no ocurren excepciones 
+	 * Inicialización
+	 * 
+	 * @param init
+	 * @return Carga de Variables, carga de los dos menu tipo arbol y metodos inicializados
+	 * @throws No dispara ninguna excepcion.
 	 */
 	
-	@Command
-	@NotifyChange({ "idGrupo", "descripcion", "nombre","grupoAux","listaGrupos","contactTreeModel","contactTreeModel2"})
-	public void guardarGrupo(){
-		Grupo grupo1;
-		Set<Nodo> nodos = new HashSet<Nodo>();
-		if (nombre.length() == 0 || descripcion.length() == 0)
-			mensajeAlUsuario.advertenciaLlenarCampos();
-		// else if(serviciogrupo.buscarGrupoNombre(nombre)!=null)
-		// msjs.advertenciaGrupoYaExistente(nombre);
-		else if (root2.getChildren().size() > 0) {
-			if (grupoAux == null) {
-				grupo1 = new Grupo();
-				grupo1.setIdGrupo(idGrupo);
-				System.out.println("LOL");
-			} 
-			else 
-			{
-				grupo1 = grupoAux;
-				System.out.println("PLOP");
-			}
-
-			grupo1.setDescripcion(descripcion);
-			grupo1.setNombre(nombre);
-			grupo1.setEstatus(true);
-
-			if (root2.getChildCount() > 0) {
-				for (TreeNode<Nodo> a2 : root2.getChildren()) {
-					cargarHijosGrupo(a2, nodos);
-				}
-			}
-			grupo1.setNodos(nodos);
-			serviciogrupo.guardarGrupo(grupo1);
-			limpiar();
-			mensajeAlUsuario.informacionRegistroCorrecto();
-		} else
-			mensajeAlUsuario.advertenciaMenudelGrupoVacio();
-	}
-
 	@Wire("#winRegistrarGrupo")//para conectarse a la ventana con el ID
 	Window ventana;
 	@AfterCompose
@@ -296,10 +258,6 @@ public class VMRegistrarGrupo {
 		root2 = new VMNodoMenuArbol(null,null); 
 		contactTreeModel2 = new VMModeloArbolAvanzado(root2); //modelo del menú arbol de las funciones del grupo (es variable).
 		buscarListadoGrupos();
-//		cargarArbol();	
-//		contactTreeModel = new VMAdvancedTreeModel(root);
-//		root2 = new VMmenuTreeNode(null,null);
-//		contactTreeModel2 = new VMAdvancedTreeModel(root2);
 	}
 	
 	/**
@@ -346,6 +304,49 @@ public class VMRegistrarGrupo {
 	}
 	
 	/**
+	 * guardarGrupo
+	 * guarda el grupo, así como las funciones asociadas a éste o en su defecto los modifica si se trata de un grupo existente
+	 * @param idGrupo, descripcion, nombre 
+	 * @return No devuelve ningun valor.
+	 * @throws no ocurren excepciones 
+	 */
+	
+	@Command
+	@NotifyChange({ "idGrupo", "descripcion", "nombre","grupoAux","listaGrupos","contactTreeModel","contactTreeModel2"})
+	public void guardarGrupo(){
+		Grupo grupo1;
+		Set<Nodo> nodos = new HashSet<Nodo>();
+		if (nombre.equals("") || descripcion.equals(""))
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		 else if(grupoAux == null && serviciogrupo.buscarGrupoNombre(nombre)!=null)
+			 mensajeAlUsuario.advertenciaGrupoYaExistente(nombre);
+		else if (root2.getChildren().size() > 0) {
+			if (grupoAux == null) {
+				grupo1 = new Grupo();
+				grupo1.setIdGrupo(idGrupo);
+			} 
+			else 
+			{
+				grupo1 = grupoAux;
+			}
+			grupo1.setDescripcion(descripcion);
+			grupo1.setNombre(nombre);
+			grupo1.setEstatus(true);
+
+			if (root2.getChildCount() > 0) {
+				for (TreeNode<Nodo> a2 : root2.getChildren()) {
+					cargarHijosGrupo(a2, nodos);
+				}
+			}
+			grupo1.setNodos(nodos);
+			serviciogrupo.guardarGrupo(grupo1);
+			limpiar();
+			mensajeAlUsuario.informacionRegistroCorrecto();
+		} else
+			mensajeAlUsuario.advertenciaMenudelGrupoVacio();
+	}
+	
+	/**
 	 * cargarHijosGrupo
 	 * metodo que carga los nodos hijos (funciones) del grupo de usuario
 	 * @param root(nodo del arbol), nodos(Colección de nodos hijos encontrados) 
@@ -379,8 +380,8 @@ public class VMRegistrarGrupo {
 	@Command
 	@NotifyChange({ "nombre", "descripcion", "contactTreeModel2","contactTreeModel","contactTreeModelAux","root","root2","listaGrupos","grupoSeleccionado","grupoAux"})
 	public void limpiar(){
-		nombre = null;
-		descripcion = null;
+		nombre = "";
+		descripcion = "";
 		root = new VMNodoMenuArbol(null,null);
 		contactTreeModel = contactTreeModelAux;
 		root2 = new VMNodoMenuArbol(null,null);
@@ -403,6 +404,7 @@ public class VMRegistrarGrupo {
 	@Command
 	@NotifyChange({ "nombre", "descripcion","grupoAux","contactTreeModel","contactTreeModel2","grupoSeleccionado"})
 	public void buscarGrupo(){
+			grupoAux = new Grupo();
 			Grupo g = serviciogrupo.buscarGrupoNombre(grupoSeleccionado.getNombre());
 			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());		
 			Collections.sort(nodosOrdenados, new Nodo());

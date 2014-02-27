@@ -28,20 +28,17 @@ import javax.swing.JFileChooser;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRestaurarInformacionBD {	
 
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
-	String ruta = UtilidadesSigarep.obtenerDirectorio();
-	String txtPaquetesZip = "";
-	String nombreRespaldo;
-	String selected = "";
-	Listitem respaldoSeleccionado = null;
+	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
+	private String ruta = UtilidadesSigarep.obtenerDirectorio();
+	private String txtPaquetesZip = "";
+	private String nombreRespaldo;
+	private String selected = "";
+	private Listitem respaldoSeleccionado = null;
 	//Accediendo a los archivos en el directorio
-	FileInputStream lector;
-	File directorio = null;
-	String[] listaDirectorio2 = null;
-	List<String> listaDirectorio = new ArrayList<String>();
-
-	
-	private MensajesAlUsuario mensajeAlUsuario;
+	private FileInputStream lector;
+	private File directorio = null;
+	private String[] listaDirectorio2 = null;
+	private List<String> listaDirectorio = new ArrayList<String>();
 	
 	public String[] getListaDirectorio2() {
 		return listaDirectorio2;
@@ -103,11 +100,6 @@ public class VMRestaurarInformacionBD {
 	public void cargarDirectorioSVN() {
 		directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
 		listaDirectorio2 = directorio.list();
-		for (int j=0; j<listaDirectorio.size();j++)
-		{
-			listaDirectorio.remove(j);
-		}
-		
 		for (int i=0; i<listaDirectorio2.length;i++)
 		{
 			if (!(listaDirectorio2[i].equals(".svn")))
@@ -258,11 +250,9 @@ public class VMRestaurarInformacionBD {
 	 *             dispara ninguna excepcion.
 	 */
 	
-	@NotifyChange({"descripcion","selected"})
 	@Command
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = false;
-
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);		
+		boolean condicion = true;
+        mensajesAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);		
 	}
 }

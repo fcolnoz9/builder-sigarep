@@ -107,7 +107,7 @@
 					onClick="@command('limpiarPerfilUsuario')" />
 				<button label="Cerrar" id="btnCerrar" mold="trendy"
 					width="auto" height="auto" image="imagenes/iconos/cerrar.png"
-					onClick="winEditarPerfilUsuario.onClose()" />
+					onClick="@command('cerrarVentana',ventana=winEditarPerfilUsuario)" />
 			</div>
 		</div>
 	</window>

@@ -86,7 +86,7 @@ public class VMUsuario {
 	private String confirmarcorreo="";
 	private String clave="";
 	private String confirmarcontrasenia="";
-	private String nuevaContrasenia;
+	private String nuevaContrasenia = "";
 	private String nombreCompleto="";
 	private String cedulaPersonafiltro = "";
 	private String nombreCompletofiltro = "";
@@ -716,8 +716,8 @@ public class VMUsuario {
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
-	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia","listaUsuario"})
-	public void cancelarCambiarContrasenia() {
+	@NotifyChange({ "nombreUsuario", "contrasenia", "confirmarcontrasenia","nuevaContrasenia"})
+	public void limpiarCambiarContrasenia() {
 		confirmarcontrasenia = "";
 		nuevaContrasenia = "";
 	}	
@@ -844,16 +844,12 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({"confirmarcontrasenia", "nuevaContrasenia" })
 	public void cambiarContrasenia() {
-	    if(confirmarcontrasenia==null || nuevaContrasenia == null)
-
+	    if(confirmarcontrasenia.equals("") || nuevaContrasenia.equals(""))
 	    	mensajeAlUsuario.advertenciaLlenarCampos();
-
 	    else{
 	    	if(serviciousuario.cambiarContrasena(seguridad.getUsuario().getUsername(),nuevaContrasenia, confirmarcontrasenia)==true){
-
 	    		mensajeAlUsuario.informacionContrasennaAtualizada();
-
-	    		cancelarCambiarContrasenia();
+	    		limpiarCambiarContrasenia();
 	    	}
 	    }
 	}
@@ -959,5 +955,13 @@ public class VMUsuario {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 	
-
+	@Command
+	@NotifyChange({"confirmarcontrasenia", "nuevaContrasenia" })
+	public void cerrarVentanaCambiarContrasenha(@BindingParam("ventana") final Window ventana){
+		boolean condicion = false;
+		if(!confirmarcontrasenia.equals("") || !nuevaContrasenia.equals(""))
+			condicion = true;
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+	}
+	
 }

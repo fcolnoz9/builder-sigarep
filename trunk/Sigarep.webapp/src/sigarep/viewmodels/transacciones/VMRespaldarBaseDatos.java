@@ -1,30 +1,32 @@
 package sigarep.viewmodels.transacciones;
 
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
-import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WebApp;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.UploadEvent;
+
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
 
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Window;
 
-import sigarep.herramientas.Documento;
+
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
-import sigarep.modelos.data.transacciones.RecaudoEntregado;
-import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
-import sigarep.modelos.data.transacciones.Soporte;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,34 +36,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.swing.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
 
-
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMRespaldarBaseDatos {	
+public class VMRespaldarBaseDatos extends GenericForwardComposer<Component>{	
 
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
-	String ruta = UtilidadesSigarep.obtenerDirectorio();
-	String descripcion;
-	String txtRuta = "";
-	String nombreRespaldo;
-	String fecha;
-	String selected = "";
-	//Accediendo a los archivos en el directorio
-	FileInputStream lector;
-	FileOutputStream escritor;
-	File directorio = null;
-	String[] listaDirectorio2 = null;
-	List<String> listaDirectorio1 = new ArrayList<String>();
-	
-	private Documento doc = new Documento();
-	private Media media;
-	
-	private MensajesAlUsuario mensajeAlUsuario;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String ruta = UtilidadesSigarep.obtenerDirectorio();
+	private String descripcion = "";
+	private String txtRuta = "";
+	private String nombreRespaldo;
+	private String fecha;
+	private String selected = "";
+	private FileInputStream lector;
+	private FileOutputStream escritor;
+	private File directorio = null;
+	private String[] listaDirectorio2 = null;
+	private List<String> listaDirectorio1 = new ArrayList<String>();
+	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 
+	/** doAfterCompose.
+	 * @parameters view. 
+	 * @return No devuelve ningun valor.
+	 */
+	
+	@Wire("#backupsListbox")//para conectarse al listbox con el ID
+	Listbox backupsListbox;
+	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
+	
+	//Metodos SETs Y GETs  
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -117,25 +128,50 @@ public class VMRespaldarBaseDatos {
 	public void setListaDirectorio1(List<String> listaDirectorio1) {
 		this.listaDirectorio1 = listaDirectorio1;
 	}
+	
+	//Fin Metodos SETs Y GETs 
 
+	/**
+	 * Inicialización
+	 * 
+	 * @param init
+	 * @return Carga de Variables y metodos inicializados
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
 	@Init
 	public void init() {
 		// initialization code
-		cargarDirectorioSVN();
-	}
-	
-
-	@Command
-	@NotifyChange({"listaDirectorio2","listaDirectorio1","directorio"})
-	public void cargarDirectorioSVN() {
+		lector = null;
+		escritor = null;
+		directorio = null;
 		directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
 		listaDirectorio2 = directorio.list();
-		for (int j=0; j<listaDirectorio1.size();j++)
-		{
-			System.out.println(listaDirectorio2[j].toString());
-			listaDirectorio1.remove(j);
-		}
-		
+		cargarBackups();
+	}
+	
+	/** OnTimer$timer. Maneja el timer de la  vista , se encarga de actualizar el contenido del listbox cada 50 segundos
+	 * (una vez que la función ejecutarComandos haya creado el backup por completo, actualizando su tamaño en el listbox)
+	 * @parameters backupsListbox. 
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion.
+	 */
+	public void onTimer$timer(Event e){
+		    backupsListbox.setModel(backupsListbox.getModel());
+	}
+
+	/** Cargar backups al modelo del listbox de backups
+	 * @parameters listaDirectorio1, listaDirectorio2 y directorio
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
+	@Command
+	@NotifyChange({"listaDirectorio2","listaDirectorio1","directorio"})
+	public void cargarBackups() {
+		directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
+		//Accediendo a los archivos en el directorio
+		listaDirectorio2 = directorio.list();
 		for (int i=0; i<listaDirectorio2.length;i++)
 		{
 			if (!(listaDirectorio2[i].equals(".svn")))
@@ -144,6 +180,12 @@ public class VMRespaldarBaseDatos {
 			}
 		}
 	}
+	
+	/** Seleccionar la Ruta de respaldo en dispositivo externo
+	 * @parameters txtRuta
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion.
+	 */
 	
 	@Command
 	@NotifyChange({"txtRuta"})
@@ -160,84 +202,100 @@ public class VMRespaldarBaseDatos {
 	 	}	
 	}
 	
+	/** Guardar respaldo de la base de datos
+	 * @parameters txtRuta, ruta (directorio del proyecto), selected, listaDirectorio1, listaDirectorio2, directorio
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
 	@NotifyChange({ "txtRuta", "ruta", "descripcion","selected","listaDirectorio1","listaDirectorio2","directorio"})
 	@Command
 	public void guardarRespaldo(@BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo, @BindingParam("aplication") WebApp application){
 		if(descripcion.equals("")){
-			mensajeAlUsuario.advertenciaEscribirNombreDeRespaldo();
+			mensajesAlUsuario.advertenciaEscribirNombreDeRespaldo();
 		}
 		else if (selected.equals("local")){
 		//Aqui hay que pasar la ruta local para el método donde esta el código para respaldar
 		//esta ruta es para la carpeta respaldos
 		//Asi es para guardar directamente en el proyecto
-		respaldarBD(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD",descripcion,application);
-		limpiar();
-		groupboxDispositivo.setVisible(false);
-		//Asi guarda en .metadata
-		//respaldarBD(application.getRealPath("/WEB-INF/sigarep/administracionBaseDatos/respaldosBD"),txtdescripcion.getValue());
+		crearRespaldoBD(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD",descripcion,application);
+		limpiar(groupboxDispositivo);
 		}else if(selected.equals("dispositivo")){
-			respaldarBD(txtRuta,descripcion,application);
-			limpiar();
-			groupboxDispositivo.setVisible(false);
+			crearRespaldoBD(txtRuta,descripcion,application);
+			limpiar(groupboxDispositivo);
 		}else{
-			mensajeAlUsuario.advertenciaSeleccionarDestinoRespaldo();
+			mensajesAlUsuario.advertenciaSeleccionarDestinoRespaldo();
 		}
 	}
 	
+	/** Crear respaldo de la BD
+	 * @parameters path2, namespace, application, listaDirectorio1, fecha, lector, txtRuta, escritor, backupsListbox
+	 * @return No devuelve ningun valor.
+	 * @throws Se dispara excepción cuando no existe BD para ser respaldada o cuando la ruta de respaldo seleccionada es invalida .
+	 */
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@NotifyChange({"listaDirectorio1", "fecha", "lector", "txtRuta", "escritor"})
 	@Command
-	public void respaldarBD(final String path2, final String namespace, WebApp application){
-		
+	public void crearRespaldoBD(final String path2, final String namespace, WebApp application){
 		try {
 	        final Properties props = new Properties();
-	        System.out.println("aplication: "+application.getAppName());
 			lector = new java.io.FileInputStream(application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
 			props.load(lector);
 			lector.close();
-			
 			Date ahora = new Date();
-			SimpleDateFormat sdf=new java.text.SimpleDateFormat("ddMMyyyy");
+			SimpleDateFormat sdf=new java.text.SimpleDateFormat("ddMMyyyy-hh-mm-ss");
 			fecha =  sdf.format(ahora);
-			
+			props.setProperty("nrorespaldo", String.valueOf(listaDirectorio1.size()));
 			String nroRespaldo = props.getProperty("nrorespaldo");
-			
-			if (Integer.valueOf(nroRespaldo)!=5){
+			if (Integer.valueOf(nroRespaldo) < 5){
 				Object[] arg = new Object[] { new Date(),Integer.valueOf(nroRespaldo) + 1 };
-				nombreRespaldo = String.format(fecha, arg);		
+				nombreRespaldo = String.format(fecha, arg);
+				if(!path2.equals(txtRuta))
+					listaDirectorio1.add(namespace + "-" + nombreRespaldo + ".backup");
 				nombreRespaldo = "/" + namespace + "-" + nombreRespaldo + ".backup";
 				props.setProperty("nrorespaldo", String.valueOf(Integer.valueOf(nroRespaldo) + 1));
 				escritor = new java.io.FileOutputStream(application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
-				System.out.println(escritor.toString());
-				props.store(escritor, "Incremento");
+				props.store(escritor, "Incremento");				
 				ejecutarComandos(nombreRespaldo, props, path2);
 			}else{
 				//Cuando existen mas de 5 respaldos de la BD
-				Messagebox.show("Se ha alcanzado el limite de respaldos,¿Desea reemplazar alguno de los ya existentes?",
+				Messagebox.show("Se ha alcanzado el limite de respaldos de la BD, el nuevo respaldo reemplazará la copia mas antigua, ¿Desea continuar?",
 				"Confirmar",Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, 
 				new org.zkoss.zk.ui.event.EventListener() {
-      			public void onEvent(Event evt) throws InterruptedException {
+				public void onEvent(Event evt) throws InterruptedException {
 					if (evt.getName().equals("onOK")) {
 						Object[] arg = new Object[] { new Date(), 1 };
-						nombreRespaldo = String.format(fecha, arg);		
+						nombreRespaldo = String.format(fecha, arg);
+						File archivoEliminado = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/"+listaDirectorio1.remove(0));
+						archivoEliminado.delete();
+						if(!path2.equals(txtRuta)){
+							listaDirectorio1.add(namespace + "-" + nombreRespaldo + ".backup");
+							backupsListbox.setModel(new SimpleListModel<String>(listaDirectorio1));
+						}
 						nombreRespaldo = "/" + namespace + "-" + nombreRespaldo + ".backup";
 						ejecutarComandos(nombreRespaldo, props, path2); 								
 					}
 				}
 				});
-			
 			}
 		   }catch (Exception e) {
 			   mensajesAlUsuario.informacionRespaldoNoExitosa();
-			}
+		   }
 	}
+	
+	/** Ejecutar comandos para la creación de la BD en postgreSQL
+	 * @parameters nombreRespaldo, props, path2
+	 * @return No devuelve ningun valor.
+	 * @throws Se dispara excepción cuando el contructor de procesos no inicia es decir no logra acceder al usuario de postgreSQL
+	 */
 	
 	@Command
 	public void ejecutarComandos(String nombreRespaldo, Properties props, String path2){
 		//Ruta del respaldo y nombre del respaldo
         String path3 = path2 + nombreRespaldo;
         System.out.println("Ruta: " + path3);
-        Runtime r = Runtime.getRuntime();;
+        Runtime r = Runtime.getRuntime();
         Process p;
         ProcessBuilder pb;
         List<String> lista = new ArrayList<String>();
@@ -269,40 +327,48 @@ public class VMRespaldarBaseDatos {
         mensajesAlUsuario.informacionRespaldoExitoso();
 	}
 	
+	/** HabilitarGroupBoxDispositivo para la ruta externa de respaldo
+	 * @parameters groupboxDispositivo
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion.
+	 */
+		
 	@Command
-	public void buscarBackups(@BindingParam("listaBackups") Listbox listaBackups){
-		String archivoSelec = listaBackups.getSelectedItem().getValue();
-	}
-	
-	
-	@Command
-	public void habilitarGroupBoxDispotivo(@BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo) {
+	public void habilitarGroupBoxDispositivo(@BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo) {
 		groupboxDispositivo.setVisible(true);
 	}
 	
+	/** DeshabilitarGroupBoxDispositivo para la ruta externa de respaldo
+	 * @parameters groupboxDispositivo
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
 	@Command
-	public void deshabilitarGroupBoxDispotivo(@BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo) {
+	public void deshabilitarGroupBoxDispositivo(@BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo) {
 		groupboxDispositivo.setVisible(false);
 	}
 	
-	@NotifyChange({ "txtRuta", "descripcion","selected","listaDirectorio1","listaDirectorio2","directorio"})
+	/** Limpiar los campos de texto, los radiobutton y deshabilitar el groupbox de dispositivo
+	 * @parameters txtRuta, descripcion, selected, listaDirectorio2, groupboxDispositivo
+	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
+	@NotifyChange({ "txtRuta", "descripcion","selected","listaDirectorio2"})
 	@Command
-	public void limpiar(){
+	public void limpiar(@BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo){
 		txtRuta = "";
 		descripcion = "";
 		selected = "";
 		listaDirectorio2 = null;
-		directorio = null;
-		cargarDirectorioSVN();
+		groupboxDispositivo.setVisible(false);
 	}
 	
-	/**
-	 * Cerrar Ventana
-	 * 
+	/** Cerrar Ventana
 	 * @param ventana
 	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	
 	@NotifyChange({"descripcion","selected"})
@@ -311,6 +377,6 @@ public class VMRespaldarBaseDatos {
 		boolean condicion = false;
 		if(!descripcion.equals("") || !selected.equals(""))
 			condicion = true;
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);		
+        mensajesAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
 	}
 }

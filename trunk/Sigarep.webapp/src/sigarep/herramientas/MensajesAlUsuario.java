@@ -286,7 +286,7 @@ public class MensajesAlUsuario {
 	}
 
 	public void informacionRespaldoExitoso() {
-		Messagebox.show("Respaldo realizado de manera exitosa.",
+		Messagebox.show("Respaldo satisfactorio, en unos segundos culminará su creación y se actualizará su tamaño en la lista, luego de esto prodrá utilizarla para restaurar la BD",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
