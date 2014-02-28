@@ -34,7 +34,7 @@
 			<listbox id="lbxSancionados" height="70%"
 				model="@bind(vm.listaEstudiantes)"
 				selectedItem="@bind(vm.estudianteSeleccionado)"
-				onSelect="@command('showModal')" mold="paging" pageSize="10"
+				onSelect="@command('showModal',listboxSancionados=lbxSancionados)" mold="paging" pageSize="10"
 				emptyMessage="No hay Apelaciones">
 				<listhead>
 					<listheader label="Cédula" align="center"

@@ -5,8 +5,11 @@ import java.util.Collections;
 
 import org.zkoss.bind.annotation.AfterCompose;
 
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -74,6 +77,9 @@ public class VMMenuAplicacion{
 	}
 	
 	@AfterCompose
+	@Command
+	@GlobalCommand
+	@NotifyChange({"contactTreeModel"})
 	public void Init(@ContextParam(ContextType.COMPONENT) Component windowindex,@ContextParam(ContextType.VIEW) Component view) {
 		rootPortalInicial = new VMNodoMenuArbol(null,null);		
 		for(String rol:VMUtilidadesDeSeguridad.roles()){

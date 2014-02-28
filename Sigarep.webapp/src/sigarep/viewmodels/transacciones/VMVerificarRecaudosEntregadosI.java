@@ -51,8 +51,6 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-//import sigarep.modelos.servicio.maestros.ServicioEstudiante;
-
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMVerificarRecaudosEntregadosI {
 	@WireVariable
@@ -123,8 +121,6 @@ public class VMVerificarRecaudosEntregadosI {
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	List<Recaudo> listaRecaudosGenerales = new LinkedList<Recaudo>();
 	MensajesAlUsuario mensajeAlUsuario  = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
-	
-
 	@WireVariable
 	private TipoMotivo tipoMotivo;
 	@WireVariable
@@ -464,10 +460,16 @@ public class VMVerificarRecaudosEntregadosI {
 	}
 
 	@Command
-	public void notificarRecaudoVerificado(@BindingParam("lbxRecaudos") Listbox lbxRecaudos) {
-		Listcell a = (Listcell)lbxRecaudos.getAttribute("identificadorListitem");
-		if(lbxRecaudos.getSelectedIndex()!=-1)	
-			Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,a,"middle_center",1000);
+	public void notificarRecaudoVerificado(@BindingParam("todosLosItems") List<Listitem> items, @ContextParam(ContextType.COMPONENT) Component componente) {
+		String identificadorItemSeleccionado = String.valueOf(componente.getAttribute("identificadorListitem"));
+		for(Listitem a : items){
+			String identificadorDelItem = ((Listcell)a.getChildren().get(2)).getLabel();
+			if(identificadorDelItem.equals(identificadorItemSeleccionado)){
+				if(a.isSelected())
+					Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,componente,"middle_center",1000);		
+				break;
+			}
+		}
 	}
 	
 	/**

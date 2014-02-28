@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -18,7 +16,6 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -29,9 +26,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -480,12 +475,17 @@ public class VMVerificarRecaudosEntregadosIII {
 		listaRecaudos.clearSelection();
 	}
 	
-	//Muestra un mensaje que el recaudo fue verificado
 	@Command
-	public void notificarRecaudoVerificado(@BindingParam("lbxRecaudos") Listbox lbxRecaudos) {
-		Listcell a = (Listcell)lbxRecaudos.getAttribute("identificadorListitem");
-		if(lbxRecaudos.getSelectedIndex()!=-1)	
-			Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,a,"middle_center",1000);
+	public void notificarRecaudoVerificado(@BindingParam("todosLosItems") List<Listitem> items, @ContextParam(ContextType.COMPONENT) Component componente) {
+		String identificadorItemSeleccionado = String.valueOf(componente.getAttribute("identificadorListitem"));
+		for(Listitem a : items){
+			String identificadorDelItem = ((Listcell)a.getChildren().get(2)).getLabel();
+			if(identificadorDelItem.equals(identificadorItemSeleccionado)){
+				if(a.isSelected())
+					Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,componente,"middle_center",1000);		
+				break;
+			}
+		}
 	}
 	
 	/**

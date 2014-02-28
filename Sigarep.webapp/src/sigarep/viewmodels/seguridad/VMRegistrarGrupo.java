@@ -7,28 +7,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.zkoss.bind.Binder;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.DefaultTreeModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tree;
 import org.zkoss.zul.TreeNode;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 
@@ -74,11 +70,11 @@ public class VMRegistrarGrupo {
 	private String nombreGrupofiltro = "";
 	private String descripcionfiltro = "";
     private Grupo grupoAux = null;
+    private Grupo grupoAux2 = null;
     private Grupo grupoSeleccionado = new Grupo();
     private List<Grupo> listaGrupos = new LinkedList<Grupo>();
     private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
 	// Metodos GETS Y SETS
 	
 	public ServicioNodo getsnodo() {
@@ -402,9 +398,10 @@ public class VMRegistrarGrupo {
 	 */
 	
 	@Command
-	@NotifyChange({ "nombre", "descripcion","grupoAux","contactTreeModel","contactTreeModel2","grupoSeleccionado"})
-	public void buscarGrupo(){
+	@NotifyChange({ "nombre", "descripcion","grupoAux","grupoAux2","contactTreeModel","contactTreeModel2","grupoSeleccionado"})
+	public void buscarGrupo(@BindingParam("listboxGrupos") Listbox listboxGrupos){
 			grupoAux = new Grupo();
+			grupoAux2 = new Grupo();
 			Grupo g = serviciogrupo.buscarGrupoNombre(grupoSeleccionado.getNombre());
 			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());		
 			Collections.sort(nodosOrdenados, new Nodo());
@@ -415,8 +412,10 @@ public class VMRegistrarGrupo {
 			cargarMenu(servicionodo.funcionesGrupoNoPerteneceGrupo(g.getIdGrupo()), root);
 			contactTreeModel = new VMModeloArbolAvanzado(root);
 			grupoAux = g;
+			grupoAux2 = g;
 			nombre = grupoAux.getNombre();
-			descripcion = grupoAux.getDescripcion();				
+			descripcion = grupoAux.getDescripcion();
+			listboxGrupos.clearSelection();
 	}
 	
 	/**
@@ -462,6 +461,14 @@ public class VMRegistrarGrupo {
 			return nodo;
 	}
 	
+	/**
+	 * cargarNodos
+	 * metodo que permite cargar el nodo padre (nodo del menú arbol) dado un nodo en especifico
+	 * @param VMNodoMenuArbol nodo. 
+	 * @return VMmenuTreeNode nodo del ultimo padre cargado recursivamente.
+	 * @throws no ocurren excepciones 
+	 */
+	
 	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
 		boolean encontro=false;
 		 for(int j=0;j< root.getChildCount();j++){
@@ -495,6 +502,19 @@ public class VMRegistrarGrupo {
 		listaGrupos = serviciogrupo.buscarGrupoFiltro(nombreGrupofiltro, descripcionfiltro);
 	}
 	
+	@GlobalCommand
+	@NotifyChange({"grupoAux2"})
+    public void actualizarMenuArbolSIGAREP(){
+		if(grupoAux2!=null)
+			for(String nombreGrupo : VMUtilidadesDeSeguridad.roles()){
+				if(grupoAux2.getNombre().equals(nombreGrupo)){
+					BindUtils.postGlobalCommand(null, null, "Init", null);
+				break;					
+				}
+			}
+		grupoAux2 = null;
+    }
+	
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -511,7 +531,5 @@ public class VMRegistrarGrupo {
 				condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-	
 
-	
 }
