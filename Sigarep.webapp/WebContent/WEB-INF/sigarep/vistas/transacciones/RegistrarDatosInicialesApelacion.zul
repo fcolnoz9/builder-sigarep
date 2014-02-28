@@ -117,7 +117,7 @@
 						<combobox id="cmbMotivo" mold="rounded"
 							model="@load(vm.listaTipoMotivo)" tabindex="8" width="80%"
 							selectedItem="@bind(vm.motivoseleccionado)"
-							placeholder="Seleccione un motivo..." >
+							placeholder="Seleccione un motivo..." readonly="true">
 							<template name="model">
 								<comboitem
 									label="${each.getNombreTipoMotivo()}" />
