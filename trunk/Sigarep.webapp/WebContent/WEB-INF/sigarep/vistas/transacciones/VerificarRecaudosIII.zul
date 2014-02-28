@@ -76,7 +76,7 @@
 		<caption label="Datos de la apelación" />
 		<div align="left">
 			<label id="lblnrocaso" value="Número del Caso: " />
-			<textbox id="txtnrocaso"  cols="10" maxlength="60" mold="rounded"
+			<textbox id="txtnrocaso"  cols="12" maxlength="60" mold="rounded"
 				value="@bind(vm.caso)" readonly="true">
 			</textbox>
 			<label id="lblFechaApelacion" value="Fecha de la Apelación: " />
@@ -96,9 +96,11 @@
 							 model="@bind(vm.listaRecaudosPorEntregar)"
    			 				emptyMessage="No hay recaudos por el motivo seleccionado">
 							<template name="model">
-								<listitem selected="false" onClick="@command('notificarRecaudoVerificado',lbxRecaudos=rigth)">
+								<listitem id="" selected="false" onClick="@command('notificarRecaudoVerificado',todosLosItems=rigth.items, parametro = self)">
 									<listcell label="${each.getNombreRecaudo()}" ></listcell>
 									<listcell label="${each.getTipoMotivo().getNombreTipoMotivo()}" ></listcell>
+									<listcell label="${each.idRecaudo}" visible="false"/>
+									<custom-attributes identificadorListitem="${each.idRecaudo}" />
 								</listitem>
 							</template>
 						</listbox>

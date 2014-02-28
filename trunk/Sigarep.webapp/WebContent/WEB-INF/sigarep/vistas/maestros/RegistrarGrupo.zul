@@ -45,7 +45,7 @@
 		<listbox id="lbxGrupos" height="130px"
 			model="@bind(vm.listaGrupos)"
 			selectedItem="@bind(vm.grupoSeleccionado)"
-			onSelect="@command('buscarGrupo')"
+			onSelect="@command('buscarGrupo',listboxGrupos=lbxGrupos)"
 			emptyMessage="No hay Grupos registrados" mold="paging" hflex="1" vflex="1">
 			<listhead hflex="50px">
 				<listheader label="Nombre de Grupo" align="lefth"
@@ -105,7 +105,7 @@
 			<button label="Guardar" id="btnGuardarRegistrarGrupo" 
 				    mold="trendy" width="auto" height="auto"
 				    image="imagenes/iconos/guardar.png" 
-				   onClick="@command('guardarGrupo')" />
+				   onClick="@command('guardarGrupo') @global-command('actualizarMenuArbolSIGAREP')" />
 			<button label="Limpiar" id="btnLimpiarRegistrarGrupo" 
 			        mold="trendy" width="auto" height="auto"
 				    image="imagenes/iconos/limpiar.png"

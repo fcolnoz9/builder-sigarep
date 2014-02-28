@@ -69,7 +69,7 @@
 	   <caption label="Datos de la apelación" />
 	   	<div align="left">
 			<label id="lblnrocaso" value="Número del Caso: " />
-			<textbox id="txtnrocaso" cols="10" maxlength="30"
+			<textbox id="txtnrocaso" cols="12" maxlength="30"
 				value="@bind(vm.caso)" readonly="true">
 			</textbox>
 			<label id="lblFechaApelacion" value="Fecha de la Apelación: " />
@@ -81,25 +81,17 @@
 	 	<listbox id="lbxRecaudos" multiple="true" height="245px" width="auto"
 	   	oddRowSclass="non-odd" checkmark="true" xmlns:ca="client/attribute"
 	   	emptyMessage="No hay recaudos entregados" model="@bind(vm.listaRecaudos)"
-	   	mold="paging" vflex="1">
-	   	 <attribute name="onCheckSelectAll"><![CDATA[
-       		 if (event.isChecked()) {
-          		  alert("Select All Checked");
-       		 } else {
-          		  alert("Select All Un-Checked");
-       		 }
-   			 ]]></attribute>
-	   	
+	   	mold="paging" vflex="1">	   	
 	   	<listhead>
 	   		<listheader hflex="3" label="Nombre del recaudo" width="50%" sort="auto(nombreRecaudo)" height="20%"/> 
 	   		<listheader hflex="4" label="Tipo de Motivo" width="50%" sort="auto(nombreTipoMotivo)" height="20%" /> 	
 	   	</listhead>
 	   	<template name="model">
-	   		<listitem selected="false" onClick="@command('notificarRecaudoVerificado',lbxRecaudos=lbxRecaudos)">
-	   			<listcell label="${each.nombreRecaudo}" height="20%"></listcell>
-	   			<listcell label="${each.tipoMotivo.nombreTipoMotivo}" height="20%">
+	   		<listitem id="" selected="false" onClick="@command('notificarRecaudoVerificado',todosLosItems=lbxRecaudos.items, parametro = self)">
+	   			<listcell label="${each.nombreRecaudo}" height="20%"/>
+	   			<listcell label="${each.tipoMotivo.nombreTipoMotivo}" height="20%"/>
+	   			<listcell label="${each.idRecaudo}" visible="false"/>
 	   			<custom-attributes identificadorListitem="${each.idRecaudo}" />
-	   			</listcell>
 	   		</listitem>
 	   	</template>
 	   </listbox>	

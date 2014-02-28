@@ -504,10 +504,16 @@ public class VMVerificarRecaudosEntregadosII {
 	}
 
 	@Command
-	public void notificarRecaudoVerificado(@BindingParam("lbxRecaudos") Listbox lbxRecaudos) {
-		Listcell a = (Listcell)lbxRecaudos.getAttribute("identificadorListitem");
-		if(lbxRecaudos.getSelectedIndex()!=-1)	
-			Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,a,"middle_center",1000);
+	public void notificarRecaudoVerificado(@BindingParam("todosLosItems") List<Listitem> items, @ContextParam(ContextType.COMPONENT) Component componente) {
+		String identificadorItemSeleccionado = String.valueOf(componente.getAttribute("identificadorListitem"));
+		for(Listitem a : items){
+			String identificadorDelItem = ((Listcell)a.getChildren().get(2)).getLabel();
+			if(identificadorDelItem.equals(identificadorItemSeleccionado)){
+				if(a.isSelected())
+					Clients.showNotification("Recaudo Verificado",Clients.NOTIFICATION_TYPE_INFO,componente,"middle_center",1000);		
+				break;
+			}
+		}
 	}
 	
 	/**

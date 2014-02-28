@@ -15,6 +15,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
@@ -270,11 +271,10 @@ public class VMListaGenericaSancionados {
 			listaEstudiantes = servicioestudiantesancionado.buscarEstudiante();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
-
 }
 	
 	@Command
-	public void showModal (){
+	public void showModal(@BindingParam("listboxSancionados") Listbox listboxSancionados){
   	
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("sancionadoSeleccionado", sancionadoSeleccionado);
@@ -282,8 +282,7 @@ public class VMListaGenericaSancionados {
 	 	map.put("numeroSesion", numeroSesion);
 	 	map.put("tipoSesion", tipoSesion);
 	 	map.put("fechaSesion", fechaSesion);
-	 	System.out.println("envia"+sancionadoSeleccionado);
- 
+	 	listboxSancionados.clearSelection();
         final Window window = (Window) Executions.createComponents(
         		"/WEB-INF/sigarep/vistas/"+rutaModal, null, map);
 		window.setMaximizable(true);
