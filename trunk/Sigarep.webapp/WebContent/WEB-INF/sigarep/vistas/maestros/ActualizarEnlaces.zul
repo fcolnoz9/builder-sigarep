@@ -123,7 +123,7 @@
 						<listcell label="${each.direccionEnlace}"></listcell>
 						<listcell label="${each.descripcion}"></listcell>
 						<listcell label="">
-							<image height="90px" width="90px"
+							<image height="30px" width="60px"
 								content="${each.getImagen().getAImage()}" />
 						</listcell>
 					</listitem>
