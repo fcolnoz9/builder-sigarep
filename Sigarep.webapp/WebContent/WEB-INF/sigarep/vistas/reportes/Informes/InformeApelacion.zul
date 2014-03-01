@@ -1,10 +1,13 @@
 <zk>
+
 	<window id="winApelacion"
 		title="Reportes :: Informes :: Informe de Apelación" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeConsejoDecanato')">
 
+       
+       <!-- Groupbox que contiene los campos de la pantalla para la búsqueda y datos de memorando-->
 		<groupbox vflex="true" closable="false" sclass="z-demo-config"
 			width="auto" height="auto">
 			<caption label="Criterio de Selecciòn" />
@@ -52,7 +55,7 @@
 
 
 			</grid>
-
+<!-- hbox que contiene los botones en la interfaz que permiten la generación del reporte , limpiar los campos y cerrar la ventana -->
 
 			<hbox width="90%" height="150%" pack="right">
 				<hlayout id="lyBuscar">
@@ -80,7 +83,7 @@
 			</hbox>
 
 		</groupbox>
-		
+		<!-- jasperreport donde se dibuja el reporte dentro de la interfaz -->
 		<jasperreport id="report" height="620px"
 			src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesMotivo')"
 			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteApelacionesMotivo')"
