@@ -19,7 +19,11 @@ public class ServicioReportes {
 	
 	@PersistenceContext
 	private EntityManager em;
-	
+	/** Buscar Apelaciones por Motivo y Resultado 
+	 * @param Integer programa,String codigo_lapso, Integer tipo_sancion
+	 * @return Lista con la cantidad de apelaciones por tipo de motivo y sus veredictos 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<ApelacionesComparativos> buscarPorMotivoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes , " +
@@ -101,6 +105,11 @@ public class ServicioReportes {
 				return results;
 	}
 	
+	/** Buscar Apelaciones por Motivo y Resultado con todos los tipos de sancion
+	 * @param Integer programa,String codigo_lapso
+	 * @return Lista con la cantidad de apelaciones por tipo de motivo y sus veredictos 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<ApelacionesComparativos> buscarPorMotivoResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
 				"select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
@@ -158,27 +167,7 @@ public class ServicioReportes {
 				"group by timo.nombre_tipo_motivo) as v " +
 				"group by v.motivo " +
 				"order by apelaciones desc";
-//		"" +
-//		"" +
-//		"" +
-//		"" +
-//		"" +
-//		"+
-//				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
-//				"and essa.codigo_lapso = sa.codigo_lapso " +
-//				"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
-//				"and mo.codigo_lapso = sa.codigo_lapso " +
-//				"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-//				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-//				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-//				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-//				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-//				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-//				"and prog.nombre_programa = "+ "'"+programa+"' " +
-//				//"and sa.veredicto = 'Aprobado' " +
-//				"GROUP BY timo.nombre_tipo_motivo, sa.veredicto " +
-//				"ORDER BY numeroapelaciones desc, timo.nombre_tipo_motivo asc, sa.veredicto asc";
-//		
+
 						
 		Query query = em.createNativeQuery(queryStatement);
 		
@@ -200,7 +189,11 @@ public class ServicioReportes {
 		return results;
 	}
 	
-	
+	/** Buscar Apelaciones por Instancia y Resultado con todos los tipos de sancion
+	 * @param Integer programa,String codigo_lapso
+	 * @return Lista con la cantidad de apelaciones por tipo de motivo y sus veredictos 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	
 	public List<ApelacionesComparativos> buscarPorInstanciaResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
@@ -263,6 +256,11 @@ public class ServicioReportes {
 		return results;
 	}
 	
+	/** Buscar Apelaciones por Instancia y Resultado 
+	 * @param Integer programa,String codigo_lapso, Integer tipo_sancion
+	 * @return Lista con la cantidad de apelaciones por tipo de instancia y sus veredictos 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<ApelacionesComparativos> buscarPorInstanciaResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.apelacion as apelacion, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
@@ -329,7 +327,11 @@ public class ServicioReportes {
 		return results;
 	}
 	
-
+	/** Buscar Apelaciones por Tipo de Sexo y Resultado con todos los tipos de sancion
+	 * @param Integer programa,String codigo_lapso
+	 * @return Lista con la cantidad de apelaciones por tipo de sexo y sus veredictos 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<ApelacionesComparativos> buscarPorSexoResultado_Programa(String codigo_lapso, int programa) {
 		String queryStatement =
 				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
@@ -390,6 +392,11 @@ public class ServicioReportes {
 		return results;
 	}
 	
+	/** Buscar Apelaciones por Tipo de Sexo y Resultado 
+	 * @param Integer programa,String codigo_lapso, Integer tipo_sancion
+	 * @return Lista con la cantidad de apelaciones por tipo de sexo y sus veredictos 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<ApelacionesComparativos> buscarPorSexoResultado_ProgramaSancion(String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement =
 				"select v.sexo as sexo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, " +
@@ -490,60 +497,17 @@ public class ServicioReportes {
 		return results;
 	}
 	
-	public List<Sancionados> buscarEstudiantesComision(/*String instancia, */int programa/*, String sancion*/){
+	/** Buscar Estudiantes por Comisión 
+	 * @param Integer programa
+	 * @return Lista de estudiante con los resultados de sugerencias por Comisión
+	 * @throws No dispara ninguna excepcion.
+	 */
+	public List<Sancionados> buscarEstudiantesComision(int programa){
 		
-		/*String adicioninstancia;
-		String adicionprograma;
-		String adicionsancion;
-		
-		if(instancia.equals("TODOS")){
-			adicioninstancia="";
-			
-		}else{
-			adicioninstancia = " AND instancia_apelada.instancia_apelada = '"+instancia+ "' ";	;
-		}
-		
-		if(programa.equals("TODOS")){
-			adicionprograma	="";
-				
-		}else{adicionprograma	=" AND programa_academico.nombre_programa = '"+programa+ "' ";}
-			
-		if(sancion.equals("TODOS")){
-			adicionsancion="";	
-					
-		}else{adicionsancion=" AND sancion_maestro.nombre_sancion = '"+sancion+ "' ";	;	}
-		*/
 		System.out.println();
 		
 		String queryStatement =
-//				"SELECT es.cedula_estudiante, es.primer_nombre, es.primer_apellido, " +
-//				"sanma.nombre_sancion, sa.veredicto, sa.observacion " +
-//				"FROM tipo_motivo timo, solicitud_apelacion sa " +
-//				"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
-//				"and essa.codigo_lapso = sa.codigo_lapso " +
-//				"INNER JOIN motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
-//				"and mo.codigo_lapso = sa.codigo_lapso " +
-//				"and mo.id_instancia_apelada = sa.id_instancia_apelada " +
-//				"INNER JOIN sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion " +
-//				"INNER JOIN estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
-//				"INNER JOIN programa_academico as prog on es.id_programa = prog.id_programa " +
-//				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-//				"and sa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
-//				"and prog.nombre_programa = "+ "'"+nombre_programa+"' ";
-//				
-//	" SELECT  estudiante.cedula_estudiante, estudiante.primer_nombre, estudiante.primer_apellido, " +
-//	" sancion_maestro.nombre_sancion, solicitud_apelacion.veredicto, solicitud_apelacion.observacion" +
-//	" FROM programa_academico, estudiante, lapso_academico, estudiante_sancionado, sancion_maestro, instancia_apelada, solicitud_apelacion" +
-//	" WHERE programa_academico.id_programa = estudiante.id_programa " +
-//	" AND estudiante.cedula_estudiante = estudiante_sancionado.cedula_estudiante AND" +
-//	" lapso_academico.codigo_lapso = estudiante_sancionado.codigo_lapso " +
-//	" AND estudiante_sancionado.cedula_estudiante = solicitud_apelacion.cedula_estudiante AND" +
-//	" estudiante_sancionado.codigo_lapso = solicitud_apelacion.codigo_lapso " +
-//	" AND sancion_maestro.id_sancion = estudiante_sancionado.id_sancion AND" +
-//	" instancia_apelada.id_instancia_apelada = solicitud_apelacion.id_instancia_apelada"; //+adicioninstancia+adicionprograma+adicionsancion+			  
-//	//" ;"
-//		//		 ;
-//
+
 		"SELECT DISTINCT es.cedula_estudiante as cedula, es.primer_nombre as nombre, es.primer_apellido as apellido, aea.sugerencia as veredicto, " +
 		"(SELECT count(es.cedula_estudiante) FROM apelacion_estado_apelacion as aea, estudiante es " +
 		"INNER JOIN estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante " +
@@ -597,7 +561,6 @@ public class ServicioReportes {
 			results.add(new Sancionados((String) resultRow[0], (String) resultRow[1], (String) resultRow[2], 
 										(String) resultRow[3], ((BigInteger) resultRow[4]).intValue(), ((BigInteger) resultRow[5]).intValue()));
 		}
-		//System.out.println(results.get(0).getCedula());
 		return results;
 	}
 
