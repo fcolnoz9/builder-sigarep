@@ -4,8 +4,12 @@
 
 <zk>
 	<library-property>
+	    <name>org.zkoss.zul.Groupbox.mold</name>
+	    <value>3d</value>
+	</library-property>
+	<library-property>
 		<name>org.zkoss.theme.preferred</name>
-		<value>sapphire</value> <!-- or silvertail, atlantic -->
+		<value>atlantic</value> <!-- or silvertail, atlantic, sapphire, Sigarep -->
 	</library-property>
 	<library-property>
 		<name>org.zkoss.zul.progressbox.position</name>
