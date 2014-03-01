@@ -10,22 +10,22 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
+
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.modelos.data.maestros.TipoMotivo;
+
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
-import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
-import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
+
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
@@ -34,13 +34,21 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+
+/**VM Informe Estructurado al Consejo Universitario
+ * UCLA DCYT Sistemas de Información.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.0
+ */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMInformeCU {
 	@Wire("#modalDialog")
+	
+	//***********************************DECLARACIÓN DE LAS VARIABLES GENERALES*************************
 	private Window window;
 	private String apellido;
 	private String nombre;
@@ -64,10 +72,10 @@ public class VMInformeCU {
 	private int unidades_aprobadas;
 	private int unidades_reprobadas;
 	private float indice_grado;
-	
 	private String cedula;
 	private EstudianteSancionado apelacionseleccionada;
 	
+	//***********************************DECLARACIÓN DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
@@ -81,31 +89,35 @@ public class VMInformeCU {
 	@WireVariable
 	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	
+	//***********************************DECLARACIÓN DE LISTAS*************************
 	private List<ApelacionEstadoApelacion> apelacionestudiante1 = new LinkedList<ApelacionEstadoApelacion>();
 	private List<ApelacionEstadoApelacion> apelacionestudiante2 = new LinkedList<ApelacionEstadoApelacion>();
 	private List<RecaudoEntregado> listaRecaudos1 = new LinkedList<RecaudoEntregado>();
 	private List<RecaudoEntregado> listaRecaudos2 = new LinkedList<RecaudoEntregado>();
 	private SolicitudApelacion sancionadoSeleccionado;
 	
-	// Para llamar a los diferentes mensajes de dialogo
+	//*********************************Mensajes***************************************
 			MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 			
+			
+			// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 			ReportType reportType = null;
 			private ReportConfig reportConfig = null;
-			
 			String ruta="/WEB-INF/sigarepReportes/informes/RpInformeConsejoUniversitario.jasper";
 			
-			public ReportConfig getReportConfig() {
-				return reportConfig;
-			}
+//Reporte SET/GETS		
+			
+   public ReportConfig getReportConfig() {
+		return reportConfig;
+	}
 
-			public ReportType getReportType() {
-				return reportType;
-			}
+   public ReportType getReportType() {
+		return reportType;
+	}
 
-			public void setReportType(ReportType reportType) {
-				this.reportType = reportType;
-			}	
+   public void setReportType(ReportType reportType) {
+		this.reportType = reportType;
+	}	
 
 	public SolicitudApelacion getSancionadoSeleccionado() {
 		return sancionadoSeleccionado;
@@ -227,7 +239,7 @@ public class VMInformeCU {
 		apellidos = apellido1 + " " + apellido2;
 
 	}
-	
+	//Método para Inicializar y Cargar los datos del estudiante sancionado seleccionado
 	@Init
 	public void init(
 
@@ -255,9 +267,6 @@ public class VMInformeCU {
 		System.out.println("ape1"+apelacionestudiante1);
 		fecha_ingreso = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getAnioIngreso();
 		
-//		fecha_comision = new Date();
-//		sugerencia = "";
-//		observacion_comision = "";
 		for (int i = 0; i<apelacionestudiante1.size(); i++) {
 			int estado = apelacionestudiante1.get(i).getEstadoApelacion().getIdEstadoApelacion();
 			if (estado == 3) {
@@ -296,55 +305,7 @@ public class VMInformeCU {
 		
 	}
 
-//	@Command
-//	public void showModal() {
-//		
-//		final HashMap<String, Object> map = new HashMap<String, Object>();
-//		map.put("cedula", cedula);
-//		map.put("codigoLapso", codigoLapso);
-//		map.put("nombres", nombres);
-//		map.put("apellidos", apellidos);
-//		map.put("programa", programa);
-//		map.put("sancion", sancion);
-//		map.put("semestre", semestre);
-//		map.put("unidades_cursadas", unidades_cursadas);
-//		map.put("unidades_aprobadas", unidades_aprobadas);
-//		map.put("unidades_reprobadas", unidades_reprobadas);
-//		map.put("indice_grado", indice_grado);
-//		map.put("fecha_comision", fecha_comision);
-//		map.put("sugerencia", sugerencia);
-//		map.put("observacion_comision", observacion_comision);
-//		map.put("codigo_sesion", codigo_sesion);
-//		map.put("fecha_d", fecha_d);
-//		map.put("veredicto", veredicto);
-//		map.put("observacion_consejo_decanato", observacion_consejo_decanato);
-//		map.put("listaRecaudos1", listaRecaudos1);
-//		map.put("listaRecaudos2", listaRecaudos2);
-//		map.put("fecha_ingreso", fecha_ingreso);
-//		
-//		final Window window = (Window) Executions
-//				.createComponents(
-//						"/WEB-INF/sigarep/vistas/reportes/Informes/InformeCU.zul",
-//						null, map);
-//		window.setMaximizable(true);
-//		window.doModal();
-//
-//	}
-
-	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	
-	@Command
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = true;
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
-	}
+	//Reporte SET/GETS
 
 	public String getPrograma() {
 		return programa;
@@ -482,8 +443,13 @@ public class VMInformeCU {
 	public void setSancion(String sancion) {
 		this.sancion = sancion;
 	}
+	//===============================FIN DE LOS METODOS SET Y GET==============================
 	
-	
+	/** Generar Informe Estructurado al Consejo Universitario
+	* @param Ninguno
+	* @return  Informe Estructurado al Consejo Universitario generado en PDF u otro tipo de archivo
+	* @throws Si la lista está vacía no genera el reporte.
+	*/	//
 	@Command("GenerarReporte")
 	@NotifyChange({ "reportConfig" })
 	public void generarReporte() {
@@ -510,8 +476,6 @@ public class VMInformeCU {
 		reportConfig.getParameters().put("semestre", semestre);
 		reportConfig.getParameters().put("listaRecaudosComision", new JRBeanCollectionDataSource(listaRecaudos1));
 		reportConfig.getParameters().put("listaRecaudosCD", new JRBeanCollectionDataSource(listaRecaudos2));
-		//reportConfig.getParameters().put("listaSanciones", new JRBeanCollectionDataSource());
-
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
 
 	}
@@ -521,6 +485,19 @@ public class VMInformeCU {
 	public void closeThis() {
 		window.detach();
 	}
-
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+		boolean condicion = true;
+        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+	}
 
 }
