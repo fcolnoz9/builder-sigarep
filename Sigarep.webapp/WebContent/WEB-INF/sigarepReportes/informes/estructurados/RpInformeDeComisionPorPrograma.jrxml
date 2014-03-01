@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lista de Resultado de Apelaciones" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7da6540-11bf-427f-942b-b5cb25c64d55">
 	<property name="ireport.zoom" value="1.5000000000000007"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="258"/>
+	<property name="ireport.y" value="384"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -160,20 +160,20 @@
 	<parameter name="De" class="java.lang.String"/>
 	<parameter name="Para" class="java.lang.String"/>
 	<parameter name="Contenido" class="java.lang.String"/>
-	<parameter name="procedentesInf" class="java.lang.String"/>
-	<parameter name="denegadosInf" class="java.lang.String"/>
+	<parameter name="procedentesInf" class="java.lang.Integer"/>
+	<parameter name="denegadosInf" class="java.lang.Integer"/>
 	<parameter name="listaInformatica" class="net.sf.jasperreports.engine.JRDataSource">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="listaAnalisis" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="listaProduccion" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="listaMatematicas" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<parameter name="procedentesAna" class="java.lang.String"/>
-	<parameter name="procedentesPro" class="java.lang.String"/>
-	<parameter name="procedentesMat" class="java.lang.String"/>
-	<parameter name="denegadosAna" class="java.lang.String"/>
-	<parameter name="denegadosMat" class="java.lang.String"/>
-	<parameter name="denegadosPro" class="java.lang.String"/>
+	<parameter name="procedentesAna" class="java.lang.Integer"/>
+	<parameter name="procedentesPro" class="java.lang.Integer"/>
+	<parameter name="procedentesMat" class="java.lang.Integer"/>
+	<parameter name="denegadosAna" class="java.lang.Integer"/>
+	<parameter name="denegadosMat" class="java.lang.Integer"/>
+	<parameter name="denegadosPro" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT es.cedula_estudiante as cedula, es.primer_nombre as nombre, es.primer_apellido as apellido, aea.sugerencia as veredicto
 FROM apelacion_estado_apelacion as aea, estudiante es
@@ -197,6 +197,7 @@ and sa.codigo_lapso = '2013-2']]>
 		<variableExpression><![CDATA[$V{Contador}+1]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
 	</variable>
+	<variable name="Su,a" class="java.lang.Integer" calculation="Sum"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -375,7 +376,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<textField>
 				<reportElement uuid="b8db3655-e47c-4955-9b41-f20e10e80208" style="table" x="338" y="314" width="100" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{denegadosInf}+$P{denegadosAna}+$P{denegadosMat}+$P{denegadosPro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{denegadosInf} + $P{denegadosAna} + $P{denegadosMat} + $P{denegadosPro}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2d2a87f5-7c66-49e3-beac-e2c32c73196c" style="table" x="112" y="314" width="126" height="20"/>
@@ -387,7 +388,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<textField>
 				<reportElement uuid="1f76d029-584f-47d0-b0f1-afc6d951125a" style="table" x="238" y="314" width="100" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{procedentesInf} + $P{procedentesAna} + $P{procedentesPro} + $P{procedentesMat}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{procedentesInf} + $P{procedentesAna}+ $P{procedentesPro} + $P{procedentesMat}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
