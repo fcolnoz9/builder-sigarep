@@ -53,7 +53,7 @@
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						model="@load(vm.listaPrograma)"
 						selectedItem="@bind(vm.objprograma)"
-						onSelect="@command('buscarAsignaturas')">
+						onSelect="@command('buscarAsignaturas')" >
 						<template name="model">
 							<comboitem label="${each.getNombrePrograma()}" />
 						</template>
