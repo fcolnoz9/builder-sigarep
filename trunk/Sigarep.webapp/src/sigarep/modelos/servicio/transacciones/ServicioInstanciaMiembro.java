@@ -1,5 +1,6 @@
 package sigarep.modelos.servicio.transacciones;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +22,11 @@ public class ServicioInstanciaMiembro {
 	public void eliminar(InstanciaMiembroPK id){
 		InstanciaMiembro miInstanciaMiembro = iInstanciaMiembroDAO.findOne(id);
 		miInstanciaMiembro.setEstatus(false);
+		miInstanciaMiembro.setFechaSalida(new Date());
 		iInstanciaMiembroDAO.save(miInstanciaMiembro);
 	}
 	
-//	public List<UsuarioGrupo> buscarTodos() {
-//		return iUsuarioGrupoDAO.buscarSancionadosActivos();
-//	}
-	
-//	public EstudianteSancionado buscar(EstudianteSancionadoPK id) {
-//		return iEstudianteSancionadoDAO.findOne(id);
-//	}
+
 
 	public int contarTodos() {
 		return iInstanciaMiembroDAO.findAll().size();
