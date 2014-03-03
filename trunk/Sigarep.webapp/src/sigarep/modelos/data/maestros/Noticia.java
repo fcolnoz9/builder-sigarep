@@ -51,10 +51,10 @@ public class Noticia implements Serializable {
 	@Column(name = "id_noticia", unique = true, nullable = false)
 	private Integer idNoticia;
 
-	@Column(nullable = false, length = 255)
+	@Column(nullable = false, length = 10000)
 	private String contenido;
 
-	@Column(name = "enlace_noticia", length = 255)
+	@Column(name = "enlace_noticia", length = 1000)
 	private String enlaceNoticia;
 
 	@Column(nullable = false)
