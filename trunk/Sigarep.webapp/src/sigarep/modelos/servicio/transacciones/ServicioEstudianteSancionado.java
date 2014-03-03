@@ -1,13 +1,21 @@
 package sigarep.modelos.servicio.transacciones;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import sigarep.modelos.data.maestros.LapsoAcademico;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
+import sigarep.modelos.repositorio.transacciones.ISolicitudApelacionDAO;
 
 /**Clase ServicioEstudianteSancionado
 * Suministra los servicios al VMInstanciaApelada
@@ -20,6 +28,7 @@ import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
 public class ServicioEstudianteSancionado {
 	
 	private @Autowired IEstudianteSancionadoDAO iEstudianteSancionadoDAO;
+	private @Autowired ISolicitudApelacionDAO iSolicitudApelacionDAO;
 	
 	/** Guardar EstudianteSancionado 
 	 * @return el Objeto estudianteSancionado
@@ -268,4 +277,82 @@ public class ServicioEstudianteSancionado {
 		return result;
 	}
 	
+	public List<String> historicoEstudiantesSancionados(LapsoAcademico lapsoAcademico) {
+		List<String> listaElementosAInsertar = new ArrayList<String>();
+		String elementoAInsertar;
+		List<EstudianteSancionado> estudiantesSancionados = iEstudianteSancionadoDAO.findByLapsoAcademico(lapsoAcademico);
+
+		for (int i = 0; i < estudiantesSancionados.size(); i++) {
+			EstudianteSancionado estudianteSancionado = estudiantesSancionados.get(i);
+			elementoAInsertar = "INSERT INTO estudiante_sancionado(cedula_estudiante, codigo_lapso, estatus, indice_grado, lapsos_academicos_rp, periodo_sacion, semestre, unidades_aprobadas, unidades_cursadas, id_sancion)"
+					+ "VALUES ('"
+					+ estudianteSancionado.getId().getCedulaEstudiante()
+					+ "','"
+					+ estudianteSancionado.getId().getCodigoLapso()
+					+ "','"
+					+ estudianteSancionado.getEstatus()
+					+ "',"
+					+ estudianteSancionado.getIndiceGrado()
+					+ ",'"
+					+ estudianteSancionado.getLapsosAcademicosRp()
+					+ "',"
+					+ estudianteSancionado.getPeriodoSancion()
+					+ ","
+					+ estudianteSancionado.getSemestre()
+					+ ","
+					+ estudianteSancionado.getUnidadesAprobadas()
+					+ ","
+					+ estudianteSancionado.getUnidadesCursadas()
+					+ ","
+					+ estudianteSancionado.getSancionMaestro().getIdSancion() + " );";
+			listaElementosAInsertar.add(elementoAInsertar);
+			Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados = estudianteSancionado.getAsignaturaEstudianteSancionados();
+			for (Iterator<AsignaturaEstudianteSancionado> it = asignaturaEstudianteSancionados.iterator(); it.hasNext();) {
+				AsignaturaEstudianteSancionado asignaturaEstudianteSancionado = it.next();
+				elementoAInsertar = "INSERT INTO asignatura_estudiante_sancionado(cedula_estudiante, codigo_asignatura, codigo_lapso, condicion_asignatura)"
+						+ "VALUES ('"
+						+ asignaturaEstudianteSancionado.getId().getCedulaEstudiante()
+						+ "','"
+						+ asignaturaEstudianteSancionado.getId().getCodigoAsignatura()
+						+ "','"
+						+ asignaturaEstudianteSancionado.getId().getCodigoLapso()
+						+ "',"
+						+ asignaturaEstudianteSancionado.getCondicionAsignatura() + ");";
+				listaElementosAInsertar.add(elementoAInsertar);
+			}
+			List<SolicitudApelacion> solicitudesApelacion = iSolicitudApelacionDAO.findByEstudianteSancionado(estudianteSancionado);
+			for (int j = 0; j < solicitudesApelacion.size(); j++) {
+				SolicitudApelacion solicitudApelacion = solicitudesApelacion.get(j);
+				elementoAInsertar = "INSERT INTO solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, numero_caso, fecha_sesion, codigo_sesion, observacion, tipo_sesion, veredicto, analizado, verificado)"
+						+ "VALUES ('"
+						+ solicitudApelacion.getId().getCedulaEstudiante()
+						+ "','"
+						+ solicitudApelacion.getId().getCodigoLapso()
+						+ "',"
+						+ solicitudApelacion.getInstanciaApelada().getIdInstanciaApelada()
+						+ ",'"
+						+ solicitudApelacion.getEstatus()
+						+ "','"
+						+ solicitudApelacion.getFechaSolicitud()
+						+ "','"
+						+ solicitudApelacion.getNumeroCaso()
+						+ "','"
+						+ solicitudApelacion.getFechaSesion()
+						+ "','"
+						+ solicitudApelacion.getNumeroSesion()
+						+ "','"
+						+ solicitudApelacion.getObservacion()
+						+ "','"
+						+ solicitudApelacion.getTipoSesion()
+						+ "','"
+						+ solicitudApelacion.getVeredicto()
+						+ "','"
+						+ solicitudApelacion.isAnalizado()
+						+ "','"
+						+ solicitudApelacion.isVerificado() + "' );";
+				listaElementosAInsertar.add(elementoAInsertar);
+			}
+		}
+		return listaElementosAInsertar;
+	}
 }

@@ -3,17 +3,12 @@ package sigarep.modelos.servicio.transacciones;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
-import sigarep.modelos.lista.ListaGenericaSancionados;
 import sigarep.modelos.repositorio.transacciones.IRecaudoEntregadoDAO;
 import sigarep.modelos.repositorio.transacciones.ISolicitudApelacionDAO;
 
@@ -98,12 +93,12 @@ public class ServicioRecaudoEntregado {
 	}
 
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoI(
-			String cedula) {
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVeredictoI(cedula);	
+			String cedula, String codigoLapso) {
+		return iRecaudoEntregadoDAO.findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(cedula, codigoLapso, 1);
 	}
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoIII(
-			String cedula) {
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVeredictoIII(cedula);	
+			String cedula, String codigoLapso) {
+		return iRecaudoEntregadoDAO.findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(cedula, codigoLapso, 3);	
 	}
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezI(
@@ -112,8 +107,8 @@ public class ServicioRecaudoEntregado {
 	}
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoII(
-			String cedula){
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVeredictoII(cedula);
+			String cedula, String codigoLapso){
+		return iRecaudoEntregadoDAO.findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(cedula, codigoLapso, 2);
 	}
 
 	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesAnalizar(

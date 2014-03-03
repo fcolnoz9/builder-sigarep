@@ -29,13 +29,12 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.save(solicitudapelacion);
 	}
 
-	public List<SolicitudApelacion> buscarSancionadosReconsideracionVerificar() {
-		return iSolicitudApelacionDAO
-				.buscarSancionadosReconsideracionVerificar();
+	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
-	public List<SolicitudApelacion> buscarSancionadosJerarquicoVerificar() {
-		return iSolicitudApelacionDAO.buscarSancionadosJerarquicoVerificar();
+	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosIII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {
@@ -44,7 +43,7 @@ public class ServicioSolicitudApelacion {
 
 	public EstudianteSancionado buscarEstudianteSancionadoxSolicitud(
 			String cedulaEstudiante) {
-		return iSolicitudApelacionDAO.buscarSancionado(cedulaEstudiante);
+		return iSolicitudApelacionDAO.findById_CedulaEstudiante(cedulaEstudiante);
 	}
 
 	public void eliminar(SolicitudApelacionPK id) {
@@ -74,16 +73,15 @@ public class ServicioSolicitudApelacion {
 		return new SolicitudApelacion();
 	}
 
-	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI() {
-		return iSolicitudApelacionDAO.buscarApelacionesVerificarRecaudosI();
+	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
-	public List<String> historicoSolicitudApelacion(LapsoAcademico lapso) {
+	public List<String> historicoSolicitudApelacion(LapsoAcademico lapsoAcademico) {
 		List<String> listaElementosAInsertar = new ArrayList<String>();
 		String elementoAInsertar;
-		String codigolapsoAcademico = lapso.getCodigoLapso();
-		List<SolicitudApelacion> solicitudApelaciones = iSolicitudApelacionDAO
-				.buscarPorLapso(codigolapsoAcademico);
+//		String codigolapsoAcademico = lapso.getCodigoLapso();
+		List<SolicitudApelacion> solicitudApelaciones = iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademico(lapsoAcademico);
 
 		for (int i = 0; i < solicitudApelaciones.size(); i++) {
 			SolicitudApelacion solicitudApelacion = solicitudApelaciones.get(i);
@@ -93,23 +91,22 @@ public class ServicioSolicitudApelacion {
 					+ "','"
 					+ solicitudApelacion.getId().getCodigoLapso()
 					+ "',"
-					+ solicitudApelacion.getInstanciaApelada()
-							.getIdInstanciaApelada()
+					+ solicitudApelacion.getInstanciaApelada().getIdInstanciaApelada()
 					+ ",'"
 					+ solicitudApelacion.getEstatus()
 					+ "','"
 					+ solicitudApelacion.getFechaSolicitud()
 					+ "','"
 					+ solicitudApelacion.getNumeroCaso()
-					+ "', "
+					+ "','"
 					+ solicitudApelacion.getFechaSesion()
-					+ ",'"
+					+ "','"
 					+ solicitudApelacion.getNumeroSesion()
 					+ "','"
 					+ solicitudApelacion.getObservacion()
-					+ "',"
+					+ "','"
 					+ solicitudApelacion.getTipoSesion()
-					+ ",'"
+					+ "','"
 					+ solicitudApelacion.getVeredicto()
 					+ "', '"
 					+ solicitudApelacion.isAnalizado()
@@ -183,19 +180,19 @@ public class ServicioSolicitudApelacion {
 	}
 
 	// Flor
-	public List<SolicitudApelacion> buscarAnalizarValidezI() {
-		return iSolicitudApelacionDAO.BuscarAnalizarValidezI();
+	public List<SolicitudApelacion> buscarAnalizarValidezI(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezI(
 			String programa, String cedula, String nombre, String apellido,
-			String sancion) {
+			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
 		if (programa == null || cedula == null || nombre == null
 				|| apellido == null || sancion == null) {
-			result = buscarAnalizarValidezI();
+			result = buscarAnalizarValidezI(lapsoAcademico, idInstanciaApelada);
 		} else {
-			for (SolicitudApelacion sa : buscarAnalizarValidezI()) {
+			for (SolicitudApelacion sa : buscarAnalizarValidezI(lapsoAcademico, idInstanciaApelada)) {
 				if (sa.getEstudianteSancionado().getEstudiante()
 						.getProgramaAcademico().getNombrePrograma()
 						.toLowerCase().contains(programa.toLowerCase())
@@ -311,19 +308,19 @@ public class ServicioSolicitudApelacion {
 	}
 
 	// Flory Amanda
-	public List<SolicitudApelacion> buscarAnalizarValidezII() {
-		return iSolicitudApelacionDAO.BuscarAnalizarValidezII();
+	public List<SolicitudApelacion> buscarAnalizarValidezII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezII(
 			String programa, String cedula, String nombre, String apellido,
-			String sancion) {
+			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
 		if (programa == null || cedula == null || nombre == null
 				|| apellido == null || sancion == null) {
-			result = buscarAnalizarValidezI();
+			result = buscarAnalizarValidezI(lapsoAcademico, idInstanciaApelada);
 		} else {
-			for (SolicitudApelacion sa : buscarAnalizarValidezII()) {
+			for (SolicitudApelacion sa : buscarAnalizarValidezII(lapsoAcademico, idInstanciaApelada)) {
 				if (sa.getEstudianteSancionado().getEstudiante()
 						.getProgramaAcademico().getNombrePrograma()
 						.toLowerCase().contains(programa.toLowerCase())
@@ -346,19 +343,19 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
-	public List<SolicitudApelacion> buscarAnalizarValidezIII() {
-		return iSolicitudApelacionDAO.BuscarAnalizarValidezIII();
+	public List<SolicitudApelacion> buscarAnalizarValidezIII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezIII(
 			String programa, String cedula, String nombre, String apellido,
-			String sancion) {
+			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
 		if (programa == null || cedula == null || nombre == null
 				|| apellido == null || sancion == null) {
-			result = buscarAnalizarValidezI();
+			result = buscarAnalizarValidezI(lapsoAcademico, idInstanciaApelada);
 		} else {
-			for (SolicitudApelacion sa : buscarAnalizarValidezIII()) {
+			for (SolicitudApelacion sa : buscarAnalizarValidezIII(lapsoAcademico, idInstanciaApelada)) {
 				if (sa.getEstudianteSancionado().getEstudiante()
 						.getProgramaAcademico().getNombrePrograma()
 						.toLowerCase().contains(programa.toLowerCase())

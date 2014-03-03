@@ -2,18 +2,24 @@ package sigarep.modelos.servicio.seguridad;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.seguridad.Grupo;
+import sigarep.modelos.data.seguridad.Usuario;
+import sigarep.modelos.data.transacciones.UsuarioGrupo;
 import sigarep.modelos.repositorio.seguridad.IGrupoDAO;
+import sigarep.modelos.repositorio.transacciones.IUsuarioGrupoDAO;
 
 @Service("serviciogrupo")
 public class ServicioGrupo {
 
 	@Autowired
 	private IGrupoDAO iGrupoDAO;
+	@Autowired
+	private IUsuarioGrupoDAO iUsuarioGrupoDAO;
 
 	public void guardarGrupo(Grupo grupo) {
 		if (grupo.getIdGrupo() != null)
@@ -41,7 +47,7 @@ public class ServicioGrupo {
 	}
 
 	public List<Grupo> listadoGrupo() {
-		List<Grupo> GrupoLista = iGrupoDAO.buscarGruposActivos();
+		List<Grupo> GrupoLista = iGrupoDAO.findByEstatusTrueAndIdGrupoNot(1);
 		return GrupoLista;
 	}
 	

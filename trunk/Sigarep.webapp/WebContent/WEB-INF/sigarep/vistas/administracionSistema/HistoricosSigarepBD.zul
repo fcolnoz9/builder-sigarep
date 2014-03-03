@@ -14,6 +14,13 @@
 							<row>
 								<radiogroup id="rgEleccion" selectedItem="@bind(vm.selected)">
 									<grid>
+										<columns>
+											<column width="60%"/>
+											<column width="100%"/>
+											<column width="110%"/>
+											<column width="100%"/>
+											<column width="100%"/>
+										</columns>
 										<rows>
 											<row>
 												<hbox>
@@ -23,10 +30,10 @@
 													<radio id="rbSolicitud" label="Solicitudes de Apelación" value="solicitud"/>
 												</hbox>
 												<hbox>
-													<radio id="rbTransaccion2" label="Transacción 2" value="transaccion2"/>
+													<radio id="rbSancionados" label="Estudiantes Sancionados" value="sancionados"/>
 												</hbox>
 												<hbox>
-													<radio id="rbTransaccion3" label="Transacción 3" value="transaccion3"/>
+													<radio id="rbRecaudosEntregados" label="Recaudos Entregados" value="recaudosEntregados"/>
 												</hbox>
 												<hbox>
 													<radio id="rbTransaccion4" label="Transacción 4" value="transaccion4"/>

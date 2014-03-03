@@ -20,6 +20,8 @@ public interface IAsignaturaEstudianteSancionadoDAO
 	 * @param codigoLapso lapso academico en el que fue sancionado el estudiante
 	 * @return List<AsignaturaEstudianteSancionado>
 	 */
-	@Query("Select ae FROM AsignaturaEstudianteSancionado AS ae WHERE ae.id.cedulaEstudiante = :cedulaEstudiante AND ae.id.codigoLapso = :codigoLapso")
-	public List<AsignaturaEstudianteSancionado> buscarAsignaturaDeSancionRR(@Param("cedulaEstudiante") String cedulaEstudiante, @Param("codigoLapso") String codigoLapso);
+//	@Query("Select ae FROM AsignaturaEstudianteSancionado AS ae WHERE ae.id.cedulaEstudiante = :cedulaEstudiante AND ae.id.codigoLapso = :codigoLapso")
+//	public List<AsignaturaEstudianteSancionado> buscarAsignaturaDeSancionRR(@Param("cedulaEstudiante") String cedulaEstudiante, @Param("codigoLapso") String codigoLapso);
+	
+	public List<AsignaturaEstudianteSancionado> findById_CedulaEstudianteAndId_CodigoLapso(String cedulaEstudiante, String codigoLapso);
 }

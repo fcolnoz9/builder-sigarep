@@ -32,6 +32,14 @@ import sigarep.modelos.data.transacciones.UsuarioGrupo;
  * @since 04/02/2014 
  */
 
+@org.hibernate.annotations.Table(
+		   appliesTo = "grupo",
+		   indexes = {
+				   @Index(name="grupo_index", columnNames={"id_grupo","nombre","descripcion","estatus"}),
+		   }
+)
+
+
 @Entity
 @Access(AccessType.FIELD)
 //anotación indica que el JavaBean es una entidad persistente
@@ -42,7 +50,6 @@ public class Grupo implements Serializable{
 
 	@Id
 	// Clave primaria de la clase
-	//@Index(name = "id_gruposIndex")
 	@Column(name="id_grupo", unique = true , nullable=false)
 	private Integer idGrupo;
 	

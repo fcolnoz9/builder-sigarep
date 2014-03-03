@@ -19,11 +19,9 @@ import sigarep.modelos.data.transacciones.CronogramaPK;
 
 public interface ICronogramaDAO extends JpaRepository<Cronograma, CronogramaPK> {
 	 
-	@Query("select c from Cronograma c where c.estatus = true")
-	public List<Cronograma> buscar();
+	public List<Cronograma> findByEstatusTrue();
 
-	@Query("SELECT cro FROM Cronograma cro WHERE cro.id.codigoLapso = :codigoLapso")
-	public List<Cronograma> buscarCronogramas(@Param("codigoLapso")String codigoLapso);
+	public List<Cronograma> findById_CodigoLapso(String codigoLapso);
 	
 	@Query("SELECT MAX(cr.fechaFin) from Cronograma cr, LapsoAcademico la WHERE cr.id.codigoLapso = la.codigoLapso AND la.estatus = TRUE")
 	public Date buscarUltimaFechaCronogramaActual();
