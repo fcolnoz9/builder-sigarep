@@ -2,7 +2,8 @@
 	apply="org.zkoss.bind.BindComposer"
     viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMMenuAplicacion')">
     
-	<tree id="tree" Zclass="z-vfiletree" multiple="false" 
+<!--     Zclass="z-vfiletree" -->
+	<tree id="tree" multiple="false" 
  		height="600px" hflex="true" vflex="true" model="@load(vm.contactTreeModel)" ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarMenuArbolAplicacion"> 
  		<treecols> 
 			<treecol label="MENU SIGAREP" sclass="fondo_arbol1" /> 
