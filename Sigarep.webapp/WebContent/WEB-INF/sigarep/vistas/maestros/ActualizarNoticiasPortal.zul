@@ -36,7 +36,7 @@
 										mold="rounded" width="100%" tabindex="2" value="@bind(vm.titulo)" />
 								<label id="lblEnlace" value="Enlace:" />
 								<textbox id="txtEnlace" cols="23" placeholder="Ingrese el enlace de la noticia"
-									maxlength="255" readonly="false" mold="rounded" width="100%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
+									maxlength="1000" readonly="false" mold="rounded" width="100%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
 							</row>
 							<row>
 								<label id="lblFecha" value="Fecha Publicación:" />
@@ -53,7 +53,7 @@
 							<row>
 						        <label id="lblContenido" value="Contenido:" />
 								<textbox id="txtContenido" width="96%" placeholder="Ingrese el contenido de la noticia"
-									rows="3" maxlength="255" mold="rounded" tabindex="2" value="@bind(vm.contenido)" />
+									rows="3" maxlength="10000" mold="rounded" tabindex="2" value="@bind(vm.contenido)" />
 							</row>
 						</rows>
 					</grid>
