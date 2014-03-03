@@ -1,43 +1,24 @@
 <zk>
-	<panel border="normal" apply="org.zkoss.bind.BindComposer"
-		width="150px"
-		viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad')" >
-		<panelchildren >
-			<tablelayout columns="2" >
-				<tablechildren >
-				<!-- muestra la imagen del usuario-->
-					<hlayout>
-					<a href="">
-						<image width="60px" height="60px" content="@bind(vm.imagenUsuario)" />
-					</a>
-					</hlayout>
-				<!-- muestra el nombre del usuario-->
-				    <hbox > 
-					<label value="@bind(vm.usuario.username)" style="color: black; font: 24 bold monospace;" />
-					</hbox>
-				</tablechildren>
-				<tablechildren>
-					<separator/>
-					<separator/>
-					<separator/>
-					<hbox align="center" > 
-					<separator/>
-					<separator/>
-					<!-- menu desplegable que contiene las opciones de editar perfil y cerrar sesion-->
-						<menubar>
-							<menu image="/imagenes/iconos/configurar.PNG">
-								<menupopup>
-									<menuitem label="Editar Perfil"
-										image="/imagenes/iconos/editar.png" onClick="@command('editarPerfil')" />
-									<menuitem label="Cerrar Sesión"
-										image="/imagenes/iconos/cerrarSesion.png" onClick="@command('cerrarSesion')" />
-								</menupopup>
-							</menu>
-						</menubar>
-					</hbox>
-				</tablechildren>
-			</tablelayout>
-		</panelchildren>
-	</panel>
+	<div apply="org.zkoss.bind.BindComposer" align="left"
+		 viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad')" >
+			<hlayout valign="bottom">
+			<a onClick="@command('editarPerfil')">
+				<image width="60px" height="60px"
+					content="@bind(vm.imagenUsuario)" />
+			</a>
+			<menubar>
+			<menu label="@bind(vm.usuario.username)" >
+				<menupopup>
+					<menuitem label="Editar Perfil"
+						image="/imagenes/iconos/editar.png"
+						onClick="@command('editarPerfil')" />
+					<menuitem label="Cerrar Sesión"
+						image="/imagenes/iconos/cerrarSesion.png"
+						onClick="@command('cerrarSesion')" />
+				</menupopup>
+			</menu>
+		</menubar>
+		</hlayout>
+	</div>
 </zk>
 
