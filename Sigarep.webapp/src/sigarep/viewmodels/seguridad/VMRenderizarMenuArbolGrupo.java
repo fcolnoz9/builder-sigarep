@@ -23,76 +23,79 @@ public class VMRenderizarMenuArbolGrupo implements TreeitemRenderer<VMNodoMenuAr
 		dataRow.setParent(treeItem);
 		treeItem.setValue(ctn);
 		treeItem.setOpen(ctn.isOpen());
-			Hlayout hl = new Hlayout();
-			//hl.appendChild(new Image("/img/" + contact.getProfilepic()));
-			hl.appendChild(new Label(contact.getNombreFuncion()));
-			hl.setSclass("h-inline-block");
-			Treecell treeCell = new Treecell();
-			treeCell.appendChild(hl);
-			dataRow.appendChild(treeCell);
-			if(contact.esFuncion()==true)
-			dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
-				@Override
-				public void onEvent(Event event) throws Exception {
-					VMNodoMenuArbol clickedNodeValue = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent())
-							.getValue();
-					
-					VMNodoMenuArbol padre=null;
-					if(clickedNodeValue.getParent().getData()!=null){
-							padre=obtenePadres((VMNodoMenuArbol)clickedNodeValue.getParent(),clickedNodeValue);
-							}else{
-								padre=clickedNodeValue;
-							}
-					VMRegistrarGrupo dc=new VMRegistrarGrupo();
-					if(dc.getRoot().getChildCount()==0)
-						dc.getRoot().add(padre);
-					else{
-					this.agregarNodo(padre,dc.getRoot());
-					}
-				}
-
+		Hlayout hl = new Hlayout();
+		//hl.appendChild(new Image("/img/" + contact.getProfilepic()));
+		hl.appendChild(new Label(contact.getNombreFuncion()));
+		hl.setSclass("h-inline-block");
+		Treecell treeCell = new Treecell();
+		treeCell.appendChild(hl);
+		dataRow.appendChild(treeCell);
+		if (contact.esFuncion()){
+			treeCell.setImage("/imagenes/iconos/funcion-tree.png");
+		}
+		if(contact.esFuncion())
+		dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
+			@Override
+			public void onEvent(Event event) throws Exception {
+				VMNodoMenuArbol clickedNodeValue = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent())
+						.getValue();
 				
-
-				private VMNodoMenuArbol obtenePadres(VMNodoMenuArbol padre,VMNodoMenuArbol hijo) {
-					VMNodoMenuArbol aux=null;
-					VMNodoMenuArbol padre2=null;
-					if(padre.getParent().getData()!=null){
-						
-						if(padre.getChildCount()==1){
-						aux=padre;	
+				VMNodoMenuArbol padre=null;
+				if(clickedNodeValue.getParent().getData()!=null){
+						padre=obtenePadres((VMNodoMenuArbol)clickedNodeValue.getParent(),clickedNodeValue);
 						}else{
-							aux = new VMNodoMenuArbol(padre.getData(),null);		
-							aux.add(hijo);
+							padre=clickedNodeValue;
 						}
-						aux.setOpen(true);
-						padre2=obtenePadres((VMNodoMenuArbol)padre.getParent(),aux);
-									
+				VMRegistrarGrupo dc=new VMRegistrarGrupo();
+				if(dc.getRoot().getChildCount()==0)
+					dc.getRoot().add(padre);
+				else{
+				this.agregarNodo(padre,dc.getRoot());
+				}
+			}
+
+			
+
+			private VMNodoMenuArbol obtenePadres(VMNodoMenuArbol padre,VMNodoMenuArbol hijo) {
+				VMNodoMenuArbol aux=null;
+				VMNodoMenuArbol padre2=null;
+				if(padre.getParent().getData()!=null){
+					
+					if(padre.getChildCount()==1){
+					aux=padre;	
 					}else{
-						    padre2 = new VMNodoMenuArbol(padre.getData(),null);
-						    padre2.setOpen(true);
-						    padre2.add(hijo);
-						    if(padre.getChildCount()==0)
-						    padre.removeFromParent();
+						aux = new VMNodoMenuArbol(padre.getData(),null);		
+						aux.add(hijo);
 					}
-					return padre2;
+					aux.setOpen(true);
+					padre2=obtenePadres((VMNodoMenuArbol)padre.getParent(),aux);
+								
+				}else{
+					    padre2 = new VMNodoMenuArbol(padre.getData(),null);
+					    padre2.setOpen(true);
+					    padre2.add(hijo);
+					    if(padre.getChildCount()==0)
+					    padre.removeFromParent();
 				}
-				
-				private void agregarNodo(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
-					boolean encontro=false;
-					 for(int j=0;j< root.getChildCount();j++){
-						    if(root.getChildAt(j).getData()==nodo.getData()){	
-						    	agregarNodo((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));
-						        encontro=true;
-						    	break;
-						    }
-					 }
-					 if(!encontro)
-						 root.add(nodo);
-						 
-				
-				}
-				
-			});
+				return padre2;
+			}
+			
+			private void agregarNodo(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
+				boolean encontro=false;
+				 for(int j=0;j< root.getChildCount();j++){
+					    if(root.getChildAt(j).getData()==nodo.getData()){	
+					    	agregarNodo((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));
+					        encontro=true;
+					    	break;
+					    }
+				 }
+				 if(!encontro)
+					 root.add(nodo);
+					 
+			
+			}
+			
+		});
 			
 
 			

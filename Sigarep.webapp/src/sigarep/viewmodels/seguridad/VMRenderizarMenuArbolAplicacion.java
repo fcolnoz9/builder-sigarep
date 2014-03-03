@@ -4,10 +4,10 @@ import java.util.HashMap;
 
 
 
+
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
-
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Box;
@@ -22,6 +22,7 @@ import org.zkoss.zul.Treerow;
 import org.zkoss.zul.Window;
 
 import sigarep.controlador.maestros.WindowController;
+import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.modelos.data.seguridad.Nodo;
 
 public class VMRenderizarMenuArbolAplicacion implements TreeitemRenderer<VMNodoMenuArbol> {
@@ -40,6 +41,9 @@ public class VMRenderizarMenuArbolAplicacion implements TreeitemRenderer<VMNodoM
 			Treecell treeCell = new Treecell();
 			treeCell.setLabel(contact.getNombreFuncion()); //1
 			treeCell.appendChild(hl);
+			if (contact.esFuncion()){
+				treeCell.setImage("/imagenes/iconos/funcion-tree.png");
+			}
 			dataRow.appendChild(treeCell);
 			dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 				@Override

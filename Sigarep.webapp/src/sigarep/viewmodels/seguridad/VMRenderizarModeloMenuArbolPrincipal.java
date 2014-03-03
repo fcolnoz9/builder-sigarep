@@ -30,7 +30,10 @@ public class VMRenderizarModeloMenuArbolPrincipal implements TreeitemRenderer<VM
 		Treecell treeCell = new Treecell();
 		treeCell.appendChild(hl);
 		dataRow.appendChild(treeCell);
-		if(contact.esFuncion()==true)
+		if (contact.esFuncion()){
+			treeCell.setImage("/imagenes/iconos/funcion-tree.png");
+		}
+		if(contact.esFuncion())
 		dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 			@Override
 			public void onEvent(Event event) throws Exception {
