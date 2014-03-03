@@ -49,5 +49,14 @@ public class ServicioPersona {
 		Persona  persona = iPersona.buscarPersonaPorNombreUsuario(nombreUsuario);
 		return persona;
 	}
+	
+	public Persona buscaUnaPersona(String cedula){
+		Persona persona = iPersona.findOne(cedula);
+		return persona;
+	}
+	
+	public void eliminarFisicamente(Persona persona){
+		iPersona.delete(persona);
+	}
 }
 
