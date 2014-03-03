@@ -330,8 +330,8 @@ public void cargarDocumento(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent
 			documento.setTipoDocumento(media.getContentType());
 			documento.setContenidoDocumento(media.getByteData());
 			
-			if(documento.getTamanoDocumento()>3000000){
-				mensajeAlUsuario.advertenciaTamannoArchivo(3000);
+			if(documento.getTamanoDocumento()>20971520){
+				mensajeAlUsuario.advertenciaTamannoArchivo(20480);
 				
 				documento=new Documento();
 				}else{nombreDoc=documento.getNombreDocumento();}

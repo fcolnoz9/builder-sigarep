@@ -58,7 +58,7 @@ style="overflow:auto" action="hide: slideUp"
 <!--            Documento: -->
        
                     <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
-							orient="horizontal" mold="trendy" upload="true" onUpload="@command('cargarDocumento',upload=event)"></button>
+							orient="horizontal" mold="trendy" upload="true,maxsize=51200" onUpload="@command('cargarDocumento',upload=event)"></button>
                     <a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
                                 
           </row> 
