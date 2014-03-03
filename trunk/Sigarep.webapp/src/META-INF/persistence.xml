@@ -42,5 +42,6 @@
 		<class>sigarep.modelos.data.seguridad.Usuario</class>
 		<class>sigarep.modelos.data.transacciones.InstanciaMiembro</class>
 		<class>sigarep.modelos.data.maestros.Persona</class>
-		<class>sigarep.modelos.data.transacciones.InstanciaMiembroPK</class></persistence-unit>
+		<class>sigarep.modelos.data.transacciones.InstanciaMiembroPK</class>
+		<class>sigarep.modelos.data.maestros.ContactoSigarep</class></persistence-unit>
 </persistence>
