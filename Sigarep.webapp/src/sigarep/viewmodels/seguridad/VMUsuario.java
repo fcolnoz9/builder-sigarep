@@ -22,7 +22,9 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+
 import org.zkoss.zul.ListModelList;
+
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -446,137 +448,324 @@ public class VMUsuario {
 		}
 		else
 		{
+
 			Usuario usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
+			Persona mipersona1 = null;
+			Persona mipersona2 = serviciopersona.buscarPersonaNombreUsuario(nombreUsuario);
+			List<Persona> personaencontrado = serviciopersona.buscarPersonaFiltro(cedulaPersona, "", "");
+			
+			boolean encontrado = false;
+			boolean encontrado2 = false;
+			boolean permiso = false;
+				//mipersona = serviciopersona.buscaUnaPersona(cedulaPersona);
+			
 			if(usuarioAux!=null){
+				
 				existeUsuario = true;
-				for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
-					 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
-				}
+//				 
+//				for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
+//					 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
+//				}
 			}
-			if(!existeUsuario)System.out.println("no existia");usuario.setFechaCreacion(new Date());
-			usuario.setNombreUsuario(nombreUsuario);
-			usuario.setClave(clave);
-			usuario.setCorreo(correo);
-			nombreCompleto = nombre + " " + apellido;
-			usuario.setNombreCompleto(nombreCompleto);
-			usuario.setEstatus(true);
+			//serviciopersona..buscarPersonaNombreUsuario(nombreUsuario);
 			
-			if(imagenUsuario == null){
-				try {
-					imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
-					fotoUsuario = new Archivo();
-					
-					fotoUsuario.setNombreArchivo(imagenUsuario.getName());
-					fotoUsuario.setTipo(imagenUsuario.getContentType());
-					fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			//usuarioAux.getNombreUsuario().equals(nombreUsuario) ||
+			if(personaencontrado.size()>0 && mipersona2 != null){
+				System.out.println("si encontra la persona y el usuario existe");
+				mipersona1 = personaencontrado.get(0);
+				if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) ){
+					encontrado = true;
+					permiso = true;	
+					encontrado2 = true;
+				}	
+				else{	
+					Messagebox.show("El nombre de usuario ya esta en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);//msj obligatorio Debe cambiar el nombre del usuario
 				}
 				
-				
+			}
+			if(personaencontrado.size()==0 && mipersona2 != null ){
+				System.out.println("no existe persona y ya existe ese usuario");
+				Messagebox.show("El nombre de usuario ya esta en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);//msj obligatorio Debe cambiar el nombre del usuario
+			}
+			if(personaencontrado.size()>0 && mipersona2 == null ){
+				System.out.println("si existe persona y no existe ese usuario");
+				permiso = true;
+				encontrado = true;
+				mipersona1 = personaencontrado.get(0);
+			}
+			if(personaencontrado.size()==0 && mipersona2 == null ){
+				System.out.println("no existe persona y no existe ese usuario");
+				permiso = true;
 			}
 			
-			usuario.setFoto(fotoUsuario);
-			for(Listitem miGrupo :gruposDelUsuario){
-				Grupo grupo = new Grupo();
-				String nombreGrupo = miGrupo.getLabel();
-				grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
-				
-				UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
-				UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
-				usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
-				usuarioGrupoPK.setNombreUsuario(nombreUsuario);
-				
-				usuarioGrupo.setId(usuarioGrupoPK);
-				usuarioGrupo.setUsuario(usuario);
-				usuarioGrupo.setGrupo(grupo);
-				usuarioGrupo.setEstatus(true);
-				
-				UsuarioGrupo usuarioGrupoAux = new UsuarioGrupo();
-				usuarioGrupoAux.setId(usuarioGrupo.getId());
-				usuarioGrupoAux.setGrupo(usuarioGrupo.getGrupo());
-				usuarioGrupoAux.setUsuario(usuarioGrupo.getUsuario());
-				usuarioGrupoAux.setEstatus(true);
-				usuario.addUsuarioGrupo(usuarioGrupoAux);
-				serviciousuario.guardarUsuario(usuario);
-			}
+			if(permiso) {
+				System.out.println("tengo permiso");
 			
-			Persona persona = new Persona();
-			persona.setCedulaPersona(cedulaPersona);
-			persona.setNombre(nombre);
-			persona.setApellido(apellido);
-			
-			persona.setNombreUsuario(usuario);
-			persona.setCorreo(correo);
-			persona.setEstatus(true);
-			persona.setTelefono(telefono);
-			serviciopersona.guardar(persona);
-			
-			if (tituloinstancia.equals("")) {
-				System.out.println("instancia vacia");	
-			}
-			else
-			{
-//			    if (cargo.equals(""))
-//			    	mensajes.advertenciaLlenarCampos();
-//			    else
-//			    {
+				if(encontrado){
+					System.out.println("paso por encontrado");
+					if(mipersona1 != null){
+						System.out.println("se cumple la condicion 0");
+						usuarioAux = serviciousuario.encontrarUsuario(mipersona1.getNombreUsuario().getNombreUsuario());
+						for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
+							 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
+						}
+						
+						}
+//					else{
+//							usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
+//							if(usuarioAux != null){
+//								existeUsuario = true;
+//							
+//								for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
+//									 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
+//								}
+//								
+//							}
+//						}
+					if(mipersona2 != null){
+						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getNombreUsuario().getNombreUsuario().equals(mipersona2.getNombreUsuario().getNombreUsuario()) )
+							{
+								System.out.println("se cumple la condicion 1");
+								usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
+								for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
+									 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
+								}
+								
+							}
+						else{ System.out.println("no se cumple la condicion 2");
+								
+								
+//								usuarioAux = serviciousuario.encontrarUsuario(mipersona1.getNombreUsuario().getNombreUsuario());
+//								for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
+//									 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
+//								}
+								
+							}
+					}
 					
-			    	for(int i=0;listaInstanciaMiembro.size()>i;i++){
-			    		instanciaMiembro = listaInstanciaMiembro.remove(i);
-				    	instanciaMiembro.getId().setCedulaPersona(cedulaPersona);
-				    	
-						instanciaMiembro.setPersona(persona);
-						try {
-							
-							servicioInstanciaMiembro.guardar(instanciaMiembro);
-						} catch (Exception e) {
-							System.out.println(e.getMessage());
-						}	
-			    	}
-//			    }
-			}
-			
-
-			mensajeAlUsuario.informacionRegistroCorrecto();
-
-			if(existeUsuario==false){
-				try {
-					usuario.setFechaCreacion(new Date());
+				}
+					
+					
+				
+				if(encontrado2){
+					System.out.println("encontrado 2");
+					usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
+					if(usuarioAux!=null){
+					
+						existeUsuario = true;
+						 
+						for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
+							 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
+						}
+					}
+						
+				}
+				
+			//inicio
+				
+				
+				
+				
+				if(!existeUsuario)System.out.println("no existia");usuario.setFechaCreacion(new Date());
+				usuario.setNombreUsuario(nombreUsuario);
+				usuario.setClave(clave);
+				usuario.setCorreo(correo);
+				nombreCompleto = nombre + " " + apellido;
+				usuario.setNombreCompleto(nombreCompleto);
+				usuario.setEstatus(true);
+				
+				if(imagenUsuario == null){
+					try {
+						imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
+						fotoUsuario = new Archivo();
+						fotoUsuario.setNombreArchivo(imagenUsuario.getName());
+						fotoUsuario.setTipo(imagenUsuario.getContentType());
+						fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+				}
+				
+				usuario.setFoto(fotoUsuario);
+				
+//				Listcell celda= new Listcell();
+//				label.setValue("generico");
+//				
+//				Listbox aux = new Listbox();
+//				
+//				
+//				
+//				Listitem listi = new Listitem();
+//				listi.insertBefore(listi, celda);
+//						listi.i lbxNoticias.getChildren().get(lbxNoticias.getChildren().size()-2); 
+//				listi.i
+//				lbxNoticias.removeChild(lbxNoticias.getChildren().get(lbxNoticias.getChildren().size()-2));  
+//				lbxNoticias.insertBefore(listi, (Component) lbxNoticias.getChildren().get(0)); 	 
+//				gruposDelUsuario
+				boolean marca= false;
+				for(Listitem miGrupo :gruposDelUsuario){
+					Grupo grupo = new Grupo();
+					String nombreGrupo = miGrupo.getLabel();
+					grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
+					
 					UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
 					UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
-					usuarioGrupoPK.setIdGrupo(1);
+					usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
 					usuarioGrupoPK.setNombreUsuario(nombreUsuario);
-					Grupo grupo = new Grupo();
-					grupo = serviciogrupo.buscarGrupo(1); //Grupo de id=1 que tiene la función cambiar contraseña
+					
 					usuarioGrupo.setId(usuarioGrupoPK);
 					usuarioGrupo.setUsuario(usuario);
 					usuarioGrupo.setGrupo(grupo);
 					usuarioGrupo.setEstatus(true);
-					usuario.addUsuarioGrupo(usuarioGrupo);
-					serviciousuario.guardarUsuario(usuario); //Agregandole el grupo que tiene la función cambiar contraseña al usuario nuevo
 					
+					UsuarioGrupo usuarioGrupoAux = new UsuarioGrupo();
+					usuarioGrupoAux.setId(usuarioGrupo.getId());
+					usuarioGrupoAux.setGrupo(usuarioGrupo.getGrupo());
+					usuarioGrupoAux.setUsuario(usuarioGrupo.getUsuario());
+					usuarioGrupoAux.setEstatus(true);
+					usuario.addUsuarioGrupo(usuarioGrupoAux);
+					
+					Usuario usuario1 = new Usuario();
+					usuario1.setClave(usuario.getClave());
+					usuario1.setCorreo(usuario.getCorreo());
+					usuario1.setEstatus(usuario.getEstatus());
+					usuario1.setFechaCreacion(usuario.getFechaCreacion());
+					usuario1.setFoto(usuario.getFoto());
+					usuario1.setNombreCompleto(usuario.getNombreCompleto());
+					usuario1.setUltimoAcceso(usuario1.getUltimoAcceso());
+					System.out.println("parte 1 ++++++++");
+					serviciousuario.guardarUsuario(usuario);
+					System.out.println("parte 2 ++++++++");
+					//+++++++++AQui
+					if(!marca){
+						marca=true;
+						Grupo grupo1 = new Grupo();
+						grupo1 = serviciogrupo.buscarGrupoNombre("generico");
+						UsuarioGrupoPK usuarioGrupoPK1 = new UsuarioGrupoPK();
+						UsuarioGrupo usuarioGrupo1 = new UsuarioGrupo();
+						usuarioGrupoPK1.setIdGrupo(1);
+						usuarioGrupoPK1.setNombreUsuario(nombreUsuario);
+						
+						usuarioGrupo1.setId(usuarioGrupoPK1);
+						usuarioGrupo1.setUsuario(usuario1);
+						usuarioGrupo1.setGrupo(grupo1);
+						usuarioGrupo1.setEstatus(true);
+						
+						UsuarioGrupo usuarioGrupoAux1 = new UsuarioGrupo();
+						usuarioGrupoAux1.setId(usuarioGrupo1.getId());
+						usuarioGrupoAux1.setGrupo(usuarioGrupo1.getGrupo());
+						usuarioGrupoAux1.setUsuario(usuarioGrupo1.getUsuario());
+						usuarioGrupoAux1.setEstatus(true);
+						usuario1.addUsuarioGrupo(usuarioGrupoAux1);
+						System.out.println("parte 3 ++++++++");
+						serviciousuario.guardarUsuario(usuario1);
+						System.out.println("parte 4 ++++++++");
+					
+					}
+				}
+				
+				Persona persona = new Persona();
+				persona.setCedulaPersona(cedulaPersona);
+				persona.setNombre(nombre);
+				persona.setApellido(apellido);
+				
+				persona.setNombreUsuario(usuario);
+				persona.setCorreo(correo);
+				persona.setEstatus(true);
+				persona.setTelefono(telefono);
+				serviciopersona.guardar(persona);
+				
+				if(mipersona1!=null && mipersona2 != null){
+						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getNombreUsuario().getNombreUsuario().equals(mipersona2.getNombreUsuario().getNombreUsuario()) )
+							{
+								System.out.println("se borra el mipersona1");
+								serviciousuario.eliminarFisicamente(mipersona2.getNombreUsuario().getNombreUsuario());	
+							}else if ( !mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getNombreUsuario().getNombreUsuario().equals(mipersona2.getNombreUsuario().getNombreUsuario()) ){ 
+								System.out.println("las cedulas y usuarios son diferentes");
+								
+							}else {
+								System.out.println("no se q mas");
+							}
+				}
+				else if(mipersona1==null && mipersona2 != null) {
+					System.out.println("la persona no existe, ya se valido");
+				}else if(mipersona1!=null && mipersona2 == null){System.out.println("usuario no existe pero la pesona si");
+					serviciousuario.eliminarFisicamente(mipersona1.getNombreUsuario().getNombreUsuario());
+				}else System.out.println("ambos son nulos");
+				
+				
+				if (tituloinstancia.equals("")) {
+						
+				}
+				else
+				{
+	//			    if (cargo.equals(""))
+	//			    	mensajes.advertenciaLlenarCampos();
+	//			    else
+	//			    {
+						
+				    	for(int i=0;listaInstanciaMiembro.size()>i;i++){
+				    		instanciaMiembro = listaInstanciaMiembro.remove(i);
+					    	instanciaMiembro.getId().setCedulaPersona(cedulaPersona);
+					    	
+							instanciaMiembro.setPersona(persona);
+							try {
+								
+								servicioInstanciaMiembro.guardar(instanciaMiembro);
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
+							}	
+				    	}
+	//			    }
+				}
+				
+	
+				mensajeAlUsuario.informacionRegistroCorrecto();
+	
+//				if(existeUsuario==false){
+//					try {
+//						usuario.setFechaCreacion(new Date());
+//						UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
+//						UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
+//						usuarioGrupoPK.setIdGrupo(1);
+//						usuarioGrupoPK.setNombreUsuario(nombreUsuario);
+//						Grupo grupo = new Grupo();
+//						grupo = serviciogrupo.buscarGrupo(1); //Grupo de id=1 que tiene la función cambiar contraseña
+//						usuarioGrupo.setId(usuarioGrupoPK);
+//						usuarioGrupo.setUsuario(usuario);
+//						usuarioGrupo.setGrupo(grupo);
+//						usuarioGrupo.setEstatus(true);
+//						usuario.addUsuarioGrupo(usuarioGrupo);
+//						serviciousuario.guardarUsuario(usuario); //Agregandole el grupo que tiene la función cambiar contraseña al usuario nuevo
+//						
+//					} catch (Exception e) {
+//						System.out.println(e.getMessage());
+//					}
+//		
+//				}
+				try {
+					EnviarCorreo enviar = new EnviarCorreo();
+					enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
+	
+					mensajeAlUsuario.informacionHemosEnviadoCorreo();
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
-	
-			}
-			try {
-				EnviarCorreo enviar = new EnviarCorreo();
-				enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
-
-				mensajeAlUsuario.informacionHemosEnviadoCorreo();
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-			listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
-			instanciaMiembroPK = null;
-			instanciaMiembro= null;
-			tituloinstancia = "";
-			cargo = "";
-			limpiar();
+				
+				//fin
+				listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
+				instanciaMiembroPK = null;
+				instanciaMiembro= null;
+				tituloinstancia = "";
+				cargo = "";
+				limpiar();
+			}else System.out.println("tengo permiso");
+			
+				
 		}
 	}
 	
