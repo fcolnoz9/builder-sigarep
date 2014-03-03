@@ -54,6 +54,7 @@ public class VMUtilidadesDeSeguridad {
 	private Media media;
 	private String href = "";
 	private AImage imagenUsuario;
+	private String nombreCompleto;
 	private static User usuario;
 	private String ruta = UtilidadesSigarep.obtenerDirectorio();
 	MensajesAlUsuario mensajes = new MensajesAlUsuario();
@@ -152,6 +153,14 @@ public class VMUtilidadesDeSeguridad {
 	public void setHref(String href) {
 		this.href = href;
 	}
+	
+	public String getNombreCompleto() {
+		return nombreCompleto;
+	}
+
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
+	}
 
 	/**
 	 * Inicialización
@@ -162,12 +171,14 @@ public class VMUtilidadesDeSeguridad {
 	 */
 		
 	@Init
+	@NotifyChange("nombreCompleto")
 	public void init() {
 		Usuario usuarioAux = new Usuario();
 		usuarioAux = serviciousuario.encontrarUsuario(getUsuario().getUsername());
 		usuarioAux.setUltimoAcceso(new Date());
 		cargarFotoImagen();
 		serviciousuario.guardarUsuario(usuarioAux);
+		nombreCompleto = usuarioAux.getNombreCompleto();
 	}
 		
 	@Command
