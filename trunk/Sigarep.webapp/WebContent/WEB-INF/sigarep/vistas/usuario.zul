@@ -1,23 +1,23 @@
 <zk>
 	<div apply="org.zkoss.bind.BindComposer" align="left"
 		 viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad')" >
-			<hlayout valign="bottom">
+		<hlayout valign="bottom">
+			<menubar>
+				<menu label="@bind(vm.nombreCompleto)" >
+					<menupopup>
+						<menuitem label="Editar Perfil"
+							image="/imagenes/iconos/editar.png"
+							onClick="@command('editarPerfil')" />
+						<menuitem label="Cerrar Sesión"
+							image="/imagenes/iconos/cerrarSesion.png"
+							onClick="@command('cerrarSesion')" />
+					</menupopup>
+				</menu>
+			</menubar>
 			<a onClick="@command('editarPerfil')">
 				<image width="60px" height="60px"
 					content="@bind(vm.imagenUsuario)" />
 			</a>
-			<menubar>
-			<menu label="@bind(vm.usuario.username)" >
-				<menupopup>
-					<menuitem label="Editar Perfil"
-						image="/imagenes/iconos/editar.png"
-						onClick="@command('editarPerfil')" />
-					<menuitem label="Cerrar Sesión"
-						image="/imagenes/iconos/cerrarSesion.png"
-						onClick="@command('cerrarSesion')" />
-				</menupopup>
-			</menu>
-		</menubar>
 		</hlayout>
 	</div>
 </zk>
