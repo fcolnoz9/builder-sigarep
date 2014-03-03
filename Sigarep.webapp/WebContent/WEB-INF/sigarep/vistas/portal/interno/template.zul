@@ -3,7 +3,7 @@
 		<north height="95px" border="none">
 			<include src="/WEB-INF/sigarep/vistas/portal/interno/banner.zul" />
 		</north>
-		<west width="260px" border="none" collapsible="true"
+		<west width="294px" border="none" collapsible="true"
 			splittable="true" minsize="250">
 			<include src="/WEB-INF/sigarep/vistas/portal/interno/tree.zul" />
 		</west>

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.seguridad.Grupo;
+import sigarep.modelos.data.seguridad.Usuario;
+import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
 public interface IGrupoDAO extends JpaRepository<Grupo, Integer> {
 
@@ -14,10 +16,12 @@ public interface IGrupoDAO extends JpaRepository<Grupo, Integer> {
 	
 	/**
 	 * Busca todos los grupos que tienen estatus true, exceptuando el grupo 1
+	 * @param idGrupo
 	 * @return List<Grupo> Lista de grupos activos exceptuando el grupo 1
 	 */
-	@Query("Select gru FROM Grupo AS gru where idGrupo != '1' AND estatus = TRUE")		
-	public List<Grupo> buscarGruposActivos();
+	
+	public List<Grupo> findByEstatusTrueAndIdGrupoNot(Integer idGrupo);
+	
 	
 	/**
 	 * Busca los grupos a los que pertenece un usuario
@@ -26,7 +30,7 @@ public interface IGrupoDAO extends JpaRepository<Grupo, Integer> {
 	 */
 	@Query("SELECT DISTINCT g FROM UsuarioGrupo AS ug, Usuario AS u, Grupo AS g WHERE u.nombreUsuario = ug.id.nombreUsuario AND ug.id.idGrupo = g.idGrupo AND g.idGrupo != '1' AND u.nombreUsuario = :nombreUsuario")
 	public List<Grupo> buscarGruposPerteneceUsuario(@Param("nombreUsuario") String nombreUsuario);
-
+	
 	/**
 	 * Busca los grupos a los que NO pertenece un usuario
 	 * @param nombreUsuario Nombre del usuario al cual se le buscaran los grupos a los que no pertenece

@@ -300,8 +300,8 @@ public class VMInformeCU {
 		concatenacionNombres();
 		concatenacionApellidos();
 		
-		listaRecaudos1 = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoI(cedula);
-		listaRecaudos2 = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoII(cedula);
+		listaRecaudos1 = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoI(cedula, codigoLapso);
+		listaRecaudos2 = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoII(cedula, codigoLapso);
 		
 	}
 

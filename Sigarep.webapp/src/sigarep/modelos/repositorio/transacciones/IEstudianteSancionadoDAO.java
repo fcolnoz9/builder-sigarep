@@ -4,8 +4,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
+import sigarep.modelos.data.transacciones.Motivo;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 
 public interface IEstudianteSancionadoDAO extends
 		JpaRepository<EstudianteSancionado, EstudianteSancionadoPK> {
@@ -96,4 +100,11 @@ public interface IEstudianteSancionadoDAO extends
 			+ " AND esa.id.cedulaEstudiante = :cedula ")
 	public EstudianteSancionado buscarSancionadoLapsoActual(
 			@Param("cedula") String cedula);
+	
+	
+//	@Query("select esa from EstudianteSancionado esa where esa.id.codigoLapso=:codigoLapso")
+//	public List<EstudianteSancionado> buscarPorLapso(@Param("codigoLapso")String codigoLapso);
+	
+	//reemplaza a buscarPorLapso
+	public List<EstudianteSancionado> findByLapsoAcademico(LapsoAcademico lapsoAcademico);
 }

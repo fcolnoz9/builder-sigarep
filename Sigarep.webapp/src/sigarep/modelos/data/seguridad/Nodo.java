@@ -3,10 +3,12 @@ import java.util.Comparator;
 
 import javax.persistence.Column;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Index;
 
 /** Clase Nodo
@@ -20,17 +22,18 @@ import org.hibernate.annotations.Index;
 @org.hibernate.annotations.Table(
 		   appliesTo = "menu_arbol",
 		   indexes = {
-				   @Index(name="menu_arbol_index", columnNames={"estatus","tipo","nombre_funcion","padre","vinculo","ruta_modal"}),
+				   @Index(name="menu_arbol_index", columnNames={"id","estatus","tipo","nombre_funcion","padre","vinculo","ruta_modal"}),
 		   }
 )
+
 @Entity
+@Cacheable(true)
 @Table(name = "menu_arbol")
 public class Nodo implements Comparator<Nodo>{
 	
 	@Id
 	// Clave primaria de la clase
 	@Column(name="id", unique = true ,length=10, nullable=false)
-	//@Index(name = "id_index")
 	private Integer id;
 	
 	@Column(name="estatus")
@@ -42,14 +45,12 @@ public class Nodo implements Comparator<Nodo>{
 	@Column(name="nombre_funcion")
     private String nombreFuncion;
 	
-	//@Index(name = "padre_index")
 	@Column(name="padre")
 	private Integer padre;
 	
 	@Column(name="vinculo")
     private String vinculo;
 	
-	//@Index(name = "ruta_index")
 	@Column(name="ruta_modal")
     private String rutaModal;
     

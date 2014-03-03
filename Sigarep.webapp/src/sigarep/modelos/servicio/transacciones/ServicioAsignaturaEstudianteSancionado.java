@@ -32,6 +32,6 @@ public class ServicioAsignaturaEstudianteSancionado {
 	 * @return resultado es un listado de asignaturas por estudiante sancionado en un lapso academico
 	 */
 	public List<AsignaturaEstudianteSancionado> buscarAsignaturaDeSancion(String cedula, String lapso){
-		return iAsignaturaEstudianteSancionadoDAO.buscarAsignaturaDeSancionRR(cedula, lapso);
+		return iAsignaturaEstudianteSancionadoDAO.findById_CedulaEstudianteAndId_CodigoLapso(cedula, lapso);
 	}
 }

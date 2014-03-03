@@ -52,7 +52,7 @@ public class ServicioCronograma {
 	 * @throws No dispara ninguna excepcion
 	 */
 	public List<Cronograma> listadoCronograma() {
-		List<Cronograma> cronogramaLista = iCronograma.buscar();
+		List<Cronograma> cronogramaLista = iCronograma.findByEstatusTrue();
 		return cronogramaLista;
 	}
 	
@@ -81,7 +81,7 @@ public class ServicioCronograma {
 	 * @throws No dispara ninguna excepcion
 	 */
     public List<Cronograma> buscarTodosCronogramas(String codigoLapso) {
-		List<Cronograma> listaCronogramas = iCronograma.buscarCronogramas(codigoLapso);
+		List<Cronograma> listaCronogramas = iCronograma.findById_CodigoLapso(codigoLapso);
 		return listaCronogramas;
 	}
     

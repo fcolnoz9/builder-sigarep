@@ -22,6 +22,8 @@ import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.modelos.data.maestros.LapsoAcademico;
+import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
@@ -32,6 +34,10 @@ public class VMHistoricosSigarepBD {
 
 	@WireVariable
 	ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable
+	ServicioMotivo serviciomotivo;
 	@WireVariable
 	private Radio radio;
 	@WireVariable
@@ -102,7 +108,7 @@ public class VMHistoricosSigarepBD {
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarLapsoAcademicoAnteriores() {
-		listaLapsoAcademico  = serviciolapsoacademico.listadoLapsoAcademicoInactivos();
+		listaLapsoAcademico  = serviciolapsoacademico.buscarTodosLosLapsos();
 	}
 	
 	@Init
@@ -118,7 +124,7 @@ public class VMHistoricosSigarepBD {
 		if (lapso!=null) {
 			List<String> listaElementosAInsertar = new ArrayList<String>();
 			List<String> listaAuxiliarElementos = new ArrayList<String>();
-			SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
 			String fechaString =  sdf.format(new Date());
 			String nombreHistorico = "historicoTodosSigarep-" + fechaString;
 			String destinoHistorico = "todos/historicoTodosSigarep-" + fechaString;
@@ -128,14 +134,14 @@ public class VMHistoricosSigarepBD {
 					if (listaAuxiliarElementos.size() > 0) {
 						listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					}
-					// listaAuxiliarElementos=servicioOrdenEntrega.historicoOrdenEntrega(fecha);
-					// if(listaAuxiliarElementos.size()>0){
-					// listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					// }
-					// listaAuxiliarElementos=servicioOrdenServicio.historicoOrdenServicio(fecha);
-					// if(listaAuxiliarElementos.size()>0){
-					// listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					// }
+					listaAuxiliarElementos=servicioestudiantesancionado.historicoEstudiantesSancionados(lapso);
+					if(listaAuxiliarElementos.size()>0){
+						listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					}
+					 listaAuxiliarElementos=serviciomotivo.historicoMotivosApelacion(lapso);
+					 if(listaAuxiliarElementos.size()>0){
+						 listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					 }
 					// listaAuxiliarElementos=servicioRequisicion.historicoRequisicion(fecha);
 					// if(listaAuxiliarElementos.size()>0){
 					// listaElementosAInsertar.addAll(listaAuxiliarElementos);
@@ -149,22 +155,22 @@ public class VMHistoricosSigarepBD {
 					nombreHistorico = "solicitudes-" + fechaString;
 					destinoHistorico = "solicitudes/solicitudesApelacion-"+ fechaString;
 				}
-				// if(getSelected().equals("transaccion2")){
-				// listaAuxiliarElementos=servicioservicioTransaccion2.historicoservicioTransaccion2(fecha));
-				// if(listaAuxiliarElementos.size()>0){
-				// listaElementosAInsertar.addAll(listaAuxiliarElementos);
-				// }
-				// nombreHistorico="transaccion2-"+fechaString;
-				// destinoHistorico="transaccion2/transaccion2-"+fechaString;
-				// }
-				// if(getSelected().equals("transaccion3")){
-				// listaAuxiliarElementos=servicioservicioTransaccion3.historicoservicioTransaccion3(fecha);
-				// if(listaAuxiliarElementos.size()>0){
-				// listaElementosAInsertar.addAll(listaAuxiliarElementos);
-				// }
-				// nombreHistorico="transaccion3-"+fechaString;
-				// destinoHistorico="transaccion3/transaccion3-"+fechaString;
-				// }
+				if(getSelected().equals("sancionados")){
+					listaAuxiliarElementos=servicioestudiantesancionado.historicoEstudiantesSancionados(lapso);
+					if(listaAuxiliarElementos.size()>0){
+						listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					}
+					nombreHistorico="sancionados-"+fechaString;
+					destinoHistorico="sancionados/estudiantesSancionados-"+fechaString;
+				 }
+				 if(getSelected().equals("recaudosEntregados")){
+					 listaAuxiliarElementos=serviciomotivo.historicoMotivosApelacion(lapso);
+					 if(listaAuxiliarElementos.size()>0){
+						 listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					 }
+					 nombreHistorico="recaudosEntregados-"+fechaString;
+					 destinoHistorico="recaudosEntregados/recaudosEntregados-"+fechaString;
+				 }
 				// if(getSelected().equals("transaccion4")){
 				// listaAuxiliarElementos=servicioTransaccion4.historicoTransaccion4(fecha);
 				// if(listaAuxiliarElementos.size()>0){

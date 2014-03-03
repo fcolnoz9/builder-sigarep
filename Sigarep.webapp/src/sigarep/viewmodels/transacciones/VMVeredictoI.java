@@ -76,7 +76,7 @@ public class VMVeredictoI {
 	private String asignaturaLapsosConsecutivos="";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacionGeneral;
-	private String veredicto;
+	private String veredicto="";
 	
 	private String numeroSesion;
 	private String tipoSesion;
@@ -353,7 +353,7 @@ public class VMVeredictoI {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoI(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoI(cedula,lapso);
 	}
 
 	@Command

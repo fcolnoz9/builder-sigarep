@@ -19,11 +19,13 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.ListaMomento;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
+import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
@@ -51,7 +53,8 @@ public class VMListaGenericaSancionados {
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
-	
+	@WireVariable
+	private ServicioLapsoAcademico serviciolapsoacademico;
 	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 	
 	//Lista que se llena segun la transaccion
@@ -74,6 +77,7 @@ public class VMListaGenericaSancionados {
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
+	private LapsoAcademico lapsoActivo;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	public EstudianteSancionado getEstudianteSeleccionado() {
@@ -225,6 +229,7 @@ public class VMListaGenericaSancionados {
 			this.fechaSesion = fechaSesion;
 		}
 
+		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		buscarProgramaA ();
 		buscarSancionados();
 		cmbVeredicto= new ListModelList<String>();
@@ -252,17 +257,17 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosI.zul"))
-			lista = serviciosolicitudapelacion.buscarApelacionesVerificarRecaudosI();
+			lista = serviciosolicitudapelacion.buscarApelacionesVerificarRecaudosI(lapsoActivo,1);
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosII.zul"))
-			lista = serviciosolicitudapelacion.buscarSancionadosReconsideracionVerificar();	
+			lista = serviciosolicitudapelacion.buscarApelacionesVerificarRecaudosII(lapsoActivo,2);	
 		else if (rutaModal.equalsIgnoreCase("transacciones/VerificarRecaudosIII.zul"))
-			lista = serviciosolicitudapelacion.buscarSancionadosJerarquicoVerificar();
+			lista = serviciosolicitudapelacion.buscarApelacionesVerificarRecaudosIII(lapsoActivo,3);	
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
-			lista = serviciosolicitudapelacion.buscarAnalizarValidezI();
+			lista = serviciosolicitudapelacion.buscarAnalizarValidezI(lapsoActivo,1);
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezII.zul"))
-			lista = serviciosolicitudapelacion.buscarAnalizarValidezII();
+			lista = serviciosolicitudapelacion.buscarAnalizarValidezII(lapsoActivo,2);
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
-			lista = serviciosolicitudapelacion.buscarAnalizarValidezIII();
+			lista = serviciosolicitudapelacion.buscarAnalizarValidezIII(lapsoActivo,3);
 		else if (rutaModal.equalsIgnoreCase("reportes/Informes/InformeCU.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesVeredictoIII(); 
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
@@ -309,11 +314,11 @@ public class VMListaGenericaSancionados {
 		else if (rutaModal.equalsIgnoreCase("transacciones/HistorialEstudiante.zul"))
 			listaEstudiantes = servicioestudiantesancionado.filtrarEstudiantesHistorial(programa,cedula,nombre,apellido,sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
-			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezI(programa,cedula,nombre,apellido,sancion );
+			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezI(programa,cedula,nombre,apellido,sancion,lapsoActivo,1);
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezII.zul"))
-			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezII(programa,cedula,nombre,apellido,sancion );
+			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezII(programa,cedula,nombre,apellido,sancion,lapsoActivo,2);
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezIII.zul"))
-			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezIII(programa,cedula,nombre,apellido,sancion );	
+			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezIII(programa,cedula,nombre,apellido,sancion,lapsoActivo,3);	
 		
 		filtrarVeredicto(lista);
 	}
