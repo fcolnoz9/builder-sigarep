@@ -196,14 +196,15 @@ public class MensajesAlUsuario {
 	public static void informacionRegistroCorrectoStatic() {
 
 		Messagebox.show("Se ha registrado correctamente.", "Información",
-				Messagebox.OK, Messagebox.INFORMATION);
-	}
-
+					Messagebox.OK, Messagebox.INFORMATION);
+		}
+	
 	public void informacionRegistroCorrecto() {
 
 		Messagebox.show("Se ha registrado correctamente.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
+	
 
 	public void informacionEliminarCorrecto() {
 
@@ -222,7 +223,7 @@ public class MensajesAlUsuario {
 	public void informacionOperacionExitosa() {
 
 		Messagebox.show("¡Operación realizada exitosamente!",
-				"Informacion", Messagebox.OK, Messagebox.INFORMATION);
+			"Informacion", Messagebox.OK, Messagebox.INFORMATION);
 
 	}
 
@@ -242,21 +243,21 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void informacionArchivoEliminado() {
-
-		Messagebox.show("Archivo eliminado correctamente.", "Información",
-				Messagebox.OK, Messagebox.INFORMATION);
-	}
+//	public void informacionArchivoEliminado() {
+//
+//		Messagebox.show("Archivo eliminado correctamente.", "Información",
+//				Messagebox.OK, Messagebox.INFORMATION);
+//	}no se usa por ahora
 
 	public void informacionVeredictoRegistrado() {
-		Messagebox.show("Veredicto registrado correctamente.", "Información",
+	Messagebox.show("Veredicto registrado correctamente.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
-	public void informacionFinalizarVeredictoApelacionesProcesadas() {
-		Messagebox.show("No existen apelaciones para procesar.",
-				"Información", Messagebox.OK, Messagebox.INFORMATION);
-	}
+//	public void informacionFinalizarVeredictoApelacionesProcesadas() {
+//		Messagebox.show("No existen apelaciones para procesar.",
+//				"Información", Messagebox.OK, Messagebox.INFORMATION);
+//	}no se usa por ahora
 
 	// public void informacionGuardarDatosSesion(int contador) {
 	// Messagebox.show("Se almacenaron correctamente los datos de la sesiï¿½n a "
@@ -269,26 +270,22 @@ public class MensajesAlUsuario {
 	// "Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
 	// }no se usa por ahora
 
-	public void informacionDatosDeSesionEncontrados() {
-		Messagebox
-				.show("Se encontró una Sesión activa. Puede continuar con la misma o indicar los datos de una nueva.",
-						"Información", Messagebox.OK, Messagebox.INFORMATION);
-	}
 
-	public void informacionRestauracionNoExitosa() {
-		Messagebox.show("El intento de restauración no fue exitoso.",
-				"Información", Messagebox.OK, Messagebox.INFORMATION);
-	}
+
+//	public void informacionRestauracionNoExitosa() {
+//		Messagebox.show("El intento de restauración no fue exitoso.",
+//				"Información", Messagebox.OK, Messagebox.INFORMATION);
+//	}
 
 	public void informacionRespaldoNoExitosa() {
 		Messagebox.show("El intento de respaldo no fue exitoso.",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
-	}
+	}//JORGE
 
 	public void informacionRespaldoExitoso() {
 		Messagebox.show("Respaldo satisfactorio, en unos segundos culminará su creación y se actualizará su tamaño en la lista, luego de esto prodrá utilizarla para restaurar la BD",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
-	}
+	}//JORGE
 
 	public void informacionNoHayCoincidencias() {
 		Messagebox.show("No Hay coincidencias para mostrar.", "Información",
@@ -296,20 +293,20 @@ public class MensajesAlUsuario {
 	}
 
 	public void informacionEstudianteSinSolicitudApelacion() {
-		Messagebox.show("Usted no ha realizado solicitudes de apelación",
+		Messagebox.show("Usted no ha realizado solicitudes de apelación.",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
 	public void informacionRestauracionEnProceso() {
 
 		Messagebox.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
-						"Error", Messagebox.OK, Messagebox.INFORMATION);
+						"Error", Messagebox.OK, Messagebox.INFORMATION); //jORGE
 	}
 	/*-------------------------------------------Mensajes de Error-----------------------------------*/
 	
 
 	public void errorUsuarioEmailNoRegistrado() {
-       Messagebox.show("Usuario o e-mail no registrado.", "Error",
+       Messagebox.show("Usuario o email no registrado.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 	}
 
@@ -343,13 +340,13 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void errorNoHayVeredictosRegistrados() {
-
-		Messagebox.show(
-				"No se ha podido finalizar. No hay veredictos registrados.",
-				"Error", Messagebox.OK, Messagebox.ERROR);
-
-	}
+//	public void errorNoHayVeredictosRegistrados() {
+//
+//		Messagebox.show(
+//				"No se ha podido finalizar. No hay veredictos registrados.",
+//				"Error", Messagebox.OK, Messagebox.ERROR);
+//
+//	} no se usa
 
 	public void errorLapsoActivoExistente() {
 
@@ -373,26 +370,20 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void errorNoCoincidenLasContrasenias() {
 
-		Messagebox
-				.show("La nueva contraseña y la contraseña de confirmación no coinciden.",
-						"Error", Messagebox.OK, Messagebox.ERROR);
-	}
 
-	public void errorNoCoincideContraseniaUsuario() {
-
-		Messagebox.show(
-				"La contraseña ingresada no coincide con el usuario.",
-				"Error", Messagebox.OK, Messagebox.ERROR);
-	}
+//	public void errorNoCoincideContraseniaUsuario() {
+//
+//		Messagebox.show(
+//				"La contraseña ingresada no coincide con el usuario.",
+//				"Error", Messagebox.OK, Messagebox.ERROR);
+//	} no se usa
 
 	public void errorNoHayResgistrosParaRespaldo() {
 
-		Messagebox
-				.show("No hay nada a lo que hacer respaldo en el lapso seleccionado.",
+		Messagebox.show("No hay nada a lo que hacer respaldo en el lapso seleccionado.",
 						"Error", Messagebox.OK, Messagebox.ERROR);
-	}
+	}//JORGE
 
 	public void errorNoEsXML() {
 
