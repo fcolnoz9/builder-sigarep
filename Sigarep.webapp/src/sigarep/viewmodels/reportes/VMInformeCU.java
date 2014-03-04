@@ -94,7 +94,7 @@ public class VMInformeCU {
 	private List<ApelacionEstadoApelacion> apelacionestudiante2 = new LinkedList<ApelacionEstadoApelacion>();
 	private List<RecaudoEntregado> listaRecaudos1 = new LinkedList<RecaudoEntregado>();
 	private List<RecaudoEntregado> listaRecaudos2 = new LinkedList<RecaudoEntregado>();
-	private EstudianteSancionado sancionadoSeleccionado;
+	private SolicitudApelacion sancionadoSeleccionado;
 	
 	//*********************************Mensajes***************************************
 			MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
@@ -234,28 +234,29 @@ public class VMInformeCU {
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-	@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado sa)
+	@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
 	{
 		Selectors.wireComponents(view, this, false);
 		this.sancionadoSeleccionado = sa;
-		cedula = sancionadoSeleccionado.getEstudiante().getCedulaEstudiante();
+		cedula = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
 		codigoLapso = sancionadoSeleccionado.getId().getCodigoLapso();
-		nombre = sancionadoSeleccionado.getEstudiante().getPrimerNombre();
-		segundoNombre = sancionadoSeleccionado.getEstudiante().getSegundoNombre();
-		apellido = sancionadoSeleccionado.getEstudiante().getPrimerApellido();
-		segundoApellido = sancionadoSeleccionado.getEstudiante().getSegundoApellido();
-		programa = sancionadoSeleccionado.getEstudiante().getProgramaAcademico().getNombrePrograma();
-		sancion = sancionadoSeleccionado.getSancionMaestro().getNombreSancion();
-		semestre = sancionadoSeleccionado.getSemestre();
+		nombre = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getPrimerNombre();
+		segundoNombre = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getSegundoNombre();
+		apellido = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getPrimerApellido();
+		segundoApellido = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getSegundoApellido();
+		programa = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
+		sancion = sancionadoSeleccionado.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
+		semestre = sancionadoSeleccionado.getEstudianteSancionado().getSemestre();
 		System.out.println("semestre"+semestre);
-		unidades_cursadas = sancionadoSeleccionado.getUnidadesCursadas();
-		unidades_aprobadas = sancionadoSeleccionado.getUnidadesAprobadas();
+		unidades_cursadas = sancionadoSeleccionado.getEstudianteSancionado().getUnidadesCursadas();
+		unidades_aprobadas = sancionadoSeleccionado.getEstudianteSancionado().getUnidadesAprobadas();
 		unidades_reprobadas = (unidades_cursadas - unidades_aprobadas);
-		indice_grado = sancionadoSeleccionado.getIndiceGrado();
+		indice_grado = sancionadoSeleccionado.getEstudianteSancionado().getIndiceGrado();
+		System.out.println("indice"+indice_grado);
 		System.out.println("indice"+indice_grado);
 		apelacionestudiante1 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, 1);
 		System.out.println("ape1"+apelacionestudiante1);
-		fecha_ingreso = sancionadoSeleccionado.getEstudiante().getAnioIngreso();
+		fecha_ingreso = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getAnioIngreso();
 		
 		for (int i = 0; i<apelacionestudiante1.size(); i++) {
 			int estado = apelacionestudiante1.get(i).getEstadoApelacion().getIdEstadoApelacion();
