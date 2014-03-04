@@ -7,13 +7,24 @@ import java.util.Map;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
@@ -35,6 +46,8 @@ import sigarep.modelos.servicio.reportes.ServicioListaAsignaturasMayorCantidadSa
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMasignaturasMayorCantidadSancionados {
 	
+	@Wire("#winReporteAsignaturasMayorCantidadSancionados")//para conectarse a la ventana con el ID
+	Window ventana;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	//*************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
@@ -187,8 +200,12 @@ public class VMasignaturasMayorCantidadSancionados {
 	}
 	//===============================FIN DE LOS METODOS SET Y GET==============================
 	
- 
-
+	
+	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
+	
 	//Lista que me permite llenar el combo para elegir el formato 
   	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
   			Arrays.asList(
@@ -356,6 +373,31 @@ public class VMasignaturasMayorCantidadSancionados {
 			}
 				
 	}
+	
+	//#####################MENSAJE PARA CERRAR##########################
+	
+	/**Cerrar Ventana
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No dispara ninguna excepción.
+	 */
+	
+	@Command
+	public void cerrarVentanaReporteAsignaturas(@ContextParam(ContextType.BINDER) final Binder binder){
+		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
+				Messagebox.QUESTION,new EventListener<ClickEvent>() {
+			@SuppressWarnings("incomplete-switch")
+			public void onEvent(ClickEvent e) throws Exception {
+				switch (e.getButton()) {
+					case YES:
+							ventana.detach();
+				
+				
+				}
+			}
+		});		
+	}
+		
 }
 
 
