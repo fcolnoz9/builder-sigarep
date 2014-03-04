@@ -91,7 +91,7 @@
 		
 		<!-- Grupbox que contiene el listado de noticias almacenadas en base de datos-->
 		<groupbox id="grbListadoNoticias">
-			<caption label="Listado de Noticias"/>
+			<caption label="Lista de Noticias"/>
 			<separator/>
 			<listbox id="lbxNoticias" height="auto" model="@bind(vm.listaNoticia)"
 				selectedItem="@bind(vm.noticiaSeleccionada)"
