@@ -196,19 +196,26 @@ public class VMInformeConsejoDecanato {
 		listaProduccion.clear();
 		listaMatematicas.clear();
 		
+		if(listaInformatica.size()>0){
 		listaInformatica = servicioreportes.buscarEstudiantesComision(1);
 		procedentesInf = listaInformatica.get(0).getProcedentes();
 		denegadosInf = listaInformatica.get(0).getNoProcedentes();
+		}
+		if(listaProduccion.size()>0){
 		listaProduccion = servicioreportes.buscarEstudiantesComision(2);
 		procedentesPro = listaProduccion.get(0).getProcedentes();
 		denegadosPro = listaProduccion.get(0).getNoProcedentes();
+		}
+		if(listaAnalisis.size()>0){
 		listaAnalisis = servicioreportes.buscarEstudiantesComision(3);
 		procedentesAna = listaAnalisis.get(0).getProcedentes();
 		denegadosAna = listaAnalisis.get(0).getNoProcedentes();
+		}
+		if(listaMatematicas.size()>0){
 		listaMatematicas = servicioreportes.buscarEstudiantesComision(4);
 		procedentesMat = listaMatematicas.get(0).getProcedentes();
 		denegadosMat = listaMatematicas.get(0).getNoProcedentes();
-		
+		}
 		 
 		
 		reportConfig = new ReportConfig(ruta); 
