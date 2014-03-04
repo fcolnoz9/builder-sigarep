@@ -1,6 +1,6 @@
 <?page title="Reporte Especial Entudiantes Sancionados y Apelaciones" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="winEstudianteSancionadoApelacion" title="Reportes :: Especiales :: Estudiantes Sancionados y Apelaciones" border="normal" width="auto" closable="true"
+<window id="winEstudianteSancionadoApelacion" title="Reportes :: Informes :: Especial :: Estudiantes Sancionados y sus Apelaciones por Programa e Instancia" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEspecialEstudiantesSancionadosApelaciones')">
 		<style src="/widgets/grid/simple/style.css" />
 		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
@@ -18,7 +18,7 @@
 						<label id="lblPrograma" value="Programa:" />
 						<combobox readonly="true" id="cmbPrograma"  mold="rounded"
 						placeholder = "Seleccione un programa académico..."
-						width="80%" cols="23" maxlength="60" tabindex="1"
+						width="100%" cols="23" maxlength="60" tabindex="1"
 						model="@load(vm.listaPrograma)"
 						selectedItem="@bind(vm.objprograma)">
 						<template name="model">
@@ -28,7 +28,7 @@
 						<label id="lblTipodeSancion" value="Tipo de Sanción:" />
 						<combobox id="cmbTipoSancion" mold="rounded" readonly="true" 
 						placeholder = "Seleccione un tipo de sanción..."
-						width="80%" cols="23" maxlength="60" tabindex="1"
+						width="100%" cols="23" maxlength="60" tabindex="1"
 						model="@load(vm.listaSancion)" selectedItem="@bind(vm.objSancion)"
 						 onSelect="@command('objCmbSancion')" >
 							<template name="model">
@@ -42,7 +42,7 @@
 					<label id="lblInstanciA" value="Instancia Apelada:" />
 						<combobox id="cmbInstanciaA" readonly="true" mold="rounded"
 						placeholder = "Seleccione una instancia apelada..."
-						width="80%" cols="23" maxlength="100" tabindex="1"
+						width="100%" cols="23" maxlength="100" tabindex="1"
 						 model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)"
 						  onSelect="@command('objCmbinstanciaApelada')" >
 							<template name="model">
@@ -52,7 +52,7 @@
 					<label id="lblVeredicto" value="Veredicto: " />
 						<combobox id="cmbVeredicto" readonly="true" 
 						 placeholder = "Seleccione un veredicto..."
-						 width="80%" cols="20" maxlength="60" tabindex="1"
+						 width="100%" cols="20" maxlength="60" tabindex="1"
 						 model="@load(vm.cmbVeredicto )"  mold="rounded" 
 						 selectedItem="@bind(vm.objVeredicto)" >
 							<comboitem label="" />
@@ -60,8 +60,8 @@
 						
 					</row>
 						<row>
-							Tipo de Archivo: <listbox id="format"  mold="select" 
-	                        width="80%" maxlength="30" model="@load(vm.reportTypesModel)"
+							Elija el Tipo de Archivo: <listbox id="format"  mold="select" 
+	                        width="100%" maxlength="30" model="@load(vm.reportTypesModel)"
 	                         selectedItem="@bind(vm.reportType)">
 										<template name="model">
 												<listitem value="@load(each)" label="@load(each.label)"></listitem>
@@ -77,10 +77,10 @@
 		
 		<div align="right" height="100%">
 				   	<button label="Generar" id="btnGenerarReporte" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesSancionadoApelacionEspecial')"></button>
-					<button label="Limpiar" id="btnLimpiar" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombos')" orient="horizontal"> </button>
-					<button label="Cerrar" id="btnCerrar" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionadoApelacion.onClose()" orient="horizontal"> </button>
+					<button label="Limpiar" id="btnLimpiarReporteEspecial" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombos')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrarReporteEspecial" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="@command('cerrarVentanaReporteEspecialSancionadosApelaciones')" orient="horizontal"> </button>
 		</div>
-		<groupbox id="grbReporte">
+		<groupbox id="grbReporteEspecial" closable="false">
 		 <caption label="Reporte Generado"/>
 			<jasperreport id="reporteEspecial" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" 
 				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" 

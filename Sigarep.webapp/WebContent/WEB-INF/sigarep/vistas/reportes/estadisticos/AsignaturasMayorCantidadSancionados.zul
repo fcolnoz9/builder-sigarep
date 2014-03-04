@@ -1,4 +1,4 @@
-<window id="winReporteAsignaturasMayorCantidadSancionados" title="Reportes :: Estadísticos :: Asignaturas Mayor Cantidad de Sancionados" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
+<window id="winReporteAsignaturasMayorCantidadSancionados" title="Reportes :: Estadísticos :: Comparativos :: Top 5 Asignaturas con Mayor Sancionados Vs Apelaciones por Instancia" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
 	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMasignaturasMayorCantidadSancionados')">
 
 <vlayout>
@@ -18,14 +18,14 @@
 		<rows>
 			<row>
 				<label id="lblProgramas" value="Programa:" />
-                <combobox readonly="true" id= "cmbPrograma" maxlength="60" placeholder="Seleccione un programa académico..." width="80%" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
+                <combobox readonly="true" id= "cmbPrograma" maxlength="60" placeholder="Seleccione un programa académico..." width="100%" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
 						  <template name="model">
 								<comboitem  label="${each.nombrePrograma}"/>
 						  </template>				
 				</combobox>
 				
 				<label id="lblInstancia" value="Instancia:" />
-				<combobox readonly="true" id= "cmbInstancia" placeholder="Seleccione una instancia apelada..." width="80%" mold="rounded" 
+				<combobox readonly="true" id= "cmbInstancia" placeholder="Seleccione una instancia apelada..." width="100%" mold="rounded" 
 				model="@load(vm.listaComboInstancia)" selectedItem="@bind(vm.instanciaApelada)" 
 				onSelect="@command('objetoComboInstancia')" maxlength="100">
 					<template name="model">
@@ -36,15 +36,15 @@
 			<row>
 				<label id="lblLapso" value="Lapso:" />
 				
-				<combobox readonly="true" id= "cmbLapso" placeholder="Seleccione un lapso académico..." width="80%" mold="rounded" 
+				<combobox readonly="true" id= "cmbLapso" placeholder="Seleccione un lapso académico..." width="100%" mold="rounded" 
 				model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.lapsoAcademico)" 
 				onSelect="@command('objetoComboLapso')" maxlength="6">
 					<template name="model">
 						<comboitem  label="${each.codigoLapso}" />
 					</template>	
 				</combobox>
-				Tipo de Archivo : <listbox id="lbxformat" mold="select" model="@load(vm.reportTypesModel)"
-							selectedItem="@bind(vm.reportType)" width="80%">
+				Elija el Tipo de Archivo : <listbox id="lbxformat" mold="select" model="@load(vm.reportTypesModel)"
+							selectedItem="@bind(vm.reportType)" width="100%">
 					<template name="model">
 						<listitem value="@load(each)" label="@load(each.label)"></listitem>
 					</template>
@@ -60,6 +60,7 @@
  <div align="right">
 		<button id="btnGenerarReporteAsignatura" width="auto" height="auto" label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteAsigMayor')"/>
 		<button id="btnLimpiarReporteAsignatura" width="auto" height="auto" label="Limpiar" image="/imagenes/iconos/limpiar.png" orient="horizontal" mold="trendy" onClick="@command('limpiarAsignaturasSancionados')"/>
+		<button id="btnCerrarReporteAsignatura" width="auto" height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png" orient="horizontal" mold="trendy" onClick="@command('cerrarVentanaReporteAsignaturas')"/>
 		
 
 </div>
@@ -68,7 +69,7 @@
 <separator/>	
 <separator/>	
  
- <groupbox>
+ <groupbox id="grbReporteAsignaturasMayorSancionados" closable="false">
  <caption label="Reporte Generado"/>
 <jasperreport id="report" height="360px" 
 		src="@load(vm.reportConfig.source, after='GenerarReporteAsigMayor')" 
