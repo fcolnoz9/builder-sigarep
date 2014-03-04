@@ -697,10 +697,7 @@ public class VMEstudianteSancionado {
 					} else {
 						estudienteRR = true;
 						if (asignaturas.size() == 0) {
-							Messagebox.show(
-									"Debe ingresar  al menos una asignatura",
-									"Advertencia", Messagebox.OK,
-									Messagebox.EXCLAMATION);
+							mensajeAlUsuario.advertenciaIngresarAsignatura();
 						} else {
 						}
 					}

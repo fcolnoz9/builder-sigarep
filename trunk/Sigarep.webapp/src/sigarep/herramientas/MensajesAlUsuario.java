@@ -168,6 +168,12 @@ public class MensajesAlUsuario {
 				+ " ya se encuentra registrado!.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaIngresarAsignatura() {
+        Messagebox.show("Debe ingresar  al menos una asignatura.",
+				"Advertencia", Messagebox.OK,
+				Messagebox.EXCLAMATION);
+	}
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
 
