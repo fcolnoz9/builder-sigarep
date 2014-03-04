@@ -253,7 +253,6 @@ public class VMInformeCU {
 		unidades_reprobadas = (unidades_cursadas - unidades_aprobadas);
 		indice_grado = sancionadoSeleccionado.getEstudianteSancionado().getIndiceGrado();
 		System.out.println("indice"+indice_grado);
-		System.out.println("indice"+indice_grado);
 		apelacionestudiante1 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, 1);
 		System.out.println("ape1"+apelacionestudiante1);
 		fecha_ingreso = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getAnioIngreso();
