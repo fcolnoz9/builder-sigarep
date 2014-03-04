@@ -461,6 +461,19 @@ public class MensajesAlUsuario {
 		}
 	}
 
+	public void advertenciaProgramaNoRegistrado(Integer idPrograma) {
+
+		Messagebox.show("¡El codigo de programa " + idPrograma
+				+ " no se encuentra registrado!.", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
+	public void errorContenidoXMLNoValido() {
+
+		Messagebox.show("El Archivo XML no tiene datos validos", "Error",
+				Messagebox.OK, Messagebox.ERROR);
+	}
+	
 	public void confirmacionCerrarVentanaSimple(final Window ventana,
 			boolean condicion) {
 		if (condicion == true) {

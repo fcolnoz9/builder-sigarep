@@ -117,4 +117,26 @@ public class Asignatura implements Serializable {
 		return asignaturaEstudianteSancionado;
 	}
 
+	/**
+	 * Constructor Asignatura
+	 * 
+	 * @param codigoAsignatura
+	 *            , estatus, nombreAsignatura, unidadesAcademicas, programaAcademico
+	 * @return Constructor lleno
+	 */
+	public Asignatura(String codigoAsignatura, Boolean estatus,
+			String nombreAsignatura, Integer unidadesAcademicas,
+			ProgramaAcademico programaAcademico
+			) {
+		super();
+		this.codigoAsignatura = codigoAsignatura;
+		this.estatus = estatus;
+		this.nombreAsignatura = nombreAsignatura;
+		this.unidadesAcademicas = unidadesAcademicas;
+		this.programaAcademico = programaAcademico;
+	}
+	
+	
+	
+
 }
