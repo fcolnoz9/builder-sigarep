@@ -104,7 +104,7 @@
 
 
 		<groupbox id="grbListadoBanner">
-			<caption label="Listado del Banner" />
+			<caption label="Lista del Banner" />
 			<separator />
 			<listbox id="lbxListaBanner"  height="100%" 
 				model="@bind(vm.listadoBanner)"

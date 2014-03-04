@@ -67,7 +67,7 @@
 		</div>
 		<!-- Grupbox que contiene el listado de preguntas almacenadas en base de datos -->
 		<groupbox id="grbListaPreguntaBasica">
-			<caption label="Listado de Preguntas" />
+			<caption label="Lista de Preguntas" />
 			<listbox id="lbxPreguntas" height="100%"
 				model="@bind(vm.listaPregunta)"
 				selectedItem="@bind(vm.preguntaseleccionada)"
