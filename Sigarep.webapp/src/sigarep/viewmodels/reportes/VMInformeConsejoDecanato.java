@@ -23,6 +23,8 @@ import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.Actividad;
+import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
@@ -49,6 +51,7 @@ public class VMInformeConsejoDecanato {
 	@Wire private String para ="";
 	@Wire private String de="";
 	@Wire private String contenido="";
+	@Wire private String nro="";
 	
 	private int procedentesInf;
 	private int procedentesPro;
@@ -77,6 +80,7 @@ public class VMInformeConsejoDecanato {
 	    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
 	        Selectors.wireComponents(view, this, false);
 	    }
+		 MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
@@ -149,6 +153,13 @@ public class VMInformeConsejoDecanato {
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
+	public void setNro(String nro) {
+		this.nro = nro;
+	}
+
+	public String getNro() {
+		return nro;
+	}
 	public List<LapsoAcademico> getListaLapso() {
 		return listaLapso;
 	}
@@ -196,23 +207,30 @@ public class VMInformeConsejoDecanato {
 		listaProduccion.clear();
 		listaMatematicas.clear();
 		
-		if(listaInformatica.size()>0){
+		if(objLapso==null || para.equals("") || nro.equals("") ||de.equals("") || contenido.equals(""))
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		else{
+		
 		listaInformatica = servicioreportes.buscarEstudiantesComision(1);
+		if(listaInformatica.size()>0){
 		procedentesInf = listaInformatica.get(0).getProcedentes();
 		denegadosInf = listaInformatica.get(0).getNoProcedentes();
 		}
-		if(listaProduccion.size()>0){
+		
 		listaProduccion = servicioreportes.buscarEstudiantesComision(2);
+		if(listaProduccion.size()>0){
 		procedentesPro = listaProduccion.get(0).getProcedentes();
 		denegadosPro = listaProduccion.get(0).getNoProcedentes();
 		}
-		if(listaAnalisis.size()>0){
+		
 		listaAnalisis = servicioreportes.buscarEstudiantesComision(3);
+		if(listaAnalisis.size()>0){
 		procedentesAna = listaAnalisis.get(0).getProcedentes();
 		denegadosAna = listaAnalisis.get(0).getNoProcedentes();
 		}
-		if(listaMatematicas.size()>0){
+		
 		listaMatematicas = servicioreportes.buscarEstudiantesComision(4);
+		if(listaMatematicas.size()>0){
 		procedentesMat = listaMatematicas.get(0).getProcedentes();
 		denegadosMat = listaMatematicas.get(0).getNoProcedentes();
 		}
@@ -220,9 +238,9 @@ public class VMInformeConsejoDecanato {
 		
 		reportConfig = new ReportConfig(ruta); 
 		reportConfig.getParameters().put("De", de);
-		
 		reportConfig.getParameters().put("Para", para);
 		reportConfig.getParameters().put("Contenido", contenido);
+		reportConfig.getParameters().put("nro", nro);
 		reportConfig.getParameters().put("codigoLapso", objLapso.getCodigoLapso());
 		reportConfig.getParameters().put("procedentesInf", procedentesInf);
 		reportConfig.getParameters().put("denegadosInf", denegadosInf);
@@ -237,8 +255,25 @@ public class VMInformeConsejoDecanato {
 		reportConfig.getParameters().put("listaProduccion", (new JRBeanCollectionDataSource(listaProduccion)));
 		reportConfig.getParameters().put("listaMatematicas", (new JRBeanCollectionDataSource(listaMatematicas)));
 		reportConfig.setType(reportType); 
+		}
 
 	}
+	
+	
+	@Command
+	@NotifyChange({"para", "de", "contenido", "nro", "contenido","objLapso"})
+	public void limpiar(){
+		// se utiliza la fecha del sistema para colocarla al momento de limpiar
+		
+		
+		para="";
+		de="";
+		nro= "";
+		contenido="";
+		objLapso = null;
+
+	}
+
 
 	// #####################FIN DEL METODO##########################
 
