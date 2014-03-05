@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroEstadoApelacion" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroEstadoApelacion" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
-	<property name="ireport.x" value="240"/>
-	<property name="ireport.y" value="146"/>
+	<property name="ireport.x" value="58"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -105,16 +105,7 @@
 	<parameter name="Titulo" class="java.lang.String"/>
 	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<queryString>
-		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
-				FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado
-				     essa, estudiante es, programa_academico prog
-				WHERE sa.cedula_estudiante = mo.cedula_estudiante
-				and mo.id_tipo_motivo = timo.id_tipo_motivo
-				and sa.cedula_estudiante = essa.cedula_estudiante
-				and essa.cedula_estudiante = es.cedula_estudiante
-				and es.id_programa = prog.id_programa
-				and sa.codigo_lapso = '2013-1'
-				GROUP BY timo.nombre_tipo_motivo, prog.nombre_programa]]>
+		<![CDATA[]]>
 	</queryString>
 	<background>
 		<band splitType="Stretch"/>
