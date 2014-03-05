@@ -42,7 +42,7 @@ import sigarep.modelos.servicio.reportes.ServicioReportes;
  * @version 1.0
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMapelacionesPorInstancia {
+public class VMapelacionesPorTipoApelacion {
 	//***********************************DECLARACIÓN DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
@@ -86,7 +86,7 @@ public class VMapelacionesPorInstancia {
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
-	String ruta="/WEB-INF/sigarepReportes/estadisticos/RApelacionesInstancia-Veredicto.jasper";
+	String ruta="/WEB-INF/sigarepReportes/estadisticos/RApelacionesTipoApelacion-Veredicto.jasper";
 
 	@Init
 	public void init() {
@@ -290,7 +290,7 @@ public class VMapelacionesPorInstancia {
 		
 		if(apelacionesComparativos.size()>0){
 		reportConfig = new ReportConfig(ruta); 
-		reportConfig.getParameters().put("Titulo", "REPORTE DE APELACIONES y VEREDICTO");
+		reportConfig.getParameters().put("Titulo", "Reporte Comparativo de Apelaciones por Tipo de Apelación y Veredicto");
 		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
 		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
 		reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
