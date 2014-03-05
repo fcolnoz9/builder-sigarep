@@ -24,6 +24,7 @@ import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
+import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -36,6 +37,7 @@ import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 
 
+import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -72,8 +74,9 @@ public class VMlistaMaestros {
 	private ServicioEstadoApelacion servicioestadoapelacion;
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable
+	private ServicioAsignatura servicioAsignatura;
 	
-
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<SancionMaestro> listaTipoSancion;
@@ -84,6 +87,7 @@ public class VMlistaMaestros {
 	private List<Recaudo> listaRecaudo;
 	private List<EstudianteSancionado> listaEstudiantesSancionados;
 	private List<Cronograma> listaCronograma;
+	private List<Asignatura> listaAsignatura;
 	
 
 	private String maestro;
@@ -224,7 +228,13 @@ public class VMlistaMaestros {
 		return listaCronograma;
 	}
 	
+	public List<Asignatura> getAsignatura() {
+		return listaAsignatura;
+	}
 
+	public void setListaAsignatura(List<Asignatura> listaAsignatura) {
+		this.listaAsignatura = listaAsignatura;
+	}
 
 	
 
@@ -345,6 +355,23 @@ public class VMlistaMaestros {
 			
 			reportConfig.setDataSource(new JRBeanCollectionDataSource(
 					 listaPrograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
+											// DATOS PARA DIBUJAR EL REPORTE	
+			    
+		     break;
+         case "asignatura": 
+			 
+        	 listaAsignatura =servicioAsignatura.listaAsignaturas();
+	         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroAsignatura.jasper";
+			reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
+												// REPORTE
+			reportConfig.getParameters().put("Titulo", "Reporte Lista de Programas Académicos");
+			reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
+					 listaAsignatura));
+			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
+											// IMPRESION DEL REPORTE
+			
+			reportConfig.setDataSource(new JRBeanCollectionDataSource(
+					listaAsignatura)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
 											// DATOS PARA DIBUJAR EL REPORTE	
 			    
 		     break;
