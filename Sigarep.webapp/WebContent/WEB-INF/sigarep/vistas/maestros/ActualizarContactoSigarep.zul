@@ -47,8 +47,7 @@
 	<groupbox height="310px">
 		<caption label="Datos del ¿Quienés somos?" />
 		<ckeditor id="ckeditor" value="@bind(vm.quienesSomos)" vflex="1"
-			filebrowserImageBrowseUrl="/widgets/input/wysiwyg_editor/img"
-			customConfigurationsPath="/widgets/input/wysiwyg_editor/config.js">
+			customConfigurationsPath="/widgets/js/config_wysiwyg.js">
 		</ckeditor>
 	</groupbox>
 	<separator />

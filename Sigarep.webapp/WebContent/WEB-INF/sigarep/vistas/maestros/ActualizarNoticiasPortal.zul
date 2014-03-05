@@ -1,130 +1,128 @@
-<zk>
-	<window id="winActualizarNoticia"
-		title="Configuración Web :: Actualizar Noticias" border="normal"
-		width="auto" height="auto" contentStyle="overflow:auto"
-		apply="org.zkoss.bind.BindComposer" closable="true"
-		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
-		
-		<style src="/widgets/input/form_sample/style.css"></style>
-		
-		<!-- Groupbox que contiene los campos que requieren llenarse con los datos de noticia -->
-		
-		<groupbox id="grbNoticia">
-			<caption label="Datos de Noticia" />
+<window id="winActualizarNoticia"
+	title="Configuración Web :: Actualizar Noticias" border="normal"
+	width="auto" height="auto" contentStyle="overflow:auto"
+	apply="org.zkoss.bind.BindComposer" closable="true"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
+
+	<style src="/widgets/input/form_sample/style.css"></style>
+
+	<!-- Groupbox que contiene los campos que requieren llenarse con los datos de noticia -->
+	<groupbox id="grbNoticia">
+		<caption label="Datos de Noticia" />
 		<!-- Grid exterior -->
-		
-		<grid id="grdDatosImagenNoticia" width="auto">
-			<columns>
-				<column valign="top" label="" width="70%"></column>
-				<column valign="top" label="" width="30%"></column>
-			</columns>
-			<rows>
-				<row>
-				    <!-- Grid interior -->  
+		<tablelayout columns="2">
+			<tablechildren colspan="2">
+				<hbox>
 					<grid id="grdNoticias" width="auto">
 						<columns>
-							<column label="" width="20%" />
-							<column label="" width="40%" />
-							<column label="" width="20%" />
-							<column label="" width="40%" />
+							<column width="10%" />
+							<column width="30%" />
+							<column width="10%" />
+							<column width="30%" />
+							<column width="20%" />
 						</columns>
 						<rows>
 							<row>
 								<label id="lblTitulo" value="Título:" />
 								<textbox id="txtTitulo" cols="23"
-										maxlength="60" readonly="false" placeholder=" Ingrese el título de la noticia" 
-										mold="rounded" width="100%" tabindex="2" value="@bind(vm.titulo)" />
+									maxlength="60" placeholder=" Ingrese el título de la noticia"
+									mold="rounded" width="80%" value="@bind(vm.titulo)" />
 								<label id="lblEnlace" value="Enlace:" />
-								<textbox id="txtEnlace" cols="23" placeholder="Ingrese el enlace de la noticia"
-									maxlength="1000" readonly="false" mold="rounded" width="100%" tabindex="1" value="@bind(vm.enlaceNoticia)" />
+								<textbox id="txtEnlace" cols="23"
+									placeholder="Ingrese el enlace de la noticia" maxlength="1000"
+									mold="rounded" width="80%" value="@bind(vm.enlaceNoticia)" />
+								<button label="Cargar Imagen"
+									id="btnImagen" upload="true"
+									image="/imagenes/iconos/cargar.png"
+									onUpload="@command('cargarImagenNoticia',upload=event)">
+								</button>
 							</row>
-							<row>
-								<label id="lblFecha" value="Fecha Publicación:" />
-								<datebox id="dbfechaPublicacion" placeholder="Seleccione..."
-								mold="rounded" format="dd/MM/yyyy" width="100%" tabindex="4"
-									 onChange="@command('validarFecha')"
+							<row valign="top">
+								<label id="lblFecha"
+									value="Fecha Publicación:" />
+								<datebox id="dbfechaPublicacion"
+									placeholder="Seleccione..." mold="rounded" format="dd/MM/yyyy"
+									width="80%" onChange="@command('validarFecha')"
 									value="@bind(vm.fechaRegistro)" />
-								<label id="lblFechaVencimiento" value="Fecha Vencimiento:" />
-								<datebox id="dbfechaVencimiento" placeholder="Seleccione..."
-								mold="rounded" format="dd/MM/yyyy" width="100%" tabindex="4"
-									 onChange="@command('validarFecha')"
+								<label id="lblFechaVencimiento"
+									value="Fecha Vencimiento:" />
+								<datebox id="dbfechaVencimiento"
+									placeholder="Seleccione..." mold="rounded" format="dd/MM/yyyy"
+									width="80%" onChange="@command('validarFecha')"
 									value="@bind(vm.vencimiento)" />
-							</row>
-							<row>
-						        <label id="lblContenido" value="Contenido:" />
-								<textbox id="txtContenido" width="96%" placeholder="Ingrese el contenido de la noticia"
-									rows="3" maxlength="10000" mold="rounded" tabindex="2" value="@bind(vm.contenido)" />
+								<image id="imgImagen" height="80px"
+									width="100px" content="@bind(vm.imagenNoticia)" />
 							</row>
 						</rows>
 					</grid>
-					<vlayout>
-						<button label="Cargar Imagen" id="btnImagen" upload="true,maxsize=51200"  image="/imagenes/iconos/cargar.png"
-						onUpload="@command('cargarImagenNoticia',upload=event)"></button>
-							<image id="imgImagen" height="80px" width="100px" content="@bind(vm.imagenNoticia)" />
-					</vlayout>
-				</row>
-			</rows>
-		</grid>
-		</groupbox>
-		<separator/>
-		<div align="right" height="100%">
-		
+				</hbox>
+			</tablechildren>
+			<tablechildren>
+				<ckeditor id="ckeditor" value="@bind(vm.contenido)"
+					vflex="1"
+					customConfigurationsPath="/widgets/js/config_wysiwyg.js">
+				</ckeditor>
+			</tablechildren>
+		</tablelayout>
+	</groupbox>
+	<separator />
+	<div align="right" height="100%">
+
 		<!-- Grupo de botones -->
-		
-			<button label="Guardar" id="btnGrabarNoticia" 
-				 mold="trendy" width="auto"
-				height="auto" image="/imagenes/iconos/guardar.png"
-				onClick="@command('guardarNoticia')" />
-			<button label="Eliminar" id="btnEliminarNoticia" 
-				 mold="trendy" width="auto"
-				height="auto" image="/imagenes/iconos/eliminar.png"
-				onClick="@command('eliminarNoticia')" />
-			<button label="Limpiar" id="btnLimpiarNoticia"
-				 mold="trendy" width="auto"
-				height="auto" image="/imagenes/iconos/limpiar.png"
-				onClick="@command('limpiar')" />
-		    <button id="btnCerrarNoticia" label="Cerrar"
-				 mold="trendy" width="auto"
-				height="auto" image="/imagenes/iconos/cerrar.png"
-				 onClick="@command('cerrarVentana', ventana = winActualizarNoticia)"/>
-		</div>
-		
-		<!-- Grupbox que contiene el listado de noticias almacenadas en base de datos-->
-		<groupbox id="grbListadoNoticias">
-			<caption label="Lista de Noticias"/>
-			<separator/>
-			<listbox id="lbxNoticias" height="auto" model="@bind(vm.listaNoticia)"
-				selectedItem="@bind(vm.noticiaSeleccionada)"
-				onSelect="@command('mostrarSeleccionado')"
-				emptyMessage="No hay noticias registradas" mold="paging"
-				pageSize="10">
-				<listhead>
-<!-- 					<listheader label="Id" align="center" -->
-<!-- 						sort="auto(idNoticia)" ></listheader> -->
-					<listheader label="Título" align="left"
-						sort="auto(titulo)" > 
+
+		<button label="Guardar" id="btnGrabarNoticia" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/guardar.png"
+			onClick="@command('guardarNoticia')" />
+		<button label="Eliminar" id="btnEliminarNoticia" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
+			onClick="@command('eliminarNoticia')" />
+		<button label="Limpiar" id="btnLimpiarNoticia" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
+			onClick="@command('limpiar')" />
+		<button id="btnCerrarNoticia" label="Cerrar" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
+			onClick="@command('cerrarVentana', ventana = winActualizarNoticia)" />
+	</div>
+
+	<!-- Grupbox que contiene el listado de noticias almacenadas en base de datos-->
+	<groupbox id="grbListadoNoticias">
+		<caption label="Lista de Noticias" />
+		<separator />
+		<listbox id="lbxNoticias" height="auto"
+			model="@bind(vm.listaNoticia)"
+			selectedItem="@bind(vm.noticiaSeleccionada)"
+			onSelect="@command('mostrarSeleccionado')"
+			emptyMessage="No hay noticias registradas" mold="paging"
+			pageSize="10">
+			<listhead>
+				<!-- 					<listheader label="Id" align="center" -->
+				<!-- 						sort="auto(idNoticia)" ></listheader> -->
+				<listheader label="Título" align="left"
+					sort="auto(titulo)">
 					<textbox id="filtroTitulo" instant="true"
-					mold="rounded" width="100px" value="@bind(vm.tituloFiltro)"
-							onChange="@command('filtros')" />	
-							<image src="/imagenes/iconos/buscar.png"/>
-					</listheader>
-					<listheader label="Fecha Registro" align="left"
-						sort="auto(fechaRegistro)" > </listheader>
-					<listheader label="Fecha Vencimiento" align="left"
-						sort="auto(vencimiento)" > </listheader>
-					<listheader label="Enlace" align="left"
-						sort="auto(enlaceNoticia)" > </listheader>
-				</listhead>
-				<template name="model">
-					<listitem selected="false">
-<!-- 						<listcell label="${each.idNoticia}"></listcell> -->
-						<listcell label="${each.titulo}"></listcell>
-						<listcell label="${each.fechaRegistro}"></listcell>
-						<listcell label="${each.vencimiento}"></listcell>
-						<listcell label="${each.enlaceNoticia}"></listcell>
-					</listitem>
-				</template>
-			</listbox>
-		</groupbox>
-	</window>
-</zk>
+						mold="rounded" width="100px" value="@bind(vm.tituloFiltro)"
+						onChange="@command('filtros')" />
+					<image src="/imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Fecha Registro" align="left"
+					sort="auto(fechaRegistro)">
+				</listheader>
+				<listheader label="Fecha Vencimiento" align="left"
+					sort="auto(vencimiento)">
+				</listheader>
+				<listheader label="Enlace" align="left"
+					sort="auto(enlaceNoticia)">
+				</listheader>
+			</listhead>
+			<template name="model">
+				<listitem selected="false">
+					<!-- 						<listcell label="${each.idNoticia}"></listcell> -->
+					<listcell label="${each.titulo}"></listcell>
+					<listcell label="${each.fechaRegistro}"></listcell>
+					<listcell label="${each.vencimiento}"></listcell>
+					<listcell label="${each.enlaceNoticia}"></listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
+</window>
