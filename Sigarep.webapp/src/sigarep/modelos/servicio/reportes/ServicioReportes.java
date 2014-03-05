@@ -275,7 +275,7 @@ public class ServicioReportes {
 						"WHERE essa.cedula_estudiante = es.cedula_estudiante " +
 						"and essa.codigo_lapso = "+ "'"+codigo_lapso+"' " +
 						"and es.id_programa = "+ "'"+programa+"' " +
-						"and essa.id_sancion = "+ "'"+tipo_sancion+"' ), " +
+						"and essa.id_sancion = "+ "'"+tipo_sancion+"' ) " +
 						"from " +
 						"(select b.apelacion as apelacion, sum(b.apelaciones) apelaciones, 0 as procedente " +
 						"from " +
@@ -301,7 +301,7 @@ public class ServicioReportes {
 						"and es.id_programa = "+ "'"+programa+"' " +
 						"and essa.id_sancion = "+ "'"+tipo_sancion+"' " +
 						"and sa.veredicto = 'NO PROCEDENTE' " +
-						"group by apelacion) as v " +
+						"group by instancia) as v " +
 						"group by v.apelacion " +
 						"order by apelaciones desc";
 				
