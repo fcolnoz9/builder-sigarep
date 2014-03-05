@@ -103,7 +103,7 @@ public class VMInformeCU {
 			// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 			ReportType reportType = null;
 			private ReportConfig reportConfig = null;
-			String ruta="/WEB-INF/sigarepReportes/informes/RpInformeConsejoUniversitario.jasper";
+			String ruta="/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoUniversitario.jasper";
 			
 //Reporte SET/GETS		
 			
