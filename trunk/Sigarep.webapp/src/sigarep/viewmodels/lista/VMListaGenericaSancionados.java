@@ -14,16 +14,22 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
+
+
+
+
+
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-import sigarep.modelos.data.transacciones.ListaMomento;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -34,8 +40,7 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMListaGenericaSancionados {
-
+public class VMListaGenericaSancionados{
 
 	private SolicitudApelacion sancionadoSeleccionado;
 	private EstudianteSancionado estudianteSeleccionado;
@@ -57,6 +62,8 @@ public class VMListaGenericaSancionados {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 	
+	//private @Wire Combobox cmbVeredicto;
+	
 	//Lista que se llena segun la transaccion
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
 	private List<EstudianteSancionado> listaEstudiantes = new LinkedList<EstudianteSancionado>();
@@ -64,7 +71,7 @@ public class VMListaGenericaSancionados {
 	//Variables para el filtrado por combos o textbox
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
-	private ListModelList<String> cmbVeredicto;//Lista para llenar el combo Veredicto
+	private ListModelList<String> listaVeredicto;//Lista para llenar el combo Veredicto
 	private String nombrePrograma;
 	private String nombreTipoMotivo;
 	private String rutaModal="";
@@ -199,15 +206,15 @@ public class VMListaGenericaSancionados {
 	}
 	
 	public ListModelList<String> getCmbVeredicto() {
-		cmbVeredicto.add("PROCEDENTE");
-		cmbVeredicto.add("NO PROCEDENTE");
-		cmbVeredicto.add("TODOS");
-		cmbVeredicto.add("SIN VEREDICTO");
-		return cmbVeredicto;		
+		listaVeredicto.add("PROCEDENTE");
+		listaVeredicto.add("NO PROCEDENTE");
+		listaVeredicto.add("TODOS");
+		listaVeredicto.add("SIN VEREDICTO");
+		return listaVeredicto;		
 	}
 
 	public void setCmbVeredicto(ListModelList<String> cmbVeredicto) {
-		this.cmbVeredicto = cmbVeredicto;
+		this.listaVeredicto = cmbVeredicto;
 	}
 
 	/**
@@ -220,7 +227,6 @@ public class VMListaGenericaSancionados {
     				 @ExecutionArgParam("tipoSesion") String tipoSesion,
     				 @ExecutionArgParam("fechaSesion") Date fechaSesion){
 		this.rutaModal=rutaModal;
-		
 		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
 				rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
 				rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
@@ -232,7 +238,7 @@ public class VMListaGenericaSancionados {
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		buscarProgramaA ();
 		buscarSancionados();
-		cmbVeredicto= new ListModelList<String>();
+		listaVeredicto= new ListModelList<String>();
     }
 	
 	@Command
@@ -276,7 +282,7 @@ public class VMListaGenericaSancionados {
 			listaEstudiantes = servicioestudiantesancionado.buscarEstudiante();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
-}
+	}
 	
 	@Command
 	public void showModal(@BindingParam("listboxSancionados") Listbox listboxSancionados){
@@ -343,12 +349,21 @@ public class VMListaGenericaSancionados {
 	public void filtrarVeredicto(List<SolicitudApelacion> listaFiltrarVeredicto){
 		if(!veredicto.equalsIgnoreCase("TODOS") && !veredicto.equals(""))
 			lista = serviciosolicitudapelacion.filtrarComboVeredictoListaGenerica(listaFiltrarVeredicto,veredicto);
-//		else if(veredicto.equalsIgnoreCase("SIN VEREDICTO")){
-//			veredicto="null";
-//			filtros();
-//		}
-//		else
-//			filtros();
+	}
+	
+	@Command
+	public void validarComboVeredicto(@BindingParam("combo") Combobox cmbVeredicto, 
+										@BindingParam("label") Label lblVeredicto) {
+		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
+				rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
+				rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
+			lblVeredicto.setVisible(true);
+			cmbVeredicto.setVisible(true);
+		}
+		else{
+			lblVeredicto.setVisible(false);
+			cmbVeredicto.setVisible(false);
+		}
 	}
 }
 
