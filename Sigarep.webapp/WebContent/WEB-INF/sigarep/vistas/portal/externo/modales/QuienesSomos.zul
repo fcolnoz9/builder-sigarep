@@ -1,0 +1,15 @@
+<window title="¿Quiénes somos?" id="winQuienesSomos" border="normal"
+	height="65%" width="75%" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMContacto')">
+	<div height="100%" vflex="1">
+		<html content="@bind(vm.quienesSomos)" />
+	</div>
+	<div align="right">
+		<button label="Cerrar" id="btnCerrar" mold="trendy" width="auto"
+			height="auto" image="/imagenes/iconos/cerrar.png"
+			onClick="winQuienesSomos.onClose()">
+		</button>
+	</div>
+	<separator />
+</window>

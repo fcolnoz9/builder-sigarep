@@ -1,14 +1,9 @@
 package sigarep.modelos.servicio.maestros;
 
-import java.util.LinkedList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.ContactoSigarep;
-import sigarep.modelos.repositorio.maestros.IActividadDAO;
 import sigarep.modelos.repositorio.maestros.IContactoSigarep;
 
 @Service("serviciocontactosigarep")
