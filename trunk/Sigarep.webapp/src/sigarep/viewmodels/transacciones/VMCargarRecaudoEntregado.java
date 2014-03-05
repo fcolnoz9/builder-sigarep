@@ -304,8 +304,8 @@ public class VMCargarRecaudoEntregado {
 					doc.setTipoDocumento(media.getContentType());
 					doc.setContenidoDocumento(media.getByteData());
 					
-					if(doc.getTamanoDocumento()>3000000){
-						mensajeAlUsuario.advertenciaTamannoArchivo(3000);
+					if(doc.getTamanoDocumento()>20971520){
+						mensajeAlUsuario.advertenciaTamannoArchivo(20480);
 						
 						doc=new Documento();
 						}else{ 
