@@ -85,7 +85,7 @@ public class VMInformeConsejoDecanato {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 
-	String ruta="/WEB-INF/sigarepReportes/informes/estructurados/RpInformeDeComisionPorPrograma.jasper";
+	String ruta="/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoDecanato.jasper";
 	
 	
 	@Init

@@ -74,7 +74,7 @@ public class VMModalInformeCU {
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 	
-	String ruta="/WEB-INF/sigarepReportes/informes/RpInformeConsejoUniversitario.jasper";
+	String ruta="/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoUniversitario.jasper";
 	
 	
 	public String getApellidos() {
