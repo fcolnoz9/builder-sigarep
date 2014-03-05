@@ -3,7 +3,7 @@
 		 viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad')" >
 		<hlayout valign="bottom">
 			<menubar>
-				<menu label="@bind(vm.nombreCompleto)" >
+				<menu label="@bind(vm.nombreCompleto)">
 					<menupopup>
 						<menuitem label="Editar Perfil"
 							image="/imagenes/iconos/editar.png"
