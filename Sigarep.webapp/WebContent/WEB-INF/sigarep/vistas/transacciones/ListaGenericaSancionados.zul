@@ -5,8 +5,8 @@
 		closable="true" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.lista.VMListaGenericaSancionados')"
-		action="hide: slideUp">
-		<style src="/widgets/grid/simple/style.css" />
+		action="hide: slideUp" 
+		onCreate="@command('validarComboVeredicto', combo = cmbVeredicto, label = lblVeredicto)">
 
 		<groupbox id="grbFiltro">
 			<caption label="Filtro por Programa Académico" />
@@ -15,7 +15,7 @@
 					<column align="left">
 						<label id="lblPrograma" value="Programa: " />
 						<combobox id="cmbPrograma" 
-						    placeholder="Seleccione una programa..."
+						    placeholder="Seleccione un programa..."
 						    mold="rounded" readonly="true"
 							model="@load(vm.listaPrograma)" value="@bind(vm.programa)"
 							onChange="@command('filtros')">
@@ -26,11 +26,12 @@
 						</combobox>
 					</column>
 					<column align="left">
-						<label id="lblVeredicto" value="Resultado: " />
-						<combobox id="cmbVeredicto" cols="20" readonly="true"
-							model="@load(vm.cmbVeredicto )"  mold="rounded" 
+						<label id="lblVeredicto" value="Resultado: " visible="false"/>
+						<combobox id="cmbVeredicto" cols="20" readonly="true" visible="false" 
+							placeholder="Seleccione un resultado..."
+							model="@load(vm.cmbVeredicto)"  mold="rounded" 
 							selectedItem="@bind(vm.veredicto)" tooltiptext="Elija Veredicto" 
-							onChange="@command('filtros')" >
+							onChange="@command('filtros')">
 						</combobox>
 					</column>
 				</columns>
