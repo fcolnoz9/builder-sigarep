@@ -37,7 +37,6 @@ import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarRecaudoEntregado {
-	@Wire("#modalDialog")
 	private Window window;
 	private String cedula;
 	private String sancion;
@@ -223,10 +222,8 @@ public class VMCargarRecaudoEntregado {
 
 	@Init
 	public void init(
-		@ContextParam(ContextType.VIEW) Component view,
 		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
 	{
-		Selectors.wireComponents(view, this, false);
 		this.cedula = sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
 		this.primerNombre = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre();
 		this.primerApellido = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido();
