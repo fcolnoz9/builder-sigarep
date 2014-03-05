@@ -2,6 +2,8 @@ package sigarep.modelos.test.maestros;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,6 +26,7 @@ import sigarep.modelos.repositorio.maestros.INoticiaDAO;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class TestNoticia {
 	private Noticia noticia,resultado,resultadoB;
+	private List<Noticia> ListaNoticias;
 	@Autowired
 	INoticiaDAO noticiaDAO;
 	@BeforeClass
@@ -58,6 +61,13 @@ public class TestNoticia {
 		resultadoB=noticiaDAO.findOne(2);
 		assertNotNull(resultadoB);
 		System.out.println("El contenido de la Noticia encontrada es :"+resultadoB.getContenido());
+	}
+	@Test
+	public void testListaNoticias(){
+		ListaNoticias=noticiaDAO.findAll();
+		for(int i = 0;i<ListaNoticias.size();i++){
+			System.out.println(" Noticias : "+ListaNoticias.get(i).getContenido());
+		}
 	}
 
 }
