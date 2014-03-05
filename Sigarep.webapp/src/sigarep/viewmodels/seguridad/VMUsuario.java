@@ -1110,8 +1110,8 @@ public class VMUsuario {
 				fotoUsuario.setNombreArchivo(mediaUsuario.getName());
 				fotoUsuario.setTipo(mediaUsuario.getContentType());
 				fotoUsuario.setContenidoArchivo(mediaUsuario.getByteData());
-				if(fotoUsuario.getTamano()>500000){
-					mensajeAlUsuario.advertenciaTamannoImagen(500);
+				if(fotoUsuario.getTamano()>50000){
+					mensajeAlUsuario.advertenciaTamannoImagen(50);
 					
 					fotoUsuario = new Archivo();
 					}else{imagenUsuario = (AImage) mediaUsuario;}
