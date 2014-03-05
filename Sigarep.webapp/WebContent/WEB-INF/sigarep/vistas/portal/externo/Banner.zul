@@ -1,5 +1,5 @@
-<window id="winBannerPortal" border="none" height="100%"
-	closable="false" apply="org.zkoss.bind.BindComposer"
+<div id="winBannerPortal" height="100%"
+	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMBanner')">
 
 	<timer id="tiempo" delay="7000" repeats="true"
@@ -7,4 +7,4 @@
 	</timer>
 	<image height="300px" width="100%"
 		content="@bind(vm.fotoBannerPortal.getAImage())" />
-</window>
+</div>

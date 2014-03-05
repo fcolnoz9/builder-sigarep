@@ -1,4 +1,4 @@
-<window id="winLogin" vflex="1" hflex="1">
+<div id="winLogin" vflex="1" hflex="1">
 	<h:form id="f" name="f" action="j_spring_security_check"
 		method="POST" xmlns:h="http://www.w3.org/1999/xhtml">
 		<hbox align="center" pack="center" hflex="1">
@@ -27,4 +27,4 @@
 		align="center">
 		<a id="ordenRecuperarContrasenna">¿Olvidó su contraseña?</a>
 	</div>
-</window>
+</div>
