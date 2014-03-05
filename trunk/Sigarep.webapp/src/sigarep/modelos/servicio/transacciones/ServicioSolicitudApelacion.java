@@ -181,7 +181,7 @@ public class ServicioSolicitudApelacion {
 
 	// Flor
 	public List<SolicitudApelacion> buscarAnalizarValidezI(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
-		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalse(lapsoAcademico, idInstanciaApelada);
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalseAndVeredictoIsNull(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezI(
@@ -309,7 +309,7 @@ public class ServicioSolicitudApelacion {
 
 	// Flory Amanda
 	public List<SolicitudApelacion> buscarAnalizarValidezII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
-		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalse(lapsoAcademico, idInstanciaApelada);
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalseAndVeredictoIsNull(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezII(
@@ -344,7 +344,7 @@ public class ServicioSolicitudApelacion {
 	}
 
 	public List<SolicitudApelacion> buscarAnalizarValidezIII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
-		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalse(lapsoAcademico, idInstanciaApelada);
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalseAndVeredictoIsNull(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezIII(
