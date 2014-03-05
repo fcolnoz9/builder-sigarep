@@ -55,7 +55,7 @@
 					</grid>
 					<vlayout>
 						<button label="Cargar Imagen" id="btnImagen" src="/imagenes/iconos/cargar.png"
-						upload="true" mold="trendy"
+						upload="true,maxsize=51200"  mold="trendy"
 						onUpload="@command('cargarImagen',upload=event)">
 						</button >
 						<image id="imgImagenEnlace"  height="90px"
