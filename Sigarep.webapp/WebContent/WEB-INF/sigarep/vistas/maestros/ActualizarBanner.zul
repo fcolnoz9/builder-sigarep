@@ -62,7 +62,7 @@
 							<button label="Cargar Imagen"
 								id="btnCargarImagenBanner" 
 								src="/imagenes/iconos/cargar.png"
-								 upload="true" mold="trendy"
+								 upload="true,maxsize=51200"  mold="trendy"
 								onUpload="@command('cargarImagenBanner',upload=event)" />
 							<image id="imgImagenBanner" height="50%"
 								width="100px" content="@bind(vm.imagenBanner)" />

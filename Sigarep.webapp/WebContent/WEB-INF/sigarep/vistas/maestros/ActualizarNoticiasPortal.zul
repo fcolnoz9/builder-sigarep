@@ -58,7 +58,7 @@
 						</rows>
 					</grid>
 					<vlayout>
-						<button label="Cargar Imagen" id="btnImagen" upload="true" image="/imagenes/iconos/cargar.png"
+						<button label="Cargar Imagen" id="btnImagen" upload="true,maxsize=51200"  image="/imagenes/iconos/cargar.png"
 						onUpload="@command('cargarImagenNoticia',upload=event)"></button>
 							<image id="imgImagen" height="80px" width="100px" content="@bind(vm.imagenNoticia)" />
 					</vlayout>

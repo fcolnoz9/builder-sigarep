@@ -88,7 +88,7 @@ title="Gestión :: Apelaciones :: Registrar Apelación :: Cargar Recaudos"
 		                <hlayout>
 		                	<button label="Cargar"
 									image="/imagenes/iconos/cargar.png" width="auto" height="auto"
-									orient="horizontal" upload="true" onUpload="@command('cargarRecaudoEntregado',upload=event, parametro=self)">
+									orient="horizontal" upload="true,maxsize=51200"  onUpload="@command('cargarRecaudoEntregado',upload=event, parametro=self)">
 								<custom-attributes idRecaudo="${each.getRecaudo().getIdRecaudo()}"/>
 								<custom-attributes idTipoMotivo="${each.getMotivo().getTipoMotivo().getIdTipoMotivo()}"/>
 							</button>
