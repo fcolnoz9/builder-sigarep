@@ -1,6 +1,6 @@
-<menubar autodrop="true" >
-	<menuitem label="Inicio" />
-	<menuitem label="¿Quiénes somos?" />
-	<menuitem label="Contáctanos"
+<menubar>
+	<menuitem image="/imagenes/portal-principal/home-portal.png" label="Inicio" />
+	<menuitem image="/imagenes/portal-principal/aboutus-portal.png" label="¿Quiénes somos?" />
+	<menuitem image="/imagenes/portal-principal/contact-portal.png" label="Contáctanos"
 		onClick="@command('modalContactanos')" />
 </menubar>
