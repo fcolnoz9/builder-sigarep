@@ -14,48 +14,61 @@
 			<grid id="grdApelacion">
 
 				<columns>
-					<column label="" width="135px" id="columna1" />
-					<column label="" width="170px" id="columna2" />
-					<column label="" width="135px" id="columna3" />
-					<column label="" width="170px" id="columna4" />
+					<column  />
+					<column />
+					<column  />
+					<column />
 				</columns>
 
 				<rows>
 
 					<row>
 						<label id="lblLapsoAcademico"
-							value="Lapso Academico" />
+							value="Lapso Académico"/>
 						<combobox id="cmbLapso" mold="rounded"
 							readonly="true" model="@load(vm.listaLapso)"
 							selectedItem="@bind(vm.objLapso)"
-							onSelect="@command('objCmbLapso')">
+							onSelect="@command('objCmbLapso')" width="80%" placeholder="Seleccione un lapso académico...">
 							<template name="model">
 								<comboitem label="${each.codigoLapso}" />
 							</template>
 						</combobox>
 					</row>
+				</rows>
+			</grid>
+			<groupbox vflex="true" closable="false" sclass="z-demo-config"
+			width="auto" height="auto">
+			<caption label="Datos del Memorando" />
+			<grid id="grdApelacionmemo">
 
-					<row>
+				<columns>
+					<column  />
+					<column />
+					<column  />
+					<column />
+				</columns>
+
+				<rows>
+                     <row>
 						<label id="lblPara"
 							value="Para: " />
-						<textbox id="txtPara" value="@bind(vm.para)" mold="rounded" />
+						<textbox id="txtPara" value="@bind(vm.para)" mold="rounded" placeholder="Nombre de Instancia" />
 						<label id="lblDe"
 							value="De: " />
-						<textbox id="txtDe" value="@bind(vm.de)" mold="rounded" />
+						<textbox id="txtDe" value="@bind(vm.de)" mold="rounded" placeholder="Nombre del Responsable" />
 					</row>
 					<row>
+					<label id="lblNro"
+							value="Número del Memorando: " />
+						<textbox id="txtNro" value="@bind(vm.nro)" rows="1" mold="rounded" tabindex="2" placeholder="Nro del Memorando" />
 						<label id="lblAsunto"
 							value="Asunto: " />
-						<textbox id="txtContenido" value="@bind(vm.contenido)" rows="1" mold="rounded" tabindex="2" />
+						<textbox id="txtContenido" value="@bind(vm.contenido)" rows="1" mold="rounded" tabindex="2" placeholder="Asunto del Memorando" />
+					   
 					</row>
-
-
 				</rows>
-
-
-
 			</grid>
-<!-- hbox que contiene los botones en la interfaz que permiten la generación del reporte , limpiar los campos y cerrar la ventana -->
+			<!-- hbox que contiene los botones en la interfaz que permiten la generación del reporte , limpiar los campos y cerrar la ventana -->
 
 			<hbox width="90%" height="150%" pack="right">
 				<hlayout id="lyBuscar">
@@ -67,11 +80,11 @@
 					</div>
 				</hlayout>
 
-				<hlayout id="lytBorrar">
+				<hlayout id="lytlimpiar">
 					<div align="right" height="100%">
-						<button id="btnCancelar" width="auto" height="auto"
-				         label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy">
-			            </button>
+						<button id="btnLimpiar" width="auto" height="auto"
+				         label="limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('limpiar')">
+			           </button>
 			            
 			            
 			            <button id="btnCerrar" width="auto" height="auto"
@@ -81,6 +94,11 @@
 					</div>
 				</hlayout>
 			</hbox>
+			
+		</groupbox>
+			
+		
+		
 
 		</groupbox>
 		<!-- jasperreport donde se dibuja el reporte dentro de la interfaz -->
