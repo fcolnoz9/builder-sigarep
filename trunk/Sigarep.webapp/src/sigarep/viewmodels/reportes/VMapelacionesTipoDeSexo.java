@@ -317,7 +317,14 @@ public class VMapelacionesTipoDeSexo {
 	   }
 
 	}
-
+	@Command
+	@NotifyChange({"objLapso","objSancion","objPrograma"})
+	public void limpiar(){
+		objLapso= null;
+		objSancion= null;
+		objPrograma= null;
+		
+	}
 
 	
 	//#####################MENSAJE PARA CERRAR##########################

@@ -315,6 +315,15 @@ public class VMapelacionesPorMotivo {
 
 	}
 
+	@Command
+	@NotifyChange({"objLapso","objSancion","objPrograma"})
+	public void limpiar(){
+		objLapso= null;
+		objSancion= null;
+		objPrograma= null;
+		
+	}
+	
 	//#####################MENSAJE PARA CERRAR##########################
 	@Command
 	@NotifyChange({})
