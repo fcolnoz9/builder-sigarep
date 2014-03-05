@@ -154,17 +154,10 @@
 				</template>
 			</listbox>
 		</groupbox>
-<!-- Gruoupbox que contiene los datos de la segerencia -->
-		<groupbox id="grbDatosSugerencia">
-			<caption label="Sugerencia" />
+<!-- Gruoupbox que contiene los datos del Veredicto -->
+		<groupbox id="grbDatosVeredicto">
+			<caption label="Veredicto" />
 			<separator></separator>
-			<separator></separator>
-			
-			<label value = "Sugerencia del caso al ser Verificado:     "
-					visible="@bind(vm.mostrarLabelVeredicto)"/>			
-			<label value = "@bind(vm.veredicto)"/>
-			<separator></separator>
-			<separator></separator>					
 			<grid>
 				<columns>
 					<column align="left" width="25%" />

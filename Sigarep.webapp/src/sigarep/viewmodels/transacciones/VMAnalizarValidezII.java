@@ -92,7 +92,6 @@ public class VMAnalizarValidezII {
 	@Wire
 	private SolicitudApelacion sancionadoSeleccionado;
 	private boolean mostrarButtonObservacionAnterior = false;
-	private boolean mostrarLabelVeredicto = false;
 	private boolean mostrarGroupAnalisisAnterior = false;
 	private TipoMotivo tipoMotivo;
 	private List<LapsoAcademico> listaLapso;
@@ -302,14 +301,7 @@ public class VMAnalizarValidezII {
 			boolean mostrarButtonObservacionAnterior) {
 		this.mostrarButtonObservacionAnterior = mostrarButtonObservacionAnterior;
 	}
-	
-	public boolean isMostrarLabelVeredicto() {
-		return mostrarLabelVeredicto;
-	}
 
-	public void setMostrarLabelVeredicto(boolean mostrarLabelVeredicto) {
-		this.mostrarLabelVeredicto = mostrarLabelVeredicto;
-	}
 
 	public boolean isMostrarGroupAnalisisAnterior() {
 		return mostrarGroupAnalisisAnterior;
@@ -345,7 +337,6 @@ public class VMAnalizarValidezII {
 				.getLapsosAcademicosRp();
 		caso = sancionadoSeleccionado.getNumeroCaso();
 		this.observacion = v1.getObservacion();
-		this.veredicto = sancionadoSeleccionado.getVeredicto();
 			
 		buscarRecaudosEntregados(cedula);
 
