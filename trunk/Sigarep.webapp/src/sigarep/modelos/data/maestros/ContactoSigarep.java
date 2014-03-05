@@ -1,7 +1,6 @@
 package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -18,24 +17,40 @@ public class ContactoSigarep implements Serializable {
 	@Id
 	@Column(name = "id_contacto")
 	private Integer idContacto;
-	
+
 	@Column(name = "quienes_somos", length = 20000)
 	private String quienesSomos;
-	
+
 	@Column(name = "correo_contacto", length = 150, nullable = false)
 	private String correoContacto;
-	
+
 	@Column(name = "twitter", length = 140)
 	private String twitter;
-	
+
 	@Column(name = "facebook", length = 140)
 	private String facebook;
-	
+
 	@Column(name = "telefono_contacto", length = 11)
 	private String telefonoContacto;
-	
+
 	@Column(name = "direccion_contacto", length = 500)
 	private String direccionContacto;
+
+	public ContactoSigarep() {
+	}
+
+	public ContactoSigarep(Integer id_contacto, String quienesSomos, String correoContacto,
+			String twitter, String facebook, String telefonoContacto,
+			String direccionContacto) {
+		super();
+		this.idContacto = id_contacto;
+		this.quienesSomos = quienesSomos;
+		this.correoContacto = correoContacto;
+		this.twitter = twitter;
+		this.facebook = facebook;
+		this.telefonoContacto = telefonoContacto;
+		this.direccionContacto = direccionContacto;
+	}
 
 	public String getQuienesSomos() {
 		return quienesSomos;

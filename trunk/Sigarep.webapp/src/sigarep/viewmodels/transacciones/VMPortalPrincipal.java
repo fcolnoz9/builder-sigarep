@@ -7,17 +7,15 @@ import java.util.LinkedList;
 import java.util.List;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
-
-import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.transacciones.Cronograma;
+import sigarep.modelos.servicio.maestros.ServicioContactoSigarep;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
@@ -37,6 +35,8 @@ public class VMPortalPrincipal {
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
+	@WireVariable
+	private ServicioContactoSigarep serviciocontactosigarep;
 	private String cedula;
 	private String nombreActividad;
 	private String descripcionActividad;
@@ -49,10 +49,7 @@ public class VMPortalPrincipal {
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
 	private List<Reglamento> listaReglamento = new LinkedList<Reglamento>();
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	private String nombre;
-	private String correo;
-	private String telefono;
-	private String consulta;
+
 	Window win = null;
 
 	public String getCedula() {
@@ -135,40 +132,9 @@ public class VMPortalPrincipal {
 		this.listaCronograma = listaCronograma;
 	}
 
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getConsulta() {
-		return consulta;
-	}
-
-	public void setConsulta(String consulta) {
-		this.consulta = consulta;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	@Init
 	public void init() {
+		
 	}
 
 	/**
@@ -273,41 +239,27 @@ public class VMPortalPrincipal {
 		win.setMaximizable(true);
 		win.doModal();
 	}
-
+	
 	/**
-	 * limpiar.
+	 * modalQuienesSomos.
 	 * 
 	 * @param Ninguno
-	 * @return Limpiar todos los campos de la ventana.
+	 * @return Muestra la ventana quiénes somos.
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 * 
 	 */
 	@Command
-	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
-	public void limpiar() {
-		nombre = "";
-		telefono = "";
-		correo = "";
-		consulta = "";
-	}
-
-	/**
-	 * enviarCorreoContactanos.
-	 * 
-	 * @param Ninguno
-	 * @return envía el correo con el mensaje/consulta al sistema.
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 * 
-	 */
-	@Command
-	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
-	public void enviarCorreoContactanos() {
-		EnviarCorreo enviar = new EnviarCorreo();
-		enviar.sendEmailContactanos(correo, nombre, telefono, consulta);
-		mensajeAlUsuario.informacionCorreoEnviado();
-		limpiar();
+	public void modalQuienesSomos() {
+		if (win != null) {
+			win.detach();
+		}
+		win = (Window) Executions
+				.createComponents(
+						"WEB-INF/sigarep/vistas/portal/externo/modales/QuienesSomos.zul",
+						null, null);
+		win.setMaximizable(true);
+		win.doModal();
 	}
 
 }

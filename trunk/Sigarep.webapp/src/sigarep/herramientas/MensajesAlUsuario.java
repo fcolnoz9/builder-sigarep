@@ -174,6 +174,13 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK,
 				Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaIngresarCorreo() {
+
+		Messagebox.show("¡Debe ingresar un correo!", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
 
