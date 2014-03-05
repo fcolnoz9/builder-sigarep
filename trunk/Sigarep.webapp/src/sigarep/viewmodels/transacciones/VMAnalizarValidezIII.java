@@ -71,7 +71,6 @@ public class VMAnalizarValidezIII {
 	private String sancion;
 	private String lapso;
 	private boolean mostrarButtonObservacionAnterior = false;
-	private boolean mostrarLabelVeredicto = false;
 	private boolean mostrarGroupAnalisisAnterior = false;
 	private String caso;
 	private String fechaApelacion;
@@ -305,14 +304,6 @@ public class VMAnalizarValidezIII {
 		this.mostrarButtonObservacionAnterior = mostrarButtonObservacionAnterior;
 	}
 
-	public boolean isMostrarLabelVeredicto() {
-		return mostrarLabelVeredicto;
-	}
-
-	public void setMostrarLabelVeredicto(boolean mostrarLabelVeredicto) {
-		this.mostrarLabelVeredicto = mostrarLabelVeredicto;
-	}
-
 	public boolean isMostrarGroupAnalisisAnterior() {
 		return mostrarGroupAnalisisAnterior;
 	}
@@ -335,7 +326,7 @@ public class VMAnalizarValidezIII {
 	//Metodo que inicializa el codigo del VM
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1, String veredicto) {
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1) {
 		Selectors.wireComponents(view, this, false);
 		this.sancionadoSeleccionado = v1;
 		cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
@@ -347,8 +338,7 @@ public class VMAnalizarValidezIII {
 				.getLapsosAcademicosRp();
 		caso = sancionadoSeleccionado.getNumeroCaso();
 		this.observacion = sancionadoSeleccionado.getObservacion();
-		this.veredicto = sancionadoSeleccionado.getVeredicto();
-		
+	
 		buscarRecaudosEntregados(cedula);
 
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -386,12 +376,6 @@ public class VMAnalizarValidezIII {
 				this.setMostrarGroupAnalisisAnterior(true);
 				break;
 			}
-		}
-		
-		if (sancionadoSeleccionado.getVeredicto() == null){
-			this.setMostrarLabelVeredicto(false);
-		} else {
-			this.setMostrarLabelVeredicto(true);
 		}
 	}
 
@@ -483,16 +467,11 @@ public class VMAnalizarValidezIII {
 			SolicitudApelacion solicitudApelacionAux = new SolicitudApelacion();
 			solicitudApelacionAux.setId(solicitudApelacionPK);
 			solicitudApelacionAux.setEstatus(true);
-			solicitudApelacionAux.setFechaSesion(solicitudApelacion
-					.getFechaSesion());
-			solicitudApelacionAux.setFechaSolicitud(solicitudApelacion
-					.getFechaSolicitud());
-			solicitudApelacionAux.setNumeroCaso(solicitudApelacion
-					.getNumeroCaso());
-			solicitudApelacionAux.setNumeroSesion(solicitudApelacion
-					.getNumeroSesion());
-			solicitudApelacionAux.setVeredicto(solicitudApelacion
-					.getVeredicto());
+			solicitudApelacionAux.setFechaSesion(solicitudApelacion.getFechaSesion());
+			solicitudApelacionAux.setFechaSolicitud(solicitudApelacion.getFechaSolicitud());
+			solicitudApelacionAux.setNumeroCaso(solicitudApelacion.getNumeroCaso());
+			solicitudApelacionAux.setNumeroSesion(solicitudApelacion.getNumeroSesion());
+			solicitudApelacionAux.setVeredicto(solicitudApelacion.getVeredicto());
 			solicitudApelacionAux.setObservacion(observacion);
 			solicitudApelacionAux.setVerificado(true);
 			solicitudApelacionAux.setAnalizado(true);
