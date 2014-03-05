@@ -58,7 +58,7 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	    * @return lista de solicitudes de apelación para los analizarValidez de instancia I, II y III
 	*/
 	
-	public List<SolicitudApelacion> findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalse(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada);
+	public List<SolicitudApelacion> findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalseAndVeredictoIsNull(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada);
 	
 	
 //Marinel, Bely y Jesus
