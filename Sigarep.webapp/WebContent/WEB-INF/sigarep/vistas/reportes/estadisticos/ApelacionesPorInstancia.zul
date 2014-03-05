@@ -12,7 +12,7 @@
 				<label id="lblLapso" value="Lapso" />
 				<combobox id="cmbLapso" mold="rounded" readonly="true"
 					model="@load(vm.listaLapso)" selectedItem="@bind(vm.objLapso)"
-					onSelect="@command('objCmbLapso')">
+					onSelect="@command('objCmbLapso')" placeholder="Seleccione un lapso académico...">
 					<template name="model">
 						<comboitem label="${each.codigoLapso}" />
 					</template>
@@ -21,7 +21,7 @@
 				<combobox id="cmbPrograma" mold="rounded"
 					readonly="true" model="@load(vm.listaPrograma)"
 					selectedItem="@bind(vm.objPrograma)"
-					onSelect="@command('objCmbPrograma')">
+					onSelect="@command('objCmbPrograma')" placeholder="Seleccione un programa académico...">
 					<template name="model">
 						<comboitem label="${each.nombrePrograma}" />
 					</template>
@@ -30,13 +30,13 @@
 				<combobox id="cmbTipoSancion" mold="rounded"
 					readonly="true" model="@load(vm.listaTipoSancion)"
 					selectedItem="@bind(vm.objSancion)"
-					onSelect="@command('objCmbSancion')">
+					onSelect="@command('objCmbSancion')" placeholder="Seleccione tipo de sanción...">
 					<template name="model">
 						<comboitem label="${each.nombreSancion}" />
 					</template>
 				</combobox>
 
-				Eliga el Tipo de Archivo :
+				Elija el Tipo de Archivo :
 				<listbox id="format" mold="select" 
 					model="@load(vm.reportTypesModel)"
 					selectedItem="@bind(vm.reportType)">
@@ -55,8 +55,8 @@
 				onClick="@command('GenerarReporteApelacionesInstancia')">
 
 			</button>
-			<button id="btnCancelar" width="auto" height="auto"
-				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy">
+			<button id="btnLimpiar" width="auto" height="auto"
+				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('limpiar')">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" image="/imagenes/iconos/cerrar.png"
