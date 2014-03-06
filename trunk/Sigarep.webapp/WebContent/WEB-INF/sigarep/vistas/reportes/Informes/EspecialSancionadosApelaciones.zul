@@ -78,7 +78,7 @@
 		<div align="right" height="100%">
 				   	<button label="Generar" id="btnGenerarReporte" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesSancionadoApelacionEspecial')"></button>
 					<button label="Limpiar" id="btnLimpiarReporteEspecial" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombos')" orient="horizontal"> </button>
-					<button label="Cerrar" id="btnCerrarReporteEspecial" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="@command('cerrarVentanaReporteEspecialSancionadosApelaciones')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrarReporteEspecial" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionadoApelacion.onClose()" orient="horizontal"> </button>
 		</div>
 		<groupbox id="grbReporteEspecial" closable="false">
 		 <caption label="Reporte Generado"/>
