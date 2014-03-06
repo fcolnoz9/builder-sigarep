@@ -290,52 +290,6 @@ public class VMrecaudoMotivoPortal {
 			tipoMotivo= null;
 			buscarRecaudos();		
 		}
-			
-		
-		
-		/**
-		 * Cerrar Ventana
-		 * 
-		 * @param binder
-		 * @return cierra el .zul asociado al VM
-		 * @throws No
-		 *             dispara ninguna excepcion.
-		 */
-		@SuppressWarnings("unchecked")
-		@Command
-		@NotifyChange({"tipoMotivo", "listaRecaudos","listaTipoMotivo" })
-		public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
 				
-			if (nombreTipoMotivo!=null )
-			{
-				Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-						Messagebox.QUESTION,new EventListener<ClickEvent>() {
-					@SuppressWarnings("incomplete-switch")
-					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-							case YES:
-									ventana.detach();
-						
-						}
-					}
-				});		
-			}
-			else{
-			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-						Messagebox.QUESTION,new EventListener<ClickEvent>() {
-					@SuppressWarnings("incomplete-switch")
-					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-							case YES:
-									ventana.detach();
-						
-						
-						}
-					}
-				});		
-			}
-		}
-		
-		
 }//Fin VMrecaudoMotivo
 
