@@ -11,11 +11,9 @@
 					<label value="@bind(vm.titulo)" sclass="textTitulo" />
 				</hbox>
 			</north>
-			<west size="40%" border="none">
-				<hbox pack="center" vflex="1" hflex="1">
-					<image height="100%" width="100%"
-						content="@bind(vm.imagen)" />
-				</hbox>
+			<west size="35%" border="none">
+				<image style="max-height:400px;max-width:500px;padding-right:10px;padding-left:10px;"
+					width="100%" content="@bind(vm.imagen)" />
 			</west>
 			<center border="none">
 				<vbox vflex="1" hflex="1">
