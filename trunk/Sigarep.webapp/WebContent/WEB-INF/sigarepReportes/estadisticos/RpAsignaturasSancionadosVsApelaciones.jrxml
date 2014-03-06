@@ -185,12 +185,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[LAS 5 PRIMERAS ASIGNATURAS CON MAYOR SANCIONADOS
 VS APELACIONES POR INSTANCIA]]></text>
 			</staticText>
-			<line>
-				<reportElement x="-20" y="146" width="793" height="1" forecolor="#0099CC" backcolor="#0099CC" uuid="d047612d-12f0-47e7-b21c-dbe7a90d199e"/>
-				<graphicElement>
-					<pen lineWidth="3.0"/>
-				</graphicElement>
-			</line>
 			<componentElement>
 				<reportElement key="table 2" style="table 2" isPrintRepeatedValues="false" x="149" y="254" width="561" height="205" uuid="9373f30c-b289-4304-9e8c-ebcb174a3442"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
