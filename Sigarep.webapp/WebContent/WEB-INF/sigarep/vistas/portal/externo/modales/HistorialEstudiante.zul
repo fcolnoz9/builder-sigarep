@@ -113,17 +113,17 @@
 	<div align="center">
 		<hbox>
 			<button label="Comision Sustanciadora" mold="trendy"
-				disabled="@bind(vm.boton1)" id="btn2" width="170px" height="10px"
+				disabled="@bind(vm.boton1)" id="btn2" width="170px" height="40px"
 				orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
 				onClick="@command('buscarListaEstadoApelacion', id=1)">
 			</button>
 			<button label="Consejo Decanato" mold="trendy" id="btn3"
-				disabled="@bind(vm.boton2)" width="170px" height="10px"
+				disabled="@bind(vm.boton2)" width="170px" height="40px"
 				orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
 				onClick="@command('buscarListaEstadoApelacion', id=2)">
 			</button>
 			<button label="Consejo Universitario" mold="trendy"
-				disabled="@bind(vm.boton3)" id="btn4" width="170px" height="10px"
+				disabled="@bind(vm.boton3)" id="btn4" width="170px" height="40px"
 				orient="vertical" image="/imagenes/portal-principal/fondoAzul.png"
 				onClick="@command('buscarListaEstadoApelacion', id=3)">
 			</button>
