@@ -478,9 +478,8 @@ public class VMAnalizarValidezI {
 	@NotifyChange({"selected", "observacion"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 			boolean condicion = false;
-			if( !selected.equals("")){
+			if( !selected.equals("") || observacion != null ){
 				condicion = true;
-				System.out.println("Amanda");
 			}
 				
 			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
