@@ -82,14 +82,14 @@
     		</columns>
     		<rows>
     			<row>
-    				<tree id="tree" Zclass="z-vfiletree" height="250px"
+    				<tree id="tree" height="250px"
     					hflex="true" vflex="true" model="@load(vm.contactTreeModel)"
     					ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarModeloMenuArbolPrincipal" width="90%">
     					<treecols>
     						<treecol label="Menu Principal" />
     					</treecols>
     				</tree>
-    				<tree id="tree2" Zclass="z-vfiletree" height="250px"
+    				<tree id="tree2" height="250px"
     					hflex="true" vflex="true" model="@load(vm.contactTreeModel2)"
     					ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarMenuArbolGrupo" width="90%">
     					<treecols>

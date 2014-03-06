@@ -36,7 +36,7 @@
 													<radio id="rbRecaudosEntregados" label="Recaudos Entregados" value="recaudosEntregados"/>
 												</hbox>
 												<hbox>
-													<radio id="rbTransaccion4" label="Transacción 4" value="transaccion4"/>
+													<radio id="rbCronogramaActividades" label="Cronograma de Actividades" value="cronograma"/>
 												</hbox>
 											</row>
 										</rows>
