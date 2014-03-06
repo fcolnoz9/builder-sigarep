@@ -328,7 +328,7 @@ public class ServicioSolicitudApelacion {
 								.getCedulaEstudiante().toLowerCase()
 								.contains(cedula.toLowerCase())
 						&& sa.getEstudianteSancionado().getEstudiante()
-								.getPrimerApellido().toLowerCase()
+								.getPrimerNombre().toLowerCase()
 								.contains(nombre.toLowerCase())
 						&& sa.getEstudianteSancionado().getEstudiante()
 								.getPrimerApellido().toLowerCase()
@@ -363,7 +363,7 @@ public class ServicioSolicitudApelacion {
 								.getCedulaEstudiante().toLowerCase()
 								.contains(cedula.toLowerCase())
 						&& sa.getEstudianteSancionado().getEstudiante()
-								.getPrimerApellido().toLowerCase()
+								.getPrimerNombre().toLowerCase()
 								.contains(nombre.toLowerCase())
 						&& sa.getEstudianteSancionado().getEstudiante()
 								.getPrimerApellido().toLowerCase()
@@ -416,5 +416,101 @@ public class ServicioSolicitudApelacion {
 					if (sa2.getVeredicto().equalsIgnoreCase(veredicto))
 						result.add(sa2);
 			return result;
+	}
+
+	public List<SolicitudApelacion> filtrarApelacionesVerificarRecaudosI(
+			String programa, String cedula, String nombre, String apellido,
+			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+		if (programa == null || cedula == null || nombre == null
+				|| apellido == null || sancion == null) {
+			result = buscarApelacionesVerificarRecaudosI(lapsoAcademico, idInstanciaApelada);
+		} else {
+			for (SolicitudApelacion sa : buscarApelacionesVerificarRecaudosI(lapsoAcademico, idInstanciaApelada)) {
+				if (sa.getEstudianteSancionado().getEstudiante()
+						.getProgramaAcademico().getNombrePrograma()
+						.toLowerCase().contains(programa.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getCedulaEstudiante().toLowerCase()
+								.contains(cedula.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerNombre().toLowerCase()
+								.contains(nombre.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerApellido().toLowerCase()
+								.contains(apellido.toLowerCase())
+						&& sa.getEstudianteSancionado().getSancionMaestro()
+								.getNombreSancion().toLowerCase()
+								.contains(sancion.toLowerCase())) {
+					result.add(sa);
+				}
+			}
+		}
+		return result;
+		
+		
+	}
+
+	public List<SolicitudApelacion> filtrarApelacionesVerificarRecaudosII(
+			String programa, String cedula, String nombre, String apellido,
+			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+	
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+		if (programa == null || cedula == null || nombre == null
+				|| apellido == null || sancion == null) {
+			result = buscarApelacionesVerificarRecaudosII(lapsoAcademico, idInstanciaApelada);
+		} else {
+			for (SolicitudApelacion sa : buscarApelacionesVerificarRecaudosII(lapsoAcademico, idInstanciaApelada)) {
+				if (sa.getEstudianteSancionado().getEstudiante()
+						.getProgramaAcademico().getNombrePrograma()
+						.toLowerCase().contains(programa.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getCedulaEstudiante().toLowerCase()
+								.contains(cedula.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerNombre().toLowerCase()
+								.contains(nombre.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerApellido().toLowerCase()
+								.contains(apellido.toLowerCase())
+						&& sa.getEstudianteSancionado().getSancionMaestro()
+								.getNombreSancion().toLowerCase()
+								.contains(sancion.toLowerCase())) {
+					result.add(sa);
+				}
+			}
+		}
+		return result;
+	}
+
+	public List<SolicitudApelacion> filtrarApelacionesVerificarRecaudosIII(
+			String programa, String cedula, String nombre, String apellido,
+			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+		if (programa == null || cedula == null || nombre == null
+				|| apellido == null || sancion == null) {
+			result = buscarApelacionesVerificarRecaudosIII(lapsoAcademico, idInstanciaApelada);
+		} else {
+			for (SolicitudApelacion sa : buscarApelacionesVerificarRecaudosIII(lapsoAcademico, idInstanciaApelada)) {
+				if (sa.getEstudianteSancionado().getEstudiante()
+						.getProgramaAcademico().getNombrePrograma()
+						.toLowerCase().contains(programa.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getCedulaEstudiante().toLowerCase()
+								.contains(cedula.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerNombre().toLowerCase()
+								.contains(nombre.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerApellido().toLowerCase()
+								.contains(apellido.toLowerCase())
+						&& sa.getEstudianteSancionado().getSancionMaestro()
+								.getNombreSancion().toLowerCase()
+								.contains(sancion.toLowerCase())) {
+					result.add(sa);
+				}
+			}
+		}
+		return result;
 	}
 }
