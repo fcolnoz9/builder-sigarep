@@ -211,10 +211,10 @@ public class VMPortalPrincipal {
 						guia.getDocumento().getTipoDocumento(), guia
 								.getDocumento().getNombreDocumento());
 			} else {
-				mensajeAlUsuario.advertenciaCargarDocumento();
+				mensajeAlUsuario.advertenciaDocumentoNOdisponible();
 			}
 		} else {
-			mensajeAlUsuario.advertenciaCargarDocumento();
+			mensajeAlUsuario.advertenciaDocumentoNOdisponible();
 		}
 	}
 
