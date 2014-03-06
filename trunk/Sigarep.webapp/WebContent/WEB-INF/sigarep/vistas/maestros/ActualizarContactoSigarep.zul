@@ -60,6 +60,6 @@
 			onClick="@command('limpiar')" />
 		<button id="btnCerrarNoticia" label="Cerrar" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
-			onClick="@command('cerrarVentana', ventana = winActualizarNoticia)" />
+			onClick="@command('cerrarVentana', ventana = winActualizarContacto)" />
 	</div>
 </window>

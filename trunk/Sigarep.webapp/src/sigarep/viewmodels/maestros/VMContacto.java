@@ -129,15 +129,16 @@ public class VMContacto {
 	@NotifyChange({ "quienesSomos", "correoContacto", "direccion", "twitter",
 			"facebook", "telefonoContacto" })
 	public void cargarContacto() {
-		contactoSigarep = serviciocontactosigarep.buscarContactoSigarep()
-				.get(0);
-		id_contacto = contactoSigarep.getIdContacto();
-		quienesSomos = contactoSigarep.getQuienesSomos();
-		correoContacto = contactoSigarep.getCorreoContacto();
-		twitter = contactoSigarep.getTwitter();
-		facebook = contactoSigarep.getFacebook();
-		telefonoContacto = contactoSigarep.getTelefonoContacto();
-		direccion = contactoSigarep.getDireccionContacto();
+		if (serviciocontactosigarep.buscarContactoSigarep().size() > 0) {
+			contactoSigarep = serviciocontactosigarep.buscarContactoSigarep().get(0);
+			id_contacto = contactoSigarep.getIdContacto();
+			quienesSomos = contactoSigarep.getQuienesSomos();
+			correoContacto = contactoSigarep.getCorreoContacto();
+			twitter = contactoSigarep.getTwitter();
+			facebook = contactoSigarep.getFacebook();
+			telefonoContacto = contactoSigarep.getTelefonoContacto();
+			direccion = contactoSigarep.getDireccionContacto();
+		}
 	}
 
 	/**

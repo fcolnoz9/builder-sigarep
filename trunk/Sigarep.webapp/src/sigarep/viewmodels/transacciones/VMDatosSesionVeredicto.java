@@ -28,7 +28,9 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
+import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /** VMDatosSesionVeredicto
@@ -47,10 +49,13 @@ public class VMDatosSesionVeredicto {
 	private String tipoSesion;
 	private Date fechaSesion = new Date();
 	private String titulo;
+	private LapsoAcademico lapsoActivo;
 	private List<SolicitudApelacion> listaSancionados = new ArrayList<SolicitudApelacion>();
 	
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioLapsoAcademico serviciolapsoacademico;
 	
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private String rutaModal;
@@ -100,14 +105,19 @@ public class VMDatosSesionVeredicto {
 	 * @return código de inicialización
 	 * @throws No dispara ninguna excepcion.
 	 */
+	@Wire("#winDatosSesionVeredicto")//para conectarse a la ventana con el ID
+	Window ventana;
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
 					 @ExecutionArgParam("rutaModal") String rutaModal,
 					 @ContextParam(ContextType.BINDER) final Binder binder){
-		
 		Selectors.wireComponents(view, this, false);
-		this.rutaModal=rutaModal;
-		buscarDatosSesion(binder);
+		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
+		if(lapsoActivo==null)
+			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+			this.rutaModal=rutaModal;
+			buscarDatosSesion(binder);			
+
 	}
 	/**
 	 * Buscar datos de sesión
