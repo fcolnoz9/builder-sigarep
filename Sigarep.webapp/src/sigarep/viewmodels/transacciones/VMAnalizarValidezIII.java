@@ -549,16 +549,18 @@ public class VMAnalizarValidezIII {
 	 * 
 	 * @param binder
 	 * @return cierra el .zul asociado al VM
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
-	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacionExperto","observacion"})
+	@NotifyChange({"selected", "observacion"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = false;
-		if(observacion != null ||	selected != null || observacionexperto != null)
-			condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaTransacciones(ventana,condicion);		
-	}
+			boolean condicion = false;
+			if( !selected.equals("") || observacion != null ){
+				condicion = true;
+			}
+				
+			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
+		}
 	
 }

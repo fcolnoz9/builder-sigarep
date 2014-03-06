@@ -553,15 +553,15 @@ public class VMAnalizarValidezII {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-
 	@Command
-	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado",
-			"lapso", "observacionExperto", "observacion" })
-		public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+	@NotifyChange({"selected", "observacion"})
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 			boolean condicion = false;
-			if(observacion != null || selected != null
-					|| observacionexperto != null)
+			if( !selected.equals("") || observacion != null ){
 				condicion = true;
-			mensajeAlUsuario.confirmacionCerrarVentanaTransacciones(ventana,condicion);		
-		}		
+			}
+				
+			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
+		}	
+	
 }
