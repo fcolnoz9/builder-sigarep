@@ -5,14 +5,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Label;
@@ -220,25 +226,32 @@ public class VMListaGenericaSancionados{
 	/**
 	 * Otros Metodos
 	 */
-	
+	@Wire("#winListaGenericaSancionados")//para conectarse a la ventana con el ID
+	Window ventana;
 	@Init
-    public void init(@ExecutionArgParam("rutaModal") String rutaModal,
+    public void init(@ContextParam(ContextType.VIEW) Component view,
+    				@ContextParam(ContextType.BINDER) final Binder binder,
+    				@ExecutionArgParam("rutaModal") String rutaModal,
     				 @ExecutionArgParam("numeroSesion") String numeroSesion,
     				 @ExecutionArgParam("tipoSesion") String tipoSesion,
     				 @ExecutionArgParam("fechaSesion") Date fechaSesion){
-		this.rutaModal=rutaModal;
-		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
-				rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
-				rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
-			this.numeroSesion = numeroSesion;
-			this.tipoSesion = tipoSesion;
-			this.fechaSesion = fechaSesion;
-		}
+		Selectors.wireComponents(view, this, false);
+			this.rutaModal=rutaModal;
+			if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
+					rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
+					rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
+				this.numeroSesion = numeroSesion;
+				this.tipoSesion = tipoSesion;
+				this.fechaSesion = fechaSesion;
+			}
+			lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
+			if(lapsoActivo==null)
+				mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+			buscarProgramaA ();
+			buscarSancionados();
 
-		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-		buscarProgramaA ();
-		buscarSancionados();
-		listaVeredicto= new ListModelList<String>();
+
+			listaVeredicto= new ListModelList<String>();			
     }
 	
 	@Command

@@ -10,6 +10,8 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
+import org.zkoss.bind.Binder;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -17,8 +19,11 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -77,7 +82,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	private Media media;//Archivo de tipo media que soporta la extension Xml
 	
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
+	 
 	// Sets y gets 
 	public String getTextoXML() {
 		return textoXML;
@@ -114,10 +119,19 @@ public class VMCargarEstudiantesSancionadosXml {
 	{
 		listaEstudiante=servicioestudiantesancionado.buscarTodos();
 	}
+	
+	
+	@Wire("#winRegistrarSancionadoLote")//para conectarse a la ventana con el ID
+	Window ventana;
 	@Init
-	public void init()
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			@ContextParam(ContextType.BINDER) final Binder binder)
 	{
-		listaEstudiante();
+		Selectors.wireComponents(view, this, false); 
+		if(serviciolapsoacademico.buscarLapsoActivo()==null)
+			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+		else
+			listaEstudiante();
 	}
 	/** Unico punto de entrada.
 	  * @param UploadEvent event Zkoss UI
@@ -267,8 +281,5 @@ public class VMCargarEstudiantesSancionadosXml {
 		boolean condicion = true;
         mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
-	
-	
-	
 }
 

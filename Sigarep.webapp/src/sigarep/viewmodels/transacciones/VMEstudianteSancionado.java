@@ -6,13 +6,21 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Groupbox;
@@ -110,6 +118,7 @@ public class VMEstudianteSancionado {
 	private EstudianteSancionado estudianteSeleccionado;
 	private List<EstudianteSancionado> listaEstudianteSancionado;
 	private List<Asignatura> listaAsignaturas;
+	private LapsoAcademico lapsoActivo;
 	private Set<AsignaturaEstudianteSancionado> listaAsignaturaListBox = new HashSet<AsignaturaEstudianteSancionado>();
 	private Set<AsignaturaEstudianteSancionado> asignatura; 
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
@@ -481,12 +490,21 @@ public class VMEstudianteSancionado {
 	// fin del metodo get y set
 	
 	//Comienzo Otros Metodos
+	@Wire("#winRegistrarSancionados")//para conectarse a la ventana con el ID
+	Window ventana;
 	@Init
-	public void init(){
-		buscarLapsoAcademico();
-		buscarSancion();
-		buscarSancionados();
-		buscarProgramaA();
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			 @ContextParam(ContextType.BINDER) final Binder binder){
+		Selectors.wireComponents(view, this, false);
+		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
+		if(lapsoActivo==null)
+			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+		else{
+			buscarLapsoAcademico();
+			buscarSancion();
+			buscarSancionados();
+			buscarProgramaA();
+		}
 	}
 	
 	/** AgregarAsignatura

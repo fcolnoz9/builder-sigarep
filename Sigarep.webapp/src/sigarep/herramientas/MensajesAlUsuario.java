@@ -1,7 +1,12 @@
 package sigarep.herramientas;
 
+import java.util.HashMap;
+
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Borderlayout;
+import org.zkoss.zul.Center;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
@@ -503,6 +508,33 @@ public class MensajesAlUsuario {
 						}
 					});
 		}
+	}
+	
+	public void confirmacionCerrarVentanaLapsoAcademicoNoActivo(final Window ventana) {
+			Messagebox.show("No existe un lapso academico activo ¿Desea proceder a registrarlo? o presione NO para salir", "Confirmar",
+					new Messagebox.Button[] { Messagebox.Button.YES,
+							Messagebox.Button.NO }, Messagebox.QUESTION,
+					new EventListener<ClickEvent>() {
+						@SuppressWarnings("incomplete-switch")
+						public void onEvent(ClickEvent e) throws Exception {
+							try {
+							switch (e.getButton()) {
+								case YES:								
+									// get an instance of the borderlayout defined in the zul-file
+									Borderlayout bl = (Borderlayout) Path.getComponent("/mainBorderLayout");
+									// get an instance of the searched CENTER layout area
+									Center center = bl.getCenter();
+									// clear the center child comps
+									center.getChildren().clear();
+									// call the zul-file and put it in the center layout area
+									Executions.createComponents("/WEB-INF/sigarep/vistas/maestros/RegistrarLapso.zul", center, null);	
+								case NO: ventana.detach();
+								}
+						    } catch (Exception e2) {
+								 System.out.println(e2.getMessage());
+							}
+						}
+					});
 	}
 
 }
