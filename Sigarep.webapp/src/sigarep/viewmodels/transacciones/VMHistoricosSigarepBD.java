@@ -3,7 +3,6 @@ package sigarep.viewmodels.transacciones;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,15 +12,14 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Radio;
-import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.modelos.data.maestros.LapsoAcademico;
+import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
@@ -53,6 +51,8 @@ public class VMHistoricosSigarepBD {
 	private String selected = "";
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
+	@WireVariable
+	private ServicioCronograma serviciocronograma;
 	@WireVariable
 	private List<LapsoAcademico> listaLapsoAcademico = new LinkedList<LapsoAcademico>();
 	
@@ -142,10 +142,10 @@ public class VMHistoricosSigarepBD {
 					 if(listaAuxiliarElementos.size()>0){
 						 listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					 }
-					// listaAuxiliarElementos=servicioRequisicion.historicoRequisicion(fecha);
-					// if(listaAuxiliarElementos.size()>0){
-					// listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					// }
+					 listaAuxiliarElementos=serviciocronograma.historicoCronogramaActividades(lapso);
+					 if(listaAuxiliarElementos.size()>0){
+						 listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					 }
 				}
 				if (getSelected().equals("solicitud")) {
 					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(lapso);
@@ -171,14 +171,14 @@ public class VMHistoricosSigarepBD {
 					 nombreHistorico="recaudosEntregados-"+fechaString;
 					 destinoHistorico="recaudosEntregados/recaudosEntregados-"+fechaString;
 				 }
-				// if(getSelected().equals("transaccion4")){
-				// listaAuxiliarElementos=servicioTransaccion4.historicoTransaccion4(fecha);
-				// if(listaAuxiliarElementos.size()>0){
-				// listaElementosAInsertar.addAll(listaAuxiliarElementos);
-				// }
-				// nombreHistorico="transaccion4-"+fechaString;
-				// destinoHistorico="transaccion4/transaccion4-"+fechaString;
-				// }
+				 if(getSelected().equals("cronograma")){
+				 listaAuxiliarElementos=serviciocronograma.historicoCronogramaActividades(lapso);
+				 if(listaAuxiliarElementos.size()>0){
+				 listaElementosAInsertar.addAll(listaAuxiliarElementos);
+				 }
+				 nombreHistorico="cronogramaActividades-"+fechaString;
+				 destinoHistorico="cronogramaActividades/cronograma-"+fechaString;
+				 }
 
 				String ruta = UtilidadesSigarep.obtenerDirectorio();
 				ruta = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/historicos";

@@ -1,21 +1,14 @@
 package sigarep.modelos.servicio.transacciones;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import org.springframework.stereotype.Service;
-
-import sigarep.modelos.data.maestros.Actividad;
-import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.CronogramaPK;
 import sigarep.modelos.repositorio.transacciones.ICronogramaDAO;
@@ -116,4 +109,37 @@ public class ServicioCronograma {
         }
 		return result;
 	} 
+    
+	public List<String> historicoCronogramaActividades(LapsoAcademico lapso) {
+		List<String> listaElementosAInsertar = new ArrayList<String>();
+		String elementoAInsertar;
+		List<Cronograma> cronogramas = iCronograma.findById_CodigoLapso(lapso.getCodigoLapso());
+
+		for (int i = 0; i < cronogramas.size(); i++) {
+				Cronograma cronograma = cronogramas.get(i);
+				elementoAInsertar = "INSERT INTO cronograma(codigo_lapso, id_actividad, estatus, fecha_fin, fecha_inicio, hora_inicio, lugar, observacion, id_instancia_apelada)"
+						+ "VALUES ('"
+						+ cronograma.getId().getCodigoLapso()
+						+ "',"
+						+ cronograma.getId().getIdActividad()
+						+ ",'"
+						+ cronograma.getEstatus()
+						+ "', '"
+						+ cronograma.getFechaFin()
+						+ "','"
+						+ cronograma.getFechaInicio()
+						+ "','"
+						+ cronograma.getHoraInicio()
+						+ "','"
+						+ cronograma.getLugar()
+						+ "','"
+						+ cronograma.getObservacion()
+						+ "','"
+						+ cronograma.getActividad().getInstanciaApelada().getInstanciaApelada()
+						+ "');";
+				listaElementosAInsertar.add(elementoAInsertar);
+		}
+		return listaElementosAInsertar;
+	}
+    
 }
