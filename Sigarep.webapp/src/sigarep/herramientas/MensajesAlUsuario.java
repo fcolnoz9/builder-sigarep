@@ -80,6 +80,12 @@ public class MensajesAlUsuario {
 		Messagebox.show("¡Debe Cargar un Documento!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaDocumentoNOdisponible () {
+
+		Messagebox.show("¡No hay documento disponible !", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+	}
 
 	public void advertenciaSeleccionarParaEliminar() {
 
