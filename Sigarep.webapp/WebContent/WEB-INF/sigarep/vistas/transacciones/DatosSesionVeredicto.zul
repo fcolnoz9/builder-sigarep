@@ -24,7 +24,7 @@
 					</row>
 					<row>
 						<label id="lblNumeroSesion" value="Número de Sesión:" />
-						<textbox id="txtNumeroSesion" placeholder="Ingrese el número de sesión" width="80%" maxlength="15" mold="rounded" value="@bind(vm.numeroSesion)" />
+						<intbox id="txtNumeroSesion" placeholder="Ingrese el número de sesión" width="80%" maxlength="15" mold="rounded" value="@bind(vm.numeroSesion)" />
 						<label id="lblTipoSesion" value="Tipo de Sesión:" />
 						<combobox id="cmbTipoSesion" placeholder="Seleccione el tipo de sesión " mold="rounded" width="80%" maxlength="30" selectedItem="@bind(vm.tipoSesion)">
 							<comboitem value="ORDINARIA" id="cmiOrdinaria" label="Ordinaria" ></comboitem>
