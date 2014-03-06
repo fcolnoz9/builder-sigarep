@@ -80,11 +80,4 @@
 		</listbox>
 	</groupbox>
 
-	<!-- Permite cerrar la interfaz -->
-	<div align="right" height="100%">
-		<button label="Cerrar" id="btnCerrarRecaudoMotivo"
-				mold="trendy"  width="auto" height="auto"
-				image="/imagenes/iconos/cerrar.png" 
-				onClick="@command('cerrarVentana')" />
-	</div>
 </window>
