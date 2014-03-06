@@ -1,8 +1,11 @@
-<div id="winNoticiaPortal"
+<div class="panel panel-info" height="100%" id="winNoticiaPortal"
 	apply="org.zkoss.bind.BindComposer" tooltiptext="Noticias"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
-	<div apply="sigarep.viewmodels.maestros.VMnoticia" hflex="1"
-		vflex="1">
+	<div class="panel-heading">
+<!-- 		<label style="font-size:15px;font-weight:bold">Noticias</label> -->
+		<label class="label label-danger" style="font-size:12px">Noticias</label>
+	</div>
+	<div apply="sigarep.viewmodels.maestros.VMnoticia">
 		<timer id="tiempo" delay="10000" repeats="true">
 			<attribute name="onTimer">
 			</attribute>
@@ -12,7 +15,7 @@
 			onSelect="@command('mostrarSeleccionado2')"
 			emptyMessage="No hay noticias disponibles" mold="paging" tooltiptext="Noticias">
 			<auxhead sclass="category-center">
-				<auxheader colspan="1" align="center"></auxheader>
+				<auxheader colspan="1" align="center" width="100%"></auxheader>
 			</auxhead>
 			<listhead>
 				<listheader width="60px"></listheader>

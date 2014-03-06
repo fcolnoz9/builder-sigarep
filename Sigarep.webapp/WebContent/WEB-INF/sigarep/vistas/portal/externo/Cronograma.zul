@@ -1,6 +1,9 @@
-<div apply="org.zkoss.bind.BindComposer" vflex="1" hflex="1"
+<div class="panel panel-default" height="100%" apply="org.zkoss.bind.BindComposer" 
 	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMCronograma')">
-	<listbox id="lbxCronograma" model="@bind(vm.listaCronograma)" emptyMessage="No hay actividades programadas" vflex="1" hflex="1"
+	<div class="panel-heading">
+		<label class="label label-default" style="font-size:12px">Cronograma de actividades</label>
+	</div>
+	<listbox id="lbxCronograma" model="@bind(vm.listaCronograma)" emptyMessage="No hay actividades programadas"
 		selectedItem="@bind(vm.cronogramaSeleccionado)" onSelect="@command('modalDetalleCronograma')" tooltiptext="Cronograma de Actividades">
 		<listhead>
 			<listheader label="Fecha" align="center" width="35%"
