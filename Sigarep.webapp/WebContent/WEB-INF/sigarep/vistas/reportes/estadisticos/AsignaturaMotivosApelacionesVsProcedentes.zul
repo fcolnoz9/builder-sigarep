@@ -71,7 +71,7 @@
  <div align="right">
 		<button id="btnGenerarReporteAsignaturaApelaciones" width="auto" height="auto" label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteApelacionesMotivoPorAsignatura')"/>
 		<button id="btnLimpiarReporteAsignaturaApelaciones" width="auto" height="auto" label="Limpiar" image="/imagenes/iconos/limpiar.png" orient="horizontal" mold="trendy" onClick="@command('limpiarAsignaturaMotivos')"/>
-		<button id="btnCerrarReporteAsignaturaApelaciones" width="auto" height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png" orient="horizontal" mold="trendy" onClick="@command('cerrarVentanaReporteAsignaturaApelaciones')"/>
+		<button id="btnCerrarReporteAsignaturaApelaciones" width="auto" height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png" orient="horizontal" mold="trendy" onClick="winReporteAsignaturaMotivosApelacionesVsProcedentes.onClose()"/>
 		
 
 </div>

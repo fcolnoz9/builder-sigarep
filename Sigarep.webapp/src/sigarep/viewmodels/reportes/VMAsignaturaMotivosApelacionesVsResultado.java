@@ -48,8 +48,6 @@ import sigarep.modelos.servicio.reportes.ServicioListaAsignaturasMayorCantidadSa
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAsignaturaMotivosApelacionesVsResultado {
 	
-	@Wire("#winReporteAsignaturaMotivosApelacionesVsProcedentes")//para conectarse a la ventana con el ID
-	Window ventana;
 	
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	//*************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
@@ -181,10 +179,6 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	}
 	//===============================FIN DE LOS METODOS SET Y GET==============================
 	
-	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
 	
 	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	
@@ -363,28 +357,5 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 	}
 	
 	
-	
-	//#####################MENSAJE PARA CERRAR##########################
-	
-	/**Cerrar Ventana
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No dispara ninguna excepción.
-	 */
-		@Command
-		public void cerrarVentanaReporteAsignaturaApelaciones(@ContextParam(ContextType.BINDER) final Binder binder){
-				
-			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-						Messagebox.QUESTION,new EventListener<ClickEvent>() {
-					@SuppressWarnings("incomplete-switch")
-					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-							case YES:
-									ventana.detach();
-						
-						
-						}
-					}
-				});		
-			}
+		
 }

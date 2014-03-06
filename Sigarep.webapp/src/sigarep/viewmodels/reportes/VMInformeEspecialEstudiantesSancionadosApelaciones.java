@@ -48,8 +48,6 @@ import sigarep.modelos.servicio.reportes.ServicioInformeEspecialEstudiantesSanci
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	
-	@Wire("#winEstudianteSancionadoApelacion")//para conectarse a la ventana con el ID
-	Window ventana;
 	String ruta= "/WEB-INF/sigarepReportes/informes/especiales/RpInformeEspecialSancionadosApelaciones.jasper";
 	
 	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
@@ -226,10 +224,7 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	
 	//===============================FIN DE LOS METODOS SET Y GET==============================
 	
-	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
+	
 	
 	/**Inicialización
 	 * @param init
@@ -463,29 +458,5 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 		}
 	}
 	
-	//#####################MENSAJE PARA CERRAR##########################
-
-	
-	/**Cerrar Ventana
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No dispara ninguna excepción.
-	 */
-		@Command
-		public void cerrarVentanaReporteEspecialSancionadosApelaciones(@ContextParam(ContextType.BINDER) final Binder binder){
-				
-			Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-						Messagebox.QUESTION,new EventListener<ClickEvent>() {
-					@SuppressWarnings("incomplete-switch")
-					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-							case YES:
-									ventana.detach();
-						
-						
-						}
-					}
-				});		
-			}
-	
+		
 }
