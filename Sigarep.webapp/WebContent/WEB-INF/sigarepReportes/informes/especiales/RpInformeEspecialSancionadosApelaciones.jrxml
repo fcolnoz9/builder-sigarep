@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeEspecialSancionadosApelaciones" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04b9911d-9fe8-4979-8b84-81b5095ca9fd">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
@@ -79,7 +79,7 @@
 	<title>
 		<band height="197" splitType="Stretch">
 			<staticText>
-				<reportElement x="195" y="60" width="402" height="48" uuid="10a26dfe-5a26-485f-b825-190bacf02ddc"/>
+				<reportElement x="179" y="60" width="402" height="48" uuid="10a26dfe-5a26-485f-b825-190bacf02ddc"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -94,12 +94,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[INFORME ESPECIAL ESTUDIANTES SANCIONADOS Y SUS APELACIONES POR PROGRAMA E INSTANCIA]]></text>
 			</staticText>
-			<line>
-				<reportElement x="-20" y="154" width="793" height="1" forecolor="#0099CC" backcolor="#0099CC" uuid="f8f3d2b5-5763-4619-9e64-5eb2a901a287"/>
-				<graphicElement>
-					<pen lineWidth="3.0"/>
-				</graphicElement>
-			</line>
 			<staticText>
 				<reportElement x="327" y="166" width="50" height="20" uuid="165ac7aa-addd-49b4-afa8-b81c1ec48d33"/>
 				<textElement verticalAlignment="Middle">
