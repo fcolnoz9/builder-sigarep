@@ -14,117 +14,124 @@
 		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
 
 		<!-- Inicio del encabezado y el menú horizontal -->
-		<north size="120px" border="none">
+		<north size="100px" border="none">
 			<borderlayout>
-				<north size="95px" border="none">
+				<north size="66px" border="none">
 					<include
 						src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" />
 				</north>
 				<south border="none">
-					<include
-						src="WEB-INF/sigarep/vistas/portal/externo/MenuHorizontal.zul" />
+					<include src="WEB-INF/sigarep/vistas/portal/externo/MenuHorizontal.zul" />
 				</south>
 			</borderlayout>
 		</north>
 		<!-- Fin encabezado y menú horizontal -->
-
-		<!-- Inicio del cuerpo de la página -->
-		<center border="normal">
+		
+		<!-- Inicio cuerpo izquierdo -->
+		<west size="19%" border="none">
 			<borderlayout>
-				<!-- Inicio cuerpo izquierdo -->
-				<west size="25%" border="none">
-					<borderlayout>
-						<north title="Noticias" size="55%"
-							border="none">
-							<include src="WEB-INF/sigarep/vistas/portal/externo/Noticias.zul" />
-						</north>
-						<center title="Guía paso a paso">
-							<hbox vflex="1" hflex="1" align="center">
-								<image
-									src="/imagenes/portal-principal/Guiaico.png"
-									style="cursor:pointer" onClick="@command('descargarGuia')"/>
-							</hbox>
-						</center>
-					</borderlayout>
-				</west>
-				<!-- Fin cuerpo izquierdo -->
-
+				<north size="60%" border="none">
+					<include src="WEB-INF/sigarep/vistas/portal/externo/Noticias.zul" />
+				</north>
+				<south size="40%" border="none">
+				<div class="alert alert-info" height="100%">
+					<vlayout>
+						<separator/>
+						<label class="label label-success" style="font-size:12px">Guia paso a paso</label>
+						<separator/>
+						<image width="85%" height="75%" src="/imagenes/portal-principal/Guiaico.png" 
+							   style="cursor:pointer" onClick="@command('descargarGuia')"/>
+					</vlayout>
+				</div>
+				</south>
+			</borderlayout>
+		</west>
+		<!-- Fin cuerpo izquierdo -->
+		
+		<!-- Inicio del cuerpo de la página -->
+		<center border="none">
+			<borderlayout>
 				<!-- Inicio cuerpo central -->
+				<north size="47%" border="none">
+					<include src="WEB-INF/sigarep/vistas/portal/externo/Banner.zul" />
+				</north>
 				<center border="none">
 					<borderlayout>
-						<north size="55%" maxsize="300" border="none">
-							<include src="WEB-INF/sigarep/vistas/portal/externo/Banner.zul" />
-						</north>
-						<west title="Consulta tu estado" size="50%">
-							<vbox vflex="1" hflex="1" align="center">
-								<space />
-								<div align="center">
-									<label value=" ¿Estás Sancionado?"
-										style="color:Black;font:arial;font-size:18px;font-weight:bold" />
+						<west size="55%" border="none">
+							<div class="panel panel-info" height="100%">
+								<div class="panel-heading">
+									<label class="label label-warning" style="font-size:12px">Consulta tu estado</label>
 								</div>
-								<space />
-								<hbox align="center">
-									<image
-										src="/imagenes/portal-principal/busquedaico.png" />
-									<label value="Cédula:" />
-									<intbox id="intcedula"
-										placeholder="Ingrese la cédula" mold="rounded" maxlength="8" width="150px"
-										value="@bind(vm.cedula)" />
-									<button label="Buscar" image="/imagenes/iconos/buscar.png"
-										onClick="@command('modalEstadoEstudiante')" />
-								</hbox>
-							</vbox>
-						</west>
-						<center>
-							<borderlayout>
-								<north border="none" title="Descargas"
-									size="70%">
-									<include
-										src="WEB-INF/sigarep/vistas/portal/externo/Descargas.zul" />
-								</north>
-								<center border="none"
-									title="Preguntas Frecuentes">
-									<hbox align="center" pack="center"
-										vflex="1" hflex="1">
-										<label
-											value="¿Tienes alguna pregunta? Haz click aquí"
-											onClick="@command('modalPreguntasFrecuentes')"
-											id=" lblPreguntas "
-											style="font:arial;cursor:pointer;text-align:center;margin-left:10px;margin-right:10px;" />
+								<vbox align="center">
+									<space />
+									<div align="center">
+										<label style="font-size:25px;font-weight:bold;color:Gray"> ¿Estás Sancionado?</label>
+									</div>
+									<space />
+									<hbox align="center">
+										<image
+											src="/imagenes/portal-principal/busquedaico.png" />
+										<label value="Cédula:" />
+										<intbox id="intcedula"
+											placeholder="Ingrese la cédula" maxlength="8" width="150px"
+											value="@bind(vm.cedula)" />
+										<button label="Buscar" image="/imagenes/iconos/buscar.png"
+											onClick="@command('modalEstadoEstudiante')" />
 									</hbox>
-								</center>
+								</vbox>
+							</div>
+						</west>
+						<east size="45%" border="none">
+							<borderlayout>
+								<north border="none" size="65%">
+									<include src="WEB-INF/sigarep/vistas/portal/externo/Descargas.zul" />
+								</north>
+								<south border="none" size="35%">
+									<div class="panel panel-info" height="100%">
+										<div class="alert alert-warning" height="100%" align="center">
+											<vlayout>
+												<label value="¿Tienes alguna pregunta?" style="font-size:15px"/>
+											  	<a href="#" class="alert-link">
+											  		<label value="Haz click aquí"
+														onClick="@command('modalPreguntasFrecuentes')"
+														id=" lblPreguntas "
+														style="font-size:15px" />
+												</a>
+											</vlayout>
+										</div>
+									</div>
+								</south>
 							</borderlayout>
-						</center>
+						</east>
 					</borderlayout>
 				</center>
-				<!-- Fin cuerpo central -->
-
 				<!-- Inicio enlaces de interes -->
-				<south size="80px" border="none">
+				<south size="12%" border="none">
 					<include src="WEB-INF/sigarep/vistas/portal/externo/EnlacesDeInteres.zul" />
 				</south>
 				<!-- Fin enlaces de interes -->
 			</borderlayout>
 		</center>
+		<!-- Fin cuerpo central -->
 
 		<!-- Inicio cuerpo derecho -->
 		<east size="25%" border="none">
 			<borderlayout>
 
 				<!-- Inicio Login -->
-				<north title="Iniciar Sesión" size="22%">
+				<north size="22%" border="none">
 					<include src="WEB-INF/sigarep/vistas/portal/externo/login.zul" />
 				</north>
 				<!-- Fin Login -->
 
 				<!-- Inicio Cronograma de Actividades -->
-				<center title="Cronograma de Actividades">
+				<center border="none">
 					<include src="WEB-INF/sigarep/vistas/portal/externo/Cronograma.zul" />
 				</center>
 				<!-- Fin Cronograma de Actividades -->
 
 				<!-- Inicio Twitter -->
-				<south title="Twitter" size="45%" autoscroll="true">
+				<south size="40%" autoscroll="true" border="none">
 					<include src="/widgets/twitter.html" />
 				</south>
 				<!-- Fin Twitter -->
