@@ -2,34 +2,34 @@
 	apply="org.zkoss.bind.BindComposer" tooltiptext="Noticias"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
 	<div class="panel-heading">
-<!-- 		<label style="font-size:15px;font-weight:bold">Noticias</label> -->
-		<label class="label label-danger" style="font-size:12px">Noticias</label>
+		<!-- 		<label style="font-size:15px;font-weight:bold">Noticias</label> -->
+		<label class="label label-danger" style="font-size:12px">
+			Noticias
+		</label>
 	</div>
-	<div apply="sigarep.viewmodels.maestros.VMnoticia">
-		<timer id="tiempo" delay="10000" repeats="true">
-			<attribute name="onTimer">
+	<timer id="tiempo" delay="10000" repeats="true">
+		<attribute name="onTimer">
 			</attribute>
-		</timer>
-		<listbox id="lbxNoticias" model="@bind(vm.listaNoticia)"
-			selectedItem="@bind(vm.noticiaSeleccionada)"
-			onSelect="@command('mostrarSeleccionado2')"
-			emptyMessage="No hay noticias disponibles" mold="paging" tooltiptext="Noticias">
-			<auxhead sclass="category-center">
-				<auxheader colspan="1" align="center" width="100%"></auxheader>
-			</auxhead>
-			<listhead>
-				<listheader width="60px"></listheader>
-				<listheader></listheader>
-			</listhead>
-			<template name="model">
-				<listitem selected="false">
-					<listcell label="">
-						<image height="30px" width="auto"
-							content="${each.getFotoNoticia().getAImage()}" />
-					</listcell>
-					<listcell label="${each.titulo}"></listcell>
-				</listitem>
-			</template>
-		</listbox>
-	</div>
+	</timer>
+	<listbox id="lbxNoticias" model="@bind(vm.listaNoticia)" vflex="1"
+		selectedItem="@bind(vm.noticiaSeleccionada)"
+		onSelect="@command('mostrarSeleccionado2')"
+		emptyMessage="No hay noticias disponibles" tooltiptext="Noticias">
+		<auxhead sclass="category-center">
+			<auxheader colspan="1" align="center" width="100%"></auxheader>
+		</auxhead>
+		<listhead>
+			<listheader width="60px"></listheader>
+			<listheader></listheader>
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="">
+					<image height="30px" width="auto"
+						content="${each.getFotoNoticia().getAImage()}" />
+				</listcell>
+				<listcell label="${each.titulo}"></listcell>
+			</listitem>
+		</template>
+	</listbox>
 </div>

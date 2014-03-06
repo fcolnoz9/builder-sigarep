@@ -1,6 +1,6 @@
 <div class="panel panel-info" height="100%">
 	<div class="panel-heading">
-		<label class="label label-primary" style="font-size:12px">Descargas</label>
+		<label class="label label-info" style="font-size:12px">Descargas</label>
 	</div>
 	<listbox apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMDescargas')">

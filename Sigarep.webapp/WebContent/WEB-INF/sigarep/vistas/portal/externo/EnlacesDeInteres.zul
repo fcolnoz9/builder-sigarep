@@ -1,15 +1,19 @@
-<div class="panel panel-info" height="100%" children="@load(vm.menuItems)"
-	apply="org.zkoss.bind.BindComposer" align="center"
+<div class="panel panel-info" height="100%"
+	children="@load(vm.menuItems)" apply="org.zkoss.bind.BindComposer"
+	align="center"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMenlace')">
 	<template name="children" var="item">
-		<hlayout>
-		<label value=""></label>
-		<separator forEach="${item.children}"></separator>
-		<div class="alert alert-warning" height="100%" width="auto" align="center" forEach="${item.children}">
-		<a class="alert-link" href="${each.href}">
-			<image height="40px" width="100px" content="${each.getImg()}"></image>
-		</a>
-		</div>
+		<hlayout valign="middle">
+			<label value=""></label>
+			<separator forEach="${item.children}"></separator>
+			<div class="alert alert-default" height="100%" width="auto"
+				align="center" forEach="${item.children}">
+				<a href="${each.href}">
+					<image style="max-height:40px;max-width:80px;"
+						content="${each.getImg()}">
+					</image>
+				</a>
+			</div>
 		</hlayout>
 	</template>
 </div>
