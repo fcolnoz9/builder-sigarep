@@ -13,9 +13,12 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -29,6 +32,7 @@ import sigarep.modelos.servicio.maestros.ServicioActividad;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
+import sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad;
 
 /**Cronograma de Actividades - Planificar
  * UCLA DCYT Sistemas de Informacion.
@@ -36,12 +40,10 @@ import sigarep.modelos.servicio.transacciones.ServicioCronograma;
  * @version 1.1
  * @since 10/02/14
  */
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCronograma {
 
 	@WireVariable ServicioCronograma serviciocronograma;
-	private CronogramaPK id;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Time horaInicio;
@@ -198,19 +200,26 @@ public class VMCronograma {
 	}
 
 	// OTROS METODOS
+	@Wire("#winActualizarCronograma")//para conectarse a la ventana con el ID
+	Window ventana;
 	@Init
-	public void init(){
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			@ContextParam(ContextType.BINDER) final Binder binder)
+	{
 		//initialization code
-		buscarCronograma();
-		buscarActividad();
-		buscarResponsable();
+		Selectors.wireComponents(view, this, false);
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-		if (serviciolapsoacademico.buscarLapsoActivo() == null){
-			mensajeAlUsuario.errorLapsoActivoNoExistente();
-
-		}
+		if(lapsoActivo==null && !VMUtilidadesDeSeguridad.roles().get(0).equals("ROLE_ANONYMOUS"))
+			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
 		else
-			codigoLapso = lapsoActivo.getCodigoLapso();
+		{
+			if(lapsoActivo!=null){
+				buscarCronograma();
+				buscarActividad();
+				buscarResponsable();
+				codigoLapso = lapsoActivo.getCodigoLapso();	
+			}			
+		}
 	}
 
 	/** Guardar Cronograma
@@ -263,8 +272,6 @@ public class VMCronograma {
 				horaInicio=listaCronograma.get(i).getHoraInicio();
 				observacion=listaCronograma.get(i).getObservacion();
 				responsable=listaCronograma.get(i).getResponsable();
-
-
 				check=true;
 			}
 
@@ -328,7 +335,6 @@ public class VMCronograma {
 		observacion="";
 		actividad= new Actividad();
 		responsable = new InstanciaApelada();
-
 	}
 
 	/** eliminar.
@@ -338,7 +344,7 @@ public class VMCronograma {
 	 */
 	@Command
 	@NotifyChange({"id", "fechaInicio", "fechaFin", "horaInicio", "lugar", "observacion", "responsable", "listaCronograma", "actividad"})
-	@SuppressWarnings("unchecked")
+	
 	public void eliminarCronogramaSeleccionado(@ContextParam(ContextType.BINDER) final Binder binder){
 		if (fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals("")) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
@@ -442,7 +448,5 @@ public class VMCronograma {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-	
-	
 }
 
