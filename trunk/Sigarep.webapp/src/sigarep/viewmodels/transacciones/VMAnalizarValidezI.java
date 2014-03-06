@@ -9,6 +9,7 @@ import java.util.Date;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
@@ -77,7 +78,7 @@ public class VMAnalizarValidezI {
 	private String fechaApelacion;
 	private String observacion;
 	private String selected = "";	
-	private String observacionexperto= "";
+	private String observacionExperto= "";
 	@WireVariable
 	private Integer semestreSancion;
 	@WireVariable
@@ -293,12 +294,12 @@ public class VMAnalizarValidezI {
 		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
 	}
 	
-	public String getObservacionexperto() {
-		return observacionexperto;
+	public String getObservacionExperto() {
+		return observacionExperto;
 	}
 
-	public void setObservacionexperto(String observacionexperto) {
-		this.observacionexperto = observacionexperto;
+	public void setObservacionExperto(String observacionExperto) {
+		this.observacionExperto = observacionExperto;
 	}	
 	
 	public Integer getPeriodoSancion() {
@@ -314,7 +315,7 @@ public class VMAnalizarValidezI {
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
-		System.out.println(listaRecaudosPorMotivo);
+		
 	}
 
 	@Init
@@ -460,44 +461,29 @@ public class VMAnalizarValidezI {
     public void actualizarListaSancionados(){
     	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
     }
-
+	
+	
+	
+	
+	
 	/**
 	 * Cerrar Ventana
 	 * 
 	 * @param binder
 	 * @return cierra el .zul asociado al VM
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
-	@NotifyChange({ "cedula", "nombres", "apellidos", "estudianteSancionado","lapso","observacionExperto","observacion"})
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-			
-		if ( observacion != null ||	selected != null || observacionexperto != null){
-			Messagebox.show("¿Realemente desea cerrar la ventana sin guardar los cambios?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-		else{
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					}
-				}
-			});		
-		}
-	}
+	@NotifyChange({"selected", "observacion"})
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+			boolean condicion = false;
+			if( !selected.equals("")){
+				condicion = true;
+				System.out.println("Amanda");
+			}
+				
+			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
+		}		
+		
 }
