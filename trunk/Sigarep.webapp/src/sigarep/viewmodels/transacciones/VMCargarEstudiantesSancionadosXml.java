@@ -11,7 +11,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -25,9 +24,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.Estudiante;
@@ -48,7 +45,7 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 /**CargarEstudiante por XML
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 2.5.2
+ * @version 2.6.2
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarEstudiantesSancionadosXml {
@@ -78,9 +75,9 @@ public class VMCargarEstudiantesSancionadosXml {
 	private ServicioSancionMaestro serviciosancionmaestro;
 	@WireVariable 
 	private ServicioLapsoAcademico serviciolapsoacademico;
-	@WireVariable private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable 
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	private Media media;//Archivo de tipo media que soporta la extension Xml
-	
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	 
 	// Sets y gets 
@@ -119,8 +116,6 @@ public class VMCargarEstudiantesSancionadosXml {
 	{
 		listaEstudiante=servicioestudiantesancionado.buscarTodos();
 	}
-	
-	
 	@Wire("#winRegistrarSancionadoLote")//para conectarse a la ventana con el ID
 	Window ventana;
 	@Init
@@ -246,11 +241,16 @@ public class VMCargarEstudiantesSancionadosXml {
 									   }
 								   }
 								   estudiante_sancionado=null;
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//							Messagebox.show("Ocurrio Un error!","ERROR", Messagebox.OK,Messagebox.ERROR);
-//							// TODO: handle exception
-//						}
+								   codigo_asignatura_1=null;
+								   condicion_asignatura_1=null;
+								   codigo_asignatura_2=null;
+								   condicion_asignatura_2=null;
+								   codigo_asignatura_2=null;
+								   condicion_asignatura_2=null;
+								   codigo_asignatura_3=null;
+								   condicion_asignatura_3=null;
+								   estudiante=null;
+								   id=null;
 					}
 					listaEstudiante();
 					mensajeAlUsuario.informacionOperacionExitosa();	
@@ -265,16 +265,14 @@ public class VMCargarEstudiantesSancionadosXml {
 			}
 		}
 	}
-	
 	/**
 	 * Cerrar Ventana
 	 * 
-	 * @param binder
+	 * @param Windows ventana
 	 * @return cierra el .zul asociado al VM
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
 	@NotifyChange({"textoXML","tamanoXML","listaEstudiante"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
