@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zkoss.zul.Messagebox;
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
@@ -512,5 +513,27 @@ public class ServicioSolicitudApelacion {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Retorna true si todas las apelaciones fueron procesadas para una instancia
+	 * @param idInstanciaApelada
+	 * @return true/false
+	 */
+	public boolean estanFinalizadasLasApelaciones(int idInstanciaApelada) {
+		List<SolicitudApelacion> listaApelacionesSinVeredicto = iSolicitudApelacionDAO.findById_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndNumeroSesionIsNull(idInstanciaApelada);
+		if (idInstanciaApelada <= 1){
+			if (listaApelacionesSinVeredicto.size()<1)
+				return true;
+			else
+				return false;
+		}
+		else{//idInstanciaApelada > 1
+			List<SolicitudApelacion> listaApelaciones = iSolicitudApelacionDAO.findById_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(idInstanciaApelada);
+			if (listaApelacionesSinVeredicto.size() < 1 && listaApelaciones.size() > 0)
+				return true;
+			else
+				return false;
+		}
 	}
 }
