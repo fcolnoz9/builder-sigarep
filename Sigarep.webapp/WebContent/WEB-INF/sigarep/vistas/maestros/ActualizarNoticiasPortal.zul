@@ -58,6 +58,9 @@
 				</hbox>
 			</tablechildren>
 			<tablechildren>
+				<label id="lblContenido"
+				value="Contenido:" />
+				<separator/>
 				<ckeditor id="ckeditor" value="@bind(vm.contenido)"
 					vflex="1"
 					customConfigurationsPath="/widgets/js/config_wysiwyg.js">
