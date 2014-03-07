@@ -9,7 +9,7 @@
 		onCreate="@command('validarComboVeredicto', combo = cmbVeredicto, label = lblVeredicto)">
 
 		<groupbox id="grbFiltro">
-			<caption label="Filtro por Programa Académico" />
+			<caption label="Filtros" />
 			<grid id="grdFiltros">
 				<columns>
 					<column align="left">
