@@ -109,6 +109,8 @@ public class VMUsuario {
 
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 
+	@WireVariable
+	private List<Grupo> listaGrupoGenerico = new LinkedList<Grupo>();
 	
 	private Usuario usuarioSeleccionado;
 	@WireVariable
@@ -128,7 +130,24 @@ public class VMUsuario {
 	
 	@Wire("#winRegistrarUsuario")//para conectarse a la ventana con el ID
 	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
+	 public List<Grupo> getListaGrupoGenerico() {
+		return listaGrupoGenerico;
+	}
+
+	public void setListaGrupoGenerico(List<Grupo> listaGrupoGenerico) {
+		this.listaGrupoGenerico = listaGrupoGenerico;
+	}
+	
+	@Command 
+	@NotifyChange({ "listaGrupoGenerico" })
+	public void buscarGenerico(){
+		System.out.println("pase sucio pase sucio");
+	Grupo generico = serviciogrupo.buscarGrupo(1);
+		listaGrupoGenerico.add(generico);
+		System.out.println("pase sucio pase sucio "+listaGrupoGenerico.size());
+	}
+
+	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);
     }
@@ -424,7 +443,8 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre",
 		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo", "imagenUsuario","fotoUsuario"})
-	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario) {
+	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario, 
+			@BindingParam("grupoInvisible") List<Listitem> grupoInvisible) {
 		boolean existeUsuario = false;
 		Usuario usuario = new Usuario();
 		if (nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 
@@ -607,6 +627,37 @@ public class VMUsuario {
 //				lbxNoticias.insertBefore(listi, (Component) lbxNoticias.getChildren().get(0)); 	 
 //				gruposDelUsuario
 				boolean marca= false;
+				
+				//plan B
+				//inicio
+//				for(Listitem miGrupo :grupoInvisible){
+//					Grupo grupo = new Grupo();
+//					String nombreGrupo = miGrupo.getLabel();
+//					grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
+//					System.out.println("pppppppppppppp"+grupo.getNombre());
+//					UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
+//					UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
+//					usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
+//					usuarioGrupoPK.setNombreUsuario(nombreUsuario);
+//					
+//					usuarioGrupo.setId(usuarioGrupoPK);
+//					usuarioGrupo.setUsuario(usuario);
+//					usuarioGrupo.setGrupo(grupo);
+//					usuarioGrupo.setEstatus(true);
+//					
+//					UsuarioGrupo usuarioGrupoAux = new UsuarioGrupo();
+//					usuarioGrupoAux.setId(usuarioGrupo.getId());
+//					usuarioGrupoAux.setGrupo(usuarioGrupo.getGrupo());
+//					usuarioGrupoAux.setUsuario(usuarioGrupo.getUsuario());
+//					usuarioGrupoAux.setEstatus(true);
+//					
+//					usuario.addUsuarioGrupo(usuarioGrupoAux);
+//					System.out.println("parte 1a ++++++++");
+//					serviciousuario.guardarUsuario(usuario);
+//					System.out.println("parte 2a ++++++++");
+//					
+//				}
+				//fin
 				for(Listitem miGrupo :gruposDelUsuario){
 					Grupo grupo = new Grupo();
 					String nombreGrupo = miGrupo.getLabel();
@@ -643,29 +694,50 @@ public class VMUsuario {
 					//+++++++++AQui
 					if(!marca){
 						marca=true;
-						Grupo grupo1 = new Grupo();
-						grupo1 = serviciogrupo.buscarGrupoNombre("generico");
-						UsuarioGrupoPK usuarioGrupoPK1 = new UsuarioGrupoPK();
-						UsuarioGrupo usuarioGrupo1 = new UsuarioGrupo();
-						usuarioGrupoPK1.setIdGrupo(1);
-						usuarioGrupoPK1.setNombreUsuario(nombreUsuario);
-						
-						usuarioGrupo1.setId(usuarioGrupoPK1);
-						usuarioGrupo1.setUsuario(usuario1);
-						usuarioGrupo1.setGrupo(grupo1);
-						usuarioGrupo1.setEstatus(true);
-						
-						UsuarioGrupo usuarioGrupoAux1 = new UsuarioGrupo();
-						usuarioGrupoAux1.setId(usuarioGrupo1.getId());
-						usuarioGrupoAux1.setGrupo(usuarioGrupo1.getGrupo());
-						usuarioGrupoAux1.setUsuario(usuarioGrupo1.getUsuario());
-						usuarioGrupoAux1.setEstatus(true);
-						usuario1.addUsuarioGrupo(usuarioGrupoAux1);
-						System.out.println("parte 3 ++++++++");
-						serviciousuario.guardarUsuario(usuario1);
-						System.out.println("parte 4 ++++++++");
-					
+						for(Listitem miGrupo2 :grupoInvisible){
+							 grupo = new Grupo();
+							 nombreGrupo = miGrupo2.getLabel();
+							grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
+							System.out.println("pppppppppppppp"+grupo.getNombre());
+							 usuarioGrupoPK = new UsuarioGrupoPK();
+							 usuarioGrupo = new UsuarioGrupo();
+							usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
+							usuarioGrupoPK.setNombreUsuario(nombreUsuario);
+							
+							usuarioGrupo.setId(usuarioGrupoPK);
+							usuarioGrupo.setUsuario(usuario);
+							usuarioGrupo.setGrupo(grupo);
+							usuarioGrupo.setEstatus(true);
+							
+							usuario.addUsuarioGrupo(usuarioGrupo);
+							System.out.println("parte 1a ++++++++");
+							serviciousuario.guardarUsuario(usuario);
+							System.out.println("parte 2a ++++++++");
+						}
 					}
+//						Grupo grupo1 = new Grupo();
+//						grupo1 = serviciogrupo.buscarGrupoNombre("generico");
+//						UsuarioGrupoPK usuarioGrupoPK1 = new UsuarioGrupoPK();
+//						UsuarioGrupo usuarioGrupo1 = new UsuarioGrupo();
+//						usuarioGrupoPK1.setIdGrupo(1);
+//						usuarioGrupoPK1.setNombreUsuario(nombreUsuario);
+//						
+//						usuarioGrupo1.setId(usuarioGrupoPK1);
+//						usuarioGrupo1.setUsuario(usuario1);
+//						usuarioGrupo1.setGrupo(grupo1);
+//						usuarioGrupo1.setEstatus(true);
+//						
+//						UsuarioGrupo usuarioGrupoAux1 = new UsuarioGrupo();
+//						usuarioGrupoAux1.setId(usuarioGrupo1.getId());
+//						usuarioGrupoAux1.setGrupo(usuarioGrupo1.getGrupo());
+//						usuarioGrupoAux1.setUsuario(usuarioGrupo1.getUsuario());
+//						usuarioGrupoAux1.setEstatus(true);
+//						usuario1.addUsuarioGrupo(usuarioGrupoAux1);
+//						System.out.println("parte 3 ++++++++");
+//						serviciousuario.guardarUsuario(usuario1);
+//						System.out.println("parte 4 ++++++++");
+//					
+//					}
 				}
 				
 				Persona persona = new Persona();
@@ -840,6 +912,7 @@ public class VMUsuario {
 		buscarUsuario();
 		buscarListadoUsuario();
 		buscarListadoGrupos();
+		buscarGenerico();
 	}
 //REVISAR
 	/**Busca los usuarios  
