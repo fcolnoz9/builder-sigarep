@@ -1,114 +1,84 @@
-<?page title="" contentType="text/html;charset=UTF-8"?>
-<zk>
-
-	<window id="winEditarPerfilUsuario" title="Editar Perfil del Usuario" border="normal"
-		width="auto" height="auto" contentStyle="overflow:auto"
-		apply="org.zkoss.bind.BindComposer" closable="true"
-		viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMEditarPerfilUsuario')">
-		<zscript>
+<window id="winEditarPerfilUsuario" title="Editar Perfil del Usuario"
+	border="normal" width="auto" height="auto" contentStyle="overflow:auto"
+	apply="org.zkoss.bind.BindComposer" closable="true"
+	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMEditarPerfilUsuario')">
+	<zscript>
 			<![CDATA[
-					import java.text.SimpleDateFormat;
-			 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-			]]>
+	import java.text.SimpleDateFormat;
+	SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+]]>
 		</zscript>
-		<div>
-			<div height="auto">
-				<image content="@bind(vm.imagenUsuario)" width="150px"
-					style="overflow:auto;z-index:999;position:absolute;right:90px;top:50px;width:150px;height:140px;background-color:#0033ff;" />
-				<button Label="Agregar" src="/imagenes/iconos/cargar.png"
-					width="40px" upload="true"
-					style="position:absolute;right:215px;top:193px;"
-					onUpload="@command('upload', upEvent=event)" mold="trendy" />
-				<button Label="Eliminar" width="40px" src="/imagenes/iconos/quitar.png"
-					style="position:absolute;right:120px;top:193px;"
-					onClick="@command('removeImage')" mold="trendy" />
-			</div>
-		<groupbox id="grbDatosPersonales" height="195px">
+	<groupbox id="grbDatosPersonales" height="195px">
 		<caption label="Información Personal" />
-					<grid>
-						<columns>
-							<column></column>
-							<column></column>
-							<column></column>
-						</columns>
-						<rows>
-							<row>
-								<vlayout>
-									<hlayout>
-										<label value="Cédula:"/>
-										<textbox id="txtCedula"
-										readonly="true"
-										mold="rounded" hflex="1"
-										value="@bind(vm.cedula)" />
-									</hlayout>
-								</vlayout>
-								<vlayout>
-									<hlayout>
-										<label value="Teléfono:"/>
-										<intbox id="txtTelefono"
-										placeholder="Ingrese su número télefonico"
-										mold="rounded" hflex="1"
-										value="@bind(vm.telefonoEntero)" />
-									</hlayout>
-								</vlayout>
-							</row>	
-							<row>
-								<vlayout>
-									<hlayout>
-										<label value="Nombre:  " />
-										<textbox id="txtNombre"
-										placeholder="Ingrese su nombre"
-									    mold="rounded" hflex="1"
-										value="@bind(vm.nombre)" cols="9"/>
-									</hlayout>
-								</vlayout>
-								<vlayout>
-									<hlayout>
-										<label value="Apellido:"/>
-										<textbox id="txtApellido"
-										placeholder="Ingrese su apellido"
-										mold="rounded" hflex="1"
-										value="@bind(vm.apellido)" cols="9" />
-									</hlayout>
-								</vlayout>
-							</row>
-							<row>
-								<vlayout>
-									<hlayout>
-										<label value="Correo:" />
-										<textbox id="txtEmail"
-										placeholder="Ingrese su correo electronico"
-									    mold="rounded" hflex="1"
-										value="@bind(vm.correo)" />
-									</hlayout>
-								</vlayout>
-								<vlayout>
-									<hlayout>
-										<label value="Fecha de creación:"/>
-										<textbox id="textFechaCreacion"
-										mold="rounded" hflex="1"
-										readonly="true"
-										value="@bind(sdf.format(vm.fechaCreacion))" />
-									</hlayout>
-								</vlayout>
-							</row>
-							<row>
-
-							</row>
-						</rows>
-					</grid>
-			</groupbox>
-			<div id="divBotones" style="float:right;margin-top:4px;" height="auto">
-				<button label="Guardar" id="btnGuardarEnlace" mold="trendy"
-					width="auto" height="auto" image="imagenes/iconos/guardar.png"
-					onClick="@command('guardarPerfilUsuario') @global-command('actualizarFotoPerfilUsuario')"  />
-				<button label="Limpiar" id="btnLimpiar" mold="trendy"
-					width="auto" height="auto" image="imagenes/iconos/limpiar.png"
-					onClick="@command('limpiarPerfilUsuario')" />
-				<button label="Cerrar" id="btnCerrar" mold="trendy"
-					width="auto" height="auto" image="imagenes/iconos/cerrar.png"
-					onClick="@command('cerrarVentana',ventana=winEditarPerfilUsuario)" />
-			</div>
-		</div>
-	</window>
-</zk>
+		<tablelayout columns="2">
+			<tablechildren width="80%">
+				<grid>
+					<columns>
+						<column width="10%" />
+						<column width="40%" />
+						<column width="10%" />
+						<column width="40%" />
+					</columns>
+					<rows>
+						<row>
+							<label value="Cédula:" />
+							<textbox id="txtCedula" readonly="true"
+								width="80%" value="@bind(vm.cedula)" />
+							<label value="Fecha de creación:" />
+							<textbox id="textFechaCreacion" width="80%"
+								readonly="true" value="@bind(sdf.format(vm.fechaCreacion))" />
+						</row>
+						<row>
+							<label value="Nombre:" />
+							<textbox id="txtNombre"
+								placeholder="Ingrese su nombre." width="80%"
+								value="@bind(vm.nombre)" />
+							<label value="Teléfono:" />
+							<intbox id="txtTelefono" width="80%"
+								placeholder="Ingrese su número telefónico."
+								value="@bind(vm.telefonoEntero)" />
+						</row>
+						<row>
+							<label value="Apellido:" />
+							<textbox id="txtApellido"
+								placeholder="Ingrese su apellido." width="80%"
+								value="@bind(vm.apellido)" />
+							<label value="Correo:" />
+							<textbox id="txtEmail"
+								placeholder="Ingrese su correo electronico" width="80%"
+								value="@bind(vm.correo)" />
+						</row>
+					</rows>
+				</grid>
+			</tablechildren>
+			<tablechildren>
+				<div align="center">
+					<vbox align="center">
+						<image content="@bind(vm.imagenUsuario)"
+							style="max-height:100px;max-width:100px;" />
+						<hbox pack="center">
+							<button Label="Agregar" width="auto"
+								height="auto" src="/imagenes/iconos/cargar.png" upload="true"
+								onUpload="@command('upload', upEvent=event)" />
+							<button Label="Eliminar" width="auto"
+								height="auto" src="/imagenes/iconos/quitar.png"
+								onClick="@command('removeImage')" />
+						</hbox>
+					</vbox>
+				</div>
+			</tablechildren>
+		</tablelayout>
+	</groupbox>
+	<div id="divBotones" style="float:right;margin-top:4px;"
+		height="auto">
+		<button label="Guardar" id="btnGuardarEnlace" mold="trendy"
+			width="auto" height="auto" image="imagenes/iconos/guardar.png"
+			onClick="@command('guardarPerfilUsuario') @global-command('actualizarFotoPerfilUsuario')" />
+		<button label="Limpiar" id="btnLimpiar" mold="trendy"
+			width="auto" height="auto" image="imagenes/iconos/limpiar.png"
+			onClick="@command('limpiarPerfilUsuario')" />
+		<button label="Cerrar" id="btnCerrar" mold="trendy" width="auto"
+			height="auto" image="imagenes/iconos/cerrar.png"
+			onClick="@command('cerrarVentana',ventana=winEditarPerfilUsuario)" />
+	</div>
+</window>
