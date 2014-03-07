@@ -95,6 +95,10 @@ public class ServicioReglamento {
 		return rg.findByCategoriaAndEstatusTrue("Calendario");
 	}
 	
+	public List<Reglamento> buscarActa(){
+		return rg.findByCategoriaAndEstatusTrue("Acta");
+	}
+	
 	public List<Reglamento> buscarManualUsuario(){
 		return rg.findByCategoriaAndEstatusTrue("ManualUsuario");
 	}
