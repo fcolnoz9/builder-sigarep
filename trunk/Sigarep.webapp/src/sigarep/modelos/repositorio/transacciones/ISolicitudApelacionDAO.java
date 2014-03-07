@@ -120,4 +120,6 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	public List<SolicitudApelacion> buscarSolicitudApelacionLapsoActual(
 				@Param("cedulaEstudiante") String cedulaEstudiante,
 				@Param("codigoLapso") String codigoLapso);
+
+	public List<SolicitudApelacion> findByEstudianteSancionado(EstudianteSancionado estudianteSancionado);
 }
