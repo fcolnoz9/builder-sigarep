@@ -208,6 +208,7 @@ public class VMEditarPerfilUsuario {
 		{
 			this.persona.setNombre(nombre);
 			this.persona.setApellido(apellido);
+			usuario.setNombreCompleto(this.persona.getNombre() + " " +this.persona.getApellido());
 			this.persona.setTelefono(String.valueOf(telefonoEntero));
 			usuario.setCorreo(correo);
 			fotoUsuario.setNombreArchivo(imagenUsuario.getName());
