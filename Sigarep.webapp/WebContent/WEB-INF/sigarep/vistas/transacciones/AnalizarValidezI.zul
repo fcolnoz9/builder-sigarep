@@ -185,8 +185,8 @@
 				orient="horizontal"
 				onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidezI) @global-command('actualizarListaSancionados')">
 				<attribute name="onClick">
-	List items = lbxRecaudos.getItems();
-</attribute>
+				List items = lbxRecaudos.getItems();
+			</attribute>
 			</button>
 			<button label="Limpiar" id="btnCancelar" mold="trendy"
 				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
@@ -194,7 +194,7 @@
 			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('cerrarVentana')">
+				orient="horizontal" onClick="@command('cerrarVentana',ventana = winAnalizarValidezI)">
 			</button>
 
 		</div>
