@@ -52,7 +52,7 @@ public class VMrecaudoMotivoPortal {
     private Boolean estatus;
     private String nombreRecaudo;
     private String observacion;
-	private TipoMotivo tipoMotivo;//variable que relaciona recaudo con el id de la tabla TipoMotivo
+	private TipoMotivo tipoMotivo;
 	private Integer idTipoMotivo;
    	private String nombreTipoMotivo;
 	private List<Recaudo> listaRecaudos;
@@ -67,13 +67,7 @@ public class VMrecaudoMotivoPortal {
 	private List<Reglamento> listaRecaudosMotivosPortal;
 	@WireVariable
 	private ServicioReglamento servicioreglamento;
-	@Wire("#winMostrarRecaudoMotivoPortal")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
-	
+
 	
 	// Metodos GETS Y SETS
 	public Integer getIdRecaudo() {
@@ -175,7 +169,7 @@ public class VMrecaudoMotivoPortal {
 	 */
 	@Init
 	public void init() {
-		// initialization code
+		
 		buscarRecaudos();
 		buscarTiposMotivo();
 		buscarRecaudosMotivosPortal();
@@ -223,13 +217,12 @@ public class VMrecaudoMotivoPortal {
 		@Command
 		 @NotifyChange({"listaTipoMotivo"})
 		public TipoMotivo objetoComboMotivo() {
-			//System.out.println(nombreTipoMotivo);
 			return tipoMotivo;
 		}
 		
 		//Combo
 		@Command
-		@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "tipoMotivo","nombreTipoMotivo","listaRecaudos","listaTipoMotivo","listaRecaudosMotivos"})
+		@NotifyChange({"tipoMotivo","nombreTipoMotivo","listaTipoMotivo","listaRecaudosMotivos"})
 		public void buscarRecaudoMotivoCombo() {
 			listaRecaudosMotivos = serviciorecaudo.listadoRecaudosPorMotivo(tipoMotivo);
 		}
@@ -291,5 +284,5 @@ public class VMrecaudoMotivoPortal {
 			buscarRecaudos();		
 		}
 				
-}//Fin VMrecaudoMotivo
+}//Fin VMrecaudoMotivoPortal
 
