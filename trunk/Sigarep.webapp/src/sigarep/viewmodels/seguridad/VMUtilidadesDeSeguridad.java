@@ -183,14 +183,14 @@ public class VMUtilidadesDeSeguridad {
 		
 	@Command
 	@GlobalCommand
-	@NotifyChange({ "fotoUsuario", "imagenUsuario" })
+	@NotifyChange({ "fotoUsuario", "imagenUsuario","nombreCompleto"})
 	public void cargarFotoImagen() {
 		fotoUsuario = new Archivo();
 		imagenUsuario = null;
 		Usuario usuario = new Usuario();
 		usuario = serviciousuario.encontrarUsuario(getUsuario().getUsername());
-//		System.out.println(usuario.getFoto().getNombreArchivo());
 		try {
+			nombreCompleto = usuario.getNombreCompleto();
 			if (usuario.getFoto().getNombreArchivo().equals("usuario.png")) {
 				imagenUsuario = new AImage(ruta + "/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
 			} else imagenUsuario = usuario.getFoto().getAImage();

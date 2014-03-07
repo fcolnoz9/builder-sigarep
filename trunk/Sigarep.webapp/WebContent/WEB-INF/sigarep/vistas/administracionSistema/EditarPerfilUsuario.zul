@@ -59,7 +59,7 @@
 										<textbox id="txtNombre"
 										placeholder="Ingrese su nombre"
 									    mold="rounded" hflex="1"
-										value="@bind(vm.nombre)" />
+										value="@bind(vm.nombre)" cols="9"/>
 									</hlayout>
 								</vlayout>
 								<vlayout>
@@ -68,7 +68,7 @@
 										<textbox id="txtApellido"
 										placeholder="Ingrese su apellido"
 										mold="rounded" hflex="1"
-										value="@bind(vm.apellido)" />
+										value="@bind(vm.apellido)" cols="9" />
 									</hlayout>
 								</vlayout>
 							</row>
