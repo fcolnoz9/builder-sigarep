@@ -7,7 +7,7 @@
 		<caption label="Seleccione un Tipo de Motivo de Apelación" />
 
 		<label id="lblTipoMotivo" value="Tipo de Motivo:" />
-		<combobox readonly="true" id="cmbTipoMotivo" width="auto" placeholder="Seleccione un Tipo de Motivo"
+		<combobox readonly="true" id="cmbTipoMotivo" width="auto" placeholder="Seleccione un tipo de motivo..."
 			value="@bind(vm.nombreTipoMotivo)" mold="rounded"
 			model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.tipoMotivo)"
 			onSelect="@command('buscarRecaudoMotivoCombo')">
@@ -50,7 +50,7 @@
 			label="Enlace para Descargar la Lista de Recaudos por Motivos " />
 		<listbox id="lbxReglamento"
 			model="@bind(vm.listaRecaudosMotivosPortal)"
-			emptyMessage="No hay reglamentos seleccionados" mold="paging"
+			emptyMessage="No hay archivos cargados " mold="paging"
 			pageSize="10">
 			<listhead>
 				<listheader label="Titulo" align="lefth"
