@@ -95,7 +95,8 @@ public class VMVeredictoI {
 	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	private List<RecaudoEntregado> listaRecaudo; 
-	
+	@Wire("#winVeredictoI")//para conectarse a la ventana con el ID
+	Window ventana;
 	
 	// Getters and Setters
 	public String getCaso() {
@@ -430,11 +431,16 @@ public class VMVeredictoI {
 	@NotifyChange({"veredicto", "observacionGeneral"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		//if(veredicto !=null || observacionGeneral !=null)
-		if (!veredicto.equals("") )
+		if (!veredicto.equals("") ){
 			condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaTransacciones(ventana,condicion);		
+		}
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
 	}
+
+	
+	
+	
+	
 	
 
 }
