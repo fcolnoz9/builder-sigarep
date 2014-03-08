@@ -22,10 +22,7 @@
 			image="/imagenes/iconos/recuperarContrasenia.png" width="auto" height="auto" 
 			orient="horizontal" onClick="@command('recuperarContrasenna')">
 			</button>
-			<button label="Cerrar" id="btnCerrar"
-				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="winRecuperarContrasenna.onClose()">
-		</button>
+			
 		</div>
 	</window>
 </zk>
