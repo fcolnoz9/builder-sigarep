@@ -209,16 +209,17 @@ public class VMCronograma {
 		//initialization code
 		Selectors.wireComponents(view, this, false);
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-		if(lapsoActivo==null && !VMUtilidadesDeSeguridad.roles().get(0).equals("ROLE_ANONYMOUS"))
-			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
-		else
-		{
-			if(lapsoActivo!=null){
-				buscarCronograma();
-				buscarActividad();
-				buscarResponsable();
-				codigoLapso = lapsoActivo.getCodigoLapso();	
-			}			
+		if (ventana != null){
+			if (ventana.getId().toString().equals("winActualizarCronograma")){
+				if(lapsoActivo==null)
+					mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+				else{
+					buscarCronograma();
+					buscarActividad();
+					buscarResponsable();
+					codigoLapso = lapsoActivo.getCodigoLapso();				
+				}
+			}
 		}
 	}
 
