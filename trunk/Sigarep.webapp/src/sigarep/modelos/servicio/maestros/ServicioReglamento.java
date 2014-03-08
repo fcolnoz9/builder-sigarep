@@ -76,23 +76,23 @@ public class ServicioReglamento {
 	}
 			
 	public List<Reglamento> buscarReglamentoPortal(){
-		return rg.findByCategoriaAndEstatusTrue("Reglamento");
+		return rg.findByCategoriaAndEstatusTrue("reglamento");
 	}
 	
 	public List<Reglamento> buscarRecaudosPortal(){
-		return rg.findByCategoriaAndEstatusTrue("Recaudo");
+		return rg.findByCategoriaAndEstatusTrue("recaudo");
 	}
 	
 	public List<Reglamento> buscarFormatoPortal(){
-		return rg.findByCategoriaAndEstatusTrue("Formato");
+		return rg.findByCategoriaAndEstatusTrue("formato");
 	}
 	
 	public List<Reglamento> buscarGuia(){
-		return rg.findByCategoriaAndEstatusTrue("Guia");
+		return rg.findByCategoriaAndEstatusTrue("guia");
 	}
 	
 	public List<Reglamento> buscarCalendario(){
-		return rg.findByCategoriaAndEstatusTrue("Calendario");
+		return rg.findByCategoriaAndEstatusTrue("calendario");
 	}
 	
 	public List<Reglamento> buscarActa(){
