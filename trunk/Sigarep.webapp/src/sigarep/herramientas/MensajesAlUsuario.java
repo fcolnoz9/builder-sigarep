@@ -267,39 +267,12 @@ public class MensajesAlUsuario {
 
 	}
 
-//	public void informacionArchivoEliminado() {
-//
-//		Messagebox.show("Archivo eliminado correctamente.", "Información",
-//				Messagebox.OK, Messagebox.INFORMATION);
-//	}no se usa por ahora
 
 	public void informacionVeredictoRegistrado() {
 	Messagebox.show("Veredicto registrado correctamente.", "Información",
 				Messagebox.OK, Messagebox.INFORMATION);
 	}
 
-//	public void informacionFinalizarVeredictoApelacionesProcesadas() {
-//		Messagebox.show("No existen apelaciones para procesar.",
-//				"Información", Messagebox.OK, Messagebox.INFORMATION);
-//	}no se usa por ahora
-
-	// public void informacionGuardarDatosSesion(int contador) {
-	// Messagebox.show("Se almacenaron correctamente los datos de la sesiï¿½n a "
-	// + contador + " apelaciones.", "Informaciï¿½n",
-	// Messagebox.OK, Messagebox.INFORMATION);
-	// } no se usa por ahora
-
-	// public void informacionDatosDeSesionNoEncontrados() {
-	// Messagebox.show("Proporcione los datos de una nueva sesiï¿½n.",
-	// "Informaciï¿½n", Messagebox.OK, Messagebox.INFORMATION);
-	// }no se usa por ahora
-
-
-
-//	public void informacionRestauracionNoExitosa() {
-//		Messagebox.show("El intento de restauración no fue exitoso.",
-//				"Información", Messagebox.OK, Messagebox.INFORMATION);
-//	}
 
 	public void informacionRespaldoNoExitosa() {
 		Messagebox.show("El intento de respaldo no fue exitoso.",
@@ -414,6 +387,19 @@ public class MensajesAlUsuario {
 		Messagebox.show("La Extensión del Archivo no es XML.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 	}
+	
+	public void errorNoEliminarMotivoGeneral() {
+
+		Messagebox.show("El motivo de tipo general no se puede eliminar.", "Error",
+				Messagebox.OK, Messagebox.ERROR);
+	}
+	
+	public void errorNoModificarMotivoGeneral() {
+
+		Messagebox.show("El motivo de tipo general no se puede modificar.", "Error",
+				Messagebox.OK, Messagebox.ERROR);
+	}
+	
 
 	/*-------------------------------------------Mensajes de Confirmación-----------------------------------*/
 	public void confirmacionCerrarSesion() {
@@ -517,7 +503,7 @@ public class MensajesAlUsuario {
 	}
 	
 	public void confirmacionCerrarVentanaLapsoAcademicoNoActivo(final Window ventana) {
-			Messagebox.show("No existe un lapso academico activo ¿Desea proceder a registrarlo? o presione NO para salir", "Confirmar",
+			Messagebox.show("No existe un lapso academico activo ¿Desea proceder a registrarlo?", "Confirmar",
 					new Messagebox.Button[] { Messagebox.Button.YES,
 							Messagebox.Button.NO }, Messagebox.QUESTION,
 					new EventListener<ClickEvent>() {
