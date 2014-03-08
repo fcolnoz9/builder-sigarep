@@ -266,12 +266,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[APELACIONES POR MOTIVO Y SUS RESULTADOS PROCEDENTES POR ASIGNATURA]]></text>
 			</staticText>
-			<line>
-				<reportElement x="-21" y="146" width="793" height="1" uuid="3859d781-885e-4bc2-90f0-6430534c6f2e"/>
-				<graphicElement>
-					<pen lineWidth="3.0" lineColor="#0099CC"/>
-				</graphicElement>
-			</line>
 		</band>
 	</title>
 	<pageFooter>
