@@ -26,9 +26,9 @@
 		<listbox id="estListbox" height="100%" model="@bind(vm.listaAsignatura)"   
    			 emptyMessage="No hay asignaturas registradas" mold="paging" pageSize="10" tooltiptext="Asignaturas Registradas">
 		<listhead>
-			<listheader label="Codigo Asignatura" align="center"  width="120px"  sort="auto(CodigoAsignatura)" tooltiptext="Click para Ordenar por Cedula" />
-			<listheader label="Nombre Asignatura" align="center"  width="350px" sort="auto(NombreAsignatura)" tooltiptext="Click para Ordenar por Primer Nombre" />
-			<listheader label="Unidades Académicas" align="center"  width="140px" sort="auto(UnidadesAcademicas)" tooltiptext="Click para Ordenar por Primer Apellido"/>
+			<listheader label="Codigo Asignatura" align="center"  width="120px"  sort="auto(CodigoAsignatura)" tooltiptext="Click para Ordenar por Codigo de Asignatura" />
+			<listheader label="Nombre Asignatura" align="center"  width="350px" sort="auto(NombreAsignatura)" tooltiptext="Click para Ordenar por Nombre Asignatura" />
+			<listheader label="Unidades Académicas" align="center"  width="140px" sort="auto(UnidadesAcademicas)" tooltiptext="Click para Ordenar por Unidades Academicas"/>
 			<listheader label="Programa Académico" align="center" width="240px" sort="auto(programaAcademico.idPrograma)" tooltiptext="Click para Ordenar por Programa Academico"/>
 		</listhead>
 		<template name="model">
