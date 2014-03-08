@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeEspecialSancionadosApelaciones" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04b9911d-9fe8-4979-8b84-81b5095ca9fd">
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
@@ -24,6 +24,8 @@
 	<field name="observacion" class="java.lang.String"/>
 	<field name="tipoMotivo" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
+	<field name="nroSesion" class="java.lang.String"/>
+	<field name="fechaSesion" class="java.util.Date"/>
 	<group name="Programas">
 		<groupExpression><![CDATA[$F{nombrePrograma}]]></groupExpression>
 		<groupHeader>
@@ -77,9 +79,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="197" splitType="Stretch">
+		<band height="198" splitType="Stretch">
 			<staticText>
-				<reportElement x="179" y="60" width="402" height="48" uuid="10a26dfe-5a26-485f-b825-190bacf02ddc"/>
+				<reportElement x="195" y="60" width="402" height="48" uuid="10a26dfe-5a26-485f-b825-190bacf02ddc"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -94,6 +96,12 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[INFORME ESPECIAL ESTUDIANTES SANCIONADOS Y SUS APELACIONES POR PROGRAMA E INSTANCIA]]></text>
 			</staticText>
+			<line>
+				<reportElement x="-20" y="154" width="793" height="1" forecolor="#0099CC" backcolor="#0099CC" uuid="f8f3d2b5-5763-4619-9e64-5eb2a901a287"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
 			<staticText>
 				<reportElement x="327" y="166" width="50" height="20" uuid="165ac7aa-addd-49b4-afa8-b81c1ec48d33"/>
 				<textElement verticalAlignment="Middle">
@@ -126,10 +134,10 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.equals(1)]]></printWhenExpression>
 			<staticText>
-				<reportElement x="547" y="7" width="89" height="20" isPrintInFirstWholeBand="true" uuid="96a44a15-073d-4fad-b53e-cb2cf58d5baf"/>
+				<reportElement x="547" y="0" width="89" height="31" isPrintInFirstWholeBand="true" uuid="96a44a15-073d-4fad-b53e-cb2cf58d5baf"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -144,7 +152,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[motivo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="330" y="7" width="86" height="20" isPrintInFirstWholeBand="true" uuid="c5b80d92-02d2-440a-b754-577301a4feb8"/>
+				<reportElement x="330" y="0" width="86" height="31" isPrintInFirstWholeBand="true" uuid="c5b80d92-02d2-440a-b754-577301a4feb8"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -159,7 +167,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Veredicto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="186" y="7" width="52" height="20" isPrintInFirstWholeBand="true" uuid="9884c913-388b-45f2-894b-69aaa745ba5f"/>
+				<reportElement x="186" y="0" width="52" height="31" isPrintInFirstWholeBand="true" uuid="9884c913-388b-45f2-894b-69aaa745ba5f"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -174,7 +182,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Sanción]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="238" y="7" width="92" height="20" isPrintInFirstWholeBand="true" uuid="ae4709bf-1a70-4a5d-a15c-b9d8d4648ee8"/>
+				<reportElement x="238" y="0" width="92" height="31" isPrintInFirstWholeBand="true" uuid="ae4709bf-1a70-4a5d-a15c-b9d8d4648ee8"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -189,7 +197,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Asignatura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="7" width="89" height="20" isPrintInFirstWholeBand="true" uuid="a661e7ed-3b60-4b1a-9584-6564a6aea0d8"/>
+				<reportElement x="0" y="0" width="89" height="31" isPrintInFirstWholeBand="true" uuid="a661e7ed-3b60-4b1a-9584-6564a6aea0d8"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -204,7 +212,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Primer Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="89" y="7" width="97" height="20" isPrintInFirstWholeBand="true" uuid="53bfea6e-920c-4473-aa08-5ea3bb9a1830"/>
+				<reportElement x="89" y="0" width="97" height="31" isPrintInFirstWholeBand="true" uuid="53bfea6e-920c-4473-aa08-5ea3bb9a1830"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -219,7 +227,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Primer Apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="636" y="7" width="116" height="20" isPrintInFirstWholeBand="true" uuid="68a2b4e9-ffbd-465e-b3c3-6d0156fddbd2"/>
+				<reportElement stretchType="RelativeToTallestObject" x="636" y="0" width="48" height="31" isPrintInFirstWholeBand="true" uuid="68a2b4e9-ffbd-465e-b3c3-6d0156fddbd2"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -231,10 +239,10 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Descripción]]></text>
+				<text><![CDATA[Nº Sesión]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="416" y="7" width="131" height="20" isPrintInFirstWholeBand="true" uuid="7bb5cf03-b010-4e77-b227-6b3998f45376"/>
+				<reportElement x="416" y="0" width="131" height="31" isPrintInFirstWholeBand="true" uuid="7bb5cf03-b010-4e77-b227-6b3998f45376"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -248,24 +256,25 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Observación]]></text>
 			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="684" y="0" width="66" height="31" isPrintInFirstWholeBand="true" uuid="31f13c3a-c06c-4d19-bfba-56b3631e7246"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fecha Sesión]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="416" y="0" width="131" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="817ba181-ba84-4a28-9c44-4015d7d9cfaa"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
-			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="330" y="0" width="86" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="9dd0fc1e-d18b-49de-a572-5bc827be36d7"/>
 				<box>
@@ -350,8 +359,8 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipoMotivo}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="636" y="0" width="116" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="bf49ec17-4a84-42f7-99f5-a8c4baac694b"/>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="684" y="0" width="68" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="432837ef-d4db-4fdf-b833-b574be87e2eb"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -362,7 +371,35 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fechaSesion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="636" y="0" width="48" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="7670fbdb-feb0-4a32-a931-0973fd99b191"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroSesion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="416" y="0" width="131" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="817ba181-ba84-4a28-9c44-4015d7d9cfaa"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

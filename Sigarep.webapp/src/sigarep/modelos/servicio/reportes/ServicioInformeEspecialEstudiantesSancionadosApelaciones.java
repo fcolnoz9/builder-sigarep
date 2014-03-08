@@ -1,7 +1,9 @@
 package sigarep.modelos.servicio.reportes;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,7 +23,7 @@ public class ServicioInformeEspecialEstudiantesSancionadosApelaciones {
 	public List<ListaEspecialEstudiantesSancionadosApelaciones> buscarEstudianteAsignaturasSancion(String tiposancion,String instanciaApelada, String programaAcademico,String veredicto) {
 		String queryStatement = 
 		"SELECT sa.cedula_estudiante, e.primer_nombre,e.primer_apellido,p.nombre_programa,sm.nombre_sancion,sa.codigo_lapso,es.periodo_sacion,  " +
-		"a.nombre_asignatura, ia.instancia_apelada,sa.veredicto,sa.observacion,  tm.nombre_tipo_motivo, tm.descripcion " +
+		"a.nombre_asignatura, ia.instancia_apelada,sa.veredicto,sa.observacion, tm.nombre_tipo_motivo, tm.descripcion,sa.codigo_sesion, sa.fecha_sesion " +
 		"FROM programa_academico as p,estudiante as e,sancion_maestro as sm,lapso_academico as la, solicitud_apelacion AS sa " +
 		"LEFT JOIN asignatura_estudiante_sancionado  AS aes ON (aes.codigo_lapso = sa.codigo_lapso " +
 															  "AND aes.cedula_estudiante = sa.cedula_estudiante) " +
@@ -51,7 +53,9 @@ public class ServicioInformeEspecialEstudiantesSancionadosApelaciones {
 					(String)  resultRow[9],
 					(String)  resultRow[10],
 					(String)  resultRow[11],
-					(String)  resultRow[12]));			
+					(String)  resultRow[12],
+					(String)  resultRow[13],
+					(Date)  resultRow[14]));			
 		}
 		return results;
 	}

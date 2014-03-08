@@ -194,8 +194,8 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 		this.lapso = lapso;
 	}
 	public ListModelList<String> getCmbVeredicto() {
-		cmbVeredicto.add("Procedente");
-		cmbVeredicto.add("No Procedente");
+		cmbVeredicto.add("PROCEDENTE");
+		cmbVeredicto.add("NO PROCEDENTE");
 		cmbVeredicto.add("Todos");
 		return cmbVeredicto;
 	}
