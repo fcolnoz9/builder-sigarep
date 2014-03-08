@@ -34,7 +34,8 @@
 							value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
-							onSelect="@command('objetoComboEstadoApelacion')">
+							onSelect="@command('objetoComboEstadoApelacion')" 
+							disabled="true">
 							<template name="model">
 								<comboitem
 									label="${each.instanciaApelada }" />
@@ -48,7 +49,8 @@
 						<textbox id="txtNombreEstado"
 							placeholder= "Ingrese el nombre del estado de apelación"
 							width="80%" cols="23" maxlength="100" mold="rounded" tabindex="1"
-							value="@bind(vm.nombreEstado)" />
+							value="@bind(vm.nombreEstado)" 
+							disabled="true"/>
 
 						<label id="lblDescripcion" value="Descripción:" />
 
