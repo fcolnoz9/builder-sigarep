@@ -79,7 +79,25 @@ public class VMHistorialEstudiante {
 	private EstudianteSancionado estudianteSeleccionado;
 	// Para llamar a los diferentes mensajes de dialogo
 			MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	private String fechaIngreso;
+	private String fechaNacimiento;
 			
+
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(String fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
 
 	public String getMotivosEstudiante() {
 		return motivosEstudiante;
@@ -299,6 +317,20 @@ public class VMHistorialEstudiante {
 		buscarApelacion(cedula);
 		buscarAsignaturas();
 		buscarMotivos();
+		
+		String fecha = estudianteSeleccionado.getEstudiante().getAnioIngreso().toString();
+		String separador = " ";
+	if( !fecha.equals("")){
+        String[] palabraArray = fecha.split(separador);
+		fechaIngreso = palabraArray[0];
+	}
+		String fecha1 = estudianteSeleccionado.getEstudiante().getFechaNacimiento().toString();
+		String separador1 = " ";
+	if( !fecha1.equals("")){
+		String[] palabraArray1 = fecha1.split(separador1);
+		fechaNacimiento = palabraArray1[0];
+	
+}
 	}
 
 	@Command
