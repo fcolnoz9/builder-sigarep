@@ -381,19 +381,4 @@ public class VMHistorialEstudiante {
 
 	}
 
-	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	
-	@Command
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = true;
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
-	}
-
 }
