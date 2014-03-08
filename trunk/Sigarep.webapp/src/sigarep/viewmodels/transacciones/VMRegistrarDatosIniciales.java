@@ -568,11 +568,12 @@ public class VMRegistrarDatosIniciales {
 		}
 	}
 	@Command
-	@NotifyChange({ "descripcion", "motivoseleccionado", "listaMotivoListBox", "listaTipoMotivo" })
+	@NotifyChange({ "descripcion", "motivoseleccionado", "listaMotivoListBox", "listaTipoMotivo", "observacion" })
 	public void cancelar() {
 		descripcion = null;
 		motivoseleccionado = null;
 		listaMotivoListBox.clear();
+		observacion = null;
 		buscarMotivos();
 		
 	}
