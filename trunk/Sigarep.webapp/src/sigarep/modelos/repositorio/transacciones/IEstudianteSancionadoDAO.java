@@ -14,7 +14,9 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 public interface IEstudianteSancionadoDAO extends
 		JpaRepository<EstudianteSancionado, EstudianteSancionadoPK> {
 
-	@Query("Select esa FROM EstudianteSancionado AS esa where estatus = TRUE")
+	@Query("Select esa FROM EstudianteSancionado AS esa, LapsoAcademico AS la WHERE esa.estatus = 'TRUE' "
+			+ "AND esa.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus = 'TRUE'")
 	public List<EstudianteSancionado> buscarSancionadosActivos();
 	
 	@Query("Select esa FROM EstudianteSancionado AS esa")
