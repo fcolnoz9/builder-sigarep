@@ -611,11 +611,21 @@ public class VMEstudianteSancionado {
 			listaAsignaturaListBox = miSanc
 					.getAsignaturaEstudianteSancionados();
 		}
+		
+		
 		asignatura = miSanc.getAsignaturaEstudianteSancionados();
 		
-		lapsoConsecutivo1 = miSanc.getLapsosAcademicosRp();
-		lapsoConsecutivo2 = miSanc.getLapsosAcademicosRp();
 		
+			String palabra = miSanc.getLapsosAcademicosRp();
+			//String separador = "@[A-Za-z0-9]+\\.com";
+			String separador = ":";
+		if( !palabra.equals("")){
+	        String[] palabraArray = palabra.split(separador);
+	   		
+			lapsoConsecutivo1 = palabraArray[0];
+			if(palabraArray.length>1)
+			lapsoConsecutivo2 = palabraArray[1];
+		}
 				
  
 		}
