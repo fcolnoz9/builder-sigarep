@@ -1,17 +1,14 @@
-<!-- <menubar> -->
-<!-- 	<menuitem class="btn btn-primary" image="/imagenes/portal-principal/home-portal.png" -->
-<!-- 		label="Inicio" /> -->
-<!-- 	<menuitem class="btn btn-primary" image="/imagenes/portal-principal/aboutus-portal.png" -->
-<!-- 		label="¿Quiénes somos?" onClick="@command('modalQuienesSomos')" /> -->
-<!-- 	<menuitem class="btn btn-primary" image="/imagenes/portal-principal/contact-portal.png" -->
-<!-- 		label="Contáctanos" onClick="@command('modalContactanos')" /> -->
-<!-- </menubar> -->
-<div sclass="menu-horizontal" align="left">
-	<div class="btn-group" align="left">
-	  <button label="Inicio" image="/imagenes/portal-principal/home-portal.png" class="btn btn-primary"></button>
-	  <button label="¿Quiénes somos?" image="/imagenes/portal-principal/aboutus-portal.png"
-	  		  class="btn btn-primary" onClick="@command('modalQuienesSomos')"></button>
-	  <button label="Contáctanos" image="/imagenes/portal-principal/contact-portal.png" 
-	  		  class="btn btn-primary" onClick="@command('modalContactanos')"></button>
-	</div>
+<div class="btn-group" align="left">
+	<button label="Inicio"
+		image="/imagenes/portal-principal/home-portal.png"
+		class="btn-primary">
+	</button>
+	<button label="¿Quiénes somos?"
+		image="/imagenes/portal-principal/aboutus-portal.png"
+		class="btn-primary" onClick="@command('modalQuienesSomos')">
+	</button>
+	<button label="Contáctanos"
+		image="/imagenes/portal-principal/contact-portal.png"
+		class="btn-primary" onClick="@command('modalContactanos')">
+	</button>
 </div>

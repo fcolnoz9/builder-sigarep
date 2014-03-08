@@ -101,8 +101,7 @@ public class EnviarCorreo {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress((String) properties
 					.get("mail.smtp.mail.sender")));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					"sigarep_ucla@cacei.com.ve"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(username));
 			message.setSubject("Mensaje o consulta enviado por: " + nombre);
 			message.setText(nombre + ", "
 					+ "\nNúmero de teléfono: " + telefono

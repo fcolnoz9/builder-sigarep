@@ -27,13 +27,14 @@
 				<row>
 					<label id="lblTwitter" value="Twitter:" />
 					<textbox id="txtTwitter" cols="23"
-						placeholder="Ingrese el twitter de contacto. Ej. https://www.twitter.com/SIGAREP"
+						placeholder="Ingrese el twitter de contacto. Ej. @SIGAREP"
 						maxlength="15" mold="rounded" width="80%"
 						value="@bind(vm.twitter)" />
 					<label id="lblFacebook" value="Facebook:" />
 					<textbox id="txtFacebook" cols="23"
-						placeholder="Ingrese el facebook de contacto. Ej. https://www.facebook.com/SIGAREP" maxlength="140"
-						mold="rounded" width="80%" value="@bind(vm.facebook)" />
+						placeholder="Ingrese el facebook de contacto. Ej. SIGAREP"
+						maxlength="140" mold="rounded" width="80%"
+						value="@bind(vm.facebook)" />
 				</row>
 				<row>
 					<label id="lblDireccion" value="Dirección:" />
