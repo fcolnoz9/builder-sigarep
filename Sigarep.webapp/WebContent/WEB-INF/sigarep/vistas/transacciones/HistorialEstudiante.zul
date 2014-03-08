@@ -57,7 +57,7 @@
 										id="lblFechaNacimiento" />
 									<textbox id="txtFechaNacimiento"
 										cols="23" mold="rounded" width="80%" maxlength="30"
-										readonly="true" value="@bind(vm.estudianteSeleccionado.estudiante.fechaNacimiento)">
+										readonly="true" value="@bind(vm.fechaNacimiento)">
 									</textbox>
 								</row>
 								<row>
@@ -98,7 +98,7 @@
 										id="lblAñoIngreso" />
 									<textbox id="txtAñoIngreso"
 										cols="23" mold="rounded" width="80%" maxlength="30"
-										readonly="true" value="@bind(vm.estudianteSeleccionado.estudiante.anioIngreso)">
+										readonly="true" value="@bind(vm.fechaIngreso)">
 									</textbox>
 								</row>
 							</rows>
