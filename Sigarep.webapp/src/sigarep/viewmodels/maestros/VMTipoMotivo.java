@@ -130,15 +130,24 @@ public class VMTipoMotivo {
     @Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
 	public void guardarTipoMotivo(){
+    	
     	if (nombreTipoMotivo == null || descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
-			TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo, false);
-			serviciotipomotivo.guardarTipoMotivo(tipo);
-			mensajeAlUsuario.informacionRegistroCorrecto();
-			limpiar();
+			
+				if (idTipoMotivo == 1 ||idTipoMotivo == 2 ||idTipoMotivo == 3 ){
+		    		//----------------------"Necesito un msj"
+				} else{
+					TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo, false);
+					serviciotipomotivo.guardarTipoMotivo(tipo);
+					mensajeAlUsuario.informacionRegistroCorrecto();
+					limpiar();
+				}
 		}
+    
 	}
+    
+    
     	
 	/**
 	 * listaTipoMotivo
@@ -155,8 +164,6 @@ public class VMTipoMotivo {
  		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
  	}	
 
- 	
- 	
  	
  	/**
 	 * limpiar
@@ -195,16 +202,18 @@ public class VMTipoMotivo {
   		if (nombreTipoMotivo==null  || descripcion==null ) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
 		} else {
+			
+			
+			if (idTipoMotivo == 1 ||idTipoMotivo == 2 ||idTipoMotivo == 3 ){
+	    		//----------------------"Necesito un msj"
+			} else{
+		
 			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
 					Messagebox.QUESTION,new EventListener<ClickEvent>() {
 				@SuppressWarnings("incomplete-switch")
 				public void onEvent(ClickEvent e) throws Exception {
 					switch (e.getButton()) {
 						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
-							//binder.postCommand("limpiar", null);
 							serviciotipomotivo.eliminarTipoMotivo(getTiposeleccionado().getIdTipoMotivo());
 							mensajeAlUsuario.informacionEliminarCorrecto();
 							binder.postCommand("limpiar", null);
@@ -214,6 +223,10 @@ public class VMTipoMotivo {
 					}
 				}
 			});		
+		
+			}
+		
+		
 		}
 	}
   	
@@ -230,7 +243,7 @@ public class VMTipoMotivo {
     @Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus"})
 	public void mostrarSeleccionado(){
-  
+    	
     	idTipoMotivo= getTiposeleccionado().getIdTipoMotivo();
 		nombreTipoMotivo= getTiposeleccionado().getNombreTipoMotivo();
 		descripcion=getTiposeleccionado().getDescripcion();	
