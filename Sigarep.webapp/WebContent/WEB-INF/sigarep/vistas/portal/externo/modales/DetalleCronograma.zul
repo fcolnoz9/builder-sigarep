@@ -35,10 +35,5 @@
 			<listcell label="@bind(vm.observacion)"></listcell>
 		</listitem>
 	</listbox>
-	<div align="right">
-		<button label="Cerrar" id="btnCerrar"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			mold="trendy" onClick="winDetalleCronograma.onClose()">
-		</button>
-	</div>
+	
 </window>
