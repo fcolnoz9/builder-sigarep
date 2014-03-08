@@ -1,8 +1,6 @@
 <div class="btn-group" align="left">
-	<button label="Inicio"
-		image="/imagenes/portal-principal/home-portal.png"
-		class="btn-primary">
-	</button>
+	<image src="/imagenes/portal-principal/home-portal.png" style="padding-left:10px;"></image>
+	<label style="padding-right:10px;">Inicio</label>
 	<button label="¿Quiénes somos?"
 		image="/imagenes/portal-principal/aboutus-portal.png"
 		class="btn-primary" onClick="@command('modalQuienesSomos')">
