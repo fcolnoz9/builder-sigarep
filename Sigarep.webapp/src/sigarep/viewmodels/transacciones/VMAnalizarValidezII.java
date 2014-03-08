@@ -104,6 +104,8 @@ public class VMAnalizarValidezII {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	@Wire("#winAnalizarValidezII")//para conectarse a la ventana con el ID
+	Window ventana;
 
 	// Metodos setteres y getteres
 	public String getLabelAsignaturaLapsosConsecutivos() {

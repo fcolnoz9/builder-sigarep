@@ -107,6 +107,8 @@ public class VMAnalizarValidezIII {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	@Wire("#winAnalizarValidezIII")//para conectarse a la ventana con el ID
+	Window ventana;
 		
 	// Metodos setteres y getteres	
 	public String getLabelAsignaturaLapsosConsecutivos() {
