@@ -1,4 +1,9 @@
 package sigarep.modelos.data.reportes;
+
+import java.util.Date;
+
+
+
 /** Estudiante Sancionado
  * Reporte Configurable   Estudiante Sancionado
 * UCLA DCYT Sistemas de Informacion.
@@ -21,12 +26,14 @@ public class ListaEspecialEstudiantesSancionadosApelaciones {
 	private String observacion;	
 	private String tipoMotivo;
 	private String descripcion;
+	private String nroSesion;
+	private Date fechaSesion;
 	
 	public ListaEspecialEstudiantesSancionadosApelaciones(String cedulaEstudiante,
 			String primerNombre, String primerApellido, String nombrePrograma,
 			String nombreSancion, String codigoLapso, Integer periodoSancion,
 			String nombreAsignatura, String instanciaApelada, String veredicto,
-			String observacion, String nombreTipoMotivo, String descripcion) {
+			String observacion, String nombreTipoMotivo, String descripcion, String nroSesion, Date fechaSesion) {
 		super();
 		this.cedulaEstudiante = cedulaEstudiante;
 		this.primerNombre = primerNombre;
@@ -41,6 +48,8 @@ public class ListaEspecialEstudiantesSancionadosApelaciones {
 		this.observacion = observacion;
 		this.tipoMotivo = nombreTipoMotivo;
 		this.descripcion = descripcion;
+		this.nroSesion= nroSesion;
+		this.fechaSesion= fechaSesion;
 	}
 	
 	public String getCedulaEstudiante() {
@@ -120,6 +129,22 @@ public class ListaEspecialEstudiantesSancionadosApelaciones {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getNroSesion() {
+		return nroSesion;
+	}
+
+	public void setNroSesion(String nroSesion) {
+		this.nroSesion = nroSesion;
+	}
+
+	public Date getFechaSesion() {
+		return fechaSesion;
+	}
+
+	public void setFechaSesion(Date fechaSesion) {
+		this.fechaSesion = fechaSesion;
 	}
 	
 }
