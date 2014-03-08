@@ -28,7 +28,7 @@
 					<label id="lblTwitter" value="Twitter:" />
 					<textbox id="txtTwitter" cols="23"
 						placeholder="Ingrese el twitter de contacto. Ej. @SIGAREP"
-						maxlength="15" mold="rounded" width="80%"
+						maxlength="140" mold="rounded" width="80%"
 						value="@bind(vm.twitter)" />
 					<label id="lblFacebook" value="Facebook:" />
 					<textbox id="txtFacebook" cols="23"

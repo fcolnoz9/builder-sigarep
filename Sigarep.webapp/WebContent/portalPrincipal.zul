@@ -56,19 +56,19 @@
 					<borderlayout>
 						<west size="55%" border="none">
 							<div class="panel panel-info"
-								height="100%">
-								<div class="panel-heading">
+								height="100%" align="center">
+								<div class="panel-heading" align="left">
 									<label class="label label-warning"
 										style="font-size:12px">
 										Consulta tu estado
 									</label>
 								</div>
-								<vbox align="center">
+								<vbox>
 									<space />
 									<div align="center">
 										<label
 											style="font-size:25px;font-weight:bold;color:Gray">
-											¿Estás Sancionado?
+											¿Estás sancionado?
 										</label>
 									</div>
 									<space />
