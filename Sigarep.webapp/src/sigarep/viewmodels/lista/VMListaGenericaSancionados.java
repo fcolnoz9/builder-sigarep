@@ -24,6 +24,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 
@@ -31,12 +32,20 @@ import org.zkoss.zul.Window;
 
 
 
+
+
+
+
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
+import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
@@ -50,6 +59,7 @@ public class VMListaGenericaSancionados{
 
 	private SolicitudApelacion sancionadoSeleccionado;
 	private EstudianteSancionado estudianteSeleccionado;
+	private Estudiante estudiante;
 	
 	//Servicios para llenar los combos
 	@WireVariable
@@ -66,6 +76,9 @@ public class VMListaGenericaSancionados{
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
+	@WireVariable
+	private ServicioEstudiante servicioestudiante;
+	
 	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 	
 	//private @Wire Combobox cmbVeredicto;
@@ -73,6 +86,7 @@ public class VMListaGenericaSancionados{
 	//Lista que se llena segun la transaccion
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
 	private List<EstudianteSancionado> listaEstudiantes = new LinkedList<EstudianteSancionado>();
+	private List<Estudiante> listaMaestroEstudiantes = new LinkedList<Estudiante>();
 	
 	//Variables para el filtrado por combos o textbox
 	private List<ProgramaAcademico> listaPrograma;
@@ -194,6 +208,15 @@ public class VMListaGenericaSancionados{
 			SolicitudApelacion sancionadoSeleccionado) {
 		this.sancionadoSeleccionado = sancionadoSeleccionado;
 	}
+	
+	public Estudiante getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(
+			Estudiante estudiante) {
+		this.estudiante = estudiante;
+	}
 
 	public List<SolicitudApelacion> getLista() {
 		return lista;
@@ -235,8 +258,15 @@ public class VMListaGenericaSancionados{
     				 @ExecutionArgParam("numeroSesion") String numeroSesion,
     				 @ExecutionArgParam("tipoSesion") String tipoSesion,
     				 @ExecutionArgParam("fechaSesion") Date fechaSesion){
-		Selectors.wireComponents(view, this, false);
-			this.rutaModal=rutaModal;
+		
+		this.rutaModal=rutaModal;
+		if(serviciolapsoacademico.buscarLapsoActivo() == null)
+			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+		
+		//CASO: Registrar Reconsideracion y Recurso Jerarquico
+		//Se valida que no existan apelaciones sin finalizar en la instancia anterior
+		if (validarApelacionesSinFinalizar() && validarApelacionesFinalizadas()){
+			Selectors.wireComponents(view, this, false);
 			if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
@@ -244,16 +274,42 @@ public class VMListaGenericaSancionados{
 				this.tipoSesion = tipoSesion;
 				this.fechaSesion = fechaSesion;
 			}
-			lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-			if(lapsoActivo==null)
-				mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
 			buscarProgramaA ();
 			buscarSancionados();
-
-
-			listaVeredicto= new ListModelList<String>();			
+			listaVeredicto= new ListModelList<String>();	
+		}
     }
 	
+	private boolean validarApelacionesFinalizadas() {
+		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
+				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
+			
+		}
+		return false;
+	}
+
+	//Validacion para determinar si se puede o no registrar un nuevo recurso ante otra instancia
+	//Dependiendo de si quedan apelaciones por procesar en la instancia anterior
+	private boolean validarApelacionesSinFinalizar() {
+		boolean resultado=true;
+		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
+				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
+				if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul")){
+					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
+						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion();
+						resultado = false;
+					}
+				}
+				else{
+					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(2)){
+						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoJerarquico();
+						resultado = false;
+					}
+				}
+		}
+		return resultado;
+	}
+
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
