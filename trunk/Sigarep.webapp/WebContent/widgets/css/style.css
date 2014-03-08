@@ -8,15 +8,9 @@
 .banner {
 	background-color: #275280;
 	color: white;
-	padding: 5px 10px;
 	background-image:
 		url("./../../imagenes/portal-principal/reflejosbanner.png");
 	background-repeat: no-repeat;
-}
-
-.menu-horizontal {
-	background-color: #275280;
-	color: white;
 }
 
 .banner-head {

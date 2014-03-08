@@ -157,6 +157,8 @@ public class VMContacto {
 		if (correoContacto == null || correoContacto.equals("")) {
 			mensajeAlUsuario.advertenciaIngresarCorreo();
 		} else {
+			twitter+="https://www.twitter.com/"+twitter;
+			facebook+="https://www.facebook.com/"+facebook;
 			ContactoSigarep contactoSigarep = new ContactoSigarep(id_contacto,
 					quienesSomos, correoContacto, twitter, facebook,
 					telefonoContacto, direccion);

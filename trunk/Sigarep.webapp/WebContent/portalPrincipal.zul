@@ -14,17 +14,9 @@
 		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
 
 		<!-- Inicio del encabezado y el menú horizontal -->
-		<north size="100px" border="none">
-			<borderlayout>
-				<north size="66px" border="none">
-					<include
-						src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" />
-				</north>
-				<south border="none">
-					<include
-						src="WEB-INF/sigarep/vistas/portal/externo/MenuHorizontal.zul" />
-				</south>
-			</borderlayout>
+		<north size="95px" border="none">
+			<include
+				src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" />
 		</north>
 		<!-- Fin encabezado y menú horizontal -->
 
