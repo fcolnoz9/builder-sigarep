@@ -136,7 +136,7 @@ public class VMTipoMotivo {
 		} else {
 			
 				if (idTipoMotivo == 1 ||idTipoMotivo == 2 ||idTipoMotivo == 3 ){
-		    		//----------------------"Necesito un msj"
+					mensajeAlUsuario.errorNoModificarMotivoGeneral();
 				} else{
 					TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo, false);
 					serviciotipomotivo.guardarTipoMotivo(tipo);
@@ -205,7 +205,7 @@ public class VMTipoMotivo {
 			
 			
 			if (idTipoMotivo == 1 ||idTipoMotivo == 2 ||idTipoMotivo == 3 ){
-	    		//----------------------"Necesito un msj"
+	    		mensajeAlUsuario.errorNoEliminarMotivoGeneral();
 			} else{
 		
 			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
