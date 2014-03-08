@@ -58,9 +58,9 @@
 							style="max-height:100px;max-width:100px;" />
 						<hbox pack="center">
 							<button Label="Agregar" width="auto"
-								height="auto" src="/imagenes/iconos/cargar.png" upload="true"
+								height="auto" src="/imagenes/iconos/agregar.png" upload="true"
 								onUpload="@command('upload', upEvent=event)" />
-							<button Label="Eliminar" width="auto"
+							<button Label="Quitar" width="auto"
 								height="auto" src="/imagenes/iconos/quitar.png"
 								onClick="@command('removeImage')" />
 						</hbox>
