@@ -1,8 +1,8 @@
 <zk>
 
 	<window id="winApelacion"
-		title="Reportes :: Informes :: Informe de Apelación" border="normal"
-		width="auto" height="auto" contentStyle="overflow:auto"
+		title="Reportes :: Informes :: Estructurados :: Informe al Consejo de Decanato" 
+		border="normal"	width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeConsejoDecanato')">
 
