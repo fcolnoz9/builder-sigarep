@@ -295,7 +295,7 @@ public class VMCronograma {
 	@Command
 	@NotifyChange({"listaCronograma"})
 	public void buscarCronograma(){
-		listaCronograma =serviciocronograma.listadoCronograma();
+		listaCronograma =serviciocronograma.buscarTodosCronogramas(lapsoActivo.getCodigoLapso());
 	}
 
 	/**  Se llena la lista de Responsables activos
