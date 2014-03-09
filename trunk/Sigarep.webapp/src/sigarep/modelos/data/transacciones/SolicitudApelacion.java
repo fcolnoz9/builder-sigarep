@@ -7,75 +7,76 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
-
 /**
- * The persistent class for the solicitud_apelacion database table.
+ * Solicitud apelacion relaciona las tablas estudiante sancionado, lapso
+ * academico e instancia ademas de varios atributos propios de la clase
  * 
+ * @author Equipo: Builder-SIGAREP
+ * @version 1.0
+ * @since 07/01/14
  */
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="solicitud_apelacion")
-public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serializable {
+@Table(name = "solicitud_apelacion")
+public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
+		Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private SolicitudApelacionPK id;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_solicitud", nullable=false)
+	@Column(name = "fecha_solicitud", nullable = false)
 	private Date fechaSolicitud;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_sesion")
+	@Column(name = "fecha_sesion")
 	private Date fechaSesion;
 
-	@Column(name="codigo_sesion", length=15)
+	@Column(name = "codigo_sesion", length = 15)
 	private String numeroSesion;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String observacion;
-	
-	@Column(name="numero_caso", length = 60, nullable=true)
+
+	@Column(name = "numero_caso", length = 60, nullable = true)
 	private String numeroCaso;
-	
-	@Column(name="tipo_sesion", nullable=true, length=30)
+
+	@Column(name = "tipo_sesion", nullable = true, length = 30)
 	private String tipoSesion;
-	
-	@Column(name="verificado", nullable=true)
+
+	@Column(name = "verificado", nullable = true)
 	private boolean verificado;
-	
-	@Column(name="analizado", nullable=true)
+
+	@Column(name = "analizado", nullable = true)
 	private boolean analizado;
 
-	//bi-directional many-to-one association to ApelacionEstadoApelacion
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="solicitudApelacion")
+	// bi-directional many-to-one association to ApelacionEstadoApelacion
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "solicitudApelacion")
 	private Set<ApelacionEstadoApelacion> apelacionEstadosApelacion = new HashSet<ApelacionEstadoApelacion>();
 
-	//bi-directional many-to-one association to Motivo
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="solicitudApelacion")
+	// bi-directional many-to-one association to Motivo
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "solicitudApelacion")
 	private Set<Motivo> motivos = new HashSet<Motivo>();
-	
-	@Column(length=60)
+
+	@Column(length = 60)
 	private String veredicto;
 
-	//bi-directional many-to-one association to EstudianteSancionado
-	@ManyToOne(cascade = {CascadeType.ALL})
+	// bi-directional many-to-one association to EstudianteSancionado
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumns({
-		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false)
-		})
+			@JoinColumn(name = "cedula_estudiante", referencedColumnName = "cedula_estudiante", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "codigo_lapso", referencedColumnName = "codigo_lapso", nullable = false, insertable = false, updatable = false) })
 	private EstudianteSancionado estudianteSancionado;
 
-	//bi-directional many-to-one association to InstanciaApelada
+	// bi-directional many-to-one association to InstanciaApelada
 	@ManyToOne
-	@JoinColumn(name="id_instancia_apelada", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name = "id_instancia_apelada", nullable = false, insertable = false, updatable = false)
 	private InstanciaApelada instanciaApelada;
 
 	public SolicitudApelacion() {
@@ -83,6 +84,7 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 		// TODO Auto-generated constructor stub
 	}
 
+	// metodos set y get
 	public SolicitudApelacionPK getId() {
 		return this.id;
 	}
@@ -143,18 +145,21 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 		return this.apelacionEstadosApelacion;
 	}
 
-	public void setApelacionEstadosApelacion(Set<ApelacionEstadoApelacion> apelacionEstadosApelacion) {
+	public void setApelacionEstadosApelacion(
+			Set<ApelacionEstadoApelacion> apelacionEstadosApelacion) {
 		this.apelacionEstadosApelacion = apelacionEstadosApelacion;
 	}
 
-	public ApelacionEstadoApelacion addApelacionEstadosApelacion(ApelacionEstadoApelacion apelacionEstadoApelacion) {
+	public ApelacionEstadoApelacion addApelacionEstadosApelacion(
+			ApelacionEstadoApelacion apelacionEstadoApelacion) {
 		getApelacionEstadosApelacion().add(apelacionEstadoApelacion);
 		apelacionEstadoApelacion.setSolicitudApelacion(this);
 
 		return apelacionEstadoApelacion;
 	}
 
-	public ApelacionEstadoApelacion removeApelacionEstadosApelacion(ApelacionEstadoApelacion apelacionEstadoApelacion) {
+	public ApelacionEstadoApelacion removeApelacionEstadosApelacion(
+			ApelacionEstadoApelacion apelacionEstadoApelacion) {
 		getApelacionEstadosApelacion().remove(apelacionEstadoApelacion);
 		apelacionEstadoApelacion.setSolicitudApelacion(null);
 
@@ -187,7 +192,8 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 		return this.estudianteSancionado;
 	}
 
-	public void setEstudianteSancionado(EstudianteSancionado estudianteSancionado) {
+	public void setEstudianteSancionado(
+			EstudianteSancionado estudianteSancionado) {
 		this.estudianteSancionado = estudianteSancionado;
 	}
 
@@ -204,7 +210,7 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,Serial
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	public String getNumeroCaso() {
 		return numeroCaso;
 	}

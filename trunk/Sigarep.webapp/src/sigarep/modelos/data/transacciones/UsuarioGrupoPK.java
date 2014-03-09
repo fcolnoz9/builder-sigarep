@@ -4,8 +4,11 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * The primary key class for the miembro_grupo database table.
+ * UsuarioGrupoPK relaciona a un usuario con un grupo determinado
  * 
+ * @author Equipo: Builder-SIGAREP
+ * @version 1.0
+ * @since 07/01/14
  */
 @Embeddable
 @Access(AccessType.FIELD)
