@@ -1,7 +1,5 @@
 package sigarep.herramientas;
 
-import java.util.HashMap;
-
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.EventListener;
@@ -14,7 +12,7 @@ import org.zkoss.zul.Messagebox.ClickEvent;
 /*
  * Debe declarar una variable tipo MensajesAlUsuario como estándar mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) en donde usaría los mensajes (su clase viewmodels), 
  * primero importe el paquete herramientas
- * Cuando vaya a usar alguienn mensaje coloca mensajeAlUsuario.NombreDelMetodo();
+ * Cuando vaya a usar algún mensaje coloca mensajeAlUsuario.NombreDelMetodo();
  * por ejemplo: mensajeAlUsuario.advertenciaLlenarCampos();
  * Si necesita alguien otro mensaje agréguelo a esta clase, en orden.
  * por ejemplo: si es de advertencia, debajo del último de advertencia.
@@ -81,9 +79,9 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
-	public void advertenciaDocumentoNOdisponible () {
+	public void advertenciaDocumentoNOdisponible() {
 
-		Messagebox.show("¡No hay documento disponible !", "Advertencia",
+		Messagebox.show("¡No hay documento disponible!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -94,14 +92,12 @@ public class MensajesAlUsuario {
 	}
 
 	public void advertenciaSeleccionarTodo() {
-
-		Messagebox.show("Debe seleccionar todas las opciones.", "Advertencia",
+    Messagebox.show("Debe seleccionar todas las opciones.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaFormatoNoSoportado() {
-
-		Messagebox.show("El formato no es soportado.", "Advertencia",
+     Messagebox.show("El formato no es soportado.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -156,7 +152,7 @@ public class MensajesAlUsuario {
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
-	public void advertenciaContrasennasNoCoinciden() {
+	public void advertenciaContraseñasNoCoinciden() {
 		Messagebox.show("Las contraseñas no coinciden.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
@@ -167,15 +163,12 @@ public class MensajesAlUsuario {
 	}
 
 	public void advertenciaNoExisteEstudianteSancionado() {
-
-		Messagebox
-				.show("Esta cédula no está en la lista de Estudiantes Sancionados.",
+       Messagebox.show("Esta cédula no está en la lista de Estudiantes Sancionados.",
 						"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaGrupoYaExistente(String nombreGrupo) {
-
-		Messagebox.show("¡El grupo con nombre " + nombreGrupo
+        Messagebox.show("¡El grupo con nombre " + nombreGrupo
 				+ " ya se encuentra registrado!.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
@@ -187,22 +180,18 @@ public class MensajesAlUsuario {
 	}
 	
 	public void advertenciaIngresarCorreo() {
-
-		Messagebox.show("¡Debe ingresar un correo!", "Advertencia",
+      Messagebox.show("¡Debe ingresar un correo!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
-
-	}
+     }
 	
 	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
-
-		Messagebox.show("No puede registrar un Recurso Jerárquico.", "Advertencia",
+     Messagebox.show("No puede registrar un Recurso Jerárquico.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 	
 	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
-
-		Messagebox.show("No puede registrar un Recurso de Reconsideración.", "Advertencia",
+      Messagebox.show("No puede registrar un Recurso de Reconsideración.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}

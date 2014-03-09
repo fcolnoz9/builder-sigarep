@@ -455,12 +455,12 @@ public class VMUsuario {
 		}
 		else if(!correo.equals(confirmarcorreo)){
 
-			mensajeAlUsuario.advertenciaContrasennasNoCoinciden();
+			mensajeAlUsuario.advertenciaContraseñasNoCoinciden();
 
 		}
 		else if(!clave.equals(confirmarcontrasenia)){
 
-			mensajeAlUsuario.advertenciaContrasennasNoCoinciden();
+			mensajeAlUsuario.advertenciaContraseñasNoCoinciden();
 		}
 		else if(gruposDelUsuario.size()==0){
 
