@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroEstadoApelacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ListaSolicitudApelacion" uuid="6edb326c-510e-40f8-9838-20b4d4e48924">
+		<field name="estudianteSancionado.estudiante.primerNombre" class="java.lang.String"/>
+		<field name="estudianteSancionado.estudiante.primerApellido" class="java.lang.String"/>
+		<field name="estudianteSancionado.estudiante.cedulaEstudiante" class="java.lang.String"/>
+		<field name="estudianteSancionado.sancionMaestro.nombreSancion" class="java.lang.String"/>
+		<field name="estudianteSancionado.estudiante.programaAcademico.nombrePrograma" class="java.lang.String"/>
+		<variable name="Contador" class="java.lang.Integer" calculation="Count">
+			<variableExpression><![CDATA[$V{Contador}+1]]></variableExpression>
+			<initialValueExpression><![CDATA[1]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<parameter name="ImagenSuperior" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ICON_FOOTER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ICON_LEFT_HEADER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="estado" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<image scaleImage="RealHeight">
+				<reportElement uuid="533041e4-814f-4e94-bf01-782c97c499e2" x="0" y="0" width="572" height="50"/>
+				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="151" splitType="Stretch">
+			<image>
+				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="0" y="0" width="109" height="64"/>
+				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014" x="466" y="0" width="106" height="64"/>
+				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3" x="109" y="64" width="357" height="32"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTUDIANTES EN PROCESO DE APELACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb" x="109" y="0" width="357" height="50"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
+UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
+DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2ef123d2-a6e6-43c2-aa61-817f72c5d2a4" x="151" y="96" width="68" height="32"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d1898db6-2090-4fc2-8369-64da287fb78d" x="219" y="96" width="353" height="32"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<pageFooter>
+		<band height="95" splitType="Stretch">
+			<line>
+				<reportElement uuid="27fdbe67-a73f-41f3-924b-fe5b94e1bf6b" x="0" y="31" width="572" height="1"/>
+			</line>
+			<image>
+				<reportElement uuid="95306347-0c44-4d80-b0bb-925f8fb76ead" x="0" y="45" width="572" height="50"/>
+				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c2ad4f53-1321-43c8-95f8-a2109052e4f4" x="0" y="11" width="137" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b96ee4c8-f9e7-4ee5-8e4f-23887d3826cb" x="137" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21" x="512" y="11" width="58" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="001da192-8390-48cc-915b-a84680c59065" x="418" y="11" width="94" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="61" splitType="Stretch">
+			<elementGroup/>
+			<componentElement>
+				<reportElement uuid="2a5123a8-e37d-4757-abab-70c64c3730d9" key="table 4" style="table 4" x="1" y="11" width="569" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ListaSolicitudApelacion" uuid="d90455a2-cd22-41d0-85c7-4e27a7263373">
+						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="28" uuid="5fd433ea-e01c-45b2-bd2e-fb0dace3be6b">
+						<jr:tableHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="d2ce63a3-0d18-4b7b-b8fe-ea5ea1629562" style="table" mode="Opaque" x="0" y="0" width="28" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[N°]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="a6dca3ac-4f49-4396-922a-4994c772b7c1" x="0" y="0" width="28" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{Contador}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="f55f6297-62f6-41f5-b3aa-44aa1e58d99b">
+						<jr:tableHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5e579ff1-43e6-41d6-99f7-4c739184be4d" style="table" mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cedula]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="d7cda82c-70b9-4162-9223-1b60c9c1859e" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{estudianteSancionado.estudiante.cedulaEstudiante}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1905e7d0-c57e-4d4d-8407-a2b08cafd230">
+						<jr:tableHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="1209318f-e1cc-41ab-9c94-c8d15bbe1d76" style="table" mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nombre]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="2f8003ed-bf61-4a22-940f-49f66a95e6df" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{estudianteSancionado.estudiante.primerNombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="fb6a1711-a40d-43ff-b33a-a61a06ff6ace">
+						<jr:tableHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a4c559c9-c538-4fff-a293-794dd7282bc9" style="table" mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Apellido]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="d716d365-8a19-44db-8d5e-e5bd01de2ce4" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{estudianteSancionado.estudiante.primerApellido}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="936291c0-ab4b-4eaa-9793-1cd762d2317f">
+						<jr:tableHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="9063fac7-3a9c-4fce-bf59-704158f13900" style="table" mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Sanción]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="e3395a50-c76f-4764-9a9f-5455e21b03d2" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{estudianteSancionado.sancionMaestro.nombreSancion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="181" uuid="24c2ba4b-5b03-4cb3-84d1-220f35260a65">
+						<jr:tableHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="e85a185d-9f8d-4dd5-b095-0173db72e4a4" style="table" mode="Opaque" x="0" y="0" width="181" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Programa]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 3_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="a17cd336-fbdf-4be0-8fb6-fb72d6705f0b" x="0" y="0" width="181" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{estudianteSancionado.estudiante.programaAcademico.nombrePrograma}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
