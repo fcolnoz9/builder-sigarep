@@ -128,6 +128,7 @@
 	</parameter>
 	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="estado" class="java.lang.String"/>
+	<parameter name="programa" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -143,7 +144,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="151" splitType="Stretch">
+		<band height="171" splitType="Stretch">
 			<image>
 				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="0" y="0" width="109" height="64"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
@@ -180,6 +181,20 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement uuid="d46aee0e-7f6c-465a-b5d7-b8a194eee1df" x="219" y="128" width="353" height="32"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{programa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d27b2e95-1f68-4f2b-9927-662d72e1a0bc" x="137" y="128" width="82" height="32"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Programa:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
