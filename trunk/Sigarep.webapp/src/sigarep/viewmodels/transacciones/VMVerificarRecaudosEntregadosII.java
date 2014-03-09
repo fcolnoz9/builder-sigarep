@@ -400,8 +400,7 @@ public class VMVerificarRecaudosEntregadosII {
 			@BindingParam("window") Window winVerificarRecaudosII,
 			@BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		if (recaudos.size() == 0) {
-			Messagebox.show("Debe seleccionar al menos un recaudo entregado",
-					"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
 		} else {
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
 			if (getSelected().equals("PROCEDENTE"))
