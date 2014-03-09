@@ -274,7 +274,7 @@ public class VMListaGenericaSancionados{
 		
 		//CASO: Registrar Reconsideracion y Recurso Jerarquico
 		//Se valida que no existan apelaciones sin finalizar en la instancia anterior
-//		if (validarApelacionesSinFinalizar() && validarApelacionesFinalizadas()){
+		//if (validarApelacionesSinFinalizar() && validarApelacionesFinalizadas()){
 			Selectors.wireComponents(view, this, false);
 			if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
@@ -284,45 +284,41 @@ public class VMListaGenericaSancionados{
 				this.fechaSesion = fechaSesion;
 			}
 			buscarProgramaA ();
-			System.out.println(listaMaestroEstudiantes);
 			buscarSancionados();
-			System.out.println(listaMaestroEstudiantes);
-			System.out.println(lista);
-			System.out.println(listaEstudiantes);
 			listaVeredicto= new ListModelList<String>();	
 		
-		}
-//    }
+		//}
+    }
 	
-//	private boolean validarApelacionesFinalizadas() {
-//		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
-//				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
-//			
-//		}
-//		return false;
-//	}
+	private boolean validarApelacionesFinalizadas() {
+		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
+				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
+			
+		}
+		return false;
+	}
 
 	//Validacion para determinar si se puede o no registrar un nuevo recurso ante otra instancia
 	//Dependiendo de si quedan apelaciones por procesar en la instancia anterior
-//	private boolean validarApelacionesSinFinalizar() {
-//		boolean resultado=true;
-//		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
-//				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
-//				if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul")){
-//					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
-//						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion();
-//						resultado = false;
-//					}
-//				}
-//				else{
-//					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(2)){
-//						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoJerarquico();
-//						resultado = false;
-//					}
-//				}
-//		}
-//		return resultado;
-//	}
+	private boolean validarApelacionesSinFinalizar() {
+		boolean resultado=true;
+		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
+				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
+				if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul")){
+					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
+						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion();
+						resultado = false;
+					}
+				}
+				else{
+					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(2)){
+						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoJerarquico();
+						resultado = false;
+					}
+				}
+		}
+		return resultado;
+	}
 
 	@Command
 	@NotifyChange({ "listaPrograma" })
