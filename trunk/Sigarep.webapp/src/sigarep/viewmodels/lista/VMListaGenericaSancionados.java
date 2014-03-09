@@ -107,6 +107,15 @@ public class VMListaGenericaSancionados{
 	private LapsoAcademico lapsoActivo;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
+	
+	public List<Estudiante> getListaMaestroEstudiantes() {
+		return listaMaestroEstudiantes;
+	}
+
+	public void setListaMaestroEstudiantes(List<Estudiante> listaMaestroEstudiantes) {
+		this.listaMaestroEstudiantes = listaMaestroEstudiantes;
+	}
+
 	public EstudianteSancionado getEstudianteSeleccionado() {
 		return estudianteSeleccionado;
 	}
@@ -265,7 +274,7 @@ public class VMListaGenericaSancionados{
 		
 		//CASO: Registrar Reconsideracion y Recurso Jerarquico
 		//Se valida que no existan apelaciones sin finalizar en la instancia anterior
-		if (validarApelacionesSinFinalizar() && validarApelacionesFinalizadas()){
+//		if (validarApelacionesSinFinalizar() && validarApelacionesFinalizadas()){
 			Selectors.wireComponents(view, this, false);
 			if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
@@ -275,40 +284,45 @@ public class VMListaGenericaSancionados{
 				this.fechaSesion = fechaSesion;
 			}
 			buscarProgramaA ();
+			System.out.println(listaMaestroEstudiantes);
 			buscarSancionados();
+			System.out.println(listaMaestroEstudiantes);
+			System.out.println(lista);
+			System.out.println(listaEstudiantes);
 			listaVeredicto= new ListModelList<String>();	
+		
 		}
-    }
+//    }
 	
-	private boolean validarApelacionesFinalizadas() {
-		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
-				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
-			
-		}
-		return false;
-	}
+//	private boolean validarApelacionesFinalizadas() {
+//		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
+//				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
+//			
+//		}
+//		return false;
+//	}
 
 	//Validacion para determinar si se puede o no registrar un nuevo recurso ante otra instancia
 	//Dependiendo de si quedan apelaciones por procesar en la instancia anterior
-	private boolean validarApelacionesSinFinalizar() {
-		boolean resultado=true;
-		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
-				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
-				if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul")){
-					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
-						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion();
-						resultado = false;
-					}
-				}
-				else{
-					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(2)){
-						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoJerarquico();
-						resultado = false;
-					}
-				}
-		}
-		return resultado;
-	}
+//	private boolean validarApelacionesSinFinalizar() {
+//		boolean resultado=true;
+//		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
+//				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
+//				if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul")){
+//					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
+//						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion();
+//						resultado = false;
+//					}
+//				}
+//				else{
+//					if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(2)){
+//						mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoJerarquico();
+//						resultado = false;
+//					}
+//				}
+//		}
+//		return resultado;
+//	}
 
 	@Command
 	@NotifyChange({ "listaPrograma" })
@@ -319,7 +333,7 @@ public class VMListaGenericaSancionados{
 	//Metodo donde se decide cuales sancionados se deben buscar segun la transaccion
 	@Command
 	@GlobalCommand
-	@NotifyChange({"lista","listaEstudiantes"})
+	@NotifyChange({"lista","listaEstudiantes", "listaMaestroEstudiantes"})
 	public void buscarSancionados(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
@@ -348,10 +362,9 @@ public class VMListaGenericaSancionados{
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionados();
 		else if (rutaModal.equalsIgnoreCase("transacciones/HistorialEstudiante.zul"))
-			listaEstudiantes = servicioestudiantesancionado.buscarEstudiante();
+			listaMaestroEstudiantes = servicioestudiante.buscarEstudiante();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
-		
 	}
 	
 	@Command
@@ -360,6 +373,8 @@ public class VMListaGenericaSancionados{
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("sancionadoSeleccionado", sancionadoSeleccionado);
 	 	map.put("estudianteSeleccionado", estudianteSeleccionado);
+	 	map.put("estudiante", estudiante);
+	 	System.out.println("envia"+estudiante);
 	 	map.put("numeroSesion", numeroSesion);
 	 	map.put("tipoSesion", tipoSesion);
 	 	map.put("fechaSesion", fechaSesion);
@@ -371,7 +386,7 @@ public class VMListaGenericaSancionados{
   	}
 	
 	@Command
-	@NotifyChange({"lista","listaEstudiantes","programa","cedula","nombre","apellido","sancion"})
+	@NotifyChange({"lista","listaEstudiantes","programa","cedula","nombre","apellido","sancion", "listaMaestroEstudiantes"})
 	public void filtros(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
 			lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);
@@ -388,7 +403,7 @@ public class VMListaGenericaSancionados{
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul"))
 			listaEstudiantes = servicioestudiantesancionado.filtrarApelacionesRecursoJerarquico(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/HistorialEstudiante.zul"))
-			listaEstudiantes = servicioestudiantesancionado.filtrarEstudiantesHistorial(programa,cedula,nombre,apellido,sancion);
+			listaMaestroEstudiantes = servicioestudiante.filtrarEstudiantesHistorial(programa,cedula,nombre,apellido);
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezI.zul"))
 			lista = serviciosolicitudapelacion.filtrarApelacionesAnalizarValidezI(programa,cedula,nombre,apellido,sancion,lapsoActivo,1);
 		else if (rutaModal.equalsIgnoreCase("transacciones/AnalizarValidezII.zul"))

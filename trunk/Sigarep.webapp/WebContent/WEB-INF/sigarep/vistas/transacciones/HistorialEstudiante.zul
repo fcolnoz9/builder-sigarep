@@ -11,7 +11,7 @@
 			<tabs id="tabs">
 				<tab id="tbDatosBasicos" label="Datos Básicos" />
 				<tab id="tbDatosSancion"
-					label="Datos de las Apelaciones" />
+					label="Datos de las Sanciones" />
 			</tabs>
 			<!-- <tabpanels> Datos Personales,  Académicos y Datos de la Sanción -->
 			<tabpanels>
@@ -51,7 +51,7 @@
 									<label value="Sexo: " id="lblSexo" />
 									<textbox id="txtSexo" cols="23"
 										mold="rounded" width="80%" maxlength="30" readonly="true"
-										value="@bind(vm.estudianteSeleccionado.estudiante.sexo)">
+										value="@bind(vm.estudiante.sexo)">
 									</textbox>
 									<label value="Fecha de Nacimiento: "
 										id="lblFechaNacimiento" />
@@ -65,13 +65,13 @@
 										id="lblTelefono" />
 									<textbox id="txtTelefono" cols="23"
 										mold="rounded" width="80%" maxlength="30" readonly="true"
-										value="@bind(vm.estudianteSeleccionado.estudiante.telefono)">
+										value="@bind(vm.estudiante.telefono)">
 									</textbox>
 									<label value="Email: "
 										id="lblEmail" />
 									<textbox id="txtEmail" cols="23"
 										mold="rounded" width="80%" maxlength="30" readonly="true"
-										value="@bind(vm.estudianteSeleccionado.estudiante.email)">
+										value="@bind(vm.estudiante.email)">
 									</textbox>
 								</row>
 							</rows>
@@ -92,7 +92,7 @@
 										id="lblProgramaAcademico" />
 									<textbox id="txtProgramaAcademico"
 										cols="23" mold="rounded" width="80%" maxlength="30"
-										readonly="true" value="@bind(vm.estudianteSeleccionado.estudiante.programaAcademico.nombrePrograma)">
+										readonly="true" value="@bind(vm.estudiante.programaAcademico.nombrePrograma)">
 									</textbox>
 									<label value="Año de Ingreso: "
 										id="lblAñoIngreso" />
@@ -118,25 +118,22 @@
 							selectedItem="@bind(vm.apelacionseleccionada)">
 							<listhead>
 								<listheader label="Lapso de la Sanción"
-									 width="11%" align="center">
+									 width="14%" align="center">
 								</listheader>
 								<listheader label="Tipo de Sanción"
-									width="11%" align="center">
+									width="14%" align="center">
 								</listheader>
 								<listheader label="Indice de Grado"
-									width="11%" align="center">
+									width="14%" align="center">
 								</listheader>
 								<listheader label="Unidades Aprobadas"
-									width="11%" align="center">
+									width="14%" align="center">
 								</listheader>
 								<listheader label="Unidades cursadas"
-									width="11%" align="center">
+									width="14%" align="center">
 								</listheader>
 								<listheader label="Asignatura(s)"
 									align="center" sort="auto(asignaturaLapsosConsecutivos)">
-								</listheader>
-								<listheader label="Motivos de Apelación"
-									align="center" sort="auto(motivosEstudiante)">
 								</listheader>
 							</listhead>
 							<template name="model">
@@ -160,12 +157,6 @@
 										<textbox cols="23" rows="2"
 											maxlength="300" mold="rounded" readonly="true" width="70%"
 											value="@bind(vm.asignaturaLapsosConsecutivos)">
-										</textbox>
-									</listcell>
-									<listcell>
-										<textbox cols="23" rows="2"
-											maxlength="300" mold="rounded" readonly="true" width="70%"
-											value="@bind(vm.motivosEstudiante)">
 										</textbox>
 									</listcell>
 								</listitem>

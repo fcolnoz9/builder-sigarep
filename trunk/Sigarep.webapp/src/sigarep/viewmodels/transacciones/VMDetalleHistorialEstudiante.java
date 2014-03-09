@@ -27,6 +27,7 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 
 /**
  * DetalleHistorialEstudiante 
@@ -46,24 +47,46 @@ public class VMDetalleHistorialEstudiante {
 	private String nombreSancion;
 	private String apellidoEstudiante;
 	private Integer instancia;
+	private String motivosEstudiante = "";
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	@WireVariable
+	private ServicioMotivo serviciomotivo;
 	private List<ApelacionEstadoApelacion> apelacionestudiante  = new LinkedList<ApelacionEstadoApelacion>(); 
 	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia2  = new LinkedList<ApelacionEstadoApelacion>(); 
 	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia3  = new LinkedList<ApelacionEstadoApelacion>(); 
 	private SolicitudApelacion apelacionseleccionada;
 	private List<EstudianteSancionado> estudiante = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> apelacion = new LinkedList<SolicitudApelacion>();
+	private List<String> motivos;
 	// Para llamar a los diferentes mensajes de dialogo
 		MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	
 	// Metodos get y set
+		
+	
 
 	public Integer getInstancia() {
 		return instancia;
+	}
+
+	public String getCodigoLapso() {
+		return codigoLapso;
+	}
+
+	public void setCodigoLapso(String codigoLapso) {
+		this.codigoLapso = codigoLapso;
+	}
+
+	public String getMotivosEstudiante() {
+		return motivosEstudiante;
+	}
+
+	public void setMotivosEstudiante(String motivosEstudiante) {
+		this.motivosEstudiante = motivosEstudiante;
 	}
 
 	public List<EstudianteSancionado> getEstudiante() {
@@ -203,6 +226,7 @@ public class VMDetalleHistorialEstudiante {
 		buscarSolicitudInstancia2(cedula, codigoLapso, instancia);
 		buscarSolicitudInstancia3(cedula, codigoLapso, instancia);
 		buscarEstudiante(cedula);
+		buscarMotivos();
 		
 		if (apelacionestudiante.size() != 0) {
 		lapso = apelacionestudiante.get(0).getSolicitudApelacion().getId().getCodigoLapso();
@@ -264,5 +288,15 @@ public class VMDetalleHistorialEstudiante {
 		boolean condicion = true;
         mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
+
+	@Command
+	public void buscarMotivos() {
+			motivos = serviciomotivo.buscarMotivosApelacion(cedula, codigoLapso);
+			if (motivos != null)
+				for (int i = 0; i < motivos.size(); i++)
+					motivosEstudiante += motivos.get(i)
+							+ ", ";
+		}
+	
 
 }

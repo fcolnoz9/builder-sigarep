@@ -20,6 +20,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
@@ -27,6 +28,7 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 
+import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
@@ -55,7 +57,6 @@ public class VMHistorialEstudiante {
 	private String apellidos;
 	private String nombreAsignatura;
 	private String asignaturaLapsosConsecutivos = "";
-	private String motivosEstudiante = "";
 	private String labelAsignaturaLapsosConsecutivos;
 	private List<TipoMotivo> listaTipoMotivo;
 	private String cedula;
@@ -66,22 +67,31 @@ public class VMHistorialEstudiante {
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	private ServicioEstudiante servicioestudiante;
 	@WireVariable
-	private ServicioMotivo serviciomotivo;
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	private List<ListaHistorialEstudianteVeredicto> listaVeredicto = new LinkedList<ListaHistorialEstudianteVeredicto>();
 	private List<ApelacionEstadoApelacion> apelacionestudiante = new LinkedList<ApelacionEstadoApelacion>();
 	private List<EstudianteSancionado> apelacion = new LinkedList<EstudianteSancionado>();
+
 	private List<AsignaturaEstudianteSancionado> asignaturas;
-	private List<String> motivos;
 	private EstudianteSancionado estudianteSeleccionado;
+	private Estudiante estudiante;
 	// Para llamar a los diferentes mensajes de dialogo
 			MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private String fechaIngreso;
 	private String fechaNacimiento;
 			
+
+	public Estudiante getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(Estudiante estudiante) {
+		this.estudiante = estudiante;
+	}
 
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
@@ -99,15 +109,6 @@ public class VMHistorialEstudiante {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public String getMotivosEstudiante() {
-		return motivosEstudiante;
-	}
-
-	public void setMotivosEstudiante(String motivosEstudiante) {
-		this.motivosEstudiante = motivosEstudiante;
-	}
-
-
 	public EstudianteSancionado getEstudianteSeleccionado() {
 		return estudianteSeleccionado;
 	}
@@ -115,14 +116,6 @@ public class VMHistorialEstudiante {
 	public void setEstudianteSeleccionado(
 			EstudianteSancionado estudianteSeleccionado) {
 		this.estudianteSeleccionado = estudianteSeleccionado;
-	}
-
-	public List<String> getMotivos() {
-		return motivos;
-	}
-
-	public void setMotivos(List<String> motivos) {
-		this.motivos = motivos;
 	}
 
 	public String getAsignaturaLapsosConsecutivos() {
@@ -302,29 +295,30 @@ public class VMHistorialEstudiante {
 	public void init(
 
 	@ContextParam(ContextType.VIEW) Component view,
-	@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1)
+	@ExecutionArgParam("estudiante") Estudiante v1)
 
 	{
 		Selectors.wireComponents(view, this, false);
-		this.estudianteSeleccionado = v1;
-		cedula = estudianteSeleccionado.getId().getCedulaEstudiante();
-		codigoLapso = estudianteSeleccionado.getId().getCodigoLapso();
-		nombre = estudianteSeleccionado.getEstudiante().getPrimerNombre();
-		segundoNombre = estudianteSeleccionado.getEstudiante().getSegundoNombre();
-		apellido = estudianteSeleccionado.getEstudiante().getPrimerApellido();
+		this.estudiante = v1;
+		System.out.println("recibe"+estudiante);
+		cedula = estudiante.getCedulaEstudiante();
+	
+		nombre = estudiante.getPrimerNombre();
+		segundoNombre = estudiante.getSegundoNombre();
+		apellido = estudiante.getPrimerApellido();
+		segundoApellido = estudiante.getSegundoApellido();
 		concatenacionNombres();
 		concatenacionApellidos();
 		buscarApelacion(cedula);
 		buscarAsignaturas();
-		buscarMotivos();
-		
-		String fecha = estudianteSeleccionado.getEstudiante().getAnioIngreso().toString();
+	
+		String fecha = estudiante.getAnioIngreso().toString();
 		String separador = " ";
 	if( !fecha.equals("")){
         String[] palabraArray = fecha.split(separador);
 		fechaIngreso = palabraArray[0];
 	}
-		String fecha1 = estudianteSeleccionado.getEstudiante().getFechaNacimiento().toString();
+		String fecha1 = estudiante.getFechaNacimiento().toString();
 		String separador1 = " ";
 	if( !fecha1.equals("")){
 		String[] palabraArray1 = fecha1.split(separador1);
@@ -354,15 +348,6 @@ public class VMHistorialEstudiante {
 							+ ", ";
 		}
 	}
-	
-	@Command
-	public void buscarMotivos() {
-			motivos = serviciomotivo.buscarMotivosApelacion(cedula, codigoLapso);
-			if (motivos != null)
-				for (int i = 0; i < motivos.size(); i++)
-					motivosEstudiante += motivos.get(i)
-							+ ", ";
-		}
 	
 
 	@Command
