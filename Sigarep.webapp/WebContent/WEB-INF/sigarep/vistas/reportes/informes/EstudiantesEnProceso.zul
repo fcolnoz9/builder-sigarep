@@ -1,0 +1,87 @@
+<window title="Reportes :: Informes :: Especiales :: Estudiantes En Proceso de Apelación"
+	border="normal" width="auto" height="auto" closable="true" id="winEstudiantesEnProceso">
+
+
+	<vlayout apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMestudiantesEnProceso')">
+
+		<groupbox id="grbParametros" visible="true">
+			<caption id="lblParametros" label="Seleccionar" />
+			<div>
+<!-- 				<label id="dateFechaInicio" value="Desde" /> -->
+<!-- 				<datebox id="dateDesde" mold="rounded" value="@bind(vm.desde)" -->
+<!-- 					placeholder="Seleccione una fecha..."> -->
+<!-- 				</datebox> -->
+<!-- 				<label id="dateFechaHasta" value="Hasta" /> -->
+<!-- 				<datebox id="dateHasta" mold="rounded" value="@bind(vm.hasta)" -->
+<!-- 					placeholder="Seleccione una fecha..."> -->
+<!-- 				</datebox> -->
+<!-- 				<label id="lblPrograma" value="Programa" /> -->
+<!-- 				<combobox id="cmbPrograma" mold="rounded" -->
+<!-- 					readonly="true" model="@load(vm.listaPrograma)" -->
+<!-- 					selectedItem="@bind(vm.objPrograma)" -->
+<!-- 					onSelect="@command('objCmbPrograma')" placeholder="Seleccione un programa académico..."> -->
+<!-- 					<template name="model"> -->
+<!-- 						<comboitem label="${each.nombrePrograma}" /> -->
+<!-- 					</template> -->
+<!-- 				</combobox> -->
+				
+<!-- 				<label id="lblSanciones" value="Tipo Sancion" /> -->
+<!-- 				<combobox id="cmbTipoSancion" mold="rounded" -->
+<!-- 					readonly="true" model="@load(vm.listaTipoSancion)" -->
+<!-- 					selectedItem="@bind(vm.objSancion)" width="100px" -->
+<!-- 					onSelect="@command('objCmbSancion')" placeholder="Seleccione tipo de sanción..."> -->
+<!-- 					<template name="model"> -->
+<!-- 						<comboitem label="${each.nombreSancion}" /> -->
+<!-- 					</template> -->
+<!-- 				</combobox> -->
+
+				<label id="lblEstadoApelacion" value="Estado Apelacion" />
+				<combobox id="cmbEstadoApelacion" mold="rounded"
+					readonly="true" model="@load(vm.listaEstadoApelacion)"
+					selectedItem="@bind(vm.objEstadoApelacion)"
+					onSelect="@command('objCmbEstadoApelacion')" placeholder="Seleccione Estado...">
+					<template name="model">
+						<comboitem label="${each.nombreEstado}" />
+					</template>
+				</combobox>
+				
+				Elija el Tipo de Archivo :
+				<listbox id="format" mold="select"
+					model="@load(vm.reportTypesModel)"
+					selectedItem="@bind(vm.reportType)">
+					<template name="model">
+						<listitem value="@load(each)"
+							label="@load(each.label)">
+						</listitem>
+					</template>
+				</listbox>
+			</div>
+		</groupbox>
+
+	<div align="right" height="100%">
+			<button id="btnImprimir" width="auto" height="auto"
+				label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy"
+				
+				onClick="@command('GenerarReporteEstudiantesEnProceso')">
+
+			</button>
+			<button id="btnLimpiar" width="auto" height="auto"
+				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('limpiar')">
+			</button>
+			<button id="btnCerrar" width="auto" height="auto"
+				label="Cerrar" image="/imagenes/iconos/cerrar.png"
+				onClick="@command('cerrarVentana')">
+			</button>
+		</div>
+
+		<jasperreport id="report" height="620px"
+			src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesEnProceso')"
+			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesEnProceso')"
+			type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesEnProceso')"
+			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesEnProceso')" />
+
+
+	
+	</vlayout>
+</window>
