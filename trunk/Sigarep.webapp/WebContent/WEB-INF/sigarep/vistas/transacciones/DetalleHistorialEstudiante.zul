@@ -60,7 +60,7 @@
 		<!-- Fin Datos del estudiante permanentemente visibles-->
 		<separator />
 		<groupbox id="grdDatosMotivos">
-			<caption label="Motivos de Apelación" />
+			<caption label="Datos de la Apelación" />
 			<grid id="grdDatosSesion1">
 				<columns>
 					<column label="" width="20%" id="columna01" />
@@ -70,6 +70,11 @@
 				</columns>
 				<rows>
 					<row>
+						<label value="Número de caso: " id="lbCaso" />
+						<textbox id="txtcaso" cols="23" mold="rounded"
+							width="80%" maxlength="30" readonly="true"
+							value="@bind(vm.caso)">
+						</textbox>
 						<label value="Motivos: " id="lblMotivo" />
 						<textbox id="txtMotivos" cols="23"
 							mold="rounded" width="80%" maxlength="255" readonly="true"

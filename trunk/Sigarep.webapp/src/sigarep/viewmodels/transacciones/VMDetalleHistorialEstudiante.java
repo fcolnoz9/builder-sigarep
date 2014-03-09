@@ -48,6 +48,7 @@ public class VMDetalleHistorialEstudiante {
 	private String apellidoEstudiante;
 	private Integer instancia;
 	private String motivosEstudiante = "";
+	private String caso;
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
@@ -64,13 +65,18 @@ public class VMDetalleHistorialEstudiante {
 	// Para llamar a los diferentes mensajes de dialogo
 		MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	
 	// Metodos get y set
-		
-	
 
 	public Integer getInstancia() {
 		return instancia;
+	}
+
+	public String getCaso() {
+		return caso;
+	}
+
+	public void setCaso(String caso) {
+		this.caso = caso;
 	}
 
 	public String getCodigoLapso() {
@@ -158,9 +164,6 @@ public class VMDetalleHistorialEstudiante {
 	public void setLapso(String lapso) {
 		this.lapso = lapso;
 	}
-			
- // fin de metodos get y set
-	
 
 	public String getApellidoEstudiante() {
 		return apellidoEstudiante;
@@ -185,6 +188,10 @@ public class VMDetalleHistorialEstudiante {
 	public void setNombreSancion(String nombreSancion) {
 		this.nombreSancion = nombreSancion;
 	}
+	
+	
+// fin de metodos get y set
+
 
 	@Command
 	@NotifyChange({ "apelacionestudiante" })
@@ -235,6 +242,7 @@ public class VMDetalleHistorialEstudiante {
 		apellidoEstudiante = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getEstudiante().getPrimerApellido();
 		nombreSancion = apelacionestudiante.get(0).getSolicitudApelacion().getEstudianteSancionado().getSancionMaestro().getNombreSancion();
 		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
+		caso = apelacionestudiante.get(0).getSolicitudApelacion().getNumeroCaso();
 	}
 		else {
 		cedula = estudiante.get(0).getId().getCedulaEstudiante();
