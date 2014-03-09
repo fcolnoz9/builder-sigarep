@@ -192,6 +192,20 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
+	
+	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
+
+		Messagebox.show("No puede registrar un Recurso Jerárquico.", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
+	
+	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
+
+		Messagebox.show("No puede registrar un Recurso de Reconsideración.", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
 
