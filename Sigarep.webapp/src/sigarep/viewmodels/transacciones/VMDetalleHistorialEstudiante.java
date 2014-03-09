@@ -274,6 +274,8 @@ public class VMDetalleHistorialEstudiante {
 		map.put("estudiante", this.estudiante);
 		map.put("cedula", this.cedula);
 		map.put("codigoLapso", this.codigoLapso);
+		map.put("motivosEstudiante", this.motivosEstudiante);
+		map.put("caso", this.caso);
 		final Window window = (Window) Executions
 				.createComponents(
 						"/WEB-INF/sigarep/vistas/reportes/Informes/Historialestudiante.zul",

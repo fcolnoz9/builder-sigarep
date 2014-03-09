@@ -1,6 +1,5 @@
 package sigarep.viewmodels.reportes;
 
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,9 +31,10 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+
 /**
- * DetalleHistorialEstudiante 
- * UCLA DCYT Sistemas de Informacion.
+ * DetalleHistorialEstudiante UCLA DCYT Sistemas de Informacion.
+ * 
  * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
  * @since 23/01/14
@@ -49,45 +49,61 @@ public class VMDetalleHistorialEstudiante {
 	private String nombreSancion;
 	private String apellidoEstudiante;
 	private Integer instancia;
+	private String motivosEstudiante;
+	private String caso;
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
-	private List<ApelacionEstadoApelacion> apelacionestudiante  = new LinkedList<ApelacionEstadoApelacion>(); 
-	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia2  = new LinkedList<ApelacionEstadoApelacion>(); 
-	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia3  = new LinkedList<ApelacionEstadoApelacion>(); 
+	private List<ApelacionEstadoApelacion> apelacionestudiante = new LinkedList<ApelacionEstadoApelacion>();
+	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia2 = new LinkedList<ApelacionEstadoApelacion>();
+	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia3 = new LinkedList<ApelacionEstadoApelacion>();
 	private SolicitudApelacion apelacionseleccionada;
 	private List<EstudianteSancionado> estudiante = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> apelacion = new LinkedList<SolicitudApelacion>();
-	
-	// Para llamar a los diferentes mensajes de dialogo
-		MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-		ReportType reportType = null;
-		private ReportConfig reportConfig = null;
-		
-		String ruta="/WEB-INF/sigarepReportes/informes/RHistorialEstudiante.jasper";
+	// Para llamar a los diferentes mensajes de dialogo
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+
+	String ruta = "/WEB-INF/sigarepReportes/informes/RHistorialEstudiante.jasper";
 
 	// Metodos get y set
-		
 
-		public ReportConfig getReportConfig() {
-			return reportConfig;
-		}
+	public ReportConfig getReportConfig() {
+		return reportConfig;
+	}
 
-		public ReportType getReportType() {
-			return reportType;
-		}
+	public String getCaso() {
+		return caso;
+	}
 
-		public void setReportType(ReportType reportType) {
-			this.reportType = reportType;
-		}
+	public void setCaso(String caso) {
+		this.caso = caso;
+	}
+
+	public String getMotivosEstudiante() {
+		return motivosEstudiante;
+	}
+
+	public void setMotivosEstudiante(String motivosEstudiante) {
+		this.motivosEstudiante = motivosEstudiante;
+	}
+
+	public ReportType getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(ReportType reportType) {
+		this.reportType = reportType;
+	}
 
 	public Integer getInstancia() {
 		return instancia;
 	}
 
-	
 	public List<EstudianteSancionado> getEstudiante() {
 		return estudiante;
 	}
@@ -117,9 +133,7 @@ public class VMDetalleHistorialEstudiante {
 			List<ApelacionEstadoApelacion> apelacionestudianteinstancia3) {
 		this.apelacionestudianteinstancia3 = apelacionestudianteinstancia3;
 	}
-	
-	
-	
+
 	public List<ApelacionEstadoApelacion> getApelacionestudiante() {
 		return apelacionestudiante;
 	}
@@ -133,7 +147,8 @@ public class VMDetalleHistorialEstudiante {
 		return apelacionseleccionada;
 	}
 
-	public void setApelacionseleccionada(SolicitudApelacion apelacionseleccionada) {
+	public void setApelacionseleccionada(
+			SolicitudApelacion apelacionseleccionada) {
 		this.apelacionseleccionada = apelacionseleccionada;
 	}
 
@@ -152,6 +167,7 @@ public class VMDetalleHistorialEstudiante {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
+
 	public String getCodigoLapso() {
 		return codigoLapso;
 	}
@@ -159,9 +175,6 @@ public class VMDetalleHistorialEstudiante {
 	public void setCodigoLapso(String codigoLapso) {
 		this.codigoLapso = codigoLapso;
 	}
-			
- // fin de metodos get y set
-	
 
 	public String getApellidoEstudiante() {
 		return apellidoEstudiante;
@@ -187,85 +200,105 @@ public class VMDetalleHistorialEstudiante {
 		this.nombreSancion = nombreSancion;
 	}
 
+	// fin de metodos get y set
+
 	@Command
 	@NotifyChange({ "apelacionestudiante" })
-	public void buscarSolicitud(String cedula, String codigoLapso, Integer instancia) {
+	public void buscarSolicitud(String cedula, String codigoLapso,
+			Integer instancia) {
 		instancia = 1;
-		apelacionestudiante = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
+		apelacionestudiante = servicioapelacionestadoapelacion
+				.buscarApelacionHistorial(cedula, codigoLapso, instancia);
 	}
+
 	@Command
 	@NotifyChange({ "apelacionestudianteinstancia2" })
-	public void buscarSolicitudInstancia2(String cedula, String codigoLapso, Integer instancia) {
+	public void buscarSolicitudInstancia2(String cedula, String codigoLapso,
+			Integer instancia) {
 		instancia = 2;
-		apelacionestudianteinstancia2 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);
+		apelacionestudianteinstancia2 = servicioapelacionestadoapelacion
+				.buscarApelacionHistorial(cedula, codigoLapso, instancia);
 	}
+
 	@Command
 	@NotifyChange({ "apelacionestudianteinstancia3" })
-	public void buscarSolicitudInstancia3(String cedula, String codigoLapso, Integer instancia) {
+	public void buscarSolicitudInstancia3(String cedula, String codigoLapso,
+			Integer instancia) {
 		instancia = 3;
-		apelacionestudianteinstancia3 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
+		apelacionestudianteinstancia3 = servicioapelacionestadoapelacion
+				.buscarApelacionHistorial(cedula, codigoLapso, instancia);
 	}
-	
+
 	@Command
 	@NotifyChange({ "estudiante" })
 	public void buscarEstudiante(String cedula) {
 		estudiante = servicioestudiantesancionado.buscarApelacion(cedula);
 	}
-		
-		@Command("GenerarReporteHistorial")
-		@NotifyChange({ "reportConfig" })
-		public void generarReporte() {
 
-			reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
+	@Command("GenerarReporteHistorial")
+	@NotifyChange({ "reportConfig" })
+	public void generarReporte() {
+
+		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA
+												// AL
 												// REPORTE
-			reportConfig.getParameters().put("Titulo", "Historial de Estudiante");
-			reportConfig.getParameters().put("codigoLapso", codigoLapso);
-			reportConfig.getParameters().put("cedula", cedula);
-			reportConfig.getParameters().put("nombre", estudiante.get(0).getEstudiante().getPrimerNombre());
-			reportConfig.getParameters().put("apellido", estudiante.get(0).getEstudiante().getPrimerApellido());
-			for (int i = 0; i < apelacionestudiante.size(); i++) {
-				String sugerencia = apelacionestudiante.get(i).getSugerencia();
-				if (sugerencia == null){
-				 apelacionestudiante.get(i).setSugerencia("-----");
-					}
-				}
-			for (int i = 0; i < apelacionestudianteinstancia2.size(); i++) {
-				String sugerencia = apelacionestudianteinstancia2.get(i).getSugerencia();
-				if (sugerencia == null){
-				 apelacionestudianteinstancia2.get(i).setSugerencia("-----");
-					}
-				}
-			for (int i = 0; i < apelacionestudianteinstancia3.size(); i++) {
-				String sugerencia = apelacionestudianteinstancia3.get(i).getSugerencia();
-				if (sugerencia == null){
-				 apelacionestudianteinstancia3.get(i).setSugerencia("-----");
-					}
-				}
-			reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-					apelacionestudiante));
-			reportConfig.getParameters().put("ListaInstancia2", new JRBeanCollectionDataSource(
-					apelacionestudianteinstancia2));
-			reportConfig.getParameters().put("ListaInstancia3", new JRBeanCollectionDataSource(
-					apelacionestudianteinstancia3));
-			reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-//											// IMPRESION DEL REPORTE
+		reportConfig.getParameters().put("Titulo", "Historial de Estudiante");
+		reportConfig.getParameters().put("codigoLapso", codigoLapso);
+		reportConfig.getParameters().put("cedula", cedula);
+		reportConfig.getParameters()
+				.put("motivosEstudiante", motivosEstudiante);
+		reportConfig.getParameters().put("caso", caso);
+		reportConfig.getParameters().put("nombre",
+				estudiante.get(0).getEstudiante().getPrimerNombre());
+		reportConfig.getParameters().put("apellido",
+				estudiante.get(0).getEstudiante().getPrimerApellido());
+		for (int i = 0; i < apelacionestudiante.size(); i++) {
+			String sugerencia = apelacionestudiante.get(i).getSugerencia();
+			if (sugerencia == null) {
+				apelacionestudiante.get(i).setSugerencia("-----");
+			}
 		}
+		for (int i = 0; i < apelacionestudianteinstancia2.size(); i++) {
+			String sugerencia = apelacionestudianteinstancia2.get(i)
+					.getSugerencia();
+			if (sugerencia == null) {
+				apelacionestudianteinstancia2.get(i).setSugerencia("-----");
+			}
+		}
+		for (int i = 0; i < apelacionestudianteinstancia3.size(); i++) {
+			String sugerencia = apelacionestudianteinstancia3.get(i)
+					.getSugerencia();
+			if (sugerencia == null) {
+				apelacionestudianteinstancia3.get(i).setSugerencia("-----");
+			}
+		}
+		reportConfig.getParameters().put("Lista",
+				new JRBeanCollectionDataSource(apelacionestudiante));
+		reportConfig.getParameters().put("ListaInstancia2",
+				new JRBeanCollectionDataSource(apelacionestudianteinstancia2));
+		reportConfig.getParameters().put("ListaInstancia3",
+				new JRBeanCollectionDataSource(apelacionestudianteinstancia3));
+		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
+		// // IMPRESION DEL REPORTE
+	}
+
 	@Init
 	public void init(
 
-	@ContextParam(ContextType.VIEW) Component view,
+			@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("apelacionestudiante") List<ApelacionEstadoApelacion> v3,
 			@ExecutionArgParam("apelacionestudianteinstancia2") List<ApelacionEstadoApelacion> v4,
 			@ExecutionArgParam("apelacionestudianteinstancia3") List<ApelacionEstadoApelacion> v5,
 			@ExecutionArgParam("apelacion") List<SolicitudApelacion> v1,
 			@ExecutionArgParam("estudiante") List<EstudianteSancionado> v2,
 			@ExecutionArgParam("cedula") String v6,
-			@ExecutionArgParam("codigoLapso") String v7
-			)
+			@ExecutionArgParam("codigoLapso") String v7,
+			@ExecutionArgParam("motivosEstudiante") String v8,
+			@ExecutionArgParam("caso") String v9)
 
 	// initialization code
 	{
-	
+
 		Selectors.wireComponents(view, this, false);
 
 		this.apelacionestudiante = v3;
@@ -275,7 +308,7 @@ public class VMDetalleHistorialEstudiante {
 		this.estudiante = v2;
 		this.cedula = v6;
 		this.codigoLapso = v7;
-		}
+		this.motivosEstudiante = v8;
+		this.caso = v9;
 	}
-
-
+}
