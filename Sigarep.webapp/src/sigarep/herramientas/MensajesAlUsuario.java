@@ -172,14 +172,18 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
      }
 	
-	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
-     Messagebox.show("¡No puede registrar un Recurso Jerárquico!", "Advertencia",
+	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
+
+		Messagebox.show("¡No puede registrar Recursos de Reconsideracion! No ha finalizado el proceso "
+				+ "de apelacion anterior.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 	
-	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
-      Messagebox.show("¡No puede registrar un Recurso de Reconsideración!", "Advertencia",
+	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
+
+		Messagebox.show("¡No puede registrar Recursos Jerárquicos!. No ha finalizado el proceso "
+				+ "de apelacion anterior.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
