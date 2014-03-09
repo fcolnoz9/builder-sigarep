@@ -23,59 +23,51 @@ public class MensajesAlUsuario {
 
 	/*-------------------------------------------Mensajes de Advertencia-----------------------------------*/
 	public void advertenciaLlenarCampos() {
-
-		Messagebox.show("¡Debe llenar todos los campos!", "Advertencia",
+      Messagebox.show("¡Debe llenar todos los campos!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 
 	public void advertenciaIngresarCedula() {
-
-		Messagebox.show("¡Debe ingresar una cédula!", "Advertencia",
+      Messagebox.show("¡Debe ingresar una cédula!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 
 	public void advertenciaMenudelGrupoVacio() {
-
-		Messagebox.show("¡Debe agregar al menos una función al menú del grupo!",
+      Messagebox.show("¡Debe agregar al menos una función al menú del grupo!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaSeleccionarGrupoUsuario() {
-
-		Messagebox.show("Debe seleccionar al menos un grupo.", "Advertencia",
+      Messagebox.show("¡Debe seleccionar al menos un grupo!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaSeleccionarOpcion() {
-		Messagebox.show("Debe seleccionar alguna opción para continuar.",
+		Messagebox.show("¡Debe seleccionar alguna opción para continuar!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaCargarImagen() {
-
-		Messagebox.show("¡Debe Cargar una Imagen!", "Advertencia",
+        Messagebox.show("¡Debe Cargar una Imagen!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaTamannoImagen(int pesoKB) {
-
-		Messagebox.show("Debe seleccionar una imagen con tamaño menor a "
-				+ pesoKB + " Kbytes.", "Advertencia", Messagebox.OK,
+       Messagebox.show("¡Debe seleccionar una imagen con tamaño menor a "
+				+ pesoKB + " Kbytes!", "Advertencia", Messagebox.OK,
 				Messagebox.EXCLAMATION);
 	}
 	
 	public void advertenciaTamannoArchivo(int pesoKB) {
-
-		Messagebox.show("Debe seleccionar un archivo con tamaño menor a "
-				+ pesoKB + " Kbytes.", "Advertencia", Messagebox.OK,
+		Messagebox.show("¡Debe seleccionar un archivo con tamaño menor a "
+				+ pesoKB + " Kbytes!", "Advertencia", Messagebox.OK,
 				Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaCargarDocumento() {
-
-		Messagebox.show("¡Debe Cargar un Documento!", "Advertencia",
+      Messagebox.show("¡Debe Cargar un Documento!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
@@ -87,45 +79,43 @@ public class MensajesAlUsuario {
 
 	public void advertenciaSeleccionarParaEliminar() {
 
-		Messagebox.show("Debe seleccionar un registro para eliminarlo.",
+		Messagebox.show("¡Debe seleccionar un registro para eliminarlo!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaSeleccionarTodo() {
-    Messagebox.show("Debe seleccionar todas las opciones.", "Advertencia",
+    Messagebox.show("¡Debe seleccionar todas las opciones!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaFormatoNoSoportado() {
-     Messagebox.show("El formato no es soportado.", "Advertencia",
+     Messagebox.show("¡El formato no es soportado!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaGuardarVeredicto() {
 
-		Messagebox.show("Debe especificar un veredicto para este caso.",
+		Messagebox.show("¡Debe especificar un veredicto para este caso!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaSeleccionarAlMenosUnRecaudoEntregado() {
-
-		Messagebox.show("Debe seleccionar al menos un recaudo entregado.",
+        Messagebox.show("¡Debe seleccionar al menos un recaudo entregado!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaSeleccionarSugerencia() {
-
-		Messagebox.show("Debe seleccionar una sugerencia del caso.",
+       Messagebox.show("¡Debe seleccionar una sugerencia del caso!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaAgregarMotivo() {
-		Messagebox.show("Debe agregar un motivo al caso.", "Advertencia",
+		Messagebox.show("¡Debe agregar un motivo al caso!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaAgregarObservacionGeneral() {
-		Messagebox.show("Debe agregar una observación general del caso.",
+		Messagebox.show("¡Debe agregar una observación general del caso!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -136,45 +126,43 @@ public class MensajesAlUsuario {
 	}
 
 	public void advertenciaSeleccionarDestinoRespaldo() {
-
-		Messagebox.show("Debe seleccionar el destino para el respaldo.",
+		Messagebox.show("¡Debe seleccionar el destino para el respaldo!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	 public void advertenciaSeleccionarUbicacionRestauracion() {
-	
-	 Messagebox.show("Debe seleccionar la ubicación de origen de su archivo backup.",
+	 Messagebox.show("¡Debe seleccionar la ubicación de origen de su archivo backup!",
 	 "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	 }
 
 	public void advertenciaEscribirNombreDeRespaldo() {
-		Messagebox.show("Debe escribir el nombre del archivo de respaldo.",
+		Messagebox.show("¡Debe escribir el nombre del archivo de respaldo!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaContraseñasNoCoinciden() {
-		Messagebox.show("Las contraseñas no coinciden.", "Advertencia",
+		Messagebox.show("¡Las contraseñas no coinciden!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaCorreosNoCoinciden() {
-		Messagebox.show("Los correos no coinciden.", "Advertencia",
+		Messagebox.show("¡Los correos no coinciden!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaNoExisteEstudianteSancionado() {
-       Messagebox.show("Esta cédula no está en la lista de Estudiantes Sancionados.",
+       Messagebox.show("¡Esta cédula no está en la lista de Estudiantes Sancionados!",
 						"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
 	public void advertenciaGrupoYaExistente(String nombreGrupo) {
         Messagebox.show("¡El grupo con nombre " + nombreGrupo
-				+ " ya se encuentra registrado!.", "Advertencia",
+				+ " ya se encuentra registrado!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
 	public void advertenciaIngresarAsignatura() {
-        Messagebox.show("Debe ingresar  al menos una asignatura.",
+        Messagebox.show("¡Debe ingresar  al menos una asignatura!",
 				"Advertencia", Messagebox.OK,
 				Messagebox.EXCLAMATION);
 	}
@@ -185,13 +173,13 @@ public class MensajesAlUsuario {
      }
 	
 	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
-     Messagebox.show("No puede registrar un Recurso Jerárquico.", "Advertencia",
+     Messagebox.show("¡No puede registrar un Recurso Jerárquico!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 	
 	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
-      Messagebox.show("No puede registrar un Recurso de Reconsideración.", "Advertencia",
+      Messagebox.show("¡No puede registrar un Recurso de Reconsideración!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
