@@ -8,18 +8,18 @@ import sigarep.modelos.data.maestros.Persona;
 
 import java.util.Date;
 
-
 /**
- * The persistent class for the instancia_miembro database table.
+ * Instancia Miembro, relaciona la persona con una instancia y agrega atributos a esta clase
  * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.1
+ * @since 10/02/14
  */
 @Entity
-@Table(name="instancia_miembro")
+@Table(name = "instancia_miembro")
 @AssociationOverrides({
-	@AssociationOverride(name = "id.instancia_apelada", 
-		joinColumns = @JoinColumn(name = "id_instancia_apelada")),
-	@AssociationOverride(name = "id.cedula_persona", 
-		joinColumns = @JoinColumn(name = "cedula_persona"))})
+		@AssociationOverride(name = "id.instancia_apelada", joinColumns = @JoinColumn(name = "id_instancia_apelada")),
+		@AssociationOverride(name = "id.cedula_persona", joinColumns = @JoinColumn(name = "cedula_persona")) })
 public class InstanciaMiembro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,26 +31,27 @@ public class InstanciaMiembro implements Serializable {
 	private Boolean estatus;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_entrada")
+	@Column(name = "fecha_entrada")
 	private Date fechaEntrada;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_salida")
+	@Column(name = "fecha_salida")
 	private Date fechaSalida;
 
-	//bi-directional many-to-one association to InstanciaApelada
+	// bi-directional many-to-one association to InstanciaApelada
 	@ManyToOne
-	@JoinColumn(name="id_instancia_apelada",insertable=false, updatable=false)
+	@JoinColumn(name = "id_instancia_apelada", insertable = false, updatable = false)
 	private InstanciaApelada instanciaApelada;
 
-	//bi-directional many-to-one association to Persona
+	// bi-directional many-to-one association to Persona
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="cedula_persona",insertable=false, updatable=false)
+	@JoinColumn(name = "cedula_persona", insertable = false, updatable = false)
 	private Persona persona;
 
 	public InstanciaMiembro() {
 	}
 
+	// metodos set y get
 	public InstanciaMiembroPK getId() {
 		return this.id;
 	}

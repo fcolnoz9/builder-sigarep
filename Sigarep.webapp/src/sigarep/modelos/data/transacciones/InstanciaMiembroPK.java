@@ -4,8 +4,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * The primary key class for the instancia_miembro database table.
- * 
+ * Instancia Miembro, relaciona la persona con una instancia 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.1
+ * @since 10/02/14
  */
 @Embeddable
 public class InstanciaMiembroPK implements Serializable {

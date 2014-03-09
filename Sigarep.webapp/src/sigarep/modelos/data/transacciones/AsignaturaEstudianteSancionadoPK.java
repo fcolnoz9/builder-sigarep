@@ -4,13 +4,17 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * The primary key class for the asignatura_estudiante_sancionado database table.
+ * Clase Asignatura estudiante sancionado, trae los objetos de esta clase compuesta por
+ * varias claves principales y la relacion con distintas tablas
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 03/01/2014
  */
 @Embeddable
 @Access(AccessType.FIELD)
 public class AsignaturaEstudianteSancionadoPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	//declaracion por defecto de id, requerida para las clases serializables.
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="codigo_lapso", unique=false, nullable=false, length=6)
@@ -24,6 +28,8 @@ public class AsignaturaEstudianteSancionadoPK implements Serializable {
 
 	public AsignaturaEstudianteSancionadoPK() {
 	}
+	
+	//metodos set y get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}

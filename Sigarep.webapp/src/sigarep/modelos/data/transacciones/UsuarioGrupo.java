@@ -19,8 +19,11 @@ import sigarep.modelos.data.seguridad.Usuario;
 
 
 /**
- * The persistent class for the usuario_grupo database table.
+ * UsuarioGrupo relaciona a un usuario con un grupo determinado y asocia atributos propios de la clase
  * 
+ * @author Equipo: Builder-SIGAREP
+ * @version 1.0
+ * @since 07/01/14
  */
 @Entity
 @Access(AccessType.FIELD)

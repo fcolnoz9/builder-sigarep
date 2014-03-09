@@ -2,6 +2,13 @@ package sigarep.modelos.data.transacciones;
 
 import java.util.Date;
 
+/**
+ * Lista momento
+ * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.1
+ * @since 10/02/14
+ */
 public class ListaMomento {
 
 	private Date fecha;
@@ -9,8 +16,16 @@ public class ListaMomento {
 	private String observacion;
 	private String estatus;
 
-	public ListaMomento(Date fecha, String nombreEstado,
-			String observacion) {
+	/**
+	 * Constructor Momento.
+	 * 
+	 * @param fecha
+	 *            , nombreEstado, observacion
+	 * @return Constructor lleno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	public ListaMomento(Date fecha, String nombreEstado, String observacion) {
 		super();
 		this.fecha = fecha;
 		this.nombreEstado = nombreEstado;

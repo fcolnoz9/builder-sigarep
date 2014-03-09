@@ -7,56 +7,55 @@ import sigarep.modelos.data.maestros.EstadoApelacion;
 
 import java.util.Date;
 
-
 /**
- * The persistent class for the apelacion_estado_apelacion database table.
+ * Clase Apelacion Apelacion, trae los objetos de esta clase compuesta por
+ * varias claves foraneas y atributos propios de la clase
  * 
+ * @author BUILDER
+ * @version 1
+ * @since 03/01/2014
  */
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="apelacion_estado_apelacion")
+@Table(name = "apelacion_estado_apelacion")
 @AssociationOverrides({
-	@AssociationOverride(name = "id.estado_apelacion", 
-		joinColumns = @JoinColumn(name = "id_estado_apelacion")),
-	@AssociationOverride(name = "id.solicitud_apelacion", 
-		joinColumns = @JoinColumn(name = "codigo_lapso")),
-	@AssociationOverride(name = "id.solicitud_apelacion", 
-		joinColumns = @JoinColumn(name = "cedula_estudiante")),
-	@AssociationOverride(name = "id.solicitud_apelacion", 
-		joinColumns = @JoinColumn(name = "id_instancia_apelada"))})
+		@AssociationOverride(name = "id.estado_apelacion", joinColumns = @JoinColumn(name = "id_estado_apelacion")),
+		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "codigo_lapso")),
+		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "cedula_estudiante")),
+		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "id_instancia_apelada")) })
 public class ApelacionEstadoApelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private ApelacionEstadoApelacionPK id;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_estado", nullable=false)
+	@Column(name = "fecha_estado", nullable = false)
 	private Date fechaEstado;
-	
-	@Column(name="observacion", nullable=true, length = 255)
+
+	@Column(name = "observacion", nullable = true, length = 255)
 	private String observacion;
-	
-	@Column(name="sugerencia", nullable=true, length = 30)
+
+	@Column(name = "sugerencia", nullable = true, length = 30)
 	private String sugerencia;
 
-	//bi-directional many-to-one association to EstadoApelacion
+	// bi-directional many-to-one association to EstadoApelacion
 	@ManyToOne
-	@JoinColumn(name="id_estado_apelacion", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name = "id_estado_apelacion", nullable = false, insertable = false, updatable = false)
 	private EstadoApelacion estadoApelacion;
 
-	//bi-directional many-to-one association to SolicitudApelacion
+	// bi-directional many-to-one association to SolicitudApelacion
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
-		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="id_instancia_apelada", referencedColumnName="id_instancia_apelada", nullable=false, insertable=false, updatable=false)
-		})
+			@JoinColumn(name = "cedula_estudiante", referencedColumnName = "cedula_estudiante", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "codigo_lapso", referencedColumnName = "codigo_lapso", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "id_instancia_apelada", referencedColumnName = "id_instancia_apelada", nullable = false, insertable = false, updatable = false) })
 	private SolicitudApelacion solicitudApelacion;
 
 	public ApelacionEstadoApelacion() {
 	}
 
+	// Metodos set y get
 	public ApelacionEstadoApelacionPK getId() {
 		return this.id;
 	}

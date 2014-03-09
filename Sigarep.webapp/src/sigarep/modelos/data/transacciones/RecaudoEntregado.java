@@ -5,14 +5,17 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.maestros.Recaudo;
 
-
 /**
- * The persistent class for the recaudo_entregado database table.
+ * Recaudo Entregado registra los recaudos estregado por un estudiante en un
+ * momento dado
  * 
+ * @author Equipo: Builder-SIGAREP
+ * @version 1.0
+ * @since 07/01/14
  */
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="recaudo_entregado")
+@Table(name = "recaudo_entregado")
 public class RecaudoEntregado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,30 +23,39 @@ public class RecaudoEntregado implements Serializable {
 	@EmbeddedId
 	private RecaudoEntregadoPK id;
 
-	@Column(nullable=false) Boolean estatus;
+	@Column(nullable = false)
+	Boolean estatus;
 
-	@Column(name="observacion_experto", length=255)
+	@Column(name = "observacion_experto", length = 255)
 	private String observacionExperto;
 
-	//bi-directional many-to-one association to Motivo
+	// bi-directional many-to-one association to Motivo
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
-		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="id_instancia_apelada", referencedColumnName="id_instancia_apelada", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="id_tipo_motivo", referencedColumnName="id_tipo_motivo", nullable=false, insertable=false, updatable=false)
-	})	
+			@JoinColumn(name = "cedula_estudiante", referencedColumnName = "cedula_estudiante", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "codigo_lapso", referencedColumnName = "codigo_lapso", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "id_instancia_apelada", referencedColumnName = "id_instancia_apelada", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "id_tipo_motivo", referencedColumnName = "id_tipo_motivo", nullable = false, insertable = false, updatable = false) })
 	private Motivo motivo;
 
-	//bi-directional many-to-one association to Recaudo
+	// bi-directional many-to-one association to Recaudo
 	@ManyToOne
-	@JoinColumn(name="id_recaudo", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name = "id_recaudo", nullable = false, insertable = false, updatable = false)
 	private Recaudo recaudo;
 
-	//bi-directional one-to-one association to Soporte
-	@OneToOne(mappedBy="recaudoEntregado")
+	// bi-directional one-to-one association to Soporte
+	@OneToOne(mappedBy = "recaudoEntregado")
 	private Soporte soporte;
-	
+
+	/**
+	 * Constructor RecaudoEntregado
+	 * 
+	 * @param id
+	 *            , estatus, observacionExperto
+	 * @return Constructor lleno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	public RecaudoEntregado(RecaudoEntregadoPK id, Boolean estatus,
 			String observacionExperto) {
 		super();

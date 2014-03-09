@@ -9,8 +9,10 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the soporte database table.
- * 
+ * Soporte
+ * @author Equipo: Builder-SIGAREP
+ * @version 1.0
+ * @since 07/01/14
  */
 @Entity
 @Access(AccessType.FIELD)

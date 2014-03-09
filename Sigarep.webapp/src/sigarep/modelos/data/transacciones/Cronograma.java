@@ -9,19 +9,18 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 
 import java.sql.Time;
 import java.util.Date;
-/**Cronograma de Actividades - Planificar
- * UCLA DCYT Sistemas de Informacion.
+
+/**
+ * Cronograma de Actividades - Planificar UCLA DCYT Sistemas de Informacion.
+ * 
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14
  */
-/**
- * The persistent class for the cronograma database table.
- * 
- */
+
 @Entity
 @Access(AccessType.FIELD)
-@Table(name="cronograma")
+@Table(name = "cronograma")
 public class Cronograma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,33 +28,39 @@ public class Cronograma implements Serializable {
 	@EmbeddedId
 	private CronogramaPK id;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Boolean estatus;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_fin", nullable=false)
+	@Column(name = "fecha_fin", nullable = false)
 	private Date fechaFin;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_inicio", nullable=false)
+	@Column(name = "fecha_inicio", nullable = false)
 	private Date fechaInicio;
 
-	@Column(name="hora_inicio", nullable=false)
+	@Column(name = "hora_inicio", nullable = false)
 	private Time horaInicio;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String lugar;
 
-	@Column(nullable=true, length=255)
+	@Column(nullable = true, length = 255)
 	private String observacion;
-	
-	/** Constructor Cronograma.
-	* @param id,estatus,fechaFin,fechaInicio,horaInicio,lugar,observacion,responsable
-	* @return Constructor lleno
-	* @throws No dispara ninguna excepcion.
-	*/
+
+	/**
+	 * Constructor Cronograma.
+	 * 
+	 * @param id
+	 *            ,estatus,fechaFin,fechaInicio,horaInicio,lugar,observacion,
+	 *            responsable
+	 * @return Constructor lleno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	public Cronograma(CronogramaPK id, Boolean estatus, Date fechaFin,
-			Date fechaInicio, Time horaInicio, String lugar, String observacion, InstanciaApelada responsable) {
+			Date fechaInicio, Time horaInicio, String lugar,
+			String observacion, InstanciaApelada responsable) {
 		super();
 		this.id = id;
 		this.estatus = estatus;
@@ -64,22 +69,22 @@ public class Cronograma implements Serializable {
 		this.horaInicio = horaInicio;
 		this.lugar = lugar;
 		this.observacion = observacion;
-		this.responsable =  responsable;
+		this.responsable = responsable;
 	}
 
-	//bi-directional many-to-one association to Actividad
+	// bi-directional many-to-one association to Actividad
 	@ManyToOne
-	@JoinColumn(name="id_actividad", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name = "id_actividad", nullable = false, insertable = false, updatable = false)
 	private Actividad actividad;
 
-	//bi-directional many-to-one association to LapsoAcademico
+	// bi-directional many-to-one association to LapsoAcademico
 	@ManyToOne
-	@JoinColumn(name="codigo_lapso", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name = "codigo_lapso", nullable = false, insertable = false, updatable = false)
 	private LapsoAcademico lapsoAcademico;
-	
-	//bi-directional many-to-one association to InstanciaApelada
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="id_instancia_apelada", nullable=true)
+
+	// bi-directional many-to-one association to InstanciaApelada
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "id_instancia_apelada", nullable = true)
 	private InstanciaApelada responsable;
 
 	public Cronograma() {

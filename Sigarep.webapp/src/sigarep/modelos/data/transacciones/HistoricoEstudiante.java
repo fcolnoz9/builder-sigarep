@@ -2,6 +2,14 @@ package sigarep.modelos.data.transacciones;
 
 import java.util.Date;
 
+/**
+ * historico estudiante , trae los objetos de esta clase compuesta por varias
+ * claves principales y atributos propios
+ * 
+ * @author BUILDER
+ * @version 1
+ * @since 03/01/2014
+ */
 public class HistoricoEstudiante {
 
 	private String cedula;
@@ -17,6 +25,14 @@ public class HistoricoEstudiante {
 	private String descripcionMotivo;
 	private Date fecha;
 
+	/**
+	 * Constructor historico estudiante
+	 * 
+	 * @paramcedula, programa, nombre, apellido, lapso_academico,tipo_sancion,
+	 *               periodo_inicial, periodo_final, materia, numeroCaso, fecha,
+	 *               motivo
+	 * @return Constructor lleno
+	 */
 	public HistoricoEstudiante(String cedula, String programa, String nombre,
 			String apellido, String lapso_academico, String tipo_sancion,
 			String periodo_inicial, String periodo_final, String materia,
@@ -36,10 +52,12 @@ public class HistoricoEstudiante {
 		this.descripcionMotivo = motivo;
 	}
 
+	// constructor por defecto
 	public HistoricoEstudiante() {
 
 	}
 
+	// metodos set y get
 	public String getNombre() {
 		return nombre;
 	}

@@ -3,6 +3,13 @@ package sigarep.modelos.data.transacciones;
 import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Lista cronograma
+ * 
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 1.1
+ * @since 10/02/14
+ */
 public class ListaCronograma {
 
 	private String nombre;
@@ -13,6 +20,16 @@ public class ListaCronograma {
 	private String observacion;
 	private String lugar;
 
+	/**
+	 * Constructor Lista Cronograma.
+	 * 
+	 * @param nombre
+	 *            , descripcion, fecha_inicio, fecha_fin, hora_inicio,
+	 *            observacion, lugar
+	 * @return Constructor lleno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	public ListaCronograma(String nombre, String descripcion,
 			Date fecha_inicio, Date fecha_fin, Time hora_inicio,
 			String observacion, String lugar) {
@@ -26,6 +43,7 @@ public class ListaCronograma {
 		this.lugar = lugar;
 	}
 
+	//metodos set y get
 	public String getNombre() {
 		return nombre;
 	}
@@ -33,8 +51,6 @@ public class ListaCronograma {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	
 
 	public String getObservacion() {
 		return observacion;
@@ -83,7 +99,5 @@ public class ListaCronograma {
 	public void setHora_inicio(Time hora_inicio) {
 		this.hora_inicio = hora_inicio;
 	}
-
-	
 
 }
