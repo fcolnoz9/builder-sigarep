@@ -55,7 +55,7 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
  */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMestudiantesEnProceso {
+public class VMestudiantesEnProcesoApelacion {
 	// ***********************************DECLARACION DE LAS VARIABLES
 	// SERVICIOS*************************
 	@WireVariable
@@ -88,22 +88,20 @@ public class VMestudiantesEnProceso {
 	private List<SancionMaestro> listaTipoSancion;
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private List<EstadoApelacion> listaEstadoApelacion;
-	// private List<LapsoAcademico> listaLapso;
 	private List<EstudiantesEnProceso> estudiantesEnProceso = new LinkedList<EstudiantesEnProceso>();
 	private List<SolicitudApelacion> listaSA = new LinkedList<SolicitudApelacion>();
 	private List<EstudianteSancionado> listaES = new LinkedList<EstudianteSancionado>();
+	private List<EstudianteSancionado> lista1 = new LinkedList<EstudianteSancionado>();
+	private List<SolicitudApelacion> lista2 = new LinkedList<SolicitudApelacion>();
 
 	// ***********************************DECLARACION DE LAS VARIABLES TIPO
 	// OBJETO*************************
-	private SancionMaestro objSancion;
 	private ProgramaAcademico objPrograma;
 	private EstadoApelacion objEstadoApelacion;
 	private LapsoAcademico lapsoActivo;
 
-	private Date desde;
-	private Date hasta;
 	// *********************************Mensajes***************************************
-	@Wire("#winApelacionesPorMotivo")
+	@Wire("#winEstudiantesEnProceso")
 	// para conectarse a la ventana con el ID
 	Window ventana;
 
@@ -127,7 +125,6 @@ public class VMestudiantesEnProceso {
 	@Init
 	public void init() {
 		buscarPrograma();
-		buscarTipoSancion();
 		buscarEstadoApelacion();
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 
@@ -145,11 +142,8 @@ public class VMestudiantesEnProceso {
 	@NotifyChange({ "listaPrograma" })
 	public void buscarPrograma() {
 		listaPrograma = servicioprogramaacademico.listadoProgramas();
-		/*
-		 * ProgramaAcademico prog = new ProgramaAcademico(null, "Todos", null);
-		 * 
-		 * listaPrograma.add(0, prog);
-		 */
+		ProgramaAcademico prog = new ProgramaAcademico(0, "Todos", true);
+		listaPrograma.add(0, prog);
 	}
 
 	/**
@@ -169,37 +163,6 @@ public class VMestudiantesEnProceso {
 	}
 
 	/**
-	 * buscar Sanción
-	 * 
-	 * @param
-	 * @return lista de sanción
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaTipoSancion" })
-	public void buscarTipoSancion() {
-		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
-		SancionMaestro sanc = new SancionMaestro(null, null, null, "Todos");
-		listaTipoSancion.add(0, sanc);
-	}
-
-	/**
-	 * Objeto Combo Sanción.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Sanción
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaTipoSancion" })
-	public SancionMaestro objCmbSancion() {
-		return objSancion;
-
-	}
-
-	/**
 	 * buscar Estado Apelacion
 	 * 
 	 * @param
@@ -210,25 +173,29 @@ public class VMestudiantesEnProceso {
 	@Command
 	@NotifyChange({ "listaEstadoApelacion" })
 	public void buscarEstadoApelacion() {
-		listaEstadoApelacion = servicioestadoapelacion.listadoEstadoApelacionActivas();
+		listaEstadoApelacion = servicioestadoapelacion
+				.listadoEstadoApelacionActivas();
 
-
-		for (int i = 0; i<listaEstadoApelacion.size(); i++) {
-			int instancia = listaEstadoApelacion.get(i).getInstanciaApelada().getIdInstanciaApelada();
+		for (int i = 0; i < listaEstadoApelacion.size(); i++) {
+			int instancia = listaEstadoApelacion.get(i).getInstanciaApelada()
+					.getIdInstanciaApelada();
 			switch (instancia) {
 			case 1:
-				listaEstadoApelacion.get(i).setNombreEstado(listaEstadoApelacion.get(i).getNombreEstado() + " I");
+				listaEstadoApelacion.get(i).setNombreEstado(
+						listaEstadoApelacion.get(i).getNombreEstado() + " I");
 				break;
 			case 2:
-				listaEstadoApelacion.get(i).setNombreEstado(listaEstadoApelacion.get(i).getNombreEstado() + " II");
+				listaEstadoApelacion.get(i).setNombreEstado(
+						listaEstadoApelacion.get(i).getNombreEstado() + " II");
 				break;
 			case 3:
-				listaEstadoApelacion.get(i).setNombreEstado(listaEstadoApelacion.get(i).getNombreEstado() + " III");
+				listaEstadoApelacion.get(i).setNombreEstado(
+						listaEstadoApelacion.get(i).getNombreEstado() + " III");
 				break;
 			default:
 				break;
 			}
-			
+
 		}
 	}
 
@@ -300,18 +267,26 @@ public class VMestudiantesEnProceso {
 	public List<EstudiantesEnProceso> getestudiantesEnProceso() {
 		return estudiantesEnProceso;
 	}
+	
+	public List<SolicitudApelacion> getListaSA() {
+		return listaSA;
+	}
+
+	public void setListaSA(List<SolicitudApelacion> listaSA) {
+		this.listaSA = listaSA;
+	}
+
+	public List<EstudianteSancionado> getListaES() {
+		return listaES;
+	}
+
+	public void setListaES(List<EstudianteSancionado> listaES) {
+		this.listaES = listaES;
+	}
 
 	public void setestudiantesEnProceso(
 			List<EstudiantesEnProceso> estudiantesEnProceso) {
 		this.estudiantesEnProceso = estudiantesEnProceso;
-	}
-
-	public SancionMaestro getObjSancion() {
-		return objSancion;
-	}
-
-	public void setObjSancion(SancionMaestro objSancion) {
-		this.objSancion = objSancion;
 	}
 
 	public ProgramaAcademico getObjPrograma() {
@@ -363,40 +338,41 @@ public class VMestudiantesEnProceso {
 	@NotifyChange({ "reportConfig" })
 	public void GenerarReporte() {
 
-		estudiantesEnProceso.clear();
-		ProgramaAcademico prog = objPrograma;
-		// LapsoAcademico lap = objLapso;
+		listaES.clear();
+		lista1.clear();
+		listaSA.clear();
+		lista2.clear();
 
-		if (objEstadoApelacion == null) {
+		if (objEstadoApelacion == null || objPrograma == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
-
-			// listaES.get(0).getEstudiante().getCedulaEstudiante();
-			// listaES.get(0).getEstudiante().getPrimerNombre();
-			// listaES.get(0).getEstudiante().getPrimerApellido();
-			// listaES.get(0).getSancionMaestro().getNombreSancion();
-			// listaES.get(0).getEstudiante().getProgramaAcademico().getNombrePrograma();
-			//
-			//
-			// listaSA.get(0).getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
-			// listaSA.get(0).getEstudianteSancionado().getEstudiante().getPrimerNombre();
-			// listaSA.get(0).getEstudianteSancionado().getEstudiante().getPrimerApellido();
-			// listaSA.get(0).getEstudianteSancionado().getSancionMaestro().getNombreSancion();
-			// listaSA.get(0).getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
 
 			switch (objEstadoApelacion.getIdEstadoApelacion()) {
 			case (1):
 				// Registro de Apelacion Inicial - Estado = 1
 				listaES = servicioestudiantesancionado.buscarSancionados();
 
-				if (listaES.size() > 0) {
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista1.addAll(listaES);
+				} else {
+					for (int i = 0; i < listaES.size(); i++) {
+						if (listaES.get(i).getEstudiante()
+								.getProgramaAcademico().getIdPrograma() == objPrograma
+								.getIdPrograma())
+							lista1.add(listaES.get(i));
+					}
+				}
+
+				if (lista1.size() > 0) {
 					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaES));
+							new JRBeanCollectionDataSource(lista1));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -409,14 +385,27 @@ public class VMestudiantesEnProceso {
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVerificarRecaudosI(lapsoActivo, 1);
 
-				if (listaSA.size() > 0) {
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -428,14 +417,28 @@ public class VMestudiantesEnProceso {
 				// Analizar validez de Recaudos I - Estado = 3
 				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezI(
 						lapsoActivo, 1);
-				if (listaSA.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -447,14 +450,28 @@ public class VMestudiantesEnProceso {
 				// Veredicto del Caso I - Estado = 4
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoI();
-				if (listaSA.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -466,14 +483,28 @@ public class VMestudiantesEnProceso {
 				// Registro de Recurso de Reconsideración - Estado = 5
 				listaES = servicioestudiantesancionado
 						.buscarSancionadosReconsideracion();
-				if (listaES.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista1.addAll(listaES);
+				} else {
+					for (int i = 0; i < listaES.size(); i++) {
+						if (listaES.get(i).getEstudiante()
+								.getProgramaAcademico().getIdPrograma() == objPrograma
+								.getIdPrograma())
+							lista1.add(listaES.get(i));
+					}
+				}
+
+				if (lista1.size() > 0) {
 					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaES));
+							new JRBeanCollectionDataSource(lista1));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -485,14 +516,27 @@ public class VMestudiantesEnProceso {
 				// Verificación de Recuados II - Estado = 6
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVerificarRecaudosII(lapsoActivo, 2);
-				if (listaSA.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -504,14 +548,28 @@ public class VMestudiantesEnProceso {
 				// Analizar validez de Recaudos II - Estado = 7
 				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezII(
 						lapsoActivo, 2);
-				if (listaSA.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -523,14 +581,28 @@ public class VMestudiantesEnProceso {
 				// Veredicto del Caso II - Estado = 8
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoII();
-				if (listaSA.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -542,14 +614,28 @@ public class VMestudiantesEnProceso {
 				// Registro de Recurso Jerárquico - Estado = 9
 				listaES = servicioestudiantesancionado
 						.buscarSancionadosRecursoJerarquico();
-				if (listaES.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista1.addAll(listaES);
+				} else {
+					for (int i = 0; i < listaES.size(); i++) {
+						if (listaES.get(i).getEstudiante()
+								.getProgramaAcademico().getIdPrograma() == objPrograma
+								.getIdPrograma())
+							lista1.add(listaES.get(i));
+					}
+				}
+
+				if (lista1.size() > 0) {
 					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaES));
+							new JRBeanCollectionDataSource(lista1));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -561,14 +647,28 @@ public class VMestudiantesEnProceso {
 				// Verificación de Recaudos III - Estado = 10
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVerificarRecaudosIII(lapsoActivo, 3);
-				if (listaSA.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -580,14 +680,28 @@ public class VMestudiantesEnProceso {
 				// Analizar validez de Recaudos III - Estado = 11
 				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezIII(
 						lapsoActivo, 3);
-				if (listaSA.size() > 0) {
+
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -599,14 +713,26 @@ public class VMestudiantesEnProceso {
 				// Veredicto del caso III - Estado = 12
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoIII();
-				if (listaSA.size() > 0) {
+				if (objPrograma.getNombrePrograma() == "Todos") {
+					lista2.addAll(listaSA);
+				} else {
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma() == objPrograma.getIdPrograma())
+							lista2.add(listaSA.get(i));
+					}
+				}
+				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("programa",
+							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(listaSA));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -622,11 +748,8 @@ public class VMestudiantesEnProceso {
 	}
 
 	@Command
-	@NotifyChange({ "objInstanciaApelada", "objSancion", "objPrograma",
-			"objEstadoApelacion" })
+	@NotifyChange({ "objPrograma", "objEstadoApelacion" })
 	public void limpiar() {
-		// objLapso= null;
-		objSancion = null;
 		objPrograma = null;
 		objEstadoApelacion = null;
 
@@ -651,38 +774,6 @@ public class VMestudiantesEnProceso {
 						}
 					}
 				});
-	}
-
-	public Date getDesde() {
-		return desde;
-	}
-
-	public void setDesde(Date desde) {
-		this.desde = desde;
-	}
-
-	public Date getHasta() {
-		return hasta;
-	}
-
-	public void setHasta(Date hasta) {
-		this.hasta = hasta;
-	}
-
-	public List<SolicitudApelacion> getListaSA() {
-		return listaSA;
-	}
-
-	public void setListaSA(List<SolicitudApelacion> listaSA) {
-		this.listaSA = listaSA;
-	}
-
-	public List<EstudianteSancionado> getListaES() {
-		return listaES;
-	}
-
-	public void setListaES(List<EstudianteSancionado> listaES) {
-		this.listaES = listaES;
 	}
 
 }

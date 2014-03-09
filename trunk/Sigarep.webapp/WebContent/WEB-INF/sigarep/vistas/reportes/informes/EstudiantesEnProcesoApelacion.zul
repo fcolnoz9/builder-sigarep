@@ -3,7 +3,7 @@
 
 
 	<vlayout apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMestudiantesEnProceso')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMestudiantesEnProcesoApelacion')">
 
 		<groupbox id="grbParametros" visible="true">
 			<caption id="lblParametros" label="Seleccionar" />
@@ -16,15 +16,15 @@
 <!-- 				<datebox id="dateHasta" mold="rounded" value="@bind(vm.hasta)" -->
 <!-- 					placeholder="Seleccione una fecha..."> -->
 <!-- 				</datebox> -->
-<!-- 				<label id="lblPrograma" value="Programa" /> -->
-<!-- 				<combobox id="cmbPrograma" mold="rounded" -->
-<!-- 					readonly="true" model="@load(vm.listaPrograma)" -->
-<!-- 					selectedItem="@bind(vm.objPrograma)" -->
-<!-- 					onSelect="@command('objCmbPrograma')" placeholder="Seleccione un programa académico..."> -->
-<!-- 					<template name="model"> -->
-<!-- 						<comboitem label="${each.nombrePrograma}" /> -->
-<!-- 					</template> -->
-<!-- 				</combobox> -->
+				<label id="lblPrograma" value="Programa" />
+				<combobox id="cmbPrograma" mold="rounded"
+					readonly="true" model="@load(vm.listaPrograma)"
+					selectedItem="@bind(vm.objPrograma)"
+					onSelect="@command('objCmbPrograma')" placeholder="Seleccione un programa académico...">
+					<template name="model">
+						<comboitem label="${each.nombrePrograma}" />
+					</template>
+				</combobox>
 				
 <!-- 				<label id="lblSanciones" value="Tipo Sancion" /> -->
 <!-- 				<combobox id="cmbTipoSancion" mold="rounded" -->
