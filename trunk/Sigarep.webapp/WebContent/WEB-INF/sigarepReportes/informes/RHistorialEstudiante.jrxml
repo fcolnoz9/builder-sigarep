@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="366"/>
+	<property name="ireport.x" value="13"/>
+	<property name="ireport.y" value="149"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -187,6 +187,8 @@
 	<parameter name="apellido" class="java.lang.String"/>
 	<parameter name="ListaInstancia2" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="ListaInstancia3" class="JRDataSource"/>
+	<parameter name="motivosEstudiante" class="java.lang.String"/>
+	<parameter name="caso" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
 				FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado
@@ -211,7 +213,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="105" splitType="Stretch">
+		<band height="84" splitType="Stretch">
 			<image>
 				<reportElement x="16" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
@@ -221,18 +223,18 @@
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
+				<reportElement x="162" y="50" width="304" height="24" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Historial de Estudiante]]></text>
+			</staticText>
+			<staticText>
 				<reportElement x="125" y="0" width="304" height="50" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="145" y="64" width="304" height="24" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Historial de Estudiante]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -287,7 +289,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$P{apellido}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 4" style="table 4" x="54" y="76" width="395" height="50" forecolor="#FFFFFF" backcolor="#999999" uuid="2f8685a5-af58-4e2c-a44f-ec355a35cd59"/>
+				<reportElement key="table 4" style="table 4" x="54" y="89" width="395" height="50" forecolor="#FFFFFF" backcolor="#999999" uuid="2f8685a5-af58-4e2c-a44f-ec355a35cd59"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DatasetComisionSustanciadora" uuid="f4b519f6-6e57-405a-a542-e85f31be7cef">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
@@ -366,7 +368,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement key="table 5" style="table 5" mode="Opaque" x="54" y="294" width="395" height="50" forecolor="#FFFFFF" backcolor="#999999" uuid="c2620389-a283-4b06-ad24-749279e638d2"/>
+				<reportElement key="table 5" style="table 5" mode="Opaque" x="54" y="307" width="395" height="50" forecolor="#FFFFFF" backcolor="#999999" uuid="c2620389-a283-4b06-ad24-749279e638d2"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DatasetConsejoDecanato" uuid="e013ec90-3e44-4d9a-91e5-40e1b43bcac4">
 						<dataSourceExpression><![CDATA[$P{ListaInstancia2}]]></dataSourceExpression>
@@ -445,7 +447,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement key="table 6" style="table 6" x="54" y="399" width="395" height="48" uuid="be73b646-b524-4315-96d7-a3b572830e28"/>
+				<reportElement key="table 6" style="table 6" x="54" y="404" width="395" height="48" uuid="be73b646-b524-4315-96d7-a3b572830e28"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DatasetConsejoUniversitario" uuid="817fa768-88c4-4dd7-9e7b-6c2ed3eaab58">
 						<dataSourceExpression><![CDATA[$P{ListaInstancia3}]]></dataSourceExpression>
@@ -524,21 +526,21 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="190" y="56" width="221" height="20" uuid="fa9acaf9-f783-4ffc-bf8a-276c33fe6a16"/>
+				<reportElement x="190" y="69" width="221" height="20" uuid="fa9acaf9-f783-4ffc-bf8a-276c33fe6a16"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Apelación a Comisión Sutanciadora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="190" y="274" width="203" height="20" uuid="121de8a3-1315-42d9-b102-580b0bbcb2af"/>
+				<reportElement x="190" y="287" width="203" height="20" uuid="121de8a3-1315-42d9-b102-580b0bbcb2af"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Apelación a Consejo de Decanato]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="190" y="379" width="203" height="20" uuid="47a2ed16-a1bb-4953-8f33-aebd41d8cb57"/>
+				<reportElement x="190" y="384" width="203" height="20" uuid="47a2ed16-a1bb-4953-8f33-aebd41d8cb57"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -573,8 +575,30 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Apellido:]]></text>
 			</staticText>
 			<break>
-				<reportElement x="0" y="356" width="572" height="1" uuid="393fd3e5-8e33-4e5e-8c9e-cdd4d1163c62"/>
+				<reportElement x="0" y="378" width="572" height="1" uuid="393fd3e5-8e33-4e5e-8c9e-cdd4d1163c62"/>
 			</break>
+			<staticText>
+				<reportElement x="87" y="40" width="126" height="20" uuid="9f33d324-829c-47dd-979d-704af776e3d0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivos de Apelación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="213" y="40" width="134" height="20" uuid="93131a34-388c-41dc-aef7-ad691ec0a8cc"/>
+				<textFieldExpression><![CDATA[$P{motivosEstudiante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="40" width="62" height="20" uuid="49b2159c-3354-4f7e-9e50-a08c908db722"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº de Caso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="411" y="40" width="100" height="20" uuid="04797566-2f82-4d6f-80d3-5bc1ae144742"/>
+				<textFieldExpression><![CDATA[$P{caso}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
