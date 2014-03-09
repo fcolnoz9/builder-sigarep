@@ -1,69 +1,47 @@
-<window  id="winRegistrarPrograma"  title="Registros Básicos :: Programa Académico" closable="true"
-	 border="normal" width="auto" height="auto"
-	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademico')">
-	<groupbox>
-		<caption label="Datos del Programa Académico" />
+<?page title="Registrar Programa Academico por Lote" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window  id="winRegistrarProgramaLoteLote" title="Registros Básicos :: Programas :: Registrar Programas Por Lote" border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="false"
+    viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademicoLote')">
+	<groupbox >
+		<caption label="Cargar Programas Académicos" />
 		<grid>
-			<columns>
-				<column width="20%" />
-				<column width="80%" />
-			</columns>
-			<rows>
-				<row>
-					<label value="Nombre del Programa: "
-						id="lblPrograma" />
-
-					<textbox id="txtNombrePrograma"
-					placeholder="Ingrese el nombre del programa" 
-					mold="rounded" cols="23" 
-					width="80%" maxlength="60" value="@bind(vm.nombrePrograma)"/>
-				</row>
-			</rows>
+		<columns>
+			<column label=""/>
+			<column label=""/>
+		</columns>
+		<rows>
+			<row>	
+				<label>Cantidad Programas:</label>
+				<intbox id="tamanoXML" placeholder="cantidad" value="@bind(vm.tamanoXML)" mold="rounded" readonly="true"/>
+				<button id="btnUpload" label="Cargar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarAsignatura',upload=event)" upload="true,maxsize=8192,multiple=false"/>
+			</row>
+			<row>
+			</row>
+		</rows>
 		</grid>
 	</groupbox>
-	<separator />
-	<div align="right">
-		<button label="Guardar" id="btnGuardarPrograma" mold="trendy"
-			width="auto" height="auto" image="imagenes/iconos/guardar.png"
-			onClick="@command('guardarPrograma')">
-		</button>
-		<button label="Eliminar" id="btnEliminarPrograma" mold="trendy"
-			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
-			onClick="@command('eliminarPrograma')">
-		</button>
-		<button label="Limpiar" id="btnLimpiarPrograma" mold="trendy"
-			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
-			onClick="@command('limpiar')">
-		</button>
-		<button label="Cerrar" id="btnCerrarPrograma" mold="trendy"
-			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
-			onClick="@command('cerrarVentana', ventana = winRegistrarPrograma)">
-		</button>
-	</div>
-	<groupbox id="grbListaProgramas">
-		<caption label="Lista de Programas Académicos" />
-		<listbox id="lbxPrograma" height="100%"
-			model="@bind(vm.listaPrograma)"
-			selectedItem="@bind(vm.programaseleccionado)"
-			onSelect="@command('mostrarSeleccionado')"
-			emptyMessage="No hay programas académicos registrados" mold="paging"
-			pageSize="10">
-			<listhead>
-				<listheader label="Nombre" align="lefth"
-					sort="auto(nombrePrograma)">
-					<textbox id="filtroNombre" instant="true"
-						mold="rounded" width="100px"
-						value="@bind(vm.nombreProgramaFiltro)"
-						onChange="@command('filtros')" />
-					<image src="imagenes/iconos/buscar.png" />
-				</listheader>
-			</listhead>
-			<template name="model">
-				<listitem selected="false">
-					<listcell label="${each.nombrePrograma}" />
-				</listitem>
-			</template>
-		</listbox>
+	<groupbox>
+	<caption label="Lista de Programas Académicos Registrados" />
+		<listbox id="estListbox" height="100%" model="@bind(vm.listaPrograma)"   
+   			 emptyMessage="No hay programas registrados" mold="paging" pageSize="10" tooltiptext="Programas Registrados">
+		<listhead>
+			<listheader label="Codigo Programa" align="center"  width="120px"  sort="auto(IdPrograma)" tooltiptext="Click para Ordenar por codigo programa" />
+			<listheader label="Nombre Programa" align="center"  width="350px" sort="auto(NombrePrograma)" tooltiptext="Click para Ordenar por Nombre Programa" />
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.getIdPrograma()}" ></listcell>
+				<listcell label="${each.getNombrePrograma()}" ></listcell>
+			</listitem>
+		</template>
+	</listbox>  
 	</groupbox>
+	<separator />
+	<div align="right" height="100%">
+			<button label="Cerrar"  id="btnCerrarLapso"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/cerrar.png" 
+				orient="horizontal" onClick="@command('cerrarVentana', ventana = winRegistrarProgramaLoteLote)" />
+		</div>
 </window>
+</zk>
