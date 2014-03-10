@@ -212,7 +212,7 @@ public class VMCronograma {
 		if (ventana != null){
 			if (ventana.getId().toString().equals("winActualizarCronograma")){
 				if(lapsoActivo==null)
-					mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+					mensajeAlUsuario.confirmacionLapsoAcademicoNoActivo(ventana);
 				else{
 					buscarCronograma();
 					buscarActividad();

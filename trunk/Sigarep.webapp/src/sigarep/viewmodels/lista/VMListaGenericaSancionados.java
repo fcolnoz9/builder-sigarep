@@ -24,20 +24,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-
-
-
-
-
-
-
-
-
-
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -270,7 +257,7 @@ public class VMListaGenericaSancionados{
 		
 		this.rutaModal=rutaModal;
 		if(serviciolapsoacademico.buscarLapsoActivo() == null)
-			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+			mensajeAlUsuario.confirmacionLapsoAcademicoNoActivo(ventana);
 		
 		//CASO: Registrar Reconsideracion y Recurso Jerarquico
 		//Se valida que no existan apelaciones sin finalizar en la instancia anterior

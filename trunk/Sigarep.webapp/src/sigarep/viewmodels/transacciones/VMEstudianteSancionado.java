@@ -498,7 +498,7 @@ public class VMEstudianteSancionado {
 		Selectors.wireComponents(view, this, false);
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		if(lapsoActivo==null)
-			mensajeAlUsuario.confirmacionCerrarVentanaLapsoAcademicoNoActivo(ventana);
+			mensajeAlUsuario.confirmacionLapsoAcademicoNoActivo(ventana);
 		else{
 			buscarLapsoAcademico();
 			buscarSancion();
