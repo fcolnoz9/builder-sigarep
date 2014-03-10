@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="334"/>
+	<property name="ireport.y" value="142"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -254,11 +254,42 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<pageFooter>
-		<band height="50" splitType="Stretch">
-			<image>
-				<reportElement uuid="95306347-0c44-4d80-b0bb-925f8fb76ead" x="0" y="0" width="572" height="50"/>
+		<band height="58" splitType="Stretch">
+			<textField>
+				<reportElement uuid="09a323b9-2f58-4e3b-b427-dc24d3f69985" x="342" y="6" width="187" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4a5655d8-833a-444f-8b88-2f1d4e21934b" x="1" y="23" width="571" height="35"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="cdf92aa9-f807-4021-9ab0-c12ae5d82a91" x="155" y="8" width="100" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="f286cbfd-ac03-4bd1-bb87-67d47686f7fc" x="529" y="6" width="40" height="14"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="c28a3604-d391-43c9-8ae7-ca07c67f5c90" x="1" y="20" width="571" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="bb85c87c-3957-49b0-ab83-4100912ae248" x="1" y="8" width="152" height="14"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Emisión del Reporte:]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

@@ -254,11 +254,42 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<pageFooter>
-		<band height="50" splitType="Stretch">
-			<image>
-				<reportElement uuid="95306347-0c44-4d80-b0bb-925f8fb76ead" x="0" y="0" width="572" height="50"/>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b506d9d1-968e-4d5b-aa26-075c271ed004" x="342" y="5" width="187" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="34cda1d4-7248-4067-ae98-651409028ff4" x="1" y="22" width="571" height="35"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="4af720d5-31a2-453b-a395-b472dbbaac8b" x="155" y="7" width="100" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="b7e3eb93-e0f9-4a79-be96-cf21187edf6e" x="529" y="5" width="40" height="14"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="08b000df-ced2-4118-b52d-86a96cbe3809" x="1" y="19" width="571" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="9ebfd427-30dd-4fdf-905f-1450e05b8597" x="1" y="7" width="152" height="14"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Emisión del Reporte:]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
