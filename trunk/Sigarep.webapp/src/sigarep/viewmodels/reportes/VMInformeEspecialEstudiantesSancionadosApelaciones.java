@@ -79,13 +79,12 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	private InstanciaApelada objinstanciaApelada;
 	private String objVeredicto;
 	private ProgramaAcademico programa;
-	
+	private String objSesion;
 	//*********************************Parametros para la Tira Sql***************************************
 	private String parametroTipoSancion;
 	private String parametroInstanciaApelada;
 	private String parametroProgramaAcademico;
 	private String parametroVeredicto;
-
 	//*****************************************REPORTE******************************************
 	ReportType reportType = null;
 	ReportConfig reportConfig = null;
@@ -190,9 +189,11 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	public LapsoAcademico getLapso() {
 		return lapso;
 	}
+	
 	public void setLapso(LapsoAcademico lapso) {
 		this.lapso = lapso;
 	}
+	
 	public ListModelList<String> getCmbVeredicto() {
 		cmbVeredicto.add("PROCEDENTE");
 		cmbVeredicto.add("NO PROCEDENTE");
@@ -433,29 +434,30 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	*/
 	@Command("GenerarReporteEstudiantesSancionadoApelacionEspecial")
 	@NotifyChange({"reportConfig"})
-	public void GenerarReporteEstudiantesSancionadoApelacionEspecial(){	
-		if(objinstanciaApelada==null || objprograma==null || objSancion==null
-				|| objVeredicto==null){
-			mensajeAlUsuario.advertenciaSeleccionarTodo();
-		}
-		else{
-			configurarParametroSancion();
-			configurarParametroInstanciaApelada();
-			configurarParametroProgramaAcademico();
-			configurarParametroVeredicto();
-			listaEAS = servicioestudianteasignaturasancion.buscarEstudianteAsignaturasSancion(parametroTipoSancion , parametroInstanciaApelada, parametroProgramaAcademico, parametroVeredicto);
+	public void GenerarReporteEstudiantesSancionadoApelacionEspecial(){
 		
-			if(listaEAS.size()>0){
-				reportConfig =new ReportConfig(ruta);
-				reportConfig.getParameters().put("ListaEstudianteAsignaturaSancionados", new JRBeanCollectionDataSource(listaEAS));
-				reportConfig.setType(reportType);
-				reportConfig.setDataSource(new JRBeanCollectionDataSource(listaEAS));
+			if(objinstanciaApelada==null || objprograma==null || objSancion==null
+				|| objVeredicto==null){
+				mensajeAlUsuario.advertenciaSeleccionarTodo();
 			}
 			else{
-				mensajeAlUsuario.informacionNoHayCoincidencias();
+				configurarParametroSancion();
+				configurarParametroInstanciaApelada();
+				configurarParametroProgramaAcademico();
+				configurarParametroVeredicto();
+				listaEAS = servicioestudianteasignaturasancion.buscarEstudianteAsignaturasSancion(parametroTipoSancion , parametroInstanciaApelada, parametroProgramaAcademico, parametroVeredicto);
+		
+				if(listaEAS.size()>0){
+					reportConfig =new ReportConfig(ruta);
+					reportConfig.getParameters().put("ListaEstudianteAsignaturaSancionados", new JRBeanCollectionDataSource(listaEAS));
+					reportConfig.setType(reportType);
+					reportConfig.setDataSource(new JRBeanCollectionDataSource(listaEAS));
+				}
+				else{
+					mensajeAlUsuario.informacionNoHayCoincidencias();
 			
+				}
 			}
-		}
 	}
 	
 		
