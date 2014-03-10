@@ -57,12 +57,6 @@ public class VMenlaceInteres {
 	private String nombreEnlaceFiltro ="";
 	private String direccionEnlaceFiltro ="";
 	
-//	@Wire("#winEnlaceinteres")//para conectarse a la ventana con el ID
-//	Window ventana;
-//	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-//    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-//        Selectors.wireComponents(view, this, false);
-//    }
 
 	// Getters and Setters
 	public Integer getIdEnlace() {
@@ -299,23 +293,7 @@ public class VMenlaceInteres {
 	
 	@Command
 	@NotifyChange({"listaEnlaces","nombreEnlace", "direccionEnlace", "descripcion", "imagenes"})
-	
-//	public void eliminarEnlaceSeleccionado(@BindingParam("ventana") final Window ventana, @ContextParam(ContextType.BINDER) final Binder binder){
-//		boolean condicion = false;
-//		if(nombreEnlace == null || direccionEnlace == null || descripcion == null || imagen.getTamano() < 1){
-//			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-//		}
-//		else if {
-//			condicion = true;
-//		   mensajeAlUsuario.confirmacionEliminarRegistro(ventana,condicion);	
-//		   servicioenlacesinteres.eliminar(idEnlace);
-//		   mensajeAlUsuario.informacionEliminarCorrecto();
-//		   binder.postCommand("limpiar", null);
-//		
-//		}
-//	}
-	
-public void eliminarEnlaceSeleccionado(@ContextParam(ContextType.BINDER) final Binder binder){
+	public void eliminarEnlaceSeleccionado(@ContextParam(ContextType.BINDER) final Binder binder){
 		if (nombreEnlace == null || direccionEnlace == null
 				|| descripcion == null || imagen.getTamano() < 1) {
 			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
