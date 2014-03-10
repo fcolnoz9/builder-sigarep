@@ -77,7 +77,6 @@ public class VMVeredictoI {
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacionGeneral;
 	private String veredicto="";
-	
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
@@ -370,7 +369,7 @@ public class VMVeredictoI {
 	 */	
 	@Command
 	public void registrarVeredicto(@BindingParam("window") Window winVeredictoI){
-		if (veredicto == null){
+		if (veredicto == null || veredicto.equals("")){
 			mensajeAlUsuario.advertenciaGuardarVeredicto();
 		}else{
 			solicitudApelacion.setObservacion(observacionGeneral);
@@ -431,7 +430,7 @@ public class VMVeredictoI {
 	@NotifyChange({"veredicto", "observacionGeneral"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if (!veredicto.equals("") ){
+		if (!veredicto.equals("")){
 			condicion = true;
 		}
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
