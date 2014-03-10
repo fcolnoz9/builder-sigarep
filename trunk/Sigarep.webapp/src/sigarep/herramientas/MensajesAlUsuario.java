@@ -10,7 +10,9 @@ import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
 /*
- * Debe declarar una variable tipo MensajesAlUsuario como estándar mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) en donde usaría los mensajes (su clase viewmodels), 
+ * Debe declarar una variable tipo MensajesAlUsuario como estándar
+ *  mensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();) 
+ *  en donde usaría los mensajes (su clase viewmodels), 
  * primero importe el paquete herramientas
  * Cuando vaya a usar algún mensaje coloca mensajeAlUsuario.NombreDelMetodo();
  * por ejemplo: mensajeAlUsuario.advertenciaLlenarCampos();
@@ -192,6 +194,13 @@ public class MensajesAlUsuario {
 				+ " no se encuentra registrado!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
+	
+	public void advertenciaSeleccionarEstadoApelacion() {
+		Messagebox.show("¡Debe seleccionar un Estado de la Lista de Apelación!", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
+	
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
           Messagebox.show("Hemos enviado un email con su nombre de usuario y contraseña.",
