@@ -256,8 +256,10 @@ public class VMListaGenericaSancionados{
     				 @ExecutionArgParam("fechaSesion") Date fechaSesion){
 		
 		this.rutaModal=rutaModal;
-		if(serviciolapsoacademico.buscarLapsoActivo() == null)
+		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
+		if(lapsoActivo == null)
 			mensajeAlUsuario.confirmacionLapsoAcademicoNoActivo(ventana);
+	
 		
 		//CASO: Registrar Reconsideracion y Recurso Jerarquico
 		//Se valida que no existan apelaciones sin finalizar en la instancia anterior
@@ -270,10 +272,12 @@ public class VMListaGenericaSancionados{
 				this.tipoSesion = tipoSesion;
 				this.fechaSesion = fechaSesion;
 			}
+			
+			
 			buscarProgramaA ();
 			buscarSancionados();
 			listaVeredicto= new ListModelList<String>();	
-		
+			
 		//}
     }
 	
