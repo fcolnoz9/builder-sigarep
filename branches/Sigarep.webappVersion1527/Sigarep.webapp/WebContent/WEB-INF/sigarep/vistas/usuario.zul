@@ -1,0 +1,20 @@
+<div apply="org.zkoss.bind.BindComposer" align="left" class="btn-group"
+	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad')">
+	<hlayout valign="bottom">
+		<menupopup id="menu">
+			<menuitem label="Editar Perfil"
+				image="/imagenes/iconos/editar.png"
+				onClick="@command('editarPerfil')" />
+			<menuitem label="Cerrar Sesión"
+				image="/imagenes/iconos/cerrarSesion.png"
+				onClick="@command('cerrarSesion')" />
+		</menupopup>
+		<button dir="reverse" class="btn-default dropdown-toggle" sclass="btn-primary"
+			popup="menu, after_start" iconSclass="caret"
+			label="@bind(vm.nombreCompleto)" />
+		<a onClick="@command('editarPerfil')">
+			<image width="60px" height="60px" style="max-height:60px;max-width:60px;"
+				content="@bind(vm.imagenUsuario)" />
+		</a>
+	</hlayout>
+</div>

@@ -1,0 +1,34 @@
+<window id="winDescargaArchivo" title="Descarga de Archivos" border="normal" height="auto"
+	width="75%" position="center,center" contentStyle="overflow:auto"
+	apply="org.zkoss.bind.BindComposer" closable="true"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMDescargarArchivo')">
+	<groupbox closable="false">
+		<caption label="Lista de Archivos" />
+		<listbox id="lbxDescargaArchivo" model="@bind(vm.lista)"
+			emptyMessage="No hay Archivos Guardados" mold="paging"
+			pageSize="10">
+			<listhead>
+				<listheader label="Titulo" align="center"
+					sort="auto(titulo)" />
+				<listheader label="Descripcion" align="center"
+					sort="auto(descripcion)" />
+				<listheader label="Archivo" align="center" />
+			</listhead>
+			<template name="model">
+				<listitem selected="true">
+					<listcell label="${each.titulo}"></listcell>
+					<listcell label="${each.descripcion}"></listcell>
+					<listcell>
+						<button
+							onClick="@command('descargarArchivo', parametro=self)"
+							label="Descargar" width="auto"
+							image="/imagenes/iconos/descargar.png">
+							<custom-attributes
+								idReglamento="${each.idDocumento}" />
+						</button>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
+</window>

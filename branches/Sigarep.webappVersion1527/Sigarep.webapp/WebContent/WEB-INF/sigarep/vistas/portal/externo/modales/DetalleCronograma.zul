@@ -1,0 +1,39 @@
+<window title="@bind(vm.nombreActividad)"
+	id="winDetalleCronograma" width="1000px" border="normal"
+	position="center,center" closable="true"
+	action="show: slideDown;hide: slideUp" mode="modal"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMDetalleCronograma')">
+	<listbox id="box" emptyMessage="No hay registros" mold="paging"
+		pageSize="5">
+		<listhead>
+			<listheader label="Fecha Inicio" width="150px"
+				sort="auto(fecha_inicio)" align="center" />
+			<listheader label="Fecha Fin" sort="auto(fecha_fin)"
+				align="center" width="150px" />
+			<listheader label="Hora" sort="auto(hora_inicio)"
+				align="center" width="120px" />
+			<listheader label="Lugar" sort="auto(lugar)" align="center" />
+		</listhead>
+		<listitem>
+			<listcell label="@bind(vm.fecha_inicio)"></listcell>
+			<listcell label="@bind(vm.fecha_fin)"></listcell>
+			<listcell label="@bind(vm.hora_inicio)"></listcell>
+			<listcell label="@bind(vm.lugar)"></listcell>
+		</listitem>
+	</listbox>
+	<listbox id="list" emptyMessage="No hay registros" mold="paging"
+		pageSize="10">
+		<listhead>
+			<listheader label="Descripción" sort="auto(descripcion)"
+				align="center" />
+			<listheader label="Observación" sort="auto(observacion)"
+				align="center" />
+		</listhead>
+		<listitem>
+			<listcell label="@bind(vm.descripcionActividad)"></listcell>
+			<listcell label="@bind(vm.observacion)"></listcell>
+		</listitem>
+	</listbox>
+	
+</window>

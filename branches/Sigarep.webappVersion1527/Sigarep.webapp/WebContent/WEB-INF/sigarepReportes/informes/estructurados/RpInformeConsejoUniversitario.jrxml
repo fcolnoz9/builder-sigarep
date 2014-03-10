@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeConsejoUniversitario" language="groovy" pageWidth="612" pageHeight="970" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="ffe6c774-f49b-4872-a5ea-9596955ba072">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1334"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="TablaRecaudosComision" uuid="ada6c1e5-83c5-496b-a819-c065c24ad049">
+		<field name="recaudo.nombreRecaudo" class="java.lang.String"/>
+		<variable name="Contador" class="java.lang.Integer" calculation="Count">
+			<variableExpression><![CDATA[$V{Contador}+1]]></variableExpression>
+			<initialValueExpression><![CDATA[1]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="TablaSanciones" uuid="1d405f89-b55f-4b34-9477-a803e9435749">
+		<field name="sancion" class="java.lang.String"/>
+		<field name="nro_sancion" class="java.lang.String"/>
+		<field name="lapso_sancion" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="TablaRecaudosCD" uuid="5c92ea49-99d6-4be1-b9ce-6ceb8926af8c">
+		<field name="recaudo.nombreRecaudo" class="java.lang.String"/>
+		<variable name="Contador" class="java.lang.Integer" calculation="Count">
+			<variableExpression><![CDATA[$V{Contador}+1]]></variableExpression>
+			<initialValueExpression><![CDATA[1]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\BLUMOCJG\\workspace2\\Reporte Sixmar\\sigarepReportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String"/>
+	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
+	<parameter name="ImagenSuperior" class="java.lang.String"/>
+	<parameter name="cedula_estudiante" class="java.lang.String"/>
+	<parameter name="nombres" class="java.lang.String"/>
+	<parameter name="apellidos" class="java.lang.String"/>
+	<parameter name="programa" class="java.lang.String"/>
+	<parameter name="sancion" class="java.lang.String"/>
+	<parameter name="fecha_comision" class="java.lang.String"/>
+	<parameter name="observacion_comision" class="java.lang.String"/>
+	<parameter name="sugerencia" class="java.lang.String"/>
+	<parameter name="nro_sesion" class="java.lang.String"/>
+	<parameter name="fecha_d" class="java.lang.String"/>
+	<parameter name="observacion_consejo_decanato" class="java.lang.String"/>
+	<parameter name="veredicto" class="java.lang.String"/>
+	<parameter name="fecha_ingreso" class="java.lang.String"/>
+	<parameter name="semestre" class="java.lang.Integer"/>
+	<parameter name="unidades_cursadas" class="java.lang.String"/>
+	<parameter name="unidades_aprobadas" class="java.lang.String"/>
+	<parameter name="unidades_reprobadas" class="java.lang.String"/>
+	<parameter name="indice_grado" class="java.lang.Float"/>
+	<parameter name="listaRecaudosComision" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="listaRecaudosCD" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="listaSanciones" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codigo_lapso" class="java.lang.String"/>
+	<field name="id_instancia_apelada" class="java.lang.Integer"/>
+	<field name="id_tipo_motivo" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="estatus" class="java.lang.Boolean"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="nombre_recaudo" class="java.lang.String"/>
+	<field name="primerveredicto" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="559" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="45" width="86" height="77" uuid="7f370d69-931c-404f-bee7-85206dea2f13"/>
+				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="572" height="39" uuid="e7d3837e-2e8b-4c99-9286-540e189125d0"/>
+				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="86" y="67" width="398" height="45" uuid="610b963a-6245-4e25-9dfa-17c6aa68db8a"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
+SECRETARIA DEL CONSEJO UNIVERSITARIO
+DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="484" y="45" width="84" height="77" uuid="193e0f50-5fc8-48a1-99fd-2bc3ba0dd80c"/>
+				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="88" y="122" width="398" height="98" uuid="8297d29f-57a2-4f99-be7f-70c3726eb28b"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLANILLA (FORMATO) SOBRE LA INFORMACIÓN SOLICITADA POR EL CONSEJO UNIVERSITARIO A LOS FINES DEL RECURSO JERÁRQUICO INTERPUESTO POR EL ESTUDIANTE POR LA APLICACIÓN DEL ARTÍCULO  35 (RR ó RP) DEL REGLAMENTO DE EVALUACIÓN DEL REGLAMENTO DE EVALUACIÓN DEL RENDIMIENTO ACADÉMICO ESTUDIANTIL DE LA UCLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="269" width="138" height="15" uuid="6fd33af4-45b8-42ca-9018-0871bc80cf5a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nombres y Apellidos del Br:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="198" y="269" width="132" height="15" uuid="5c9cb09c-9938-4b50-bf0d-bf7b3e999ffc"/>
+				<box>
+					<bottomPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="269" width="134" height="15" uuid="8026c5cd-d29c-4f83-991b-6fff2d1922ce"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{cedula_estudiante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="296" width="168" height="15" uuid="2247363e-b521-47ad-938e-7ebf8504d531"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Decanato de Ciencias y Tecnología]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="296" width="100" height="15" uuid="10072909-83d3-4da7-a37f-bb2adb77a9d3"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Programa o Carrera:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="296" width="184" height="15" uuid="0d12fc30-e008-4658-9233-88ff82724914"/>
+				<box>
+					<bottomPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{programa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="322" width="122" height="15" uuid="c585e2e2-2b0c-4308-8869-5f329e135e3b"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Régimen a ser aplicado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="322" width="34" height="15" uuid="66d0408a-db3e-4aee-9f0c-090c23e01407"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{sancion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="339" y="269" width="20" height="15" uuid="3c178dbe-2ba8-4afd-97e6-0d76ab9d8945"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[C.I ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="127" y="269" width="71" height="15" uuid="5e9de6bb-b10e-457b-8d8b-760cde7feebf"/>
+				<box>
+					<bottomPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{nombres}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="357" width="100" height="15" uuid="a01481e9-92c6-4af7-ad49-87e65ab75f19"/>
+				<text><![CDATA[En reunión de Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="261" y="357" width="89" height="15" uuid="0c0cdba7-6894-474a-921f-508e03538fbb"/>
+				<box>
+					<bottomPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{fecha_comision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="383" width="478" height="15" uuid="0899de4e-f64f-4d67-a0cd-30952358afef"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Indique en forma breve y clara los argumentos o causales alegados por el estudiante en su escrito]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="26" y="398" width="502" height="44" uuid="a17c0681-4e67-4dc0-96d0-79b3ba066f79"/>
+				<textFieldExpression><![CDATA[$P{observacion_comision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="398" width="551" height="44" uuid="19e984dd-dfff-464a-af92-86b222939de4"/>
+				<box>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="357" width="156" height="15" uuid="3f6d3630-6920-4a55-a8c7-212a12cd9fad"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[(a) Comisión Sustanciadora ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="455" width="238" height="15" uuid="854cf2a8-3145-4456-bf78-ddc9ab6f21ed"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Decisión tomada por la comisión sustanciadora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="470" width="67" height="15" uuid="809a092d-ece0-468f-a63a-93b383fb2357"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sugerencia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="74" y="470" width="89" height="15" uuid="5cf3a7d0-bc3b-4739-995d-5294cd1c390c"/>
+				<box>
+					<bottomPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{sugerencia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="495" width="438" height="15" uuid="0d48e4dd-6bec-491d-94c5-ac62518dd2d2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enumere e Identifique los anexos, constancias o comunicaciones entregadas]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="9" y="520" width="334" height="30" uuid="dfa1ffba-c1e0-4ba0-a2a2-04093f90fa3c"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="TablaRecaudosComision" uuid="3f949d99-3d7c-4495-993e-d39f4a6b4d03">
+						<dataSourceExpression><![CDATA[$P{listaRecaudosComision}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="47" uuid="a5656a66-f95b-463e-87e9-7307ca6fd738">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1">
+							<box>
+								<pen lineColor="#CCCCFF"/>
+								<topPen lineColor="#CCCCFF"/>
+								<leftPen lineColor="#CCCCFF"/>
+								<bottomPen lineColor="#CCCCFF"/>
+								<rightPen lineColor="#CCCCFF"/>
+							</box>
+							<staticText>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="47" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="18746d4e-160e-4a08-a436-fd46aa057f31"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nro]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="47" height="20" uuid="9abb7764-99c1-4c4c-8556-689f3177398b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{Contador}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="286" uuid="e8989ab8-54b8-464c-8710-85ae1842fc70">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="286" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="eb703e09-1585-4561-97ec-25995ab47e75"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Recaudo]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="286" height="20" uuid="2c30e75e-e523-4df9-805a-b89903aedaa6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{recaudo.nombreRecaudo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<pageFooter>
+		<band height="62" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="21" width="572" height="2" uuid="dbd2c998-fe20-40ab-8f41-7376f013e4d8"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="7" width="152" height="14" uuid="52376a3a-3a93-41a1-9771-45f4a956e209"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Emisión del Reporte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="330" y="9" width="163" height="14" uuid="c97e8695-d562-42ac-9b0c-3bac95f8eed5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="495" y="9" width="40" height="14" uuid="3f9634c7-3be6-42c7-8556-d4ae4517729a"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="152" y="8" width="100" height="13" uuid="e0b980b4-64f5-4541-a34b-0b04635e210c"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="717" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="15" width="460" height="15" uuid="8c8458ea-70a4-4ba9-a166-3969b4a66259"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[(b) Consejo de Decanato ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="32" width="100" height="15" uuid="b00b27c6-369a-457c-ab8b-756c95a0c321"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{nro_sesion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="198" y="32" width="47" height="15" uuid="daf86da7-dc0c-46e6-a0de-255a0a5a287c"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="32" width="68" height="15" uuid="57c09b6c-372f-4d3b-8299-d1768218ec66"/>
+				<text><![CDATA[Nro de Sesión:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="32" width="100" height="15" uuid="0cae4bce-e966-4ca1-9e37-16514919187a"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{fecha_d}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="84" width="551" height="44" uuid="cf5b512b-5805-4c48-a235-5ee8e6282a18"/>
+				<box>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="67" width="478" height="15" uuid="7c804381-1dea-4626-8745-6c746748ffcf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Indique en forma breve y clara los argumentos o causales alegados por el estudiante en su escrito]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="84" width="519" height="44" uuid="a582656d-48b6-412b-af65-ce4b9e68784f"/>
+				<textFieldExpression><![CDATA[$P{observacion_consejo_decanato}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="7" y="187" width="334" height="30" uuid="596a5c8e-5fdc-49b0-8eec-981367c61284"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="TablaRecaudosCD" uuid="cd21dbef-822d-448c-8fd6-259b5b6bc2bf">
+						<dataSourceExpression><![CDATA[$P{listaRecaudosCD}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="47" uuid="da0e4dff-a645-4fa9-9971-06ee8f78cf95">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1">
+							<box>
+								<pen lineColor="#CCCCFF"/>
+								<topPen lineColor="#CCCCFF"/>
+								<leftPen lineColor="#CCCCFF"/>
+								<bottomPen lineColor="#CCCCFF"/>
+								<rightPen lineColor="#CCCCFF"/>
+							</box>
+							<staticText>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="47" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="6a43305a-1bba-4da2-a770-0b2a0f02a254"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nro]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="47" height="20" uuid="69aeb20c-1bd6-4489-b6ec-a9705cd7da19"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{Contador}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="286" uuid="da0e6a13-4f73-4c3c-9937-2e504636ee9e">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="286" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="50d01dbc-5d66-4443-9af8-34e6cd99a894"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Recaudo]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="286" height="20" uuid="45943c2b-0a05-415c-aa9b-2a7f24c1265b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{recaudo.nombreRecaudo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="6" y="172" width="438" height="15" uuid="c72bb54e-381b-41c3-8eb3-bd0f98d4639b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enumere e Identifique los anexos, constancias o comunicaciones entregadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="142" width="332" height="15" uuid="016e9a8c-2fad-4f44-aad3-7a4c70181cb0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Decisión tomada por el Consejo de Decanato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="157" width="56" height="15" uuid="f5d1497c-3487-4a5a-9a02-01d26a43a724"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Veredicto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="65" y="157" width="100" height="15" uuid="e931c355-7155-4b49-82c6-a863dbf887f5"/>
+				<textFieldExpression><![CDATA[$P{veredicto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="267" width="460" height="15" uuid="9b8e3b48-6992-46b2-b5fc-15b669500d82"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[(c) Rendimiento Académico del Estudiante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="287" width="209" height="15" uuid="02f28136-6264-449b-9c90-e0d9d0b92ef9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de ingreso a la carrera o programa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="302" width="209" height="15" uuid="0374104d-3668-469f-90a9-5e1bbe96c781"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Semestre o año que cursa(último cursado):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="323" width="539" height="15" uuid="c84ceef5-d440-4e94-be68-c41e39de1016"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informe si al Bachiller le ha sido aplicado con anterioridad el Artículo 35 (RR o RP), número de veces e indique el ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="338" width="287" height="15" uuid="28ea3ab7-f115-44e4-a65a-deff31dcb4ef"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[número de veces e indique el lapso académico y el año]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="9" y="353" width="299" height="30" uuid="30593bdd-ce4e-4b4a-ac2c-d4120d4b91ba"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="TablaSanciones" uuid="feacabce-79e3-40a8-a0cd-347b3fa57a5e">
+						<dataSourceExpression><![CDATA[$P{listaSanciones}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="941681da-1f5c-41cc-a885-1c6d7255a5a5">
+						<jr:tableHeader style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8d8fe540-e215-48e2-8e1b-0a072fb6758f"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Sanción]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f76669b9-7984-451a-bf33-00001671cbf5"/>
+								<textFieldExpression><![CDATA[$F{sancion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="119" uuid="d66d49ea-135a-4454-867b-ed824893d61d">
+						<jr:tableHeader style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="119" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="2b9933c8-5a97-4e49-b05d-ad5c46cd2581"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nro de Sanción]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="119" height="20" uuid="b3cb0275-e526-484f-9074-ed90f24dc721"/>
+								<textFieldExpression><![CDATA[$F{nro_sancion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="117" uuid="528aafe2-96f1-4fc7-84ee-7c81715b7721">
+						<jr:tableHeader style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="117" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="609cf89f-f1da-4878-9ea6-ac4f1b0a723b"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Lapso]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="117" height="20" uuid="88585ff7-73cb-44ec-a413-69e1a46b1fd4"/>
+								<textFieldExpression><![CDATA[$F{lapso_sancion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="14" y="430" width="243" height="15" uuid="99b2e370-54ea-49e4-b3b8-1eba69426cc5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Densidad Horaria o Unidad de Créditos cursadas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="430" width="244" height="15" uuid="8907a44e-8ce7-4b41-9419-9e58545f9eb6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Densidad Horaria o Unidad de Créditos aprobadas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="445" width="247" height="15" uuid="e87269a4-3dd9-4fae-a671-c7755cb4386a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Densidad Horaria o Unidad de Créditos reprobadas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="8" y="459" width="88" height="15" uuid="88f973f5-0c83-41da-baca-504fb3057618"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Indice académico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="181" y="459" width="99" height="15" uuid="660ec874-45ea-4b6d-a07c-fd51dba34f57"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Indice de eficiencia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="324" y="459" width="76" height="15" uuid="4ed3f76e-52b7-4e1c-aa00-442b32eba47e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Otros índices:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="480" width="562" height="15" uuid="3a728cb1-ca42-4572-b0b4-ab883125ece0"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nota: Anexar constancia de Notas o Calificaciones emitidas por la Oficina o Unidad de Registro Académico del Decanato.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="495" width="539" height="15" uuid="4e71d800-8efb-4757-a752-df043acdc370"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[(d) Cualquier otra información académica que considere necesario o pendiente de notificar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="510" width="551" height="60" uuid="fa8d7bf8-e20b-4870-9009-eaff4c980b4d"/>
+				<box>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="216" y="285" width="82" height="15" uuid="c4a03f88-f580-446b-967d-9145420a7500"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{fecha_ingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="302" width="82" height="15" uuid="3c274293-4037-4659-9438-f3eda5c5e756"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{semestre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="430" width="32" height="15" uuid="80ff1e1d-5cc2-4549-afeb-0fa8b735ac58"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{unidades_cursadas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="540" y="430" width="32" height="15" uuid="e5547bd5-145c-44a9-a7e4-ef3faf94fcbe"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{unidades_aprobadas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="445" width="32" height="15" uuid="570ace34-b382-438f-8cc3-6d7da11425f3"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{unidades_reprobadas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="459" width="82" height="15" uuid="82f4cac7-3213-4590-959a-8123a47d0e21"/>
+				<box>
+					<bottomPen lineWidth="1.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$P{indice_grado}]]></textFieldExpression>
+			</textField>
+			<break type="Column">
+				<reportElement x="0" y="226" width="100" height="1" uuid="f9fd8a35-e730-4f1f-a9c9-c195805c2a7b"/>
+			</break>
+			<textField>
+				<reportElement x="115" y="618" width="209" height="20" uuid="793f3225-9e26-4d40-80ad-b052ed6d2326"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="16" y="618" width="99" height="20" uuid="91cd7bbc-d22e-41b2-8846-0393cc1f5fc0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma Conforme:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="116" y="653" width="99" height="20" uuid="ef726514-45c6-44ce-a001-fddfed9888c8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prof:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="267" y="673" width="126" height="20" uuid="41e2d3fa-3f7e-4dab-afce-51e410fa04ae"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Secretario de Decanato]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="215" y="653" width="209" height="20" uuid="14103da5-ccaa-48d9-b7d9-3467d1c012ed"/>
+				<box>
+					<bottomPen lineWidth="1.5"/>
+				</box>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,28 @@
+<window title="@bind(vm.titulo)" width="75%" vflex="1" hflex="1"
+	height="85%" border="normal" minimizable="false" mode="modal"
+	maximizable="false" closable="true" action="hide: slideUp"
+	apply="org.zkoss.bind.BindComposer" onCancel="@command('closeThis')"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMDetalleNoticia')">
+	<groupbox height="100%" width="100%">
+		<borderlayout>
+			<north size="80px" border="none">
+				<hbox align="center" pack="center" vflex="1"
+					hflex="1">
+					<label value="@bind(vm.titulo)" sclass="textTitulo" />
+				</hbox>
+			</north>
+			<west size="35%" border="none">
+				<image style="max-height:400px;max-width:500px;padding-right:10px;padding-left:10px;"
+					width="100%" content="@bind(vm.imagen)" />
+			</west>
+			<center border="none">
+				<vbox vflex="1" hflex="1">
+					<html content="@bind(vm.contenido)" />
+					<a href="@bind(vm.enlaceNoticia)">
+						Enlace de Noticia
+					</a>
+				</vbox>
+			</center>
+		</borderlayout>
+	</groupbox>
+</window>

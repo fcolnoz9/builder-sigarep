@@ -1,0 +1,117 @@
+<window id="winRegistrarGrupo"  apply="org.zkoss.bind.BindComposer"
+    viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMRegistrarGrupo')" border="normal" title="Administración del Sistema :: Seguridad Funcional :: Registrar Grupo de Usuarios ">
+    <style>
+    .h-inline-block {
+        display: inline-block;
+        _display: inline;
+    }
+    
+    </style>
+    <groupbox id="gbxDatosGrupo">
+    	<caption label="Datos Grupo"></caption>
+    	<grid id="grdDatosGrupo">
+    		<columns>
+    		<column width="10%"></column>
+    		<column></column>
+    		<column width="10%"></column>
+    		<column></column>
+    		</columns>
+    		<rows>
+    			<row>
+    			   	<hbox>
+    					Nombre:
+    				</hbox>
+    				<hbox>	
+    					<textbox id="txtNombreRegistrarGrupo" 
+    					placeholder= "Ingrese el nombre del grupo"
+    					mold="rounded" value="@bind(vm.nombre)" cols="30"/>
+    				</hbox>
+    				<hbox>
+    					Descripción:
+    				</hbox>
+    				<hbox>	
+    					<textbox id="txtDescripcionRegistrarGrupo" 
+    					placeholder= "Ingrese la descripción del grupo"
+    					mold="rounded"  value="@bind(vm.descripcion)" rows="2" cols="30" />
+    				</hbox>
+    			</row>
+    		</rows>
+    	</grid>
+    	</groupbox>
+    	
+    	<separator />
+    	<groupbox id="grbListaGrupos" height="auto">
+		<caption label="Lista de Grupos" />
+		<listbox id="lbxGrupos" height="130px"
+			model="@bind(vm.listaGrupos)"
+			selectedItem="@bind(vm.grupoSeleccionado)"
+			onSelect="@command('buscarGrupo',listboxGrupos=lbxGrupos)"
+			emptyMessage="No hay Grupos registrados" mold="paging" hflex="1" vflex="1">
+			<listhead hflex="50px">
+				<listheader label="Nombre de Grupo" align="lefth"
+					sort="auto(nombre)">
+					<textbox id="filtroNombreGrupo" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreGrupofiltro)"
+							onChange="@command('filtros')" />
+							<image src="imagenes/iconos/buscar.png" />
+				</listheader>	
+				<listheader label="Descripción" align="lefth"
+					sort="auto(descripcion)">
+						<textbox id="filtroDescripcion" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.descripcionfiltro)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+				</listheader>		
+			</listhead>				
+			<template name="model">
+				<listitem selected="false">
+					<listcell label="${each.nombre}" />
+					<listcell label="${each.descripcion}" />
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
+    
+    	<separator />
+    	<groupbox id="grbRegistrarFuncionesAGrupo">
+    	<caption label="Seleccione las funciones del menu principal que desea cargar en el grupo de usuarios" />
+    	<grid>
+    		<columns>
+    			<column label="" />
+    			<column label="" />
+    		</columns>
+    		<rows>
+    			<row>
+    				<tree id="tree" height="250px"
+    					hflex="true" vflex="true" model="@load(vm.contactTreeModel)"
+    					ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarModeloMenuArbolPrincipal" width="90%">
+    					<treecols>
+    						<treecol label="Menu Principal" />
+    					</treecols>
+    				</tree>
+    				<tree id="tree2" height="250px"
+    					hflex="true" vflex="true" model="@load(vm.contactTreeModel2)"
+    					ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarMenuArbolGrupo" width="90%">
+    					<treecols>
+    						<treecol label="Menu del Grupo" />
+    					</treecols>
+    				</tree>
+    			</row>
+    		</rows>
+    	</grid>
+    </groupbox>
+       <separator />
+    	<div align="right">
+			<button label="Guardar" id="btnGuardarRegistrarGrupo" 
+				    mold="trendy" width="auto" height="auto"
+				    image="imagenes/iconos/guardar.png" 
+				   onClick="@command('guardarGrupo') @global-command('actualizarMenuArbolSIGAREP')" />
+			<button label="Limpiar" id="btnLimpiarRegistrarGrupo" 
+			        mold="trendy" width="auto" height="auto"
+				    image="imagenes/iconos/limpiar.png"
+				    onClick="@command('limpiar')" />
+			<button label="Cerrar"  id="btnSalirRegistrarGrupo"
+			        image="/imagenes/iconos/cerrar.png" 
+			        onClick="@command('cerrarVentana', ventana= winRegistrarGrupo)"/>
+		</div>
+</window>

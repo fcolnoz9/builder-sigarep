@@ -1,0 +1,26 @@
+<window id="winMostrarPreguntasMasFrecuentes" 
+	title="Preguntas Frecuentes" closable="true"
+	border="normal"  mode="modal"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
+<!-- 	Lista de preguntas mas frecuentes registradas previamente -->
+	<listbox id="lbxPreguntas"
+		model="@bind(vm.listaPregunta)"
+		selectedItem="@bind(vm.preguntaseleccionada)"
+		onSelect="@command('mostrarSeleccionada')"
+		emptyMessage="No hay preguntas básicas registradas" mold="paging"
+		pageSize="10">
+		<listhead>
+			<listheader label="Preguntas" align="lefth"
+				sort="auto(pregunta)" />
+			<listheader label="Respuestas" align="lefth"
+				sort="auto(respuesta)" />
+		</listhead>
+		<template name="model">
+			<listitem>
+				<listcell label="${each.pregunta}" />
+				<listcell label="${each.respuesta}" />
+			</listitem>
+		</template>
+	</listbox>
+</window>

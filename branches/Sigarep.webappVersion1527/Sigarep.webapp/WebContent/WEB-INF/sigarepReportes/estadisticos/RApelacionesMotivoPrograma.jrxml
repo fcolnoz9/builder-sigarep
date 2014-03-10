@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="334"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
+		<field name="procedentes" class="java.lang.Integer"/>
+		<field name="apelaciones" class="java.lang.Integer"/>
+		<field name="categoria" class="java.lang.String"/>
+		<field name="total" class="java.lang.Integer"/>
+		<field name="sancionados" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="ImagenSuperior" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ICON_FOOTER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ICON_LEFT_HEADER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Lapso" class="java.lang.String"/>
+	<parameter name="Programa" class="java.lang.String"/>
+	<parameter name="Titulo" class="java.lang.String"/>
+	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<queryString>
+		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
+				FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado
+				     essa, estudiante es, programa_academico prog
+				WHERE sa.cedula_estudiante = mo.cedula_estudiante
+				and mo.id_tipo_motivo = timo.id_tipo_motivo
+				and sa.cedula_estudiante = essa.cedula_estudiante
+				and essa.cedula_estudiante = es.cedula_estudiante
+				and es.id_programa = prog.id_programa
+				and sa.codigo_lapso = '2013-1'
+				GROUP BY timo.nombre_tipo_motivo, prog.nombre_programa]]>
+	</queryString>
+	<field name="procedentes" class="java.lang.Integer"/>
+	<field name="apelaciones" class="java.lang.Integer"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="sancionados" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<image scaleImage="RealHeight">
+				<reportElement uuid="533041e4-814f-4e94-bf01-782c97c499e2" x="0" y="0" width="572" height="50"/>
+				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="217" splitType="Stretch">
+			<image>
+				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="16" y="0" width="109" height="64"/>
+				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014" x="466" y="0" width="106" height="64"/>
+				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb" x="125" y="0" width="304" height="50"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
+UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
+DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="ce392ef2-9896-4dd3-938f-86c453091cea" key="table 3" style="table 3" x="7" y="167" width="559" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Tabla" uuid="7b1028c8-0687-4c8a-a081-dc2223caba57">
+						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="195" uuid="bf83a609-fcbe-4f84-902f-89338a606462">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a53c2d46-a195-45eb-bb82-7ae103e0aa25" style="table" mode="Opaque" x="0" y="0" width="195" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true" isItalic="true"/>
+								</textElement>
+								<text><![CDATA[APELACIÓN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="7d449038-83ef-4fd2-848d-c6bb498cf62a" x="0" y="0" width="195" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="179" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="619ee104-24ca-4e8d-95e4-ebafc2ada5c4" style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true" isItalic="true"/>
+								</textElement>
+								<text><![CDATA[CANTIDAD DE APELACIONES]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="020c913a-802f-462f-ab16-51e6fa6204ed" x="0" y="0" width="179" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{apelaciones}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="184" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3b430011-9fa0-4c01-acdd-204f29d3e8ec" style="table" mode="Opaque" x="0" y="0" width="184" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true" isItalic="true"/>
+								</textElement>
+								<text><![CDATA[CANTIDAD DE PROCEDENTES]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="85ad743b-e6f7-4bd5-96e2-52fafb73c904" x="0" y="0" width="184" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{procedentes}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement uuid="ec2c9097-d940-45bf-a6e4-bc193df9e141" x="438" y="95" width="57" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Lapso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4bbfa9dc-a181-409c-8433-59e967f5c0fb" x="52" y="95" width="94" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROGRAMA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ff898bd5-f8b3-40ed-8046-4bba5fecc097" x="146" y="95" width="226" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Programa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="91fa24ac-ed1e-48a6-bde1-1677be089023" x="379" y="95" width="59" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPSO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8668fef0-0ae6-47d5-acc1-1e1b99dfacff" x="125" y="49" width="304" height="38"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<image>
+				<reportElement uuid="95306347-0c44-4d80-b0bb-925f8fb76ead" x="0" y="0" width="572" height="50"/>
+				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="410" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="16" y="52" width="544" height="324" forecolor="#3366FF"/>
+			</rectangle>
+			<elementGroup/>
+			<bar3DChart>
+				<chart theme="default">
+					<reportElement uuid="f375ace6-4e7c-4f5d-a682-4a0291c61696" x="16" y="52" width="544" height="324"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Sancionados"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[($F{sancionados}.doubleValue()*100)/$F{sancionados}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0").format(($F{sancionados}.doubleValue()*100)/$F{sancionados})+ "%"]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Apelaciones"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[($F{apelaciones}.doubleValue()*100)/$F{sancionados}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{apelaciones}.doubleValue()*100)/$F{sancionados})+ "%"]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Procedentes"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[($F{procedentes}.doubleValue()*(($F{apelaciones}.doubleValue()*100)/$F{sancionados}))/$F{apelaciones}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format($F{procedentes}.doubleValue()*(($F{apelaciones}.doubleValue()*100)/$F{sancionados})/$F{apelaciones})+ "%"]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot>
+						<seriesColor seriesOrder="0" color="#FF6666"/>
+						<seriesColor seriesOrder="1" color="#3366FF"/>
+						<seriesColor seriesOrder="2" color="#669900"/>
+					</plot>
+					<itemLabel color="#FFFFFF">
+						<font size="7"/>
+					</itemLabel>
+					<categoryAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="7"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="7"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="7"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="7"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+			<textField>
+				<reportElement uuid="001da192-8390-48cc-915b-a84680c59065" x="411" y="389" width="94" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21" x="505" y="389" width="58" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c2c5533a-d73f-4ea1-9d72-6ea8231377d3" x="2" y="390" width="137" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="236da040-094c-4dde-b3dc-612d7e788365" x="139" y="390" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="1a472306-ab1b-439e-aa13-0669f3d1fb34" x="0" y="409" width="572" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
