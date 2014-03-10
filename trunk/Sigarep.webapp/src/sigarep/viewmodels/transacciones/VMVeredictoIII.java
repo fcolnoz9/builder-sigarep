@@ -63,8 +63,7 @@ public class VMVeredictoIII {
 	private String asignaturaLapsosConsecutivos="";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacionGeneral;
-	private String veredicto;
-	
+	private String veredicto="";	
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
@@ -83,6 +82,8 @@ public class VMVeredictoIII {
 	@WireVariable
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	private List<RecaudoEntregado> listaRecaudo; 
+	@Wire("#winVeredictoIII")//para conectarse a la ventana con el ID
+	Window ventana;
 	
 	// Getters and Setters
 	public String getCaso() {
@@ -352,7 +353,7 @@ public class VMVeredictoIII {
 
 	@Command
 	public void registrarVeredicto(@BindingParam("window") Window winVeredictoIII){
-		if (veredicto == null){
+		if (veredicto == null || veredicto.equals("")){
 			mensajeAlUsuario.advertenciaGuardarVeredicto();
 		}else{
 			solicitudApelacion.setObservacion(observacionGeneral);
@@ -404,11 +405,12 @@ public class VMVeredictoIII {
 	@NotifyChange({"veredicto", "observacionGeneral"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if(veredicto !=null|| observacionGeneral !=null)
+		if(!veredicto.equals("")) {
 			condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaTransacciones(ventana,condicion);		
+			}
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 	
 }
-    
+
 
