@@ -29,6 +29,7 @@ import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 
+
 /**
  * DetalleHistorialEstudiante 
  * UCLA DCYT Sistemas de Informacion.
@@ -192,31 +193,14 @@ public class VMDetalleHistorialEstudiante {
 	
 // fin de metodos get y set
 
-
-	@Command
-	@NotifyChange({ "apelacionestudiante" })
-	public void buscarSolicitud(String cedula, String codigoLapso, Integer instancia) {
-		instancia = 1;
-		apelacionestudiante = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
-	}
-	@Command
-	@NotifyChange({ "apelacionestudianteinstancia2" })
-	public void buscarSolicitudInstancia2(String cedula, String codigoLapso, Integer instancia) {
-		instancia = 2;
-		apelacionestudianteinstancia2 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);
-	}
-	@Command
-	@NotifyChange({ "apelacionestudianteinstancia3" })
-	public void buscarSolicitudInstancia3(String cedula, String codigoLapso, Integer instancia) {
-		instancia = 3;
-		apelacionestudianteinstancia3 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
-	}
-	
-	@Command
-	@NotifyChange({ "estudiante" })
-	public void buscarEstudiante(String cedula) {
-		estudiante = servicioestudiantesancionado.buscarApelacion(cedula);
-	}
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
 	@Init
 	public void init(
 
@@ -253,11 +237,95 @@ public class VMDetalleHistorialEstudiante {
 		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
 		}
 	}
+	
+	
+	/**
+	 * buscarSolicitud
+	 * 
+	 * @param String cedula, String codigoLapso, Integer instancia
+	 * @return Solicitudes a la primera instancia.
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
+
 	@Command
-	public void closeThis() {
-		window.detach();
+	@NotifyChange({ "apelacionestudiante" })
+	public void buscarSolicitud(String cedula, String codigoLapso, Integer instancia) {
+		instancia = 1;
+		apelacionestudiante = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
 	}
 	
+	/**
+	 * buscarSolicitudInstancia2
+	 * 
+	 * @param String cedula, String codigoLapso, Integer instancia
+	 * @return Solicitudes a la segunda instancia.
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "apelacionestudianteinstancia2" })
+	public void buscarSolicitudInstancia2(String cedula, String codigoLapso, Integer instancia) {
+		instancia = 2;
+		apelacionestudianteinstancia2 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);
+	}
+	
+	/**
+	 * buscarSolicitudInstancia3
+	 * 
+	 * @param String cedula, String codigoLapso, Integer instancia
+	 * @return Solicitudes a la tercera instancia.
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "apelacionestudianteinstancia3" })
+	public void buscarSolicitudInstancia3(String cedula, String codigoLapso, Integer instancia) {
+		instancia = 3;
+		apelacionestudianteinstancia3 = servicioapelacionestadoapelacion.buscarApelacionHistorial(cedula, codigoLapso, instancia);	
+	}
+	
+	/**
+	 * buscarMotivos
+	 * 
+	 * @param buscarMotivos()
+	 * @return motivos.
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
+	
+	@Command
+	public void buscarMotivos() {
+			motivos = serviciomotivo.buscarMotivosApelacion(cedula, codigoLapso);
+			if (motivos != null)
+				for (int i = 0; i < motivos.size(); i++)
+					motivosEstudiante += motivos.get(i)
+							+ ", ";
+		}
+	
+	/**
+	 * buscarEstudiante
+	 * 
+	 * @param String cedula
+	 * @return Estudiante.
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "estudiante" })
+	public void buscarEstudiante(String cedula) {
+		estudiante = servicioestudiantesancionado.buscarApelacion(cedula);
+	}
+	
+	
+	/**
+	 * showModal()
+	 * 
+	 * @param showModal() 
+	 * @return Conecta con la ventana modal Historialestudiante.zul
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
 	@Command
 	public void showModal() {
 		apelacionestudiante = getApelacionestudiante ();
@@ -292,21 +360,11 @@ public class VMDetalleHistorialEstudiante {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
-	@Command
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = true;
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
-	}
 
 	@Command
-	public void buscarMotivos() {
-			motivos = serviciomotivo.buscarMotivosApelacion(cedula, codigoLapso);
-			if (motivos != null)
-				for (int i = 0; i < motivos.size(); i++)
-					motivosEstudiante += motivos.get(i)
-							+ ", ";
-		}
+	public void closeThis() {
+		window.detach();
+	}
 	
 
 }

@@ -3,8 +3,6 @@ package sigarep.viewmodels.transacciones;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -18,24 +16,19 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-import sigarep.modelos.data.transacciones.Motivo;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
-
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-
-import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
+
 
 /**
  * HistorialEstudiante UCLA DCYT Sistemas de Informacion.
@@ -55,13 +48,15 @@ public class VMHistorialEstudiante {
 	private String segundoApellido;
 	private String nombres;
 	private String apellidos;
+	private String sancion;
 	private String nombreAsignatura;
+	private String cedula;
+	private String fechaIngreso;
+	private String fechaNacimiento;
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
-	private List<TipoMotivo> listaTipoMotivo;
-	private String cedula;
 	private EstudianteSancionado apelacionseleccionada;
-	private String sancion;
+	private Estudiante estudiante;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
@@ -75,16 +70,14 @@ public class VMHistorialEstudiante {
 	private List<ListaHistorialEstudianteVeredicto> listaVeredicto = new LinkedList<ListaHistorialEstudianteVeredicto>();
 	private List<ApelacionEstadoApelacion> apelacionestudiante = new LinkedList<ApelacionEstadoApelacion>();
 	private List<EstudianteSancionado> apelacion = new LinkedList<EstudianteSancionado>();
-
-	private List<AsignaturaEstudianteSancionado> asignaturas;
+	private List<TipoMotivo> listaTipoMotivo;
+    private List<AsignaturaEstudianteSancionado> asignaturas;
 	private EstudianteSancionado estudianteSeleccionado;
-	private Estudiante estudiante;
+	
 	// Para llamar a los diferentes mensajes de dialogo
-			MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	private String fechaIngreso;
-	private String fechaNacimiento;
-			
+				MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();	
 
+				//Métodos  Get y Set
 	public Estudiante getEstudiante() {
 		return estudiante;
 	}
@@ -172,7 +165,6 @@ public class VMHistorialEstudiante {
 		this.apelacionseleccionada = apelacionseleccionada;
 	}
 
-	// Metodos get y set
 	public List<ListaHistorialEstudianteVeredicto> getListaVeredicto() {
 		return listaVeredicto;
 	}
@@ -258,39 +250,16 @@ public class VMHistorialEstudiante {
 		this.nombre = nombre;
 	}
 
-	// fin de metodos get y set
-
+	//Fin Métodos  Get y Set
+	
 	/**
-	 * concatenacionNombres
+	 * inicialización
 	 * 
-	 * @return devuelve primer y segundo nombre concatenados
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepcion.
 	 */
-	public void concatenacionNombres() {
-
-		String nombre1 = nombre;
-		String nombre2 = segundoNombre;
-		nombres = nombre1 + " " + nombre2;
-	}
-
-	/**
-	 * concatenacionApellidos
-	 * 
-	 * @return devuelve primer y segundo apellido concatenados
-	 */
-	public void concatenacionApellidos() {
-
-		String apellido1 = apellido;
-		String apellido2 = segundoApellido;
-		apellidos = apellido1 + " " + apellido2;
-
-	}
-
-	@Command
-	@NotifyChange({ "apelacion" })
-	public void buscarApelacion(String cedula) {
-		apelacion = servicioestudiantesancionado.buscarApelacion(cedula);
-	}
-
 	@Init
 	public void init(
 
@@ -326,11 +295,55 @@ public class VMHistorialEstudiante {
 	
 }
 	}
+	
 
-	@Command
-	public void closeThis() {
-		window.detach();
+	/**
+	 * concatenacionNombres
+	 * 
+	 * @return devuelve primer y segundo nombre concatenados
+	 */
+	public void concatenacionNombres() {
+
+		String nombre1 = nombre;
+		String nombre2 = segundoNombre;
+		nombres = nombre1 + " " + nombre2;
 	}
+
+	/**
+	 * concatenacionApellidos
+	 * 
+	 * @return devuelve primer y segundo apellido concatenados
+	 */
+	public void concatenacionApellidos() {
+
+		String apellido1 = apellido;
+		String apellido2 = segundoApellido;
+		apellidos = apellido1 + " " + apellido2;
+
+	}
+	 /**
+	 * buscarApelacion
+	 * 
+	 * @param String cedula
+	 * @return Busca la apelación del estudiante.
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "apelacion" })
+	public void buscarApelacion(String cedula) {
+		apelacion = servicioestudiantesancionado.buscarApelacion(cedula);
+	}
+
+	
+	/**
+	 * buscarAsignaturas
+	 * 
+	 * @param buscarAsignaturas()
+	 * @return Devuelve las asignaturas por las que el estudiante ha sido sancionado.
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
 
 	@Command
 	public void buscarAsignaturas() {
@@ -349,7 +362,14 @@ public class VMHistorialEstudiante {
 		}
 	}
 	
-
+	/**
+	 * showModal()
+	 * 
+	 * @param showModal() 
+	 * @return Conecta con la ventana modal DetalleHistorialEstudiante.zul
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
 	@Command
 	public void showModal() {
 		cedula = apelacionseleccionada.getId().getCedulaEstudiante();
@@ -364,6 +384,20 @@ public class VMHistorialEstudiante {
 		window.setMaximizable(true);
 		window.doModal();
 
+	}
+	
+	
+	/**
+	 * Cerrar Ventana
+	 * 
+	 * @param binder
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Command
+	public void closeThis() {
+		window.detach();
 	}
 
 }

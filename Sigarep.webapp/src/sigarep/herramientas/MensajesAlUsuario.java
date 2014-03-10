@@ -120,8 +120,7 @@ public class MensajesAlUsuario {
 	}
 
 	public void advertenciaSeleccionarLapso() {
-
-		Messagebox.show("¡Debe seleccionar un lapso académico!",
+        Messagebox.show("¡Debe seleccionar un lapso académico!",
 				"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 
@@ -174,16 +173,16 @@ public class MensajesAlUsuario {
 	
 	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
 
-		Messagebox.show("¡No puede registrar Recursos de Reconsideracion! No ha finalizado el proceso "
-				+ "de apelacion anterior.", "Advertencia",
+		Messagebox.show("¡No puede registrar Recursos de Reconsideración!. No ha finalizado el proceso. "
+				+ "de apelación anterior.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 	
 	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
 
-		Messagebox.show("¡No puede registrar Recursos Jerárquicos!. No ha finalizado el proceso "
-				+ "de apelacion anterior.", "Advertencia",
+		Messagebox.show("¡No puede registrar Recursos Jerárquicos!. No ha finalizado el proceso. "
+				+ "de apelación anterior.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
