@@ -115,7 +115,7 @@
 							mold="paging" pageSize="10" 
 							onClick="@command('showModal')"
 							model="@bind(vm.apelacion)"
-							selectedItem="@bind(vm.apelacionseleccionada)">
+							selectedItem="@bind(vm.apelacionseleccionada)" tooltiptext="Ver Apelaciones">
 							<listhead>
 								<listheader label="Lapso de la Sanción"
 									 width="14%" align="center">
