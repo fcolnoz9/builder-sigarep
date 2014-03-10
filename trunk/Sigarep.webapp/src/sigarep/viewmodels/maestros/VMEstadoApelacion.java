@@ -159,7 +159,7 @@ public class VMEstadoApelacion {
 	// al guardar
 	public void guardarEstadoApelacion() {
 		if (nombreEstado==null || descripcion==null || instanciaApelada==null) {
-			mensajeAlUsuario.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaSeleccionarEstadoApelacion();
 		} else {
 			//EstadoApelacion estadoapelacion = new EstadoApelacion(idEstadoApelacion,nombreEstado,descripcion,true,instanciaApelada);
 			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true);
