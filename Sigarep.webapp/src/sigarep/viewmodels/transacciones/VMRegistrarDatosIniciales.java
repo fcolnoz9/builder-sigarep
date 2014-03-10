@@ -522,6 +522,8 @@ public class VMRegistrarDatosIniciales {
 
 			idTipoMotivo = listaMotivoListBox.get(j).getTipoMotivo()
 					.getIdTipoMotivo();
+			
+			descripcion = listaMotivoListBox.get(j).getDescripcion();
 			motivoPK.setCedulaEstudiante(cedula);
 			motivoPK.setCodigoLapso(lapso);
 			if (instancia != null && idEstado != null
