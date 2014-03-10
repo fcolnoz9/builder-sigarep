@@ -32,7 +32,6 @@ import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.reportes.ApelacionesComparativos;
-import sigarep.modelos.data.reportes.EstudiantesEnProceso;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
@@ -88,7 +87,6 @@ public class VMestudiantesEnProcesoApelacion {
 	private List<SancionMaestro> listaTipoSancion;
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private List<EstadoApelacion> listaEstadoApelacion;
-	private List<EstudiantesEnProceso> estudiantesEnProceso = new LinkedList<EstudiantesEnProceso>();
 	private List<SolicitudApelacion> listaSA = new LinkedList<SolicitudApelacion>();
 	private List<EstudianteSancionado> listaES = new LinkedList<EstudianteSancionado>();
 	private List<EstudianteSancionado> lista1 = new LinkedList<EstudianteSancionado>();
@@ -263,10 +261,6 @@ public class VMestudiantesEnProcesoApelacion {
 			List<EstadoApelacion> listaEstadoApelacion) {
 		this.listaEstadoApelacion = listaEstadoApelacion;
 	}
-
-	public List<EstudiantesEnProceso> getestudiantesEnProceso() {
-		return estudiantesEnProceso;
-	}
 	
 	public List<SolicitudApelacion> getListaSA() {
 		return listaSA;
@@ -282,11 +276,6 @@ public class VMestudiantesEnProcesoApelacion {
 
 	public void setListaES(List<EstudianteSancionado> listaES) {
 		this.listaES = listaES;
-	}
-
-	public void setestudiantesEnProceso(
-			List<EstudiantesEnProceso> estudiantesEnProceso) {
-		this.estudiantesEnProceso = estudiantesEnProceso;
 	}
 
 	public ProgramaAcademico getObjPrograma() {
