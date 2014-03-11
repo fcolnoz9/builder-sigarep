@@ -1,5 +1,7 @@
-<window title="Reportes :: Informes :: Especiales :: Estudiantes En Proceso de Apelación"
-	border="normal" width="auto" height="auto" closable="true" id="winEstudiantesEnProceso">
+<window
+	title="Reportes :: Informes :: Especiales :: Estudiantes En Proceso de Apelación"
+	border="normal" width="auto" height="auto" closable="true"
+	id="winEstudiantesEnProceso">
 
 
 	<vlayout apply="org.zkoss.bind.BindComposer"
@@ -8,44 +10,37 @@
 		<groupbox id="grbParametros" visible="true">
 			<caption id="lblParametros" label="Seleccionar" />
 			<div>
-<!-- 				<label id="dateFechaInicio" value="Desde" /> -->
-<!-- 				<datebox id="dateDesde" mold="rounded" value="@bind(vm.desde)" -->
-<!-- 					placeholder="Seleccione una fecha..."> -->
-<!-- 				</datebox> -->
-<!-- 				<label id="dateFechaHasta" value="Hasta" /> -->
-<!-- 				<datebox id="dateHasta" mold="rounded" value="@bind(vm.hasta)" -->
-<!-- 					placeholder="Seleccione una fecha..."> -->
-<!-- 				</datebox> -->
 				<label id="lblPrograma" value="Programa" />
 				<combobox id="cmbPrograma" mold="rounded"
 					readonly="true" model="@load(vm.listaPrograma)"
 					selectedItem="@bind(vm.objPrograma)"
-					onSelect="@command('objCmbPrograma')" placeholder="Seleccione un programa académico...">
+					onSelect="@command('objCmbPrograma')"
+					placeholder="Seleccione un programa académico...">
 					<template name="model">
 						<comboitem label="${each.nombrePrograma}" />
 					</template>
 				</combobox>
-				
-<!-- 				<label id="lblSanciones" value="Tipo Sancion" /> -->
-<!-- 				<combobox id="cmbTipoSancion" mold="rounded" -->
-<!-- 					readonly="true" model="@load(vm.listaTipoSancion)" -->
-<!-- 					selectedItem="@bind(vm.objSancion)" width="100px" -->
-<!-- 					onSelect="@command('objCmbSancion')" placeholder="Seleccione tipo de sanción..."> -->
-<!-- 					<template name="model"> -->
-<!-- 						<comboitem label="${each.nombreSancion}" /> -->
-<!-- 					</template> -->
-<!-- 				</combobox> -->
-
+				<label id="lblInstanciA" value="Instancia Apelada:" />
+				<combobox id="cmbInstanciaA" readonly="true"
+					mold="rounded" placeholder="Seleccione una instancia apelada..."
+					model="@load(vm.listaInstanciaApelada)"
+					selectedItem="@bind(vm.objinstanciaApelada)"
+					onSelect="@command('buscarEstados')">
+					<template name="model">
+						<comboitem label="${each.instanciaApelada}" />
+					</template>
+				</combobox>
 				<label id="lblEstadoApelacion" value="Estado Apelacion" />
 				<combobox id="cmbEstadoApelacion" mold="rounded"
 					readonly="true" model="@load(vm.listaEstadoApelacion)"
 					selectedItem="@bind(vm.objEstadoApelacion)"
-					onSelect="@command('objCmbEstadoApelacion')" placeholder="Seleccione Estado...">
+					onSelect="@command('objCmbEstadoApelacion')"
+					placeholder="Seleccione Estado...">
 					<template name="model">
 						<comboitem label="${each.nombreEstado}" />
 					</template>
 				</combobox>
-				
+
 				Elija el Tipo de Archivo :
 				<listbox id="format" mold="select"
 					model="@load(vm.reportTypesModel)"
@@ -59,15 +54,16 @@
 			</div>
 		</groupbox>
 
-	<div align="right" height="100%">
+		<div align="right" height="100%">
 			<button id="btnImprimir" width="auto" height="auto"
-				label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy"
-				
+				label="Generar" image="/imagenes/iconos/generar.png"
+				orient="horizontal" mold="trendy"
 				onClick="@command('GenerarReporteEstudiantesEnProceso')">
 
 			</button>
 			<button id="btnLimpiar" width="auto" height="auto"
-				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('limpiar')">
+				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy"
+				onClick="@command('limpiar')">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" image="/imagenes/iconos/cerrar.png"
@@ -82,6 +78,6 @@
 			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesEnProceso')" />
 
 
-	
+
 	</vlayout>
 </window>

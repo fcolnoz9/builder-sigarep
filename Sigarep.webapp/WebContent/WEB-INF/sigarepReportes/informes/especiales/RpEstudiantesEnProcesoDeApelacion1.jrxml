@@ -129,6 +129,7 @@
 	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="estado" class="java.lang.String"/>
 	<parameter name="programa" class="java.lang.String"/>
+	<parameter name="instancia" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -144,7 +145,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="171" splitType="Stretch">
+		<band height="192" splitType="Stretch">
 			<image>
 				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="0" y="0" width="109" height="64"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
@@ -168,32 +169,46 @@ UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2ef123d2-a6e6-43c2-aa61-817f72c5d2a4" x="151" y="96" width="68" height="32"/>
+				<reportElement uuid="6356e591-b834-4885-ab25-a4d0b2a5c2b2" x="135" y="160" width="82" height="32"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Estado:]]></text>
+				<text><![CDATA[Programa:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="d1898db6-2090-4fc2-8369-64da287fb78d" x="219" y="96" width="353" height="32"/>
+				<reportElement uuid="22bc767d-9e6b-4742-a3ba-c4fd9b81b2be" x="219" y="96" width="353" height="32"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d46aee0e-7f6c-465a-b5d7-b8a194eee1df" x="219" y="128" width="353" height="32"/>
+				<reportElement uuid="67838f63-37e7-4a67-bbdf-586b2ea5c69f" x="219" y="128" width="353" height="32"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{instancia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="57008afa-9a66-413d-986a-2fef8e703841" x="151" y="96" width="68" height="32"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6821a842-be28-4aec-8f93-61ca81eeac0d" x="219" y="160" width="353" height="32"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{programa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="d27b2e95-1f68-4f2b-9927-662d72e1a0bc" x="137" y="128" width="82" height="32"/>
+				<reportElement uuid="d4da1251-954b-475c-85f3-353d59ddcaf9" x="137" y="128" width="82" height="32"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Programa:]]></text>
+				<text><![CDATA[Instancia:]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

@@ -35,6 +35,7 @@ import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
+import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
@@ -62,6 +63,8 @@ public class VMestudiantesEnProcesoApelacion {
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioInstanciaApelada servicioInstanciaApelada;
 
 	// ***********************************PARÁMETROS PARA
 	// SERVICIOS************************
@@ -88,19 +91,22 @@ public class VMestudiantesEnProcesoApelacion {
 	private ProgramaAcademico objPrograma;
 	private EstadoApelacion objEstadoApelacion;
 	private LapsoAcademico lapsoActivo;
+	private InstanciaApelada objinstanciaApelada;
 
 	// *********************************Mensajes***************************************
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
-	@Wire("#winEstudiantesEnProceso") // para conectarse a la ventana con el ID
+
+	@Wire("#winEstudiantesEnProceso")
+	// para conectarse a la ventana con el ID
 	Window ventana;
 
-	@AfterCompose // para poder conectarse con los componentes en la vista, es necesario si no
-				  // da null Pointer
+	@AfterCompose
+	// para poder conectarse con los componentes en la vista, es necesario si no
+	// da null Pointer
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
 	}
-	
+
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
 	// REPORTE***************************
 
@@ -113,8 +119,9 @@ public class VMestudiantesEnProcesoApelacion {
 	@Init
 	public void init() {
 		buscarPrograma();
-		buscarEstadoApelacion();
+		// buscarEstadoApelacion();
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
+		listadoInstancia();
 	}
 
 	/**
@@ -149,38 +156,40 @@ public class VMestudiantesEnProcesoApelacion {
 	}
 
 	/**
-	 * buscar Estado Apelacion
+	 * buscar Instancia
 	 * 
 	 * @param
-	 * @return lista de estado apelacion
+	 * @return lista de instacias apeladas
+	 */
+
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void listadoInstancia() {
+		listaInstanciaApelada = servicioInstanciaApelada
+				.listadoInstanciaApelada();
+	}
+
+	/**
+	 * Objeto Combo Instancia.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Instancia Apelada
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
+
 	@Command
-	@NotifyChange({ "listaEstadoApelacion" })
-	public void buscarEstadoApelacion() {
+	@NotifyChange({ "listaInstanciaApelada" })
+	public InstanciaApelada objCmbinstanciaApelada() {
+		return objinstanciaApelada;
+	}
+
+	@Command
+	@NotifyChange({ "listaEstadoApelacion", "objinstanciaApelada" })
+	// *********BUSCAR ESTADOS POR INSTANCIA
+	public void buscarEstados() {
 		listaEstadoApelacion = servicioestadoapelacion
-				.listadoEstadoApelacionActivas();
-		for (int i = 0; i < listaEstadoApelacion.size(); i++) {
-			int instancia = listaEstadoApelacion.get(i).getInstanciaApelada()
-					.getIdInstanciaApelada();
-			switch (instancia) {
-			case 1:
-				listaEstadoApelacion.get(i).setNombreEstado(
-						listaEstadoApelacion.get(i).getNombreEstado() + " I");
-				break;
-			case 2:
-				listaEstadoApelacion.get(i).setNombreEstado(
-						listaEstadoApelacion.get(i).getNombreEstado() + " II");
-				break;
-			case 3:
-				listaEstadoApelacion.get(i).setNombreEstado(
-						listaEstadoApelacion.get(i).getNombreEstado() + " III");
-				break;
-			default:
-				break;
-			}
-		}
+				.buscarEstados(objinstanciaApelada.getIdInstanciaApelada());
 	}
 
 	/**
@@ -280,6 +289,14 @@ public class VMestudiantesEnProcesoApelacion {
 		this.objEstadoApelacion = objEstadoApelacion;
 	}
 
+	public InstanciaApelada getObjinstanciaApelada() {
+		return objinstanciaApelada;
+	}
+
+	public void setObjinstanciaApelada(InstanciaApelada objinstanciaApelada) {
+		this.objinstanciaApelada = objinstanciaApelada;
+	}
+
 	// ===============================FIN DE LOS METODOS SET Y
 	// GET==============================
 	// REPORTE
@@ -341,6 +358,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -372,6 +391,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -403,6 +424,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -434,6 +457,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -465,6 +490,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -496,6 +523,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -527,6 +556,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -558,6 +589,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -589,6 +622,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -620,6 +655,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -651,6 +688,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -682,6 +721,8 @@ public class VMestudiantesEnProcesoApelacion {
 															// REPORTE
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
+					reportConfig.getParameters().put("instancia",
+							objinstanciaApelada.getInstanciaApelada());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -701,10 +742,11 @@ public class VMestudiantesEnProcesoApelacion {
 	}
 
 	@Command
-	@NotifyChange({ "objPrograma", "objEstadoApelacion" })
+	@NotifyChange({ "objPrograma", "objEstadoApelacion", "objinstanciaApelada" })
 	public void limpiar() {
 		objPrograma = null;
 		objEstadoApelacion = null;
+		objinstanciaApelada = null;
 	}
 
 	// #####################MENSAJE PARA CERRAR##########################

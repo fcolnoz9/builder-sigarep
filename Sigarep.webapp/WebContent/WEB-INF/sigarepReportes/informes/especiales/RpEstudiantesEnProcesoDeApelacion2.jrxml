@@ -129,6 +129,7 @@
 	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="estado" class="java.lang.String"/>
 	<parameter name="programa" class="java.lang.String"/>
+	<parameter name="instancia" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -144,7 +145,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="171" splitType="Stretch">
+		<band height="192" splitType="Stretch">
 			<image>
 				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="0" y="0" width="109" height="64"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
@@ -182,19 +183,33 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a9767a5f-2e82-4210-9198-2b8be97e2c0b" x="137" y="128" width="82" height="32"/>
+				<reportElement uuid="a9767a5f-2e82-4210-9198-2b8be97e2c0b" x="137" y="160" width="82" height="32"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Programa:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="e6fd2bc8-0282-4e6d-8ed1-a2bd8a6b85cf" x="219" y="128" width="353" height="32"/>
+				<reportElement uuid="e6fd2bc8-0282-4e6d-8ed1-a2bd8a6b85cf" x="219" y="160" width="353" height="32"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{programa}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement uuid="d227243b-a903-416a-9bf5-7243283b428a" x="219" y="128" width="353" height="32"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{instancia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="faa3307e-e8b6-4272-ab33-eb65677afe19" x="137" y="128" width="84" height="32"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instancia:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>

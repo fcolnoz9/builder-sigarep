@@ -25,10 +25,12 @@ import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
+import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.reportes.Sancionados;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
+import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioReportesEstructurados;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -48,6 +50,8 @@ public class VMInformeConsejoDecanato {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
 	private ServicioReportesEstructurados servicioreportesestructurados;
+	@WireVariable
+	private ServicioProgramaAcademico servicioprogramaacademico;
 	
 	// ***********************************PARÁMETROS PARA
 	// SERVICIOS*************************
@@ -74,6 +78,7 @@ public class VMInformeConsejoDecanato {
 	// ***********************************DECLARACIÓN DE
 	// LISTAS*************************
 	private List<LapsoAcademico> listaLapso;
+	private List<ProgramaAcademico> listaPrograma = new LinkedList<ProgramaAcademico>();
 	private List<Sancionados> listaInformatica = new LinkedList<Sancionados>();
 	private List<Sancionados> listaAnalisis = new LinkedList<Sancionados>();
 	private List<Sancionados> listaProduccion = new LinkedList<Sancionados>();
@@ -184,6 +189,14 @@ public class VMInformeConsejoDecanato {
 		return nro;
 	}
 
+	public List<ProgramaAcademico> getListaPrograma() {
+		return listaPrograma;
+	}
+
+	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
+		this.listaPrograma = listaPrograma;
+	}
+	
 	public List<LapsoAcademico> getListaLapso() {
 		return listaLapso;
 	}
@@ -238,34 +251,36 @@ public class VMInformeConsejoDecanato {
 		listaAnalisis.clear();
 		listaProduccion.clear();
 		listaMatematicas.clear();
+		listaPrograma.clear();
+		listaPrograma = servicioprogramaacademico.listadoProgramas();
 		if (objLapso == null || para.equals("") || nro.equals("")
 				|| de.equals("") || contenido.equals(""))
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
 
 			listaInformatica = servicioreportesestructurados
-					.buscarEstudiantesComision(1);
+					.buscarEstudiantesComision(listaPrograma.get(0).getIdPrograma());
 			if (listaInformatica.size() > 0) {
 				procedentesInf = listaInformatica.get(0).getProcedentes();
 				denegadosInf = listaInformatica.get(0).getNoProcedentes();
 			}
 
 			listaProduccion = servicioreportesestructurados
-					.buscarEstudiantesComision(2);
+					.buscarEstudiantesComision(listaPrograma.get(1).getIdPrograma());
 			if (listaProduccion.size() > 0) {
 				procedentesPro = listaProduccion.get(0).getProcedentes();
 				denegadosPro = listaProduccion.get(0).getNoProcedentes();
 			}
 
 			listaAnalisis = servicioreportesestructurados
-					.buscarEstudiantesComision(3);
+					.buscarEstudiantesComision(listaPrograma.get(2).getIdPrograma());
 			if (listaAnalisis.size() > 0) {
 				procedentesAna = listaAnalisis.get(0).getProcedentes();
 				denegadosAna = listaAnalisis.get(0).getNoProcedentes();
 			}
 
 			listaMatematicas = servicioreportesestructurados
-					.buscarEstudiantesComision(4);
+					.buscarEstudiantesComision(listaPrograma.get(3).getIdPrograma());
 			if (listaMatematicas.size() > 0) {
 				procedentesMat = listaMatematicas.get(0).getProcedentes();
 				denegadosMat = listaMatematicas.get(0).getNoProcedentes();
