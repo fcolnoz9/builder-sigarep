@@ -1,7 +1,6 @@
 package sigarep.viewmodels.reportes;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,17 +30,13 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
-import sigarep.modelos.data.reportes.ApelacionesComparativos;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
-import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
-import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
-import sigarep.modelos.servicio.reportes.ServicioReportes;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
@@ -60,11 +55,7 @@ public class VMestudiantesEnProcesoApelacion {
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
-	private ServicioSancionMaestro serviciosancionmaestro;
-	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
-	@WireVariable
-	private ServicioReportes servicioreportes;
 	@WireVariable
 	private ServicioEstadoApelacion servicioestadoapelacion;
 	@WireVariable
@@ -99,18 +90,17 @@ public class VMestudiantesEnProcesoApelacion {
 	private LapsoAcademico lapsoActivo;
 
 	// *********************************Mensajes***************************************
-	@Wire("#winEstudiantesEnProceso")
-	// para conectarse a la ventana con el ID
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	
+	@Wire("#winEstudiantesEnProceso") // para conectarse a la ventana con el ID
 	Window ventana;
 
-	@AfterCompose
-	// para poder conectarse con los componentes en la vista, es necesario si no
-	// da null Pointer
+	@AfterCompose // para poder conectarse con los componentes en la vista, es necesario si no
+				  // da null Pointer
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
 	}
-
-	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	
 	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
 	// REPORTE***************************
 
@@ -125,7 +115,6 @@ public class VMestudiantesEnProcesoApelacion {
 		buscarPrograma();
 		buscarEstadoApelacion();
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-
 	}
 
 	/**
@@ -157,7 +146,6 @@ public class VMestudiantesEnProcesoApelacion {
 	@NotifyChange({ "listaPrograma" })
 	public ProgramaAcademico objCmbPrograma() {
 		return objPrograma;
-
 	}
 
 	/**
@@ -173,7 +161,6 @@ public class VMestudiantesEnProcesoApelacion {
 	public void buscarEstadoApelacion() {
 		listaEstadoApelacion = servicioestadoapelacion
 				.listadoEstadoApelacionActivas();
-
 		for (int i = 0; i < listaEstadoApelacion.size(); i++) {
 			int instancia = listaEstadoApelacion.get(i).getInstanciaApelada()
 					.getIdInstanciaApelada();
@@ -193,7 +180,6 @@ public class VMestudiantesEnProcesoApelacion {
 			default:
 				break;
 			}
-
 		}
 	}
 
@@ -261,7 +247,7 @@ public class VMestudiantesEnProcesoApelacion {
 			List<EstadoApelacion> listaEstadoApelacion) {
 		this.listaEstadoApelacion = listaEstadoApelacion;
 	}
-	
+
 	public List<SolicitudApelacion> getListaSA() {
 		return listaSA;
 	}
@@ -326,7 +312,6 @@ public class VMestudiantesEnProcesoApelacion {
 	@Command("GenerarReporteEstudiantesEnProceso")
 	@NotifyChange({ "reportConfig" })
 	public void GenerarReporte() {
-
 		listaES.clear();
 		lista1.clear();
 		listaSA.clear();
@@ -335,7 +320,6 @@ public class VMestudiantesEnProcesoApelacion {
 		if (objEstadoApelacion == null || objPrograma == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
-
 			switch (objEstadoApelacion.getIdEstadoApelacion()) {
 			case (1):
 				// Registro de Apelacion Inicial - Estado = 1
@@ -351,7 +335,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista1.add(listaES.get(i));
 					}
 				}
-
 				if (lista1.size() > 0) {
 					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -373,7 +356,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Verificación de Recaudos I - Estado = 2
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVerificarRecaudosI(lapsoActivo, 1);
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -384,7 +366,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista2.add(listaSA.get(i));
 					}
 				}
-
 				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -406,7 +387,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Analizar validez de Recaudos I - Estado = 3
 				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezI(
 						lapsoActivo, 1);
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -417,7 +397,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista2.add(listaSA.get(i));
 					}
 				}
-
 				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -439,7 +418,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Veredicto del Caso I - Estado = 4
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoI();
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -450,7 +428,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista2.add(listaSA.get(i));
 					}
 				}
-
 				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -472,7 +449,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Registro de Recurso de Reconsideración - Estado = 5
 				listaES = servicioestudiantesancionado
 						.buscarSancionadosReconsideracion();
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista1.addAll(listaES);
 				} else {
@@ -483,7 +459,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista1.add(listaES.get(i));
 					}
 				}
-
 				if (lista1.size() > 0) {
 					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -505,7 +480,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Verificación de Recuados II - Estado = 6
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVerificarRecaudosII(lapsoActivo, 2);
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -537,7 +511,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Analizar validez de Recaudos II - Estado = 7
 				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezII(
 						lapsoActivo, 2);
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -548,7 +521,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista2.add(listaSA.get(i));
 					}
 				}
-
 				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -570,7 +542,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Veredicto del Caso II - Estado = 8
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoII();
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -581,7 +552,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista2.add(listaSA.get(i));
 					}
 				}
-
 				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -603,7 +573,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Registro de Recurso Jerárquico - Estado = 9
 				listaES = servicioestudiantesancionado
 						.buscarSancionadosRecursoJerarquico();
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista1.addAll(listaES);
 				} else {
@@ -614,7 +583,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista1.add(listaES.get(i));
 					}
 				}
-
 				if (lista1.size() > 0) {
 					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -636,7 +604,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Verificación de Recaudos III - Estado = 10
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVerificarRecaudosIII(lapsoActivo, 3);
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -647,7 +614,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista2.add(listaSA.get(i));
 					}
 				}
-
 				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -669,7 +635,6 @@ public class VMestudiantesEnProcesoApelacion {
 				// Analizar validez de Recaudos III - Estado = 11
 				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezIII(
 						lapsoActivo, 3);
-
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
@@ -680,7 +645,6 @@ public class VMestudiantesEnProcesoApelacion {
 							lista2.add(listaSA.get(i));
 					}
 				}
-
 				if (lista2.size() > 0) {
 					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
@@ -741,7 +705,6 @@ public class VMestudiantesEnProcesoApelacion {
 	public void limpiar() {
 		objPrograma = null;
 		objEstadoApelacion = null;
-
 	}
 
 	// #####################MENSAJE PARA CERRAR##########################
@@ -749,7 +712,6 @@ public class VMestudiantesEnProcesoApelacion {
 	@NotifyChange({})
 	public void cerrarVentana(
 			@ContextParam(ContextType.BINDER) final Binder binder) {
-
 		Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
 				new Messagebox.Button[] { Messagebox.Button.YES,
 						Messagebox.Button.NO }, Messagebox.QUESTION,
@@ -759,10 +721,8 @@ public class VMestudiantesEnProcesoApelacion {
 						switch (e.getButton()) {
 						case YES:
 							ventana.detach();
-
 						}
 					}
 				});
 	}
-
 }

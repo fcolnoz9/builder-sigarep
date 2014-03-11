@@ -34,16 +34,19 @@ import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
-import sigarep.modelos.servicio.reportes.ServicioReportes;
+import sigarep.modelos.servicio.reportes.ServicioReportesComparativos;
 
-/**VM Reporte Estadístico de Apelaciones por Instancia y Veredicto
- * UCLA DCYT Sistemas de Información.
+/**
+ * VM Reporte Estadístico de Apelaciones por Instancia y Veredicto UCLA DCYT
+ * Sistemas de Información.
+ * 
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.0
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMapelacionesPorTipoApelacion {
-	//***********************************DECLARACIÓN DE LAS VARIABLES SERVICIOS*************************
+	// ***********************************DECLARACIÓN DE LAS VARIABLES
+	// SERVICIOS*************************
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -51,123 +54,146 @@ public class VMapelacionesPorTipoApelacion {
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
-	private ServicioReportes servicioreportes;
+	private ServicioReportesComparativos servicioreportescomparativos;
 
-	
-	//***********************************PARÁMETROS PARA SERVICIOS*************************
+	// ***********************************PARÁMETROS PARA
+	// SERVICIOS*************************
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
 	private String nombreSancion;
 	@WireVariable
 	private String codigoLapso;
- 
-	//***********************************DECLARACIÓN DE LISTAS*************************
+
+	// ***********************************DECLARACIÓN DE
+	// LISTAS*************************
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<SancionMaestro> listaTipoSancion;
 	private List<LapsoAcademico> listaLapso;
 	private List<ApelacionesComparativos> apelacionesComparativos = new LinkedList<ApelacionesComparativos>();
-	
-	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
+
+	// ***********************************DECLARACION DE LAS VARIABLES TIPO
+	// OBJETO*************************
 	private SancionMaestro objSancion;
 	private LapsoAcademico objLapso;
 	private ProgramaAcademico objPrograma;
- 
+
+	// *********************************Mensajes***************************************
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
-	//*********************************Mensajes***************************************
-	@Wire("#winApelacionesPorInstancia")//para conectarse a la ventana con el ID
+	@Wire("#winApelacionesPorInstancia") // para conectarse a la ventana con el ID
 	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
-		MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
+
+	@AfterCompose 	// para poder conectarse con los componentes en la vista, es necesario si no
+					// da null Pointer
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
+	}
+
+	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
+	// REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
-	String ruta="/WEB-INF/sigarepReportes/estadisticos/RApelacionesTipoApelacion-Veredicto.jasper";
+	String ruta = "/WEB-INF/sigarepReportes/estadisticos/RApelacionesTipoApelacion-Veredicto.jasper";
 
 	@Init
 	public void init() {
 		buscarPrograma();
 		buscarTipoSancion();
 		buscarLapso();
-		
 	}
 
-
-	/** buscar Programa Académico
-	 * @param  
+	/**
+	 * buscar Programa Académico
+	 * 
+	 * @param
 	 * @return lista de programa Académico
-	 * @throws No dispara ninguna excepción.
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarPrograma() {
-		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
-		
+		listaPrograma = servicioprogramaacademico
+				.buscarPrograma(nombrePrograma);
 	}
-	/** Objeto Combo Programa.
- 	* @param Ninguno
- 	* @return Objeto Programa Académico
- 	* @throws No dispara ninguna excepción.
- 	*/
-	
+
+	/**
+	 * Objeto Combo Programa.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public ProgramaAcademico objCmbPrograma() {
 		return objPrograma;
-
 	}
-	/** buscar Sanción
-	 * @param  
+
+	/**
+	 * buscar Sanción
+	 * 
+	 * @param
 	 * @return lista de sanción
-	 * @throws No dispara ninguna excepción.
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaTipoSancion" })
 	public void buscarTipoSancion() {
 		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
 		SancionMaestro sanc = new SancionMaestro(null, null, null, "Todos");
-		listaTipoSancion.add(/* listaTipoSancion.size() */0, sanc);
+		listaTipoSancion.add(0, sanc);
 	}
-	
-	/** Objeto Combo Sanción.
- 	* @param Ninguno
- 	* @return Objeto Sanción
- 	* @throws No dispara ninguna excepción.
- 	*/
+
+	/**
+	 * Objeto Combo Sanción.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Sanción
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 
 	@Command
 	@NotifyChange({ "listaTipoSancion" })
 	public SancionMaestro objCmbSancion() {
 		return objSancion;
-
 	}
-	/** buscar Lapsos
-	 * @param  
+
+	/**
+	 * buscar Lapsos
+	 * 
+	 * @param
 	 * @return lista de lapsos
-	 * @throws No dispara ninguna excepción.
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaLapso" })
 	public void buscarLapso() {
 		listaLapso = serviciolapsoacademico.buscarTodosLosLapsos();
-		
 	}
-	/** Objeto lapso.
- 	* @param Ninguno
- 	* @return Objeto Lapso
- 	* @throws No dispara ninguna excepción.
- 	*/
+
+	/**
+	 * Objeto lapso.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Lapso
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "listaLapso" })
 	public LapsoAcademico objCmbLapso() {
 		return objLapso;
-
 	}
-	//Reporte SET/GETS
+
+	// Reporte SET/GETS
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
@@ -183,6 +209,7 @@ public class VMapelacionesPorTipoApelacion {
 	public void setReportType(ReportType reportType) {
 		this.reportType = reportType;
 	}
+
 	public List<ProgramaAcademico> getListaPrograma() {
 		return listaPrograma;
 	}
@@ -238,28 +265,37 @@ public class VMapelacionesPorTipoApelacion {
 	public void setObjPrograma(ProgramaAcademico objPrograma) {
 		this.objPrograma = objPrograma;
 	}
-	
-	//===============================FIN DE LOS METODOS SET Y GET==============================
-	
-	//REPORTE
-			/** Muestra los tipos de formatos que puede mostrarse el reporte
-			 * @param  
-			 * @return modelos de la lista
-			 * @throws No dispara ninguna excepción.
-			 */
-			private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-					Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
-							"html"), new ReportType("Word (RTF)", "rtf"),
-							new ReportType("Excel", "xls"), new ReportType(
-									"Excel (JXL)", "jxl"),
-							new ReportType("CSV", "csv"), new ReportType(
-									"OpenOffice (ODT)", "odt")));
 
-	/** Generar Reporte Estadístico Comparativo de Apelaciones por Instancia y Veredicto.
-	* @param Ninguno
-	* @return Reporte Estadístico Comparativo de Apelaciones por Instancia y Veredicto generado en PDF u otro tipo de archivo
-	* @throws Si la lista está vacía no genera el reporte.
-	*/
+	// ===============================FIN DE LOS METODOS SET Y
+	// GET==============================
+
+	// REPORTE
+	/**
+	 * Muestra los tipos de formatos que puede mostrarse el reporte
+	 * 
+	 * @param
+	 * @return modelos de la lista
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
+					"html"), new ReportType("Word (RTF)", "rtf"),
+					new ReportType("Excel", "xls"), new ReportType(
+							"Excel (JXL)", "jxl"),
+					new ReportType("CSV", "csv"), new ReportType(
+							"OpenOffice (ODT)", "odt")));
+
+	/**
+	 * Generar Reporte Estadístico Comparativo de Apelaciones por Instancia y
+	 * Veredicto.
+	 * 
+	 * @param Ninguno
+	 * @return Reporte Estadístico Comparativo de Apelaciones por Instancia y
+	 *         Veredicto generado en PDF u otro tipo de archivo
+	 * @throws Si
+	 *             la lista está vacía no genera el reporte.
+	 */
 	@Command("GenerarReporteApelacionesInstancia")
 	@NotifyChange({ "reportConfig" })
 	public void GenerarReporte() {
@@ -267,71 +303,71 @@ public class VMapelacionesPorTipoApelacion {
 		apelacionesComparativos.clear();
 		ProgramaAcademico prog = objPrograma;
 		LapsoAcademico lap = objLapso;
-		if(objSancion==null || objLapso==null || objSancion==null
-				|| objPrograma==null){
+		if (objSancion == null || objLapso == null || objSancion == null
+				|| objPrograma == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
-		}
-		else{
-		
-		if (objSancion.getNombreSancion() == "Todos") {
-			apelacionesComparativos = servicioreportes
-					.buscarPorInstanciaResultado_Programa(
-							objLapso.getCodigoLapso(),
-							objPrograma.getIdPrograma());
-		} else{
-			apelacionesComparativos = servicioreportes
-					.buscarPorInstanciaResultado_ProgramaSancion(
-							objLapso.getCodigoLapso(),
-							objSancion.getIdSancion(),
-							objPrograma.getIdPrograma());
+		} else {
+			if (objSancion.getNombreSancion() == "Todos") {
+				apelacionesComparativos = servicioreportescomparativos
+						.buscarPorInstanciaResultado_Programa(
+								objLapso.getCodigoLapso(),
+								objPrograma.getIdPrograma());
+			} else {
+				apelacionesComparativos = servicioreportescomparativos
+						.buscarPorInstanciaResultado_ProgramaSancion(
+								objLapso.getCodigoLapso(),
+								objSancion.getIdSancion(),
+								objPrograma.getIdPrograma());
+			}
+			if (apelacionesComparativos.size() > 0) {
+				reportConfig = new ReportConfig(ruta);
+				reportConfig
+						.getParameters()
+						.put("Titulo",
+								"Reporte Comparativo de Apelaciones por Tipo de Apelación y Veredicto");
+				reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
+				reportConfig.getParameters().put("Programa",
+						prog.getNombrePrograma().toUpperCase());
+				reportConfig.getParameters()
+						.put("Lista",
+								new JRBeanCollectionDataSource(
+										apelacionesComparativos));
+				reportConfig.setType(reportType);
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(
+						apelacionesComparativos));
+			}
 
+			else {
+				mensajeAlUsuario.informacionNoHayCoincidencias();
+			}
 		}
-		
-		
-		if(apelacionesComparativos.size()>0){
-		reportConfig = new ReportConfig(ruta); 
-		reportConfig.getParameters().put("Titulo", "Reporte Comparativo de Apelaciones por Tipo de Apelación y Veredicto");
-		reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
-		reportConfig.getParameters().put("Programa", prog.getNombrePrograma().toUpperCase());
-		reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-	    apelacionesComparativos));
-		reportConfig.setType(reportType); 
-		reportConfig.setDataSource(new JRBeanCollectionDataSource(
-				apelacionesComparativos)); 
-		}
-		
-		else{
-			mensajeAlUsuario.informacionNoHayCoincidencias();
-		
-		}
-	}
-	}
-	
-	@Command
-	@NotifyChange({"objLapso","objSancion","objPrograma"})
-	public void limpiar(){
-		objLapso= null;
-		objSancion= null;
-		objPrograma= null;
-		
 	}
 
-	//#####################MENSAJE PARA CERRAR VENTANA##########################
 	@Command
-	@NotifyChange({ })
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
+	@NotifyChange({ "objLapso", "objSancion", "objPrograma" })
+	public void limpiar() {
+		objLapso = null;
+		objSancion = null;
+		objPrograma = null;
+	}
+
+	// #####################MENSAJE PARA CERRAR
+	// VENTANA##########################
+	@Command
+	@NotifyChange({})
+	public void cerrarVentana(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
+				new Messagebox.Button[] { Messagebox.Button.YES,
+						Messagebox.Button.NO }, Messagebox.QUESTION,
+				new EventListener<ClickEvent>() {
+					@SuppressWarnings("incomplete-switch")
+					public void onEvent(ClickEvent e) throws Exception {
+						switch (e.getButton()) {
 						case YES:
-								ventana.detach();
-					
-					
+							ventana.detach();
+						}
 					}
-				}
-			});		
-		}
-
+				});
+	}
 }
