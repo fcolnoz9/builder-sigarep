@@ -16,7 +16,7 @@
 				<rows>
 					<row>
 						<label id="lblLapsoAcademico" value="Lapso Académico:" />
-						<combobox id="cmbLapsoAcademico" mold="rounded" 
+						<combobox id="cmbLapsoAcademico" mold="rounded" readonly="true" 
 						placeholder = "Seleccione un lapso académico..."
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.objLapso)" 

@@ -3,7 +3,6 @@ package sigarep.viewmodels.maestros;
 import java.util.Date;
 import java.util.List;
 
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -17,9 +16,10 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
-/** Clase Lapso Académico
- * REgistra y modifica un lapso académico 
- *  @author Equipo: Builder-SIGAREP
+/**
+ * Clase Lapso Académico REgistra y modifica un lapso académico
+ * 
+ * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 20/12/13
  */
@@ -31,15 +31,15 @@ public class VMlapsoAcademico {
 
 	private String codigoLapso;// clave principal de la tabla lapso_academico
 	private Date fechaInicio;// fecha de inicio del lapso académico
-	private Date fechaCierre;//fecha de cierre del lapso académico
+	private Date fechaCierre;// fecha de cierre del lapso académico
 	private Boolean estatus;// estatus del codigolapso
-	private List<LapsoAcademico> listaLapsoAcademico;// lista de los lapso académico registrados
+	private List<LapsoAcademico> listaLapsoAcademico;// lista de los lapso
+														// académico registrados
 	private LapsoAcademico lapsoAcademicoSeleccionado;
 	private LapsoAcademico lapsoAcademico;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@Wire
 	Textbox txtcodigoLapso;
-
 
 	// Metodos set y get
 	public String getCodigoLapso() {
@@ -90,6 +90,7 @@ public class VMlapsoAcademico {
 			LapsoAcademico lapsoAcademicoseleccionado) {
 		this.lapsoAcademicoSeleccionado = lapsoAcademicoseleccionado;
 	}
+
 	public LapsoAcademico getLapsoAcademico() {
 		return lapsoAcademico;
 	}
@@ -97,73 +98,80 @@ public class VMlapsoAcademico {
 	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
 		this.lapsoAcademico = lapsoAcademico;
 	}
-	
 
-	
 	// Fin de los metodos gets y sets
 
 	// ----------- OTROS METODOS
 
-
-
+	/**
+	 * Inicialización
+	 * @param init
+	 * @return metodos inicializados
+	 * @throws No dispara ninguna excepcion.
+	 */
 
 	@Init
 	public void init() {
-		// initialization code
+		
 		buscarLapsoAcademico();
 		buscarTodosLapsoAcademicos();
 	}
 
 	/**
-	 * Guardar lapso Académico si no hay un lapso activo ya registrado
-	 * @return nada
+	 * Guardar un lapso Académico si no hay un lapso activo ya registrado y
+	 * modifica el lapso actual
+	 *  @return nada
 	 * @parameters el objeto lapsoacademico
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico", "lapsoAcademico"})
+			"listaLapsoAcademico", "lapsoAcademico" })
 	public void guardarLapso() {
-		if (codigoLapso == null || fechaInicio == null || fechaCierre == null || codigoLapso.equals(""))
+		if (codigoLapso == null || fechaInicio == null || fechaCierre == null
+				|| codigoLapso.equals(""))
 			mensajeAlUsuario.advertenciaLlenarCampos();
-		else{
-			if(serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso) == null && serviciolapsoacademico.buscarLapsoActivo() == null){
+		else {
+			if (serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso) == null
+					&& serviciolapsoacademico.buscarLapsoActivo() == null) {
 				LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,
 						fechaInicio, fechaCierre, true);
+				serviciolapsoacademico.guardarLapso(lapsoA);
+				mensajeAlUsuario.informacionRegistroCorrecto();
+				limpiarlapso();
+				buscarLapsoAcademico();
+
+			} else if (serviciolapsoacademico
+					.buscarUnLapsoAcademico(codigoLapso) == null
+					&& serviciolapsoacademico.buscarLapsoActivo() != null) {
+				mensajeAlUsuario.errorLapsoActivoExistente();
+			} else if (serviciolapsoacademico
+					.buscarUnLapsoAcademico(codigoLapso) != null
+					&& serviciolapsoacademico.buscarUnLapsoAcademico(
+							codigoLapso).getEstatus() == false) {
+				mensajeAlUsuario.errorLapsoFinalizadoNoModificable();
+			} else {
+				if (serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso)
+						.getEstatus() == true) {
+					LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,
+							fechaInicio, fechaCierre, true);
 					serviciolapsoacademico.guardarLapso(lapsoA);
 					mensajeAlUsuario.informacionRegistroCorrecto();
 					limpiarlapso();
 					buscarLapsoAcademico();
-					
-			}else if(serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso) == null && serviciolapsoacademico.buscarLapsoActivo() != null){
-				mensajeAlUsuario.errorLapsoActivoExistente();
-			}
-			else if(serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso) != null && serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso).getEstatus()==false){
-				mensajeAlUsuario.errorLapsoFinalizadoNoModificable();
-			}
-			else{
-				 if(serviciolapsoacademico.buscarUnLapsoAcademico(codigoLapso).getEstatus()==true){
-					LapsoAcademico lapsoA = new LapsoAcademico(codigoLapso,
-							fechaInicio, fechaCierre, true);
-						serviciolapsoacademico.guardarLapso(lapsoA);
-						mensajeAlUsuario.informacionRegistroCorrecto();
-						limpiarlapso();
-						buscarLapsoAcademico();
-						
-						
-					}
+				}
 			}
 
 		}
 		buscarLapsoAcademico();
 	}
-	
+
 	/**
-	 * Metodo que valida la fecha de los calendarios, que la fecha de inico debe ser 
-	 * menor que la fecha de cierre
+	 * Metodo que valida la fecha de los calendarios, que la fecha de inico debe
+	 * ser menor que la fecha de cierre
 	 * @return nada
 	 * @parameters fechaInicio, fechaCierre
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "fechaInicio", "fechaCierre" })
@@ -185,45 +193,50 @@ public class VMlapsoAcademico {
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico","estatus" })
+			"listaLapsoAcademico", "estatus" })
 	public void limpiarlapso() {
 		codigoLapso = "";
 		fechaInicio = null;
 		fechaCierre = null;
 		lapsoAcademicoSeleccionado = new LapsoAcademico();
 		buscarTodosLapsoAcademicos();
-		
+
 	}
 
 	/**
-	 * permite mostrar la lista de todos los lapso académico 
+	 * Permite mostrar la lista de todos los lapso académico
 	 * @return la lista de lapso académico
-	 * @parameters 
+	 * @parameters
 	 * @throws No dispara ninguna excepcion.
 	 */
 
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public List<LapsoAcademico> buscarTodosLapsoAcademicos() {
-		return listaLapsoAcademico =  serviciolapsoacademico
+		return listaLapsoAcademico = serviciolapsoacademico
 				.buscarTodosLosLapsos();
 	}
-	/** buscar   Lapso Academico
+
+	/**
+	 * buscar Lapso Academico
 	 * @return lapso activo
-	 * @param  
+	 * @param
 	 * @throws No dispara ninguna excepcion.
 	 */
+
 	@Command
 	@NotifyChange({ "lapsoAcademico" })
 	public void buscarLapsoAcademico() {
 		lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
 	}
+
 	/**
 	 * permite tomar los datos del objeto lapso académico seleccionado
 	 * @return nada
 	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso académico
 	 * @throws No dispara ninguna excepcion.
 	 */
+
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre" })
 	public void mostrarSeleccionadoLapso() {
@@ -234,21 +247,19 @@ public class VMlapsoAcademico {
 
 	/**
 	 * Cerrar Ventana
-	 * 
 	 * @param binder
 	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
-	
+
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-	"listaLapsoAcademico" })
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+			"listaLapsoAcademico" })
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
 		boolean condicion = false;
-		if(codigoLapso != null)
+		if (codigoLapso != null)
 			condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 
 }

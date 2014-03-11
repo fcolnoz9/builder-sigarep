@@ -58,8 +58,9 @@ public class LapsoAcademico implements Serializable {
 
 	/**
 	 * Constructor LapsoAcademico
-	 * @param codigoLapso,  fechaInicio,
-	 *		fechaCierre, estatus
+	 * 
+	 * @param codigoLapso
+	 *            , fechaInicio, fechaCierre, estatus
 	 * @return Constructor lleno
 	 */
 	public LapsoAcademico(String codigoLapso, Date fechaInicio,

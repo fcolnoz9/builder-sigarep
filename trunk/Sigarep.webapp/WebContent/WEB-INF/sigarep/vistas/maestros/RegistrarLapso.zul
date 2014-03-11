@@ -20,49 +20,46 @@
 						<label id="lblLapsoAcademico"
 							value="Lapso Académico:" />
 						<textbox id="txtLapsoAcademico"
-							placeholder = "Ingrese un lapso académico"
-							value="@bind(vm.codigoLapso)" width="80%" 
-							 mold="rounded" maxlength="6" cols="23" />
+							placeholder="Ingrese un lapso académico"
+							value="@bind(vm.codigoLapso)" width="80%" mold="rounded"
+							maxlength="6" cols="23" />
 					</row>
 					<row>
 						<label id="lblFechaInicio"
 							value="Fecha de Inicio de Lapso:" />
-						<datebox id="dtbFechaInicio" placeholder="Seleccione..."
-							format="dd/MM/yyyy" onChange="@command('validarFecha')"
-							width="80%"  readonly="true"
+						<datebox id="dtbFechaInicio"
+							placeholder="Seleccione..." format="dd/MM/yyyy"
+							onChange="@command('validarFecha')" width="80%" readonly="true"
 							mold="rounded" value="@bind(vm.fechaInicio)" />
 
 						<label id="lblFechaCierre"
 							value="Fecha de Finalización de Lapso:" />
-						<datebox id="dbFechaCierre" placeholder="Seleccione..."
-							format="dd/MM/yyyy" onChange="@command('validarFecha')"
-							width="80%" mold="rounded" tabindex="2"  readonly="true"
-							value="@bind(vm.fechaCierre)" />
+						<datebox id="dbFechaCierre"
+							placeholder="Seleccione..." format="dd/MM/yyyy"
+							onChange="@command('validarFecha')" width="80%" mold="rounded"
+							tabindex="2" readonly="true" value="@bind(vm.fechaCierre)" />
 					</row>
-					</rows>
+				</rows>
 			</grid>
 			<space />
 		</groupbox>
 		<separator />
 		<!-- Grupbox de Botones -->
 		<div align="right" height="100%">
-			<button label="Guardar"  id="btnGuardarLapso"
-				mold="trendy" width="auto" height="auto"
-				image="imagenes/iconos/guardar.png" 
+			<button label="Guardar" id="btnGuardarLapso" mold="trendy"
+				width="auto" height="auto" image="imagenes/iconos/guardar.png"
 				onClick="@command('guardarLapso')" />
-			<button label="Limpiar"  id="btnLimpiarLapso"
-				mold="trendy" width="auto" height="auto"
-				image="imagenes/iconos/limpiar.png" 
-			 onClick="@command('limpiarlapso')" />
-			<button label="Cerrar"  id="btnCerrarLapso"
-				mold="trendy" width="auto" height="auto"
-				image="imagenes/iconos/cerrar.png" 
-				 onClick="@command('cerrarVentana', ventana = winRegistrarLapso)"  />
+			<button label="Limpiar" id="btnLimpiarLapso" mold="trendy"
+				width="auto" height="auto" image="imagenes/iconos/limpiar.png"
+				onClick="@command('limpiarlapso')" />
+			<button label="Cerrar" id="btnCerrarLapso" mold="trendy"
+				width="auto" height="auto" image="imagenes/iconos/cerrar.png"
+				onClick="@command('cerrarVentana', ventana = winRegistrarLapso)" />
 		</div>
 		<space />
 		<groupbox id="grbLapsoActual">
-		<caption label="Lapso Académico Actual" />
-		<grid id="grdlapsoActual">
+			<caption label="Lapso Académico Actual" />
+			<grid id="grdlapsoActual">
 				<columns>
 					<column label="" width="20%" id="columna11" />
 					<column label="" width="10%" id="columna22" />
@@ -71,28 +68,28 @@
 					<column label="" width="10%" id="columna55" />
 					<column label="" width="15%" id="columna66" />
 				</columns>
-			<rows>
-				<row>
-					<label id="lblLapso" value="Lapso Académico:" />
-					<textbox id="txtLapsoAcademico2" mold="rounded"
-					width="80%" maxlength="6" tabindex="1" readonly="true"
-					value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
-					
-					<label id="lblInicia" value="Inicia:" />
-					<datebox id="txtFechaInicio1" mold="rounded" 
-					width="80%" maxlength="6" tabindex="1" readonly="true" 
-					format="dd/MM/yyyy" buttonVisible ="false"
-					value="@bind(vm.lapsoAcademico.getFechaInicio())" />
-					
-					<label id="lblFinaliza" value="Finaliza:" />
-					<datebox id="txtFechaCierre1" mold="rounded" 
-					width="80%" maxlength="6" tabindex="1" readonly="true" 
-					format="dd/MM/yyyy" buttonVisible ="false"
-					value="@bind(vm.lapsoAcademico.getFechaCierre())" />
-				
-				</row>
-		</rows>
-		</grid>
+				<rows>
+					<row>
+						<label id="lblLapso" value="Lapso Académico:" />
+						<textbox id="txtLapsoAcademico2" mold="rounded"
+							width="80%" maxlength="6" tabindex="1" readonly="true"
+							value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
+
+						<label id="lblInicia" value="Inicia:" />
+						<datebox id="txtFechaInicio1" mold="rounded"
+							width="80%" maxlength="6" tabindex="1" readonly="true"
+							format="dd/MM/yyyy" buttonVisible="false"
+							value="@bind(vm.lapsoAcademico.getFechaInicio())" />
+
+						<label id="lblFinaliza" value="Finaliza:" />
+						<datebox id="txtFechaCierre1" mold="rounded"
+							width="80%" maxlength="6" tabindex="1" readonly="true"
+							format="dd/MM/yyyy" buttonVisible="false"
+							value="@bind(vm.lapsoAcademico.getFechaCierre())" />
+
+					</row>
+				</rows>
+			</grid>
 		</groupbox>
 		<space />
 		<!-- Grupbox que contiene los lapsos académico -->
@@ -111,7 +108,7 @@
 					<listheader label="Fecha de Inicio de Lapso"
 						id="lblFechaInicios" align="center" sort="auto(fechaInicio)" />
 					<listheader label="Fecha de Finalización de Lapso"
-						id="lblFechafinal" align="center" sort="auto(fechaCierre)"  />
+						id="lblFechafinal" align="center" sort="auto(fechaCierre)" />
 				</listhead>
 
 				<template name="model">

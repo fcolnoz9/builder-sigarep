@@ -15,9 +15,11 @@ public class ServicioLapsoAcademico {
 
 	/**
 	 * Guardar lapso académico
+	 * 
 	 * @return objeto guardado
 	 * @parameters el objeto lapso Academico
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	public void guardarLapso(LapsoAcademico lapsoA) {
 		iLapsoAcademico.save(lapsoA);
@@ -25,9 +27,11 @@ public class ServicioLapsoAcademico {
 
 	/**
 	 * lapso académico activo
+	 * 
 	 * @return el lapso académico activo
 	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	public LapsoAcademico buscarLapsoActivo() {
 		return iLapsoAcademico.findByEstatusTrue();
@@ -38,7 +42,8 @@ public class ServicioLapsoAcademico {
 	 * 
 	 * @return Lista de lapsos académicos inactivos
 	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	public List<LapsoAcademico> listadoLapsoAcademicoInactivos() {
 		List<LapsoAcademico> LapsoAcademicoLista = iLapsoAcademico
@@ -51,7 +56,8 @@ public class ServicioLapsoAcademico {
 	 * 
 	 * @return Lista de todos los lapsos académicos activas e inactivas
 	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	public List<LapsoAcademico> buscarTodosLosLapsos() {
 		return iLapsoAcademico.findAll();
@@ -62,7 +68,8 @@ public class ServicioLapsoAcademico {
 	 * 
 	 * @return lapso académico buscado
 	 * @parameters String codigolapso
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	public LapsoAcademico buscarUnLapsoAcademico(String codigoLapso) {
 		return iLapsoAcademico.findOne(codigoLapso);
@@ -71,9 +78,8 @@ public class ServicioLapsoAcademico {
 	/**
 	 * Buscar un lapso académico por codigo lapso
 	 * 
-	 * @param String
-	 *            codigo lapso
 	 * @return Busca un lapso académico por codigo lapso
+	 * @parameters String codigolapso
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */

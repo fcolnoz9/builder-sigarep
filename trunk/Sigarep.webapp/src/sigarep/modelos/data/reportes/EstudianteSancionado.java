@@ -19,6 +19,18 @@ public class EstudianteSancionado {
 	private String edoApelacion;
 	private String asignatura;
 	
+	// constructor por defecto
+		public EstudianteSancionado() {
+		}
+	
+	/**
+	 * Constructor EstudianteSancionado
+	 * @param String primerNombre, String primerApellido,
+			String sexo, String nombrePrograma, String nombreSancion,
+			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,
+			String edoApelacion,String asignatura
+	 * @return Constructor lleno
+	 */
 	
 	public EstudianteSancionado(String primerNombre, String primerApellido,
 			String sexo, String nombrePrograma, String nombreSancion,
@@ -36,6 +48,7 @@ public class EstudianteSancionado {
 		this.edoApelacion=edoApelacion;
 		this.asignatura=asignatura;
 	}
+	
 	
 	// Métodos GET y SET
 	public String getEdoApelacion() {
