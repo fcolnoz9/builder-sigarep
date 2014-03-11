@@ -1,12 +1,12 @@
 package sigarep.modelos.data.reportes;
-/** Apelaciones
- * Reporte Estructurado De Consejo de Decanato
-* UCLA DCYT Sistemas de Informacion.
-* @author Equipo: Builder-SIGAREP 
-* @version 1.0
-* @since 20/12/13
-*/
+
+/** Sancionados
+ * @author BUILDER 
+ * @version 1.0
+ * @since 20/12/13
+ */
 public class Sancionados {
+	// Atributos de la clase
 	String cedula;
 	String nombre;
 	String apellido;
@@ -14,6 +14,11 @@ public class Sancionados {
 	int procedentes;
 	int noprocedentes;
 
+	/**
+	 * Constructor Sancionados
+	 * @param cedula, nombre, apellido, veredicto, procedentes, noprocedentes
+	 * @return Constructor lleno
+	 */
 	public Sancionados(String cedula, String nombre, String apellido,
 			String veredicto, int procedentes, int noprocedentes) {
 		super();
@@ -72,5 +77,6 @@ public class Sancionados {
 
 	public void setNoProcedentes(int noprocedentes) {
 		this.noprocedentes = noprocedentes;
-	}
-}
+	}// Fin Métodos Set y Get
+
+}//Fin Clase Sancionados
