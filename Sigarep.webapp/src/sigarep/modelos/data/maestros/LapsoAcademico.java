@@ -11,9 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase Lapso Académico
+ * Clase LapsoAcadémico
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author BUILDER
  * @version 1.0
  * @since 20/12/13
  */
@@ -72,7 +72,7 @@ public class LapsoAcademico implements Serializable {
 
 	}
 
-	// Métodos GET y SET
+	// Métodos Set y Get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
@@ -127,6 +127,17 @@ public class LapsoAcademico implements Serializable {
 		return cronograma;
 	}
 
+	
+
+	public List<EstudianteSancionado> getEstudianteSancionados() {
+		return this.estudianteSancionados;
+	}
+
+	public void setEstudianteSancionados(
+			List<EstudianteSancionado> estudianteSancionados) {
+		this.estudianteSancionados = estudianteSancionados;
+	}
+
 	/**
 	 * Relación de la clase LapsoAcademico con la clase Cronograma, Quitar
 	 * Cronograma
@@ -140,16 +151,8 @@ public class LapsoAcademico implements Serializable {
 		cronograma.setLapsoAcademico(null);
 		return cronograma;
 	}
-
-	public List<EstudianteSancionado> getEstudianteSancionados() {
-		return this.estudianteSancionados;
-	}
-
-	public void setEstudianteSancionados(
-			List<EstudianteSancionado> estudianteSancionados) {
-		this.estudianteSancionados = estudianteSancionados;
-	}
-
+	
+	
 	/**
 	 * Relación de la clase LapsoAcademico con la clase EstudianteSancionado,
 	 * Agregar EstudianteSancionado
@@ -180,5 +183,5 @@ public class LapsoAcademico implements Serializable {
 		estudianteSancionado.setLapsoAcademico(null);
 		return estudianteSancionado;
 	}
-	// fin GET y SET
-}
+	// Fin Métodos Set y Get
+}//Fin Clase InstanciaApelada

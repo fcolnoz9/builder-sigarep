@@ -11,7 +11,7 @@ import java.util.Date;
  * Clase Banner
  * 
  * @author BUILDER
- * @version 1.3
+ * @version 1.0
  * @since 15/12/2013
  */
 
@@ -47,6 +47,7 @@ public class Banner implements Serializable {
 	@Embedded()
 	private Archivo fotoBanner;
 
+	//Constructor por defecto
 	public Banner() {
 	}
 
@@ -71,7 +72,7 @@ public class Banner implements Serializable {
 		this.estatus = estatus;
 	}
 
-	// Métodos GET y SET
+	// Métodos Set y Get
 	public Integer getIdImagen() {
 		return this.idImagen;
 	}
@@ -127,5 +128,5 @@ public class Banner implements Serializable {
 	public void setFotoBanner(Archivo fotoBanner) {
 		this.fotoBanner = fotoBanner;
 	}
-	// Fin GET y SET
-}
+	//  Fin Métodos Set y Get
+}//  Fin Clase Banner

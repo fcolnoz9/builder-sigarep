@@ -11,7 +11,7 @@ import java.util.List;
  * Clase Actividad (Actividades del Cronograma)
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 15/12/2013
  */
 @Entity
@@ -67,7 +67,7 @@ public class Actividad implements Serializable {
 		this.estatus = estatus;
 	}
 
-	// Métodos GET y SET
+	// Métodos Set y Get
 	public Integer getIdActividad() {
 		return this.idActividad;
 	}
@@ -108,6 +108,16 @@ public class Actividad implements Serializable {
 		this.cronogramas = cronogramas;
 	}
 
+	
+	public InstanciaApelada getInstanciaApelada() {
+		return instanciaApelada;
+	}
+
+	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
+		this.instanciaApelada = instanciaApelada;
+	}
+	
+	
 	/**
 	 * Relación de la clase Actividad con la clase Cronograma, Agregar
 	 * Cronograma
@@ -134,14 +144,6 @@ public class Actividad implements Serializable {
 		getCronogramas().remove(cronograma);
 		cronograma.setActividad(null);
 		return cronograma;
-	}
+	}// Fin Métodos Set y Get
 
-	public InstanciaApelada getInstanciaApelada() {
-		return instanciaApelada;
-	}
-
-	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
-		this.instanciaApelada = instanciaApelada;
-	}
-	// Fin GET y SET
-}
+}//Fin Clase Actividad

@@ -9,7 +9,7 @@ import sigarep.herramientas.Archivo;
  * Clase EnlaceInteres
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 15/12/2013
  */
 
@@ -65,7 +65,7 @@ public class EnlaceInteres implements Serializable {
 		this.imagen = imagen;
 	}
 
-	// Métodos GET y SET
+	// Métodos Set y Get
 	public Integer getIdEnlace() {
 		return idEnlace;
 	}
@@ -113,5 +113,5 @@ public class EnlaceInteres implements Serializable {
 	public void setImagen(Archivo imagen) {
 		this.imagen = imagen;
 	}
-	// Fin GET y SET
-}
+	//Fin Métodos Set y Get
+}//Fin Clase EnlaceInteres

@@ -11,7 +11,7 @@ import java.util.List;
  * Clase Asignatura
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 18/12/2013
  */
 
@@ -67,7 +67,7 @@ public class Asignatura implements Serializable {
 		this.programaAcademico = programaAcademico;
 	}
 
-	// Métodos GET y SET
+	// Métodos Set y Get
 	public Asignatura() {
 	}
 
@@ -119,6 +119,7 @@ public class Asignatura implements Serializable {
 			List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados) {
 		this.asignaturaEstudianteSancionados = asignaturaEstudianteSancionados;
 	}
+	// Fin Métodos Set y Get
 
 	/**
 	 * Relación de la clase Asignatura con la clase
@@ -153,5 +154,5 @@ public class Asignatura implements Serializable {
 
 		return asignaturaEstudianteSancionado;
 	}
-	// Fin GET y SET
-}
+	
+}//Fin Clase Asignatura

@@ -8,12 +8,12 @@ import sigarep.herramientas.Archivo;
 import java.util.Date;
 
 /**
- * Noticia Registra y modifica una noticia. Utilizada en el portal web. UCLA
+ * Clase Noticia  Utilizada en el portal web. UCLA
  * DCYT Sistemas de Informacion.
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14
+ * @author : BUILDER
+ * @version 1
+ * @since 15/12/2013
  */
 
 @Entity
@@ -22,28 +22,6 @@ import java.util.Date;
 @Table(name = "noticia")
 public class Noticia implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Constructor Noticia
-	 * 
-	 * @param idNoticia
-	 *            , contenido, enlaceNoticia, estatus, fechaRegistro,
-	 *            fotoNoticia, titulo, vencimiento
-	 * @return Constructor lleno
-	 */
-	public Noticia(Integer idNoticia, String contenido, String enlaceNoticia,
-			Boolean estatus, Date fechaRegistro, Archivo fotoNoticia,
-			String titulo, Date vencimiento) {
-		super();
-		this.idNoticia = idNoticia;
-		this.contenido = contenido;
-		this.enlaceNoticia = enlaceNoticia;
-		this.estatus = estatus;
-		this.fechaRegistro = fechaRegistro;
-		this.fotoNoticia = fotoNoticia;
-		this.titulo = titulo;
-		this.vencimiento = vencimiento;
-	}
 
 	// Atributos de la clase
 	@Id
@@ -73,10 +51,34 @@ public class Noticia implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date vencimiento;
 
+	// Constructor por defecto
 	public Noticia() {
 	}
+	
+	/**
+	 * Constructor Noticia
+	 * 
+	 * @param idNoticia
+	 *            , contenido, enlaceNoticia, estatus, fechaRegistro,
+	 *            fotoNoticia, titulo, vencimiento
+	 * @return Constructor lleno
+	 */
+	public Noticia(Integer idNoticia, String contenido, String enlaceNoticia,
+			Boolean estatus, Date fechaRegistro, Archivo fotoNoticia,
+			String titulo, Date vencimiento) {
+		super();
+		this.idNoticia = idNoticia;
+		this.contenido = contenido;
+		this.enlaceNoticia = enlaceNoticia;
+		this.estatus = estatus;
+		this.fechaRegistro = fechaRegistro;
+		this.fotoNoticia = fotoNoticia;
+		this.titulo = titulo;
+		this.vencimiento = vencimiento;
+	}
 
-	// metodos set y get
+
+	// Métodos Set y Get
 	public Integer getIdNoticia() {
 		return this.idNoticia;
 	}
@@ -132,7 +134,7 @@ public class Noticia implements Serializable {
 	public void setVencimiento(Date vencimiento) {
 		this.vencimiento = vencimiento;
 	}
-
+	
 	/**
 	 * fotoNoticia Se crea un nuevo tipo de dato que en este caso va ser la foto
 	 */
@@ -143,5 +145,5 @@ public class Noticia implements Serializable {
 
 	public void setFotoNoticia(Archivo fotoNoticia) {
 		this.fotoNoticia = fotoNoticia;
-	}
-}
+	}// Fin Métodos Set y Get
+}//Fiv Clase Noticia

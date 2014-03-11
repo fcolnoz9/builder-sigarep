@@ -14,7 +14,7 @@ import java.util.List;
  * Clase Estudiante
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 10/12/2013
  */
 @Entity
@@ -111,7 +111,8 @@ public class Estudiante implements Serializable {
 		this.programaAcademico = programaAcademico;
 	}
 
-	// metodos set y get
+
+	// Métodos Set y Get
 	public String getCedulaEstudiante() {
 		return this.cedulaEstudiante;
 	}
@@ -217,6 +218,15 @@ public class Estudiante implements Serializable {
 		this.estudianteSancionados = estudianteSancionados;
 	}
 
+
+	public Usuario getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(Usuario nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+	
 	/**
 	 * Relación de la clase Estudiante con la clase EstudianteSancionado,
 	 * Agregar EstudianteSancionado
@@ -249,12 +259,5 @@ public class Estudiante implements Serializable {
 		return estudianteSancionado;
 	}
 
-	public Usuario getNombreUsuario() {
-		return nombreUsuario;
-	}
-
-	public void setNombreUsuario(Usuario nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
-	}
-
-}
+	//Fin Métodos Set y Get
+}//Fin Clase Estudiante
