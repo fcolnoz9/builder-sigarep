@@ -1,19 +1,17 @@
-<window id="winMostrarPreguntasMasFrecuentes" 
-	title="Preguntas Frecuentes" closable="true"
-	border="normal"  mode="modal"
+<window id="winMostrarPreguntasMasFrecuentes" width="75%"
+	action="show: slideDown;hide: slideUp" title="Preguntas Frecuentes"
+	closable="true" border="normal" mode="modal"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
-<!-- 	Lista de preguntas mas frecuentes registradas previamente -->
-	<listbox id="lbxPreguntas"
-		model="@bind(vm.listaPregunta)"
+	<!-- 	Lista de preguntas mas frecuentes registradas previamente -->
+	<listbox id="lbxPreguntas" model="@bind(vm.listaPregunta)"
 		selectedItem="@bind(vm.preguntaseleccionada)"
 		onSelect="@command('mostrarSeleccionada')"
-		emptyMessage="No hay preguntas básicas registradas" mold="paging"
-		pageSize="10">
+		emptyMessage="No hay preguntas básicas registradas">
 		<listhead>
-			<listheader label="Preguntas" align="lefth"
+			<listheader label="Preguntas" align="center"
 				sort="auto(pregunta)" />
-			<listheader label="Respuestas" align="lefth"
+			<listheader label="Respuestas" align="center"
 				sort="auto(respuesta)" />
 		</listhead>
 		<template name="model">

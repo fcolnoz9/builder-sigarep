@@ -1,6 +1,6 @@
 <window title="Contáctanos" id="winContactanos" border="normal"
-	height="auto" width="70%" closable="true"
-	apply="org.zkoss.bind.BindComposer" action="hide: slideUp"
+	height="auto" width="70%" closable="true" maximizable="true"
+	apply="org.zkoss.bind.BindComposer" action="show: slideDown;hide: slideUp"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMContacto')">
 	<separator />
 	<separator />
