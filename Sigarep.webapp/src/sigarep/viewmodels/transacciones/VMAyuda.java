@@ -48,7 +48,6 @@ public class VMAyuda {
 		this.contenido = contenido;
 	}
 
-	
 	@Init
 	public void init(@ExecutionArgParam("rutaModal") String rutaModal) throws IOException{
         //initialization code
