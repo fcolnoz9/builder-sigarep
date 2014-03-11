@@ -25,7 +25,15 @@ import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
 public class ServicioRecaudo {
 	private @Autowired IRecaudoDAO iRecaudoDAO;
 	
-	//metodo que permite Guardar
+	
+	
+	/**
+	 * Guardar Recaudo
+	 * @param Recaudod recaudo
+	 * @return Guarda el objeto
+	 * @throws No dispara ninguna excepcion.
+	 */
+
 	public void guardarRecaudo(Recaudo recaudo){
 		if (recaudo.getIdRecaudo() != null)
 			iRecaudoDAO.save(recaudo);
@@ -34,14 +42,23 @@ public class ServicioRecaudo {
 			iRecaudoDAO.save(recaudo);
 		}
 	}
-	
-	//metodo que permite eliminar
+	/**
+	 * Eliminar Recaudo
+	 * @param Integer idRecaudo
+	 * @return Elimina lógicamente el objeto
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public void eliminarRecaudo(Integer idRecaudo) {
 		Recaudo rec = iRecaudoDAO.findOne(idRecaudo);
 		rec.setEstatus(false);
 		iRecaudoDAO.save(rec);
 	}
-	
+	/**
+	 * Listado de 
+	 * @param
+	 * @return Busca todas las actividades que estan en estatus TRUE
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<Recaudo> listadoRecaudosPorMotivo(TipoMotivo motivo) {
 	    return iRecaudoDAO.findByTipoMotivoAndEstatusTrue(motivo);
 	}
@@ -49,11 +66,22 @@ public class ServicioRecaudo {
 	public Recaudo buscarRecaudoPorNombre(String nombreRecaudo) {
 	    return iRecaudoDAO.findByNombreRecaudo(nombreRecaudo);
 	}
-	
+	/**
+	 * Listado de Recaudos
+	 * @param
+	 * @return Busca todas los recaudos que estan en estatus TRUE
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<Recaudo> listadoRecaudosActivos() {
 	    return iRecaudoDAO.findByEstatusTrue();
 	}
-	
+	/**
+	 * Buscar en la lista de recaudos 
+	 * 
+	 * @param String nombreRecaudo, String  nombreTipoMotivo
+	 * @return Busca un  recaudo por nombre y un nombre de motivo
+	 * @throws No dispara ninguna excepcion.
+	 */
 	//Busca en la lista de Recaudo
 	public List<Recaudo> buscarRecaudo(String nombreRecaudo,String  nombreTipoMotivo) {
 		List<Recaudo> resultado = new LinkedList<Recaudo>();	
@@ -71,7 +99,13 @@ public class ServicioRecaudo {
 		}
 		return resultado;
 	}
-	
+	/**
+	 * Buscar Recaudos filtrando por nombre 
+	 * 
+	 * @param String nombreRecaudo
+	 * @return Busca un  recaudo por nombre 
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public List<Recaudo> filtrarRecaudos(String nombreRecaudo) {
 		List<Recaudo> resultado = new LinkedList<Recaudo>();	
 		if (nombreRecaudo == null) {
