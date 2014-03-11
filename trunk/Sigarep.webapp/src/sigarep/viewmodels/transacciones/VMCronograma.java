@@ -32,7 +32,6 @@ import sigarep.modelos.servicio.maestros.ServicioActividad;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
-import sigarep.viewmodels.seguridad.VMUtilidadesDeSeguridad;
 
 /**Cronograma de Actividades - Planificar
  * UCLA DCYT Sistemas de Informacion.
@@ -68,12 +67,7 @@ public class VMCronograma {
 	private List<InstanciaApelada> listaResponsable;
 	private Cronograma cronogramaSeleccionado;
 	CronogramaPK cronogramaPK = new CronogramaPK();
-	Cronograma cronograma = new Cronograma();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
-	Window win=null;
-	int idcount=0;
-	
-	
 
 	// Metodos GETS Y SETS
 	public String getLugarf() {
@@ -136,12 +130,6 @@ public class VMCronograma {
 	public Actividad getActividad() {
 		return actividad;
 	}
-	public ServicioLapsoAcademico getServiciolapsoacademico() {
-		return serviciolapsoacademico;
-	}
-	public ServicioActividad getServicioactividad() {
-		return servicioactividad;
-	}
 	public List<Cronograma> getListaCronograma() {
 		return listaCronograma;
 	}
@@ -149,9 +137,6 @@ public class VMCronograma {
 	@NotifyChange({"fechaInicio", "fechaFin", "horaInicio", "lugar", "observacion", "responsable", "listaCronograma"})
 	public Cronograma getCronogramaSeleccionado() {
 		return cronogramaSeleccionado;
-	}
-	public void setServiciocronograma(ServicioCronograma serviciocronograma) {
-		this.serviciocronograma = serviciocronograma;
 	}
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
@@ -173,12 +158,6 @@ public class VMCronograma {
 	}
 	public void setActividad(Actividad actividad) {
 		this.actividad = actividad;
-	}
-	public void setServiciolapsoacademico(ServicioLapsoAcademico serviciolapsoacademico) {
-		this.serviciolapsoacademico = serviciolapsoacademico;
-	}
-	public void setServicioactividad(ServicioActividad servicioactividad) {
-		this.servicioactividad = servicioactividad;
 	}
 	public void setListaCronograma(List<Cronograma> listaCronograma) {
 		this.listaCronograma = listaCronograma;
@@ -203,22 +182,27 @@ public class VMCronograma {
 	@Wire("#winActualizarCronograma")//para conectarse a la ventana con el ID
 	Window ventana;
 	@Init
-	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ContextParam(ContextType.BINDER) final Binder binder)
+	public void init(@ContextParam(ContextType.VIEW) Component view)
 	{
 		//initialization code
 		Selectors.wireComponents(view, this, false);
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		if (ventana != null){
-			if (ventana.getId().toString().equals("winActualizarCronograma")){
-				if(lapsoActivo==null)
-					mensajeAlUsuario.confirmacionLapsoAcademicoNoActivo(ventana);
-				else{
-					buscarCronograma();
-					buscarActividad();
-					buscarResponsable();
-					codigoLapso = lapsoActivo.getCodigoLapso();				
-				}
+			if(lapsoActivo==null)
+				mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);	
+			else{
+				codigoLapso = lapsoActivo.getCodigoLapso();
+				buscarCronograma();
+				buscarActividad();
+				buscarResponsable();	
+			}
+		}
+		else{
+			if(lapsoActivo!=null){
+				codigoLapso = lapsoActivo.getCodigoLapso();
+				buscarCronograma();
+				buscarActividad();
+				buscarResponsable();	
 			}
 		}
 	}
@@ -356,16 +340,11 @@ public class VMCronograma {
 				public void onEvent(ClickEvent e) throws Exception {
 					switch (e.getButton()) {
 						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
-							//binder.postCommand("limpiar", null);
 							serviciocronograma.eliminarCronograma(getCronogramaSeleccionado().getId());
 							mensajeAlUsuario.informacionEliminarCorrecto();
 							binder.postCommand("limpiar", null);
 							buscarCronograma();
 						case NO:
-					
 							binder.postCommand("limpiar", null);
 					}
 				}
