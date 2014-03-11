@@ -255,16 +255,17 @@ public class VMListaGenericaSancionados{
     				 @ExecutionArgParam("tipoSesion") String tipoSesion,
     				 @ExecutionArgParam("fechaSesion") Date fechaSesion){
 		
+		Selectors.wireComponents(view, this, false);
 		this.rutaModal=rutaModal;
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		if(lapsoActivo == null)
-			mensajeAlUsuario.confirmacionLapsoAcademicoNoActivo(ventana);
+			mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);
 	
 		
 		//CASO: Registrar Reconsideracion y Recurso Jerarquico
 		//Se valida que no existan apelaciones sin finalizar en la instancia anterior
 		//if (validarApelacionesSinFinalizar() && validarApelacionesFinalizadas()){
-			Selectors.wireComponents(view, this, false);
+			
 			if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
@@ -281,6 +282,8 @@ public class VMListaGenericaSancionados{
 		//}
     }
 	
+	//Validacion para no permitir el registro de apelaciones en instancias
+	//anteriores a donde se estan registrando actualmente.
 	private boolean validarApelacionesFinalizadas() {
 		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul") ||
 				rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){

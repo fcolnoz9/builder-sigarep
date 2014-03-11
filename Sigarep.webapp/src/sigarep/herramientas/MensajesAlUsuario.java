@@ -200,6 +200,11 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+	public void advertenciaLapsoAcademicoNoActivo(Window ventana) {
+		Messagebox.show("No puede realizar esta transacción. ¡No ha registrado el lapso académico actual!",
+						"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+		ventana.detach();
+	}
 	
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
@@ -463,33 +468,4 @@ public class MensajesAlUsuario {
 					});
 		}
 	}
-	
-	public void confirmacionLapsoAcademicoNoActivo(final Window ventana) {
-			Messagebox.show("No existe un lapso académico activo ¿Desea proceder a registrarlo?",
-					"Confirmar",
-					new Messagebox.Button[] { Messagebox.Button.YES,
-							Messagebox.Button.NO }, Messagebox.QUESTION,
-					new EventListener<ClickEvent>() {
-						@SuppressWarnings("incomplete-switch")
-						public void onEvent(ClickEvent e) throws Exception {
-							try {
-							switch (e.getButton()) {
-								case YES:								
-									// get an instance of the borderlayout defined in the zul-file
-									Borderlayout bl = (Borderlayout) Path.getComponent("/mainBorderLayout");
-									// get an instance of the searched CENTER layout area
-									Center center = bl.getCenter();
-									// clear the center child comps
-									center.getChildren().clear();
-									// call the zul-file and put it in the center layout area
-									Executions.createComponents("/WEB-INF/sigarep/vistas/maestros/RegistrarLapso.zul", center, null);	
-								case NO: ventana.detach();
-								}
-						    } catch (Exception e2) {
-								 System.out.println(e2.getMessage());
-							}
-						}
-					});
-	}
-
 }
