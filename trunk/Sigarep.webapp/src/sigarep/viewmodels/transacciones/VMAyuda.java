@@ -20,6 +20,13 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
+/** View Model Ayuda
+ * Busca y muestra los manuales del Sistema y del Usuario
+ * @author Gabriela Nesterovsky
+ * @version 2
+ * @since 01/03/2014 
+ */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAyuda {
 
@@ -48,6 +55,12 @@ public class VMAyuda {
 		this.contenido = contenido;
 	}
 
+	/** Compara si la búsqueda del objeto del manual contiene o no información y de acuerdo a ello muestra dicho manual o mensaje de advertencia.
+	 * @param  Strings.
+	 * @return Mensaje de advertencia o Manuales.
+	 * @throws No dispara ninguna excepcion.
+	   */
+	
 	@Init
 	public void init(@ExecutionArgParam("rutaModal") String rutaModal) throws IOException{
         //initialization code
@@ -67,7 +80,12 @@ public class VMAyuda {
 		}
 	}
 	
-//Métodos de búsqueda de los manuales
+	/** Método de búsqueda del Manual del Sistema
+	 * @param ninguno.
+	 * @return contenido.
+	 * @throws No dispara ninguna excepcion.
+	   */
+
 	private void buscarManualSistema() {
 		List<Reglamento> busqueda = servicioreglamento.buscarManualSistema();
 		if (busqueda.size() > 0) {
@@ -79,6 +97,12 @@ public class VMAyuda {
 		contenido = reglamento;
 	}
 
+	/** Método de búsqueda del Manual del Usuario.
+	 * @param ninguno.
+	 * @return contenido.
+	 * @throws No dispara ninguna excepcion.
+	   */
+
 	private void buscarManualUsuario() {
 		List<Reglamento> busqueda = servicioreglamento.buscarManualUsuario();
 		if (busqueda.size() > 0) {
@@ -88,8 +112,12 @@ public class VMAyuda {
 		}
 		contenido = reglamento;
 	}
+	/** Método que muestra el manual.
+	 * @param ninguno.
+	 * @return contenidoManual.
+	 * @throws No dispara ninguna excepcion.
+	   */	
 	
-//Método que permite mostrar los manuales	
 	@Command
     @NotifyChange("contenidoManual")
     public void mostrarManual() throws IOException { 	 	 
