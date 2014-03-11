@@ -20,9 +20,9 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
-/** View Model Ayuda
+/** View Model Ayuda UCLA-DCYT Sistemas de Información
  * Busca y muestra los manuales del Sistema y del Usuario
- * @author Gabriela Nesterovsky
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 2
  * @since 01/03/2014 
  */
@@ -56,8 +56,8 @@ public class VMAyuda {
 	}
 
 	/** Compara si la búsqueda del objeto del manual contiene o no información y de acuerdo a ello muestra dicho manual o mensaje de advertencia.
-	 * @param  Strings.
-	 * @return Mensaje de advertencia o Manuales.
+	 * @param  init
+	 * @return código de inicialización
 	 * @throws No dispara ninguna excepcion.
 	   */
 	
