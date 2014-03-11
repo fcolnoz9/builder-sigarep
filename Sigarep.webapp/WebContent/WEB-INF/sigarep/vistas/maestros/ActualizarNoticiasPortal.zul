@@ -3,9 +3,6 @@
 	width="auto" height="auto" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer" closable="true"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
-
-	<style src="/widgets/input/form_sample/style.css"></style>
-
 	<!-- Groupbox que contiene los campos que requieren llenarse con los datos de noticia -->
 	<groupbox id="grbNoticia">
 		<caption label="Datos de Noticia" />
@@ -29,7 +26,7 @@
 									mold="rounded" width="80%" value="@bind(vm.titulo)" />
 								<label id="lblEnlace" value="Enlace:" />
 								<textbox id="txtEnlace" cols="23"
-									placeholder="Ingrese el enlace de la noticia" maxlength="1000"
+									placeholder="Ej: http://www.ucla.edu.ve/" maxlength="1000"
 									mold="rounded" width="80%" value="@bind(vm.enlaceNoticia)" />
 								<button label="Cargar Imagen"
 									id="btnImagen" upload="true"
@@ -58,9 +55,8 @@
 				</hbox>
 			</tablechildren>
 			<tablechildren>
-				<label id="lblContenido"
-				value="Contenido:" />
-				<separator/>
+				<label id="lblContenido" value="Contenido:" />
+				<separator />
 				<ckeditor id="ckeditor" value="@bind(vm.contenido)"
 					vflex="1"
 					customConfigurationsPath="/widgets/js/config_wysiwyg.js">
@@ -70,9 +66,7 @@
 	</groupbox>
 	<separator />
 	<div align="right" height="100%">
-
 		<!-- Grupo de botones -->
-
 		<button label="Guardar" id="btnGrabarNoticia" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/guardar.png"
 			onClick="@command('guardarNoticia')" />
@@ -86,7 +80,6 @@
 			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
 			onClick="@command('cerrarVentana', ventana = winActualizarNoticia)" />
 	</div>
-
 	<!-- Grupbox que contiene el listado de noticias almacenadas en base de datos-->
 	<groupbox id="grbListadoNoticias">
 		<caption label="Lista de Noticias" />
@@ -98,8 +91,6 @@
 			emptyMessage="No hay noticias registradas" mold="paging"
 			pageSize="10">
 			<listhead>
-				<!-- 					<listheader label="Id" align="center" -->
-				<!-- 						sort="auto(idNoticia)" ></listheader> -->
 				<listheader label="Título" align="left"
 					sort="auto(titulo)">
 					<textbox id="filtroTitulo" instant="true"
@@ -119,7 +110,6 @@
 			</listhead>
 			<template name="model">
 				<listitem selected="false">
-					<!-- 						<listcell label="${each.idNoticia}"></listcell> -->
 					<listcell label="${each.titulo}"></listcell>
 					<listcell label="${each.fechaRegistro}"></listcell>
 					<listcell label="${each.vencimiento}"></listcell>
