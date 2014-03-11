@@ -74,9 +74,6 @@ public class VMRegistrarDatosIniciales {
 	private Integer instancia;
 	private Integer idEstado;
 	private Integer idMotivoGeneral;
-	
-	
-
 
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion; //Servicio para La Solicitud de Apelacion
@@ -161,6 +158,15 @@ public class VMRegistrarDatosIniciales {
 
 	public String getLabelAsignaturaLapsosConsecutivos() {
 		return labelAsignaturaLapsosConsecutivos;
+	}
+	
+	public EstudianteSancionado getEstudianteSeleccionado() {
+		return estudianteSeleccionado;
+	}
+
+	public void setEstudianteSeleccionado(
+			EstudianteSancionado estudianteSeleccionado) {
+		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
 
 	public void setLabelAsignaturaLapsosConsecutivos(
@@ -389,12 +395,26 @@ public class VMRegistrarDatosIniciales {
 
 	}
 
+	/**
+	* buscarMotivos
+	* 
+	* @return devuelve la lista de motivos registrados.
+	* @throws no posee excepciones
+	* 
+	*/
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
 	public void buscarMotivos() {
 		listaTipoMotivo = serviciotipomotivo.buscarTipoMotivoNoProtegido();
 	}
 
+	/**
+	* buscarCaso
+	* 
+	* @return devuelve el último caso registrado y le incrementa en 1, en caso de ser cero, lo inicializa en 1.
+	* @throws no posee excepciones
+	* 
+	*/
 	@Command
 	public void buscarCaso() {
 		caso = serviciosolicitudapelacion.mayorNumeroCaso();
@@ -424,8 +444,7 @@ public class VMRegistrarDatosIniciales {
 		this.instancia = instancia;
 		this.idEstado = idEstado;
 		this.idMotivoGeneral = idMotivoGeneral;
-
-
+		
 		cedula = estudianteSeleccionado.getId().getCedulaEstudiante();
 		sancion = estudianteSeleccionado.getSancionMaestro().getNombreSancion();
 		lapso = estudianteSeleccionado.getId().getCodigoLapso();
@@ -436,10 +455,15 @@ public class VMRegistrarDatosIniciales {
 		listamotivo = serviciotipomotivo.buscarTipoMotivoNoProtegido();
 		buscarMotivos();
 		buscarCaso();
-		
-	
 	}
 
+	/**
+	* mostrarDatosDeSancion
+	* 
+	* @return devuelve los datos de la sancion, Asignaturas, Lapsos de Sancion.
+	* @throws no posee excepciones
+	* 
+	*/
 	private void mostrarDatosDeSancion() {
 		if (sancion.equalsIgnoreCase("RR")) {
 			asignaturas = servicioasignaturaestudiantesancionado
@@ -457,7 +481,6 @@ public class VMRegistrarDatosIniciales {
 		}
 	}
 
-
 	/**
 	 * registrarSolicitudApelacion
 	 * 
@@ -466,12 +489,10 @@ public class VMRegistrarDatosIniciales {
 	 *             Excepciones ocurren cuando se quiera registrar una apelacion
 	 *             y no registrar motivos
 	 */
-
 	@Command
 	@NotifyChange({ "listaSancionados", "listaMotivoListBox" })
 	public void registrarSolicitudApelacion(
 			@BindingParam("window") Window winRegistrarDatosInicialesApelacion) {
-
 		Date fecha = new Date();
 		
 		if ( listaMotivoListBox.size() == 0) {
@@ -510,44 +531,45 @@ public class VMRegistrarDatosIniciales {
 		apelacionEstadoApelacion.setFechaEstado(new Date());
 		apelacionEstadoApelacion.setObservacion(observacion);
 		servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
-
 		motivoPK.setCedulaEstudiante(cedula);
 		motivoPK.setCodigoLapso(lapso);
 		motivos.setId(motivoPK);
 		motivos.setEstatus(true);
 		serviciomotivo.guardarMotivo(motivos);
-
 		Motivo motivos = new Motivo();
 		for (int j = 0; j < listaMotivoListBox.size(); j++) {
-
-			idTipoMotivo = listaMotivoListBox.get(j).getTipoMotivo()
-					.getIdTipoMotivo();
-			
+			idTipoMotivo = listaMotivoListBox.get(j).getTipoMotivo().getIdTipoMotivo();
 			descripcion = listaMotivoListBox.get(j).getDescripcion();
 			motivoPK.setCedulaEstudiante(cedula);
 			motivoPK.setCodigoLapso(lapso);
-			if (instancia != null && idEstado != null
-					|| idMotivoGeneral != null)
+			if (instancia != null && idEstado != null || idMotivoGeneral != null)
 				motivoPK.setIdInstanciaApelada(instancia);
 			else
 				motivoPK.setIdInstanciaApelada(1);
-			motivoPK.setIdTipoMotivo(idTipoMotivo);
-			motivos.setId(motivoPK);
-			motivos.setEstatus(true);
-			motivos.setDescripcion(descripcion);
-			serviciomotivo.guardarMotivo(motivos);
-		}
-		
-		try {
-			mensajeAlUsuario.informacionRegistroCorrecto();
-			winRegistrarDatosInicialesApelacion.detach();
-			actualizarListaSancionados();//Actualiza la Lista Generica de Estudiantes sancionados con un comando Global
+				motivoPK.setIdTipoMotivo(idTipoMotivo);
+				motivos.setId(motivoPK);
+				motivos.setEstatus(true);
+				motivos.setDescripcion(descripcion);
+				serviciomotivo.guardarMotivo(motivos);
+			} try {
+				mensajeAlUsuario.informacionRegistroCorrecto();
+				winRegistrarDatosInicialesApelacion.detach();
+				actualizarListaSancionados();//Actualiza la Lista Generica de Estudiantes sancionados con un comando Global
 			 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
-	}
+	
+	/**
+	* agregarMotivo
+	* @param binder
+	* @return agrega un motivo a la lista de motivos
+	*         que se registran en la apelación.
+	* @throws no posee excepciones
+	* 
+	*/
 	@Command
 	@NotifyChange({ "listaMotivo", "listaMotivoListBox", "motivoseleccionado",
 			"descripcion", "listaTipoMotivo" })
@@ -569,6 +591,14 @@ public class VMRegistrarDatosIniciales {
 			descripcion= null; 
 		}
 	}
+	
+	/**
+	* cancelar
+	* 
+	* @return devuelve las variables vacias y limpia el listbox de motivos.
+	* @throws no posee excepciones
+	* 
+	*/
 	@Command
 	@NotifyChange({ "descripcion", "motivoseleccionado", "listaMotivoListBox", "listaTipoMotivo", "observacion" })
 	public void cancelar() {
@@ -577,29 +607,39 @@ public class VMRegistrarDatosIniciales {
 		listaMotivoListBox.clear();
 		observacion = null;
 		buscarMotivos();
-		
 	}
 
-	public EstudianteSancionado getEstudianteSeleccionado() {
-		return estudianteSeleccionado;
-	}
-
-	public void setEstudianteSeleccionado(
-			EstudianteSancionado estudianteSeleccionado) {
-		this.estudianteSeleccionado = estudianteSeleccionado;
-	}
-	
+	/**
+	* afterCompose
+	* Metodo que se usa para conectarse a los componentes de la vista
+	* @return nada.
+	* @throws no posee excepciones
+	* 
+	*/
 	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);
     }
 
+	/**
+	* actualizarListaSancionados
+	* 
+	* @return Lista de Estudiantes sancionados.
+	* @throws no posee excepciones
+	* 
+	*/
     @GlobalCommand
     public void actualizarListaSancionados(){
     	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
     }
 	
-
+    /**
+	* cerrarVentana
+	* @param binder
+	* @return nada
+	* @throws no posee excepciones
+	* 
+	*/
 	@Command
 	@NotifyChange({"descripcion", "listaMotivoListBox", "motivoseleccionado"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
@@ -608,5 +648,4 @@ public class VMRegistrarDatosIniciales {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-	
 }
