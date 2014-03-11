@@ -8,13 +8,23 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Clase ContactoSigarep
+ * 
+ * @author BUILDER
+ * @version 1
+ * @since 19/12/2013
+ */
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "contacto_sigarep")
 public class ContactoSigarep implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "id_contacto")
 	private Integer idContacto;
 
@@ -35,13 +45,21 @@ public class ContactoSigarep implements Serializable {
 
 	@Column(name = "direccion_contacto", length = 500)
 	private String direccionContacto;
-
+//Constructor por defecto
 	public ContactoSigarep() {
 	}
 
-	public ContactoSigarep(Integer id_contacto, String quienesSomos, String correoContacto,
-			String twitter, String facebook, String telefonoContacto,
-			String direccionContacto) {
+	/**
+	 * Constructor ConstructorSigarep
+	 * 
+	 * @param id_contacto
+	 *            , quienesSomos, correoContacto, twitter, facebook,
+	 *            telefonoContacto, direccionContacto
+	 * @return Constructor lleno
+	 */
+	public ContactoSigarep(Integer id_contacto, String quienesSomos,
+			String correoContacto, String twitter, String facebook,
+			String telefonoContacto, String direccionContacto) {
 		super();
 		this.idContacto = id_contacto;
 		this.quienesSomos = quienesSomos;
@@ -52,6 +70,7 @@ public class ContactoSigarep implements Serializable {
 		this.direccionContacto = direccionContacto;
 	}
 
+	//Metodos set y get
 	public String getQuienesSomos() {
 		return quienesSomos;
 	}
@@ -107,4 +126,5 @@ public class ContactoSigarep implements Serializable {
 	public void setDireccionContacto(String direccionContacto) {
 		this.direccionContacto = direccionContacto;
 	}
+	//fin set y get
 }

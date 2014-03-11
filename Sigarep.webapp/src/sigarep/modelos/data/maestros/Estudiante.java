@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase Estudiante Registra y Modifica un estudiante
+ * Clase Estudiante
  * 
  * @author BUILDER
  * @version 1
@@ -19,10 +19,12 @@ import java.util.List;
  */
 @Entity
 @Access(AccessType.FIELD)
+// anotación indica que el JavaBean es una entidad persistente
 @Table(name = "estudiante")
 public class Estudiante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
 	// Clave principal de la clase
 	@Column(name = "cedula_estudiante", unique = true, nullable = false, length = 8)
@@ -60,24 +62,25 @@ public class Estudiante implements Serializable {
 	@Column(length = 11)
 	private String telefono;
 
-	// bi-directional many-to-one association to Usuario
+	// Relación bidireccional de muchos a uno, asociada a la clase Usuario
 	@ManyToOne
 	@JoinColumn(name = "nombreusuario", nullable = true)
 	private Usuario nombreUsuario;
 
-	// bi-directional many-to-one association to ProgramaAcademico
+	// Relación bidireccional de muchos a uno, asociada a la
+	// claseProgramaAcademico
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "id_programa", nullable = false)
 	private ProgramaAcademico programaAcademico;
 
-	// bi-directional many-to-one association to EstudianteSancionado
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// EstudianteSancionado
 	@OneToMany(mappedBy = "estudiante", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
 	// constructorpor defecto
 	public Estudiante() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -214,6 +217,14 @@ public class Estudiante implements Serializable {
 		this.estudianteSancionados = estudianteSancionados;
 	}
 
+	/**
+	 * Relación de la clase Estudiante con la clase EstudianteSancionado,
+	 * Agregar EstudianteSancionado
+	 * 
+	 * @see EstudianteSancionado
+	 * @param estudianteSancionado
+	 * @return estudianteSancionado
+	 */
 	public EstudianteSancionado addEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
@@ -222,6 +233,14 @@ public class Estudiante implements Serializable {
 		return estudianteSancionado;
 	}
 
+	/**
+	 * Relación de la clase Estudiante con la clase EstudianteSancionado, Quitar
+	 * EstudianteSancionado
+	 * 
+	 * @see EstudianteSancionado
+	 * @param estudianteSancionado
+	 * @return estudianteSancionado
+	 */
 	public EstudianteSancionado removeEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);

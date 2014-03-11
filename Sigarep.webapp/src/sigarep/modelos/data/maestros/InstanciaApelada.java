@@ -2,17 +2,14 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.InstanciaMiembro;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
-
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase InstanciaApelada Registra y Modifica las distintas Instancias por las
- * que pasan las apelaciones
+ * Clase InstanciaApelada
  * 
  * @author Builder
  * @version 1.0
@@ -65,23 +62,26 @@ public class InstanciaApelada implements Serializable {
 	@Column(name = "nombre_recurso_apelacion", nullable = false, length = 60)
 	private String nombreRecursoApelacion;
 
-	// bi-directional many-to-one association to EstadoApelacion
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// EstadoApelacion
 	@OneToMany(mappedBy = "instanciaApelada", cascade = { CascadeType.ALL })
 	private List<EstadoApelacion> estadosApelacion = new LinkedList<EstadoApelacion>();
 
-	// bi-directional many-to-one association to Cronograma
+	// Relación bidireccional de muchos a uno, asociada a la clase Cronograma
 	@OneToMany(mappedBy = "responsable", cascade = { CascadeType.ALL })
 	private List<Cronograma> cronograma = new LinkedList<Cronograma>();
 
-	// bi-directional many-to-one association to SolicitudApelacion
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// SolicitudApelacion
 	@OneToMany(mappedBy = "instanciaApelada")
 	private List<SolicitudApelacion> solicitudApelacions;
 
-	// bi-directional many-to-one association to InstanciaMiembro
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// InstanciaMiembro
 	@OneToMany(mappedBy = "instanciaApelada")
 	private List<InstanciaMiembro> instanciaMiembros;
 
-	// bi-directional many-to-one association to Actividad
+	// Relación bidireccional de muchos a uno, asociada a la clase Actividad
 	@OneToMany(mappedBy = "instanciaApelada")
 	private List<Actividad> actividads;
 
@@ -136,6 +136,14 @@ public class InstanciaApelada implements Serializable {
 		this.solicitudApelacions = solicitudApelacions;
 	}
 
+	/**
+	 * Relación de la clase InstanciaApelada con la clase SolicitudApelacion,
+	 * Agregar SolicitudApelacion
+	 * 
+	 * @see SolicitudApelacion
+	 * @param solicitudApelacion
+	 * @return solicitudApelacion
+	 */
 	public SolicitudApelacion addSolicitudApelacion(
 			SolicitudApelacion solicitudApelacion) {
 		getSolicitudApelacions().add(solicitudApelacion);
@@ -144,6 +152,14 @@ public class InstanciaApelada implements Serializable {
 		return solicitudApelacion;
 	}
 
+	/**
+	 * Relación de la clase InstanciaApelada con la clase SolicitudApelacion,
+	 * Quitar SolicitudApelacion
+	 * 
+	 * @see SolicitudApelacion
+	 * @param solicitudApelacion
+	 * @return solicitudApelacion
+	 */
 	public SolicitudApelacion removeSolicitudApelacion(
 			SolicitudApelacion solicitudApelacion) {
 		getSolicitudApelacions().remove(solicitudApelacion);
@@ -183,4 +199,5 @@ public class InstanciaApelada implements Serializable {
 	public void setActividads(List<Actividad> actividads) {
 		this.actividads = actividads;
 	}
+//Fin Get y Set
 }
