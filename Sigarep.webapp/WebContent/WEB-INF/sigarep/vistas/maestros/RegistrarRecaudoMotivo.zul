@@ -2,7 +2,7 @@
 	title="Registros Básicos:: Registrar Recaudos "
 	border="normal" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivo')">
-
+<!--El groupbox Contiene los del recaudo -->
 	<groupbox>
 		<caption label="Datos del Recaudo" />
 		<grid>
@@ -61,7 +61,7 @@
 		</grid>
 		</groupbox>
 			<separator />
-		<!--Botones -->
+		<!-- Permite realizar acciones respecto a recaudos (Botones) -->
 		<div align="right" height="100%">
 			<button label="Guardar" id="btnGuardarRecaudoMotivo"
 				mold="trendy" width="auto" height="auto"
