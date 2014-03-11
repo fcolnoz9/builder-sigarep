@@ -47,14 +47,12 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
 
 /**
- *transaccion para registrar  Estudiante Sancionado
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-1
+ *Clase VMEstudianteSancionado
+ *ViewModel para la interfaz RegistrarSancionado.zul
+ * @author Builder
  * @version 1.0
- * @since 23/01/14
+ * @since 20/12/13
  */
-
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudianteSancionado {
 	 
@@ -74,27 +72,6 @@ public class VMEstudianteSancionado {
 	private String lapsoConsecutivo2;
 	private String lbllapsoConsecutivo;
 	private String nombrePrograma;
-	//Variables para los filtros
-	private String cedulaFiltro="";
-	private String nombreFiltro="";
-	private String apellidoFiltro="";
-	private String sancionFiltro="";
-	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	@WireVariable
-	private ServicioLapsoAcademico serviciolapsoacademico;
-	@WireVariable
-	private ServicioProgramaAcademico servicioprogramaacademico;
-	@WireVariable
-	private ServicioEstudiante servicioestudiante;
-	@WireVariable
-	private ServicioSancionMaestro serviciosancionmaestro;
-	@WireVariable 
-	private ServicioEstudianteSancionado servicioestudiantesancionado;
-	@WireVariable
-	private ServicioAsignatura servicioAsignatura;
-	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
-	private String nombreSancion;
 	private Date annoIngreso;
 	private float indiceGrado;
 	private String lapsosAcademicosRP;
@@ -103,23 +80,45 @@ public class VMEstudianteSancionado {
 	private SancionMaestro sancionMaestro;
 	private Asignatura asignaturas;
 	private Integer semestre;
-	private ProgramaAcademico programa;
-	private AsignaturaEstudianteSancionado asignaturaestudiantesancionado;
-	private List<AsignaturaEstudianteSancionado> listaasignatura;
 	private Integer periodoSancion;
+	//Variables para los filtros
+	private String cedulaFiltro="";
+	private String nombreFiltro="";
+	private String apellidoFiltro="";
+	private String sancionFiltro="";
+	private String nombreSancion;
+	private ProgramaAcademico programa;
 	private Asignatura asignaturaseleccionado;
-	private SancionMaestro sancionSeleccionada;
-	private List<ProgramaAcademico> listaPrograma;
-	private List<SancionMaestro> listaSancion;
-	private EstudianteSancionado estudianteSeleccionado;
-	private List<EstudianteSancionado> listaEstudianteSancionado;
-	private List<Asignatura> listaAsignaturas;
 	private LapsoAcademico lapsoActivo;
+	private SancionMaestro sancionSeleccionada;
+	private EstudianteSancionado estudianteSeleccionado;
+	private AsignaturaEstudianteSancionado asignaturaestudiantesancionado;
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	@WireVariable
+	private ServicioLapsoAcademico serviciolapsoacademico; //Servicio para el Lapso Academico
+	@WireVariable
+	private ServicioProgramaAcademico servicioprogramaacademico; //Servicio para el programa academico
+	@WireVariable
+	private ServicioEstudiante servicioestudiante; //Servicio para el estudiante
+	@WireVariable
+	private ServicioSancionMaestro serviciosancionmaestro; //Servicio para La sanciona maestro
+	@WireVariable 
+	private ServicioEstudianteSancionado servicioestudiantesancionado; //Servicio para el estudiante sancionado
+	@WireVariable
+	private ServicioAsignatura servicioAsignatura; //Servicio para el servicio asignatura
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado; //Servicio para Laasignatura estudiante sancionado
+	private List<AsignaturaEstudianteSancionado> listaasignatura; //Lista de asignaturas
+	private List<ProgramaAcademico> listaPrograma; //Listado de programas
+	private List<SancionMaestro> listaSancion; //Listado de sanciones
+	private List<EstudianteSancionado> listaEstudianteSancionado; //Listado de estudiantes sancionados
+	private List<Asignatura> listaAsignaturas; //Listado de asignaturas
 	private Set<AsignaturaEstudianteSancionado> listaAsignaturaListBox = new HashSet<AsignaturaEstudianteSancionado>();
-	private Set<AsignaturaEstudianteSancionado> asignatura; 
+	private Set<AsignaturaEstudianteSancionado> asignatura;  
+	private List<EstudianteSancionado> listaSancionado; 
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-	private List<EstudianteSancionado> listaSancionado; 
+
 
 
 	
