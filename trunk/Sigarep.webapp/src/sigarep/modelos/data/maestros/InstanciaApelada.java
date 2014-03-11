@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Clase InstanciaApelada
  * 
- * @author Builder
+ * @author BUILDER
  * @version 1.0
  * @since 20/12/13
  */
@@ -22,27 +22,7 @@ import java.util.List;
 @Table(name = "instancia_apelada")
 public class InstanciaApelada implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Constructor InstanciaApelada
-	 * 
-	 * @param idInstanciaApelada
-	 *            , descripcion, estatus, instanciaApelada,
-	 *            nombreRecursoApelacion
-	 * @return Constructor lleno
-	 */
-	public InstanciaApelada(Integer idInstanciaApelada, String descripcion,
-			Boolean estatus, String instanciaApelada,
-			String nombreRecursoApelacion) {
-		this.idInstanciaApelada = idInstanciaApelada;
-		this.descripcion = descripcion;
-		this.estatus = estatus;
-		this.instanciaApelada = instanciaApelada;
-		this.nombreRecursoApelacion = nombreRecursoApelacion;
-	}
-
-	public InstanciaApelada() {
-	}
+ 
 
 	// Atributos de la clase
 	@Id
@@ -84,8 +64,33 @@ public class InstanciaApelada implements Serializable {
 	// Relación bidireccional de muchos a uno, asociada a la clase Actividad
 	@OneToMany(mappedBy = "instanciaApelada")
 	private List<Actividad> actividads;
+	
+	
+	
+	// Constructor por defecto
+		public InstanciaApelada() {
+		} 
+		
+		/**
+		 * Constructor InstanciaApelada
+		 * 
+		 * @param idInstanciaApelada
+		 *            , descripcion, estatus, instanciaApelada,
+		 *            nombreRecursoApelacion
+		 * @return Constructor lleno
+		 */
+		public InstanciaApelada(Integer idInstanciaApelada, String descripcion,
+				Boolean estatus, String instanciaApelada,
+				String nombreRecursoApelacion) {
+			this.idInstanciaApelada = idInstanciaApelada;
+			this.descripcion = descripcion;
+			this.estatus = estatus;
+			this.instanciaApelada = instanciaApelada;
+			this.nombreRecursoApelacion = nombreRecursoApelacion;
+		}
 
-	// Métodos GET y SET
+
+		// Métodos Set y Get
 
 	public Integer getIdInstanciaApelada() {
 		return this.idInstanciaApelada;
@@ -136,37 +141,6 @@ public class InstanciaApelada implements Serializable {
 		this.solicitudApelacions = solicitudApelacions;
 	}
 
-	/**
-	 * Relación de la clase InstanciaApelada con la clase SolicitudApelacion,
-	 * Agregar SolicitudApelacion
-	 * 
-	 * @see SolicitudApelacion
-	 * @param solicitudApelacion
-	 * @return solicitudApelacion
-	 */
-	public SolicitudApelacion addSolicitudApelacion(
-			SolicitudApelacion solicitudApelacion) {
-		getSolicitudApelacions().add(solicitudApelacion);
-		solicitudApelacion.setInstanciaApelada(this);
-
-		return solicitudApelacion;
-	}
-
-	/**
-	 * Relación de la clase InstanciaApelada con la clase SolicitudApelacion,
-	 * Quitar SolicitudApelacion
-	 * 
-	 * @see SolicitudApelacion
-	 * @param solicitudApelacion
-	 * @return solicitudApelacion
-	 */
-	public SolicitudApelacion removeSolicitudApelacion(
-			SolicitudApelacion solicitudApelacion) {
-		getSolicitudApelacions().remove(solicitudApelacion);
-		solicitudApelacion.setInstanciaApelada(null);
-
-		return solicitudApelacion;
-	}
 
 	public List<EstadoApelacion> getEstadosApelacion() {
 		return estadosApelacion;
@@ -199,5 +173,38 @@ public class InstanciaApelada implements Serializable {
 	public void setActividads(List<Actividad> actividads) {
 		this.actividads = actividads;
 	}
-//Fin Get y Set
-}
+	
+	/**
+	 * Relación de la clase InstanciaApelada con la clase SolicitudApelacion,
+	 * Agregar SolicitudApelacion
+	 * 
+	 * @see SolicitudApelacion
+	 * @param solicitudApelacion
+	 * @return solicitudApelacion
+	 */
+	public SolicitudApelacion addSolicitudApelacion(
+			SolicitudApelacion solicitudApelacion) {
+		getSolicitudApelacions().add(solicitudApelacion);
+		solicitudApelacion.setInstanciaApelada(this);
+
+		return solicitudApelacion;
+	}
+
+	/**
+	 * Relación de la clase InstanciaApelada con la clase SolicitudApelacion,
+	 * Quitar SolicitudApelacion
+	 * 
+	 * @see SolicitudApelacion
+	 * @param solicitudApelacion
+	 * @return solicitudApelacion
+	 */
+	public SolicitudApelacion removeSolicitudApelacion(
+			SolicitudApelacion solicitudApelacion) {
+		getSolicitudApelacions().remove(solicitudApelacion);
+		solicitudApelacion.setInstanciaApelada(null);
+
+		return solicitudApelacion;
+	}
+	
+// Fin Métodos Set y Get
+}//Fin Clase InstanciaApelada

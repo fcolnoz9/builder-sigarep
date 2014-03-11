@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * Clase ContactoSigarep
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 19/12/2013
  */
 @Entity
@@ -45,7 +45,8 @@ public class ContactoSigarep implements Serializable {
 
 	@Column(name = "direccion_contacto", length = 500)
 	private String direccionContacto;
-//Constructor por defecto
+
+	//Constructor por defecto
 	public ContactoSigarep() {
 	}
 
@@ -70,7 +71,7 @@ public class ContactoSigarep implements Serializable {
 		this.direccionContacto = direccionContacto;
 	}
 
-	//Metodos set y get
+	//Métodos set y get
 	public String getQuienesSomos() {
 		return quienesSomos;
 	}
@@ -126,5 +127,5 @@ public class ContactoSigarep implements Serializable {
 	public void setDireccionContacto(String direccionContacto) {
 		this.direccionContacto = direccionContacto;
 	}
-	//fin set y get
-}
+	//Fin Métodos set y get
+}//Fin Clase ContactoSigarep

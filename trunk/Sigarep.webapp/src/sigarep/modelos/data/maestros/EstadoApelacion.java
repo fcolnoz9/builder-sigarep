@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Clase EstadoApelacion Instancia Apelada
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 15/12/2013
  */
 
@@ -39,6 +39,11 @@ public class EstadoApelacion implements Serializable {
 	@JoinColumn(name = "id_instancia_apelada", nullable = false)
 	private InstanciaApelada instanciaApelada;
 
+	//Constructor por defecto
+	public EstadoApelacion() {
+	}
+
+	
 	/**
 	 * Constructor Estado apelacion
 	 * 
@@ -55,10 +60,8 @@ public class EstadoApelacion implements Serializable {
 		this.estatus = estatus;
 	}
 
-	public EstadoApelacion() {
-	}
-
-	// Métodos GET y SET
+	
+	// Métodos Set y Get
 
 	public Boolean getEstatus() {
 		return this.estatus;
@@ -99,5 +102,5 @@ public class EstadoApelacion implements Serializable {
 	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
 		this.instanciaApelada = instanciaApelada;
 	}
-	// Fin GET y SET
-}
+	// Fin Métodos Set y Get
+}//Fin Clase EstadoApelacion
