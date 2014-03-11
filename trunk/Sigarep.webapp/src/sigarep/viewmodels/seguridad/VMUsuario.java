@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
@@ -98,7 +100,7 @@ public class VMUsuario {
 	private Media mediaUsuario;
 	private AImage imagenUsuario;
 	String ruta = UtilidadesSigarep.obtenerDirectorio();
-	
+	private String nombreUsuarioAuxiliar="";
 	
 	private ListModelList<Grupo> modeloGrupo;
 	List<Grupo> listGrupo;
@@ -468,7 +470,7 @@ public class VMUsuario {
 		}
 		else
 		{
-
+			nombreUsuarioAuxiliar = nombreUsuario;
 			Usuario usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
 			Persona mipersona1 = null;
 			Persona mipersona2 = serviciopersona.buscarPersonaNombreUsuario(nombreUsuario);
@@ -840,6 +842,24 @@ public class VMUsuario {
 				
 		}
 	}
+	
+	/**Actualizar la foto de Perfil y Menu de Usuario
+	 * @parameters nombreUsuarioAuxiliar.
+	 * @return No retorna nada .
+	 * @throws No dispara ninguna excepción.
+	 */
+	
+	@GlobalCommand
+	@NotifyChange({ "nombreUsuarioAuxiliar"})
+    public void actualizarPerfilYMenuUsuario(){
+		Usuario usuario = serviciousuario.encontrarUsuario(nombreUsuarioAuxiliar);
+		if(usuario!=null){			
+			if(usuario.getNombreUsuario().equals(seguridad.getUsuario().getUsername())){
+				BindUtils.postGlobalCommand(null, null, "Init", null);
+				BindUtils.postGlobalCommand(null, null, "cargarFotoImagen", null);
+			}			
+		}
+    }
 	
 	/**Agregar Instancia
 	 * @parameters instanciaMiembro.

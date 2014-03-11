@@ -11,6 +11,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -47,9 +48,11 @@ public class UsuarioGrupo implements Serializable {
 	@JoinColumn(name="id_grupo", nullable=false, insertable=false, updatable=false)
 	private Grupo grupo;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne(fetch = FetchType.EAGER,cascade={CascadeType.ALL})
-	@JoinColumn(name="nombre_usuario", nullable=false, insertable=false, updatable=false)
+	//bi-directional many-to-one association to Usuario	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumns({
+		@JoinColumn(name="nombre_usuario", referencedColumnName="nombre_usuario", nullable=false, insertable=false, updatable=false)
+	})
 	private Usuario usuario;
 
 	public UsuarioGrupo() {
