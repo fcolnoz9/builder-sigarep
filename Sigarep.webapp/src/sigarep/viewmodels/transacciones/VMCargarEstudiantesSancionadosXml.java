@@ -124,7 +124,7 @@ public class VMCargarEstudiantesSancionadosXml {
 	{
 		Selectors.wireComponents(view, this, false); 
 		if(serviciolapsoacademico.buscarLapsoActivo()==null)
-			mensajeAlUsuario.confirmacionLapsoAcademicoNoActivo(ventana);
+			mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);
 		else
 			listaEstudiante();
 	}
