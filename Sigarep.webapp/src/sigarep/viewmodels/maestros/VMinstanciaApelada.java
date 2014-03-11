@@ -174,41 +174,7 @@ public class VMinstanciaApelada {
 		descripcion = null;
 		listadoInstancia();
 	}
-	
-	/** Eliminar logicamente InstaciaApelada 
-	 * @return nada
-	 * @parameters vacío
-	 * @throws No dispara ninguna excepcion.
-	   */
-	@SuppressWarnings("unchecked")
-	@Command
-	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
-	public void  eliminarInstancia(@ContextParam(ContextType.BINDER) final Binder binder){
-		if (instanciaApelada == null ||  descripcion == null || nombreRecursoApelacion == null){
-			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-		} else {
-			Messagebox.show("¿Desea eliminar el registro realmente?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
-							//binder.postCommand("limpiar", null);
-							servicioInstanciaApelada.eliminar(getInstanciaApeladaseleccionada().getIdInstanciaApelada());
-							mensajeAlUsuario.informacionEliminarCorrecto();
-							binder.postCommand("limpiar", null);
-						case NO:
-					
-							binder.postCommand("limpiar", null);
-					}
-				}
-			});		
-		}
-	}
-	
+		
 	/** Metodo que indica la InstanciaApelada seleccionada del Listbox 
 	 * @return nada
 	 * @parameters vacío
