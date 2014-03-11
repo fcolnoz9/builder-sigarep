@@ -54,7 +54,6 @@ public class VMRegistrarGrupo {
 
 	private VMModeloArbolAvanzado contactTreeModel;
 	private VMModeloArbolAvanzado contactTreeModel2;
-	private VMModeloArbolAvanzado contactTreeModelAux; //Modelo del arbol que almacenará todos los nodos existentes
 	
 	private static VMNodoMenuArbol  root;
 	private static VMNodoMenuArbol  root2;
@@ -124,13 +123,6 @@ public class VMRegistrarGrupo {
 		this.contactTreeModel2 = contactTreeModel2;
 	}
 
-	public VMModeloArbolAvanzado getContactTreeModelAux() {
-		return contactTreeModelAux;
-	}
-
-	public void setContactTreeModelAux(VMModeloArbolAvanzado contactTreeModelAux) {
-		this.contactTreeModelAux = contactTreeModelAux;
-	}
 
 	public VMNodoMenuArbol getRoot2() {
 		return root2;
@@ -249,8 +241,7 @@ public class VMRegistrarGrupo {
 	public void Init(@ContextParam(ContextType.VIEW) Component view, Component comp) throws Exception {
 		Selectors.wireComponents(view, this, false);
 		cargarArbol();	
-		contactTreeModel = new VMModeloArbolAvanzado(root); //modelo del menú arbol de las funciones que no tiene el grupo (es variable)
-		contactTreeModelAux = contactTreeModel; //modelo de menú arbol que contendrá todos los nodos (no es variable) para restaurar el contactTreeModel en el comando limpiar. 
+		contactTreeModel = new VMModeloArbolAvanzado(root); //modelo del menú arbol de las funciones que no tiene el grupo (es variable) 
 		root2 = new VMNodoMenuArbol(null,null); 
 		contactTreeModel2 = new VMModeloArbolAvanzado(root2); //modelo del menú arbol de las funciones del grupo (es variable).
 		buscarListadoGrupos();
@@ -263,6 +254,7 @@ public class VMRegistrarGrupo {
 	 * @throws no ocurren excepciones 
 	 */
 	
+	@NotifyChange({"root"})
 	public void cargarArbol(){
 		root = new VMNodoMenuArbol(null,null);
 		VMNodoMenuArbol aux=null;
@@ -374,12 +366,12 @@ public class VMRegistrarGrupo {
 	 */
 	
 	@Command
-	@NotifyChange({ "nombre", "descripcion", "contactTreeModel2","contactTreeModel","contactTreeModelAux","root","root2","listaGrupos","grupoSeleccionado","grupoAux"})
+	@NotifyChange({ "nombre", "descripcion", "contactTreeModel2","contactTreeModel","root","root2","listaGrupos","grupoSeleccionado","grupoAux"})
 	public void limpiar(){
 		nombre = "";
 		descripcion = "";
-		root = new VMNodoMenuArbol(null,null);
-		contactTreeModel = contactTreeModelAux;
+		cargarArbol();
+		contactTreeModel = new VMModeloArbolAvanzado(root);
 		root2 = new VMNodoMenuArbol(null,null);
 		contactTreeModel2 = new VMModeloArbolAvanzado(root2);
 		grupoSeleccionado = null;
