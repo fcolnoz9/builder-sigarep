@@ -2,7 +2,7 @@
 	title="Mostrar Recaudos Por Motivos " 
 	border="normal" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivoPortal')">
-
+	<!-- Muestra el combo de motivos-->
 	<groupbox>
 		<caption label="Seleccione un Tipo de Motivo de Apelación" />
 
