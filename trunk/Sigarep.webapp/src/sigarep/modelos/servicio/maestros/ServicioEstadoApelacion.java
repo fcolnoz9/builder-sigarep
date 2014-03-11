@@ -52,5 +52,14 @@ public class ServicioEstadoApelacion {
       return estadoapelacion;
 	}
 
+	/**
+	 * Busca los estados de apelacion de una instancia
+	 * @param el id de la instancia
+	 * @return lista de estados de una instancia
+	 */
+	public List<EstadoApelacion> buscarEstados(int instancia) {
+		List<EstadoApelacion> listaEstados = ea.buscarEstados(instancia);
+		return listaEstados;
+	}
 }
 
