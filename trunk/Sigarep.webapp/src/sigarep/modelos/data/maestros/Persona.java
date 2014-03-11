@@ -2,24 +2,23 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.InstanciaMiembro;
-
 import java.util.List;
 
 /**
- * Clase persona Registra y Modifica los datos deuna persona
+ * Clase Persona  (Miembros de la Instancia)
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 10/12/2013
  */
 @Entity
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "cedula_persona")
 	private String cedulaPersona;
 
@@ -33,11 +32,11 @@ public class Persona implements Serializable {
 
 	private String telefono;
 
-	// bi-directional many-to-one association to InstanciaMiembro
+	// Relación bidireccional de muchos a uno, asociada a la clase InstanciaMiembro
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "persona")
 	private List<InstanciaMiembro> instanciaMiembros;
 
-	// bi-directional many-to-one association to Usuario
+	// Relación bidireccional de muchos a uno, asociada a la clase Usuario
 	@ManyToOne
 	@JoinColumn(name = "nombre_usuario")
 	private Usuario nombreUsuario;
@@ -46,7 +45,7 @@ public class Persona implements Serializable {
 	public Persona() {
 	}
 
-	// metodos set y get
+	// Métodos set y get
 	public String getCedulaPersona() {
 		return this.cedulaPersona;
 	}
@@ -94,6 +93,14 @@ public class Persona implements Serializable {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	public Usuario getNombreUsuario() {
+		return this.nombreUsuario;
+	}
+
+	public void setNombreUsuario(Usuario usuario) {
+		this.nombreUsuario = usuario;
+	}
 
 	public List<InstanciaMiembro> getInstanciaMiembros() {
 		return this.instanciaMiembros;
@@ -103,6 +110,14 @@ public class Persona implements Serializable {
 		this.instanciaMiembros = instanciaMiembros;
 	}
 
+	/**
+	 * Relación de la clase Persona con la clase InstanciaMiembro, Agregar
+	 * InstanciaMiembro
+	 * 
+	 * @see InstanciaMiembro
+	 * @param InstanciaMiembro
+	 * @return InstanciaMiembro
+	 */
 	public InstanciaMiembro addInstanciaMiembro(
 			InstanciaMiembro instanciaMiembro) {
 		getInstanciaMiembros().add(instanciaMiembro);
@@ -111,6 +126,14 @@ public class Persona implements Serializable {
 		return instanciaMiembro;
 	}
 
+	/**
+	 * Relación de la clase Persona con la clase InstanciaMiembro, Quitar
+	 * InstanciaMiembro
+	 * 
+	 * @see InstanciaMiembro
+	 * @param InstanciaMiembro
+	 * @return InstanciaMiembro
+	 */
 	public InstanciaMiembro removeInstanciaMiembro(
 			InstanciaMiembro instanciaMiembro) {
 		getInstanciaMiembros().remove(instanciaMiembro);
@@ -119,13 +142,5 @@ public class Persona implements Serializable {
 		return instanciaMiembro;
 	}
 
-	// metodos get y set
-	public Usuario getNombreUsuario() {
-		return this.nombreUsuario;
-	}
-
-	public void setNombreUsuario(Usuario usuario) {
-		this.nombreUsuario = usuario;
-	}
-
-}
+	// Fin Métodos set y get
+}//Fin Clase Persona
