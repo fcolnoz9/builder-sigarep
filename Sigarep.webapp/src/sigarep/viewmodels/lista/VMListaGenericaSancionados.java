@@ -258,8 +258,9 @@ public class VMListaGenericaSancionados{
 		Selectors.wireComponents(view, this, false);
 		this.rutaModal=rutaModal;
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-		if(lapsoActivo == null)
-			mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);
+		if (!rutaModal.equalsIgnoreCase("transacciones/HistorialEstudiante.zul"))
+			if(lapsoActivo == null)
+				mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);
 	
 		
 		//CASO: Registrar Reconsideracion y Recurso Jerarquico
@@ -364,7 +365,6 @@ public class VMListaGenericaSancionados{
 	 	map.put("sancionadoSeleccionado", sancionadoSeleccionado);
 	 	map.put("estudianteSeleccionado", estudianteSeleccionado);
 	 	map.put("estudiante", estudiante);
-	 	System.out.println("envia"+estudiante);
 	 	map.put("numeroSesion", numeroSesion);
 	 	map.put("tipoSesion", tipoSesion);
 	 	map.put("fechaSesion", fechaSesion);
