@@ -54,15 +54,21 @@ public class ServicioRecaudo {
 		iRecaudoDAO.save(rec);
 	}
 	/**
-	 * Listado de 
+	 * Listado de Recaudos
 	 * @param
-	 * @return Busca todas las actividades que estan en estatus TRUE
+	 * @return Busca en la lista de recaudos los motivos asociados  en estatus TRUE
 	 * @throws No dispara ninguna excepcion.
 	 */
 	public List<Recaudo> listadoRecaudosPorMotivo(TipoMotivo motivo) {
 	    return iRecaudoDAO.findByTipoMotivoAndEstatusTrue(motivo);
 	}
-	
+	/**
+	 * Buscar recaudos por nombre
+	 * 
+	 * @param String nombreRecaudo
+	 * @return Busca un recaudo por nombre
+	 * @throws No dispara ninguna excepcion.
+	 */
 	public Recaudo buscarRecaudoPorNombre(String nombreRecaudo) {
 	    return iRecaudoDAO.findByNombreRecaudo(nombreRecaudo);
 	}
