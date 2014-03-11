@@ -1,6 +1,4 @@
-
 package sigarep.modelos.data.seguridad;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -20,14 +18,9 @@ import sigarep.modelos.data.transacciones.UsuarioGrupo;
  * @version 1
  * @since 04/12/2013 
  */
-
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	// Atributos de la clase
@@ -36,42 +29,53 @@ public class Usuario implements Serializable {
 	//@Index(name = "nombreUsuarioIndeX")
 	@Column(name="nombre_usuario", unique = true ,length=35, nullable=false)
 	private String nombreUsuario;
-	
+
 	@Column(name = "clave")
-    private String clave;
-	
+	private String clave;
+
 	@Column(name = "correo")
-    private String correo;
-	
+	private String correo;
+
 	@Column(name = "nombre_completo")
-    private String nombreCompleto;
-	
+	private String nombreCompleto;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_creacion", nullable=true)
 	private Date fechaCreacion;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="ultimo_acceso", nullable=true)
 	private Date ultimoAcceso;
-	
+
 	@Column(name = "estado")
-    private Boolean estatus;
-	
+	private Boolean estatus;
+
 	@Embedded()
 	private Archivo foto;
 
-	//bi-directional many-to-one association to MiembroGrupo
+	// Relación bidireccional de uno a muchos, asociada a la clase Usuario
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="usuario", cascade={CascadeType.ALL})
 	private Set<UsuarioGrupo> usuariosGrupos = new HashSet<UsuarioGrupo>();
-	
-	//bi-directional many-to-one association to Estudiante
+
+	// Relación bidireccional de uno a muchos, asociada a la clase Estudiante
 	@OneToMany(mappedBy="nombreUsuario")
 	private List<Estudiante> estudiantes;
 
-	//bi-directional many-to-one association to Persona
+	// Relación bidireccional de uno a muchos, asociada a la clase Persona
 	@OneToMany(mappedBy="nombreUsuario")
 	private List<Persona> personas;
-	
+
+	// Constructor por defecto
+	public Usuario() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * Constructor Usuario
+	 * @param idUsuario, nombreUsuario, correo, clave, nombreCompleto, estatus
+	 * @return Constructor lleno
+	 */
 	public Usuario(Integer idUsuario,String nombreUsuario, String correo, String clave,
 			String nombreCompleto, Boolean estatus) {
 		super();
@@ -82,12 +86,7 @@ public class Usuario implements Serializable {
 		this.estatus = estatus;
 	}
 
-	public Usuario() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	// Métodos GET y SET
+	// Métodos Set y Get
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
@@ -111,7 +110,6 @@ public class Usuario implements Serializable {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
-
 
 	public String getNombreCompleto() {
 		return nombreCompleto;
@@ -149,53 +147,44 @@ public class Usuario implements Serializable {
 		return usuariosGrupos;
 	}
 
-
 	public List<Estudiante> getEstudiantes() {
 		return estudiantes;
 	}
-
 
 	public void setEstudiantes(List<Estudiante> estudiantes) {
 		this.estudiantes = estudiantes;
 	}
 
-
 	public List<Persona> getPersonas() {
 		return personas;
 	}
-
 
 	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
 	}
 
-
 	public Archivo getFoto() {
 		return foto;
 	}
-
 
 	public void setFoto(Archivo foto) {
 		this.foto = foto;
 	}
 
-
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
-
 
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-
 	public Date getUltimoAcceso() {
 		return ultimoAcceso;
 	}
 
-
 	public void setUltimoAcceso(Date ultimoAcceso) {
 		this.ultimoAcceso = ultimoAcceso;
-	}
-}
+	}// Fin Métodos Set y Get
+
+}//Fin Clase Usuario

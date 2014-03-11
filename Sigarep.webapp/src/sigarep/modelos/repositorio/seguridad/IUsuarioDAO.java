@@ -1,13 +1,16 @@
 package sigarep.modelos.repositorio.seguridad;
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Usuario;
 
+/**
+ * Clase IUsuarioDAO 
+ * @author BUILDER
+ * @version 1.0
+ * @since 15/12/2013
+ */
 public interface IUsuarioDAO extends JpaRepository<Usuario, String> {
 
 	/**
@@ -16,5 +19,4 @@ public interface IUsuarioDAO extends JpaRepository<Usuario, String> {
 	 */
 	public List<Usuario> findByEstatusTrue();
 	
-	//public Usuario findByIdUsuario(Integer IdUsuario);
-}
+}//Fin Clase IUsuarioDAO
