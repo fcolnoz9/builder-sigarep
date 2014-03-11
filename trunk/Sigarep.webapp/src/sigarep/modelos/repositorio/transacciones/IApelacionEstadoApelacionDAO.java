@@ -32,4 +32,13 @@ public interface IApelacionEstadoApelacionDAO extends
 			@Param("codigoLapso") String codigoLapso,
 			@Param("instancia") Integer instancia);
 
+	@Query("select a from ApelacionEstadoApelacion a where a.id.cedulaEstudiante = :cedula "
+			+ " and a.id.codigoLapso = :codigoLapso and a.id.idInstanciaApelada = :instancia and " +
+			" a.id.idEstadoApelacion = :estado")
+			
+	public List<ApelacionEstadoApelacion> buscarSugerencia(
+			@Param("cedula") String cedula,
+			@Param("codigoLapso") String codigoLapso,
+			@Param("instancia") Integer instancia,
+			@Param("estado") Integer estado);
 }
