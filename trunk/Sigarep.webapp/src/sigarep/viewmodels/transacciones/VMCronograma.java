@@ -216,26 +216,22 @@ public class VMCronograma {
 	@Command
 	@NotifyChange({"fechaInicio", "fechaFin", "horaInicio", "lugar", "observacion", "responsable", "listaCronograma", "actividad"})
 	public void guardarCronograma() {
-		if (codigoLapso == null)
-			mensajeAlUsuario.errorLapsoActivoNoExistente();
-		else{
-			if(fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals(""))
-				mensajeAlUsuario.advertenciaLlenarCampos();
-			else {
-				cronogramaPK.setIdActividad(actividad.getIdActividad());
-				cronogramaPK.setCodigoLapso(codigoLapso);
+		if(fechaInicio==null || fechaFin ==null || horaInicio ==null || lugar.equals(""))
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		else {
+			cronogramaPK.setIdActividad(actividad.getIdActividad());
+			cronogramaPK.setCodigoLapso(codigoLapso);
 
-				try {
-					responsable=servicioInstanciaApelada.buscar(responsable.getIdInstanciaApelada());
-					serviciocronograma.guardar(new Cronograma(cronogramaPK, true, fechaFin, fechaInicio, horaInicio, lugar, observacion, responsable));
+			try {
+				responsable=servicioInstanciaApelada.buscar(responsable.getIdInstanciaApelada());
+				serviciocronograma.guardar(new Cronograma(cronogramaPK, true, fechaFin, fechaInicio, horaInicio, lugar, observacion, responsable));
 
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				mensajeAlUsuario.informacionRegistroCorrecto();
-				buscarCronograma();
-				limpiar();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
+			mensajeAlUsuario.informacionRegistroCorrecto();
+			buscarCronograma();
+			limpiar();
 		}
 	}
 

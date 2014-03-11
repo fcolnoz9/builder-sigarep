@@ -330,13 +330,6 @@ public class MensajesAlUsuario {
 
 	}
 
-	public void errorLapsoActivoNoExistente() {
-
-		Messagebox.show("No existe un lapso académico activo.", "Error",
-				Messagebox.OK, Messagebox.ERROR);
-
-	}
-
 	public void errorLapsoActivoExistente() {
      Messagebox.show("Ya existe un lapso académico activo.", "Error",
 				Messagebox.OK, Messagebox.ERROR);

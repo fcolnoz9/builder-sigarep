@@ -689,92 +689,88 @@ public class VMEstudianteSancionado {
 					,@BindingParam("parametro4")Label lbllapsoConsecutivo ){
 
 		Boolean estudienteRR = false;
-		if (serviciolapsoacademico.buscarLapsoActivo() == null)
-			mensajeAlUsuario.errorLapsoActivoNoExistente();
+		lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
+		if (cedula == null  || primerNombre == null
+				|| segundoNombre == null
+				||  primerApellido == null
+				||  telefono == null
+				||  email == null 
+				|| sexo == null ||  programa == null
+			    || fechaNacimiento == null
+				|| unidadesCursadas == null
+				|| unidadesAprobadas == null || annoIngreso == null
+				|| sancionMaestro == null
+				|| semestre == null
+				|| periodoSancion == null)
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
-			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
-			if (cedula == null  || primerNombre == null
-					|| segundoNombre == null
-					||  primerApellido == null
-					||  telefono == null
-					||  email == null 
-					|| sexo == null ||  programa == null
-				    || fechaNacimiento == null
-					|| unidadesCursadas == null
-					|| unidadesAprobadas == null || annoIngreso == null
-					|| sancionMaestro == null
-					|| semestre == null
-					|| periodoSancion == null)
+			//-------- Validacion de las fechas 
+			if (fechaNacimiento != null && annoIngreso != null) {
+				if (fechaNacimiento.compareTo(annoIngreso) > 0) {
+					mensajeAlUsuario.errorRangoFechas();
+					fechaNacimiento = null;
+				} else
+			if (sancionMaestro == null)
 				mensajeAlUsuario.advertenciaLlenarCampos();
 			else {
-				//-------- Validacion de las fechas 
-				if (fechaNacimiento != null && annoIngreso != null) {
-					if (fechaNacimiento.compareTo(annoIngreso) > 0) {
-						mensajeAlUsuario.errorRangoFechas();
-						fechaNacimiento = null;
-					} else
-				if (sancionMaestro == null)
-					mensajeAlUsuario.advertenciaLlenarCampos();
-				else {
-					if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RP")) {
-						if (lapsoConsecutivo1 == null
-								|| lapsoConsecutivo2 == null)
-							mensajeAlUsuario.advertenciaLlenarCampos();
-						else
-							estudianteSancionado.setLapsosAcademicosRp(lapsoConsecutivo1+ ": " + lapsoConsecutivo2);
+				if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RP")) {
+					if (lapsoConsecutivo1 == null
+							|| lapsoConsecutivo2 == null)
+						mensajeAlUsuario.advertenciaLlenarCampos();
+					else
+						estudianteSancionado.setLapsosAcademicosRp(lapsoConsecutivo1+ ": " + lapsoConsecutivo2);
+				} else {
+					estudienteRR = true;
+					if (asignaturas.size() == 0) {
+						mensajeAlUsuario.advertenciaIngresarAsignatura();
 					} else {
-						estudienteRR = true;
-						if (asignaturas.size() == 0) {
-							mensajeAlUsuario.advertenciaIngresarAsignatura();
-						} else {
-						}
 					}
 				}
-				Estudiante estudiante = new Estudiante(cedula, annoIngreso,
-						email, true, fechaNacimiento, primerApellido,
-						primerNombre, segundoApellido, segundoNombre, sexo,
-						telefono, programa);
-				servicioestudiante.guardarEstudiante(estudiante);
-				estudianteSancionadoPK.setCedulaEstudiante(cedula);
-				estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
-				estudianteSancionado.setId(estudianteSancionadoPK);
-				estudianteSancionado.setLapsoAcademico(lapsoAcademico);
-				estudianteSancionado.setEstudiante(estudiante);
-				estudianteSancionado.setIndiceGrado(indiceGrado);
-				estudianteSancionado.setSancionMaestro(sancionMaestro);
-				estudianteSancionado.setUnidadesAprobadas(unidadesAprobadas);
-				estudianteSancionado.setUnidadesCursadas(unidadesCursadas);
-				estudianteSancionado.setPeriodoSancion(periodoSancion);
-				estudianteSancionado.setSemestre(semestre);
-				estudianteSancionado.setEstatus(true);
-				// try {
-				if (estudienteRR == true) {
-					Asignatura asignaturaSacion = new Asignatura();
-					for (Listitem miAsignaturasacion : asignaturas) {
-						String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
-						System.out.println(nombreAsignatura);
-						String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
-						asignaturaSacion = servicioAsignatura.buscarAsignaturaNombre(nombreAsignatura);
-						AsignaturaEstudianteSancionadoPK asignaturaEstudianteSancionadoPK = new AsignaturaEstudianteSancionadoPK();
-						asignaturaEstudianteSancionadoPK.setCedulaEstudiante(cedula);
-						asignaturaEstudianteSancionadoPK.setCodigoAsignatura(asignaturaSacion.getCodigoAsignatura());
-						asignaturaEstudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
-						AsignaturaEstudianteSancionado asignaturaEstudianteSancionado = new AsignaturaEstudianteSancionado();
-						asignaturaEstudianteSancionado.setId(asignaturaEstudianteSancionadoPK);
-						asignaturaEstudianteSancionado.setCondicionAsignatura(Integer.valueOf(condicion));
-						asignaturaEstudianteSancionado.setEstudianteSancionado(estudianteSancionado);
-						asignaturaEstudianteSancionado.setAsignatura(asignaturaSacion);
-						estudianteSancionado.addAsignaturaEstudianteSancionado(asignaturaEstudianteSancionado);
-						servicioestudiantesancionado.guardar(estudianteSancionado);
-					}
-
-				} else
-					servicioestudiantesancionado.guardar(estudianteSancionado);
-
-				mensajeAlUsuario.informacionRegistroCorrecto();
-				limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
-				} // del if de las fechas
 			}
+			Estudiante estudiante = new Estudiante(cedula, annoIngreso,
+					email, true, fechaNacimiento, primerApellido,
+					primerNombre, segundoApellido, segundoNombre, sexo,
+					telefono, programa);
+			servicioestudiante.guardarEstudiante(estudiante);
+			estudianteSancionadoPK.setCedulaEstudiante(cedula);
+			estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
+			estudianteSancionado.setId(estudianteSancionadoPK);
+			estudianteSancionado.setLapsoAcademico(lapsoAcademico);
+			estudianteSancionado.setEstudiante(estudiante);
+			estudianteSancionado.setIndiceGrado(indiceGrado);
+			estudianteSancionado.setSancionMaestro(sancionMaestro);
+			estudianteSancionado.setUnidadesAprobadas(unidadesAprobadas);
+			estudianteSancionado.setUnidadesCursadas(unidadesCursadas);
+			estudianteSancionado.setPeriodoSancion(periodoSancion);
+			estudianteSancionado.setSemestre(semestre);
+			estudianteSancionado.setEstatus(true);
+			// try {
+			if (estudienteRR == true) {
+				Asignatura asignaturaSacion = new Asignatura();
+				for (Listitem miAsignaturasacion : asignaturas) {
+					String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
+					System.out.println(nombreAsignatura);
+					String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
+					asignaturaSacion = servicioAsignatura.buscarAsignaturaNombre(nombreAsignatura);
+					AsignaturaEstudianteSancionadoPK asignaturaEstudianteSancionadoPK = new AsignaturaEstudianteSancionadoPK();
+					asignaturaEstudianteSancionadoPK.setCedulaEstudiante(cedula);
+					asignaturaEstudianteSancionadoPK.setCodigoAsignatura(asignaturaSacion.getCodigoAsignatura());
+					asignaturaEstudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
+					AsignaturaEstudianteSancionado asignaturaEstudianteSancionado = new AsignaturaEstudianteSancionado();
+					asignaturaEstudianteSancionado.setId(asignaturaEstudianteSancionadoPK);
+					asignaturaEstudianteSancionado.setCondicionAsignatura(Integer.valueOf(condicion));
+					asignaturaEstudianteSancionado.setEstudianteSancionado(estudianteSancionado);
+					asignaturaEstudianteSancionado.setAsignatura(asignaturaSacion);
+					estudianteSancionado.addAsignaturaEstudianteSancionado(asignaturaEstudianteSancionado);
+					servicioestudiantesancionado.guardar(estudianteSancionado);
+				}
+
+			} else
+				servicioestudiantesancionado.guardar(estudianteSancionado);
+
+			mensajeAlUsuario.informacionRegistroCorrecto();
+			limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
+			} // del if de las fechas
 		}
 	}
 	
