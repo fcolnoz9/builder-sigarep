@@ -4,10 +4,15 @@ import java.util.Date;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
+
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
@@ -33,39 +38,35 @@ public class VMFinalizarLapso {
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	
-	
+	@Wire("#winFinalizarLapso")
+	Window ventana;
 	@Init
-    public void init(){
+    public void init(@ContextParam(ContextType.VIEW) Component view){
 		if (serviciolapsoacademico.buscarLapsoActivo() == null)
-			mensajeAlUsuario.errorLapsoActivoNoExistente();
+			mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);
 		else
 			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
-		
     }
 	
 	@Command
-	public void finalizarLapso(){
-		if (lapsoAcademico == null)
-			mensajeAlUsuario.errorLapsoActivoNoExistente();
-		else{	
-			long apelacionesSinVeredicto = 0;
-			long apelacionesSinSesion = 0;
-			Date ultimaFechaCronograma = serviciocronograma.buscarUltimaFechaDelCronogramaActual();
-			Date fechaActual = new Date();
-			
-			apelacionesSinVeredicto = serviciosolicitudapelacion.contarApelacionesSinVeredicto();
-			apelacionesSinSesion = serviciosolicitudapelacion.contarApelacionesSinSesion();
-			if (apelacionesSinVeredicto > 0)
-				mensajeAlUsuario.errorFinalizarLapsoVeredicto();
-			else if (apelacionesSinSesion > 0)
-				mensajeAlUsuario.errorFinalizarLapsoSesion();
-			else if (fechaActual.compareTo(ultimaFechaCronograma) < 0)
-				mensajeAlUsuario.errorFinalizarLapsoCronograma();
-			else{
-				lapsoAcademico.setEstatus(false);
-				serviciolapsoacademico.guardarLapso(lapsoAcademico);
-				mensajeAlUsuario.informacionFinalizarLapsoExitoso();
-			}
+	public void finalizarLapso(){	
+		long apelacionesSinVeredicto = 0;
+		long apelacionesSinSesion = 0;
+		Date ultimaFechaCronograma = serviciocronograma.buscarUltimaFechaDelCronogramaActual();
+		Date fechaActual = new Date();
+		
+		apelacionesSinVeredicto = serviciosolicitudapelacion.contarApelacionesSinVeredicto();
+		apelacionesSinSesion = serviciosolicitudapelacion.contarApelacionesSinSesion();
+		if (apelacionesSinVeredicto > 0)
+			mensajeAlUsuario.errorFinalizarLapsoVeredicto();
+		else if (apelacionesSinSesion > 0)
+			mensajeAlUsuario.errorFinalizarLapsoSesion();
+		else if (fechaActual.compareTo(ultimaFechaCronograma) < 0)
+			mensajeAlUsuario.errorFinalizarLapsoCronograma();
+		else{
+			lapsoAcademico.setEstatus(false);
+			serviciolapsoacademico.guardarLapso(lapsoAcademico);
+			mensajeAlUsuario.informacionFinalizarLapsoExitoso();
 		}
 	}
 	public LapsoAcademico getLapsoAcademico() {
