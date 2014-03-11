@@ -1,12 +1,9 @@
 package sigarep.viewmodels.maestros;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -15,10 +12,10 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
-import org.zkoss.zk.ui.Executions;
+
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
+
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -27,11 +24,6 @@ import sigarep.modelos.servicio.maestros.ServicioNoticia;
 import java.util.LinkedList;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox.ClickEvent;
-import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.annotation.Listen;
-import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.bind.Binder;
 
 /** Clase Noticia
@@ -44,7 +36,7 @@ import org.zkoss.bind.Binder;
 
 @SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMnoticia extends SelectorComposer<Component>  {
+public class VMnoticia  {
 
 	@WireVariable ServicioNoticia servicionoticia;
 	private Integer idNoticia; // clave principal de la tabla Noticia
@@ -61,12 +53,6 @@ public class VMnoticia extends SelectorComposer<Component>  {
 	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
 	private Noticia noticiaSeleccionada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
-	Window win=null;
-	int idcount=0;
-
-	private @Wire Listbox lbxNoticias;
-	
-	
 
 	// Metodos GETS Y SETS
 	public Integer getIdNoticia() {
@@ -311,63 +297,7 @@ public class VMnoticia extends SelectorComposer<Component>  {
 		Messagebox.show("Archivo" + mediaNoticia.getName(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
-	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
-	 * @parameters contenido, enlaceNoticia, fechaRegistro, imagen, titulo, vencimiento, listaNoticia,fotoNoticia. 
-	 * @return No devuelve ningun valor.
-	 */
-	@Command
-	@NotifyChange({"noticiaSeleccionada"})
-	public void mostrarSeleccionado2(){
-		noticiaSeleccionada = getNoticiaSeleccionada();
-		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("noticiaSeleccionada", this.noticiaSeleccionada);
-		if(win!=null){
-			win.detach();
-			noticiaSeleccionada=null;
-			win.setId(null);
-		}
-		win= (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/DetalleNoticia.zul", null, map);
-		win.setMaximizable(true);
-		win.doModal();
-		win.setId("doModal"+""+idcount+"");
-
-	}
-
-	/** reordenarLista.Metodo que reordena la lista
-	 * @parameters listaNoticia cargada con las noticias. 
-	 * @return No devuelve ningun valor.
-	 */
-	@Command
-	@NotifyChange({"listaNoticia"})
-	public void reordenarLista(List<Noticia> listaNoticia){		
-
-		if(listaNoticia.size() > 2){
-			Noticia nitic = listaNoticia.remove(0);
-			listaNoticia.add(nitic);
-			lbxNoticias.setModel(new ListModelList<Noticia>(listaNoticia));
-		}//else{System.out.println("hay menos de 3 elementos en la lista");}
-
-	}
-
-	/** hacer. Maneja el timer de la  vista , se encarga de actualizar la lista cada 5 segundos
-	 * @parameters onTimer. 
-	 * @return No devuelve ningun valor.
-	 */
-	@Listen("onTimer = #tiempo")
-	public void hacer(){
-		reordenarLista(getListaNoticia());
-	}
-
-	/** doAfterCompose.
-	 * @parameters comp. 
-	 * @return No devuelve ningun valor.
-	 */
-	@Override
-	public void doAfterCompose(Component comp) throws Exception {
-		// TODO Auto-generated method stub
-		super.doAfterCompose(comp);
-		buscarNoticia();		
-	}
+	
 	/** filtros. Filtra por la variable titulo
 	 * @parameters titulof,listaNoticia
 	 * @return No devuelve ningun valor.
