@@ -4,19 +4,37 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Clase PreguntasBasicas Registra y Modifica las preguntas basicas del portal
+ * Clase PreguntasBasicas
  * 
  * @author BUILDER
- * @version 1
- * @since 15/01/2014
+ * @version 1.0
+ * @since 15/12/2013
  */
 @Entity
 // anotación indica que el JavaBean es una entidad persistente
 @Access(AccessType.FIELD)
 @Table(name = "pregunta_basica")
-//
 public class PreguntaBasica implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	// Atributos de la clase
+	@Id
+	// Clave principal de la clase
+	@Column(name = "id_pregunta_basica", unique = true, nullable = false)
+	private Integer idPreguntaBasica;
+
+	@Column(nullable = false)
+	private Boolean estatus;
+
+	@Column(nullable = false, length = 255)
+	private String pregunta;
+
+	@Column(nullable = false, length = 255)
+	private String respuesta;
+
+	// Constructor por defecto
+	public PreguntaBasica() {
+	}
 
 	/**
 	 * Constructor PreguntaBasica
@@ -34,25 +52,7 @@ public class PreguntaBasica implements Serializable {
 		this.estatus = estatus;
 	}
 
-	// Atributos de la clase
-	@Id
-	// Clave principal de la clase
-	@Column(name = "id_pregunta_basica", unique = true, nullable = false)
-	private Integer idPreguntaBasica;
-
-	@Column(nullable = false)
-	private Boolean estatus;
-
-	@Column(nullable = false, length = 255)
-	private String pregunta;
-
-	@Column(nullable = false, length = 255)
-	private String respuesta;
-
-	public PreguntaBasica() {
-	}
-
-	// Métodos GET y SET
+	// Métodos Set y Get
 
 	public Integer getIdPreguntaBasica() {
 		return this.idPreguntaBasica;
@@ -85,5 +85,5 @@ public class PreguntaBasica implements Serializable {
 	public void setRespuesta(String respuesta) {
 		this.respuesta = respuesta;
 	}
-
-}
+	// Fin Métodos Set y Get
+}// Fin Clase Preguntas Básicas

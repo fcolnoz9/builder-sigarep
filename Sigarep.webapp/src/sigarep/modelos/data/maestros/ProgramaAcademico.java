@@ -2,12 +2,11 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase Programa academico Registra y Modifica un programa academico
+ * Clase ProgramaAcadémico
  * 
  * @author BUILDER
  * @version 1
@@ -15,11 +14,14 @@ import java.util.List;
  */
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "programa_academico")
 public class ProgramaAcademico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "id_programa", unique = true, nullable = false)
 	private Integer idPrograma;
 
@@ -29,11 +31,11 @@ public class ProgramaAcademico implements Serializable {
 	@Column(name = "nombre_programa", nullable = false, length = 60)
 	private String nombrePrograma;
 
-	// bi-directional many-to-one association to Asignatura
+	// Relación bidireccional de muchos a uno, asociada a la clase Asignatura
 	@OneToMany(mappedBy = "programaAcademico", cascade = { CascadeType.ALL })
 	private List<Asignatura> asignaturas = new LinkedList<Asignatura>();
 
-	// bi-directional many-to-one association to Estudiante
+	// Relación bidireccional de muchos a uno, asociada a la clase Estudiante
 	@OneToMany(mappedBy = "programaAcademico")
 	private List<Estudiante> estudiantes = new LinkedList<Estudiante>();
 
@@ -56,7 +58,7 @@ public class ProgramaAcademico implements Serializable {
 		this.estatusPrograma = estatus;
 	}
 
-	// metodos set y get
+	//Métodos set y get
 	public Integer getIdPrograma() {
 		return this.idPrograma;
 	}
@@ -89,20 +91,6 @@ public class ProgramaAcademico implements Serializable {
 		this.asignaturas = asignaturas;
 	}
 
-	public Asignatura addAsignatura(Asignatura asignatura) {
-		getAsignaturas().add(asignatura);
-		asignatura.setProgramaAcademico(this);
-
-		return asignatura;
-	}
-
-	public Asignatura removeAsignatura(Asignatura asignatura) {
-		getAsignaturas().remove(asignatura);
-		asignatura.setProgramaAcademico(null);
-
-		return asignatura;
-	}
-
 	public List<Estudiante> getEstudiantes() {
 		return this.estudiantes;
 	}
@@ -110,19 +98,64 @@ public class ProgramaAcademico implements Serializable {
 	public void setEstudiantes(List<Estudiante> estudiantes) {
 		this.estudiantes = estudiantes;
 	}
+	
+	/**
+	 * Relación de la clase ProgramaAcademico con la clase Asignatura, Agregar
+	 * Asignatura
+	 * 
+	 * @see Asignatura
+	 * @param Asignatura
+	 * @return Asignatura
+	 */
+	public Asignatura addAsignatura(Asignatura asignatura) {
+		getAsignaturas().add(asignatura);
+		asignatura.setProgramaAcademico(this);
 
+		return asignatura;
+	}
+
+	/**
+	 * Relación de la clase ProgramaAcademico con la clase Asignatura, Agregar
+	 * Asignatura
+	 * 
+	 * @see Asignatura
+	 * @param Asignatura
+	 * @return Asignatura
+	 */
+	public Asignatura removeAsignatura(Asignatura asignatura) {
+		getAsignaturas().remove(asignatura);
+		asignatura.setProgramaAcademico(null);
+
+		return asignatura;
+	}
+
+	/**
+	 * Relación de la clase ProgramaAcademico con la clase Estudiante, Agregar
+	 * Estudiante
+	 * 
+	 * @see Estudiante
+	 * @param Estudiante
+	 * @return Estudiante
+	 */
 	public Estudiante addEstudiante(Estudiante estudiante) {
 		getEstudiantes().add(estudiante);
 		estudiante.setProgramaAcademico(this);
 
 		return estudiante;
 	}
-
+	/**
+	 * Relación de la clase ProgramaAcademico con la clase Estudiante, Quitar
+	 * Estudiante
+	 * 
+	 * @see Estudiante
+	 * @param Estudiante
+	 * @return Estudiante
+	 */
 	public Estudiante removeEstudiante(Estudiante estudiante) {
 		getEstudiantes().remove(estudiante);
 		estudiante.setProgramaAcademico(null);
 
 		return estudiante;
 	}
-
-}
+	//Fin Métodos set y get
+}//Fin Clase ProgramaAcademico

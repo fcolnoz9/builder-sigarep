@@ -2,27 +2,27 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.Motivo;
-
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase TipoMotivo Registra y Modifica los tipos de motivo
+ * Clase TipoMotivo
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 18/12/2013
  */
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "tipo_motivo")
 public class TipoMotivo implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+private static final long serialVersionUID = 1L;
+    
+   //Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "id_tipo_motivo", unique = true, nullable = false)
 	private Integer idTipoMotivo;
 	@Column(name = "nombre_tipo_motivo", nullable = false, length = 60)
@@ -33,13 +33,14 @@ public class TipoMotivo implements Serializable {
 	private Boolean estatus;
 	@Column(name = "protegido", nullable = true)
 	private Boolean protegido;
-	// bi-directional many-to-one association to Recaudo
+	//Relación bidireccional de muchos a uno, asociada a la clase Recaudo
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "tipoMotivo")
 	private List<Recaudo> recaudos = new LinkedList<Recaudo>();
-	// bi-directional many-to-one association to Motivo
+	// Relación bidireccional de muchos a uno, asociada a la clase Motivo
 	@OneToMany(mappedBy = "tipoMotivo")
 	private List<Motivo> motivos = new LinkedList<Motivo>();
 
+	//Constructor por defecto
 	public TipoMotivo() {
 
 	}
@@ -63,7 +64,7 @@ public class TipoMotivo implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	// metodos set y get
+	// Métodos set y get
 	public Integer getIdTipoMotivo() {
 		return this.idTipoMotivo;
 	}
@@ -95,6 +96,14 @@ public class TipoMotivo implements Serializable {
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
 	}
+	
+	public Boolean getProtegido() {
+		return protegido;
+	}
+
+	public void setProtegido(Boolean protegido) {
+		this.protegido = protegido;
+	}
 
 	public List<Recaudo> getRecaudos() {
 		return this.recaudos;
@@ -104,19 +113,7 @@ public class TipoMotivo implements Serializable {
 		this.recaudos = recaudos;
 	}
 
-	public Recaudo addRecaudo(Recaudo recaudo) {
-		getRecaudos().add(recaudo);
-		recaudo.setTipoMotivo(this);
-
-		return recaudo;
-	}
-
-	public Recaudo removeRecaudo(Recaudo recaudo) {
-		getRecaudos().remove(recaudo);
-		recaudo.setTipoMotivo(null);
-
-		return recaudo;
-	}
+	
 
 	public List<Motivo> getMotivos() {
 		return this.motivos;
@@ -125,7 +122,42 @@ public class TipoMotivo implements Serializable {
 	public void setMotivos(List<Motivo> motivos) {
 		this.motivos = motivos;
 	}
+	
+	/**
+	 * Relación de la clase TipoMotivo con la clase Recaudo, Agregar Recaudo
+	 * 
+	 * @see Recaudo
+	 * @param Recaudo
+	 * @return Recaudo
+	 */
+	public Recaudo addRecaudo(Recaudo recaudo) {
+		getRecaudos().add(recaudo);
+		recaudo.setTipoMotivo(this);
 
+		return recaudo;
+	}
+
+	/**
+	 * Relación de la clase TipoMotivo con la clase Recaudo, Quitar Recaudo
+	 * 
+	 * @see Recaudo
+	 * @param Recaudo
+	 * @return Recaudo
+	 */
+	public Recaudo removeRecaudo(Recaudo recaudo) {
+		getRecaudos().remove(recaudo);
+		recaudo.setTipoMotivo(null);
+
+		return recaudo;
+	}
+
+	/**
+	 * Relación de la clase TipoMotivo con la clase Motivo, Agregar Motivo
+	 * 
+	 * @see Motivo
+	 * @param Motivo
+	 * @return Motivo
+	 */
 	public Motivo addMotivo(Motivo motivo) {
 		getMotivos().add(motivo);
 		motivo.setTipoMotivo(this);
@@ -133,6 +165,13 @@ public class TipoMotivo implements Serializable {
 		return motivo;
 	}
 
+	/**
+	 * Relación de la clase TipoMotivo con la clase Motivo, Quitar Motivo
+	 * 
+	 * @see Motivo
+	 * @param Motivo
+	 * @return Motivo
+	 */
 	public Motivo removeMotivo(Motivo motivo) {
 		getMotivos().remove(motivo);
 		motivo.setTipoMotivo(null);
@@ -140,12 +179,5 @@ public class TipoMotivo implements Serializable {
 		return motivo;
 	}
 
-	public Boolean getProtegido() {
-		return protegido;
-	}
-
-	public void setProtegido(Boolean protegido) {
-		this.protegido = protegido;
-	}
-
-}
+	//Fin Métodos set y get
+}//Fin Clase TipoMotivo

@@ -2,41 +2,25 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
-
 import java.util.List;
 
 /**
- * Clase Recaudo Registra y Modifica Recaudo de Registros Básicos
+ * Clase Recaudo 
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 15/12/2013
  */
 
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "recaudo")
 public class Recaudo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor Recaudo
-	 * 
-	 * @param idRecaudo
-	 *            , descripcion, estatus, nombreRecaudo, observacion
-	 * @return Constructor lleno
-	 */
-	public Recaudo(Integer idRecaudo, String descripcion, Boolean estatus,
-			String nombreRecaudo, String observacion) {
-		super();
-		this.idRecaudo = idRecaudo;
-		this.descripcion = descripcion;
-		this.estatus = estatus;
-		this.nombreRecaudo = nombreRecaudo;
-		this.observacion = observacion;
-	}
+	
 
 	// Atributos de la clase
 	@Id
@@ -56,19 +40,20 @@ public class Recaudo implements Serializable {
 	@Column(length = 255)
 	private String observacion;
 
-	// bi-directional many-to-one association to TipoMotivo
+	//  Relación bidireccional de muchos a uno, asociada a la clase TipoMotivo
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_tipo_motivo", nullable = true)
 	private TipoMotivo tipoMotivo;
 
-	// bi-directional many-to-one association to RecaudoEntregado
+	//  Relación bidireccional de muchos a uno, asociada a la clase RecaudoEntregado
 	@OneToMany(mappedBy = "recaudo")
 	private List<RecaudoEntregado> recaudoEntregados;
 
+	//Constructor por defecto
 	public Recaudo() {
 	}
 
-	// Métodos GET y SET
+	// Métodos Set y Get
 	public Integer getIdRecaudo() {
 		return this.idRecaudo;
 	}
@@ -124,7 +109,14 @@ public class Recaudo implements Serializable {
 	public void setRecaudoEntregados(List<RecaudoEntregado> recaudoEntregados) {
 		this.recaudoEntregados = recaudoEntregados;
 	}
-
+	
+	/**
+	 * Relación de la clase Recaudo con la clase RecaudoEntregado,Agregar RecaudoEntregado
+	 * 
+	 * @see RecaudoEntregado
+	 * @param RecaudoEntregado
+	 * @return RecaudoEntregado
+	 */
 	public RecaudoEntregado addRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {
 		getRecaudoEntregados().add(recaudoEntregado);
@@ -132,7 +124,14 @@ public class Recaudo implements Serializable {
 
 		return recaudoEntregado;
 	}
-
+	
+	/**
+	 * Relación de la clase Recaudo con la clase RecaudoEntregado, Quitar RecaudoEntregado
+	 * 
+	 * @see RecaudoEntregado
+	 * @param RecaudoEntregado
+	 * @return RecaudoEntregado
+	 */
 	public RecaudoEntregado removeRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {
 		getRecaudoEntregados().remove(recaudoEntregado);
@@ -140,5 +139,5 @@ public class Recaudo implements Serializable {
 
 		return recaudoEntregado;
 	}
-
-}
+	// Fin Métodos Set y Get
+}//Fin Clase Recaudo

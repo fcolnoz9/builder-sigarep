@@ -8,21 +8,23 @@ import sigarep.herramientas.Documento;
 import java.util.Date;
 
 /**
- * Reglamento UCLA DCYT Sistemas de Información
+ * Clase Reglamento
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @author BUILDER
  * @version 1.0
- * @since 22/01/14
+ * @since 12/12/14
  */
 
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "reglamento")
 public class Reglamento implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+private static final long serialVersionUID = 1L;
+	
+// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "id_documento", unique = true, nullable = false)
 	private Integer idDocumento;
 
@@ -44,7 +46,8 @@ public class Reglamento implements Serializable {
 
 	@Column(name = "categoria", nullable = false, length = 30)
 	private String categoria;
-
+ 
+	//Constructor por defecto
 	public Reglamento() {
 	}
 
@@ -70,6 +73,7 @@ public class Reglamento implements Serializable {
 		this.categoria = categoria;
 	}
 
+	//Métodos Set y Get
 	public Integer getIdDocumento() {
 		return this.idDocumento;
 	}
@@ -126,4 +130,5 @@ public class Reglamento implements Serializable {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-}
+	//Fin Métodos Set y Get
+}//Fin Clase Reglamento

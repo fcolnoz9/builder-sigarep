@@ -2,26 +2,27 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase Sancion Registra y Modifica una sancion
+ * Clase SancionMaestro
  * 
  * @author BUILDER
- * @version 1
+ * @version 1.0
  * @since 15/12/2013
  */
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "sancion_maestro")
 public class SancionMaestro implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+     
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "id_sancion", unique = true, nullable = false)
 	private Integer idSancion;
 
@@ -34,7 +35,7 @@ public class SancionMaestro implements Serializable {
 	@Column(name = "nombre_sancion", nullable = false, length = 60)
 	private String nombreSancion;
 
-	// bi-directional many-to-one association to EstudianteSancionado
+	//  Relación bidireccional de muchos a uno, asociada a la clase EstudianteSancionado
 	@OneToMany(mappedBy = "sancionMaestro")
 	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
@@ -58,6 +59,7 @@ public class SancionMaestro implements Serializable {
 		this.nombreSancion = nombreSancion;
 	}
 
+	//Métodos Set y Get
 	public Integer getIdSancion() {
 		return this.idSancion;
 	}
@@ -99,6 +101,14 @@ public class SancionMaestro implements Serializable {
 		this.estudianteSancionados = estudianteSancionados;
 	}
 
+	/**
+	 * Relación de la clase SancionMaestro  con la clase EstudianteSancionado, Agregar
+	 * EstudianteSancionado
+	 * 
+	 * @see EstudianteSancionado
+	 * @param EstudianteSancionado
+	 * @return EstudianteSancionado
+	 */
 	public EstudianteSancionado addEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
@@ -107,6 +117,14 @@ public class SancionMaestro implements Serializable {
 		return estudianteSancionado;
 	}
 
+	/**
+	 * Relación de la clase SancionMaestro con la clase EstudianteSancionado, Quitar
+	 * EstudianteSancionado
+	 * 
+	 * @see EstudianteSancionado
+	 * @param EstudianteSancionado
+	 * @return EstudianteSancionado
+	 */
 	public EstudianteSancionado removeEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);
@@ -114,5 +132,5 @@ public class SancionMaestro implements Serializable {
 
 		return estudianteSancionado;
 	}
-
-}
+	//Fin Métodos Set y Get
+}//Fin Clase SancionMaestro
