@@ -124,8 +124,6 @@ public class VMrecaudoMotivoPortal {
 	public void setRecaudoSeleccionado(Recaudo recaudoSeleccionado) {
 		this.recaudoSeleccionado = recaudoSeleccionado;
 	}
-
-
 	public List<Recaudo> getListaRecaudos() {
 		return listaRecaudos;
 	}
@@ -156,9 +154,6 @@ public class VMrecaudoMotivoPortal {
 	}
 	
 	//Fin de los métodos gets y sets
-	
-	
-	
 	/**
 	 * inicialización
 	 * 
@@ -173,9 +168,7 @@ public class VMrecaudoMotivoPortal {
 		buscarRecaudos();
 		buscarTiposMotivo();
 		buscarRecaudosMotivosPortal();
-    }
-		
-		
+    }	
 	/**
 	 * Buscar Recaudos
 	 * 
@@ -204,8 +197,7 @@ public class VMrecaudoMotivoPortal {
 		public void buscarTiposMotivo() {
 			listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
 		}
-		
-				
+					
 		/**
 		 * Objeto ComboMotivo
 		 * 
