@@ -1,12 +1,9 @@
 package sigarep.viewmodels.transacciones;
 
 import java.util.Date;
-
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.BindingParam;
@@ -15,7 +12,6 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
@@ -48,7 +44,6 @@ import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
-
 
 
 /**
@@ -518,7 +513,7 @@ public class VMEstudianteSancionado {
 	public void agregarAsignatura(
 			@BindingParam("comboitem") Combobox comboItem,
 			@BindingParam("listBoxAsignaturas") Listbox listBoxAsignaturas) {
-		if(asignaturaseleccionado == null)
+		if( comboItem.getValue().equals("") )
 		{
 			mensajeAlUsuario.advertenciaIngresarAsignatura();
 		}
@@ -530,8 +525,6 @@ public class VMEstudianteSancionado {
 		listaAsignaturaListBox.add(asignaturaLista);
 		}
 	}
-	
-	
 	
 	/** Seleccionar Sancion
 	 * @param  no tiene ningun parametro
@@ -566,10 +559,7 @@ public class VMEstudianteSancionado {
 	public void buscarProgramaA() {
 		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
 	}
-	
-	
-	
-	
+
 
 	/** mostrar Seleccionado
 	 * @param  cedula, indiceGrado, lapsoAcademico,
@@ -623,10 +613,7 @@ public class VMEstudianteSancionado {
 		
 		
 		asignatura = miSanc.getAsignaturaEstudianteSancionados();
-		
-		
 			String palabra = miSanc.getLapsosAcademicosRp();
-			//String separador = "@[A-Za-z0-9]+\\.com";
 			String separador = ":";
 		if( !palabra.equals("")){
 	        String[] palabraArray = palabra.split(separador);
@@ -635,9 +622,7 @@ public class VMEstudianteSancionado {
 			if(palabraArray.length>1)
 			lapsoConsecutivo2 = palabraArray[1];
 		}
-				
- 
-		}
+}
 	
 	/** buscar Sancionados
 	 * @param  
@@ -758,7 +743,6 @@ public class VMEstudianteSancionado {
 				Asignatura asignaturaSacion = new Asignatura();
 				for (Listitem miAsignaturasacion : asignaturas) {
 					String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
-					System.out.println(nombreAsignatura);
 					String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
 					asignaturaSacion = servicioAsignatura.buscarAsignaturaNombre(nombreAsignatura);
 					AsignaturaEstudianteSancionadoPK asignaturaEstudianteSancionadoPK = new AsignaturaEstudianteSancionadoPK();
@@ -779,7 +763,7 @@ public class VMEstudianteSancionado {
 
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
-			} // del if de las fechas
+			} 
 		}
 	}
 	
@@ -844,13 +828,11 @@ public class VMEstudianteSancionado {
 						buscarAsignaturas();
 						listaAsignaturaListBox = estudianteSancionado
 								.getAsignaturaEstudianteSancionados();
-
 					} else{
 					asignatura = estudianteSancionado.getAsignaturaEstudianteSancionados();
 					textboxlapsoConsecutivo1.setVisible(true);
 					lapsoConsecutivo1 = estudianteSancionado.getLapsosAcademicosRp();
 					lapsoConsecutivo2 = estudianteSancionado.getLapsosAcademicosRp();
-					System.out.println("paso por aca" +lapsoConsecutivo2);
 					}
 					
 					
@@ -1065,6 +1047,7 @@ public class VMEstudianteSancionado {
 				|| semestre != null
 				|| periodoSancion != null || lapsoConsecutivo1 != null || lapsoConsecutivo2 != null)
 			condicion = true;
+		
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 
