@@ -4,8 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Clase EstadoApelacion Registra y Modifica el Estado de Apelación asociado a
- * Instancia Apelada
+ * Clase EstadoApelacion Instancia Apelada
  * 
  * @author BUILDER
  * @version 1
@@ -18,22 +17,6 @@ import javax.persistence.*;
 @Table(name = "estado_apelacion")
 public class EstadoApelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Constructor Estado apelacion
-	 * 
-	 * @param idEstadoApelacion
-	 *            , nombreEstado, descripcion, estatus
-	 * @return Constructor lleno
-	 */
-	public EstadoApelacion(Integer idEstadoApelacion, String nombreEstado,
-			String descripcion, Boolean estatus) {
-		super();
-		this.idEstadoApelacion = idEstadoApelacion;
-		this.nombreEstado = nombreEstado;
-		this.descripcion = descripcion;
-		this.estatus = estatus;
-	}
 
 	// Atributos de la clase
 	@Id
@@ -50,10 +33,27 @@ public class EstadoApelacion implements Serializable {
 	@Column(name = "descripcion", length = 255)
 	private String descripcion;
 
-	// bi-directional many-to-one association to InstanciaApelada
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// InstanciaApelada
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_instancia_apelada", nullable = false)
 	private InstanciaApelada instanciaApelada;
+
+	/**
+	 * Constructor Estado apelacion
+	 * 
+	 * @param idEstadoApelacion
+	 *            , nombreEstado, descripcion, estatus
+	 * @return Constructor lleno
+	 */
+	public EstadoApelacion(Integer idEstadoApelacion, String nombreEstado,
+			String descripcion, Boolean estatus) {
+		super();
+		this.idEstadoApelacion = idEstadoApelacion;
+		this.nombreEstado = nombreEstado;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+	}
 
 	public EstadoApelacion() {
 	}
@@ -99,5 +99,5 @@ public class EstadoApelacion implements Serializable {
 	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
 		this.instanciaApelada = instanciaApelada;
 	}
-
+	// Fin GET y SET
 }

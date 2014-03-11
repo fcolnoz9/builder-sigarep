@@ -6,8 +6,7 @@ import javax.persistence.*;
 import sigarep.herramientas.Archivo;
 
 /**
- * Clase EnlaceInteres Registra y Modifica el Enlaces de Interés mostrados en el
- * portal principal.
+ * Clase EnlaceInteres
  * 
  * @author BUILDER
  * @version 1
@@ -45,7 +44,6 @@ public class EnlaceInteres implements Serializable {
 	// Constructor por defecto
 	public EnlaceInteres() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -115,5 +113,5 @@ public class EnlaceInteres implements Serializable {
 	public void setImagen(Archivo imagen) {
 		this.imagen = imagen;
 	}
-
+	// Fin GET y SET
 }

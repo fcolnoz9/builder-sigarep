@@ -8,7 +8,7 @@ import sigarep.herramientas.Archivo;
 import java.util.Date;
 
 /**
- * Clase Banner Registra y Modifica los Datos del Banner
+ * Clase Banner
  * 
  * @author BUILDER
  * @version 1.3
@@ -17,11 +17,14 @@ import java.util.Date;
 
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "banner")
 public class Banner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name = "id_imagen", unique = true, nullable = false)
 	private Integer idImagen;
 
@@ -49,9 +52,10 @@ public class Banner implements Serializable {
 
 	/**
 	 * Constructor Banner
+	 * 
 	 * @param idImagen
-	 *            , descripcion, enlace, fechaVencimiento,
-	 *             titulo, fotoBanner,  estatus
+	 *            , descripcion, enlace, fechaVencimiento, titulo, fotoBanner,
+	 *            estatus
 	 * @return Constructor lleno
 	 */
 	public Banner(Integer idImagen, String descripcion, String enlace,
@@ -123,4 +127,5 @@ public class Banner implements Serializable {
 	public void setFotoBanner(Archivo fotoBanner) {
 		this.fotoBanner = fotoBanner;
 	}
+	// Fin GET y SET
 }

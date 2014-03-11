@@ -11,8 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase Lapso Académico Registra y Modifica un lapso académico UCLA DCYT
- * Sistemas de Informacion.
+ * Clase Lapso Académico
  * 
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
@@ -43,13 +42,13 @@ public class LapsoAcademico implements Serializable {
 	@Column(name = "fecha_inicio", nullable = false)
 	private Date fechaInicio;
 
-	// bi-directional many-to-one association to Cronograma
+	// Relación bidireccional de muchos a uno, asociada a la clase Cronograma
 	@OneToMany(mappedBy = "lapsoAcademico")
 	private List<Cronograma> cronogramas = new LinkedList<Cronograma>();
 
-	// bi-directional many-to-one association to EstudianteSancionado
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// EstudianteSancionado
 	@OneToMany(mappedBy = "lapsoAcademico")
-	// constructor por defecto
 	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
 	// constructor por defecto
@@ -114,12 +113,28 @@ public class LapsoAcademico implements Serializable {
 		this.cronogramas = cronogramas;
 	}
 
+	/**
+	 * Relación de la clase LapsoAcademico con la clase Cronograma, Agregar
+	 * Cronograma
+	 * 
+	 * @see Cronograma
+	 * @param cronograma
+	 * @return cronograma
+	 */
 	public Cronograma addCronograma(Cronograma cronograma) {
 		getCronogramas().add(cronograma);
 		cronograma.setLapsoAcademico(this);
 		return cronograma;
 	}
 
+	/**
+	 * Relación de la clase LapsoAcademico con la clase Cronograma, Quitar
+	 * Cronograma
+	 * 
+	 * @see Cronograma
+	 * @param cronograma
+	 * @return cronograma
+	 */
 	public Cronograma removeCronograma(Cronograma cronograma) {
 		getCronogramas().remove(cronograma);
 		cronograma.setLapsoAcademico(null);
@@ -135,6 +150,14 @@ public class LapsoAcademico implements Serializable {
 		this.estudianteSancionados = estudianteSancionados;
 	}
 
+	/**
+	 * Relación de la clase LapsoAcademico con la clase EstudianteSancionado,
+	 * Agregar EstudianteSancionado
+	 * 
+	 * @see EstudianteSancionado
+	 * @param estudianteSancionado
+	 * @return estudianteSancionado
+	 */
 	public EstudianteSancionado addEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
@@ -143,11 +166,19 @@ public class LapsoAcademico implements Serializable {
 		return estudianteSancionado;
 	}
 
+	/**
+	 * Relación de la clase LapsoAcademico con la clase EstudianteSancionado,
+	 * Quitar EstudianteSancionado
+	 * 
+	 * @see EstudianteSancionado
+	 * @param estudianteSancionado
+	 * @return estudianteSancionado
+	 */
 	public EstudianteSancionado removeEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);
 		estudianteSancionado.setLapsoAcademico(null);
 		return estudianteSancionado;
 	}
-
+	// fin GET y SET
 }

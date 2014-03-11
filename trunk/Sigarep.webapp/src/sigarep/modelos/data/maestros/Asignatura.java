@@ -8,16 +8,16 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import java.util.List;
 
 /**
- * Clase EstadoApelacion Registra y Modifica el Estado de Apelación asociado a
- * Instancia Apelada
+ * Clase Asignatura
  * 
  * @author BUILDER
  * @version 1
- * @since 15/12/2013
+ * @since 18/12/2013
  */
 
 @Entity
 @Access(AccessType.FIELD)
+//anotación indica que el JavaBean es una entidad persistente
 @Table(name = "asignatura")
 public class Asignatura implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -37,14 +37,35 @@ public class Asignatura implements Serializable {
 	@Column(name = "unidades_academicas", nullable = false)
 	private Integer unidadesAcademicas;
 
-	// bi-directional many-to-one association to ProgramaAcademico
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// ProgramaAcademico
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "id_programa", nullable = false)
 	private ProgramaAcademico programaAcademico;
 
-	// bi-directional many-to-one association to AsignaturaEstudianteSancionado
+	// Relación bidireccional de muchos a uno, asociada a la clase
+	// AsignaturaEstudianteSancionado
 	@OneToMany(mappedBy = "asignatura")
 	private List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados;
+
+	/**
+	 * Constructor Asignatura
+	 * 
+	 * @param codigoAsignatura
+	 *            , estatus, nombreAsignatura, unidadesAcademicas,
+	 *            programaAcademico
+	 * @return Constructor lleno
+	 */
+	public Asignatura(String codigoAsignatura, Boolean estatus,
+			String nombreAsignatura, Integer unidadesAcademicas,
+			ProgramaAcademico programaAcademico) {
+		super();
+		this.codigoAsignatura = codigoAsignatura;
+		this.estatus = estatus;
+		this.nombreAsignatura = nombreAsignatura;
+		this.unidadesAcademicas = unidadesAcademicas;
+		this.programaAcademico = programaAcademico;
+	}
 
 	// Métodos GET y SET
 	public Asignatura() {
@@ -99,6 +120,14 @@ public class Asignatura implements Serializable {
 		this.asignaturaEstudianteSancionados = asignaturaEstudianteSancionados;
 	}
 
+	/**
+	 * Relación de la clase Asignatura con la clase
+	 * asignaturaEstudianteSancionado, Agregar asignaturaEstudianteSancionado
+	 * 
+	 * @see AsignaturaEstudianteSancionado
+	 * @param asignaturaEstudianteSancionado
+	 * @return asignaturaEstudianteSancionado
+	 */
 	public AsignaturaEstudianteSancionado addAsignaturaEstudianteSancionado(
 			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
 		getAsignaturaEstudianteSancionados()
@@ -108,6 +137,14 @@ public class Asignatura implements Serializable {
 		return asignaturaEstudianteSancionado;
 	}
 
+	/**
+	 * Relación de la clase Asignatura con la clase
+	 * asignaturaEstudianteSancionado, Quitar asignaturaEstudianteSancionado
+	 * 
+	 * @see AsignaturaEstudianteSancionado
+	 * @param asignaturaEstudianteSancionado
+	 * @return asignaturaEstudianteSancionado
+	 */
 	public AsignaturaEstudianteSancionado removeAsignaturaEstudianteSancionado(
 			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
 		getAsignaturaEstudianteSancionados().remove(
@@ -116,27 +153,5 @@ public class Asignatura implements Serializable {
 
 		return asignaturaEstudianteSancionado;
 	}
-
-	/**
-	 * Constructor Asignatura
-	 * 
-	 * @param codigoAsignatura
-	 *            , estatus, nombreAsignatura, unidadesAcademicas, programaAcademico
-	 * @return Constructor lleno
-	 */
-	public Asignatura(String codigoAsignatura, Boolean estatus,
-			String nombreAsignatura, Integer unidadesAcademicas,
-			ProgramaAcademico programaAcademico
-			) {
-		super();
-		this.codigoAsignatura = codigoAsignatura;
-		this.estatus = estatus;
-		this.nombreAsignatura = nombreAsignatura;
-		this.unidadesAcademicas = unidadesAcademicas;
-		this.programaAcademico = programaAcademico;
-	}
-	
-	
-	
-
+	// Fin GET y SET
 }

@@ -8,7 +8,7 @@ import sigarep.modelos.data.transacciones.Cronograma;
 import java.util.List;
 
 /**
- * Clase Actividad Registra y Modifica las Actividad del cronograma
+ * Clase Actividad (Actividades del Cronograma)
  * 
  * @author BUILDER
  * @version 1
@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Entity
 @Access(AccessType.FIELD)
+// anotación indica que el JavaBean es una entidad persistente
 @Table(name = "actividad")
 public class Actividad implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -35,15 +36,17 @@ public class Actividad implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String nombre;
 
-	// bi-directional many-to-one association to Cronograma
+	// Relación bidireccional de muchos a uno, asociada a la clase Cronograma
 	@OneToMany(mappedBy = "actividad")
 	private List<Cronograma> cronogramas;
 
-	// bi-directional many-to-one association to InstanciaApelada
+	// Relación bidireccional de muchos a uno, asociada a la clase Instancia
+	// Apelada
 	@ManyToOne
 	@JoinColumn(name = "id_instancia_apelada", nullable = true)
 	private InstanciaApelada instanciaApelada;
 
+	// Constructor por defecto
 	public Actividad() {
 	}
 
@@ -105,6 +108,14 @@ public class Actividad implements Serializable {
 		this.cronogramas = cronogramas;
 	}
 
+	/**
+	 * Relación de la clase Actividad con la clase Cronograma, Agregar
+	 * Cronograma
+	 * 
+	 * @see Cronograma
+	 * @param cronograma
+	 * @return cronograma
+	 */
 	public Cronograma addCronograma(Cronograma cronograma) {
 		getCronogramas().add(cronograma);
 		cronograma.setActividad(this);
@@ -112,6 +123,13 @@ public class Actividad implements Serializable {
 		return cronograma;
 	}
 
+	/**
+	 * Relación de la clase Actividad con la clase Cronograma, Quitar Cronograma
+	 * 
+	 * @see Cronograma
+	 * @param cronograma
+	 * @return cronograma
+	 */
 	public Cronograma removeCronograma(Cronograma cronograma) {
 		getCronogramas().remove(cronograma);
 		cronograma.setActividad(null);
@@ -125,5 +143,5 @@ public class Actividad implements Serializable {
 	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
 		this.instanciaApelada = instanciaApelada;
 	}
-
+	// Fin GET y SET
 }
