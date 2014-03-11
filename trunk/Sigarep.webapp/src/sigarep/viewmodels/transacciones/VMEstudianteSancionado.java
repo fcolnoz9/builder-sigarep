@@ -40,6 +40,7 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
+import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
@@ -51,7 +52,7 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
 
 /**
- * Estudiante Sancionado
+ *transaccion para registrar  Estudiante Sancionado
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
@@ -513,17 +514,25 @@ public class VMEstudianteSancionado {
 	 */
 	@Command
 	@NotifyChange({ "listaAsignaturas", "listaAsignaturaListBox",
-			"asignaturaseleccionado", "listaAsignaturas" })
+			"asignaturaseleccionado" })
 	public void agregarAsignatura(
 			@BindingParam("comboitem") Combobox comboItem,
 			@BindingParam("listBoxAsignaturas") Listbox listBoxAsignaturas) {
+		if(asignaturaseleccionado == null)
+		{
+			mensajeAlUsuario.advertenciaIngresarAsignatura();
+		}
+		else {
 		AsignaturaEstudianteSancionado asignaturaLista = new AsignaturaEstudianteSancionado();
 		asignaturaLista.setAsignatura(asignaturaseleccionado);
 		listaAsignaturas.remove(comboItem.getSelectedItem().getIndex());
 		comboItem.setValue("");
 		listaAsignaturaListBox.add(asignaturaLista);
+		}
 	}
-
+	
+	
+	
 	/** Seleccionar Sancion
 	 * @param  no tiene ningun parametro
 	 * @return 
