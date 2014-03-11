@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.reportes.Sancionados;
 
-@Service("servicioreportescomparativos")
+@Service("servicioreportesestructurados")
 public class ServicioReportesEstructurados {
 
 	@PersistenceContext
