@@ -514,7 +514,7 @@ public class VMEstudianteSancionado {
 	 */
 	@Command
 	@NotifyChange({ "listaAsignaturas", "listaAsignaturaListBox",
-			"asignaturaseleccionado" })
+			"asignaturaseleccionado", "asignaturaLista" })
 	public void agregarAsignatura(
 			@BindingParam("comboitem") Combobox comboItem,
 			@BindingParam("listBoxAsignaturas") Listbox listBoxAsignaturas) {
