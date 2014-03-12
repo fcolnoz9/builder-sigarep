@@ -1,0 +1,52 @@
+<zk>
+<?page title="Registrar Asignaturas Por Lote" contentType="text/html;charset=UTF-8"?>
+<window  id="winCargarAsignaturaLote" title="Registros Básicos :: Asignaturas :: Cargar Asignatura Por Lote" border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="true"
+    viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarAsignaturasXml')">
+	<groupbox >
+		<caption label="Cargar Asignaturas" />
+		<grid>
+		<columns>
+			<column label=""/>
+			<column label=""/>
+			<column label=""/>
+		</columns>
+		<rows>
+			<row>	
+				<label>Cantidad Asignaturas:</label>
+				<intbox id="tamanoXML" placeholder="cantidad" value="@bind(vm.tamanoXML)" mold="rounded" readonly="true"/>
+				<button id="btnUpload" label="Cargar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarAsignatura',upload=event)" upload="true,maxsize=8192,multiple=false"/>
+			</row>
+			<row>
+			</row>
+		</rows>
+		</grid>
+	</groupbox>
+	<groupbox>
+	<caption label="Lista de Asignaturas Registradas" />
+		<listbox id="estListbox" height="100%" model="@bind(vm.listaAsignatura)"   
+   			 emptyMessage="No hay asignaturas registradas" mold="paging" pageSize="10" tooltiptext="Asignaturas Registradas">
+		<listhead>
+			<listheader label="Codigo Asignatura" align="center"  width="120px"  sort="auto(CodigoAsignatura)" tooltiptext="Click para Ordenar por Codigo de Asignatura" />
+			<listheader label="Nombre Asignatura" align="center"  width="350px" sort="auto(NombreAsignatura)" tooltiptext="Click para Ordenar por Nombre Asignatura" />
+			<listheader label="Unidades Académicas" align="center"  width="140px" sort="auto(UnidadesAcademicas)" tooltiptext="Click para Ordenar por Unidades Academicas"/>
+			<listheader label="Programa Académico" align="center" width="240px" sort="auto(programaAcademico.idPrograma)" tooltiptext="Click para Ordenar por Programa Academico"/>
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.getCodigoAsignatura()}" ></listcell>
+				<listcell label="${each.getNombreAsignatura()}" ></listcell>
+				<listcell label="${each.getUnidadesAcademicas()}"></listcell>
+				<listcell label="${each.getProgramaAcademico().getNombrePrograma()}"></listcell>
+			</listitem>
+		</template>
+	</listbox>  
+	</groupbox>
+	<separator />
+	<div align="right" height="100%">
+			<button label="Cerrar"  id="btnCerrarLapso"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/cerrar.png" 
+				orient="horizontal" onClick="@command('cerrarVentana', ventana = winCargarAsignaturaLote)" />
+		</div>
+</window>
+</zk>

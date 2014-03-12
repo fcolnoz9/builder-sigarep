@@ -1,0 +1,32 @@
+<window id="winRecuperarContrasenna" width="50%" closable="true"
+	title="Recuperar Contraseña" border="normal"
+	apply="org.zkoss.bind.BindComposer" action="hide: slideUp"
+	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUsuario')"
+	position="center,center">
+	<groupbox>
+		<caption
+			label="Ingresa tu usuario o correo y te enviaremos las instrucciones para recuperar tu contraseña al correo" />
+		<grid>
+			<columns>
+				<column width="20%" />
+				<column width="80%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblUsuarioEmail"
+						value="Usuario o Correo:" />
+					<textbox id="txtCorreoLogin" width="80%"
+						placeholder="Ingrese su usuario o correo."
+						value="@bind(vm.correoLogin)" />
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<separator />
+	<div align="center">
+		<button id="btnRecuperar" label="Recuperar"
+			image="/imagenes/iconos/recuperarContrasenia.png" width="auto"
+			height="auto" onClick="@command('recuperarContrasenna')">
+		</button>
+	</div>
+</window>
