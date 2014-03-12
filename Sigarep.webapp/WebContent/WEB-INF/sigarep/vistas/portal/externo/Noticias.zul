@@ -1,9 +1,9 @@
 <div id="winNoticiaPortal"
 	tooltiptext="Noticias"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.herramientas.ManejadorTimer')" >
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')" >
 	 
-	<div apply="sigarep.herramientas.ManejadorTimer" hflex="1"
+	<div apply="sigarep.herramientas.ManejadorEventosTipoSelector" hflex="1"
 		vflex="1">
 		<timer id="tiempo" delay="10000" repeats="true">
 			<attribute name="onTimer">

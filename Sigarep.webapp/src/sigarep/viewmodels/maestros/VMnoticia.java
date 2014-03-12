@@ -1,8 +1,10 @@
 package sigarep.viewmodels.maestros;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import sigarep.herramientas.Archivo;
+import sigarep.herramientas.ManejadorEventosTipoSelector;
 import sigarep.herramientas.MensajesAlUsuario;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -13,6 +15,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 
@@ -53,7 +56,9 @@ public class VMnoticia  {
 	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
 	private Noticia noticiaSeleccionada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
-
+	Window win=null;
+	int idcount=0;
+	
 	// Metodos GETS Y SETS
 	public Integer getIdNoticia() {
 		return idNoticia;
@@ -340,5 +345,26 @@ public class VMnoticia  {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 	
-
+	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
+	 * @parameters contenido, enlaceNoticia, fechaRegistro, imagen, titulo, vencimiento, listaNoticia,fotoNoticia. 
+	 * @return No devuelve ningun valor.
+	 */
+	
+	@Command
+	@NotifyChange({"noticiaSeleccionada"})
+	public void mostrarSeleccionado2(){
+		noticiaSeleccionada = getNoticiaSeleccionada();
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("noticiaSeleccionada", this.noticiaSeleccionada);
+		if(win!=null){
+			win.detach();
+			noticiaSeleccionada=null;
+			win.setId(null);
+		}
+		win= (Window) Executions.createComponents("WEB-INF/sigarep/vistas/portal/externo/modales/DetalleNoticia.zul", null, map);
+		win.setMaximizable(true);
+		win.doModal();
+		win.setId("doModal"+""+idcount+"");
+	}
+	
 }
