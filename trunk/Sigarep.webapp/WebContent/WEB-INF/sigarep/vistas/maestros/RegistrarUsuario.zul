@@ -237,14 +237,14 @@
 							<image src="imagenes/iconos/buscar.png" />
 				</listheader>	
 				<listheader label="Nombre Completo" align="lefth"
-					sort="auto(nombreUsuario.nombreCompleto)">
+					sort="auto(usuario.nombreCompleto)">
 						<textbox id="filtroNombreCompleto" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreCompletofiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Usuario" align="lefth"
-					sort="auto(nombreUsuario.nombreUsuario)">
+					sort="auto(usuario.nombreUsuario)">
 						<textbox id="filtroNombreUsuario" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreUsuariofiltro)"
 							onChange="@command('filtros')" />
@@ -254,8 +254,8 @@
 			<template name="model">
 				<listitem selected="false">
 					<listcell label="${each.cedulaPersona}" />
-					<listcell label="${each.nombreUsuario.nombreCompleto}" />
-					<listcell label="${each.nombreUsuario.nombreUsuario}" />
+					<listcell label="${each.usuario.nombreCompleto}" />
+					<listcell label="${each.usuario.nombreUsuario}" />
 				</listitem>
 			</template>
 		</listbox>
