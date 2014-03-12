@@ -21,35 +21,37 @@ import sigarep.modelos.servicio.maestros.ServicioActividad;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
 /**
- * Actividades UCLA DCYT Sistemas de Informacion.
+ * Clase VMactividad
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author BUILDER
  * @version 1.0
- * @since 22/01/14
+ * @since 19/12/2013
  */
 
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMactividad {
-
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioActividad servicioactividad;
 	@WireVariable
 	ServicioInstanciaApelada servicioInstanciaApelada;
-	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	//-----------------Variables Actividad -----------------
 	private Integer id_actividad;
 	private String nombre;
 	private String descripcion;
+	private Boolean estatus;
+	//-----------------Variables Filtro---------------------
 	private String nombreFiltro = "";
 	private String responsableFiltro = "";
-	private Boolean estatus;
+	//-----------------Variables Lista----------------------
 	private List<Actividad> listaActividad;
+	private List<InstanciaApelada> listaInstanciaApelada;
+	//-----------------Variables Objeto---------------------
 	private Actividad actividadSeleccionada;
 	private InstanciaApelada instanciaApelada;
-	private List<InstanciaApelada> listaInstanciaApelada;
-
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
-	// Metodos GETS Y SETS
+	// Métodos Set y Get
 	public void setId_Actividad(Integer id_actividad) {
 		this.id_actividad = id_actividad;
 	}
@@ -131,24 +133,45 @@ public class VMactividad {
 		return responsableFiltro;
 	}
 
-	// Fin de los metodos gets y sets
+	// Fin de los métodos set y get
 
-	// OTROS METODOS
 
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
 	@Init
 	public void init() {
 		listaActividad();
 		buscarInstanciaApelada();
 	}
+	
+	/**
+	 * listaActividad tiene todas las actividades registradas
+	 * 
+	 * @param listaActividad
+	 * @return listaActividad
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "listaActividad" })
+	public void listaActividad() {
+		listaActividad = servicioactividad.listadoActividad();
+	}
+
 
 	/**
 	 * guardarActividad
 	 * 
-	 * @param id_actividad
-	 *            , nombre, descripcion, listaActividad, instanciaApelada
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             debe haber campos en blanco
+	 * @param Actividad actividad
+	 * @return No devuelve ningún valor
+	 * @throws No debe haber campos en blanco
 	 */
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion",
@@ -165,55 +188,15 @@ public class VMactividad {
 		}
 	}
 
-	/**
-	 * listaActividad tiene todas las actividades registradas
-	 * 
-	 * @param listaActividad
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
-	 */
-	@Command
-	@NotifyChange({ "listaActividad" })
-	public void listaActividad() {
-		listaActividad = servicioactividad.listadoActividad();
-	}
-
-	/**
-	 * limpiar
-	 * 
-	 * @param id_actividad
-	 *            , nombre , descripcion, listaActividad, instanciaApelada
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
-	 */
-	@Command
-	@NotifyChange({ "id_actividad", "nombre", "descripcion",
-			"instanciaApelada", "nombreFiltro", "responsableFiltro",
-			"listaActividad" })
-	public void limpiar() {
-		id_actividad = null;
-		nombre = null;
-		descripcion = null;
-		nombreFiltro = "";
-		responsableFiltro = "";
-		instanciaApelada = null;
-		listaActividad();
-		buscarInstanciaApelada();
-	}
 
 	/**
 	 * eliminarActividad
 	 * 
-	 * @param nombre
-	 *            , descripcion, listaActividad, instanciaApelada
-	 * @return No devuelve ningun valor
+	 * @param Binder binder
+	 * @return No devuelve ningún valor
 	 * @throws Debe
 	 *             seleccionar un registro para poder eliminarlo
 	 */
-
-	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({ "listaActividad", "nombre", "instanciaApelada",
 			"descripcion" })
@@ -252,9 +235,8 @@ public class VMactividad {
 	/**
 	 * mostrarSeleccionada
 	 * 
-	 * @param nombre
-	 *            , descripcion, id_actividad, instanciaApelada
-	 * @return No devuelve ningun valor
+	 * @param vacío
+	 * @return Actividad seleccionada
 	 * @throws No
 	 *             dispara ninguna excepción
 	 */
@@ -270,8 +252,8 @@ public class VMactividad {
 	/**
 	 * buscarInstanciaApelada
 	 * 
-	 * @param listaInstanciaApelada
-	 * @return No devuelve ningun valor
+	 * @param vacío
+	 * @return Instancia Apelada
 	 * @throws No
 	 *             dispara ninguna excepción
 	 */
@@ -285,7 +267,7 @@ public class VMactividad {
 	/**
 	 * comboResponsable
 	 * 
-	 * @param listaInstanciaApelada
+	 * @param vacío
 	 * @return instanciaApelada
 	 * @throws No
 	 *             dispara ninguna excepción
@@ -299,8 +281,9 @@ public class VMactividad {
 	/**
 	 * filtros
 	 * 
-	 * @param listaActividad
-	 * @return No devuelve ningun valor
+	 * @param vacío
+	 * @return nombreFiltro,
+				responsableFiltro
 	 * @throws No
 	 *             dispara ninguna excepción
 	 */
@@ -312,12 +295,35 @@ public class VMactividad {
 	}
 
 	/**
+	 * limpiar
+	 * 
+	 * @param vacío
+	 * @return No devuelve ningún valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "id_actividad", "nombre", "descripcion",
+			"instanciaApelada", "nombreFiltro", "responsableFiltro",
+			"listaActividad" })
+	public void limpiar() {
+		id_actividad = null;
+		nombre = null;
+		descripcion = null;
+		nombreFiltro = "";
+		responsableFiltro = "";
+		instanciaApelada = null;
+		listaActividad();
+		buscarInstanciaApelada();
+	} 
+	
+	/**
 	 * Cerrar Ventana
 	 * 
-	 * @param binder
+	 * @param Window ventana
 	 * @return cierra el .zul asociado al VM
 	 * @throws No
-	 *             dispara ninguna excepcion.
+	 *             dispara ninguna excepción.
 	 */
 	
 	@Command

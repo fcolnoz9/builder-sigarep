@@ -2,46 +2,38 @@ package sigarep.viewmodels.maestros;
 
 import java.util.List;
 
-import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Messagebox;
-
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
-/** Clase EstadoApelacion
- * Registra y Modifica el Estado de Apelación asociado a Instancia Apelada
+
+/**
+ * Clase VMEstadoApelacion 
+ * 
  * @author BUILDER
- * @version 1
- * @since 15/12/2013 
+ * @version 1.0
+ * @since 19/12/2013
  */
-
-
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstadoApelacion {
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioEstadoApelacion servicioestadoapelacion;
 	@WireVariable
 	ServicioInstanciaApelada servicioInstanciaApelada;
+	//-----------------Variables EstadoApelacion-----------------
 	@WireVariable
 	private Integer idEstadoApelacion; // clave principal de la tabla EstadoApelacion
 	@WireVariable
@@ -50,19 +42,21 @@ public class VMEstadoApelacion {
 	private String descripcion; // descripcion del EstadoApelacion
 	@WireVariable
 	private Boolean estatus; // estatus del EstadoApelacion
-	@WireVariable
-	private InstanciaApelada instanciaApelada;
+	//-----------------Variables Lista----------------------
 	@WireVariable
 	private List<EstadoApelacion> listaEstadoApelacion; // lista de Estados de Apelacion registrados
 	@WireVariable
+	private List<InstanciaApelada> listaInstanciaApelada; 
+	//-----------------Variables Objeto---------------------
+	@WireVariable
 	private EstadoApelacion estadoseleccionado;
 	@WireVariable
-	private List<InstanciaApelada> listaInstanciaApelada; 
+	private InstanciaApelada instanciaApelada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	private  @Wire Combobox cmbInstanciaApelada;
 
-	// Metodos GETS Y SETS
+	// Métodos Set y Get
 	public Integer getIdEstadoApelacion() {
 		return idEstadoApelacion;
 	}
@@ -132,13 +126,17 @@ public class VMEstadoApelacion {
 		this.instanciaApelada = instanciaapelada;
 	}
 	
-	// Fin de los metodos gets y sets
+	// Fin Métodos Set y Get
 	
 
-	// OTROS METODOS
-	
-	
-	// inicializador
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
 		@Init
 		public void init() {
 			// initialization code
