@@ -8,13 +8,13 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.repositorio.maestros.IInstanciaApeladaDAO;
 
 /**
- * Clase ServicioInstanciaApelada Suministra los servicios al VMInstanciaApelada
- * @author Builder
+ * Clase ServicioInstanciaApelada 
+ * 
+ * @author BUILDER
  * @version 1.0
- * @since 20/12/13
+ * @since 18/12/2013
  */
 @Service("servicioInstanciaApelada")
-// Definiendo la variable servicio
 public class ServicioInstanciaApelada {
 	private @Autowired
 	IInstanciaApeladaDAO iInstancia;
@@ -24,7 +24,7 @@ public class ServicioInstanciaApelada {
 	 * @return objeto guardado
 	 * @parameters InstanciaApelada
 	 * @throws No
-	 *             dispara ninguna excepcion.
+	 *             dispara ninguna excepción.
 	 */
 	public void guardar(InstanciaApelada instancia) {
 		if (instancia.getIdInstanciaApelada() != null)
@@ -39,7 +39,7 @@ public class ServicioInstanciaApelada {
 	 * Eliminar Instancia apelada
 	 * @return nada
 	 * @parameters Entero codigoInstancia
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void eliminar(Integer codigoInstancia) {
 		InstanciaApelada instanciaapelada = iInstancia.findOne(codigoInstancia);
@@ -52,7 +52,7 @@ public class ServicioInstanciaApelada {
 	 * 
 	 * @return Lista de las InstanciasApeladas registradas y activas
 	 * @parameters vacio
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public List<InstanciaApelada> listadoInstanciaApelada() {
 		List<InstanciaApelada> instanciaApeladaLista = iInstancia
@@ -65,7 +65,7 @@ public class ServicioInstanciaApelada {
 	 * 
 	 * @return Lista de InstanciasApeladas buscadas
 	 * @parameters String Instancia, String Recurso
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<InstanciaApelada> buscarInstancia(String instancia,
 			String recurso) {
@@ -86,10 +86,10 @@ public class ServicioInstanciaApelada {
 	}
 
 	/**
-	 * Buscar Instancia Apelada por codigo
+	 * Buscar Instancia Apelada por código
 	 * @return InstanciaApelada buscada
 	 * @parameters Integer codigoInstancia
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public InstanciaApelada buscar(Integer codigoInstancia) {
 		return iInstancia.findOne(codigoInstancia);

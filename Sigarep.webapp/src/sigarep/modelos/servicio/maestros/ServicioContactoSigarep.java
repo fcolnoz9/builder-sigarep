@@ -6,6 +6,14 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.ContactoSigarep;
 import sigarep.modelos.repositorio.maestros.IContactoSigarepDAO;
 
+/**
+ * Clase ServicioContactoSigarep
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
+
 @Service("serviciocontactosigarep")
 public class ServicioContactoSigarep {
 	private @Autowired
@@ -15,7 +23,7 @@ public class ServicioContactoSigarep {
 	 * Guardar ContactoSigarep
 	 * @param ContactoSigarep contactoSigarep
 	 * @return Guarda el objeto
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void guardar(ContactoSigarep contactoSigarep) {
 		if (contactoSigarep.getIdContacto() != null)
@@ -30,7 +38,7 @@ public class ServicioContactoSigarep {
 	 * Retorna una lista con el UNICO registro de contacto.
 	 * @param
 	 * @return List<ContactoSigarep> contactoSigarep
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<ContactoSigarep> buscarContactoSigarep() {
 		return iContactoSigarep.findAll();

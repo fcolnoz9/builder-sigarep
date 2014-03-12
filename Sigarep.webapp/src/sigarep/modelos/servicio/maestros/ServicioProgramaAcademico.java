@@ -7,24 +7,22 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.repositorio.maestros.IProgramaAcademicoDAO;
 
-
-/**Servicio Programa Academico
- * UCLA DCYT Sistemas de Información
- * @author Equipo : Builder-Sigarep Lapso 2013-1
- * @version 1.0 
- *@since 22/01/14
+/**
+ * Clase  ServicioProgramaAcademico
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
  */
-// El servicio interactua con la base de datos
 
 @Service("servicioprogramaacademico")
-// Definiendo la variable servicio
 public class ServicioProgramaAcademico {
 	private @Autowired
 	IProgramaAcademicoDAO pro;
 
-	/**guardarPrograma academico
-	 * @param proa
-	 * @return pbjeto guardado
+	/**guardarPrograma académico
+	 * @param ProgramaAcademico proa
+	 * @return objeto guardado
 	 */
 	public void guardarPrograma(ProgramaAcademico proa) {
 		if (proa.getIdPrograma() != null)
@@ -35,21 +33,47 @@ public class ServicioProgramaAcademico {
 		}
 	}
 
+	/**
+	 * Eliminar Programa
+	 * 
+	 * @param Integer idPrograma
+	 * @return permite la eliminación lógica
+	 * @throws No dispara ninguna excepción.
+	 */
 	public void eliminarPrograma(Integer idPrograma) {
 		ProgramaAcademico miPrograma = pro.findOne(idPrograma);
 		miPrograma.setEstatusPrograma(false);
 		pro.save(miPrograma);
 	}
-
+	/**
+	 * Listado Programas
+	 * 
+	 * @param vacío
+	 * @return listadoEnlaceInteres con estatus = true
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<ProgramaAcademico> listadoProgramas() {
 		List<ProgramaAcademico> programasLista = pro.findByEstatusProgramaTrue();
 		return programasLista;
 	}
-
+	/**
+	 * Buscar Programa
+	 * 
+	 * @param Integer idProgramaAcademico
+	 * @return programa.
+	 * @throws No dispara ninguna excepción.
+	 */
 	public ProgramaAcademico buscarPrograma(Integer idProgramaAcademico) {
 		return pro.findOne(idProgramaAcademico);
 	}
 
+	/**
+	 * Buscar Programa
+	 * 
+	 * @param String programa
+	 * @return programa.
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<ProgramaAcademico> buscarPrograma(String programa) {
 		List<ProgramaAcademico> result = new LinkedList<ProgramaAcademico>();
 		if (programa == null) {

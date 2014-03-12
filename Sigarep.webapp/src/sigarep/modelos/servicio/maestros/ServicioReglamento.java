@@ -1,28 +1,26 @@
 package sigarep.modelos.servicio.maestros;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.repositorio.maestros.IReglamentoDAO;
 
-/**Reglamento
- * UCLA DCYT Sistemas de Información
- * @author Equipo : Builder-Sigarep Lapso 2013-1
- * @version 1.0 
- *@since 22/01/14
+/**
+ * Clase  ServicioReglamento 
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
  */
-
-
 @Service("servicioreglamento")
 public class ServicioReglamento {
 	private @Autowired IReglamentoDAO rg;
 	
 	/**guardarReglamento
-	 * @param r
-	 * @return No devuelve ningun valor
+	 * @param Reglamento r
+	 * @return No devuelve ningún valor
 	 */
 	public void guardarReglamento(Reglamento r){
 		if (r.getIdDocumento() != null)
@@ -33,9 +31,9 @@ public class ServicioReglamento {
 		}
 	}
 	
-	/**elininar 
+	/**eliminar 
 	 * @param idDocumento
-	 * @return No devuelve ningun valor
+	 * @return No devuelve ningún valor
 	 */
 	public void eliminar(Integer idDocumento) {
 		Reglamento reglamentoBorrarLogico = rg.findOne(idDocumento);
@@ -44,21 +42,29 @@ public class ServicioReglamento {
 	}
 	
 	/**buscarReglamento		
-	 * @param idDocumento
-	 * @return No devuelve ningun valor
+	 * @param Integer idDocumento
+	 * @return No devuelve ningún valor
 	 */
 	public Reglamento buscarReglamento(Integer idDocumento){
 		return rg.findOne(idDocumento);
 	}
 	
 	/**listaReglamento
-	 * @param IDAO, el cual trae todos los registros en true,los que no han sido eliminado logicamente
+	 * @param IDAO, el cual trae todos los registros en true,
+	 * los que no han sido eliminado logicamente
 	 * @return listaReglamentoLogico
 	 */
 	public List<Reglamento> listaReglamento() {
 		return rg.findByEstatusTrue();
 	}
 	
+	/**
+	 *filtrarReglamento
+	 * 
+	 * @param String tituloF,String  categoriaF
+	 * @return busca un documento por título o categoría en el filtro
+	 * @throws No  dispara ninguna excepción.
+	 */
 	public List<Reglamento> filtrarReglamento(String tituloF,String  categoriaF) {
 		List<Reglamento> resultado = new ArrayList<Reglamento>();	
 		if (tituloF == null ||categoriaF == null ) {
@@ -74,7 +80,8 @@ public class ServicioReglamento {
 		}
 		return resultado;
 	}
-			
+		
+	//Buscar Documentos específicos
 	public List<Reglamento> buscarReglamentoPortal(){
 		return rg.findByCategoriaAndEstatusTrue("reglamento");
 	}
@@ -106,4 +113,5 @@ public class ServicioReglamento {
 	public List<Reglamento> buscarManualSistema(){
 		return rg.findByCategoriaAndEstatusTrue("ManualSistema");
 	}
+	//Fin Buscar Documentos específicos
 }

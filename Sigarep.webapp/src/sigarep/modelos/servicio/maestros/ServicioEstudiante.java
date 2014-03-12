@@ -5,16 +5,19 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.Estudiante;
-import sigarep.modelos.data.transacciones.EstudianteSancionado;
-
 import sigarep.modelos.repositorio.maestros.IEstudianteDAO;
 
 
 
 
-// El servicio interactua con la base de datos
+/**
+ * Clase ServicioEstudiante
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
 
 @Service("servicioestudiante")
 // Definiendo la variable servicio
@@ -25,25 +28,26 @@ public class ServicioEstudiante {
 	 *Guarda un estudiante
 	 * @param Estudiante estudiante
 	 * @return objeto guardado
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public void guardarEstudiante(Estudiante estudiante) {
-		
 		est.save(estudiante);
-	}
-
-	public void actualizar(Estudiante estudiante) {
-	
 	}
 
 	/**
 	 *Elimina logicamente un estudiante
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public void eliminarEstudiante(String estudiante) {
 		est.delete(estudiante);
 	}
 
+	/**
+	 *buscar estudiante 
+	 * @param String cedula
+	 * @return busca un estudiante en una lista
+	 * @throws No  dispara ninguna excepción.
+	 */
 	public Estudiante buscarEstudiante(String cedula) {
 		return est.findOne(cedula);
 	}
@@ -52,7 +56,7 @@ public class ServicioEstudiante {
 	 *Lista de estudiante
 	 * @param 
 	 * @return lista de estudiantes
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public List<Estudiante> listadoEstudiantes() {
 		List<Estudiante> estudiantesLista = est.findAll();
@@ -60,10 +64,10 @@ public class ServicioEstudiante {
 	}
 
 	/**
-	 *buscar estudiante por su cedula
+	 *buscar estudiante por su cédula
 	 * @param String cedula
 	 * @return busca un estudiante en una lista
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public List<Estudiante> buscarEst(String cedula) {
 		List<Estudiante> result = new LinkedList<Estudiante>();
@@ -90,7 +94,7 @@ public class ServicioEstudiante {
 	
 	
 	/** Filtra Estudiante para ListaGenerica 
-	 * @return Lista de EstudianteS
+	 * @return Lista de Estudiantes
 	 * @parameters String cedula, String programa, String nombre, String apellido
 	 * @throws No dispara ninguna excepcion.
 	   */

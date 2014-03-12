@@ -7,6 +7,15 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.repositorio.maestros.IActividadDAO;
 
+/**
+ * Clase ServicioActividad
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
+
+
 @Service("servicioactividad")
 public class ServicioActividad {
 	private @Autowired
@@ -16,7 +25,7 @@ public class ServicioActividad {
 	 * Guardar Actividad
 	 * @param Actividad actividad
 	 * @return Guarda el objeto
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void guardar(Actividad actividad) {
 		if (actividad.getIdActividad() != null)
@@ -31,7 +40,7 @@ public class ServicioActividad {
 	 * Eliminar Actividad
 	 * @param Integer idActividad
 	 * @return Elimina lógicamente el objeto
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void eliminar(Integer id_actividad) {
 		Actividad miActividad = iActividad.findOne(id_actividad);
@@ -43,7 +52,7 @@ public class ServicioActividad {
 	 * Listado de las Actividades
 	 * @param
 	 * @return Busca todas las actividades que estan en estatus TRUE
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<Actividad> listadoActividad() {
 		List<Actividad> actividadLista = iActividad.findByEstatusTrue();
@@ -55,7 +64,7 @@ public class ServicioActividad {
 	 * 
 	 * @param String nombre, String responsable
 	 * @return Busca una actividad por nombre y responsable
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<Actividad> buscarActividad(String nombre, String responsable) {
 		List<Actividad> resultado = new LinkedList<Actividad>();

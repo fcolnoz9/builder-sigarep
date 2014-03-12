@@ -7,7 +7,13 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.repositorio.maestros.ISancionMaestroDAO;
 
-// El servicio interactua con la base de datos
+/**
+ * Clase  ServicioSancionMaestro
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
 
 @Service("serviciosancionmaestro")
 // Definiendo la variable servicio
@@ -16,10 +22,10 @@ public class ServicioSancionMaestro {
 	ISancionMaestroDAO san;
 
 	/**
-	 *Guardar Sancion
+	 *guardarSancion
 	 * @param SancionMaestro
 	 * @return Objeto guardado
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public void guardarSancion(SancionMaestro sanm) {
 		if (sanm.getIdSancion() != null)
@@ -31,10 +37,10 @@ public class ServicioSancionMaestro {
 	}
 
 	/**
-	 *Eliminar logicamente el objeto Sancion
-	 * @param id
-	 * @return Objeto con estatus false
-	 * @throws No  dispara ninguna excepcion.
+	 *eliminarSancion
+	 * @param Integer sanm
+	 * @return Objeto con estatus false, eliminado lógicamente
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public void eliminarSancion(Integer sanm) {
 		SancionMaestro sancion = san.findOne(sanm);
@@ -42,14 +48,36 @@ public class ServicioSancionMaestro {
 		san.save(sancion);
 	}
 
+
+	/**
+	 *buscarUnaSancion
+	 * 
+	 * @param Integer idSancionMaestro
+	 * @return Sanción
+	 * @throws No  dispara ninguna excepción.
+	 */
+
 	public SancionMaestro buscarUnaSancion(Integer idSancionMaestro) {
 		return san.findOne(idSancionMaestro);
 	}
-
+	/**
+	 * listaTipoSanciones
+	 * 
+	 * @param vacío
+	 * @return listaTipoSanciones con estatus = true
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SancionMaestro> listaTipoSanciones() {
 		return san.findByEstatusTrue();
 	}
-
+	/**
+	 *filtrarSancion
+	 * 
+	 * @param String nombre
+	 * @return busca una sanción por nombre
+	 *         filtros() de VMenlaceInteres.
+	 * @throws No  dispara ninguna excepción.
+	 */
 	public List<SancionMaestro> filtrarSancion(String nombre) {
 		List<SancionMaestro> result = new LinkedList<SancionMaestro>();
 		if (nombre == null) {

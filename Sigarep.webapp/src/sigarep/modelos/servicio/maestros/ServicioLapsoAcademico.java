@@ -8,6 +8,13 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
 
+/**
+ * Clase  ServicioLapsoAcademico
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
 @Service("serviciolapsoacademico")
 public class ServicioLapsoAcademico {
 	private @Autowired
@@ -17,9 +24,8 @@ public class ServicioLapsoAcademico {
 	 * Guardar lapso académico
 	 * 
 	 * @return objeto guardado
-	 * @parameters el objeto lapso Academico
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param el objeto lapso Academico
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void guardarLapso(LapsoAcademico lapsoA) {
 		iLapsoAcademico.save(lapsoA);
@@ -29,9 +35,8 @@ public class ServicioLapsoAcademico {
 	 * lapso académico activo
 	 * 
 	 * @return el lapso académico activo
-	 * @parameters vacio
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param vacio
+	 * @throws No dispara ninguna excepción.
 	 */
 	public LapsoAcademico buscarLapsoActivo() {
 		return iLapsoAcademico.findByEstatusTrue();
@@ -41,9 +46,8 @@ public class ServicioLapsoAcademico {
 	 * Lista de lapsos académico inactivos
 	 * 
 	 * @return Lista de lapsos académicos inactivos
-	 * @parameters vacio
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param vacio
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<LapsoAcademico> listadoLapsoAcademicoInactivos() {
 		List<LapsoAcademico> LapsoAcademicoLista = iLapsoAcademico
@@ -55,9 +59,8 @@ public class ServicioLapsoAcademico {
 	 * Lista de lapso académico
 	 * 
 	 * @return Lista de todos los lapsos académicos activas e inactivas
-	 * @parameters vacio
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param vacio
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<LapsoAcademico> buscarTodosLosLapsos() {
 		return iLapsoAcademico.findAll();
@@ -67,7 +70,7 @@ public class ServicioLapsoAcademico {
 	 * Buscar un lapso académico
 	 * 
 	 * @return lapso académico buscado
-	 * @parameters String codigolapso
+	 * @param String codigolapso
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
@@ -78,10 +81,9 @@ public class ServicioLapsoAcademico {
 	/**
 	 * Buscar un lapso académico por codigo lapso
 	 * 
-	 * @return Busca un lapso académico por codigo lapso
-	 * @parameters String codigolapso
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @return Busca un lapso académico por código lapso
+	 * @param String codigolapso
+	 * @throws No dispara ninguna excepcion.
 	 */
 
 	public List<LapsoAcademico> filtrarLapsoAcademico(String codigoLapso) {

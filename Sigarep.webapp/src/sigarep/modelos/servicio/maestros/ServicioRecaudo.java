@@ -16,22 +16,22 @@ import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
  * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
  */
 /**
- ** Servicio del registro del maestro "Recaudo"
- * @Author BUILDER
- * @Version 1.0, 16/12/13
+ * Clase  ServicioRecaudo 
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
  */
 
 @Service("serviciorecaudo")
 public class ServicioRecaudo {
 	private @Autowired IRecaudoDAO iRecaudoDAO;
 	
-	
-	
 	/**
 	 * Guardar Recaudo
-	 * @param Recaudod recaudo
+	 * @param Recaudo recaudo
 	 * @return Guarda el objeto
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 
 	public void guardarRecaudo(Recaudo recaudo){
@@ -46,7 +46,7 @@ public class ServicioRecaudo {
 	 * Eliminar Recaudo
 	 * @param Integer idRecaudo
 	 * @return Elimina lógicamente el objeto
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void eliminarRecaudo(Integer idRecaudo) {
 		Recaudo rec = iRecaudoDAO.findOne(idRecaudo);
@@ -67,7 +67,7 @@ public class ServicioRecaudo {
 	 * 
 	 * @param String nombreRecaudo
 	 * @return Busca un recaudo por nombre
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public Recaudo buscarRecaudoPorNombre(String nombreRecaudo) {
 	    return iRecaudoDAO.findByNombreRecaudo(nombreRecaudo);
@@ -76,7 +76,7 @@ public class ServicioRecaudo {
 	 * Listado de Recaudos
 	 * @param
 	 * @return Busca todas los recaudos que estan en estatus TRUE
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<Recaudo> listadoRecaudosActivos() {
 	    return iRecaudoDAO.findByEstatusTrue();
@@ -86,9 +86,8 @@ public class ServicioRecaudo {
 	 * 
 	 * @param String nombreRecaudo, String  nombreTipoMotivo
 	 * @return Busca un  recaudo por nombre y un nombre de motivo
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
-	//Busca en la lista de Recaudo
 	public List<Recaudo> buscarRecaudo(String nombreRecaudo,String  nombreTipoMotivo) {
 		List<Recaudo> resultado = new LinkedList<Recaudo>();	
 		if (nombreRecaudo == null || nombreTipoMotivo==null ) {
