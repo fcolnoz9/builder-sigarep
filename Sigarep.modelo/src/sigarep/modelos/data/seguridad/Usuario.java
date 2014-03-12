@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
 	private List<Estudiante> estudiantes;
 
 	// Relación bidireccional de uno a muchos, asociada a la clase Persona
-	@OneToMany(mappedBy="nombreUsuario")
+	@OneToMany(mappedBy="usuario")
 	private List<Persona> personas;
 
 	// Constructor por defecto

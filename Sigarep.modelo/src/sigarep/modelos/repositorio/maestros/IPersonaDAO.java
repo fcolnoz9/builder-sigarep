@@ -28,7 +28,7 @@ public interface IPersonaDAO extends JpaRepository<Persona, String> {
 	 * @return persona encontrado por su nombre
 	 */
 	@Query("select persona from Persona persona where " +
-			"persona.nombreUsuario.nombreUsuario = :nombreUsuario")
+			"persona.usuario.nombreUsuario = :nombreUsuario")
 	public Persona buscarPersonaPorNombreUsuario(
 			@Param("nombreUsuario") String nombreUsuario);
 

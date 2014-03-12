@@ -39,7 +39,7 @@ public class Persona implements Serializable {
 	// Relación bidireccional de muchos a uno, asociada a la clase Usuario
 	@ManyToOne
 	@JoinColumn(name = "nombre_usuario")
-	private Usuario nombreUsuario;
+	private Usuario usuario;
 
 	// Constructor por defecto
 	public Persona() {
@@ -94,12 +94,12 @@ public class Persona implements Serializable {
 		this.telefono = telefono;
 	}
 	
-	public Usuario getNombreUsuario() {
-		return this.nombreUsuario;
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 
-	public void setNombreUsuario(Usuario usuario) {
-		this.nombreUsuario = usuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<InstanciaMiembro> getInstanciaMiembros() {
