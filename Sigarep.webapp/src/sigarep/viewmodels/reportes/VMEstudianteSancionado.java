@@ -421,10 +421,8 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaEdoApelacion" })
 	public void buscarEdoApelacion() {
-		listaEdoApelacion = servicioestadoapelacion
-				.listadoEstadoApelacionActivas();
-		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos",
-				null);
+		listaEdoApelacion = servicioestadoapelacion.listadoEstadoApelacionActivas();
+		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos",null);
 		listaEdoApelacion.add(listaEdoApelacion.size()/* 0 */, edo_ape);
 	}
 	/**
@@ -596,7 +594,7 @@ public class VMEstudianteSancionado {
 	 * Limpiar Estudiante sancionado.
 	 * 
 	 * @param Ninguno
-	 * @return Limpiar cada uno de los combos de la vista
+	 * @return Deja los Campos en NULL en cada uno de los combos de la vista
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
@@ -717,8 +715,7 @@ public class VMEstudianteSancionado {
 	public void GenerarReporteEstudiantesSancionadosConfigurable() {
 		if (listaE.size() > 0) {
 			reportConfig = new ReportConfig(ruta);
-			reportConfig.getParameters().put("ListaSancionados",
-					new JRBeanCollectionDataSource(listaE));
+			reportConfig.getParameters().put("ListaSancionados",new JRBeanCollectionDataSource(listaE));
 			reportConfig.setType(reportType);
 			reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
 		} else {
