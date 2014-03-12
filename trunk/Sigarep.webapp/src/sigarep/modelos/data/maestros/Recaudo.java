@@ -52,6 +52,22 @@ public class Recaudo implements Serializable {
 	//Constructor por defecto
 	public Recaudo() {
 	}
+	/**
+	 * Constructor Recaudo
+	 * 
+	 * @param idRecaudo, descripcion
+	 *            , estatus, nombreRecaudo, observacion
+	 * @return Constructor lleno
+	 */
+	public Recaudo(Integer idRecaudo, String descripcion, Boolean estatus,
+			String nombreRecaudo, String observacion) {
+		super();
+		this.idRecaudo = idRecaudo;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.nombreRecaudo = nombreRecaudo;
+		this.observacion = observacion;
+	}
 
 	// Métodos Set y Get
 	public Integer getIdRecaudo() {

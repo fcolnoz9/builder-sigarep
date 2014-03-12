@@ -5,11 +5,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import sigarep.modelos.data.maestros.Reglamento;
 
+/**
+ * Repositorio Reglamento-IReglamentoDAO
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 12/12/2013
+ */ 
+
 public interface IReglamentoDAO extends JpaRepository<Reglamento, Integer> {
 	
 	/**
-	 * Busca el ultimo id insertado en la tabla Reglamento
-	 * @return Ultimo id insertado en la tabla Reglamento
+	 * Busca el último id insertado en la tabla Reglamento
+	 * @return Último id insertado en la tabla Reglamento
 	 */
 	@Query("SELECT COALESCE(MAX(r.idDocumento),0) FROM Reglamento AS r")
 	public int buscarUltimoID();
@@ -21,8 +29,8 @@ public interface IReglamentoDAO extends JpaRepository<Reglamento, Integer> {
 	public List<Reglamento> findByEstatusTrue();
 
 	/**
-	 * Busca los docuemtos activos que pertenecen a una categoria dada
-	 * @return List<Reglamento> Lista de Docuemtos pertenecientes a una categoria
+	 * Busca los docuemtos activos que pertenecen a una categoría dada
+	 * @return List<Reglamento> Lista de Documentos pertenecientes a una categoría
 	 */
 	public List<Reglamento> findByCategoriaAndEstatusTrue(String categoria);
 }

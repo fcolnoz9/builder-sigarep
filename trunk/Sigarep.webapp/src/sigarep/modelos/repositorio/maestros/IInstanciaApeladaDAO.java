@@ -4,12 +4,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 
-/**Clase IInstanciaApeladaDAO
-* JPARepository para la Tabla InstanciaApelada
-* @author Builder
-* @version 1.0
-* @since 20/12/13
-*/
+/**
+ * Repositorio InstanciaApelada-IInstanciaApeladaDAO
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 12/12/2013
+ */
+
 
 public interface IInstanciaApeladaDAO extends JpaRepository<InstanciaApelada, Integer> {
 	
@@ -20,8 +22,8 @@ public interface IInstanciaApeladaDAO extends JpaRepository<InstanciaApelada, In
 	public List<InstanciaApelada> findByEstatusTrue();
 	
 	/**
-	 * Busca el ultimo id insertado en la tabla InstanciaApelada
-	 * @return Ultimo id insertado en la tabla InstanciaApelada
+	 * Busca el último id insertado en la tabla InstanciaApelada
+	 * @return Último id insertado en la tabla InstanciaApelada
 	 */
 	@Query("SELECT COALESCE(MAX(ia.idInstanciaApelada),0) FROM InstanciaApelada AS ia")
 	public int buscarUltimoID();
