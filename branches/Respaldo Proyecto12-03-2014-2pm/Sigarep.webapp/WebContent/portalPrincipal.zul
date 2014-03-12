@@ -1,0 +1,167 @@
+<?page title="Sistema Integrado en Apoyo a la Gestión del Régimen de Repitencia y Permanencia"?>
+<zk>
+	<!-- Css -->
+	<style src="widgets/css/style.css" />
+	<html>
+		<script type="text/javascript" src="widgets/js/DP.js"></script>
+		<script type="text/javascript" defer="true">
+			window.onload = DP.inicio;
+		</script>
+	</html>
+	<!-- Inicio de la estructura del portal principal -->
+	<borderlayout hflex="1" vflex="1"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
+
+		<!-- Inicio del encabezado y el menú horizontal -->
+		<north size="95px" border="none">
+			<include
+				src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" />
+		</north>
+		<!-- Fin encabezado y menú horizontal -->
+
+		<!-- Inicio cuerpo izquierdo -->
+		<west size="19%" border="none">
+			<borderlayout>
+				<north size="60%" border="none">
+					<include
+						src="WEB-INF/sigarep/vistas/portal/externo/Noticias.zul" />
+				</north>
+				<south size="40%" border="none">
+					<div class="panel panel-info" height="100%">
+						<div class="panel-heading">
+							<label class="label label-success"
+								style="font-size:12px">
+								Guía paso a paso
+							</label>
+						</div>
+						<image width="100%" height="100%"
+							src="/imagenes/portal-principal/guiaPasoAPaso.gif"
+							style="cursor:pointer" onClick="@command('descargarGuia')" />
+					</div>
+				</south>
+			</borderlayout>
+		</west>
+		<!-- Fin cuerpo izquierdo -->
+
+		<!-- Inicio del cuerpo de la página -->
+		<center border="none">
+			<borderlayout>
+				<!-- Inicio cuerpo central -->
+				<north size="47%" border="none">
+					<include
+						src="WEB-INF/sigarep/vistas/portal/externo/Banner.zul" />
+				</north>
+				<center border="none">
+					<borderlayout>
+						<west size="55%" border="none">
+							<div class="panel panel-info"
+								height="100%" align="center">
+								<div class="panel-heading" align="left">
+									<label class="label label-warning"
+										style="font-size:12px">
+										Consulta tu estado
+									</label>
+								</div>
+								<vbox>
+									<space />
+									<div align="center">
+										<label
+											style="font-size:25px;font-weight:bold;color:Gray">
+											¿Estás sancionado?
+										</label>
+									</div>
+									<space />
+									<hbox align="center"
+										pack="center">
+										<image
+											src="/imagenes/portal-principal/busquedaico.png" />
+										<label value="Cédula:" />
+										<intbox id="intcedula"
+											placeholder="Ingrese la cédula" maxlength="8" width="150px"
+											value="@bind(vm.cedula)" />
+										<button label="Buscar"
+											image="/imagenes/iconos/buscar.png"
+											onClick="@command('modalEstadoEstudiante')" />
+									</hbox>
+								</vbox>
+							</div>
+						</west>
+						<east size="45%" border="none">
+							<borderlayout>
+								<north border="none" size="65%">
+									<include
+										src="WEB-INF/sigarep/vistas/portal/externo/Descargas.zul" />
+								</north>
+								<south border="none" size="35%">
+									<div class="panel panel-info"
+										height="100%">
+										<div class="alert alert-info"
+											height="100%" align="center">
+											<vlayout>
+												<label
+													value="¿Tienes alguna pregunta?" style="font-size:15px" />
+												<a href="#"
+													class="alert-link">
+													<label
+														value="Haz click aquí"
+														onClick="@command('modalPreguntasFrecuentes')"
+														id=" lblPreguntas " style="font-size:15px" />
+												</a>
+											</vlayout>
+										</div>
+									</div>
+								</south>
+							</borderlayout>
+						</east>
+					</borderlayout>
+				</center>
+				<!-- Inicio enlaces de interes -->
+				<south size="12%" border="none">
+					<include
+						src="WEB-INF/sigarep/vistas/portal/externo/EnlacesDeInteres.zul" />
+				</south>
+				<!-- Fin enlaces de interes -->
+			</borderlayout>
+		</center>
+		<!-- Fin cuerpo central -->
+
+		<!-- Inicio cuerpo derecho -->
+		<east size="25%" border="none">
+			<borderlayout>
+
+				<!-- Inicio Login -->
+				<north size="18%" border="none">
+					<include
+						src="WEB-INF/sigarep/vistas/portal/externo/login.zul" />
+				</north>
+				<!-- Fin Login -->
+
+				<!-- Inicio Cronograma de Actividades -->
+				<center border="none">
+					<include
+						src="WEB-INF/sigarep/vistas/portal/externo/Cronograma.zul" />
+				</center>
+				<!-- Fin Cronograma de Actividades -->
+
+				<!-- Inicio Twitter -->
+				<south size="40%" border="none">
+					<include
+						src="WEB-INF/sigarep/vistas/portal/externo/Twitter.zul" />
+				</south>
+				<!-- Fin Twitter -->
+
+			</borderlayout>
+		</east>
+		<!-- Fin cuerpo derecho -->
+		<!-- Fin del cuerpo de la página -->
+
+		<!-- Inicio Pie de Página -->
+		<south size="21px" border="none">
+			<include
+				src="WEB-INF/sigarep/vistas/portal/externo/Footer.zul" />
+		</south>
+		<!-- Fin Pie de Página -->
+
+	</borderlayout>
+</zk>

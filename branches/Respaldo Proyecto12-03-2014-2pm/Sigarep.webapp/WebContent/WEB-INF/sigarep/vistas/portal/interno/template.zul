@@ -1,0 +1,17 @@
+<zk>
+	<borderlayout id="mainBorderLayout" hflex="1" vflex="1">
+		<north height="95px" border="none">
+			<include src="/WEB-INF/sigarep/vistas/portal/interno/banner.zul" />
+		</north>
+		<west width="294px" border="none" collapsible="true"
+			splittable="true" minsize="250">
+			<include src="/WEB-INF/sigarep/vistas/portal/interno/tree.zul" />
+		</west>
+		<center sclass="center" style="background: .logofondo" id="mainContent" autoscroll="true" border="none" 
+			self="@insert(content)">
+		</center>
+		<south size="30px" border="none">
+			<include src="/WEB-INF/sigarep/vistas/portal/interno/footer.zul" />
+		</south>
+	</borderlayout>
+</zk>
