@@ -9,39 +9,37 @@ import org.springframework.data.repository.query.Param;
 
 import sigarep.modelos.data.maestros.EstadoApelacion;
 
-/** IEstadoApelacionDAO
- *  Permite el uso de query para consultas. se utiliza en ServicioEstadoApelacion.
- * UCLA DCYT Sistemas de Informacion.
+/**
+ * Repositorio EstadoApelacion-IEstadoApelacionDAO 
+ * 
  * @author BUILDER
- * @version 1
- * @since 15/12/2013 
+ * @version 1.0
+ * @since 12/12/2013
  */
-
-
 public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Integer> {
 
 	/**
-	 * Busca las todas los Estados de Apelacion que poseen estatus == true
-	 * @return List<EstadoApelacion> Lista de Estados de Apelacion con estatus == true
+	 * Busca las todas los Estados de Apelación que poseen estatus == true
+	 * @return List<EstadoApelacion> Lista de Estados de Apelación con estatus == true
 	 */
 	public List<EstadoApelacion> findByEstatusTrue();
 	
 	/**
-	 * Busca un Estado de Apelacion por su nombre
-	 * @param nombreEstado Nombre del estado de apelacion que se pretende encontrar
+	 * Busca un Estado de Apelación por su nombre
+	 * @param nombreEstado Nombre del estado de apelación que se pretende encontrar
 	 * @return EstadoApelacion encontrado por su nombre
 	 */
 	public EstadoApelacion findByNombreEstado(String nombreEstado);
 	
 	/**
-	 * Busca el ultimo id insertado en la tabla EstadoApelacion
-	 * @return Ultimo id insertado en la tabla EstadoApelacion
+	 * Busca el último id insertado en la tabla EstadoApelacion
+	 * @return Último id insertado en la tabla EstadoApelacion
 	 */
 	@Query("SELECT COALESCE(MAX(ea.idEstadoApelacion),0) FROM EstadoApelacion AS ea")
 	public int buscarUltimoID();
 	
 	/**
-	 * Busca los estados de apelacion de una instancia
+	 * Busca los estados de apelación de una instancia
 	 * @param el id de la instancia
 	 * @return lista de estados de una instancia
 	 */
@@ -52,5 +50,3 @@ public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Inte
 	public List<EstadoApelacion> buscarEstados(@Param("instancia") int instancia);
 
 }
-	
-

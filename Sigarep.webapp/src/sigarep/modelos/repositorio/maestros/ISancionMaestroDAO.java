@@ -6,6 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import sigarep.modelos.data.maestros.SancionMaestro;
 
+/**
+ * Repositorio SancionMaestro-ISancionMaestroDAO
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 12/12/2013
+ */
 public interface ISancionMaestroDAO extends
 		JpaRepository<SancionMaestro, Integer> {
 
@@ -16,8 +23,8 @@ public interface ISancionMaestroDAO extends
 	public List<SancionMaestro> findByEstatusTrue();
 	
 	/**
-	 * Busca el ultimo id insertado en la tabla SancionMaestro
-	 * @return Ultimo id insertado en la tabla SancionMaestro
+	 * Busca el último id insertado en la tabla SancionMaestro
+	 * @return Último id insertado en la tabla SancionMaestro
 	 */
 	@Query("SELECT COALESCE(MAX(sm.idSancion),0) FROM SancionMaestro AS sm")
 	public int buscarUltimoID();
