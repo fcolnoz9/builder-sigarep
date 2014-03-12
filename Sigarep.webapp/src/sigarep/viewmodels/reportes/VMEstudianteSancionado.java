@@ -669,9 +669,7 @@ public class VMEstudianteSancionado {
 	 */
 
 	@Command
-	@NotifyChange({ "programa", "objSancion", "objtipoMotivo",
-			"objinstanciaApelada", "objLapso", "objVeredicto",
-			"objEdoApelacion", "asignaturas", "objsexo" })
+	@NotifyChange({ "programa", "objSancion", "objtipoMotivo","objinstanciaApelada", "objLapso", "objVeredicto","objEdoApelacion", "asignaturas", "objsexo" })
 	public void limpiarCombos() {
 		objprograma = null;
 		objSancion = null;
@@ -684,21 +682,18 @@ public class VMEstudianteSancionado {
 		objsexo = null;
 
 	}
-
-	@NotifyChange({ "parametroLapsoAcademico" })
+	@NotifyChange({ "parametroLapsoAcademico" })//********CONFIGURAR  LAPSO ACADEMICO********
 	@Command
-	public String configurarParametro1() // parametro codigo Lapso
-	{
+	public String configurarParametro1(){
 		if (objLapso.getCodigoLapso() == "Todos") {
 			parametroLapsoAcademico = "sap.codigo_lapso";
-		} else {
+		} 
+		else {
 			parametroLapsoAcademico = "'" + objLapso.getCodigoLapso() + "'";
 		}
 		return parametroLapsoAcademico;
 	}
-
-	@NotifyChange({ "parametroTipoSancion" })
-	// parametro Tipo sancion
+	@NotifyChange({ "parametroTipoSancion" })// ********CONFIGURAR TIPO SANCION*******
 	@Command
 	public String configurarParametroSancion() {
 		if (objSancion.getNombreSancion() == "Todos") {
@@ -708,32 +703,27 @@ public class VMEstudianteSancionado {
 		}
 		return parametroTipoSancion;
 	}
-
-	@NotifyChange({ "parametroInstanciaApelada" })
-	// ParametroInstanciaApeldada
+	@NotifyChange({ "parametroInstanciaApelada" })// ******CONFIGURAR PARAMETRO INSTANCIA APELADA
 	@Command
 	public String configurarParametroInstanciaApelada() {
 		if (objinstanciaApelada.getDescripcion() == "Todos") {
 			parametroInstanciaApelada = "sap.id_instancia_apelada";
 		} else {
-			parametroInstanciaApelada = "'"
-					+ objinstanciaApelada.getIdInstanciaApelada() + "'";
+			parametroInstanciaApelada = "'"+objinstanciaApelada.getIdInstanciaApelada()+"'";
 		}
 		return parametroInstanciaApelada;
 	}
-
-	@NotifyChange({ "parametroMotivo" })
-	// ParametroMotivo
+	@NotifyChange({ "parametroMotivo" })// *********CONFIGURAR TIPO MOTIVO************  
 	@Command
 	public String configurarParametroMotivo() {
 		if (objtipoMotivo.getDescripcion() == "Todos") {
 			parametroMotivo = "mot.id_tipo_motivo";
-		} else {
+		} 
+		else {
 			parametroMotivo = "'" + objtipoMotivo.getIdTipoMotivo() + "'";
 		}
 		return parametroMotivo;
 	}
-
 	@NotifyChange({ "parametroProgramaAcademico" })
 	// ******CONFIGURAR PROGRAMA ACADEMICO********
 	@Command
@@ -746,10 +736,7 @@ public class VMEstudianteSancionado {
 		}
 		return parametroProgramaAcademico;
 	}
-
-	@NotifyChange({ "parametroSexo" })
-	// ******CONFIGURAR SEXO********
-	// Parametro Sexo
+	@NotifyChange({ "parametroSexo" })// ******CONFIGURAR SEXO********
 	@Command
 	public String configurarParametroSexo() {
 		if (objsexo.equals("Todos")) {
@@ -779,10 +766,10 @@ public class VMEstudianteSancionado {
 	@Command
 	public String configurarParametroEdoApelacion() {
 		if (objEdoApelacion.getNombreEstado().equals("Todos")) {
-			parametroEdoApelacion = "edo_ape.id_estado_apelacion";
-		} else {
-			parametroEdoApelacion = "'"
-					+ objEdoApelacion.getIdEstadoApelacion() + "'";
+			parametroEdoApelacion ="ape_edo_ape.id_estado_apelacion";
+		} 
+		else {
+			parametroEdoApelacion = "'"+objEdoApelacion.getIdEstadoApelacion()+"'";
 		}
 		return parametroEdoApelacion;
 	}
