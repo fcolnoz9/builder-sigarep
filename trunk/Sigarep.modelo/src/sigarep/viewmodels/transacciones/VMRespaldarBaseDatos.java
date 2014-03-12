@@ -41,7 +41,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMRespaldarBaseDatos extends GenericForwardComposer<Component>{	
+public class VMRespaldarBaseDatos{	
 
 	/**
 	 * 
@@ -150,16 +150,6 @@ public class VMRespaldarBaseDatos extends GenericForwardComposer<Component>{
 		cargarBackups();
 	}
 	
-	/** OnTimer$timer. Maneja el timer de la  vista , se encarga de actualizar el contenido del listbox cada 50 segundos
-	 * (una vez que la función ejecutarComandos haya creado el backup por completo, actualizando su tamaño en el listbox)
-	 * @parameters backupsListbox. 
-	 * @return No devuelve ningun valor.
-	 * @throws No dispara ninguna excepcion.
-	 */
-	public void onTimer$timer(Event e){
-		    backupsListbox.setModel(backupsListbox.getModel());
-	}
-
 	/** Cargar backups al modelo del listbox de backups
 	 * @parameters listaDirectorio1, listaDirectorio2 y directorio
 	 * @return No devuelve ningun valor.

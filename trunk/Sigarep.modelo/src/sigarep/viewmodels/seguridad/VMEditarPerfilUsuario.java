@@ -149,14 +149,14 @@ public class VMEditarPerfilUsuario {
 		Persona persona = serviciopersona.buscarPersonaNombreUsuario(seguridad.getUsuario().getUsername());
 		this.persona = persona;
 		this.cedula = persona.getCedulaPersona();
-		this.correo = persona.getNombreUsuario().getCorreo();
-		this.fechaCreacion = persona.getNombreUsuario().getFechaCreacion();
+		this.correo = persona.getUsuario().getCorreo();
+		this.fechaCreacion = persona.getUsuario().getFechaCreacion();
 		this.nombre = persona.getNombre();
 		this.apellido = persona.getApellido();
 		this.telefono = persona.getTelefono();
 		this.telefonoEntero = Integer.parseInt(this.telefono);
 		try {
-			imagenUsuario = persona.getNombreUsuario().getFoto().getAImage();
+			imagenUsuario = persona.getUsuario().getFoto().getAImage();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
@@ -200,7 +200,7 @@ public class VMEditarPerfilUsuario {
 	@NotifyChange({"imagenUsuario","nombre","apellido", "correo","telefonoEntero"})
 	public void guardarPerfilUsuario() {
 		Usuario usuario = new Usuario();
-		usuario = this.persona.getNombreUsuario();
+		usuario = this.persona.getUsuario();
 		if(nombre.equals("") || apellido.equals("") || correo.equals("") || telefonoEntero == null){
 			mensajesAlusuario.advertenciaLlenarCampos();
 		}
@@ -228,9 +228,9 @@ public class VMEditarPerfilUsuario {
 		apellido = "";
 		telefonoEntero =  null;
 		correo = "";
-		if(persona.getNombreUsuario().getFoto()!=null)
+		if(persona.getUsuario().getFoto()!=null)
 		try {
-			imagenUsuario = this.persona.getNombreUsuario().getFoto().getAImage();
+			imagenUsuario = this.persona.getUsuario().getFoto().getAImage();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

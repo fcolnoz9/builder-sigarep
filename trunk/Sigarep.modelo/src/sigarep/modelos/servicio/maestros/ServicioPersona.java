@@ -68,9 +68,9 @@ public class ServicioPersona {
 			for (Persona persona : listadoPersona()) {
 				if (persona.getCedulaPersona().toLowerCase()
 						.contains(cedulaPersona)
-						&& persona.getNombreUsuario().getNombreCompleto()
+						&& persona.getUsuario().getNombreCompleto()
 								.toLowerCase().contains(nombreCompleto)
-						&& persona.getNombreUsuario().getNombreUsuario()
+						&& persona.getUsuario().getNombreUsuario()
 								.toLowerCase().contains(nombreUsuario))
 					resultado.add(persona);
 			}

@@ -527,7 +527,7 @@ public class VMUsuario {
 					System.out.println("paso por encontrado");
 					if(mipersona1 != null){
 						System.out.println("se cumple la condicion 0");
-						usuarioAux = serviciousuario.encontrarUsuario(mipersona1.getNombreUsuario().getNombreUsuario());
+						usuarioAux = serviciousuario.encontrarUsuario(mipersona1.getUsuario().getNombreUsuario());
 						for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
 							 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
 						}
@@ -545,7 +545,7 @@ public class VMUsuario {
 //							}
 //						}
 					if(mipersona2 != null){
-						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getNombreUsuario().getNombreUsuario().equals(mipersona2.getNombreUsuario().getNombreUsuario()) )
+						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) )
 							{
 								System.out.println("se cumple la condicion 1");
 								usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
@@ -747,18 +747,18 @@ public class VMUsuario {
 				persona.setNombre(nombre);
 				persona.setApellido(apellido);
 				
-				persona.setNombreUsuario(usuario);
+				persona.setUsuario(usuario);
 				persona.setCorreo(correo);
 				persona.setEstatus(true);
 				persona.setTelefono(telefono);
 				serviciopersona.guardar(persona);
 				
 				if(mipersona1!=null && mipersona2 != null){
-						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getNombreUsuario().getNombreUsuario().equals(mipersona2.getNombreUsuario().getNombreUsuario()) )
+						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) )
 							{
 								System.out.println("se borra el mipersona1");
-								serviciousuario.eliminarFisicamente(mipersona2.getNombreUsuario().getNombreUsuario());	
-							}else if ( !mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getNombreUsuario().getNombreUsuario().equals(mipersona2.getNombreUsuario().getNombreUsuario()) ){ 
+								serviciousuario.eliminarFisicamente(mipersona2.getUsuario().getNombreUsuario());	
+							}else if ( !mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) ){ 
 								System.out.println("las cedulas y usuarios son diferentes");
 								
 							}else {
@@ -768,7 +768,7 @@ public class VMUsuario {
 				else if(mipersona1==null && mipersona2 != null) {
 					System.out.println("la persona no existe, ya se valido");
 				}else if(mipersona1!=null && mipersona2 == null){System.out.println("usuario no existe pero la pesona si");
-					serviciousuario.eliminarFisicamente(mipersona1.getNombreUsuario().getNombreUsuario());
+					serviciousuario.eliminarFisicamente(mipersona1.getUsuario().getNombreUsuario());
 				}else System.out.println("ambos son nulos");
 				
 				
@@ -1012,7 +1012,7 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void eliminarUsuario() {
-		serviciousuario.eliminar(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		serviciousuario.eliminar(getPersonaSeleccionado().getUsuario().getNombreUsuario());
 		listaInstanciaMiembro = getPersonaSeleccionado().getInstanciaMiembros();
 		serviciopersona.eliminar(getPersonaSeleccionado().getCedulaPersona());
 		for(int i=0;listaInstanciaMiembro.size()>i;i++){
@@ -1043,16 +1043,16 @@ public class VMUsuario {
 		instanciaMiembroPK = null;
 		instanciaMiembro= null;
 		
-		nombreUsuario = getPersonaSeleccionado().getNombreUsuario().getNombreUsuario();
-		clave = getPersonaSeleccionado().getNombreUsuario().getClave();
-		confirmarcontrasenia = getPersonaSeleccionado().getNombreUsuario().getClave();
+		nombreUsuario = getPersonaSeleccionado().getUsuario().getNombreUsuario();
+		clave = getPersonaSeleccionado().getUsuario().getClave();
+		confirmarcontrasenia = getPersonaSeleccionado().getUsuario().getClave();
 		correo = getPersonaSeleccionado().getCorreo();
 		confirmarcorreo = getPersonaSeleccionado().getCorreo();
 		cedulaPersona = getPersonaSeleccionado().getCedulaPersona();
 		nombre = getPersonaSeleccionado().getNombre();
 		apellido = getPersonaSeleccionado().getApellido();
 		telefono = getPersonaSeleccionado().getTelefono();
-		fotoUsuario = getPersonaSeleccionado().getNombreUsuario().getFoto();
+		fotoUsuario = getPersonaSeleccionado().getUsuario().getFoto();
 		listaInstanciaMiembro = getPersonaSeleccionado().getInstanciaMiembros();
 		
 		for(int i=0;listaInstanciaMiembro.size()>i;i++){
@@ -1063,9 +1063,9 @@ public class VMUsuario {
 		
 		if(fotoUsuario!=null){
 			System.out.println("esta no nula");
-			if (getPersonaSeleccionado().getNombreUsuario().getFoto().getTamano() > 0){
+			if (getPersonaSeleccionado().getUsuario().getFoto().getTamano() > 0){
 				try {
-					imagenUsuario = new AImage(getPersonaSeleccionado().getNombreUsuario().getFoto().getNombreArchivo(),getPersonaSeleccionado().getNombreUsuario().getFoto().getContenidoArchivo());
+					imagenUsuario = new AImage(getPersonaSeleccionado().getUsuario().getFoto().getNombreArchivo(),getPersonaSeleccionado().getUsuario().getFoto().getContenidoArchivo());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 				}
@@ -1088,8 +1088,8 @@ public class VMUsuario {
 			}
 		}
 
-		listaGrupoPertenece = serviciogrupo.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
-		listaGrupoNoPertenece = serviciogrupo.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getNombreUsuario().getNombreUsuario());
+		listaGrupoPertenece = serviciogrupo.listadoGrupoPerteneceUsuario(getPersonaSeleccionado().getUsuario().getNombreUsuario());
+		listaGrupoNoPertenece = serviciogrupo.listadoGrupoNoPerteneceUsuario(getPersonaSeleccionado().getUsuario().getNombreUsuario());
 	}
 	
 	/**Quitar grupo a un usuario
