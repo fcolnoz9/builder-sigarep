@@ -9,8 +9,14 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Banner;
 import sigarep.modelos.repositorio.maestros.IBannerDAO;
 
+/**
+ * Clase ServicioBanner 
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
 @Service("servicioBanner")
-// Definiendo la variable servicio
 public class ServicioBanner {
 
 	private @Autowired
@@ -39,7 +45,7 @@ public class ServicioBanner {
 	 *            idImagen
 	 * @return Elimina lógicamente el objeto
 	 * @throws Nodispara
-	 *             ninguna excepcion.
+	 *             ninguna excepción.
 	 */
 
 	public void eliminarBanner(Integer idImagen) {
@@ -54,7 +60,7 @@ public class ServicioBanner {
 	 * @param
 	 * @return Busca todos Banner que estan en estatus TRUE
 	 * @throws No
-	 *             dispara ninguna excepcion.
+	 *             dispara ninguna excepción.
 	 */
 
 	public List<Banner> listadoBanner() {
@@ -66,7 +72,7 @@ public class ServicioBanner {
 	 * 
 	 * @param String titulo, String enlace
 	 * @return Busca un Banner por titulo y enlace
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 
 	public List<Banner> buscarFiltroBanner(String titulo, String enlace) {
@@ -91,7 +97,7 @@ public class ServicioBanner {
 	 * @param
 	 * @return Busca todos Banner que estan en estatus TRUE
 	 * @throws No
-	 *             dispara ninguna excepcion.
+	 *             dispara ninguna excepción.
 	 */
 	public List<Banner> buscarTodosBanner() {
 		return banner.findByEstatusTrue();

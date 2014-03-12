@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.repositorio.maestros.IEnlaceInteresDAO;
 
-/** Servicio Enlace
- * Contiene métodos necesarios  para el buen funcionamiento de ActualizarEnlaces.zul. Se utiliza en VMenlaceInteres.
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/**
+ * Clase  ServicioEnlaceInteres
+ * 
+ * @author BUILDER
  * @version 1.0
- * @since 22/01/14
+ * @since 18/12/2013
  */
 
 @Service("servicioenlacesinteres")
@@ -25,7 +25,7 @@ public class ServicioEnlaceInteres {
 	 * 
 	 * @param EnlaceInteres enlace
 	 * @return Guarda el objeto
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void guardarEnlace(EnlaceInteres enlace) {
 		if (enlace.getIdEnlace() != null)
@@ -41,7 +41,7 @@ public class ServicioEnlaceInteres {
 	 * 
 	 * @param Integer idEnlace
 	 * @return permite la eliminación física
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void eliminar(Integer idEnlace) {
 		EnlaceInteres enlaceBorrarFisico = enlaceinteres.findOne(idEnlace);
@@ -49,11 +49,11 @@ public class ServicioEnlaceInteres {
 	}
 
 	/**
-	 * Listado Enlace Interes
+	 * Listado Enlace Interés
 	 * 
-	 * @param listadoEnlaceInteres
-	 * @return buscar todos los enlaces
-	 * @throws No dispara ninguna excepcion.
+	 * @param vacío
+	 * @return listadoEnlaceInteres con estatus = true
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<EnlaceInteres> listadoEnlaceInteres() {
 		return enlaceinteres.findByEstatusTrue();
@@ -66,7 +66,7 @@ public class ServicioEnlaceInteres {
 	 * @param String nombreEnlace, String direccionEnlace
 	 * @return busca un enlace por nombre o dirección en el filtro
 	 *         filtros() de VMenlaceInteres.
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 
 	public List<EnlaceInteres> buscarEnlacesFiltro(String nombreEnlace, String direccionEnlace) {
@@ -82,8 +82,6 @@ public class ServicioEnlaceInteres {
 			}
 		}
 		return result;
-	}
-
-	
-}// fin ServicioEnlaceInteres
+	}	
+}
 

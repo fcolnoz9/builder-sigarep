@@ -7,6 +7,15 @@ import sigarep.modelos.data.maestros.Asignatura;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.repositorio.maestros.IAsignaturaDAO;
 
+/**
+ * Clase ServicioAsignatura 
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
+
+
 @Service("servicioAsignatura")
 public class ServicioAsignatura {
 	private @Autowired
@@ -17,7 +26,7 @@ public class ServicioAsignatura {
 	 * Buscar Asignatura
 	 * @param codigoAsignatura
 	 * @return el objeto buscado
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public Asignatura buscarAsignatura(String codigoAsignatura){
 		return iAsignatura.findOne(codigoAsignatura);
@@ -27,13 +36,13 @@ public class ServicioAsignatura {
 	 * Guardar Asignatura
 	 * @param Asignatura asignatura
 	 * @return Guarda el objeto
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void guardarAsignatura(Asignatura asignatura){
 		iAsignatura.save(asignatura);
 	}
 	
-	/** buscarTodas
+	/** listaAsignaturas
 	 * @param todos
 	 * @return lista de asignaturas
 	 * @throws 
@@ -43,6 +52,11 @@ public class ServicioAsignatura {
 		return asignaturasLista;
 	}
 	
+	/** buscarTodas
+	 * @param todos
+	 * @return lista de asignaturas, con estatus = true
+	 * @throws 
+	 */
 	public List<Asignatura> buscarTodas(){
 		return iAsignatura.findByEstatusTrue();
 	}
@@ -52,7 +66,7 @@ public class ServicioAsignatura {
 	 * 
 	 * @param String ProgramaAcedemico
 	 * @return Busca una asignatura por Programa
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<Asignatura> buscarAsignaturasPorPrograma (ProgramaAcademico programa){
 		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(programa);
@@ -64,13 +78,10 @@ public class ServicioAsignatura {
 	 * 
 	 * @param String NombreAsignatura
 	 * @return Busca una asignatura por nombre
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public Asignatura buscarAsignaturaNombre(String nombreAsignatura) {
 		Asignatura asignatura = iAsignatura.findByNombreAsignatura(nombreAsignatura);
 	    return asignatura;
 	}
-	
-	
-	
 }

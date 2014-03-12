@@ -10,7 +10,13 @@ import sigarep.modelos.data.maestros.EstadoApelacion;
 
 import sigarep.modelos.repositorio.maestros.IEstadoApelacionDAO;
 
-
+/**
+ * Clase  ServicioEstadoApelacion
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
 
 @Service("servicioestadoapelacion")
 public class ServicioEstadoApelacion {
@@ -19,8 +25,8 @@ public class ServicioEstadoApelacion {
 	
 	/** Guardar Estado de Apelación 
 	 * @return guarda el objeto
-	 * @parameters el objeto EstadoApelacion
-	 * @throws No dispara ninguna excepcion.
+	 * @param el objeto EstadoApelacion
+	 * @throws No dispara ninguna excepción.
 	   */
 
 	public void guardarEstadoApelacion(EstadoApelacion estadoApelacion) {
@@ -34,8 +40,8 @@ public class ServicioEstadoApelacion {
 	
 	/** Lista de Estados de Apelación 
 	 * @return Lista de los Estados de Apelacion registrados y activos
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
+	 * @param vacio
+	 * @throws No dispara ninguna excepción.
 	   */
 	public List<EstadoApelacion> listadoEstadoApelacionActivas() {
 		List<EstadoApelacion> ListaEstadoApelacion = ea.findByEstatusTrue();
@@ -44,8 +50,8 @@ public class ServicioEstadoApelacion {
 	
 	/** Buscar Estados de Apelación por nombre
 	 * @return el estado de apelacion buscado si existe
-	 * @parameters nombre del estado de apelacion
-	 * @throws No dispara ninguna excepcion.
+	 * @param nombre del estado de apelación
+	 * @throws No dispara ninguna excepción.
 	   */
 	public EstadoApelacion buscarEstadoNombre(String nombreEstado) {
 		EstadoApelacion estadoapelacion=ea.findByNombreEstado(nombreEstado);
@@ -53,7 +59,7 @@ public class ServicioEstadoApelacion {
 	}
 
 	/**
-	 * Busca los estados de apelacion de una instancia
+	 * Busca los estados de apelación de una instancia
 	 * @param el id de la instancia
 	 * @return lista de estados de una instancia
 	 */

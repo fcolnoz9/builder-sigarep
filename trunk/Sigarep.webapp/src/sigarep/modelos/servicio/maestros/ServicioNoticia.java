@@ -7,15 +7,24 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.repositorio.maestros.INoticiaDAO;
 
+
+/**
+ * Clase  ServicioNoticia 
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
+
 @Service("servicionoticia")
 public class ServicioNoticia {
 	private @Autowired
 	INoticiaDAO iNoticia;
 
 	/** Guardar Noticia
-	 * @parameters el objeto Noticia
-	 * @return No devuelve ningun valor
-	 * @throws No dispara ninguna excepcion.
+	 * @param el objeto Noticia
+	 * @return No devuelve ningún valor
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void guardar(Noticia noticia) {
 		if (noticia.getIdNoticia() != null)
@@ -27,9 +36,9 @@ public class ServicioNoticia {
 	}
 	
 	/** Eliminar Noticia
-	 * @parameters idNoticia
-	 * @return No devuelve ningun valor.
-	 * @throws No dispara ninguna excepcion
+	 * @param idNoticia
+	 * @return No devuelve ningún valor.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public void eliminar(Integer idNoticia) {
 		Noticia n = iNoticia.findOne(idNoticia);
@@ -38,9 +47,9 @@ public class ServicioNoticia {
 	}
 
 	/** Lista de Noticia
-	 * @parameters No devuelve ningun valor
+	 * @param No devuelve ningún valor
 	 * @return Lista de las Noticias registradas y activas 
-	 * @throws No dispara ninguna excepcion
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<Noticia> listadoNoticia() {
 		List<Noticia> noticiaLista = iNoticia.findByEstatusTrue();
@@ -48,9 +57,9 @@ public class ServicioNoticia {
 	}
 
 	/** filtrar Noticias
-	 * @parameters titulof
+	 * @param titulof
 	 * @return result que es un listadoNoticia.
-	 * @throws las Excepciones son que el titulo sea null
+	 * @throws las Excepciones son que el título sea null
 	 */
 	public List<Noticia> filtrarNoticias(String titulof){
 		List<Noticia> result = new ArrayList<Noticia>();

@@ -6,10 +6,17 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.repositorio.maestros.ITipoMotivoDAO;
-//El servicio interactua con la base de datos
+
+
+/**
+ * Clase  ServicioTipoMotivo
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 18/12/2013
+ */
 
 @Service("serviciotipomotivo")
-//Definiendo la variable servicio
 public class ServicioTipoMotivo {
 	private @Autowired ITipoMotivoDAO tipomotivo;
 	
@@ -18,7 +25,7 @@ public class ServicioTipoMotivo {
 	 * 
 	 * @param TipoMotivo tipo
 	 * @return guarda el objeto 
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 
 	public void guardarTipoMotivo(TipoMotivo tipo){
@@ -38,14 +45,19 @@ public class ServicioTipoMotivo {
 	 *Elimina logicamente un tipoMotivo
 	 * @param idTipoMotivo
 	 * @return objeto con status false
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 	public void eliminarTipoMotivo(Integer idTipoMotivo) {
 		TipoMotivo tip = tipomotivo.findOne(idTipoMotivo);
 		tip.setEstatus(false);
 		tipomotivo.save(tip);
 	}
-	
+	/**
+	 * listadoTipoMotivo
+	 * @param vaío
+	 * @return listadoTipoMotivo con estatus = true
+	 * @throws No  dispara ninguna excepción.
+	 */
 	public List<TipoMotivo> listadoTipoMotivo() {
 	    return tipomotivo.findByEstatusTrue();
 	}	
@@ -66,7 +78,7 @@ public class ServicioTipoMotivo {
 	 * @param String nombreTipoMotivo
 	 * @return busca un tipoMotivo por nombre en el filtro
 	 *         filtros() de VMTipoMotivo.
-	 * @throws No  dispara ninguna excepcion.
+	 * @throws No  dispara ninguna excepción.
 	 */
 
 	public List<TipoMotivo> filtrarTipoMotivo(String nombreTipoMotivo){

@@ -7,20 +7,21 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.repositorio.maestros.IPreguntaBasicaDAO;
 
-/**PreguntaBasica
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-1
+/**
+ * Clase  ServicioPreguntaBasica 
+ * 
+ * @author BUILDER
  * @version 1.0
- * @since -/12/13
+ * @since 18/12/2013
  */
 
-@Service("serviciopreguntabasica") //Definiendo la variable servicio
+@Service("serviciopreguntabasica") 
 public class ServicioPreguntaBasica{
 	private @Autowired IPreguntaBasicaDAO pre ;
 
 	/** guardar
 	 * @param preguntaBasica.
-	 * @return No devuelve ningun valor.
+	 * @return No devuelve ningún valor.
 	 */
 	public void guardarPregunta(PreguntaBasica preb) {
 		if (preb.getIdPreguntaBasica() != null)
@@ -33,7 +34,7 @@ public class ServicioPreguntaBasica{
 	
 	/** eliminar
 	 * @param idPreguntaBasica
-	 * @return No devuelve ningun valor.
+	 * @return No devuelve ningún  valor.
 	 */
 	public void eliminarPregunta(Integer idPreguntaBasica){
 		PreguntaBasica pb = pre.findOne(idPreguntaBasica);
