@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpAsignaturasSancionadosVsApelaciones" language="groovy" printOrder="Horizontal" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="e4c809ca-4229-479e-9900-3377b8e4e298">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#6495ED">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFD6FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="TablaApelaciones" uuid="7b5a0efd-8131-44d4-8202-dd9dd9e51c09">
+		<field name="asignatura" class="java.lang.String"/>
+		<field name="apelaciones" class="java.math.BigDecimal"/>
+		<field name="procedentes" class="java.math.BigDecimal"/>
+		<field name="motivo" class="java.lang.String"/>
+		<field name="totalapelaciones" class="java.math.BigDecimal"/>
+		<field name="totalprocedentes" class="java.math.BigDecimal"/>
+		<variable name="TotalApelaciones" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{apelaciones}]]></variableExpression>
+		</variable>
+		<variable name="TotalProcedentes" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{procedentes}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="nombrePrograma" class="java.lang.String"/>
+	<parameter name="instanciaApelada" class="java.lang.String"/>
+	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
+	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String"/>
+	<parameter name="ICON_FOOTER" class="java.lang.String"/>
+	<parameter name="ImagenSuperior" class="java.lang.String"/>
+	<parameter name="lapso" class="java.lang.String"/>
+	<parameter name="asignatura" class="java.lang.String"/>
+	<parameter name="ListaAsignaturaMotivos" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="asignatura" class="java.lang.String"/>
+	<field name="apelaciones" class="java.math.BigDecimal"/>
+	<field name="procedentes" class="java.math.BigDecimal"/>
+	<field name="motivo" class="java.lang.String"/>
+	<field name="totalapelaciones" class="java.math.BigDecimal"/>
+	<field name="totalprocedentes" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="386" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="74" y="193" width="80" height="20" backcolor="#FFFFFF" uuid="174c9a2f-cefd-4f31-b6b1-56709a379fe7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PROGRAMA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="441" y="193" width="85" height="20" backcolor="#FFFFFF" uuid="004d668f-6bd4-40b5-a02b-023a46c27355"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[INSTANCIA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="514" y="193" width="171" height="20" uuid="8572c6fd-fd24-430c-bd22-a666dfd5aa0b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{instanciaApelada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="193" width="225" height="20" uuid="83f6380d-568b-4c96-aeae-6757613f254a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombrePrograma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="334" y="158" width="50" height="20" uuid="5daa6187-9529-4911-ac6a-45aeee55b7a5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Lapso -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="384" y="158" width="48" height="20" uuid="0deecc5e-0846-4c7b-9798-d1537f893be0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lapso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table" mode="Transparent" x="162" y="213" width="162" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1d1a1178-5916-4e6d-8bb1-e4fc398be6f1"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{asignatura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="74" y="213" width="86" height="20" backcolor="#FFFFFF" uuid="ef65745c-26a8-4a90-a59b-ef959747840f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ASIGNATURA:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="177" y="258" width="369" height="128" uuid="e6988a01-0344-4b3b-8216-bccb9a6ba190"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="TablaApelaciones" uuid="2687d6d5-ea2c-45f2-bdf2-7025510d83ad">
+						<dataSourceExpression><![CDATA[$P{ListaAsignaturaMotivos}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="223" uuid="7a15a887-05a5-4903-a01e-f1698acb6930">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="223" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="6fc75196-69f9-4131-bc65-472c9a4c15cb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+								</textElement>
+								<text><![CDATA[Motivos]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="223" height="20" forecolor="#FFFFFF" backcolor="#999999" uuid="8ec4f735-6f36-4e76-8b1a-b9e8d09cb476"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+								</textElement>
+								<text><![CDATA[Totales]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="223" height="20" uuid="3db5289d-5f3d-4635-a1f3-dedea7d1278f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="f7a96961-583a-4d94-9d09-cb86e9f9c2b5">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="16cc87c7-f888-49a7-a51d-5bf64bf2573e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+								</textElement>
+								<text><![CDATA[Apelaciones]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="20" backcolor="#CCCCCC" uuid="fc8672c1-9052-4d0a-ab0f-e1007e0083a7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{TotalApelaciones}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="90" height="20" uuid="fed43de5-57d5-4a2a-a2de-8b442d107a1a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{apelaciones}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="ded83b35-e791-4d6b-b9c7-75350e4055f7">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="870bd233-ce6d-4171-a956-e07c37142766"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+								</textElement>
+								<text><![CDATA[Procedentes]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="20" backcolor="#CCCCCC" uuid="0beb028f-1a62-4f6d-b9a2-1f8f4e8bb075"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{TotalProcedentes}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="90" height="20" uuid="e8cf5f54-b63f-43d4-babb-595ffedd4868"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{procedentes}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="752" height="54" uuid="a83c9b37-672a-4479-9392-0d0ee700a241"/>
+				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="55" width="89" height="67" uuid="808d9210-f616-4886-9c21-e4ab3d76ff22"/>
+				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="177" y="58" width="402" height="46" uuid="2e70c249-3b80-40b9-8640-06cc0fcd1cb1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
+UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
+DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="663" y="55" width="89" height="67" uuid="caa0f47c-488c-4c74-9f89-0358d910af20"/>
+				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="106" y="110" width="546" height="35" uuid="60631f44-28c8-405e-a513-b4ece7c9fa92"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELACIONES POR MOTIVO Y SUS RESULTADOS PROCEDENTES POR ASIGNATURA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="19" width="752" height="35" uuid="bd67c706-05be-48fd-9270-514b95db3490"/>
+				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="152" height="14" uuid="5772240b-e360-4ac5-ad2b-6483b06532f6"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Emisión del Reporte:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="154" y="1" width="100" height="13" uuid="e923f5f2-465a-4c7c-9c2a-c59a273bdc70"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="710" y="0" width="40" height="14" uuid="d571d23d-c071-40cb-8d41-0b349f15dd59"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="0" width="346" height="14" uuid="74752ee9-6b9a-4f10-8cf5-2c4d9e99915d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="13" width="752" height="1" uuid="eab2b8de-640d-4c90-bc6c-460400f665f2"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="380" splitType="Stretch">
+			<bar3DChart>
+				<chart isShowLegend="true" renderType="draw" theme="default">
+					<reportElement style="table" stretchType="RelativeToTallestObject" mode="Transparent" x="36" y="115" width="676" height="204" uuid="fca06e7b-018e-4200-a49a-707ff5e49421"/>
+					<chartTitle>
+						<font fontName="Arial"/>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="Arial"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="Arial"/>
+					</chartLegend>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Apelaciones"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
+						<valueExpression><![CDATA[($F{apelaciones}*100)/$F{apelaciones}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{apelaciones}.doubleValue()*100)/$F{apelaciones})+ "%"]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Procedentes"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{motivo}]]></categoryExpression>
+						<valueExpression><![CDATA[($F{procedentes}*100)/$F{procedentes}]]></valueExpression>
+						<labelExpression><![CDATA[new java.text.DecimalFormat("0.0").format(($F{procedentes}.doubleValue()*100)/$F{procedentes})+ "%"]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot labelRotation="0.0"/>
+					<itemLabel color="#FFFFFF" backgroundColor="#FFFFFF">
+						<font fontName="Arial" size="5" isBold="true"/>
+					</itemLabel>
+					<categoryAxisLabelExpression><![CDATA[$P{asignatura}]]></categoryAxisLabelExpression>
+					<categoryAxisFormat labelRotation="0.0">
+						<axisFormat tickLabelMask="0" verticalTickLabels="true">
+							<labelFont>
+								<font fontName="Arial" size="10"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="Arial" size="8"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["PORCENTAJES"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font fontName="Arial"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="Arial"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>

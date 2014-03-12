@@ -1,0 +1,98 @@
+<?page title="HistorialCronograma" contentType="text/html;charset=UTF-8"?>
+<window id="winHistorialCronograma"
+	title="Gestión :: Planificar :: Historial de Cronograma"
+	border="normal" width="auto" height="auto" closable="true"
+	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistorialCronograma')"
+	action="hide: slideUp" onCancel="@command('closeThis')">
+
+	<!-- Muestra todos los Lapsos Academicos registrados -->
+
+	<!-- 	<style src="/widgets/grid/simple/style.css" > -->
+
+	<separator spacing="15px" />
+
+	<label value="Lapso académico: " id="lblLapsoAcademico" />
+	<combobox  id="cmbLapsoAcademico"
+		placeholder="Seleccione un lapso académico..."
+		mold="rounded"  readonly="true" width="26%"
+		value="@bind(vm.lapsoAcademico.codigoLapso)" 
+		 model="@load(vm.listaLapsoAcademico)"
+		selectedItem="@bind(vm.lapsoAcademico)"
+		onSelect="@command('buscarDetalleLapsoAcademicoCombo')">
+		<template name="model">
+			<comboitem label="${each.codigoLapso}" />
+		</template>
+	</combobox>
+	<separator spacing="30px" />
+
+	<!-- Muestra el listado de actividades registradas en un cronograma del lapso seleccionado previamente en el combobox -->
+
+	<groupbox id="grbHistorialCronograma">
+		<caption label="Actividades Agregadas al Cronograma" />
+		<listbox id="lbxActividades" height="auto"
+			model="@bind(vm.listaCronogramas)"
+			emptyMessage="No hay actividades registradas" mold="paging"
+			pageSize="10">
+			<listhead>
+				<listheader label="Actividad" align="left"
+					sort="auto(actividad.getNombre)">
+					<textbox id="filtroActividad" mold="rounded"
+						instant="true" width="100px" value="@bind(vm.actividadf)"
+						onChange="@command('filtroCronograma')" />
+					<image src="/imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Responsable" align="left"
+					sort="auto(responsable.getInstanciaApelada)">
+					<textbox id="filtroResponsable" mold="rounded"
+						instant="true" width="100px" value="@bind(vm.responsablef)"
+						onChange="@command('filtroCronograma')" />
+					<image src="/imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Lugar" align="left"
+					sort="auto(lugar)">
+					<textbox id="filtroLugar" mold="rounded"
+						instant="true" width="100px" value="@bind(vm.lugarf)"
+						onChange="@command('filtroCronograma')" />
+					<image src="/imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Fecha Inicio" align="left" width="8%"
+					sort="auto(fechaInicio)" />
+				<listheader label="Fecha Fin" align="left" width="8%"
+					sort="auto(fechaFin)" />
+				<listheader label="Hora" align="left" width="6%"
+					sort="auto(horaInicio)" />
+				<listheader label="Observación" align="left" width="15%"
+					sort="auto(observacion)" />
+			</listhead>
+			<template name="model">
+				<listitem selected="false">
+					<listcell
+						label="${each.getActividad().getNombre()}">
+					</listcell>
+					<listcell
+						label="${each.getResponsable().getInstanciaApelada()}">
+					</listcell>
+					<listcell label="${each.lugar}"></listcell>
+					<listcell label="${each.fechaInicio}"></listcell>
+					<listcell label="${each.fechaFin}"></listcell>
+					<listcell label="${each.horaInicio}"></listcell>
+					<listcell label="${each.observacion}"></listcell>
+
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
+
+	<!-- Permite cerrar la interfaz -->
+
+	<separator spacing="15px" />
+	<div align="right" height="100%">
+
+		<button label="Cerrar" id="btnCerrar" mold="trendy" width="auto"
+			height="auto" image="/imagenes/iconos/cerrar.png"
+			onClick="@command('cerrarVentana', ventana = winHistorialCronograma)" />
+	</div>
+	<separator spacing="15px" />
+
+</window>

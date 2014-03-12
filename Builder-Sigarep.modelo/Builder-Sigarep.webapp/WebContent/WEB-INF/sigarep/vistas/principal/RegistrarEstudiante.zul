@@ -1,0 +1,71 @@
+<?page title="Registrar Estudiante" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="winRegistrarEstudiante" title="Registrar Estudiante" border="normal" width="800px"
+apply=""
+	position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp">
+	<groupbox width="100%">
+	  <caption  label="Datos de la Actividad"/>
+	   <grid sclass="fgrid">
+        <rows>
+            <row>
+                 <label value="Primer Nombre:"/>
+	    		 <textbox mold="rounded"/>
+            </row>
+            <row>
+                 <label value="Segundo Nombre:"/>
+	    		 <textbox mold="rounded"/>
+            </row>
+            <row>
+               <label value="Primer Apellido:"/>
+	   			<textbox mold="rounded"/>
+            </row>
+            <row>
+               <label value="Segundo Apellido:"/>
+	   			<textbox mold="rounded"/>
+            </row>
+            <row>
+                <label value="Cedula:"/>
+                <textbox mold="rounded"/>
+            </row>
+            <row>
+               <label value="Fecha de Nacimiento:"/>
+	   			<textbox mold="rounded"/>
+            </row>
+            <row>
+               <label value="Programa: "/>
+	   			<combobox mold="rounded"/>
+            </row>
+            <row>
+               <label value="Telefono:"/>
+	   			<textbox mold="rounded"/>
+            </row>
+            <row>
+               <label value="Email:"/>
+	   			<textbox mold="rounded"/>
+            </row>
+            <row>
+                <label value="Estatus:"/>
+                <combobox mold="rounded" />
+            </row>
+            <row>
+               <label value="Sancion:"/>
+	   			<combobox mold="rounded"/>
+            </row>
+            <row>
+               <label value="Lapso Academico:"/>
+	   			<combobox mold="rounded"/>
+            </row> 
+        </rows>
+    </grid>
+	</groupbox>
+
+	<hbox width="100%" pack = "end" align = "center">
+	<button mold="trendy" label="Guardar" width="100px" height="50px" image="/img/guardar.png"></button>
+	<button mold="trendy" label="Cancelar" width="100px" height="50px" image="/img/cancelar.png"></button>
+	<button mold="trendy" label="Cerrar" width="100px" height="50px" image="/imagenes/iconos/cerrar.png" onClick="winRegistrarEstudiante.onClose()"></button>
+
+	</hbox>
+	
+</window>
+</zk>

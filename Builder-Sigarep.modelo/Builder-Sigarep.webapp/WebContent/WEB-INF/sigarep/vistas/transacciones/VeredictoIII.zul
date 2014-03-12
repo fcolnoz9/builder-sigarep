@@ -1,0 +1,212 @@
+<window id="winVeredictoIII"
+	title="Gestión :: Recurso Jerárquico :: Evaluar Recurso Jerarquico :: Veredicto "
+	 border="normal" width="auto" height="auto"
+	style="overflow:auto" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMVeredictoIII')">
+	<style src="/widgets/grid/simple/style.css" />
+	<!--El groupbox Contiene los datos de Sesion -->
+	<groupbox id="grbDatosSesion">
+		<caption id="lblDatossesion" label="Datos Sesión" />
+		<grid>
+			<rows>
+				<row>
+					<label id="lblNumerosesion"
+						value="Número de Sesión: " />
+					<textbox id="txtNumeroSesion" cols="23"
+						mold="rounded" width="80%" maxlength="15" readonly="true"
+						value="@bind(vm.numeroSesion)">
+					</textbox>
+					<label id="lblTiposesion" value="Tipo de Sesión: " />
+					<textbox id="txtTipoSesion" mold="rounded" cols="23"
+						maxlength="30" width="80%" value="@bind(vm.tipoSesion)"
+						readonly="true">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblFechasesion"
+						value="Fecha de Sesión: " />
+					<textbox id="txtFechasesión" cols="23"
+						mold="rounded" width="80%" maxlength="30"
+						value="@bind(vm.fechaSesion)" readonly="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<!--El groupbox Contiene los datos del estudiante -->
+	<groupbox id="grbDatosEstudiante">
+		<caption label="Datos del Estudiante" />
+		<grid id="grdDatosEstudiante">
+			<rows>
+				<row></row>
+				<row>
+					<label value="Cédula:" id="lblCedulaEstudiante" />
+					<textbox id="txtCedulaEstudiante" mold="rounded"
+						cols="23" width="80%" maxlength="8" readonly="true"
+						value="@bind(vm.cedula)">
+					</textbox>
+					<label value="Programa:" id="lblProgramaEstudiante" />
+					<textbox id="txtProgramaEstudiante" mold="rounded"
+						cols="23" width="80%" maxlength="60" readonly="true"
+						value="@bind(vm.programa)">
+					</textbox>
+				</row>
+				<row>
+					<label value="Nombres: " id="lblNombresEstudiante" />
+					<textbox id="txtNombresEstudiante" cols="23"
+						mold="rounded" width="80%" maxlength="30" readonly="true"
+						value="@bind(vm.nombres)">
+					</textbox>
+					<label value="Apellidos: "
+						id="lblApellidosEstudiante" />
+					<textbox id="txtApellidosEstudiante" cols="23"
+						mold="rounded" width="80%" maxlength="30" readonly="true"
+						value="@bind(vm.apellidos)">
+					</textbox>
+				</row>
+				<row>
+
+				</row>
+			</rows>
+		</grid>
+		<!--El groupbox Contiene los datos de la sancion-->
+	</groupbox>
+	<groupbox id="grbDatosSancion">
+		<caption id="lblDatossancion" label="Datos Sanción" />
+		<grid>
+			<rows>
+				<row>
+					<label id="lblTiposancion"
+						value="Tipo de Sanción: " />
+					<textbox id="txtTipoSancion" cols="23"
+						mold="rounded" width="80%" maxlength="30" readonly="true"
+						value="@bind(vm.sancion)">
+					</textbox>
+					<label id="lblLapsosancion"
+						value="Lapso de Sanción: " />
+					<textbox id="txtLapsosancion" mold="rounded"
+						cols="23" maxlength="30" width="80%" value="@bind(vm.lapso)"
+						readonly="true">
+					</textbox>
+				</row>
+				<row>
+					<label id="lblPeriodosancion"
+						value="Periodo de Sanción: " />
+					<textbox id="txtPeridosancion" cols="23"
+						mold="rounded" width="80%" maxlength="30"
+						value="@bind(vm.peridoSancion)" readonly="true">
+					</textbox>
+					<label id="lblAsignaturaPeriodos"
+						value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="45" mold="rounded"
+						width="80%" maxlength="30"
+						value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+		<!--El groupbox Contiene los datos de la apelacion-->
+	</groupbox>
+	<groupbox id="grbDatosRecaudo">
+		<caption label="Datos de la Apelación" />
+		<grid>
+			<rows>
+				<row>
+					<label id="lblNumeroCaso" value="Número de Caso:" />
+					<textbox id="txtNumeroCaso" mold="rounded" cols="23"
+						width="80%" maxlength="60" readonly="true"
+						value="@bind(vm.caso)">
+					</textbox>
+					<label id="lblFechaApelacion"
+						value="Fecha de Apelación:" />
+					<textbox id="txtFechaApelacion" mold="rounded"
+						cols="23" width="80%" maxlength="30" readonly="true"
+						value="@bind(vm.fechaApelacion)">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+		<grid id="grdRecaudosVeredicto" model="@bind(vm.listaRecaudo)"
+			emptyMessage="No se encontraron recaudos">
+			<columns>
+				<column label="Motivo de Apelación" align="left"
+					width="25%">
+				</column>
+				<column label="Recaudo Entregado" align="left"
+					width="25%">
+				</column>
+				<column label="Observación" align="left" width="50%"></column>
+
+			</columns>
+			<rows sclass="narrow">
+				<template name="model">
+					<row>
+						<label
+							value="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
+						<label
+							value="${each.getRecaudo().getNombreRecaudo()}" />
+						<textbox value="${each.getObservacionExperto()}"
+						placeholder="Ingrese una observación" 
+							mold="rounded" cols="120" width="80%" rows="3" readonly="true">
+						</textbox>
+					</row>
+				</template>
+			</rows>
+		</grid>
+	</groupbox>
+	<!--El groupbox Contiene los campos que requieren llenarse para el Veredicto III -->
+	<groupbox id="grbDatosVeredicto">
+		<caption label="Datos del Veredicto" />
+
+		<grid>
+			<columns>
+				<column align="left" width="25%" />
+				<column align="left" width="75%" />
+			</columns>
+			<rows>
+				<row>
+					<radiogroup id="rgEleccion"
+						selectedItem="@bind(vm.veredicto)">
+						<hlayout>
+							<radio id="rbProcedente" label="Procedente"
+								radiogroup="rgEleccion" value="PROCEDENTE" />
+							<separator></separator>
+							<radio id="rbNoProcedente"
+								label="No Procedente" radiogroup="rgEleccion"
+								value="NO PROCEDENTE" />
+						</hlayout>
+					</radiogroup>
+
+					<hlayout valign="center">
+						<label id="lblObservacion"
+							value="Observación General: " />
+						<separator></separator>
+						<textbox id="txtObservacion" mold="rounded"
+							cols="100" maxlength="255" tabindex="2"
+							placeholder="Ingrese la observación general del veredicto"
+							value="@bind(vm.observacionGeneral)" rows="2">
+						</textbox>
+					</hlayout>
+				</row>
+			</rows>
+		</grid>
+		<!-- Permite realizar acciones respecto a Veredicto III (Botones) -->
+		<label value="" />
+
+		<div align="right" height="100%">
+			<button label="Guardar" mold="trendy" id="btnGuardar"
+				image="/imagenes/iconos/guardar.png" width="auto" height="auto"
+				onClick="@command('registrarVeredicto',window=winVeredictoIII) @global-command('actualizarListaSancionados')">
+			</button>
+			<button label="Limpiar" id="btnCancelar" mold="trendy"
+				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+				onClick="@command('limpiar')">
+			</button>
+			<button label="Cerrar" mold="trendy" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				onClick="@command('cerrarVentana', ventana = winVeredictoIII)">
+			</button>
+		</div>
+	</groupbox>
+</window>

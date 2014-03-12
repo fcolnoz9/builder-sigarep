@@ -1,0 +1,263 @@
+<window title="Administración del Sistema :: Seguridad funcional :: Registrar Usuario"
+	id="winRegistrarUsuario" border="normal" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUsuario')">
+	
+	<groupbox>
+		<caption label="Datos personales" />
+		<grid id="grbpersonal" >
+			<columns>
+				<column align="left" width="15%"  />
+				<column align="left" width="35%" />
+				<column align="left" width="15%" />
+				<column align="left" width="35%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Cédula del usuario: " id="lblCedulaUsuario" />
+					<textbox id="txtCedulaUsuario"  
+					         placeholder="Ingrese su cédula" 
+				             mold="rounded"  width="80%" maxlength="8"
+						 value="@bind(vm.cedulaPersona)" />
+					<label value="Teléfono: " id="lblTelefono" />
+					<textbox id="txttelefono"   
+					         placeholder="Ingrese su teléfono"
+						    mold="rounded" width="80%" maxlength="11"
+						     value="@bind(vm.telefono)" />
+				</row>
+				<row>
+					<label value="Nombre: " id="lblNombre" />
+					<textbox id="txtNombre" placeholder="Ingrese su nombre"
+						mold="rounded" width="80%" maxlength="30"
+						value="@bind(vm.nombre)" />
+					<label value="Apellido: " id="lblApellido" />
+					<textbox id="txtApellido"  placeholder="Ingrese su apellido"
+						mold="rounded" width="80%" maxlength="30"
+						value="@bind(vm.apellido)" />		
+				</row>
+				<row>
+				
+				</row>
+			</rows>
+		</grid>
+		<groupbox id="grbDatosdeinstancia">
+			<caption id="lblDatosdeinstancia" label="Datos de Instancia" />
+			<grid id="grdDatosapelacion">
+				<columns>
+					<column width="10%" />
+					<column width="40%" />
+					<column width="10%" />
+					<column width="40%" />
+					<column width="20%" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Instancia: (Opcional)" id="lblInstancia" />
+						<combobox  readonly="true" id= "cmbIntancia" placeholder="Seleccione una instancia..." value="@bind(vm.tituloinstancia)"
+					    width="80%" mold="rounded" model="@load(vm.listaInstancia)" selectedItem="@bind(vm.instanciaseleccionada)" >
+							<template name="model">
+									<comboitem  label="${each.instanciaApelada}"/>
+							</template>
+						</combobox>
+						<label value="Cargo: (Opcional)" id="lblCargo" />
+						<textbox id="txtCargo" placeholder="Ingrese un cargo"
+							mold="rounded"  width="80%" maxlength="30"
+							value="@bind(vm.cargo)" />
+						<button id="btnAgregar" label="Agregar"
+							mold="trendy" image="/imagenes/iconos/agregar.png" width="auto"
+							height="auto" orient="horizontal"
+ 							onClick="@command('agregarInstancia')"> 
+						</button>
+					</row>
+				</rows>
+			</grid>
+			<listbox height="auto" id="lbxMotivos" mold="paging" 
+				selectedItem="@bind(vm.instanciaMiembro)"
+				onSelect="@command('mostrarInstancia')"
+ 				pageSize="10" model="@bind(vm.listaInstanciaMiembro)" 
+ 				emptyMessage="No hay instancias agregadas"> 
+				<listhead>
+					<listheader label="Instancia" sort="auto" />
+					<listheader label="Cargo" sort="auto" />
+				</listhead>
+				<template name="model">
+					<listitem>
+  						<listcell label="${each.getInstanciaApelada().getInstanciaApelada()}" /> 
+ 						<listcell label="${each.getCargo()}" /> 
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+	</groupbox>
+	
+	<groupbox>
+		<caption label="Datos del usuario" />
+		<grid id="grbusuario" >
+			<columns>
+				<column align="left" width="15%" />
+				<column align="left" width="35%" />
+				<column align="left" width="15%" />
+				<column align="left" width="35%"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="Nombre del usuario: " id="lblNombreUsuario" />
+					<textbox id="txtNombreUsuario"  mold="rounded" width="80%"
+						placeholder="Ingrese un nombre de usuario"  maxlength="45"
+						value="@bind(vm.nombreUsuario)" />
+					<button label="Cargar Imagen" id="btnImagen" upload="true,maxsize=51200"  image="/imagenes/iconos/cargar.png" 
+						 onUpload="@command('cargarImagenUsuario',upload=event)" >
+					</button>
+					<image id="imgImagen" height="100px" width="100px" content="@bind(vm.imagenUsuario)" />
+					
+				</row>
+				<row>
+					<label value="Correo electrónico: " id="lblCorreo" />
+					<textbox id="txtCorreo" width="80%"  mold="rounded"
+						placeholder="Ingrese su correo electrónico"  maxlength="30"
+						value="@bind(vm.correo)" />
+					<label value="Repetir correo electrónico: " id="lblRepetirCorreo" />
+					<textbox id="txtRepetirCorreo" width="80%"  mold="rounded"
+						placeholder="Repita su correo"  maxlength="30"
+						value="@bind(vm.confirmarcorreo)" />
+				</row>
+				<row id="rowContrasenna" visible="true">
+					<label value="Contraseña: " id="lblContraseña" width="auto" />
+					<textbox id="txtContraseña" type="password" width="80%" maxlength="30"  mold="rounded"
+						placeholder="Ingrese su contraseña"  
+						value="@bind(vm.clave)" />
+					
+					<label value="Repetir contraseña: " id="lblRepetirContraseña" />
+					<textbox id="txtRepetirContraseña" type="password" width="80%" maxlength="30"  mold="rounded"
+						placeholder="Repita su contreseña" 
+						value="@bind(vm.confirmarcontrasenia)" />
+				</row>
+				
+			</rows>
+		</grid>
+	</groupbox>
+	<hlayout>
+		
+	</hlayout>
+	
+	<separator />
+		<groupbox id="grbDatosUsuarioGrupo">
+		<caption label="Datos del grupo" />
+		<columnlayout>
+		<columnchildren width="48%">
+				<panel title="Grupos a los cuales puede pertenecer el usuario">
+					<panelchildren>
+						<listbox id="listboxGruposNoPertenece" model="@bind(vm.listaGrupoNoPertenece)" onSelect="@command('agregarGrupo',itemGrupoNoPertenece=listboxGruposNoPertenece.selectedItem)"
+   			 				 emptyMessage="No hay grupos" mold="paging" hflex="1" vflex="1">
+							<listhead>
+								<listheader label="Nombre del grupo" align="center" />
+							</listhead>								
+							<template name="model">							
+								<listitem selected="false">
+									<listcell label="${each.nombre}" ></listcell>
+								</listitem>
+							</template>
+						</listbox>						
+					</panelchildren>
+				</panel>
+			</columnchildren>
+			<columnchildren width="4%">
+		   </columnchildren>
+			<columnchildren width="48%">
+				<panel title="Grupos a los que pertenece el usuario">
+					<panelchildren>
+						<listbox id="listboxGruposPertenece" model="@bind(vm.listaGrupoPertenece)" onSelect="@command('quitarGrupo',itemGrupoPertenece=listboxGruposPertenece.selectedItem)"
+   			 				 emptyMessage="Seleccione un grupo para mostrar sus grupos" mold="paging" hflex="1" vflex="1">
+							<listhead>
+								<listheader label="Nombre del grupo" align="center" sort="auto(nombre)" />
+							</listhead>
+							<template name="model">							
+								<listitem selected="false">
+									<listcell label="${each.nombre}" ></listcell>
+								</listitem>
+							</template>
+						</listbox>						
+					</panelchildren>
+				</panel>
+			</columnchildren>
+			<columnchildren width="50%">
+				<panel title="Grupos generico" visible="false">
+					<panelchildren>
+<!-- 					aqui					 -->
+						<listbox id="listboxGruposGenerico" model="@bind(vm.listaGrupoGenerico)" visible="false"
+   			 				 emptyMessage="Seleccione un grupo para mostrar sus grupos" mold="paging" hflex="1" vflex="1">
+							<listhead>
+								<listheader label="Nombre del grupo" align="center" sort="auto(nombre)" />
+							</listhead>
+							<template name="model">							
+								<listitem selected="false">
+									<listcell label="${each.nombre}" ></listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</panelchildren>
+				</panel>
+		   </columnchildren>				
+		</columnlayout>
+	</groupbox>
+	<separator />
+						
+		<hbox width="100%" pack="end" align="center">
+			<button label="Guardar" image="/imagenes/iconos/guardar.png"
+				mold="trendy" width="auto" height="auto"
+				onClick="@command('guardarUsuario', gruposDelUsuario=listboxGruposPertenece.items, grupoInvisible=listboxGruposGenerico.items) @global-command('actualizarPerfilYMenuUsuario')">
+			</button>
+			<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
+				mold="trendy" width="auto" height="auto"
+				onClick="@command('eliminarUsuario')">
+			</button>
+			<button label="Limpiar" id="btnCancelar" mold="trendy"
+				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('limpiar')">
+			</button>
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				mold="trendy" onClick="@command('cerrarVentana', ventana= winRegistrarUsuario)">
+			</button>
+		</hbox>
+		<groupbox id="grbListaUsuarios" height="auto">
+		<caption label="Lista de Usuarios" />
+		<listbox id="lbxUsuario" height="170px"
+			model="@bind(vm.listaPersona)"
+			selectedItem="@bind(vm.personaSeleccionado)"
+			onSelect="@command('mostrarSeleccionado')"
+			
+			emptyMessage="No hay Usuarios registrados" mold="paging" hflex="1" vflex="1">
+			<listhead>
+				<listheader label="Cédula" align="lefth"
+					sort="auto(cedulaPersona)">
+					<textbox id="filtroCedula" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.cedulaPersonafiltro)"
+							onChange="@command('filtros')" />
+							<image src="imagenes/iconos/buscar.png" />
+				</listheader>	
+				<listheader label="Nombre Completo" align="lefth"
+					sort="auto(nombreUsuario.nombreCompleto)">
+						<textbox id="filtroNombreCompleto" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreCompletofiltro)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Usuario" align="lefth"
+					sort="auto(nombreUsuario.nombreUsuario)">
+						<textbox id="filtroNombreUsuario" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreUsuariofiltro)"
+							onChange="@command('filtros')" />
+						<image src="imagenes/iconos/buscar.png" />
+				</listheader>		
+			</listhead>				
+			<template name="model">
+				<listitem selected="false">
+					<listcell label="${each.cedulaPersona}" />
+					<listcell label="${each.nombreUsuario.nombreCompleto}" />
+					<listcell label="${each.nombreUsuario.nombreUsuario}" />
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
+</window>

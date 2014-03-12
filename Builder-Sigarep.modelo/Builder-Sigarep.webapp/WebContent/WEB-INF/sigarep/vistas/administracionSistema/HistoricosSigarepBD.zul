@@ -1,0 +1,95 @@
+<window title="Administración del Sistema :: Guardar Históricos" id="winHistoricosSigarepBD"
+	border="normal" 
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistoricosSigarepBD')">
+	
+	<div width="100%" height="94%" style="overflow:auto;" align="center">
+				<groupbox style="margin:5px;" width="85%" mold="3d">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Seleccione el archivo historico que desea generar" />
+					<grid width="99%" style="border:normal;" height="100%">
+						<columns>
+							<column label="" width="100%" height="100%" />
+						</columns>
+						<rows>
+							<row>
+								<radiogroup id="rgEleccion" selectedItem="@bind(vm.selected)">
+									<grid>
+										<columns>
+											<column width="60%"/>
+											<column width="100%"/>
+											<column width="110%"/>
+											<column width="100%"/>
+											<column width="100%"/>
+										</columns>
+										<rows>
+											<row>
+												<hbox>
+													<radio id="rbTodos" label="Todos" value="todos"/>
+												</hbox>
+											    <hbox>
+													<radio id="rbSolicitud" label="Solicitudes de Apelación" value="solicitud"/>
+												</hbox>
+												<hbox>
+													<radio id="rbSancionados" label="Estudiantes Sancionados" value="sancionados"/>
+												</hbox>
+												<hbox>
+													<radio id="rbRecaudosEntregados" label="Recaudos Entregados" value="recaudosEntregados"/>
+												</hbox>
+												<hbox>
+													<radio id="rbCronogramaActividades" label="Cronograma de Actividades" value="cronograma"/>
+												</hbox>
+											</row>
+										</rows>
+									</grid>
+								</radiogroup>
+								<label value="@bind(vm.selected)"/>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+
+				<groupbox id="gbManual" style="margin:5px;" width="85%"
+					mold="3d">
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
+						label="Lapso Acádemico de respaldo" />
+					<grid>
+						<columns>
+							<column label="" width="10%" height="100%" />
+							<column label="" width="20%" height="100%" />
+							<column label="" width="15%" height="100%" />
+							<column label="" width="20%"/>
+						</columns>										
+						<rows>
+							<row>
+								<label value="Lapso Acádemico:"/>								
+								<combobox id="cmbLapso" width="100px" model="@load(vm.listaLapsoAcademico)" value="@bind(vm.lapso.codigoLapso)" selectedItem="@bind(vm.lapso)">
+									<template name="model">
+										 <comboitem  label="${each.codigoLapso}"/>
+									</template>
+								</combobox>	
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+	</div>
+	
+	
+	<div align="right" height="100%">
+		<!-- Genera el historico seleccionado -->
+		<button label="Guardar" id="btnGuardar" mold="trendy"
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('generarHistorico')">
+		</button>
+		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
+		<button label="Limpiar" id="btnCancelar" mold="trendy"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+			orient="horizontal">
+		</button>
+		<!-- Sale del registro, es necesario mensajes de advertencia-->
+		<button label="Cerrar" id="btnCerrar" mold="trendy"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('cerrarVentana', ventana = winHistoricosSigarepBD)">
+		</button>
+	</div>
+
+</window>
