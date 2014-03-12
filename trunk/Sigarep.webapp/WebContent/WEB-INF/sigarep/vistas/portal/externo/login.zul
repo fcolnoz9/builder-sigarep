@@ -23,7 +23,7 @@
 			</button>
 		</hbox>
 	</h:form>
-	<div apply="sigarep.controlador.maestros.ModalControler2"
+	<div apply="sigarep.herramientas.ManejadorTimer"
 		align="center">
 		<a id="ordenRecuperarContrasenna">¿Olvidó su contraseña?</a>
 	</div>

@@ -9,6 +9,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -61,7 +62,6 @@ public class ManejadorTimer extends SelectorComposer<Component> {
 	// inicializador
 	public void init(){
 		//initialization code
-		
 		buscarNoticia();
 	}
 
@@ -135,4 +135,14 @@ public class ManejadorTimer extends SelectorComposer<Component> {
 		buscarNoticia();		
 	}
 	
+	@Listen("onClick = #ordenRecuperarContrasenna")
+	public void showModal5(Event e) {
+		//create a window programmatically and use it as a modal dialog.
+		Window window = (Window)Executions.createComponents(
+				"/WEB-INF/sigarep/vistas/portal/externo/modales/RecuperarContrasenna.zul", null, null);
+		window.doModal();
+	}
+	
+	
+
 }
