@@ -32,7 +32,6 @@ import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
  * @version 1.0
  * @since 19/12/2013
  */
-
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMenlaceInteres {
 	//-----------------Servicios----------------------------
@@ -159,7 +158,6 @@ public class VMenlaceInteres {
 	 * @throws No
 	 * dispara ninguna excepción.
 	 */
-
 	@Init
 	public void init() {
 		imagen = new Archivo();
@@ -207,7 +205,6 @@ public class VMenlaceInteres {
 		}
 
 	}
-
 	/**
 	 * Carga de imágenes
 	 * 
@@ -265,15 +262,11 @@ public class VMenlaceInteres {
 				public void onEvent(ClickEvent e) throws Exception {
 					switch (e.getButton()) {
 						case YES:
-							//if you call super.delete here, since original zk event is not control by binder
-							//the change of viewmodel will not update to the ui.
-							//so, I post a delete to trigger to process it in binder controll.
 							//binder.postCommand("limpiar", null);
 							servicioenlacesinteres.eliminar(idEnlace);
 							mensajeAlUsuario.informacionEliminarCorrecto();
 							binder.postCommand("limpiar", null);
 						case NO:
-					
 							binder.postCommand("limpiar", null);
 					}
 				}
