@@ -5,7 +5,6 @@ import java.util.List;
 
 
 import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -14,12 +13,9 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
@@ -29,36 +25,39 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 
-/** VMenlaceInteres
- * Contiene métodos necesarios  para el funcionamiento de ActualizarEnlaces.zul, mostrado en el portal.
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/**
+ * Clase VMenlaceInteres
+ * 
+ * @author BUILDER
  * @version 1.0
- * @since 22/01/14
+ * @since 19/12/2013
  */
 
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMenlaceInteres {
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioEnlaceInteres servicioenlacesinteres;
+	//-----------------Variables Actividad -----------------
 	private Integer idEnlace;
 	private String nombreEnlace;
 	private String direccionEnlace;
 	private String descripcion;
 	private Boolean estatus;
+	//-----------------Variables Filtro---------------------
+	private String nombreEnlaceFiltro ="";
+	private String direccionEnlaceFiltro ="";
+	//-----------------Variables Lista----------------------
+	private List<EnlaceInteres> listaEnlaces ;
+	//-----------------Variables Objeto---------------------
 	private Archivo imagen = new Archivo();
 	private AImage imagenes;
 	private Media media;
-	private List<EnlaceInteres> listaEnlaces ;
 	private EnlaceInteres enlaceSeleccionado;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	//Variables filtros
-	private String nombreEnlaceFiltro ="";
-	private String direccionEnlaceFiltro ="";
 	
-
-	// Getters and Setters
+	
+	// Métodos Set y Get
 	public Integer getIdEnlace() {
 		return idEnlace;
 	}
@@ -150,7 +149,7 @@ public class VMenlaceInteres {
 	public void setDireccionEnlaceFiltro(String direccionEnlaceFiltro) {
 		this.direccionEnlaceFiltro = direccionEnlaceFiltro;
 	}
-	// fin Getters and Setters
+	//Fin  Métodos Set y Get
 
 	/**
 	 * inicialización
@@ -158,13 +157,27 @@ public class VMenlaceInteres {
 	 * @param init
 	 * @return código de inicialización
 	 * @throws No
-	 * dispara ninguna excepcion.
+	 * dispara ninguna excepción.
 	 */
 
 	@Init
 	public void init() {
 		imagen = new Archivo();
 		buscarEnlaceInteres();
+	}
+	
+	/**
+	 * Buscar enlaces de interés
+	 * 
+	 * @param buscarEnlacesInteres
+	 * @return Busca todos los registros. Inicializa el código.
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "listaEnlaces" })
+	private void buscarEnlaceInteres() {
+		listaEnlaces = servicioenlacesinteres.listadoEnlaceInteres();
 	}
 
 	/**
@@ -174,7 +187,7 @@ public class VMenlaceInteres {
 	 * @return Guarda el registro completo, el command indica a las variables el
 	 *         cambio que se hará en el objeto.
 	 * @throws No
-	 *             dispara ninguna excepcion.
+	 *             dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "idEnlace", "nombreEnlace", "direccionEnlace",
@@ -231,58 +244,6 @@ public class VMenlaceInteres {
 	}
 
 	/**
-	 * Limpiar.
-	 * 
-	 * @param limpiar
-	 * @return inicializa las cajas de texto
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	@Command
-	@NotifyChange({"nombreEnlace", "direccionEnlace","descripcion", "estatus", "imagenes","listaEnlaces" })
-	public void limpiar() {
-		nombreEnlace =null;
-		direccionEnlace = null;
-		descripcion = null;
-		//idEnlace =null;
-		media = null;
-		imagenes = null;
-		imagen = new Archivo();
-		buscarEnlaceInteres();
-	}
-
-	/**
-	 * Buscar enlaces de interés
-	 * 
-	 * @param buscarEnlacesInteres
-	 * @return Busca todos los registros. Inicializa el código.
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	@Command
-	@NotifyChange({ "listaEnlaces" })
-	private void buscarEnlaceInteres() {
-		listaEnlaces = servicioenlacesinteres.listadoEnlaceInteres();
-	}
-
-	/**
-	 * Filtros
-	 * 
-	 * @param filtros
-	 * @return Método que busca y filtra los enlaces por nombre y dirección web
-	 * @throws No
-	 * dispara ninguna excepcion.
-	 */	
-	
-	@Command
-	@NotifyChange({"listaEnlaces","nombreEnlacefiltro","direccionEnlacefiltro"})
-	public void filtrosEnlace(){
-		listaEnlaces = servicioenlacesinteres.buscarEnlacesFiltro(nombreEnlaceFiltro,direccionEnlaceFiltro);
-	}
-
-	
-
-	/**
 	 * Eliminar un enlace
 	 * 
 	 * @param eliminarEnlaceSeleccionado
@@ -319,6 +280,7 @@ public class VMenlaceInteres {
 			});		
 		}
 	}
+
 	/**
 	 * Mostrar Enlace
 	 * 
@@ -349,6 +311,41 @@ public class VMenlaceInteres {
 		}
 	}
 	
+	/**
+	 * Filtros
+	 * 
+	 * @param filtros
+	 * @return Método que busca y filtra los enlaces por nombre y dirección web
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */	
+	
+	@Command
+	@NotifyChange({"listaEnlaces","nombreEnlacefiltro","direccionEnlacefiltro"})
+	public void filtrosEnlace(){
+		listaEnlaces = servicioenlacesinteres.buscarEnlacesFiltro(nombreEnlaceFiltro,direccionEnlaceFiltro);
+	}
+	
+	/**
+	 * Limpiar.
+	 * 
+	 * @param limpiar
+	 * @return inicializa las cajas de texto
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({"nombreEnlace", "direccionEnlace","descripcion", "estatus", "imagenes","listaEnlaces" })
+	public void limpiar() {
+		nombreEnlace =null;
+		direccionEnlace = null;
+		descripcion = null;
+		//idEnlace =null;
+		media = null;
+		imagenes = null;
+		imagen = new Archivo();
+		buscarEnlaceInteres();
+	}
 	/**
 	 * Cerrar Ventana
 	 * 

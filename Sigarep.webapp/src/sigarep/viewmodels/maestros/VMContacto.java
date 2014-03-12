@@ -12,11 +12,20 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ContactoSigarep;
 import sigarep.modelos.servicio.maestros.ServicioContactoSigarep;
 
+
+/**
+ * Clase VMContacto
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 19/12/2013
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMContacto {
-
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioContactoSigarep serviciocontactosigarep;
+	//-----------------Variables contactoSigarep -----------
 	private Integer id_contacto;
 	private String quienesSomos;
 	private String correoContacto;
@@ -28,9 +37,11 @@ public class VMContacto {
 	private String correoEmisor;
 	private String telefonoEmisor;
 	private String consulta;
+	//-----------------Variables Objeto----------------------
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private ContactoSigarep contactoSigarep;
 
+	// Métodos Set y Get
 	public String getQuienesSomos() {
 		return quienesSomos;
 	}
@@ -110,10 +121,45 @@ public class VMContacto {
 	public void setConsulta(String consulta) {
 		this.consulta = consulta;
 	}
-
+	// Fin Métodos Set y Get
+	
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepcion.
+	 */
 	@Init
 	public void init() {
 		cargarContacto();
+	}
+
+	/**
+	 * guardarContacto
+	 * 
+	 * @param quienesSomos
+	 *            , correoContacto, twitter, facebook, telefono, direccion
+	 * @return No devuelve ningun valor
+	 * @throws Debe
+	 *             introducir un correo
+	 */
+	@Command
+	@NotifyChange({ "quienesSomos", "correoContacto", "direccion", "twitter",
+			"facebook", "telefonoContacto" })
+	public void guardarContacto() {
+		if (correoContacto == null || correoContacto.equals("")) {
+			mensajeAlUsuario.advertenciaIngresarCorreo();
+		} else {
+			twitter+="https://www.twitter.com/"+twitter;
+			facebook+="https://www.facebook.com/"+facebook;
+			ContactoSigarep contactoSigarep = new ContactoSigarep(id_contacto,
+					quienesSomos, correoContacto, twitter, facebook,
+					telefonoContacto, direccion);
+			serviciocontactosigarep.guardar(contactoSigarep);
+			mensajeAlUsuario.informacionRegistroCorrecto();
+		}
 	}
 
 	/**
@@ -142,29 +188,22 @@ public class VMContacto {
 	}
 
 	/**
-	 * guardarContacto
+	 * enviarCorreoContactanos.
 	 * 
-	 * @param quienesSomos
-	 *            , correoContacto, twitter, facebook, telefono, direccion
-	 * @return No devuelve ningun valor
-	 * @throws Debe
-	 *             introducir un correo
+	 * @param Ninguno
+	 * @return envía el correo con el mensaje/consulta al sistema.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 * 
 	 */
 	@Command
-	@NotifyChange({ "quienesSomos", "correoContacto", "direccion", "twitter",
-			"facebook", "telefonoContacto" })
-	public void guardarContacto() {
-		if (correoContacto == null || correoContacto.equals("")) {
-			mensajeAlUsuario.advertenciaIngresarCorreo();
-		} else {
-			twitter+="https://www.twitter.com/"+twitter;
-			facebook+="https://www.facebook.com/"+facebook;
-			ContactoSigarep contactoSigarep = new ContactoSigarep(id_contacto,
-					quienesSomos, correoContacto, twitter, facebook,
-					telefonoContacto, direccion);
-			serviciocontactosigarep.guardar(contactoSigarep);
-			mensajeAlUsuario.informacionRegistroCorrecto();
-		}
+	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
+	public void enviarCorreoContactanos() {
+		EnviarCorreo enviar = new EnviarCorreo();
+		enviar.sendEmailContactanos(correoEmisor, nombreEmisor, telefonoEmisor,
+				consulta);
+		mensajeAlUsuario.informacionCorreoEnviado();
+		limpiar();
 	}
 
 	/**
@@ -215,7 +254,7 @@ public class VMContacto {
 	/**
 	 * Cerrar Ventana
 	 * 
-	 * @param binder
+	 * @param Window ventana
 	 * @return cierra el .zul asociado al VM
 	 * @throws No
 	 *             dispara ninguna excepcion.
@@ -234,22 +273,5 @@ public class VMContacto {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 
-	/**
-	 * enviarCorreoContactanos.
-	 * 
-	 * @param Ninguno
-	 * @return envía el correo con el mensaje/consulta al sistema.
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 * 
-	 */
-	@Command
-	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
-	public void enviarCorreoContactanos() {
-		EnviarCorreo enviar = new EnviarCorreo();
-		enviar.sendEmailContactanos(correoEmisor, nombreEmisor, telefonoEmisor,
-				consulta);
-		mensajeAlUsuario.informacionCorreoEnviado();
-		limpiar();
-	}
+	
 }
