@@ -18,7 +18,7 @@
 			<div width="100%" height="auto" style="overflow:auto;" align="center">
 				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d" >
 					<caption style="border:normal;"
-						label="Destino del Respaldo" />
+						label="Destino del Respaldo"/>
 				 <grid id="grdColumns" width="99%" height="100%">
 						<columns>
 							   	<column label="" width="10%" />
@@ -107,7 +107,7 @@
 		<div width="100%" height="auto" style="overflow:auto;" align="center">   		
    		<groupbox id="grbListaBackups" height="auto" width="90%">
    		<caption label="Lista de Backups "/>
-   		<div id="divListBackups" align="center" apply="sigarep.viewmodels.transacciones.VMRespaldarBaseDatos">
+   		<div id="divListBackups" align="center" apply="sigarep.herramientas.ManejadorEventosTipoSelector">
    		<listbox id="backupsListbox" height="100%" width="100%"  emptyMessage="No hay backups realizados"
    		 mold="paging" model="@bind(vm.listaDirectorio1)" multiple="false">
 			<listhead sizable="true">
@@ -137,7 +137,10 @@
 			</template>
 		</listbox>
 		<!-- refresca el contenido del listbox cada 17 segundos para que actualizen los tamaños de los backups al ser creados completamente-->
-    	<timer id="timer" delay="6800" repeats="true" /> 
+    	<timer id="timerRespaldarDatos" delay="6800" repeats="true">
+    		<attribute name="onTimer">
+			</attribute>
+		</timer> 
 		</div>
 			<space />
 		</groupbox>
