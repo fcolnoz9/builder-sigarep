@@ -1,8 +1,0 @@
-<window title="¿Quiénes somos?" id="winQuienesSomos" border="normal"
-	height="auto" width="75%" hflex="1" closable="true" maximizable="true" action="hide: slideUp"
-	apply="org.zkoss.bind.BindComposer" style="overflow:auto"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMContacto')">
-	<div height="100%" vflex="1">
-		<html content="@bind(vm.quienesSomos)" />
-	</div>
-</window>
