@@ -553,8 +553,7 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
 	public void listadoInstancia() {
-		listaInstanciaApelada = servicioInstanciaApelada
-				.listadoInstanciaApelada();
+		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
 		InstanciaApelada ins = new InstanciaApelada(null, "Todos", null,"Todos", null);
 		listaInstanciaApelada.add(listaInstanciaApelada.size(), ins);
 	}
@@ -640,7 +639,8 @@ public class VMEstudianteSancionado {
 	public String configurarParametroInstanciaApelada() {
 		if (objinstanciaApelada.getDescripcion() == "Todos") {
 			parametroInstanciaApelada = "sap.id_instancia_apelada";
-		} else {
+		} 
+		else {
 			parametroInstanciaApelada = "'"+objinstanciaApelada.getIdInstanciaApelada()+"'";
 		}
 		return parametroInstanciaApelada;
@@ -663,8 +663,7 @@ public class VMEstudianteSancionado {
 			parametroProgramaAcademico = "es.id_programa";
 		}
 		else {
-			parametroProgramaAcademico = "'" + objprograma.getIdPrograma()
-					+ "'";
+			parametroProgramaAcademico = "'" + objprograma.getIdPrograma()+ "'";
 		}
 		return parametroProgramaAcademico;
 	}
@@ -684,7 +683,8 @@ public class VMEstudianteSancionado {
 	public String configurarParametroVeredicto() {// ******CONFIGURAR VEREDICTO********
 		if (objVeredicto.equals("Todos")) {
 			parametroVeredicto = "sap.veredicto";
-		} else {
+		} 
+		else {
 			parametroVeredicto = "'" + objVeredicto.toUpperCase() + "'";
 		}
 		return parametroVeredicto;
@@ -706,9 +706,9 @@ public class VMEstudianteSancionado {
 	public String configurarParametroAsignatura() {
 		if (objAsignatura.getNombreAsignatura() == "Todos") {
 			parametroAsignatura = "asig.codigo_asignatura";
-		} else {
-			parametroAsignatura = "'" + objAsignatura.getCodigoAsignatura()
-					+ "'";
+		} 
+		else {
+			parametroAsignatura = "'" + objAsignatura.getCodigoAsignatura()+ "'";
 		}
 		return parametroAsignatura;
 	}
