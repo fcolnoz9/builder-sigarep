@@ -1,19 +1,8 @@
 package sigarep.viewmodels.reportes;
-
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import javax.mail.Session;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -235,14 +224,12 @@ public class VMEstudianteSancionado {
 	public void setListaE(List<EstudianteSancionado> listaE) {
 		this.listaE = listaE;
 	}
-
 	public ListModelList<String> getCmbSexo() {
 		cmbSexo.add("F");
 		cmbSexo.add("M");
 		cmbSexo.add("Todos");
 		return cmbSexo;
 	}
-
 	public void setCmbSexo(ListModelList<String> cmbSexo) {
 		this.cmbSexo = cmbSexo;
 	}
@@ -290,19 +277,15 @@ public class VMEstudianteSancionado {
 	public String getParametroSexo() {
 		return parametroSexo;
 	}
-
 	public void setParametroSexo(String parametroSexo) {
 		this.parametroSexo = parametroSexo;
 	}
-
 	public String getObjsexo() {
 		return objsexo;
 	}
-
 	public void setObjsexo(String objsexo) {
 		this.objsexo = objsexo;
 	}
-
 	public String getParametroVeredicto() {
 		return parametroVeredicto;
 	}
@@ -314,7 +297,6 @@ public class VMEstudianteSancionado {
 	public String getObjVeredicto() {
 		return objVeredicto;
 	}
-
 	public void setObjVeredicto(String objVeredicto) {
 		this.objVeredicto = objVeredicto;
 	}
@@ -401,7 +383,6 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-
 	@Init
 	public void init() {
 		// initialization code
@@ -421,7 +402,6 @@ public class VMEstudianteSancionado {
 	 * @param IdPrograma
 	 * @return lista de de asignaturas, programas
 	 */
-
 	@Command
 	@NotifyChange({ "listaAsignaturas", "objprograma" })
 	public void buscarAsignaturas() {
@@ -440,7 +420,6 @@ public class VMEstudianteSancionado {
 	 * @param
 	 * @return modelos de la lista
 	 */
-
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
 			Arrays.asList(new ReportType("Word (RTF)", "rtf"), new ReportType(
 					"Reporte en Excel", "xls"), new ReportType("Excel (JXL)",
@@ -453,7 +432,6 @@ public class VMEstudianteSancionado {
 	 * @param
 	 * @return lista de estado de Apelación
 	 */
-
 	@Command
 	@NotifyChange({ "listaEdoApelacion" })
 	public void buscarEdoApelacion() {
@@ -472,7 +450,6 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	@Command
 	@NotifyChange({ "listaEdoApelacion" })
 	public EstadoApelacion objCmbEdoApelacion() {
@@ -485,7 +462,6 @@ public class VMEstudianteSancionado {
 	 * @param
 	 * @return lista de tipo motivo
 	 */
-
 	@Command
 	@NotifyChange({ "lista" })
 	public void buscarTipoMotivo() {
@@ -502,7 +478,6 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
 	public TipoMotivo objCmbtipoMotivo() {
@@ -515,7 +490,6 @@ public class VMEstudianteSancionado {
 	 * @param
 	 * @return lista de programa Académico
 	 */
-
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
@@ -532,7 +506,6 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public ProgramaAcademico objCmbprograma() {
@@ -545,7 +518,6 @@ public class VMEstudianteSancionado {
 	 * @param
 	 * @return lista de lapso Académico
 	 */
-
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarActivoLapso() {
@@ -562,20 +534,17 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public LapsoAcademico objCmbLapso() {
 		return objLapso;
 	}
-
 	/**
 	 * buscar Sanción
 	 * 
 	 * @param
 	 * @return lista de sanción
 	 */
-
 	@Command
 	@NotifyChange({ "listaSancion" })
 	public void listadoSancion() {
@@ -583,7 +552,6 @@ public class VMEstudianteSancionado {
 		SancionMaestro san = new SancionMaestro(null, "Todos", null, "Todos");
 		listaSancion.add(listaSancion.size(), san);
 	}
-
 	/**
 	 * Objeto Combo Sanción.
 	 * 
@@ -592,20 +560,17 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	@Command
 	@NotifyChange({ "listaSancion" })
 	public SancionMaestro objCmbSancion() {
 		return objSancion;
 	}
-
 	/**
 	 * buscar Instancia
 	 * 
 	 * @param
 	 * @return lista de instacias apeladas
 	 */
-
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
 	public void listadoInstancia() {
@@ -615,7 +580,6 @@ public class VMEstudianteSancionado {
 				"Todos", null);
 		listaInstanciaApelada.add(listaInstanciaApelada.size(), ins);
 	}
-
 	/**
 	 * Objeto Combo Instancia.
 	 * 
@@ -624,7 +588,6 @@ public class VMEstudianteSancionado {
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
 	public InstanciaApelada objCmbinstanciaApelada() {
