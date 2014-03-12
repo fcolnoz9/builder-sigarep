@@ -1,5 +1,4 @@
 package sigarep.viewmodels.seguridad;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -32,7 +31,6 @@ import org.zkoss.zul.Center;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import sigarep.controlador.maestros.WindowController;
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
@@ -58,7 +56,6 @@ public class VMUtilidadesDeSeguridad {
 	private static User usuario;
 	private String ruta = UtilidadesSigarep.obtenerDirectorio();
 	MensajesAlUsuario mensajes = new MensajesAlUsuario();
-	WindowController winController = new WindowController();
 	@WireVariable
 	ServicioUsuario serviciousuario;
 
