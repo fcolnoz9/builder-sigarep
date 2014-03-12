@@ -19,11 +19,13 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Asignatura;
@@ -146,6 +148,8 @@ public class VMCargarEstudiantesSancionadosXml {
 				SAXBuilder saxBuilder = new SAXBuilder();
 				XMLOutputter output = new XMLOutputter();
 				try {
+					Clients.showBusy("Cargando los  Estudiantes Sancionados...");
+					Events.echoEvent("onUpload", ventana, null);
 					Document doc = saxBuilder.build(new StringReader(dataXml));// transformar y construir la DataXml con el formato del XML, usa la libreria Jdom-2.0.3 para poder usar sus propiedades
 					Element rootNode = doc.getRootElement(); 
 					@SuppressWarnings("rawtypes")
