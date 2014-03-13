@@ -122,4 +122,9 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 				@Param("codigoLapso") String codigoLapso);
 
 	public List<SolicitudApelacion> findByEstudianteSancionado(EstudianteSancionado estudianteSancionado);
+	
+	@Query("SELECT distinct(sa.numeroSesion) FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE' ")			
+	public List<String> buscarSesion();
 }

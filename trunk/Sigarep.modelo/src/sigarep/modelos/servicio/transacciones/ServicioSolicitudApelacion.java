@@ -389,6 +389,16 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO
 				.buscarSolicitudEstudiante(cedulaEstudiante);
 	}
+//Sixmar, Eliecer
+	/**
+	 * Lista de sesiones del lapso actual
+	 * 
+	 * @param ninguno
+	 * @return devuelve una lista de sesiones
+	 */
+	public List<String> buscarSesion() {
+		return iSolicitudApelacionDAO.buscarSesion();
+	}
 
 	/**
 	 * Lista de solicitudes realizadas filtrada por cedula y lapso
@@ -403,7 +413,7 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.buscarSolicitudApelacionLapsoActual(
 				cedula, lapso);
 	}
-
+	
 	public List<SolicitudApelacion> filtrarComboVeredictoListaGenerica(
 			List<SolicitudApelacion> listaFiltrarVeredicto, String veredicto) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
