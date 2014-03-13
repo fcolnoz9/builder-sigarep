@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeEspecialResultadosApelacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04b9911d-9fe8-4979-8b84-81b5095ca9fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
+	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String"/>
+	<parameter name="instancia" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cedulaEstudiante" class="java.lang.String"/>
+	<field name="primerNombre" class="java.lang.String"/>
+	<field name="primerApellido" class="java.lang.String"/>
+	<field name="nombrePrograma" class="java.lang.String"/>
+	<field name="veredicto" class="java.lang.String"/>
+	<field name="nroSesion" class="java.lang.String"/>
+	<field name="fechaSesion" class="java.util.Date"/>
+	<field name="tipoSesion" class="java.lang.String"/>
+	<group name="Programas">
+		<groupExpression><![CDATA[$F{nombrePrograma}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField>
+					<reportElement mode="Opaque" x="60" y="0" width="454" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="b691a460-c09d-4cbc-bdce-e7f1c57004c8"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="11" isBold="true" isItalic="true" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombrePrograma}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Instancias">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="198" splitType="Stretch">
+			<staticText>
+				<reportElement x="107" y="0" width="356" height="48" uuid="10a26dfe-5a26-485f-b825-190bacf02ddc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
+UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
+DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="67" width="110" height="22" uuid="721fc986-5bd7-43c3-9cf5-945b43455c27"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[AVISO]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="89" height="67" uuid="2781fd22-a4c1-444a-80ce-1e54fa74785f"/>
+				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="483" y="0" width="89" height="67" uuid="4543b95e-7003-40de-9cd3-edaf4d290614"/>
+				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="441" y="117" width="98" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="7670fbdb-feb0-4a32-a931-0973fd99b191"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroSesion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="107" y="137" width="65" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="432837ef-d4db-4fdf-b833-b574be87e2eb"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaSesion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="137" width="366" height="20" uuid="c3ba9064-6168-4e82-a301-a5afed6e1dd4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[,    CONSIDERÓ     LAS    SIGUIENTES     SOLICITUDES    DE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="117" width="16" height="20" uuid="c2a0451c-a6f5-4a33-8e51-90253219f6e5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[EL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="117" width="66" height="20" uuid="4e8f0873-d034-493e-92e0-796182a0f8ea"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[EN SESION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="117" width="20" height="20" uuid="8335d8ab-ef01-4aee-a640-54ac10ef3d1d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="137" width="62" height="20" uuid="48110d7e-df83-4ea5-91e8-398826280e49"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[DE FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="157" width="228" height="18" uuid="609d891a-c813-41ec-bf07-d4a8959d5735"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[APELACIÓN:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="117" width="107" height="20" uuid="bfcce2fd-3665-493b-87c2-6317cecf9df5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoSesion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="117" width="155" height="20" uuid="5ecbab73-bf61-4165-a524-1514451ed1d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{instancia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.equals(1)]]></printWhenExpression>
+			<staticText>
+				<reportElement x="386" y="0" width="128" height="24" isPrintInFirstWholeBand="true" uuid="c5b80d92-02d2-440a-b754-577301a4feb8"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Veredicto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="104" height="24" isPrintInFirstWholeBand="true" uuid="a661e7ed-3b60-4b1a-9584-6564a6aea0d8"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Primer Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="0" width="122" height="24" isPrintInFirstWholeBand="true" uuid="53bfea6e-920c-4473-aa08-5ea3bb9a1830"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Primer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="0" width="100" height="24" isPrintInFirstWholeBand="true" uuid="fbcc883e-9588-40fa-a4a4-28a0216f82a9"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="160" y="0" width="104" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="9e6f39a1-30b3-4a19-b13e-b172a27649de"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{primerNombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="264" y="0" width="122" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="db139fdb-769b-4312-a8bd-b901d880c0ed"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{primerApellido}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="386" y="0" width="128" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="9dd0fc1e-d18b-49de-a572-5bc827be36d7"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{veredicto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="60" y="0" width="100" height="20" uuid="fdedf30c-67f8-4a9d-95bc-ae5a41ee10d9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedulaEstudiante}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="272" y="40" width="34" height="20" uuid="94cb8957-3bcf-49fd-8737-2c39d157e219"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Por el]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="313" y="40" width="155" height="20" uuid="26d15856-9266-4dd0-b74a-f120cbe9a3f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{instancia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
