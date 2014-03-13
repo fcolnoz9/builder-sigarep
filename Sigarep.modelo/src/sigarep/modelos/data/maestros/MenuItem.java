@@ -35,10 +35,22 @@ public class MenuItem {
 		children = new ArrayList<MenuItem>();
 	}
 
+	/**
+	 * addChild
+	 * 
+	 * @param node
+	 * @return agrega un nodo al menu de enlaces de interes
+	 */
 	public void addChild(MenuItem node) {
 		children.add(node);
 	}
 
+	/**
+	 * appendChild
+	 * 
+	 * @param child
+	 * @return agrega un nodo hijo al arrelo del menu de enlaces de interes
+	 */
 	public void appendChild(MenuItem child) {
 		if (children == null)
 			children = new ArrayList<MenuItem>();
