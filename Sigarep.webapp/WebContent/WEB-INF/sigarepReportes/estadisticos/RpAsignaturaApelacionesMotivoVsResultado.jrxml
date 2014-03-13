@@ -90,7 +90,7 @@
 			<staticText>
 				<reportElement mode="Transparent" x="441" y="193" width="85" height="20" backcolor="#FFFFFF" uuid="004d668f-6bd4-40b5-a02b-023a46c27355"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[INSTANCIA:]]></text>
 			</staticText>
@@ -139,7 +139,7 @@
 			<staticText>
 				<reportElement mode="Transparent" x="74" y="213" width="86" height="20" backcolor="#FFFFFF" uuid="ef65745c-26a8-4a90-a59b-ef959747840f"/>
 				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[ASIGNATURA:]]></text>
 			</staticText>
