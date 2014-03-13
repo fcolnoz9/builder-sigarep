@@ -1,6 +1,6 @@
-<?page title="Reporte Especial Entudiantes Sancionados y Apelaciones" contentType="text/html;charset=UTF-8"?>
+<?page title="Reporte Especial Estudiantes Sancionados y Apelaciones" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="winEstudianteSancionadoApelacion" title="Reportes :: Informes :: Especial :: Estudiantes Sancionados y sus Apelaciones por Programa e Instancia" border="normal" width="auto" closable="true"
+<window id="winEstudianteSancionadoApelacion" title="Reportes :: Informes :: Especiales :: Estudiantes Sancionados y sus Apelaciones por Programa e Instancia" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEspecialEstudiantesSancionadosApelaciones')">
 		<style src="/widgets/grid/simple/style.css" />
 		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
@@ -76,13 +76,13 @@
 		<separator />
 		
 		<div align="right" height="100%">
-				   	<button label="Generar" id="btnGenerarReporte" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesSancionadoApelacionEspecial')"></button>
-					<button label="Limpiar" id="btnLimpiarReporteEspecial" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombos')" orient="horizontal"> </button>
-					<button label="Cerrar" id="btnCerrarReporteEspecial" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionadoApelacion.onClose()" orient="horizontal"> </button>
+				   	<button label="Generar" id="btnGenerarReporteEspecialSancionados" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesSancionadoApelacionEspecial')"></button>
+					<button label="Limpiar" id="btnLimpiarReporteEspecialSancionados" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombosReporte')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrarReporteEspecialSancionados" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionadoApelacion.onClose()" orient="horizontal"> </button>
 		</div>
 		<groupbox id="grbReporteEspecial" closable="false">
 		 <caption label="Reporte Generado"/>
-			<jasperreport id="reporteEspecial" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" 
+			<jasperreport id="reporteEspecialSancionados" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" 
 				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" 
 				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')"/>
 			<space />

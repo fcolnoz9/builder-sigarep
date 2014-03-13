@@ -259,7 +259,8 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
   					new ReportType("OpenOffice (ODT)", "odt")));
 	
 	
-		
+	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
+	
 	/** buscar Programa Académico
 	 * @param  
 	 * @return lista de programa Académico
@@ -338,9 +339,10 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	public InstanciaApelada objCmbinstanciaApelada() {
 		return objinstanciaApelada;
 	}
-		
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FIN DEL METODO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
-	/** Limpiar Combos.
+	
+	/** Limpiar Combos Reporte.
 	* @param Ninguno
 	* @return Limpiar cada uno de los combos de la vista
 	* @throws No dispara ninguna excepción.
@@ -349,7 +351,7 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	@Command
 	@NotifyChange({ "objprograma", "objSancion","objinstanciaApelada","objLapso",
 		"objVeredicto"})
-	public void limpiarCombos() {
+	public void limpiarCombosReporte() {
 		objprograma = null;
 		objSancion = null;
 		objinstanciaApelada = null;
@@ -441,6 +443,7 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 				mensajeAlUsuario.advertenciaSeleccionarTodo();
 			}
 			else{
+				listaEAS.clear();
 				configurarParametroSancion();
 				configurarParametroInstanciaApelada();
 				configurarParametroProgramaAcademico();
