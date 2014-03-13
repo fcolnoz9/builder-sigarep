@@ -1,0 +1,81 @@
+<?page title="Reporte Especial Resultados Solicitud de Apelación" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="winResultadoApelacion" title="Reportes :: Informes :: Especiales :: Resultados de Solicitud de Apelación por Programa e Instancia" border="normal" width="auto" closable="true"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEspecialResultadoApelacion')">
+		<style src="/widgets/grid/simple/style.css" />
+		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
+			<caption label="Parámetros de Selección" />
+			<grid id="grdResultadosSolicitud">
+				<columns>
+					<column  />
+					<column  />
+					
+					
+				</columns>
+				<rows>
+					<row>
+						<label id="lblProgramaResultado" value="Programa:" />
+						<combobox readonly="true" id="cmbProgramaResultado"  mold="rounded"
+						placeholder = "Seleccione un programa académico..."
+						width="100%" cols="23" maxlength="60" tabindex="1"
+						model="@load(vm.listaPrograma)"
+						selectedItem="@bind(vm.objprograma)">
+						<template name="model">
+							<comboitem label="${each.getNombrePrograma()}" />
+						</template>
+					</combobox>
+						<label id="lblInstanciAResultado" value="Instancia Apelada:" />
+						<combobox id="cmbInstanciaAResultado" readonly="true" mold="rounded"
+						placeholder = "Seleccione una instancia apelada..."
+						width="100%" cols="23" maxlength="100" tabindex="1"
+						 model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)">
+						 <template name="model">
+								<comboitem label="${each.instanciaApelada}" />
+							</template>
+						</combobox>
+						
+					</row>
+					
+					<row>
+					
+						<label id="lblSesionResultado" value="Sesión:" />
+							<combobox id="cmbSesionResultado" readonly="true" mold="rounded"
+							placeholder = "Seleccione una sesión..."
+							width="100%" cols="23" maxlength="100" tabindex="1"
+							 model="@load(vm.listaSolicitudApelacion)" selectedItem="@bind(vm.sesiones)"
+							 >
+								<template name="model">
+									<comboitem label="@load(each)"/>
+								</template>
+							</combobox>
+						Elija el Tipo de Archivo: <listbox id="formatResultado"  mold="select" 
+		                        width="100%" maxlength="30" model="@load(vm.reportTypesModel)"
+		                         selectedItem="@bind(vm.reportType)">
+											<template name="model">
+													<listitem value="@load(each)" label="@load(each.label)"></listitem>
+											</template>
+								</listbox>
+						
+					</row>
+					
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		
+		<div align="right" height="100%">
+				   	<button label="Generar" id="btnGenerarReporteEspecialResultado" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEspecialResultadoApelacion')"></button>
+					<button label="Limpiar" id="btnLimpiarReporteEspecialResultado" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombosEspecialResultados')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrarReporteEspecialResultado" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winResultadoApelacion.onClose()" orient="horizontal"> </button>
+		</div>
+		<groupbox id="grbReporteEspecialResultadosSolicitud" closable="false">
+		 <caption label="Reporte Generado"/>
+			<jasperreport id="reporteEspecialResultadosSolicitud" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEspecialResultadoApelacion')" 
+				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEspecialResultadoApelacion')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEspecialResultadoApelacion')" 
+				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEspecialResultadoApelacion')"/>
+			<space />
+			<space />
+		</groupbox>
+			
+	</window>
+</zk>
