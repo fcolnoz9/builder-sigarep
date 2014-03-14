@@ -2,9 +2,7 @@ package sigarep.modelos.data.transacciones;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.maestros.TipoMotivo;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,10 +16,6 @@ import java.util.List;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "motivo")
-@AssociationOverrides({
-		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "codigo_lapso")),
-		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "cedula_estudiante")),
-		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "id_instancia_apelada")) })
 public class Motivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

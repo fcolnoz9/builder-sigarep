@@ -2,10 +2,8 @@ package sigarep.modelos.data.transacciones;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.Persona;
-
 import java.util.Date;
 
 /**
@@ -17,9 +15,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "instancia_miembro")
-@AssociationOverrides({
-		@AssociationOverride(name = "id.instancia_apelada", joinColumns = @JoinColumn(name = "id_instancia_apelada")),
-		@AssociationOverride(name = "id.cedula_persona", joinColumns = @JoinColumn(name = "cedula_persona")) })
 public class InstanciaMiembro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
