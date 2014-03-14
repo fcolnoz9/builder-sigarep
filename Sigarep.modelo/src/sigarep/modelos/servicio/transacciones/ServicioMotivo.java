@@ -54,7 +54,7 @@ public class ServicioMotivo {
 
 		for (int i = 0; i < motivos.size(); i++) {
 				Motivo motivo = motivos.get(i);
-				elementoAInsertar = "INSERT INTO motivo(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_tipo_motivo, descripcion, estatus)"
+				elementoAInsertar = "INSERT INTO sigarep.motivo(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_tipo_motivo, descripcion, estatus)"
 						+ "VALUES ('"
 						+ motivo.getId().getCedulaEstudiante()
 						+ "','"
@@ -72,7 +72,7 @@ public class ServicioMotivo {
 			List<RecaudoEntregado> recaudosEntregados = motivo.getRecaudoEntregados();
 			for (Iterator<RecaudoEntregado> it = recaudosEntregados.iterator(); it.hasNext();) {
 				RecaudoEntregado recaudoEntregado = it.next();
-				elementoAInsertar = "INSERT INTO recaudo_entregado(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_recaudo, id_tipo_motivo, estatus, observacion_experto)"
+				elementoAInsertar = "INSERT INTO sigarep.recaudo_entregado(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_recaudo, id_tipo_motivo, estatus, observacion_experto)"
 						+ "VALUES ('"
 						+ recaudoEntregado.getId().getCedulaEstudiante()
 						+ "','"
@@ -90,7 +90,7 @@ public class ServicioMotivo {
 				listaElementosAInsertar.add(elementoAInsertar);
 				if(recaudoEntregado.getSoporte()!=null) {
 					Soporte soporte = recaudoEntregado.getSoporte();
-					elementoAInsertar = "INSERT INTO soporte(id_soporte, contenido_documento, nombre_documento, " +
+					elementoAInsertar = "INSERT INTO sigarep.soporte(id_soporte, contenido_documento, nombre_documento, " +
 							"tamano_documento, tipo_documento, estatus, fecha_subida, cedula_estudiante, codigo_lapso, " +
 							"id_instancia_apelada, id_recaudo, id_tipo_motivo)"
 							+ "VALUES ("

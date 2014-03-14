@@ -117,7 +117,7 @@ public class ServicioCronograma {
 
 		for (int i = 0; i < cronogramas.size(); i++) {
 				Cronograma cronograma = cronogramas.get(i);
-				elementoAInsertar = "INSERT INTO cronograma(codigo_lapso, id_actividad, estatus, fecha_fin, fecha_inicio, hora_inicio, lugar, observacion, id_instancia_apelada)"
+				elementoAInsertar = "INSERT INTO sigarep.cronograma(codigo_lapso, id_actividad, estatus, fecha_fin, fecha_inicio, hora_inicio, lugar, observacion, id_instancia_apelada)"
 						+ "VALUES ('"
 						+ cronograma.getId().getCodigoLapso()
 						+ "',"
