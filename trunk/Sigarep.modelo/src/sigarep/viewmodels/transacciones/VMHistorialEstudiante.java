@@ -22,6 +22,7 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
+import sigarep.modelos.data.transacciones.HistorialEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ListaHistorialEstudianteVeredicto;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
@@ -55,7 +56,7 @@ public class VMHistorialEstudiante {
 	private String fechaNacimiento;
 	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
-	private EstudianteSancionado apelacionseleccionada;
+	private HistorialEstudiante apelacionseleccionada;
 	private Estudiante estudiante;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
@@ -74,10 +75,20 @@ public class VMHistorialEstudiante {
     private List<AsignaturaEstudianteSancionado> asignaturas;
 	private EstudianteSancionado estudianteSeleccionado;
 	
+	private List<HistorialEstudiante> listaHistorial = new LinkedList<HistorialEstudiante>();
+	
 	// Para llamar a los diferentes mensajes de dialogo
 				MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();	
 
-				//Métodos  Get y Set
+				public List<HistorialEstudiante> getListaHistorial() {
+					return listaHistorial;
+				}
+
+				public void setListaHistorial(List<HistorialEstudiante> listaHistorial) {
+					this.listaHistorial = listaHistorial;
+				}
+
+	//Métodos  Get y Set
 	public Estudiante getEstudiante() {
 		return estudiante;
 	}
@@ -157,11 +168,11 @@ public class VMHistorialEstudiante {
 
 	
 
-	public EstudianteSancionado getApelacionseleccionada() {
+	public HistorialEstudiante getApelacionseleccionada() {
 		return apelacionseleccionada;
 	}
 
-	public void setApelacionseleccionada(EstudianteSancionado apelacionseleccionada) {
+	public void setApelacionseleccionada(HistorialEstudiante apelacionseleccionada) {
 		this.apelacionseleccionada = apelacionseleccionada;
 	}
 
@@ -346,19 +357,44 @@ public class VMHistorialEstudiante {
 	 */
 
 	@Command
+	@NotifyChange({ "listaHistorial" })
 	public void buscarAsignaturas() {
-		sancion = apelacion.get(0).
-				getSancionMaestro().getNombreSancion();
 		cedula = apelacion.get(0).getId().getCedulaEstudiante();
-		codigoLapso = apelacion.get(0).getId().getCodigoLapso();
-		if (sancion.equalsIgnoreCase("RR")) {
-			asignaturas = servicioasignaturaestudiantesancionado
-					.buscarAsignaturaDeSancion(cedula, codigoLapso);
-			if (asignaturas != null)
-				for (int i = 0; i < asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i)
+		
+		
+		
+		for (int j = 0; j < apelacion.size(); j++){
+			
+			HistorialEstudiante estudianteH = new HistorialEstudiante();
+			estudianteH.setLapsoSancion(apelacion.get(j).getId().getCodigoLapso());
+			estudianteH.setTipoSancion(apelacion.get(j).getSancionMaestro().getNombreSancion());
+			estudianteH.setIndiceGrado(apelacion.get(j).getIndiceGrado());
+			estudianteH.setUnidadesCursadas(apelacion.get(j).getUnidadesCursadas().toString());
+			estudianteH.setUnidadesAprobadas(apelacion.get(j).getUnidadesAprobadas().toString());
+			estudianteH.setCedula(apelacion.get(j).getId().getCedulaEstudiante());
+			sancion = apelacion.get(j).
+					getSancionMaestro().getNombreSancion();
+			codigoLapso = apelacion.get(j).getId().getCodigoLapso();
+			System.out.println(sancion);
+			System.out.println(codigoLapso);
+			if (sancion.equalsIgnoreCase("RR")) {
+				asignaturas = servicioasignaturaestudiantesancionado
+						.buscarAsignaturaDeSancion(cedula, codigoLapso);
+				if (asignaturas != null){
+					for (int i = 0; i < asignaturas.size(); i++){
+						asignaturaLapsosConsecutivos += asignaturas.get(i)
+								.getAsignatura().getNombreAsignatura()
+								+ ", ";
+					estudianteH.setAsignaturas(estudianteH.getAsignaturas()+asignaturas.get(i)
 							.getAsignatura().getNombreAsignatura()
-							+ ", ";
+							+ ", ");
+					}
+				}
+			}else{
+				
+				
+			}
+			listaHistorial.add(estudianteH);
 		}
 	}
 	
@@ -371,9 +407,10 @@ public class VMHistorialEstudiante {
 	 * dispara ninguna excepcion.
 	 */
 	@Command
+	@NotifyChange({ "apelacionseleccionada" })
 	public void showModal() {
-		cedula = apelacionseleccionada.getId().getCedulaEstudiante();
-		codigoLapso = apelacionseleccionada.getId().getCodigoLapso();
+		cedula = apelacionseleccionada.getCedula();
+		codigoLapso = apelacionseleccionada.getLapsoSancion();
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cedula", cedula);
 		map.put("codigoLapso", codigoLapso);
