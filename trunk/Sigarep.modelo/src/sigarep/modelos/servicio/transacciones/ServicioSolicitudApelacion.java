@@ -86,7 +86,7 @@ public class ServicioSolicitudApelacion {
 
 		for (int i = 0; i < solicitudApelaciones.size(); i++) {
 			SolicitudApelacion solicitudApelacion = solicitudApelaciones.get(i);
-			elementoAInsertar = "INSERT INTO solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, numero_caso, fecha_sesion, codigo_sesion, observacion, tipo_sesion, veredicto, analizado, verificado)"
+			elementoAInsertar = "INSERT INTO sigarep.solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, numero_caso, fecha_sesion, codigo_sesion, observacion, tipo_sesion, veredicto, analizado, verificado)"
 					+ "VALUES ('"
 					+ solicitudApelacion.getId().getCedulaEstudiante()
 					+ "','"
@@ -119,7 +119,7 @@ public class ServicioSolicitudApelacion {
 			for (Iterator<ApelacionEstadoApelacion> it = apelacionesEstadoApelacion
 					.iterator(); it.hasNext();) {
 				ApelacionEstadoApelacion apelacionEstadoApelacion = it.next();
-				elementoAInsertar = "INSERT INTO apelacion_estado_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_estado_apelacion, fecha_estado)"
+				elementoAInsertar = "INSERT INTO sigarep.apelacion_estado_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_estado_apelacion, fecha_estado)"
 						+ "VALUES ('"
 						+ apelacionEstadoApelacion.getId()
 								.getCedulaEstudiante()
@@ -139,7 +139,7 @@ public class ServicioSolicitudApelacion {
 					.findBySolicitudApelacion(solicitudApelacion);
 			for (int j = 0; j < motivos.size(); j++) {
 				Motivo motivo = motivos.get(j);
-				elementoAInsertar = "INSERT INTO motivo(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_tipo_motivo, descripcion, estatus)"
+				elementoAInsertar = "INSERT INTO sigarep.motivo(cedula_estudiante, codigo_lapso, id_instancia_apelada, id_tipo_motivo, descripcion, estatus)"
 						+ "VALUES ('"
 						+ motivo.getId().getCedulaEstudiante()
 						+ "','"

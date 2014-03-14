@@ -257,7 +257,7 @@ public class ServicioEstudianteSancionado {
 
 		for (int i = 0; i < estudiantesSancionados.size(); i++) {
 			EstudianteSancionado estudianteSancionado = estudiantesSancionados.get(i);
-			elementoAInsertar = "INSERT INTO estudiante_sancionado(cedula_estudiante, codigo_lapso, estatus, indice_grado, lapsos_academicos_rp, periodo_sacion, semestre, unidades_aprobadas, unidades_cursadas, id_sancion)"
+			elementoAInsertar = "INSERT INTO sigarep.estudiante_sancionado(cedula_estudiante, codigo_lapso, estatus, indice_grado, lapsos_academicos_rp, periodo_sacion, semestre, unidades_aprobadas, unidades_cursadas, id_sancion)"
 					+ "VALUES ('"
 					+ estudianteSancionado.getId().getCedulaEstudiante()
 					+ "','"
@@ -282,7 +282,7 @@ public class ServicioEstudianteSancionado {
 			Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados = estudianteSancionado.getAsignaturaEstudianteSancionados();
 			for (Iterator<AsignaturaEstudianteSancionado> it = asignaturaEstudianteSancionados.iterator(); it.hasNext();) {
 				AsignaturaEstudianteSancionado asignaturaEstudianteSancionado = it.next();
-				elementoAInsertar = "INSERT INTO asignatura_estudiante_sancionado(cedula_estudiante, codigo_asignatura, codigo_lapso, condicion_asignatura)"
+				elementoAInsertar = "INSERT INTO sigarep.asignatura_estudiante_sancionado(cedula_estudiante, codigo_asignatura, codigo_lapso, condicion_asignatura)"
 						+ "VALUES ('"
 						+ asignaturaEstudianteSancionado.getId().getCedulaEstudiante()
 						+ "','"
@@ -296,7 +296,7 @@ public class ServicioEstudianteSancionado {
 			List<SolicitudApelacion> solicitudesApelacion = iSolicitudApelacionDAO.findByEstudianteSancionado(estudianteSancionado);
 			for (int j = 0; j < solicitudesApelacion.size(); j++) {
 				SolicitudApelacion solicitudApelacion = solicitudesApelacion.get(j);
-				elementoAInsertar = "INSERT INTO solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, numero_caso, fecha_sesion, codigo_sesion, observacion, tipo_sesion, veredicto, analizado, verificado)"
+				elementoAInsertar = "INSERT INTO sigarep.solicitud_apelacion(cedula_estudiante, codigo_lapso, id_instancia_apelada, estatus, fecha_solicitud, numero_caso, fecha_sesion, codigo_sesion, observacion, tipo_sesion, veredicto, analizado, verificado)"
 						+ "VALUES ('"
 						+ solicitudApelacion.getId().getCedulaEstudiante()
 						+ "','"
