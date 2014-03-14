@@ -1,6 +1,7 @@
 package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -28,12 +29,27 @@ public class ContactoSigarep implements Serializable {
 	@Column(name = "id_contacto")
 	private Integer idContacto;
 
-	@Column(name = "quienes_somos", length = 20000)
+	@Column(name = "quienes_somos", length = 40000)
 	private String quienesSomos;
 
 	@Column(name = "correo_contacto", length = 150, nullable = false)
 	private String correoContacto;
-
+	
+	@Column(name = "servidor_pop3", length = 50)
+	private String servidorEntrantePop3;
+	
+	@Column(name = "puerto_pop3", length = 4)
+	private String puertoEntradaPop3;
+	
+	@Column(name = "servidor_smtp", length = 50)
+	private String servidorSalidaSmtp;
+	
+	@Column(name = "puerto_smtp", length = 4)
+	private String puertoSalidaSmtp;
+	
+	@Column(name = "clave_correo", length = 30)
+	private String claveCorreo;
+	
 	@Column(name = "twitter", length = 140)
 	private String twitter;
 
@@ -45,6 +61,9 @@ public class ContactoSigarep implements Serializable {
 
 	@Column(name = "direccion_contacto", length = 500)
 	private String direccionContacto;
+	
+	@Column(nullable = false)
+	private Boolean estatus;
 
 	//Constructor por defecto
 	public ContactoSigarep() {
@@ -128,4 +147,52 @@ public class ContactoSigarep implements Serializable {
 		this.direccionContacto = direccionContacto;
 	}
 	//Fin Métodos set y get
-}//Fin Clase ContactoSigarep
+
+	public String getServidorEntrantePop3() {
+		return servidorEntrantePop3;
+	}
+
+	public void setServidorEntrantePop3(String servidorEntrantePop3) {
+		this.servidorEntrantePop3 = servidorEntrantePop3;
+	}
+
+	public String getPuertoEntradaPop3() {
+		return puertoEntradaPop3;
+	}
+
+	public void setPuertoEntradaPop3(String puertoEntradaPop3) {
+		this.puertoEntradaPop3 = puertoEntradaPop3;
+	}
+
+	public String getServidorSalidaSmtp() {
+		return servidorSalidaSmtp;
+	}
+
+	public void setServidorSalidaSmtp(String servidorSalidaSmtp) {
+		this.servidorSalidaSmtp = servidorSalidaSmtp;
+	}
+
+	public String getPuertoSalidaSmtp() {
+		return puertoSalidaSmtp;
+	}
+
+	public void setPuertoSalidaSmtp(String puertoSalidaSmtp) {
+		this.puertoSalidaSmtp = puertoSalidaSmtp;
+	}
+
+	public String getClaveCorreo() {
+		return claveCorreo;
+	}
+
+	public void setClaveCorreo(String claveCorreo) {
+		this.claveCorreo = claveCorreo;
+	}
+
+	public Boolean getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(Boolean estatus) {
+		this.estatus = estatus;
+	}
+}

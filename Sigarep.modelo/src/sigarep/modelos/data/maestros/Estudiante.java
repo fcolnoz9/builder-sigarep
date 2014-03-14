@@ -3,7 +3,6 @@ package sigarep.modelos.data.maestros;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 
 import java.util.Date;
@@ -61,11 +60,6 @@ public class Estudiante implements Serializable {
 
 	@Column(length = 11)
 	private String telefono;
-
-	// Relación bidireccional de muchos a uno, asociada a la clase Usuario
-	@ManyToOne
-	@JoinColumn(name = "nombreusuario", nullable = true)
-	private Usuario nombreUsuario;
 
 	// Relación bidireccional de muchos a uno, asociada a la
 	// claseProgramaAcademico
@@ -216,15 +210,6 @@ public class Estudiante implements Serializable {
 	public void setEstudianteSancionados(
 			List<EstudianteSancionado> estudianteSancionados) {
 		this.estudianteSancionados = estudianteSancionados;
-	}
-
-
-	public Usuario getNombreUsuario() {
-		return nombreUsuario;
-	}
-
-	public void setNombreUsuario(Usuario nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
 	}
 	
 	/**

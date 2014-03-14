@@ -2,13 +2,11 @@ package sigarep.modelos.data.seguridad;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
 import sigarep.herramientas.Archivo;
-import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.Persona;
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
@@ -57,13 +55,9 @@ public class Usuario implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="usuario", cascade={CascadeType.ALL})
 	private Set<UsuarioGrupo> usuariosGrupos = new HashSet<UsuarioGrupo>();
 
-	// Relación bidireccional de uno a muchos, asociada a la clase Estudiante
-	@OneToMany(mappedBy="nombreUsuario")
-	private List<Estudiante> estudiantes;
-
-	// Relación bidireccional de uno a muchos, asociada a la clase Persona
-	@OneToMany(mappedBy="usuario")
-	private List<Persona> personas;
+	// Relación bidireccional de uno a uno, asociada a la clase Persona
+	@OneToOne(mappedBy = "usuario")
+	private Persona persona;
 
 	// Constructor por defecto
 	public Usuario() {
@@ -147,22 +141,6 @@ public class Usuario implements Serializable {
 		return usuariosGrupos;
 	}
 
-	public List<Estudiante> getEstudiantes() {
-		return estudiantes;
-	}
-
-	public void setEstudiantes(List<Estudiante> estudiantes) {
-		this.estudiantes = estudiantes;
-	}
-
-	public List<Persona> getPersonas() {
-		return personas;
-	}
-
-	public void setPersonas(List<Persona> personas) {
-		this.personas = personas;
-	}
-
 	public Archivo getFoto() {
 		return foto;
 	}
@@ -186,5 +164,13 @@ public class Usuario implements Serializable {
 	public void setUltimoAcceso(Date ultimoAcceso) {
 		this.ultimoAcceso = ultimoAcceso;
 	}// Fin Métodos Set y Get
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
 }//Fin Clase Usuario

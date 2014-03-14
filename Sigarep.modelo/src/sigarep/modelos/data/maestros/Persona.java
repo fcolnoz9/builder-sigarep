@@ -1,9 +1,12 @@
 package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.InstanciaMiembro;
+
 import java.util.List;
 
 /**
@@ -36,8 +39,8 @@ public class Persona implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "persona")
 	private List<InstanciaMiembro> instanciaMiembros;
 
-	// Relación bidireccional de muchos a uno, asociada a la clase Usuario
-	@ManyToOne
+	// Relación bidireccional de uno a uno, asociada a la clase Usuario
+	@OneToOne
 	@JoinColumn(name = "nombre_usuario")
 	private Usuario usuario;
 
