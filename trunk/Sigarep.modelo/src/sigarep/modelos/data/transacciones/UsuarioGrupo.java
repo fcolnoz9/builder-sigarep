@@ -3,8 +3,6 @@ package sigarep.modelos.data.transacciones;
 import java.io.Serializable;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -29,11 +27,6 @@ import sigarep.modelos.data.seguridad.Usuario;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name="usuario_grupo")
-@AssociationOverrides({
-	@AssociationOverride(name = "id.usuario", 
-		joinColumns = @JoinColumn(name = "nombre_usuario")),
-	@AssociationOverride(name = "id.grupo", 
-		joinColumns = @JoinColumn(name = "id_grupo")) })
 public class UsuarioGrupo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

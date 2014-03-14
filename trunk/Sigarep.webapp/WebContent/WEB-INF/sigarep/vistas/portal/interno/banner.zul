@@ -12,7 +12,7 @@
 				sclass="banner-head" />
 		</div>
 		<div>
-			<include src="/WEB-INF/sigarep/vistas/usuario.zul" />
+			<include src="/WEB-INF/sigarep/vistas/portal/interno/PerfilUsuario.zul" />
 		</div>
 	</hbox>
 </div>

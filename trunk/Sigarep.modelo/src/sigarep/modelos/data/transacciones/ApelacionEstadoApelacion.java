@@ -2,9 +2,7 @@ package sigarep.modelos.data.transacciones;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.maestros.EstadoApelacion;
-
 import java.util.Date;
 
 /**
@@ -18,11 +16,6 @@ import java.util.Date;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "apelacion_estado_apelacion")
-@AssociationOverrides({
-		@AssociationOverride(name = "id.estado_apelacion", joinColumns = @JoinColumn(name = "id_estado_apelacion")),
-		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "codigo_lapso")),
-		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "cedula_estudiante")),
-		@AssociationOverride(name = "id.solicitud_apelacion", joinColumns = @JoinColumn(name = "id_instancia_apelada")) })
 public class ApelacionEstadoApelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
