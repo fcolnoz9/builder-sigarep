@@ -48,7 +48,6 @@ public class ServicioReporteEstudianteSancionado {
 		"and  ape_edo_ape.id_estado_apelacion="+""+edoApelacion+" and sap.id_instancia_apelada="+""+instanciaApelada+" " +
 		"and san.id_sancion="+""+tiposancion+" " +
 		"and es.id_programa="+""+programaAcademico+"  and sap.veredicto="+""+veredicto+" and sap.codigo_lapso="+""+lapsoAcademico+" "+""+tiraSql+" order by es.primer_nombre  ";
-		System.out.println(queryStatement);
 		Query query = es.createNativeQuery(queryStatement);
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
