@@ -24,15 +24,15 @@ public class ServicioInformeEspecialEstudiantesSancionadosApelaciones {
 		String queryStatement = 
 		"SELECT sa.cedula_estudiante, e.primer_nombre,e.primer_apellido,p.nombre_programa,sm.nombre_sancion,sa.codigo_lapso,es.periodo_sacion,  " +
 		"a.nombre_asignatura, ia.instancia_apelada,sa.veredicto,sa.observacion, tm.nombre_tipo_motivo, m.descripcion,sa.codigo_sesion, sa.fecha_sesion " +
-		"FROM programa_academico as p,estudiante as e,sancion_maestro as sm,lapso_academico as la, solicitud_apelacion AS sa " +
-		"LEFT JOIN asignatura_estudiante_sancionado  AS aes ON (aes.codigo_lapso = sa.codigo_lapso " +
+		"FROM sigarep.programa_academico as p,sigarep.estudiante as e,sigarep.sancion_maestro as sm,sigarep.lapso_academico as la, sigarep.solicitud_apelacion AS sa " +
+		"LEFT JOIN sigarep.asignatura_estudiante_sancionado  AS aes ON (aes.codigo_lapso = sa.codigo_lapso " +
 															  "AND aes.cedula_estudiante = sa.cedula_estudiante) " +
-	    "LEFT JOIN ESTUDIANTE_SANCIONADO AS es ON (es.cedula_estudiante=sa.cedula_estudiante " +
+	    "LEFT JOIN sigarep.ESTUDIANTE_SANCIONADO AS es ON (es.cedula_estudiante=sa.cedula_estudiante " +
 	    										  "AND es.codigo_lapso=sa.codigo_lapso)	" +  
-	    "LEFT JOIN asignatura	as a ON (a.codigo_asignatura=aes.codigo_asignatura) " +
-	    "LEFT JOIN motivo  as m ON (m.cedula_estudiante=sa.cedula_estudiante and m.codigo_lapso=sa.codigo_lapso) " +
-	    "LEFT JOIN tipo_motivo as tm ON (tm.id_tipo_motivo=m.id_tipo_motivo)" +
-	    "LEFT JOIN instancia_apelada as ia ON (ia.id_instancia_apelada=sa.id_instancia_apelada) " +
+	    "LEFT JOIN sigarep.asignatura	as a ON (a.codigo_asignatura=aes.codigo_asignatura) " +
+	    "LEFT JOIN sigarep.motivo  as m ON (m.cedula_estudiante=sa.cedula_estudiante and m.codigo_lapso=sa.codigo_lapso) " +
+	    "LEFT JOIN sigarep.tipo_motivo as tm ON (tm.id_tipo_motivo=m.id_tipo_motivo)" +
+	    "LEFT JOIN sigarep.instancia_apelada as ia ON (ia.id_instancia_apelada=sa.id_instancia_apelada) " +
 	    "WHERE es.codigo_lapso= la.codigo_lapso and la.estatus= 'TRUE' and p.id_programa=e.id_programa AND tm.id_tipo_motivo<>1 AND tm.id_tipo_motivo<>2 AND tm.id_tipo_motivo<>3 AND sm.id_sancion=es.id_sancion AND sa.cedula_estudiante=e.cedula_estudiante AND e.id_programa="+""+programaAcademico+" AND sa.id_instancia_apelada="+""+instanciaApelada+" AND sa.veredicto="+""+veredicto+" AND es.id_sancion="+""+tiposancion+" ORDER BY p.nombre_programa,ia.instancia_apelada,e.primer_nombre,sm.nombre_sancion desc " ;
 	     
 	   	Query query = es.createNativeQuery(queryStatement);
