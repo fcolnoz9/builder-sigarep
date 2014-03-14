@@ -42,7 +42,7 @@ public class ServicioUsuario {
 	public void eliminarFisicamente(String nombreusuario){
 		Usuario miUsuario = iUsuarioDAO.findOne(nombreusuario);
 		
-//		String queryStatement = "delete from usuario_grupo ug where " +
+//		String queryStatement = "delete from sigarep.usuario_grupo ug where " +
 //				"' and ug.nombre_usuario = '"+nombreusuario +"'";
 //				Query query = em.createNativeQuery(queryStatement);
 //				try {
