@@ -18,7 +18,7 @@ public class ServicioReporteEstudianteSancionado {
 	 * @throws No dispara ninguna excepcion.
 	 */
 	public List<EstudianteSancionado> buscarTodosSancionado(String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String sexo,String veredicto,String edoApelacion,String asignatura) {
-		if(tiposancion.equals("'2'") || tiposancion.equals("esa.id_sancion")) {
+		if(tiposancion.equals("'2'")) {
 			tiraSql="and asig.codigo_asignatura="+""+asignatura+"";
 		}
 		else{
