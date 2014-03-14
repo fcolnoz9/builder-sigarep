@@ -17,7 +17,7 @@ public class ServicioHistoricoEstudiante {
 	private EntityManager em;
 	
 	public String buscarEstadoApelacion(Integer idestado){
-		String queryStatement2 = "SELECT nombre_estado FROM estado_apelacion AS estape "
+		String queryStatement2 = "SELECT nombre_estado FROM sigarep.estado_apelacion AS estape "
 				+ "WHERE estape.id_estado_apelacion = ?";
 		Query query = em.createNativeQuery(queryStatement2);
 		query.setParameter(1, idestado);
@@ -27,7 +27,7 @@ public class ServicioHistoricoEstudiante {
 
 	public List<ListaMomento> buscarListaMomentos(String cedula, Integer idInstancia) {
 		String queryStatement2 = "SELECT fecha_estado, id_estado_apelacion, observacion "
-				+ "FROM apelacion_estado_apelacion AS apemo "
+				+ "FROM sigarep.apelacion_estado_apelacion AS apemo "
 				+ "WHERE apemo.cedula_estudiante = ? "
 				+ "AND apemo.id_instancia_apelada = ? "
 				+ "ORDER BY fecha_estado";
@@ -50,12 +50,12 @@ public class ServicioHistoricoEstudiante {
 		String queryStatement2 = "SELECT es.cedula_estudiante, prog.nombre_programa, es.primer_nombre, es.segundo_nombre, "
 				+ "es.primer_apellido, es.segundo_apellido, lapac.codigo_lapso, sanm.nombre_sancion, estsan.lapsos_academicos_RP, "
 				+ "asig.nombre_asignatura, solape.numero_caso, solape.fecha_solicitud, mot.descripcion "
-				+ "FROM sancion_maestro sanm, programa_academico prog, lapso_academico lapac, "
-				+ "instancia_apelada isap, motivo mot, estudiante es, solicitud_apelacion solape, "
-				+ "tipo_motivo tipmo, estudiante_sancionado AS estsan "
-				+ "LEFT JOIN asignatura_estudiante_sancionado AS asiges ON (asiges.codigo_lapso = estsan.codigo_lapso "
+				+ "FROM sigarep.sancion_maestro sanm, sigarep.programa_academico prog, sigarep.lapso_academico lapac, "
+				+ "sigarep.instancia_apelada isap, sigarep.motivo mot, sigarep.estudiante es, sigarep.solicitud_apelacion solape, "
+				+ "sigarep.tipo_motivo tipmo, sigarep.estudiante_sancionado AS estsan "
+				+ "LEFT JOIN sigarep.asignatura_estudiante_sancionado AS asiges ON (asiges.codigo_lapso = estsan.codigo_lapso "
 				+ "AND asiges.cedula_estudiante = estsan.cedula_estudiante) "
-				+ "LEFT JOIN asignatura AS asig ON asig.codigo_asignatura = asiges.codigo_asignatura "
+				+ "LEFT JOIN sigarep.asignatura AS asig ON asig.codigo_asignatura = asiges.codigo_asignatura "
 				+ "WHERE estsan.id_sancion = sanm.id_sancion "
 				+ "AND es.cedula_estudiante = ? "
 				+ "AND es.id_programa = prog.id_programa "
