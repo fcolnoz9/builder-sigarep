@@ -617,7 +617,9 @@ public class VMEstudianteSancionado {
 			configurarParametroSexo();
 			configurarParametroVeredicto();
 			configurarParametroEdoApelacion();
-			configurarParametroAsignatura();
+			if(objSancion.getNombreSancion().equals("RR")){
+				configurarParametroAsignatura();
+			}
 			listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico, parametroTipoSancion,parametroInstanciaApelada, 
 					 parametroMotivo,parametroProgramaAcademico, parametroSexo,parametroVeredicto, parametroEdoApelacion,parametroAsignatura);
 		}
@@ -753,7 +755,7 @@ public class VMEstudianteSancionado {
 		else{
 			cmbAsignatura.setDisabled(true);
 			validarAsignatura="";
-			parametroAsignatura=" ";
+			parametroAsignatura="valor";
 			System.err.println("EPALE Desactive");
 		}
 	}
