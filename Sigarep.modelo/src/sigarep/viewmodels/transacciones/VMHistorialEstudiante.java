@@ -406,10 +406,9 @@ public class VMHistorialEstudiante {
 	 * dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({ "apelacionseleccionada" })
 	public void showModal() {
-		cedula = apelacionseleccionada.getCedula();
-		codigoLapso = apelacionseleccionada.getLapsoSancion();
+		cedula = getApelacionseleccionada().getCedula();
+		codigoLapso = getApelacionseleccionada().getLapsoSancion();
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cedula", cedula);
 		map.put("codigoLapso", codigoLapso);
