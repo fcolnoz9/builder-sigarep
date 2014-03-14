@@ -3,47 +3,47 @@
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="sigarep-persistence" transaction-type="RESOURCE_LOCAL">
+		<class>sigarep.herramientas.Archivo</class>
+		<class>sigarep.herramientas.Documento</class>
 		<class>sigarep.modelos.data.maestros.Actividad</class>
 		<class>sigarep.modelos.data.maestros.Asignatura</class>
-		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado</class>
-		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK</class>
 		<class>sigarep.modelos.data.maestros.Banner</class>
-		<class>sigarep.modelos.data.transacciones.Cronograma</class>
-		<class>sigarep.modelos.data.transacciones.CronogramaPK</class>
+		<class>sigarep.modelos.data.maestros.ContactoSigarep</class>
+		<class>sigarep.modelos.data.maestros.EnlaceInteres</class>
+		<class>sigarep.modelos.data.maestros.EstadoApelacion</class>
 		<class>sigarep.modelos.data.maestros.Estudiante</class>
-		<class>sigarep.modelos.data.transacciones.EstudianteSancionado</class>
-		<class>sigarep.modelos.data.transacciones.EstudianteSancionadoPK</class>
 		<class>sigarep.modelos.data.maestros.InstanciaApelada</class>
 		<class>sigarep.modelos.data.maestros.LapsoAcademico</class>
-		<class>sigarep.modelos.data.transacciones.Motivo</class>
-		<class>sigarep.modelos.data.transacciones.MotivoPK</class>
 		<class>sigarep.modelos.data.maestros.Noticia</class>
+		<class>sigarep.modelos.data.maestros.Persona</class>
 		<class>sigarep.modelos.data.maestros.PreguntaBasica</class>
 		<class>sigarep.modelos.data.maestros.ProgramaAcademico</class>
 		<class>sigarep.modelos.data.maestros.Recaudo</class>
-		<class>sigarep.modelos.data.transacciones.RecaudoEntregado</class>
-		<class>sigarep.modelos.data.transacciones.RecaudoEntregadoPK</class>
 		<class>sigarep.modelos.data.maestros.Reglamento</class>
 		<class>sigarep.modelos.data.maestros.SancionMaestro</class>
+		<class>sigarep.modelos.data.maestros.TipoMotivo</class>
+		<class>sigarep.modelos.data.seguridad.Grupo</class>
+		<class>sigarep.modelos.data.seguridad.Nodo</class>
+		<class>sigarep.modelos.data.seguridad.Usuario</class>
+		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacion</class>
+		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK</class>
+		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado</class>
+		<class>sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK</class>
+		<class>sigarep.modelos.data.transacciones.Cronograma</class>
+		<class>sigarep.modelos.data.transacciones.CronogramaPK</class>
+		<class>sigarep.modelos.data.transacciones.EstudianteSancionado</class>
+		<class>sigarep.modelos.data.transacciones.EstudianteSancionadoPK</class>
+		<class>sigarep.modelos.data.transacciones.InstanciaMiembro</class>
+		<class>sigarep.modelos.data.transacciones.InstanciaMiembroPK</class>
+		<class>sigarep.modelos.data.transacciones.Motivo</class>
+		<class>sigarep.modelos.data.transacciones.MotivoPK</class>
+		<class>sigarep.modelos.data.transacciones.RecaudoEntregado</class>
+		<class>sigarep.modelos.data.transacciones.RecaudoEntregadoPK</class>
 		<class>sigarep.modelos.data.transacciones.SolicitudApelacion</class>
 		<class>sigarep.modelos.data.transacciones.SolicitudApelacionPK</class>
 		<class>sigarep.modelos.data.transacciones.Soporte</class>
-		<class>sigarep.modelos.data.maestros.TipoMotivo</class>
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupo</class>
 		<class>sigarep.modelos.data.transacciones.UsuarioGrupoPK</class>
-		<class>sigarep.herramientas.Archivo</class>
-		<class>sigarep.modelos.data.maestros.EnlaceInteres</class>
-		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK</class>
-		<class>sigarep.modelos.data.transacciones.ApelacionEstadoApelacion</class>
-		<class>sigarep.herramientas.Documento</class>
-		<class>sigarep.modelos.data.maestros.EstadoApelacion</class>
-		<class>sigarep.modelos.data.seguridad.Nodo</class>
-		<class>sigarep.modelos.data.seguridad.Grupo</class>
-		<class>sigarep.modelos.data.seguridad.Usuario</class>
-		<class>sigarep.modelos.data.transacciones.InstanciaMiembro</class>
-		<class>sigarep.modelos.data.maestros.Persona</class>
-		<class>sigarep.modelos.data.transacciones.InstanciaMiembroPK</class>
-		<class>sigarep.modelos.data.maestros.ContactoSigarep</class>
 <!-- 	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
