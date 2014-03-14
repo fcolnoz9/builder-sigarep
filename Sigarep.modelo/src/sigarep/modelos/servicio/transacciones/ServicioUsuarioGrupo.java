@@ -44,7 +44,7 @@ public class ServicioUsuarioGrupo {
 	
 	public void eliminarUsuarioGrupo(Integer idGrupo, String nombreUsuario) 
 	{
-		String queryStatement = "delete from usuario_grupo ug where " +
+		String queryStatement = "delete from sigarep.usuario_grupo ug where " +
 		"ug.id_grupo = '"+idGrupo +"' and ug.nombre_usuario = '"+nombreUsuario +"'";
 		Query query = em.createNativeQuery(queryStatement);
 		try {
