@@ -24,7 +24,7 @@ public class ServicioInformeEspecialResultadoApelacion {
 	 */
 	public List<ListaInformeEspecialResultadosApelacion> buscarEstudianteResultadoApelacion(String instanciaApelada, String programaAcademico,String sesion) {
 		String queryStatement = 
-		"SELECT sa.cedula_estudiante, e.primer_nombre,e.primer_apellido,p.nombre_programa,sa.veredicto,sa.codigo_sesion, sa.fecha_sesion, sa.tipo_sesion FROM programa_academico as p,estudiante as e,lapso_academico as la, solicitud_apelacion AS sa LEFT JOIN instancia_apelada as ia ON (ia.id_instancia_apelada=sa.id_instancia_apelada) " +
+		"SELECT sa.cedula_estudiante, e.primer_nombre,e.primer_apellido,p.nombre_programa,sa.veredicto,sa.codigo_sesion, sa.fecha_sesion, sa.tipo_sesion FROM sigarep.programa_academico as p,sigarep.estudiante as e,sigarep.lapso_academico as la, sigarep.solicitud_apelacion AS sa LEFT JOIN sigarep.instancia_apelada as ia ON (ia.id_instancia_apelada=sa.id_instancia_apelada) " +
 	    "WHERE sa.codigo_lapso= la.codigo_lapso and la.estatus= 'TRUE' and p.id_programa=e.id_programa AND sa.codigo_sesion= ? AND sa.cedula_estudiante=e.cedula_estudiante AND e.id_programa="+""+programaAcademico+" AND sa.id_instancia_apelada="+""+instanciaApelada+"  ORDER BY p.nombre_programa,ia.instancia_apelada,e.primer_nombre desc " ;
 	     
 	   	Query query = es.createNativeQuery(queryStatement);
