@@ -42,7 +42,7 @@ public class ServicioNodo{
 	public List<Nodo> funcionesGrupoNoPerteneceGrupo(Integer idGrupo) 
 	{
 		List<Nodo> results = new ArrayList<Nodo>();
-		String queryStatement = "SELECT DISTINCT nodo.id, nodo.tipo, nodo.nombre_funcion, nodo.vinculo, nodo.estatus, nodo.padre, nodo.ruta_modal FROM menu_arbol nodo WHERE nodo.tipo = 'F' AND nodo.id NOT IN (SELECT nodo.id FROM menu_arbol nodo, grupo g, funcion_grupo fg WHERE nodo.id = fg.id_nodo AND fg.id_grupo = g.id_grupo AND g.id_grupo = "+ idGrupo +") ORDER BY nodo.id";
+		String queryStatement = "SELECT DISTINCT nodo.id, nodo.tipo, nodo.nombre_funcion, nodo.vinculo, nodo.estatus, nodo.padre, nodo.ruta_modal FROM sigarep.menu_arbol nodo WHERE nodo.tipo = 'F' AND nodo.id NOT IN (SELECT nodo.id FROM sigarep.menu_arbol nodo, sigarep.grupo g, sigarep.funcion_grupo fg WHERE nodo.id = fg.id_nodo AND fg.id_grupo = g.id_grupo AND g.id_grupo = "+ idGrupo +") ORDER BY nodo.id";
 		Query query = em.createNativeQuery(queryStatement);
 //		try {
 			@SuppressWarnings("unchecked")
