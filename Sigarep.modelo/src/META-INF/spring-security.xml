@@ -25,10 +25,10 @@
 		<jdbc-user-service data-source-ref="dataSource"
 			 users-by-username-query="
 		      select nombre_usuario,clave,estado 
-		      from usuario where nombre_usuario=?" 
+		      from sigarep.usuario where nombre_usuario=?" 
  
 		   authorities-by-username-query="
-		      select u.nombre_usuario, g.nombre from usuario u, usuario_grupo ug,grupo g 
+		      select u.nombre_usuario, g.nombre from sigarep.usuario u, sigarep.usuario_grupo ug, sigarep.grupo g 
 		      where u.nombre_usuario = ug.nombre_usuario and ug.id_grupo = g.id_grupo and u.nombre_usuario =?"
 
 		      />
