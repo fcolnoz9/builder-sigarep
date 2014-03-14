@@ -385,10 +385,9 @@ public class VMHistorialEstudiante {
 						asignaturaLapsosConsecutivos += asignaturas.get(i)
 								.getAsignatura().getNombreAsignatura()
 								+ ", ";
-					estudianteH.setAsignaturas(estudianteH.getAsignaturas()+asignaturas.get(i)
-							.getAsignatura().getNombreAsignatura()
-							+ ", ");
+					
 					}
+					estudianteH.setAsignaturas(asignaturaLapsosConsecutivos);
 				}
 			}else{
 				
