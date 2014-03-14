@@ -1,6 +1,6 @@
 <zk>
 <?page title="Registrar Asignaturas Por Lote" contentType="text/html;charset=UTF-8"?>
-<window  id="winCargarAsignaturaLote" title="Registros Básicos :: Asignaturas :: Cargar Asignatura Por Lote" border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="true"
+<window  id="winCargarAsignaturaLote" title="Registros Básicos :: Asignaturas " border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="true"
     viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarAsignaturasXml')">
 	<groupbox >
 		<caption label="Cargar Asignaturas" />

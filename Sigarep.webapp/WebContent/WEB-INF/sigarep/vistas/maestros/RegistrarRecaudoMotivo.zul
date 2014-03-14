@@ -44,14 +44,14 @@
 						value="Descripción: " />
 					<textbox id="txtDescripcionRecaudo" 
 					placeholder="Ingrese la descripción del recaudo" 
-					mold="rounded" width="77%"  rows="3" tabindex="2"  maxlength="255"
+					mold="rounded" width="80%"  rows="3" tabindex="2"  maxlength="255"
 						value="@bind(vm.descripcion)" />
 						
 					<label id="lblObservacionRecaudo"
 						value="Observación: " />
 					<textbox  id="txtObservacionRecaudo"
 					placeholder="Ingrese la observación del recaudo" 
-					mold="rounded" width="77%"  rows="3" tabindex="2"  maxlength="255"
+					mold="rounded" width="80%"  rows="3" tabindex="2"  maxlength="255"
 						value="@bind(vm.observacion)" />
 				</row>
 				<row>
