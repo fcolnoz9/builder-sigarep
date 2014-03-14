@@ -3,11 +3,19 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Asignatura;
@@ -64,7 +72,7 @@ public class VMEstudianteSancionado {
 	private List<Asignatura> listaAsignaturas;
 	// ***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private LapsoAcademico objLapso;
-	private SancionMaestro objSancion;
+	private SancionMaestro objSancion,objCmbSancion;
 	private ProgramaAcademico objprograma;
 	private TipoMotivo objtipoMotivo;
 	private InstanciaApelada objinstanciaApelada;
@@ -83,6 +91,7 @@ public class VMEstudianteSancionado {
 	private String parametroVeredicto;
 	private String parametroEdoApelacion;
 	private String parametroAsignatura;
+	private String validarAsignatura;
 	// *****************************************REPORTE******************************************
 	ReportType reportType = null;
 	ReportConfig reportConfig = null;
@@ -90,8 +99,10 @@ public class VMEstudianteSancionado {
 	private ListModelList<String> cmbVeredicto;// Lista para llenar el combo Veredicto
 	private ListModelList<String> cmbEdoApelacion;// Lista para llenar el combo Edo Apelacion
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	// **************METODOS SET Y GET NECESARIOS PARA GENERAR
-	// REPORTE*****************
+	//Conectar con el Combo de Sanción para Habilitarlo y deshabilitarlo
+	@Wire("#cmbAsignaturas")
+	Combobox cmbAsignatura;
+	// **************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	public SancionMaestro getObjSancion() {
 		return objSancion;
 	}
@@ -140,6 +151,14 @@ public class VMEstudianteSancionado {
 		this.asignaturas = asignaturas;
 	}
 
+	public SancionMaestro getObjCmbSancion() {
+		return objCmbSancion;
+	}
+
+	public void setObjCmbSancion(SancionMaestro objCmbSancion) {
+		this.objCmbSancion = objCmbSancion;
+	}
+
 	public List<InstanciaApelada> getListaInstanciaApelada() {
 		return listaInstanciaApelada;
 	}
@@ -163,6 +182,14 @@ public class VMEstudianteSancionado {
 
 	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
 		this.listaPrograma = listaPrograma;
+	}
+    
+	public String getValidarAsignatura() {
+		return validarAsignatura;
+	}
+
+	public void setValidarAsignatura(String validarAsignatura) {
+		this.validarAsignatura = validarAsignatura;
 	}
 
 	public List<LapsoAcademico> getListaLapsoAcademico() {
@@ -381,6 +408,11 @@ public class VMEstudianteSancionado {
 		buscarEdoApelacion();
 		cmbSexo = new ListModelList<String>();
 		cmbVeredicto = new ListModelList<String>();
+	}
+	@AfterCompose//************METODO QUE SIRVE PARA CONECTAR CUALQUIER COMPONENTE EN LA VISTA*******
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+	        Selectors.wireComponents(view, this, false);
+	        Selectors.wireComponents(cmbAsignatura, this, false);//***SE CONECTO EL COMBO DE SANCION*** 
 	}
 
 	/**
@@ -622,7 +654,7 @@ public class VMEstudianteSancionado {
 		}
 		return parametroLapsoAcademico;
 	}
-	@NotifyChange({ "parametroTipoSancion" })// ********CONFIGURAR TIPO SANCION*******
+	@NotifyChange({ "parametroTipoSancion"})// ********CONFIGURAR TIPO SANCION*******
 	@Command
 	public String configurarParametroSancion() {
 		if (objSancion.getNombreSancion() == "Todos") {
@@ -709,6 +741,21 @@ public class VMEstudianteSancionado {
 			parametroAsignatura = "'" + objAsignatura.getCodigoAsignatura()+ "'";
 		}
 		return parametroAsignatura;
+	}
+	@Command                       //*********CONFIGURAR COMBO ASIGNATURA POR SANCION*******
+	@NotifyChange({"cmbAsignatura","validarAsignatura","parametroAsignatura"})
+	public void configurarComboAsignatura(){
+		if(!objSancion.getNombreSancion().equals("RP")){
+			cmbAsignatura.setDisabled(false);
+			 validarAsignatura="|| objAsignatura==null";
+			System.err.println("EPALE PASE POR AQUI ACTIVANDO");
+		}
+		else{
+			cmbAsignatura.setDisabled(true);
+			validarAsignatura="";
+			parametroAsignatura=" ";
+			System.err.println("EPALE Desactive");
+		}
 	}
 	@NotifyChange({ "reportConfig" })
 	@Command("GenerarReporteEstudiantesSancionadosConfigurable")// ********CONFIGURAR REPORTE**********
