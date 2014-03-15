@@ -2,7 +2,7 @@ package sigarep.modelos.data.reportes;
 
 import java.util.Date;
 
-public class ListaInformeEspecialResultadosApelacion {
+public class ListaInformeEstructuradoResultadosApelacion {
 	
 	private String cedulaEstudiante;
 	private String primerNombre;
@@ -13,11 +13,11 @@ public class ListaInformeEspecialResultadosApelacion {
 	private Date fechaSesion;
 	private String tipoSesion;
 	
-	public ListaInformeEspecialResultadosApelacion() {
+	public ListaInformeEstructuradoResultadosApelacion() {
 		
 	}
 	
-	public ListaInformeEspecialResultadosApelacion(String cedulaEstudiante,String primerNombre, String primerApellido, String nombrePrograma, String veredicto, String nroSesion, Date fechaSesion, String tipoSesion) {
+	public ListaInformeEstructuradoResultadosApelacion(String cedulaEstudiante,String primerNombre, String primerApellido, String nombrePrograma, String veredicto, String nroSesion, Date fechaSesion, String tipoSesion) {
 		this.cedulaEstudiante= cedulaEstudiante;
 		this.primerNombre= primerNombre;
 		this.primerApellido= primerApellido;

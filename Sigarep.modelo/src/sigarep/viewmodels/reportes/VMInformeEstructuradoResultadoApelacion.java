@@ -6,46 +6,40 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
-import sigarep.modelos.data.reportes.ListaInformeEspecialResultadosApelacion;
+import sigarep.modelos.data.reportes.ListaInformeEstructuradoResultadosApelacion;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
-import sigarep.modelos.servicio.reportes.ServicioInformeEspecialResultadoApelacion;
+import sigarep.modelos.servicio.reportes.ServicioInformeEstructuradoResultadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMInformeEspecialResultadoApelacion {
+public class VMInformeEstructuradoResultadoApelacion {
 
-	String ruta= "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeEspecialResultadosApelacion.jasper";	
+	String ruta= "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeEstructuradoResultadosApelacion.jasper";	
 	
 	@Wire("#winResultadoApelacion") // para conectarse a la ventana con el ID
-	Window ventana;
+	Window ventana2;
 	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	
 	@WireVariable
@@ -55,13 +49,13 @@ public class VMInformeEspecialResultadoApelacion {
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
-	private ServicioInformeEspecialResultadoApelacion servicioInformeEspecialResultadoApelacion;
+	private ServicioInformeEstructuradoResultadoApelacion servicioInformeEstructuradoResultadoApelacion;
 	
 	//***********************************DECLARACION DE LISTAS*************************
 	private List<ProgramaAcademico> listaPrograma;
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private List<String> listaSolicitudApelacion;
-	private List<ListaInformeEspecialResultadosApelacion> listaERA = new LinkedList<ListaInformeEspecialResultadosApelacion>();
+	private List<ListaInformeEstructuradoResultadosApelacion> listaERA = new LinkedList<ListaInformeEstructuradoResultadosApelacion>();
 	
 	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private ProgramaAcademico  objprograma;
@@ -121,11 +115,11 @@ public class VMInformeEspecialResultadoApelacion {
 		List<String> listaSolicitudApelacion) {
 		this.listaSolicitudApelacion = listaSolicitudApelacion;
 	}
-	public List<ListaInformeEspecialResultadosApelacion> getListaERA() {
+	public List<ListaInformeEstructuradoResultadosApelacion> getListaERA() {
 		return listaERA;
 	}
 	public void setListaERA(
-		List<ListaInformeEspecialResultadosApelacion> listaERA) {
+		List<ListaInformeEstructuradoResultadosApelacion> listaERA) {
 		this.listaERA = listaERA;
 	}
 	public ProgramaAcademico getObjprograma() {
@@ -219,12 +213,13 @@ public class VMInformeEspecialResultadoApelacion {
 	 */
   	
 	@Init
-		public void init(){
+		public void init(@ContextParam(ContextType.VIEW) Component view){
+		Selectors.wireComponents(view, this, false);
 		buscarProgramaA();
 		listadoInstancia();
 		listaSesion();
-		if(listaSolicitudApelacion.size()==0){
-			cerrarVentanaReporteResultado(ventana);
+		if(listaSolicitudApelacion.size()== 0){
+			mensajeAlUsuario.cerrarVentanaSinVeredicto(ventana2, true);
 		}
 	}
 		
@@ -244,15 +239,13 @@ public class VMInformeEspecialResultadoApelacion {
 	  					new ReportType("CSV", "csv"), 
 	  					new ReportType("OpenOffice (ODT)", "odt")));
 		
+		//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
 		/** buscar Programa Académico
 		 * @param  
 		 * @return lista de programa Académico
 		 * @throws No dispara ninguna excepción.
 		 */
 		
-		
-		//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
-
 		@Command
 		@NotifyChange({ "listaPrograma" })
 		public void buscarProgramaA() {
@@ -379,15 +372,15 @@ public class VMInformeEspecialResultadoApelacion {
 					numeroSesion= sesiones;
 					
 					
-					listaERA = servicioInformeEspecialResultadoApelacion.buscarEstudianteResultadoApelacion(instancia, parametroProgramaAcademico, numeroSesion);
+					listaERA = servicioInformeEstructuradoResultadoApelacion.buscarEstudianteResultadoApelacion(instancia, parametroProgramaAcademico, numeroSesion);
 			
 					if(listaERA.size()>0){
 						
 						reportConfig =new ReportConfig(ruta);
 						if(objinstanciaApelada.getIdInstanciaApelada()== 1 || objinstanciaApelada.getIdInstanciaApelada() == 2){
-							reportConfig.getParameters().put("instancia", "CONSEJO DE DECANATO");
+							reportConfig.getParameters().put("instancia", "Consejo de Decanato");
 						} else{
-							reportConfig.getParameters().put("instancia", "CONSEJO UNIVERSITARIO");
+							reportConfig.getParameters().put("instancia", "Consejo Universitario");
 						}
 						reportConfig.setType(reportType);
 						reportConfig.setDataSource(new JRBeanCollectionDataSource(listaERA));
@@ -397,34 +390,6 @@ public class VMInformeEspecialResultadoApelacion {
 				
 					}
 				}
-		}
-		
-		// #####################MENSAJE PARA CERRAR##########################
-		/**
-		* cerrarVentana
-		* @param binder
-		* @return nada
-		* @throws no posee excepciones
-		* 
-		*/
-		@Command
-		@NotifyChange({})
-		public void cerrarVentanaReporteResultado(
-				@ContextParam(ContextType.BINDER) final Window ventana2) {
-
-			Messagebox.show("No se ha dictado veredicto a las solicitudes de apelación", "Información",
-					new Messagebox.Button[] { Messagebox.Button.OK
-							 }, Messagebox.INFORMATION,
-					new EventListener<ClickEvent>() {
-						@SuppressWarnings("incomplete-switch")
-						public void onEvent(ClickEvent e) throws Exception {
-							switch (e.getButton()) {
-							case OK:
-								ventana.detach();
-
-							}
-						}
-					});
 		}
 		
 		
