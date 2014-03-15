@@ -455,7 +455,7 @@ public class VMEstudianteSancionado {
 	public void buscarEdoApelacion() {
 		listaEdoApelacion = servicioestadoapelacion.listadoEstadoApelacionActivas();
 		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos",null);
-		listaEdoApelacion.add(listaEdoApelacion.size()/* 0 */, edo_ape);
+		listaEdoApelacion.add(listaEdoApelacion.size(), edo_ape);
 	}
 	/**
 	 * Objeto Combo Estado Apelación.
@@ -602,10 +602,11 @@ public class VMEstudianteSancionado {
 	}
 
 	@Command
-	@NotifyChange({ "listaE" })
+	@NotifyChange({ "listaE","parametroAsignatura" })
 	public void buscarEstudianteSancionado() {
+		parametroAsignatura="";
 		if (objinstanciaApelada == null || objLapso == null || objprograma == null || objSancion == null || objsexo == null
-				|| objtipoMotivo == null || objVeredicto == null || objEdoApelacion == null) {
+				|| objtipoMotivo == null || objVeredicto == null || objEdoApelacion == null ||  reportType== null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} 
 		else {
@@ -618,6 +619,7 @@ public class VMEstudianteSancionado {
 			configurarParametroVeredicto();
 			configurarParametroEdoApelacion();
 			if(objSancion.getNombreSancion().equals("RR")){
+				parametroAsignatura="";
 				configurarParametroAsignatura();
 			}
 			listaE = servicioreporteestudiantesancionado.buscarTodosSancionado(parametroLapsoAcademico, parametroTipoSancion,parametroInstanciaApelada, 
@@ -745,19 +747,23 @@ public class VMEstudianteSancionado {
 		return parametroAsignatura;
 	}
 	@Command                       //*********CONFIGURAR COMBO ASIGNATURA POR SANCION*******
-	@NotifyChange({"cmbAsignatura","validarAsignatura","parametroAsignatura"})
+	@NotifyChange({"cmbAsignatura","objAsignatura","parametroAsignatura"})
 	public void configurarComboAsignatura(){
 		if(!objSancion.getNombreSancion().equals("RP")){
 			cmbAsignatura.setDisabled(false);
-			 validarAsignatura="|| objAsignatura==null";
-			System.err.println("EPALE PASE POR AQUI ACTIVANDO");
+			objAsignatura= new Asignatura(null, true,"valor", 3,null);
+
 		}
 		else{
 			cmbAsignatura.setDisabled(true);
-			validarAsignatura="";
-			parametroAsignatura="valor";
+			parametroAsignatura="v";
 			System.err.println("EPALE Desactive");
 		}
+	}
+	@Command
+	@NotifyChange
+	public void configurarValidacionAsignatura(){
+		
 	}
 	@NotifyChange({ "reportConfig" })
 	@Command("GenerarReporteEstudiantesSancionadosConfigurable")// ********CONFIGURAR REPORTE**********
