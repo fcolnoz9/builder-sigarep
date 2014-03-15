@@ -134,10 +134,19 @@ public class VMTipoMotivo {
     	if (nombreTipoMotivo == null || descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
-			
+			   
+			   if(idTipoMotivo!=null) {
 				if (idTipoMotivo == 1 ||idTipoMotivo == 2 ||idTipoMotivo == 3 ){
 					mensajeAlUsuario.errorNoModificarMotivoGeneral();
 				} else{
+					TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo, false);
+					serviciotipomotivo.guardarTipoMotivo(tipo);
+					mensajeAlUsuario.informacionRegistroCorrecto();
+					limpiar();
+				}
+				
+			   }
+			   else{
 					TipoMotivo tipo = new TipoMotivo(idTipoMotivo, descripcion, true, nombreTipoMotivo, false);
 					serviciotipomotivo.guardarTipoMotivo(tipo);
 					mensajeAlUsuario.informacionRegistroCorrecto();
