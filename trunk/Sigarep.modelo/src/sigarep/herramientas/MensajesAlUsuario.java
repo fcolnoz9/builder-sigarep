@@ -1,5 +1,9 @@
 package sigarep.herramientas;
 
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.EventListener;
@@ -460,5 +464,23 @@ public class MensajesAlUsuario {
 						}
 					});
 		}
+	}
+	
+	
+	public void cerrarVentanaSinVeredicto(final Window ventana, boolean condicion) {
+
+		Messagebox.show("No se ha dictado veredicto a las solicitudes de apelación", "Información",
+				new Messagebox.Button[] { Messagebox.Button.OK
+						 }, Messagebox.INFORMATION,
+				new EventListener<ClickEvent>() {
+					@SuppressWarnings("incomplete-switch")
+					public void onEvent(ClickEvent e) throws Exception {
+						switch (e.getButton()) {
+						case OK:
+							ventana.detach();
+
+						}
+					}
+				});
 	}
 }

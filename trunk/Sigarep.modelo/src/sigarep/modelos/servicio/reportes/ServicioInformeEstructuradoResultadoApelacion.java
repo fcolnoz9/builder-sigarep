@@ -10,11 +10,11 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 
-import sigarep.modelos.data.reportes.ListaInformeEspecialResultadosApelacion;
+import sigarep.modelos.data.reportes.ListaInformeEstructuradoResultadosApelacion;
 
 
-@Service("servicioInformeEspecialResultadoApelacion")
-public class ServicioInformeEspecialResultadoApelacion {
+@Service("servicioInformeEstructuradoResultadoApelacion")
+public class ServicioInformeEstructuradoResultadoApelacion {
 	@PersistenceContext
 	private EntityManager es;
 	/** Buscar Estudiante Resultado Apelacion
@@ -22,7 +22,7 @@ public class ServicioInformeEspecialResultadoApelacion {
 	 * @return Listado del Resultado de la búsqueda 
 	 * @throws No dispara ninguna excepcion.
 	 */
-	public List<ListaInformeEspecialResultadosApelacion> buscarEstudianteResultadoApelacion(String instanciaApelada, String programaAcademico,String sesion) {
+	public List<ListaInformeEstructuradoResultadosApelacion> buscarEstudianteResultadoApelacion(String instanciaApelada, String programaAcademico,String sesion) {
 		String queryStatement = 
 		"SELECT sa.cedula_estudiante, e.primer_nombre,e.primer_apellido,p.nombre_programa,sa.veredicto,sa.codigo_sesion, sa.fecha_sesion, sa.tipo_sesion FROM sigarep.programa_academico as p,sigarep.estudiante as e,sigarep.lapso_academico as la, sigarep.solicitud_apelacion AS sa LEFT JOIN sigarep.instancia_apelada as ia ON (ia.id_instancia_apelada=sa.id_instancia_apelada) " +
 	    "WHERE sa.codigo_lapso= la.codigo_lapso and la.estatus= 'TRUE' and p.id_programa=e.id_programa AND sa.codigo_sesion= ? AND sa.cedula_estudiante=e.cedula_estudiante AND e.id_programa="+""+programaAcademico+" AND sa.id_instancia_apelada="+""+instanciaApelada+"  ORDER BY p.nombre_programa,ia.instancia_apelada,e.primer_nombre desc " ;
@@ -32,9 +32,9 @@ public class ServicioInformeEspecialResultadoApelacion {
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
-		List<ListaInformeEspecialResultadosApelacion> results = new ArrayList<ListaInformeEspecialResultadosApelacion>();
+		List<ListaInformeEstructuradoResultadosApelacion> results = new ArrayList<ListaInformeEstructuradoResultadosApelacion>();
 		for (Object[] resultRow : resultSet) {
-			results.add(new ListaInformeEspecialResultadosApelacion(
+			results.add(new ListaInformeEstructuradoResultadosApelacion(
 					(String)  resultRow[0],
 					(String)  resultRow[1],
 					(String)  resultRow[2],
