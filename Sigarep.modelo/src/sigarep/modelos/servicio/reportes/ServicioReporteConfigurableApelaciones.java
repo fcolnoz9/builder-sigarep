@@ -16,26 +16,43 @@ import sigarep.modelos.data.reportes.ConfigurableApelaciones;
 public class ServicioReporteConfigurableApelaciones {
 	@PersistenceContext
 	private EntityManager es;
+	private String tiraSql;
 	/** Buscar todos los atributos de las apelaciones
 	 * @param String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String veredicto,String edoApelacion
 	 * @return Listado del Resultado de la busqueda 
 	 * @throws No dispara ninguna excepcion.
 	 */
-	public List<ConfigurableApelaciones> buscarTodasApelaciones(String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String veredicto,String edoApelacion) {
+	public List<ConfigurableApelaciones> buscarTodasApelaciones(String lapsoAcademico,String tiposancion,String instanciaApelada,String tipoMotivo, String programaAcademico,String veredicto,String edoApelacion,String asignatura) {
+		if(tiposancion.equals("'2'")) {
+			tiraSql="and asig.codigo_asignatura="+""+asignatura+"";
+		}
+		else{
+			tiraSql="";
+		}
 		String queryStatement = 
-		"SELECT Distinct es.primer_nombre, es.primer_apellido, es.sexo,prog.nombre_programa,san.nombre_sancion, tm.nombre_tipo_motivo,iap.instancia_apelada,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado  " +
-		"FROM sigarep.estado_apelacion edo_ape, sigarep.estudiante es  " +
-		"INNER JOIN sigarep.estudiante_sancionado as esa ON esa.cedula_estudiante=es.cedula_estudiante " +
-	    "INNER JOIN sigarep.solicitud_apelacion as sap ON sap.cedula_estudiante=esa.cedula_estudiante " +
-	    "INNER JOIN sigarep.lapso_academico as lapso ON lapso.codigo_lapso=sap.codigo_lapso " +
-	    "INNER JOIN sigarep.motivo as mot ON mot.cedula_estudiante=sap.cedula_estudiante " +
-	    "INNER JOIN sigarep.tipo_motivo as tm ON tm.id_tipo_motivo=mot.id_tipo_motivo " +
-	    "INNER JOIN sigarep.instancia_apelada as iap ON iap.id_instancia_apelada=sap.id_instancia_apelada " +
-	    "INNER JOIN sigarep.programa_academico as prog ON prog.id_programa=es.id_programa " +
-	    "INNER JOIN sigarep.sancion_maestro as san ON san.id_sancion=esa.id_sancion " +
-	    "INNER JOIN sigarep.apelacion_estado_apelacion as ap_edo ON ap_edo.cedula_estudiante =sap.cedula_estudiante " +
-	    "where es.id_programa="+""+programaAcademico+"  and sap.id_instancia_apelada="+""+instanciaApelada+" " +
-	    "and mot.id_tipo_motivo="+""+tipoMotivo+" and sap.codigo_lapso="+""+lapsoAcademico+" and esa.id_sancion="+""+tiposancion+" and sap.veredicto="+""+veredicto+" and edo_ape.id_estado_apelacion="+""+edoApelacion+" order by es.primer_nombre " ;
+		"SELECT Distinct prog.nombre_programa,san.nombre_sancion, " + 
+		"tm.nombre_tipo_motivo,iap.instancia_apelada,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado,asig.nombre_asignatura " +
+		"FROM sigarep.estudiante es " + 
+		"LEFT JOIN sigarep.estudiante_sancionado as esa ON esa.cedula_estudiante=es.cedula_estudiante " +
+		"LEFT JOIN sigarep.solicitud_apelacion as sap ON sap.cedula_estudiante=esa.cedula_estudiante " +
+		"LEFT JOIN sigarep.instancia_apelada as iap ON iap.id_instancia_apelada=sap.id_instancia_apelada " +
+		"LEFT JOIN sigarep.apelacion_estado_apelacion as ap_edoap ON ap_edoap.cedula_estudiante=sap.cedula_estudiante " +
+		"LEFT JOIN sigarep.programa_academico as prog ON  prog.id_programa=es.id_programa " +
+		"LEFT JOIN sigarep.sancion_maestro as san ON san.id_sancion=esa.id_sancion " +
+		"LEFT JOIN sigarep.motivo as mot ON mot.cedula_estudiante=sap.cedula_estudiante " +
+		"LEFT JOIN sigarep.lapso_academico as lapso ON lapso.codigo_lapso=sap.codigo_lapso " +
+		"LEFT JOIN sigarep.tipo_motivo as tm ON tm.id_tipo_motivo=mot.id_tipo_motivo " +
+		"LEFT JOIN sigarep.asignatura_estudiante_sancionado as asig_esan ON (asig_esan.cedula_estudiante=sap.cedula_estudiante and asig_esan.codigo_lapso= sap.codigo_lapso) " +
+		"LEFT JOIN sigarep.asignatura as asig ON asig.codigo_asignatura=asig_esan.codigo_asignatura " +
+		"LEFT JOIN sigarep.apelacion_estado_apelacion as ape_edo_ape ON ape_edo_ape.cedula_estudiante=sap.cedula_estudiante " +
+		"LEFT JOIN sigarep.estado_apelacion as edo_ape ON edo_ape.id_estado_apelacion=ape_edo_ape.id_estado_apelacion " +
+		"where sap.codigo_lapso=esa.codigo_lapso and esa.id_sancion=san.id_sancion " +
+		"and mot.codigo_lapso=sap.codigo_lapso and mot.id_instancia_apelada=sap.id_instancia_apelada and mot.cedula_estudiante=sap.cedula_estudiante " +
+		"and mot.id_tipo_motivo="+""+tipoMotivo+" and mot.id_tipo_motivo <> 1 and mot.id_tipo_motivo <> 2 and mot.id_tipo_motivo <> 3 and  " +
+		"es.sexo=es.sexo "+
+		"and  ape_edo_ape.id_estado_apelacion="+""+edoApelacion+" and sap.id_instancia_apelada="+""+instanciaApelada+" " +
+		"and san.id_sancion="+""+tiposancion+" " +
+		"and es.id_programa="+""+programaAcademico+"  and sap.veredicto="+""+veredicto+" and sap.codigo_lapso="+""+lapsoAcademico+" "+""+tiraSql+" order by prog.nombre_programa";
 	
 		Query query = es.createNativeQuery(queryStatement);
 		@SuppressWarnings("unchecked")
