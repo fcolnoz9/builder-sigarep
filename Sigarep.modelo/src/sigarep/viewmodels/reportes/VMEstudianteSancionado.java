@@ -389,6 +389,19 @@ public class VMEstudianteSancionado {
 	}
 
 	// ===============================FIN DE LOS METODOS SET Y GET==============================
+	
+	/**
+	 * AfterCompose
+	 * 
+	 * @param @ContextParam(ContextType.VIEW) Component view
+	 * @ Mediante este Metodo se Conectan cualquier de los Componentes de la Vista
+	 * {@link http://books.zkoss.org/wiki/ZK_Developer's_Reference/MVVM/Advanced/Wire_Components}      
+	 */
+	@AfterCompose//************METODO QUE SIRVE PARA CONECTAR CUALQUIER COMPONENTE EN LA VISTA*******
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+	        Selectors.wireComponents(view, this, false);
+	        Selectors.wireComponents(cmbAsignatura, this, false);//***SE CONECTO EL COMBO DE SANCION*** 
+	}
 	/**
 	 * Inicialización
 	 * 
@@ -408,11 +421,6 @@ public class VMEstudianteSancionado {
 		buscarEdoApelacion();
 		cmbSexo = new ListModelList<String>();
 		cmbVeredicto = new ListModelList<String>();
-	}
-	@AfterCompose//************METODO QUE SIRVE PARA CONECTAR CUALQUIER COMPONENTE EN LA VISTA*******
-	public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-	        Selectors.wireComponents(view, this, false);
-	        Selectors.wireComponents(cmbAsignatura, this, false);//***SE CONECTO EL COMBO DE SANCION*** 
 	}
 
 	/**
@@ -477,7 +485,7 @@ public class VMEstudianteSancionado {
 	 * @return lista de tipo motivo
 	 */
 	@Command
-	@NotifyChange({ "lista" })
+	@NotifyChange({ "listaTipoMotivo" })
 	public void buscarTipoMotivo() {
 		listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
 		TipoMotivo mot = new TipoMotivo(null, "Todos", null, "Todos", false);
@@ -503,7 +511,7 @@ public class VMEstudianteSancionado {
 	 * @return lista de programa Académico
 	 */
 	@Command
-	@NotifyChange({ "listaPrograma" })
+	@NotifyChange({ "listaPrograma" }) //*******CARGAR LA LISTA DE PROGRAMAS ACADEMICOS*******
 	public void buscarProgramaA() {
 		listaPrograma = servicioprogramaacademico.listadoProgramas();
 		ProgramaAcademico prog = new ProgramaAcademico(null, "Todos", null);
@@ -529,7 +537,7 @@ public class VMEstudianteSancionado {
 	 * @return lista de lapso Académico
 	 */
 	@Command
-	@NotifyChange({ "listaLapsoAcademico" })
+	@NotifyChange({ "listaLapsoAcademico" }) //*******CARGAR LA LISTA DE LAPSOS ACADEMICOS*******
 	public void buscarActivoLapso() {
 		listaLapsoAcademico = serviciolapsoacademico.buscarTodosLosLapsos();
 		LapsoAcademico lap = new LapsoAcademico("Todos", null, null, null);
@@ -555,7 +563,7 @@ public class VMEstudianteSancionado {
 	 * @return lista de sanción
 	 */
 	@Command
-	@NotifyChange({ "listaSancion" })
+	@NotifyChange({ "listaSancion" })//*******CARGAR LA LISTA DE TIPO DE SANCIONES*******
 	public void listadoSancion() {
 		listaSancion = serviciosancionmaestro.listaTipoSanciones();
 		SancionMaestro san = new SancionMaestro(null, "Todos", null, "Todos");
@@ -581,7 +589,7 @@ public class VMEstudianteSancionado {
 	 * @return lista de instacias apeladas
 	 */
 	@Command
-	@NotifyChange({ "listaInstanciaApelada" })
+	@NotifyChange({ "listaInstanciaApelada" })//******CARGAR LA LISTA DE INSTANCIA****
 	public void listadoInstancia() {
 		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
 		InstanciaApelada ins = new InstanciaApelada(null, "Todos", null,"Todos", null);
@@ -600,10 +608,16 @@ public class VMEstudianteSancionado {
 	public InstanciaApelada objCmbinstanciaApelada() {
 		return objinstanciaApelada;
 	}
-
+	/**
+	 * buscar Estudiante Sancionado
+	 * buscarEstudianteSancionado()
+	 * @param programa, objSancion, objtipoMotivo,objinstanciaApelada, objLapso, objVeredicto,objEdoApelacion, asignaturas, objsexo,reportType
+	 * @return ListaE lista estudiantes Sancionados
+	 *    
+	 */
 	@Command
 	@NotifyChange({ "listaE","parametroAsignatura" })
-	public void buscarEstudianteSancionado() {
+	public void buscarEstudianteSancionado() {//*******BUSCAR ESTUDIANTE SANCIONADO******
 		parametroAsignatura="";
 		if (objinstanciaApelada == null || objLapso == null || objprograma == null || objSancion == null || objsexo == null
 				|| objtipoMotivo == null || objVeredicto == null || objEdoApelacion == null ||  reportType== null) {
@@ -629,7 +643,7 @@ public class VMEstudianteSancionado {
 	/**
 	 * Limpiar Estudiante sancionado.
 	 * 
-	 * @param Ninguno
+	 * @param programa, objSancion, objtipoMotivo,objinstanciaApelada, objLapso, objVeredicto,objEdoApelacion, asignaturas, objsexo
 	 * @return Deja los Campos en NULL en cada uno de los combos de la vista
 	 * @throws No
 	 *             dispara ninguna excepcion.
@@ -647,6 +661,13 @@ public class VMEstudianteSancionado {
 		asignaturas = null;
 		objsexo = null;
 	}
+	/**
+	 * Configurar Lapso Academico
+	 *  configurarLapsoAcademico()
+	 * @param parametroLapsoAcademico
+	 * @return parametroLapsoAcademico
+	 *  
+	 */
 	@NotifyChange({ "parametroLapsoAcademico" })//********CONFIGURAR  LAPSO ACADEMICO********
 	@Command
 	public String configurarLapsoAcademico(){
@@ -658,6 +679,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroLapsoAcademico;
 	}
+	/**
+	 * Configurar Parametro Sancion
+	 * configurarParametroSancion()
+	 * @param parametroTipoSancion
+	 * @return parametroTipoSancion
+	 *  
+	 */
 	@NotifyChange({ "parametroTipoSancion"})// ********CONFIGURAR TIPO SANCION*******
 	@Command
 	public String configurarParametroSancion() {
@@ -668,6 +696,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroTipoSancion;
 	}
+	/**
+	 * Configurar Parametro Instancia Apelada
+	 * configurarParametroInstanciaApelada() 
+	 * @param parametroInstanciaApelada
+	 * @return parametroInstanciaApelada
+	 *  
+	 */
 	@NotifyChange({ "parametroInstanciaApelada" })// ******CONFIGURAR PARAMETRO INSTANCIA APELADA
 	@Command
 	public String configurarParametroInstanciaApelada() {
@@ -679,6 +714,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroInstanciaApelada;
 	}
+	/**
+	 * Configurar Parametro Motivo
+	 * configurarParametroMotivo() 
+	 * @param parametroMotivo
+	 * @return parametroMotivo
+	 *  
+	 */
 	@NotifyChange({ "parametroMotivo" })// *********CONFIGURAR TIPO MOTIVO************  
 	@Command
 	public String configurarParametroMotivo() {
@@ -690,6 +732,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroMotivo;
 	}
+	/**
+	 * Configurar Parametro de Programa Academico
+	 * configurarParametroProgramaAcademico()
+	 * @param parametroProgramaAcademico
+	 * @return parametroProgramaAcademico
+	 *  
+	 */
 	@NotifyChange({ "parametroProgramaAcademico" })// ******CONFIGURAR PROGRAMA ACADEMICO********
 	@Command
 	public String configurarParametroProgramaAcademico() {
@@ -701,6 +750,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroProgramaAcademico;
 	}
+	/**
+	 * Configurar Parametro Sexo
+	 * configurarParametroSexo()
+	 * @param parametroSexo
+	 * @return parametroSexo
+	 *  
+	 */
 	@NotifyChange({ "parametroSexo" })// ******CONFIGURAR SEXO********
 	@Command
 	public String configurarParametroSexo() {
@@ -712,6 +768,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroSexo;
 	}
+	/**
+	 * Configurar Parametro Veredicto
+	 * configurarParametroVeredicto()
+	 * @param parametroVeredicto
+	 * @return parametroVeredicto
+	 *  
+	 */
 	@NotifyChange({ "parametroVeredicto" })
 	@Command
 	public String configurarParametroVeredicto() {// ******CONFIGURAR VEREDICTO********
@@ -723,6 +786,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroVeredicto;
 	}
+	/**
+	 * Configurar Parametro de Estado Apelacion
+	 * configurarParametroEdoApelacion()
+	 * @param parametroEdoApelacion
+	 * @return parametroEdoApelacion
+	 *  
+	 */
 	@NotifyChange({ "parametroEdoApelacion" })// ******CONFIGURAR EDO APELACION********
 	@Command
 	public String configurarParametroEdoApelacion() {
@@ -734,7 +804,13 @@ public class VMEstudianteSancionado {
 		}
 		return parametroEdoApelacion;
 	}
-
+	/**
+	 * configurarParametroAsignatura
+	 *
+	 * @param parametroAsignatura
+	 * @return parametroAsignatura
+	 *  
+	 */
 	@NotifyChange({ "parametroAsignatura" })// ******CONFIGURAR ASIGNATURA********
 	@Command
 	public String configurarParametroAsignatura() {
@@ -746,25 +822,34 @@ public class VMEstudianteSancionado {
 		}
 		return parametroAsignatura;
 	}
+	/**
+	 * configurarComboAsignatura
+	 *
+	 * @param cmbAsignatura,objAsignatura,parametroAsignatura
+	 * @return cmbAsignatura.setDisabled(true) o cmbAsignatura.setDisabled(false)
+	 * @throws No
+	 *  
+	 */
 	@Command                       //*********CONFIGURAR COMBO ASIGNATURA POR SANCION*******
 	@NotifyChange({"cmbAsignatura","objAsignatura","parametroAsignatura"})
 	public void configurarComboAsignatura(){
 		if(!objSancion.getNombreSancion().equals("RP")){
 			cmbAsignatura.setDisabled(false);
-			objAsignatura= new Asignatura(null, true,"valor", 3,null);
-
+			objAsignatura= new Asignatura(null, true,"Todos", 3,null);
 		}
 		else{
 			cmbAsignatura.setDisabled(true);
-			parametroAsignatura="v";
-			System.err.println("EPALE Desactive");
+			parametroAsignatura="val";
 		}
 	}
-	@Command
-	@NotifyChange
-	public void configurarValidacionAsignatura(){
-		
-	}
+	/**
+	 * Generar ReporteEstudiantes Sancionados Configurable
+	 * @category Reporte Ireport configuracion
+	 * @param reportConfig 
+	 * @return reportConfig actualizado con los Datos de La Lista(listaE)
+	 * @throws No
+	 *  
+	 */
 	@NotifyChange({ "reportConfig" })
 	@Command("GenerarReporteEstudiantesSancionadosConfigurable")// ********CONFIGURAR REPORTE**********
 	public void GenerarReporteEstudiantesSancionadosConfigurable() {
@@ -777,5 +862,5 @@ public class VMEstudianteSancionado {
 			mensajeAlUsuario.informacionNoHayCoincidencias();
 		}
 	}
-
+ //FIN DE LA CLASE
 }
