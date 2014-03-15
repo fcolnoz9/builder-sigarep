@@ -1,7 +1,7 @@
 <?page title="Reporte Especial Resultados Solicitud de Apelación" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window id="winResultadoApelacion" title="Reportes :: Informes :: Especiales :: Resultados de Solicitud de Apelación por Programa e Instancia" border="normal" width="auto" closable="true"
-		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEspecialResultadoApelacion')">
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEstructuradoResultadoApelacion')">
 		<style src="/widgets/grid/simple/style.css" />
 		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
 			<caption label="Parámetros de Selección" />
