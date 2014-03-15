@@ -27,10 +27,10 @@
 						</combobox>
 						<label id="lblTipodeSancion" value="Tipo de Sanción:" />
 						<combobox id="cmbTipoSancion" mold="rounded" readonly="true" 
-						placeholder = "Seleccione un tipo de sanción..."
+						placeholder = "Seleccione un tipo de sanción..." disabled="false"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						model="@load(vm.listaSancion)" selectedItem="@bind(vm.objSancion)"
-						 onSelect="@command('objCmbSancion')" >
+						 onSelect="@command('configurarComboAsignatura')" >
 							<template name="model">
 								<comboitem label="${each.nombreSancion}" />
 							</template>
