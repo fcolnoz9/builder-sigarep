@@ -206,7 +206,7 @@
 			</button>
 			<button label="Cerrar" mold="trendy" id="btnCerrar"
 				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-				orient="horizontal" onClick="@command('cerrarVentana', ventana = winAnalizarValidezII">
+				orient="horizontal" onClick="@command('cerrarVentana', ventana = winAnalizarValidezII)">
 			</button>
 		</div>
 	</window>
