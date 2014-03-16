@@ -32,7 +32,7 @@ public class ServicioReportesComparativos {
 	public List<ApelacionesComparativos> buscarPorMotivoResultado_ProgramaSancion(
 			String codigo_lapso, int tipo_sancion, int programa) {
 		String queryStatement = "select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes , "
-				+ "(SELECT COUNT(DISTINCT sa.cedula_estudiante) totalapelaciones FROM sigarep.solicitud_apelacion sa, sigarep.estudiante_sancionado essa, estudiante es "
+				+ "(SELECT COUNT(DISTINCT sa.cedula_estudiante) totalapelaciones FROM sigarep.solicitud_apelacion sa, sigarep.estudiante_sancionado essa, sigarep.estudiante es "
 				+ "WHERE sa.cedula_estudiante = essa.cedula_estudiante "
 				+ "and essa.cedula_estudiante = es.cedula_estudiante "
 				+ "and sa.codigo_lapso = " + "'"
