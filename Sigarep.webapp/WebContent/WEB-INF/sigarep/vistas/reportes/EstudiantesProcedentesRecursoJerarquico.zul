@@ -1,0 +1,60 @@
+<?page title="Estudiantes Procedentes Recurso Jerárquico" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="winProcedentesJerarquico" title="Reportes :: Listas :: Estudiantes Procedentes Recurso Jerárquico" border="normal" width="auto" closable="true"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMEstudiantesProcedentesRecursoJerarquico')">
+		<style src="/widgets/grid/simple/style.css" />
+		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
+			<caption label="Parámetros de Selección" />
+			<grid id="grdProcedentesRecursoJerarquico">
+				<columns>
+					<column  />
+					<column  />
+					
+					
+				</columns>
+				<rows>
+					<row>
+						<label id="lblProgramaProcedentesRecursoJ" value="Programa:" />
+						<combobox readonly="true" id="cmbProgramaProcedentesRecursoJ"  mold="rounded"
+						placeholder = "Seleccione un programa académico..."
+						width="100%" cols="23" maxlength="60" tabindex="1"
+						model="@load(vm.listadoProgramasAJerarquico)"
+						selectedItem="@bind(vm.objprogramasAJerarquico)">
+						<template name="model">
+							<comboitem label="${each.getNombrePrograma()}" />
+						</template>
+						</combobox>
+						
+						Elija el Tipo de Archivo: <listbox id="formatJerarquico"  mold="select" 
+		                        width="100%" maxlength="30" model="@load(vm.reportTypesModel)"
+		                         selectedItem="@bind(vm.reportType)">
+											<template name="model">
+												<listitem value="@load(each)" label="@load(each.label)"/>
+											</template>
+								</listbox>
+						
+					</row>
+					
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		
+		<div align="right" height="100%">
+					<button label="Generar" id="btnGenerarReporteProcedentesJerarquico" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesRecursoJerarquico')"></button>
+					<button label="Limpiar" id="btnLimpiarReporteProcedentesJerarquico" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarComboProgramaAcademicoRJ')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrarReporteProcedentesJerarquico" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winProcedentesJerarquico.onClose()" orient="horizontal"> </button>
+		</div>
+		<space />
+		
+		<groupbox id="grbReporteProcedentesRecursoJ" closable="false">
+		 <caption label="Reporte Generado"/>
+			<jasperreport id="reporteProcedentesRecursoJ" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesRecursoJerarquico')" 
+				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesRecursoJerarquico')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesRecursoJerarquico')" 
+				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesRecursoJerarquico')"/>
+			<space />
+			<space />
+		</groupbox>
+			
+	</window>
+</zk>
