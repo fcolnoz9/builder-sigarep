@@ -80,6 +80,7 @@
 					<button label="Limpiar" id="btnLimpiarReporteEspecialSancionados" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombosReporte')" orient="horizontal"> </button>
 					<button label="Cerrar" id="btnCerrarReporteEspecialSancionados" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionadoApelacion.onClose()" orient="horizontal"> </button>
 		</div>
+		<separator />
 		<groupbox id="grbReporteEspecial" closable="false">
 		 <caption label="Reporte Generado"/>
 			<jasperreport id="reporteEspecialSancionados" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesSancionadoApelacionEspecial')" 
