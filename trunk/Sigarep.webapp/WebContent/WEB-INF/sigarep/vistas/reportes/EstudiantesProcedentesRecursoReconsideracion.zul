@@ -1,0 +1,60 @@
+<?page title="Estudiantes Procedentes Recurso de Reconsideración" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="winProcedentesReconsideracion" title="Reportes :: Listas :: Estudiantes Procedentes Recurso de Reconsideración" border="normal" width="auto" closable="true"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMEstudiantesProcedentesRecursoReconsideracion')">
+		<style src="/widgets/grid/simple/style.css" />
+		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
+			<caption label="Parámetros de Selección" />
+			<grid id="grdProcedentesRecursoReconsideracion">
+				<columns>
+					<column  />
+					<column  />
+					
+					
+				</columns>
+				<rows>
+					<row>
+						<label id="lblProgramaProcedentesRecursoR" value="Programa:" />
+						<combobox readonly="true" id="cmbProgramaProcedentesRecursoR"  mold="rounded"
+						placeholder = "Seleccione un programa académico..."
+						width="100%" cols="23" maxlength="60" tabindex="1"
+						model="@load(vm.listadoProgramasA)"
+						selectedItem="@bind(vm.objprogramasAcademicosReconsideracion)">
+						<template name="model">
+							<comboitem label="${each.getNombrePrograma()}" />
+						</template>
+						</combobox>
+						
+						Elija el Tipo de Archivo: <listbox id="formatReconsideracion"  mold="select" 
+		                        width="100%" maxlength="30" model="@load(vm.reportTypesModel)"
+		                         selectedItem="@bind(vm.reportType)">
+											<template name="model">
+												<listitem value="@load(each)" label="@load(each.label)"/>
+											</template>
+								</listbox>
+						
+					</row>
+					
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		
+		<div align="right" height="100%">
+					<button label="Generar" id="btnGenerarReporteProcedentesReconsideracion" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesRecursoReconsideracion')"></button>
+					<button label="Limpiar" id="btnLimpiarReporteProcedentesReconsideracion" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarComboProgramaAcademicoRR')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrarReporteProcedentesReconsideracion" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winProcedentesReconsideracion.onClose()" orient="horizontal"> </button>
+		</div>
+		<space />
+		
+		<groupbox id="grbReporteProcedentesRecursoR" closable="false">
+		 <caption label="Reporte Generado"/>
+			<jasperreport id="reporteProcedentesRecursoR" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesRecursoReconsideracion')" 
+				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesRecursoReconsideracion')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesRecursoReconsideracion')" 
+				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesRecursoReconsideracion')"/>
+			<space />
+			<space />
+		</groupbox>
+			
+	</window>
+</zk>

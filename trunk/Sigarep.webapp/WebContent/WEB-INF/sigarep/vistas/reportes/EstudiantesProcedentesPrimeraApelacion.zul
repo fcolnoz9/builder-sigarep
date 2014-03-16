@@ -1,0 +1,60 @@
+<?page title="Estudiantes Procedentes Primera Apelación" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="winProcedentesPrimeraApelacion" title="Reportes :: Listas :: Estudiantes Procedentes Primera Apelación" border="normal" width="auto" closable="true"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMEstudiantesProcedentesPrimeraApelacion')">
+		<style src="/widgets/grid/simple/style.css" />
+		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
+			<caption label="Parámetros de Selección" />
+			<grid id="grdProcedentesPrimeraApelacion">
+				<columns>
+					<column  />
+					<column  />
+					
+					
+				</columns>
+				<rows>
+					<row>
+						<label id="lblProgramaProcedentesPrimeraA" value="Programa:" />
+						<combobox readonly="true" id="cmbProgramaProcedentesPrimeraA"  mold="rounded"
+						placeholder = "Seleccione un programa académico..."
+						width="100%" cols="23" maxlength="60" tabindex="1"
+						model="@load(vm.listadoProgramasAcademicos)"
+						selectedItem="@bind(vm.objprogramasAcademicos)">
+						<template name="model">
+							<comboitem label="${each.getNombrePrograma()}" />
+						</template>
+						</combobox>
+						
+						Elija el Tipo de Archivo: <listbox id="formatPrimeraA"  mold="select" 
+		                        width="100%" maxlength="30" model="@load(vm.reportTypesModel)"
+		                         selectedItem="@bind(vm.reportType)">
+											<template name="model">
+												<listitem value="@load(each)" label="@load(each.label)"/>
+											</template>
+								</listbox>
+						
+					</row>
+					
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		
+		<div align="right" height="100%">
+					<button label="Generar" id="btnGenerarReporteProcedentesPrimeraA" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesPrimeraApelacion')"></button>
+					<button label="Limpiar" id="btnLimpiarReporteProcedentesPrimeraA" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarComboProgramaAcademico')" orient="horizontal"> </button>
+					<button label="Cerrar" id="btnCerrarReporteProcedentesPrimeraA" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winProcedentesPrimeraApelacion.onClose()" orient="horizontal"> </button>
+		</div>
+		<space />
+		
+		<groupbox id="grbReporteProcedentesPrimeraA" closable="false">
+		 <caption label="Reporte Generado"/>
+			<jasperreport id="reporteProcedentesPrimeraA" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesPrimeraApelacion')" 
+				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesPrimeraApelacion')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesPrimeraApelacion')" 
+				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesPrimeraApelacion')"/>
+			<space />
+			<space />
+		</groupbox>
+			
+	</window>
+</zk>
