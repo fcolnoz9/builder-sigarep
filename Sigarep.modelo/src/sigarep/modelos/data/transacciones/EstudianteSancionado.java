@@ -51,7 +51,7 @@ public class EstudianteSancionado implements Serializable {
 	private boolean estatus;
 
 	// bi-directional many-to-one association to AsignaturaEstudianteSancionado
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "estudianteSancionado")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="estudianteSancionado", cascade={CascadeType.ALL})
 	private Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados = new HashSet<AsignaturaEstudianteSancionado>();
 
 	// bi-directional many-to-one association to Estudiante
