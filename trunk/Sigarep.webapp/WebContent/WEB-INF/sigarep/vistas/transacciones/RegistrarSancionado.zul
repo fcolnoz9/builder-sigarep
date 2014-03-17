@@ -19,7 +19,7 @@
 					<textbox id="txtCedula" mold="rounded" width="80%"
 						placeholder = "Ej: 19185479" 
 						cols="23" maxlength="8" tabindex="1" value="@bind(vm.cedula)"
-						onBlur="@command('buscarEstudiante')" />
+						onBlur="@command('buscarEstudiante', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
 				</row>
 				<row>
 					<label id="lblPrimerNombre" value="Primer Nombre:" />
