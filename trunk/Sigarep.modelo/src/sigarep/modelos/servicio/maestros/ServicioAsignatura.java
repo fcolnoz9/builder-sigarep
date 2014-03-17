@@ -84,4 +84,16 @@ public class ServicioAsignatura {
 		Asignatura asignatura = iAsignatura.findByNombreAsignatura(nombreAsignatura);
 	    return asignatura;
 	}
+	
+	/**
+	 * Buscar Asignatura filtrando por nombre y programa Academico
+	 * 
+	 * @param String NombreAsignatura y Programa Academico
+	 * @return Busca una asignatura por nombre y Programa Academico
+	 * @throws No dispara ninguna excepción.
+	 */
+	public Asignatura buscarAsignaturaNombreAndProgramaAcademico(String nombreAsignatura, ProgramaAcademico programaAcademico) {
+		Asignatura asignatura = iAsignatura.findByNombreAsignaturaAndProgramaAcademico(nombreAsignatura,programaAcademico);
+	    return asignatura;
+	}
 }

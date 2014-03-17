@@ -6,6 +6,7 @@ import javax.persistence.*;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Clase Asignatura
@@ -45,8 +46,8 @@ public class Asignatura implements Serializable {
 
 	// Relación bidireccional de muchos a uno, asociada a la clase
 	// AsignaturaEstudianteSancionado
-	@OneToMany(mappedBy = "asignatura")
-	private List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "asignatura", cascade={CascadeType.ALL})
+	private Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados;
 
 	/**
 	 * Constructor Asignatura
@@ -111,12 +112,12 @@ public class Asignatura implements Serializable {
 		this.programaAcademico = programaAcademico;
 	}
 
-	public List<AsignaturaEstudianteSancionado> getAsignaturaEstudianteSancionados() {
+	public Set<AsignaturaEstudianteSancionado> getAsignaturaEstudianteSancionados() {
 		return this.asignaturaEstudianteSancionados;
 	}
 
 	public void setAsignaturaEstudianteSancionados(
-			List<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados) {
+			Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados) {
 		this.asignaturaEstudianteSancionados = asignaturaEstudianteSancionados;
 	}
 	// Fin Métodos Set y Get

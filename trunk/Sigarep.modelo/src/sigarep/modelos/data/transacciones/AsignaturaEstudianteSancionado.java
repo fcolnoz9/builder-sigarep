@@ -26,8 +26,10 @@ public class AsignaturaEstudianteSancionado implements Serializable {
 	private Integer condicionAsignatura;
 
 	// bi-directional many-to-one association to Asignatura
-	@ManyToOne
-	@JoinColumn(name = "codigo_asignatura", nullable = false, insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumns({
+		@JoinColumn(name="codigo_asignatura", referencedColumnName="codigo_asignatura", nullable=false, insertable=false, updatable=false)
+	})
 	private Asignatura asignatura;
 
 	// bi-directional many-to-one association to EstudianteSancionado

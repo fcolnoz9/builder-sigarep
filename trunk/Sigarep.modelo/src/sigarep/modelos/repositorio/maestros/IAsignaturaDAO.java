@@ -40,4 +40,12 @@ public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	 * @return Asignatura encontrada por su nombre
 	 */
 	public Asignatura findByNombreAsignatura(String nombreAsignatura);
+	
+	/**
+	 * Busca una Asignatura por su nombre y ProgramaAcademico
+	 * @param nombreAsignatura
+	 *            Nombre de la asignatura que se pretende encontrar y Programa Academico del estudiante
+	 * @return Asignatura encontrada por su nombre y programa academico
+	 */
+	public Asignatura findByNombreAsignaturaAndProgramaAcademico(String nombreAsignatura, ProgramaAcademico programaAcademico);
 }
