@@ -409,9 +409,11 @@ public class VMHistorialEstudiante {
 	public void showModal() {
 		cedula = getApelacionseleccionada().getCedula();
 		codigoLapso = getApelacionseleccionada().getLapsoSancion();
+		sancion = getApelacionseleccionada().getTipoSancion(); 
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cedula", cedula);
 		map.put("codigoLapso", codigoLapso);
+		map.put("sancion", sancion);
 		final Window window = (Window) Executions
 				.createComponents(
 						"/WEB-INF/sigarep/vistas/transacciones/DetalleHistorialEstudiante.zul",
