@@ -114,7 +114,7 @@
 						<listbox id="lbxDatosSancion" height="auto" 
 							mold="paging" pageSize="10" 
 							onClick="@command('showModal')"
-							model="@bind(vm.apelacion)"
+							model="@bind(vm.listaHistorial)"
 							selectedItem="@bind(vm.apelacionseleccionada)" tooltiptext="Ver Apelaciones">
 							<listhead>
 								<listheader label="Lapso de la Sanción"
@@ -139,10 +139,10 @@
 							<template name="model">
 								<listitem selected="false">
 									<listcell
-										label="${each.getId().getCodigoLapso()}">
+										label="${each.getLapsoSancion()}">
 									</listcell>
 									<listcell
-										label="${each.getSancionMaestro().getNombreSancion()}">
+										label="${each.getTipoSancion()}">
 									</listcell>
 									<listcell
 										label="${each.getIndiceGrado()}">
@@ -153,11 +153,8 @@
 									<listcell
 										label="${each.getUnidadesCursadas()}">
 									</listcell>
-									<listcell>
-										<textbox cols="23" rows="2"
-											maxlength="300" mold="rounded" readonly="true" width="70%"
-											value="@bind(vm.asignaturaLapsosConsecutivos)">
-										</textbox>
+									<listcell
+										label="${each.getAsignaturas()}">
 									</listcell>
 								</listitem>
 							</template>
