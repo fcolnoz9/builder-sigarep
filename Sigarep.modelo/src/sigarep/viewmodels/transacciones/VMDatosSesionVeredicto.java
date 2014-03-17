@@ -128,12 +128,17 @@ public class VMDatosSesionVeredicto {
 	@NotifyChange ({"fechaSesion", "tipoSesion", "numeroSesion","titulo"})
 	public void buscarDatosSesion(final Binder binder){
 		List<SolicitudApelacion> solicitudApelacion;
-		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
+		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul")){
 			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(1);
-		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul"))
+			ventana.setTitle("Gestión :: Evaluar Apelación :: Veredicto :: Datos de la Sesión");	
+		}
+		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul")){
 			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(2);
-		else solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(3);
-		
+			ventana.setTitle("Gestión :: Evaluar Recurso de Reconsideración :: Veredicto :: Datos de la Sesión");			
+		}
+		else
+			ventana.setTitle("Gestión :: Evaluar Recurso Jerárquico :: Veredicto :: Datos de la Sesión");
+			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(3);
 		if (solicitudApelacion.size() > 0){
 			fechaSesion = solicitudApelacion.get(0).getFechaSesion();
 			tipoSesion = solicitudApelacion.get(0).getTipoSesion();
