@@ -206,13 +206,15 @@ public class VMDetalleHistorialEstudiante {
 
 	@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("cedula") String v1,
-			@ExecutionArgParam("codigoLapso") String v2)
+			@ExecutionArgParam("codigoLapso") String v2, 
+			@ExecutionArgParam("sancion") String v3)
 
 	// initialization code
 	{
 		Selectors.wireComponents(view, this, false);
 		this.cedula = v1;
 		this.codigoLapso = v2;
+		this.nombreSancion = v3;
 		buscarSolicitud(cedula, codigoLapso, instancia);
 		buscarSolicitudInstancia2(cedula, codigoLapso, instancia);
 		buscarSolicitudInstancia3(cedula, codigoLapso, instancia);
@@ -231,7 +233,6 @@ public class VMDetalleHistorialEstudiante {
 		else {
 		cedula = estudiante.get(0).getId().getCedulaEstudiante();
 		lapso = estudiante.get(0).getId().getCodigoLapso();
-		nombreSancion = estudiante.get(0).getSancionMaestro().getNombreSancion();
 		nombreEstudiante = estudiante.get(0).getEstudiante().getPrimerNombre();
 		apellidoEstudiante = estudiante.get(0).getEstudiante().getPrimerApellido();
 		nombreEstudiante = nombreEstudiante + " "+ apellidoEstudiante;
@@ -322,7 +323,7 @@ public class VMDetalleHistorialEstudiante {
 	 * showModal()
 	 * 
 	 * @param showModal() 
-	 * @return Conecta con la ventana modal Historialestudiante.zul
+	 * @return Conecta con la ventana modal Historialestudiante.zul de reportes
 	 * @throws No
 	 * dispara ninguna excepcion.
 	 */
