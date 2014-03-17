@@ -406,7 +406,7 @@ public class VMEstudianteSancionado {
 	public void setLapsoConsecutivo2(String lapsoConsecutivo2) {
 		this.lapsoConsecutivo2 = lapsoConsecutivo2;
 	}
- 	
+	
 	public String getCedulaFiltro() {
 		return cedulaFiltro;
 	}
@@ -606,19 +606,22 @@ public class VMEstudianteSancionado {
 			buscarAsignaturas();
 			listaAsignaturaListBox = miSanc
 					.getAsignaturaEstudianteSancionados();
-		} else {
+		}
+		
+		else{
 			asignatura = miSanc.getAsignaturaEstudianteSancionados();
+			
 			String palabra = miSanc.getLapsosAcademicosRp();
-			String separador = ":";
-			if (!palabra.equals("")) {
-				String[] palabraArray = palabra.split(separador);
+				String separador = ":";
+			if( !palabra.equals("")){
+		        String[] palabraArray = palabra.split(separador);
+		   		
 				lapsoConsecutivo1 = palabraArray[0];
-				if (palabraArray.length > 1)
-					lapsoConsecutivo2 = palabraArray[1];
+				if(palabraArray.length>1)
+				lapsoConsecutivo2 = palabraArray[1];
 			}
 		}
-
-	}
+}
 	
 	/** buscar Sancionados
 	 * @param  
@@ -677,6 +680,7 @@ public class VMEstudianteSancionado {
 	public void registrarEstudianteSancionado(
 			@BindingParam("asignaturaSancionado") List<Listitem> asignaturas,@BindingParam("parametro1") Groupbox groupBoxAsignaturas,@BindingParam("parametro2")Textbox textboxlapsoConsecutivo1,@BindingParam("parametro3")Textbox textboxlapsoConsecutivo2
 					,@BindingParam("parametro4")Label lbllapsoConsecutivo ){
+
 		Boolean estudienteRR = false;
 		lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
 		if (cedula == null  || primerNombre == null
@@ -692,71 +696,99 @@ public class VMEstudianteSancionado {
 				|| semestre == null
 				|| periodoSancion == null)
 			mensajeAlUsuario.advertenciaLlenarCampos();
+		
 		else {
 			//-------- Validacion de las fechas 
 			if (fechaNacimiento != null && annoIngreso != null) {
 				if (fechaNacimiento.compareTo(annoIngreso) > 0) {
 					mensajeAlUsuario.errorRangoFechas();
 					fechaNacimiento = null;
-				} else
-			if (sancionMaestro == null)
-				mensajeAlUsuario.advertenciaLlenarCampos();
-			else {
-				if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RP")) {
-					if (lapsoConsecutivo1 == null
-							|| lapsoConsecutivo2 == null)
-						mensajeAlUsuario.advertenciaLlenarCampos();
-					else
-						estudianteSancionado.setLapsosAcademicosRp(lapsoConsecutivo1+ ": " + lapsoConsecutivo2);
-				} else {
-					estudienteRR = true;
-					if (asignaturas.size() == 0) {
-						mensajeAlUsuario.advertenciaIngresarAsignatura();
+				} else if (sancionMaestro == null || sancionMaestro.equals("") ) mensajeAlUsuario.advertenciaLlenarCampos();
+				else{
+					if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RP")) {
+						if (lapsoConsecutivo1 == null || lapsoConsecutivo2 == null || lapsoConsecutivo1.equals("") || lapsoConsecutivo2.equals("") )
+							mensajeAlUsuario.advertenciaLlenarCampos();
+						else estudianteSancionado.setLapsosAcademicosRp(lapsoConsecutivo1+ ": " + lapsoConsecutivo2);
+					} else {
+						estudienteRR = true;
+						if (asignaturas.size() == 0) {
+							mensajeAlUsuario.advertenciaIngresarAsignatura();
+							estudienteRR = false;
+						} else { estudienteRR = true; }
 					}
+					
+					Estudiante estudiante = new Estudiante(cedula, annoIngreso,
+							email, true, fechaNacimiento, primerApellido,
+							primerNombre, segundoApellido, segundoNombre, sexo,
+							telefono, programa);
+					servicioestudiante.guardarEstudiante(estudiante);
+					estudianteSancionadoPK.setCedulaEstudiante(cedula);
+					estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
+					estudianteSancionado.setId(estudianteSancionadoPK);
+					estudianteSancionado.setLapsoAcademico(lapsoAcademico);
+					estudianteSancionado.setEstudiante(estudiante);
+					estudianteSancionado.setIndiceGrado(indiceGrado);
+					estudianteSancionado.setSancionMaestro(sancionMaestro);
+					estudianteSancionado.setUnidadesAprobadas(unidadesAprobadas);
+					estudianteSancionado.setUnidadesCursadas(unidadesCursadas);
+					estudianteSancionado.setPeriodoSancion(periodoSancion);
+					estudianteSancionado.setSemestre(semestre);
+					estudianteSancionado.setEstatus(true);
+					// try {
+					if (estudienteRR == true) {
+						
+						String condicion1 = "";
+						boolean pase = false;
+						for (Listitem miAsignaturasacion : asignaturas) {
+							
+							condicion1 = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
+							if(condicion1.equals("") || condicion1 == null ){
+								pase = false;
+								System.out.println("entro a la condicio");
+								
+								break;
+							}else {
+								pase = true;
+							}
+							
+						}
+						
+						if(pase){
+							for (Listitem miAsignaturasacion : asignaturas) {
+								String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
+								String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
+								Asignatura asignaturaSacion = new Asignatura();
+								asignaturaSacion = servicioAsignatura.buscarAsignaturaNombre(nombreAsignatura);
+								AsignaturaEstudianteSancionadoPK asignaturaEstudianteSancionadoPK = new AsignaturaEstudianteSancionadoPK();
+								asignaturaEstudianteSancionadoPK.setCedulaEstudiante(cedula);
+								asignaturaEstudianteSancionadoPK.setCodigoAsignatura(asignaturaSacion.getCodigoAsignatura());
+								asignaturaEstudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
+								AsignaturaEstudianteSancionado asignaturaEstudianteSancionado = new AsignaturaEstudianteSancionado();
+								asignaturaEstudianteSancionado.setId(asignaturaEstudianteSancionadoPK);
+								asignaturaEstudianteSancionado.setCondicionAsignatura(Integer.valueOf(condicion));
+								asignaturaEstudianteSancionado.setEstudianteSancionado(estudianteSancionado);
+								asignaturaEstudianteSancionado.setAsignatura(asignaturaSacion);
+								estudianteSancionado.addAsignaturaEstudianteSancionado(asignaturaEstudianteSancionado);
+								System.out.println("pse1 +++");
+								servicioestudiantesancionado.guardar(estudianteSancionado);
+								System.out.println("pse2 +++");
+							}
+							System.out.println("pse3 +++");
+							mensajeAlUsuario.informacionRegistroCorrecto();
+							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
+						}else{ System.out.println("pseaux +++");
+							mensajeAlUsuario.advertenciaLlenarCampos();}
+			
+
+					} else { System.out.println("pse4 +++");
+						servicioestudiantesancionado.guardar(estudianteSancionado);
+						System.out.println("pse35 +++");
+							mensajeAlUsuario.informacionRegistroCorrecto();
+							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
+							}
+				
 				}
 			}
-			Estudiante estudiante = new Estudiante(cedula, annoIngreso,
-					email, true, fechaNacimiento, primerApellido,
-					primerNombre, segundoApellido, segundoNombre, sexo,
-					telefono, programa);
-			servicioestudiante.guardarEstudiante(estudiante);
-			estudianteSancionadoPK.setCedulaEstudiante(cedula);
-			estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
-			estudianteSancionado.setId(estudianteSancionadoPK);
-			estudianteSancionado.setLapsoAcademico(lapsoAcademico);
-			estudianteSancionado.setEstudiante(estudiante);
-			estudianteSancionado.setIndiceGrado(indiceGrado);
-			estudianteSancionado.setSancionMaestro(sancionMaestro);
-			estudianteSancionado.setUnidadesAprobadas(unidadesAprobadas);
-			estudianteSancionado.setUnidadesCursadas(unidadesCursadas);
-			estudianteSancionado.setPeriodoSancion(periodoSancion);
-			estudianteSancionado.setSemestre(semestre);
-			estudianteSancionado.setEstatus(true);
-			// try {
-			if (estudienteRR == true) {
-				for (Listitem miAsignaturasacion : asignaturas) {
-					Asignatura asignaturaSacion = new Asignatura();
-					String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
-					String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
-					asignaturaSacion = servicioAsignatura.buscarAsignaturaNombreAndProgramaAcademico(nombreAsignatura,programa);
-					AsignaturaEstudianteSancionadoPK asignaturaEstudianteSancionadoPK = new AsignaturaEstudianteSancionadoPK();
-					asignaturaEstudianteSancionadoPK.setCedulaEstudiante(cedula);
-					asignaturaEstudianteSancionadoPK.setCodigoAsignatura(asignaturaSacion.getCodigoAsignatura());
-					asignaturaEstudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
-					AsignaturaEstudianteSancionado asignaturaEstudianteSancionado = new AsignaturaEstudianteSancionado();
-					asignaturaEstudianteSancionado.setId(asignaturaEstudianteSancionadoPK);
-					asignaturaEstudianteSancionado.setCondicionAsignatura(Integer.valueOf(condicion));
-					asignaturaEstudianteSancionado.setEstudianteSancionado(estudianteSancionado);
-					asignaturaEstudianteSancionado.setAsignatura(asignaturaSacion);
-					estudianteSancionado.addAsignaturaEstudianteSancionado(asignaturaEstudianteSancionado);
-					servicioestudiantesancionado.guardar(estudianteSancionado);
-				}
-			} else
-				servicioestudiantesancionado.guardar(estudianteSancionado);
-
-			mensajeAlUsuario.informacionRegistroCorrecto();
-			limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
-			} 
 		}
 	}
 	
@@ -768,73 +800,68 @@ public class VMEstudianteSancionado {
 	 */
 	@Command
 	@NotifyChange({ "cedula", "indiceGrado", "lapsoAcademico",
-			"sancionMaestro", "unidadesAprobadas", "primerNombre",
-			"segundoNombre", "primerApellido", "unidadesCursadas", "semestre",
-			"lapsosAcademicosRP", "telefono", "email", "fechaNacimiento",
-			"lapsoAcademico", "annoIngreso", "listaSancionado",
-			"segundoApellido", "sexo", "periodoSancion","programa",
-			"lapsoConsecutivo1","lapsoConsecutivo2"})
+		"sancionMaestro", "unidadesAprobadas", "sexo", "primerNombre",
+		"segundoNombre", "primerApellido", "segundoApellido",
+		"unidadesCursadas", "programa", "listaAsignaturas", "semestre",
+		"lapsosAcademicosRP", "telefono", "email", "fechaNacimiento",
+		"lapsoAcademico", "annoIngreso", "periodoSancion","lapsoConsecutivo1",
+		"lapsoConsecutivo2", "listaAsignaturaListBox" })
 	public void buscarEstudiante(
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
-			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
+			@BindingParam("parametro4") Label lbllapsoConsecutivo){
 
 		try {
-			Estudiante estudiante = new Estudiante();
-			estudiante = servicioestudiante.buscarEstudiante(cedula);
-			if (estudiante != null && !estudiante.equals("")) {
-				primerNombre = estudiante.getPrimerNombre();
-				segundoNombre = estudiante.getSegundoNombre();
-				primerApellido = estudiante.getPrimerApellido();
-				segundoApellido = estudiante.getSegundoApellido();
-				sexo = estudiante.getSexo();
-				fechaNacimiento = estudiante.getFechaNacimiento();
-				telefono = estudiante.getTelefono();
-				email = estudiante.getEmail();
-				annoIngreso = estudiante.getAnioIngreso();
-				programa = estudiante.getProgramaAcademico();
-
-				EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK(
-						lapsoAcademico.getCodigoLapso(), cedula);
-				EstudianteSancionado estudianteSancionado = servicioestudiantesancionado
-						.buscar(estudianteSancionadoPK);
-
-				if (estudianteSancionado != null) {
-					annoIngreso = estudianteSancionado.getEstudiante()
-							.getAnioIngreso();
-					indiceGrado = estudianteSancionado.getIndiceGrado();
-					lapsoAcademico = estudianteSancionado.getLapsoAcademico();
-					sancionMaestro = estudianteSancionado.getSancionMaestro();
-					unidadesAprobadas = estudianteSancionado
-							.getUnidadesAprobadas();
-					unidadesCursadas = estudianteSancionado
-							.getUnidadesCursadas();
-					semestre = estudianteSancionado.getSemestre();
-					periodoSancion = estudianteSancionado.getPeriodoSancion();
-					lapsoConsecutivo1 = estudianteSancionado.getLapsosAcademicosRp();
-					lapsoConsecutivo2= estudianteSancionado.getLapsosAcademicosRp();
-					programa = estudianteSancionado.getEstudiante().getProgramaAcademico();
+			
+			EstudianteSancionado miSanc = servicioestudiantesancionado.buscarEstudianteSancionadoLapsoActual(cedula);
+				if (miSanc != null) {
 					
-					
+					cedula = miSanc.getId().getCedulaEstudiante();
+					primerNombre = miSanc.getEstudiante().getPrimerNombre();
+					segundoNombre = miSanc.getEstudiante().getSegundoNombre();
+					primerApellido = miSanc.getEstudiante().getPrimerApellido();
+					segundoApellido = miSanc.getEstudiante().getSegundoApellido();
+					sexo = miSanc.getEstudiante().getSexo();
+					fechaNacimiento = miSanc.getEstudiante().getFechaNacimiento();
+					telefono = miSanc.getEstudiante().getTelefono();
+					email = miSanc.getEstudiante().getEmail();
+					annoIngreso = miSanc.getEstudiante().getAnioIngreso();
+					programa = miSanc.getEstudiante().getProgramaAcademico();
+					indiceGrado = miSanc.getIndiceGrado();
+					lapsoAcademico = miSanc.getLapsoAcademico();
+					sancionMaestro = miSanc.getSancionMaestro();
+					unidadesAprobadas = miSanc.getUnidadesAprobadas();
+					unidadesCursadas = miSanc.getUnidadesCursadas();
+					semestre = miSanc.getSemestre();
+					periodoSancion = miSanc.getPeriodoSancion();
+					seleccionarSancion(groupBoxAsignaturas, textboxlapsoConsecutivo1,
+							textboxlapsoConsecutivo2, lbllapsoConsecutivo);
 					if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RR")) {
 						buscarAsignaturas();
-						listaAsignaturaListBox = estudianteSancionado
+						listaAsignaturaListBox = miSanc
 								.getAsignaturaEstudianteSancionados();
-					} else{
-					asignatura = estudianteSancionado.getAsignaturaEstudianteSancionados();
-					textboxlapsoConsecutivo1.setVisible(true);
-					lapsoConsecutivo1 = estudianteSancionado.getLapsosAcademicosRp();
-					lapsoConsecutivo2 = estudianteSancionado.getLapsosAcademicosRp();
+					}
+					
+					else{
+						asignatura = miSanc.getAsignaturaEstudianteSancionados();
+						
+						String palabra = miSanc.getLapsosAcademicosRp();
+							String separador = ":";
+						if( !palabra.equals("")){
+					        String[] palabraArray = palabra.split(separador);
+					   		
+							lapsoConsecutivo1 = palabraArray[0];
+							if(palabraArray.length>1)
+							lapsoConsecutivo2 = palabraArray[1];
+						}
 					}
 					
 					
 				} else {
-					estudianteNoEncontrado(groupBoxAsignaturas,
-							textboxlapsoConsecutivo1, textboxlapsoConsecutivo2,
-							lbllapsoConsecutivo);
+					estudianteNoEncontrado(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
 				}
-			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -934,7 +961,7 @@ public class VMEstudianteSancionado {
 		groupBoxAsignaturas.setVisible(false);
 	}
 		 
- 	/** estudianteNoEncontrado
+	/** estudianteNoEncontrado
 	 * @param Groupbox,label, Textbox
 	 * @return Ninguno
 	 */	
@@ -985,11 +1012,11 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({"cedula", "nombre", "apellido","sancion", "lapso"})
 	public void showModal(){
-  		Window registrar = (Window)Executions.createComponents(
-        		"/WEB-INF/sigarep/vistas/transacciones/ListadoSancionInicial.zul", null, null);
+ 		Window registrar = (Window)Executions.createComponents(
+       		"/WEB-INF/sigarep/vistas/transacciones/ListadoSancionInicial.zul", null, null);
 		registrar.setMaximizable(true);
 		registrar.doModal();	
-  	}
+ 	}
 	
 	/** Método que trae todos los registros en una lista de sancionados
 	 * @parameters lista de sancionados
