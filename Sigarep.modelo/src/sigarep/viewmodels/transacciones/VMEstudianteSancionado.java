@@ -9,7 +9,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -36,7 +35,6 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
-import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
@@ -608,20 +606,19 @@ public class VMEstudianteSancionado {
 			buscarAsignaturas();
 			listaAsignaturaListBox = miSanc
 					.getAsignaturaEstudianteSancionados();
-		}
-		
-		
-		asignatura = miSanc.getAsignaturaEstudianteSancionados();
+		} else {
+			asignatura = miSanc.getAsignaturaEstudianteSancionados();
 			String palabra = miSanc.getLapsosAcademicosRp();
 			String separador = ":";
-		if( !palabra.equals("")){
-	        String[] palabraArray = palabra.split(separador);
-	   		
-			lapsoConsecutivo1 = palabraArray[0];
-			if(palabraArray.length>1)
-			lapsoConsecutivo2 = palabraArray[1];
+			if (!palabra.equals("")) {
+				String[] palabraArray = palabra.split(separador);
+				lapsoConsecutivo1 = palabraArray[0];
+				if (palabraArray.length > 1)
+					lapsoConsecutivo2 = palabraArray[1];
+			}
 		}
-}
+
+	}
 	
 	/** buscar Sancionados
 	 * @param  
@@ -680,7 +677,6 @@ public class VMEstudianteSancionado {
 	public void registrarEstudianteSancionado(
 			@BindingParam("asignaturaSancionado") List<Listitem> asignaturas,@BindingParam("parametro1") Groupbox groupBoxAsignaturas,@BindingParam("parametro2")Textbox textboxlapsoConsecutivo1,@BindingParam("parametro3")Textbox textboxlapsoConsecutivo2
 					,@BindingParam("parametro4")Label lbllapsoConsecutivo ){
-
 		Boolean estudienteRR = false;
 		lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
 		if (cedula == null  || primerNombre == null
@@ -716,7 +712,6 @@ public class VMEstudianteSancionado {
 					estudienteRR = true;
 					if (asignaturas.size() == 0) {
 						mensajeAlUsuario.advertenciaIngresarAsignatura();
-					} else {
 					}
 				}
 			}
@@ -739,11 +734,11 @@ public class VMEstudianteSancionado {
 			estudianteSancionado.setEstatus(true);
 			// try {
 			if (estudienteRR == true) {
-				Asignatura asignaturaSacion = new Asignatura();
 				for (Listitem miAsignaturasacion : asignaturas) {
+					Asignatura asignaturaSacion = new Asignatura();
 					String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
 					String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
-					asignaturaSacion = servicioAsignatura.buscarAsignaturaNombre(nombreAsignatura);
+					asignaturaSacion = servicioAsignatura.buscarAsignaturaNombreAndProgramaAcademico(nombreAsignatura,programa);
 					AsignaturaEstudianteSancionadoPK asignaturaEstudianteSancionadoPK = new AsignaturaEstudianteSancionadoPK();
 					asignaturaEstudianteSancionadoPK.setCedulaEstudiante(cedula);
 					asignaturaEstudianteSancionadoPK.setCodigoAsignatura(asignaturaSacion.getCodigoAsignatura());
@@ -756,7 +751,6 @@ public class VMEstudianteSancionado {
 					estudianteSancionado.addAsignaturaEstudianteSancionado(asignaturaEstudianteSancionado);
 					servicioestudiantesancionado.guardar(estudianteSancionado);
 				}
-
 			} else
 				servicioestudiantesancionado.guardar(estudianteSancionado);
 
