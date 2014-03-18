@@ -1,5 +1,4 @@
 package sigarep.modelos.servicio.reportes;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -15,10 +14,8 @@ import sigarep.modelos.data.reportes.ApelacionesComparativos;
 
 @Service("servicioreportescomparativos")
 public class ServicioReportesComparativos {
-
 	@PersistenceContext
 	private EntityManager em;
-
 	/**
 	 * Buscar Apelaciones por Motivo y Resultado
 	 * 
@@ -61,7 +58,7 @@ public class ServicioReportesComparativos {
 				+ "group by motivo) as b "
 				+ "group by b.motivo "
 				+ "union all "
-				+ "select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(distinct sa.veredicto) "
+				+ "select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(sa.veredicto) "
 				+ "as procedente "
 				+ "from sigarep.tipo_motivo timo, sigarep.solicitud_apelacion sa "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
@@ -88,10 +85,8 @@ public class ServicioReportesComparativos {
 					((BigInteger) resultRow[3]).intValue(),
 					((BigInteger) resultRow[4]).intValue()));
 		}
-
 		return results;
 	}
-
 	/**
 	 * Buscar Apelaciones por Motivo y Resultado con todos los tipos de sancion
 	 * 
@@ -169,7 +164,6 @@ public class ServicioReportesComparativos {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-
 	public List<ApelacionesComparativos> buscarPorInstanciaResultado_Programa(
 			String codigo_lapso, int programa) {
 		String queryStatement = "select v.apelacion as apelacion, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, "
@@ -177,23 +171,10 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE sa.codigo_lapso = " + "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' ), "
+				+ "WHERE sa.codigo_lapso = " + "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' ), "
 				+ "(SELECT COUNT(essa.cedula_estudiante) sancionados FROM sigarep.estudiante_sancionado essa, sigarep.estudiante es "
 				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and essa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' )"
+				+ "and essa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and es.id_programa = " + "'"+ programa+ "' )"
 				+ "from "
 				+ "(select b.apelacion as apelacion, sum(b.apelaciones) apelaciones, 0 as procedente "
 				+ "from "
@@ -202,15 +183,8 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE ins.id_instancia_apelada = sa.id_instancia_apelada "
-				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
+				+ "WHERE ins.id_instancia_apelada = sa.id_instancia_apelada " + "and sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "' "
 				+ "group by apelacion) as b "
 				+ "group by b.apelacion "
 				+ "union all "
@@ -219,25 +193,12 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE ins.id_instancia_apelada = sa.id_instancia_apelada "
-				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and sa.veredicto = 'NO PROCEDENTE' "
-				+ "group by apelacion) as v "
-				+ "group by v.apelacion "
-				+ "order by apelaciones desc";
-
+				+ "WHERE ins.id_instancia_apelada = sa.id_instancia_apelada " + "and sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "' " + "and sa.veredicto = 'PROCEDENTE' "
+				+ "group by apelacion) as v " + "group by v.apelacion " + "order by apelaciones desc";
 		Query query = em.createNativeQuery(queryStatement);
-
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
-
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
@@ -246,10 +207,8 @@ public class ServicioReportesComparativos {
 					((BigInteger) resultRow[3]).intValue(),
 					((BigInteger) resultRow[4]).intValue()));
 		}
-
 		return results;
 	}
-
 	/**
 	 * Buscar Apelaciones por Instancia y Resultado
 	 * 
@@ -267,31 +226,12 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE sa.codigo_lapso = " + "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' ), "
+				+ "WHERE sa.codigo_lapso = " + "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' ), "
 				+ "(SELECT COUNT(essa.cedula_estudiante) sancionados FROM sigarep.estudiante_sancionado essa, sigarep.estudiante es "
 				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and essa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' ) "
+				+ "and essa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' ) "
 				+ "from "
 				+ "(select b.apelacion as apelacion, sum(b.apelaciones) apelaciones, 0 as procedente "
 				+ "from "
@@ -301,18 +241,8 @@ public class ServicioReportesComparativos {
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "WHERE ins.id_instancia_apelada = sa.id_instancia_apelada "
-				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' "
+				+ "and sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "' " + "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' "
 				+ "group by apelacion) as b "
 				+ "group by b.apelacion "
 				+ "union all "
@@ -323,27 +253,12 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "WHERE ins.id_instancia_apelada = sa.id_instancia_apelada "
 				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' "
-				+ "and sa.veredicto = 'NO PROCEDENTE' "
-				+ "group by instancia) as v "
-				+ "group by v.apelacion "
+				+ "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' " + "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' "
+				+ "and sa.veredicto = 'PROCEDENTE' " + "group by instancia) as v " + "group by v.apelacion "
 				+ "order by apelaciones desc";
-
 		Query query = em.createNativeQuery(queryStatement);
-
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
-
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
@@ -352,10 +267,8 @@ public class ServicioReportesComparativos {
 					((BigInteger) resultRow[3]).intValue(),
 					((BigInteger) resultRow[4]).intValue()));
 		}
-
 		return results;
 	}
-
 	/**
 	 * Buscar Apelaciones por Tipo de Sexo y Resultado con todos los tipos de
 	 * sancion
@@ -374,40 +287,18 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE sa.codigo_lapso = " + "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' ), "
+				+ "WHERE sa.codigo_lapso = " + "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' ), "
 				+ "(SELECT COUNT(essa.cedula_estudiante) sancionados FROM sigarep.estudiante_sancionado essa, sigarep.estudiante es "
-				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and essa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' ) "
-				+ "from "
-				+ "(select b.sexo as sexo, sum(b.apelaciones) apelaciones, 0 as procedente "
-				+ "from "
-				+ "(SELECT es.sexo as sexo,count(sa.cedula_estudiante) as apelaciones, 0 as procedente "
+				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante " + "and essa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "' ) "
+				+ "from " + "(select b.sexo as sexo, sum(b.apelaciones) apelaciones, 0 as procedente "
+				+ "from " + "(SELECT es.sexo as sexo,count(sa.cedula_estudiante) as apelaciones, 0 as procedente "
 				+ "from sigarep.solicitud_apelacion sa "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "INNER JOIN sigarep.sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion "
-				+ "WHERE sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
+				+ "WHERE sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' "
 				+ "group by sexo) as b "
 				+ "group by b.sexo "
 				+ "union all "
@@ -416,24 +307,12 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and sa.veredicto = 'PROCEDENTE' "
-				+ "group by sexo) as v "
-				+ "group by v.sexo "
-				+ "order by apelaciones desc";
-
+				+ "WHERE sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "' " + "and sa.veredicto = 'PROCEDENTE' "
+				+ "group by sexo) as v " + "group by v.sexo " + "order by apelaciones desc";
 		Query query = em.createNativeQuery(queryStatement);
-
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
-
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
@@ -442,10 +321,8 @@ public class ServicioReportesComparativos {
 					((BigInteger) resultRow[3]).intValue(),
 					((BigInteger) resultRow[4]).intValue()));
 		}
-
 		return results;
 	}
-
 	/**
 	 * Buscar Apelaciones por Tipo de Sexo y Resultado
 	 * 
@@ -463,31 +340,12 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE sa.codigo_lapso = " + "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "'), "
+				+ "WHERE sa.codigo_lapso = " + "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "'), "
 				+ "(SELECT COUNT(essa.cedula_estudiante) sancionados FROM sigarep.estudiante_sancionado essa, sigarep.estudiante es "
-				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and essa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' ) "
+				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante " + "and essa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' " + "and es.id_programa = "+ "'"+ programa+ "' ) "
 				+ "from "
 				+ "(select b.sexo as sexo, sum(b.apelaciones) apelaciones, 0 as procedente "
 				+ "from "
@@ -497,18 +355,7 @@ public class ServicioReportesComparativos {
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "INNER JOIN sigarep.sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion "
-				+ "WHERE sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' "
+				+ "WHERE sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' " + "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' "
 				+ "group by sexo) as b "
 				+ "group by b.sexo "
 				+ "union all "
@@ -517,28 +364,14 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
-				+ "WHERE sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' "
-				+ "and sa.veredicto = 'NO PROCEDENTE' "
+				+ "WHERE sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' " + "and sa.veredicto = 'PROCEDENTE' "
 				+ "group by sexo) as v "
 				+ "group by v.sexo "
 				+ "order by apelaciones desc";
-
 		Query query = em.createNativeQuery(queryStatement);
-
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
-
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
@@ -547,8 +380,6 @@ public class ServicioReportesComparativos {
 					((BigInteger) resultRow[3]).intValue(),
 					((BigInteger) resultRow[4]).intValue()));
 		}
-
 		return results;
 	}
-
 }
