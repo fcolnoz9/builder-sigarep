@@ -35,31 +35,12 @@ public class ServicioReportesComparativos {
 				+ "(SELECT COUNT(DISTINCT sa.cedula_estudiante) totalapelaciones FROM sigarep.solicitud_apelacion sa, sigarep.estudiante_sancionado essa, sigarep.estudiante es "
 				+ "WHERE sa.cedula_estudiante = essa.cedula_estudiante "
 				+ "and essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and sa.codigo_lapso = " + "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' ), "
+				+ "and sa.codigo_lapso = " + "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' ), "
 				+ "(SELECT COUNT(DISTINCT essa.cedula_estudiante) sancionados FROM sigarep.estudiante_sancionado essa, sigarep.estudiante es "
 				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and essa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' )"
+				+ "and essa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "+ "and es.id_programa = "+ "'"+ programa+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' )"
 				+ "from "
 				+ "(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente "
 				+ "from "
@@ -74,21 +55,9 @@ public class ServicioReportesComparativos {
 				+ "and mo.id_instancia_apelada = sa.id_instancia_apelada "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "WHERE mo.id_tipo_motivo = timo.id_tipo_motivo "
-				+ "and mo.id_tipo_motivo <> 1 "
-				+ "and mo.id_tipo_motivo <> 2 "
-				+ "and mo.id_tipo_motivo <> 3 "
-				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' "
+				+ "and mo.id_tipo_motivo <> 1 " + "and mo.id_tipo_motivo <> 2 "+ "and mo.id_tipo_motivo <> 3 "
+				+ "and sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "' "+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' "
 				+ "group by motivo) as b "
 				+ "group by b.motivo "
 				+ "union all "
@@ -103,27 +72,11 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.sancion_maestro as sanma on essa.id_sancion=sanma.id_sancion "
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "WHERE mo.id_tipo_motivo = timo.id_tipo_motivo "
-				+ "and mo.id_tipo_motivo <> 1 "
-				+ "and mo.id_tipo_motivo <> 2 "
-				+ "and mo.id_tipo_motivo <> 3 "
-				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and essa.id_sancion = "
-				+ "'"
-				+ tipo_sancion
-				+ "' "
-				+ "and sa.veredicto = 'NO PROCEDENTE' "
-				+ "group by timo.nombre_tipo_motivo) as v "
-				+ "group by v.motivo " + "order by apelaciones desc";
-
+				+ "and mo.id_tipo_motivo <> 1 " + "and mo.id_tipo_motivo <> 2 " + "and mo.id_tipo_motivo <> 3 "
+				+ "and sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' "
+				+ "and essa.id_sancion = "+ "'"+ tipo_sancion+ "' " + "and sa.veredicto = 'PROCEDENTE' "
+				+ "group by timo.nombre_tipo_motivo) as v " + "group by v.motivo " + "order by apelaciones desc";
 		Query query = em.createNativeQuery(queryStatement);
-
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
 
@@ -225,7 +178,7 @@ public class ServicioReportesComparativos {
 				+ "'"
 				+ programa
 				+ "' "
-				+ "and sa.veredicto = 'NO PROCEDENTE' "
+				+ "and sa.veredicto = 'PROCEDENTE' "
 				+ "group by timo.nombre_tipo_motivo) as v "
 				+ "group by v.motivo " + "order by apelaciones desc";
 
@@ -512,7 +465,7 @@ public class ServicioReportesComparativos {
 				+ "'"
 				+ programa
 				+ "' "
-				+ "and sa.veredicto = 'NO PROCEDENTE' "
+				+ "and sa.veredicto = 'PROCEDENTE' "
 				+ "group by sexo) as v "
 				+ "group by v.sexo "
 				+ "order by apelaciones desc";
