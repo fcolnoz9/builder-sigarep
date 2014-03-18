@@ -2,7 +2,18 @@ package sigarep.viewmodels.reportes;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -11,6 +22,7 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -45,6 +57,7 @@ import sigarep.modelos.servicio.reportes.ServicioReporteEstudianteSancionado;
  */@VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudianteSancionado {
 	String ruta = "/WEB-INF/sigarepReportes/configurable/RpEstudiantesSancionadosConfigurable.jasper";
+	//String ruta = "/WEB-INF/sigarepReportes/configurable/RpEstudiantesSancionadosConfigurable.jasper";
 	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
@@ -447,11 +460,8 @@ public class VMEstudianteSancionado {
 	 * @return El Tipo de Formato del Archivo(RTF,XLS,JXL,CSV,ODT)
 	 */
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("Word (RTF)", "rtf"),
-						  new ReportType("Reporte en Excel", "xls"), 
-						  new ReportType("Excel (JXL)","jxl"), 
-						  new ReportType("CSV", "csv"),
-						  new ReportType("OpenOffice (ODT)", "odt")));
+			Arrays.asList(new ReportType("Reporte en Excel", "xls"), 
+						  new ReportType("Excel (JXL)","jxl")));
 	/**
 	 * buscar estado de Apelación
 	 * 
@@ -857,10 +867,11 @@ public class VMEstudianteSancionado {
 			reportConfig = new ReportConfig(ruta);
 			reportConfig.getParameters().put("ListaSancionados",new JRBeanCollectionDataSource(listaE));
 			reportConfig.setType(reportType);
-			reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
+		reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
 		} else {
 			mensajeAlUsuario.informacionNoHayCoincidencias();
 		}
+	
 	}
  //FIN DE LA CLASE
 }
