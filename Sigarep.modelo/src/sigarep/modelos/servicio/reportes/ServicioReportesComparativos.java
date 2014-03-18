@@ -105,30 +105,14 @@ public class ServicioReportesComparativos {
 	public List<ApelacionesComparativos> buscarPorMotivoResultado_Programa(
 			String codigo_lapso, int programa) {
 		String queryStatement = "select v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, "
-				+ "(SELECT COUNT(DISTINCT sa.cedula_estudiante) total FROM sigarep.solicitud_apelacion sa, sigarep.estudiante_sancionado essa, sigarep.estudiante es "
-				+ "WHERE sa.cedula_estudiante = essa.cedula_estudiante "
-				+ "and essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and sa.codigo_lapso = " + "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "' ), "
+				+ "(SELECT COUNT(sa.cedula_estudiante) total FROM sigarep.solicitud_apelacion sa, sigarep.estudiante_sancionado essa, sigarep.estudiante es "
+				+ "WHERE sa.cedula_estudiante = essa.cedula_estudiante " + "and essa.cedula_estudiante = es.cedula_estudiante "
+				+ "and sa.codigo_lapso = " + "'"+ codigo_lapso+ "' " + "and es.id_programa = "+ "'"+ programa+ "' ), "
 				+ "(SELECT COUNT(essa.cedula_estudiante) sancionados FROM sigarep.estudiante_sancionado essa, sigarep.estudiante es "
-				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante "
-				+ "and essa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and es.id_programa = "
-				+ "'"
-				+ programa
-				+ "'  ) "
-				+ "from "
-				+ "(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente "
-				+ "from "
-				+ "(SELECT distinct timo.nombre_tipo_motivo as motivo,count(distinct sa.cedula_estudiante) "
+				+ "WHERE essa.cedula_estudiante = es.cedula_estudiante " + "and essa.codigo_lapso = "+ "'"+ codigo_lapso+ "' "
+				+ "and es.id_programa = "+ "'"+ programa+ "'  ) "
+				+ "from " + "(select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente "
+				+ "from " + "(SELECT distinct timo.nombre_tipo_motivo as motivo,count(distinct sa.cedula_estudiante) "
 				+ "as apelaciones, 0 as procedente "
 				+ "from sigarep.tipo_motivo timo, sigarep.solicitud_apelacion sa "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa "
@@ -141,21 +125,12 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "INNER JOIN sigarep.programa_academico as prog on es.id_programa = prog.id_programa "
 				+ "WHERE mo.id_tipo_motivo = timo.id_tipo_motivo "
-				+ "and mo.id_tipo_motivo <> 1 "
-				+ "and mo.id_tipo_motivo <> 2 "
-				+ "and mo.id_tipo_motivo <> 3 "
-				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and prog.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
+				+ "and mo.id_tipo_motivo <> 1 " + "and mo.id_tipo_motivo <> 2 " + "and mo.id_tipo_motivo <> 3 "
+				+ "and sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and prog.id_programa = "+ "'"+ programa+ "' "
 				+ "group by motivo) as b "
 				+ "group by b.motivo "
 				+ "union all "
-				+ "select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(distinct sa.veredicto) "
+				+ "select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(sa.veredicto) "
 				+ "as procedente "
 				+ "from sigarep.tipo_motivo timo, sigarep.solicitud_apelacion sa "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
@@ -167,26 +142,12 @@ public class ServicioReportesComparativos {
 				+ "INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "INNER JOIN sigarep.programa_academico as prog on es.id_programa = prog.id_programa "
 				+ "WHERE mo.id_tipo_motivo = timo.id_tipo_motivo "
-				+ "and mo.id_tipo_motivo <> 1 "
-				+ "and mo.id_tipo_motivo <> 2 "
-				+ "and mo.id_tipo_motivo <> 3 "
-				+ "and sa.codigo_lapso = "
-				+ "'"
-				+ codigo_lapso
-				+ "' "
-				+ "and prog.id_programa = "
-				+ "'"
-				+ programa
-				+ "' "
-				+ "and sa.veredicto = 'PROCEDENTE' "
-				+ "group by timo.nombre_tipo_motivo) as v "
-				+ "group by v.motivo " + "order by apelaciones desc";
-
+				+ "and mo.id_tipo_motivo <> 1 " + "and mo.id_tipo_motivo <> 2 " + "and mo.id_tipo_motivo <> 3 "
+			    + "and sa.codigo_lapso = "+ "'"+ codigo_lapso+ "' " + "and prog.id_programa = "+ "'"+ programa+ "' "
+				+ "and sa.veredicto = 'PROCEDENTE' " + "group by timo.nombre_tipo_motivo) as v " + "group by v.motivo " + "order by apelaciones desc";
 		Query query = em.createNativeQuery(queryStatement);
-
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = query.getResultList();
-
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
@@ -195,10 +156,8 @@ public class ServicioReportesComparativos {
 					((BigInteger) resultRow[3]).intValue(),
 					((BigInteger) resultRow[4]).intValue()));
 		}
-
 		return results;
 	}
-
 	/**
 	 * Buscar Apelaciones por Instancia y Resultado con todos los tipos de
 	 * sancion
