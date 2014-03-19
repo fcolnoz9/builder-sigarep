@@ -166,7 +166,7 @@ public class ServicioReportesComparativos {
 	 */
 	public List<ApelacionesComparativos> buscarPorInstanciaResultado_Programa(
 			String codigo_lapso, int programa) {
-		String queryStatement = "select v.apelacion as apelacion, sum(v.apelaciones) apelaciones, count(v.procedente) procedentes, "
+		String queryStatement = "select v.apelacion as apelacion, sum(v.apelaciones) apelaciones, sum(v.procedente) procedentes, "
 				+ "(SELECT COUNT(sa.cedula_estudiante) total FROM sigarep.solicitud_apelacion sa "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante "
 				+ "and essa.codigo_lapso = sa.codigo_lapso "
@@ -202,10 +202,10 @@ public class ServicioReportesComparativos {
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
-					(((BigInteger) resultRow[1]).intValue()),
-					( ((BigInteger) resultRow[2]).intValue()),
-					( ((BigInteger) resultRow[3]).intValue()),
-					( ((BigInteger) resultRow[4]).intValue())));
+					(((Number) resultRow[1]).intValue()),
+					( ((Number) resultRow[2]).intValue()),
+					( ((Number) resultRow[3]).intValue()),
+					( ((Number) resultRow[4]).intValue())));
 		}
 		return results;
 	}
@@ -262,10 +262,10 @@ public class ServicioReportesComparativos {
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
-					((BigDecimal) resultRow[1]).intValue(),
-					((BigDecimal) resultRow[2]).intValue(),
-					((BigInteger) resultRow[3]).intValue(),
-					((BigInteger) resultRow[4]).intValue()));
+					((Number) resultRow[1]).intValue(),
+					((Number) resultRow[2]).intValue(),
+					((Number) resultRow[3]).intValue(),
+					((Number) resultRow[4]).intValue()));
 		}
 		return results;
 	}
@@ -316,10 +316,10 @@ public class ServicioReportesComparativos {
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
-					((BigDecimal) resultRow[1]).intValue(),
-					((BigDecimal) resultRow[2]).intValue(),
-					((BigInteger) resultRow[3]).intValue(),
-					((BigInteger) resultRow[4]).intValue()));
+					((Number) resultRow[1]).intValue(),
+					((Number) resultRow[2]).intValue(),
+					((Number) resultRow[3]).intValue(),
+					((Number) resultRow[4]).intValue()));
 		}
 		return results;
 	}
@@ -375,10 +375,10 @@ public class ServicioReportesComparativos {
 		List<ApelacionesComparativos> results = new ArrayList<ApelacionesComparativos>();
 		for (Object[] resultRow : resultSet) {
 			results.add(new ApelacionesComparativos((String) resultRow[0],
-					((BigDecimal) resultRow[1]).intValue(),
-					((BigDecimal) resultRow[2]).intValue(),
-					((BigInteger) resultRow[3]).intValue(),
-					((BigInteger) resultRow[4]).intValue()));
+					((Number) resultRow[1]).intValue(),
+					((Number) resultRow[2]).intValue(),
+					((Number) resultRow[3]).intValue(),
+					((Number) resultRow[4]).intValue()));
 		}
 		return results;
 	}
