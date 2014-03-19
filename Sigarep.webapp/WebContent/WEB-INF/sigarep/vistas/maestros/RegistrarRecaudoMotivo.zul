@@ -1,5 +1,5 @@
 <window id="winRegistrarRecaudoMotivo" closable="true"
-	title="Registros Básicos:: Registrar Recaudos "
+	title="Registros Básicos:: Recaudos por Motivos"
 	border="normal" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivo')">
 <!--El groupbox Contiene los del recaudo -->
