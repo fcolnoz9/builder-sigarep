@@ -1,0 +1,10 @@
+<div id="winBannerPortal" height="100%"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMBanner')">
+
+	<timer id="tiempo" delay="7000" repeats="true"
+		onTimer="@command('cambiarImagen')">
+	</timer>
+	<image height="300px" width="100%"
+		content="@bind(vm.fotoBannerPortal.getAImage())" />
+</div>

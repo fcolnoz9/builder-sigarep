@@ -1,0 +1,202 @@
+<zk>
+	<window id="winAnalizarValidezI"
+		title="Gestión :: Apelaciones :: Evaluar Apelación :: Analizar Validez"
+		border="normal" width="auto" height="auto"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+		closable="true"
+		viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMAnalizarValidezI')">
+
+		<style src="/widgets/grid/simple/style.css" />
+
+<!-- Gruoupbox que contiene los datos del estudiante -->
+		<groupbox id="grbDatosEstudiante">
+			<caption label="Datos del Estudiante" />
+			<grid id="grdDatosEstudiante">
+				<rows>
+					<row></row>
+					<row>
+						<label value="Cédula:" id="lblCedulaEstudiante" />
+						<textbox id="txtCedulaEstudiante" mold="rounded"
+							cols="23" width="200px" maxlength="30" readonly="true"
+							value="@bind(vm.cedula)">
+						</textbox>
+						<label value="Programa:"
+							id="lblProgramaEstudiante" />
+						<textbox id="txtProgramaEstudiante"
+							mold="rounded" cols="23" width="200px" maxlength="30"
+							readonly="true"
+							value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.estudiante.programaAcademico.nombrePrograma)">
+						</textbox>
+					</row>
+					<row>
+						<label value="Nombres: "
+							id="lblNombresEstudiante" />
+						<textbox id="txtNombresEstudiante" cols="23"
+							mold="rounded" width="200px" maxlength="30" readonly="true"
+							value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.estudiante.primerNombre)">
+						</textbox>
+						<label value="Apellidos: "
+							id="lblApellidosEstudiante" />
+						<textbox id="txtApellidosEstudiante" cols="23"
+							mold="rounded" width="200px" maxlength="30" readonly="true"
+							value="@bind(vm.sancionadoSeleccionado.estudianteSancionado.estudiante.primerApellido)">
+						</textbox>
+					</row>
+					<row>
+
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<!-- Gruoupbox que contiene los datos de la sanción -->
+		<groupbox id="grbDatosSancion">
+			<caption id="lblDatossancion" label="Datos Sanción" />
+			<grid>
+				<rows>
+					<row>
+						<label id="lblTiposancion"
+							value="Tipo de Sanción: " />
+						<textbox id="txtTipoSancion" cols="23"
+							mold="rounded" maxlength="30" readonly="true"
+							value="@bind(vm.sancion)">
+						</textbox>
+						<label id="lblLapsosancion"
+							value="Lapso de Sanción: " />
+						<textbox id="txtLapsosancion" mold="rounded"
+							cols="23" maxlength="30" value="@bind(vm.lapso)"
+							readonly="true">
+						</textbox>
+					</row>
+					<row>
+						<label id="lblPeriodosancion"
+							value="Periodo de Sanción: " />
+						<textbox id="txtPeridosancion" cols="23"
+							mold="rounded" maxlength="30" value="@bind(vm.periodoSancion)"
+							readonly="true">
+						</textbox>
+						<label id="lblAsignaturaPeriodos"
+							value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+						<textbox id="txtAsignatura" cols="55"
+							maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)"
+							readonly="true">
+						</textbox>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+
+<!-- Gruoupbox que contiene los datos de la apelación -->
+		<groupbox id="grbDatoApelacion">
+			<caption label="Datos de la Apelación" />
+			<grid>
+				<rows>
+					<row>
+						<label value="Número de Caso:"
+							id="lblNumeroCaso" />
+						<textbox id="txtNumeroCaso" mold="rounded"
+							cols="23" width="200px" maxlength="30" readonly="true"
+							value="@bind(vm.caso)">
+						</textbox>
+						<label value="Fecha de Apelación:"
+							id="lblFechaApelacion" />
+						<textbox id="txtFechaApelacion" mold="rounded"
+							cols="23" width="200px" maxlength="30" readonly="true"
+							value="@bind(vm.fechaApelacion)">
+						</textbox>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+<!-- Gruoupbox que contiene los datos de los recaudos-->
+		<groupbox id="grbDatosRecaudo">
+			<caption label="Datos de los Recaudos" />
+			<listbox id="lbxRecaudos" model="@bind(vm.listaRecaudo)"
+				emptyMessage="No se encontraron recaudos" mold="paging"
+				pageSize="20">
+				<listhead>
+					<listheader hflex="3" label="Motivo de Apelación"
+						align="left" width="25%"
+						sort="auto(getMotivo().getTipoMotivo().getNombreTipoMotivo())" />
+					<listheader hflex="4" label="Recaudo Entregado"
+						align="left" width="25%"
+						sort="auto(getRecaudo().getNombreRecaudo())" />
+					<listheader hflex="4" label="Observación"
+						align="left" width="50%" sort="auto(getObservacionExperto())" />
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell
+							label="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}">
+						</listcell>
+						<listcell
+							label="${each.getRecaudo().getNombreRecaudo()}">
+						</listcell>
+						<listcell height="%">
+							<textbox value="" 
+							placeholder="Ingrese una observación del recaudo"
+							mold="rounded" cols="120" rows="2" maxlength="255" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+
+		</groupbox>
+<!-- Gruoupbox que contiene los datos de la segerencia -->
+		<groupbox id="grbDatosSugerencia">
+			<caption id="lblsugerencia" label="Sugerencia" />
+			<grid>
+				<columns>
+					<column align="left" width="25%" />
+					<column align="left" width="75%" />
+				</columns>
+				<rows>
+					<row>
+						<radiogroup id="rgSugerencia"
+							selectedItem="@bind(vm.selected)">
+							<hlayout>
+								<radio id="rbProcedente"
+									label="Procedente" value="PROCEDENTE" />
+								<separator></separator>
+								<radio id="rbNoProcedente"
+									label="No Procedente" value="NO PROCEDENTE" />
+							</hlayout>
+						</radiogroup>
+
+						<hlayout valign="center">
+							<label value="Observación General: "
+								id="lblObservacion" />
+							<separator></separator>
+							<textbox id="txtObservacion" 
+							     placeholder="Ingrese una observación general del caso"
+							    mold="rounded" maxlength="255" cols="100" rows="2"
+								 value="@bind(vm.observacion)">
+							</textbox>
+						</hlayout>
+					</row>
+				</rows>
+			</grid>
+			<label value="" />
+
+		</groupbox>
+<!-- Botones de acción -->
+		<div align="right" height="100%">
+			<button label="Guardar" mold="trendy" id="btnGuardar"
+				image="imagenes/iconos/guardar.png" width="auto" height="auto"
+				orient="horizontal"
+				onClick="@command('actualizarRecaudosEntregados',recaudosEntregados=items,window=winAnalizarValidezI) @global-command('actualizarListaSancionados')">
+				<attribute name="onClick">
+				List items = lbxRecaudos.getItems();
+			</attribute>
+			</button>
+			<button label="Limpiar" id="btnCancelar" mold="trendy"
+				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('limpiar')">
+			</button>
+			<button label="Cerrar" mold="trendy" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('cerrarVentana',ventana = winAnalizarValidezI)">
+			</button>
+
+		</div>
+	</window>
+</zk>

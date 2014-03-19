@@ -1,0 +1,47 @@
+<?page title="Registrar Programa Academico por Lote" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window  id="winRegistrarProgramaLoteLote" title="Registros Básicos :: Programa Académico " border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="false"
+    viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademicoLote')">
+	<groupbox >
+		<caption label="Cargar Programas Académicos" />
+		<grid>
+		<columns>
+			<column label=""/>
+			<column label=""/>
+		</columns>
+		<rows>
+			<row>	
+				<label>Cantidad Programas:</label>
+				<intbox id="tamanoXML" placeholder="cantidad" value="@bind(vm.tamanoXML)" mold="rounded" readonly="true"/>
+				<button id="btnUpload" label="Cargar Archivo XML..." image="/imagenes/iconos/cargar.png" onUpload="@command('cargarAsignatura',upload=event)" upload="true,maxsize=8192,multiple=false"/>
+			</row>
+			<row>
+			</row>
+		</rows>
+		</grid>
+	</groupbox>
+	<groupbox>
+	<caption label="Lista de Programas Académicos Registrados" />
+		<listbox id="estListbox" height="100%" model="@bind(vm.listaPrograma)"   
+   			 emptyMessage="No hay programas registrados" mold="paging" pageSize="10" tooltiptext="Programas Registrados">
+		<listhead>
+			<listheader label="Codigo Programa" align="center"  width="120px"  sort="auto(IdPrograma)" tooltiptext="Click para Ordenar por codigo programa" />
+			<listheader label="Nombre Programa" align="center"  width="350px" sort="auto(NombrePrograma)" tooltiptext="Click para Ordenar por Nombre Programa" />
+		</listhead>
+		<template name="model">
+			<listitem selected="false">
+				<listcell label="${each.getIdPrograma()}" ></listcell>
+				<listcell label="${each.getNombrePrograma()}" ></listcell>
+			</listitem>
+		</template>
+	</listbox>  
+	</groupbox>
+	<separator />
+	<div align="right" height="100%">
+			<button label="Cerrar"  id="btnCerrarLapso"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/cerrar.png" 
+				orient="horizontal" onClick="@command('cerrarVentana', ventana = winRegistrarProgramaLoteLote)" />
+		</div>
+</window>
+</zk>
