@@ -1,5 +1,7 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
 <window title="Administración del Sistema :: Guardar Históricos" id="winHistoricosSigarepBD"
-	border="normal" 
+	border="normal" closable="true" width="auto" height="auto"
 	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistoricosSigarepBD')">
 	
 	<div width="100%" height="94%" style="overflow:auto;" align="center">
@@ -72,24 +74,27 @@
 					</grid>
 				</groupbox>
 	</div>
-	
-	
-	<div align="right" height="100%">
-		<!-- Genera el historico seleccionado -->
-		<button label="Guardar" id="btnGuardar" mold="trendy"
-			image="imagenes/iconos/guardar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('generarHistorico')">
-		</button>
-		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
-		<button label="Limpiar" id="btnCancelar" mold="trendy"
-			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-			orient="horizontal">
-		</button>
-		<!-- Sale del registro, es necesario mensajes de advertencia-->
-		<button label="Cerrar" id="btnCerrar" mold="trendy"
-			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
-			orient="horizontal" onClick="@command('cerrarVentana', ventana = winHistoricosSigarepBD)">
-		</button>
-	</div>
-
+	<div width="100%" height="94%" style="overflow:auto;" align="center">
+				<groupbox id="gbBotones" style="margin:5px;" width="85%"
+					mold="3d">
+					<div align="right" height="100%">
+						<!-- Genera el historico seleccionado -->
+							<button label="Guardar" id="btnGuardar" mold="trendy"
+								image="imagenes/iconos/guardar.png" width="auto" height="auto"
+								orient="horizontal" onClick="@command('generarHistorico')">
+							</button>
+						<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
+							<button label="Limpiar" id="btnCancelar" mold="trendy"
+								image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+								orient="horizontal">
+							</button>
+						<!-- Sale del registro, es necesario mensajes de advertencia-->
+							<button label="Cerrar" id="btnCerrar" mold="trendy"
+								image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+								orient="horizontal" onClick="@command('cerrarVentana', ventana = winHistoricosSigarepBD)">
+							</button>
+					</div>
+				</groupbox>
+	</div>			
 </window>
+</zk>

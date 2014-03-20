@@ -17,7 +17,7 @@
 	</zscript>	
 			<div width="100%" height="auto" style="overflow:auto;" align="center">
 				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d" >
-					<caption style="border:normal;"
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
 						label="Destino del Respaldo"/>
 				 <grid id="grdColumns" width="99%" height="100%">
 						<columns>
@@ -80,33 +80,27 @@
 						</rows>
 					</grid>
 				</groupbox>
-			<div  width="91%" height="70%">
-				<grid id="grdGuardarYCancelar" width="99%">
-   				<rows>
-   					<row  align="right">
-				<hbox>
-				<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
-				height="auto" orient="horizontal" onClick="@command('guardarRespaldo',groupboxDispositivo=grbDispositivo,aplication=application)">
+			    <groupbox style="margin:5px;" width="90%" mold="3d"
+					id="grbBotones">	
+				  <div align="right">
+					<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
+						height="auto" orient="horizontal" onClick="@command('guardarRespaldo',groupboxDispositivo=grbDispositivo,aplication=application)">
 					</button>
 					<button label="Limpiar" id="btnCancelar" mold="trendy"
 						image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 						orient="horizontal" onClick="@command('limpiar',groupboxDispositivo=grbDispositivo)">
 					</button>
-					
 					<button label="Cerrar" id="btnCerrar"
-   							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-   							height="auto" orient="horizontal" onClick="@command('cerrarVentana',ventana=winRespaldarDatos)">
-   						</button>
-					</hbox>			
-				</row>
-   			  </rows>
-   			</grid>
-		</div>
+   						image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+   						height="auto" orient="horizontal" onClick="@command('cerrarVentana',ventana=winRespaldarDatos)">
+   					</button>
+				  </div>
+				</groupbox>
 		</div>					
 		
 		<div width="100%" height="auto" style="overflow:auto;" align="center">   		
    		<groupbox id="grbListaBackups" height="auto" width="90%">
-   		<caption label="Lista de Backups "/>
+   		<caption label="Lista de Backups " style="font-weight:bold;font-size:14px;color:gray;"/>
    		<div id="divListBackups" align="center" apply="sigarep.herramientas.ManejadorEventosTipoSelector">
    		<listbox id="backupsListbox" height="100%" width="100%"  emptyMessage="No hay backups realizados"
    		 mold="paging" model="@bind(vm.listaDirectorio1)" multiple="false">

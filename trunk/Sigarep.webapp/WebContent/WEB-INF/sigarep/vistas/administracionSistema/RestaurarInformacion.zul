@@ -1,10 +1,10 @@
  <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./lstArchivosLocal"?>
 <zk>
-<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal" zclass="z-window-overlapped"  height="auto" width="auto" closable="true"
+<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal"  height="auto" width="auto" closable="true"
 apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRestaurarInformacionBD')" >	
 			<div align="center" style="overflow:auto;">
 				<groupbox style="margin:5px;" width="85%" mold="3d">
-					<caption style="margin:5px;border:normal;"
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
 						label="Ubicación del respaldo a restaurar" />
 					<grid width="99%" style="border:normal;" height="100%">
 						<columns>
@@ -36,7 +36,7 @@ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmode
 					</grid>
 				</groupbox>
 				<!-- Div para mostrar los archivos del directorio local -->
-				<div id="divArchivosLocal" width="86%" style="margin:5px;border:normal;"
+				<div id="divArchivosLocal" width="85%" style="margin:5px;border:normal;"
 					height="auto" visible="false">
 					<grid>
 						<rows>
@@ -53,7 +53,7 @@ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmode
 				</div>
 				<!-- Groupbox para seleccionar archivo desde un dispositivo -->
 				<groupbox id="grbDispositivo" style="margin:5px;" width="85%" mold="3d" visible="false">
-					<caption style="margin:5px;border:normal;"
+					<caption style="font-weight:bold;font-size:14px;color:gray;"
 						label="Seleccione el archivo generado en el respaldo" />
 					<grid>
 						<rows>
@@ -66,16 +66,20 @@ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmode
 						</rows>
 					</grid>
 				</groupbox>
-				<div align="right">
-					<button label="Restaurar" id="btnRestaurar" image="/imagenes/iconos/restaurarBD.png" mold="trendy" width="auto" height="auto" onClick="@command('restaurarInformacion',aplication=application, groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal, backupseleccionado=lstArchivosLocal.selectedItem)"/>
-					<button label="Limpiar" id="btnCancelar" mold="trendy"
+				<groupbox style="margin:5px;" width="85%" mold="3d"
+					id="grbBotones">	
+					<div align="right">
+						<button label="Restaurar" id="btnRestaurar" image="/imagenes/iconos/restaurarBD.png"
+						 mold="trendy" width="auto" height="auto" onClick="@command('restaurarInformacion',aplication=application, groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal, backupseleccionado=lstArchivosLocal.selectedItem)"/>
+						<button label="Limpiar" id="btnCancelar" mold="trendy"
 							image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 							orient="horizontal"
 							onClick="@command('limpiar')"/>
-					<button label="Cerrar" id="btnCerrar"
+						<button label="Cerrar" id="btnCerrar"
    							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
    							height="auto" orient="horizontal" onClick="winRestaurarInformacion.onClose()"/>
-				</div>
+					</div>
+				</groupbox>
 			</div>
 </window>
 </zk>	
