@@ -7,11 +7,9 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
-import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ContactoSigarep;
 import sigarep.modelos.servicio.maestros.ServicioContactoSigarep;
-
 
 /**
  * Clase VMContacto
@@ -22,22 +20,28 @@ import sigarep.modelos.servicio.maestros.ServicioContactoSigarep;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMContacto {
-	//-----------------Servicios----------------------------
+	// -----------------Servicios----------------------------
 	@WireVariable
 	ServicioContactoSigarep serviciocontactosigarep;
-	//-----------------Variables contactoSigarep -----------
+	// -----------------Variables contactoSigarep -----------
 	private Integer id_contacto;
-	private String quienesSomos;
-	private String correoContacto;
-	private String twitter;
-	private String facebook;
-	private String telefonoContacto;
-	private String direccion;
-	private String nombreEmisor;
-	private String correoEmisor;
-	private String telefonoEmisor;
-	private String consulta;
-	//-----------------Variables Objeto----------------------
+	private String quienesSomos = "";
+	private String twitter = "";
+	private String facebook = "";
+	private String telefonoContacto = "";
+	private String direccion = "";
+	private String nombreEmisor = "";
+	private String correoEmisor = "";
+	private String telefonoEmisor = "";
+	private String consulta = "";
+	private String correoContacto = "";
+	private String claveCorreoContacto = "";
+	private String servidorEntrantePop3 = "";
+	private String puertoEntradaPop3 = "";
+	private String servidorSalidaSmtp = "";
+	private String puertoSalidaSmtp = "";
+
+	// -----------------Variables Objeto----------------------
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private ContactoSigarep contactoSigarep;
 
@@ -121,15 +125,56 @@ public class VMContacto {
 	public void setConsulta(String consulta) {
 		this.consulta = consulta;
 	}
+
+	public String getClaveCorreoContacto() {
+		return claveCorreoContacto;
+	}
+
+	public void setClaveCorreoContacto(String claveCorreoContacto) {
+		this.claveCorreoContacto = claveCorreoContacto;
+	}
+
+	public String getServidorEntrantePop3() {
+		return servidorEntrantePop3;
+	}
+
+	public void setServidorEntrantePop3(String servidorEntrantePop3) {
+		this.servidorEntrantePop3 = servidorEntrantePop3;
+	}
+
+	public String getPuertoEntradaPop3() {
+		return puertoEntradaPop3;
+	}
+
+	public void setPuertoEntradaPop3(String puertoEntradaPop3) {
+		this.puertoEntradaPop3 = puertoEntradaPop3;
+	}
+
+	public String getServidorSalidaSmtp() {
+		return servidorSalidaSmtp;
+	}
+
+	public void setServidorSalidaSmtp(String servidorSalidaSmtp) {
+		this.servidorSalidaSmtp = servidorSalidaSmtp;
+	}
+
+	public String getPuertoSalidaSmtp() {
+		return puertoSalidaSmtp;
+	}
+
+	public void setPuertoSalidaSmtp(String puertoSalidaSmtp) {
+		this.puertoSalidaSmtp = puertoSalidaSmtp;
+	}
+
 	// Fin Métodos Set y Get
-	
+
 	/**
 	 * inicialización
 	 * 
 	 * @param init
 	 * @return código de inicialización
 	 * @throws No
-	 * dispara ninguna excepcion.
+	 *             dispara ninguna excepcion.
 	 */
 	@Init
 	public void init() {
@@ -146,17 +191,21 @@ public class VMContacto {
 	 *             introducir un correo
 	 */
 	@Command
-	@NotifyChange({ "quienesSomos", "correoContacto", "direccion", "twitter",
-			"facebook", "telefonoContacto" })
+	@NotifyChange({ "quienesSomos", "correoContacto", "twitter", "facebook",
+			"telefonoContacto", "direccion", "claveCorreoContacto",
+			"servidorEntrantePop3", "puertoEntradaPop3", "servidorSalidaSmtp",
+			"puertoSalidaSmtp" })
 	public void guardarContacto() {
 		if (correoContacto == null || correoContacto.equals("")) {
 			mensajeAlUsuario.advertenciaIngresarCorreo();
 		} else {
-			twitter+="https://www.twitter.com/"+twitter;
-			facebook+="https://www.facebook.com/"+facebook;
+			twitter = "https://www.twitter.com/" + twitter;
+			facebook = "https://www.facebook.com/" + facebook;
 			ContactoSigarep contactoSigarep = new ContactoSigarep(id_contacto,
 					quienesSomos, correoContacto, twitter, facebook,
-					telefonoContacto, direccion);
+					telefonoContacto, direccion, claveCorreoContacto,
+					servidorEntrantePop3, servidorSalidaSmtp,
+					puertoEntradaPop3, puertoSalidaSmtp, true);
 			serviciocontactosigarep.guardar(contactoSigarep);
 			mensajeAlUsuario.informacionRegistroCorrecto();
 		}
@@ -166,17 +215,20 @@ public class VMContacto {
 	 * cargarContacto
 	 * 
 	 * @param quienesSomos
-	 *            , correoContacto, twitter, facebook, telefono, direccion
+	 *            , correoContacto, twitter, facebook, telefonoContacto, direccion
 	 * @return No devuelve ningun valor
 	 * @throws Debe
 	 *             introducir un correo
 	 */
 	@Command
-	@NotifyChange({ "quienesSomos", "correoContacto", "direccion", "twitter",
-			"facebook", "telefonoContacto" })
+	@NotifyChange({ "quienesSomos", "correoContacto", "twitter", "facebook",
+			"telefonoContacto", "direccion", "nombreEmisor", "telefonoEmisor",
+			"correoEmisor", "consulta", "claveCorreoContacto",
+			"servidorEntrantePop3", "puertoEntradaPop3", "servidorSalidaSmtp",
+			"puertoSalidaSmtp" })
 	public void cargarContacto() {
-		if (serviciocontactosigarep.buscarContactoSigarep().size() > 0) {
-			contactoSigarep = serviciocontactosigarep.buscarContactoSigarep().get(0);
+			contactoSigarep = serviciocontactosigarep.buscarContactoSigarep();
+		if (contactoSigarep != null) {
 			id_contacto = contactoSigarep.getIdContacto();
 			quienesSomos = contactoSigarep.getQuienesSomos();
 			correoContacto = contactoSigarep.getCorreoContacto();
@@ -184,6 +236,11 @@ public class VMContacto {
 			facebook = contactoSigarep.getFacebook();
 			telefonoContacto = contactoSigarep.getTelefonoContacto();
 			direccion = contactoSigarep.getDireccionContacto();
+			claveCorreoContacto = contactoSigarep.getClaveCorreo();
+			servidorEntrantePop3 = contactoSigarep.getServidorEntrantePop3();
+			puertoEntradaPop3 = contactoSigarep.getPuertoEntradaPop3();
+			servidorSalidaSmtp = contactoSigarep.getServidorSalidaSmtp();
+			puertoSalidaSmtp = contactoSigarep.getPuertoSalidaSmtp();
 		}
 	}
 
@@ -197,13 +254,17 @@ public class VMContacto {
 	 * 
 	 */
 	@Command
-	@NotifyChange({ "correo", "nombre", "telefono", "consulta" })
+	@NotifyChange({ "correoEmisor", "nombreEmisor", "telefonoEmisor",
+			"consulta" })
 	public void enviarCorreoContactanos() {
-		EnviarCorreo enviar = new EnviarCorreo();
-		enviar.sendEmailContactanos(correoEmisor, nombreEmisor, telefonoEmisor,
-				consulta);
-		mensajeAlUsuario.informacionCorreoEnviado();
-		limpiar();
+		if (correoEmisor == null || nombreEmisor == null
+				|| telefonoEmisor == null || consulta == null) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		} else {			
+			serviciocontactosigarep.sendEmailContactanos(correoEmisor, nombreEmisor,telefonoEmisor, consulta);
+			mensajeAlUsuario.informacionCorreoEnviado();
+			limpiar();
+		}
 	}
 
 	/**
@@ -217,8 +278,10 @@ public class VMContacto {
 	 */
 	@Command
 	@NotifyChange({ "quienesSomos", "correoContacto", "twitter", "facebook",
-			"telefono", "direccion", "nombreEmisor", "telefonoEmisor",
-			"correoEmisor", "consulta" })
+			"telefonoContacto", "direccion", "nombreEmisor", "telefonoEmisor",
+			"correoEmisor", "consulta", "claveCorreoContacto",
+			"servidorEntrantePop3", "puertoEntradaPop3", "servidorSalidaSmtp",
+			"puertoSalidaSmtp" })
 	public void limpiar() {
 		quienesSomos = null;
 		correoContacto = null;
@@ -230,6 +293,11 @@ public class VMContacto {
 		telefonoEmisor = null;
 		correoEmisor = null;
 		consulta = null;
+		claveCorreoContacto = null;
+		servidorEntrantePop3 = null;
+		puertoEntradaPop3 = null;
+		servidorSalidaSmtp = null;
+		puertoSalidaSmtp = null;
 	}
 
 	/**
@@ -254,14 +322,15 @@ public class VMContacto {
 	/**
 	 * Cerrar Ventana
 	 * 
-	 * @param Window ventana
+	 * @param Window
+	 *            ventana
 	 * @return cierra el .zul asociado al VM
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "quienesSomos", "correoContacto", "direccion", "twitter",
-			"facebook", "telefono" })
+			"facebook", "telefonoContacto" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
 		boolean condicion = false;
 		if (quienesSomos != null || correoContacto != null || twitter != null
@@ -273,5 +342,4 @@ public class VMContacto {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 
-	
 }
