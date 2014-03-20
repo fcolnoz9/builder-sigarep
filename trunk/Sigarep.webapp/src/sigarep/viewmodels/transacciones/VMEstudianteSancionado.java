@@ -696,7 +696,7 @@ public class VMEstudianteSancionado {
 				|| semestre == null
 				|| periodoSancion == null)
 			mensajeAlUsuario.advertenciaLlenarCampos();
-		
+		else if(!mensajeAlUsuario.errorValidarCorreo(email)){}
 		else {
 			//-------- Validacion de las fechas 
 			if (fechaNacimiento != null && annoIngreso != null) {
