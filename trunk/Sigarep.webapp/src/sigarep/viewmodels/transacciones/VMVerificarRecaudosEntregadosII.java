@@ -15,7 +15,6 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -436,33 +435,17 @@ public class VMVerificarRecaudosEntregadosII {
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(2);
 				Motivo motivo = new Motivo();
-				motivo.setId(motivoPK);
-				motivo.setEstatus(true);
+				motivo = serviciomotivo.buscarMotivoPorID(motivoPK);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
 			}
-			SolicitudApelacion solicitudApelacionAux = new SolicitudApelacion();
-			solicitudApelacionAux.setId(solicitudApelacionPK);
-			solicitudApelacionAux.setEstatus(true);
-			solicitudApelacionAux.setFechaSesion(solicitudApelacion
-					.getFechaSesion());
-			solicitudApelacionAux.setFechaSolicitud(solicitudApelacion
-					.getFechaSolicitud());
-			solicitudApelacionAux.setNumeroCaso(solicitudApelacion
-					.getNumeroCaso());
-			solicitudApelacionAux.setNumeroSesion(solicitudApelacion
-					.getNumeroSesion());
-			solicitudApelacionAux.setVeredicto(solicitudApelacion
-					.getVeredicto());
-			solicitudApelacionAux.setObservacion(solicitudApelacion
-					.getObservacion());
-			solicitudApelacionAux.setVerificado(true);
-			solicitudApelacionAux.setAnalizado(false);
+			solicitudApelacion.setVerificado(true);
+			solicitudApelacion.setAnalizado(false);
 
 			if (getSelected().equals("PROCEDENTE"))
-				solicitudApelacionAux.setVeredicto("PROCEDENTE");
+				solicitudApelacion.setVeredicto("PROCEDENTE");
 			else if ((getSelected().equals("NO PROCEDENTE")))
-				solicitudApelacionAux.setVeredicto("NO PROCEDENTE");
+				solicitudApelacion.setVeredicto("NO PROCEDENTE");
 			
 			ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
@@ -472,9 +455,8 @@ public class VMVerificarRecaudosEntregadosII {
 			apelacionEstadoApelacion.setObservacion(observacion);
 			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 			apelacionEstadoApelacion.setFechaEstado(new Date());
-			solicitudApelacionAux
-					.addApelacionEstadosApelacion(apelacionEstadoApelacion);
-			serviciosolicitudapelacion.guardar(solicitudApelacionAux);
+			solicitudApelacion.addApelacionEstadosApelacion(apelacionEstadoApelacion);
+			serviciosolicitudapelacion.guardar(solicitudApelacion);
 
 			try {
 				mensajeAlUsuario.informacionRegistroCorrecto();
