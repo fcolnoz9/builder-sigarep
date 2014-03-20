@@ -465,30 +465,22 @@ public class VMUsuario {
 
 			mensajeAlUsuario.advertenciaSeleccionarGrupoUsuario();
 		}
-		else
-		{
+		else if(!mensajeAlUsuario.errorValidarCorreo(correo)){}
+		else {
 			nombreUsuarioAuxiliar = nombreUsuario;
 			Usuario usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
 			Persona mipersona1 = null;
 			Persona mipersona2 = serviciopersona.buscarPersonaNombreUsuario(nombreUsuario);
 			List<Persona> personaencontrado = serviciopersona.buscarPersonaFiltro(cedulaPersona, "", "");
-			
 			boolean encontrado = false;
 			boolean encontrado2 = false;
 			boolean permiso = false;
-				//mipersona = serviciopersona.buscaUnaPersona(cedulaPersona);
+			
 			
 			if(usuarioAux!=null){
-				
 				existeUsuario = true;
-//				 
-//				for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
-//					 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
-//				}
 			}
-			//serviciopersona..buscarPersonaNombreUsuario(nombreUsuario);
-			
-			//usuarioAux.getNombreUsuario().equals(nombreUsuario) ||
+
 			if(personaencontrado.size()>0 && mipersona2 != null){
 				System.out.println("si encontra la persona y el usuario existe");
 				mipersona1 = personaencontrado.get(0);
@@ -498,49 +490,30 @@ public class VMUsuario {
 					encontrado2 = true;
 				}	
 				else{	
-					Messagebox.show("El nombre de usuario ya esta en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);//msj obligatorio Debe cambiar el nombre del usuario
-				}
-				
+					mensajeAlUsuario.errorUsuarioNoValido();
+				} 
 			}
 			if(personaencontrado.size()==0 && mipersona2 != null ){
-				System.out.println("no existe persona y ya existe ese usuario");
-				Messagebox.show("El nombre de usuario ya esta en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);//msj obligatorio Debe cambiar el nombre del usuario
+				mensajeAlUsuario.errorUsuarioNoValido();
 			}
 			if(personaencontrado.size()>0 && mipersona2 == null ){
-				System.out.println("si existe persona y no existe ese usuario");
 				permiso = true;
 				encontrado = true;
 				mipersona1 = personaencontrado.get(0);
 			}
 			if(personaencontrado.size()==0 && mipersona2 == null ){
-				System.out.println("no existe persona y no existe ese usuario");
 				permiso = true;
 			}
 			
 			if(permiso) {
-				System.out.println("tengo permiso");
-			
 				if(encontrado){
-					System.out.println("paso por encontrado");
 					if(mipersona1 != null){
-						System.out.println("se cumple la condicion 0");
 						usuarioAux = serviciousuario.encontrarUsuario(mipersona1.getUsuario().getNombreUsuario());
 						for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
 							 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
 						}
-						
-						}
-//					else{
-//							usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
-//							if(usuarioAux != null){
-//								existeUsuario = true;
-//							
-//								for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
-//									 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
-//								}
-//								
-//							}
-//						}
+					}
+
 					if(mipersona2 != null){
 						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) )
 							{
@@ -549,42 +522,24 @@ public class VMUsuario {
 								for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
 									 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
 								}
-								
 							}
-						else{ System.out.println("no se cumple la condicion 2");
-								
-								
-//								usuarioAux = serviciousuario.encontrarUsuario(mipersona1.getNombreUsuario().getNombreUsuario());
-//								for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
-//									 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
-//								}
-								
-							}
+						else{}
 					}
 					
 				}
 					
-					
-				
 				if(encontrado2){
 					System.out.println("encontrado 2");
 					usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
 					if(usuarioAux!=null){
-					
 						existeUsuario = true;
-						 
 						for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
 							 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
 						}
-					}
-						
+					}	
 				}
 				
 			//inicio
-				
-				
-				
-				
 				if(!existeUsuario)System.out.println("no existia");usuario.setFechaCreacion(new Date());
 				usuario.setNombreUsuario(nombreUsuario);
 				usuario.setClave(clave);
@@ -604,59 +559,11 @@ public class VMUsuario {
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-					
-					
+					}	
 				}
-				
+
 				usuario.setFoto(fotoUsuario);
-				
-//				Listcell celda= new Listcell();
-//				label.setValue("generico");
-//				
-//				Listbox aux = new Listbox();
-//				
-//				
-//				
-//				Listitem listi = new Listitem();
-//				listi.insertBefore(listi, celda);
-//						listi.i lbxNoticias.getChildren().get(lbxNoticias.getChildren().size()-2); 
-//				listi.i
-//				lbxNoticias.removeChild(lbxNoticias.getChildren().get(lbxNoticias.getChildren().size()-2));  
-//				lbxNoticias.insertBefore(listi, (Component) lbxNoticias.getChildren().get(0)); 	 
-//				gruposDelUsuario
 				boolean marca= false;
-				
-				//plan B
-				//inicio
-//				for(Listitem miGrupo :grupoInvisible){
-//					Grupo grupo = new Grupo();
-//					String nombreGrupo = miGrupo.getLabel();
-//					grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
-//					System.out.println("pppppppppppppp"+grupo.getNombre());
-//					UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
-//					UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
-//					usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
-//					usuarioGrupoPK.setNombreUsuario(nombreUsuario);
-//					
-//					usuarioGrupo.setId(usuarioGrupoPK);
-//					usuarioGrupo.setUsuario(usuario);
-//					usuarioGrupo.setGrupo(grupo);
-//					usuarioGrupo.setEstatus(true);
-//					
-//					UsuarioGrupo usuarioGrupoAux = new UsuarioGrupo();
-//					usuarioGrupoAux.setId(usuarioGrupo.getId());
-//					usuarioGrupoAux.setGrupo(usuarioGrupo.getGrupo());
-//					usuarioGrupoAux.setUsuario(usuarioGrupo.getUsuario());
-//					usuarioGrupoAux.setEstatus(true);
-//					
-//					usuario.addUsuarioGrupo(usuarioGrupoAux);
-//					System.out.println("parte 1a ++++++++");
-//					serviciousuario.guardarUsuario(usuario);
-//					System.out.println("parte 2a ++++++++");
-//					
-//				}
-				//fin
 				for(Listitem miGrupo :gruposDelUsuario){
 					Grupo grupo = new Grupo();
 					String nombreGrupo = miGrupo.getLabel();
@@ -690,16 +597,15 @@ public class VMUsuario {
 					System.out.println("parte 1 ++++++++");
 					serviciousuario.guardarUsuario(usuario);
 					System.out.println("parte 2 ++++++++");
-					//+++++++++AQui
 					if(!marca){
 						marca=true;
 						for(Listitem miGrupo2 :grupoInvisible){
-							 grupo = new Grupo();
-							 nombreGrupo = miGrupo2.getLabel();
+							grupo = new Grupo();
+							nombreGrupo = miGrupo2.getLabel();
 							grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
 							System.out.println("pppppppppppppp"+grupo.getNombre());
-							 usuarioGrupoPK = new UsuarioGrupoPK();
-							 usuarioGrupo = new UsuarioGrupo();
+							usuarioGrupoPK = new UsuarioGrupoPK();
+							usuarioGrupo = new UsuarioGrupo();
 							usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
 							usuarioGrupoPK.setNombreUsuario(nombreUsuario);
 							
@@ -714,36 +620,12 @@ public class VMUsuario {
 							System.out.println("parte 2a ++++++++");
 						}
 					}
-//						Grupo grupo1 = new Grupo();
-//						grupo1 = serviciogrupo.buscarGrupoNombre("generico");
-//						UsuarioGrupoPK usuarioGrupoPK1 = new UsuarioGrupoPK();
-//						UsuarioGrupo usuarioGrupo1 = new UsuarioGrupo();
-//						usuarioGrupoPK1.setIdGrupo(1);
-//						usuarioGrupoPK1.setNombreUsuario(nombreUsuario);
-//						
-//						usuarioGrupo1.setId(usuarioGrupoPK1);
-//						usuarioGrupo1.setUsuario(usuario1);
-//						usuarioGrupo1.setGrupo(grupo1);
-//						usuarioGrupo1.setEstatus(true);
-//						
-//						UsuarioGrupo usuarioGrupoAux1 = new UsuarioGrupo();
-//						usuarioGrupoAux1.setId(usuarioGrupo1.getId());
-//						usuarioGrupoAux1.setGrupo(usuarioGrupo1.getGrupo());
-//						usuarioGrupoAux1.setUsuario(usuarioGrupo1.getUsuario());
-//						usuarioGrupoAux1.setEstatus(true);
-//						usuario1.addUsuarioGrupo(usuarioGrupoAux1);
-//						System.out.println("parte 3 ++++++++");
-//						serviciousuario.guardarUsuario(usuario1);
-//						System.out.println("parte 4 ++++++++");
-//					
-//					}
 				}
 				
 				Persona persona = new Persona();
 				persona.setCedulaPersona(cedulaPersona);
 				persona.setNombre(nombre);
 				persona.setApellido(apellido);
-				
 				persona.setUsuario(usuario);
 				persona.setCorreo(correo);
 				persona.setEstatus(true);
@@ -759,68 +641,31 @@ public class VMUsuario {
 								System.out.println("las cedulas y usuarios son diferentes");
 								
 							}else {
-								System.out.println("no se q mas");
+								;
 							}
 				}
 				else if(mipersona1==null && mipersona2 != null) {
-					System.out.println("la persona no existe, ya se valido");
-				}else if(mipersona1!=null && mipersona2 == null){System.out.println("usuario no existe pero la pesona si");
+				}else if(mipersona1!=null && mipersona2 == null){
 					serviciousuario.eliminarFisicamente(mipersona1.getUsuario().getNombreUsuario());
-				}else System.out.println("ambos son nulos");
+				}else;
 				
-				
-				if (tituloinstancia.equals("")) {
-						
-				}
+				if (tituloinstancia.equals("")) {}
 				else
 				{
-	//			    if (cargo.equals(""))
-	//			    	mensajes.advertenciaLlenarCampos();
-	//			    else
-	//			    {
-						
-				    	for(int i=0;listaInstanciaMiembro.size()>i;i++){
-				    		instanciaMiembro = listaInstanciaMiembro.remove(i);
-					    	instanciaMiembro.getId().setCedulaPersona(cedulaPersona);
-					    	
-							instanciaMiembro.setPersona(persona);
-							try {
-								
-								servicioInstanciaMiembro.guardar(instanciaMiembro);
-							} catch (Exception e) {
-								System.out.println(e.getMessage());
-							}	
-				    	}
-	//			    }
+				    for(int i=0;listaInstanciaMiembro.size()>i;i++){
+				    	instanciaMiembro = listaInstanciaMiembro.remove(i);
+					   	instanciaMiembro.getId().setCedulaPersona(cedulaPersona); 	
+						instanciaMiembro.setPersona(persona);
+						try {
+							servicioInstanciaMiembro.guardar(instanciaMiembro);
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}	
+				    }
 				}
-				
-	
 				mensajeAlUsuario.informacionRegistroCorrecto();
-	
-//				if(existeUsuario==false){
-//					try {
-//						usuario.setFechaCreacion(new Date());
-//						UsuarioGrupoPK usuarioGrupoPK = new UsuarioGrupoPK();
-//						UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
-//						usuarioGrupoPK.setIdGrupo(1);
-//						usuarioGrupoPK.setNombreUsuario(nombreUsuario);
-//						Grupo grupo = new Grupo();
-//						grupo = serviciogrupo.buscarGrupo(1); //Grupo de id=1 que tiene la función cambiar contraseña
-//						usuarioGrupo.setId(usuarioGrupoPK);
-//						usuarioGrupo.setUsuario(usuario);
-//						usuarioGrupo.setGrupo(grupo);
-//						usuarioGrupo.setEstatus(true);
-//						usuario.addUsuarioGrupo(usuarioGrupo);
-//						serviciousuario.guardarUsuario(usuario); //Agregandole el grupo que tiene la función cambiar contraseña al usuario nuevo
-//						
-//					} catch (Exception e) {
-//						System.out.println(e.getMessage());
-//					}
-//		
-//				}
 				try {
 					serviciocontactosigarep.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
-	
 					mensajeAlUsuario.informacionHemosEnviadoCorreo();
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -833,7 +678,7 @@ public class VMUsuario {
 				tituloinstancia = "";
 				cargo = "";
 				limpiar();
-			}else System.out.println("tengo permiso");
+			}else ;
 			
 				
 		}

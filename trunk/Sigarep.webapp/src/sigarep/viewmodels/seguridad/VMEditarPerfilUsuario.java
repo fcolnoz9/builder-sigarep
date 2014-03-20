@@ -204,6 +204,7 @@ public class VMEditarPerfilUsuario {
 		if(nombre.equals("") || apellido.equals("") || correo.equals("") || telefonoEntero == null){
 			mensajesAlusuario.advertenciaLlenarCampos();
 		}
+		else if(!mensajesAlusuario.errorValidarCorreo(correo)){}
 		else
 		{
 			this.persona.setNombre(nombre);
