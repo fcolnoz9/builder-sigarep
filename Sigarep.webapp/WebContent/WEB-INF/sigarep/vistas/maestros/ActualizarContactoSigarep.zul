@@ -3,6 +3,51 @@
 	border="normal" width="auto" height="auto" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer" closable="true"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMContacto')">
+	<groupbox id="grbConfiguracion">
+		<caption label="Datos de Configuración de Correo" />
+		<grid id="" width="auto">
+			<columns>
+				<column label="" width="20%" />
+				<column label="" width="40%" />
+				<column label="" width="20%" />
+				<column label="" width="40%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblServidorPOP3"
+						value="Servidor de correo entrante (POP3):" />
+					<textbox id="txtServidorPOP3" cols="23" maxlength="50"
+						placeholder="Ingrese el servidor. Ej. mail.dominino.com" mold="rounded" width="80%"
+						value="@bind(vm.servidorEntrantePop3)" />
+					<label id="lblServidorSMTP" value="Servidor de correo saliente (SMTP):" />
+					<textbox id="txtServidorSMTP" cols="23"
+						placeholder="Ingrese el servidor. Ej. mail.dominino.com" maxlength="50" mold="rounded"
+						width="80%" value="@bind(vm.servidorSalidaSmtp)" />
+				</row>
+				<row>
+					<label id="lblPuertoPOP3"
+						value="Puerto de entrada (POP3):" />
+					<textbox id="txtPuertoPOP3" cols="23" maxlength="4"
+						placeholder="Ingrese el puerto POP3. Ej. 110" mold="rounded" width="80%"
+						value="@bind(vm.puertoEntradaPop3)" />
+					<label id="lblPuertoSMTP" value="Puerto de salida (SMTP):" />
+					<textbox id="txtPuertoSMTP" cols="23"
+						placeholder="Ingrese el puerto SMTP. Ej. 26" maxlength="4" mold="rounded"
+						width="80%" value="@bind(vm.puertoSalidaSmtp)" />
+				</row>
+				<row>
+					<label id="lblCorreo" value="Correo:" />
+					<textbox id="txtCorreo" cols="23" maxlength="150"
+						placeholder="Ingrese el correo de contacto" mold="rounded"
+						width="80%" value="@bind(vm.correoContacto)" />
+					<label id="lblClave" value="Clave:" />
+					<textbox id="txtClave" cols="23"
+						placeholder="Ingrese la clave del correo" maxlength="30" mold="rounded"
+						width="80%" value="@bind(vm.claveCorreoContacto)" />
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
 	<groupbox id="grbContacto">
 		<caption label="Datos de Contacto" />
 		<grid id="" width="auto">
@@ -13,17 +58,6 @@
 				<column label="" width="40%" />
 			</columns>
 			<rows>
-				<row>
-					<label id="lblCorreo" value="Correo:" />
-					<textbox id="txtCorreo" cols="23" maxlength="150"
-						placeholder="Ingrese el correo de contacto" mold="rounded"
-						width="80%" value="@bind(vm.correoContacto)" />
-					<label id="lblTelefono" value="Teléfono:" />
-					<textbox id="txtTelefono" cols="23"
-						placeholder="Ingrese el teléfono de contacto. Ej. 02510001122"
-						maxlength="11" mold="rounded" width="80%"
-						value="@bind(vm.telefonoContacto)" />
-				</row>
 				<row>
 					<label id="lblTwitter" value="Twitter:" />
 					<textbox id="txtTwitter" cols="23"
@@ -37,6 +71,11 @@
 						value="@bind(vm.facebook)" />
 				</row>
 				<row>
+					<label id="lblTelefono" value="Teléfono:" />
+					<textbox id="txtTelefono" cols="23"
+						placeholder="Ingrese el teléfono de contacto. Ej. 02510001122"
+						maxlength="11" mold="rounded" width="80%"
+						value="@bind(vm.telefonoContacto)" />
 					<label id="lblDireccion" value="Dirección:" />
 					<textbox id="txtDireccion" cols="23" rows="3"
 						placeholder="Ingrese la direccion de contacto." maxlength="500"

@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -18,23 +17,19 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-
 import org.zkoss.zul.ListModelList;
 
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 
 import sigarep.herramientas.Archivo;
-import sigarep.herramientas.EnviarCorreo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.modelos.data.maestros.InstanciaApelada;
@@ -44,10 +39,10 @@ import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.data.transacciones.InstanciaMiembro;
 import sigarep.modelos.data.transacciones.InstanciaMiembroPK;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 import sigarep.modelos.data.transacciones.UsuarioGrupoPK;
 
+import sigarep.modelos.servicio.maestros.ServicioContactoSigarep;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioPersona;
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
@@ -59,6 +54,8 @@ import sigarep.modelos.servicio.transacciones.ServicioUsuarioGrupo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMUsuario {
+	@WireVariable 
+	private ServicioContactoSigarep serviciocontactosigarep;
 	@WireVariable 
 	private ServicioPersona serviciopersona;
 	@WireVariable 
@@ -822,8 +819,7 @@ public class VMUsuario {
 //		
 //				}
 				try {
-					EnviarCorreo enviar = new EnviarCorreo();
-					enviar.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
+					serviciocontactosigarep.sendEmailWelcomeToSigarep(correo,nombreUsuario,clave);
 	
 					mensajeAlUsuario.informacionHemosEnviadoCorreo();
 				} catch (Exception e) {
@@ -1161,9 +1157,7 @@ public class VMUsuario {
 						}
 				}
 				if (usuario.getNombreUsuario()!="-1") {
-					EnviarCorreo enviar = new EnviarCorreo();
-					enviar.sendEmail(usuario.getCorreo(), usuario.getClave());
-
+				    serviciocontactosigarep.sendEmail(usuario.getCorreo(), usuario.getClave());
 					mensajeAlUsuario.informacionContrasennaRecuperada();
 
 				}

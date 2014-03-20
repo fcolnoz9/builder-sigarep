@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Access(AccessType.FIELD)
-//anotación indica que el JavaBean es una entidad persistente
+// anotación indica que el JavaBean es una entidad persistente
 @Table(name = "contacto_sigarep")
 public class ContactoSigarep implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,22 +34,22 @@ public class ContactoSigarep implements Serializable {
 
 	@Column(name = "correo_contacto", length = 150, nullable = false)
 	private String correoContacto;
-	
+
 	@Column(name = "servidor_pop3", length = 50)
 	private String servidorEntrantePop3;
-	
+
 	@Column(name = "puerto_pop3", length = 4)
 	private String puertoEntradaPop3;
-	
+
 	@Column(name = "servidor_smtp", length = 50)
 	private String servidorSalidaSmtp;
-	
+
 	@Column(name = "puerto_smtp", length = 4)
 	private String puertoSalidaSmtp;
-	
+
 	@Column(name = "clave_correo", length = 30)
 	private String claveCorreo;
-	
+
 	@Column(name = "twitter", length = 140)
 	private String twitter;
 
@@ -61,11 +61,11 @@ public class ContactoSigarep implements Serializable {
 
 	@Column(name = "direccion_contacto", length = 500)
 	private String direccionContacto;
-	
+
 	@Column(nullable = false)
 	private Boolean estatus;
 
-	//Constructor por defecto
+	// Constructor por defecto
 	public ContactoSigarep() {
 	}
 
@@ -79,7 +79,9 @@ public class ContactoSigarep implements Serializable {
 	 */
 	public ContactoSigarep(Integer id_contacto, String quienesSomos,
 			String correoContacto, String twitter, String facebook,
-			String telefonoContacto, String direccionContacto) {
+			String telefonoContacto, String direccionContacto, String claveCorreo,
+			String servidorEntrantePop3, String servidorSalidaSmtp,
+			String puertoEntradaPop3, String puertoSalidaSmtp, Boolean estatus) {
 		super();
 		this.idContacto = id_contacto;
 		this.quienesSomos = quienesSomos;
@@ -88,9 +90,15 @@ public class ContactoSigarep implements Serializable {
 		this.facebook = facebook;
 		this.telefonoContacto = telefonoContacto;
 		this.direccionContacto = direccionContacto;
+		this.claveCorreo = claveCorreo;
+		this.servidorEntrantePop3 = servidorEntrantePop3;
+		this.servidorSalidaSmtp = servidorSalidaSmtp;
+		this.puertoEntradaPop3 = puertoEntradaPop3;
+		this.puertoSalidaSmtp = puertoSalidaSmtp;
+		this.estatus = estatus;
 	}
 
-	//Métodos set y get
+	// Métodos set y get
 	public String getQuienesSomos() {
 		return quienesSomos;
 	}
@@ -146,7 +154,8 @@ public class ContactoSigarep implements Serializable {
 	public void setDireccionContacto(String direccionContacto) {
 		this.direccionContacto = direccionContacto;
 	}
-	//Fin Métodos set y get
+
+	// Fin Métodos set y get
 
 	public String getServidorEntrantePop3() {
 		return servidorEntrantePop3;
