@@ -4,17 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
+import org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -48,7 +43,6 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.reportes.ServicioReporteEstudianteSancionado;
-
 /**
  * VM Reporte Estudiante Sancionado UCLA DCYT Sistemas de Informacion.
  * 
@@ -857,18 +851,25 @@ public class VMEstudianteSancionado {
 	 * @category Reporte Ireport configuracion
 	 * @param reportConfig 
 	 * @return reportConfig actualizado con los Datos de La Lista(listaE)
+	 * @throws JRException 
 	 * @throws No
 	 *  
 	 */
 	@NotifyChange({ "reportConfig" })
 	@Command("GenerarReporteEstudiantesSancionadosConfigurable")// ********CONFIGURAR REPORTE**********
-	public void GenerarReporteEstudiantesSancionadosConfigurable() {
+	public void GenerarReporteEstudiantesSancionadosConfigurable() throws JRException {
 		if (listaE.size() > 0) {
 			reportConfig = new ReportConfig(ruta);
 			reportConfig.getParameters().put("ListaSancionados",new JRBeanCollectionDataSource(listaE));
+			reportConfig.getParameters().put("Report name","Reporte");
+			reportConfig.getParameters().put("jasperReport name","Reporte");
 			reportConfig.setType(reportType);
-		reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
-		} else {
+			reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
+			JasperPrint jasperPrint = JasperFillManager.fillReport(Sessions.getCurrent().getWebApp().getRealPath(ruta),null, new JRBeanCollectionDataSource(listaE));
+		        //view the report using JasperViewer
+		    JasperViewer.viewReport(jasperPrint,false);
+		} 
+		else {
 			mensajeAlUsuario.informacionNoHayCoincidencias();
 		}
 	

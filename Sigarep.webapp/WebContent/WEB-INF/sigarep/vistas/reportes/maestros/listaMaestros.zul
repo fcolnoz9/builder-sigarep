@@ -47,11 +47,11 @@
 
 			</button>
 			<button id="btnCancelar" width="auto" height="auto"
-				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy">
+				label="Limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('limpiarMaestros')">
 			</button>
 			<button id="btnCerrar" width="auto" height="auto"
 				label="Cerrar" image="/imagenes/iconos/cerrar.png"
-				onClick="@command('cerrarVentana')">
+				onClick="winListaMaestros.onClose()">
 			</button>
 		</div>
 

@@ -54,6 +54,7 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMlistaMaestros {
 
+	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -77,6 +78,8 @@ public class VMlistaMaestros {
 	@WireVariable
 	private ServicioAsignatura servicioAsignatura;
 	
+	
+	// ***********************************DECLARACION DE LISTAS*************************
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<SancionMaestro> listaTipoSancion;
@@ -93,25 +96,12 @@ public class VMlistaMaestros {
 	private String maestro;
 	
 
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
-	// REPORTE***************************
+	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 	
 	
-	@Wire("#winListaMaestros")//para conectarse a la ventana con el ID
-	Window ventana;
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
-	
-	
-	
-	@Init
-	public void init() {
-	
-	}
+	//*****************************METODOS SET Y GET DE LA CLASE*****************************
 	public String getMaestro() {
 		return maestro;
 	}
@@ -136,18 +126,6 @@ public class VMlistaMaestros {
 	public void setReportType(ReportType reportType) {
 		this.reportType = reportType;
 	}
-
-	// Lista que me permite llenar el combo para elegir el formato
-	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
-					"html"), new ReportType("Word (RTF)", "rtf"),
-					new ReportType("Excel", "xls"), new ReportType(
-							"Excel (JXL)", "jxl"),
-					new ReportType("CSV", "csv"), new ReportType(
-							"OpenOffice (ODT)", "odt")));
-
-
-	
 
 	public List<LapsoAcademico> getListaLapso() {
 		return listaLapso;
@@ -235,9 +213,36 @@ public class VMlistaMaestros {
 	public void setListaAsignatura(List<Asignatura> listaAsignatura) {
 		this.listaAsignatura = listaAsignatura;
 	}
-
+	//***********************************FIN DE LOS METODOS SET Y GET*************************************
 	
+	// Lista que me permite llenar el combo para elegir el formato
+	/**
+	 * Muestra los tipos de formatos que puede mostrarse el reporte
+	 * 
+	 * @param
+	 * @return modelos de la lista
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+		private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+				Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
+						"html"), new ReportType("Word (RTF)", "rtf"),
+						new ReportType("Excel", "xls"), new ReportType(
+								"Excel (JXL)", "jxl"),
+						new ReportType("CSV", "csv"), new ReportType(
+								"OpenOffice (ODT)", "odt")));
 
+		
+	//********************METODO PARA LIMPIAR COMBOS******************************
+	
+	@Command
+	@NotifyChange({"maestro" })
+	public void limpiarMaestros(){
+		maestro= null;
+	}
+		
+		
+		
 	// ###############METODO PARA IMPRIMIR REPORTE#################
 	@Command("GenerarReporteMaestro")
 	@NotifyChange({ "reportConfig", "maestro" })
@@ -436,23 +441,6 @@ public class VMlistaMaestros {
 	}
 
 	// #####################FIN DEL METODO##########################
-	
-	@Command
-	@NotifyChange({ })
-	public void cerrarVentana(@ContextParam(ContextType.BINDER) final Binder binder){	
-		Messagebox.show("¿Realmente desea cerrar la ventana?","Confirmar",new Messagebox.Button[] { Messagebox.Button.YES,Messagebox.Button.NO },
-					Messagebox.QUESTION,new EventListener<ClickEvent>() {
-				@SuppressWarnings("incomplete-switch")
-				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case YES:
-								ventana.detach();
-					
-					
-					}
-				}
-			});		
-		}
 	
 
 	

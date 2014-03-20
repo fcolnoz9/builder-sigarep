@@ -46,8 +46,8 @@ import sigarep.modelos.servicio.reportes.ServicioReportesComparativos;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMapelacionesPorMotivo {
-	// ***********************************DECLARACION DE LAS VARIABLES
-	// SERVICIOS*************************
+	
+	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -57,8 +57,7 @@ public class VMapelacionesPorMotivo {
 	@WireVariable
 	private ServicioReportesComparativos servicioreportescomparativos;
 
-	// ***********************************PARÁMETROS PARA
-	// SERVICIOS************************
+	// ***********************************VARIABLES**************************************
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
@@ -66,26 +65,20 @@ public class VMapelacionesPorMotivo {
 	@WireVariable
 	private String codigoLapso;
 
-	// ***********************************DECLARACION DE
-	// LISTAS*************************
+	// ***********************************DECLARACION DE LISTAS*************************
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<SancionMaestro> listaTipoSancion;
 	private List<LapsoAcademico> listaLapso;
 	private List<ApelacionesComparativos> apelacionesComparativos = new LinkedList<ApelacionesComparativos>();
 
-	// ***********************************DECLARACION DE LAS VARIABLES TIPO
-	// OBJETO*************************
+	// ***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private SancionMaestro objSancion;
 	private LapsoAcademico objLapso;
 	private ProgramaAcademico objPrograma;
 
 	// *********************************Mensajes***************************************
-	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-
-	@Wire("#winApelacionesPorMotivo")
-	// para conectarse a la ventana con el ID
-	Window ventana;
+ 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	@AfterCompose
 	// para poder conectarse con los componentes en la vista, es necesario si no
@@ -94,22 +87,132 @@ public class VMapelacionesPorMotivo {
 		Selectors.wireComponents(view, this, false);
 	}
 
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
-	// REPORTE***************************
+	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 
 	String ruta = "/WEB-INF/sigarepReportes/estadisticos/RApelacionesMotivoPrograma.jasper";
 
-	@Init
-	public void init() {
-		buscarPrograma();
-		buscarTipoSancion();
-		buscarLapso();
 
+	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
+	// Reporte SET/GETS
+	public ListModelList<ReportType> getReportTypesModel() {
+		return reportTypesModel;
 	}
 
+	public ReportConfig getReportConfig() {
+		return reportConfig;
+	}
+
+	public ReportType getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(ReportType reportType) {
+		this.reportType = reportType;
+	}
+
+	public List<ProgramaAcademico> getListaPrograma() {
+		return listaPrograma;
+	}
+
+	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
+		this.listaPrograma = listaPrograma;
+	}
+
+	public List<TipoMotivo> getListaTipoMotivo() {
+		return listaTipoMotivo;
+	}
+
+	public void setListaTipoMotivo(List<TipoMotivo> listaTipoMotivo) {
+		this.listaTipoMotivo = listaTipoMotivo;
+	}
+
+	public List<SancionMaestro> getListaTipoSancion() {
+		return listaTipoSancion;
+	}
+
+	public void setListaTipoSancion(List<SancionMaestro> listaTipoSancion) {
+		this.listaTipoSancion = listaTipoSancion;
+	}
+
+	public List<LapsoAcademico> getListaLapso() {
+		return listaLapso;
+	}
+
+	public void setListaLapso(List<LapsoAcademico> listaLapso) {
+		this.listaLapso = listaLapso;
+	}
+
+	public List<ApelacionesComparativos> getapelacionesComparativos() {
+		return apelacionesComparativos;
+	}
+
+	public void setapelacionesComparativos(
+			List<ApelacionesComparativos> apelacionesComparativos) {
+		this.apelacionesComparativos = apelacionesComparativos;
+	}
+
+	public SancionMaestro getObjSancion() {
+		return objSancion;
+	}
+
+	public void setObjSancion(SancionMaestro objSancion) {
+		this.objSancion = objSancion;
+	}
+
+	public LapsoAcademico getObjLapso() {
+		return objLapso;
+	}
+
+	public void setObjLapso(LapsoAcademico objLapso) {
+		this.objLapso = objLapso;
+	}
+
+	public ProgramaAcademico getObjPrograma() {
+		return objPrograma;
+	}
+
+	public void setObjPrograma(ProgramaAcademico objPrograma) {
+		this.objPrograma = objPrograma;
+	}
+
+	// ===============================FIN DE LOS METODOS SET Y GET==============================
+	
+	// Lista que me permite llenar el combo para elegir el formato
+	/**
+	 * Muestra los tipos de formatos que puede mostrarse el reporte
+	 * 
+	 * @param
+	 * @return modelos de la lista
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
+					new ReportType("Excel", "xls"), new ReportType(
+							"Excel (JXL)", "jxl"),
+					new ReportType("CSV", "csv"), new ReportType(
+							"OpenOffice (ODT)", "odt")));
+	
+	
+	
+	//************************************METODO DE INICIALIZACIÓN**************************************
+		/**Inicialización
+		 * @param init
+		 * @return Carga de Variables y métodos inicializados
+		 * @throws No dispara ninguna excepcion.
+		 */
+		@Init
+		public void init() {
+			buscarPrograma();
+			buscarTipoSancion();
+			buscarLapso();
+
+		}
+		
+	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
 	/**
 	 * buscar Programa Académico
 	 * 
@@ -195,108 +298,10 @@ public class VMapelacionesPorMotivo {
 	public LapsoAcademico objCmbLapso() {
 		return objLapso;
 	}
-
-	// Reporte SET/GETS
-	public ListModelList<ReportType> getReportTypesModel() {
-		return reportTypesModel;
-	}
-
-	public ReportConfig getReportConfig() {
-		return reportConfig;
-	}
-
-	public ReportType getReportType() {
-		return reportType;
-	}
-
-	public void setReportType(ReportType reportType) {
-		this.reportType = reportType;
-	}
-
-	public List<ProgramaAcademico> getListaPrograma() {
-		return listaPrograma;
-	}
-
-	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
-		this.listaPrograma = listaPrograma;
-	}
-
-	public List<TipoMotivo> getListaTipoMotivo() {
-		return listaTipoMotivo;
-	}
-
-	public void setListaTipoMotivo(List<TipoMotivo> listaTipoMotivo) {
-		this.listaTipoMotivo = listaTipoMotivo;
-	}
-
-	public List<SancionMaestro> getListaTipoSancion() {
-		return listaTipoSancion;
-	}
-
-	public void setListaTipoSancion(List<SancionMaestro> listaTipoSancion) {
-		this.listaTipoSancion = listaTipoSancion;
-	}
-
-	public List<LapsoAcademico> getListaLapso() {
-		return listaLapso;
-	}
-
-	public void setListaLapso(List<LapsoAcademico> listaLapso) {
-		this.listaLapso = listaLapso;
-	}
-
-	public List<ApelacionesComparativos> getapelacionesComparativos() {
-		return apelacionesComparativos;
-	}
-
-	public void setapelacionesComparativos(
-			List<ApelacionesComparativos> apelacionesComparativos) {
-		this.apelacionesComparativos = apelacionesComparativos;
-	}
-
-	public SancionMaestro getObjSancion() {
-		return objSancion;
-	}
-
-	public void setObjSancion(SancionMaestro objSancion) {
-		this.objSancion = objSancion;
-	}
-
-	public LapsoAcademico getObjLapso() {
-		return objLapso;
-	}
-
-	public void setObjLapso(LapsoAcademico objLapso) {
-		this.objLapso = objLapso;
-	}
-
-	public ProgramaAcademico getObjPrograma() {
-		return objPrograma;
-	}
-
-	public void setObjPrograma(ProgramaAcademico objPrograma) {
-		this.objPrograma = objPrograma;
-	}
-
-	// ===============================FIN DE LOS METODOS SET Y
-	// GET==============================
-	// REPORTE
-	/**
-	 * Muestra los tipos de formatos que puede mostrarse el reporte
-	 * 
-	 * @param
-	 * @return modelos de la lista
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
-					"html"), new ReportType("Word (RTF)", "rtf"),
-					new ReportType("Excel", "xls"), new ReportType(
-							"Excel (JXL)", "jxl"),
-					new ReportType("CSV", "csv"), new ReportType(
-							"OpenOffice (ODT)", "odt")));
-
+	
+	
+	
+	// ###############METODO PARA IMPRIMIR REPORTE#################
 	/**
 	 * Generar Reporte Estadístico Comparativo de Apelaciones por Motivo y
 	 * Veredicto.
@@ -357,6 +362,7 @@ public class VMapelacionesPorMotivo {
 		}
 	}
 
+	//**********************************METODO PARA LIMPIAR COMBOS*********************************
 	@Command
 	@NotifyChange({ "objLapso", "objSancion", "objPrograma" })
 	public void limpiar() {
@@ -365,24 +371,4 @@ public class VMapelacionesPorMotivo {
 		objPrograma = null;
 	}
 
-	// #####################MENSAJE PARA CERRAR##########################
-	@Command
-	@NotifyChange({})
-	public void cerrarVentana(
-			@ContextParam(ContextType.BINDER) final Binder binder) {
-
-		Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
-				new Messagebox.Button[] { Messagebox.Button.YES,
-						Messagebox.Button.NO }, Messagebox.QUESTION,
-				new EventListener<ClickEvent>() {
-					@SuppressWarnings("incomplete-switch")
-					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-						case YES:
-							ventana.detach();
-
-						}
-					}
-				});
-	}
 }
