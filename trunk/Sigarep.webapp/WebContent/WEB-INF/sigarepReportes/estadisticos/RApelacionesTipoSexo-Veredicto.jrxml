@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
-	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="94"/>
+	<property name="ireport.y" value="167"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -127,67 +127,65 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="50" splitType="Stretch">
-			<image scaleImage="RealHeight">
-				<reportElement uuid="533041e4-814f-4e94-bf01-782c97c499e2" x="0" y="0" width="572" height="50"/>
+		<band height="265" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="572" height="54" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="217" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9" x="379" y="96" width="59" height="24"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[LAPSO:]]></text>
-			</staticText>
-			<image>
-				<reportElement uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c" x="16" y="0" width="109" height="64"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="54" width="89" height="67" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
-			<image>
-				<reportElement uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014" x="466" y="0" width="106" height="64"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="483" y="54" width="89" height="67" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb" x="125" y="0" width="304" height="50"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="98" y="58" width="376" height="48" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="1746cfeb-c243-4787-a69e-089c523bd0eb" x="125" y="50" width="304" height="38"/>
+				<reportElement x="125" y="118" width="304" height="38" uuid="1746cfeb-c243-4787-a69e-089c523bd0eb"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="ec363724-09d5-4efb-947e-41d6f8d42610" x="52" y="96" width="94" height="24"/>
-				<textElement>
-					<font size="14" isBold="true"/>
+				<reportElement x="401" y="168" width="59" height="24" uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[LAPSO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="168" width="94" height="24" uuid="ec363724-09d5-4efb-947e-41d6f8d42610"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PROGRAMA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="ace45e21-827f-4270-b413-143832ea4bd0" x="438" y="96" width="57" height="24"/>
-				<textElement>
-					<font size="14" isBold="true"/>
+				<reportElement x="449" y="168" width="57" height="24" uuid="ace45e21-827f-4270-b413-143832ea4bd0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Lapso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435" x="146" y="96" width="226" height="24"/>
-				<textElement>
-					<font size="14" isBold="true"/>
+				<reportElement x="143" y="168" width="250" height="24" uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Programa}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement uuid="ce392ef2-9896-4dd3-938f-86c453091cea" key="table 3" style="table 3" x="8" y="167" width="559" height="50"/>
+				<reportElement key="table 3" style="table 3" x="7" y="209" width="559" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Tabla" uuid="c5ca79a7-7492-4b2b-bafa-bb9c0e1ecc46">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
@@ -195,17 +193,19 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<jr:column width="195" uuid="bf83a609-fcbe-4f84-902f-89338a606462">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="8358ab7d-2ca3-416f-bac6-bc5c6a063136" style="table" mode="Opaque" x="0" y="0" width="195" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="195" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8358ab7d-2ca3-416f-bac6-bc5c6a063136"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[TIPO DE SEXO ]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement uuid="43a0a227-a08e-4d66-80dc-79b28090a21c" x="0" y="0" width="195" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="195" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="43a0a227-a08e-4d66-80dc-79b28090a21c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -213,17 +213,19 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<jr:column width="179" uuid="0886e026-df09-4fd1-9966-33b9e9aa0420">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099" style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="179" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8a6df7b9-7c88-4ff8-9513-dee6a8e06099"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[CANTIDAD DE APELACIONES]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement uuid="f1b4361f-72f4-4374-8818-0560c222a5f7" x="0" y="0" width="179" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="179" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="f1b4361f-72f4-4374-8818-0560c222a5f7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{apelaciones}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -231,17 +233,19 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<jr:column width="184" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992" style="table" mode="Opaque" x="0" y="0" width="184" height="30" forecolor="#FFFFFF" backcolor="#999999"/>
+								<reportElement style="table" mode="Opaque" x="0" y="0" width="184" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="12" isBold="true" isItalic="true"/>
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[CANTIDAD DE PROCEDENTES]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5" x="0" y="0" width="184" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="184" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{procedentes}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -249,58 +253,61 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<pageFooter>
-		<band height="60" splitType="Stretch">
-			<textField>
-				<reportElement uuid="f29d940e-950d-43f0-b2db-4a1541f56629" x="342" y="8" width="187" height="14"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
-			</textField>
+		<band height="47" splitType="Stretch">
 			<image scaleImage="FillFrame">
-				<reportElement uuid="f79084bf-a9c3-4440-b4bc-c03395824444" x="1" y="25" width="571" height="35"/>
+				<reportElement x="1" y="19" width="572" height="28" uuid="f79084bf-a9c3-4440-b4bc-c03395824444"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="1bdb93e6-b818-4d94-9639-9f80598d9d37" x="155" y="10" width="100" height="13"/>
+				<reportElement x="148" y="0" width="100" height="14" uuid="1bdb93e6-b818-4d94-9639-9f80598d9d37"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Report">
-				<reportElement uuid="c11d0cc3-7d5a-4ffe-8abe-37996e0598fb" x="529" y="8" width="40" height="14"/>
-				<textElement>
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement uuid="6f249ae1-4938-4906-bc51-d8e4d89902e4" x="1" y="22" width="571" height="1"/>
+				<reportElement x="0" y="15" width="571" height="1" uuid="6f249ae1-4938-4906-bc51-d8e4d89902e4"/>
 			</line>
 			<staticText>
-				<reportElement uuid="7e81fcda-44d1-44a1-8222-b5103d220462" x="1" y="10" width="152" height="14"/>
+				<reportElement x="0" y="0" width="152" height="14" uuid="7e81fcda-44d1-44a1-8222-b5103d220462"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha de Emisión del Reporte:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="346" y="0" width="187" height="14" uuid="f29d940e-950d-43f0-b2db-4a1541f56629"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="533" y="0" width="40" height="14" uuid="c11d0cc3-7d5a-4ffe-8abe-37996e0598fb"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
 		<band height="410" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3" x="16" y="54" width="544" height="324" forecolor="#3366FF"/>
+				<reportElement x="16" y="54" width="544" height="324" forecolor="#3366FF" uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3"/>
 			</rectangle>
 			<elementGroup/>
 			<bar3DChart>
 				<chart theme="default">
-					<reportElement uuid="f375ace6-4e7c-4f5d-a682-4a0291c61696" x="16" y="54" width="544" height="324"/>
+					<reportElement x="16" y="54" width="544" height="324" uuid="f375ace6-4e7c-4f5d-a682-4a0291c61696"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -356,29 +363,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</valueAxisFormat>
 				</bar3DPlot>
 			</bar3DChart>
-			<textField>
-				<reportElement uuid="001da192-8390-48cc-915b-a84680c59065" x="411" y="389" width="94" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21" x="505" y="389" width="58" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="5da6db8b-f78e-472a-906b-3a5dda234459" x="139" y="388" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="383aced6-f45c-488b-9bc1-2095e02d90e9" x="2" y="388" width="137" height="20"/>
-				<textElement/>
-				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
-			</staticText>
-			<line>
-				<reportElement uuid="df91b77d-96ec-4bae-ba69-9473c3ec8688" x="0" y="409" width="572" height="1"/>
-			</line>
 		</band>
 	</summary>
 </jasperReport>
