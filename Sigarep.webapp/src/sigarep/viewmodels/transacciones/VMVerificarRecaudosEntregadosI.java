@@ -408,22 +408,12 @@ public class VMVerificarRecaudosEntregadosI {
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(1);
 				Motivo motivo = new Motivo();
-				motivo.setId(motivoPK);
-				motivo.setEstatus(true);
+				motivo = serviciomotivo.buscarMotivoPorID(motivoPK);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
 			}
-				SolicitudApelacion solicitudApelacionAux = new SolicitudApelacion();
-				solicitudApelacionAux.setId(solicitudApelacionPK);
-				solicitudApelacionAux.setEstatus(true);
-				solicitudApelacionAux.setFechaSesion(solicitudApelacion.getFechaSesion());
-				solicitudApelacionAux.setFechaSolicitud(solicitudApelacion.getFechaSolicitud());
-				solicitudApelacionAux.setNumeroCaso(solicitudApelacion.getNumeroCaso());
-				solicitudApelacionAux.setNumeroSesion(solicitudApelacion.getNumeroSesion());
-				solicitudApelacionAux.setVeredicto(solicitudApelacion.getVeredicto());
-				solicitudApelacionAux.setObservacion(solicitudApelacion.getObservacion());
-				solicitudApelacionAux.setVerificado(true);
-				solicitudApelacionAux.setAnalizado(false);
+				solicitudApelacion.setVerificado(true);
+				solicitudApelacion.setAnalizado(false);
 				ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
 				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
@@ -433,8 +423,8 @@ public class VMVerificarRecaudosEntregadosI {
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
 				apelacionEstadoApelacion.setObservacion(observacion);
-				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
-				serviciosolicitudapelacion.guardar(solicitudApelacionAux);
+				solicitudApelacion.addApelacionEstadosApelacion(apelacionEstadoApelacion);
+				serviciosolicitudapelacion.guardar(solicitudApelacion);
 				
 				try {
 					mensajeAlUsuario.informacionRegistroCorrecto();

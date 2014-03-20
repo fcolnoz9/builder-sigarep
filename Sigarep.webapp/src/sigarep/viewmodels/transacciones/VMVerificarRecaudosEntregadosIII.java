@@ -378,7 +378,6 @@ public class VMVerificarRecaudosEntregadosIII {
 	public void registrarRecaudosEntregados(@BindingParam("recaudosEntregados") Set<Listitem> recaudos, @BindingParam("window") Window winVerificarRecaudosIII,@BindingParam("listaRecaudos") Listbox listaRecaudos) {
 		if (recaudos.size() == 0) {
 			mensajeAlUsuario.advertenciaSeleccionarAlMenosUnRecaudoEntregado();
-		
 		}
 		else 
 		{
@@ -413,28 +412,18 @@ public class VMVerificarRecaudosEntregadosIII {
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(3);
 				Motivo motivo = new Motivo();
-				motivo.setId(motivoPK);
-				motivo.setEstatus(true);
+				motivo = serviciomotivo.buscarMotivoPorID(motivoPK);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
 			}
-				SolicitudApelacion solicitudApelacionAux = new SolicitudApelacion();
-				solicitudApelacionAux.setId(solicitudApelacionPK);
-				solicitudApelacionAux.setEstatus(true);
-				solicitudApelacionAux.setFechaSesion(solicitudApelacion.getFechaSesion());
-				solicitudApelacionAux.setFechaSolicitud(solicitudApelacion.getFechaSolicitud());
-				solicitudApelacionAux.setNumeroCaso(solicitudApelacion.getNumeroCaso());
-				solicitudApelacionAux.setNumeroSesion(solicitudApelacion.getNumeroSesion());
-				solicitudApelacionAux.setVeredicto(solicitudApelacion.getVeredicto());
-				solicitudApelacionAux.setObservacion(solicitudApelacion.getObservacion());
-				solicitudApelacionAux.setObservacion(observacion);
-				solicitudApelacionAux.setVerificado(true);
-				solicitudApelacionAux.setAnalizado(false);
+				solicitudApelacion.setObservacion(observacion);
+				solicitudApelacion.setVerificado(true);
+				solicitudApelacion.setAnalizado(false);
 				
 				if (getSelected().equals("PROCEDENTE"))
-					solicitudApelacionAux.setVeredicto("PROCEDENTE");
+					solicitudApelacion.setVeredicto("PROCEDENTE");
 				else if ((getSelected().equals("NO PROCEDENTE")))
-					solicitudApelacionAux.setVeredicto("NO PROCEDENTE");
+					solicitudApelacion.setVeredicto("NO PROCEDENTE");
 				
 				ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
 				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
@@ -444,8 +433,8 @@ public class VMVerificarRecaudosEntregadosIII {
 				apelacionEstadoApelacion.setObservacion(observacion);
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
-				solicitudApelacionAux.addApelacionEstadosApelacion(apelacionEstadoApelacion);
-				serviciosolicitudapelacion.guardar(solicitudApelacionAux);
+				solicitudApelacion.addApelacionEstadosApelacion(apelacionEstadoApelacion);
+				serviciosolicitudapelacion.guardar(solicitudApelacion);
 			
 				try {
 					mensajeAlUsuario.informacionRegistroCorrecto();

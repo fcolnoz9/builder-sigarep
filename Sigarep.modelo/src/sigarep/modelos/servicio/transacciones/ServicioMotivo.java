@@ -3,17 +3,14 @@ package sigarep.modelos.servicio.transacciones;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.MotivoPK;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.repositorio.transacciones.IMotivoDAO;
 
@@ -34,6 +31,9 @@ public class ServicioMotivo {
 		iMotivoDAO.save(motivo);
 	}
 
+	public Motivo buscarMotivoPorID(MotivoPK id) {
+		return iMotivoDAO.findOne(id);
+	}
 
 	/**
 	 * Lista de Motivos por Apelacion
