@@ -140,10 +140,10 @@ public class VMUsuario {
 	@Command 
 	@NotifyChange({ "listaGrupoGenerico" })
 	public void buscarGenerico(){
-		System.out.println("pase sucio pase sucio");
+		
 	Grupo generico = serviciogrupo.buscarGrupo(1);
 		listaGrupoGenerico.add(generico);
-		System.out.println("pase sucio pase sucio "+listaGrupoGenerico.size());
+		
 	}
 
 	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
