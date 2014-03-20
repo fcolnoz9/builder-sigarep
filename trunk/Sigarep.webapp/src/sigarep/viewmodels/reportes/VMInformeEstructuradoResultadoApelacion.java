@@ -60,7 +60,6 @@ public class VMInformeEstructuradoResultadoApelacion {
 	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private ProgramaAcademico  objprograma;
 	private InstanciaApelada objinstanciaApelada;
-	private SolicitudApelacion objsesion;
 	
 	//*********************************Parametros para la Tira Sql***************************************
 	private String parametroProgramaAcademico;
@@ -134,12 +133,6 @@ public class VMInformeEstructuradoResultadoApelacion {
 	public void setObjinstanciaApelada(InstanciaApelada objinstanciaApelada) {
 		this.objinstanciaApelada = objinstanciaApelada;
 	}
-	public SolicitudApelacion getObjsesion() {
-		return objsesion;
-	}
-	public void setObjsesion(SolicitudApelacion objsesion) {
-		this.objsesion = objsesion;
-	}
 	public String getInstancia() {
 		return instancia;
 	}
@@ -192,8 +185,6 @@ public class VMInformeEstructuradoResultadoApelacion {
 	//===============================FIN DE LOS METODOS SET Y GET==============================
 	
 	
-	//******************************METODO DE INICIALIZACION*****************************
-	
 	/**
 	* afterCompose
 	* Metodo que se usa para conectarse a los componentes de la vista
@@ -206,6 +197,9 @@ public class VMInformeEstructuradoResultadoApelacion {
         Selectors.wireComponents(view, this, false);
     }
 
+	
+	
+	//******************************METODO DE INICIALIZACION*****************************
 	/**Inicialización
 	 * @param init
 	 * @return Carga de Variables y métodos inicializados
@@ -238,6 +232,7 @@ public class VMInformeEstructuradoResultadoApelacion {
 	  					new ReportType("Excel (JXL)", "jxl"), 
 	  					new ReportType("CSV", "csv"), 
 	  					new ReportType("OpenOffice (ODT)", "odt")));
+		
 		
 		//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
 		/** buscar Programa Académico
@@ -303,6 +298,8 @@ public class VMInformeEstructuradoResultadoApelacion {
 		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FIN DEL METODO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 		
+		
+		//******************************METODO QUE LIMPIA CADA UNO DE LOS COMBOS*****************************
 		/** Limpiar Combos Especial Resultados.
 		* @param Ninguno
 		* @return Limpiar cada uno de los combos de la vista
@@ -310,11 +307,11 @@ public class VMInformeEstructuradoResultadoApelacion {
 		*/
 		
 		@Command
-		@NotifyChange({ "objprograma", "objinstanciaApelada","objsesion"})
+		@NotifyChange({ "objprograma", "objinstanciaApelada","sesiones"})
 		public void limpiarCombosEspecialResultados() {
 			objprograma = null;
 			objinstanciaApelada = null;
-			objsesion = null;
+			sesiones = null;
 		}
 		
 		

@@ -51,8 +51,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMestudiantesEnProcesoApelacion {
-	// ***********************************DECLARACION DE LAS VARIABLES
-	// SERVICIOS*************************
+	
+	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -66,8 +66,7 @@ public class VMestudiantesEnProcesoApelacion {
 	@WireVariable
 	private ServicioInstanciaApelada servicioInstanciaApelada;
 
-	// ***********************************PARÁMETROS PARA
-	// SERVICIOS************************
+	// ***********************************PARÁMETROS PARA REPORTES************************
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
@@ -75,8 +74,7 @@ public class VMestudiantesEnProcesoApelacion {
 	@WireVariable
 	private String codigoLapso;
 
-	// ***********************************DECLARACION DE
-	// LISTAS*************************
+	// ***********************************DECLARACION DE LISTAS*************************
 	private List<ProgramaAcademico> listaPrograma;
 	private List<SancionMaestro> listaTipoSancion;
 	private List<InstanciaApelada> listaInstanciaApelada;
@@ -86,8 +84,7 @@ public class VMestudiantesEnProcesoApelacion {
 	private List<EstudianteSancionado> lista1 = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> lista2 = new LinkedList<SolicitudApelacion>();
 
-	// ***********************************DECLARACION DE LAS VARIABLES TIPO
-	// OBJETO*************************
+	// ***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
 	private ProgramaAcademico objPrograma;
 	private EstadoApelacion objEstadoApelacion;
 	private LapsoAcademico lapsoActivo;
@@ -96,19 +93,8 @@ public class VMestudiantesEnProcesoApelacion {
 	// *********************************Mensajes***************************************
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	@Wire("#winEstudiantesEnProceso")
-	// para conectarse a la ventana con el ID
-	Window ventana;
 
-	@AfterCompose
-	// para poder conectarse con los componentes en la vista, es necesario si no
-	// da null Pointer
-	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
-		Selectors.wireComponents(view, this, false);
-	}
-
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
-	// REPORTE***************************
+	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
@@ -116,96 +102,8 @@ public class VMestudiantesEnProcesoApelacion {
 	String ruta1 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion1.jasper";
 	String ruta2 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion2.jasper";
 
-	@Init
-	public void init() {
-		buscarPrograma();
-		// buscarEstadoApelacion();
-		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
-		listadoInstancia();
-	}
-
-	/**
-	 * buscar Programa Académico
-	 * 
-	 * @param
-	 * @return lista de programa Académico
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaPrograma" })
-	public void buscarPrograma() {
-		listaPrograma = servicioprogramaacademico.listadoProgramas();
-		ProgramaAcademico prog = new ProgramaAcademico(0, "Todos", true);
-		listaPrograma.add(0, prog);
-	}
-
-	/**
-	 * Objeto Combo Programa.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Programa Académico
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-
-	@Command
-	@NotifyChange({ "listaPrograma" })
-	public ProgramaAcademico objCmbPrograma() {
-		return objPrograma;
-	}
-
-	/**
-	 * buscar Instancia
-	 * 
-	 * @param
-	 * @return lista de instacias apeladas
-	 */
-
-	@Command
-	@NotifyChange({ "listaInstanciaApelada" })
-	public void listadoInstancia() {
-		listaInstanciaApelada = servicioInstanciaApelada
-				.listadoInstanciaApelada();
-	}
-
-	/**
-	 * Objeto Combo Instancia.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Instancia Apelada
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-
-	@Command
-	@NotifyChange({ "listaInstanciaApelada" })
-	public InstanciaApelada objCmbinstanciaApelada() {
-		return objinstanciaApelada;
-	}
-
-	@Command
-	@NotifyChange({ "listaEstadoApelacion", "objinstanciaApelada" })
-	// *********BUSCAR ESTADOS POR INSTANCIA
-	public void buscarEstados() {
-		listaEstadoApelacion = servicioestadoapelacion
-				.buscarEstados(objinstanciaApelada.getIdInstanciaApelada());
-	}
-
-	/**
-	 * Objeto Combo Estado Apelacion.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Estado Apelacion
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaEstadoApelacion" })
-	public EstadoApelacion objCmbEstadoApelacion() {
-		return objEstadoApelacion;
-	}
-
+	
+	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	// Reporte SET/GETS
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
@@ -297,9 +195,10 @@ public class VMestudiantesEnProcesoApelacion {
 		this.objinstanciaApelada = objinstanciaApelada;
 	}
 
-	// ===============================FIN DE LOS METODOS SET Y
-	// GET==============================
-	// REPORTE
+	// ===============================FIN DE LOS METODOS SET Y GET==============================
+
+	
+	//Lista que me permite llenar el combo para elegir el formato 
 	/**
 	 * Muestra los tipos de formatos que puede mostrarse el reporte
 	 * 
@@ -309,13 +208,114 @@ public class VMestudiantesEnProcesoApelacion {
 	 *             dispara ninguna excepción.
 	 */
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
-					"html"), new ReportType("Word (RTF)", "rtf"),
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
 					new ReportType("Excel", "xls"), new ReportType(
 							"Excel (JXL)", "jxl"),
 					new ReportType("CSV", "csv"), new ReportType(
 							"OpenOffice (ODT)", "odt")));
+	
+	
+	//******************************METODO DE INICIALIZACION*****************************
+	/**Inicialización
+	 * @param init
+	 * @return Carga de Variables y métodos inicializados
+	 * @throws No dispara ninguna excepcion.
+	 */
+	@Init
+	public void init() {
+		buscarPrograma();
+		// buscarEstadoApelacion();
+		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
+		listadoInstancia();
+	}
+	
+	
+	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
+	/**
+	 * buscar Programa Académico
+	 * 
+	 * @param
+	 * @return lista de programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaPrograma" })
+	public void buscarPrograma() {
+		listaPrograma = servicioprogramaacademico.listadoProgramas();
+		ProgramaAcademico prog = new ProgramaAcademico(0, "Todos", true);
+		listaPrograma.add(0, prog);
+	}
 
+	/**
+	 * Objeto Combo Programa.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+
+	@Command
+	@NotifyChange({ "listaPrograma" })
+	public ProgramaAcademico objCmbPrograma() {
+		return objPrograma;
+	}
+
+	/**
+	 * buscar Instancia
+	 * 
+	 * @param
+	 * @return lista de instacias apeladas
+	 */
+
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void listadoInstancia() {
+		listaInstanciaApelada = servicioInstanciaApelada
+				.listadoInstanciaApelada();
+	}
+
+	/**
+	 * Objeto Combo Instancia.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Instancia Apelada
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public InstanciaApelada objCmbinstanciaApelada() {
+		return objinstanciaApelada;
+	}
+
+	@Command
+	@NotifyChange({ "listaEstadoApelacion", "objinstanciaApelada" })
+	// *********BUSCAR ESTADOS POR INSTANCIA
+	public void buscarEstados() {
+		listaEstadoApelacion = servicioestadoapelacion
+				.buscarEstados(objinstanciaApelada.getIdInstanciaApelada());
+	}
+
+	/**
+	 * Objeto Combo Estado Apelacion.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Estado Apelacion
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaEstadoApelacion" })
+	public EstadoApelacion objCmbEstadoApelacion() {
+		return objEstadoApelacion;
+	}
+	
+	
+	
+	// ###############METODO PARA IMPRIMIR REPORTE#################
 	/**
 	 * Generar Reporte Estadístico Comparativo de Apelaciones por Motivo y
 	 * Veredicto.
@@ -740,7 +740,9 @@ public class VMestudiantesEnProcesoApelacion {
 		}
 
 	}
-
+	
+	
+	//*******************************METODO PARA LIMPIAR COMBOS******************************
 	@Command
 	@NotifyChange({ "objPrograma", "objEstadoApelacion", "objinstanciaApelada" })
 	public void limpiar() {
@@ -749,22 +751,4 @@ public class VMestudiantesEnProcesoApelacion {
 		objinstanciaApelada = null;
 	}
 
-	// #####################MENSAJE PARA CERRAR##########################
-	@Command
-	@NotifyChange({})
-	public void cerrarVentana(
-			@ContextParam(ContextType.BINDER) final Binder binder) {
-		Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
-				new Messagebox.Button[] { Messagebox.Button.YES,
-						Messagebox.Button.NO }, Messagebox.QUESTION,
-				new EventListener<ClickEvent>() {
-					@SuppressWarnings("incomplete-switch")
-					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-						case YES:
-							ventana.detach();
-						}
-					}
-				});
-	}
 }

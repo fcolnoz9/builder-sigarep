@@ -5,7 +5,7 @@
 		<vlayout apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeCU')">
 			<!-- button para generar el reporte desde la interfaz -->
-			<button id="btnCerrar" width="auto" height="auto"
+			<button id="btnGenerarInformeCU" width="auto" height="auto"
 				label="Generar" image="/imagenes/iconos/generar.png"
 				onClick="@command('GenerarReporte')">
 			</button>
