@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpEstudiantesSancionadosConfigurable" pageWidth="1100" pageHeight="790" orientation="Landscape" columnWidth="1060" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="b3823c86-991a-4fc5-ab3b-437772350861">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="85"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="91"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="ReportTitle" class="java.lang.String"/>
 	<parameter name="Report name" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -49,11 +49,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="0" y="0" width="89" height="20" isRemoveLineWhenBlank="true" uuid="244b36e4-754d-41a3-b117-5b00ea5dface"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -63,11 +63,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="167" y="0" width="33" height="20" isRemoveLineWhenBlank="true" uuid="4d153cda-1568-427e-933a-a98624bad06b"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -77,11 +77,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="200" y="0" width="145" height="20" isRemoveLineWhenBlank="true" uuid="0a380ae3-7ad9-442f-a445-d50b07e82f28"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -91,11 +91,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="345" y="0" width="49" height="20" isRemoveLineWhenBlank="true" uuid="b47b2f85-e5a9-4272-a170-a026b3bff7f1"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -105,11 +105,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="394" y="0" width="104" height="20" isRemoveLineWhenBlank="true" uuid="184c30d8-781a-4e6d-88f0-e3a9d9feb5ca"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -119,11 +119,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="498" y="0" width="138" height="20" isRemoveLineWhenBlank="true" uuid="55cdbcad-75b9-4043-860d-da25ab3079ab"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -133,11 +133,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="636" y="0" width="116" height="20" isRemoveLineWhenBlank="true" uuid="b4a3aae7-3d75-4ebf-a2c7-ef7ecbbdee25"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -146,6 +146,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="752" y="0" width="114" height="20" isRemoveLineWhenBlank="true" uuid="91c6a0de-e0bb-4f63-81a0-4221d342b805"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -153,6 +160,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="866" y="0" width="85" height="20" isRemoveLineWhenBlank="true" uuid="94426b37-92c1-4cd5-be7e-9d988e434355"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -160,6 +174,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="951" y="0" width="109" height="20" isRemoveLineWhenBlank="true" uuid="2ee26c57-80ed-492a-8436-67fef29610d1"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -168,11 +189,11 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			<staticText>
 				<reportElement x="89" y="0" width="78" height="20" isRemoveLineWhenBlank="true" uuid="27fdadf9-064a-4dc9-9d51-fa3ee94aea17"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -184,13 +205,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="-2" y="0" width="89" height="20" isRemoveLineWhenBlank="true" uuid="d8ecb18e-9b01-4b02-bc90-cb67cec41f81"/>
+				<reportElement x="0" y="0" width="89" height="20" isRemoveLineWhenBlank="true" uuid="d8ecb18e-9b01-4b02-bc90-cb67cec41f81"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -198,13 +219,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{primerNombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="87" y="0" width="78" height="20" isRemoveLineWhenBlank="true" uuid="b66b02fa-aa98-46dd-ad7d-b55bba8aff1f"/>
+				<reportElement x="89" y="0" width="78" height="20" isRemoveLineWhenBlank="true" uuid="b66b02fa-aa98-46dd-ad7d-b55bba8aff1f"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -212,13 +233,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{primerApellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="165" y="0" width="33" height="20" isRemoveLineWhenBlank="true" uuid="30a95806-42fe-488e-820c-865ba780dae3"/>
+				<reportElement x="167" y="0" width="33" height="20" isRemoveLineWhenBlank="true" uuid="30a95806-42fe-488e-820c-865ba780dae3"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -226,13 +247,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="198" y="0" width="145" height="20" isRemoveLineWhenBlank="true" uuid="4bf8204e-e9ac-4f36-aef6-f2c87df3be94"/>
+				<reportElement x="200" y="0" width="145" height="20" isRemoveLineWhenBlank="true" uuid="4bf8204e-e9ac-4f36-aef6-f2c87df3be94"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -240,13 +261,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{nombrePrograma}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="343" y="0" width="49" height="20" isRemoveLineWhenBlank="true" uuid="388a0d8a-021c-4f55-8f61-35c1697948c1"/>
+				<reportElement x="345" y="0" width="49" height="20" isRemoveLineWhenBlank="true" uuid="388a0d8a-021c-4f55-8f61-35c1697948c1"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -254,13 +275,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{nombreSancion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="392" y="0" width="104" height="20" isRemoveLineWhenBlank="true" uuid="3dd71afe-3d52-412c-9eee-2e5dba897b60"/>
+				<reportElement x="394" y="0" width="104" height="20" isRemoveLineWhenBlank="true" uuid="3dd71afe-3d52-412c-9eee-2e5dba897b60"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -268,13 +289,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{nombreTipoMotivo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="496" y="0" width="138" height="20" isRemoveLineWhenBlank="true" uuid="53bc8066-fd50-4048-9596-8f81ad627365"/>
+				<reportElement x="498" y="0" width="138" height="20" isRemoveLineWhenBlank="true" uuid="53bc8066-fd50-4048-9596-8f81ad627365"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -282,13 +303,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{instanciaApelada}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="634" y="0" width="105" height="20" isRemoveLineWhenBlank="true" uuid="6f7cc722-971f-4c81-a9b5-630ce6b0fb83"/>
+				<reportElement x="636" y="0" width="116" height="20" isRemoveLineWhenBlank="true" uuid="6f7cc722-971f-4c81-a9b5-630ce6b0fb83"/>
 				<box>
-					<pen lineStyle="Double"/>
-					<topPen lineStyle="Double"/>
-					<leftPen lineStyle="Double"/>
-					<bottomPen lineStyle="Double"/>
-					<rightPen lineStyle="Double"/>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
@@ -296,7 +317,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{codigoLapso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="741" y="0" width="125" height="20" isRemoveLineWhenBlank="true" uuid="9d749ca5-01cf-40f5-a544-9f253403a48b"/>
+				<reportElement x="752" y="0" width="114" height="20" isRemoveLineWhenBlank="true" uuid="9d749ca5-01cf-40f5-a544-9f253403a48b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
@@ -304,6 +332,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</textField>
 			<textField>
 				<reportElement x="866" y="0" width="85" height="20" isRemoveLineWhenBlank="true" uuid="ecca359c-7106-46da-b177-0080bdd6eccb"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
@@ -311,6 +346,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</textField>
 			<textField>
 				<reportElement x="951" y="0" width="109" height="20" isRemoveLineWhenBlank="true" uuid="1a52cc6a-ff53-4f94-a11c-5d6faba5c1bc"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
@@ -334,7 +376,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="496" y="0" width="184" height="14" isRemoveLineWhenBlank="true" uuid="f108d6ca-8161-428c-b29c-aec7f2657828"/>
+				<reportElement x="496" y="0" width="77" height="14" isRemoveLineWhenBlank="true" uuid="f108d6ca-8161-428c-b29c-aec7f2657828"/>
 				<box>
 					<pen lineStyle="Double"/>
 					<topPen lineStyle="Double"/>
@@ -346,7 +388,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="680" y="0" width="40" height="14" isRemoveLineWhenBlank="true" uuid="68a2acce-fd22-4b83-963a-a4af602b0fe0"/>
+				<reportElement x="573" y="0" width="40" height="14" isRemoveLineWhenBlank="true" uuid="68a2acce-fd22-4b83-963a-a4af602b0fe0"/>
 				<box>
 					<pen lineStyle="Double"/>
 					<topPen lineStyle="Double"/>
