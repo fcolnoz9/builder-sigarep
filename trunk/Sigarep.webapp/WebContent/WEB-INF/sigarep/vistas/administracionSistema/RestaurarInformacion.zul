@@ -1,85 +1,82 @@
- <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./lstArchivosLocal"?>
-<zk>
-<window id="winRestaurarInformacion" title="Administración del Sistema :: Restaurar Información" border="normal"  height="auto" width="auto" closable="true"
-apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRestaurarInformacionBD')" >	
-			<div align="center" style="overflow:auto;">
-				<groupbox style="margin:5px;" width="85%" mold="3d">
-					<caption style="font-weight:bold;font-size:14px;color:gray;"
-						label="Ubicación del respaldo a restaurar" />
-					<grid width="99%" style="border:normal;" height="100%">
-						<columns>
-							<column label="" width="100%" height="100%" />
-						</columns>
-						<rows>
-							<row>
-								<radiogroup id="rgDestino"
-									onCheck="choice.value = self.selectedItem.label" selectedItem="@bind(vm.selected)">
-									<grid>
-										<rows>
-											<row>
-												<hbox>
-													<radio id="rbLocal" onCheck="@command('deshabilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)" value="local"/>
-													<label id="lblLocal" value="Local" />
-												</hbox>
-
-												<hbox>
-													<radio id="rbDispositivo" onCheck="@command('habilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)" value="dispositivo"/>
-													<label id="lblDispositivoExterno" value="Dispositivo Externo" />
-												</hbox>
-											</row>
-										</rows>
-									</grid>
-								</radiogroup>
-								<label value="@bind(vm.selected)"/>
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-				<!-- Div para mostrar los archivos del directorio local -->
-				<div id="divArchivosLocal" width="85%" style="margin:5px;border:normal;"
-					height="auto" visible="false">
-					<grid>
-						<rows>
-							<row>
-								<listbox id="lstArchivosLocal" height="186px" multiple="false"
-									mold="paging" rows="10" pageSize="10" model="@bind(vm.listaDirectorio)">
-									<listhead sizable="true">
-										<listheader label="Nombre Respaldo " width="30%" sort="auto" />
-									</listhead>
-								</listbox>
-							</row>
-						</rows>
-					</grid>
-				</div>
-				<!-- Groupbox para seleccionar archivo desde un dispositivo -->
-				<groupbox id="grbDispositivo" style="margin:5px;" width="85%" mold="3d" visible="false">
-					<caption style="font-weight:bold;font-size:14px;color:gray;"
-						label="Seleccione el archivo generado en el respaldo" />
-					<grid>
-						<rows>
-							<row>
-								<hbox>
-									<textbox id="txtPaquetesZip" width="350px" value="@bind(vm.txtPaquetesZip)" />
-									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png" onClick="@command('seleccionarRuta')"/>
-								</hbox>
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-				<groupbox style="margin:5px;" width="85%" mold="3d"
-					id="grbBotones">	
-					<div align="right">
-						<button label="Restaurar" id="btnRestaurar" image="/imagenes/iconos/restaurarBD.png"
-						 mold="trendy" width="auto" height="auto" onClick="@command('restaurarInformacion',aplication=application, groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal, backupseleccionado=lstArchivosLocal.selectedItem)"/>
-						<button label="Limpiar" id="btnCancelar" mold="trendy"
-							image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-							orient="horizontal"
-							onClick="@command('limpiar')"/>
-						<button label="Cerrar" id="btnCerrar"
-   							image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-   							height="auto" orient="horizontal" onClick="winRestaurarInformacion.onClose()"/>
-					</div>
-				</groupbox>
-			</div>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./lstArchivosLocal"?>
+<window id="winRestaurarInformacion"
+	title="Administración del Sistema :: Restaurar Información"
+	border="normal" height="auto" width="auto" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRestaurarInformacionBD')">
+	<div>
+		<groupbox>
+			<caption label="Ubicación del respaldo a restaurar" />
+			<radiogroup id="rgDestino"
+				onCheck="choice.value = self.selectedItem.label"
+				selectedItem="@bind(vm.selected)">
+				<grid>
+					<rows>
+						<row>
+							<radio id="rbLocal" label="Local"
+								onCheck="@command('deshabilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)"
+								value="Local" />
+							<radio id="rbDispositivo"
+								label="Dispositivo Externo"
+								onCheck="@command('habilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)"
+								value="Dispositivo" />
+							<label value="@bind(vm.selected)"
+								style="font-weight:bold;color:red;" />
+						</row>
+					</rows>
+				</grid>
+			</radiogroup>
+		</groupbox>
+		<!-- Div para mostrar los archivos del directorio local -->
+		<div id="divArchivosLocal" visible="false">
+			<grid>
+				<rows>
+					<row>
+						<listbox id="lstArchivosLocal"
+							emptyMessage="No hay respaldos realizados" multiple="false"
+							mold="paging" pageSize="10" model="@bind(vm.listaDirectorio)">
+							<listhead sizable="true">
+								<listheader label="Nombre del Respaldo"
+									sort="auto" />
+							</listhead>
+						</listbox>
+					</row>
+				</rows>
+			</grid>
+		</div>
+		<!-- Groupbox para seleccionar archivo desde un dispositivo -->
+		<groupbox id="grbDispositivo" visible="false">
+			<caption
+				label="Seleccione el archivo generado en el respaldo" />
+			<grid>
+				<columns>
+					<column width="80%" />
+					<column width="20%" />
+				</columns>
+				<rows>
+					<row>
+						<textbox id="txtPaquetesZip" width="80%"
+							value="@bind(vm.txtPaquetesZip)" />
+						<button label="Examinar" id="btnExaminar"
+							image="/imagenes/iconos/buscar.png"
+							onClick="@command('seleccionarRuta')" />
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		<div align="right">
+			<button label="Restaurar" id="btnRestaurar"
+				image="/imagenes/iconos/restaurarBD.png" mold="trendy" width="auto"
+				height="auto"
+				onClick="@command('restaurarInformacion',aplication=application, groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal, backupseleccionado=lstArchivosLocal.selectedItem)" />
+			<button label="Limpiar" id="btnCancelar" mold="trendy"
+				image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+				orient="horizontal" onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrar"
+				image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+				height="auto" orient="horizontal"
+				onClick="winRestaurarInformacion.onClose()" />
+		</div>
+	</div>
 </window>
-</zk>	

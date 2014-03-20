@@ -1,143 +1,148 @@
- <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./backupsListbox"?>
-<zk>
-<window id="winRespaldarDatos" title="Administración del Sistema :: Respaldar Datos" border="normal" width="auto" height="auto" closable="true"
-	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRespaldarBaseDatos')" >
-    <zscript>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./backupsListbox"?>
+<window id="winRespaldarDatos"
+	title="Administración del Sistema :: Respaldar Datos" border="normal"
+	width="auto" height="auto" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMRespaldarBaseDatos')">
+	<zscript>
    <![CDATA[
-		import java.io.File;
-		import sigarep.herramientas.UtilidadesSigarep;
-		String ruta = UtilidadesSigarep.obtenerDirectorio();
-		Component comp;
-		public String generarTamanho(String archivo){
-			File archivoEliminado = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/"+archivo);
-			return String.valueOf(archivoEliminado.length());
-		}
-		int i = -1;
-	]]>
-	</zscript>	
-			<div width="100%" height="auto" style="overflow:auto;" align="center">
-				<groupbox id="grbContenedor1" style="margin:5px;" width="90%" mold="3d" >
-					<caption style="font-weight:bold;font-size:14px;color:gray;"
-						label="Destino del Respaldo"/>
-				 <grid id="grdColumns" width="99%" height="100%">
-						<columns>
-							   	<column label="" width="10%" />
-                				<column label="" width="65%"  />
-						</columns>
-					<rows>
-							<row>
-								<label id="lblDescripcion" value="Descripción: "/>
-								<textbox id= "txtdescripcion" value="@bind(vm.descripcion)"  tabindex="2"
-								placeholder="Ingrese la descripción del backup"
-								cols="32" />	
-							</row>
-					</rows>
-				</grid>		
-					<grid id="grdColumn" width="99%" style="border:normal;" height="100%">
-						<columns>
-							<column label="" width="100%" height="100%" />
-						</columns>
-						<rows>
-							<row>
-								<radiogroup id="rgDestino"
-									onCheck="choice.value = self.selectedItem.label" selectedItem="@bind(vm.selected)">
-									<grid id="grdRadioButtons ">
-										<rows>
-											<row>
-												<hbox>
-													<radio id="rbLocal" onCheck="@command('deshabilitarGroupBoxDispositivo',groupboxDispositivo=grbDispositivo)" value="local">
-													</radio>
-													<label id="lblLocal" value="Local" />
-												</hbox>
-												<hbox>
-													<radio id="rbDispositivo" onCheck="@command('habilitarGroupBoxDispositivo',groupboxDispositivo=grbDispositivo)" value="dispositivo">
-													</radio>
-													<label id="lblDispositivoExterno" value="Dispositivo Externo" />
-												</hbox>
-											</row>
-										</rows>
-									</grid>
-								</radiogroup>
-								<label value="@bind(vm.selected)"/>
-							</row>
-						</rows>
-					</grid>
-					
-				</groupbox>
-				<groupbox style="margin:5px;" width="90%" mold="3d"
-					id="grbDispositivo" visible="false">
-					<caption style="border:normal;"
-						label="Seleccione el dispositivo" />
-					<grid id="grdRuta">
-						<rows>
-							<row>
-								<hbox>
-									<textbox id="txtRuta" width="350px" value="@bind(vm.txtRuta)" readonly="true" />
-									<button label="Examinar" id="btnExaminar" image="/imagenes/iconos/buscar.png" onClick="@command('seleccionarRuta')">
-									</button>
-								</hbox>
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-			    <groupbox style="margin:5px;" width="90%" mold="3d"
-					id="grbBotones">	
-				  <div align="right">
-					<button label="Guardar" id="btnGuardar" image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
-						height="auto" orient="horizontal" onClick="@command('guardarRespaldo',groupboxDispositivo=grbDispositivo,aplication=application)">
+	import java.io.File;
+	import sigarep.herramientas.UtilidadesSigarep;
+	String ruta = UtilidadesSigarep.obtenerDirectorio();
+	Component comp;
+	public String generarTamanho(String archivo) {
+		File archivoEliminado = new File(
+				ruta
+						+ "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/"
+						+ archivo);
+		return String.valueOf(archivoEliminado.length());
+	}
+	int i = -1;
+]]>
+	</zscript>
+	<groupbox id="grbContenedor1">
+		<caption label="Destino del Respaldo" />
+		<grid id="grdColumns">
+			<columns>
+				<column width="20%" />
+				<column width="80%" />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblDescripcion" value="Descripción: " />
+					<textbox id="txtdescripcion"
+						value="@bind(vm.descripcion)"
+						placeholder="Ingrese la descripción del backup" cols="23"
+						width="80%" />
+				</row>
+			</rows>
+		</grid>
+		<grid id="grdColumns2">
+			<rows>
+				<row>
+					<radiogroup id="rgDestino"
+						onCheck="choice.value = self.selectedItem.label"
+						selectedItem="@bind(vm.selected)">
+						<hbox align="center">
+							<radio id="rbLocal" label="Local"
+								onCheck="@command('deshabilitarGroupBoxDispositivo',groupboxDispositivo=grbDispositivo)"
+								value="Local">
+							</radio>
+							<space />
+							<space />
+							<space />
+							<radio id="rbDispositivo" width="50%"
+								label="Dispositivo Externo"
+								onCheck="@command('habilitarGroupBoxDispositivo',groupboxDispositivo=grbDispositivo)"
+								value="Dispositivo">
+							</radio>
+						</hbox>
+					</radiogroup>
+					<label value="@bind(vm.selected)" />
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<groupbox id="grbDispositivo" visible="false">
+		<caption style="border:normal;"
+			label="Seleccione el dispositivo" />
+		<grid id="grdRuta">
+			<rows>
+				<row>
+					<textbox id="txtRuta" width="80%"
+						value="@bind(vm.txtRuta)" readonly="true" />
+					<button label="Examinar" id="btnExaminar"
+						image="/imagenes/iconos/buscar.png"
+						onClick="@command('seleccionarRuta')">
 					</button>
-					<button label="Limpiar" id="btnCancelar" mold="trendy"
-						image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
-						orient="horizontal" onClick="@command('limpiar',groupboxDispositivo=grbDispositivo)">
-					</button>
-					<button label="Cerrar" id="btnCerrar"
-   						image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
-   						height="auto" orient="horizontal" onClick="@command('cerrarVentana',ventana=winRespaldarDatos)">
-   					</button>
-				  </div>
-				</groupbox>
-		</div>					
-		
-		<div width="100%" height="auto" style="overflow:auto;" align="center">   		
-   		<groupbox id="grbListaBackups" height="auto" width="90%">
-   		<caption label="Lista de Backups " style="font-weight:bold;font-size:14px;color:gray;"/>
-   		<div id="divListBackups" align="center" apply="sigarep.herramientas.ManejadorEventosTipoSelector">
-   		<listbox id="backupsListbox" height="100%" width="100%"  emptyMessage="No hay backups realizados"
-   		 mold="paging" model="@bind(vm.listaDirectorio1)" multiple="false">
-			<listhead sizable="true">
-				<listheader label="Descripción" align="center" />
-				<listheader label="Tamaño de Archivo" align="center"/>
-			</listhead>	
-			<template name="model">
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<separator />
+	<div align="right" height="100%">
+		<button label="Guardar" id="btnGuardar"
+			image="/imagenes/iconos/guardar.png" mold="trendy" width="auto"
+			height="auto" orient="horizontal"
+			onClick="@command('guardarRespaldo',groupboxDispositivo=grbDispositivo,aplication=application)">
+		</button>
+		<button label="Limpiar" id="btnCancelar" mold="trendy"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+			orient="horizontal"
+			onClick="@command('limpiar',groupboxDispositivo=grbDispositivo)">
+		</button>
+		<button label="Cerrar" id="btnCerrar"
+			image="/imagenes/iconos/cerrar.png" mold="trendy" width="auto"
+			height="auto" orient="horizontal"
+			onClick="@command('cerrarVentana',ventana=winRespaldarDatos)">
+		</button>
+	</div>
+	<groupbox id="grbListaBackups">
+		<caption label="Lista de Backups" />
+		<div id="divListBackups" align="center"
+			apply="sigarep.herramientas.ManejadorEventosTipoSelector">
+			<listbox id="backupsListbox"
+				emptyMessage="No hay backups realizados" mold="paging" pageSize="5"
+				model="@bind(vm.listaDirectorio1)">
+				<listhead sizable="true">
+					<listheader label="Descripción" width="70%" />
+					<listheader label="Tamaño de Archivo" width="30%" />
+				</listhead>
+				<template name="model">
 					<listitem selected="false">
-						<listcell
-							label="${each}">
-							<custom-attributes nombreBackup="${each}"/>
+						<listcell label="${each}">
+							<custom-attributes nombreBackup="${each}" />
 						</listcell>
-						<listcell><label> 
-	            		<attribute name="value">
-					    <zscript>
-					    	i = i + 1;
-					    	String tamanhoKbs = String.valueOf(Math.round((new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/"+backupsListbox.getModel().getElementAt(i).toString()).length()/1024)));
-					    	tamanhoKbs = tamanhoKbs + " Kbs";
-					    	if(i==backupsListbox.getModel().getSize()-1)
-					    	 	i = -1;
-    					</zscript>
-            			</attribute>
-            			${tamanhoKbs}
-						</label>
+						<listcell>
+							<label>
+								<attribute name="value">
+									<zscript>
+	i = i + 1;
+	String tamanhoKbs = String
+			.valueOf(Math
+					.round((new File(
+							ruta
+									+ "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/"
+									+ backupsListbox.getModel().getElementAt(i)
+											.toString()).length() / 1024)));
+	tamanhoKbs = tamanhoKbs + " Kbs";
+	if (i == backupsListbox.getModel().getSize() - 1)
+		i = -1;
+</zscript>
+								</attribute>
+								${tamanhoKbs}
+							</label>
 						</listcell>
 					</listitem>
-			</template>
-		</listbox>
-		<!-- refresca el contenido del listbox cada 17 segundos para que actualizen los tamaños de los backups al ser creados completamente-->
-    	<timer id="timerRespaldarDatos" delay="6800" repeats="true">
-    		<attribute name="onTimer">
+				</template>
+			</listbox>
+			<!-- refresca el contenido del listbox cada 17 segundos para que actualizen los tamaños de los backups al ser creados completamente-->
+			<timer id="timerRespaldarDatos" delay="6800"
+				repeats="true">
+				<attribute name="onTimer">
 			</attribute>
-		</timer> 
+			</timer>
 		</div>
-			<space />
-		</groupbox>
-		</div>
+		<space />
+	</groupbox>
 </window>
-</zk>
