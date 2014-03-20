@@ -260,7 +260,9 @@ public class VMContacto {
 		if (correoEmisor == null || nombreEmisor == null
 				|| telefonoEmisor == null || consulta == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
-		} else {			
+		} 
+		else if(!mensajeAlUsuario.errorValidarCorreo(correoEmisor)){}
+		else {			
 			serviciocontactosigarep.sendEmailContactanos(correoEmisor, nombreEmisor,telefonoEmisor, consulta);
 			mensajeAlUsuario.informacionCorreoEnviado();
 			limpiar();
