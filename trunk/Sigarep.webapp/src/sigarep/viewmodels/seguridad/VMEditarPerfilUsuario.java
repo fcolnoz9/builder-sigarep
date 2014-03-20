@@ -212,6 +212,14 @@ public class VMEditarPerfilUsuario {
 			usuario.setNombreCompleto(this.persona.getNombre() + " " +this.persona.getApellido());
 			this.persona.setTelefono(String.valueOf(telefonoEntero));
 			usuario.setCorreo(correo);
+			if(imagenUsuario == null){
+				try {
+					imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
 			fotoUsuario.setNombreArchivo(imagenUsuario.getName());
 			fotoUsuario.setTipo(imagenUsuario.getContentType());
 			fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
