@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroRecaudos" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
-	<property name="ireport.zoom" value="1.2396694214876032"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroRecaudos" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -132,75 +132,87 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="50" splitType="Stretch">
-			<image scaleImage="RealHeight">
-				<reportElement x="0" y="0" width="752" height="50" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
+		<band height="158" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="752" height="54" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="125" splitType="Stretch">
-			<image>
-				<reportElement x="52" y="0" width="109" height="64" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="55" width="89" height="67" uuid="9438bbfd-5bf3-41c5-b847-b7c018380d6c"/>
 				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
-			<image>
-				<reportElement x="595" y="0" width="106" height="64" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="663" y="55" width="89" height="67" uuid="1f26d012-5d3c-4c12-807d-6d3bec0de014"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="222" y="0" width="304" height="50" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="187" y="61" width="376" height="48" uuid="85adf3e5-4e7d-4d2a-bea8-79c38506d0bb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
 				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
 UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="64" width="304" height="50" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement x="298" y="122" width="148" height="19" uuid="192a2ee7-a682-4e19-b5c8-668ae2089fd3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[LISTA DE RECAUDOS]]></text>
 			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<pageFooter>
-		<band height="92" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="33" width="752" height="50" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
+		<band height="47" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="19" width="752" height="28" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="0" y="0" width="137" height="20" uuid="c2ad4f53-1321-43c8-95f8-a2109052e4f4"/>
-				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
-			</staticText>
 			<line>
-				<reportElement x="0" y="30" width="752" height="1" uuid="27fdbe67-a73f-41f3-924b-fe5b94e1bf6b"/>
+				<reportElement x="0" y="14" width="752" height="1" uuid="27fdbe67-a73f-41f3-924b-fe5b94e1bf6b"/>
 			</line>
 			<textField evaluationTime="Report">
-				<reportElement x="689" y="4" width="58" height="20" uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21"/>
+				<reportElement x="710" y="0" width="42" height="13" uuid="8a550e11-04ca-4c5b-8d72-7f9a76961e21"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="595" y="4" width="94" height="20" uuid="001da192-8390-48cc-915b-a84680c59065"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="482" y="0" width="228" height="13" uuid="001da192-8390-48cc-915b-a84680c59065"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="148" height="13" uuid="c2ad4f53-1321-43c8-95f8-a2109052e4f4"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Emisión de Reporte:]]></text>
+			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="137" y="0" width="100" height="20" uuid="b96ee4c8-f9e7-4ee5-8e4f-23887d3826cb"/>
+				<reportElement x="151" y="0" width="100" height="13" uuid="b96ee4c8-f9e7-4ee5-8e4f-23887d3826cb"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="56" splitType="Stretch">
+		<band height="77" splitType="Stretch">
 			<elementGroup/>
 			<componentElement>
-				<reportElement key="table 4" style="table 4" mode="Opaque" x="17" y="3" width="572" height="50" forecolor="#FFFFFF" uuid="08fd69f4-c8bd-4bdb-bf83-d986fea46282"/>
+				<reportElement key="table 4" style="table 4" mode="Opaque" x="20" y="15" width="572" height="50" forecolor="#FFFFFF" uuid="08fd69f4-c8bd-4bdb-bf83-d986fea46282"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Tabla" uuid="6aff4e69-67f0-489a-a55f-53235eb685ef">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
@@ -209,17 +221,17 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="127" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="15e22488-3279-47fb-9d19-5182e4457ff4"/>
-								<textElement textAlignment="Center">
-									<font size="12" isBold="true"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[TIPO MOTIVO]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 4_TD" height="44" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="127" height="44" uuid="238d3b96-6907-4d7e-8a02-326d00b648ac"/>
-								<textElement textAlignment="Center">
-									<font size="8"/>
+						<jr:detailCell style="table 4_TD" height="24" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="127" height="24" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="238d3b96-6907-4d7e-8a02-326d00b648ac"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{tipoMotivo.nombreTipoMotivo}]]></textFieldExpression>
 							</textField>
@@ -229,17 +241,17 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="136" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="8b263862-b855-4861-9b9b-e0ce3b8dcdeb"/>
-								<textElement textAlignment="Center">
-									<font size="12" isBold="true"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[RECAUDO]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 4_TD" height="44" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="136" height="44" uuid="8e8a36b9-c0d9-45e0-8d58-4a8584236a57"/>
-								<textElement>
-									<font size="8"/>
+						<jr:detailCell style="table 4_TD" height="24" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="136" height="24" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="8e8a36b9-c0d9-45e0-8d58-4a8584236a57"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{nombreRecaudo}]]></textFieldExpression>
 							</textField>
@@ -249,17 +261,17 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="225" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="ba561f3a-99c8-4dfd-9ff6-37411039f72b"/>
-								<textElement textAlignment="Center">
-									<font size="12" isBold="true"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[DESCRIPCIÓN]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 4_TD" height="44" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="225" height="44" uuid="3418c9a5-c277-4bc8-a75b-55d6d858807d"/>
-								<textElement>
-									<font size="8"/>
+						<jr:detailCell style="table 4_TD" height="24" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="225" height="24" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="3418c9a5-c277-4bc8-a75b-55d6d858807d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 							</textField>
@@ -269,17 +281,17 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						<jr:tableHeader style="table 4_TH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement mode="Opaque" x="0" y="0" width="226" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="ae2a611d-1220-4d75-a3b4-d07c74b24033"/>
-								<textElement textAlignment="Center">
-									<font size="12" isBold="true"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
 								<text><![CDATA[OBSERVACIÓN]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table 4_TD" height="44" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="226" height="44" uuid="b17d0eba-0010-4d72-9ecb-1cd14b4873cb"/>
-								<textElement>
-									<font size="8"/>
+						<jr:detailCell style="table 4_TD" height="24" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="226" height="24" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="b17d0eba-0010-4d72-9ecb-1cd14b4873cb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
 							</textField>
