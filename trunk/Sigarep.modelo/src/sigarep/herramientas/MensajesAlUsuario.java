@@ -377,6 +377,35 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.ERROR);
 	}
 
+	//nuevos 
+	//vmusuario al registrar un usuario
+	public void errorUsuarioNoValido() {
+
+		Messagebox.show("El nombre de usuario ya esta en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);
+	}
+	
+	//deberia estar en todos los vm q usan correos registrar usuario, editarperfilusuario, contacto, registar estudiantesancionado individual
+	public boolean errorValidarCorreo(String comparar){
+		boolean respuesta = false;
+		
+		if(comparar.equals("") || comparar == null){ respuesta = true;}
+		else{
+			String palabra = comparar;
+			String separador = "[A-Za-z0-9]+@[A-Za-z0-9]+\\.com";
+	        String[] palabraArray = palabra.split(separador);
+			String separador2 = "@";
+	        String[] palabra2Array =palabra.split(separador2);
+	        char[] letras = palabra.toCharArray();       
+		    char letra = letras[letras.length-1];
+		    if(palabraArray.length > 0 ){	            
+		    }else if(palabra2Array.length > 2 || letra == '@' ){
+		    }else{ respuesta = true;}
+		    if(!respuesta)Messagebox.show("¡Debe ingresar un correo valido! ejemplo: abc123@abc.com", "Error",
+				Messagebox.OK, Messagebox.ERROR);
+		}
+		return respuesta;
+	}
+	
 	/*-------------------------------------------Mensajes de Confirmación-----------------------------------*/
 	public void confirmacionCerrarSesion() {
 
