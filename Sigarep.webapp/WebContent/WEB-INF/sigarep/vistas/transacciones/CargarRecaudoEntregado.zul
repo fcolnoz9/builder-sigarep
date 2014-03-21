@@ -1,5 +1,5 @@
 <window id="winCargarRecaudoEntregadoEstudiante"
-title="Gestión :: Apelaciones :: Registrar Apelación :: Cargar Recaudos" 
+title="Gestión :: Cargar Recaudos" 
 	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarRecaudoEntregado')" 
 	width="auto" height="auto" closable="true">
 	<groupbox id="grbDatosEstudiante">
