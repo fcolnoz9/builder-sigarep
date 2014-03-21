@@ -1049,7 +1049,7 @@ public class VMUsuario {
 					}else{imagenUsuario = (AImage) mediaUsuario;}
 				
 			} else {
-				Messagebox.show("El archivo: "+mediaUsuario+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
+				mensajeAlUsuario.advertenciaFormatoImagenNoSoportado(mediaUsuario);
 			}
 		} 
 	}
