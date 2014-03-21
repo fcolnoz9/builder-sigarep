@@ -433,7 +433,6 @@ public class VMUsuario {
 		this.nombreUsuariofiltro = nombreUsuariofiltro;
 	}
 	
-	
 	/**Guardar usuario
 	 * @parameters Todos los asociados al registro de usuario.
 	 * @return Registrar en el sistema un usuario .
@@ -448,21 +447,15 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		if (nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 
 				|| clave.equals("")  || confirmarcontrasenia.equals("") ) {
-
 			mensajeAlUsuario.advertenciaLlenarCampos();
-
 		}
 		else if(!correo.equals(confirmarcorreo)){
-
 			mensajeAlUsuario.advertenciaContraseñasNoCoinciden();
-
 		}
 		else if(!clave.equals(confirmarcontrasenia)){
-
 			mensajeAlUsuario.advertenciaContraseñasNoCoinciden();
 		}
 		else if(gruposDelUsuario.size()==0){
-
 			mensajeAlUsuario.advertenciaSeleccionarGrupoUsuario();
 		}
 		else if(!mensajeAlUsuario.errorValidarCorreo(correo)){}
@@ -475,14 +468,10 @@ public class VMUsuario {
 			boolean encontrado = false;
 			boolean encontrado2 = false;
 			boolean permiso = false;
-			
-			
 			if(usuarioAux!=null){
 				existeUsuario = true;
 			}
-
 			if(personaencontrado.size()>0 && mipersona2 != null){
-				System.out.println("si encontra la persona y el usuario existe");
 				mipersona1 = personaencontrado.get(0);
 				if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) ){
 					encontrado = true;
@@ -517,7 +506,6 @@ public class VMUsuario {
 					if(mipersona2 != null){
 						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) )
 							{
-								System.out.println("se cumple la condicion 1");
 								usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
 								for (UsuarioGrupo usuarioGrupoABorrar : usuarioAux.getUsuariosGrupos()) {
 									 serviciousuariogrupo.eliminarUsuarioGrupo(usuarioGrupoABorrar.getId().getIdGrupo(), usuarioGrupoABorrar.getId().getNombreUsuario());
@@ -525,11 +513,8 @@ public class VMUsuario {
 							}
 						else{}
 					}
-					
 				}
-					
 				if(encontrado2){
-					System.out.println("encontrado 2");
 					usuarioAux = serviciousuario.encontrarUsuario(nombreUsuario);
 					if(usuarioAux!=null){
 						existeUsuario = true;
@@ -594,16 +579,13 @@ public class VMUsuario {
 					usuario1.setFoto(usuario.getFoto());
 					usuario1.setNombreCompleto(usuario.getNombreCompleto());
 					usuario1.setUltimoAcceso(usuario1.getUltimoAcceso());
-					System.out.println("parte 1 ++++++++");
 					serviciousuario.guardarUsuario(usuario);
-					System.out.println("parte 2 ++++++++");
 					if(!marca){
 						marca=true;
 						for(Listitem miGrupo2 :grupoInvisible){
 							grupo = new Grupo();
 							nombreGrupo = miGrupo2.getLabel();
 							grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
-							System.out.println("pppppppppppppp"+grupo.getNombre());
 							usuarioGrupoPK = new UsuarioGrupoPK();
 							usuarioGrupo = new UsuarioGrupo();
 							usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
@@ -615,9 +597,7 @@ public class VMUsuario {
 							usuarioGrupo.setEstatus(true);
 							
 							usuario.addUsuarioGrupo(usuarioGrupo);
-							System.out.println("parte 1a ++++++++");
 							serviciousuario.guardarUsuario(usuario);
-							System.out.println("parte 2a ++++++++");
 						}
 					}
 				}
@@ -635,14 +615,9 @@ public class VMUsuario {
 				if(mipersona1!=null && mipersona2 != null){
 						if( mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) )
 							{
-								System.out.println("se borra el mipersona1");
 								serviciousuario.eliminarFisicamente(mipersona2.getUsuario().getNombreUsuario());	
-							}else if ( !mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) ){ 
-								System.out.println("las cedulas y usuarios son diferentes");
-								
-							}else {
-								;
-							}
+							}else if ( !mipersona1.getCedulaPersona().equals(mipersona2.getCedulaPersona()) && !mipersona1.getUsuario().getNombreUsuario().equals(mipersona2.getUsuario().getNombreUsuario()) ){ 	
+							}else {}
 				}
 				else if(mipersona1==null && mipersona2 != null) {
 				}else if(mipersona1!=null && mipersona2 == null){
@@ -679,8 +654,6 @@ public class VMUsuario {
 				cargo = "";
 				limpiar();
 			}else ;
-			
-				
 		}
 	}
 	
@@ -713,8 +686,7 @@ public class VMUsuario {
 		InstanciaMiembro instanciaM = new InstanciaMiembro();
 		InstanciaMiembroPK instanciaMPK = new InstanciaMiembroPK();
 		if (tituloinstancia.equals("")) {
-			//falta el msj
-			System.out.println("Debe seleccionar una instancia");	
+
 		}
 		else
 		{	
@@ -729,22 +701,17 @@ public class VMUsuario {
 			boolean llego = false;
 			
 			for(int j = 0;listaInstanciaMiembro.size()>j && !llego ;j++){
-				
 				if( (!listaInstanciaMiembro.get(j).getCargo().equals(instanciaM.getCargo())) && (listaInstanciaMiembro.get(j).getId().getIdInstanciaApelada() == instanciaM.getId().getIdInstanciaApelada()) ){
 					listaInstanciaMiembro.remove(j);
 					listaInstanciaMiembro.add(instanciaM); 
-					
 					llego = true;
 					break;
 				}else if( listaInstanciaMiembro.get(j).getCargo().equals(instanciaM.getCargo()) && (listaInstanciaMiembro.get(j).getId().getIdInstanciaApelada() == instanciaM.getId().getIdInstanciaApelada()) ){ break;}
 				if(listaInstanciaMiembro.size()-1==j  ){
 					listaInstanciaMiembro.add(instanciaM);
-					
 				}
 			}
 			if(listaInstanciaMiembro.size()==0)listaInstanciaMiembro.add(instanciaM);
-				
-		
 		}
 	}
 	
@@ -756,7 +723,6 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "listaUsuario","tituloinstancia","listaInstanciaMiembro","cargo"})
 	public void mostrarInstancia() {
-	
 		cargo = instanciaMiembro.getCargo();
 		tituloinstancia = instanciaMiembro.getInstanciaApelada().getInstanciaApelada();
 		instanciaseleccionada = instanciaMiembro.getInstanciaApelada();
@@ -858,9 +824,7 @@ public class VMUsuario {
 		serviciopersona.eliminar(getPersonaSeleccionado().getCedulaPersona());
 		for(int i=0;listaInstanciaMiembro.size()>i;i++){
     		instanciaMiembro = listaInstanciaMiembro.remove(i);
-
 			try {
-				
 				servicioInstanciaMiembro.eliminar(instanciaMiembro.getId());
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -898,12 +862,10 @@ public class VMUsuario {
 		
 		for(int i=0;listaInstanciaMiembro.size()>i;i++){
 			if(listaInstanciaMiembro.get(i).getEstatus()==false)
-    		instanciaMiembro = listaInstanciaMiembro.remove(i);
-    					
+    		instanciaMiembro = listaInstanciaMiembro.remove(i);		
     	}
 		
 		if(fotoUsuario!=null){
-			System.out.println("esta no nula");
 			if (getPersonaSeleccionado().getUsuario().getFoto().getTamano() > 0){
 				try {
 					imagenUsuario = new AImage(getPersonaSeleccionado().getUsuario().getFoto().getNombreArchivo(),getPersonaSeleccionado().getUsuario().getFoto().getContenidoArchivo());
@@ -913,16 +875,12 @@ public class VMUsuario {
 			}
 			else{imagenUsuario = null;}
 		}else{
-			System.out.println("esta nula");
 			try {
 				imagenUsuario = new AImage(ruta+"/Sigarep.webapp/WebContent/imagenes/iconos/usuario.png");
-				
 				fotoUsuario = new Archivo();
-				
 				fotoUsuario.setNombreArchivo(imagenUsuario.getName());
 				fotoUsuario.setTipo(imagenUsuario.getContentType());
 				fotoUsuario.setContenidoArchivo(imagenUsuario.getByteData());
-				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -988,9 +946,7 @@ public class VMUsuario {
 		Usuario usuario = new Usuario();
 		usuario.setNombreUsuario("-1");
 		if (correoLogin=="")
-
 			mensajeAlUsuario.advertenciaLlenarCampos();
-
 		else {
 			List<Usuario> listaUsuarios = serviciousuario.listadoUsuario();
 				Usuario usuarioAux = new Usuario();
@@ -1006,9 +962,7 @@ public class VMUsuario {
 					mensajeAlUsuario.informacionContrasennaRecuperada();
 
 				}
-				else
-
-					mensajeAlUsuario.errorUsuarioEmailNoRegistrado();
+				else mensajeAlUsuario.errorUsuarioEmailNoRegistrado();
 
 		}
 	}
@@ -1023,8 +977,6 @@ public class VMUsuario {
 	public void filtros(){
 		listaPersona = serviciopersona.buscarPersonaFiltro(cedulaPersonafiltro, nombreCompletofiltro, nombreUsuariofiltro);
 	}
-	
-	
 	
 	/** cargarImagenUsuario
 	 * @parameters imagenUsuario, UploadEvent event Zkoss UI.
@@ -1043,19 +995,14 @@ public class VMUsuario {
 				fotoUsuario.setTipo(mediaUsuario.getContentType());
 				fotoUsuario.setContenidoArchivo(mediaUsuario.getByteData());
 				if(fotoUsuario.getTamano()>50000){
-					mensajeAlUsuario.advertenciaTamannoImagen(50);
-					
+					mensajeAlUsuario.advertenciaTamannoImagen(50);				
 					fotoUsuario = new Archivo();
-					}else{imagenUsuario = (AImage) mediaUsuario;}
-				
+				}else{imagenUsuario = (AImage) mediaUsuario;}
 			} else {
 				mensajeAlUsuario.advertenciaFormatoImagenNoSoportado(mediaUsuario);
 			}
 		} 
 	}
-
-	
-	
 	
 	/**
 	 * Cerrar Ventana
@@ -1084,5 +1031,4 @@ public class VMUsuario {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-	
 }
