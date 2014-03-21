@@ -1,17 +1,13 @@
 package sigarep.herramientas;
 
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.NotifyChange;
+
+import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Borderlayout;
-import org.zkoss.zul.Center;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
+
 
 /*
  * Debe declarar una variable tipo MensajesAlUsuario como estándar
@@ -26,6 +22,8 @@ import org.zkoss.zul.Messagebox.ClickEvent;
  * */
 
 public class MensajesAlUsuario {
+	
+	
 
 	/*-------------------------------------------Mensajes de Advertencia-----------------------------------*/
 	public void advertenciaLlenarCampos() {
@@ -210,6 +208,15 @@ public class MensajesAlUsuario {
 		ventana.detach();
 	}
 	
+	public void advertenciaContraseñaVacia() {
+		Messagebox.show("¡Debe ingresar alguna contraseña!", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
+	public void advertenciaFormatoImagenNoSoportado(Media mediaUsuario) {
+	     Messagebox.show("¡El archivo: "+mediaUsuario+" no tiene un formato válido!", "Advertencia",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		}
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
           Messagebox.show("Hemos enviado un email con su nombre de usuario y contraseña.",
@@ -376,12 +383,12 @@ public class MensajesAlUsuario {
 		Messagebox.show("El Archivo XML no tiene datos válidos.", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 	}
+	
 
 	//nuevos 
 	//vmusuario al registrar un usuario
 	public void errorUsuarioNoValido() {
-
-		Messagebox.show("El nombre de usuario ya esta en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);
+		Messagebox.show("El nombre de usuario ya está en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);
 	}
 	
 	//deberia estar en todos los vm q usan correos registrar usuario, editarperfilusuario, contacto, registar estudiantesancionado individual
@@ -400,11 +407,12 @@ public class MensajesAlUsuario {
 		    if(palabraArray.length > 0 ){	            
 		    }else if(palabra2Array.length > 2 || letra == '@' ){
 		    }else{ respuesta = true;}
-		    if(!respuesta)Messagebox.show("¡Debe ingresar un correo valido! ejemplo: abc123@abc.com", "Error",
+		    if(!respuesta)Messagebox.show("¡Debe ingresar un correo válido! ejemplo: abc123@abc.com", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 		}
 		return respuesta;
 	}
+	
 	
 	/*-------------------------------------------Mensajes de Confirmación-----------------------------------*/
 	public void confirmacionCerrarSesion() {

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zkoss.zhtml.Messagebox;
 
+import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.repositorio.seguridad.IUsuarioDAO;
 import sigarep.modelos.repositorio.transacciones.IUsuarioGrupoDAO;
@@ -25,6 +26,7 @@ public class ServicioUsuario {
 	private IUsuarioDAO iUsuarioDAO;
 	public IUsuarioGrupoDAO iUsuarioGrupoDAO;
 	private EntityManager em;
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	public void guardarUsuario(Usuario usuario) {
 		iUsuarioDAO.save(usuario);
@@ -81,9 +83,9 @@ public class ServicioUsuario {
 						usuario.setClave(nuevaContrasena);
 						guardarUsuario(usuario);
 						return true;
-				} else Messagebox.show("La nueva contraseña y la contraseña de confirmación no coinciden","Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+				} else mensajeAlUsuario.advertenciaContraseñasNoCoinciden();
 		} else {
-				Messagebox.show("La nueva contraseña no puede estar vacia", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaContraseñaVacia();
 		}			
 		return false;
 	}
