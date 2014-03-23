@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroLapsoAcadémico" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -84,9 +84,9 @@
 		</box>
 	</style>
 	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
-		<field name="fechaCierre" class="java.lang.String"/>
+		<field name="fechaCierre" class="java.util.Date"/>
 		<field name="codigoLapso" class="java.lang.String"/>
-		<field name="fechaInicio" class="java.lang.String"/>
+		<field name="fechaInicio" class="java.util.Date"/>
 	</subDataset>
 	<parameter name="ImagenSuperior" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -236,8 +236,8 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField pattern="dd/MM/yyyy">
-								<reportElement x="0" y="0" width="179" height="20" uuid="3630e01d-132e-46e6-8241-ac1d933555d7"/>
+							<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="179" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="4f9187c3-ac19-4e7c-a265-230312f047c0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
 								</textElement>
@@ -256,8 +256,8 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
-							<textField pattern="dd/MM/yyyy">
-								<reportElement x="0" y="0" width="224" height="20" uuid="a0feadad-0bfa-4149-8cbb-64d99b4822b5"/>
+							<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="224" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="3f76d734-3ea1-42aa-a988-e86e8fac2148"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
 								</textElement>

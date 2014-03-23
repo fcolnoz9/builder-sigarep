@@ -209,9 +209,10 @@ public class VMEstudiantesProcedentesRecursoReconsideracion {
 	*/
 	
 	@Command
-	@NotifyChange({ "objprogramasAcademicosReconsideracion"})
+	@NotifyChange({ "objprogramasAcademicosReconsideracion","reportType"})
 	public void limpiarComboProgramaAcademicoRR() {
 		objprogramasAcademicosReconsideracion = null;
+		reportType= null;
 	}
 	
 	
@@ -245,7 +246,7 @@ public class VMEstudiantesProcedentesRecursoReconsideracion {
 	@Command("GenerarReporteEstudiantesRecursoReconsideracion")
 	@NotifyChange({"reportConfig"})
 	public void GenerarReporteEstudiantesRecursoReconsideracion(){
-			if(objprogramasAcademicosReconsideracion==null){
+			if(objprogramasAcademicosReconsideracion==null || reportType == null){
 				mensajeAlUsuario.advertenciaSeleccionarTodo();
 			}
 			else{

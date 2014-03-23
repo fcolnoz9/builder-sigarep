@@ -198,9 +198,10 @@ public class VMEstudiantesProcedentesRecursoJerarquico {
 	*/
 	
 	@Command
-	@NotifyChange({ "objprogramasAJerarquico"})
+	@NotifyChange({ "objprogramasAJerarquico","reportType"})
 	public void limpiarComboProgramaAcademicoRJ() {
 		objprogramasAJerarquico = null;
+		reportType= null;
 	}
 	
 	
@@ -246,7 +247,7 @@ public class VMEstudiantesProcedentesRecursoJerarquico {
 	@Command("GenerarReporteEstudiantesRecursoJerarquico")
 	@NotifyChange({"reportConfig"})
 	public void GenerarReporteEstudiantesRecursoJerarquico(){
-			if(objprogramasAJerarquico==null){
+			if(objprogramasAJerarquico==null || reportType == null){
 				mensajeAlUsuario.advertenciaSeleccionarTodo();
 			}
 			else{

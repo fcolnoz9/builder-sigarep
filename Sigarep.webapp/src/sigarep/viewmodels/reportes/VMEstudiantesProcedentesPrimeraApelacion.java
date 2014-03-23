@@ -211,9 +211,10 @@ public class VMEstudiantesProcedentesPrimeraApelacion {
 		*/
 		
 		@Command
-		@NotifyChange({ "objprogramasAcademicos"})
+		@NotifyChange({ "objprogramasAcademicos","reportType"})
 		public void limpiarComboProgramaAcademico() {
 			objprogramasAcademicos = null;
+			reportType= null;
 		}
 		
 		//******************************METODO DE INICIALIZACION*****************************
@@ -246,7 +247,7 @@ public class VMEstudiantesProcedentesPrimeraApelacion {
 		@Command("GenerarReporteEstudiantesPrimeraApelacion")
 		@NotifyChange({"reportConfig"})
 		public void GenerarReporteEstudiantesPrimeraApelacion(){
-				if(objprogramasAcademicos==null){
+				if(objprogramasAcademicos==null || reportType == null){
 					mensajeAlUsuario.advertenciaSeleccionarTodo();
 				}
 				else{

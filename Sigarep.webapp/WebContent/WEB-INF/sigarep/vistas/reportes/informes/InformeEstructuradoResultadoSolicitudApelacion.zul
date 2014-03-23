@@ -2,15 +2,18 @@
 <zk>
 <window id="winResultadoApelacion" title="Reportes :: Informes :: Especiales :: Resultados de Solicitud de Apelación por Programa e Instancia" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEstructuradoResultadoApelacion')">
-		<style src="/widgets/grid/simple/style.css" />
-		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
+		
+		
+	<vlayout>
+		<groupbox id="grbInformeEstructuradoResultado" vflex="true" closable="false" sclass="z-demo-config" visible="true" width="auto" height="auto">
 			<caption label="Parámetros de Selección" />
-			<grid id="grdResultadosSolicitud">
+		<hbox>
+			<grid id="grdResultadosSolicitud" width="auto">
 				<columns>
-					<column  />
-					<column  />
-					
-					
+					<column />
+					<column />
+					<column />
+					<column />
 				</columns>
 				<rows>
 					<row>
@@ -38,7 +41,7 @@
 					
 					<row>
 					
-						<label id="lblSesionResultado" value="Sesión:" />
+						<label id="lblSesionResultado" value="Número Sesión:" />
 							<combobox id="cmbSesionResultado" readonly="true" mold="rounded"
 							placeholder = "Seleccione una sesión..."
 							width="100%" cols="23" maxlength="100" tabindex="1"
@@ -60,23 +63,20 @@
 					
 				</rows>
 			</grid>
+		</hbox>
 		</groupbox>
-		<separator />
 		
 		<div align="right" height="100%">
 				   	<button label="Generar" id="btnGenerarReporteEspecialResultado" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEspecialResultadoApelacion')"></button>
 					<button label="Limpiar" id="btnLimpiarReporteEspecialResultado" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombosEspecialResultados')" orient="horizontal"> </button>
 					<button label="Cerrar" id="btnCerrarReporteEspecialResultado" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winResultadoApelacion.onClose()" orient="horizontal"> </button>
 		</div>
-		<separator />
 		<groupbox id="grbReporteEspecialResultadosSolicitud" closable="false">
 		 <caption label="Reporte Generado"/>
 			<jasperreport id="reporteEspecialResultadosSolicitud" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEspecialResultadoApelacion')" 
 				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEspecialResultadoApelacion')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEspecialResultadoApelacion')" 
 				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEspecialResultadoApelacion')"/>
-			<space />
-			<space />
 		</groupbox>
-			
+	</vlayout>		
 	</window>
 </zk>

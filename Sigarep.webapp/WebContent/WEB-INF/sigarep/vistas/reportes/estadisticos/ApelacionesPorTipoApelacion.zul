@@ -1,52 +1,65 @@
-<window title="Reportes :: Estadísticos :: Comparativo Tipo de Apelación-Veredicto"
-	border="normal" width="auto" height="auto" closable="true" id="winApelacionesPorInstancia">
-
-
-	<vlayout apply="org.zkoss.bind.BindComposer"
+<zk>
+<window title="Reportes :: Estadísticos :: Comparativos :: Tipo de Apelaciones y Veredicto"
+	border="normal" width="auto" height="auto" closable="true" id="winApelacionesPorInstancia"
+	apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMapelacionesPorTipoApelacion')">
 
-
+	<vlayout>
 		<groupbox id="grbParametros" visible="true">
-			<caption id="lblParametros" label="Seleccionar" />
-			<div>
-				<label id="lblLapso" value="Lapso" />
-				<combobox id="cmbLapso" mold="rounded" readonly="true"
-					model="@load(vm.listaLapso)" selectedItem="@bind(vm.objLapso)"
-					onSelect="@command('objCmbLapso')" placeholder="Seleccione un lapso académico...">
-					<template name="model">
-						<comboitem label="${each.codigoLapso}" />
-					</template>
-				</combobox>
-				<label id="lblPrograma" value="Programa" />
-				<combobox id="cmbPrograma" mold="rounded"
-					readonly="true" model="@load(vm.listaPrograma)"
-					selectedItem="@bind(vm.objPrograma)"
-					onSelect="@command('objCmbPrograma')" placeholder="Seleccione un programa académico...">
-					<template name="model">
-						<comboitem label="${each.nombrePrograma}" />
-					</template>
-				</combobox>
-				<label id="lblSanciones" value="Tipo Sancion" />
-				<combobox id="cmbTipoSancion" mold="rounded"
-					readonly="true" model="@load(vm.listaTipoSancion)"
-					selectedItem="@bind(vm.objSancion)"
-					onSelect="@command('objCmbSancion')" placeholder="Seleccione tipo de sanción...">
-					<template name="model">
-						<comboitem label="${each.nombreSancion}" />
-					</template>
-				</combobox>
-
-				Elija el Tipo de Archivo :
-				<listbox id="format" mold="select" 
-					model="@load(vm.reportTypesModel)"
-					selectedItem="@bind(vm.reportType)">
-					<template name="model">
-						<listitem value="@load(each)"
-							label="@load(each.label)">
-						</listitem>
-					</template>
-				</listbox>
-			</div>
+			<caption id="lblParametros" label="Parámetros de Selección" />
+		<hbox>
+			<grid id="grdParametrosSeleccionTipoApelaciones" width="auto">
+				<columns>
+					<column  />
+					<column />
+					<column />
+					<column />
+				</columns>
+				<rows>
+					<row>
+						<label id="lblPrograma" value="Programa:" />
+						<combobox id="cmbPrograma" mold="rounded" width="100%"
+							readonly="true" model="@load(vm.listaPrograma)"
+							selectedItem="@bind(vm.objPrograma)"
+							onSelect="@command('objCmbPrograma')" placeholder="Seleccione un programa académico...">
+							<template name="model">
+								<comboitem label="${each.nombrePrograma}" />
+							</template>
+						</combobox>
+						<label id="lblLapso" value="Lapso:" />
+						<combobox id="cmbLapso" mold="rounded" readonly="true" width="100%"
+							model="@load(vm.listaLapso)" selectedItem="@bind(vm.objLapso)"
+							onSelect="@command('objCmbLapso')" placeholder="Seleccione un lapso académico...">
+							<template name="model">
+								<comboitem label="${each.codigoLapso}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label id="lblSanciones" value="Tipo de Sanción:" />
+						<combobox id="cmbTipoSancion" mold="rounded" width="100%"
+							readonly="true" model="@load(vm.listaTipoSancion)"
+							selectedItem="@bind(vm.objSancion)"
+							onSelect="@command('objCmbSancion')" placeholder="Seleccione tipo de sanción...">
+							<template name="model">
+								<comboitem label="${each.nombreSancion}" />
+							</template>
+						</combobox>
+		
+						Elija el Tipo de Archivo:
+						<listbox id="format" mold="select" width="100%"
+							model="@load(vm.reportTypesModel)"
+							selectedItem="@bind(vm.reportType)">
+							<template name="model">
+								<listitem value="@load(each)"
+									label="@load(each.label)">
+								</listitem>
+							</template>
+						</listbox>
+					</row>
+				</rows>
+			</grid>
+		</hbox>
 		</groupbox>
  		
  		<div align="right" height="100%">
@@ -63,16 +76,16 @@
 				onClick="winApelacionesPorInstancia.onClose()">
 			</button>
 		</div>
-
-
-
-		<jasperreport id="report" height="620px"
+	<groupbox id="grbReporteTipoApelaciones" closable="false">
+ 	<caption label="Reporte Generado"/>
+		<jasperreport id="report" height="360px"
 			src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesInstancia')"
 			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteApelacionesInstancia')"
 			type="@load(vm.reportConfig.type.value, after='GenerarReporteApelacionesInstancia')"
 			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteApelacionesInstancia')" />
-
+	</groupbox>	
 
 		
-	</vlayout>
+</vlayout>
 </window>
+</zk>
