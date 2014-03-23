@@ -2,33 +2,47 @@
 	<window id="winEstudianteSancionado" title="Reportes :: Configurables :: Estudiantes Sancionados" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMEstudianteSancionado')">
 		<style src="/widgets/grid/simple/style.css" />
+		
+	<vlayout>
 		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
-			<caption label="Criterio de Selección" />
+			<caption label="Parámetros de Selección" />
+		<hbox>
 			<grid id="grdEstudianteSancionado">
 				<columns>
-					<column label="" width="40%" id="columna1" />
-					<column label="" width="60%" id="columna2" />
-					<column label="" width="40%" id="columna3" />
-					<column label="" width="60%" id="columna4" />
-					<column label="" width="40%" id="columna5" />
-					<column label="" width="60%" id="columna6" />
+					<column />
+					<column />
+					<column />
+					<column />
 				</columns>
 				<rows>
 					<row>
+						<label id="lblPrograma" value="Programa:" />
+						<combobox readonly="true" id="cmbPrograma"  mold="rounded"
+						placeholder = "Seleccione un programa académico..."
+						width="100%" cols="23" maxlength="30" tabindex="1"
+						model="@load(vm.listaPrograma)"
+						selectedItem="@bind(vm.objprograma)"
+						onSelect="@command('buscarAsignaturas')" >
+						<template name="model">
+							<comboitem label="${each.getNombrePrograma()}" />
+						</template>
+						</combobox>
 						<label id="lblLapsoAcademico" value="Lapso Académico:" />
 						<combobox id="cmbLapsoAcademico" mold="rounded" readonly="true" 
 						placeholder = "Seleccione un lapso académico..."
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="100%" cols="23" maxlength="30" tabindex="1"
 						model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.objLapso)" 
 						onSelect="@command('objCmbLapso')" >
 							<template name="model">
 								<comboitem label="${each.codigoLapso}" />
 							</template>
 						</combobox>
+					</row>
+					<row>
 						<label id="lblTipodeSancion" value="Tipo de Sanción:" />
 						<combobox id="cmbTipoSancion" mold="rounded" readonly="true" 
 						placeholder = "Seleccione un tipo de sanción..." disabled="false"
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="100%" cols="23" maxlength="30" tabindex="1"
 						model="@load(vm.listaSancion)" selectedItem="@bind(vm.objSancion)"
 						 onSelect="@command('configurarComboAsignatura')" >
 							<template name="model">
@@ -38,7 +52,7 @@
 						<label id="lblInstanciA" value="Instancia Apelada:" />
 						<combobox id="cmbInstanciaA" readonly="true" mold="rounded"
 						placeholder = "Seleccione una instancia apelada..."
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="100%" cols="23" maxlength="30" tabindex="1"
 						 model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)"
 						  onSelect="@command('objCmbinstanciaApelada')" >
 							<template name="model">
@@ -47,31 +61,20 @@
 						</combobox>
 					</row>
 					<row>
-						<label id="lblPrograma" value="Programa:" />
-						<combobox readonly="true" id="cmbPrograma"  mold="rounded"
-						placeholder = "Seleccione un programa académico..."
-						width="80%" cols="23" maxlength="30" tabindex="1"
-						model="@load(vm.listaPrograma)"
-						selectedItem="@bind(vm.objprograma)"
-						onSelect="@command('buscarAsignaturas')" >
-						<template name="model">
-							<comboitem label="${each.getNombrePrograma()}" />
-						</template>
-					</combobox>
 						<label id="lblAsignaturas" value="Asignatura:" />
 						<combobox readonly="true" id="cmbAsignaturas"
 						placeholder = "Seleccione una asignatura..."
-						width="80%" cols="20" maxlength="30" tabindex="1"
+						width="100%" cols="20" maxlength="30" tabindex="1"
 						selectedItem="@bind(vm.objAsignatura)"
 					 	mold="rounded" model="@load(vm.listaAsignaturas)">
 						<template name="model">
 							<comboitem label="${each.nombreAsignatura}" />
 						</template>
-					</combobox>
+						</combobox>
 						<label id="lblSexo" value="Sexo:" />
 						<combobox id="cmbSexo"  readonly="true"  model="@load(vm.cmbSexo)" 
 						 placeholder = "Seleccione un sexo..."
-						 width="80%" cols="23" maxlength="30" tabindex="1"
+						 width="100%" cols="23" maxlength="30" tabindex="1"
 						 mold="rounded" selectedItem="@bind(vm.objsexo)" >
 							<comboitem label="" />
 						</combobox>
@@ -80,7 +83,7 @@
 						<label id="lblMotivo" value="Motivo: " />
 						<combobox id="cmbMotivo" readonly="true" mold="rounded"
 						placeholder = "Seleccione un motivo..."
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="100%" cols="23" maxlength="30" tabindex="1"
 						model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.objtipoMotivo)"
 						 onSelect="@command('objCmbtipoMotivo')"  >
 							<template name="model">
@@ -88,17 +91,10 @@
 									label="${each.nombreTipoMotivo}" />
 							</template>
 						</combobox>
-                        Tipo de Archivo: <listbox id="format"  mold="select" 
-                        width="80%" maxlength="30" model="@load(vm.reportTypesModel)"
-                         selectedItem="@bind(vm.reportType)">
-									<template name="model">
-											<listitem value="@load(each)" label="@load(each.label)"></listitem>
-									</template>
-						</listbox>
 						<label id="lblVeredicto" value="Veredicto: " />
 						<combobox id="cmbVeredicto" readonly="true" 
 						 placeholder = "Seleccione un veredicto..."
-						 width="80%" cols="20" maxlength="30" tabindex="1"
+						 width="100%" cols="20" maxlength="30" tabindex="1"
 						 model="@load(vm.cmbVeredicto )"  mold="rounded" 
 						 selectedItem="@bind(vm.objVeredicto)" >
 							<comboitem label="" />
@@ -108,7 +104,7 @@
 						<label id="lblEdoApelacion" value="Estado de Apelación: " />
 						<combobox id="cmbEdoApelacion" readonly="true" mold="rounded" 
 						placeholder = "Seleccione un estado de apelación..."
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="100%" cols="23" maxlength="30" tabindex="1"
 						model="@load(vm.listaEdoApelacion)" selectedItem="@bind(vm.objEdoApelacion)" 
 						onSelect="@command('objCmbEdoApelacion')" >
 							<template name="model">
@@ -116,11 +112,19 @@
 									label="${each.nombreEstado}" />
 							</template>
 						</combobox>
+						 Tipo de Archivo: <listbox id="format"  mold="select" 
+                        width="100%" maxlength="30" model="@load(vm.reportTypesModel)"
+                         selectedItem="@bind(vm.reportType)">
+									<template name="model">
+											<listitem value="@load(each)" label="@load(each.label)"></listitem>
+									</template>
+						</listbox>
 					</row>
 				</rows>
 			</grid>
+		</hbox>
 		</groupbox>
-		<separator />
+
 		<!-- Grupbox de Botones -->
 		<div align="right" height="100%">
 				    <button label="Buscar" id="btnBuscar" image="imagenes/iconos/buscar.png" width="auto" height="auto" orient="horizontal" onClick="@command('buscarEstudianteSancionado')"></button>
@@ -163,9 +167,7 @@
 			<jasperreport id="reporteConfigurable" height="5px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesSancionadosConfigurable')" 
 				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesSancionadosConfigurable')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesSancionadosConfigurable')" 
 				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesSancionadosConfigurable')"/>
-			<space />
-			<space />
 		</groupbox>
-			
+	</vlayout>		
 	</window>
 </zk>

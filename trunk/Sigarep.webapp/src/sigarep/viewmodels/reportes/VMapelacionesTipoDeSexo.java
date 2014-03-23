@@ -6,24 +6,13 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 
-import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -316,7 +305,7 @@ public class VMapelacionesTipoDeSexo {
 		ProgramaAcademico prog = objPrograma;
 		LapsoAcademico lap = objLapso;
 		if (objSancion == null || objLapso == null || objSancion == null
-				|| objPrograma == null) {
+				|| objPrograma == null || reportType == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
 			if (objSancion.getNombreSancion() == "Todos") {
@@ -356,11 +345,12 @@ public class VMapelacionesTipoDeSexo {
 	
 	//**************************METODO PARA LIMPIAR COMBOS***************************
 	@Command
-	@NotifyChange({ "objLapso", "objSancion", "objPrograma" })
+	@NotifyChange({ "objLapso", "objSancion", "objPrograma","reportType"})
 	public void limpiar() {
 		objLapso = null;
 		objSancion = null;
 		objPrograma = null;
+		reportType= null;
 	}
 
 }

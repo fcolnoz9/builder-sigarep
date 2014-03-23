@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroCronograma" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="239"/>
-	<property name="ireport.y" value="50"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -206,9 +206,9 @@
 	<subDataset name="New Dataset 1" uuid="b2620f20-be33-4399-8160-72e82dabdaa5"/>
 	<subDataset name="Table Dataset 2" uuid="d2af308a-fe2f-4d2b-9f99-d411c34f5aa5">
 		<field name="lugar" class="java.lang.String"/>
-		<field name="fechaInicio" class="java.lang.String"/>
-		<field name="fechaFin" class="java.lang.String"/>
-		<field name="horaInicio" class="java.lang.String"/>
+		<field name="fechaInicio" class="java.util.Date"/>
+		<field name="fechaFin" class="java.util.Date"/>
+		<field name="horaInicio" class="java.sql.Time"/>
 		<field name="observacion" class="java.lang.String"/>
 		<field name="actividad.nombre" class="java.lang.String"/>
 		<field name="responsable.instanciaApelada" class="java.lang.String"/>
@@ -402,7 +402,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:tableHeader>
 						<jr:detailCell style="table 9_TD" height="20" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="96cfcdc1-6c19-4483-b6a0-2d51c9aef44f"/>
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="d00df748-e65f-4a61-a302-70c893e39788"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
 								</textElement>
@@ -422,7 +422,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 						</jr:tableHeader>
 						<jr:detailCell style="table 9_TD" height="20" rowSpan="1">
 							<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="edb16065-d7d7-4d8f-be8b-f28e8e1337cf"/>
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="305b486b-abc0-4b94-ad5d-7b03f3f7fe9b"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
 								</textElement>
@@ -441,8 +441,8 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 9_TD" height="20" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="h.mm a">
-								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="3cc8e492-95fa-4be1-94b9-e8edf3265252"/>
+							<textField isStretchWithOverflow="true" pattern="K:mm a">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="3d3e2b17-816a-4db8-88ad-e50e89b004bd"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
 								</textElement>

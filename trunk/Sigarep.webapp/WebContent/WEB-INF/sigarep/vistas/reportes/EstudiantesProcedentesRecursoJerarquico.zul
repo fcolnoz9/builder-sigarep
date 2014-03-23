@@ -3,14 +3,17 @@
 <window id="winProcedentesJerarquico" title="Reportes :: Listas :: Estudiantes Procedentes Recurso Jerárquico" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMEstudiantesProcedentesRecursoJerarquico')">
 		<style src="/widgets/grid/simple/style.css" />
+		
+	<vlayout>
 		<groupbox vflex="true" closable="false" sclass="z-demo-config" width="auto" height="auto">
 			<caption label="Parámetros de Selección" />
+		<hbox>
 			<grid id="grdProcedentesRecursoJerarquico">
 				<columns>
-					<column  />
-					<column  />
-					
-					
+					<column />
+					<column />
+					<column />
+					<column />
 				</columns>
 				<rows>
 					<row>
@@ -37,24 +40,21 @@
 					
 				</rows>
 			</grid>
+		</hbox>
 		</groupbox>
-		<separator />
 		
 		<div align="right" height="100%">
 					<button label="Generar" id="btnGenerarReporteProcedentesJerarquico" image="imagenes/iconos/generar.png" width="auto" height="auto" orient="horizontal" onClick="@command('GenerarReporteEstudiantesRecursoJerarquico')"></button>
 					<button label="Limpiar" id="btnLimpiarReporteProcedentesJerarquico" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarComboProgramaAcademicoRJ')" orient="horizontal"> </button>
 					<button label="Cerrar" id="btnCerrarReporteProcedentesJerarquico" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winProcedentesJerarquico.onClose()" orient="horizontal"> </button>
 		</div>
-		<space />
 		
 		<groupbox id="grbReporteProcedentesRecursoJ" closable="false">
 		 <caption label="Reporte Generado"/>
 			<jasperreport id="reporteProcedentesRecursoJ" height="360px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesRecursoJerarquico')" 
 				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesRecursoJerarquico')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesRecursoJerarquico')" 
 				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesRecursoJerarquico')"/>
-			<space />
-			<space />
 		</groupbox>
-			
+	</vlayout>		
 	</window>
 </zk>

@@ -7,24 +7,13 @@ import java.util.Map;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.Selectors;
+
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
@@ -229,8 +218,9 @@ public class VMasignaturasMayorCantidadSancionados {
 	  		
 	  	}
   	//*******FIN DEL METODO*******
-  	
-  	
+	  	
+	  	
+	  	//********************************METODO PARA LIMPIAR COMBOS*******************************
 	  	/** Limpiar Asignaturas Sancionados.
 		* @param Ninguno
 		* @return Limpiar cada uno de los combos de la vista
@@ -238,11 +228,12 @@ public class VMasignaturasMayorCantidadSancionados {
 		*/
 
 		@Command
-		@NotifyChange({"programaAcademico","lapsoAcademico","instanciaApelada"})
+		@NotifyChange({"programaAcademico","lapsoAcademico","instanciaApelada","reportType"})
 		public void limpiarAsignaturasSancionados(){
 			programaAcademico= null;
 			lapsoAcademico= null;
 			instanciaApelada= null;
+			reportType= null;
 		}
 
   	
@@ -341,7 +332,7 @@ public class VMasignaturasMayorCantidadSancionados {
 	public void GenerarReporteAsigMayor(){
 		
 				
-			if(programaAcademico==null || lapsoAcademico== null || instanciaApelada== null)
+			if(programaAcademico==null || lapsoAcademico== null || instanciaApelada== null || reportType == null)
 				mensajeAlUsuario.advertenciaSeleccionarTodo();
 			else{
 				

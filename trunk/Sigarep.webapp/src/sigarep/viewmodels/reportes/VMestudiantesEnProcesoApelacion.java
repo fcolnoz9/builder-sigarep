@@ -6,23 +6,12 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Messagebox.ClickEvent;
-import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EstadoApelacion;
@@ -334,7 +323,7 @@ public class VMestudiantesEnProcesoApelacion {
 		listaSA.clear();
 		lista2.clear();
 
-		if (objEstadoApelacion == null || objPrograma == null) {
+		if (objEstadoApelacion == null || objPrograma == null || reportType == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
 			switch (objEstadoApelacion.getIdEstadoApelacion()) {
@@ -744,11 +733,12 @@ public class VMestudiantesEnProcesoApelacion {
 	
 	//*******************************METODO PARA LIMPIAR COMBOS******************************
 	@Command
-	@NotifyChange({ "objPrograma", "objEstadoApelacion", "objinstanciaApelada" })
+	@NotifyChange({ "objPrograma", "objEstadoApelacion", "objinstanciaApelada","reportType"})
 	public void limpiar() {
 		objPrograma = null;
 		objEstadoApelacion = null;
 		objinstanciaApelada = null;
+		reportType= null;
 	}
 
 }

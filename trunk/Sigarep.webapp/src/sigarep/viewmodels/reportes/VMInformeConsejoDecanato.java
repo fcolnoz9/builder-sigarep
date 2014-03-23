@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -13,15 +12,12 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -44,8 +40,7 @@ public class VMInformeConsejoDecanato {
 	 * @version 1.0
 	 */
 	
-	// ***********************************DECLARACION DE LAS VARIABLES
-	// SERVICIOS*************************
+	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
@@ -53,8 +48,7 @@ public class VMInformeConsejoDecanato {
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	
-	// ***********************************PARÁMETROS PARA
-	// SERVICIOS*************************
+	// ***********************************PARÁMETROS PARA REPORTES*************************
 	@WireVariable
 	private String codigoLapso;
 	@Wire
@@ -75,8 +69,7 @@ public class VMInformeConsejoDecanato {
 	private int denegadosAna;
 	private int denegadosMat;
 
-	// ***********************************DECLARACIÓN DE
-	// LISTAS*************************
+	// ***********************************DECLARACIÓN DE LISTAS*************************
 	private List<LapsoAcademico> listaLapso;
 	private List<ProgramaAcademico> listaPrograma = new LinkedList<ProgramaAcademico>();
 	private List<Sancionados> listaInformatica = new LinkedList<Sancionados>();
@@ -84,8 +77,7 @@ public class VMInformeConsejoDecanato {
 	private List<Sancionados> listaProduccion = new LinkedList<Sancionados>();
 	private List<Sancionados> listaMatematicas = new LinkedList<Sancionados>();
 
-	// ***********************************DECLARACION DE LAS VARIABLES TIPO
-	// OBJETO *************************
+	// ***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO *************************
 	private LapsoAcademico objLapso;
 
 	// *********************************Mensajes***************************************
@@ -100,46 +92,14 @@ public class VMInformeConsejoDecanato {
 		Selectors.wireComponents(view, this, false);
 	}
 
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
-	// REPORTE***************************
+	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
 
 	String ruta = "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoDecanato.jasper";
 
-	@Init
-	public void init() {
-		buscarLapso();
-	}
-
-	/**
-	 * buscar Lapso Académico
-	 * 
-	 * @param
-	 * @return lista de Lapso Académico
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaLapso" })
-	public void buscarLapso() {
-		listaLapso = serviciolapsoacademico.buscarTodosLosLapsos();
-	}
-
-	/**
-	 * Objeto Combo Lapso Académico.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Lapso Académico.
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaLapso" })
-	public LapsoAcademico objCmbLapso() {
-		return objLapso;
-	}
-
+		
+	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	// Reporte SET/GETS
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
@@ -213,8 +173,7 @@ public class VMInformeConsejoDecanato {
 		this.objLapso = objLapso;
 	}
 
-	// ===============================FIN DE LOS METODOS SET Y
-	// GET==============================
+	// ===============================FIN DE LOS METODOS SET Y GET==============================
 
 	// REPORTE
 	/**
@@ -226,21 +185,72 @@ public class VMInformeConsejoDecanato {
 	 *             dispara ninguna excepción.
 	 */
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
-					"html"), new ReportType("Word (RTF)", "rtf"),
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
 					new ReportType("Excel", "xls"), new ReportType(
 							"Excel (JXL)", "jxl"),
 					new ReportType("CSV", "csv"), new ReportType(
 							"OpenOffice (ODT)", "odt")));
+	
+	
+	//******************************METODO DE INICIALIZACION*****************************
+	/**Inicialización
+	 * @param init
+	 * @return Carga de Variables y métodos inicializados
+	 * @throws No dispara ninguna excepcion.
+	*/
+	@Init
+	public void init() {
+		buscarLapso();
+	}
+	
+	
+	//*****************************METODO PARA LIMPIAR COMBOS O CAJAS DE TEXTO*******************************
+	@Command
+	@NotifyChange({ "para", "de", "contenido", "nro", "contenido", "objLapso" })
+	public void limpiar() {
+		// se utiliza la fecha del sistema para colocarla al momento de limpiar
+		para = "";
+		de = "";
+		nro = "";
+		contenido = "";
+		objLapso = null;
+	}
+
+	
+	
+	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
+	/**buscar Lapso Académico 
+	 * @param
+	 * @return lista de Lapso Académico
+	 * @throws No dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaLapso" })
+	public void buscarLapso() {
+		listaLapso = serviciolapsoacademico.buscarTodosLosLapsos();
+	}
 
 	/**
-	 * Generar Informe Estructurado al Consejo de Decanato
+	 * Objeto Combo Lapso Académico.
 	 * 
+	 * @param Ninguno
+	 * @return Objeto Lapso Académico.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaLapso" })
+	public LapsoAcademico objCmbLapso() {
+		return objLapso;
+	}
+	
+	
+	// ###############METODO PARA IMPRIMIR REPORTE#################
+	/**Generar Informe Estructurado al Consejo de Decanato
 	 * @param Ninguno
 	 * @return Informe Estructurado al Consejo de Decanato generado en PDF u
 	 *         otro tipo de archivo
-	 * @throws Si
-	 *             la lista está vacía no genera el reporte.
+	 * @throws Si la lista está vacía no genera el reporte.
 	 */
 	//
 	@Command("GenerarReporteApelacionesMotivo")
@@ -311,37 +321,6 @@ public class VMInformeConsejoDecanato {
 			reportConfig.setType(reportType);
 		}
 	}
-
-	@Command
-	@NotifyChange({ "para", "de", "contenido", "nro", "contenido", "objLapso" })
-	public void limpiar() {
-		// se utiliza la fecha del sistema para colocarla al momento de limpiar
-		para = "";
-		de = "";
-		nro = "";
-		contenido = "";
-		objLapso = null;
-	}
-
 	// #####################FIN DEL METODO##########################
 
-	// #####################MENSAJE PARA CERRAR
-	// VENTANA##########################
-	@Command
-	@NotifyChange({})
-	public void cerrarVentana(
-			@ContextParam(ContextType.BINDER) final Binder binder) {
-		Messagebox.show("¿Realmente desea cerrar la ventana?", "Confirmar",
-				new Messagebox.Button[] { Messagebox.Button.YES,
-						Messagebox.Button.NO }, Messagebox.QUESTION,
-				new EventListener<ClickEvent>() {
-					@SuppressWarnings("incomplete-switch")
-					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-						case YES:
-							ventana.detach();
-						}
-					}
-				});
-	}
 }

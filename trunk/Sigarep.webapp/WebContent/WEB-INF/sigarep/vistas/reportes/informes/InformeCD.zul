@@ -6,11 +6,11 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeConsejoDecanato')">
 
-       
+     <vlayout>
        <!-- Groupbox que contiene los campos de la pantalla para la búsqueda y datos de memorando-->
 		<groupbox vflex="true" closable="false" sclass="z-demo-config"
 			width="auto" height="auto">
-			<caption label="Criterio de Selecciòn" />
+			<caption label="Parámetros de Selección" />
 			<grid id="grdApelacion">
 
 				<columns>
@@ -24,7 +24,7 @@
 
 					<row>
 						<label id="lblLapsoAcademico"
-							value="Lapso Académico"/>
+							value="Lapso Académico:"/>
 						<combobox id="cmbLapso" mold="rounded"
 							readonly="true" model="@load(vm.listaLapso)"
 							selectedItem="@bind(vm.objLapso)"
@@ -68,44 +68,32 @@
 					</row>
 				</rows>
 			</grid>
-			<!-- hbox que contiene los botones en la interfaz que permiten la generación del reporte , limpiar los campos y cerrar la ventana -->
-
-			<hbox width="90%" height="150%" pack="right">
-				<hlayout id="lyBuscar">
-					<div align="right" height="100%">
+		</groupbox>
+		</groupbox>
+		<div align="right" height="100%">
 						<button label="Generar" id="btnGenerar"
 							image="imagenes/iconos/generar.png" width="auto" height="auto"
 							orient="horizontal" onClick="@command('GenerarReporteApelacionesMotivo')">
 						</button>
-					</div>
-				</hlayout>
-
-				<hlayout id="lytlimpiar">
-					<div align="right" height="100%">
 						<button id="btnLimpiar" width="auto" height="auto"
-				         label="limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('limpiar')">
-			           </button>
-			            
-			            
+				         	label="limpiar" image="/imagenes/iconos/limpiar.png" mold="trendy" onClick="@command('limpiar')">
+			           	</button>
 			            <button id="btnCerrar" width="auto" height="auto"
-				label="Cerrar" image="/imagenes/iconos/cerrar.png"
-				onClick="winApelacion.onClose()">
-			</button>
+							label="Cerrar" image="/imagenes/iconos/cerrar.png"
+							onClick="winApelacion.onClose()">
+						</button>
 					</div>
-				</hlayout>
-			</hbox>
 			
-		</groupbox>
-			
-		
-		
-
-		</groupbox>
 		<!-- jasperreport donde se dibuja el reporte dentro de la interfaz -->
-		<jasperreport id="report" height="620px"
+		<groupbox id="grbInformeConsejoDecanato" closable="false">
+ 		<caption label="Reporte Generado"/>
+		<jasperreport id="report" height="360px"
 			src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesMotivo')"
 			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteApelacionesMotivo')"
 			type="@load(vm.reportConfig.type.value, after='GenerarReporteApelacionesMotivo')"
 			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteApelacionesMotivo')" />
+		</groupbox>
+	
+	</vlayout>
 	</window>
 </zk>

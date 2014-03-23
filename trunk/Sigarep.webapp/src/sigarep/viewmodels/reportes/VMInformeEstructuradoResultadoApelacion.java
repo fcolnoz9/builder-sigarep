@@ -26,7 +26,6 @@ import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.reportes.ListaInformeEstructuradoResultadosApelacion;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioInformeEstructuradoResultadoApelacion;
@@ -307,11 +306,12 @@ public class VMInformeEstructuradoResultadoApelacion {
 		*/
 		
 		@Command
-		@NotifyChange({ "objprograma", "objinstanciaApelada","sesiones"})
+		@NotifyChange({ "objprograma", "objinstanciaApelada","sesiones","reportType"})
 		public void limpiarCombosEspecialResultados() {
 			objprograma = null;
 			objinstanciaApelada = null;
 			sesiones = null;
+			reportType= null;
 		}
 		
 		
@@ -358,7 +358,7 @@ public class VMInformeEstructuradoResultadoApelacion {
 		@Command("GenerarReporteEspecialResultadoApelacion")
 		@NotifyChange({"reportConfig"})
 		public void GenerarReporteEspecialResultadoApelacion(){
-			    if(objinstanciaApelada==null || objprograma==null || sesiones==null){
+			    if(objinstanciaApelada==null || objprograma==null || sesiones==null || reportType==null){
 					mensajeAlUsuario.advertenciaSeleccionarTodo();
 				}
 				else{

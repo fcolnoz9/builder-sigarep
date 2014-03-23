@@ -6,23 +6,12 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
@@ -79,7 +68,6 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	private InstanciaApelada objinstanciaApelada;
 	private String objVeredicto;
 	private ProgramaAcademico programa;
-	private String objSesion;
 	//*********************************Parametros para la Tira Sql***************************************
 	private String parametroTipoSancion;
 	private String parametroInstanciaApelada;
@@ -342,28 +330,31 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FIN DEL METODO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
 	
+	
+	//****************************************METODOS PARA LIMPIAR COMBOS*************************************************
 	/** Limpiar Combos Reporte.
 	* @param Ninguno
 	* @return Limpiar cada uno de los combos de la vista
 	* @throws No dispara ninguna excepción.
 	*/
-	
 	@Command
 	@NotifyChange({ "objprograma", "objSancion","objinstanciaApelada","objLapso",
-		"objVeredicto"})
+		"objVeredicto","reportType"})
 	public void limpiarCombosReporte() {
 		objprograma = null;
 		objSancion = null;
 		objinstanciaApelada = null;
 		objVeredicto= null;
+		reportType= null;
 	}
 	
+	
+	//*****************************************METODO PARA CONFIGURAR PARAMETROS**************************************
 	/** Configurar Parámetro Sanción.
 	* @param Ninguno
 	* @return 
 	* @throws No dispara ninguna excepción.
 	*/
-	
 	@NotifyChange({ "parametroTipoSancion" })// parametro Tipo sancion
 	@Command
 	public String configurarParametroSancion() {
@@ -429,6 +420,8 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 		return parametroVeredicto;
 	}
 	
+	
+	// ###############METODO PARA IMPRIMIR REPORTE#################
 	/** Generar Reporte Estudiantes Sancionado Apelaciones Especial.
 	* @param Ninguno
 	* @return Reporte de Estudiantes Sancionados y sus Apelaciones generado en PDF u otro tipo de archivo
@@ -439,7 +432,7 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	public void GenerarReporteEstudiantesSancionadoApelacionEspecial(){
 		
 			if(objinstanciaApelada==null || objprograma==null || objSancion==null
-				|| objVeredicto==null){
+				|| objVeredicto==null || reportType == null){
 				mensajeAlUsuario.advertenciaSeleccionarTodo();
 			}
 			else{
