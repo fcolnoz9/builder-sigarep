@@ -199,8 +199,6 @@ public class VMContacto {
 		if (correoContacto == null || correoContacto.equals("")) {
 			mensajeAlUsuario.advertenciaIngresarCorreo();
 		} else {
-			twitter = "https://www.twitter.com/" + twitter;
-			facebook = "https://www.facebook.com/" + facebook;
 			ContactoSigarep contactoSigarep = new ContactoSigarep(id_contacto,
 					quienesSomos, correoContacto, twitter, facebook,
 					telefonoContacto, direccion, claveCorreoContacto,
@@ -227,8 +225,8 @@ public class VMContacto {
 			"servidorEntrantePop3", "puertoEntradaPop3", "servidorSalidaSmtp",
 			"puertoSalidaSmtp" })
 	public void cargarContacto() {
-			contactoSigarep = serviciocontactosigarep.buscarContactoSigarep();
-		if (contactoSigarep != null) {
+		if (serviciocontactosigarep.buscarContactoSigarep().size() > 0 ) {
+			contactoSigarep = serviciocontactosigarep.buscarContactoSigarep().get(0);
 			id_contacto = contactoSigarep.getIdContacto();
 			quienesSomos = contactoSigarep.getQuienesSomos();
 			correoContacto = contactoSigarep.getCorreoContacto();
