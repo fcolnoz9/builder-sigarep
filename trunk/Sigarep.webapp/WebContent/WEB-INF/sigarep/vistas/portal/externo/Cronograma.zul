@@ -1,13 +1,20 @@
-<div class="panel panel-info" height="100%" apply="org.zkoss.bind.BindComposer" 
+<div class="panel panel-info" height="100%"
+	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMCronograma')">
 	<div class="panel-heading">
-		<label class="label label-info" style="font-size:12px">Cronograma de actividades</label>
+		<label class="label label-info" style="font-size:12px">
+			Cronograma de actividades
+		</label>
 	</div>
-	<listbox id="lbxCronograma" model="@bind(vm.listaCronograma)" emptyMessage="No hay actividades programadas" vflex="1"
-		selectedItem="@bind(vm.cronogramaSeleccionado)" onSelect="@command('modalDetalleCronograma')" tooltiptext="Cronograma de Actividades">
+	<listbox id="lbxCronograma" model="@bind(vm.listaCronograma)"
+		emptyMessage="No hay actividades programadas" vflex="1"
+		selectedItem="@bind(vm.cronogramaSeleccionado)"
+		onSelect="@command('modalDetalleCronograma')"
+		tooltiptext="Cronograma de Actividades">
 		<listhead>
 			<listheader label="Fecha" align="center" width="30%"
-				sort="auto(fechaInicio)" tooltiptext="Ordenar Actividades por Fecha" />
+				sort="auto(fechaInicio)"
+				tooltiptext="Ordenar Actividades por Fecha" />
 			<listheader label="Nombre" align="center" />
 		</listhead>
 		<template name="model">
