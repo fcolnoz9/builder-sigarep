@@ -20,6 +20,7 @@ import sigarep.modelos.data.maestros.ContactoSigarep;
 import sigarep.modelos.repositorio.maestros.IContactoSigarepDAO;
 
 import java.security.GeneralSecurityException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -61,8 +62,8 @@ public class ServicioContactoSigarep {
 	 * @throws No dispara ninguna excepción.
 	 */
 	
-	public ContactoSigarep buscarContactoSigarep(){
-		return iContactoSigarepDAO.findAll().get(0);
+	public List<ContactoSigarep> buscarContactoSigarep(){
+		return iContactoSigarepDAO.findAll();
 	}
 	
 	private void cargarPropiedadesEnvio() {
@@ -77,14 +78,14 @@ public class ServicioContactoSigarep {
 		properties.put("mail.smtp.ssl.socketFactory", sf);
 		properties.put("mail.smtp.auth", true);
 		properties.put("mail.smtp.starttls.enable", true);
-		properties.put("mail.smtp.host", buscarContactoSigarep().getServidorSalidaSmtp());
-		properties.put("mail.smtp.port", buscarContactoSigarep().getPuertoSalidaSmtp());
+		properties.put("mail.smtp.host", buscarContactoSigarep().get(0).getServidorSalidaSmtp());
+		properties.put("mail.smtp.port", buscarContactoSigarep().get(0).getPuertoSalidaSmtp());
 		properties.put("mail.smtp.debug", "true");
-		properties.put("mail.smtp.mail.sender", buscarContactoSigarep().getCorreoContacto());
+		properties.put("mail.smtp.mail.sender", buscarContactoSigarep().get(0).getCorreoContacto());
 		session = Session.getInstance(properties,
 				new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(buscarContactoSigarep().getCorreoContacto(), buscarContactoSigarep().getClaveCorreo());
+						return new PasswordAuthentication(buscarContactoSigarep().get(0).getCorreoContacto(), buscarContactoSigarep().get(0).getClaveCorreo());
 					}
 				});
 	}
@@ -143,7 +144,7 @@ public class ServicioContactoSigarep {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress((String) properties
 					.get("mail.smtp.mail.sender")));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(buscarContactoSigarep().getCorreoContacto()));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(buscarContactoSigarep().get(0).getCorreoContacto()));
 			message.setSubject("Mensaje o consulta enviado por: " + nombre);
 			message.setText(nombre + ", "
 					+ "\nNúmero de teléfono: " + telefono
