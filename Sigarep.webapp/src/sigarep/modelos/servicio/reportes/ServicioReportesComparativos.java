@@ -1,6 +1,4 @@
 package sigarep.modelos.servicio.reportes;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,10 +129,10 @@ public class ServicioReportesComparativos {
 		String queryStatement = "select Distinct on (v.cedula) v.cedula, v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente)-sum(v.apelaciones-v.procedente) procedentes, " +
 				"(SELECT COUNT(Distinct sa.cedula_estudiante) total FROM sigarep.solicitud_apelacion sa, sigarep.estudiante_sancionado essa, sigarep.estudiante es " +
 				"WHERE sa.cedula_estudiante = essa.cedula_estudiante and essa.cedula_estudiante = es.cedula_estudiante " +
-				"and sa.codigo_lapso = '"+ codigo_lapso +"' and es.id_programa = "+ programa +" ), " +
+				"and sa.codigo_lapso = '" + codigo_lapso + "' and es.id_programa = " + programa + " ), " +
 				"(SELECT COUNT(essa.cedula_estudiante) sancionados FROM sigarep.estudiante_sancionado essa, sigarep.estudiante es " +
-				"WHERE essa.cedula_estudiante = es.cedula_estudiante and essa.codigo_lapso = '"+ codigo_lapso +"' " +
-				"and es.id_programa = "+ programa +"  ) " +
+				"WHERE essa.cedula_estudiante = es.cedula_estudiante and essa.codigo_lapso = '" + codigo_lapso + "' " +
+				"and es.id_programa = " + programa + "  ) " +
 				"from (select b.motivo as motivo, sum(b.apelaciones) apelaciones, 0 as procedente, b.cedula as cedula " +
 				"from (SELECT timo.nombre_tipo_motivo as motivo,count(distinct sa.cedula_estudiante) " +
 				"as apelaciones, 0 as procedente, sa.cedula_estudiante as cedula " +
@@ -149,15 +147,14 @@ public class ServicioReportesComparativos {
 				"INNER JOIN sigarep.estudiante as es on essa.cedula_estudiante = es.cedula_estudiante " +
 				"INNER JOIN sigarep.programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
-				"and mo.id_tipo_motivo <> "+ programa +" and mo.id_tipo_motivo <> 2 and mo.id_tipo_motivo <> 3 " +
-				"and sa.codigo_lapso = '"+ codigo_lapso +"' and prog.id_programa = "+ programa +" " +
-				"group by cedula," +
+				"and mo.id_tipo_motivo <> 1 and mo.id_tipo_motivo <> 2 and mo.id_tipo_motivo <> 3 " +
+				"and sa.codigo_lapso = '" + codigo_lapso + "' and prog.id_programa = " + programa + " and sa.veredicto = 'PROCEDENTE' " +
+				"group by cedula, " +
 				"motivo) as b " +
 				"group by b.motivo, b.cedula " +
 				"union all " +
-				"select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(sa.veredicto) as procedente, " +
-				"essa.cedula_estudiante as cedula " +
-				"from sigarep.tipo_motivo timo, sigarep.solicitud_apelacion sa " +
+				"select timo.nombre_tipo_motivo as motivo, 0 as apelaciones, count(sa.veredicto) " +
+				"as procedente, essa.cedula_estudiante as cedula from sigarep.tipo_motivo timo, sigarep.solicitud_apelacion sa " +
 				"INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = sa.cedula_estudiante " +
 				"and essa.codigo_lapso = sa.codigo_lapso " +
 				"INNER JOIN sigarep.motivo as mo on mo.cedula_estudiante = sa.cedula_estudiante " +
@@ -168,9 +165,8 @@ public class ServicioReportesComparativos {
 				"INNER JOIN sigarep.programa_academico as prog on es.id_programa = prog.id_programa " +
 				"WHERE mo.id_tipo_motivo = timo.id_tipo_motivo " +
 				"and mo.id_tipo_motivo <> 1 and mo.id_tipo_motivo <> 2 and mo.id_tipo_motivo <> 3 " +
-				"and sa.codigo_lapso = '"+ codigo_lapso +"' and prog.id_programa = "+ programa +" " +
-				"and sa.veredicto = 'PROCEDENTE' group by timo.nombre_tipo_motivo, essa.cedula_estudiante) as v " +
-				"group by v.cedula, v.motivo order by v.cedula, apelaciones desc";
+				"and sa.codigo_lapso = '" + codigo_lapso + "' and prog.id_programa = " + programa + " " +
+				"and sa.veredicto = 'PROCEDENTE' group by timo.nombre_tipo_motivo, essa.cedula_estudiante) as v group by v.cedula, v.motivo order by v.cedula, apelaciones desc";
 		
 //		String queryStatement2 = "select Distinct v.motivo as motivo, sum(v.apelaciones) apelaciones, sum(v.procedente)-sum(v.apelaciones-v.procedente) procedentes, "
 //				+ "(SELECT COUNT(Distinct sa.cedula_estudiante) total FROM sigarep.solicitud_apelacion sa, sigarep.estudiante_sancionado essa, sigarep.estudiante es "
