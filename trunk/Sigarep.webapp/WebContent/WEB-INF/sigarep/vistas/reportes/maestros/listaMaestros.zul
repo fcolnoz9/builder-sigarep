@@ -17,7 +17,7 @@
 					<row>
 					  <label id="lblMaestroReporte" value="maestros:" />
 				<!-- Categoría: -->
-		              <combobox id="cmbMaestroReporte" mold="rounded" width="100%" maxlength="100" placeholder="Seleccione un maestro..." selectedItem=" @bind(vm.maestro)">
+		              <combobox id="cmbMaestroReporte" mold="rounded" width="100%" maxlength="100" placeholder="Seleccione un maestro..." selectedItem=" @bind(vm.maestro)" readonly="true">
 								<comboitem value="lapsoacademico" id="cmiLapsoAcademico" label="Lista Lapso Académico" />
 		 						<comboitem value="actividad" id="cmiActividad" label="Lista de Actividades" /> 
 		 						<comboitem value="estadoApelacion" id="cmiEstadoApelacion" label="Lista Estados de Apelación" /> 
