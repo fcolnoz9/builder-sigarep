@@ -42,7 +42,7 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.findOne(id);
 	}
 
-	public EstudianteSancionado buscarEstudianteSancionadoxSolicitud(
+	public SolicitudApelacion buscarEstudianteSancionadoxSolicitud(
 			String cedulaEstudiante) {
 		return iSolicitudApelacionDAO.findById_CedulaEstudiante(cedulaEstudiante);
 	}
