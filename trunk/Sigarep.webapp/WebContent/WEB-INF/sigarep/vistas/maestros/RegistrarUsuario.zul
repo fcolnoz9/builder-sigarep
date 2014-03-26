@@ -179,25 +179,7 @@
 						</listbox>						
 					</panelchildren>
 				</panel>
-			</columnchildren>
-			<columnchildren width="50%">
-				<panel title="Grupos generico" visible="false">
-					<panelchildren>
-<!-- 					aqui					 -->
-						<listbox id="listboxGruposGenerico" model="@bind(vm.listaGrupoGenerico)" visible="false"
-   			 				 emptyMessage="Seleccione un grupo para mostrar sus grupos" mold="paging" hflex="1" vflex="1">
-							<listhead>
-								<listheader label="Nombre del grupo" align="center" sort="auto(nombre)" />
-							</listhead>
-							<template name="model">							
-								<listitem selected="false">
-									<listcell label="${each.nombre}" ></listcell>
-								</listitem>
-							</template>
-						</listbox>
-					</panelchildren>
-				</panel>
-		   </columnchildren>				
+			</columnchildren>				
 		</columnlayout>
 	</groupbox>
 	<separator />

@@ -108,8 +108,6 @@ public class VMUsuario {
 
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 
-	@WireVariable
-	private List<Grupo> listaGrupoGenerico = new LinkedList<Grupo>();
 	
 	private Usuario usuarioSeleccionado;
 	@WireVariable
@@ -129,22 +127,7 @@ public class VMUsuario {
 	
 	@Wire("#winRegistrarUsuario")//para conectarse a la ventana con el ID
 	Window ventana;
-	 public List<Grupo> getListaGrupoGenerico() {
-		return listaGrupoGenerico;
-	}
-
-	public void setListaGrupoGenerico(List<Grupo> listaGrupoGenerico) {
-		this.listaGrupoGenerico = listaGrupoGenerico;
-	}
 	
-	@Command 
-	@NotifyChange({ "listaGrupoGenerico" })
-	public void buscarGenerico(){
-		
-	Grupo generico = serviciogrupo.buscarGrupo(1);
-		listaGrupoGenerico.add(generico);
-		
-	}
 
 	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
@@ -582,10 +565,11 @@ public class VMUsuario {
 					serviciousuario.guardarUsuario(usuario);
 					if(!marca){
 						marca=true;
-						for(Listitem miGrupo2 :grupoInvisible){
+						if(marca){
 							grupo = new Grupo();
-							nombreGrupo = miGrupo2.getLabel();
-							grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
+							//nombreGrupo = miGrupo2.getLabel();
+							//grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
+							grupo = serviciogrupo.buscarGrupo(1);
 							usuarioGrupoPK = new UsuarioGrupoPK();
 							usuarioGrupo = new UsuarioGrupo();
 							usuarioGrupoPK.setIdGrupo(grupo.getIdGrupo());
@@ -739,7 +723,7 @@ public class VMUsuario {
 		buscarUsuario();
 		buscarListadoUsuario();
 		buscarListadoGrupos();
-		buscarGenerico();
+
 	}
 //REVISAR
 	/**Busca los usuarios  
