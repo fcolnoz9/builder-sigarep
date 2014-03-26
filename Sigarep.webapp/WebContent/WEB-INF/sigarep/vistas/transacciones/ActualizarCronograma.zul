@@ -6,6 +6,13 @@
 	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCronograma')"
 	action="hide: slideUp" onCancel="@command('closeThis')">
 
+	<zscript>
+	<![CDATA[
+			import java.text.SimpleDateFormat;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		]]>
+	</zscript>
+
 	<!-- 		<style src="/widgets/grid/simple/style.css" > -->
 
 	<!-- Contiene los campos que requieren llenarse con los datos de cronograma -->
@@ -47,18 +54,18 @@
 				<row>
 					<label value="Fecha de Inicio: "
 						id="lblfechaInicio" />
-					<datebox id="dtbFechaInicio" 
+					<datebox id="dtbFechaInicio" constraint="@load(vm.constraintDate)"
 						placeholder="Seleccione..."
 						mold="rounded" width="80%" tabindex="7" format="dd/MM/yyyy"
 						value="@bind(vm.fechaInicio)"
 						onChange="@command('validarFecha')" />
 					<label value="Fecha de Finalización: "
 						id="lblfechaFinal" />
-					<datebox  id="dtbFechaFin"
+					<datebox  id="dtbFechaFin" constraint="@load(vm.constraintDate)"
 					    placeholder="Seleccione..."
 						mold="rounded" width="80%" tabindex="7" format="dd/MM/yyyy"
 						value="@bind(vm.fechaFin)"
-						onChange="@command('validarFecha')" />
+						onChange="@command('validarFecha')" />	
 					<label value="Hora Inicio: " id="lblHora" />
 					<timebox format="a hh:mm:ss" id="tmbHora"
 					placeholder="Seleccione..."

@@ -1,6 +1,7 @@
 package sigarep.viewmodels.transacciones;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,6 +46,8 @@ public class VMCronograma {
 	@WireVariable ServicioCronograma serviciocronograma;
 	private Date fechaInicio;
 	private Date fechaFin;
+	private Date fechaInicioLapso;
+	private Date fechaCierreLapso;
 	private Time horaInicio;
 	private String lugar;
 	private String observacion;
@@ -177,6 +180,28 @@ public class VMCronograma {
 	public void setLapsoActivo(LapsoAcademico lapsoActivo) {
 		this.lapsoActivo = lapsoActivo;
 	}
+	
+	public Date getFechaInicioLapso() {
+		return fechaInicioLapso;
+	}
+	public void setFechaInicioLapso(Date fechaInicioLapso) {
+		this.fechaInicioLapso = fechaInicioLapso;
+	}
+	public Date getFechaCierreLapso() {
+		return fechaCierreLapso;
+	}
+	public void setFechaCierreLapso(Date fechaCierreLapso) {
+		this.fechaCierreLapso = fechaCierreLapso;
+	}
+	
+	public String getConstraintDate () {
+		if(lapsoActivo!=null)
+			return "after " + new SimpleDateFormat("yyyyMMdd").format(getFechaInicioLapso()) + ",before " +new SimpleDateFormat("yyyyMMdd").format(getFechaCierreLapso());
+		else 
+			return "after 20100710,before 21000720";
+	}
+
+
 
 	// OTROS METODOS
 	@Wire("#winActualizarCronograma")//para conectarse a la ventana con el ID
@@ -191,6 +216,8 @@ public class VMCronograma {
 			if(lapsoActivo==null)
 				mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);	
 			else{
+				fechaInicioLapso = lapsoActivo.getFechaInicio();
+				fechaCierreLapso = lapsoActivo.getFechaCierre();
 				codigoLapso = lapsoActivo.getCodigoLapso();
 				buscarCronograma();
 				buscarActividad();
@@ -221,7 +248,6 @@ public class VMCronograma {
 		else {
 			cronogramaPK.setIdActividad(actividad.getIdActividad());
 			cronogramaPK.setCodigoLapso(codigoLapso);
-
 			try {
 				responsable=servicioInstanciaApelada.buscar(responsable.getIdInstanciaApelada());
 				serviciocronograma.guardar(new Cronograma(cronogramaPK, true, fechaFin, fechaInicio, horaInicio, lugar, observacion, responsable));
@@ -375,7 +401,9 @@ public class VMCronograma {
 	@NotifyChange({"fechaInicio", "fechaFin"})
 	public void validarFecha(){
 		if (fechaInicio != null && fechaFin != null){
-			if (fechaInicio.compareTo(fechaFin) > 0){
+			if (fechaInicio.compareTo(fechaFin) > 0 || lapsoActivo.getFechaInicio().compareTo(fechaInicio) > 0 
+					|| fechaInicio.compareTo(lapsoActivo.getFechaCierre()) > 0
+					|| fechaFin.compareTo(lapsoActivo.getFechaCierre()) > 0){
 				mensajeAlUsuario.errorRangoFechas();
 				fechaFin=null;
 			}
