@@ -1,6 +1,6 @@
 <window id="winReporteApelacionesTipoDeSexo"
-	title="Reportes :: Informes :: Historial de Estudiante" border="normal" width="auto"
-	height="auto" closable="true">
+	title="Reportes :: Informes :: Historial de Estudiante" border="normal"  
+	width="80%" height="100%" closable="true">
 	<vlayout apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMDetalleHistorialEstudiante')">
 		
@@ -9,7 +9,7 @@
 				onClick="@command('GenerarReporteHistorial')">
 			</button>
 
-		<jasperreport id="report" height="360px"
+		<jasperreport id="report" height="360px" 
 			src="@load(vm.reportConfig.source, after='GenerarReporteHistorial')"
 			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteHistorial')"
 			type="@load(vm.reportConfig.type.value, after='GenerarReporteHistorial')"
