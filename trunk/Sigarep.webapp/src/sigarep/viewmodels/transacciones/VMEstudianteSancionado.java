@@ -35,9 +35,11 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
+import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -104,6 +106,8 @@ public class VMEstudianteSancionado {
 	private ServicioEstudianteSancionado servicioestudiantesancionado; //Servicio para el estudiante sancionado
 	@WireVariable
 	private ServicioAsignatura servicioAsignatura; //Servicio para el servicio asignatura
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion; //Servicio para el servicio asignatura
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado; //Servicio para Laasignatura estudiante sancionado
 	private List<AsignaturaEstudianteSancionado> listaasignatura; //Lista de asignaturas
@@ -744,8 +748,6 @@ public class VMEstudianteSancionado {
 							condicion1 = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
 							if(condicion1.equals("") || condicion1 == null ){
 								pase = false;
-								System.out.println("entro a la condicio");
-								
 								break;
 							}else {
 								pase = true;
@@ -769,20 +771,16 @@ public class VMEstudianteSancionado {
 								asignaturaEstudianteSancionado.setEstudianteSancionado(estudianteSancionado);
 								asignaturaEstudianteSancionado.setAsignatura(asignaturaSacion);
 								estudianteSancionado.addAsignaturaEstudianteSancionado(asignaturaEstudianteSancionado);
-								System.out.println("pse1 +++");
 								servicioestudiantesancionado.guardar(estudianteSancionado);
-								System.out.println("pse2 +++");
 							}
-							System.out.println("pse3 +++");
 							mensajeAlUsuario.informacionRegistroCorrecto();
 							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
-						}else{ System.out.println("pseaux +++");
+						}else{ 
 							mensajeAlUsuario.advertenciaLlenarCampos();}
 			
 
-					} else { System.out.println("pse4 +++");
+					} else { 
 						servicioestudiantesancionado.guardar(estudianteSancionado);
-						System.out.println("pse35 +++");
 							mensajeAlUsuario.informacionRegistroCorrecto();
 							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
 							}
@@ -863,7 +861,6 @@ public class VMEstudianteSancionado {
 				}
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 	}
 	 
@@ -892,15 +889,18 @@ public class VMEstudianteSancionado {
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
 			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
-
-		if (cedula == null || cedula.equals(""))
-			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-		else {
+		 
+			if (cedula == null || cedula.equals("")){
+				mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+			}else if (serviciosolicitudapelacion.buscarEstudianteSancionadoxSolicitud(cedula) != null){
+			 mensajeAlUsuario.advertenciaNoELiminar();
+			
+			}else {
 			try {
 				servicioestudiantesancionado.eliminar(estudianteSeleccionado
 						.getId());
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				
 			}
 			mensajeAlUsuario.informacionEliminarCorrecto();
 			limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1,
