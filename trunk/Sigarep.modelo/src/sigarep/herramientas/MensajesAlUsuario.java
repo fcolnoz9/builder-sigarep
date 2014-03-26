@@ -217,6 +217,12 @@ public class MensajesAlUsuario {
 	     Messagebox.show("¡El archivo: "+mediaUsuario+" no tiene un formato válido!", "Advertencia",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		}
+	
+	public void advertenciaNoELiminar() {
+		Messagebox.show("¡ No puede ser eliminado ya que tiene una solicitud de Apelacion!", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
           Messagebox.show("Hemos enviado un email con su nombre de usuario y contraseña.",
