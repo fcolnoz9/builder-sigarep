@@ -567,8 +567,6 @@ public class VMUsuario {
 						marca=true;
 						if(marca){
 							grupo = new Grupo();
-							//nombreGrupo = miGrupo2.getLabel();
-							//grupo = serviciogrupo.buscarGrupoNombre(nombreGrupo);
 							grupo = serviciogrupo.buscarGrupo(1);
 							usuarioGrupoPK = new UsuarioGrupoPK();
 							usuarioGrupo = new UsuarioGrupo();
