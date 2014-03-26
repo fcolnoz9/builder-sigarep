@@ -138,10 +138,7 @@ public class VMDetalleNoticia {
 						ruta
 	                     + "/Sigarep.webapp/WebContent/imagenes/iconos/imagen-no-disponible.png");
 				fotoNoticia.setAImage(imagen);
-				System.out.println("paso");
-			} else {
-				System.out.println("paso2");
-			}
+			} else {}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
