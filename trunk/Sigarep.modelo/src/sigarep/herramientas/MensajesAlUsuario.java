@@ -219,7 +219,7 @@ public class MensajesAlUsuario {
 		}
 	
 	public void advertenciaNoELiminar() {
-		Messagebox.show("¡ No puede ser eliminado ya que tiene una solicitud de Apelacion!", "Advertencia",
+		Messagebox.show("¡ No puede ser eliminado ya que tiene una solicitud de Apelación!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
