@@ -115,7 +115,7 @@
 						value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
 						<label id="lblSemestre" value="Semestre:" />
 					<textbox id="txtSemestre" mold="rounded"
-						placeholder = "Ej: XI"
+						placeholder = "Ej: 5"
 						width="20%" cols="23" maxlength="2" tabindex="1"
 						value="@bind(vm.semestre)" />
 				</row>
