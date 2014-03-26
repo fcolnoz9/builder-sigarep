@@ -28,7 +28,7 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	    * @param Cedula de identidad de estudiante
 	    * @return EstudianteSancionado
 	*/
-	public EstudianteSancionado findById_CedulaEstudiante(String cedulaEstudiante);
+	public SolicitudApelacion findById_CedulaEstudiante(String cedulaEstudiante);
 	
 	@Query("select count(sa.id.cedulaEstudiante) AS cuenta from SolicitudApelacion sa where sa.veredicto is null")
 	public long numeroApleacionesSinVeredicto();
