@@ -166,14 +166,14 @@
 				<column align="left" width="75%" />
 			</columns>
 			<rows>
-				<row>
+				<row onCreate="@command('notificarVeredicto', parametro=self)">
 					<radiogroup id="rgEleccion"
 						selectedItem="@bind(vm.veredicto)">
 						<hlayout>
-							<radio id="rbProcedente" label="Procedente"
+							<radio id="rbProcedente" label="Procedente" checked="@bind(vm.radioProcedente)"
 								radiogroup="rgEleccion" value="PROCEDENTE" />
 							<separator></separator>
-							<radio id="rbNoProcedente"
+							<radio id="rbNoProcedente" checked="@bind(vm.radioNoProcedente)"
 								label="No Procedente" radiogroup="rgEleccion"
 								value="NO PROCEDENTE" />
 						</hlayout>
