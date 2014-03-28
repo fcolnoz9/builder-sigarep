@@ -3,6 +3,7 @@ package sigarep.viewmodels.transacciones;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -17,7 +18,10 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
+
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
@@ -62,10 +66,13 @@ public class VMVeredictoII {
 	private String asignaturaLapsosConsecutivos="";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacionGeneral;
-	private String veredicto="";
+	private String veredicto;
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
+	private boolean radioProcedente;
+	private boolean radioNoProcedente;
+	
 	private SolicitudApelacion solicitudApelacion;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	@WireVariable
@@ -242,6 +249,22 @@ public class VMVeredictoII {
 	public void setVeredicto(String veredicto) {
 		this.veredicto = veredicto;
 	}
+	
+	public boolean isRadioProcedente() {
+		return radioProcedente;
+	}
+
+	public void setRadioProcedente(boolean radioProcedente) {
+		this.radioProcedente = radioProcedente;
+	}
+
+	public boolean isRadioNoProcedente() {
+		return radioNoProcedente;
+	}
+
+	public void setRadioNoProcedente(boolean radioNoProcedente) {
+		this.radioNoProcedente = radioNoProcedente;
+	}
 	// Fin Getters and Setters
 	
 	/**
@@ -289,6 +312,7 @@ public class VMVeredictoII {
 		this.segundoNombre = sa.getEstudianteSancionado().getEstudiante().getSegundoNombre();
 		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
 		this.caso = sa.getNumeroCaso();
+		this.veredicto = sa.getVeredicto();
 		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
@@ -414,11 +438,25 @@ public class VMVeredictoII {
 	@NotifyChange({"veredicto", "observacionGeneral"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if (!veredicto.equals("") ){
+		if (veredicto != null){
 			condicion = true;
 		}
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
 	}
 
+	@Command
+	@NotifyChange({"veredicto","radioProcedente","radioNoProcedente"})
+	public void notificarVeredicto(@ContextParam(ContextType.COMPONENT) Component rowDatosVeredicto){
+		if (veredicto !=null){
+			if (veredicto.equals("PROCEDENTE")){
+				Clients.showNotification("Apelación PROCEDENTE según análisis previo", Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto, "before_start", 6000, true);
+				radioProcedente = true;
+			}
+			else if (veredicto.equals("NO PROCEDENTE")){
+				Clients.showNotification("Apelación NO PROCEDENTE según análisis previo", Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto, "before_start", 6000, true);
+				radioNoProcedente = true;
+			}
+		}
+	}
 
 }
