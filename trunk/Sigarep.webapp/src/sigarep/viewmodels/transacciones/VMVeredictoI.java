@@ -1,8 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.Binder;
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -12,15 +10,12 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
@@ -34,14 +29,8 @@ import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancio
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
-
-
-
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /** VMVeredictoI
@@ -76,10 +65,12 @@ public class VMVeredictoI {
 	private String asignaturaLapsosConsecutivos="";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacionGeneral;
-	private String veredicto="";
+	private String veredicto;
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
+	private boolean radioProcedente;
+	private boolean radioNoProcedente;
 	
 	private SolicitudApelacion solicitudApelacion;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
@@ -259,6 +250,22 @@ public class VMVeredictoI {
 	public void setVeredicto(String veredicto) {
 		this.veredicto = veredicto;
 	}
+	
+	public boolean isRadioProcedente() {
+		return radioProcedente;
+	}
+
+	public void setRadioProcedente(boolean radioProcedente) {
+		this.radioProcedente = radioProcedente;
+	}
+
+	public boolean isRadioNoProcedente() {
+		return radioNoProcedente;
+	}
+
+	public void setRadioNoProcedente(boolean radioNoProcedente) {
+		this.radioNoProcedente = radioNoProcedente;
+	}
 
 	// Fin Getters and Setters
 
@@ -308,11 +315,11 @@ public class VMVeredictoI {
 		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
 		this.caso = sa.getNumeroCaso();
 		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
+		this.veredicto = sa.getVeredicto();
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		this.observacionGeneral = sa.getObservacion();
-		
 		this.numeroSesion = numeroSesion;
 		this.tipoSesion = tipoSesion;
 		this.fechaSesion = fechaSesion;
@@ -430,18 +437,26 @@ public class VMVeredictoI {
 	@NotifyChange({"veredicto", "observacionGeneral"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if (!veredicto.equals("")){
+		if (veredicto != null){
 			condicion = true;
 		}
-		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 
-	
-	
-	
-	
-	
-
+	@Command
+	@NotifyChange({"veredicto","radioProcedente","radioNoProcedente"})
+	public void notificarVeredicto(@ContextParam(ContextType.COMPONENT) Component rowDatosVeredicto){
+		if (veredicto !=null){
+			if (veredicto.equals("PROCEDENTE")){
+				Clients.showNotification("Apelación PROCEDENTE según análisis previo", Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto, "before_start", 6000, true);
+				radioProcedente = true;
+			}
+			else if (veredicto.equals("NO PROCEDENTE")){
+				Clients.showNotification("Apelación NO PROCEDENTE según análisis previo", Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto, "before_start", 6000, true);
+				radioNoProcedente = true;
+			}
+		}
+	}
 }
     
 
