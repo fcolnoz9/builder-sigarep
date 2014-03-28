@@ -16,6 +16,7 @@
 			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteActas')"
 			type="@load(vm.reportConfig.type.value, after='GenerarReporteActas')"
 			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteActas')" />
+			</groupbox>
 	</vlayout>
 </window>
 </zk>
