@@ -3,7 +3,7 @@
 	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMAsignaturaMotivosApelacionesVsResultado')">
 	
 	<vlayout>
-		<groupbox id="grbParametros">
+		<groupbox id="grbParametros" closable="false">
 			<caption id="lblParametros" label="Parámetros de Selección" />
 		<hbox>
 		<grid id="grdParametrosSeleccionAsignatura" width="auto">

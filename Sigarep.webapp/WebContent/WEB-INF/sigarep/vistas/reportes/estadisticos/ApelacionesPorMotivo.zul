@@ -5,7 +5,7 @@
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMapelacionesPorMotivo')">
 
 	<vlayout>
-		<groupbox id="grbParametros" visible="true">
+		<groupbox id="grbParametros" visible="true" closable="false">
 			<caption id="lblParametros" label="Parámetros de Selección" />
 			<hbox>
 				<grid id="grdParametrosSeleccionApelacionesMotivos" width="auto">
