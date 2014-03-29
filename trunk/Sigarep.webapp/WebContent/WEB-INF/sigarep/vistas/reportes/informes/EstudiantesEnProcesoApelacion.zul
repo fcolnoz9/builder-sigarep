@@ -6,7 +6,7 @@
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMestudiantesEnProcesoApelacion')">
 
 	<vlayout>
-		<groupbox id="grbParametros" visible="true">
+		<groupbox id="grbParametros" visible="true" closable="false">
 			<caption id="lblParametros" label="Parámetros de selección" />
 			<hbox>
 				<grid id="grdParametrosProcesosApelacion" width="auto">

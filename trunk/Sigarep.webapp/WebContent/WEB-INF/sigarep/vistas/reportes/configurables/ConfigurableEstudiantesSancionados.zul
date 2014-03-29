@@ -132,7 +132,7 @@
 					<button label="Limpiar" id="btnLimpiar" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombos')" orient="horizontal"> </button>
 					<button label="Cerrar" id="btnCerrar" image="imagenes/iconos/cerrar.png" width="auto" height="auto" onClick="winEstudianteSancionado.onClose()" orient="horizontal"> </button>
 		</div>
-		<groupbox id="grbRegistrarLapso3">
+		<groupbox id="grbRegistrarLapso3" closable="false">
 			<caption label="Lista de Estudiantes Sancionados" />
 			<listbox id="lbxLapsoAcademico" height="70%" model="@bind(vm.listaE)" mold="paging" pageSize="10" >
 				<listhead>

@@ -106,7 +106,7 @@
 					<button label="Limpiar" id="btnLimpiar" image="imagenes/iconos/limpiar.png" width="auto" height="auto" mold="trendy" onClick="@command('limpiarCombos')" orient="horizontal"> </button>
 					<button label="Cerrar"  id="btnCerrarLapso" mold="trendy" width="auto" height="auto" image="imagenes/iconos/cerrar.png" orient="horizontal" onClick="winConfigurableApelaciones.onClose()" />
 		</div>
-		<groupbox id="grbAlepaciones">
+		<groupbox id="grbAlepaciones" closable="false">
 			<caption label="Lista de Apelaciones" />
 			<listbox id="lbxNombrePrograma" height="70%" model="@bind(vm.listaE)" mold="paging" pageSize="10" >
 				<listhead>
