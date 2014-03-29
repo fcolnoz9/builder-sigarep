@@ -1,6 +1,6 @@
 <window id="winReporteApelacionesTipoDeSexo"
 	title="Reportes :: Informes :: Historial de Estudiante" border="normal"  
-	width="80%" height="100%" closable="true">
+	width="auto" height="auto" closable="true">
 	<vlayout apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMDetalleHistorialEstudiante')">
 		
