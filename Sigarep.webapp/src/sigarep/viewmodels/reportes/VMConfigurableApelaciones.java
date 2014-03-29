@@ -648,7 +648,7 @@ public class VMConfigurableApelaciones {
 	 *             dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({ "programa", "objSancion", "objtipoMotivo","objinstanciaApelada", "objLapso", "objVeredicto","objEdoApelacion", "asignaturas", "objsexo" })
+	@NotifyChange({ "objprograma", "objSancion", "objtipoMotivo","objinstanciaApelada", "objLapso", "objVeredicto","objEdoApelacion", "objAsignatura", "objsexo","reportType"})
 	public void limpiarCombos() {
 		objprograma = null;
 		objSancion = null;
@@ -657,8 +657,9 @@ public class VMConfigurableApelaciones {
 		objLapso = null;
 		objVeredicto = null;
 		objEdoApelacion = null;
-		asignaturas = null;
+		objAsignatura = null;
 		objsexo = null;
+		reportType= null;
 	}
 	/**
 	 * Configurar Lapso Academico

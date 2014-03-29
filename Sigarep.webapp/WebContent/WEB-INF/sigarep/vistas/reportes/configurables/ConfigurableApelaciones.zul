@@ -52,7 +52,7 @@
 					<row>
 						<label id="lblAsignaturas" value="Asignatura:" />
 						<combobox readonly="true" id="cmbAsignaturas" placeholder = "Seleccione una asignatura..." width="100%"  maxlength="30" tabindex="1"
-						          mold="rounded" model="@load(vm.listaAsignaturas)" onSelect="@command('configurarComboAsignatura')" >
+						          mold="rounded" model="@load(vm.listaAsignaturas)" onSelect="@command('configurarComboAsignatura')" selectedItem="@bind(vm.objAsignatura)" >
 						<template name="model">
 							<comboitem label="${each.nombreAsignatura}" />
 						</template>
