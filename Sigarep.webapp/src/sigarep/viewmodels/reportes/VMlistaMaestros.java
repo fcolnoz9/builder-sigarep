@@ -224,8 +224,7 @@ public class VMlistaMaestros {
 	 *             dispara ninguna excepción.
 	 */
 		private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-				Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("HTML",
-						"html"), new ReportType("Word (RTF)", "rtf"),
+				Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
 						new ReportType("Excel", "xls"), new ReportType(
 								"Excel (JXL)", "jxl"),
 						new ReportType("CSV", "csv"), new ReportType(
@@ -249,7 +248,9 @@ public class VMlistaMaestros {
 	public void GenerarReporte() {
 
 	
-		
+		if (maestro == null || reportType == null) {
+			message.advertenciaSeleccionarTodo();
+		} else {
 			switch(maestro) {
 			 case "lapsoacademico": 
 				 listaLapso =serviciolapsoacademico.buscarTodosLosLapsos();
@@ -437,6 +438,7 @@ public class VMlistaMaestros {
 			     
 			     break;
 			 }
+		}
 	}
 
 	// #####################FIN DEL METODO##########################
