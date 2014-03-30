@@ -4,19 +4,15 @@
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeCU')">
 		
 	<vlayout>
-			<!-- button para generar el reporte desde la interfaz -->
-			<button id="btnGenerarInformeCU" width="auto" height="auto"
-				label="Generar" image="/imagenes/iconos/generar.png"
-				onClick="@command('GenerarReporte')">
-			</button>
 			<!--jasperreport donde se dibuja el reporte en la interfaz -->
 		<groupbox id="grbInformeConsejoU" closable="false">
  		<caption label="Reporte Generado"/>
 		<jasperreport id="report" height="360px"
-			src="@load(vm.reportConfig.source, after='GenerarReporte')"
-			parameters="@load(vm.reportConfig.parameters, after='GenerarReporte')"
-			type="@load(vm.reportConfig.type.value, after='GenerarReporte')"
-			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporte')" />
+			src=" @init(vm.reportConfig.source)"
+			parameters=" @init(vm.reportConfig.parameters)"
+			type=" @init(vm.reportConfig.type.value)"
+			datasource=" @init(vm.reportConfig.dataSource)" />
+		</groupbox>	
 	</vlayout>
 </window>
 </zk>

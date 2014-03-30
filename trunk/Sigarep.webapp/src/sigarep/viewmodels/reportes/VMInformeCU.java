@@ -296,6 +296,7 @@ public class VMInformeCU {
 				.buscarRecaudosEntregadosVeredictoI(cedula, codigoLapso);
 		listaRecaudos2 = serviciorecaudoentregado
 				.buscarRecaudosEntregadosVeredictoII(cedula, codigoLapso);
+		generarReporte();
 	}
 
 	// Reporte SET/GETS
@@ -449,7 +450,7 @@ public class VMInformeCU {
 	 *             la lista está vacía no genera el reporte.
 	 */
 	//
-	@Command("GenerarReporte")
+	
 	@NotifyChange({ "reportConfig" })
 	public void generarReporte() {
 		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA
