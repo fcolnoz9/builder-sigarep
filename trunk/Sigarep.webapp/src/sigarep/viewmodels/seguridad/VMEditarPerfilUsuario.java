@@ -43,8 +43,6 @@ public class VMEditarPerfilUsuario {
 	@WireVariable
 	private String telefono = "";
 	@WireVariable
-	private Integer telefonoEntero = null;
-	@WireVariable
 	private Date fechaCreacion;
 	@WireVariable
 	private Persona persona = new Persona();
@@ -124,14 +122,6 @@ public class VMEditarPerfilUsuario {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public Integer getTelefonoEntero() {
-		return telefonoEntero;
-	}
-
-	public void setTelefonoEntero(Integer telefonoEntero) {
-		this.telefonoEntero = telefonoEntero;
-	}
-
 	@Init
 	public void init() {
 		// initialization code
@@ -144,7 +134,7 @@ public class VMEditarPerfilUsuario {
     }
 	
 	@Command
-	@NotifyChange({"correo","fechaCreacion","nombre","apellido","telefono","fotoUsuario","telefonoEntero","imagenUsuario"})
+	@NotifyChange({"correo","fechaCreacion","nombre","apellido","telefono","fotoUsuario","imagenUsuario"})
 	public void buscarUsuario() {
 		Persona persona = serviciopersona.buscarPersonaNombreUsuario(seguridad.getUsuario().getUsername());
 		this.persona = persona;
@@ -154,7 +144,6 @@ public class VMEditarPerfilUsuario {
 		this.nombre = persona.getNombre();
 		this.apellido = persona.getApellido();
 		this.telefono = persona.getTelefono();
-		this.telefonoEntero = Integer.parseInt(this.telefono);
 		try {
 			imagenUsuario = persona.getUsuario().getFoto().getAImage();
 		} catch (Exception e) {
@@ -197,11 +186,11 @@ public class VMEditarPerfilUsuario {
 	}
 	
 	@Command
-	@NotifyChange({"imagenUsuario","nombre","apellido", "correo","telefonoEntero"})
+	@NotifyChange({"imagenUsuario","nombre","apellido", "correo","telefono"})
 	public void guardarPerfilUsuario() {
 		Usuario usuario = new Usuario();
 		usuario = this.persona.getUsuario();
-		if(nombre.equals("") || apellido.equals("") || correo.equals("") || telefonoEntero == null){
+		if(nombre.equals("") || apellido.equals("") || correo.equals("") || telefono.equals("")){
 			mensajesAlusuario.advertenciaLlenarCampos();
 		}
 		else if(!mensajesAlusuario.errorValidarCorreo(correo)){}
@@ -210,7 +199,7 @@ public class VMEditarPerfilUsuario {
 			this.persona.setNombre(nombre);
 			this.persona.setApellido(apellido);
 			usuario.setNombreCompleto(this.persona.getNombre() + " " +this.persona.getApellido());
-			this.persona.setTelefono(String.valueOf(telefonoEntero));
+			this.persona.setTelefono(telefono);
 			usuario.setCorreo(correo);
 			if(imagenUsuario == null){
 				try {
@@ -231,11 +220,11 @@ public class VMEditarPerfilUsuario {
 	}	
 	
 	@Command
-	@NotifyChange({ "imagenUsuario", "nombre", "apellido", "correo", "telefonoEntero" })
+	@NotifyChange({ "imagenUsuario", "nombre", "apellido", "correo", "telefono" })
 	public void limpiarPerfilUsuario() {
 		nombre = "";
 		apellido = "";
-		telefonoEntero =  null;
+		telefono =  "";
 		correo = "";
 		if(persona.getUsuario().getFoto()!=null)
 		try {
@@ -248,10 +237,10 @@ public class VMEditarPerfilUsuario {
 	
 	
 	@Command
-	@NotifyChange({"nombre","apellido", "correo","telefonoEntero"})
+	@NotifyChange({"nombre","apellido", "correo","telefono"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if(!nombre.equals("") || !apellido.equals("") || !correo.equals("") || telefonoEntero != null)
+		if(!nombre.equals("") || !apellido.equals("") || !correo.equals("") || !telefono.equals(""))
 			condicion = true;
 		mensajesAlusuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}

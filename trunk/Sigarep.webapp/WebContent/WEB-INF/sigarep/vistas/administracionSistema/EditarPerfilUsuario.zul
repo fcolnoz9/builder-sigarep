@@ -32,21 +32,22 @@
 							<label value="Nombre:" />
 							<textbox id="txtNombre"
 								placeholder="Ingrese su nombre." width="80%"
-								value="@bind(vm.nombre)" />
+								value="@bind(vm.nombre)" maxlength="30"/>
 							<label value="Teléfono:" />
-							<intbox id="txtTelefono" width="80%"
-								placeholder="Ingrese su número telefónico."
-								value="@bind(vm.telefonoEntero)" />
+							<textbox id="txttelefono"   
+					         	placeholder="Ingrese su teléfono"
+						   		mold="rounded" width="80%" maxlength="11"
+						    	value="@bind(vm.telefono)" />
 						</row>
 						<row>
 							<label value="Apellido:" />
 							<textbox id="txtApellido"
 								placeholder="Ingrese su apellido." width="80%"
-								value="@bind(vm.apellido)" />
+								value="@bind(vm.apellido)" maxlength="30" />
 							<label value="Correo:" />
 							<textbox id="txtEmail"
 								placeholder="Ingrese su correo electronico" width="80%"
-								value="@bind(vm.correo)" />
+								value="@bind(vm.correo)" maxlength="30" />
 						</row>
 					</rows>
 				</grid>

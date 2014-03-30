@@ -1,6 +1,5 @@
 package sigarep.viewmodels.reportes;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,17 +12,13 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
@@ -235,53 +230,6 @@ public class VMDetalleHistorialEstudiante {
 		estudiante = servicioestudiantesancionado.buscarApelacion(cedula);
 	}
 
-	@Command("GenerarReporteHistorial")
-	@NotifyChange({ "reportConfig" })
-	public void generarReporte() {
-
-		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA
-												// AL
-												// REPORTE
-		reportConfig.getParameters().put("Titulo", "Historial de Estudiante");
-		reportConfig.getParameters().put("codigoLapso", codigoLapso);
-		reportConfig.getParameters().put("cedula", cedula);
-		reportConfig.getParameters()
-				.put("motivosEstudiante", motivosEstudiante);
-		reportConfig.getParameters().put("caso", caso);
-		reportConfig.getParameters().put("nombre",
-				estudiante.get(0).getEstudiante().getPrimerNombre());
-		reportConfig.getParameters().put("apellido",
-				estudiante.get(0).getEstudiante().getPrimerApellido());
-		for (int i = 0; i < apelacionestudiante.size(); i++) {
-			String sugerencia = apelacionestudiante.get(i).getSugerencia();
-			if (sugerencia == null) {
-				apelacionestudiante.get(i).setSugerencia("-----");
-			}
-		}
-		for (int i = 0; i < apelacionestudianteinstancia2.size(); i++) {
-			String sugerencia = apelacionestudianteinstancia2.get(i)
-					.getSugerencia();
-			if (sugerencia == null) {
-				apelacionestudianteinstancia2.get(i).setSugerencia("-----");
-			}
-		}
-		for (int i = 0; i < apelacionestudianteinstancia3.size(); i++) {
-			String sugerencia = apelacionestudianteinstancia3.get(i)
-					.getSugerencia();
-			if (sugerencia == null) {
-				apelacionestudianteinstancia3.get(i).setSugerencia("-----");
-			}
-		}
-		reportConfig.getParameters().put("Lista",
-				new JRBeanCollectionDataSource(apelacionestudiante));
-		reportConfig.getParameters().put("ListaInstancia2",
-				new JRBeanCollectionDataSource(apelacionestudianteinstancia2));
-		reportConfig.getParameters().put("ListaInstancia3",
-				new JRBeanCollectionDataSource(apelacionestudianteinstancia3));
-		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-		// // IMPRESION DEL REPORTE
-	}
-
 	@Init
 	public void init(
 
@@ -310,5 +258,50 @@ public class VMDetalleHistorialEstudiante {
 		this.codigoLapso = v7;
 		this.motivosEstudiante = v8;
 		this.caso = v9;
+		generarReporte();
+
+	}
+
+	@NotifyChange({ "reportConfig" })
+	public void generarReporte() {
+
+		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA
+												// AL
+												// REPORTE
+		reportConfig.getParameters().put("Titulo", "Historial de Estudiante");
+		reportConfig.getParameters().put("codigoLapso", codigoLapso);
+		reportConfig.getParameters().put("cedula", cedula);
+		reportConfig.getParameters().put("motivosEstudiante", motivosEstudiante);
+		reportConfig.getParameters().put("caso", caso);
+		reportConfig.getParameters().put("nombre",estudiante.get(0).getEstudiante().getPrimerNombre());
+		reportConfig.getParameters().put("apellido",estudiante.get(0).getEstudiante().getPrimerApellido());
+
+		for (int i = 0; i < apelacionestudiante.size(); i++) {
+			String sugerencia = apelacionestudiante.get(i).getSugerencia();
+			if (sugerencia == null) {
+				apelacionestudiante.get(i).setSugerencia("-----");
+			}
+		}
+		for (int i = 0; i < apelacionestudianteinstancia2.size(); i++) {
+			String sugerencia = apelacionestudianteinstancia2.get(i)
+					.getSugerencia();
+			if (sugerencia == null) {
+				apelacionestudianteinstancia2.get(i).setSugerencia("-----");
+			}
+		}
+		for (int i = 0; i < apelacionestudianteinstancia3.size(); i++) {
+			String sugerencia = apelacionestudianteinstancia3.get(i)
+					.getSugerencia();
+			if (sugerencia == null) {
+				apelacionestudianteinstancia3.get(i).setSugerencia("-----");
+			}
+		}
+		reportConfig.getParameters().put("Lista",new JRBeanCollectionDataSource(apelacionestudiante));
+		reportConfig.getParameters().put("ListaInstancia2",
+				new JRBeanCollectionDataSource(apelacionestudianteinstancia2));
+		reportConfig.getParameters().put("ListaInstancia3",
+				new JRBeanCollectionDataSource(apelacionestudianteinstancia3));
+		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
+		// // IMPRESION DEL REPORTE
 	}
 }
