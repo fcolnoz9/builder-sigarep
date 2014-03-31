@@ -4,12 +4,12 @@
 	<vlayout apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMDetalleHistorialEstudiante')">
 		
-	   <groupbox id="grbDetalleHistorialEstudiante">
+
 		<jasperreport id="report" height="360px" 
-			src="@load(vm.reportConfig.source)"
-			parameters="@load(vm.reportConfig.parameters)"
-			type="@load(vm.reportConfig.type.value)"
-			datasource="@load(vm.reportConfig.dataSource)" />
-	   </groupbox>		
+			src="@load(vm.reportConfig.source, after='GenerarReporteHistorial')"
+			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteHistorial')"
+			type="@load(vm.reportConfig.type.value, after='GenerarReporteHistorial')"
+			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteHistorial')" 
+			onCreate="@command('GenerarReporteHistorial')" />
 	</vlayout>
 </window>
