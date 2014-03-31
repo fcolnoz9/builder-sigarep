@@ -13,17 +13,14 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
-import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.ProgramaAcademico;
+
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
