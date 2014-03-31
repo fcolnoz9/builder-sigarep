@@ -35,7 +35,6 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionadoPK;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
@@ -666,7 +665,11 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaAsignaturas","programa" })
 	public void buscarAsignaturas() {
-		listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa);
+		if(estudianteSeleccionado!=null && sancionMaestro.getNombreSancion().equalsIgnoreCase("RR")){
+			listaAsignaturas = servicioAsignatura.listadoAsignaturaNoPerteneceEstudiante(estudianteSeleccionado);
+		}	
+		else
+			listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa);
 	}
 	
 	
@@ -760,7 +763,7 @@ public class VMEstudianteSancionado {
 								String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
 								String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
 								Asignatura asignaturaSacion = new Asignatura();
-								asignaturaSacion = servicioAsignatura.buscarAsignaturaNombre(nombreAsignatura);
+								asignaturaSacion = servicioAsignatura.buscarAsignaturaNombreAndProgramaAcademico(nombreAsignatura, estudianteSancionado.getEstudiante().getProgramaAcademico());
 								AsignaturaEstudianteSancionadoPK asignaturaEstudianteSancionadoPK = new AsignaturaEstudianteSancionadoPK();
 								asignaturaEstudianteSancionadoPK.setCedulaEstudiante(cedula);
 								asignaturaEstudianteSancionadoPK.setCodigoAsignatura(asignaturaSacion.getCodigoAsignatura());

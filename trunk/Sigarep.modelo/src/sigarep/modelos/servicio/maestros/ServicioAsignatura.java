@@ -4,7 +4,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Asignatura;
+import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
+import sigarep.modelos.data.seguridad.Grupo;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.repositorio.maestros.IAsignaturaDAO;
 
 /**
@@ -95,5 +98,18 @@ public class ServicioAsignatura {
 	public Asignatura buscarAsignaturaNombreAndProgramaAcademico(String nombreAsignatura, ProgramaAcademico programaAcademico) {
 		Asignatura asignatura = iAsignatura.findByNombreAsignaturaAndProgramaAcademico(nombreAsignatura,programaAcademico);
 	    return asignatura;
+	}
+	
+	/**
+	 * Listado de AsignaturaNoPerteneceEstudiante filtrando por estudianteSancionado
+	 * 
+	 * @param String NombreAsignatura y Programa Academico
+	 * @return Busca las asignaturas que no posee el estudianteSancionado
+	 * @throws No dispara ninguna excepción.
+	 */
+	
+	public List<Asignatura> listadoAsignaturaNoPerteneceEstudiante(EstudianteSancionado estudianteSancionado) {
+		List<Asignatura> listaAsignaturaNoPertenece = iAsignatura.buscarAsignaturaNoPerteneceEstudiante(estudianteSancionado);
+		return listaAsignaturaNoPertenece;
 	}
 }
