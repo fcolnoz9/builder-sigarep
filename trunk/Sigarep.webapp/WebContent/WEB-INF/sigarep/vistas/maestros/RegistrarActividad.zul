@@ -70,21 +70,21 @@
 			emptyMessage="No hay Actividades registradas" mold="paging"
 			pageSize="10">
 			<listhead>
-				<listheader label="Responsable" align="lefth"
+				<listheader label="Responsable" align="left"
 					sort="auto(instanciaApelada)">
 					<textbox id="filtroResponsable" instant="true"
 						mold="rounded" width="100px" value="@bind(vm.responsableFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
-				<listheader label="Nombre" align="lefth"
+				<listheader label="Nombre" align="left"
 					sort="auto(nombre)">
 					<textbox id="filtroNombre" instant="true"
 						mold="rounded" width="100px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
-				<listheader label="Descripción" align="lefth"
+				<listheader label="Descripción" align="left"
 					sort="auto(descripcion)">
 				</listheader>
 			</listhead>
