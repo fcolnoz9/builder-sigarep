@@ -33,7 +33,7 @@ style="overflow:auto" action="hide: slideUp"
          <label id="lblFechaSubida" value="Fecha de Subida:" />
 <!--             Fecha de subida: -->
             
-            	<datebox format="dd-MM-yyyy" id="dtbfechasubida" mold = "rounded" width="auto" value="@bind(vm.fechaSubida)"/>
+            	<datebox format="dd/MM/yyyy" id="dtbfechasubida" mold = "rounded" width="auto" value="@bind(vm.fechaSubida)"/>
            
               
         </row>
