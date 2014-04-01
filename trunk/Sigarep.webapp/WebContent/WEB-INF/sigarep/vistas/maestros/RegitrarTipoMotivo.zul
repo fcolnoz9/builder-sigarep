@@ -65,13 +65,13 @@
 				<!-- Busqueda por FILTROS los tipos de motivos -->
 				<listhead>
 				<listheader label="Motivo de la Apelación"
-						align="lefth" sort="auto(nombreTipoMotivo)">
+						align="left" sort="auto(nombreTipoMotivo)">
 						<textbox id="filtroNombre" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreFiltro)"
 							onChange="@command('filtros')" />
 							<image src="/imagenes/iconos/buscar.png"/>
 				</listheader>
-				<listheader label="Descripción" align="lefth"
+				<listheader label="Descripción" align="left"
 						sort="auto(descripcion)">
 						
 					</listheader>
