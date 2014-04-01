@@ -275,28 +275,28 @@
 			emptyMessage="No hay estudiantes sancionados registrados">
 			<listhead sizable="true">
 				<listheader label="Cédula "
-					sort="auto(id.cedulaEstudiante)" align="lefth">
+					sort="auto(id.cedulaEstudiante)" align="left">
 					<textbox id="filtrocedula" instant="true" mold= "rounded"
 						width="100px" value="@bind(vm.cedulaFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Nombre "
-					sort="auto(estudiante.primerNombre)" align="lefth">
+					sort="auto(estudiante.primerNombre)" align="left">
 					<textbox id="filtronombre" instant="true" mold= "rounded"
 						width="100px" value="@bind(vm.nombreFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Apellido "
-					sort="auto(estudiante.primerApellido)" align="lefth">
+					sort="auto(estudiante.primerApellido)" align="left">
 					<textbox id="filtroApellido" instant="true" mold= "rounded"
 						width="100px" value="@bind(vm.apellidoFiltro)"
 						onChange="@command('filtros')" />
 					<image src="imagenes/iconos/buscar.png" />
 				</listheader>
 				<listheader label="Sanción "
-					sort="auto(sancionMaestro.nombreSancion)" align="lefth">
+					sort="auto(sancionMaestro.nombreSancion)" align="left">
 					<textbox id="filtroSancion" instant="true" mold= "rounded"
 						width="100px" value="@bind(vm.sancionFiltro)"
 						onChange="@command('filtros')" />
