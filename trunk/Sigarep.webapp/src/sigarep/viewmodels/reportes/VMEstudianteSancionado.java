@@ -567,7 +567,7 @@ public class VMEstudianteSancionado {
 	@NotifyChange({ "listaSancion" })//*******CARGAR LA LISTA DE TIPO DE SANCIONES*******
 	public void listadoSancion() {
 		listaSancion = serviciosancionmaestro.listaTipoSanciones();
-		SancionMaestro san = new SancionMaestro(null, "Todos", null, "Todos");
+		SancionMaestro san = new SancionMaestro(3, "Todos", null, "Todos");
 		listaSancion.add(listaSancion.size(), san);
 	}
 	/**
