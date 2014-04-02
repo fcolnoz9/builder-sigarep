@@ -77,7 +77,7 @@
 						<textbox id="txtTipoSancion" mold="rounded"
 							tabindex="7" width="80%" cols="23" height="auto"
 							value="@bind(vm.estudianteSeleccionado.sancionMaestro.nombreSancion)"
-							readonly="true" maxlength="30">
+							readonly="true" maxlength="60">
 						</textbox>
 					</row>
 					<row>
