@@ -169,46 +169,6 @@ public class VMsancionMaestro {
 	}
 
 	/**
-	 * eliminarSancion
-	 * 
-	 * @param id_sancion
-	 *            , nombre, estatus, descripcion, listaTipoSancion
-	 * @return No devuelve ningun valor
-	 * @throws Debe
-	 *             seleccionar un registro para poder eliminarlo
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Command
-	@NotifyChange({ "listaTipoSancion", "nombre", "descripcion", "estatus" })
-	public void eliminarTipoSancion(
-			@ContextParam(ContextType.BINDER) final Binder binder) {
-		if (nombre == null || descripcion == null) {
-			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-		} else {
-			Messagebox.show("¿Desea eliminar el registro realmente?",
-					"Confirmar", new Messagebox.Button[] {
-							Messagebox.Button.YES, Messagebox.Button.NO },
-					Messagebox.QUESTION, new EventListener<ClickEvent>() {
-						@SuppressWarnings("incomplete-switch")
-						public void onEvent(ClickEvent e) throws Exception {
-							switch (e.getButton()) {
-							case YES:
-								serviciosancionmaestro
-										.eliminarSancion(getTipoSancionSeleccionada()
-												.getIdSancion());
-								mensajeAlUsuario.informacionEliminarCorrecto();
-								binder.postCommand("limpiar", null);
-							case NO:
-
-								binder.postCommand("limpiar", null);
-							}
-						}
-					});
-		}
-	}
-
-	/**
 	 * mostrarSeleccionada
 	 * 
 	 * @param id_sancion
