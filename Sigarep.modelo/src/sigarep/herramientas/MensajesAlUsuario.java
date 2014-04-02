@@ -308,10 +308,15 @@ public class MensajesAlUsuario {
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
-	public void informacionRespaldoExitoso() {
+	public void informacionRespaldoLocalExitoso() {
 		Messagebox.show("Respaldo satisfactorio, en unos segundos culminará su creación " +
 				"y se actualizará su tamaño en la lista, luego de esto prodrá utilizarla " +
 				"para restaurar la BD.",
+				"Información", Messagebox.OK, Messagebox.INFORMATION);
+	}
+	
+	public void informacionRespaldoExternoExitoso() {
+		Messagebox.show("Respaldo realizado satisfactoriamente en su ruta especificada",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 

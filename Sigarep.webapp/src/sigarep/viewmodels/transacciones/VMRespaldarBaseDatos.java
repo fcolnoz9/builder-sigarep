@@ -314,7 +314,10 @@ public class VMRespaldarBaseDatos{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        mensajesAlUsuario.informacionRespaldoExitoso();
+        if (selected.equals("local"))
+        	mensajesAlUsuario.informacionRespaldoLocalExitoso();
+        else mensajesAlUsuario.informacionRespaldoExternoExitoso();
+        	
 	}
 	
 	/** HabilitarGroupBoxDispositivo para la ruta externa de respaldo

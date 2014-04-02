@@ -103,7 +103,7 @@ public class ServicioAsignatura {
 	/**
 	 * Listado de AsignaturaNoPerteneceEstudiante filtrando por estudianteSancionado
 	 * 
-	 * @param String NombreAsignatura y Programa Academico
+	 * @param EstudianteSancionado estudianteSancionado
 	 * @return Busca las asignaturas que no posee el estudianteSancionado
 	 * @throws No dispara ninguna excepción.
 	 */
