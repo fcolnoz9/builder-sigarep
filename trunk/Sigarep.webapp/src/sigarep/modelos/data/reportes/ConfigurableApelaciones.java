@@ -15,6 +15,7 @@ public class ConfigurableApelaciones {
 	private String instanciaApelada;
 	private String veredicto;
 	private String edoApelacion;
+	private String asignatura;
 
 	/**
 	 * Constructor ConfigurableApelaciones
@@ -23,7 +24,7 @@ public class ConfigurableApelaciones {
 	 * @return Constructor lleno
 	 */
 	public ConfigurableApelaciones(String nombrePrograma, String nombreSancion,
-			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,String edoApelacion) {
+			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,String edoApelacion,String asignatura) {
 		super();
 
 		this.nombrePrograma = nombrePrograma;
@@ -33,6 +34,7 @@ public class ConfigurableApelaciones {
 		this.instanciaApelada = instanciaApelada;
 		this.veredicto= veredicto;
 		this.edoApelacion=edoApelacion;
+		this.asignatura=asignatura;
 	}
 
 	//  Métodos Set y Get
@@ -90,7 +92,17 @@ public class ConfigurableApelaciones {
 	
 	public void setVeredicto(String veredicto) {
 		this.veredicto = veredicto;
-	}// Fin Métodos Set y Get
+	}
+
+	public String getAsignatura() {
+		return asignatura;
+	}
+
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
+	}
+	
+	// Fin Métodos Set y Get
 	
 }//Fin Clase ConfigurableApelaciones
 
