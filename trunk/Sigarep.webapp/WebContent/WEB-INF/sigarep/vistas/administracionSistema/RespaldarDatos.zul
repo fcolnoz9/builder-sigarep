@@ -46,7 +46,7 @@
 						<hbox align="center">
 							<radio id="rbLocal" label="Local"
 								onCheck="@command('deshabilitarGroupBoxDispositivo',groupboxDispositivo=grbDispositivo)"
-								value="Local">
+								value="local">
 							</radio>
 							<space />
 							<space />
@@ -54,11 +54,11 @@
 							<radio id="rbDispositivo" width="50%"
 								label="Dispositivo Externo"
 								onCheck="@command('habilitarGroupBoxDispositivo',groupboxDispositivo=grbDispositivo)"
-								value="Dispositivo">
+								value="dispositivo">
 							</radio>
 						</hbox>
 					</radiogroup>
-					<label value="@bind(vm.selected)" />
+					<label value="@bind(vm.selected)" visible="false" />
 				</row>
 			</rows>
 		</grid>
