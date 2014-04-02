@@ -2,7 +2,13 @@ package sigarep.viewmodels.reportes;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -10,6 +16,7 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -44,7 +51,7 @@ import sigarep.modelos.servicio.reportes.ServicioReporteConfigurableApelaciones;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMConfigurableApelaciones {
-	String ruta = "/WEB-INF/sigarepReportes/configurable/RpEstudiantesSancionadosConfigurable.jasper";
+	String ruta = "/WEB-INF/sigarepReportes/configurable/RpConfigurableApelaciones.jasper";
 	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
 	@WireVariable
 	private ServicioTipoMotivo serviciotipomotivo;
@@ -435,8 +442,7 @@ public class VMConfigurableApelaciones {
 		if (objprograma.getNombrePrograma() == "Todos") {
 			listaAsignaturas = servicioAsignatura.listaAsignaturas();
 		} else {
-			listaAsignaturas = servicioAsignatura
-					.buscarAsignaturasPorPrograma(objprograma);
+			listaAsignaturas = servicioAsignatura.buscarAsignaturasPorPrograma(objprograma);
 		}
 	}
 	// REPORTE
@@ -566,7 +572,7 @@ public class VMConfigurableApelaciones {
 	@NotifyChange({ "listaSancion" })//*******CARGAR LA LISTA DE TIPO DE SANCIONES*******
 	public void listadoSancion() {
 		listaSancion = serviciosancionmaestro.listaTipoSanciones();
-		SancionMaestro san = new SancionMaestro(null, "Todos", null, "Todos");
+		SancionMaestro san = new SancionMaestro(99, "Todos", null, "Todos");
 		listaSancion.add(listaSancion.size(), san);
 	}
 	/**
@@ -815,7 +821,7 @@ public class VMConfigurableApelaciones {
 	@Command                       //*********CONFIGURAR COMBO ASIGNATURA POR SANCION*******
 	@NotifyChange({"cmbAsignatura","objAsignatura","parametroAsignatura"})
 	public void configurarComboAsignatura(){
-		if(!objSancion.getNombreSancion().equals("RP")){
+		if(objSancion.getIdSancion()!=1){
 			cmbAsignatura.setDisabled(false);
 			objAsignatura= new Asignatura(null, true,"Todos", 3,null);
 		}
@@ -829,18 +835,25 @@ public class VMConfigurableApelaciones {
 	 * @category Reporte Ireport configuracion
 	 * @param reportConfig 
 	 * @return reportConfig actualizado con los Datos de La Lista(listaE)
+	 * @throws JRException 
 	 * @throws No
 	 *  
 	 */
 	@NotifyChange({ "reportConfig" })
 	@Command("GenerarReporteConfigurableApelaciones")// ********CONFIGURAR REPORTE**********
-	public void GenerarReporteConfigurableApelaciones() {
+	public void GenerarReporteConfigurableApelaciones() throws JRException {
 		if (listaE.size() > 0) {
 			reportConfig = new ReportConfig(ruta);
 			reportConfig.getParameters().put("ListaSancionados",new JRBeanCollectionDataSource(listaE));
+			reportConfig.getParameters().put("Report name","Reporte");
+			reportConfig.getParameters().put("jasperReport name","Reporte");
 			reportConfig.setType(reportType);
 			reportConfig.setDataSource(new JRBeanCollectionDataSource(listaE));
-		} else {
+			JasperPrint jasperPrint = JasperFillManager.fillReport(Sessions.getCurrent().getWebApp().getRealPath(ruta),null, new JRBeanCollectionDataSource(listaE));
+		        //view the report using JasperViewer
+		    JasperViewer.viewReport(jasperPrint,false);
+		} 
+		else {
 			mensajeAlUsuario.informacionNoHayCoincidencias();
 		}
 	}
