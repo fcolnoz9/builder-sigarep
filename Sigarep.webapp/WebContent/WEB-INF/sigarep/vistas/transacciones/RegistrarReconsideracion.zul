@@ -84,7 +84,7 @@
 					<label id="lblPeriodosancion"
 						value="Periodo de Sanción: " />
 					<textbox id="txtPeridosancion" cols="23"
-						mold="rounded" width="80%" maxlength="30"
+						mold="rounded" width="80%" maxlength="4"
 						value="@bind(vm.estudianteSeleccionado.periodoSancion)"
 						readonly="true">
 					</textbox>
