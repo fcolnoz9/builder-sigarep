@@ -182,7 +182,7 @@ public class VMInformeActas {
 
 	// fin de metodos get y set
 
-	@Command("GenerarReporteActas")
+//	@Command("GenerarReporteActas")
 	@NotifyChange({ "reportConfig" })
 	public void generarReporte() {
 
@@ -201,10 +201,8 @@ public class VMInformeActas {
 	}
 
 	@Init
-	public void init(			
-			@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1)
-	{
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion v1) {
 		Selectors.wireComponents(view, this, false);
 		this.sancionadoSeleccionado = v1;
 		cedula = sancionadoSeleccionado.getId().getCedulaEstudiante();
@@ -218,12 +216,12 @@ public class VMInformeActas {
 		instancia = sancionadoSeleccionado.getId().getIdInstanciaApelada();
 		programa = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
 		estado = 3;
-		sugerencia = servicioapelacionestadoapelacion.buscarSugerencia(cedula, codigoLapso, instancia, estado);
+		sugerencia = servicioapelacionestadoapelacion.buscarSugerencia(cedula,codigoLapso, instancia, estado);
 		System.out.println(sugerencia);
 		sugerencias = sugerencia.get(0).getSugerencia();
 		System.out.println(sugerencias);
 		fecha = sugerencia.get(0).getFechaEstado();
 		System.out.println(fecha);
-		
+		generarReporte();
 	}
-	}
+}
