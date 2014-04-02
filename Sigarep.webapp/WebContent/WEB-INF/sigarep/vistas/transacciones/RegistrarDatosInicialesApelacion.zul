@@ -28,13 +28,13 @@
 						<textbox id="txtCedula" mold="rounded"
 							tabindex="1" width="80%" cols="23"
 							value="@bind(vm.estudianteSeleccionado.estudiante.cedulaEstudiante)"
-							readonly="true" maxlength="30">
+							readonly="true" maxlength="8">
 						</textbox>
 						<label id="lblPrograma" value="Programa: " />
 						<textbox id="txtPrograma" mold="rounded"
 							tabindex="2" width="80%" cols="23"
 							value="@bind(vm.estudianteSeleccionado.estudiante.programaAcademico.nombrePrograma)"
-							readonly="true" maxlength="30">
+							readonly="true" maxlength="60">
 						</textbox>
 					</row>
 					<row>
@@ -86,13 +86,13 @@
 						<textbox id="txtPeridoinicialsancion"
 							mold="rounded" tabindex="3" width="80%" cols="23" height="auto"
 							value="@bind(vm.estudianteSeleccionado.periodoSancion)"
-							readonly="true" maxlength="30">
+							readonly="true" maxlength="4">
 
 						</textbox>
 						<label id="lblAsignaturaPeriodos"
 							value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
 						<textbox id="txtAsignatura" cols="23"
-							maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)"
+							maxlength="60" value="@bind(vm.asignaturaLapsosConsecutivos)"
 							readonly="true" mold="rounded" width="80%">
 						</textbox>
 
