@@ -4,18 +4,13 @@
 	height="auto" closable="true" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeActas')">
 	<vlayout>
-		
-			<button id="btnGenerarActas" width="auto" height="auto"
-				label="Generar" image="/imagenes/iconos/generar.png"
-				onClick="@command('GenerarReporteActas')">
-			</button>
 		<groupbox id="grbInformeActa" closable="false">
  		<caption label="Reporte Generado"/>
 		<jasperreport id="report" height="360px"
-			src="@load(vm.reportConfig.source, after='GenerarReporteActas')"
-			parameters="@load(vm.reportConfig.parameters, after='GenerarReporteActas')"
-			type="@load(vm.reportConfig.type.value, after='GenerarReporteActas')"
-			datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteActas')" />
+			src="@load(vm.reportConfig.source)"
+			parameters="@load(vm.reportConfig.parameters)"
+			type="@load(vm.reportConfig.type.value)"
+			datasource="@load(vm.reportConfig.dataSource)" />
 			</groupbox>
 	</vlayout>
 </window>
