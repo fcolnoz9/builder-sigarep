@@ -117,6 +117,7 @@
 					<listheader label="Lapsos Académicos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
 					<listheader label="Veredicto" id="lblVeredicto1" align="center" sort="auto(veredicto)" />
 					<listheader label="Edo.Apelación" id="lblEdoApelacion1" align="center" sort="auto(edoApelacion)" />
+					<listheader label="Asignatura" id="lblAsignatura" align="center" sort="auto(edoApelacion)" />
 				</listhead>
 				<template name="model">
 					<listitem>
@@ -127,12 +128,13 @@
 						<listcell label="${each.codigoLapso}" />
 						<listcell label="${each.veredicto}" />
 						<listcell label="${each.edoApelacion}" />
+						<listcell label="${each.asignatura}" />
 					</listitem>
 				</template>
 			</listbox>
-			<jasperreport id="reporteConfigurable" height="5px" src="@load(vm.reportConfig.source, after='GenerarReporteEstudiantesSancionadosConfigurable')" 
-				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteEstudiantesSancionadosConfigurable')" type="@load(vm.reportConfig.type.value, after='GenerarReporteEstudiantesSancionadosConfigurable')" 
-				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteEstudiantesSancionadosConfigurable')"/>
+			<jasperreport id="reporteConfigurable" height="5px" src="@load(vm.reportConfig.source, after='GenerarReporteConfigurableApelaciones')" 
+				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteConfigurableApelaciones')" type="@load(vm.reportConfig.type.value, after='GenerarReporteConfigurableApelaciones')" 
+				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteConfigurableApelaciones')"/>
 		</groupbox>
 	</vlayout>
 	</window>

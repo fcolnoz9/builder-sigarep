@@ -66,7 +66,8 @@ public class ServicioReporteConfigurableApelaciones {
 					(String) resultRow[3],
 					(String) resultRow[4],
 					(String) resultRow[5],
-					(String) resultRow[6]));
+					(String) resultRow[6],
+					(String) resultRow[7]));
 		}
 		return results;
 	}
