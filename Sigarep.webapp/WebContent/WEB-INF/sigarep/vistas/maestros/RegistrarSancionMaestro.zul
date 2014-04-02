@@ -35,10 +35,6 @@
 			width="auto" height="auto" image="imagenes/iconos/guardar.png"
 			onClick="@command('guardarTipoSancion')">
 		</button>
-		<button label="Eliminar" id="btnEliminarSancion" mold="trendy"
-			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
-			onClick="@command('eliminarTipoSancion')">
-		</button>
 		<button label="Limpiar" id="btnLimpiarSancion" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
 			onClick="@command('limpiar')">
