@@ -2,14 +2,11 @@ package sigarep.viewmodels.reportes;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-
-import org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -838,7 +835,7 @@ public class VMEstudianteSancionado {
 	@Command                       //*********CONFIGURAR COMBO ASIGNATURA POR SANCION*******
 	@NotifyChange({"cmbAsignatura","objAsignatura","parametroAsignatura"})
 	public void configurarComboAsignatura(){
-		if(!objSancion.getNombreSancion().equals("RP")){
+		if(objSancion.getIdSancion()!=1){
 			cmbAsignatura.setDisabled(false);
 			objAsignatura= new Asignatura(null, true,"Todos", 3,null);
 		}
