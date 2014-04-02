@@ -546,4 +546,12 @@ public class ServicioSolicitudApelacion {
 				return false;
 		}
 	}
+
+	public boolean existenApelacionesIniciadas(int idInstanciaApelada) {
+		List<SolicitudApelacion> listaApelacionesPorInstancia = iSolicitudApelacionDAO.findById_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(idInstanciaApelada);
+		if (listaApelacionesPorInstancia.size() > 0)
+			return true;
+		else
+			return false;
+	}
 }
