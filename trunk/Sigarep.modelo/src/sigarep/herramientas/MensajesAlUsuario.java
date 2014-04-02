@@ -177,16 +177,30 @@ public class MensajesAlUsuario {
 	
 	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
 
-		Messagebox.show("¡No puede registrar Recursos de Reconsideración!. No ha finalizado el proceso. "
-				+ "de apelación anterior.", "Advertencia",
+		Messagebox.show("¡No puede registrar Recursos de Reconsideración!. No ha finalizado el proceso "
+				+ "de apelación en la Instancia anterior.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 	
 	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
 
-		Messagebox.show("¡No puede registrar Recursos Jerárquicos!. No ha finalizado el proceso. "
-				+ "de apelación anterior.", "Advertencia",
+		Messagebox.show("¡No puede registrar Recursos Jerárquicos!. No ha finalizado el proceso "
+				+ "de apelación en la Instancia anterior.", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
+	
+	public void advertenciaNoPuedeRegistrarRecursoReconsideracion2() {
+
+		Messagebox.show("¡No puede registrar Recursos de Reconsideración! El proceso ha finalizado para esta Instancia.", "Advertencia",
+				Messagebox.OK, Messagebox.EXCLAMATION);
+
+	}
+	
+	public void advertenciaNoPuedeRegistrarApelacionInicial() {
+
+		Messagebox.show("¡No puede registrar Apelaciones! El proceso ha finalizado para esta Instancia.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
