@@ -258,7 +258,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$F{edoApelacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="871" y="0" width="109" height="20" isRemoveLineWhenBlank="true" uuid="1a52cc6a-ff53-4f94-a11c-5d6faba5c1bc"/>
+				<reportElement x="871" y="0" width="109" height="20" uuid="1a52cc6a-ff53-4f94-a11c-5d6faba5c1bc"/>
 				<box>
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
