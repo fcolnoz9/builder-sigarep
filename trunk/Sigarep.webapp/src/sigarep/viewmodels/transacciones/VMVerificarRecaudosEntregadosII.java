@@ -436,7 +436,6 @@ public class VMVerificarRecaudosEntregadosII {
 				motivoPK.setIdInstanciaApelada(2);
 				Motivo motivo = new Motivo();
 				motivo.setId(motivoPK);
-				motivo.setDescripcion(serviciomotivo.buscarMotivoPorID(motivoPK).getDescripcion());
 				motivo.setEstatus(true);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
