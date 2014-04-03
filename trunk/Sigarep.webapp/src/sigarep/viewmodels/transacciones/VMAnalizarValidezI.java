@@ -9,10 +9,8 @@ import java.util.Date;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.Command;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -25,7 +23,6 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -33,10 +30,8 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
@@ -314,7 +309,7 @@ public class VMAnalizarValidezI {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
 		
 	}
 
@@ -410,6 +405,7 @@ public class VMAnalizarValidezI {
 				motivoPK.setIdInstanciaApelada(1);
 				Motivo motivo = new Motivo();
 				motivo.setId(motivoPK);
+				motivo.setDescripcion(serviciomotivo.buscarMotivoPorID(motivoPK).getDescripcion());
 				motivo.setEstatus(true);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
@@ -455,7 +451,7 @@ public class VMAnalizarValidezI {
 	public void limpiar(){
 		observacion = "";
 		selected = "";
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosAnalizarValidezI(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
 	}
 	@GlobalCommand
     public void actualizarListaSancionados(){

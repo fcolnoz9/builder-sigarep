@@ -412,7 +412,9 @@ public class VMVerificarRecaudosEntregadosIII {
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(3);
 				Motivo motivo = new Motivo();
-				motivo = serviciomotivo.buscarMotivoPorID(motivoPK);
+				motivo.setId(motivoPK);
+				motivo.setDescripcion(serviciomotivo.buscarMotivoPorID(motivoPK).getDescripcion());
+				motivo.setEstatus(true);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
 			}

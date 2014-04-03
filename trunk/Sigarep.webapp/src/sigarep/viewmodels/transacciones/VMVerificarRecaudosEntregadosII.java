@@ -435,7 +435,9 @@ public class VMVerificarRecaudosEntregadosII {
 				motivoPK.setCodigoLapso(lapso);
 				motivoPK.setIdInstanciaApelada(2);
 				Motivo motivo = new Motivo();
-				motivo = serviciomotivo.buscarMotivoPorID(motivoPK);
+				motivo.setId(motivoPK);
+				motivo.setDescripcion(serviciomotivo.buscarMotivoPorID(motivoPK).getDescripcion());
+				motivo.setEstatus(true);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
 			}
@@ -513,7 +515,4 @@ public void cerrarVentana(@BindingParam("ventana") final Window ventana, @Bindin
 				condicion = true;
 			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 		}
-	
-	
-	
 }
