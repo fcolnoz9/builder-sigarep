@@ -536,7 +536,7 @@ public class VMEstudianteSancionado {
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
 			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
-		if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RP")) {
+		if (sancionMaestro.getIdSancion() ==1 ) {
 			groupBoxAsignaturas.setVisible(false);
 			textboxlapsoConsecutivo1.setVisible(true);
 			textboxlapsoConsecutivo2.setVisible(true);
@@ -605,7 +605,7 @@ public class VMEstudianteSancionado {
 		periodoSancion = miSanc.getPeriodoSancion();
 		seleccionarSancion(groupBoxAsignaturas, textboxlapsoConsecutivo1,
 				textboxlapsoConsecutivo2, lbllapsoConsecutivo);
-		if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RR")) {
+		if (sancionMaestro.getIdSancion()==2) {
 			buscarAsignaturas();
 			listaAsignaturaListBox = miSanc
 					.getAsignaturaEstudianteSancionados();
@@ -665,7 +665,7 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "listaAsignaturas","programa" })
 	public void buscarAsignaturas() {
-		if(estudianteSeleccionado!=null && sancionMaestro.getNombreSancion().equalsIgnoreCase("RR")){
+		if(estudianteSeleccionado!=null && sancionMaestro.getIdSancion()==2){
 			listaAsignaturas = servicioAsignatura.listadoAsignaturaNoPerteneceEstudiante(estudianteSeleccionado);
 		}	
 		else
@@ -712,7 +712,7 @@ public class VMEstudianteSancionado {
 					fechaNacimiento = null;
 				} else if (sancionMaestro == null || sancionMaestro.equals("") ) mensajeAlUsuario.advertenciaLlenarCampos();
 				else{
-					if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RP")) {
+					if (sancionMaestro.getIdSancion()==1) {
 						if (lapsoConsecutivo1 == null || lapsoConsecutivo2 == null || lapsoConsecutivo1.equals("") || lapsoConsecutivo2.equals("") )
 							mensajeAlUsuario.advertenciaLlenarCampos();
 						else estudianteSancionado.setLapsosAcademicosRp(lapsoConsecutivo1+ ": " + lapsoConsecutivo2);
@@ -838,7 +838,7 @@ public class VMEstudianteSancionado {
 					periodoSancion = miSanc.getPeriodoSancion();
 					seleccionarSancion(groupBoxAsignaturas, textboxlapsoConsecutivo1,
 							textboxlapsoConsecutivo2, lbllapsoConsecutivo);
-					if (sancionMaestro.getNombreSancion().equalsIgnoreCase("RR")) {
+					if (sancionMaestro.getIdSancion()==2) {
 						buscarAsignaturas();
 						listaAsignaturaListBox = miSanc
 								.getAsignaturaEstudianteSancionados();
