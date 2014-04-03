@@ -450,14 +450,11 @@ public class VMConfigurableApelaciones {
 	 * Muestra los tipo de  Extension que puede generar el Reporte
 	 * 
 	 * @param
-	 * @return El Tipo de Formato del Archivo(RTF,XLS,JXL,CSV,ODT)
+	 * @return El Tipo de Formato del Archivo(XLS,JXL)
 	 */
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("Word (RTF)", "rtf"),
-						  new ReportType("Reporte en Excel", "xls"), 
-						  new ReportType("Excel (JXL)","jxl"), 
-						  new ReportType("CSV", "csv"),
-						  new ReportType("OpenOffice (ODT)", "odt")));
+			Arrays.asList(new ReportType("Reporte en Excel", "xls"), 
+						  new ReportType("Excel (JXL)","jxl")));
 	/**
 	 * buscar estado de Apelación
 	 * 
@@ -637,7 +634,7 @@ public class VMConfigurableApelaciones {
 			configurarParametroProgramaAcademico();
 			configurarParametroVeredicto();
 			configurarParametroEdoApelacion();
-			if(objSancion.getNombreSancion().equals("RR")){
+			if(objSancion.getIdSancion()==2){//idsancion = 2 es RR
 				parametroAsignatura="";
 				configurarParametroAsignatura();
 			}

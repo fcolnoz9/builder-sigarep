@@ -18,14 +18,14 @@
 					<row>
 						<label id="lblPrograma" value="Programa:" />
 						<combobox readonly="true" id="cmbPrograma" mold="rounded" placeholder = "Seleccione un programa académico..."
-							width="100%" maxlength="30" tabindex="1" model="@load(vm.listaPrograma)" selectedItem="@bind(vm.objprograma)" onSelect="@command('buscarAsignaturas')">
+							width="100%" maxlength="60" tabindex="1" model="@load(vm.listaPrograma)" selectedItem="@bind(vm.objprograma)" onSelect="@command('buscarAsignaturas')">
 						<template name="model">
 							<comboitem label="${each.getNombrePrograma()}" />
 						</template>
 						</combobox>
 						<label id="lblLapsoAcademico" value="Lapso Académico:" />
-						<combobox id="cmbLapsoAcademico" mold="rounded" placeholder = "Seleccione un lapso académico..." width="100%"  maxlength="30" 
-								  tabindex="1" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.objLapso)" onSelect="@command('objCmbLapso')" >
+						<combobox id="cmbLapsoAcademico" mold="rounded" placeholder = "Seleccione un lapso académico..." width="100%"  maxlength="6" 
+								  tabindex="2" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.objLapso)" onSelect="@command('objCmbLapso')" >
 							<template name="model">
 								<comboitem label="${each.codigoLapso}" />
 							</template>
@@ -34,14 +34,14 @@
 					<row>
 						<label id="lblTipodeSancion" value="Tipo de Sanción:" />
 						<combobox id="cmbTipoSancion" mold="rounded" readonly="true" placeholder = "Seleccione un tipo de sanción..."
-							      width="100%"  maxlength="30" tabindex="1" model="@load(vm.listaSancion)" selectedItem="@bind(vm.objSancion)" onSelect="@command('configurarComboAsignatura')">
+							      width="100%"  maxlength="60" tabindex="3" model="@load(vm.listaSancion)" selectedItem="@bind(vm.objSancion)" onSelect="@command('configurarComboAsignatura')">
 							<template name="model">
 								<comboitem label="${each.nombreSancion}" />
 							</template>
 						</combobox>
 						<label id="lblInstanciA" value="Instancia Apelada:" />
 						<combobox id="cmbInstanciaA" readonly="true" mold="rounded" placeholder = "Seleccione una instancia apelada..."
-						          width="100%" maxlength="30" tabindex="1" model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)"
+						          width="100%" maxlength="60" tabindex="4" model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)"
 						          onSelect="@command('objCmbinstanciaApelada')" >
 							<template name="model">
 								<comboitem label="${each.instanciaApelada}" />
@@ -51,7 +51,7 @@
 					</row>
 					<row>
 						<label id="lblAsignaturas" value="Asignatura:" />
-						<combobox readonly="true" id="cmbAsignaturas" placeholder = "Seleccione una asignatura..." width="100%"  maxlength="30" tabindex="1"
+						<combobox readonly="true" id="cmbAsignaturas" placeholder = "Seleccione una asignatura..." width="100%"  maxlength="60" tabindex="5"
 						          mold="rounded" model="@load(vm.listaAsignaturas)" onSelect="@command('configurarComboAsignatura')" selectedItem="@bind(vm.objAsignatura)" >
 						<template name="model">
 							<comboitem label="${each.nombreAsignatura}" />
@@ -59,7 +59,7 @@
 						</combobox>
 						<label id="lblEdoApelacion" value="Estado de Apelación: " />
 						<combobox id="cmbEdoApelacion" readonly="true" mold="rounded" placeholder = "Seleccione un estado de apelación..."
-						width="100%" maxlength="30" tabindex="1" model="@load(vm.listaEdoApelacion)" selectedItem="@bind(vm.objEdoApelacion)" 
+						width="100%" maxlength="100" tabindex="6" model="@load(vm.listaEdoApelacion)" selectedItem="@bind(vm.objEdoApelacion)" 
 						onSelect="@command('objCmbEdoApelacion')" >
 							<template name="model">
 								<comboitem
@@ -69,7 +69,7 @@
 					</row>
 					<row>
 						<label id="lblMotivo" value="Motivo: " />
-						<combobox id="cmbMotivo" readonly="true" mold="rounded" placeholder = "Seleccione un motivo..." width="100%"   maxlength="30" tabindex="1"
+						<combobox id="cmbMotivo" readonly="true" mold="rounded" placeholder = "Seleccione un motivo..." width="100%"   maxlength="60" tabindex="7"
 								  model="@load(vm.listaTipoMotivo)" selectedItem="@bind(vm.objtipoMotivo)" onSelect="@command('objCmbtipoMotivo')"  >
 							<template name="model">
 								<comboitem
@@ -79,7 +79,7 @@
 						<label id="lblVeredicto" value="Veredicto: " />
 						<combobox id="cmbVeredicto" readonly="true" 
 						placeholder = "Seleccione un veredicto..."
-						width="100%"   maxlength="30" tabindex="1"
+						width="100%"   maxlength="60" tabindex="8"
 						 model="@load(vm.cmbVeredicto )"  mold="rounded" 
 						 selectedItem="@bind(vm.objVeredicto)" >
 							<comboitem label="" />
