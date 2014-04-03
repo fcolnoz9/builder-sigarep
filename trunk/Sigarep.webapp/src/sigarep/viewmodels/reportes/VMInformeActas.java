@@ -182,7 +182,7 @@ public class VMInformeActas {
 
 	// fin de metodos get y set
 
-//	@Command("GenerarReporteActas")
+	@Command("GenerarReporteActas")
 	@NotifyChange({ "reportConfig" })
 	public void generarReporte() {
 
@@ -217,11 +217,8 @@ public class VMInformeActas {
 		programa = sancionadoSeleccionado.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
 		estado = 3;
 		sugerencia = servicioapelacionestadoapelacion.buscarSugerencia(cedula,codigoLapso, instancia, estado);
-		System.out.println(sugerencia);
 		sugerencias = sugerencia.get(0).getSugerencia();
-		System.out.println(sugerencias);
 		fecha = sugerencia.get(0).getFechaEstado();
-		System.out.println(fecha);
-		generarReporte();
+	
 	}
 }
