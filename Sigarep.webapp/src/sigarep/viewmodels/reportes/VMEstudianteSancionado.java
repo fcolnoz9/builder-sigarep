@@ -451,7 +451,10 @@ public class VMEstudianteSancionado {
 	 * @return El Tipo de Formato del Archivo(RTF,XLS,JXL,CSV,ODT)
 	 */
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("Reporte en Excel", "xls"), 
+			Arrays.asList(new ReportType("Reporte en Excel", "xls"),
+					      new ReportType("Word", "doc"),
+					      new ReportType("OpenOffice", "ODT"), 
+					  	  new ReportType("CSV", "csv"), 
 						  new ReportType("Excel (JXL)","jxl")));
 	/**
 	 * buscar estado de Apelación
