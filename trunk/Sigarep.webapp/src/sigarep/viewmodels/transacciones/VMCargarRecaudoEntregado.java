@@ -24,7 +24,9 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
+
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
@@ -45,7 +47,6 @@ public class VMCargarRecaudoEntregado {
 	private String primerApellido;
 	private String primerNombre;
 	private String lapso;
-	private Integer instancia;
 	private String recaudo;
 	private String segundoNombre;
 	private String segundoApellido;
@@ -120,14 +121,6 @@ public class VMCargarRecaudoEntregado {
 
 	public void setRecaudo(String recaudo) {
 		this.recaudo = recaudo;
-	}
-	
-	public Integer getInstancia() {
-		return instancia;
-	}
-
-	public void setInstancia(Integer instancia) {
-		this.instancia = instancia;
 	}
 
 	public String getLapso() {
@@ -222,23 +215,22 @@ public class VMCargarRecaudoEntregado {
 
 	@Init
 	public void init(
-		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa)
+		@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado es)
 	{
-		this.cedula = sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
-		this.primerNombre = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre();
-		this.primerApellido = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido();
-		this.email = sa.getEstudianteSancionado().getEstudiante().getEmail();
-		this.programa = sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
-		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
-		this.lapso = sa.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
-		this.instancia = sa.getInstanciaApelada().getIdInstanciaApelada();
-		this.segundoNombre = sa.getEstudianteSancionado().getEstudiante().getSegundoNombre();
-		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
-		this.caso = sa.getNumeroCaso();
-		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
+		this.cedula = es.getEstudiante().getCedulaEstudiante();
+		this.primerNombre = es.getEstudiante().getPrimerNombre();
+		this.primerApellido = es.getEstudiante().getPrimerApellido();
+		this.email = es.getEstudiante().getEmail();
+		this.programa = es.getEstudiante().getProgramaAcademico().getNombrePrograma();
+		this.sancion = es.getSancionMaestro().getNombreSancion();
+		this.lapso = es.getLapsoAcademico().getCodigoLapso();
+		this.segundoNombre = es.getEstudiante().getSegundoNombre();
+		this.segundoApellido = es.getEstudiante().getSegundoApellido();
+		//this.caso = sa.getNumeroCaso();
+		this.lapsosConsecutivos = es.getLapsosAcademicosRp();
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
-		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
+		//this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
+		this.peridoSancion = es.getPeriodoSancion();
 		
 		concatenacionNombres();
 		concatenacionApellidos();
@@ -266,7 +258,7 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosLapsoActual(cedula);
 	}
 
 	@Command
@@ -313,7 +305,8 @@ public class VMCargarRecaudoEntregado {
 							Integer idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
 							Integer idTipoMotivo = Integer.parseInt(componente.getAttribute("idTipoMotivo").toString());
 							
-							RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia);
+							Integer instancia = 1;
+							RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia );
 							RecaudoEntregado recaudoEntregado = new RecaudoEntregado(recaudoEntregadoPK, true, "");
 							Soporte soporte = null;
 							if (serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK)!= null)
