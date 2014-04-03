@@ -1,0 +1,18 @@
+﻿<zk>
+<window id="winInformeCU" title="Reportes :: Informes :: Estructurados :: Informe al Consejo Universitario"
+		border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeCU')">
+		
+	<vlayout>
+			<!--jasperreport donde se dibuja el reporte en la interfaz -->
+		<groupbox id="grbInformeConsejoU" closable="false">
+ 		<caption label="Reporte Generado"/>
+		<jasperreport id="report" height="360px"
+			src=" @init(vm.reportConfig.source)"
+			parameters=" @init(vm.reportConfig.parameters)"
+			type=" @init(vm.reportConfig.type.value)"
+			datasource=" @init(vm.reportConfig.dataSource)" />
+		</groupbox>	
+	</vlayout>
+</window>
+</zk>

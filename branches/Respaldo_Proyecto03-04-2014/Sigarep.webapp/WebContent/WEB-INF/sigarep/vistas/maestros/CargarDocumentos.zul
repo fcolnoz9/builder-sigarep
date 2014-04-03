@@ -1,0 +1,148 @@
+<window id = "winCargarDocumento" title="Configuración Web :: Cargar Documentos" 
+border="normal" width = "auto" height="auto" closable="true" contentStyle="overflow:auto"
+style="overflow:auto" action="hide: slideUp"
+ apply="org.zkoss.bind.BindComposer"
+ viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMReglamento')" >
+ 
+ 
+ <!--El groupbox Contiene los campos que requieren llenarse con los datos del Cargar Documentos -->
+<groupbox  > 
+	
+<!-- <caption label="">Carga de Documentos</caption> -->
+	<caption label="Carga de Documentos" />
+<grid id= "grdcargar" fixedLayout="true" >
+ <columns>
+     				<column label="" width="10%" />
+					<column label="" width="40%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
+    </columns>
+    <rows>
+    	<row>
+    	<label id="lblCategoria" value="Categoría:" />
+<!--             Categoría: -->
+              <combobox id="cmbCategoria" mold="rounded" width="80%" maxlength="30" placeholder="Seleccione una categoría..." selectedItem=" @bind(vm.categoria)">
+						<comboitem value="guia" id="cmiGuiaPaso" label="Guía Paso a Paso" />
+ 						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
+ 						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
+ 						<comboitem value="calendario" id="cmiCalendario" label="Calendario Académico" /> 
+ 						<comboitem value="recaudo" id="cmiRecaudo" label="Recaudos por Motivos" />
+ 						 
+ 			  </combobox> 
+         
+         <label id="lblFechaSubida" value="Fecha de Subida:" />
+<!--             Fecha de subida: -->
+            
+            	<datebox format="dd/MM/yyyy" id="dtbfechasubida" mold = "rounded" width="auto" value="@bind(vm.fechaSubida)"/>
+           
+              
+        </row>
+           <row>
+           
+           <label id="lblTituloDocumento" value="Título Documento:" />
+<!--            Título Documento: -->
+                    <textbox id= "txttitulo" placeholder="Ingrese un título del documento"  mold = "rounded" value="@bind(vm.titulo)"
+			width="80%" maxlength="255" cols="23" tabindex="5"    />
+			
+			 <label id="lblDescripcion" value="Descripción:" />
+<!--             Descripción: -->
+           
+                <textbox  id= "txtdescripcion" placeholder="Ingrese una descripción del documento" width="80%" mold = "rounded" constraint="no empty: No se permite vacio o espacios en blanco"  value="@bind(vm.descripcion)"
+					 maxlength="255" cols="23" tabindex="5" rows="3" >
+                    <attribute name="value"> </attribute>
+                </textbox> 
+           </row>
+           <row>  
+            <label id="lblDocumento" value="Documento:" />
+<!--            Documento: -->
+       
+                    <button label="Cargar Documento"  id = "btncargar"  image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+							orient="horizontal" mold="trendy" upload="true,maxsize=51200" onUpload="@command('cargarDocumento',upload=event)"></button>
+                    <a id="hrefDocumento" label="@bind(vm.nombreDoc)" onClick="@command('descargarDocumento')" ></a>
+                                
+          </row> 
+    </rows>
+</grid>
+
+	
+</groupbox>
+<separator />
+<!-- Permite realizar acciones respecto al Cargar Documentos (Botones) -->
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardarDocumento" 
+			 mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/guardar.png" 
+				onClick="@command('guardarReglamento')"/>
+			<button label="Eliminar" id="btnEliminar"
+			 mold="trendy" width="auto" height="auto"
+			image="/imagenes/iconos/eliminar.png"
+			onClick="@command('eliminarReglamento')"/>
+			<button label="Limpiar" id="btnLimpiarDocumeto" 
+			mold="trendy" width="auto" height="auto" 
+			 image="/imagenes/iconos/limpiar.png"
+			onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrarDocumento"
+				mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/cerrar.png" 
+				onClick="@command('cerrarVentana', ventana = winCargarDocumento)" />
+
+		</div>
+<!-- 	//**************************************************** -->
+<!-- 	//LISTA DE DOCUMENTOS REGISTRADOS -->
+<!-- 	//**************************************************** -->
+<groupbox> 
+
+<caption label= " Lista de Documentos" />
+
+<listbox id = "lbxlistareglamentos" height="100%"  model="@bind(vm.listaReglamento)" 
+			selectedItem="@bind(vm.reglamentoSeleccionado)"   
+   			 onSelect="@command('mostrarSeleccionado')" 
+   			 emptyMessage="No hay Documentos registrados" mold="paging" pageSize="10" >
+   			 
+<!-- 		Busqueda Por Filtros -->
+<listhead>
+		<listheader label="Título" align="lefth" 
+			sort="auto(titulo)">
+			<textbox id="filtroTitulo" instant="true"
+			mold="rounded" width="100px" value="@bind(vm.tituloF)"
+			onChange="@command('filtros')" />
+			<image src="imagenes/iconos/buscar.png" />
+		</listheader>
+		<listheader label="Categoría" align="lefth"
+		 	sort="auto(categoria)" >
+		 	<textbox id="filtroCategoria" instant="true"
+			mold="rounded" width="100px" value="@bind(vm.categoriaF)"
+			onChange="@command('filtros')" />
+			<image src="imagenes/iconos/buscar.png" />
+		</listheader>
+		<listheader label="Descripción"  align="lefth"
+		 sort="auto(descripcion)" >
+		</listheader>
+		<listheader label="Fecha Subida" align="lefth" width="100px"
+		 sort="auto(fechaSubida)">
+		  </listheader>
+		<listheader label="Documento" align="lefth" width="100px"
+		sort="auto(documento)">
+		</listheader>
+		
+		
+	</listhead>
+	
+	
+	<template name="model">
+				<listitem selected="false">
+					<listcell label="${each.titulo}" />
+					<listcell label="${each.categoria}" />
+					<listcell label="${each.descripcion}" />
+					<listcell label="${each.fechaSubida}" />
+					<listcell label="${each.documento.nombreDocumento}" />
+				</listitem>
+	</template>
+</listbox>
+
+
+</groupbox>
+	<separator />
+
+
+</window>

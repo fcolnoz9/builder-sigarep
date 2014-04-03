@@ -1,0 +1,101 @@
+<window title="Registros Básicos :: Actividades"
+	id="winRegistrarActividad" border="normal" closable="true"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMactividad')">
+	<groupbox id="grbDatosActividad">
+		<caption label="Datos de la Actividad" />
+		<grid>
+			<columns>
+				<column label="" width="10%" />
+				<column label="" width="40%" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Responsable: " id="lblResponsable" />
+
+					<combobox id="cmbInstanciaApelada"
+					    placeholder= "Seleccione una instancia..."
+						readonly="true" mold="rounded" width="80%"
+						value="@bind(vm.instanciaApelada.instanciaApelada)"
+						 model="@load(vm.listaInstanciaApelada)"
+						 selectedItem="@bind(vm.instanciaApelada)"
+						onSelect="@command('comboResponsable')">
+						<template name="model">
+							<comboitem label="${each.instanciaApelada}" />
+						</template>
+					</combobox>
+				</row>
+				<row>
+					<label value="Nombre: " id="lblNombreActividad" />
+					<textbox id="txtNombreActividad" 
+					 placeholder="Ingrese el nombre de la actividad."
+						mold="rounded" cols="23" width="80%" maxlength="60"
+						value="@bind(vm.nombre)" />
+					<label value="Descripción: " id="lblDescripcion" />
+					<textbox id="txtDescripcionActividad"
+					placeholder= "Ingrese la descripción de la actividad"
+					mold="rounded" width="77%" rows="3" maxlength="255"
+					 value="@bind(vm.descripcion)" />
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<separator />
+	<div align="right">
+		<button label="Guardar" id="btnGuardarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/guardar.png"
+			onClick="@command('guardarActividad')">
+		</button>
+		<button label="Eliminar" id="btnEliminarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
+			onClick="@command('eliminarActividad')">
+		</button>
+		<button label="Limpiar" id="btnLimpiarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
+			onClick="@command('limpiar')">
+		</button>
+		<button label="Cerrar" id="btnCerrarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
+			onClick="@command('cerrarVentana', ventana = winRegistrarActividad)">
+		</button>
+	</div>
+	<groupbox id="grbListaActividades">
+		<caption label="Lista de Actividades" />
+		<listbox id="lbxActividades" height="100%"
+			model="@bind(vm.listaActividad)"
+			selectedItem="@bind(vm.actividadSeleccionada)"
+			onSelect="@command('mostrarSeleccionada')"
+			emptyMessage="No hay Actividades registradas" mold="paging"
+			pageSize="10">
+			<listhead>
+				<listheader label="Responsable" align="left"
+					sort="auto(instanciaApelada)">
+					<textbox id="filtroResponsable" instant="true"
+						mold="rounded" width="100px" value="@bind(vm.responsableFiltro)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Nombre" align="left"
+					sort="auto(nombre)">
+					<textbox id="filtroNombre" instant="true"
+						mold="rounded" width="100px" value="@bind(vm.nombreFiltro)"
+						onChange="@command('filtros')" />
+					<image src="imagenes/iconos/buscar.png" />
+				</listheader>
+				<listheader label="Descripción" align="left"
+					sort="auto(descripcion)">
+				</listheader>
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell
+						label="${each.instanciaApelada.instanciaApelada}" />
+					<listcell label="${each.nombre}" />
+					<listcell label="${each.descripcion}" />
+				</listitem>
+			</template>
+		</listbox>
+	</groupbox>
+</window>

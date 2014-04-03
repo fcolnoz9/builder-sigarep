@@ -1,0 +1,114 @@
+<window id="winCargarRecaudoEntregadoEstudiante"
+title="Gestión :: Cargar Recaudos" 
+	border="normal"  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMCargarRecaudoEntregado')" 
+	width="auto" height="auto" closable="true">
+	<groupbox id="grbDatosEstudiante">
+		<caption label="Datos del Estudiante" />
+		<grid id="grdDatosEstudiante">
+			<rows>
+				<row></row>
+				<row>
+					<label value="Cédula:" id="lblCedulaEstudiante" />
+					<textbox id="txtCedulaEstudiante" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.cedula)"></textbox>
+					<label value="Programa:" id="lblProgramaEstudiante" />
+					<textbox id="txtProgramaEstudiante" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.programa)"></textbox>
+				</row>
+				<row>
+					<label value="Nombres: " id="lblNombresEstudiante" />
+					<textbox id="txtNombresEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.nombres)">
+					</textbox>
+					<label value="Apellidos: "
+						id="lblApellidosEstudiante" />
+					<textbox id="txtApellidosEstudiante" cols="23"
+						width="200px" maxlength="30" readonly="true" value="@bind(vm.apellidos)">
+					</textbox>
+				</row>
+				<row>
+					
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+		<groupbox id="grbDatosSancion">
+		<caption id="lblDatossancion" label="Datos Sanción" />
+		<grid>
+			<rows>
+				<row>
+					<label id="lblTiposancion"
+						value="Tipo de Sanción: " />
+					<textbox id="txtTipoSancion" cols="23"
+						maxlength="30" readonly="true" value="@bind(vm.sancion)">
+					</textbox>
+					<label id="lblLapsosancion" value="Lapso de Sanción: " />
+					<textbox id="txtLapsosancion" cols="23" maxlength="30" value="@bind(vm.lapso)" readonly="true"></textbox>
+				</row>
+				<row>
+					<label id="lblPeriodosancion"
+						value="Periodo de Sanción: " />
+					<textbox id="txtPeridosancion" cols="23"
+						maxlength="30" value="@bind(vm.peridoSancion)" readonly="true">
+					</textbox>
+					<label id="lblAsignaturaPeriodos" value="@bind(vm.labelAsignaturaLapsosConsecutivos)" />
+					<textbox id="txtAsignatura" cols="55"
+						maxlength="30" value="@bind(vm.asignaturaLapsosConsecutivos)" readonly="true">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+
+	<groupbox id="grbDatosRecaudo">
+		<caption label="Datos de la Apelacion" />
+		<grid>
+			<rows>
+				<row>
+					<label value="Número de Caso:" id="lblNumeroCaso" />
+					<textbox id="txtNumeroCaso" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.caso)"></textbox>
+					<label value="Fecha de Apelacion:" id="lblFechaApelacion" />
+					<textbox id="txtFechaApelacion" cols="23" width="200px" maxlength="30" readonly="true" value="@bind(vm.fechaApelacion)"></textbox>
+				</row>
+			</rows>
+		</grid>
+		<grid id="grdCargarRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="5">
+	        <columns>
+	        	<column label="Motivo de Apelación" hflex="3" align="left"></column>
+	            <column label="Recaudo Entregado" hflex="3" align="left"></column>
+	            <column label="Soporte de Recaudo" hflex="3" align="left"></column>
+	            <column label="Opciones de Archivo" hflex="3" align="left"></column>
+	        </columns>
+	       <rows sclass="narrow">
+	        	<template name="model">
+		            <row>
+		            	<label value="${each.getMotivo().getTipoMotivo().getNombreTipoMotivo()}" />
+		                <label value="${each.getRecaudo().getNombreRecaudo()}" /> 
+		                <a id="" label="${each.getSoporte().getDocumento().getNombreDocumento()}" onClick="@command('descargarRecaudoEntregado', parametro=self)" >
+		                	<custom-attributes idSoporte="${each.getSoporte().getIdSoporte()}"/>
+		                </a>
+		                <hlayout>
+		                	<button label="Cargar"
+									image="/imagenes/iconos/cargar.png" width="auto" height="auto"
+									orient="horizontal" upload="true,maxsize=51200"  onUpload="@command('cargarRecaudoEntregado',upload=event, parametro=self)">
+								<custom-attributes idRecaudo="${each.getRecaudo().getIdRecaudo()}"/>
+								<custom-attributes idTipoMotivo="${each.getMotivo().getTipoMotivo().getIdTipoMotivo()}"/>
+							</button>
+							<button label="Eliminar"
+									image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
+									orient="horizontal" onClick="@command('eliminarRecaudoEntregado', parametro=self)">
+								<custom-attributes idSoporte="${each.getSoporte().getIdSoporte()}"/>
+							</button>
+		                </hlayout>
+		            </row>
+	            </template>
+           </rows>
+        </grid>
+	</groupbox>
+	<div align="right" height="100%">
+		<!-- Sale del registro, es necesario mensajes de advertencia-->
+		<button label="Cerrar" id="btnCerrar" mold="trendy"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('cerrarVentana', ventana = winCargarRecaudoEntregadoEstudiante)">
+		</button>
+	</div>
+
+</window>

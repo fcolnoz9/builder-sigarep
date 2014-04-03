@@ -1,0 +1,78 @@
+<window title="Administración del Sistema :: Guardar Históricos"
+	id="winHistoricosSigarepBD" border="normal"
+	apply="org.zkoss.bind.BindComposer" width="auto" height="auto"
+	closable="true"
+	viewModel="@id('vm') @init('sigarep.viewmodels.transacciones.VMHistoricosSigarepBD')">
+	<groupbox>
+		<caption
+			label="Seleccione el archivo historico que desea generar" />
+		<radiogroup id="rgEleccion" selectedItem="@bind(vm.selected)">
+			<grid>
+				<columns>
+					<column width="10%" />
+					<column width="18%" />
+					<column width="18%" />
+					<column width="18%" />
+					<column width="18%" />
+					<column width="18%" />
+				</columns>
+				<rows>
+					<row>
+						<radio id="rbTodos" label="Todos" value="Todos" />
+						<radio id="rbSolicitud"
+							label="Solicitudes de Apelación" value="Solicitud" />
+						<radio id="rbSancionados"
+							label="Estudiantes Sancionados" value="Sancionados" />
+						<radio id="rbRecaudosEntregados"
+							label="Recaudos Entregados" value="Recaudos Entregados" />
+						<radio id="rbCronogramaActividades"
+							label="Cronograma de Actividades" value="Cronograma" />
+						<label value="@bind(vm.selected)"
+							style="font-weight:bold;color:red;" />
+					</row>
+				</rows>
+			</grid>
+		</radiogroup>
+	</groupbox>
+	<groupbox id="gbManual">
+		<caption label="Lapso Acádemico de respaldo" />
+		<grid>
+			<columns>
+				<column width="20%" />
+				<column width="80%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Lapso Acádemico:" />
+					<combobox id="cmbLapso" width="80%"
+						model="@load(vm.listaLapsoAcademico)"
+						value="@bind(vm.lapso.codigoLapso)"
+						selectedItem="@bind(vm.lapso)">
+						<template name="model">
+							<comboitem label="${each.codigoLapso}" />
+						</template>
+					</combobox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<separator />
+	<div align="right" height="100%">
+		<!-- Genera el historico seleccionado -->
+		<button label="Guardar" id="btnGuardar" mold="trendy"
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('generarHistorico')">
+		</button>
+		<!-- Cancelar detiene el proceso de todos los registros en una operación, es necesario mensajes de advertencia-->
+		<button label="Limpiar" id="btnCancelar" mold="trendy"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+			orient="horizontal">
+		</button>
+		<!-- Sale del registro, es necesario mensajes de advertencia-->
+		<button label="Cerrar" id="btnCerrar" mold="trendy"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal"
+			onClick="@command('cerrarVentana', ventana = winHistoricosSigarepBD)">
+		</button>
+	</div>
+</window>

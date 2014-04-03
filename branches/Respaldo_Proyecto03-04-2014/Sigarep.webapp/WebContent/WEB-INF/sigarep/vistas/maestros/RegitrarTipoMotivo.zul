@@ -1,0 +1,90 @@
+<zk>
+	<window id="winTipoMotivo"
+		title="Registros Básicos ::  Tipo Motivo" border="normal"
+		width="auto" height="auto" closable="true" sclass="sysWin"
+		contentStyle="overflow:auto" apply=" org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMTipoMotivo')">
+
+		
+		<!-- Grid que contiene los campos de la pantalla -->
+		<groupbox id="grbRegistrarTipoMotivo">
+			<caption label="Datos del Tipo de Motivo de Apelación" />
+			<grid id="grdTipoMotivo">
+				<columns>
+				<column label="" width="10%" />
+				<column label="" width="40%" />
+				<column label="" width="10%" />
+				<column label="" width="40%" />
+				</columns>
+				
+				<rows>
+					<row>
+						<label id="lblTipoMotivo"
+							value="Motivo de Apelación:" />
+						<textbox id="txtnombreTipoMotivo" width="80%"
+							height="auto" mold="rounded"  placeholder = "Ingrese un nombre del motivo"  cols="23" maxlength="60"
+							value="@bind(vm.nombreTipoMotivo)" />
+						<label id="lblDescripción" value="Descripción:" />
+						<textbox id="txtDescripción" width="80%" rows="3" 
+						height="auto" mold="rounded" placeholder = " Ingrese una Descripción del Motivo" maxlength="255" value="@bind(vm.descripcion)">
+						</textbox>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		<!-- Grupbox de Botones -->
+		<div align="right" height="100%">
+			<button label="Guardar" id="btnGuardarMotivo"
+				mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/guardar.png" 
+				onClick="@command('guardarTipoMotivo')" />
+			<button label="Eliminar"  id="btnEliminarMotivo"
+			     mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/eliminar.png"
+				onClick="@command('eliminarTipoMotivo')" />
+			<button label="Limpiar"  id="btnLimpiarMotivo"
+				 mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/limpiar.png"
+				onClick="@command('limpiar')" />
+			<button label="Cerrar"  id="btnCerrarMotivo"
+				 mold="trendy" width="auto" height="auto"
+				image="/imagenes/iconos/cerrar.png"
+				onClick="@command('cerrarVentana', ventana = winTipoMotivo)" />
+		</div>
+		<!-- Grupbox que contiene el listado de los tipos de motivos -->
+		<groupbox height="auto">
+			<caption label="Lista de Tipos de Motivos de Apelación" />
+			<!-- Lista que contiene el listado de los tipos de motivos -->
+			<listbox id="lbxtipomotivoListbox" height="auto"
+				model="@bind(vm.listaTipoMotivo)"
+				selectedItem="@bind(vm.tiposeleccionado)"
+				onSelect="@command('mostrarSeleccionado')"
+				emptyMessage="No hay Tipo de Motivos registrados" mold="paging"
+				pageSize="10">
+				<!-- Busqueda por FILTROS los tipos de motivos -->
+				<listhead>
+				<listheader label="Motivo de la Apelación"
+						align="left" sort="auto(nombreTipoMotivo)">
+						<textbox id="filtroNombre" instant="true" mold="rounded"
+							width="100px" value="@bind(vm.nombreFiltro)"
+							onChange="@command('filtros')" />
+							<image src="/imagenes/iconos/buscar.png"/>
+				</listheader>
+				<listheader label="Descripción" align="left"
+						sort="auto(descripcion)">
+						
+					</listheader>
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.nombreTipoMotivo}"></listcell>
+						<listcell label="${each.descripcion}"></listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+		</groupbox>
+		
+	</window>
+</zk>

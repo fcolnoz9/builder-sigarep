@@ -1,0 +1,28 @@
+<window id="modalDialog" title="Reglamentos" border="normal" width="405px"
+	apply=""
+	position="center,center" closable="true" 
+	action="show: slideDown;hide: slideUp">
+	<vlayout>
+		<grid>
+			<columns>
+				
+				<column width="230px" label="Reglamento" align="center" />
+				<column width="150px" label="Descargar" align="center" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Art. 35" />
+					<image src="/ico/descargarico.png" style="cursor:pointer" />
+					
+				</row>
+				<row>
+					<label value="Reforma Probatoria" />
+				    <image src="/ico/descargarico.png" style="cursor:pointer" />
+					
+				</row>
+				
+			</rows>
+		</grid>
+		
+	</vlayout>
+</window>

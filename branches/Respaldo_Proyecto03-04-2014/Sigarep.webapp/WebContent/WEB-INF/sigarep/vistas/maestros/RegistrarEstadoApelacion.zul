@@ -1,0 +1,109 @@
+<zk>
+	<window id="winRegistarEstadoApelacion"
+		title="Registros Básicos :: Estado de Apelación" width="auto"
+		height="auto" closable="true" border="normal"
+		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMEstadoApelacion')">
+		
+		<!-- Grupbox que contiene los campos de la pantalla -->
+		<groupbox id="grbEstadoApelacion">
+			<caption label="Datos de los Estados de Apelación" />
+			<grid id="grdEstadoApelacion">
+				<columns>
+					<column label="" width="10%" />
+					<column label="" width="40%" />
+					<column label="" width="10%" />
+					<column label="" width="40%" />
+				</columns>
+				<rows>
+					<row>
+
+						<label id="lblInstanciaApelada"
+							value="Instancia Apelada:" />
+						<combobox readonly="true"
+							id="cmbInstanciaApelada"
+							placeholder= "Seleccione una instancia..."
+							value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
+							mold="rounded" model="@load(vm.listaInstanciaApelada)"
+							selectedItem="@bind(vm.instanciaApelada)"
+							onSelect="@command('objetoComboEstadoApelacion')" 
+							disabled="true">
+							<template name="model">
+								<comboitem
+									label="${each.instanciaApelada }" />
+							</template>
+						</combobox>
+
+					</row>
+					<row>
+						<label id="lblNombreEstado" value="Nombre:" />
+
+						<textbox id="txtNombreEstado"
+							placeholder= "Ingrese el nombre del estado de apelación"
+							width="80%" cols="23" maxlength="100" mold="rounded" tabindex="1"
+							value="@bind(vm.nombreEstado)" 
+							disabled="true"/>
+
+						<label id="lblDescripcion" value="Descripción:" />
+						<textbox
+							id="txtDescripcion"
+							placeholder= "Ingrese la descripción del estado de apelación"
+							width="80%" rows="3" maxlength="255" mold="rounded" tabindex="2"
+							value="@bind(vm.descripcion)" />
+
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+
+		<!-- Grupo de botones -->
+		<separator />
+		<div align="right">
+			<button label="Guardar" id="btnGuardarEstadoApelacion"
+				mold="trendy" width="auto" height="auto"
+				image="imagenes/iconos/guardar.png"
+				onClick="@command('guardarEstadoApelacion')" />
+			<button label="Limpiar" id="btnLimpiarEstado" mold="trendy"
+				width="auto" height="auto" image="imagenes/iconos/limpiar.png"
+				onClick="@command('limpiar')" />
+			<button label="Cerrar" id="btnCerrarEstado" mold="trendy"
+				width="auto" height="auto" image="imagenes/iconos/cerrar.png"
+				onClick="@command('cerrarVentana', ventana = winRegistarEstadoApelacion)" />
+
+		</div>
+		<!-- Grupbox que contiene el listado de estados almacenados en base de datos -->
+		<groupbox id="grbListaEstadoApelacion">
+			<caption label="Lista de Estados de Apelación" />
+			<listbox id="lbxNombreEstadoApelacion" height="100%"
+				model="@bind(vm.listaEstadoApelacion)"
+				selectedItem="@bind(vm.estadoseleccionado)"
+				onSelect="@command('mostrarSeleccionado')"
+				emptyMessage="No hay Estados de Apelación registrados" mold="paging"
+				pageSize="10">
+
+				<listhead>
+					<listheader label="Nombre" align="left"
+						sort="auto(nombreEstado)">
+					</listheader>
+					<listheader label="Descripción" align="left"
+						sort="auto(descripcion)">
+					</listheader>
+					<listheader label="Instancia Apelada" align="left"
+						sort="auto(instanciaApelada)" />
+				</listhead>
+				<template name="model">
+					<listitem selected="false">
+						<listcell label="${each.nombreEstado}"></listcell>
+						<listcell label="${each.descripcion}"></listcell>
+						<listcell
+							label="${each.instanciaApelada.instanciaApelada }">
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<space />
+			<space />
+		</groupbox>
+
+	</window>
+</zk>

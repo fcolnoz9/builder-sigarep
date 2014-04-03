@@ -1,0 +1,52 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winCambiarContrasenia" ?>
+<window id="winCambiarContrasenia"
+	title="Administración del Sistema :: Cambiar Contraseña de Usuario"
+	border="normal" width="auto" height="auto" contentStyle="overflow:auto"
+	apply="org.zkoss.bind.BindComposer" closable="true"
+	viewModel="@id('vm') @init('sigarep.viewmodels.seguridad.VMUsuario')">
+	<groupbox>
+		<caption label="Cambiar Contraseña" />
+		<grid>
+			<columns>
+				<column width="15%" />
+				<column width="35%" />
+				<column width="15%" />
+				<column width="35%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Nueva Contraseña: "
+						id="lblNuevaContrasenia" />
+					<textbox id="txtNuevaContrasenia" cols="23"
+						type="password" placeholder="Ingrese su nueva contraseña"
+						width="80%" maxlength="30" value="@bind(vm.nuevaContrasenia)">
+					</textbox>
+					<label value="Confirmar Contraseña: "
+						id="lblConfirmarContrasenia" />
+					<textbox id="txtConfirmarContrasenia" cols="23"
+						type="password" placeholder="Confirme su nueva contraseña"
+						width="80%" maxlength="30"
+						value="@bind(vm.confirmarcontrasenia)">
+					</textbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+	<separator />
+	<div align="right">
+		<button label="Guardar" id="btnGuardar" mold="trendy"
+			image="imagenes/iconos/guardar.png" width="auto" height="auto"
+			orient="horizontal" onClick="@command('cambiarContrasenia')">
+		</button>
+		<button label="Limpiar" id="btnCancelar" mold="trendy"
+			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
+			orient="horizontal"
+			onClick="@command('limpiarCambiarContrasenia')">
+		</button>
+		<button label="Cerrar" id="btnCerrar" mold="trendy"
+			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
+			orient="horizontal"
+			onClick="@command('cerrarVentanaCambiarContrasenha',ventana=winCambiarContrasenia)">
+		</button>
+	</div>
+</window>

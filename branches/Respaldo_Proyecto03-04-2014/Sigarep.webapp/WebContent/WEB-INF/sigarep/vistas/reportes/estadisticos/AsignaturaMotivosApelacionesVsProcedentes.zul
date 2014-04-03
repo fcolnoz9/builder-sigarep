@@ -1,0 +1,83 @@
+<zk>
+<window id="winReporteAsignaturaMotivosApelacionesVsProcedentes" title="Reportes :: Estadísticos :: Comparativos :: Asignaturas por Motivo de Apelación y Veredicto" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
+	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMAsignaturaMotivosApelacionesVsResultado')">
+	
+	<vlayout>
+		<groupbox id="grbParametros" closable="false">
+			<caption id="lblParametros" label="Parámetros de Selección" />
+		<hbox>
+		<grid id="grdParametrosSeleccionAsignatura" width="auto">
+			<columns>
+				<column  />
+				<column  />
+				<column  />
+				<column  />
+			</columns>
+			<rows>
+				<row>
+					<label id="lblPrograma" value="Programa:" />
+	           		<combobox id="cmbprograma" model="@load(vm.listaPrograma)" placeholder="Seleccione un programa académico..."
+	                selectedItem="@bind(vm.programaseleccionado)" maxlength="60"
+	               	onSelect="@command('onSelectPrograma')" width="100%" mold="rounded" readonly="true">
+	               	<template name="model" var="dpto">
+	                <comboitem label="@load(dpto.nombrePrograma)"
+	                      value="@load(dpto.idPrograma)" />
+	               	</template>
+	           		</combobox>
+    
+          			<label id="lblAsignaturas" value="Asignatura:" />
+          			<combobox id="cmbasignatura" maxlength="60" model="@load(vm.listaAsignatura)" selectedItem="@bind(vm.asignatura)" value="@bind(vm.contenido)" placeholder="Seleccione una asignatura..." width="100%" mold="rounded" readonly="true" >
+               		<template name="model" var="asig">
+                   		<comboitem label="@load(asig.nombreAsignatura)"
+                       		value="@load(asig.codigoAsignatura)" />
+              		</template>
+           			</combobox>
+           		</row>
+           		<row>
+					<label id="lblLapsos" value="Lapso:" />
+					
+					<combobox readonly="true" maxlength="6" id= "cmbLapso" width="100%" mold="rounded" 
+					model="@load(vm.listaComboLapsoAcademico)" selectedItem="@bind(vm.lapsosAcademicos)" placeholder="Seleccione un lapso académico..."
+					onSelect="@command('objetoComboLapsos')">
+						<template name="model">
+							<comboitem  label="${each.codigoLapso}" />
+						</template>	
+					</combobox>
+					<label id="lblInstancias" value="Instancia:" />
+					<combobox readonly="true" maxlength="100" id= "cmbInstancia" width="100%" mold="rounded" placeholder="Seleccione una instancia apelada..."
+					model="@load(vm.listaComboInstancias)" selectedItem="@bind(vm.instanciasApeladas)" 
+					onSelect="@command('objetoComboInstancias')">
+						<template name="model">
+							<comboitem  label="${each.instanciaApelada}" />
+						</template>	
+					</combobox>
+				</row>
+				<row>
+					Elija el Tipo de Archivo: <listbox id="lbxformatarchivo" mold="select" model="@load(vm.reportTypesModel)" 
+									selectedItem="@bind(vm.reportType)" width="100%">
+							<template name="model">
+								<listitem value="@load(each)" label="@load(each.label)"></listitem>
+							</template>
+						</listbox>
+				</row>
+			</rows>
+		</grid>	
+	</hbox> 
+	</groupbox>
+		 <div align="right">
+				<button id="btnGenerarReporteAsignaturaApelaciones" width="auto" height="auto" label="Generar" image="/imagenes/iconos/generar.png" orient="horizontal" mold="trendy" onClick="@command('GenerarReporteApelacionesMotivoPorAsignatura')"/>
+				<button id="btnLimpiarReporteAsignaturaApelaciones" width="auto" height="auto" label="Limpiar" image="/imagenes/iconos/limpiar.png" orient="horizontal" mold="trendy" onClick="@command('limpiarAsignaturaMotivos')"/>
+				<button id="btnCerrarReporteAsignaturaApelaciones" width="auto" height="auto" label="Cerrar" image="/imagenes/iconos/cerrar.png" orient="horizontal" mold="trendy" onClick="winReporteAsignaturaMotivosApelacionesVsProcedentes.onClose()"/>
+		</div>	
+ 
+		 <groupbox id="grbReporteAsignaturaMotivos" closable="false">
+		 <caption label="Reporte Generado"/>
+		<jasperreport id="reporte" height="360px" 
+				src="@load(vm.reportConfig.source, after='GenerarReporteApelacionesMotivoPorAsignatura')" 
+				parameters="@load(vm.reportConfig.parameters, after='GenerarReporteApelacionesMotivoPorAsignatura')" 
+				type="@load(vm.reportConfig.type.value, after='GenerarReporteApelacionesMotivoPorAsignatura')" 
+				datasource="@load(vm.reportConfig.dataSource, after='GenerarReporteApelacionesMotivoPorAsignatura')"/>            
+		</groupbox>		
+</vlayout>
+</window>
+</zk>

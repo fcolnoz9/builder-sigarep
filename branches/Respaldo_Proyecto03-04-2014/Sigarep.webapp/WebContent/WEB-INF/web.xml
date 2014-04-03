@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>Sigarep.webapp</display-name>
+	<listener>
+	<!-- ====================================================== -->
+   	<!-- SPRING CONTEXT LOADER -->
+    <!-- ====================================================== -->
+    <!-- La clase org.springframework.web.context.ContextLoaderListener utiliza un parámetro de contexto llamado contextConfigLocation a 
+    	 determinar la ubicación del archivo de configuración del resorte. El parámetro de contexto se configura mediante el elemento de contexto-parámetro.  
+  		 El elemento context-param tiene dos hijos que especifican los parámetros y sus valores. 
+    	 El elemento param-name especifica el nombre del parámetro. El elemento param-value especifica el valor del parámetro-->
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<description>Used to cleanup when a session is destroyed</description>
+		<display-name>ZK Session cleaner</display-name>
+		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
+	</listener>
+	 <listener>
+	  <!-- Control de Sesión Simultánea Si usted desea poner restricciones en la capacidad de un único usuario para 
+        	iniciar sesión en la aplicación,Spring Security apoya esta fuera de la caja con las siguientes adiciones simples.
+  			Primero que hay que añadir el siguiente oyente a su archivo web.xml para mantener Spring Security informado sobre 
+  			los eventos del ciclo de vida de sesión: -->
+    <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+  	</listener>
+	<context-param>
+	 <!-- ====================================================== -->
+   	 <!-- ARCHIVOS DE CONFIGURACION -->
+     <!-- ====================================================== -->
+     <!-- =========================================================================================================== -->
+     <!--  La configuración de seguridad se realiza en el archivo XML y puede tener cualquier nombre, como spring-security.xml -->
+     <!--  Este archivo se debe cargar explícitamente de web.xml. Esto se hace mediante la adición de ContextLoadListener.. -->
+     <!--  Las siguientes líneas tiene que ser añadido antes de la definición del filtro de seguridad en web.xml.  -->
+     <!-- =========================================================================================================== -->
+		<param-name>contextConfigLocation</param-name>
+		<param-value> 
+      		classpath:/META-INF/application-context.xml,
+      		classpath:/META-INF/spring-security.xml
+   		 </param-value>
+	</context-param>
+	<welcome-file-list>
+		<welcome-file>portalPrincipal.zul</welcome-file>
+		<welcome-file>index.zul</welcome-file><!-- Pagina de Portal Principal De SIGAREP -->
+	</welcome-file-list>
+	<servlet>
+		<description>The ZK loader for ZUML pages</description>
+		<servlet-name>zkLoader</servlet-name>
+		<servlet-class>org.zkoss.zk.ui.http.DHtmlLayoutServlet</servlet-class>
+		<init-param>
+			<param-name>update-uri</param-name>
+			<param-value>/zkau</param-value>
+		</init-param>
+		
+		<!-- Optional. Specifies whether to compress the output of the ZK loader. 
+           It speeds up the transmission over slow Internet. However, if you configure 
+            a filter to post-processing the output, you might have to disable it. Default:true  -->
+         <init-param>
+          <param-name>compress</param-name>
+           <param-value>true</param-value> 
+          </init-param>
+      <!-- [Optional] Specifies the default log level: OFF, ERROR, WARNING, INFO, 
+         DEBUG and FINER. If not specified, the system default is used. -->
+         <init-param> 
+          <param-name>log-level</param-name> 
+          <param-value>INFO</param-value> 
+          </init-param> 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>The asynchronous update engine for ZK</description>
+		<servlet-name>auEngine</servlet-name>
+		<servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
+	</servlet>
+	<session-config>
+      <session-timeout>10</session-timeout>
+   </session-config>
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>springmvc</servlet-name> -->
+<!-- 		<url-pattern>*.do</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+	<servlet-mapping>
+		<servlet-name>zkLoader</servlet-name>
+		<url-pattern>*.zul</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>zkLoader</servlet-name>
+		<url-pattern>*.zhtml</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>auEngine</servlet-name>
+		<url-pattern>/zkau/*</url-pattern>
+	</servlet-mapping>
+<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+	<!-- [Optional] MIME mapping -->
+	<mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/vnd.ms-word</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>gif</extension>
+		<mime-type>image/gif</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>htm</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpeg</extension>
+		<mime-type>image/jpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpg</extension>
+		<mime-type>image/jpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>js</extension>
+		<mime-type>text/javascript</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>pdf</extension>
+		<mime-type>application/pdf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>png</extension>
+		<mime-type>image/png</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>txt</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xls</extension>
+		<mime-type>application/vnd.ms-excel</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xml</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>zhtml</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>zul</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+</web-app>
