@@ -360,7 +360,7 @@ public class VMVeredictoI {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoI(cedula,lapso);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosLapsoActual(cedula);
 	}
 
 	@Command

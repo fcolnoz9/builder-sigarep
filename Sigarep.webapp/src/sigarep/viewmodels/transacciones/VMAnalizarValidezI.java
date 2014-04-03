@@ -309,7 +309,7 @@ public class VMAnalizarValidezI {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosLapsoActual(cedula);
 		
 	}
 
@@ -451,7 +451,7 @@ public class VMAnalizarValidezI {
 	public void limpiar(){
 		observacion = "";
 		selected = "";
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosLapsoActual(cedula);
 	}
 	@GlobalCommand
     public void actualizarListaSancionados(){
