@@ -377,14 +377,17 @@ public class VMHistorialEstudiante {
 			codigoLapso = apelacion.get(j).getId().getCodigoLapso();
 			System.out.println(sancion);
 			System.out.println(codigoLapso);
-			if (sancion.equalsIgnoreCase("RR")) {
+			
+			if (apelacion.get(j).getSancionMaestro().getIdSancion() == 2) {
 				asignaturas = servicioasignaturaestudiantesancionado
 						.buscarAsignaturaDeSancion(cedula, codigoLapso);
 				if (asignaturas != null){
 					for (int i = 0; i < asignaturas.size(); i++){
 						asignaturaLapsosConsecutivos += asignaturas.get(i)
-								.getAsignatura().getNombreAsignatura()
-								+ ", ";
+								.getAsignatura().getNombreAsignatura();
+						if(i+1 < asignaturas.size()){
+							asignaturaLapsosConsecutivos +=", ";
+						}
 					
 					}
 					estudianteH.setAsignaturas(asignaturaLapsosConsecutivos);
