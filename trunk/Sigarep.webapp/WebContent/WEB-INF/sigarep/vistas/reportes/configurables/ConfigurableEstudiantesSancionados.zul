@@ -30,7 +30,7 @@
 						<label id="lblLapsoAcademico" value="Lapso Académico:" />
 						<combobox id="cmbLapsoAcademico" mold="rounded" readonly="true" 
 						placeholder = "Seleccione un lapso académico..."
-						width="100%" cols="23" maxlength="30" tabindex="2"
+						width="100%" cols="23" maxlength="6" tabindex="2"
 						model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.objLapso)" 
 						onSelect="@command('objCmbLapso')" >
 							<template name="model">
@@ -42,7 +42,7 @@
 						<label id="lblTipodeSancion" value="Tipo de Sanción:" />
 						<combobox id="cmbTipoSancion" mold="rounded" readonly="true" 
 						placeholder = "Seleccione un tipo de sanción..." disabled="false"
-						width="100%" cols="23" maxlength="30" tabindex="3"
+						width="100%" cols="23" maxlength="60" tabindex="3"
 						model="@load(vm.listaSancion)" selectedItem="@bind(vm.objSancion)"
 						 onSelect="@command('configurarComboAsignatura')" >
 							<template name="model">
@@ -52,7 +52,7 @@
 						<label id="lblInstanciA" value="Instancia Apelada:" />
 						<combobox id="cmbInstanciaA" readonly="true" mold="rounded"
 						placeholder = "Seleccione una instancia apelada..."
-						width="100%" cols="23" maxlength="30" tabindex="4"
+						width="100%" cols="23" maxlength="100" tabindex="4"
 						 model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)"
 						  onSelect="@command('objCmbinstanciaApelada')" >
 							<template name="model">

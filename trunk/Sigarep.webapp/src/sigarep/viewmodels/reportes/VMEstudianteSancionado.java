@@ -633,7 +633,7 @@ public class VMEstudianteSancionado {
 			configurarParametroSexo();
 			configurarParametroVeredicto();
 			configurarParametroEdoApelacion();
-			if(objSancion.getNombreSancion().equals("RR")){
+			if(objSancion.getIdSancion()==2){//idsancion= 2 es RR
 				parametroAsignatura="";
 				configurarParametroAsignatura();
 			}
