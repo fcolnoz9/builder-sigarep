@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpEstudiantesSancionadosConfigurable" pageWidth="1100" pageHeight="790" orientation="Landscape" columnWidth="1060" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="b3823c86-991a-4fc5-ab3b-437772350861">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="91"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.x" value="389"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="ReportTitle" class="java.lang.String"/>
 	<parameter name="Report name" class="java.lang.String"/>
 	<parameter name="name" class="java.lang.String"/>
@@ -344,7 +344,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{edoApelacion}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="951" y="0" width="109" height="20" isRemoveLineWhenBlank="true" uuid="1a52cc6a-ff53-4f94-a11c-5d6faba5c1bc"/>
 				<box>
 					<pen lineWidth="0.75"/>
