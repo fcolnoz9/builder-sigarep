@@ -9,17 +9,17 @@ public class VMNodoMenuArbol extends DefaultTreeNode<Nodo> {
 	
 	private boolean open = false;
 
-	public VMNodoMenuArbol(Nodo data, DefaultTreeNode<Nodo>[] children) {
-		super(data, children);
+	public VMNodoMenuArbol(Nodo datos, DefaultTreeNode<Nodo>[] ninos) {
+		super(datos, ninos);
 	}
 
-	public VMNodoMenuArbol(Nodo data, DefaultTreeNode<Nodo>[] children, boolean open) {
-		super(data, children);
-		setOpen(open);
+	public VMNodoMenuArbol(Nodo datos, DefaultTreeNode<Nodo>[] ninos, boolean abierto) {
+		super(datos, ninos);
+		setOpen(abierto);
 	}
 
-	public VMNodoMenuArbol(Nodo data) {
-		super(data);
+	public VMNodoMenuArbol(Nodo datos) {
+		super(datos);
 	}
 
 	public boolean isOpen() {

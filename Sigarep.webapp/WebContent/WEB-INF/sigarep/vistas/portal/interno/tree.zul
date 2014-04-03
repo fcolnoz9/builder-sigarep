@@ -4,7 +4,7 @@
     
 <!--     Zclass="z-vfiletree" -->
 	<tree id="tree" multiple="false" 
- 		height="100%" hflex="true" vflex="true" model="@load(vm.contactTreeModel)" ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarMenuArbolAplicacion"> 
+ 		height="100%" hflex="true" vflex="true" model="@load(vm.modeloMenuArbol)" ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarMenuArbolAplicacion"> 
  		<treecols> 
 			<treecol label="MENU SIGAREP" sclass="fondo_arbol1" /> 
  		</treecols>

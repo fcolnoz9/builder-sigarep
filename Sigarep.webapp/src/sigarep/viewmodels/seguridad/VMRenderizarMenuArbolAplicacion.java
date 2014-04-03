@@ -18,30 +18,30 @@ public class VMRenderizarMenuArbolAplicacion implements TreeitemRenderer<VMNodoM
 	Window w=null;
 	UtilidadArbol utilidadArbol = new UtilidadArbol();
 	@Override
-	public void render(final Treeitem treeItem, VMNodoMenuArbol treeNode, int index) throws Exception {
-		VMNodoMenuArbol ctn = treeNode;
-		Nodo contact = (Nodo) ctn.getData();
+	public void render(final Treeitem articuloArbol, VMNodoMenuArbol nodoArbol, int indice) throws Exception {
+		VMNodoMenuArbol ctn = nodoArbol;
+		Nodo nodo = (Nodo) ctn.getData();
 
-		Treerow dataRow = new Treerow();
-		dataRow.setParent(treeItem);
-		treeItem.setValue(ctn);
+		Treerow filaArbol = new Treerow();
+		filaArbol.setParent(articuloArbol);
+		articuloArbol.setValue(ctn);
 			Hlayout hl = new Hlayout();		
-			Treecell treeCell = new Treecell();
-			treeCell.setLabel(contact.getNombreFuncion()); //1
-			treeCell.appendChild(hl);
-			if (contact.esFuncion()){
-				treeCell.setImage("/imagenes/iconos/funcion-tree.png");
+			Treecell celdaArbol = new Treecell();
+			celdaArbol.setLabel(nodo.getNombreFuncion()); //1
+			celdaArbol.appendChild(hl);
+			if (nodo.esFuncion()){
+				celdaArbol.setImage("/imagenes/iconos/funcion-tree.png");
 			}
-			dataRow.appendChild(treeCell);
-			dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
+			filaArbol.appendChild(celdaArbol);
+			filaArbol.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 				@Override
 				public void onEvent(Event event) throws Exception {
-					VMNodoMenuArbol clickedNodeValue = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent()).getValue();
-					if (clickedNodeValue.getData().getVinculo() != null) {
+					VMNodoMenuArbol valorNodoClickeado = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent()).getValue();
+					if (valorNodoClickeado.getData().getVinculo() != null) {
 						if (w != null) {
 							w.detach();
 						}
-					utilidadArbol.onClickMenu(clickedNodeValue.getData().getVinculo(),clickedNodeValue.getData().getRutaModal());
+					utilidadArbol.onClickMenu(valorNodoClickeado.getData().getVinculo(),valorNodoClickeado.getData().getRutaModal());
 					}
 				}
 			});

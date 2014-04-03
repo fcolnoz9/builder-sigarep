@@ -46,17 +46,17 @@ public class VMRegistrarGrupo {
 	@Wire
 	private Window demoWindowRegistrarGrupo;
 	@Wire
-	private Tree tree;
+	private Tree arbol;
 	@Wire
-	private Tree tree2;
+	private Tree arbol2;
 
 	private @WireVariable ServicioNodo servicionodo;
 
-	private VMModeloArbolAvanzado contactTreeModel;
-	private VMModeloArbolAvanzado contactTreeModel2;
+	private VMModeloArbolAvanzado modeloMenuArbol;
+	private VMModeloArbolAvanzado modeloMenuArbol2;
 	
-	private static VMNodoMenuArbol  root;
-	private static VMNodoMenuArbol  root2;
+	private static VMNodoMenuArbol  raiz;
+	private static VMNodoMenuArbol  raiz2;
 	
 	@WireVariable
 	private ServicioGrupo serviciogrupo;
@@ -84,63 +84,63 @@ public class VMRegistrarGrupo {
 		this.servicionodo = snodo;
 	}
 	
-	public Tree getTree() {
-		return tree;
+	public Tree getArbol() {
+		return arbol;
 	}
 
 
-	public void setTree(Tree tree) {
-		this.tree = tree;
+	public void setArbol(Tree arbol) {
+		this.arbol = arbol;
 	}
 
 
-	public Tree getTree2() {
-		return tree2;
+	public Tree getArbol2() {
+		return arbol2;
 	}
 
 
-	public void setTree2(Tree tree2) {
-		this.tree2 = tree2;
+	public void setArbol2(Tree arbol2) {
+		this.arbol2 = arbol2;
 	}
 
 
-	public VMModeloArbolAvanzado getContactTreeModel() {
-		return contactTreeModel;
+	public VMModeloArbolAvanzado getModeloMenuArbol() {
+		return modeloMenuArbol;
 	}
 
 
-	public void setContactTreeModel(VMModeloArbolAvanzado contactTreeModel) {
-		this.contactTreeModel = contactTreeModel;
+	public void setModeloMenuArbol(VMModeloArbolAvanzado modeloMenuArbol) {
+		this.modeloMenuArbol = modeloMenuArbol;
 	}
 
 
-	public VMModeloArbolAvanzado getContactTreeModel2() {
-		return contactTreeModel2;
+	public VMModeloArbolAvanzado getModeloMenuArbol2() {
+		return modeloMenuArbol2;
 	}
 
 
-	public void setContactTreeModel2(VMModeloArbolAvanzado contactTreeModel2) {
-		this.contactTreeModel2 = contactTreeModel2;
+	public void setModeloMenuArbol2(VMModeloArbolAvanzado modeloMenuArbol2) {
+		this.modeloMenuArbol2 = modeloMenuArbol2;
 	}
 
 
-	public VMNodoMenuArbol getRoot2() {
-		return root2;
+	public VMNodoMenuArbol getRaiz2() {
+		return raiz2;
 	}
 
 
-	public void setRoot2(VMNodoMenuArbol root2) {
-		this.root2 = root2;
+	public void setRaiz2(VMNodoMenuArbol raiz2) {
+		this.raiz2 = raiz2;
 	}
 
 
-	public void setRoot(VMNodoMenuArbol root) {
-		this.root = root;
+	public void setRaiz(VMNodoMenuArbol raiz) {
+		this.raiz = raiz;
 	}
 
 
-	public VMNodoMenuArbol getRoot() {
-		return root;
+	public VMNodoMenuArbol getRaiz() {
+		return raiz;
 	}
 
 	public Integer getIdGrupo() {
@@ -241,9 +241,9 @@ public class VMRegistrarGrupo {
 	public void Init(@ContextParam(ContextType.VIEW) Component view, Component comp) throws Exception {
 		Selectors.wireComponents(view, this, false);
 		cargarArbol();	
-		contactTreeModel = new VMModeloArbolAvanzado(root); //modelo del menú arbol de las funciones que no tiene el grupo (es variable) 
-		root2 = new VMNodoMenuArbol(null,null); 
-		contactTreeModel2 = new VMModeloArbolAvanzado(root2); //modelo del menú arbol de las funciones del grupo (es variable).
+		modeloMenuArbol = new VMModeloArbolAvanzado(raiz); //modelo del menú arbol de las funciones que no tiene el grupo (es variable) 
+		raiz2 = new VMNodoMenuArbol(null,null); 
+		modeloMenuArbol2 = new VMModeloArbolAvanzado(raiz2); //modelo del menú arbol de las funciones del grupo (es variable).
 		buscarListadoGrupos();
 	}
 	
@@ -254,16 +254,16 @@ public class VMRegistrarGrupo {
 	 * @throws no ocurren excepciones 
 	 */
 	
-	@NotifyChange({"root"})
+	@NotifyChange({"raiz"})
 	public void cargarArbol(){
-		root = new VMNodoMenuArbol(null,null);
+		raiz = new VMNodoMenuArbol(null,null);
 		VMNodoMenuArbol aux=null;
 		ArrayList<Nodo> nodosPorPadreOrdenados = new ArrayList<Nodo>(servicionodo.buscarNodosPorPadre(0));
 		Collections.sort(nodosPorPadreOrdenados, new Nodo());
 		for(Nodo a:nodosPorPadreOrdenados){
 			aux=new VMNodoMenuArbol(a,null);
 		    this.cargarHijos(aux,a);
-			root.add(aux);
+		    raiz.add(aux);
 		}
 	}
 
@@ -300,7 +300,7 @@ public class VMRegistrarGrupo {
 	 */
 	
 	@Command
-	@NotifyChange({ "idGrupo", "descripcion", "nombre","grupoAux","listaGrupos","contactTreeModel","contactTreeModel2"})
+	@NotifyChange({ "idGrupo", "descripcion", "nombre","grupoAux","listaGrupos","modeloMenuArbol","modeloMenuArbol2"})
 	public void guardarGrupo(){
 		Grupo grupo1;
 		Set<Nodo> nodos = new HashSet<Nodo>();
@@ -308,7 +308,7 @@ public class VMRegistrarGrupo {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		 else if(grupoAux == null && serviciogrupo.buscarGrupoNombre(nombre)!=null)
 			 mensajeAlUsuario.advertenciaGrupoYaExistente(nombre);
-		else if (root2.getChildren().size() > 0) {
+		else if (raiz2.getChildren().size() > 0) {
 			if (grupoAux == null) {
 				grupo1 = new Grupo();
 				grupo1.setIdGrupo(idGrupo);
@@ -321,8 +321,8 @@ public class VMRegistrarGrupo {
 			grupo1.setNombre(nombre);
 			grupo1.setEstatus(true);
 
-			if (root2.getChildCount() > 0) {
-				for (TreeNode<Nodo> a2 : root2.getChildren()) {
+			if (raiz2.getChildCount() > 0) {
+				for (TreeNode<Nodo> a2 : raiz2.getChildren()) {
 					cargarHijosGrupo(a2, nodos);
 				}
 			}
@@ -337,14 +337,14 @@ public class VMRegistrarGrupo {
 	/**
 	 * cargarHijosGrupo
 	 * metodo que carga los nodos hijos (funciones) del grupo de usuario
-	 * @param root(nodo del arbol), nodos(Colección de nodos hijos encontrados) 
+	 * @param raiz(nodo del arbol), nodos(Colección de nodos hijos encontrados) 
 	 * @return No devuelve ningun valor pero actualiza la coleccion de nodos hijos.
 	 * @throws no ocurren excepciones 
 	 */
 	
-	public void cargarHijosGrupo(TreeNode<Nodo> root, Set<Nodo> nodos) {
-		if (root.getChildCount() > 0) {
-			for (TreeNode<Nodo> a2 : root.getChildren()) {
+	public void cargarHijosGrupo(TreeNode<Nodo> raiz, Set<Nodo> nodos) {
+		if (raiz.getChildCount() > 0) {
+			for (TreeNode<Nodo> a2 : raiz.getChildren()) {
 				if (a2.getData().esFuncion()==false) {
 					cargarHijosGrupo(a2, nodos);
 				} else {
@@ -352,7 +352,7 @@ public class VMRegistrarGrupo {
 				}
 			}
 		} else {
-			nodos.equals(root.getData());
+			nodos.equals(raiz.getData());
 		}
 	}
 	
@@ -366,14 +366,14 @@ public class VMRegistrarGrupo {
 	 */
 	
 	@Command
-	@NotifyChange({ "nombre", "descripcion", "contactTreeModel2","contactTreeModel","root","root2","listaGrupos","grupoSeleccionado","grupoAux"})
+	@NotifyChange({ "nombre", "descripcion", "modeloMenuArbol2","modeloMenuArbol","raiz","raiz2","listaGrupos","grupoSeleccionado","grupoAux"})
 	public void limpiar(){
 		nombre = "";
 		descripcion = "";
 		cargarArbol();
-		contactTreeModel = new VMModeloArbolAvanzado(root);
-		root2 = new VMNodoMenuArbol(null,null);
-		contactTreeModel2 = new VMModeloArbolAvanzado(root2);
+		modeloMenuArbol = new VMModeloArbolAvanzado(raiz);
+		raiz2 = new VMNodoMenuArbol(null,null);
+		modeloMenuArbol2 = new VMModeloArbolAvanzado(raiz2);
 		grupoSeleccionado = null;
 		grupoAux = null;
 		buscarListadoGrupos();
@@ -382,27 +382,27 @@ public class VMRegistrarGrupo {
 	/**
 	 * buscarGrupo
 	 * metodo que busca la información del grupo, el nombre, la descripción, 
-	 * el menú asociado con sus funcionalidades actuales (contactTreeModel2)
+	 * el menú asociado con sus funcionalidades actuales (modeloMenuArbol2)
 	 * así como el menú de las funcionalidades que no están asociadas al grupo
-	 * (contactTreeModel) y que aun se pueden asociar. 
+	 * (modeloMenuArbol) y que aun se pueden asociar. 
 	 * @return No devuelve ningun valor.
 	 * @throws no ocurren excepciones 
 	 */
 	
 	@Command
-	@NotifyChange({ "nombre", "descripcion","grupoAux","grupoAux2","contactTreeModel","contactTreeModel2","grupoSeleccionado"})
+	@NotifyChange({ "nombre", "descripcion","grupoAux","grupoAux2","modeloMenuArbol","modeloMenuArbol2","grupoSeleccionado"})
 	public void buscarGrupo(@BindingParam("listboxGrupos") Listbox listboxGrupos){
 			grupoAux = new Grupo();
 			grupoAux2 = new Grupo();
 			Grupo g = serviciogrupo.buscarGrupoNombre(grupoSeleccionado.getNombre());
 			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());		
 			Collections.sort(nodosOrdenados, new Nodo());
-			root2 = new VMNodoMenuArbol(null,null);
-			cargarMenu(nodosOrdenados,root2);
-			contactTreeModel2 = new VMModeloArbolAvanzado(root2);
-			root = new VMNodoMenuArbol(null,null);
-			cargarMenu(servicionodo.funcionesGrupoNoPerteneceGrupo(g.getIdGrupo()), root);
-			contactTreeModel = new VMModeloArbolAvanzado(root);
+			raiz2 = new VMNodoMenuArbol(null,null);
+			cargarMenu(nodosOrdenados,raiz2);
+			modeloMenuArbol2 = new VMModeloArbolAvanzado(raiz2);
+			raiz = new VMNodoMenuArbol(null,null);
+			cargarMenu(servicionodo.funcionesGrupoNoPerteneceGrupo(g.getIdGrupo()), raiz);
+			modeloMenuArbol = new VMModeloArbolAvanzado(raiz);
 			grupoAux = g;
 			grupoAux2 = g;
 			nombre = grupoAux.getNombre();
@@ -413,22 +413,22 @@ public class VMRegistrarGrupo {
 	/**
 	 * cargarMenu
 	 * metodo reusable que permite cargar los nodos (funciones) del menú del grupo y del menú genera
-	 * @param nodos(Colección de nodos hijos), root(nodo raíz del arbol). 
+	 * @param nodos(Colección de nodos hijos), raiz(nodo raíz del arbol). 
 	 * @return No devuelve ningun valor.
 	 * @throws no ocurren excepciones 
 	 */
 	
-	public void cargarMenu(List<Nodo> nodos, VMNodoMenuArbol root){
+	public void cargarMenu(List<Nodo> nodos, VMNodoMenuArbol raiz){
 		VMNodoMenuArbol aux=null;
 		for(Nodo a:nodos){
 			aux=new VMNodoMenuArbol(a);
 			VMNodoMenuArbol ctreenodo = this.cargarPadre(aux);
 			ctreenodo.setOpen(true);
-			Integer j = root.getChildCount();
+			Integer j = raiz.getChildCount();
 			if(!(j.compareTo(0)==0)){
-				this.cargarNodos(ctreenodo,root);
+				this.cargarNodos(ctreenodo,raiz);
 			}else{
-				root.add(ctreenodo);
+				raiz.add(ctreenodo);
 			}	
 		}	
 	}
@@ -461,23 +461,23 @@ public class VMRegistrarGrupo {
 	 * @throws no ocurren excepciones 
 	 */
 	
-	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
+	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol raiz) { 
 		boolean encontro=false;
-		 for(int j=0;j< root.getChildCount();j++){
-			  if(root.getChildAt(j).getData().getId().compareTo(nodo.getData().getId())==0){
+		 for(int j=0;j< raiz.getChildCount();j++){
+			  if(raiz.getChildAt(j).getData().getId().compareTo(nodo.getData().getId())==0){
 				  for(int i=0;i< nodo.getChildCount();i++){
 				    if(nodo.getChildCount()==1)
-				    	 cargarNodos((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));  
+				    	 cargarNodos((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) raiz.getChildAt(j));  
 				    else{
 				    	 VMNodoMenuArbol aux = new VMNodoMenuArbol(nodo.getChildAt(i).getData(),null);
-				    	 cargarNodos(aux,(VMNodoMenuArbol) root.getChildAt(j));
+				    	 cargarNodos(aux,(VMNodoMenuArbol) raiz.getChildAt(j));
 				     }
 				  }
 				    encontro=true;
 			    }
 		 }
 		 if(!encontro){
-			 root.add(nodo);
+			 raiz.add(nodo);
 		 }
 	}	
 	
@@ -519,7 +519,7 @@ public class VMRegistrarGrupo {
 	@Command
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = false;
-		if(root2.getChildCount() > 0)
+		if(raiz2.getChildCount() > 0)
 				condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
