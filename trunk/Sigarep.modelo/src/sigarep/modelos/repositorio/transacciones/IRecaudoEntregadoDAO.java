@@ -12,32 +12,16 @@ import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 public interface IRecaudoEntregadoDAO extends
 		JpaRepository<RecaudoEntregado, RecaudoEntregadoPK> {
 
-	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico la " +
-		   "WHERE re.id.cedulaEstudiante = :cedula AND re.id.codigoLapso = la.codigoLapso " +
-		   "AND la.estatus = 'TRUE'")
-	public List<RecaudoEntregado> buscarRecaudosEntregados(@Param("cedula") String cedula);
-
-	/** busqueda de recaudos entregados, Verificar Recaudos - Recurso Reconsideracion  
-    * @param cedula
-    * @return lista de recaudos entregados de un estudiante sancionado
-    */
-	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la, InstanciaApelada i " +
-			   "WHERE re.id.cedulaEstudiante = :cedula AND re.id.codigoLapso = la.codigoLapso " +
-			   "AND re.id.idInstanciaApelada = i.idInstanciaApelada AND la.estatus = 'TRUE' AND re.id.idInstanciaApelada = '1'")
-	public List<RecaudoEntregado> buscarRecaudosEntregadosReconsideracion(@Param("cedula") String cedula);
-	
-	/** busqueda de recaudos entregados, Verificar Recaudos - Recurso Reconsideracion  
-	    * @param cedula
-	    * @return lista de recaudos entregados de un estudiante sancionado
-	    */
 	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la "
 			+ "WHERE re.id.cedulaEstudiante = :cedula "
 			+ "AND re.id.codigoLapso = la.codigoLapso "
 			+ "AND la.estatus = 'TRUE'")
-	public List<RecaudoEntregado> buscarRecaudosEntregadosRecursoJerarquico(@Param("cedula") String cedula);
+	public List<RecaudoEntregado> buscarRecaudosEntregadosLapsoActual(@Param("cedula") String cedula);
 	
-	//Nuevo y Reusable Sustituye buscarRecaudosEntregadosVeredictoI, II y III
-	public List<RecaudoEntregado> findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(String cedulaEstudiante, String codigoLapso, Integer idInstanciaApelada);
+	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la "
+			+ "WHERE re.id.cedulaEstudiante = :cedula "
+			+ "AND re.id.codigoLapso = :codigoLapso")
+	public List<RecaudoEntregado> buscarRecaudosEntregadosPorLapsoAcademico(@Param("cedula") String cedula, @Param("codigoLapso") String codigoLapso);
 	
 	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
 			"WHERE re.id.codigoLapso = la.codigoLapso " +
