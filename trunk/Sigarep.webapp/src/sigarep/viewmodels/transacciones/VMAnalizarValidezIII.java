@@ -392,7 +392,7 @@ public class VMAnalizarValidezIII {
 	@NotifyChange({ "listaRecaudo" })
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregados(cedula);
+				.buscarRecaudosEntregadosLapsoActual(cedula);
 		return listaRecaudo;
 	}
 
@@ -522,7 +522,7 @@ public class VMAnalizarValidezIII {
 		observacion = "";
 		selected = "";
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregados(cedula);
+				.buscarRecaudosEntregadosLapsoActual(cedula);
 
 	}
 

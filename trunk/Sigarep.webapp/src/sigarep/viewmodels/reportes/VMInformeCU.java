@@ -293,9 +293,9 @@ public class VMInformeCU {
 		concatenacionNombres();
 		concatenacionApellidos();
 		listaRecaudos1 = serviciorecaudoentregado
-				.buscarRecaudosEntregadosVeredictoI(cedula, codigoLapso);
+				.buscarRecaudosEntregadosPorLapsoAcademico(cedula, codigoLapso);
 		listaRecaudos2 = serviciorecaudoentregado
-				.buscarRecaudosEntregadosVeredictoII(cedula, codigoLapso);
+				.buscarRecaudosEntregadosPorLapsoAcademico(cedula, codigoLapso);
 		generarReporte();
 	}
 

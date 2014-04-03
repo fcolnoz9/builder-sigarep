@@ -267,7 +267,7 @@ public class VMRegistrarRecursoJerarquico {
 	@NotifyChange({ "listaRecaudos" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudos = serviciorecaudoentregado
-				.buscarRecaudosEntregadosRecursoJerarquico(cedula);
+				.buscarRecaudosEntregadosLapsoActual(cedula);
 	}
 
 	/**

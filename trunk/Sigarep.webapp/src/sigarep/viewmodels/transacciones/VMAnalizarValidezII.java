@@ -394,7 +394,7 @@ public class VMAnalizarValidezII {
 	@NotifyChange({ "listaRecaudo" })
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregados(cedula);
+				.buscarRecaudosEntregadosLapsoActual(cedula);
 		return listaRecaudo;
 	}
 
@@ -520,7 +520,7 @@ public class VMAnalizarValidezII {
 	public void limpiar(){
 		observacion = "";
 		selected = "";
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosLapsoActual(cedula);
 	}
 	
 	@GlobalCommand
