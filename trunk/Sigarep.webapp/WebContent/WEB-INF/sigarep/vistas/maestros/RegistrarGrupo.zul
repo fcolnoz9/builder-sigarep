@@ -83,14 +83,14 @@
     		<rows>
     			<row>
     				<tree id="tree" height="250px"
-    					hflex="true" vflex="true" model="@load(vm.contactTreeModel)"
+    					hflex="true" vflex="true" model="@load(vm.modeloMenuArbol)"
     					ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarModeloMenuArbolPrincipal" width="90%">
     					<treecols>
     						<treecol label="Menu Principal" />
     					</treecols>
     				</tree>
     				<tree id="tree2" height="250px"
-    					hflex="true" vflex="true" model="@load(vm.contactTreeModel2)"
+    					hflex="true" vflex="true" model="@load(vm.modeloMenuArbol2)"
     					ItemRenderer="sigarep.viewmodels.seguridad.VMRenderizarMenuArbolGrupo" width="90%">
     					<treecols>
     						<treecol label="Menu del Grupo" />

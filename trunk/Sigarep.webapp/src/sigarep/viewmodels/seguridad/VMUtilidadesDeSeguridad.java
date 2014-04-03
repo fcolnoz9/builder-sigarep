@@ -45,9 +45,7 @@ import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 @SuppressWarnings("rawtypes")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMUtilidadesDeSeguridad {
-	/**
-	 * Return the current Authentication object.
-	 */
+
 	private Archivo fotoUsuario = new Archivo();
 	private Media media;
 	private String href = "";
@@ -59,6 +57,10 @@ public class VMUtilidadesDeSeguridad {
 	@WireVariable
 	ServicioUsuario serviciousuario;
 
+	/**
+	 * Retorna el objeto de autenticación actual.
+	 */
+	
 	public static Usuario getUser() {
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -74,43 +76,39 @@ public class VMUtilidadesDeSeguridad {
 			}
 			return null;
 		} catch (RuntimeException e) {
-			Window window = (Window) Executions.createComponents(
+			Window ventana = (Window) Executions.createComponents(
 					"/accesoDenegado.zul", null, null);
-			window.doModal();
+			ventana.doModal();
 			throw e;
 		}
 	}
 
 	/**
-	 * Return true if the authenticated principal is granted NONE of the roles
-	 * specified in authorities.
+	 * Devuelve true si el principal autenticado no concede NINGUNA 
+	 * de las funciones especificadas en las autoridades.
 	 * 
-	 * @param authorities
-	 *            A comma separated list of roles which the user must have been
-	 *            granted NONE.
-	 * @return true if the authenticated principal is granted authorities of
-	 *         NONE the specified roles.
+	 * @param autoridades
+	 *	Una lista separada por comas de las funciones que el usuario debe tener concedido NINGUNO
+	 * @return true si el principal autenticado no posee autoridades de NINGUNA de las funciones especificadas.
 	 */
-	public static boolean isNoneGranted(String authorities) {
-		if (null == authorities || "".equals(authorities)) {
+	public static boolean esAutorizado(String autoridades) {
+		if (null == autoridades || "".equals(autoridades)) {
 			return false;
 		}
-		final Collection<? extends GrantedAuthority> granted = getPrincipalAuthorities();
+		final Collection<? extends GrantedAuthority> autoridadesConcedidas = getPrincipalAutoridades();
 
-		final Set grantedCopy = retainAll(granted,
-				parseAuthorities(authorities));
-		return grantedCopy.isEmpty();
+		final Set autoridadesConcedidasCopia = conservarTodos(autoridadesConcedidas,convertirAutoridades(autoridades));
+		return autoridadesConcedidasCopia.isEmpty();
 	}
 
 	/**
-	 * Return true if the authenticated principal is granted ALL of the roles
-	 * specified in authorities.
+	 * Devuelve true si se concede el principal autenticado TODOS los roles 
+	 * que se especifican en las autoridades.
 	 * 
-	 * @param authorities
-	 *            A comma separated list of roles which the user must have been
-	 *            granted ALL.
-	 * @return true true if the authenticated principal is granted authorities
-	 *         of ALL the specified roles.
+	 * @param autoridades
+	 *	Una lista separada por comas de las funciones que al usuario se le debe haber otorgado, todas separados.
+	 * @return true si al principal autenticado se le concedieron las autoridades 
+	 * de TODAS las funciones especificadas.
 	 */
 
 	public User getUsuario() {
@@ -219,38 +217,38 @@ public class VMUtilidadesDeSeguridad {
 		mensajes.confirmacionCerrarSesion();
 	}	
        
-	public static boolean isAllGranted(String authorities) {
-		if (null == authorities || "".equals(authorities)) {
+	public static boolean sonTodasLasAutoridadesConcedidas(String autoridades) {
+		if (null == autoridades || "".equals(autoridades)) {
 			return false;
 		}
-		final Collection<? extends GrantedAuthority> granted = getPrincipalAuthorities();
-		boolean isAllGranted = granted.containsAll(parseAuthorities(authorities));
-		return isAllGranted;
+		final Collection<? extends GrantedAuthority> autoridadesConcedidas = getPrincipalAutoridades();
+		boolean sonTodasLasAutoridadesConcedidas = autoridadesConcedidas.containsAll(convertirAutoridades(autoridades));
+		return sonTodasLasAutoridadesConcedidas;
 	}
         
 	/**
-	 * Return true if the authenticated principal is granted ANY of the roles
-	 * specified in authorities.
+	 * Devuelve true si se concede al principal autenticado CUALQUIERA de 
+	 * las funciones especificadas en las autoridades.
 	 * 
-	 * @param authorities
-	 *            A comma separated list of roles which the user must have been
-	 *            granted ANY.
-	 * @return true true if the authenticated principal is granted authorities
-	 *         of ALL the specified roles.
+	 * @param autoridades
+	 * Una lista separada por comas de los roles que debe 
+	 *         haber sido otorgados al usuario CUALQUIER separado.
+	 * @return true si al principal autenticado se le concede autoridades
+	 *  	   de TODAS las funciones especificadas.
 	 */
-	public static boolean isAnyGranted(String authorities) {
-		if (null == authorities || "".equals(authorities)) {
+	public static boolean tieneConcedidaAlgunaAutoridad(String autoridades) {
+		if (null == autoridades || "".equals(autoridades)) {
 			return false;
 		}
-		final Collection<? extends GrantedAuthority> granted = getPrincipalAuthorities();
-		final Set grantedCopy = retainAll(granted,parseAuthorities(authorities));
-		return !grantedCopy.isEmpty();
+		final Collection<? extends GrantedAuthority> autoridadesConcedidas = getPrincipalAutoridades();
+		final Set autoridadesConcedidasCopia = conservarTodos(autoridadesConcedidas,convertirAutoridades(autoridades));
+		return !autoridadesConcedidasCopia.isEmpty();
 	}
         
 	public static List<String> roles() {
 		List<String> roles = new ArrayList<String>();
-		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-		Iterator<? extends GrantedAuthority> iterador = currentUser.getAuthorities().iterator();
+		Authentication usuarioActual = SecurityContextHolder.getContext().getAuthentication();
+		Iterator<? extends GrantedAuthority> iterador = usuarioActual.getAuthorities().iterator();
 		while (iterador.hasNext()) {
 			roles.add(iterador.next().getAuthority());
 		}
@@ -258,122 +256,122 @@ public class VMUtilidadesDeSeguridad {
 		return roles;
 	}
         
-	private static Collection<? extends GrantedAuthority> getPrincipalAuthorities() {
-		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-		if (null == currentUser) {
+	private static Collection<? extends GrantedAuthority> getPrincipalAutoridades() {
+		Authentication usuarioActual = SecurityContextHolder.getContext().getAuthentication();
+		if (null == usuarioActual) {
 			return Collections.emptyList();
 		}
-		if ((null == currentUser.getAuthorities())
-				|| (currentUser.getAuthorities().isEmpty())) {
+		if ((null == usuarioActual.getAuthorities())
+				|| (usuarioActual.getAuthorities().isEmpty())) {
 			return Collections.emptyList();
 		}
-		Collection<? extends GrantedAuthority> granted = currentUser.getAuthorities();
-		return granted;
+		Collection<? extends GrantedAuthority> autoridadesConcedidas = usuarioActual.getAuthorities();
+		return autoridadesConcedidas;
 	}
 
-    private static Collection<GrantedAuthority> parseAuthorities(String authorizationsString) {
-        final ArrayList<GrantedAuthority> required = new ArrayList<GrantedAuthority>();
-        final String[] roles = authorizationsString.split(",");
+    private static Collection<GrantedAuthority> convertirAutoridades(String autorizacionesString) {
+        final ArrayList<GrantedAuthority> autoridadesRequeridas = new ArrayList<GrantedAuthority>();
+        final String[] roles = autorizacionesString.split(",");
 
         for (int i = 0; i < roles.length; i++) {
-            String role = roles[i].trim();
-            required.add(new SimpleGrantedAuthority(role));
+            String rol = roles[i].trim();
+            autoridadesRequeridas.add(new SimpleGrantedAuthority(rol));
         }
-        return required;
+        return autoridadesRequeridas;
     }
 
     /**
-     * Find the common authorities between the current authentication's {@link GrantedAuthority} and the ones
-     * that have been specified in the tag's ifAny, ifNot or ifAllGranted attributes.<p>We need to manually
-     * iterate over both collections, because the granted authorities might not implement {@link
-     * Object#equals(Object)} and {@link Object#hashCode()} in the same way as {@link SimpleGrantedAuthority}, thereby
-     * invalidating {@link Collection#retainAll(java.util.Collection)} results.</p>
+     * Encuentra las autoridades comunes entre la corriente de autenticación 
+     * {@ link GrantedAuthority} y las que se han especificado en ifAny de la etiqueta, 
+     * o IfNot ifAllGranted atributos. <p> Tenemos que iterar manualmente sobre ambas colecciones, 
+     * porque las autoridades concedidas podrían no aplicar {@ linkObject # equals (Object)} y 
+     * {@ link Object # hashCode ()} de la misma manera que {@ link SimpleGrantedAuthority}, lo 
+     * que invalida {@ link Collection # retainAll (java.util.Collection)} resultados.</p>
      * <p>
-     * <strong>CAVEAT</strong>:  This method <strong>will not</strong> work if the granted authorities
-     * returns a <code>null</code> string as the return value of {@link
+     * <strong>CAVEAT</strong>:  Este metodo <strong>no funcionará</strong> si las autoridades otorgadas
+     * devuelven un <code>null</code> string como el valor de retorno de {@link
      * org.springframework.security.GrantedAuthority#getAuthority()}.
      * </p>
-     * <p>Reported by rawdave, on Fri Feb 04, 2005 2:11 pm in the Spring Security forum.</p>
+     * <p>Reportado por rawdave, el Vie 04 de febrero 2005 14:11 en el foro de Spring Security</p>
      *
-     * @param granted The authorities granted by the authentication. May be any implementation of {@link
-     *        GrantedAuthority} that does <strong>not</strong> return <code>null</code> from {@link
+     * @param concedido las autorizaciones otorgadas por la autenticación. Puede ser cualquier implementación de {@link
+     *        GrantedAuthority} que <strong>no</strong> devuelve <code>null</code> desde {@link
      *        org.springframework.security.GrantedAuthority#getAuthority()}.
-     * @param required A {@link Set} of {@link SimpleGrantedAuthority}s that have been built using ifAny, ifAll or
+     * @param requiere un {@link Set} de {@link SimpleGrantedAuthority}s que se han construido utilizando ifAny, ifAll o
      *        ifNotGranted.
      *
-     * @return A set containing only the common authorities between <var>granted</var> and <var>required</var>.
+     * @return Un conjunto que contiene sólo las autoridades comunes entre <var>granted</var> y <var>required</var>.
      */
-    private static Set retainAll(final Collection<? extends GrantedAuthority> granted, final Collection<? extends GrantedAuthority> required) {
-        Set<String> grantedRoles = toRoles(granted);
-        Set<String> requiredRoles = toRoles(required);
-        grantedRoles.retainAll(requiredRoles);
-        return toAuthorities(grantedRoles, granted);
+    private static Set conservarTodos(final Collection<? extends GrantedAuthority> autoridadesConcedidas, final Collection<? extends GrantedAuthority> autoridadesRequeridas) {
+        Set<String> rolesConcedidos = deRoles(autoridadesConcedidas);
+        Set<String> rolesRequeridos = deRoles(autoridadesRequeridas);
+        rolesConcedidos.retainAll(rolesRequeridos);
+        return aLasAutoridades(rolesConcedidos, autoridadesConcedidas);
     }
     
     /**
      * 
-     * @param authorities
+     * @param autoridades
      * @return
      */
-	private static Set<String> toRoles(Collection<? extends GrantedAuthority> authorities) {
-		final Set<String> target = new HashSet<String>();
-		for (GrantedAuthority au : authorities) {
+	private static Set<String> deRoles(Collection<? extends GrantedAuthority> autoridades) {
+		final Set<String> autoridadesConcedidas = new HashSet<String>();
+		for (GrantedAuthority au : autoridades) {
 
 			if (null == au.getAuthority()) {
 				throw new IllegalArgumentException(
-						"Cannot process GrantedAuthority objects which return null from getAuthority() - attempting to process "
+						"No se puede procesar objetos GrantedAuthority que vuelven null de getAuthority () - intentando procesar "
 								+ au.toString());
 			}
 
-			target.add(au.getAuthority());
+			autoridadesConcedidas.add(au.getAuthority());
 		}
-		return target;
+		return autoridadesConcedidas;
 	}
         
     /**
      * 
-     * @param grantedRoles
-     * @param granted
-     * @return
+     * @param rolesConcedidos
+     * @param autoridadesConcedidas
+     * @return autoridadObjetivo
      */
-	private static Set<GrantedAuthority> toAuthorities(Set<String> grantedRoles,Collection<? extends GrantedAuthority> granted) {
-		Set<GrantedAuthority> target = new HashSet<GrantedAuthority>();
+	private static Set<GrantedAuthority> aLasAutoridades(Set<String> rolesConcedidos,Collection<? extends GrantedAuthority> autoridadesConcedidas) {
+		Set<GrantedAuthority> autoridadObjetivo = new HashSet<GrantedAuthority>();
 
-		for (String role : grantedRoles) {
-			for (GrantedAuthority authority : granted) {
+		for (String rol : rolesConcedidos) {
+			for (GrantedAuthority autoridad : autoridadesConcedidas) {
 
-				if (authority.getAuthority().equals(role)) {
-					target.add(authority);
+				if (autoridad.getAuthority().equals(rol)) {
+					autoridadObjetivo.add(autoridad);
 					break;
 				}
 			}
 		}
-		return target;
+		return autoridadObjetivo;
 	}
 
 	/**
-	 * test if current user principal contains all given authorities
+	 * prueba que verifica si el usuario actual contiene todas las autoridades que figuran
 	 * 
-	 * @param authorities
-	 *            the roles will be checked
+	 * @param autoridades de los roles que serán verificados
 	 */
-	public static void assertAll(String... authorities) {
-		if (null == authorities || authorities.length == 0) {
+	public static void afirmarTodos(String... autoridades) {
+		if (null == autoridades || autoridades.length == 0) {
 			return;
 		}
 
-		final ArrayList<GrantedAuthority> required = new ArrayList<GrantedAuthority>();
-		for (String auth : authorities) {
-			required.add(new SimpleGrantedAuthority(auth));
+		final ArrayList<GrantedAuthority> autoridadesRequeridas = new ArrayList<GrantedAuthority>();
+		for (String auth : autoridades) {
+			autoridadesRequeridas.add(new SimpleGrantedAuthority(auth));
 		}
 
-		final Collection<? extends GrantedAuthority> granted = getPrincipalAuthorities();
-		if (!granted.containsAll(required)) {
-			Authentication currentUser = SecurityContextHolder.getContext()
+		final Collection<? extends GrantedAuthority> autoridadesConcedidas = getPrincipalAutoridades();
+		if (!autoridadesConcedidas.containsAll(autoridadesRequeridas)) {
+			Authentication usuarioActual = SecurityContextHolder.getContext()
 					.getAuthentication();
 			throw new AccessDeniedException(
-					"The current principal doesn't has enough authority. Authentication: "
-						+ (currentUser == null ? "" : currentUser.getName()));
+					"El usuario actual no tiene suficiente autoridad. autenticación: "
+						+ (usuarioActual == null ? "" : usuarioActual.getName()));
 		}
 	}
 }

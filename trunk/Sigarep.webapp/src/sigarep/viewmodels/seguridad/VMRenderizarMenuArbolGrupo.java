@@ -16,41 +16,41 @@ import sigarep.modelos.data.seguridad.Nodo;
 
 public class VMRenderizarMenuArbolGrupo implements TreeitemRenderer<VMNodoMenuArbol> {
 	@Override
-	public void render(final Treeitem treeItem, VMNodoMenuArbol treeNode, int index) throws Exception {
-		VMNodoMenuArbol ctn = treeNode;
-		Nodo contact = (Nodo) ctn.getData();
-		Treerow dataRow = new Treerow();
-		dataRow.setParent(treeItem);
-		treeItem.setValue(ctn);
-		treeItem.setOpen(ctn.isOpen());
+	public void render(final Treeitem articuloArbol, VMNodoMenuArbol nodoArbol, int indice) throws Exception {
+		VMNodoMenuArbol ctn = nodoArbol;
+		Nodo nodo = (Nodo) ctn.getData();
+		Treerow filaArbol = new Treerow();
+		filaArbol.setParent(articuloArbol);
+		articuloArbol.setValue(ctn);
+		articuloArbol.setOpen(ctn.isOpen());
 		Hlayout hl = new Hlayout();
 		//hl.appendChild(new Image("/img/" + contact.getProfilepic()));
-		hl.appendChild(new Label(contact.getNombreFuncion()));
+		hl.appendChild(new Label(nodo.getNombreFuncion()));
 		hl.setSclass("h-inline-block");
-		Treecell treeCell = new Treecell();
-		treeCell.appendChild(hl);
-		dataRow.appendChild(treeCell);
-		if (contact.esFuncion()){
-			treeCell.setImage("/imagenes/iconos/funcion-tree.png");
+		Treecell celdaArbol = new Treecell();
+		celdaArbol.appendChild(hl);
+		filaArbol.appendChild(celdaArbol);
+		if (nodo.esFuncion()){
+			celdaArbol.setImage("/imagenes/iconos/funcion-tree.png");
 		}
-		if(contact.esFuncion())
-		dataRow.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
+		if(nodo.esFuncion())
+			filaArbol.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 			@Override
 			public void onEvent(Event event) throws Exception {
-				VMNodoMenuArbol clickedNodeValue = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent())
+				VMNodoMenuArbol valorNodoClickeado = (VMNodoMenuArbol) ((Treeitem) event.getTarget().getParent())
 						.getValue();
 				
 				VMNodoMenuArbol padre=null;
-				if(clickedNodeValue.getParent().getData()!=null){
-						padre=obtenePadres((VMNodoMenuArbol)clickedNodeValue.getParent(),clickedNodeValue);
+				if(valorNodoClickeado.getParent().getData()!=null){
+						padre=obtenePadres((VMNodoMenuArbol) valorNodoClickeado.getParent(),valorNodoClickeado);
 						}else{
-							padre=clickedNodeValue;
+							padre=valorNodoClickeado;
 						}
 				VMRegistrarGrupo dc=new VMRegistrarGrupo();
-				if(dc.getRoot().getChildCount()==0)
-					dc.getRoot().add(padre);
+				if(dc.getRaiz().getChildCount()==0)
+					dc.getRaiz().add(padre);
 				else{
-				this.agregarNodo(padre,dc.getRoot());
+				this.agregarNodo(padre,dc.getRaiz());
 				}
 			}
 
@@ -80,17 +80,17 @@ public class VMRenderizarMenuArbolGrupo implements TreeitemRenderer<VMNodoMenuAr
 				return padre2;
 			}
 			
-			private void agregarNodo(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
+			private void agregarNodo(VMNodoMenuArbol nodo,VMNodoMenuArbol raiz) { 
 				boolean encontro=false;
-				 for(int j=0;j< root.getChildCount();j++){
-					    if(root.getChildAt(j).getData()==nodo.getData()){	
-					    	agregarNodo((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));
+				 for(int j=0;j< raiz.getChildCount();j++){
+					    if(raiz.getChildAt(j).getData()==nodo.getData()){	
+					    	agregarNodo((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) raiz.getChildAt(j));
 					        encontro=true;
 					    	break;
 					    }
 				 }
 				 if(!encontro)
-					 root.add(nodo);
+					 raiz.add(nodo);
 					 
 			
 			}

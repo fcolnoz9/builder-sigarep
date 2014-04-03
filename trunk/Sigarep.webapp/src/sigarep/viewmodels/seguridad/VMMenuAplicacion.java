@@ -33,8 +33,8 @@ public class VMMenuAplicacion{
 			VMRenderizarMenuArbolAplicacion rendererPortalAplicacion) {
 		this.renderizarPortalAplicacion = rendererPortalAplicacion;
 	}
-	private VMModeloArbolAvanzado contactTreeModel;
-	private static VMNodoMenuArbol  rootPortalInicial;
+	private VMModeloArbolAvanzado modeloMenuArbol;
+	private static VMNodoMenuArbol  raizPortalInicial;
 	private @WireVariable ServicioNodo servicionodo;
 	private @WireVariable ServicioGrupo serviciogrupo;
 	private @WireVariable ServicioUsuario serviciousuario;
@@ -59,29 +59,29 @@ public class VMMenuAplicacion{
 		this.imagen = imagen;
 	}
 	private static String ruta="timeout.zul";
-    public VMModeloArbolAvanzado getContactTreeModel() {
-		return contactTreeModel;
+    public VMModeloArbolAvanzado getModeloMenuArbol() {
+		return modeloMenuArbol;
 	}
 
 
-	public void setContactTreeModel(VMModeloArbolAvanzado contactTreeModel) {
-		this.contactTreeModel = contactTreeModel;
+	public void setModeloMenuArbol(VMModeloArbolAvanzado modeloMenuArbol) {
+		this.modeloMenuArbol = modeloMenuArbol;
 	}
-	public static VMNodoMenuArbol getRootPortalInicial() {
-		return rootPortalInicial;
+	public static VMNodoMenuArbol getRaizPortalInicial() {
+		return raizPortalInicial;
 	}
 
 
-	public static void setRootPortalInicial(VMNodoMenuArbol rootPortalInicial) {
-		VMMenuAplicacion.rootPortalInicial = rootPortalInicial;
+	public static void setRaizPortalInicial(VMNodoMenuArbol raizPortalInicial) {
+		VMMenuAplicacion.raizPortalInicial = raizPortalInicial;
 	}
 	
 	@AfterCompose
 	@Command
 	@GlobalCommand
-	@NotifyChange({"contactTreeModel"})
+	@NotifyChange({"modeloMenuArbol"})
 	public void Init(@ContextParam(ContextType.COMPONENT) Component windowindex,@ContextParam(ContextType.VIEW) Component view) {
-		rootPortalInicial = new VMNodoMenuArbol(null,null);		
+		raizPortalInicial = new VMNodoMenuArbol(null,null);		
 		for(String rol:VMUtilidadesDeSeguridad.roles()){
 			Grupo g=serviciogrupo.buscarGrupoNombre(rol);
 			VMNodoMenuArbol aux=null;
@@ -90,15 +90,15 @@ public class VMMenuAplicacion{
 			for(Nodo a:nodosOrdenados){
 				aux=new VMNodoMenuArbol(a);
 				VMNodoMenuArbol ctreenodo= this.cargarPadre(aux);
-				Integer j = rootPortalInicial.getChildCount();
+				Integer j = raizPortalInicial.getChildCount();
 				if(!(j.compareTo(0)==0)){
-					this.cargarNodos(ctreenodo,rootPortalInicial);
+					this.cargarNodos(ctreenodo,raizPortalInicial);
 				}else{
-					rootPortalInicial.add(ctreenodo);
+					raizPortalInicial.add(ctreenodo);
 				}	
 			}
 		}		
-		contactTreeModel = new VMModeloArbolAvanzado(rootPortalInicial);
+		modeloMenuArbol = new VMModeloArbolAvanzado(raizPortalInicial);
 	}
 
 
@@ -112,23 +112,23 @@ public class VMMenuAplicacion{
 			}
 			return nodo;
 	}
-	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol root) { 
+	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol raiz) { 
 		boolean encontro=false;
 		
-		 for(int j=0;j< root.getChildCount();j++){
-			  if(root.getChildAt(j).getData().getId().compareTo(nodo.getData().getId())==0){
+		 for(int j=0;j< raiz.getChildCount();j++){
+			  if(raiz.getChildAt(j).getData().getId().compareTo(nodo.getData().getId())==0){
 				  for(int i=0;i< nodo.getChildCount();i++){
 				    if(nodo.getChildCount()==1)
-					cargarNodos((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) root.getChildAt(j));  
+					cargarNodos((VMNodoMenuArbol) nodo.getChildAt(0),(VMNodoMenuArbol) raiz.getChildAt(j));  
 				    else{
 				    	 VMNodoMenuArbol aux = new VMNodoMenuArbol(nodo.getChildAt(i).getData(),null);
-				         cargarNodos(aux,(VMNodoMenuArbol) root.getChildAt(j));
+				         cargarNodos(aux,(VMNodoMenuArbol) raiz.getChildAt(j));
 				     }
 				  }
 				    encontro=true;
 			    }
 		 }
 		 if(!encontro)
-			 root.add(nodo);
+			 raiz.add(nodo);
 	}	
 }

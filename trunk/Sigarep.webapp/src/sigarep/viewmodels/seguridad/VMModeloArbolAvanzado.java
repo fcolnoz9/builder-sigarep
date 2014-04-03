@@ -12,100 +12,99 @@ public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 	
 	DefaultTreeNode<Nodo> _root;
 
-	public VMModeloArbolAvanzado(VMNodoMenuArbol contactTreeNode) {
-		super(contactTreeNode);
-		_root = contactTreeNode;
+	public VMModeloArbolAvanzado(VMNodoMenuArbol nodoMenuArbol) {
+		super(nodoMenuArbol);
+		_root = nodoMenuArbol;
 	}
 
 	/**
-	 * remove the nodes which parent is <code>parent</code> with indexes
-	 * <code>indexes</code>
+	 * eliminar los nodos cuyo padre es <code>padre</code> con indices
+	 * <code>indices</code>
 	 * 
-	 * @param parent
-	 *            The parent of nodes are removed
-	 * @param indexFrom
-	 *            the lower index of the change range
-	 * @param indexTo
-	 *            the upper index of the change range
-	 * @throws IndexOutOfBoundsException
-	 *             - indexFrom < 0 or indexTo > number of parent's children
+	 * @param padre
+	 *            El padre de los nodos que serán removidos
+	 * @param indiceDesde
+	 *            El índice más bajo del rango de cambio
+	 * @param indiceA
+	 *            El índice superior del rango de cambio
+	 * @throws ocurre una excepción IndexOutOfBoundsException cuando 
+	 * - indiceDesde < 0 o el indiceA > Número de hijos de los padres
 	 */
-	public void remove(DefaultTreeNode<Nodo> parent, int indexFrom, int indexTo) throws IndexOutOfBoundsException {
-		DefaultTreeNode<Nodo> stn = parent;
-		for (int i = indexTo; i >= indexFrom; i--)
+	public void remover(DefaultTreeNode<Nodo> padre, int indiceDesde, int indiceA) throws IndexOutOfBoundsException {
+		DefaultTreeNode<Nodo> nodoPadre = padre;
+		for (int i = indiceA; i >= indiceDesde; i--)
 			try {
-				stn.getChildren().remove(i);
+				nodoPadre.getChildren().remove(i);
 			} catch (Exception exp) {
 				exp.printStackTrace();
 			}
 	}
 
-	public void remove(DefaultTreeNode<Nodo> target) throws IndexOutOfBoundsException {
-		int index = 0;
-		DefaultTreeNode<Nodo> parent = null;
-		// find the parent and index of target
-		parent = dfSearchParent(_root, target);
-		for (index = 0; index < parent.getChildCount(); index++) {
-			if (parent.getChildAt(index).equals(target)) {
+	public void remover(DefaultTreeNode<Nodo> objetivo) throws IndexOutOfBoundsException {
+		int indice = 0;
+		DefaultTreeNode<Nodo> padre = null;
+		// encontrar el padre y el índice del objetivo
+		padre = dfbuscarPadre(_root, objetivo);
+		for (indice = 0; indice < padre.getChildCount(); indice++) {
+			if (padre.getChildAt(indice).equals(objetivo)) {
 				break;
 			}
 		}
-		remove(parent, index, index);
+		remover(padre, indice, indice);
 	}
 
 	/**
-	 * insert new nodes which parent is <code>parent</code> with indexes
-	 * <code>indexes</code> by new nodes <code>newNodes</code>
+	 * insertar nuevos nodos cuyo padre es <code>padre</code> con indices
+	 * <code>indices</code> con nuevos nodos <code>nuevosNodos</code>
 	 * 
-	 * @param parent
-	 *            The parent of nodes are inserted
-	 * @param indexFrom
-	 *            the lower index of the change range
-	 * @param indexTo
-	 *            the upper index of the change range
-	 * @param newNodes
-	 *            New nodes which are inserted
-	 * @throws IndexOutOfBoundsException
-	 *             - indexFrom < 0 or indexTo > number of parent's children
+	 * @param padre
+	 *            El padre de los nodos que seran insertados.
+	 * @param indiceDesde
+	 *            El índice más bajo del rango de cambio
+	 * @param indiceA
+	 *            El índice superior del rango de cambio
+	 * @param nuevosNodos
+	 *            Los nodos nuevos que se insertan
+	 * @throws ocurre una excepción IndexOutOfBoundsException cuando 
+	 * - indiceDesde < 0 o el indiceA > Número de hijos de los padres
 	 */
-	public void insert(DefaultTreeNode<Nodo> parent, int indexFrom, int indexTo, DefaultTreeNode<Nodo>[] newNodes)
+	public void insertar(DefaultTreeNode<Nodo> padre, int indiceDesde, int indiceA, DefaultTreeNode<Nodo>[] nuevosNodos)
 			throws IndexOutOfBoundsException {
-		DefaultTreeNode<Nodo> stn = parent;
-		for (int i = indexFrom; i <= indexTo; i++) {
+		DefaultTreeNode<Nodo> nodoPadre = padre;
+		for (int i = indiceDesde; i <= indiceA; i++) {
 			try {
-				stn.getChildren().add(i, newNodes[i - indexFrom]);
+				nodoPadre.getChildren().add(i, nuevosNodos[i - indiceDesde]);
 			} catch (Exception exp) {
-				throw new IndexOutOfBoundsException("Out of bound: " + i + " while size=" + stn.getChildren().size());
+				throw new IndexOutOfBoundsException("Fuera de límite: " + i + " mientras tamaño=" + nodoPadre.getChildren().size());
 			}
 		}
 	}
 
 	/**
-	 * append new nodes which parent is <code>parent</code> by new nodes
-	 * <code>newNodes</code>
+	 * agregar nuevos nodos cuyo padre es <code>padre</code> con nuevos nodos
+	 * <code>nuevosNodos</code>
 	 * 
-	 * @param parent
-	 *            The parent of nodes are appended
-	 * @param newNodes
-	 *            New nodes which are appended
+	 * @param padre
+	 *            El padre de los nodos que se adjuntan
+	 * @param nuevosNodos
+	 *            Nuevos nodos que se adjuntan
 	 */
-	public void add(DefaultTreeNode<Nodo> parent, DefaultTreeNode<Nodo>[] newNodes) {
-		DefaultTreeNode<Nodo> stn = (DefaultTreeNode<Nodo>) parent;
+	public void add(DefaultTreeNode<Nodo> padre, DefaultTreeNode<Nodo>[] nuevosNodos) {
+		DefaultTreeNode<Nodo> nodoPadre = (DefaultTreeNode<Nodo>) padre;
 
-		for (int i = 0; i < newNodes.length; i++)
-			stn.getChildren().add(newNodes[i]);
-
+		for (int i = 0; i < nuevosNodos.length; i++)
+			nodoPadre.getChildren().add(nuevosNodos[i]);
 	}
 
-	private DefaultTreeNode<Nodo> dfSearchParent(DefaultTreeNode<Nodo> node, DefaultTreeNode<Nodo> target) {
-		if (node.getChildren() != null && node.getChildren().contains(target)) {
-			return node;
+	private DefaultTreeNode<Nodo> dfbuscarPadre(DefaultTreeNode<Nodo> nodo, DefaultTreeNode<Nodo> objetivo) {
+		if (nodo.getChildren() != null && nodo.getChildren().contains(objetivo)) {
+			return nodo;
 		} else {
-			int size = getChildCount(node);
-			for (int i = 0; i < size; i++) {
-				DefaultTreeNode<Nodo> parent = dfSearchParent((DefaultTreeNode<Nodo>) getChild(node, i), target);
-				if (parent != null) {
-					return parent;
+			int tamanho = getChildCount(nodo);
+			for (int i = 0; i < tamanho; i++) {
+				DefaultTreeNode<Nodo> padre = dfbuscarPadre((DefaultTreeNode<Nodo>) getChild(nodo, i), objetivo);
+				if (padre != null) {
+					return padre;
 				}
 			}
 		}
