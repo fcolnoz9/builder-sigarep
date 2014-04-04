@@ -66,16 +66,63 @@ public class ServicioRecaudoEntregado {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
 	}
 	
-	public List<RecaudoEntregado> buscarRecaudosEntregadosLapsoActual(String cedula){
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosLapsoActual(cedula);
+	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula){
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula);
 	}
 	
-	public List<RecaudoEntregado> buscarRecaudosEntregadosPorLapsoAcademico(String cedula, String codigoLapso){
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosPorLapsoAcademico(cedula,codigoLapso);
+	
+	public List<RecaudoEntregado> buscarRecaudosEntregadosReconsideracion(String cedula){
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosReconsideracion(cedula);
+	}
+	
+
+	public List<RecaudoEntregado> buscarRecaudosEntregadosRecursoJerarquico(String cedula){
+		List<RecaudoEntregado> listaRecaudos = iRecaudoEntregadoDAO.buscarRecaudosEntregadosRecursoJerarquico(cedula);
+		for (int i = 0; i < listaRecaudos.size(); i++) {
+			int idRecaudo = listaRecaudos.get(i).getRecaudo().getIdRecaudo();
+			int cont = 0;
+			for (int j = i; j < listaRecaudos.size(); j++) 
+				if (listaRecaudos.get(j).getRecaudo().getIdRecaudo() == idRecaudo)
+					cont++;
+			if (cont > 1)
+				for (int h = 0; h < listaRecaudos.size(); h++)
+					if (listaRecaudos.get(h).getId().getIdRecaudo() == idRecaudo && listaRecaudos.get(h).getId().getIdInstanciaApelada() == 1)
+						listaRecaudos.remove(h);
+		}
+		return listaRecaudos;
+	}
+
+	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoI(
+			String cedula, String codigoLapso) {
+		return iRecaudoEntregadoDAO.findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(cedula, codigoLapso, 1);
+	}
+	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoIII(
+			String cedula, String codigoLapso) {
+		return iRecaudoEntregadoDAO.findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(cedula, codigoLapso, 3);	
+	}
+	
+	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezI(
+			String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosAnalizarValidezI(cedula);	
+	}
+	
+	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoII(
+			String cedula, String codigoLapso){
+		return iRecaudoEntregadoDAO.findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(cedula, codigoLapso, 2);
 	}
 
 	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesAnalizar(
 			String cedula) {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosObservacionesanalizarIII(cedula);
 	}
+
+	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezIII(
+			String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosAnalizarValidezIII(cedula);
+	}
+	
+	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezII(
+			String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosAnalizarValidezII(cedula);
+	} 
 }

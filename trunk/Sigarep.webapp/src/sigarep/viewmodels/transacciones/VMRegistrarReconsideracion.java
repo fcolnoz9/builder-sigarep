@@ -243,7 +243,7 @@ public class VMRegistrarReconsideracion {
 	@NotifyChange({ "listaRecaudos" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudos = serviciorecaudoentregado
-				.buscarRecaudosEntregadosLapsoActual(cedula);
+				.buscarRecaudosEntregadosRecursoJerarquico(cedula);
 	}
 
 	/**

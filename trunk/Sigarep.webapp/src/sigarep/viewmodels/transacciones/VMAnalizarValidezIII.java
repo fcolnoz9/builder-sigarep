@@ -392,7 +392,7 @@ public class VMAnalizarValidezIII {
 	@NotifyChange({ "listaRecaudo" })
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosLapsoActual(cedula);
+				.buscarRecaudosEntregadosAnalizarValidezIII(cedula);
 		return listaRecaudo;
 	}
 
@@ -462,7 +462,10 @@ public class VMAnalizarValidezIII {
 				motivoPK.setIdInstanciaApelada(3);
 				Motivo motivo = new Motivo();
 				motivo.setId(motivoPK);
-				motivo.setDescripcion(serviciomotivo.buscarMotivoPorID(motivoPK).getDescripcion());
+				Motivo motivoAux = new Motivo();
+				motivoAux = serviciomotivo.buscarMotivoPorID(motivoPK);
+				if(motivoAux!=null)
+					motivo.setDescripcion(motivoAux.getDescripcion());
 				motivo.setEstatus(true);
 				motivo.addRecaudoEntregado(recaudoEntregadoAux);
 				serviciomotivo.guardarMotivo(motivo);
@@ -522,7 +525,7 @@ public class VMAnalizarValidezIII {
 		observacion = "";
 		selected = "";
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosLapsoActual(cedula);
+				.buscarRecaudosEntregadosAnalizarValidezIII(cedula);
 
 	}
 
