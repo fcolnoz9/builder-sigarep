@@ -448,10 +448,9 @@ public class MensajesAlUsuario {
 				Messagebox.QUESTION, new EventListener<ClickEvent>() {
 					@SuppressWarnings("incomplete-switch")
 					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-						case YES:
-							Executions.sendRedirect("j_spring_security_logout");
-						}
+						if(e.getButton() == e.getButton().YES)Executions.sendRedirect("j_spring_security_logout");
+						else e.getTarget().detach();
+						
 					}
 				});
 
@@ -469,10 +468,8 @@ public class MensajesAlUsuario {
 								@SuppressWarnings("incomplete-switch")
 								public void onEvent(ClickEvent e)
 										throws Exception {
-									switch (e.getButton()) {
-									case YES:
-										ventana.detach();
-									}
+									if(e.getButton() == e.getButton().YES)ventana.detach();
+									else e.getTarget().detach();
 								}
 							});
 		} else
@@ -482,10 +479,8 @@ public class MensajesAlUsuario {
 					new EventListener<ClickEvent>() {
 						@SuppressWarnings("incomplete-switch")
 						public void onEvent(ClickEvent e) throws Exception {
-							switch (e.getButton()) {
-							case YES:
-								ventana.detach();
-							}
+							if(e.getButton() == e.getButton().YES)ventana.detach();
+							else e.getTarget().detach();
 						}
 					});
 	}
@@ -500,10 +495,8 @@ public class MensajesAlUsuario {
 					Messagebox.QUESTION, new EventListener<ClickEvent>() {
 						@SuppressWarnings("incomplete-switch")
 						public void onEvent(ClickEvent e) throws Exception {
-							switch (e.getButton()) {
-							case YES:
-								ventana.detach();
-							}
+							if(e.getButton() == e.getButton().YES)ventana.detach();
+							else e.getTarget().detach();
 						}
 					});
 		}
@@ -519,10 +512,8 @@ public class MensajesAlUsuario {
 					new EventListener<ClickEvent>() {
 						@SuppressWarnings("incomplete-switch")
 						public void onEvent(ClickEvent e) throws Exception {
-							switch (e.getButton()) {
-							case YES:
-								ventana.detach();
-							}
+							if(e.getButton() == e.getButton().YES)ventana.detach();
+							else e.getTarget().detach();
 						}
 					});
 		}
@@ -537,11 +528,8 @@ public class MensajesAlUsuario {
 				new EventListener<ClickEvent>() {
 					@SuppressWarnings("incomplete-switch")
 					public void onEvent(ClickEvent e) throws Exception {
-						switch (e.getButton()) {
-						case OK:
-							ventana.detach();
-
-						}
+						if(e.getButton() == e.getButton().YES)ventana.detach();
+						else e.getTarget().detach();
 					}
 				});
 	}
