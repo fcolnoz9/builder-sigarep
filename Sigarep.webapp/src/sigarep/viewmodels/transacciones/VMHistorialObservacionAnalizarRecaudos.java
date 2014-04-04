@@ -92,7 +92,7 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosLapsoActual(cedula);
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosObservacionesAnalizar(cedula);
 	}
 	
 	/**
