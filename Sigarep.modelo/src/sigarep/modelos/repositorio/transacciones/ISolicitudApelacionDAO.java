@@ -127,4 +127,14 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"WHERE sa.id.codigoLapso = la.codigoLapso " +
 			"AND la.estatus = 'TRUE' ")			
 	public List<String> buscarSesion();
+	
+	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
+			"WHERE sa.id.codigoLapso = la.codigoLapso " +
+			"AND la.estatus = 'TRUE'" +
+			"AND (sa.id.idInstanciaApelada = :insta OR sa.id.idInstanciaApelada = :instb) " +
+			"AND sa.numeroSesion = :sess ")
+	public List<SolicitudApelacion> buscarSesionValida(
+			@Param("sess") String sess,
+			@Param("insta") Integer insta, 
+			@Param("instb") Integer instb);
 }

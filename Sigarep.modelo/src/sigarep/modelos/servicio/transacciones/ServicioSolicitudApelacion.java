@@ -389,6 +389,10 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO
 				.buscarSolicitudEstudiante(cedulaEstudiante);
 	}
+//jose	
+	public List<SolicitudApelacion> buscarSesionValida(String sess,Integer insta, Integer instb) {
+		return iSolicitudApelacionDAO.buscarSesionValida( sess, insta, instb);
+	}
 //Sixmar, Eliecer
 	/**
 	 * Lista de sesiones del lapso actual
