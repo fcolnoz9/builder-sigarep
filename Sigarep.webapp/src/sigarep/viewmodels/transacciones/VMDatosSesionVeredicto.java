@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
+import org.zkoss.zul.Messagebox;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -60,6 +60,25 @@ public class VMDatosSesionVeredicto {
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private String rutaModal;
 	
+	private Integer numa;
+	private Integer numb;
+	
+	public Integer getNuma() {
+		return numa;
+	}
+
+	public void setNuma(Integer numa) {
+		this.numa = numa;
+	}
+
+	public Integer getNumb() {
+		return numb;
+	}
+
+	public void setNumb(Integer numb) {
+		this.numb = numb;
+	}
+
 	public VMDatosSesionVeredicto() {
 		
 	}
@@ -130,14 +149,18 @@ public class VMDatosSesionVeredicto {
 		List<SolicitudApelacion> solicitudApelacion;
 		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul")){
 			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(1);
-			ventana.setTitle("Gestión :: Evaluar Apelación :: Veredicto :: Datos de la Sesión");	
+			ventana.setTitle("Gestión :: Evaluar Apelación :: Veredicto :: Datos de la Sesión");
+			 numa = 2;  numb = 3;
 		}
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul")){
 			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(2);
-			ventana.setTitle("Gestión :: Evaluar Recurso de Reconsideración :: Veredicto :: Datos de la Sesión");			
+			ventana.setTitle("Gestión :: Evaluar Recurso de Reconsideración :: Veredicto :: Datos de la Sesión");
+			numa = 1;  numb = 3;
 		}
-		else
+		else{
 			ventana.setTitle("Gestión :: Evaluar Recurso Jerárquico :: Veredicto :: Datos de la Sesión");
+			numa = 1;  numb = 2;
+			}
 			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(3);
 		if (solicitudApelacion.size() > 0){
 			fechaSesion = solicitudApelacion.get(0).getFechaSesion();
@@ -168,10 +191,26 @@ public class VMDatosSesionVeredicto {
 	public void guardarDatosSesion(){
 		if (fechaSesion == null || tipoSesion == null || numeroSesion == null)
 			mensajeAlUsuario.advertenciaLlenarCampos();
+		
+		else if (!validarSesion()) 
+
+		
+		Messagebox.show("El número de sesión ya esta en uso", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 		else{
 			mostrarListaSancionados();
 		}
 	}
+	@Command
+	public boolean validarSesion(){
+		
+		if ( serviciosolicitudapelacion.buscarSesionValida(numeroSesion, numa, numb).size()>0){
+
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	
 	/**
 	 * Limpiar.
