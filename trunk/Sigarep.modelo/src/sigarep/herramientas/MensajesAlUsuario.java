@@ -335,6 +335,11 @@ public class MensajesAlUsuario {
 		Messagebox.show("Restauración en proceso, debe esperar mientras el proceso es completado.",
 						"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
+	
+	public void informacionRestauracionNoExitosa() {
+		Messagebox.show("El intento de restauración no fue exitoso.",
+				"Información", Messagebox.OK, Messagebox.INFORMATION);
+	}
 	/*-------------------------------------------Mensajes de Error-----------------------------------*/
 	
 

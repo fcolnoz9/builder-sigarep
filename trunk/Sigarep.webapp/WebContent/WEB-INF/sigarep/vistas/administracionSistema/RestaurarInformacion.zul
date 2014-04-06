@@ -56,7 +56,7 @@
 				<rows>
 					<row>
 						<textbox id="txtPaquetesZip" width="80%"
-							value="@bind(vm.txtPaquetesZip)" />
+							value="@bind(vm.txtPaquetesZip)" readonly="true" />
 						<button label="Examinar" id="btnExaminar"
 							image="/imagenes/iconos/buscar.png"
 							onClick="@command('seleccionarRuta')" />
