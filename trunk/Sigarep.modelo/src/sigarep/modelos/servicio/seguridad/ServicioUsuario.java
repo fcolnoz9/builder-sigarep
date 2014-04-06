@@ -3,21 +3,16 @@ package sigarep.modelos.servicio.seguridad;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import org.zkoss.zhtml.Messagebox;
 
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.repositorio.seguridad.IUsuarioDAO;
 import sigarep.modelos.repositorio.transacciones.IUsuarioGrupoDAO;
-
-import sigarep.modelos.data.transacciones.UsuarioGrupo;
-import sigarep.modelos.data.transacciones.UsuarioGrupoPK;
 
 @Service("serviciousuario")
 public class ServicioUsuario {
@@ -25,7 +20,6 @@ public class ServicioUsuario {
 	@Autowired
 	private IUsuarioDAO iUsuarioDAO;
 	public IUsuarioGrupoDAO iUsuarioGrupoDAO;
-	private EntityManager em;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	public void guardarUsuario(Usuario usuario) {
@@ -42,18 +36,13 @@ public class ServicioUsuario {
 		iUsuarioDAO.save(miUsuario);
 	}
 	public void eliminarFisicamente(String nombreusuario){
-		Usuario miUsuario = iUsuarioDAO.findOne(nombreusuario);
-		
-//		String queryStatement = "delete from sigarep.usuario_grupo ug where " +
-//				"' and ug.nombre_usuario = '"+nombreusuario +"'";
-//				Query query = em.createNativeQuery(queryStatement);
-//				try {
-//					query.getSingleResult();
-//				} catch (Exception exp) {
-//					System.out.println("");
-//				}
-		
+		Usuario miUsuario = iUsuarioDAO.findOne(nombreusuario);		
 		iUsuarioDAO.delete(miUsuario);
+	}
+	
+	public List<Grupo> rolesDelUsuario(String nombreUsuario) {
+		List<Grupo> listaRolesUsuario = iUsuarioDAO.totalidadRolesUsuario(nombreUsuario);
+		return listaRolesUsuario;
 	}
 	
 	public List<Usuario> listadoUsuario() {

@@ -22,8 +22,19 @@ import sigarep.modelos.servicio.seguridad.ServicioNodo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMMenuAplicacion{
-	
+		
+	private static String ruta="timeout.zul";
+	private VMModeloArbolAvanzado modeloMenuArbol;
+	private static VMNodoMenuArbol  raizPortalInicial;
+	private @WireVariable ServicioNodo servicionodo;
+	private @WireVariable ServicioGrupo serviciogrupo;
+	private @WireVariable ServicioUsuario serviciousuario;
+	private AImage imagen;
+	private String nombreUsuario;
 	private VMRenderizarMenuArbolAplicacion renderizarPortalAplicacion=new VMRenderizarMenuArbolAplicacion();
+	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
+	//SETs y GETs
+	
 	public VMRenderizarMenuArbolAplicacion getRendererPortalAplicacion() {
 		return renderizarPortalAplicacion;
 	}
@@ -33,14 +44,8 @@ public class VMMenuAplicacion{
 			VMRenderizarMenuArbolAplicacion rendererPortalAplicacion) {
 		this.renderizarPortalAplicacion = rendererPortalAplicacion;
 	}
-	private VMModeloArbolAvanzado modeloMenuArbol;
-	private static VMNodoMenuArbol  raizPortalInicial;
-	private @WireVariable ServicioNodo servicionodo;
-	private @WireVariable ServicioGrupo serviciogrupo;
-	private @WireVariable ServicioUsuario serviciousuario;
-	private AImage imagen;
-	private String nombreUsuario;
-    public String getNombreUsuario() {
+	
+	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
 
@@ -58,7 +63,7 @@ public class VMMenuAplicacion{
 	public void setImagen(AImage imagen) {
 		this.imagen = imagen;
 	}
-	private static String ruta="timeout.zul";
+
     public VMModeloArbolAvanzado getModeloMenuArbol() {
 		return modeloMenuArbol;
 	}
@@ -76,26 +81,29 @@ public class VMMenuAplicacion{
 		VMMenuAplicacion.raizPortalInicial = raizPortalInicial;
 	}
 	
+	//Fin SETs y GETs
+	
 	@AfterCompose
 	@Command
 	@GlobalCommand
 	@NotifyChange({"modeloMenuArbol"})
 	public void Init(@ContextParam(ContextType.COMPONENT) Component windowindex,@ContextParam(ContextType.VIEW) Component view) {
-		raizPortalInicial = new VMNodoMenuArbol(null,null);		
-		for(String rol:VMUtilidadesDeSeguridad.roles()){
-			Grupo g=serviciogrupo.buscarGrupoNombre(rol);
-			VMNodoMenuArbol aux=null;
-			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());
-			Collections.sort(nodosOrdenados, new Nodo());
-			for(Nodo a:nodosOrdenados){
-				aux=new VMNodoMenuArbol(a);
-				VMNodoMenuArbol ctreenodo= this.cargarPadre(aux);
-				Integer j = raizPortalInicial.getChildCount();
-				if(!(j.compareTo(0)==0)){
-					this.cargarNodos(ctreenodo,raizPortalInicial);
-				}else{
-					raizPortalInicial.add(ctreenodo);
-				}	
+		raizPortalInicial = new VMNodoMenuArbol(null,null);	
+		VMNodoMenuArbol aux = null;
+		ArrayList<Grupo> roles = new ArrayList<Grupo>(serviciousuario.rolesDelUsuario((seguridad.getUsuario().getUsername())));
+		ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>();
+		for(Grupo rol : roles){
+			nodosOrdenados.addAll(rol.getNodos());
+		}	
+		Collections.sort(nodosOrdenados, new Nodo());
+		for (Nodo a : nodosOrdenados) {
+			aux = new VMNodoMenuArbol(a);
+			VMNodoMenuArbol ctreenodo = this.cargarPadre(aux);
+			Integer j = raizPortalInicial.getChildCount();
+			if (!(j.compareTo(0) == 0)) {
+				this.cargarNodos(ctreenodo, raizPortalInicial);
+			} else {
+				raizPortalInicial.add(ctreenodo);
 			}
 		}		
 		modeloMenuArbol = new VMModeloArbolAvanzado(raizPortalInicial);

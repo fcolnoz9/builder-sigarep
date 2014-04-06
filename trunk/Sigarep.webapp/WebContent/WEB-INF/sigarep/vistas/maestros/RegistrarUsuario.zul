@@ -187,7 +187,7 @@
 		<hbox width="100%" pack="end" align="center">
 			<button label="Guardar" image="/imagenes/iconos/guardar.png"
 				mold="trendy" width="auto" height="auto"
-				onClick="@command('guardarUsuario', gruposDelUsuario=listboxGruposPertenece.items, grupoInvisible=listboxGruposGenerico.items) @global-command('actualizarPerfilYMenuUsuario')">
+				onClick="@command('guardarUsuario', gruposDelUsuario=listboxGruposPertenece.items) @global-command('actualizarPerfilYMenuUsuario')">
 			</button>
 			<button label="Eliminar" image="/imagenes/iconos/eliminar.png"
 				mold="trendy" width="auto" height="auto"

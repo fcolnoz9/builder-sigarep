@@ -25,7 +25,6 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 
@@ -424,8 +423,7 @@ public class VMUsuario {
 	@Command
 	@NotifyChange({ "nombreUsuario", "clave", "confirmarcontrasenia","correo","confirmarcorreo","listaPersona","listaInstancia","listaUsuario","cedulaPersona","nombre",
 		"apellido","telefono", "listaGrupoPertenece","listaGrupoNoPertenece","imagenUsuario","listaInstanciaMiembro","tituloinstancia","cargo", "imagenUsuario","fotoUsuario"})
-	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario, 
-			@BindingParam("grupoInvisible") List<Listitem> grupoInvisible) {
+	public void guardarUsuario(@BindingParam("gruposDelUsuario") List<Listitem> gruposDelUsuario) {
 		boolean existeUsuario = false;
 		Usuario usuario = new Usuario();
 		if (nombreUsuario.equals("") || correo.equals("") || cedulaPersona.equals("") || nombre.equals("")  || apellido.equals("") 

@@ -15,12 +15,12 @@
 						<row>
 							<radio id="rbLocal" label="Local"
 								onCheck="@command('deshabilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)"
-								value="Local" />
+								value="local" />
 							<radio id="rbDispositivo"
 								label="Dispositivo Externo"
 								onCheck="@command('habilitarGroupBoxDispotivo',groupboxDispositivo=grbDispositivo, divDispositivo=divArchivosLocal)"
-								value="Dispositivo" />
-							<label value="@bind(vm.selected)"
+								value="dispositivo" />
+							<label visible="false" value="@bind(vm.selected)"
 								style="font-weight:bold;color:red;" />
 						</row>
 					</rows>

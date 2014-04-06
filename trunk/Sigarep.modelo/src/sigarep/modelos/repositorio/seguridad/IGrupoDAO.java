@@ -26,7 +26,7 @@ public interface IGrupoDAO extends JpaRepository<Grupo, Integer> {
 
 
 	/**
-	 * Busca los grupos a los que pertenece un usuario
+	 * Busca los grupos a los que pertenece un usuario exceptuando el grupo de cambio de contraseña
 	 * @param nombreUsuario Nombre del usuario al cual se le buscaran sus grupos
 	 * @return List<Grupo> Lista de grupos al que pertenece el usuario
 	 */
