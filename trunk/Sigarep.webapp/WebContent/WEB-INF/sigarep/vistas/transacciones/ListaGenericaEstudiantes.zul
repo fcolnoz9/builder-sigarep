@@ -16,7 +16,7 @@
 						<label id="lblPrograma" value="Programa " />
 						<combobox id="cmbPrograma" 
 						   placeholder="Seleccione una programa..."
-						    mold="rounded"
+						    mold="rounded" readonly="true"
 							model="@load(vm.listaPrograma)" value="@bind(vm.programa)"
 							onChange="@command('filtros')">
 							<template name="model">
