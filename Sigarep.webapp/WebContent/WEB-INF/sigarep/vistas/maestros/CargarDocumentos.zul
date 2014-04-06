@@ -21,7 +21,7 @@ style="overflow:auto" action="hide: slideUp"
     	<row>
     	<label id="lblCategoria" value="Categoría:" />
 <!--             Categoría: -->
-              <combobox id="cmbCategoria" mold="rounded" width="80%" maxlength="30" placeholder="Seleccione una categoría..." selectedItem=" @bind(vm.categoria)">
+              <combobox id="cmbCategoria" mold="rounded" width="80%" maxlength="30" placeholder="Seleccione una categoría..." selectedItem=" @bind(vm.categoria)" readonly="true">
 						<comboitem value="guia" id="cmiGuiaPaso" label="Guía Paso a Paso" />
  						<comboitem value="reglamento" id="cmiReglamento" label="Reglamentos" /> 
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 

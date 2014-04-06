@@ -32,6 +32,7 @@ import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Nodo;
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioNodo;
+import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 
 
  /** Esta clase es el ViewModel del registro del maestro "Grupo"
@@ -50,16 +51,21 @@ public class VMRegistrarGrupo {
 	@Wire
 	private Tree arbol2;
 
-	private @WireVariable ServicioNodo servicionodo;
-
+	@WireVariable
+	private ServicioUsuario serviciousuario;
+	private @WireVariable 
+	ServicioNodo servicionodo;
+	@WireVariable
+	private ServicioGrupo serviciogrupo;
+	
+	
 	private VMModeloArbolAvanzado modeloMenuArbol;
 	private VMModeloArbolAvanzado modeloMenuArbol2;
 	
 	private static VMNodoMenuArbol  raiz;
 	private static VMNodoMenuArbol  raiz2;
 	
-	@WireVariable
-	private ServicioGrupo serviciogrupo;
+
 
 	
 	private Integer idGrupo; // clave primaria de la tabla Grupo
@@ -74,6 +80,7 @@ public class VMRegistrarGrupo {
     private List<Grupo> listaGrupos = new LinkedList<Grupo>();
     private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
 	// Metodos GETS Y SETS
 	
 	public ServicioNodo getsnodo() {
@@ -497,14 +504,16 @@ public class VMRegistrarGrupo {
 	@GlobalCommand
 	@NotifyChange({"grupoAux2"})
     public void actualizarMenuArbolSIGAREP(){
-		if(grupoAux2!=null)
-			for(String nombreGrupo : VMUtilidadesDeSeguridad.roles()){
-				if(grupoAux2.getNombre().equals(nombreGrupo)){
+		if(grupoAux2!=null){
+			ArrayList<Grupo> rolesUsuario = new ArrayList<Grupo>(serviciousuario.rolesDelUsuario((seguridad.getUsuario().getUsername())));
+			for(Grupo rol : rolesUsuario){
+				if(grupoAux2.getNombre().equals(rol.getNombre())){
 					BindUtils.postGlobalCommand(null, null, "Init", null);
 				break;					
 				}
 			}
-		grupoAux2 = null;
+			grupoAux2 = null;
+		}
     }
 	
 	/**

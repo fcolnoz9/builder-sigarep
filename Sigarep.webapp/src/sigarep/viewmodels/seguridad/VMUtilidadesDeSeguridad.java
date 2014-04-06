@@ -252,7 +252,6 @@ public class VMUtilidadesDeSeguridad {
 		while (iterador.hasNext()) {
 			roles.add(iterador.next().getAuthority());
 		}
-		roles.add(roles.remove(0));
 		return roles;
 	}
         
