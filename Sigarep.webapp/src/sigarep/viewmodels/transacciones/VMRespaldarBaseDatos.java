@@ -33,6 +33,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 
@@ -41,7 +43,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMRespaldarBaseDatos{	
+public class VMRespaldarBaseDatos implements Comparator<String>{	
 
 	/**
 	 * 
@@ -169,6 +171,7 @@ public class VMRespaldarBaseDatos{
 				listaDirectorio1.add(listaDirectorio2[i]);
 			}
 		}
+		Collections.sort(listaDirectorio1,new VMRespaldarBaseDatos());
 	}
 	
 	/** Seleccionar la Ruta de respaldo en dispositivo externo
@@ -371,5 +374,12 @@ public class VMRespaldarBaseDatos{
 		if(!descripcion.equals("") || !selected.equals(""))
 			condicion = true;
         mensajesAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
+	}
+
+	public int compare(String f1, String f2) {
+		// TODO Auto-generated method stub
+		long fechaLong1 = new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + f1).lastModified();
+		long fechaLong2 = new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + f2).lastModified();
+		return Long.compare(fechaLong1,fechaLong2);
 	}
 }

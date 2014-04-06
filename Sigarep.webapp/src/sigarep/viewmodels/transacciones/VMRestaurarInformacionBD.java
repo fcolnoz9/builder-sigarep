@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.sql.Connection;
@@ -104,7 +106,9 @@ public class VMRestaurarInformacionBD {
 		{
 			if (!(listaDirectorio2[i].equals(".svn")))
 			{
+				Date fechaCreacion = new Date(new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + listaDirectorio2[i]).lastModified());
 				listaDirectorio.add(listaDirectorio2[i]);
+				Collections.sort(listaDirectorio);
 			}
 		}
 	}
@@ -129,49 +133,53 @@ public class VMRestaurarInformacionBD {
 	public void restaurarInformacion(@BindingParam("aplication") WebApp application, @BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo, @BindingParam("divDispositivo") Div divArchivosLocal, @BindingParam("backupseleccionado") Listitem backupseleccionado){
 		if (selected.equals("local") || selected.equals("dispositivo")){
 			try {
-				borrarEsquema("SIGAREP-BD");
-				borrarEsquema("public");
-				crearEsquema("public");
-				Properties props = new Properties();
-			    lector = new java.io.FileInputStream(application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
-				props.load(lector);
-				lector.close();
-				Runtime r = Runtime.getRuntime();
-				String archivoBD = null;
-				if (!(txtPaquetesZip.equals(""))) {
-					archivoBD = txtPaquetesZip;
-				} else if (backupseleccionado!=null) {
-					//Trabajando con el proyecto directamente
-					if(!backupseleccionado.getLabel().equals(""))
-					archivoBD = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD" + "/"+ backupseleccionado.getLabel();
-				}
-				Process p;
-				ProcessBuilder pb;
-				r = Runtime.getRuntime();
-				List<String> lista = new ArrayList<String>();
-				lista.add(props.getProperty("pgrestore"));
-				lista.add("-i");
-				lista.add("-h");
-				lista.add(props.getProperty("host"));
-				lista.add("-p");
-				lista.add(props.getProperty("puerto"));
-				lista.add("-U");
-				lista.add(props.getProperty("usuario"));
-				lista.add("-d");
-				lista.add(props.getProperty("nombrebd"));
-				lista.add("-v");
-				lista.add(archivoBD);
-				pb = new ProcessBuilder(lista);
-				pb.environment().put("PGPASSWORD", props.getProperty("contrasenna"));
-				pb.redirectErrorStream(true);
-				p = pb.start();
-				mensajesAlUsuario.informacionRestauracionEnProceso();
-				limpiar();
-				divArchivosLocal.setVisible(false);
-				groupboxDispositivo.setVisible(false);
-			} catch (IOException e) {
-				e.getStackTrace();
-//				mensajesAlUsuario.informacionRestauracionNoExitosa();
+				String[] formato = txtPaquetesZip.split(".back");
+				if (!(txtPaquetesZip.equals("")) && !formato[formato.length-1].equals("up")) {
+					mensajesAlUsuario.informacionRestauracionNoExitosa();
+				} else {
+					borrarEsquema("sigarep");
+					crearEsquema("sigarep");
+					Properties props = new Properties();
+					lector = new java.io.FileInputStream(
+							application.getRealPath("WEB-INF/sigarep/configuracionbd.properties"));
+					props.load(lector);
+					lector.close();
+					Runtime r = Runtime.getRuntime();
+					String archivoBD = null;
+					if (!(txtPaquetesZip.equals(""))) {
+						archivoBD = txtPaquetesZip;
+					} else if (backupseleccionado != null) {
+						// Trabajando con el proyecto directamente
+						if (!backupseleccionado.getLabel().equals(""))
+							archivoBD = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD" + "/" + backupseleccionado.getLabel();
+					}
+					Process p;
+					ProcessBuilder pb;
+					r = Runtime.getRuntime();
+					List<String> lista = new ArrayList<String>();
+					lista.add(props.getProperty("pgrestore"));
+					lista.add("-i");
+					lista.add("-h");
+					lista.add(props.getProperty("host"));
+					lista.add("-p");
+					lista.add(props.getProperty("puerto"));
+					lista.add("-U");
+					lista.add(props.getProperty("usuario"));
+					lista.add("-d");
+					lista.add(props.getProperty("nombrebd"));
+					lista.add("-v");
+					lista.add(archivoBD);
+					pb = new ProcessBuilder(lista);
+					pb.environment().put("PGPASSWORD",props.getProperty("contrasenna"));
+					pb.redirectErrorStream(true);
+					p = pb.start();
+					mensajesAlUsuario.informacionRestauracionEnProceso();
+					limpiar();
+					divArchivosLocal.setVisible(false);
+					groupboxDispositivo.setVisible(false);
+				}	
+			} catch (Exception e) {
+				mensajesAlUsuario.informacionRestauracionNoExitosa();
 			}
 		}else{
 			mensajesAlUsuario.advertenciaSeleccionarUbicacionRestauracion();
@@ -180,7 +188,7 @@ public class VMRestaurarInformacionBD {
 	
 	public void borrarEsquema(String nombreEsquema) {
 		String driver = "org.postgresql.Driver";
-		String connectString = "jdbc:postgresql://localhost:5432/postgres";
+		String connectString = "jdbc:postgresql://localhost:5432/SIGAREP-BD";
 		String user = "postgres";
 		String password = "postgres";
 		try {

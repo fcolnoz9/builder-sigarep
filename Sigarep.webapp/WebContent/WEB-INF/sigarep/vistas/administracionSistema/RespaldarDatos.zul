@@ -8,15 +8,11 @@
    <![CDATA[
 	import java.io.File;
 	import sigarep.herramientas.UtilidadesSigarep;
+	import java.text.SimpleDateFormat;
 	String ruta = UtilidadesSigarep.obtenerDirectorio();
 	Component comp;
-	public String generarTamanho(String archivo) {
-		File archivoEliminado = new File(
-				ruta
-						+ "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/"
-						+ archivo);
-		return String.valueOf(archivoEliminado.length());
-	}
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss");
 	int i = -1;
 ]]>
 	</zscript>
@@ -105,8 +101,10 @@
 				emptyMessage="No hay backups realizados" mold="paging" pageSize="5"
 				model="@bind(vm.listaDirectorio1)">
 				<listhead sizable="true">
-					<listheader label="Descripción" width="70%" />
-					<listheader label="Tamaño de Archivo" width="30%" />
+					<listheader label="Descripción" width="50%" />
+					<listheader label="Tamaño de Archivo" width="20%" />
+					<listheader label="Fecha de Respaldo" width="15%" />
+					<listheader label="Hora de Respaldo" width="15%" />
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
@@ -126,11 +124,30 @@
 									+ backupsListbox.getModel().getElementAt(i)
 											.toString()).length() / 1024)));
 	tamanhoKbs = tamanhoKbs + " Kbs";
+	Date fechaCreacion = new Date(new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + backupsListbox.getModel().getElementAt(i).toString()).lastModified());
+	String fecha = sdf.format(fechaCreacion);
+	String hora = sdf2.format(fechaCreacion);
+	if(fechaCreacion.getHours() > 12)
+	 	hora = hora + " pm";
+	else if(fechaCreacion.getHours() == 12)
+		hora = hora + " m"; 
+	else hora = hora + " am";
+	
 	if (i == backupsListbox.getModel().getSize() - 1)
 		i = -1;
 </zscript>
 								</attribute>
 								${tamanhoKbs}
+							</label>
+						</listcell>
+						<listcell>
+							<label>
+								${fecha}
+							</label>
+						</listcell>
+						<listcell>
+							<label>
+								${hora}
 							</label>
 						</listcell>
 					</listitem>
