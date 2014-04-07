@@ -1,6 +1,6 @@
 <?page title="Reporte Especial Resultados Solicitud de Apelación" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="winResultadoApelacion" title="Reportes :: Informes :: Especiales :: Resultados de Solicitud de Apelación por Programa e Instancia" border="normal" width="auto" closable="true"
+<window id="winResultadoApelacion" title="Reportes :: Informes :: Estructurados :: Informe de Resultado de Apelaciones por Instancia y Sesión" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEstructuradoResultadoApelacion')">
 		
 		
