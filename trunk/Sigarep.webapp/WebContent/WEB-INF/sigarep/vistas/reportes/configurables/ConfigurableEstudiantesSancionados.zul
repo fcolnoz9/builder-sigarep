@@ -74,7 +74,7 @@
 						<label id="lblSexo" value="Sexo:" />
 						<combobox id="cmbSexo"  readonly="true"  model="@load(vm.cmbSexo)" 
 						 placeholder = "Seleccione un sexo..."
-						 width="100%" cols="23" maxlength="2" tabindex="6"
+						 width="100%" cols="23" maxlength="20" tabindex="6"
 						 mold="rounded" selectedItem="@bind(vm.objsexo)" >
 							<comboitem label="" />
 						</combobox>
