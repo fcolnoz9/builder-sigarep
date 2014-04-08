@@ -177,8 +177,8 @@ public class MensajesAlUsuario {
 	
 	public void advertenciaNoPuedeRegistrarRecursoReconsideracion() {
 
-		Messagebox.show("¡No puede registrar Recursos de Reconsideración!. No ha finalizado el proceso "
-				+ "de apelación en la Instancia anterior.", "Advertencia",
+		Messagebox.show("¡No puede registrar Recursos de Reconsideración! No ha finalizado el proceso."
+				+ "de apelación en la instancia anterior.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
@@ -186,24 +186,20 @@ public class MensajesAlUsuario {
 	public void advertenciaNoPuedeRegistrarRecursoJerarquico() {
 
 		Messagebox.show("¡No puede registrar Recursos Jerárquicos!. No ha finalizado el proceso "
-				+ "de apelación en la Instancia anterior.", "Advertencia",
+				+ "de apelación en la instancia anterior.", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 
 	}
 	
 	public void advertenciaNoPuedeRegistrarRecursoReconsideracion2() {
-
-		Messagebox.show("¡No puede registrar Recursos de Reconsideración! El proceso ha finalizado para esta Instancia.", "Advertencia",
-				Messagebox.OK, Messagebox.EXCLAMATION);
-
+      Messagebox.show("¡No puede registrar Recursos de Reconsideración! El proceso ha finalizado para esta Instancia.", 
+    		  "Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
 	public void advertenciaNoPuedeRegistrarApelacionInicial() {
-
-		Messagebox.show("¡No puede registrar Apelaciones! El proceso ha finalizado para esta Instancia.", "Advertencia",
-				Messagebox.OK, Messagebox.EXCLAMATION);
-
-	}
+       Messagebox.show("¡No puede registrar Apelaciones! El proceso ha finalizado para esta Instancia.", 
+				"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
+		}
 	
 	public void advertenciaProgramaNoRegistrado(Integer idPrograma) {
 		Messagebox.show("¡El código de programa " + idPrograma
@@ -233,7 +229,7 @@ public class MensajesAlUsuario {
 		}
 	
 	public void advertenciaNoELiminar() {
-		Messagebox.show("¡ No puede ser eliminado ya que tiene una solicitud de Apelación!", "Advertencia",
+		Messagebox.show("¡No puede ser eliminado ya que tiene una solicitud de Apelación!", "Advertencia",
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
@@ -316,7 +312,7 @@ public class MensajesAlUsuario {
 	}
 	
 	public void informacionRespaldoExternoExitoso() {
-		Messagebox.show("Respaldo realizado satisfactoriamente en su ruta especificada",
+		Messagebox.show("Respaldo realizado satisfactoriamente en su ruta especificada.",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 
@@ -414,14 +410,11 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.ERROR);
 	}
 	
-
-	//nuevos 
-	//vmusuario al registrar un usuario
 	public void errorUsuarioNoValido() {
 		Messagebox.show("El nombre de usuario ya está en uso, escriba otro.", "Error", Messagebox.OK, Messagebox.ERROR);
 	}
 	
-	//deberia estar en todos los vm q usan correos registrar usuario, editarperfilusuario, contacto, registar estudiantesancionado individual
+	
 	public boolean errorValidarCorreo(String comparar){
 		boolean respuesta = false;
 		
