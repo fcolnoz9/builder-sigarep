@@ -322,7 +322,9 @@ public class MensajesAlUsuario {
 	}
 
 	public void informacionEstudianteSinSolicitudApelacion() {
-		Messagebox.show("Usted no ha realizado solicitudes de apelación.",
+		Messagebox.show("Usted no ha realizado solicitudes de apelación. Diríjase a la sección de " +
+				"Guía Paso a Paso en la página de inicio para " +
+       		"conocer todo lo referente al proceso de apelación.",
 				"Información", Messagebox.OK, Messagebox.INFORMATION);
 	}
 	
