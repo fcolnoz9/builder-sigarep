@@ -195,7 +195,7 @@
 						<label id="lblAsign"  />
 					<combobox readonly="true" id="cmbAsignaturas"
 						placeholder = "Seleccione una asignatura..."
-						 mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
+						 mold="rounded" width="80%" cols="23" maxlength="60" tabindex="1"
 					    model="@load(vm.listaAsignaturas)"
 						selectedItem="@bind(vm.asignaturaseleccionado)">
 						<template name="model">

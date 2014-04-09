@@ -2,7 +2,6 @@ package sigarep.modelos.servicio.seguridad;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 import java.util.List;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.seguridad.Nodo;
-import sigarep.modelos.data.transacciones.HistoricoEstudiante;
 import sigarep.modelos.repositorio.seguridad.INodoDAO;
 // El servicio interactua con la base de datos
 
@@ -25,19 +23,49 @@ public class ServicioNodo{
 	private @Autowired INodoDAO iNodoDAO;
 	@PersistenceContext
 	private EntityManager em;
+	
+	/**
+	 * Listado de los nodos del menú árbol
+	 * @param 
+	 * @return Lista de todos los nodos (funciones) del árbol
+	 * @throws No dispara ninguna excepción.
+	 */
+	
 	public List<Nodo> listadoArbol() {
 		List<Nodo> children=iNodoDAO.findAll();
 	    return children ;
 	}
 	
+	/**
+	 * Buscar nodos por nodo padre
+	 * @param Integer idPadre
+	 * @return Lista de todos los nodos hijos (funcionalidades) dados el nodo padre
+	 * @throws No dispara ninguna excepción.
+	 */
+	
 	public List<Nodo> buscarNodosPorPadre(Integer idPadre) {
 		List<Nodo> children=iNodoDAO.findByPadre(idPadre);
 	    return children ;
 	}
+	
+	/**
+	 * Buscar nodo por id de nodo
+	 * @param Integer idNodo
+	 * @return busca el nodo por el id
+	 * @throws No dispara ninguna excepción.
+	 */
+	
 	public Nodo buscarNodo(Integer idNodo) {
 		Nodo nodo=iNodoDAO.findOne(idNodo);
 	    return nodo ;
 	}
+	
+	/**
+	 * funciones (nodos) que NO pertenecen al grupo
+	 * @param Integer idGrupo
+	 * @return Lista de todos los nodos con los que NO cuenta el grupo
+	 * @throws No dispara ninguna excepción.
+	 */
 	
 	public List<Nodo> funcionesGrupoNoPerteneceGrupo(Integer idGrupo) 
 	{

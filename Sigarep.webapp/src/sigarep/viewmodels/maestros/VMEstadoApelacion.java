@@ -182,7 +182,6 @@ public class VMEstadoApelacion {
 	@NotifyChange({ "listaInstanciaApelada" })
 	public void buscarInstanciaApelada() {
 		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
-		System.out.println("lista"+listaInstanciaApelada);
 	}
 	
 
@@ -223,7 +222,6 @@ public class VMEstadoApelacion {
 	@Command
 	 @NotifyChange({"listaInstanciaApelada"})
 	public InstanciaApelada objetoComboEstadoApelacion() {
-		System.out.println(instanciaApelada.getInstanciaApelada());
 		return instanciaApelada;
 	}
 
