@@ -11,6 +11,11 @@ import sigarep.modelos.data.seguridad.Nodo;
  */
 public interface INodoDAO extends JpaRepository<Nodo,Integer> {
 
+	/**
+	 * Busca las todos los nodos que poseen padre con id == i
+	 * @return List<Nodo> Lista de nodos con idPadre == i
+	 */
+	
 	public List<Nodo> findByPadre(int i);
 
 }//Fin Clase INodoDAO
