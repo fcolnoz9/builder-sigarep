@@ -1,7 +1,6 @@
 package sigarep.viewmodels.maestros;
 
 import java.util.List;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -26,20 +25,22 @@ import org.zkoss.zul.Window;
  * @version 1.0
  * @since 22/01/14
  */
-
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMprogramaAcademico {
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioProgramaAcademico servicioprogramaacademico;
-	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	//-----------------Variables ProgramaAcademico ---------
 	private Integer idPrograma;
-	private String nombrePrograma;
-	private String nombreProgramaFiltro = "";
 	private Boolean estatus;
+	private String nombrePrograma;
+	//-----------------Variables Filtro---------------------
+	private String nombreProgramaFiltro = "";
+	//-----------------Variables Lista----------------------
 	private List<ProgramaAcademico> listaPrograma;
+	//-----------------Variables Objeto---------------------
 	private ProgramaAcademico programaseleccionado;
-
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
 	// Inicio Métodos Sets y Gets
 	public Integer getIdProgramaAcademico() {
@@ -88,10 +89,16 @@ public class VMprogramaAcademico {
 
 	public void setProgramaseleccionado(ProgramaAcademico programaseleccionado) {
 		this.programaseleccionado = programaseleccionado;
-	}
+	}// Fin Métodos Sets y Gets
 
-	// Fin Métodos Sets y Gets
-
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
 	@Init
 	public void init() {
 		buscarProgramaA();
@@ -121,39 +128,6 @@ public class VMprogramaAcademico {
 	}
 
 	/**
-	 * limpiar
-	 * 
-	 * @param idPrograma
-	 *            , nombrePrograma, estatus, listaPrograma
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
-	 */
-	@Command
-	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma",
-			"nombreProgramaFiltro" })
-	public void limpiar() {
-		idPrograma = null;
-		nombrePrograma = null;
-		nombreProgramaFiltro = "";
-		buscarProgramaA();
-	}
-
-	/**
-	 * buscarProgramaA
-	 * 
-	 * @param listaPrograma
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
-	 */
-	@Command
-	@NotifyChange({ "listaPrograma" })
-	public void buscarProgramaA() {
-		listaPrograma = servicioprogramaacademico.listadoProgramas();
-	}
-
-	/**
 	 * eliminarPrograma
 	 * 
 	 * @param nombrePrograma
@@ -162,8 +136,6 @@ public class VMprogramaAcademico {
 	 * @throws Debe
 	 *             seleccionar un registro para poder eliminarlo
 	 */
-
-	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
 	public void eliminarPrograma(
@@ -173,30 +145,30 @@ public class VMprogramaAcademico {
 		} else {
 			Messagebox.show("¿Desea eliminar el registro realmente?",
 					"Confirmar", new Messagebox.Button[] {
-							Messagebox.Button.YES, Messagebox.Button.NO },
+					Messagebox.Button.YES, Messagebox.Button.NO },
 					Messagebox.QUESTION, new EventListener<ClickEvent>() {
-						@SuppressWarnings("incomplete-switch")
-						public void onEvent(ClickEvent e) throws Exception {
-							switch (e.getButton()) {
-							case YES:
-								// if you call super.delete here, since original
-								// zk event is not control by binder
-								// the change of viewmodel will not update to
-								// the ui.
-								// so, I post a delete to trigger to process it
-								// in binder controll.
-								// binder.postCommand("limpiar", null);
-								servicioprogramaacademico
-										.eliminarPrograma(getProgramaseleccionado()
-												.getIdPrograma());
-								mensajeAlUsuario.informacionEliminarCorrecto();
-								binder.postCommand("limpiar", null);
-							case NO:
+				@SuppressWarnings("incomplete-switch")
+				public void onEvent(ClickEvent e) throws Exception {
+					switch (e.getButton()) {
+					case YES:
+						// if you call super.delete here, since original
+						// zk event is not control by binder
+						// the change of viewmodel will not update to
+						// the ui.
+						// so, I post a delete to trigger to process it
+						// in binder controll.
+						// binder.postCommand("limpiar", null);
+						servicioprogramaacademico
+						.eliminarPrograma(getProgramaseleccionado()
+								.getIdPrograma());
+						mensajeAlUsuario.informacionEliminarCorrecto();
+						binder.postCommand("limpiar", null);
+					case NO:
 
-								binder.postCommand("limpiar", null);
-							}
-						}
-					});
+						binder.postCommand("limpiar", null);
+					}
+				}
+			});
 		}
 	}
 
@@ -216,6 +188,20 @@ public class VMprogramaAcademico {
 	}
 
 	/**
+	 * buscarProgramaA
+	 * 
+	 * @param listaPrograma
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "listaPrograma" })
+	public void buscarProgramaA() {
+		listaPrograma = servicioprogramaacademico.listadoProgramas();
+	}
+
+	/**
 	 * filtros
 	 * 
 	 * @param listaPrograma
@@ -232,6 +218,25 @@ public class VMprogramaAcademico {
 	}
 
 	/**
+	 * limpiar
+	 * 
+	 * @param idPrograma
+	 *            , nombrePrograma, estatus, listaPrograma
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma",
+	"nombreProgramaFiltro" })
+	public void limpiar() {
+		idPrograma = null;
+		nombrePrograma = null;
+		nombreProgramaFiltro = "";
+		buscarProgramaA();
+	}
+
+	/**
 	 * Cerrar Ventana
 	 * 
 	 * @param binder
@@ -239,7 +244,6 @@ public class VMprogramaAcademico {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
@@ -248,5 +252,4 @@ public class VMprogramaAcademico {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-
 }

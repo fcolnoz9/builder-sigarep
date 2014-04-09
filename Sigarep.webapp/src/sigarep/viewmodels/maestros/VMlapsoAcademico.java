@@ -23,18 +23,20 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
  * @version 1.0
  * @since 20/12/13
  */
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMlapsoAcademico {
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioLapsoAcademico serviciolapsoacademico;
-
+	//-----------------Variables LapsoAcadémico-------------
 	private String codigoLapso;// clave principal de la tabla lapso_academico
 	private Date fechaInicio;// fecha de inicio del lapso académico
 	private Date fechaCierre;// fecha de cierre del lapso académico
 	private Boolean estatus;// estatus del codigolapso
+	//-----------------Variables Lista----------------------
 	private List<LapsoAcademico> listaLapsoAcademico;// lista de los lapso
-														// académico registrados
+	// académico registrados
+	//-----------------Variables Objeto---------------------
 	private LapsoAcademico lapsoAcademicoSeleccionado;
 	private LapsoAcademico lapsoAcademico;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
@@ -97,11 +99,7 @@ public class VMlapsoAcademico {
 
 	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
 		this.lapsoAcademico = lapsoAcademico;
-	}
-
-	// Fin de los metodos gets y sets
-
-	// ----------- OTROS METODOS
+	}// Fin de los metodos gets y sets
 
 	/**
 	 * Inicialización
@@ -109,10 +107,9 @@ public class VMlapsoAcademico {
 	 * @return metodos inicializados
 	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Init
 	public void init() {
-		
+
 		buscarLapsoAcademico();
 		buscarTodosLapsoAcademicos();
 	}
@@ -126,7 +123,7 @@ public class VMlapsoAcademico {
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico", "lapsoAcademico" })
+		"listaLapsoAcademico", "lapsoAcademico" })
 	public void guardarLapso() {
 		if (codigoLapso == null || fechaInicio == null || fechaCierre == null
 				|| codigoLapso.equals(""))
@@ -185,22 +182,17 @@ public class VMlapsoAcademico {
 	}
 
 	/**
-	 * Metodo que limpia todos los campos
+	 * permite tomar los datos del objeto lapso académico seleccionado
 	 * @return nada
-	 * @parameters codigoLapso, fechaInicio, fechaCierre y la
-	 *             listaLapsoAcademico
+	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso académico
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico", "estatus" })
-	public void limpiarlapso() {
-		codigoLapso = "";
-		fechaInicio = null;
-		fechaCierre = null;
-		lapsoAcademicoSeleccionado = new LapsoAcademico();
-		buscarTodosLapsoAcademicos();
-
+	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre" })
+	public void mostrarSeleccionadoLapso() {
+		codigoLapso = lapsoAcademicoSeleccionado.getCodigoLapso();
+		fechaInicio = lapsoAcademicoSeleccionado.getFechaInicio();
+		fechaCierre = lapsoAcademicoSeleccionado.getFechaCierre();
 	}
 
 	/**
@@ -209,7 +201,6 @@ public class VMlapsoAcademico {
 	 * @parameters
 	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public List<LapsoAcademico> buscarTodosLapsoAcademicos() {
@@ -223,7 +214,6 @@ public class VMlapsoAcademico {
 	 * @param
 	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({ "lapsoAcademico" })
 	public void buscarLapsoAcademico() {
@@ -231,18 +221,21 @@ public class VMlapsoAcademico {
 	}
 
 	/**
-	 * permite tomar los datos del objeto lapso académico seleccionado
+	 * Metodo que limpia todos los campos
 	 * @return nada
-	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso académico
+	 * @parameters codigoLapso, fechaInicio, fechaCierre y la
+	 *             listaLapsoAcademico
 	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
-	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre" })
-	public void mostrarSeleccionadoLapso() {
-		codigoLapso = lapsoAcademicoSeleccionado.getCodigoLapso();
-		fechaInicio = lapsoAcademicoSeleccionado.getFechaInicio();
-		fechaCierre = lapsoAcademicoSeleccionado.getFechaCierre();
+	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
+		"listaLapsoAcademico", "estatus" })
+	public void limpiarlapso() {
+		codigoLapso = "";
+		fechaInicio = null;
+		fechaCierre = null;
+		lapsoAcademicoSeleccionado = new LapsoAcademico();
+		buscarTodosLapsoAcademicos();
 	}
 
 	/**
@@ -251,15 +244,13 @@ public class VMlapsoAcademico {
 	 * @return cierra el .zul asociado al VM
 	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre",
-			"listaLapsoAcademico" })
+	"listaLapsoAcademico" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
 		boolean condicion = false;
 		if (codigoLapso != null)
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
-
 }
