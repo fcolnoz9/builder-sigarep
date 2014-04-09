@@ -15,32 +15,36 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
 /**Clase VMInstanciaApelada
-* ViewModel para la interfaz RegistrarInstanciaApelada.zul
-* @author Builder 
-* @version 1.0
-* @since 20/12/13
-*/
+ * ViewModel para la interfaz RegistrarInstanciaApelada.zul
+ * @author Builder 
+ * @version 1.0
+ * @since 20/12/13
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMinstanciaApelada {
+	//-----------------Servicios----------------------------
 	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
+	//-----------------Variables InstanciaApelada ----------
 	private Integer idInstanciaApelada; //Clave principal de la tabla InstanciApelada
 	private String instanciaApelada; //Nombre de la InstanciaApelada
 	private String nombreRecursoApelacion; //Nombre del Recurso de la InstanciaApelada
 	private String descripcion; //Descripcion de la InstanciaApelada
+	private Boolean estatus; //Estatus de la InstanciaApelada
+	//-----------------Variables Filtro---------------------
 	private String instanciaFiltro = "";
 	private String recursoFiltro = "";
 	private String descripcionFiltro;
-	private Boolean estatus; //Estatus de la InstanciaApelada
+	//-----------------Variables Lista----------------------
 	private List<InstanciaApelada> listaInstanciaApelada; //Lista de InstanciaApelada
+	//-----------------Variables Objeto---------------------
 	private InstanciaApelada instanciaApeladaseleccionada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-    @Wire Textbox txtcodigoInstacia;
-    
-  
-    //Metodos Setters y Getters
-    public String getInstanciaApelada(){
-    	return instanciaApelada;
-    }
+	@Wire Textbox txtcodigoInstacia;
+	
+	//Metodos Setters y Getters
+	public String getInstanciaApelada(){
+		return instanciaApelada;
+	}
 
 	public String getInstanciaFiltro() {
 		return instanciaFiltro;
@@ -75,17 +79,17 @@ public class VMinstanciaApelada {
 	}
 
 	public void setInstanciaApelada(String nombreInstancia){
-    	this.instanciaApelada = nombreInstancia;
-    }
-    
-    public Integer getIdInstanciaApelada() {
+		this.instanciaApelada = nombreInstancia;
+	}
+
+	public Integer getIdInstanciaApelada() {
 		return idInstanciaApelada;
 	}
-	
-    public void setIdInstanciaApelada(Integer codigoInstancia) {
+
+	public void setIdInstanciaApelada(Integer codigoInstancia) {
 		this.idInstanciaApelada = codigoInstancia;
 	}
-	
+
 	public Boolean getEstatus() {
 		return this.estatus;
 	}
@@ -117,24 +121,42 @@ public class VMinstanciaApelada {
 		this.descripcionFiltro = descripcionFiltro;
 	}
 	//Fin de los metodos setters y getters
-	
-	//Metodo que inicializa el codigo del VM
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
 	@Init
 	public void init(){
-        //initialization code
+		//initialization code
 		listadoInstancia();
-    }
-	
+	}
+
+	/** Listado de InstaciaApelada registradas y activas 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public void listadoInstancia() {
+		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
+	}
+
 	/** Guardar InstaciaApelada 
 	 * @return nada
 	 * @parameters vacío
 	 * @throws No dispara ninguna excepcion.
-	   */
+	 */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
 	public void guardarInstancia(){
 		if (instanciaApelada == null || nombreRecursoApelacion == null || descripcion == null)
-					mensajeAlUsuario.advertenciaLlenarCampos();
+			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
 			InstanciaApelada inst = new InstanciaApelada(idInstanciaApelada,descripcion,
 					true,instanciaApelada,nombreRecursoApelacion);
@@ -142,38 +164,12 @@ public class VMinstanciaApelada {
 			limpiar();
 		}
 	}
-	
-	/** Listado de InstaciaApelada registradas y activas 
-	 * @return nada
-	 * @parameters vacío
-	 * @throws No dispara ninguna excepcion.
-	   */
-	@Command
-	@NotifyChange({ "listaInstanciaApelada" })
-	public void listadoInstancia() {
-		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
-	}
 
-	/** Método que limpia los campos en la interfaz RegistrarInstanciaApelada.zul 
-	 * @return nada
-	 * @parameters vacío
-	 * @throws No dispara ninguna excepcion.
-	   */
-	@Command
-	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
-	public void limpiar(){
-		idInstanciaApelada = null;
-		instanciaApelada = null;
-		nombreRecursoApelacion = null;
-		descripcion = null;
-		listadoInstancia();
-	}
-		
 	/** Metodo que indica la InstanciaApelada seleccionada del Listbox 
 	 * @return nada
 	 * @parameters vacío
 	 * @throws No dispara ninguna excepcion.
-	   */
+	 */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
 	public void mostrarSeleccionada() {
@@ -187,14 +183,29 @@ public class VMinstanciaApelada {
 	 * @return nada
 	 * @parameters vacío
 	 * @throws No dispara ninguna excepcion.
-	   */
+	 */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada", "instanciaFiltro", "recursoFiltro" })
 	public void filtros() {
 		listaInstanciaApelada = servicioInstanciaApelada.buscarInstancia(instanciaFiltro,
 				recursoFiltro);
 	}
-	
+
+	/** Método que limpia los campos en la interfaz RegistrarInstanciaApelada.zul 
+	 * @return nada
+	 * @parameters vacío
+	 * @throws No dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
+	public void limpiar(){
+		idInstanciaApelada = null;
+		instanciaApelada = null;
+		nombreRecursoApelacion = null;
+		descripcion = null;
+		listadoInstancia();
+	}
+
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -203,7 +214,7 @@ public class VMinstanciaApelada {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
+
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
@@ -212,5 +223,4 @@ public class VMinstanciaApelada {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-
 }

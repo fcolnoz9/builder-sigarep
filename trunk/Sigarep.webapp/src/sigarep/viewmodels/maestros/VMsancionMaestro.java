@@ -1,21 +1,13 @@
 package sigarep.viewmodels.maestros;
 
 import java.util.List;
-
-import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.Messagebox.ClickEvent;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
@@ -27,22 +19,23 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
  * @version 1.0
  * @since 22/01/14
  */
-
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMsancionMaestro {
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioSancionMaestro serviciosancionmaestro;
-	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	//-----------------Variables SancionMaestro ------------
 	private Integer id_sancion;
 	private String nombre;
 	private String nombreFiltro;
 	private String descripcion;
 	private Boolean estatus;
+	//-----------------Variables Lista----------------------
 	private List<SancionMaestro> listaTipoSancion;
+	//-----------------Variables Objeto---------------------
 	private SancionMaestro tipoSancionSeleccionada;
+	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	
 	// Inicion Métodos Sets y Gets
 	public Integer getIdSancion() {
 		return id_sancion;
@@ -99,58 +92,18 @@ public class VMsancionMaestro {
 
 	public void setNombreFiltro(String nombreFiltro) {
 		this.nombreFiltro = nombreFiltro;
-	}
+	}// Fin Métodos Sets y Gets
 
-	// Fin Métodos Sets y Gets
-
-	// Otros Métodos
-
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
 	@Init
 	public void init() {
-		listaTipoSancion();
-	}
-
-	/**
-	 * guardarTipoSancion
-	 * 
-	 * @param id_sancion
-	 *            , nombre, descripcion, listaSancion, estatus
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             debe haber campos en blanco
-	 */
-	@Command
-	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
-			"listaTipoSancion" })
-	public void guardarTipoSancion() {
-		if (nombre == null || descripcion == null) {
-			mensajeAlUsuario.advertenciaLlenarCampos();
-		} else {
-			SancionMaestro sanm = new SancionMaestro(id_sancion, descripcion,
-					true, nombre);
-			serviciosancionmaestro.guardarSancion(sanm);
-			mensajeAlUsuario.informacionRegistroCorrecto();
-			limpiar();
-		}
-	}
-
-	/**
-	 * limpiar
-	 * 
-	 * @param id_sancion
-	 *            , nombre, descripcion, listaSancion, estatus
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
-	 */
-	@Command
-	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
-			"nombreFiltro", "listaTipoSancion" })
-	public void limpiar() {
-		id_sancion = null;
-		nombre = null;
-		nombreFiltro = "";
-		descripcion = null;
 		listaTipoSancion();
 	}
 
@@ -166,6 +119,30 @@ public class VMsancionMaestro {
 	@NotifyChange({ "listaTipoSancion" })
 	public void listaTipoSancion() {
 		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
+	}
+
+	/**
+	 * guardarTipoSancion
+	 * 
+	 * @param id_sancion
+	 *            , nombre, descripcion, listaSancion, estatus
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             debe haber campos en blanco
+	 */
+	@Command
+	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
+	"listaTipoSancion" })
+	public void guardarTipoSancion() {
+		if (nombre == null || descripcion == null) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		} else {
+			SancionMaestro sanm = new SancionMaestro(id_sancion, descripcion,
+					true, nombre);
+			serviciosancionmaestro.guardarSancion(sanm);
+			mensajeAlUsuario.informacionRegistroCorrecto();
+			limpiar();
+		}
 	}
 
 	/**
@@ -201,6 +178,26 @@ public class VMsancionMaestro {
 	}
 
 	/**
+	 * limpiar
+	 * 
+	 * @param id_sancion
+	 *            , nombre, descripcion, listaSancion, estatus
+	 * @return No devuelve ningun valor
+	 * @throws No
+	 *             dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
+		"nombreFiltro", "listaTipoSancion" })
+	public void limpiar() {
+		id_sancion = null;
+		nombre = null;
+		nombreFiltro = "";
+		descripcion = null;
+		listaTipoSancion();
+	}
+
+	/**
 	 * Cerrar Ventana
 	 * 
 	 * @param binder
@@ -208,8 +205,6 @@ public class VMsancionMaestro {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-
-	
 	@Command
 	@NotifyChange({ "listaTipoSancion", "nombre", "descripcion", "estatus" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
@@ -218,5 +213,4 @@ public class VMsancionMaestro {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-	
 }

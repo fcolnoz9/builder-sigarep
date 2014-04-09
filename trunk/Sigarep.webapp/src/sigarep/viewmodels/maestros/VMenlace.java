@@ -11,14 +11,25 @@ import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.data.maestros.MenuItem;
 import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 
+/**
+ * Clase VMenlace
+ * 
+ * @author BUILDER
+ * @version 1.0
+ * @since 19/12/2013
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMenlace {
-
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioEnlaceInteres servicioenlacesinteres;
+	//-----------------Variables Lista----------------------
 	public List<EnlaceInteres> listaEnlace;
+	//-----------------Variables Enlace -----------------
 	private AImage imag;
 	private List<MenuItem> menuItems;
+	
+	// Métodos Set y Get
 
 	public AImage getImag() {
 		return imag;
@@ -35,7 +46,19 @@ public class VMenlace {
 	public void setMenuItems(List<MenuItem> menuItems) {
 		this.menuItems = menuItems;
 	}
+	
+	public List<MenuItem> getAllMenus() {
+		return new ArrayList<MenuItem>(menuItems);
+	}// Fin de los métodos set y get
 
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
 	@Init
 	public void init() {
 		Enlaces();
@@ -63,10 +86,6 @@ public class VMenlace {
 					.getDireccionEnlace(), 2));
 		}
 		menuItems.add(m1_Lv1);
-	}
-
-	public List<MenuItem> getAllMenus() {
-		return new ArrayList<MenuItem>(menuItems);
 	}
 
 }

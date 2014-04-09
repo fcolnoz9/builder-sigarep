@@ -3,7 +3,6 @@ package sigarep.viewmodels.maestros;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -20,7 +19,6 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
@@ -32,16 +30,19 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMprogramaAcademicoLote {
+	//-----------------Servicios----------------------------
+	@WireVariable 
+	private ServicioProgramaAcademico servicioprogramaacademico;
+	//-----------------Variables ProgramaAcademicoLote -----
 	private Integer tamanoXML,id_programa;
 	private String nombre_programa,textoXML;//datos del programa academico
 	private Boolean estatus_programa;//estatus del programa
-	@WireVariable 
-	private ServicioProgramaAcademico servicioprogramaacademico;
-    private List<ProgramaAcademico> listaPrograma;//Lista de Programas
 	private Media media;//Archivo de tipo media que soporta la extension Xml
-	
+	//-----------------Variables Lista----------------------
+	private List<ProgramaAcademico> listaPrograma;//Lista de Programas
+	//-----------------Variables Objeto---------------------
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
+
 	// Sets y gets 
 	public Integer getTamanoXML() {
 		return tamanoXML;
@@ -114,34 +115,40 @@ public class VMprogramaAcademicoLote {
 
 	public void setMensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario) {
 		this.mensajeAlUsuario = mensajeAlUsuario;
+	}// Fin de los métodos set y get
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
+	@Init
+	public void init()
+	{
+		listaPrograma();
 	}
 
-	
-	
-	
 	/** listaProgramas
-	  * @param listaPrograma
-	  * @return La listaPrograama cargada con los programas academicos
-	  * 
-	  */
+	 * @param listaPrograma
+	 * @return La listaPrograama cargada con los programas academicos
+	 * 
+	 */
 	@Command
 	@NotifyChange({"listaPrograma"})
 	public void listaPrograma()
 	{
 		listaPrograma=servicioprogramaacademico.listadoProgramas();
 	}
-	
-	
-	@Init
-	public void init()
-	{
-		listaPrograma();
-	}
+
+
 	/** Unico punto de entrada.
-	  * @param UploadEvent event Zkoss UI
-	  * @return No devuelve ningun valor.
-	  * @throws las Excepciones son que el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.
-	  */
+	 * @param UploadEvent event Zkoss UI
+	 * @return No devuelve ningun valor.
+	 * @throws las Excepciones son que el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.
+	 */
 	@SuppressWarnings("unused")
 	@Command
 	@NotifyChange({"textoXML","tamanoXML","listaPrograma"})
@@ -170,17 +177,17 @@ public class VMprogramaAcademicoLote {
 						}
 						ProgramaAcademico programaacademico = new ProgramaAcademico(id_programa,nombre_programa,estatus_programa);
 						servicioprogramaacademico.guardarPrograma(programaacademico);//Se guarda el programa
-						
-						
-					 }
+
+
+					}
 					if (list.size() > 0){
 						listaPrograma();
 						mensajeAlUsuario.informacionOperacionExitosa();	
 					} else {
 						mensajeAlUsuario.errorContenidoXMLNoValido();
 					}
-				
-						
+
+
 				} catch (JDOMException e) {
 					// handle JDOMException
 				} catch (IOException e) {
@@ -192,7 +199,7 @@ public class VMprogramaAcademicoLote {
 			}
 		}
 	}
-	
+
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -201,12 +208,10 @@ public class VMprogramaAcademicoLote {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
 	@NotifyChange({"textoXML","tamanoXML","listaPrograma"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		boolean condicion = true;
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+		mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
-
 }

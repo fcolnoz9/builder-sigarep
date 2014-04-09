@@ -13,11 +13,9 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.Media;
-
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -35,12 +33,11 @@ import org.zkoss.bind.Binder;
  * @version 1.0
  * @since 22/01/14
  */
-
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMnoticia  {
-
+	//-----------------Servicios----------------------------
 	@WireVariable ServicioNoticia servicionoticia;
+	//-----------------Variables Noticia--------------------
 	private Integer idNoticia; // clave principal de la tabla Noticia
 	private String contenido; // contenido de la Noticia
 	private String enlaceNoticia; // enlace de la Noticia
@@ -49,15 +46,18 @@ public class VMnoticia  {
 	private Archivo fotoNoticia = new Archivo();
 	private Media mediaNoticia;
 	private AImage imagenNoticia;
+	private Date vencimiento; // fecha de vencimiento de la Noticia
+	//-----------------Variables Filtro---------------------
 	private String tituloFiltro="";
 	private String titulo; // titulo de la Noticia
-	private Date vencimiento; // fecha de vencimiento de la Noticia
+	//-----------------Variables Lista----------------------
 	private List<Noticia> listaNoticia = new LinkedList<Noticia>(); //Lista de las Noticias
+	//-----------------Variables Objeto---------------------
 	private Noticia noticiaSeleccionada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();//Llama a los diferentes mensajes de dialogo
 	Window win=null;
 	int idcount=0;
-	
+
 	// Metodos GETS Y SETS
 	public Integer getIdNoticia() {
 		return idNoticia;
@@ -135,17 +135,31 @@ public class VMnoticia  {
 	public void setMediaNoticia(Media mediaNoticia) {
 		this.mediaNoticia = mediaNoticia;
 	}
-	
+
 	public String getTituloFiltro() {
 		return tituloFiltro;
 	}
 	public void setTituloFiltro(String tituloFiltro) {
 		this.tituloFiltro = tituloFiltro;
+	}//  Fin de los métodos set y get
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return código de inicialización
+	 * @throws No
+	 * dispara ninguna excepción.
+	 */
+	@Init
+	// inicializador
+	public void init(){
+		//initialization code
+		mediaNoticia = null;
+		fotoNoticia = new Archivo();
+		buscarNoticia();
 	}
 
-	// OTROS METODOS
-	
-	
 	/** Guardar Noticia
 	 * @parameters el objeto Noticia
 	 * @return No devuelve ningun valor
@@ -166,53 +180,11 @@ public class VMnoticia  {
 		}
 	}
 
-	@Init
-	// inicializador
-	public void init(){
-		//initialization code
-		mediaNoticia = null;
-		fotoNoticia = new Archivo();
-		buscarNoticia();
-	}
-
-	/** Busca una Noticia
-	 * @parameters listaNoticia cargada con  las noticias.
-	 * @return No devuelve ningun valor.
-	 */
-	@Command
-	@NotifyChange({"listaNoticia"})
-	public void buscarNoticia(){
-		listaNoticia =servicionoticia.listadoNoticia();
-	}
-
-	/** Método que limpia los campos
-	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
-	 * @return No devuelve ningun valor.
-	 */
-	@Command
-	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
-	public void limpiar(){
-		// se utiliza la fecha del sistema para colocarla al momento de limpiar
-		Date fecha = new Date();
-		idNoticia=null;
-		contenido=null;
-		enlaceNoticia=null;
-		fechaRegistro=null;
-		titulo=null;
-		vencimiento=null;
-		mediaNoticia = null;
-		imagenNoticia = null;
-		fotoNoticia = new Archivo();
-		buscarNoticia();
-	}
-
 	/** Elimina una Noticia
 	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
 	 * @return No devuelve ningun valor.
 	 * @throws la Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
 	 */
-	
-	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void eliminarNoticia(@ContextParam(ContextType.BINDER) final Binder binder){
@@ -224,13 +196,13 @@ public class VMnoticia  {
 				@SuppressWarnings("incomplete-switch")
 				public void onEvent(ClickEvent e) throws Exception {
 					switch (e.getButton()) {
-						case YES:
-							servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
-							mensajeAlUsuario.informacionEliminarCorrecto();
-							binder.postCommand("limpiar", null);
-						case NO:
-					
-							binder.postCommand("limpiar", null);
+					case YES:
+						servicionoticia.eliminar(getNoticiaSeleccionada().getIdNoticia());
+						mensajeAlUsuario.informacionEliminarCorrecto();
+						binder.postCommand("limpiar", null);
+					case NO:
+
+						binder.postCommand("limpiar", null);
 					}
 				}
 			});		
@@ -264,69 +236,6 @@ public class VMnoticia  {
 
 	}
 
-	/** cargarImagenNoticia
-	 * @parameters imagenNoticia, UploadEvent event Zkoss UI.
-	 * @return No devuelve ningun valor.
-	 * @throws la Excepcion es que la media noticia sea null
-	 */
-	@Command
-	@NotifyChange({"imagenNoticia","fotoNoticia"})
-	public void cargarImagenNoticia(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
-		mediaNoticia = event.getMedia();
-		if (mediaNoticia != null) {
-			if (mediaNoticia instanceof org.zkoss.image.Image) {
-				fotoNoticia.setNombreArchivo(mediaNoticia.getName());
-				fotoNoticia.setTipo(mediaNoticia.getContentType());
-				fotoNoticia.setContenidoArchivo(mediaNoticia.getByteData());
-				
-				if(fotoNoticia.getTamano()>500000){
-					mensajeAlUsuario.advertenciaTamannoImagen(500);
-					
-					fotoNoticia = new Archivo();
-					}else{imagenNoticia = (AImage) mediaNoticia;}
-				
-			} else {
-				Messagebox.show("El archivo: "+mediaNoticia+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
-			}
-		} 
-	}
-
-	/** mostrarMensaje
-	 * @parameters UploadEvent event Zkoss UI.
-	 * @return No devuelve ningun valor.
-	 */
-	@Command
-	public void mostrarMensaje(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
-		mediaNoticia = event.getMedia();
-		Messagebox.show("Archivo" + mediaNoticia.getName(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-	}
-
-	
-	/** filtros. Filtra por la variable titulo
-	 * @parameters titulof,listaNoticia
-	 * @return No devuelve ningun valor.
-	 */
-	@Command
-	@NotifyChange({"tituloFiltro","listaNoticia"})
-	public void filtros(){
-		listaNoticia = servicionoticia.filtrarNoticias(tituloFiltro);
-	}
-	
-	/** Validación de fechas
-	 * @parameters fechaRegistro, fechaCierre
-	 * @return No devuelve ningun valor.
-	 */
-	@Command
-	@NotifyChange({ "fechaRegistro", "fechaCierre" })
-	public void validarFecha() {
-		if (fechaRegistro != null && vencimiento != null) {
-			if (fechaRegistro.compareTo(vencimiento) > 0) {
-				mensajeAlUsuario.errorRangoFechas();
-				vencimiento = null;
-			}
-		}
-	}
-	
 	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
 	 * @parameters contenido, enlaceNoticia, fechaRegistro, imagen, titulo, vencimiento, listaNoticia,fotoNoticia. 
 	 * @return No devuelve ningun valor.
@@ -348,7 +257,100 @@ public class VMnoticia  {
 		win.setId("doModal"+""+idcount+"");
 
 	}
-	
+
+	/** Busca una Noticia
+	 * @parameters listaNoticia cargada con  las noticias.
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	@NotifyChange({"listaNoticia"})
+	public void buscarNoticia(){
+		listaNoticia =servicionoticia.listadoNoticia();
+	}
+
+	/** filtros. Filtra por la variable titulo
+	 * @parameters titulof,listaNoticia
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	@NotifyChange({"tituloFiltro","listaNoticia"})
+	public void filtros(){
+		listaNoticia = servicionoticia.filtrarNoticias(tituloFiltro);
+	}
+
+	/** Método que limpia los campos
+	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
+	public void limpiar(){
+		// se utiliza la fecha del sistema para colocarla al momento de limpiar
+		idNoticia=null;
+		contenido=null;
+		enlaceNoticia=null;
+		fechaRegistro=null;
+		titulo=null;
+		vencimiento=null;
+		mediaNoticia = null;
+		imagenNoticia = null;
+		fotoNoticia = new Archivo();
+		buscarNoticia();
+	}
+
+	/** cargarImagenNoticia
+	 * @parameters imagenNoticia, UploadEvent event Zkoss UI.
+	 * @return No devuelve ningun valor.
+	 * @throws la Excepcion es que la media noticia sea null
+	 */
+	@Command
+	@NotifyChange({"imagenNoticia","fotoNoticia"})
+	public void cargarImagenNoticia(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
+		mediaNoticia = event.getMedia();
+		if (mediaNoticia != null) {
+			if (mediaNoticia instanceof org.zkoss.image.Image) {
+				fotoNoticia.setNombreArchivo(mediaNoticia.getName());
+				fotoNoticia.setTipo(mediaNoticia.getContentType());
+				fotoNoticia.setContenidoArchivo(mediaNoticia.getByteData());
+
+				if(fotoNoticia.getTamano()>500000){
+					mensajeAlUsuario.advertenciaTamannoImagen(500);
+
+					fotoNoticia = new Archivo();
+				}else{imagenNoticia = (AImage) mediaNoticia;}
+
+			} else {
+				Messagebox.show("El archivo: "+mediaNoticia+" no es una imagenNoticia valida", "Error", Messagebox.OK, Messagebox.ERROR);
+			}
+		} 
+	}
+
+	/** mostrarMensaje
+	 * @parameters UploadEvent event Zkoss UI.
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	public void mostrarMensaje(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
+		mediaNoticia = event.getMedia();
+		Messagebox.show("Archivo" + mediaNoticia.getName(), "Informacion", Messagebox.OK, Messagebox.INFORMATION);
+	}
+
+
+	/** Validación de fechas
+	 * @parameters fechaRegistro, fechaCierre
+	 * @return No devuelve ningun valor.
+	 */
+	@Command
+	@NotifyChange({ "fechaRegistro", "fechaCierre" })
+	public void validarFecha() {
+		if (fechaRegistro != null && vencimiento != null) {
+			if (fechaRegistro.compareTo(vencimiento) > 0) {
+				mensajeAlUsuario.errorRangoFechas();
+				vencimiento = null;
+			}
+		}
+	}
+
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -365,6 +367,4 @@ public class VMnoticia  {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-	
-
 }
