@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="36"/>
 	<property name="ireport.y" value="259"/>
 	<style name="table">
 		<box>
@@ -146,7 +146,7 @@ UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="130" y="116" width="304" height="38" uuid="8668fef0-0ae6-47d5-acc1-1e1b99dfacff"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
@@ -225,7 +225,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="442" y="169" width="57" height="24" uuid="ec2c9097-d940-45bf-a6e4-bc193df9e141"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
@@ -239,7 +239,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[PROGRAMA:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="154" y="169" width="226" height="24" uuid="ff898bd5-f8b3-40ed-8046-4bba5fecc097"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeConsejoUniversitario" language="groovy" pageWidth="612" pageHeight="970" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="ffe6c774-f49b-4872-a5ea-9596955ba072">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="235"/>
+	<property name="ireport.y" value="139"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -156,7 +156,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Nombres y Apellidos del Br:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="245" y="226" width="115" height="15" uuid="5c9cb09c-9938-4b50-bf0d-bf7b3e999ffc"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>
@@ -166,7 +166,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{apellidos}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="394" y="226" width="134" height="15" uuid="8026c5cd-d29c-4f83-991b-6fff2d1922ce"/>
 				<box>
 					<pen lineWidth="0.0"/>
@@ -194,7 +194,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[ Programa o Carrera:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="322" y="253" width="184" height="15" uuid="0d12fc30-e008-4658-9233-88ff82724914"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>
@@ -211,7 +211,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[ Régimen a ser aplicado:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="160" y="279" width="43" height="15" uuid="66d0408a-db3e-4aee-9f0c-090c23e01407"/>
 				<box>
 					<pen lineWidth="1.25"/>
@@ -232,7 +232,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[C.I ]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="160" y="226" width="79" height="15" uuid="5e9de6bb-b10e-457b-8d8b-760cde7feebf"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>
@@ -249,7 +249,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[En reunión de Fecha:]]></text>
 			</staticText>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="264" y="314" width="89" height="15" uuid="0c0cdba7-6894-474a-921f-508e03538fbb"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>
@@ -266,7 +266,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[ Indique en forma breve y clara los argumentos o causales alegados por el estudiante en su escrito]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="29" y="364" width="502" height="44" uuid="a17c0681-4e67-4dc0-96d0-79b3ba066f79"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
@@ -307,7 +307,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Sugerencia:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="77" y="427" width="89" height="15" uuid="5cf3a7d0-bc3b-4739-995d-5294cd1c390c"/>
 				<box>
 					<bottomPen lineWidth="1.25"/>

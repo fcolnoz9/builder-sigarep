@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeEstructuradoResultadosApelacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04b9911d-9fe8-4979-8b84-81b5095ca9fd">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="39"/>
 	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
 	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String"/>
 	<parameter name="instancia" class="java.lang.String"/>
@@ -66,7 +66,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<reportElement x="483" y="0" width="89" height="67" uuid="4543b95e-7003-40de-9cd3-edaf4d290614"/>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="441" y="117" width="98" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="7670fbdb-feb0-4a32-a931-0973fd99b191"/>
 				<box>
 					<pen lineWidth="0.0"/>
@@ -80,7 +80,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nroSesion}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="107" y="137" width="65" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="432837ef-d4db-4fdf-b833-b574be87e2eb"/>
 				<box>
 					<pen lineWidth="0.0"/>
@@ -136,14 +136,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[APELACIÓN:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="300" y="117" width="107" height="20" uuid="bfcce2fd-3665-493b-87c2-6317cecf9df5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tipoSesion}.toUpperCase()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="62" y="117" width="155" height="20" uuid="5ecbab73-bf61-4165-a524-1514451ed1d0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
@@ -264,7 +264,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{veredicto}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="60" y="0" width="100" height="20" uuid="fdedf30c-67f8-4a9d-95bc-ae5a41ee10d9"/>
 				<box>
 					<pen lineWidth="1.0"/>
@@ -295,7 +295,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Por  el]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="359" y="55" width="155" height="20" uuid="26d15856-9266-4dd0-b74a-f120cbe9a3f1"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>

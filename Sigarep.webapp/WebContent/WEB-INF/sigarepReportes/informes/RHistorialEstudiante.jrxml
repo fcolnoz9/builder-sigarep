@@ -272,19 +272,19 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 	<summary>
 		<band height="469" splitType="Stretch">
 			<elementGroup/>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="187" y="0" width="100" height="20" uuid="f79b32e7-8ed9-42c3-999e-770c9fa8ddcc"/>
 				<textFieldExpression><![CDATA[$P{cedula}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="411" y="0" width="100" height="20" uuid="ba741df5-c585-49d1-869e-a47e83272fd2"/>
 				<textFieldExpression><![CDATA[$P{codigoLapso}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="187" y="20" width="100" height="20" uuid="0cbe9eba-01fe-4c1b-8197-13399ab28c4d"/>
 				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="411" y="20" width="100" height="20" uuid="fe0f7ac7-6881-4c89-9f07-374fb253722f"/>
 				<textFieldExpression><![CDATA[$P{apellido}]]></textFieldExpression>
 			</textField>
@@ -584,7 +584,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Motivos de Apelación:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="213" y="40" width="134" height="20" uuid="93131a34-388c-41dc-aef7-ad691ec0a8cc"/>
 				<textFieldExpression><![CDATA[$P{motivosEstudiante}]]></textFieldExpression>
 			</textField>
@@ -595,7 +595,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Nº de Caso:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="411" y="40" width="100" height="20" uuid="04797566-2f82-4d6f-80d3-5bc1ae144742"/>
 				<textFieldExpression><![CDATA[$P{caso}]]></textFieldExpression>
 			</textField>
