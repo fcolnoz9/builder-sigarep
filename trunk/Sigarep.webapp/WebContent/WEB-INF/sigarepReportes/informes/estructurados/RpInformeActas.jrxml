@@ -230,8 +230,8 @@ UNIVERSIDAD CENTROCCIDENTAL "LISANDRO ALVARADO"
 DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 			</staticText>
 			<image scaleImage="FillFrame">
-				<reportElement x="0" y="0" width="89" height="67" uuid="7f91ef08-6920-4f29-8c68-1e5bfb323dee"/>
-				<imageExpression><![CDATA["C:\\Users\\Vanessa\\workspace\\Sigarep.webapp\\WebContent\\imagenes\\imagenes-reportes\\ucla.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="89" height="67" uuid="800e25a0-a25e-4de2-8418-c0416c487958"/>
+				<imageExpression><![CDATA[$P{ICON_LEFT_HEADER}]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>
@@ -271,10 +271,6 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
-			<image scaleImage="FillFrame">
-				<reportElement x="0" y="19" width="572" height="28" uuid="95306347-0c44-4d80-b0bb-925f8fb76ead"/>
-				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
-			</image>
 		</band>
 	</pageFooter>
 	<summary>
