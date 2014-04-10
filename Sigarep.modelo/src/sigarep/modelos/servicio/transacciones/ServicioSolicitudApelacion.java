@@ -37,6 +37,10 @@ public class ServicioSolicitudApelacion {
 	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosIII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
+	
+	public List<SolicitudApelacion> buscarApelacionesRecursoJerarquico(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
+	}
 
 	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {
 		return iSolicitudApelacionDAO.findOne(id);
