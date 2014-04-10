@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroEstadoApelacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="143"/>
+	<property name="ireport.y" value="240"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -173,7 +173,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Estado:]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="134" y="164" width="353" height="19" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="22bc767d-9e6b-4742-a3ba-c4fd9b81b2be"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
@@ -187,7 +187,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Instancia:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="145" y="192" width="342" height="19" uuid="67838f63-37e7-4a67-bbdf-586b2ea5c69f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
@@ -201,7 +201,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Programa:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="149" y="219" width="338" height="19" uuid="6821a842-be28-4aec-8f93-61ca81eeac0d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
