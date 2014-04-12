@@ -190,24 +190,49 @@ public class VMDatosSesionVeredicto {
 	@Command
 	public void guardarDatosSesion(){
 		if (fechaSesion == null || tipoSesion == null || numeroSesion == null)
-			mensajeAlUsuario.advertenciaLlenarCampos();
-		
-		else if (!validarSesion()) 
-
-		
-		Messagebox.show("El número de sesión ya esta en uso", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaLlenarCampos();		
+		else if (!validarSesion()){ 		
+		}	
 		else{
-			mostrarListaSancionados();
-		}
+				mostrarListaSancionados();
+			}
+		
 	}
+	
+	/**
+	 * Guardar Datos de Sesión
+	 * @param numeroSesion
+	 * @return Valida el formato del número de sesión y verifica si es válido su uso,
+	 * 		   retorna true si es correcto, false si es rechazado
+	 * @throws No dispara ninguna excepcion.
+	 */
 	@Command
 	public boolean validarSesion(){
 		
-		if ( serviciosolicitudapelacion.buscarSesionValida(numeroSesion, numa, numb).size()>0){
-
+		int num = 0;
+		boolean pase = false;
+		//String palabra ="1-2´3?4_5-";
+		char arre[]=numeroSesion.toCharArray();
+		for(int i =0;i < numeroSesion.length(); i++){
+			num=arre[i];
+			System.out.println("---"+i);
+			System.out.println("valor es: "+num);
+			if( (num > 47 && num < 58) || (num == 45)){System.out.println("bien");}
+			else{System.out.println("mal"); pase = false; break;}
+			if(i+1==numeroSesion.length())pase =true;
+		}
+		
+		
+		if(pase){
+			if ( serviciosolicitudapelacion.buscarSesionValida(numeroSesion, numa, numb).size()>0){
+				Messagebox.show("El número de sesión ya esta en uso", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+				return false;
+			}else{
+				return true;
+			}
+		}else{ 
+			Messagebox.show("El formato del código es inválido, solo debe usar numeros y/o el caracter guión(-)", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 			return false;
-		}else{
-			return true;
 		}
 	}
 	
