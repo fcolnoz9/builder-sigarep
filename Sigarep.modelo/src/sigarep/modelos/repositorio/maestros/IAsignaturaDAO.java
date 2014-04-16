@@ -58,6 +58,6 @@ public interface IAsignaturaDAO extends JpaRepository<Asignatura, String> {
 	 * @return  List<Asignatura> Lista de asignaruras que NO posee el estudiante sancionado con RR
 	 */
 	
-	@Query("SELECT DISTINCT a FROM AsignaturaEstudianteSancionado AS aesa, EstudianteSancionado AS esa, Asignatura AS a WHERE a.programaAcademico = esa.estudiante.programaAcademico AND esa = :estudianteSancionado AND a.codigoAsignatura NOT IN (SELECT DISTINCT a.codigoAsignatura FROM AsignaturaEstudianteSancionado AS aesa, EstudianteSancionado AS esa, Asignatura AS a WHERE esa = aesa.estudianteSancionado AND a.programaAcademico = esa.estudiante.programaAcademico AND aesa.asignatura = a AND esa = :estudianteSancionado)") 
-	public List<Asignatura> buscarAsignaturaNoPerteneceEstudiante(@Param("estudianteSancionado") EstudianteSancionado estudianteSancionado);
+	@Query("SELECT DISTINCT a FROM AsignaturaEstudianteSancionado AS aesa, EstudianteSancionado AS esa, Asignatura AS a WHERE a.programaAcademico = esa.estudiante.programaAcademico AND esa.estudiante.programaAcademico = :programaAcademico AND esa = :estudianteSancionado AND a.codigoAsignatura NOT IN (SELECT DISTINCT a.codigoAsignatura FROM AsignaturaEstudianteSancionado AS aesa, EstudianteSancionado AS esa, Asignatura AS a WHERE esa = aesa.estudianteSancionado AND a.programaAcademico = esa.estudiante.programaAcademico AND esa.estudiante.programaAcademico = :programaAcademico AND aesa.asignatura = a AND esa = :estudianteSancionado)") 
+	public List<Asignatura> buscarAsignaturaNoPerteneceEstudiante(@Param("estudianteSancionado") EstudianteSancionado estudianteSancionado, @Param("programaAcademico") ProgramaAcademico programaAcademico);
 }

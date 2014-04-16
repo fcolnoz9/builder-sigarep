@@ -2,6 +2,7 @@ package sigarep.viewmodels.transacciones;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import org.zkoss.bind.Binder;
@@ -119,9 +120,6 @@ public class VMEstudianteSancionado {
 	private List<EstudianteSancionado> listaSancionado; 
 	EstudianteSancionadoPK estudianteSancionadoPK = new EstudianteSancionadoPK();
 	EstudianteSancionado estudianteSancionado = new EstudianteSancionado();
-
-
-
 	
 	//Métodos setters y getters
 	public String getSancion() {
@@ -513,16 +511,15 @@ public class VMEstudianteSancionado {
 	public void agregarAsignatura(
 			@BindingParam("comboitem") Combobox comboItem,
 			@BindingParam("listBoxAsignaturas") Listbox listBoxAsignaturas) {
-		if( comboItem.getValue().equals("") )
-		{
+		if(comboItem.getValue().equals("")){
 			mensajeAlUsuario.advertenciaIngresarAsignatura();
 		}
 		else {
-		AsignaturaEstudianteSancionado asignaturaLista = new AsignaturaEstudianteSancionado();
-		asignaturaLista.setAsignatura(asignaturaseleccionado);
-		listaAsignaturas.remove(comboItem.getSelectedItem().getIndex());
-		comboItem.setValue("");
-		listaAsignaturaListBox.add(asignaturaLista);
+			AsignaturaEstudianteSancionado asignaturaLista = new AsignaturaEstudianteSancionado();
+			asignaturaLista.setAsignatura(asignaturaseleccionado);
+			listaAsignaturas.remove(comboItem.getSelectedItem().getIndex());
+			comboItem.setValue("");
+			listaAsignaturaListBox.add(asignaturaLista);
 		}
 	}
 	
@@ -531,11 +528,13 @@ public class VMEstudianteSancionado {
 	 * @return 
 	 */
 	@Command
+	@NotifyChange({ "sancionMaestro", "listaAsignaturas","programa", "listaAsignaturaListBox" })
 	public void seleccionarSancion(
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
-			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
+			@BindingParam("parametro4") Label lbllapsoConsecutivo,
+			@BindingParam("comboAsignaturas") Combobox comboAsignaturas) {
 		if (sancionMaestro.getIdSancion() ==1 ) {
 			groupBoxAsignaturas.setVisible(false);
 			textboxlapsoConsecutivo1.setVisible(true);
@@ -546,6 +545,7 @@ public class VMEstudianteSancionado {
 			textboxlapsoConsecutivo1.setVisible(false);
 			textboxlapsoConsecutivo2.setVisible(false);
 			lbllapsoConsecutivo.setVisible(false);
+			buscarAsignaturas(comboAsignaturas);
 		}
 
 	}
@@ -583,7 +583,9 @@ public class VMEstudianteSancionado {
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
-			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
+			@BindingParam("parametro4") Label lbllapsoConsecutivo,
+			@BindingParam("comboAsignaturas") Combobox comboAsignaturas,
+			@BindingParam("textboxCedula") Textbox textboxCedula) {
 		EstudianteSancionado miSanc = getEstudianteSeleccionado();
 		cedula = miSanc.getId().getCedulaEstudiante();
 		primerNombre = miSanc.getEstudiante().getPrimerNombre();
@@ -603,14 +605,13 @@ public class VMEstudianteSancionado {
 		unidadesCursadas = miSanc.getUnidadesCursadas();
 		semestre = miSanc.getSemestre();
 		periodoSancion = miSanc.getPeriodoSancion();
+		textboxCedula.setReadonly(true);
 		seleccionarSancion(groupBoxAsignaturas, textboxlapsoConsecutivo1,
-				textboxlapsoConsecutivo2, lbllapsoConsecutivo);
+				textboxlapsoConsecutivo2, lbllapsoConsecutivo, comboAsignaturas);
 		if (sancionMaestro.getIdSancion()==2) {
-			buscarAsignaturas();
 			listaAsignaturaListBox = miSanc
 					.getAsignaturaEstudianteSancionados();
 		}
-		
 		else{
 			asignatura = miSanc.getAsignaturaEstudianteSancionados();
 			
@@ -618,7 +619,6 @@ public class VMEstudianteSancionado {
 				String separador = ":";
 			if( !palabra.equals("")){
 		        String[] palabraArray = palabra.split(separador);
-		   		
 				lapsoConsecutivo1 = palabraArray[0];
 				if(palabraArray.length>1)
 				lapsoConsecutivo2 = palabraArray[1];
@@ -663,13 +663,23 @@ public class VMEstudianteSancionado {
 	 * @return lista de de asignaturas, programas
 	 */
 	@Command
-	@NotifyChange({ "listaAsignaturas","programa" })
-	public void buscarAsignaturas() {
-		if(estudianteSeleccionado!=null && sancionMaestro.getIdSancion()==2){
-			listaAsignaturas = servicioAsignatura.listadoAsignaturaNoPerteneceEstudiante(estudianteSeleccionado);
+	@NotifyChange({ "listaAsignaturas","programa", "listaAsignaturaListBox" })
+	public void buscarAsignaturas(@BindingParam("comboAsignaturas") Combobox comboAsignaturas) {
+		comboAsignaturas.setText("");
+		if(estudianteSeleccionado!=null){
+			listaAsignaturas = servicioAsignatura.listadoAsignaturaNoPerteneceEstudiante(estudianteSeleccionado, programa);
+			if(listaAsignaturas.size()==0){
+				listaAsignaturaListBox = new HashSet<AsignaturaEstudianteSancionado>();
+				if(estudianteSeleccionado.getAsignaturaEstudianteSancionados().size() != servicioAsignatura.buscarAsignaturasPorPrograma(programa).size())
+					listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa);
+				else listaAsignaturas = new LinkedList<Asignatura>();
+			}
+			else listaAsignaturaListBox = estudianteSeleccionado.getAsignaturaEstudianteSancionados();
 		}	
-		else
+		else {
+			listaAsignaturaListBox = new HashSet<AsignaturaEstudianteSancionado>();
 			listaAsignaturas =  servicioAsignatura.buscarAsignaturasPorPrograma(programa);
+		}	
 	}
 	
 	
@@ -683,12 +693,17 @@ public class VMEstudianteSancionado {
 	 @NotifyChange({"cedula" ,"indiceGrado" ,"lapsoAcademico", "sancionMaestro", "unidadesAprobadas"
 		  ,"primerNombre","segundoNombre","primerApellido","unidadesCursadas" ,"semestre","lapsosAcademicosRP"
 		  ,"telefono","email","fechaNacimiento","lapsoAcademico","annoIngreso","listaSancionado"
-		  ,"segundoApellido", "sexo","programa","periodoSancion","semestre"})
+		  ,"segundoApellido", "sexo","programa","periodoSancion","semestre", "lapsoConsecutivo1", "lapsoConsecutivo2"})
 	public void registrarEstudianteSancionado(
-			@BindingParam("asignaturaSancionado") List<Listitem> asignaturas,@BindingParam("parametro1") Groupbox groupBoxAsignaturas,@BindingParam("parametro2")Textbox textboxlapsoConsecutivo1,@BindingParam("parametro3")Textbox textboxlapsoConsecutivo2
-					,@BindingParam("parametro4")Label lbllapsoConsecutivo ){
+			@BindingParam("asignaturaSancionado") List<Listitem> asignaturas,
+			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
+			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
+			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
+			@BindingParam("parametro4") Label lbllapsoConsecutivo,
+			@BindingParam("textboxCedula") Textbox textboxCedula){
 
-		Boolean estudienteRR = false;
+		boolean estudienteRR = false;
+		boolean llenarCamposDeLapsoConsecutivo = false;
 		lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo();
 		if (cedula == null  || primerNombre == null
 				|| segundoNombre == null
@@ -705,49 +720,54 @@ public class VMEstudianteSancionado {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		else if(!mensajeAlUsuario.errorValidarCorreo(email)){}
 		else {
+			estudianteSancionado = new EstudianteSancionado();
 			//-------- Validacion de las fechas 
 			if (fechaNacimiento != null && annoIngreso != null) {
 				if (fechaNacimiento.compareTo(annoIngreso) > 0) {
 					mensajeAlUsuario.errorRangoFechas();
 					fechaNacimiento = null;
-				} else if (sancionMaestro == null || sancionMaestro.equals("") ) mensajeAlUsuario.advertenciaLlenarCampos();
+				} else if (sancionMaestro == null || sancionMaestro.equals("")) 
+					mensajeAlUsuario.advertenciaLlenarCampos();
 				else{
 					if (sancionMaestro.getIdSancion()==1) {
-						if (lapsoConsecutivo1 == null || lapsoConsecutivo2 == null || lapsoConsecutivo1.equals("") || lapsoConsecutivo2.equals("") )
+						if (lapsoConsecutivo1 == null || lapsoConsecutivo2 == null || lapsoConsecutivo1.equals("") || lapsoConsecutivo2.equals("")){
 							mensajeAlUsuario.advertenciaLlenarCampos();
+							llenarCamposDeLapsoConsecutivo = true;
+						}
 						else estudianteSancionado.setLapsosAcademicosRp(lapsoConsecutivo1+ ": " + lapsoConsecutivo2);
 					} else {
 						estudienteRR = true;
 						if (asignaturas.size() == 0) {
 							mensajeAlUsuario.advertenciaIngresarAsignatura();
 							estudienteRR = false;
-						} else { estudienteRR = true; }
+						} 
+						else estudienteRR = true;
 					}
 					
-					Estudiante estudiante = new Estudiante(cedula, annoIngreso,
-							email, true, fechaNacimiento, primerApellido,
-							primerNombre, segundoApellido, segundoNombre, sexo,
-							telefono, programa);
-					servicioestudiante.guardarEstudiante(estudiante);
-					estudianteSancionadoPK.setCedulaEstudiante(cedula);
-					estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
-					estudianteSancionado.setId(estudianteSancionadoPK);
-					estudianteSancionado.setLapsoAcademico(lapsoAcademico);
-					estudianteSancionado.setEstudiante(estudiante);
-					estudianteSancionado.setIndiceGrado(indiceGrado);
-					estudianteSancionado.setSancionMaestro(sancionMaestro);
-					estudianteSancionado.setUnidadesAprobadas(unidadesAprobadas);
-					estudianteSancionado.setUnidadesCursadas(unidadesCursadas);
-					estudianteSancionado.setPeriodoSancion(periodoSancion);
-					estudianteSancionado.setSemestre(semestre);
-					estudianteSancionado.setEstatus(true);
+					if(estudienteRR == true || llenarCamposDeLapsoConsecutivo == false){
+						Estudiante estudiante = new Estudiante(cedula, annoIngreso,
+								email, true, fechaNacimiento, primerApellido,
+								primerNombre, segundoApellido, segundoNombre, sexo,
+								telefono, programa);
+						servicioestudiante.guardarEstudiante(estudiante);
+						estudianteSancionadoPK.setCedulaEstudiante(cedula);
+						estudianteSancionadoPK.setCodigoLapso(lapsoAcademico.getCodigoLapso());
+						estudianteSancionado.setId(estudianteSancionadoPK);
+						estudianteSancionado.setLapsoAcademico(lapsoAcademico);
+						estudianteSancionado.setEstudiante(estudiante);
+						estudianteSancionado.setIndiceGrado(indiceGrado);
+						estudianteSancionado.setSancionMaestro(sancionMaestro);
+						estudianteSancionado.setUnidadesAprobadas(unidadesAprobadas);
+						estudianteSancionado.setUnidadesCursadas(unidadesCursadas);
+						estudianteSancionado.setPeriodoSancion(periodoSancion);
+						estudianteSancionado.setSemestre(semestre);
+						estudianteSancionado.setEstatus(true);
+					}					
 					// try {
 					if (estudienteRR == true) {
-						
 						String condicion1 = "";
 						boolean pase = false;
 						for (Listitem miAsignaturasacion : asignaturas) {
-							
 							condicion1 = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
 							if(condicion1.equals("") || condicion1 == null ){
 								pase = false;
@@ -755,10 +775,12 @@ public class VMEstudianteSancionado {
 							}else {
 								pase = true;
 							}
-							
 						}
 						
 						if(pase){
+							for (AsignaturaEstudianteSancionado asignaturaEstudianteSancionado : (servicioestudiantesancionado.buscar(estudianteSeleccionado.getId()).getAsignaturaEstudianteSancionados())) {
+								servicioasignaturaestudiantesancionado.eliminarAsignaturaEstudianteSancionadoFisicamente(cedula, asignaturaEstudianteSancionado.getAsignatura().getCodigoAsignatura());
+							}
 							for (Listitem miAsignaturasacion : asignaturas) {
 								String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
 								String condicion = ((Textbox) (miAsignaturasacion.getChildren().get(1)).getFirstChild()).getValue();
@@ -777,17 +799,17 @@ public class VMEstudianteSancionado {
 								servicioestudiantesancionado.guardar(estudianteSancionado);
 							}
 							mensajeAlUsuario.informacionRegistroCorrecto();
-							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
+							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo, textboxCedula);
 						}else{ 
 							mensajeAlUsuario.advertenciaLlenarCampos();}
-			
-
-					} else { 
+					} else if (llenarCamposDeLapsoConsecutivo == false)  {
+						for (AsignaturaEstudianteSancionado asignaturaEstudianteSancionado : (servicioestudiantesancionado.buscar(estudianteSeleccionado.getId()).getAsignaturaEstudianteSancionados())) {
+							servicioasignaturaestudiantesancionado.eliminarAsignaturaEstudianteSancionadoFisicamente(cedula, asignaturaEstudianteSancionado.getAsignatura().getCodigoAsignatura());
+						}
 						servicioestudiantesancionado.guardar(estudianteSancionado);
-							mensajeAlUsuario.informacionRegistroCorrecto();
-							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
-							}
-				
+						mensajeAlUsuario.informacionRegistroCorrecto();
+						limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo, textboxCedula);
+					}
 				}
 			}
 		}
@@ -811,7 +833,8 @@ public class VMEstudianteSancionado {
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
-			@BindingParam("parametro4") Label lbllapsoConsecutivo){
+			@BindingParam("parametro4") Label lbllapsoConsecutivo,
+			@BindingParam("comboAsignaturas") Combobox comboAsignaturas){
 
 		try {
 			
@@ -837,13 +860,11 @@ public class VMEstudianteSancionado {
 					semestre = miSanc.getSemestre();
 					periodoSancion = miSanc.getPeriodoSancion();
 					seleccionarSancion(groupBoxAsignaturas, textboxlapsoConsecutivo1,
-							textboxlapsoConsecutivo2, lbllapsoConsecutivo);
+							textboxlapsoConsecutivo2, lbllapsoConsecutivo, comboAsignaturas);
 					if (sancionMaestro.getIdSancion()==2) {
-						buscarAsignaturas();
 						listaAsignaturaListBox = miSanc
 								.getAsignaturaEstudianteSancionados();
 					}
-					
 					else{
 						asignatura = miSanc.getAsignaturaEstudianteSancionados();
 						
@@ -856,9 +877,7 @@ public class VMEstudianteSancionado {
 							if(palabraArray.length>1)
 							lapsoConsecutivo2 = palabraArray[1];
 						}
-					}
-					
-					
+					}		
 				} else {
 					estudianteNoEncontrado(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo);
 				}
@@ -891,23 +910,22 @@ public class VMEstudianteSancionado {
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
-			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
-		 
-			if (cedula == null || cedula.equals("")){
-				mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
-			}else if (serviciosolicitudapelacion.buscarEstudianteSancionadoxSolicitud(cedula) != null){
-			 mensajeAlUsuario.advertenciaNoELiminar();
-			
-			}else {
+			@BindingParam("parametro4") Label lbllapsoConsecutivo,
+			@BindingParam("textboxCedula") Textbox textboxCedula) {
+
+		if (cedula == null || cedula.equals("")) {
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+		} else if (serviciosolicitudapelacion
+				.buscarEstudianteSancionadoxSolicitud(cedula) != null) {
+			mensajeAlUsuario.advertenciaNoELiminar();
+		} else {
 			try {
-				servicioestudiantesancionado.eliminar(estudianteSeleccionado
-						.getId());
+				servicioestudiantesancionado.eliminar(estudianteSeleccionado.getId());
 			} catch (Exception e) {
-				
 			}
 			mensajeAlUsuario.informacionEliminarCorrecto();
 			limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1,
-					textboxlapsoConsecutivo2, lbllapsoConsecutivo);
+					textboxlapsoConsecutivo2, lbllapsoConsecutivo, textboxCedula);
 		}
 	}
 	 
@@ -925,12 +943,13 @@ public class VMEstudianteSancionado {
 			"lapsosAcademicosRP", "listaSancionado", "periodoSancion",
 			"listaAsignaturaListBox", "lapsoConsecutivo1", "lapsoConsecutivo2",
 			"cedulaFiltro", "nombreFiltro", "apellidoFiltro", "sancionFiltro",
-			"asignatura", "init" })
+			"asignatura", "init", "estudianteSancionado"})
 	public void limpiar(
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
 			@BindingParam("parametro3") Textbox textboxlapsoConsecutivo2,
-			@BindingParam("parametro4") Label lbllapsoConsecutivo) {
+			@BindingParam("parametro4") Label lbllapsoConsecutivo,
+			@BindingParam("textboxCedula") Textbox textboxCedula) {
 		primerNombre = null;
 		segundoNombre = null;
 		primerApellido = null;
@@ -954,6 +973,7 @@ public class VMEstudianteSancionado {
 		listaAsignaturaListBox.clear();
 		lapsoConsecutivo1 = null;
 		lapsoConsecutivo2 = null;
+		estudianteSancionado = null;
 		cedulaFiltro = "";
 		nombreFiltro = "";
 		apellidoFiltro = "";
@@ -962,6 +982,7 @@ public class VMEstudianteSancionado {
 		textboxlapsoConsecutivo2.setVisible(false);
 		lbllapsoConsecutivo.setVisible(false);
 		groupBoxAsignaturas.setVisible(false);
+		textboxCedula.setReadonly(false);
 	}
 		 
 	/** estudianteNoEncontrado
