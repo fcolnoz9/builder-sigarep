@@ -19,7 +19,7 @@
 					<textbox id="txtCedula" mold="rounded" width="80%"
 						placeholder = "Ej: 19185479" 
 						cols="23" maxlength="8" tabindex="1" value="@bind(vm.cedula)"
-						onBlur="@command('buscarEstudiante', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
+						onBlur="@command('buscarEstudiante', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos, comboAsignaturas = cmbAsignaturas)" />
 				</row>
 				<row>
 					<label id="lblPrimerNombre" value="Primer Nombre:" />
@@ -86,7 +86,7 @@
 						value="@bind(vm.programa.nombrePrograma)" 
 						model="@load(vm.listaPrograma)"
 						selectedItem="@bind(vm.programa)"
-						onSelect="@command('buscarAsignaturas')">
+						onSelect="@command('buscarAsignaturas', comboAsignaturas = cmbAsignaturas)">
 						<template name="model">
 							<comboitem label="${each.getNombrePrograma()}" />
 						</template>
@@ -146,7 +146,7 @@
 						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"
 						model="@load(vm.listaSancion)"
 						selectedItem="@bind(vm.sancionMaestro)"
-						onSelect="@command('seleccionarSancion', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)">
+						onSelect="@command('seleccionarSancion', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos, comboAsignaturas = cmbAsignaturas)">
 						<template name="model">
 							<comboitem label="${each.nombreSancion}" />
 						</template>
@@ -246,7 +246,7 @@
 		<button label="Guardar" mold="trendy" id="btnGuardar"
 			image="/imagenes/iconos/guardar.png" width="auto" height="auto"
 			orient="horizontal"
-			onClick="@command('registrarEstudianteSancionado',asignaturaSancionado=items,parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)">
+			onClick="@command('registrarEstudianteSancionado',asignaturaSancionado=items,parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos, textboxCedula = txtCedula)">
 			<attribute name="onClick">
 	List items = lbxAsignaturas.getItems();
 </attribute>
@@ -254,11 +254,11 @@
 		<button label="Eliminar" mold="trendy" id="btnEliminar"
 			image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
 			orient="horizontal"
-			onClick="@command('eliminarEstudianteSancionado',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
+			onClick="@command('eliminarEstudianteSancionado',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos,textboxCedula = txtCedula)" />
 		<button label="Limpiar" mold="trendy" id="btnCancelar"
 			image="/imagenes/iconos/limpiar.png" width="auto" height="auto"
 			orient="horizontal"
-			onClick="@command('limpiar',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)" />
+			onClick="@command('limpiar',parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos, textboxCedula = txtCedula)" />
 		<button label="Cerrar" mold="trendy" id="btnCerrar"
 			image="/imagenes/iconos/cerrar.png" width="auto" height="auto"
 			orient="horizontal" onClick="@command('cerrarVentana', ventana = winRegistrarSancionados)" />
@@ -271,7 +271,7 @@
 		<listbox height="auto" id="lbxEstudianteSancionado"
 			mold="paging" pageSize="10" model="@load(vm.listaSancionado)"
 			selectedItem="@bind(vm.estudianteSeleccionado)"
-			onSelect="@command('mostrarSeleccionado', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos)"
+			onSelect="@command('mostrarSeleccionado', parametro1=grbAsignaturas,parametro2=txtLapsoConsecutivo1,parametro3=txtLapsoConsecutivo2,parametro4=lblLapsosConsecutivos, comboAsignaturas = cmbAsignaturas, textboxCedula = txtCedula)"
 			emptyMessage="No hay estudiantes sancionados registrados">
 			<listhead sizable="true">
 				<listheader label="Cédula "

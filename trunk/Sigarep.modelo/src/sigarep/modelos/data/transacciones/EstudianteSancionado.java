@@ -54,14 +54,20 @@ public class EstudianteSancionado implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="estudianteSancionado", cascade={CascadeType.ALL})
 	private Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados = new HashSet<AsignaturaEstudianteSancionado>();
 
-	// bi-directional many-to-one association to Estudiante
-	@ManyToOne
-	@JoinColumn(name = "cedula_estudiante", nullable = false, insertable = false, updatable = false)
+	// bi-directional many-to-one association to Estudiante	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumns({
+		@JoinColumn(name="cedula_estudiante", referencedColumnName="cedula_estudiante", nullable=false, insertable=false, updatable=false)
+	})
 	private Estudiante estudiante = new Estudiante();
 
+	
+	
 	// bi-directional many-to-one association to LapsoAcademico
-	@ManyToOne
-	@JoinColumn(name = "codigo_lapso", nullable = false, insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumns({
+		@JoinColumn(name="codigo_lapso", referencedColumnName="codigo_lapso", nullable=false, insertable=false, updatable=false)
+	})
 	private LapsoAcademico lapsoAcademico;
 
 	// bi-directional many-to-one association to SancionMaestro

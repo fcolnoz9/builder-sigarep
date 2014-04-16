@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 
-import java.util.List;
 import java.util.Set;
 
 /**
