@@ -233,6 +233,14 @@ public class MensajesAlUsuario {
 				Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+	public void advertenciaValidacionNumeroSesion(){
+		Messagebox.show("El número de sesión ya esta en uso", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
+	public void advertenciaFormatoNumeroSesion(){
+		Messagebox.show("El formato del código es inválido, solo debe usar numeros y/o el caracter guión(-)", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
           Messagebox.show("Hemos enviado un email con su nombre de usuario y contraseña.",
