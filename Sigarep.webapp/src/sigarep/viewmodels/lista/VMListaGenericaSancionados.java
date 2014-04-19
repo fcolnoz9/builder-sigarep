@@ -265,7 +265,7 @@ public class VMListaGenericaSancionados{
 		
 		//Se valida que si se puede registrar o no la apelacion para
 		//la instancia seleccionada
-		//if (validarLogicaApelaciones()){
+		if (validarLogicaApelaciones()){
 			
 			if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
@@ -280,7 +280,7 @@ public class VMListaGenericaSancionados{
 			buscarSancionados();
 			listaVeredicto= new ListModelList<String>();	
 			
-		//}
+		}
     }
 	
 	//Valida si se puede registrar apelaciones en una Instancia seleccionada considerando
