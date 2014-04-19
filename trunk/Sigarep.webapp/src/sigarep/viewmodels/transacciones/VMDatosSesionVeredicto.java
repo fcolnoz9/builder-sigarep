@@ -225,13 +225,14 @@ public class VMDatosSesionVeredicto {
 		
 		if(pase){
 			if ( serviciosolicitudapelacion.buscarSesionValida(numeroSesion, numa, numb).size()>0){
-				Messagebox.show("El número de sesión ya esta en uso", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+				mensajeAlUsuario.advertenciaValidacionNumeroSesion();
+				
 				return false;
 			}else{
 				return true;
 			}
 		}else{ 
-			Messagebox.show("El formato del código es inválido, solo debe usar numeros y/o el caracter guión(-)", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			mensajeAlUsuario.advertenciaFormatoNumeroSesion();
 			return false;
 		}
 	}
