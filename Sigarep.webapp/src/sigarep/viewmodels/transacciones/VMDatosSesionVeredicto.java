@@ -211,14 +211,11 @@ public class VMDatosSesionVeredicto {
 		
 		int num = 0;
 		boolean pase = false;
-		//String palabra ="1-2´3?4_5-";
 		char arre[]=numeroSesion.toCharArray();
 		for(int i =0;i < numeroSesion.length(); i++){
 			num=arre[i];
-			System.out.println("---"+i);
-			System.out.println("valor es: "+num);
-			if( (num > 47 && num < 58) || (num == 45)){System.out.println("bien");}
-			else{System.out.println("mal"); pase = false; break;}
+			if( (num > 47 && num < 58) || (num == 45)){}
+			else{pase = false; break;}
 			if(i+1==numeroSesion.length())pase =true;
 		}
 		
