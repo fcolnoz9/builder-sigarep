@@ -91,6 +91,7 @@ title="Gestión :: Cargar Recaudos"
 									orient="horizontal" upload="true,maxsize=51200"  onUpload="@command('cargarRecaudoEntregado',upload=event, parametro=self)">
 								<custom-attributes idRecaudo="${each.getRecaudo().getIdRecaudo()}"/>
 								<custom-attributes idTipoMotivo="${each.getMotivo().getTipoMotivo().getIdTipoMotivo()}"/>
+								<custom-attributes idInstanciaApelada="${each.getId().getIdInstanciaApelada()}"/>
 							</button>
 							<button label="Eliminar"
 									image="/imagenes/iconos/eliminar.png" width="auto" height="auto"
