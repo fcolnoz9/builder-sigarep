@@ -1,6 +1,5 @@
 package sigarep.viewmodels.transacciones;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +17,7 @@ import org.zkoss.util.media.Media;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.UploadEvent;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
@@ -29,7 +26,6 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
@@ -228,7 +224,7 @@ public class VMCargarRecaudoEntregado {
 		this.segundoApellido = es.getEstudiante().getSegundoApellido();
 		//this.caso = sa.getNumeroCaso();
 		this.lapsosConsecutivos = es.getLapsosAcademicosRp();
-		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		//SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		//this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.peridoSancion = es.getPeriodoSancion();
 		
@@ -259,11 +255,6 @@ public class VMCargarRecaudoEntregado {
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
-	}
-
-	@Command
-	public void closeThis() {
-		window.detach();
 	}
 
 	@Command
@@ -304,10 +295,11 @@ public class VMCargarRecaudoEntregado {
 							
 							Integer idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
 							Integer idTipoMotivo = Integer.parseInt(componente.getAttribute("idTipoMotivo").toString());
+							Integer instancia = Integer.parseInt(componente.getAttribute("idInstanciaApelada").toString());
 							
-							Integer instancia = 1;
 							RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia );
-							RecaudoEntregado recaudoEntregado = new RecaudoEntregado(recaudoEntregadoPK, true, "");
+							RecaudoEntregado recaudoEntregado = serviciorecaudoentregado.buscarPorId(recaudoEntregadoPK);
+							
 							Soporte soporte = null;
 							if (serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK)!= null)
 								soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
@@ -315,7 +307,6 @@ public class VMCargarRecaudoEntregado {
 								soporte= new Soporte(true,new Date(),doc,recaudoEntregado);
 							
 							serviciosoporte.guardar(soporte);
-							
 							buscarRecaudosEntregados(cedula);
 							mensajeAlUsuario.informacionRegistroCorrecto();
 						}
@@ -337,8 +328,6 @@ public class VMCargarRecaudoEntregado {
 			mensajeAlUsuario.informacionEliminarCorrecto();
 		}
 	}
-
-	
 	
 	/**
 	 * Cerrar Ventana
@@ -352,10 +341,7 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = false;
-		if(listaRecaudo != null)
-			condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+		ventana.detach();
 	}
 	
 	
