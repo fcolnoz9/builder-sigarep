@@ -39,7 +39,7 @@ public interface IEstudianteSancionadoDAO extends
 			+ "AND sa.id.idInstanciaApelada = '2' "
 			+ "AND sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE' "
 			+ "AND sa.numeroSesion IS NOT NULL) "
-			+ "AND es.id.cedulaEstudiante IN "
+			+ "AND es.id.cedulaEstudiante NOT IN "
 			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
 			+ "WHERE sa.id.codigoLapso = la.codigoLapso AND la.estatus = 'TRUE' "
 			+ "AND sa.id.idInstanciaApelada = '3') "
@@ -109,4 +109,13 @@ public interface IEstudianteSancionadoDAO extends
 	
 	//reemplaza a buscarPorLapso
 	public List<EstudianteSancionado> findByLapsoAcademico(LapsoAcademico lapsoAcademico);
+
+	@Query("SELECT es FROM EstudianteSancionado AS es, LapsoAcademico AS la "
+			+ "WHERE es.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus = 'TRUE' "
+			+ "AND es.id.cedulaEstudiante IN "
+			+ "(SELECT sa.id.cedulaEstudiante FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
+			+ "WHERE sa.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus ='TRUE')")
+	public List<EstudianteSancionado> buscarEstudiantesCargarRecaudoEntregado();
 }
