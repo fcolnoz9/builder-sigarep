@@ -12,10 +12,12 @@ import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 public interface IRecaudoEntregadoDAO extends
 		JpaRepository<RecaudoEntregado, RecaudoEntregadoPK> {
 
-	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico la " +
-		   "WHERE re.id.cedulaEstudiante = :cedula AND re.id.codigoLapso = la.codigoLapso " +
-		   "AND la.estatus = 'TRUE'")
-	public List<RecaudoEntregado> buscarRecaudosEntregados(@Param("cedula") String cedula);
+	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la "
+			+ "WHERE re.id.cedulaEstudiante = :cedula "
+			+ "AND re.id.idInstanciaApelada = :idInstanciaApelada "
+			+ "AND re.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus = 'TRUE'")
+	public List<RecaudoEntregado> buscarRecaudosEntregados(@Param("cedula") String cedula, @Param("idInstanciaApelada") Integer idInstanciaApelada);
 
 	/** busqueda de recaudos entregados, Verificar Recaudos - Recurso Reconsideracion  
     * @param cedula
