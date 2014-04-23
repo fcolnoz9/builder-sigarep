@@ -36,12 +36,6 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	@Query("select count(sa.id.cedulaEstudiante) AS cuenta from SolicitudApelacion sa where sa.numeroSesion is null")
 	public long numeroApleacionesSinSesion();
 	
-	@Query("SELECT sa FROM SolicitudApelacion AS sa, LapsoAcademico AS la " +
-			"WHERE sa.id.codigoLapso = la.codigoLapso " +
-			"AND la.estatus = 'TRUE'" +
-			"AND sa.id.idInstanciaApelada = '1'")
-	public List<SolicitudApelacion> buscarSolicitudesCargarRecaudoEntregado();
-	
 	/** Busca todas las solicitudes de apelacion para el lapso academico actual y la instancia dada
 	    * @param Ninguno
 	    * @return List<SolicitudApelacion> Lista de solicitudes de apelacion del lapso actual
