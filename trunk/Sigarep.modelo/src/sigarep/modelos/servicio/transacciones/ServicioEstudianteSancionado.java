@@ -248,7 +248,31 @@ public class ServicioEstudianteSancionado {
 			return iEstudianteSancionadoDAO.buscarSancionadoLapsoActual(cedula);
 	}
 	
-
+	public List<EstudianteSancionado> buscarEstudiantesCargarRecaudoEntregado(){
+		return iEstudianteSancionadoDAO.buscarEstudiantesCargarRecaudoEntregado();
+	}
+	
+	public List<EstudianteSancionado> filtrarApelacionesCargarRecaudoEntregado(
+			String programa, String cedula, String nombre,
+			String apellido, String sancion){
+		List<EstudianteSancionado> result = new ArrayList<EstudianteSancionado>();
+        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
+        	result= buscarEstudiantesCargarRecaudoEntregado();
+        }
+        else{
+			for (EstudianteSancionado es : buscarEstudiantesCargarRecaudoEntregado())
+			{
+				if (es.getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+						es.getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
+						es.getEstudiante().getPrimerApellido().toLowerCase().contains(nombre.toLowerCase())&&
+						es.getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
+						es.getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
+					result.add(es);
+				}
+			}
+        }
+		return result;
+	} 
 	
 	public List<String> historicoEstudiantesSancionados(LapsoAcademico lapsoAcademico) {
 		List<String> listaElementosAInsertar = new ArrayList<String>();
