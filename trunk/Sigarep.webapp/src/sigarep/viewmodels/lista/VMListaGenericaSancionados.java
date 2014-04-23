@@ -35,9 +35,7 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
-import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 
@@ -50,25 +48,19 @@ public class VMListaGenericaSancionados{
 	
 	//Servicios para llenar los combos
 	@WireVariable
-	private ServicioTipoMotivo serviciotipomotivo;
-	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
+	@WireVariable
+	private ServicioLapsoAcademico serviciolapsoacademico;
 	
 	//Servicios para buscar apelaciones segun su transaccion (AGREGA TU SERVICIO AQUI)
-	@WireVariable
-	private ServicioRecaudoEntregado serviciorecaudoentregado;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
-	private ServicioLapsoAcademico serviciolapsoacademico;
-	@WireVariable
 	private ServicioEstudiante servicioestudiante;
 	
 	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
-	
-	//private @Wire Combobox cmbVeredicto;
 	
 	//Lista que se llena segun la transaccion
 	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
@@ -190,10 +182,6 @@ public class VMListaGenericaSancionados{
 
 	public void setListaTipoMotivo(List<TipoMotivo> listaTipoMotivo) {
 		this.listaTipoMotivo = listaTipoMotivo;
-	}
-
-	public ServicioRecaudoEntregado getServiciorecaudoentregado() {
-		return serviciorecaudoentregado;
 	}
 
 	public SolicitudApelacion getSancionadoSeleccionado() {
@@ -327,7 +315,7 @@ public class VMListaGenericaSancionados{
 	@NotifyChange({"lista","listaEstudiantes", "listaMaestroEstudiantes"})
 	public void buscarSancionados(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
-			lista = serviciorecaudoentregado.buscarApelacionesCargarRecaudo();
+			listaEstudiantes = servicioestudiantesancionado.buscarEstudiantesCargarRecaudoEntregado();
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul"))
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosReconsideracion();
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
@@ -381,7 +369,7 @@ public class VMListaGenericaSancionados{
 	@NotifyChange({"lista","listaEstudiantes","programa","cedula","nombre","apellido","sancion", "listaMaestroEstudiantes"})
 	public void filtros(){
 		if (rutaModal.equalsIgnoreCase("transacciones/CargarRecaudoEntregado.zul"))
-			lista = serviciorecaudoentregado.filtrarApelacionesCargarRecaudo(programa,cedula,nombre,apellido,sancion);
+			listaEstudiantes = servicioestudiantesancionado.filtrarApelacionesCargarRecaudoEntregado(programa,cedula,nombre,apellido,sancion);
 		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul"))
 			listaEstudiantes = servicioestudiantesancionado.filtrarApelacionesReconsideracion(programa,cedula,nombre,apellido,sancion );
 		else if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul"))
