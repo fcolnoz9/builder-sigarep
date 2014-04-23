@@ -5,48 +5,22 @@ import java.util.List;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
+import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 import sigarep.modelos.repositorio.transacciones.IRecaudoEntregadoDAO;
-import sigarep.modelos.repositorio.transacciones.ISolicitudApelacionDAO;
 
 @Service("serviciorecaudoentregado")
 public class ServicioRecaudoEntregado {
 
 	private @Autowired IRecaudoEntregadoDAO iRecaudoEntregadoDAO;
-	private @Autowired ISolicitudApelacionDAO iSolicitudApelacionDAO;
-	
 	public RecaudoEntregado guardar(RecaudoEntregado recaudoentregado) {
 		return iRecaudoEntregadoDAO.save(recaudoentregado);
 	}
-	
-	public List<SolicitudApelacion> buscarApelacionesCargarRecaudo() {
-		return iSolicitudApelacionDAO.buscarSolicitudesCargarRecaudoEntregado();
-	}
-	
-	public List<SolicitudApelacion> filtrarApelacionesCargarRecaudo(
-			String programa, String cedula, String nombre,
-			String apellido, String sancion){
-		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
-        if(programa==null || cedula==null || nombre==null || apellido==null || sancion==null){
-        	result= buscarApelacionesCargarRecaudo();
-        }
-        else{
-			for (SolicitudApelacion sa : buscarApelacionesCargarRecaudo())
-			{
-				if (sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(nombre.toLowerCase())&&
-						sa.getEstudianteSancionado().getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
-						sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
-					result.add(sa);
-				}
-			}
-        }
-		return result;
-	} 
 	
 	/** lista de recaudos entregados de un estudiante sancionado
 	 * en la segunda apelacion
@@ -67,9 +41,19 @@ public class ServicioRecaudoEntregado {
 	}
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula){
-		return iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula);
+		List<RecaudoEntregado> listaResultado = new ArrayList<RecaudoEntregado>();
+		listaResultado = iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula,3);
+		if (listaResultado.size() > 0)
+			return listaResultado;
+		else{
+			listaResultado = iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula, 2);
+			if (listaResultado.size() > 0)
+				return listaResultado;
+			else{
+				return iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula, 1);
+			}
+		}
 	}
-	
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregadosReconsideracion(String cedula){
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosReconsideracion(cedula);
@@ -124,5 +108,9 @@ public class ServicioRecaudoEntregado {
 	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezII(
 			String cedula) {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosAnalizarValidezII(cedula);
+	}
+
+	public RecaudoEntregado buscarPorId(RecaudoEntregadoPK recaudoEntregadoPK) {
+		return iRecaudoEntregadoDAO.findOne(recaudoEntregadoPK);
 	} 
 }
