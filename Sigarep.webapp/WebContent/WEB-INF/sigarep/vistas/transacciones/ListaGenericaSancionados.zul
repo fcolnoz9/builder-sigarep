@@ -47,28 +47,28 @@
 				emptyMessage="No hay Apelaciones">
 				<listhead>
 					<listheader label="Cédula" align="center"
-						sort="auto(cedulaEstudiante)">
+						sort="auto(EstudianteSancionado.Estudiante.cedulaEstudiante)">
 						<textbox id="filtroCedula" instant="true"
 							mold="rounded" width="100px" value="@bind(vm.cedula)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
 					<listheader label="Nombre" align="center"
-						sort="auto(primerNombre)">
+						sort="auto(EstudianteSancionado.Estudiante.primerNombre)">
 						<textbox id="filtroNombre" instant="true"
 							mold="rounded" width="100px" value="@bind(vm.nombre)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
 					<listheader label="Apellido" align="center"
-						sort="auto(primerApellido)">
+						sort="auto(EstudianteSancionado.Estudiante.primerApellido)">
 						<textbox id="filtroApellido" instant="true"
 							mold="rounded" width="100px" value="@bind(vm.apellido)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
 					<listheader label="Sanción" align="center"
-						sort="auto(nombreSancion)">
+						sort="auto(EstudianteSancionado.SancionMaestro.nombreSancion)">
 						<textbox id="filtroSancion" instant="true"
 							mold="rounded" width="100px" value="@bind(vm.sancion)"
 							onChange="@command('filtros')" />

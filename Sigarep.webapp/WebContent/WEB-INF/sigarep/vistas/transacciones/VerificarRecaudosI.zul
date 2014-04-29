@@ -84,7 +84,7 @@
 	   	mold="paging" vflex="1">	   	
 	   	<listhead>
 	   		<listheader hflex="3" label="Nombre del recaudo" width="50%" sort="auto(nombreRecaudo)" height="20%"/> 
-	   		<listheader hflex="4" label="Tipo de Motivo" width="50%" sort="auto(nombreTipoMotivo)" height="20%" /> 	
+	   		<listheader hflex="4" label="Tipo de Motivo" width="50%" sort="auto(tipoMotivo.nombreTipoMotivo)" height="20%" /> 	
 	   	</listhead>
 	   	<template name="model">
 	   		<listitem id="" selected="false" onClick="@command('notificarRecaudoVerificado',todosLosItems=lbxRecaudos.items, parametro = self)">
