@@ -129,12 +129,12 @@
 				<listhead>
 					<listheader hflex="3" label="Motivo de Apelación"
 						align="left" width="25%"
-						sort="auto(getMotivo().getTipoMotivo().getNombreTipoMotivo())" />
+						sort="auto(Motivo.TipoMotivo.NombreTipoMotivo)" />
 					<listheader hflex="4" label="Recaudo Entregado"
 						align="left" width="25%"
-						sort="auto(getRecaudo().getNombreRecaudo())" />
+						sort="auto(Recaudo.getNombreRecaudo)" />
 					<listheader hflex="4" label="Observación"
-						align="left" width="50%" sort="auto(getObservacionExperto())">
+						align="left" width="50%" sort="auto(observacionExperto)">
 					</listheader>
 				</listhead>
 				<template name="model">
