@@ -7,11 +7,9 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.zkoss.zul.Messagebox;
 
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
-import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.Motivo;
 import sigarep.modelos.data.transacciones.SolicitudApelacionPK;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
@@ -561,5 +559,13 @@ public class ServicioSolicitudApelacion {
 			return true;
 		else
 			return false;
+	}
+
+	public String buscarNumeroDeCasoCargarRecaudo(String cedula) {
+		return iSolicitudApelacionDAO.buscarNumeroDeCasoCargarRecaudo(cedula);
+	}
+
+	public Object buscarFechaApelacionCargarRecaudo(String cedula) {
+		return iSolicitudApelacionDAO.buscarFechaApelacionCargarRecaudo(cedula);
 	}
 }

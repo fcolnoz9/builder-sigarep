@@ -1,11 +1,6 @@
 package sigarep.modelos.servicio.transacciones;
 
-import java.util.ArrayList;
 import java.util.List;
-
-
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,19 +35,8 @@ public class ServicioRecaudoEntregado {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosVerificarRecaudosIII(cedula);
 	}
 	
-	public List<RecaudoEntregado> buscarRecaudosEntregados(String cedula){
-		List<RecaudoEntregado> listaResultado = new ArrayList<RecaudoEntregado>();
-		listaResultado = iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula,3);
-		if (listaResultado.size() > 0)
-			return listaResultado;
-		else{
-			listaResultado = iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula, 2);
-			if (listaResultado.size() > 0)
-				return listaResultado;
-			else{
-				return iRecaudoEntregadoDAO.buscarRecaudosEntregados(cedula, 1);
-			}
-		}
+	public List<RecaudoEntregado> buscarRecaudosEntregadosSinSoporte(String cedula){
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosSinSoporte(cedula);
 	}
 	
 	public List<RecaudoEntregado> buscarRecaudosEntregadosReconsideracion(String cedula){
@@ -112,5 +96,9 @@ public class ServicioRecaudoEntregado {
 
 	public RecaudoEntregado buscarPorId(RecaudoEntregadoPK recaudoEntregadoPK) {
 		return iRecaudoEntregadoDAO.findOne(recaudoEntregadoPK);
-	} 
+	}
+
+	public List<RecaudoEntregado> buscarRecaudosEntregadosConSoporte(String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecuadosEntregadosConSoporte(cedula);
+	}
 }
