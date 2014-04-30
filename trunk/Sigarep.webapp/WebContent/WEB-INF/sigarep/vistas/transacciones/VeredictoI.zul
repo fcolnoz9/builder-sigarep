@@ -146,7 +146,7 @@
 						<label
 							value="${each.getRecaudo().getNombreRecaudo()}" />
 						<textbox value="${each.getObservacionExperto()}"
-						placeholder="Ingrese una observación" 
+						placeholder="Sin observaciones" 
 							mold="rounded" cols="120" width="80%" rows="2" readonly="true">
 						</textbox>
 					</row>
