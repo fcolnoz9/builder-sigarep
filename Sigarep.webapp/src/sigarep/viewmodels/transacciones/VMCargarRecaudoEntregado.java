@@ -1,5 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,12 +31,13 @@ import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarRecaudoEntregado {
-	private Window window;
+
 	private String cedula;
 	private String sancion;
 	private String programa;
@@ -68,6 +70,8 @@ public class VMCargarRecaudoEntregado {
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	@WireVariable
 	private ServicioSoporte serviciosoporte;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 
 	private List<RecaudoEntregado> listaRecaudo; 
 	
@@ -222,10 +226,10 @@ public class VMCargarRecaudoEntregado {
 		this.lapso = es.getLapsoAcademico().getCodigoLapso();
 		this.segundoNombre = es.getEstudiante().getSegundoNombre();
 		this.segundoApellido = es.getEstudiante().getSegundoApellido();
-		//this.caso = sa.getNumeroCaso();
 		this.lapsosConsecutivos = es.getLapsosAcademicosRp();
-		//SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-		//this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
+		this.caso = serviciosolicitudapelacion.buscarNumeroDeCasoCargarRecaudo(cedula);
+		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		this.fechaApelacion = sdf.format(serviciosolicitudapelacion.buscarFechaApelacionCargarRecaudo(cedula));
 		this.peridoSancion = es.getPeriodoSancion();
 		
 		concatenacionNombres();
@@ -254,7 +258,10 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregados(cedula);
+		List<RecaudoEntregado> listaAux;
+		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosConSoporte(cedula);
+		listaAux = serviciorecaudoentregado.buscarRecaudosEntregadosSinSoporte(cedula);
+		listaRecaudo.addAll(listaAux);
 	}
 
 	@Command
@@ -297,13 +304,11 @@ public class VMCargarRecaudoEntregado {
 							Integer idTipoMotivo = Integer.parseInt(componente.getAttribute("idTipoMotivo").toString());
 							Integer instancia = Integer.parseInt(componente.getAttribute("idInstanciaApelada").toString());
 							
-							RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia );
+							RecaudoEntregadoPK recaudoEntregadoPK= new RecaudoEntregadoPK(idRecaudo,idTipoMotivo,lapso,cedula,instancia);
 							RecaudoEntregado recaudoEntregado = serviciorecaudoentregado.buscarPorId(recaudoEntregadoPK);
 							
-							Soporte soporte = null;
-							if (serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK)!= null)
-								soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
-							else
+							Soporte soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
+							if (soporte == null)
 								soporte= new Soporte(true,new Date(),doc,recaudoEntregado);
 							
 							serviciosoporte.guardar(soporte);
