@@ -70,7 +70,7 @@ title="Gestión :: Cargar Recaudos"
 				</row>
 			</rows>
 		</grid>
-		<grid id="grdCargarRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="5">
+		<grid id="grdCargarRecaudos" model="@bind(vm.listaRecaudo)" emptyMessage="No se encontraron recaudos" mold="paging" pageSize="6">
 	        <columns>
 	        	<column label="Motivo de Apelación" hflex="3" align="left"></column>
 	            <column label="Recaudo Entregado" hflex="3" align="left"></column>
