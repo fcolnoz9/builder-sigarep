@@ -11,13 +11,23 @@ import sigarep.modelos.data.transacciones.RecaudoEntregadoPK;
 
 public interface IRecaudoEntregadoDAO extends
 		JpaRepository<RecaudoEntregado, RecaudoEntregadoPK> {
-
+	
+	/** Busqueda de recaudos entregados por estudiante que no tienen un soporte asociado en el lapso actual 
+	    * @param cedula: Cedula del estudiante
+	    * @return lista de recaudos entregados
+	    */
 	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la "
-			+ "WHERE re.id.cedulaEstudiante = :cedula "
-			+ "AND re.id.idInstanciaApelada = :idInstanciaApelada "
+			+ "WHERE re.id.idRecaudo NOT IN (SELECT s.recaudoEntregado.id.idRecaudo FROM Soporte AS s, LapsoAcademico AS la "
+			+ "								 WHERE s.recaudoEntregado.id.cedulaEstudiante = :cedula "
+			+ "								 AND s.recaudoEntregado.id.codigoLapso = la.codigoLapso "
+			+ "								 AND la.estatus = 'TRUE') "
+			+ "AND re.id.idInstanciaApelada = (SELECT MAX(r.id.idInstanciaApelada) "
+			+ "								   FROM RecaudoEntregado AS r "
+			+ "								   WHERE r.id.idRecaudo = re.id.idRecaudo) "
+			+ "AND re.id.cedulaEstudiante = :cedula "
 			+ "AND re.id.codigoLapso = la.codigoLapso "
-			+ "AND la.estatus = 'TRUE'")
-	public List<RecaudoEntregado> buscarRecaudosEntregados(@Param("cedula") String cedula, @Param("idInstanciaApelada") Integer idInstanciaApelada);
+			+ "AND la.estatus='TRUE'")
+	public List<RecaudoEntregado> buscarRecaudosEntregadosSinSoporte(@Param("cedula") String cedula);
 
 	/** busqueda de recaudos entregados, Verificar Recaudos - Recurso Reconsideracion  
     * @param cedula
@@ -37,24 +47,6 @@ public interface IRecaudoEntregadoDAO extends
 			+ "AND re.id.codigoLapso = la.codigoLapso "
 			+ "AND la.estatus = 'TRUE'")
 	public List<RecaudoEntregado> buscarRecaudosEntregadosRecursoJerarquico(@Param("cedula") String cedula);
-	
-//	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
-//			"WHERE re.id.codigoLapso = la.codigoLapso " +
-//			"AND re.id.cedulaEstudiante = :cedula " +
-//			"AND re.id.idInstanciaApelada = '1'")
-//	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoI(@Param("cedula") String cedula);
-//	
-//	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
-//			"WHERE re.id.codigoLapso = la.codigoLapso " +
-//			"AND re.id.cedulaEstudiante = :cedula " +
-//			"AND re.id.idInstanciaApelada = '2'")
-//	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoII(@Param("cedula") String cedula);
-//	
-//	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
-//			"WHERE re.id.codigoLapso = la.codigoLapso " +
-//			"AND re.id.cedulaEstudiante = :cedula " +
-//			"AND re.id.idInstanciaApelada = '3'" )
-//	public List<RecaudoEntregado> buscarRecaudosEntregadosVeredictoIII(@Param("cedula") String cedula);
 	
 	//Nuevo y Reusable Sustituye buscarRecaudosEntregadosVeredictoI, II y III
 	public List<RecaudoEntregado> findById_CedulaEstudianteAndId_CodigoLapsoAndId_IdInstanciaApelada(String cedulaEstudiante, String codigoLapso, Integer idInstanciaApelada);
@@ -100,5 +92,18 @@ public interface IRecaudoEntregadoDAO extends
 			"AND (re.id.idInstanciaApelada = '2')")
 	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesanalizarIII(@Param("cedula") String cedula);
 	
-	
+	/** Busqueda de recaudos entregados por estudiante que tienen un soporte asociado en el lapso actual 
+	    * @param cedula: Cedula del estudiante
+	    * @return lista de recaudos entregados
+	    */
+	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la "
+			+ "WHERE re.id IN "
+			+ "(SELECT s.recaudoEntregado.id FROM Soporte AS s, LapsoAcademico AS la "
+			+ "WHERE s.recaudoEntregado.id.cedulaEstudiante = :cedula "
+			+ "AND s.recaudoEntregado.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus = 'TRUE') "
+			+ "AND re.id.cedulaEstudiante = :cedula "
+			+ "AND re.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus = 'TRUE'")
+	public List<RecaudoEntregado> buscarRecuadosEntregadosConSoporte(@Param("cedula") String cedula);
 }

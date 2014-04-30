@@ -1,6 +1,8 @@
 package sigarep.modelos.repositorio.transacciones;
 
+import java.util.Date;
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -135,8 +137,31 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			"AND la.estatus = 'TRUE'" +
 			"AND (sa.id.idInstanciaApelada = :insta OR sa.id.idInstanciaApelada = :instb) " +
 			"AND sa.numeroSesion = :sess ")
+	
 	public List<SolicitudApelacion> buscarSesionValida(
 			@Param("sess") String sess,
 			@Param("insta") Integer insta, 
 			@Param("instb") Integer instb);
+	
+	@Query("SELECT sa.numeroCaso FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
+			+ "WHERE sa.id.idInstanciaApelada = (SELECT MAX(s.id.idInstanciaApelada) "
+			+ "									 FROM SolicitudApelacion AS s, LapsoAcademico AS l "
+			+ "									 WHERE s.id.cedulaEstudiante = :cedula "
+			+ "									 AND s.id.codigoLapso = l.codigoLapso "
+			+ "									 AND l.estatus='TRUE') "
+			+ "AND sa.id.cedulaEstudiante = :cedula "
+			+ "AND sa.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus='TRUE'")
+	public String buscarNumeroDeCasoCargarRecaudo(@Param("cedula") String cedula);
+	
+	@Query("SELECT sa.fechaSolicitud FROM SolicitudApelacion AS sa, LapsoAcademico AS la "
+			+ "WHERE sa.id.idInstanciaApelada = (SELECT MAX(s.id.idInstanciaApelada) "
+			+ "									 FROM SolicitudApelacion AS s, LapsoAcademico AS l "
+			+ "									 WHERE s.id.cedulaEstudiante = :cedula "
+			+ "									 AND s.id.codigoLapso = l.codigoLapso "
+			+ "									 AND l.estatus='TRUE') "
+			+ "AND sa.id.cedulaEstudiante = :cedula "
+			+ "AND sa.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus='TRUE'")
+	public Date buscarFechaApelacionCargarRecaudo(@Param("cedula") String cedula);
 }
