@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeConsejoUniversitario" language="groovy" pageWidth="612" pageHeight="970" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="ffe6c774-f49b-4872-a5ea-9596955ba072">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="139"/>
+	<property name="ireport.y" value="432"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -421,7 +421,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[(b) Consejo de Decanato ]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="80" y="32" width="100" height="15" uuid="b00b27c6-369a-457c-ab8b-756c95a0c321"/>
 				<box>
 					<bottomPen lineWidth="1.75"/>
@@ -436,7 +436,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<reportElement x="6" y="32" width="68" height="15" uuid="57c09b6c-372f-4d3b-8299-d1768218ec66"/>
 				<text><![CDATA[Nro de Sesión:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="243" y="32" width="100" height="15" uuid="0cae4bce-e966-4ca1-9e37-16514919187a"/>
 				<box>
 					<bottomPen lineWidth="1.75"/>
@@ -463,7 +463,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[ Indique en forma breve y clara los argumentos o causales alegados por el estudiante en su escrito]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="9" y="84" width="519" height="44" uuid="a582656d-48b6-412b-af65-ce4b9e68784f"/>
 				<textFieldExpression><![CDATA[$P{observacion_consejo_decanato}]]></textFieldExpression>
 			</textField>
@@ -539,7 +539,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</textElement>
 				<text><![CDATA[Veredicto:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="65" y="157" width="100" height="15" uuid="e931c355-7155-4b49-82c6-a863dbf887f5"/>
 				<textFieldExpression><![CDATA[$P{veredicto}]]></textFieldExpression>
 			</textField>
