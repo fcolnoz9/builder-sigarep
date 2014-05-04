@@ -2,7 +2,7 @@
 	width="75%" border="normal" closable="true"
 	action="show: slideDown;hide: slideUp" mode="modal"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMDetalleCronograma')">
+	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMDetalleCronograma')" vflex="1" hflex="1">
 	<listbox id="lbx1" emptyMessage="No hay registros">
 		<listhead>
 			<listheader label="Fecha Inicio" width="150px"
