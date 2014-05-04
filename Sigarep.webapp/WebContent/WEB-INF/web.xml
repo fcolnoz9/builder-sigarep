@@ -75,7 +75,7 @@
 		<servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
 	</servlet>
 	<session-config>
-      <session-timeout>10</session-timeout>
+      <session-timeout>1000</session-timeout>
    </session-config>
 <!-- 	<servlet-mapping> -->
 <!-- 		<servlet-name>springmvc</servlet-name> -->
