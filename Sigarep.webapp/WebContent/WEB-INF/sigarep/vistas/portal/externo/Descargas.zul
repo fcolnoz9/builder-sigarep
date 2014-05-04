@@ -1,4 +1,4 @@
-<div class="panel panel-info" height="100%">
+<div class="panel panel-info" height="100%" hflex="1" vflex="1">
 	<div class="panel-heading">
 		<label class="label label-info" style="font-size:12px">Descargas</label>
 	</div>

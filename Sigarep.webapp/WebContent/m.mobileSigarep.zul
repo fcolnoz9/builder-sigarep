@@ -1,5 +1,11 @@
 <?page title="Aplicacion Mobil Sigarep" contentType="text/html;charset=UTF-8"?>
 <zk>
+<html xmlns="http://www.zkoss.org/2005/zk/native">
+    <head>
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+  
+</html>
 <style>
 .first-layout{
     background-color:#275280
@@ -10,11 +16,11 @@
 }
  
 .first-layout>.z-hlayout-inner:first-child {
-    width: 66%;
+    width: 55%;
     height: 100%;
 }   
 .first-layout>.z-hlayout-inner:last-child {
-    width: 33%;
+    width: 28%;
     height: 100%;
 }   
  
@@ -44,11 +50,11 @@
 @media screen and (max-width: 750px) {
 .first-layout>.z-hlayout-inner:first-child {
         width: 100%;
-        height: 33%;
+        height: 30%;
     }
 .first-layout>.z-hlayout-inner:last-child {
         width: 100%;
-        height: 66%;
+        height: 60%;
     }   
 .second-layout>.z-hlayout-inner{
         width: 100%;
@@ -58,16 +64,16 @@
 }
 </style>
 <hlayout>
-	<include src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" sclass="first-layout"/>
+	<include src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" sclass="first-layout" hflex="1" vflex="1"/>
 </hlayout>
 <hlayout>
-	<include src="WEB-INF/sigarep/vistas/portal/externo/Cronograma.zul" sclass="first-layout" hflex="1" />
+	<include src="WEB-INF/sigarep/vistas/portal/externo/Cronograma.zul" sclass="first-layout" vflex="1" hflex="1" />
 </hlayout>
 <hlayout>
-	<include src="WEB-INF/sigarep/vistas/portal/externo/Descargas.zul" sclass="first-layout" hflex="1" />
+	<include src="WEB-INF/sigarep/vistas/portal/externo/Descargas.zul" sclass="second-layout" vflex="6" hflex="8"  />
 </hlayout>
 <hlayout>
-	<include src="WEB-INF/sigarep/vistas/portal/externo/Twitter.zul" sclass="first-layout" hflex="1" />
+	<include src="WEB-INF/sigarep/vistas/portal/externo/Twitter.zul" sclass="second-layout" hflex="1" />
 </hlayout>
 <window>
 	<vbox>
@@ -94,6 +100,9 @@
 	<include src="WEB-INF/sigarep/vistas/portal/externo/Banner.zul" sclass="second-layout"/>
 </window>	
 <hlayout>
-	<include src="WEB-INF/sigarep/vistas/portal/externo/Footer.zul" sclass="first-layout" hflex="1" />
+	<include src="WEB-INF/sigarep/vistas/portal/externo/EnlacesDeInteres.zul" sclass="first-layout" hflex="1" />
+</hlayout>
+<hlayout>
+	<include src="WEB-INF/sigarep/vistas/portal/externo/Footer.zul" sclass="first-layout" vflex="1" hflex="1" />
 </hlayout>
 </zk>
