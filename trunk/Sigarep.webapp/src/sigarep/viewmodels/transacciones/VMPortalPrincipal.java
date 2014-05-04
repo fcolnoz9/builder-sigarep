@@ -134,9 +134,21 @@ public class VMPortalPrincipal {
 
 	@Init
 	public void init() {
+		if(isMobile()==true){
+			Executions.sendRedirect("m.mobileSigarep.zul");//Si es mobile redirecciona a la pagina m.mobile.zul
+		}
 		
 	}
-
+	/**
+	 * isMobile()
+	 * 
+	 * @param Ninguno
+	 * @return true o false si es  mobile
+	 * 
+	 */
+	public boolean isMobile(){
+	    return Executions.getCurrent().getBrowser("mobile") !=null;
+	}
 	/**
 	 * modalEstadoEstudiante.
 	 * 
