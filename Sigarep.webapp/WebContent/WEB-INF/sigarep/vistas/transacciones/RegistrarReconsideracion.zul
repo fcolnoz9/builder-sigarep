@@ -127,9 +127,9 @@
 			pageSize="5">
 			<listhead>
 				<listheader label="Motivos" width="35%" align="center"
-					sort="auto(nombreMotivo)" />
+					sort="auto(motivo.tipoMotivo.nombreTipoMotivo)" />
 				<listheader label="Recaudos" width="35%" align="center"
-					sort="auto(nombreRecaudo)" />
+					sort="auto(recaudo.nombreRecaudo)" />
 				<listheader label="Documentos Cargados" width="30%"
 					align="center" />
 			</listhead>
