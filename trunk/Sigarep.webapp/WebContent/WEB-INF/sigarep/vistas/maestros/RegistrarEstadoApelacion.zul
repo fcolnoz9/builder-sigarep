@@ -19,17 +19,17 @@
 					<row>
 
 						<label id="lblInstanciaApelada"
-							value="Instancia Apelada:" />
+							value="Tipo de Apelación:" />
 						<combobox readonly="true"
 							id="cmbInstanciaApelada"
-							placeholder= "Seleccione una instancia..."
-							value="@bind(vm.instanciaApelada.instanciaApelada)" width="80%"
+							placeholder= "Seleccione un tipo de apelación..."
+							value="@bind(vm.instanciaApelada.nombreRecursoApelacion)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
 							onSelect="@command('objetoComboEstadoApelacion')">
 							<template name="model">
 								<comboitem
-									label="${each.instanciaApelada }" />
+									label="${each.nombreRecursoApelacion }" />
 							</template>
 						</combobox>
 
@@ -87,7 +87,7 @@
 					<listheader label="Descripción" align="left"
 						sort="auto(descripcion)">
 					</listheader>
-					<listheader label="Instancia Apelada" align="left"
+					<listheader label="Tipo de Apelación" align="left"
 						sort="auto(instanciaApelada)" />
 				</listhead>
 				<template name="model">
@@ -95,7 +95,7 @@
 						<listcell label="${each.nombreEstado}"></listcell>
 						<listcell label="${each.descripcion}"></listcell>
 						<listcell
-							label="${each.instanciaApelada.instanciaApelada }">
+							label="${each.instanciaApelada.nombreRecursoApelacion }">
 						</listcell>
 					</listitem>
 				</template>
