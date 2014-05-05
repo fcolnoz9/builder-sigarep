@@ -8,8 +8,6 @@ import org.springframework.data.repository.query.Param;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionadoPK;
-import sigarep.modelos.data.transacciones.Motivo;
-import sigarep.modelos.data.transacciones.SolicitudApelacion;
 
 public interface IEstudianteSancionadoDAO extends
 		JpaRepository<EstudianteSancionado, EstudianteSancionadoPK> {

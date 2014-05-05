@@ -298,7 +298,7 @@ public class VMCargarRecaudoEntregado {
 						mensajeAlUsuario.advertenciaTamannoArchivo(20480);
 						
 						doc=new Documento();
-						}else{ 
+					}else{ 
 							
 							Integer idRecaudo = Integer.parseInt(componente.getAttribute("idRecaudo").toString());
 							Integer idTipoMotivo = Integer.parseInt(componente.getAttribute("idTipoMotivo").toString());
@@ -310,13 +310,15 @@ public class VMCargarRecaudoEntregado {
 							Soporte soporte = serviciosoporte.buscarPorIdDeRecaudoEntregado(recaudoEntregadoPK);
 							if (soporte == null)
 								soporte= new Soporte(true,new Date(),doc,recaudoEntregado);
-							
+							else
+							{
+								soporte.setDocumento(doc);
+								soporte.setFechaSubida(new Date());
+							}
 							serviciosoporte.guardar(soporte);
 							buscarRecaudosEntregados(cedula);
 							mensajeAlUsuario.informacionRegistroCorrecto();
-						}
-					
-					
+					}
 			} else {
 				Messagebox.show(media.getName()+ " No es un tipo de archivo valido!", "Error",Messagebox.OK, Messagebox.ERROR);
 			}
@@ -326,12 +328,14 @@ public class VMCargarRecaudoEntregado {
 	@Command
 	@NotifyChange({"listaRecaudo" })
 	public void eliminarRecaudoEntregado(@ContextParam(ContextType.COMPONENT) Component componente) {			
-		Integer idSoporte = Integer.parseInt(componente.getAttribute("idSoporte").toString());
-		if (serviciosoporte.buscarSoportePorID(idSoporte) != null){
-			serviciosoporte.eliminar(idSoporte);
-			buscarRecaudosEntregados(cedula);
-			mensajeAlUsuario.informacionEliminarCorrecto();
-		}
+		if(componente.getAttribute("idSoporte") != null){
+			Integer idSoporte = Integer.parseInt(componente.getAttribute("idSoporte").toString());
+			if (serviciosoporte.buscarSoportePorID(idSoporte) != null){
+				serviciosoporte.eliminar(idSoporte);
+				buscarRecaudosEntregados(cedula);
+				mensajeAlUsuario.informacionEliminarCorrecto();
+			}
+		}	
 	}
 	
 	/**
@@ -348,8 +352,4 @@ public class VMCargarRecaudoEntregado {
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		ventana.detach();
 	}
-	
-	
-	
-	
 }

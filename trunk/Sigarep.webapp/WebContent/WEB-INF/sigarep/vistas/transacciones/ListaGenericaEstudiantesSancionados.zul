@@ -18,7 +18,7 @@
 						   placeholder="Seleccione una programa..."
 						    mold="rounded"
 							model="@load(vm.listaPrograma)" value="@bind(vm.programa)"
-							onChange="@command('filtros')">
+							onChange="@command('filtros')" readonly="true">
 							<template name="model">
 								<comboitem
 									label="${each.nombrePrograma}" />

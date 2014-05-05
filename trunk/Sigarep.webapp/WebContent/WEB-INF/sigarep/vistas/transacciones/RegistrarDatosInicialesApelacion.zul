@@ -142,8 +142,8 @@
 				pageSize="10" model="@bind(vm.listaMotivoListBox)"
 				emptyMessage="No hay motivos agregados">
 				<listhead>
-					<listheader label="Motivo" sort="auto" />
-					<listheader label="Descripción" sort="auto" />
+					<listheader label="Motivo" sort="auto(tipoMotivo.idTipoMotivo)" />
+					<listheader label="Descripción" sort="auto(tipoMotivo.descripcion)" />
 				</listhead>
 				<template name="model">
 					<listitem>
