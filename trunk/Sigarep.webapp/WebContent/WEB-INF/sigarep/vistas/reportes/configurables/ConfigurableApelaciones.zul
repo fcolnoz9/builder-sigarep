@@ -39,12 +39,12 @@
 								<comboitem label="${each.nombreSancion}" />
 							</template>
 						</combobox>
-						<label id="lblInstanciA" value="Instancia Apelada:" />
+						<label id="lblInstanciA" value="Tipo de Apelación:" />
 						<combobox id="cmbInstanciaA" readonly="true" mold="rounded" placeholder = "Seleccione una instancia apelada..."
 						          width="100%" maxlength="60" tabindex="4" model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)"
 						          onSelect="@command('objCmbinstanciaApelada')" >
 							<template name="model">
-								<comboitem label="${each.instanciaApelada}" />
+								<comboitem label="${each.nombreRecursoApelacion}" />
 							</template>
 						</combobox>
 						

@@ -1,6 +1,6 @@
 <?page title="Reporte Especial Estudiantes Sancionados y Apelaciones" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="winEstudianteSancionadoApelacion" title="Reportes :: Informes :: Especiales :: Estudiantes Sancionados y sus Apelaciones por Programa e Instancia" border="normal" width="auto" closable="true"
+<window id="winEstudianteSancionadoApelacion" title="Reportes :: Informes :: Especiales :: Estudiantes Sancionados y sus Apelaciones por Programa y Tipo de Apelación" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEspecialEstudiantesSancionadosApelaciones')">
 		<style src="/widgets/grid/simple/style.css" />
 		
@@ -41,14 +41,14 @@
 					</row>
 					
 					<row>
-					<label id="lblInstanciA" value="Instancia Apelada:" />
+					<label id="lblInstanciA" value="Tipo de apelación:" />
 						<combobox id="cmbInstanciaA" readonly="true" mold="rounded"
 						placeholder = "Seleccione una instancia apelada..."
 						width="100%" cols="23" maxlength="100" tabindex="1"
 						 model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)"
 						  onSelect="@command('objCmbinstanciaApelada')" >
 							<template name="model">
-								<comboitem label="${each.instanciaApelada}" />
+								<comboitem label="${each.nombreRecursoApelacion}" />
 							</template>
 						</combobox>
 					<label id="lblVeredicto" value="Veredicto: " />
