@@ -28,14 +28,14 @@
 									<comboitem label="${each.nombrePrograma}" />
 								</template>
 							</combobox>
-							<label id="lblInstanciA" value="Instancia Apelada:" />
+							<label id="lblInstanciA" value="Tipo de Apelación:" />
 							<combobox id="cmbInstanciaA" readonly="true" width="100%"
-								mold="rounded" placeholder="Seleccione una instancia apelada..."
+								mold="rounded" placeholder="Seleccione un tipo de apelación..."
 								model="@load(vm.listaInstanciaApelada)"
 								selectedItem="@bind(vm.objinstanciaApelada)"
 								onSelect="@command('buscarEstados')">
 								<template name="model">
-									<comboitem label="${each.instanciaApelada}" />
+									<comboitem label="${each.nombreRecursoApelacion}" />
 								</template>
 							</combobox>
 						</row>
