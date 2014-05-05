@@ -1,6 +1,6 @@
-<window  id="winRegistrarSancion" title="Registros Básicos :: Tipo Sanción"
-	 border="normal" width="auto" height="auto"
-	closable="true" contentStyle="overflow:auto"
+<window id="winRegistrarSancion"
+	title="Registros Básicos :: Tipo Sanción" border="normal" width="auto"
+	height="auto" closable="true" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMsancionMaestro')">
 	<groupbox>
@@ -15,16 +15,16 @@
 			<rows>
 				<row>
 					<label value="Nombre:" id="lblSancion" />
-
 					<textbox id="txtNombreSancion"
-					placeholder = "Ingrese nombre del tipo de sanción"
-					cols="23" mold="rounded" width="80%" maxlength="60" value="@bind(vm.nombre)">
+						placeholder="Ingrese nombre del tipo de sanción" cols="23"
+						mold="rounded" width="80%" maxlength="60"
+						value="@bind(vm.nombre)">
 					</textbox>
 					<label value="Descripción: " id="lblDescripcion" />
-
-					<textbox id="txtDescripcionSancion" 
-					placeholder = "Ingrese la descripción del tipo de sanción"
-					mold="rounded" rows="3"  width="77%" maxlength="255" value="@bind(vm.descripcion)" />
+					<textbox id="txtDescripcionSancion"
+						placeholder="Ingrese la descripción del tipo de sanción"
+						mold="rounded" rows="3" width="77%" maxlength="255"
+						value="@bind(vm.descripcion)" />
 				</row>
 			</rows>
 		</grid>
@@ -32,8 +32,12 @@
 	<separator />
 	<div align="right">
 		<button label="Guardar" id="btnGuardarSancion" mold="trendy"
-			width="auto" height="auto" image="imagenes/iconos/guardar.png"
+			width="auto" height="auto" image="/imagenes/iconos/guardar.png"
 			onClick="@command('guardarTipoSancion')">
+		</button>
+		<button label="Eliminar" id="btnEliminarActividad" mold="trendy"
+			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
+			onClick="@command('eliminarTipoSancion')">
 		</button>
 		<button label="Limpiar" id="btnLimpiarSancion" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"

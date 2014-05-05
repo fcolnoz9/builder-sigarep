@@ -1,13 +1,21 @@
 package sigarep.viewmodels.maestros;
 
 import java.util.List;
+
+import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.Messagebox.ClickEvent;
+
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
@@ -21,18 +29,18 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMsancionMaestro {
-	//-----------------Servicios----------------------------
+	// -----------------Servicios----------------------------
 	@WireVariable
 	ServicioSancionMaestro serviciosancionmaestro;
-	//-----------------Variables SancionMaestro ------------
+	// -----------------Variables SancionMaestro ------------
 	private Integer id_sancion;
 	private String nombre;
 	private String nombreFiltro;
 	private String descripcion;
 	private Boolean estatus;
-	//-----------------Variables Lista----------------------
+	// -----------------Variables Lista----------------------
 	private List<SancionMaestro> listaTipoSancion;
-	//-----------------Variables Objeto---------------------
+	// -----------------Variables Objeto---------------------
 	private SancionMaestro tipoSancionSeleccionada;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
@@ -100,7 +108,7 @@ public class VMsancionMaestro {
 	 * @param init
 	 * @return código de inicialización
 	 * @throws No
-	 * dispara ninguna excepción.
+	 *             dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -132,7 +140,7 @@ public class VMsancionMaestro {
 	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
-	"listaTipoSancion" })
+			"listaTipoSancion" })
 	public void guardarTipoSancion() {
 		if (nombre == null || descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
@@ -142,6 +150,50 @@ public class VMsancionMaestro {
 			serviciosancionmaestro.guardarSancion(sanm);
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
+		}
+	}
+
+	/**
+	 * eliminarTipoSancion
+	 * 
+	 * @param Binder
+	 *            binder
+	 * @return No devuelve ningún valor
+	 * @throws Debe
+	 *             seleccionar un registro para poder eliminarlo
+	 */
+	@Command
+	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
+			"listaTipoSancion" })
+	public void eliminarTipoSancion(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		if (nombre == null || descripcion == null) {
+			mensajeAlUsuario.advertenciaSeleccionarParaEliminar();
+		} else {
+			System.out.println(id_sancion);
+			if (id_sancion == 1 || id_sancion == 2) {
+				Messagebox.show("¡No puede eliminar este registro!",
+						"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+			} else {
+				Messagebox.show("¿Desea eliminar el registro realmente?",
+						"Confirmar", new Messagebox.Button[] {
+								Messagebox.Button.YES, Messagebox.Button.NO },
+						Messagebox.QUESTION, new EventListener<ClickEvent>() {
+							@SuppressWarnings("incomplete-switch")
+							public void onEvent(ClickEvent e) throws Exception {
+								switch (e.getButton()) {
+								case YES:
+									serviciosancionmaestro
+											.eliminarSancion(id_sancion);
+									mensajeAlUsuario
+											.informacionEliminarCorrecto();
+									binder.postCommand("limpiar", null);
+								case NO:
+									binder.postCommand("limpiar", null);
+								}
+							}
+						});
+			}
 		}
 	}
 
@@ -173,8 +225,7 @@ public class VMsancionMaestro {
 	@Command
 	@NotifyChange({ "listaTipoSancion", "nombreFiltro" })
 	public void filtros() {
-		listaTipoSancion = serviciosancionmaestro
-				.filtrarSancion(nombreFiltro);
+		listaTipoSancion = serviciosancionmaestro.filtrarSancion(nombreFiltro);
 	}
 
 	/**
@@ -188,7 +239,7 @@ public class VMsancionMaestro {
 	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
-		"nombreFiltro", "listaTipoSancion" })
+			"nombreFiltro", "listaTipoSancion" })
 	public void limpiar() {
 		id_sancion = null;
 		nombre = null;
@@ -207,10 +258,10 @@ public class VMsancionMaestro {
 	 */
 	@Command
 	@NotifyChange({ "listaTipoSancion", "nombre", "descripcion", "estatus" })
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
 		boolean condicion = false;
-		if(nombre != null || descripcion != null)
+		if (nombre != null || descripcion != null)
 			condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 }
