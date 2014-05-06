@@ -47,7 +47,11 @@
 				<button label="Guardar" id="btnGuardarInstancia"
 					mold="trendy" width="auto" height="auto"
 					image="/imagenes/iconos/guardar.png"
-					onClick="@command('guardarInstancia')"/>	
+					onClick="@command('guardarInstancia')"/>
+				<button label="Eliminar" id="btnEliminarInstancia" mold="trendy"
+					width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
+					onClick="@command('eliminarInstancia')">
+				</button>	
    				<button label="Limpiar"  id="btnLimpiarInstancia"
    					mold="trendy" width="auto" height="auto"
    					image="/imagenes/iconos/limpiar.png"
