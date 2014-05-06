@@ -21,7 +21,7 @@
 								<comboitem value="lapsoacademico" id="cmiLapsoAcademico" label="Lista Lapso Académico" />
 		 						<comboitem value="actividad" id="cmiActividad" label="Lista de Actividades" /> 
 		 						<comboitem value="estadoApelacion" id="cmiEstadoApelacion" label="Lista Estados de Apelación" /> 
-		 						<comboitem value="instanciaApelada" id="cmiInstanciaApelada" label="Lista de Instancias de Apelación" /> 
+		 						<comboitem value="instanciaApelada" id="cmiInstanciaApelada" label="Lista de Instancias Apeladas" /> 
 		 						<comboitem value="motivos" id="cmiMotivos" label="Lista de Motivos de Apelación" /> 
 		 						<comboitem value="recaudos" id="cmiRecaudos" label="Lista de Recaudos por Motivos" /> 
 		 						<comboitem value="programaacademico" id="cmiProgramaAcademico" label="Lista de Programas Académicos" />
