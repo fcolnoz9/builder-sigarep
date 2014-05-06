@@ -4,7 +4,6 @@
     <head>
        <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
-  
 </html>
 <style>
 .first-layout{
@@ -16,7 +15,7 @@
 }
  
 .first-layout>.z-hlayout-inner:first-child {
-    width: 55%;
+    width: 40%;
     height: 100%;
 }   
 .first-layout>.z-hlayout-inner:last-child {
@@ -41,7 +40,7 @@
         display:block;
     }
 .second-layout>.z-hlayout-inner{
-        width: 50%;
+        width: 40%;
         height: 100%;
         display:inline-block;
     }       
@@ -62,9 +61,52 @@
         display:block;
     }       
 }
+@media screen and (max-width: 320px) {
+.first-layout>.z-hlayout-inner:first-child {
+        width: 100%;
+        height: 15%;
+    }
+.first-layout>.z-hlayout-inner:last-child {
+        width: 100%;
+        height: 20%;
+    }   
+.second-layout>.z-hlayout-inner{
+        width: 100%;
+        height: 25%;
+        display:block;
+    }       
+}
 </style>
 <hlayout>
-	<include src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" sclass="first-layout" hflex="1" vflex="1"/>
+	<include src="WEB-INF/sigarep/vistas/portal/externo/Header.zul" sclass="first-layout" hflex="1" vflex="1" />
+</hlayout>
+<hlayout apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipalMobile')">
+    <div class="panel panel-info" height="100%" align="center" hflex="1">
+    	<div class="panel-heading" align="left">
+    		<label class="label label-warning" style="font-size:12px">
+    			Consulta tu estado
+    		</label>
+    	</div>
+    	<vbox>
+    		<space />
+    		<div align="center">
+    			<label
+    				style="font-size:25px;font-weight:bold;color:Gray">
+    				¿Estás sancionado?
+    			</label>
+    		</div>
+    		<space />
+    		<hbox align="center" pack="center">
+    			<label value="Cédula:" />
+    			<intbox id="intcedula" placeholder="Ingrese la cédula"
+    				maxlength="8" width="150px" value="@bind(vm.cedula)" hflex="1" />
+    			<button label="Buscar"
+    				image="/imagenes/iconos/buscar.png"
+    				onClick="@command('modalEstadoEstudiante')" hflex="1" width="60%" />
+    		</hbox>
+    	</vbox>
+   </div>
 </hlayout>
 <hlayout>
 	<include src="WEB-INF/sigarep/vistas/portal/externo/Cronograma.zul" sclass="first-layout" vflex="1" hflex="1" />
@@ -74,31 +116,20 @@
 </hlayout>
 <hlayout>
 	<include src="WEB-INF/sigarep/vistas/portal/externo/Twitter.zul" sclass="second-layout" hflex="1" />
-</hlayout>
-<window>
-	<vbox>
-		<space />
-		<div align="center">
-			<label style="font-size:25px;font-weight:bold;color:Gray">
-				¿Estás sancionado?
+</hlayout>	
+<hlayout apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipalMobile')">
+	<div class="panel panel-info" height="100%" hflex="1" vflex="1">
+		<div class="panel-heading">
+			<label class="label label-success" style="font-size:12px">
+				Guía paso a paso
 			</label>
 		</div>
-		<space />
-		<hbox align="center" pack="center"
-			viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMPortalPrincipal')">
-			<image src="/imagenes/portal-principal/busquedaico.png" />
-			<label value="Cédula:" />
-			<intbox id="intcedula" placeholder="Ingrese la cédula"
-				maxlength="8" width="150px" value="@bind(vm.cedula)" />
-			<button label="Buscar" image="/imagenes/iconos/buscar.png"
-				onClick="@command('modalEstadoEstudiante')" />
-		</hbox>
-	</vbox>
-
-</window>	
-<window border="normal" >
-	<include src="WEB-INF/sigarep/vistas/portal/externo/Banner.zul" sclass="second-layout"/>
-</window>	
+		<image width="100%" height="80%"
+			src="/imagenes/portal-principal/guiaPasoAPaso.gif"
+			style="cursor:pointer" onClick="@command('descargarGuia')"/>
+	</div>
+</hlayout>
 <hlayout>
 	<include src="WEB-INF/sigarep/vistas/portal/externo/EnlacesDeInteres.zul" sclass="first-layout" hflex="1" />
 </hlayout>
