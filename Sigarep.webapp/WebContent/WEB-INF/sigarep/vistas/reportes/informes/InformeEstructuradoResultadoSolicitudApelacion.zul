@@ -1,6 +1,6 @@
 <?page title="Reporte Especial Resultados Solicitud de Apelación" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="winResultadoApelacion" title="Reportes :: Informes :: Estructurados :: Informe de Resultado de Apelaciones por Instancia y Sesión" border="normal" width="auto" closable="true"
+<window id="winResultadoApelacion" title="Reportes :: Informes :: Estructurados :: Informe de Resultado de  Apelaciones y Sesión" border="normal" width="auto" closable="true"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMInformeEstructuradoResultadoApelacion')">
 		
 		
@@ -27,13 +27,13 @@
 							<comboitem label="${each.getNombrePrograma()}" />
 						</template>
 					</combobox>
-						<label id="lblInstanciAResultado" value="Instancia Apelada:" />
+						<label id="lblInstanciAResultado" value="Recurso de Apelación:" />
 						<combobox id="cmbInstanciaAResultado" readonly="true" mold="rounded"
-						placeholder = "Seleccione una instancia apelada..."
+						placeholder = "Seleccione un recurso de apelación..."
 						width="100%" cols="23" maxlength="100" tabindex="1"
 						 model="@load(vm.listaInstanciaApelada)" selectedItem="@bind(vm.objinstanciaApelada)">
 						 <template name="model">
-								<comboitem label="${each.instanciaApelada}" />
+								<comboitem label="${each.nombreRecursoApelacion}" />
 							</template>
 						</combobox>
 						
