@@ -76,10 +76,10 @@
 									<hbox align="center"
 										pack="center">
 										<image
-											src="/imagenes/portal-principal/busquedaico.png" />
+											src="/imagenes/portal-principal/busquedaico.png" height="85%" />
 										<label value="Cédula:" />
 										<intbox id="intcedula"
-											placeholder="Ingrese la cédula" maxlength="8" width="150px"
+											placeholder="Ingrese la cédula" maxlength="8" width="140px"
 											value="@bind(vm.cedula)" />
 										<button label="Buscar"
 											image="/imagenes/iconos/buscar.png"
