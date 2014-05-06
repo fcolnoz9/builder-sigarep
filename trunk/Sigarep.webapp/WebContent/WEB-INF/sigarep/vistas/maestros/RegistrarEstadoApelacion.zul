@@ -19,10 +19,10 @@
 					<row>
 
 						<label id="lblInstanciaApelada"
-							value="Tipo de Apelación:" />
+							value="Recurso de Apelación:" />
 						<combobox readonly="true"
 							id="cmbInstanciaApelada"
-							placeholder= "Seleccione un tipo de apelación..."
+							placeholder= "Seleccione un tipo de recurso de apelación..."
 							value="@bind(vm.instanciaApelada.nombreRecursoApelacion)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
@@ -87,7 +87,7 @@
 					<listheader label="Descripción" align="left"
 						sort="auto(descripcion)">
 					</listheader>
-					<listheader label="Tipo de Apelación" align="left"
+					<listheader label="Recurso de Apelación" align="left"
 						sort="auto(instanciaApelada)" />
 				</listhead>
 				<template name="model">
