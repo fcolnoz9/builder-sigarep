@@ -74,9 +74,9 @@
 		<servlet-name>auEngine</servlet-name>
 		<servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
 	</servlet>
-	<session-config>
-      <session-timeout>1000</session-timeout>
-   </session-config>
+<!-- 	<session-config> -->
+<!--       <session-timeout>1000</session-timeout> -->
+<!--    </session-config> -->
 <!-- 	<servlet-mapping> -->
 <!-- 		<servlet-name>springmvc</servlet-name> -->
 <!-- 		<url-pattern>*.do</url-pattern> -->
