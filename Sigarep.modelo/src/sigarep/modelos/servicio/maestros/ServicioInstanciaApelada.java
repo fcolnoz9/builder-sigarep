@@ -94,4 +94,16 @@ public class ServicioInstanciaApelada {
 	public InstanciaApelada buscar(Integer codigoInstancia) {
 		return iInstancia.findOne(codigoInstancia);
 	}
+	
+	/**
+	 *eliminarInstancia
+	 * @param Integer instancia
+	 * @return Objeto con estatus false, eliminado lógicamente
+	 * @throws No  dispara ninguna excepción.
+	 */
+	public void eliminarInstancia(Integer instancia) {
+		InstanciaApelada instanciaApelada = iInstancia.findOne(instancia);
+		instanciaApelada.setEstatus(false);
+		iInstancia.save(instanciaApelada);
+	}
 }
