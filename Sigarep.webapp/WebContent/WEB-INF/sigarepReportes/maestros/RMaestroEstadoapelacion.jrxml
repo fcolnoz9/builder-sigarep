@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroEstadoApelacion" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.1"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="30"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -84,7 +84,7 @@
 		</box>
 	</style>
 	<subDataset name="Tabla" uuid="1bdd0fb2-8d78-420a-9c01-536b860ed584">
-		<field name="instanciaApelada.instanciaApelada" class="java.lang.String"/>
+		<field name="instanciaApelada.nombreRecursoApelacion" class="java.lang.String"/>
 		<field name="descripcion" class="java.lang.String"/>
 		<field name="nombreEstado" class="java.lang.String"/>
 	</subDataset>
@@ -236,14 +236,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="224" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
+					<jr:column width="225" uuid="0505e4fa-ac49-40d1-9adb-3c97c4a4077c">
 						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="table" mode="Opaque" x="0" y="0" width="224" height="30" forecolor="#FFFFFF" backcolor="#999999" uuid="f3514b73-460f-4d54-b15e-9ab0a3cde992"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 								</textElement>
-								<text><![CDATA[INSTANCIA APELADA]]></text>
+								<text><![CDATA[RECURSO DE APELACIÓN]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
@@ -252,7 +252,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{instanciaApelada.instanciaApelada}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{instanciaApelada.nombreRecursoApelacion}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
