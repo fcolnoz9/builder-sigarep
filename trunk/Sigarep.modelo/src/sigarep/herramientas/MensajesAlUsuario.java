@@ -215,7 +215,6 @@ public class MensajesAlUsuario {
 	public void advertenciaLapsoAcademicoNoActivo(Window ventana) {
 		Messagebox.show("No puede realizar esta transacción. ¡No ha registrado el lapso académico actual!",
 						"Advertencia",Messagebox.OK, Messagebox.EXCLAMATION);
-		ventana.detach();
 	}
 	
 	public void advertenciaContraseñaVacia() {
