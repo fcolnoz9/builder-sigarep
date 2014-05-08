@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Index;
 
+import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
 /** Clase Grupo
@@ -25,6 +26,7 @@ import sigarep.modelos.data.transacciones.UsuarioGrupo;
  * @author BUILDER
  * @version 1
  * @since 04/02/2014 
+ * @last 08/05/2014
  */
 
 @org.hibernate.annotations.Table(
@@ -62,7 +64,7 @@ public class Grupo implements Serializable{
 	inverseJoinColumns = { @JoinColumn(name = "id_nodo", referencedColumnName = "id") })
 	private Set<Nodo> nodos = new HashSet<Nodo>();
 
-	// Relación bidireccional de uno a muchos, asociada a la clase Usuario
+	// Relación bidireccional de uno a muchos, asociada a la clase UsuarioGrupo
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="grupo",  cascade={CascadeType.ALL})
 	private Set<UsuarioGrupo> usuariosGrupos = new HashSet<UsuarioGrupo>();
 
@@ -119,21 +121,39 @@ public class Grupo implements Serializable{
 	public void setUsuarioGrupos(Set<UsuarioGrupo> usuarioGrupos) {
 		this.usuariosGrupos = usuarioGrupos;
 	}
-	
+	// Fin Métodos Set y Get
+	/**
+	 * addNodos
+	 * 
+	 * @param nodo
+	 * @return agrega un nodo al menu de enlaces de interes
+	 */
 	public void addNodos(Nodo nodo){
 		this.nodos.add(nodo);
 	}
-	
+	/**
+	 * Relación de la clase Grupo con la clase UsuarioGrupo, Agregar UsuarioGrupo
+	 * 
+	 * @see UsuarioGrupo
+	 * @param UsuarioGrupo
+	 * @return usuarioGrupo
+	 */
 	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuarioGrupo) {
 		getUsuariosGrupos().add(usuarioGrupo);
 		usuarioGrupo.setGrupo(this);
 		return usuarioGrupo;
 	}
-
+	/**
+	 * Relación de la clase Grupo con la clase UsuarioGrupo, Quitar UsuarioGrupo
+	 * 
+	 * @see UsuarioGrupo
+	 * @param UsuarioGrupo
+	 * @return usuarioGrupo
+	 */
 	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuarioGrupo) {
 		getUsuariosGrupos().remove(usuarioGrupo);
 		usuarioGrupo.setGrupo(null);
 		return usuarioGrupo;
-	}// Fin Métodos Set y Get
+	}
 
 }//Fin Clase Grupo
