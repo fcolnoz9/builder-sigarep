@@ -45,7 +45,7 @@ public class SancionMaestro implements Serializable {
 	}
 
 	/**
-	 * Constructor Sancion
+	 * Constructor SancionMaestro
 	 * 
 	 * @param idSancion, descripcion, estatus, nombreSancion
 	 */
