@@ -9,6 +9,7 @@ import java.util.Date;
  * @author BUILDER
  * @version 1
  * @since 03/01/2014
+ * @last 08/05/2014
  */
 public class HistoricoEstudiante {
 
@@ -26,18 +27,18 @@ public class HistoricoEstudiante {
 	private Date fecha;
 
 	/**
-	 * Constructor historico estudiante
+	 * Constructor HistoricoEstudiante
 	 * 
-	 * @paramcedula, programa, nombre, apellido, lapso_academico,tipo_sancion,
+	 * @param cedula, programa, nombre, apellido, lapso_academico,tipo_sancion,
 	 *               periodo_inicial, periodo_final, materia, numeroCaso, fecha,
 	 *               motivo
-	 * @return Constructor lleno
 	 */
 	public HistoricoEstudiante(String cedula, String programa, String nombre,
 			String apellido, String lapso_academico, String tipo_sancion,
 			String periodo_inicial, String periodo_final, String materia,
 			Integer numeroCaso, Date fecha, String motivo) {
 		super();
+		// Atributos de la clase
 		this.cedula = cedula;
 		this.programa = programa;
 		this.nombre = nombre;
@@ -161,5 +162,5 @@ public class HistoricoEstudiante {
 	public void setDescripcionMotivo(String descripcionMotivo) {
 		this.descripcionMotivo = descripcionMotivo;
 	}
-
+	// Fin metodos set y get
 }

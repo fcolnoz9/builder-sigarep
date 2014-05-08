@@ -23,14 +23,16 @@ import sigarep.modelos.data.seguridad.Usuario;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 07/01/14
+ *  @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
 @Table(name="usuario_grupo")
 public class UsuarioGrupo implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private UsuarioGrupoPK id;
 
 	@Column(nullable=false)
@@ -50,7 +52,7 @@ public class UsuarioGrupo implements Serializable {
 
 	public UsuarioGrupo() {
 	}
-
+	// metodos set y get
 	public UsuarioGrupoPK getId() {
 		return this.id;
 	}
@@ -82,6 +84,7 @@ public class UsuarioGrupo implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	//Fin metodos set y get
 	
 	public boolean equals(Object o) {
 		if (this == o)

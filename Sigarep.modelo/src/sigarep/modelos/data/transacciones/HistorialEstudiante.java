@@ -9,9 +9,10 @@ import java.util.Date;
  * @author BUILDER
  * @version 1
  * @since 13/03/2014
+ * @last 08/05/2014
  */
 public class HistorialEstudiante {
-
+	// Atributos de la clase
 	private String lapsoSancion = "";
 	private String tipoSancion = "";
 	private float indiceGrado =0 ;
@@ -22,12 +23,10 @@ public class HistorialEstudiante {
 	
 
 	/**
-	 * Constructor historico estudiante
+	 * Constructor HistorialEstudiante
 	 * 
-	 * @paramcedula, programa, nombre, apellido, lapso_academico,tipo_sancion,
-	 *               periodo_inicial, periodo_final, materia, numeroCaso, fecha,
-	 *               motivo
-	 * @return Constructor lleno
+	 * @param lapsoSancion, tipoSancion, indiceGrado, unidadesAprobadas, unidadesCursadas,
+	 *        asignaturas, cedula
 	 */
 	public HistorialEstudiante(String lapsoSancion,String tipoSancion,float indiceGrado,String unidadesAprobadas,String unidadesCursadas,String asignaturas,String cedula ) {
 		super();
@@ -102,10 +101,5 @@ public class HistorialEstudiante {
 	public void setAsignaturas(String asignaturas) {
 		this.asignaturas = asignaturas;
 	}
-
-	
-
-	
-	
-
+	//Fin  metodos set y get
 }

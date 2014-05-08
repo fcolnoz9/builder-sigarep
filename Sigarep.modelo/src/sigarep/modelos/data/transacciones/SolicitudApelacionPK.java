@@ -10,6 +10,7 @@ import javax.persistence.*;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 07/01/14
+ * @last 08/05/2014
  */
 @Embeddable
 @Access(AccessType.FIELD)
@@ -17,7 +18,7 @@ public class SolicitudApelacionPK implements Serializable {
 
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name = "codigo_lapso", unique = false, nullable = false, length = 6)
 	private String codigoLapso;
 
@@ -31,13 +32,9 @@ public class SolicitudApelacionPK implements Serializable {
 	}
 
 	/**
-	 * Constructor Solitud Apelacion
+	 * Constructor SolicitudApelacionPK
 	 * 
-	 * @param codigoLapso
-	 *            , cedulaEstudiante, idInstanciaApelada
-	 * @return Constructor lleno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param codigoLapso, cedulaEstudiante, idInstanciaApelada
 	 */
 	public SolicitudApelacionPK(String codigoLapso, String cedulaEstudiante,
 			Integer idInstanciaApelada) {
@@ -71,7 +68,8 @@ public class SolicitudApelacionPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-
+	// Fin metodos set y get
+	
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

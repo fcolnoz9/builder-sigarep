@@ -12,17 +12,17 @@ import java.util.Date;
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14
+ * @last 08/05/2014
  */
 @Entity
 @Table(name = "instancia_miembro")
 public class InstanciaMiembro implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private InstanciaMiembroPK id;
-
 	private String cargo;
-
 	private Boolean estatus;
 
 	@Temporal(TemporalType.DATE)
@@ -102,5 +102,5 @@ public class InstanciaMiembro implements Serializable {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
-
+	// Fin metodos set y get
 }

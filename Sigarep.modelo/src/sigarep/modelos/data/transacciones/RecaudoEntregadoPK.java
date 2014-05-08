@@ -10,6 +10,7 @@ import javax.persistence.*;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 07/01/14
+ * @last 08/05/2014
  */
 @Embeddable
 @Access(AccessType.FIELD)
@@ -27,7 +28,7 @@ public class RecaudoEntregadoPK implements Serializable {
 
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name = "id_recaudo", unique = false, nullable = false)
 	private Integer idRecaudo;
 
@@ -45,7 +46,7 @@ public class RecaudoEntregadoPK implements Serializable {
 
 	public RecaudoEntregadoPK() {
 	}
-
+	// metodos set y get
 	public Integer getIdRecaudo() {
 		return this.idRecaudo;
 	}
@@ -85,7 +86,8 @@ public class RecaudoEntregadoPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-
+	// Fin metodos set y get
+	
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

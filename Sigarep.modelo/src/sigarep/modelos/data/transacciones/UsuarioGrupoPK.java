@@ -9,13 +9,14 @@ import javax.persistence.*;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 07/01/14
+ * @last 08/05/2014
  */
 @Embeddable
 @Access(AccessType.FIELD)
 public class UsuarioGrupoPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name="id_grupo", unique=false, nullable=false)
 	private Integer idGrupo;
 
@@ -24,6 +25,7 @@ public class UsuarioGrupoPK implements Serializable {
 
 	public UsuarioGrupoPK() {
 	}
+	// metodos set y get
 	public Integer getIdGrupo() {
 		return this.idGrupo;
 	}
@@ -36,7 +38,8 @@ public class UsuarioGrupoPK implements Serializable {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
-
+	//Fin  metodos set y get
+	
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

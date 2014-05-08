@@ -12,6 +12,7 @@ import sigarep.modelos.data.maestros.Recaudo;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 07/01/14
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -19,8 +20,9 @@ import sigarep.modelos.data.maestros.Recaudo;
 public class RecaudoEntregado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private RecaudoEntregadoPK id;
 
 	@Column(nullable = false)
@@ -50,11 +52,7 @@ public class RecaudoEntregado implements Serializable {
 	/**
 	 * Constructor RecaudoEntregado
 	 * 
-	 * @param id
-	 *            , estatus, observacionExperto
-	 * @return Constructor lleno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param id, estatus, observacionExperto
 	 */
 	public RecaudoEntregado(RecaudoEntregadoPK id, Boolean estatus,
 			String observacionExperto) {
@@ -66,7 +64,7 @@ public class RecaudoEntregado implements Serializable {
 
 	public RecaudoEntregado() {
 	}
-
+	// metodos set y get
 	public RecaudoEntregadoPK getId() {
 		return this.id;
 	}
@@ -114,4 +112,5 @@ public class RecaudoEntregado implements Serializable {
 	public void setSoporte(Soporte soporte) {
 		this.soporte = soporte;
 	}
+	//Fin  metodos set y get
 }

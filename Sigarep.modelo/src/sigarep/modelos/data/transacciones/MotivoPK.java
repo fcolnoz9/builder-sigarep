@@ -9,6 +9,7 @@ import javax.persistence.*;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 20/12/13
+ * @last 08/05/2014
  */
 
 @Embeddable
@@ -16,7 +17,7 @@ import javax.persistence.*;
 public class MotivoPK implements Serializable {
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name = "id_tipo_motivo", unique = false, nullable = false)
 	private Integer idTipoMotivo;
 
@@ -31,7 +32,7 @@ public class MotivoPK implements Serializable {
 
 	public MotivoPK() {
 	}
-
+	// metodos set y get
 	public Integer getIdTipoMotivo() {
 		return this.idTipoMotivo;
 	}
@@ -63,7 +64,7 @@ public class MotivoPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-
+	//Fin  metodos set y get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
