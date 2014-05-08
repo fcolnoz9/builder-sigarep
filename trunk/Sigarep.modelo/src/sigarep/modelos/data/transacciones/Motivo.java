@@ -12,14 +12,16 @@ import java.util.List;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 20/12/13
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "motivo")
 public class Motivo implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private MotivoPK id;
 
 	@Column(length = 255)
@@ -96,20 +98,32 @@ public class Motivo implements Serializable {
 	public void setRecaudoEntregados(List<RecaudoEntregado> recaudoEntregados) {
 		this.recaudoEntregados = recaudoEntregados;
 	}
-
+	//Fin metodos set y get
+	
+	/**
+	 * Relación de la clase Motivo con la clase RecaudoEntregado,Agregar RecaudoEntregado
+	 * 
+	 * @see RecaudoEntregado
+	 * @param RecaudoEntregado
+	 * @return RecaudoEntregado
+	 */
 	public RecaudoEntregado addRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {
 		getRecaudoEntregados().add(recaudoEntregado);
 		recaudoEntregado.setMotivo(this);
-
 		return recaudoEntregado;
 	}
-
+	/**
+	 * Relación de la clase Motivo con la clase RecaudoEntregado,Quitar RecaudoEntregado
+	 * 
+	 * @see RecaudoEntregado
+	 * @param RecaudoEntregado
+	 * @return RecaudoEntregado
+	 */
 	public RecaudoEntregado removeRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {
 		getRecaudoEntregados().remove(recaudoEntregado);
 		recaudoEntregado.setMotivo(null);
-
 		return recaudoEntregado;
 	}
 

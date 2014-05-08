@@ -16,6 +16,7 @@ import java.util.Set;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 07/01/14
+ *  @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -23,8 +24,9 @@ import java.util.Set;
 public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 		Serializable {
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private SolicitudApelacionPK id;
 
 	@Column(nullable = false)
@@ -149,23 +151,6 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 			Set<ApelacionEstadoApelacion> apelacionEstadosApelacion) {
 		this.apelacionEstadosApelacion = apelacionEstadosApelacion;
 	}
-
-	public ApelacionEstadoApelacion addApelacionEstadosApelacion(
-			ApelacionEstadoApelacion apelacionEstadoApelacion) {
-		getApelacionEstadosApelacion().add(apelacionEstadoApelacion);
-		apelacionEstadoApelacion.setSolicitudApelacion(this);
-
-		return apelacionEstadoApelacion;
-	}
-
-	public ApelacionEstadoApelacion removeApelacionEstadosApelacion(
-			ApelacionEstadoApelacion apelacionEstadoApelacion) {
-		getApelacionEstadosApelacion().remove(apelacionEstadoApelacion);
-		apelacionEstadoApelacion.setSolicitudApelacion(null);
-
-		return apelacionEstadoApelacion;
-	}
-
 	public Set<Motivo> getMotivos() {
 		return this.motivos;
 	}
@@ -173,21 +158,7 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 	public void setMotivos(Set<Motivo> motivos) {
 		this.motivos = motivos;
 	}
-
-	public Motivo addMotivo(Motivo motivo) {
-		getMotivos().add(motivo);
-		motivo.setSolicitudApelacion(this);
-
-		return motivo;
-	}
-
-	public Motivo removeMotivo(Motivo motivo) {
-		getMotivos().remove(motivo);
-		motivo.setSolicitudApelacion(null);
-
-		return motivo;
-	}
-
+	
 	public EstudianteSancionado getEstudianteSancionado() {
 		return this.estudianteSancionado;
 	}
@@ -242,5 +213,56 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 	public void setAnalizado(boolean analizado) {
 		this.analizado = analizado;
 	}
-
+	//Fin metodos set y get
+	
+	/**
+	 * Relación de la clase SolicitudApelacion con la clase ApelacionEstadoApelacion, Agregar ApelacionEstadoApelacion
+	 * 
+	 * @see ApelacionEstadoApelacion
+	 * @param ApelacionEstadoApelacion
+	 * @return ApelacionEstadoApelacion
+	 */
+	public ApelacionEstadoApelacion addApelacionEstadosApelacion(
+			ApelacionEstadoApelacion apelacionEstadoApelacion) {
+		getApelacionEstadosApelacion().add(apelacionEstadoApelacion);
+		apelacionEstadoApelacion.setSolicitudApelacion(this);
+		return apelacionEstadoApelacion;
+	}
+	/**
+	 * Relación de la clase SolicitudApelacion con la clase ApelacionEstadoApelacion, Quitar ApelacionEstadoApelacion
+	 * 
+	 * @see ApelacionEstadoApelacion
+	 * @param ApelacionEstadoApelacion
+	 * @return ApelacionEstadoApelacion
+	 */
+	public ApelacionEstadoApelacion removeApelacionEstadosApelacion(
+			ApelacionEstadoApelacion apelacionEstadoApelacion) {
+		getApelacionEstadosApelacion().remove(apelacionEstadoApelacion);
+		apelacionEstadoApelacion.setSolicitudApelacion(null);
+		return apelacionEstadoApelacion;
+	}
+	/**
+	 * Relación de la clase SolicitudApelacion con la clase Motivo, Agregar Motivo
+	 * 
+	 * @see Motivo
+	 * @param Motivo
+	 * @return Motivo
+	 */
+	public Motivo addMotivo(Motivo motivo) {
+		getMotivos().add(motivo);
+		motivo.setSolicitudApelacion(this);
+		return motivo;
+	}
+	/**
+	 * Relación de la clase SolicitudApelacion con la clase Motivo, Quitar Motivo
+	 * 
+	 * @see Motivo
+	 * @param Motivo
+	 * @return Motivo
+	 */
+	public Motivo removeMotivo(Motivo motivo) {
+		getMotivos().remove(motivo);
+		motivo.setSolicitudApelacion(null);
+		return motivo;
+	}
 }

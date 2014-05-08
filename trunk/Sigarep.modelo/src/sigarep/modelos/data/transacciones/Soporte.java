@@ -13,6 +13,7 @@ import java.util.Date;
  * @author Equipo: Builder-SIGAREP
  * @version 1.0
  * @since 07/01/14
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -20,8 +21,9 @@ import java.util.Date;
 public class Soporte implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Id
+	// Clave principal de la clase
 	@Column(name="id_soporte", unique=true, nullable=false)
 	private Integer idSoporte;
 
@@ -34,7 +36,11 @@ public class Soporte implements Serializable {
 	
 	@Embedded
 	private Documento documento;
-
+	/**
+	 * Constructor Soporte
+	 * 
+	 * @param estatus, fechaSubida, documento, recaudoEntregado
+	 */
 	public Soporte(Boolean estatus, Date fechaSubida,
 			Documento documento, RecaudoEntregado recaudoEntregado) {
 		super();
@@ -57,7 +63,7 @@ public class Soporte implements Serializable {
 
 	public Soporte() {
 	}
-
+	// metodos set y get
 	public Integer getIdSoporte() {
 		return this.idSoporte;
 	}
@@ -97,5 +103,5 @@ public class Soporte implements Serializable {
 	public void setDocumento(Documento documento) {
 		this.documento = documento;
 	}
-
+	//Fin metodos set y get
 }

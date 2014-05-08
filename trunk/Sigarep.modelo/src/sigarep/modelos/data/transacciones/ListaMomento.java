@@ -8,6 +8,7 @@ import java.util.Date;
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14
+ * @last 08/05/2014
  */
 public class ListaMomento {
 
@@ -19,11 +20,7 @@ public class ListaMomento {
 	/**
 	 * Constructor Momento.
 	 * 
-	 * @param fecha
-	 *            , nombreEstado, observacion
-	 * @return Constructor lleno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param fecha , nombreEstado, observacion
 	 */
 	public ListaMomento(Date fecha, String nombreEstado, String observacion) {
 		super();
@@ -35,7 +32,7 @@ public class ListaMomento {
 	public ListaMomento() {
 
 	}
-
+	//metodos set y get
 	public Date getFecha() {
 		return fecha;
 	}
@@ -67,4 +64,5 @@ public class ListaMomento {
 	public void setNombreEstado(String nombreEstado) {
 		this.nombreEstado = nombreEstado;
 	}
+	//Fin metodos set y get
 }

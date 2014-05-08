@@ -9,6 +9,7 @@ import java.util.Date;
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14
+ * @last 08/05/2014
  */
 public class ListaCronograma {
 
@@ -21,14 +22,10 @@ public class ListaCronograma {
 	private String lugar;
 
 	/**
-	 * Constructor Lista Cronograma.
+	 * Constructor ListaCronograma.
 	 * 
-	 * @param nombre
-	 *            , descripcion, fecha_inicio, fecha_fin, hora_inicio,
-	 *            observacion, lugar
-	 * @return Constructor lleno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param nombre, nombre,descripcion,fecha_inicio,fecha_fin,hora_inicio
+	 *        observacion, lugar
 	 */
 	public ListaCronograma(String nombre, String descripcion,
 			Date fecha_inicio, Date fecha_fin, Time hora_inicio,
@@ -99,5 +96,5 @@ public class ListaCronograma {
 	public void setHora_inicio(Time hora_inicio) {
 		this.hora_inicio = hora_inicio;
 	}
-
+	//Fin metodos set y get
 }
