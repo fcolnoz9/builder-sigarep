@@ -13,6 +13,7 @@ import java.util.Date;
  * @author BUILDER
  * @version 1.0
  * @since 12/12/14
+ * @last 08/05/2014
  */
 
 @Entity
@@ -50,16 +51,12 @@ private static final long serialVersionUID = 1L;
 	//Constructor por defecto
 	public Reglamento() {
 	}
-
 	/**
 	 * Constructor Reglamento
 	 * 
-	 * @param idDocumento
-	 *            , documento, titulo, descripcion, estatus, fechaSubida,
-	 *            categoria
-	 * @return Constructor lleno
+	 * @param idDocumento, documento, titulo, descripcion, estatus, fechaSubida,
+	 *        categoria
 	 */
-
 	public Reglamento(Integer idDocumento, Documento documento, String titulo,
 			String descripcion, Boolean estatus, Date fechaSubida,
 			String categoria) {

@@ -12,6 +12,7 @@ import java.util.List;
  * @author BUILDER
  * @version 1.0
  * @since 18/12/2013
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -48,9 +49,7 @@ private static final long serialVersionUID = 1L;
 	/**
 	 * Constructor TipoMotivo
 	 * 
-	 * @param idTipoMotivo
-	 *            , descripcion, estatus, nombreTipoMotivo, protegido
-	 * @return Constructor lleno
+	 * @param idTipoMotivo , descripcion, estatus, nombreTipoMotivo, protegido
 	 */
 	public TipoMotivo(Integer idTipoMotivo, String descripcion,
 			Boolean estatus, String nombreTipoMotivo, Boolean protegido) {
@@ -60,8 +59,6 @@ private static final long serialVersionUID = 1L;
 		this.estatus = estatus;
 		this.nombreTipoMotivo = nombreTipoMotivo;
 		this.protegido = protegido;
-
-		// TODO Auto-generated constructor stub
 	}
 
 	// Métodos set y get
@@ -113,8 +110,6 @@ private static final long serialVersionUID = 1L;
 		this.recaudos = recaudos;
 	}
 
-	
-
 	public List<Motivo> getMotivos() {
 		return this.motivos;
 	}
@@ -122,7 +117,7 @@ private static final long serialVersionUID = 1L;
 	public void setMotivos(List<Motivo> motivos) {
 		this.motivos = motivos;
 	}
-	
+	//Fin Métodos set y get
 	/**
 	 * Relación de la clase TipoMotivo con la clase Recaudo, Agregar Recaudo
 	 * 
@@ -133,7 +128,6 @@ private static final long serialVersionUID = 1L;
 	public Recaudo addRecaudo(Recaudo recaudo) {
 		getRecaudos().add(recaudo);
 		recaudo.setTipoMotivo(this);
-
 		return recaudo;
 	}
 
@@ -147,7 +141,6 @@ private static final long serialVersionUID = 1L;
 	public Recaudo removeRecaudo(Recaudo recaudo) {
 		getRecaudos().remove(recaudo);
 		recaudo.setTipoMotivo(null);
-
 		return recaudo;
 	}
 
@@ -161,7 +154,6 @@ private static final long serialVersionUID = 1L;
 	public Motivo addMotivo(Motivo motivo) {
 		getMotivos().add(motivo);
 		motivo.setTipoMotivo(this);
-
 		return motivo;
 	}
 
@@ -175,9 +167,6 @@ private static final long serialVersionUID = 1L;
 	public Motivo removeMotivo(Motivo motivo) {
 		getMotivos().remove(motivo);
 		motivo.setTipoMotivo(null);
-
 		return motivo;
 	}
-
-	//Fin Métodos set y get
 }//Fin Clase TipoMotivo

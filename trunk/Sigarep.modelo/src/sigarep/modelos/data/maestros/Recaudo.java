@@ -11,6 +11,7 @@ import java.util.List;
  * @author BUILDER
  * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
 
 @Entity
@@ -19,8 +20,6 @@ import java.util.List;
 @Table(name = "recaudo")
 public class Recaudo implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	
 
 	// Atributos de la clase
 	@Id
@@ -55,9 +54,7 @@ public class Recaudo implements Serializable {
 	/**
 	 * Constructor Recaudo
 	 * 
-	 * @param idRecaudo, descripcion
-	 *            , estatus, nombreRecaudo, observacion
-	 * @return Constructor lleno
+	 * @param idRecaudo, descripcion, estatus, nombreRecaudo, observacion
 	 */
 	public Recaudo(Integer idRecaudo, String descripcion, Boolean estatus,
 			String nombreRecaudo, String observacion) {
@@ -125,7 +122,7 @@ public class Recaudo implements Serializable {
 	public void setRecaudoEntregados(List<RecaudoEntregado> recaudoEntregados) {
 		this.recaudoEntregados = recaudoEntregados;
 	}
-	
+	// Fin Métodos Set y Get
 	/**
 	 * Relación de la clase Recaudo con la clase RecaudoEntregado,Agregar RecaudoEntregado
 	 * 
@@ -137,7 +134,6 @@ public class Recaudo implements Serializable {
 			RecaudoEntregado recaudoEntregado) {
 		getRecaudoEntregados().add(recaudoEntregado);
 		recaudoEntregado.setRecaudo(this);
-
 		return recaudoEntregado;
 	}
 	
@@ -152,8 +148,7 @@ public class Recaudo implements Serializable {
 			RecaudoEntregado recaudoEntregado) {
 		getRecaudoEntregados().remove(recaudoEntregado);
 		recaudoEntregado.setRecaudo(null);
-
 		return recaudoEntregado;
 	}
-	// Fin Métodos Set y Get
+	
 }//Fin Clase Recaudo

@@ -11,6 +11,7 @@ import java.util.List;
  * @author BUILDER
  * @version 1
  * @since 15/12/2013
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -46,9 +47,7 @@ public class ProgramaAcademico implements Serializable {
 	/**
 	 * Constructor ProgramaAcademico
 	 * 
-	 * @param idPrograma
-	 *            , nombrePrograma, estatus
-	 * @return Constructor lleno
+	 * @param idPrograma , nombrePrograma, estatus
 	 */
 	public ProgramaAcademico(Integer idPrograma, String nombrePrograma,
 			Boolean estatus) {
@@ -98,7 +97,7 @@ public class ProgramaAcademico implements Serializable {
 	public void setEstudiantes(List<Estudiante> estudiantes) {
 		this.estudiantes = estudiantes;
 	}
-	
+	// Fin Métodos set y get
 	/**
 	 * Relación de la clase ProgramaAcademico con la clase Asignatura, Agregar
 	 * Asignatura
@@ -110,7 +109,6 @@ public class ProgramaAcademico implements Serializable {
 	public Asignatura addAsignatura(Asignatura asignatura) {
 		getAsignaturas().add(asignatura);
 		asignatura.setProgramaAcademico(this);
-
 		return asignatura;
 	}
 
@@ -125,7 +123,6 @@ public class ProgramaAcademico implements Serializable {
 	public Asignatura removeAsignatura(Asignatura asignatura) {
 		getAsignaturas().remove(asignatura);
 		asignatura.setProgramaAcademico(null);
-
 		return asignatura;
 	}
 
@@ -140,7 +137,6 @@ public class ProgramaAcademico implements Serializable {
 	public Estudiante addEstudiante(Estudiante estudiante) {
 		getEstudiantes().add(estudiante);
 		estudiante.setProgramaAcademico(this);
-
 		return estudiante;
 	}
 	/**
@@ -154,8 +150,7 @@ public class ProgramaAcademico implements Serializable {
 	public Estudiante removeEstudiante(Estudiante estudiante) {
 		getEstudiantes().remove(estudiante);
 		estudiante.setProgramaAcademico(null);
-
 		return estudiante;
 	}
-	//Fin Métodos set y get
+
 }//Fin Clase ProgramaAcademico

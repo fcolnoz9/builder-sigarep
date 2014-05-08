@@ -8,12 +8,12 @@ import sigarep.herramientas.Archivo;
 import java.util.Date;
 
 /**
- * Clase Noticia  Utilizada en el portal web. UCLA
- * DCYT Sistemas de Informacion.
+ * Clase Noticia  (Utilizada en el portal web)
  * 
- * @author : BUILDER
- * @version 1
+ * @author : Equipo Builder
+ * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
 
 @Entity
@@ -55,14 +55,12 @@ public class Noticia implements Serializable {
 	public Noticia() {
 	}
 	
-	/**
-	 * Constructor Noticia
-	 * 
-	 * @param idNoticia
-	 *            , contenido, enlaceNoticia, estatus, fechaRegistro,
-	 *            fotoNoticia, titulo, vencimiento
-	 * @return Constructor lleno
-	 */
+	/** 
+	* Constructor de la clase Noticia 
+	* 
+	* @param idNoticia, contenido, enlaceNoticia, estatus, fechaRegistro, fotoNoticia, titulo, vencimiento
+	*/ 
+	
 	public Noticia(Integer idNoticia, String contenido, String enlaceNoticia,
 			Boolean estatus, Date fechaRegistro, Archivo fotoNoticia,
 			String titulo, Date vencimiento) {
@@ -77,8 +75,7 @@ public class Noticia implements Serializable {
 		this.vencimiento = vencimiento;
 	}
 
-
-	// Métodos Set y Get
+	// Métodos Set y Get 
 	public Integer getIdNoticia() {
 		return this.idNoticia;
 	}
@@ -145,5 +142,6 @@ public class Noticia implements Serializable {
 
 	public void setFotoNoticia(Archivo fotoNoticia) {
 		this.fotoNoticia = fotoNoticia;
-	}// Fin Métodos Set y Get
-}//Fiv Clase Noticia
+	}
+	//Fin  Métodos Set y Get 
+}//Fin Clase Noticia
