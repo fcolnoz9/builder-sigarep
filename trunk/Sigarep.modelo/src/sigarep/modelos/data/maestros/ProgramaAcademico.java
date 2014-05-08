@@ -113,7 +113,7 @@ public class ProgramaAcademico implements Serializable {
 	}
 
 	/**
-	 * Relación de la clase ProgramaAcademico con la clase Asignatura, Agregar
+	 * Relación de la clase ProgramaAcademico con la clase Asignatura, Quitar
 	 * Asignatura
 	 * 
 	 * @see Asignatura
