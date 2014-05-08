@@ -39,6 +39,10 @@ public class ServicioSolicitudApelacion {
 	public List<SolicitudApelacion> buscarApelacionesRecursoJerarquico(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
 	}
+	
+	public List<SolicitudApelacion> buscarApelacionesActa(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
+	}
 
 	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {
 		return iSolicitudApelacionDAO.findOne(id);
@@ -531,6 +535,35 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 	
+	public List<SolicitudApelacion> filtrarActa(String programa, String cedula, String nombre, String apellido,
+			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
+		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
+		if (programa == null || cedula == null || nombre == null
+				|| apellido == null || sancion == null) {
+			result = buscarApelacionesActa(lapsoAcademico, idInstanciaApelada);
+		} else {
+			for (SolicitudApelacion sa : buscarApelacionesActa(lapsoAcademico, idInstanciaApelada)) {
+				if (sa.getEstudianteSancionado().getEstudiante()
+						.getProgramaAcademico().getNombrePrograma()
+						.toLowerCase().contains(programa.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getCedulaEstudiante().toLowerCase()
+								.contains(cedula.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerNombre().toLowerCase()
+								.contains(nombre.toLowerCase())
+						&& sa.getEstudianteSancionado().getEstudiante()
+								.getPrimerApellido().toLowerCase()
+								.contains(apellido.toLowerCase())
+						&& sa.getEstudianteSancionado().getSancionMaestro()
+								.getNombreSancion().toLowerCase()
+								.contains(sancion.toLowerCase())) {
+					result.add(sa);
+				}
+			}
+		}
+		return result;
+	}
 	/**
 	 * Retorna true si todas las apelaciones fueron procesadas para una instancia
 	 * @param idInstanciaApelada
