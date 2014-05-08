@@ -15,6 +15,7 @@ import org.hibernate.annotations.Index;
  * @author BUILDER
  * @version 1
  * @since 04/02/2014 
+ * @last 08/05/2014
  */
 
 @org.hibernate.annotations.Table(
@@ -59,9 +60,8 @@ public class Nodo implements Comparator<Nodo>{
 	}
 
 	/**
-	 * Constructor Sancionados
+	 * Constructor Nodo
 	 * @param id, tipo, nombrefuncion, vinculo, estatus, padre, rutaModal
-	 * @return Constructor lleno
 	 */
 	public Nodo(Integer id, String tipo, String nombrefuncion,
 			String vinculo, boolean estatus, Integer padre, String rutaModal) {
@@ -140,7 +140,7 @@ public class Nodo implements Comparator<Nodo>{
 	@Override
 	public int compare(Nodo nodo1, Nodo nodo2) {
 		return nodo1.getId().compareTo(nodo2.getId());
-	}// Fin Métodos Set y Get
-
+	}
+// Fin Métodos Set y Get
 }//Fin Clase Nodo
 
