@@ -3,7 +3,7 @@
 		title="Configuración Web:: Preguntas Básicas" width="auto"
 		height="auto" closable="true" border="normal"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMPreguntaBasica')">
 		<style src="/widgets/input/form_sample/style.css" />
 		<!-- Estilos de CSS para pantallas -->
 		<style src="/widgets/input/form_sample/style.css" />

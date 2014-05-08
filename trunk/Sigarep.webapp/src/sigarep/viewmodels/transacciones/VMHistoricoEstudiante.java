@@ -13,7 +13,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
@@ -37,7 +36,6 @@ public class VMHistoricoEstudiante {
 	private Integer periodoSancion;
 	private String numeroCaso;
 	private String fecha;
-	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	private EstudianteSancionado estudianteSancionado;
 	private SolicitudApelacion solicitudEst;
 	private Boolean boton1;

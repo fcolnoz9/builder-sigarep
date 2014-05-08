@@ -1,6 +1,5 @@
 package sigarep.viewmodels.transacciones;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +22,6 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
@@ -50,7 +48,6 @@ public class VMDatosSesionVeredicto {
 	private Date fechaSesion = new Date();
 	private String titulo;
 	private LapsoAcademico lapsoActivo;
-	private List<SolicitudApelacion> listaSancionados = new ArrayList<SolicitudApelacion>();
 	
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;

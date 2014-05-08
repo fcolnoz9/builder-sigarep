@@ -2,7 +2,6 @@ package sigarep.viewmodels.reportes;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -69,9 +68,6 @@ public class VMAsignaturasMayorCantidadSancionados {
 	private LapsoAcademico lapsoAcademico;
 	private ProgramaAcademico programaAcademico;
 	private InstanciaApelada instanciaApelada;
-	private Map<String, Object> parametros;
-	
-	
 	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
 	
 	public ListModelList<ReportType> getReportTypesModel() {

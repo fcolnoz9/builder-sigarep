@@ -23,7 +23,6 @@ import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
-import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 
 
 /**
