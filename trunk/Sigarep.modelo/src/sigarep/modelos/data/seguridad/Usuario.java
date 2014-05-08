@@ -15,6 +15,7 @@ import sigarep.modelos.data.transacciones.UsuarioGrupo;
  * @author BUILDER
  * @version 1
  * @since 04/12/2013 
+ * @last 08/05/2014
  */
 @Entity
 @Table(name = "usuario")
@@ -51,7 +52,7 @@ public class Usuario implements Serializable {
 	@Embedded()
 	private Archivo foto;
 
-	// Relación bidireccional de uno a muchos, asociada a la clase Usuario
+	// Relación bidireccional de uno a muchos, asociada a la clase UsuarioGrupo
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="usuario", cascade={CascadeType.ALL})
 	private Set<UsuarioGrupo> usuariosGrupos = new HashSet<UsuarioGrupo>();
 
@@ -68,7 +69,6 @@ public class Usuario implements Serializable {
 	/**
 	 * Constructor Usuario
 	 * @param idUsuario, nombreUsuario, correo, clave, nombreCompleto, estatus
-	 * @return Constructor lleno
 	 */
 	public Usuario(Integer idUsuario,String nombreUsuario, String correo, String clave,
 			String nombreCompleto, Boolean estatus) {
@@ -129,18 +129,6 @@ public class Usuario implements Serializable {
 		this.usuariosGrupos = usuariosGrupos;
 	}
 
-	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
-		getUsuariosGrupos().add(usuariosGrupos);
-		usuariosGrupos.setUsuario(this);
-		return usuariosGrupos;
-	}
-
-	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
-		getUsuariosGrupos().remove(usuariosGrupos);
-		usuariosGrupos.setUsuario(null);
-		return usuariosGrupos;
-	}
-
 	public Archivo getFoto() {
 		return foto;
 	}
@@ -163,7 +151,7 @@ public class Usuario implements Serializable {
 
 	public void setUltimoAcceso(Date ultimoAcceso) {
 		this.ultimoAcceso = ultimoAcceso;
-	}// Fin Métodos Set y Get
+	}
 
 	public Persona getPersona() {
 		return persona;
@@ -172,5 +160,30 @@ public class Usuario implements Serializable {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
-
-}//Fin Clase Usuario
+	// Fin Métodos Set y Get
+	/**
+	 * Relación de la clase Usuario con la clase UsuarioGrupo, Agregar UsuarioGrupo
+	 * 
+	 * @see UsuariosGrupo
+	 * @param UsuariosGrupo
+	 * @return usuariosGrupo
+	 */
+	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
+		getUsuariosGrupos().add(usuariosGrupos);
+		usuariosGrupos.setUsuario(this);
+		return usuariosGrupos;
+	}
+	/**
+	 * Relación de la clase Grupo con la clase UsuarioGrupo, Quitar UsuarioGrupo
+	 * 
+	 * @see UsuariosGrupo
+	 * @param UsuariosGrupo
+	 * @return usuariosGrupo
+	 */
+	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
+		getUsuariosGrupos().remove(usuariosGrupos);
+		usuariosGrupos.setUsuario(null);
+		return usuariosGrupos;
+	}
+}
+//Fin Clase Usuario
