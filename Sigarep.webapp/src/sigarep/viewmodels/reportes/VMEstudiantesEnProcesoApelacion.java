@@ -40,8 +40,9 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudiantesEnProcesoApelacion {
-	
-	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
+
+	// ***********************************DECLARACION DE LAS VARIABLES
+	// SERVICIOS*************************
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -55,7 +56,8 @@ public class VMEstudiantesEnProcesoApelacion {
 	@WireVariable
 	private ServicioInstanciaApelada servicioInstanciaApelada;
 
-	// ***********************************PARÁMETROS PARA REPORTES************************
+	// ***********************************PARÁMETROS PARA
+	// REPORTES************************
 	@WireVariable
 	private String nombrePrograma;
 	@WireVariable
@@ -63,7 +65,8 @@ public class VMEstudiantesEnProcesoApelacion {
 	@WireVariable
 	private String codigoLapso;
 
-	// ***********************************DECLARACION DE LISTAS*************************
+	// ***********************************DECLARACION DE
+	// LISTAS*************************
 	private List<ProgramaAcademico> listaPrograma;
 	private List<SancionMaestro> listaTipoSancion;
 	private List<InstanciaApelada> listaInstanciaApelada;
@@ -73,7 +76,8 @@ public class VMEstudiantesEnProcesoApelacion {
 	private List<EstudianteSancionado> lista1 = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> lista2 = new LinkedList<SolicitudApelacion>();
 
-	// ***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
+	// ***********************************DECLARACION DE LAS VARIABLES TIPO
+	// OBJETO*************************
 	private ProgramaAcademico objPrograma;
 	private EstadoApelacion objEstadoApelacion;
 	private LapsoAcademico lapsoActivo;
@@ -82,8 +86,8 @@ public class VMEstudiantesEnProcesoApelacion {
 	// *********************************Mensajes***************************************
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
+	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
+	// REPORTE***************************
 
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
@@ -91,8 +95,8 @@ public class VMEstudiantesEnProcesoApelacion {
 	String ruta1 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion1.jasper";
 	String ruta2 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion2.jasper";
 
-	
-	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
+	// **************METODOS SET Y GET NECESARIOS PARA GENERAR
+	// REPORTE*****************
 	// Reporte SET/GETS
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
@@ -152,12 +156,28 @@ public class VMEstudiantesEnProcesoApelacion {
 		this.listaSA = listaSA;
 	}
 
+	public List<SolicitudApelacion> getLista2() {
+		return lista2;
+	}
+
+	public void setLista2(List<SolicitudApelacion> lista2) {
+		this.lista2 = lista2;
+	}
+
 	public List<EstudianteSancionado> getListaES() {
 		return listaES;
 	}
 
 	public void setListaES(List<EstudianteSancionado> listaES) {
 		this.listaES = listaES;
+	}
+
+	public List<EstudianteSancionado> getLista1() {
+		return lista1;
+	}
+
+	public void setLista1(List<EstudianteSancionado> lista1) {
+		this.lista1 = lista1;
 	}
 
 	public ProgramaAcademico getObjPrograma() {
@@ -184,10 +204,10 @@ public class VMEstudiantesEnProcesoApelacion {
 		this.objinstanciaApelada = objinstanciaApelada;
 	}
 
-	// ===============================FIN DE LOS METODOS SET Y GET==============================
+	// ===============================FIN DE LOS METODOS SET Y
+	// GET==============================
 
-	
-	//Lista que me permite llenar el combo para elegir el formato 
+	// Lista que me permite llenar el combo para elegir el formato
 	/**
 	 * Muestra los tipos de formatos que puede mostrarse el reporte
 	 * 
@@ -197,18 +217,20 @@ public class VMEstudiantesEnProcesoApelacion {
 	 *             dispara ninguna excepción.
 	 */
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
-					new ReportType("Excel", "xls"), new ReportType(
-							"Excel (JXL)", "jxl"),
-					new ReportType("CSV", "csv"), new ReportType(
-							"OpenOffice (ODT)", "odt")));
-	
-	
-	//******************************METODO DE INICIALIZACION*****************************
-	/**Inicialización
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
+					"Word (RTF)", "rtf"), new ReportType("Excel", "xls"),
+					new ReportType("Excel (JXL)", "jxl"), new ReportType("CSV",
+							"csv"), new ReportType("OpenOffice (ODT)", "odt")));
+
+	// ******************************METODO DE
+	// INICIALIZACION*****************************
+	/**
+	 * Inicialización
+	 * 
 	 * @param init
 	 * @return Carga de Variables y métodos inicializados
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Init
 	public void init() {
@@ -217,9 +239,9 @@ public class VMEstudiantesEnProcesoApelacion {
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		listadoInstancia();
 	}
-	
-	
-	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
+
+	// @@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS
+	// COMBOS@@@@@@@@@@@@@@@@@@@
 	/**
 	 * buscar Programa Académico
 	 * 
@@ -301,9 +323,7 @@ public class VMEstudiantesEnProcesoApelacion {
 	public EstadoApelacion objCmbEstadoApelacion() {
 		return objEstadoApelacion;
 	}
-	
-	
-	
+
 	// ###############METODO PARA IMPRIMIR REPORTE#################
 	/**
 	 * Generar Reporte Estadístico Comparativo de Apelaciones por Motivo y
@@ -323,26 +343,28 @@ public class VMEstudiantesEnProcesoApelacion {
 		listaSA.clear();
 		lista2.clear();
 
-		if (objEstadoApelacion == null || objPrograma == null || reportType == null) {
+		if (objEstadoApelacion == null || objPrograma == null
+				|| reportType == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
 			switch (objEstadoApelacion.getIdEstadoApelacion()) {
 			case (1):
 				// Registro de Apelacion Inicial - Estado = 1
-				listaES = servicioestudiantesancionado.buscarSancionados();
-
+				listaSA = serviciosolicitudapelacion
+						.buscarApelacionesVerificarRecaudosI(lapsoActivo, 1);
 				if (objPrograma.getNombrePrograma() == "Todos") {
-					lista1.addAll(listaES);
+					lista2 = listaSA;
 				} else {
-					for (int i = 0; i < listaES.size(); i++) {
-						if (listaES.get(i).getEstudiante()
-								.getProgramaAcademico().getIdPrograma() == objPrograma
-								.getIdPrograma())
-							lista1.add(listaES.get(i));
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma()))
+							lista2.add(listaSA.get(i));
 					}
 				}
-				if (lista1.size() > 0) {
-					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
+				if (lista2.size() > 0) {
+					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
@@ -352,7 +374,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(lista1));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -362,16 +384,18 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (2):
 				// Verificación de Recaudos I - Estado = 2
-				listaSA = serviciosolicitudapelacion
-						.buscarApelacionesVerificarRecaudosI(lapsoActivo, 1);
+				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezI(
+						lapsoActivo, 1);
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
 					for (int i = 0; i < listaSA.size(); i++) {
 						if (listaSA.get(i).getEstudianteSancionado()
 								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
 							lista2.add(listaSA.get(i));
+						}
 					}
 				}
 				if (lista2.size() > 0) {
@@ -395,39 +419,6 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (3):
 				// Analizar validez de Recaudos I - Estado = 3
-				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezI(
-						lapsoActivo, 1);
-				if (objPrograma.getNombrePrograma() == "Todos") {
-					lista2.addAll(listaSA);
-				} else {
-					for (int i = 0; i < listaSA.size(); i++) {
-						if (listaSA.get(i).getEstudianteSancionado()
-								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
-							lista2.add(listaSA.get(i));
-					}
-				}
-				if (lista2.size() > 0) {
-					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
-															// NUEVA LLAMADA AL
-															// REPORTE
-					reportConfig.getParameters().put("estado",
-							objEstadoApelacion.getNombreEstado());
-					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
-					reportConfig.getParameters().put("programa",
-							objPrograma.getNombrePrograma());
-					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(lista2));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
-														// FORMATO DE IMPRESION
-														// DEL REPORTE
-				} else {
-					mensajeAlUsuario.informacionNoHayCoincidencias();
-				}
-				break;
-			case (4):
-				// Veredicto del Caso I - Estado = 4
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoI();
 				if (objPrograma.getNombrePrograma() == "Todos") {
@@ -436,8 +427,10 @@ public class VMEstudiantesEnProcesoApelacion {
 					for (int i = 0; i < listaSA.size(); i++) {
 						if (listaSA.get(i).getEstudianteSancionado()
 								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
 							lista2.add(listaSA.get(i));
+						}
 					}
 				}
 				if (lista2.size() > 0) {
@@ -461,20 +454,22 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (5):
 				// Registro de Recurso de Reconsideración - Estado = 5
-				listaES = servicioestudiantesancionado
-						.buscarSancionadosReconsideracion();
+				listaSA = serviciosolicitudapelacion
+						.buscarApelacionesVerificarRecaudosII(lapsoActivo, 2);
 				if (objPrograma.getNombrePrograma() == "Todos") {
-					lista1.addAll(listaES);
+					lista2.addAll(listaSA);
 				} else {
-					for (int i = 0; i < listaES.size(); i++) {
-						if (listaES.get(i).getEstudiante()
-								.getProgramaAcademico().getIdPrograma() == objPrograma
-								.getIdPrograma())
-							lista1.add(listaES.get(i));
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
+							lista2.add(listaSA.get(i));
+						}
 					}
 				}
-				if (lista1.size() > 0) {
-					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
+				if (lista2.size() > 0) {
+					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
@@ -484,7 +479,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(lista1));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -494,16 +489,18 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (6):
 				// Verificación de Recuados II - Estado = 6
-				listaSA = serviciosolicitudapelacion
-						.buscarApelacionesVerificarRecaudosII(lapsoActivo, 2);
+				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezII(
+						lapsoActivo, 2);
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
 					for (int i = 0; i < listaSA.size(); i++) {
 						if (listaSA.get(i).getEstudianteSancionado()
 								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
 							lista2.add(listaSA.get(i));
+						}
 					}
 				}
 				if (lista2.size() > 0) {
@@ -527,39 +524,6 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (7):
 				// Analizar validez de Recaudos II - Estado = 7
-				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezII(
-						lapsoActivo, 2);
-				if (objPrograma.getNombrePrograma() == "Todos") {
-					lista2.addAll(listaSA);
-				} else {
-					for (int i = 0; i < listaSA.size(); i++) {
-						if (listaSA.get(i).getEstudianteSancionado()
-								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
-							lista2.add(listaSA.get(i));
-					}
-				}
-				if (lista2.size() > 0) {
-					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
-															// NUEVA LLAMADA AL
-															// REPORTE
-					reportConfig.getParameters().put("estado",
-							objEstadoApelacion.getNombreEstado());
-					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
-					reportConfig.getParameters().put("programa",
-							objPrograma.getNombrePrograma());
-					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(lista2));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
-														// FORMATO DE IMPRESION
-														// DEL REPORTE
-				} else {
-					mensajeAlUsuario.informacionNoHayCoincidencias();
-				}
-				break;
-			case (8):
-				// Veredicto del Caso II - Estado = 8
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoII();
 				if (objPrograma.getNombrePrograma() == "Todos") {
@@ -568,8 +532,10 @@ public class VMEstudiantesEnProcesoApelacion {
 					for (int i = 0; i < listaSA.size(); i++) {
 						if (listaSA.get(i).getEstudianteSancionado()
 								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
 							lista2.add(listaSA.get(i));
+						}
 					}
 				}
 				if (lista2.size() > 0) {
@@ -593,20 +559,22 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (9):
 				// Registro de Recurso Jerárquico - Estado = 9
-				listaES = servicioestudiantesancionado
-						.buscarSancionadosRecursoJerarquico();
+				listaSA = serviciosolicitudapelacion
+						.buscarApelacionesVerificarRecaudosIII(lapsoActivo, 3);
 				if (objPrograma.getNombrePrograma() == "Todos") {
-					lista1.addAll(listaES);
+					lista2.addAll(listaSA);
 				} else {
-					for (int i = 0; i < listaES.size(); i++) {
-						if (listaES.get(i).getEstudiante()
-								.getProgramaAcademico().getIdPrograma() == objPrograma
-								.getIdPrograma())
-							lista1.add(listaES.get(i));
+					for (int i = 0; i < listaSA.size(); i++) {
+						if (listaSA.get(i).getEstudianteSancionado()
+								.getEstudiante().getProgramaAcademico()
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
+							lista2.add(listaSA.get(i));
+						}
 					}
 				}
-				if (lista1.size() > 0) {
-					reportConfig = new ReportConfig(ruta1); // INSTANCIANDO UNA
+				if (lista2.size() > 0) {
+					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
 															// NUEVA LLAMADA AL
 															// REPORTE
 					reportConfig.getParameters().put("estado",
@@ -616,7 +584,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(lista1));
+							new JRBeanCollectionDataSource(lista2));
 					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
 														// FORMATO DE IMPRESION
 														// DEL REPORTE
@@ -626,16 +594,18 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (10):
 				// Verificación de Recaudos III - Estado = 10
-				listaSA = serviciosolicitudapelacion
-						.buscarApelacionesVerificarRecaudosIII(lapsoActivo, 3);
+				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezIII(
+						lapsoActivo, 3);
 				if (objPrograma.getNombrePrograma() == "Todos") {
 					lista2.addAll(listaSA);
 				} else {
 					for (int i = 0; i < listaSA.size(); i++) {
 						if (listaSA.get(i).getEstudianteSancionado()
 								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
 							lista2.add(listaSA.get(i));
+						}
 					}
 				}
 				if (lista2.size() > 0) {
@@ -659,39 +629,6 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			case (11):
 				// Analizar validez de Recaudos III - Estado = 11
-				listaSA = serviciosolicitudapelacion.buscarAnalizarValidezIII(
-						lapsoActivo, 3);
-				if (objPrograma.getNombrePrograma() == "Todos") {
-					lista2.addAll(listaSA);
-				} else {
-					for (int i = 0; i < listaSA.size(); i++) {
-						if (listaSA.get(i).getEstudianteSancionado()
-								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
-							lista2.add(listaSA.get(i));
-					}
-				}
-				if (lista2.size() > 0) {
-					reportConfig = new ReportConfig(ruta2); // INSTANCIANDO UNA
-															// NUEVA LLAMADA AL
-															// REPORTE
-					reportConfig.getParameters().put("estado",
-							objEstadoApelacion.getNombreEstado());
-					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
-					reportConfig.getParameters().put("programa",
-							objPrograma.getNombrePrograma());
-					reportConfig.getParameters().put("Lista",
-							new JRBeanCollectionDataSource(lista2));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
-														// FORMATO DE IMPRESION
-														// DEL REPORTE
-				} else {
-					mensajeAlUsuario.informacionNoHayCoincidencias();
-				}
-				break;
-			case (12):
-				// Veredicto del caso III - Estado = 12
 				listaSA = serviciosolicitudapelacion
 						.buscarApelacionesVeredictoIII();
 				if (objPrograma.getNombrePrograma() == "Todos") {
@@ -700,8 +637,10 @@ public class VMEstudiantesEnProcesoApelacion {
 					for (int i = 0; i < listaSA.size(); i++) {
 						if (listaSA.get(i).getEstudianteSancionado()
 								.getEstudiante().getProgramaAcademico()
-								.getIdPrograma() == objPrograma.getIdPrograma())
+								.getIdPrograma()
+								.equals(objPrograma.getIdPrograma())) {
 							lista2.add(listaSA.get(i));
+						}
 					}
 				}
 				if (lista2.size() > 0) {
@@ -729,16 +668,17 @@ public class VMEstudiantesEnProcesoApelacion {
 		}
 
 	}
-	
-	
-	//*******************************METODO PARA LIMPIAR COMBOS******************************
+
+	// *******************************METODO PARA LIMPIAR
+	// COMBOS******************************
 	@Command
-	@NotifyChange({ "objPrograma", "objEstadoApelacion", "objinstanciaApelada","reportType"})
+	@NotifyChange({ "objPrograma", "objEstadoApelacion", "objinstanciaApelada",
+			"reportType" })
 	public void limpiar() {
 		objPrograma = null;
 		objEstadoApelacion = null;
 		objinstanciaApelada = null;
-		reportType= null;
+		reportType = null;
 	}
 
 }
