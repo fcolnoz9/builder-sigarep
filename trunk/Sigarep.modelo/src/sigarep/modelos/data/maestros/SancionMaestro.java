@@ -130,4 +130,4 @@ public class SancionMaestro implements Serializable {
 		return estudianteSancionado;
 	}
 
-}//Fin Clase SancionMaestro
+}

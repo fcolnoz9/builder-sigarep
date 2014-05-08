@@ -128,4 +128,4 @@ private static final long serialVersionUID = 1L;
 		this.categoria = categoria;
 	}
 	//Fin Métodos Set y Get
-}//Fin Clase Reglamento
+}

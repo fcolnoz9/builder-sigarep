@@ -144,4 +144,4 @@ public class Noticia implements Serializable {
 		this.fotoNoticia = fotoNoticia;
 	}
 	//Fin  Métodos Set y Get 
-}//Fin Clase Noticia
+}

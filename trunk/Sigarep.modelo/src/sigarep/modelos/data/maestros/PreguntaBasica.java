@@ -85,4 +85,4 @@ public class PreguntaBasica implements Serializable {
 		this.respuesta = respuesta;
 	}
 	// Fin Métodos Set y Get
-}// Fin Clase Preguntas Básicas
+}
