@@ -2,22 +2,22 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.herramientas.Archivo;
-
 import java.util.Date;
 
 /**
- * Clase Banner
+ * Clase Banner (Banner de la pagina principal
+ * del website)
  * 
  * @author BUILDER
  * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
 
 @Entity
 @Access(AccessType.FIELD)
-//anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "banner")
 public class Banner implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class Banner implements Serializable {
 	@Embedded()
 	private Archivo fotoBanner;
 
-	//Constructor por defecto
+	// Constructor por defecto
 	public Banner() {
 	}
 
@@ -128,5 +128,5 @@ public class Banner implements Serializable {
 	public void setFotoBanner(Archivo fotoBanner) {
 		this.fotoBanner = fotoBanner;
 	}
-	//  Fin Métodos Set y Get
-}//  Fin Clase Banner
+	// Fin Métodos Set y Get
+}// Fin Clase Banner

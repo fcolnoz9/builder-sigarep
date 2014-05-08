@@ -9,11 +9,11 @@ import javax.persistence.*;
  * @author BUILDER
  * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
-
 @Entity
 @Access(AccessType.FIELD)
-// anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "estado_apelacion")
 public class EstadoApelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -39,11 +39,10 @@ public class EstadoApelacion implements Serializable {
 	@JoinColumn(name = "id_instancia_apelada", nullable = false)
 	private InstanciaApelada instanciaApelada;
 
-	//Constructor por defecto
+	// Constructor por defecto
 	public EstadoApelacion() {
 	}
 
-	
 	/**
 	 * Constructor Estado apelacion
 	 * 
@@ -59,10 +58,8 @@ public class EstadoApelacion implements Serializable {
 		this.descripcion = descripcion;
 		this.estatus = estatus;
 	}
-
 	
 	// Métodos Set y Get
-
 	public Boolean getEstatus() {
 		return this.estatus;
 	}
@@ -103,4 +100,4 @@ public class EstadoApelacion implements Serializable {
 		this.instanciaApelada = instanciaApelada;
 	}
 	// Fin Métodos Set y Get
-}//Fin Clase EstadoApelacion
+}// Fin Clase EstadoApelacion

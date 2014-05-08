@@ -2,22 +2,21 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
-
 import java.util.Set;
 
 /**
- * Clase Asignatura
+ * Clase Asignatura (Asignaturas de los diferentes programas
+ * académicos del Decanato)
  * 
  * @author BUILDER
  * @version 1.0
  * @since 18/12/2013
+ * @last 08/05/2014
  */
-
 @Entity
 @Access(AccessType.FIELD)
-//anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "asignatura")
 public class Asignatura implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -48,6 +47,10 @@ public class Asignatura implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "asignatura", cascade={CascadeType.ALL})
 	private Set<AsignaturaEstudianteSancionado> asignaturaEstudianteSancionados;
 
+	// Constructor por defecto
+	public Asignatura() {
+	}
+	
 	/**
 	 * Constructor Asignatura
 	 * 
@@ -68,9 +71,6 @@ public class Asignatura implements Serializable {
 	}
 
 	// Métodos Set y Get
-	public Asignatura() {
-	}
-
 	public String getCodigoAsignatura() {
 		return this.codigoAsignatura;
 	}
