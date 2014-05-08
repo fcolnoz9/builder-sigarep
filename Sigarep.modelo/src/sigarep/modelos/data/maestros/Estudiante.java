@@ -2,19 +2,19 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase Estudiante
+ * Clase Estudiante (Clase que contiene atributos
+ * de los estudiantes que accionan los procesos del sistema)
  * 
  * @author BUILDER
  * @version 1.0
  * @since 10/12/2013
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -104,7 +104,6 @@ public class Estudiante implements Serializable {
 		this.telefono = telefono;
 		this.programaAcademico = programaAcademico;
 	}
-
 
 	// Métodos Set y Get
 	public String getCedulaEstudiante() {
@@ -211,6 +210,7 @@ public class Estudiante implements Serializable {
 			List<EstudianteSancionado> estudianteSancionados) {
 		this.estudianteSancionados = estudianteSancionados;
 	}
+	//Fin Métodos Set y Get
 	
 	/**
 	 * Relación de la clase Estudiante con la clase EstudianteSancionado,
@@ -243,6 +243,4 @@ public class Estudiante implements Serializable {
 
 		return estudianteSancionado;
 	}
-
-	//Fin Métodos Set y Get
 }//Fin Clase Estudiante

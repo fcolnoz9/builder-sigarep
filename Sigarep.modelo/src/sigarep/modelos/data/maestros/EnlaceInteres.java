@@ -2,20 +2,19 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.herramientas.Archivo;
 
 /**
- * Clase EnlaceInteres
+ * Clase EnlaceInteres (Enlaces de interes del portal web)
  * 
  * @author BUILDER
  * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
-
 @Entity
 @Access(AccessType.FIELD)
-// anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "enlace_interes")
 public class EnlaceInteres implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -113,5 +112,5 @@ public class EnlaceInteres implements Serializable {
 	public void setImagen(Archivo imagen) {
 		this.imagen = imagen;
 	}
-	//Fin Métodos Set y Get
-}//Fin Clase EnlaceInteres
+	// Fin Métodos Set y Get
+}// Fin Clase EnlaceInteres

@@ -9,21 +9,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Clase InstanciaApelada
+ * Clase InstanciaApelada (Instancia por la cual los
+ * estudiantes deben introducir sus apelaciones)
  * 
  * @author BUILDER
  * @version 1.0
  * @since 20/12/13
+ * @last 08/05/2014
  */
-
 @Entity
 @Access(AccessType.FIELD)
-// anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "instancia_apelada")
 public class InstanciaApelada implements Serializable {
 	private static final long serialVersionUID = 1L;
  
-
 	// Atributos de la clase
 	@Id
 	// Clave principal de la clase
@@ -65,33 +65,29 @@ public class InstanciaApelada implements Serializable {
 	@OneToMany(mappedBy = "instanciaApelada")
 	private List<Actividad> actividads;
 	
-	
-	
 	// Constructor por defecto
-		public InstanciaApelada() {
-		} 
+	public InstanciaApelada() {
+	} 
 		
-		/**
-		 * Constructor InstanciaApelada
-		 * 
-		 * @param idInstanciaApelada
-		 *            , descripcion, estatus, instanciaApelada,
-		 *            nombreRecursoApelacion
-		 * @return Constructor lleno
-		 */
-		public InstanciaApelada(Integer idInstanciaApelada, String descripcion,
-				Boolean estatus, String instanciaApelada,
-				String nombreRecursoApelacion) {
-			this.idInstanciaApelada = idInstanciaApelada;
-			this.descripcion = descripcion;
-			this.estatus = estatus;
-			this.instanciaApelada = instanciaApelada;
-			this.nombreRecursoApelacion = nombreRecursoApelacion;
-		}
-
-
-		// Métodos Set y Get
-
+	/**
+	 * Constructor InstanciaApelada
+	 * 
+	 * @param idInstanciaApelada
+	 *            , descripcion, estatus, instanciaApelada,
+	 *            nombreRecursoApelacion
+	 * @return Constructor lleno
+	 */
+	public InstanciaApelada(Integer idInstanciaApelada, String descripcion,
+		Boolean estatus, String instanciaApelada,
+		String nombreRecursoApelacion) {
+		this.idInstanciaApelada = idInstanciaApelada;
+		this.descripcion = descripcion;
+		this.estatus = estatus;
+		this.instanciaApelada = instanciaApelada;
+		this.nombreRecursoApelacion = nombreRecursoApelacion;
+	}
+	
+	// Métodos Set y Get
 	public Integer getIdInstanciaApelada() {
 		return this.idInstanciaApelada;
 	}
@@ -141,7 +137,6 @@ public class InstanciaApelada implements Serializable {
 		this.solicitudApelacions = solicitudApelacions;
 	}
 
-
 	public List<EstadoApelacion> getEstadosApelacion() {
 		return estadosApelacion;
 	}
@@ -173,6 +168,7 @@ public class InstanciaApelada implements Serializable {
 	public void setActividads(List<Actividad> actividads) {
 		this.actividads = actividads;
 	}
+	// Fin Métodos Set y Get
 	
 	/**
 	 * Relación de la clase InstanciaApelada con la clase SolicitudApelacion,
@@ -204,7 +200,5 @@ public class InstanciaApelada implements Serializable {
 		solicitudApelacion.setInstanciaApelada(null);
 
 		return solicitudApelacion;
-	}
-	
-// Fin Métodos Set y Get
+	}	
 }//Fin Clase InstanciaApelada

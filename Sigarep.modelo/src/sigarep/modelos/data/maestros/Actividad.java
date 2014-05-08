@@ -2,9 +2,7 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.Cronograma;
-
 import java.util.List;
 
 /**
@@ -13,10 +11,11 @@ import java.util.List;
  * @author BUILDER
  * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
-// anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "actividad")
 public class Actividad implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -40,8 +39,7 @@ public class Actividad implements Serializable {
 	@OneToMany(mappedBy = "actividad")
 	private List<Cronograma> cronogramas;
 
-	// Relación bidireccional de muchos a uno, asociada a la clase Instancia
-	// Apelada
+	// Relación bidireccional de muchos a uno, asociada a la clase Instancia apelada
 	@ManyToOne
 	@JoinColumn(name = "id_instancia_apelada", nullable = true)
 	private InstanciaApelada instanciaApelada;
@@ -116,7 +114,7 @@ public class Actividad implements Serializable {
 	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
 		this.instanciaApelada = instanciaApelada;
 	}
-	
+	// Fin Métodos Set y Get
 	
 	/**
 	 * Relación de la clase Actividad con la clase Cronograma, Agregar
@@ -144,6 +142,6 @@ public class Actividad implements Serializable {
 		getCronogramas().remove(cronograma);
 		cronograma.setActividad(null);
 		return cronograma;
-	}// Fin Métodos Set y Get
+	}
 
 }//Fin Clase Actividad

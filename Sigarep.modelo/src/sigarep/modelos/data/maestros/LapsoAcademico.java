@@ -2,10 +2,8 @@ package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,11 +14,11 @@ import java.util.List;
  * @author BUILDER
  * @version 1.0
  * @since 20/12/13
+ * @last 08/05/2014
  */
-
 @Entity
 @Access(AccessType.FIELD)
-// anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "lapso_academico")
 public class LapsoAcademico implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -51,7 +49,7 @@ public class LapsoAcademico implements Serializable {
 	@OneToMany(mappedBy = "lapsoAcademico")
 	private List<EstudianteSancionado> estudianteSancionados = new LinkedList<EstudianteSancionado>();
 
-	// constructor por defecto
+	// Constructor por defecto
 	public LapsoAcademico() {
 	}
 
@@ -113,6 +111,16 @@ public class LapsoAcademico implements Serializable {
 		this.cronogramas = cronogramas;
 	}
 
+	public List<EstudianteSancionado> getEstudianteSancionados() {
+		return this.estudianteSancionados;
+	}
+	
+	public void setEstudianteSancionados(
+			List<EstudianteSancionado> estudianteSancionados) {
+		this.estudianteSancionados = estudianteSancionados;
+	}
+	// Fin Métodos Set y Get
+	
 	/**
 	 * Relación de la clase LapsoAcademico con la clase Cronograma, Agregar
 	 * Cronograma
@@ -125,17 +133,6 @@ public class LapsoAcademico implements Serializable {
 		getCronogramas().add(cronograma);
 		cronograma.setLapsoAcademico(this);
 		return cronograma;
-	}
-
-	
-
-	public List<EstudianteSancionado> getEstudianteSancionados() {
-		return this.estudianteSancionados;
-	}
-
-	public void setEstudianteSancionados(
-			List<EstudianteSancionado> estudianteSancionados) {
-		this.estudianteSancionados = estudianteSancionados;
 	}
 
 	/**
@@ -151,7 +148,6 @@ public class LapsoAcademico implements Serializable {
 		cronograma.setLapsoAcademico(null);
 		return cronograma;
 	}
-	
 	
 	/**
 	 * Relación de la clase LapsoAcademico con la clase EstudianteSancionado,
@@ -183,5 +179,4 @@ public class LapsoAcademico implements Serializable {
 		estudianteSancionado.setLapsoAcademico(null);
 		return estudianteSancionado;
 	}
-	// Fin Métodos Set y Get
-}//Fin Clase InstanciaApelada
+}//Fin Clase LapsoAcademico

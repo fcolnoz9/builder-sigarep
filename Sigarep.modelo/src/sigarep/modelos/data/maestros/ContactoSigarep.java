@@ -1,7 +1,6 @@
 package sigarep.modelos.data.maestros;
 
 import java.io.Serializable;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -10,15 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Clase ContactoSigarep
+ * Clase ContactoSigarep (Clase con los datos del contacto
+ * del portal Web)
  * 
  * @author BUILDER
  * @version 1.0
  * @since 19/12/2013
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
-// anotación indica que el JavaBean es una entidad persistente
+// Anotación indica que el JavaBean es una entidad persistente
 @Table(name = "contacto_sigarep")
 public class ContactoSigarep implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -155,8 +156,6 @@ public class ContactoSigarep implements Serializable {
 		this.direccionContacto = direccionContacto;
 	}
 
-	// Fin Métodos set y get
-
 	public String getServidorEntrantePop3() {
 		return servidorEntrantePop3;
 	}
@@ -204,4 +203,5 @@ public class ContactoSigarep implements Serializable {
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
 	}
-}
+	// Fin Métodos set y get
+}// Fin Clase ContactoSigarep
