@@ -12,14 +12,16 @@ import java.util.Date;
  * @author BUILDER
  * @version 1
  * @since 03/01/2014
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "apelacion_estado_apelacion")
 public class ApelacionEstadoApelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private ApelacionEstadoApelacionPK id;
 
 	@Temporal(TemporalType.DATE)
@@ -96,5 +98,5 @@ public class ApelacionEstadoApelacion implements Serializable {
 	public void setSugerencia(String sugerencia) {
 		this.sugerencia = sugerencia;
 	}
-
+	// Fin Metodos set y get
 }

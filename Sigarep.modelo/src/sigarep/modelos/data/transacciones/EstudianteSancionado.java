@@ -7,6 +7,7 @@ import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.SancionMaestro;
 
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Set;
  * @author BUILDER
  * @version 1
  * @since 03/01/2014
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -26,7 +28,9 @@ import java.util.Set;
 public class EstudianteSancionado implements Serializable {
 	private static final long serialVersionUID = 1L;
 	// declaracion por defecto de id, requerida para las clases serializables.
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private EstudianteSancionadoPK id;
 
 	@Column(name = "indice_grado", nullable = false)
@@ -84,13 +88,11 @@ public class EstudianteSancionado implements Serializable {
 	}
 
 	/**
-	 * Constructor estudiante sancionado
+	 * Constructor EstudianteSancionado
 	 * 
-	 * @param id
-	 *            , indiceGrado, lapsosAcademicosRp, semestre,
-	 *            unidadesAprobadas, unidadesCursadas, estudiante,
-	 *            lapsoAcademico, sancionMaestro, estatus,periodoSancion
-	 * @return Constructor lleno
+	 * @param id, indiceGrado, lapsosAcademicosRp, semestre,
+	 *        unidadesAprobadas, unidadesCursadas, estudiante,
+	 *        lapsoAcademico, sancionMaestro, estatus, periodoSancion
 	 */
 	public EstudianteSancionado(EstudianteSancionadoPK id, float indiceGrado,
 			String lapsosAcademicosRp, Integer semestre,
@@ -170,24 +172,6 @@ public class EstudianteSancionado implements Serializable {
 		this.asignaturaEstudianteSancionados = asignaturaEstudianteSancionados;
 	}
 
-	public AsignaturaEstudianteSancionado addAsignaturaEstudianteSancionado(
-			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
-		getAsignaturaEstudianteSancionados()
-				.add(asignaturaEstudianteSancionado);
-		asignaturaEstudianteSancionado.setEstudianteSancionado(this);
-
-		return asignaturaEstudianteSancionado;
-	}
-
-	public AsignaturaEstudianteSancionado removeAsignaturaEstudianteSancionado(
-			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
-		getAsignaturaEstudianteSancionados().remove(
-				asignaturaEstudianteSancionado);
-		asignaturaEstudianteSancionado.setEstudianteSancionado(null);
-
-		return asignaturaEstudianteSancionado;
-	}
-
 	public Estudiante getEstudiante() {
 		return this.estudiante;
 	}
@@ -229,26 +213,67 @@ public class EstudianteSancionado implements Serializable {
 		this.solicitudApelacions = solicitudApelacions;
 	}
 
-	public SolicitudApelacion addSolicitudApelacion(
-			SolicitudApelacion solicitudApelacion) {
-		getSolicitudApelacions().add(solicitudApelacion);
-		solicitudApelacion.setEstudianteSancionado(this);
-		return solicitudApelacion;
-	}
-
-	public SolicitudApelacion removeSolicitudApelacion(
-			SolicitudApelacion solicitudApelacion) {
-		getSolicitudApelacions().remove(solicitudApelacion);
-		solicitudApelacion.setEstudianteSancionado(null);
-
-		return solicitudApelacion;
-	}
-
 	public Integer getPeriodoSancion() {
 		return periodoSancion;
 	}
 
 	public void setPeriodoSancion(Integer periodoSancion) {
 		this.periodoSancion = periodoSancion;
+	}
+	// Fin metodos set y get
+	
+	/**
+	 * Relación de la clase EstudianteSancionado con la clase AsignaturaEstudianteSancionado, Agregar AsignaturaEstudianteSancionado
+	 * 
+	 * @see AsignaturaEstudianteSancionado
+	 * @param AsignaturaEstudianteSancionado
+	 * @return AsignaturaEstudianteSancionado
+	 */
+	public AsignaturaEstudianteSancionado addAsignaturaEstudianteSancionado(
+			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
+		getAsignaturaEstudianteSancionados()
+				.add(asignaturaEstudianteSancionado);
+		asignaturaEstudianteSancionado.setEstudianteSancionado(this);
+		return asignaturaEstudianteSancionado;
+	}
+	/**
+	 * Relación de la clase EstudianteSancionado con la clase AsignaturaEstudianteSancionado, Quitar AsignaturaEstudianteSancionado
+	 * 
+	 * @see AsignaturaEstudianteSancionado
+	 * @param AsignaturaEstudianteSancionado
+	 * @return AsignaturaEstudianteSancionado
+	 */
+	public AsignaturaEstudianteSancionado removeAsignaturaEstudianteSancionado(
+			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
+		getAsignaturaEstudianteSancionados().remove(
+				asignaturaEstudianteSancionado);
+		asignaturaEstudianteSancionado.setEstudianteSancionado(null);
+		return asignaturaEstudianteSancionado;
+	}
+	/**
+	 * Relación de la clase EstudianteSancionado con la clase SolicitudApelacion, Agregar SolicitudApelacion
+	 * 
+	 * @see SolicitudApelacion
+	 * @param SolicitudApelacion
+	 * @return SolicitudApelacion
+	 */
+	public SolicitudApelacion addSolicitudApelacion(
+			SolicitudApelacion solicitudApelacion) {
+		getSolicitudApelacions().add(solicitudApelacion);
+		solicitudApelacion.setEstudianteSancionado(this);
+		return solicitudApelacion;
+	}
+	/**
+	 * Relación de la clase EstudianteSancionado con la clase SolicitudApelacion, Quitar SolicitudApelacion
+	 * 
+	 * @see SolicitudApelacion
+	 * @param SolicitudApelacion
+	 * @return SolicitudApelacion
+	 */
+	public SolicitudApelacion removeSolicitudApelacion(
+			SolicitudApelacion solicitudApelacion) {
+		getSolicitudApelacions().remove(solicitudApelacion);
+		solicitudApelacion.setEstudianteSancionado(null);
+		return solicitudApelacion;
 	}
 }
