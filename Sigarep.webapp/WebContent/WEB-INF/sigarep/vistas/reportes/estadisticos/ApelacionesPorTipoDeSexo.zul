@@ -2,7 +2,7 @@
 <window id="winReporteApelacionesTipoDeSexo"
 	title="Reportes :: Estadísticos :: Comparativos :: Apelaciones por Sexo y Veredicto" border="normal" width="auto"
 	height="auto" closable="true" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMapelacionesTipoDeSexo')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMApelacionesTipoDeSexo')">
 
 	<vlayout>
 		<groupbox id="grbParametros" visible="true" closable="false">

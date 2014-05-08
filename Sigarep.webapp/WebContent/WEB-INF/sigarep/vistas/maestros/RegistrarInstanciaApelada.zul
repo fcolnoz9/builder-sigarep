@@ -2,7 +2,7 @@
 	<window id="winMaestroInstanciaApelada" title="Registros Básicos :: Instancia Apelada" 
 			border="normal" width="auto"  height="auto" closable="true"
 			contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-			viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMinstanciaApelada')" action="hide: slideUp">
+			viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMInstanciaApelada')" action="hide: slideUp">
 		<groupbox id="grbRegistrarInstancia">
 			<caption label="Datos de la Instancia Apelada" />
 			<!-- Grid que contiene los campos de la pantalla -->

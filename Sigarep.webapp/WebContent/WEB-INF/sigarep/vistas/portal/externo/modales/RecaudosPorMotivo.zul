@@ -1,7 +1,7 @@
 <window id="winMostrarRecaudoMotivoPortal" closable="true"
 	title="Recaudos por Tipo de Motivos" border="normal"
 	apply="org.zkoss.bind.BindComposer" width="75%" mode="modal"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMrecaudoMotivoPortal')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMRecaudoMotivoPortal')">
 	<groupbox closable="false">
 		<caption label="Seleccione un Tipo de Motivo de Apelación" />
 		<grid>

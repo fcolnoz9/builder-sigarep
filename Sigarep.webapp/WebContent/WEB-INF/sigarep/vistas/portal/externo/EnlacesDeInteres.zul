@@ -1,7 +1,7 @@
 <div class="panel panel-info" height="100%"
 	children="@load(vm.menuItems)" apply="org.zkoss.bind.BindComposer"
 	align="center"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMenlace')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMEnlace')">
 	<template name="children" var="item">
 		<hlayout valign="middle">
 			<label value=""></label>

@@ -1,7 +1,7 @@
 <?page title="Registrar Programa Academico por Lote" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window  id="winRegistrarProgramaLoteLote" title="Registros Básicos :: Programa Académico " border="normal" apply=" org.zkoss.bind.BindComposer" width="auto" height="auto"  style="overflow:auto" closable="false"
-    viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMprogramaAcademicoLote')">
+    viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMProgramaAcademicoLote')">
 	<groupbox >
 		<caption label="Cargar Programas Académicos" />
 		<grid>

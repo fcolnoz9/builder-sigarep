@@ -2,7 +2,7 @@
 <window title="Reportes :: Listas :: Maestros"
 	border="normal" width="auto" height="auto" closable="true" id="winListaMaestros"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMlistaMaestros')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMListaMaestros')">
 
 	<vlayout>
 		<groupbox id="grbParametros" visible="true" closable="false">

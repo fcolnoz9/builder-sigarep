@@ -2,7 +2,7 @@
 	title="Registros Básicos :: Tipo Sanción" border="normal" width="auto"
 	height="auto" closable="true" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMsancionMaestro')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMSancionMaestro')">
 	<groupbox>
 		<caption label="Datos del Tipo de Sanción" />
 		<grid>

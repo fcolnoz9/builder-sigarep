@@ -3,7 +3,7 @@
 		title="Configuración Web::Enlaces de Interés" width="auto"
 		height="auto" closable="true" border="normal"
 		contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm')@init('sigarep.viewmodels.maestros.VMenlaceInteres')">
+		viewModel="@id('vm')@init('sigarep.viewmodels.maestros.VMEnlaceInteres')">
 		<style src="/widgets/input/form_sample/style.css" />
 		
 <!-- Contiene los campos que requieren llenarse con los datos del enlace -->

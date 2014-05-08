@@ -2,7 +2,7 @@
 	action="show: slideDown;hide: slideUp" title="Preguntas Frecuentes"
 	closable="true" border="normal" mode="modal"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMpreguntaBasica')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMPreguntaBasica')">
 	<!-- 	Lista de preguntas mas frecuentes registradas previamente -->
 	<listbox id="lbxPreguntas" model="@bind(vm.listaPregunta)"
 		selectedItem="@bind(vm.preguntaseleccionada)"
