@@ -15,24 +15,20 @@ import java.util.List;
  * @author BUILDER
  * @version 1.0
  * @since 10/12/2013
+ * @last 08/05/2014
  */
 @Entity
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
-	// Atributos de la clase
+	// Atributos de la clase 
 	@Id
-	// Clave principal de la clase
+	// Clave principal de la clase 
 	@Column(name = "cedula_persona")
 	private String cedulaPersona;
-
 	private String apellido;
-
 	private String correo;
-
 	private Boolean estatus;
-
 	private String nombre;
-
 	private String telefono;
 
 	// Relación bidireccional de muchos a uno, asociada a la clase InstanciaMiembro
@@ -112,7 +108,7 @@ public class Persona implements Serializable {
 	public void setInstanciaMiembros(List<InstanciaMiembro> instanciaMiembros) {
 		this.instanciaMiembros = instanciaMiembros;
 	}
-
+	// Fin Métodos set y get
 	/**
 	 * Relación de la clase Persona con la clase InstanciaMiembro, Agregar
 	 * InstanciaMiembro
@@ -145,5 +141,5 @@ public class Persona implements Serializable {
 		return instanciaMiembro;
 	}
 
-	// Fin Métodos set y get
+	
 }//Fin Clase Persona

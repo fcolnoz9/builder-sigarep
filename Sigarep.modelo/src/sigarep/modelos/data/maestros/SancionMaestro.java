@@ -12,6 +12,7 @@ import java.util.List;
  * @author BUILDER
  * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
@@ -46,9 +47,7 @@ public class SancionMaestro implements Serializable {
 	/**
 	 * Constructor Sancion
 	 * 
-	 * @param idSancion
-	 *            , descripcion, estatus, nombreSancion
-	 * @return Constructor lleno
+	 * @param idSancion, descripcion, estatus, nombreSancion
 	 */
 	public SancionMaestro(Integer idSancion, String descripcion,
 			Boolean estatus, String nombreSancion) {
@@ -100,7 +99,7 @@ public class SancionMaestro implements Serializable {
 			List<EstudianteSancionado> estudianteSancionados) {
 		this.estudianteSancionados = estudianteSancionados;
 	}
-
+	//Fin Métodos Set y Get
 	/**
 	 * Relación de la clase SancionMaestro  con la clase EstudianteSancionado, Agregar
 	 * EstudianteSancionado
@@ -113,7 +112,6 @@ public class SancionMaestro implements Serializable {
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
 		estudianteSancionado.setSancionMaestro(this);
-
 		return estudianteSancionado;
 	}
 
@@ -129,8 +127,7 @@ public class SancionMaestro implements Serializable {
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);
 		estudianteSancionado.setSancionMaestro(null);
-
 		return estudianteSancionado;
 	}
-	//Fin Métodos Set y Get
+
 }//Fin Clase SancionMaestro

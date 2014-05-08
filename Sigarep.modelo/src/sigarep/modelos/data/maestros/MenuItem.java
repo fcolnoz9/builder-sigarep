@@ -8,9 +8,10 @@ import org.zkoss.image.AImage;
 /**
  * Clase MenuItem (Se utiliza para mostrar las imagenes en los maestros)
  * 
- * @author BUILDER
- * @version 1
+ * @author Equipo Builder
+ * @version 1.0
  * @since 15/01/2014
+ * @last 08/05/2014
  */
 
 public class MenuItem {
@@ -22,10 +23,9 @@ public class MenuItem {
 	private int level;
 
 	/**
-	 * Constructor MenuItem
+	 * Constructor de la clase MenuItem
 	 * 
 	 * @param name, img, href, level
-	 * @return Constructor lleno
 	 */
 	public MenuItem(String name, AImage img, String href, int level) {
 		this.name = name;
@@ -57,7 +57,7 @@ public class MenuItem {
 		children.add(child);
 	}
 
-	// Métodos GET y SET
+	// Métodos Set y Get 
 	public String getName() {
 		return name;
 	}
@@ -97,5 +97,5 @@ public class MenuItem {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	//Fin GET y SET
+	// Fin Métodos Set y Get
 }

@@ -9,6 +9,7 @@ import javax.persistence.*;
  * @author BUILDER
  * @version 1.0
  * @since 15/12/2013
+ * @last 08/05/2014
  */
 @Entity
 // anotación indica que el JavaBean es una entidad persistente
@@ -17,7 +18,7 @@ import javax.persistence.*;
 public class PreguntaBasica implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// Atributos de la clase
+	// Atributos de la clase 
 	@Id
 	// Clave principal de la clase
 	@Column(name = "id_pregunta_basica", unique = true, nullable = false)
@@ -39,9 +40,7 @@ public class PreguntaBasica implements Serializable {
 	/**
 	 * Constructor PreguntaBasica
 	 * 
-	 * @param idPreguntaBasica
-	 *            , pregunta, respuesta, estatus
-	 * @return Constructor lleno
+	 * @param idPreguntaBasica, pregunta, respuesta, estatus
 	 */
 	public PreguntaBasica(Integer idPreguntaBasica, String pregunta,
 			String respuesta, Boolean estatus) {
