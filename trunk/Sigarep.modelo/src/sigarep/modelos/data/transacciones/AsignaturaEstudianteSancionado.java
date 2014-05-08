@@ -12,14 +12,16 @@ import sigarep.modelos.data.maestros.Asignatura;
  * @author BUILDER
  * @version 1
  * @since 03/01/2014
+ * @last 08/05/2014
  */
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "asignatura_estudiante_sancionado")
 public class AsignaturaEstudianteSancionado implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private AsignaturaEstudianteSancionadoPK id;
 
 	@Column(name = "condicion_asignatura", nullable = false)
@@ -43,7 +45,10 @@ public class AsignaturaEstudianteSancionado implements Serializable {
 	public AsignaturaEstudianteSancionado() {
 	}
 
-	// Constructor con parametros
+	/**
+	 * Constructor AsignaturaEstudianteSancionado
+	 * @param id, condicionAsignatura, asignatura, estudianteSancionado
+	 */
 	public AsignaturaEstudianteSancionado(AsignaturaEstudianteSancionadoPK id,
 			Integer condicionAsignatura, Asignatura asignatura,
 			EstudianteSancionado estudianteSancionado) {
@@ -89,3 +94,4 @@ public class AsignaturaEstudianteSancionado implements Serializable {
 	}
 
 }
+//Fin metodos set y get

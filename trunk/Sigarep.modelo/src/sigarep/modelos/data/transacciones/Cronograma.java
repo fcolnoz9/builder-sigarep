@@ -16,6 +16,7 @@ import java.util.Date;
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14
+ * @last 08/05/2014
  */
 
 @Entity
@@ -24,8 +25,9 @@ import java.util.Date;
 public class Cronograma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@EmbeddedId
+	// Clave principal de la clase
 	private CronogramaPK id;
 
 	@Column(nullable = false)
@@ -51,12 +53,8 @@ public class Cronograma implements Serializable {
 	/**
 	 * Constructor Cronograma.
 	 * 
-	 * @param id
-	 *            ,estatus,fechaFin,fechaInicio,horaInicio,lugar,observacion,
-	 *            responsable
-	 * @return Constructor lleno
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param id,estatus,fechaFin,fechaInicio,horaInicio,lugar,observacion,
+	 *        responsable
 	 */
 	public Cronograma(CronogramaPK id, Boolean estatus, Date fechaFin,
 			Date fechaInicio, Time horaInicio, String lugar,
@@ -89,7 +87,7 @@ public class Cronograma implements Serializable {
 
 	public Cronograma() {
 	}
-
+	//metodos set y get
 	public CronogramaPK getId() {
 		return this.id;
 	}
@@ -169,5 +167,5 @@ public class Cronograma implements Serializable {
 	public void setResponsable(InstanciaApelada responsable) {
 		this.responsable = responsable;
 	}
-
+	//Fin metodos set y get
 }

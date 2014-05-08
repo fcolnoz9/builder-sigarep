@@ -10,13 +10,14 @@ import javax.persistence.*;
  * @author BUILDER
  * @version 1
  * @since 03/01/2014
+ * @last 08/05/2014
  */
 @Embeddable
 @Access(AccessType.FIELD)
 public class ApelacionEstadoApelacionPK implements Serializable {
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name = "id_estado_apelacion", unique = false, nullable = false)
 	private Integer idEstadoApelacion;
 
@@ -64,7 +65,7 @@ public class ApelacionEstadoApelacionPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-
+	// Fin metodos set y get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

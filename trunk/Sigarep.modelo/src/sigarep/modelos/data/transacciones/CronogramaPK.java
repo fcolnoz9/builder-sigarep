@@ -9,6 +9,7 @@ import javax.persistence.*;
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14
+ * @last 08/05/2014
  */
 
 @Embeddable
@@ -16,7 +17,7 @@ import javax.persistence.*;
 public class CronogramaPK implements Serializable {
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name = "codigo_lapso", unique = false, nullable = false, length = 6)
 	private String codigoLapso;
 
@@ -25,7 +26,7 @@ public class CronogramaPK implements Serializable {
 
 	public CronogramaPK() {
 	}
-
+	//metodos set y get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
@@ -41,7 +42,7 @@ public class CronogramaPK implements Serializable {
 	public void setIdActividad(Integer idActividad) {
 		this.idActividad = idActividad;
 	}
-
+	//Fin metodos set y get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

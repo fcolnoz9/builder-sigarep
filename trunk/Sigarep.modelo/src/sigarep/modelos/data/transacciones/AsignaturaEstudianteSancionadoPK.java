@@ -10,13 +10,14 @@ import javax.persistence.*;
  * @author BUILDER
  * @version 1
  * @since 03/01/2014
+ * @last 08/05/2014
  */
 @Embeddable
 @Access(AccessType.FIELD)
 public class AsignaturaEstudianteSancionadoPK implements Serializable {
 	//declaracion por defecto de id, requerida para las clases serializables.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name="codigo_lapso", unique=false, nullable=false, length=6)
 	private String codigoLapso;
 
@@ -48,7 +49,7 @@ public class AsignaturaEstudianteSancionadoPK implements Serializable {
 	public void setCodigoAsignatura(String codigoAsignatura) {
 		this.codigoAsignatura = codigoAsignatura;
 	}
-
+	//Fin metodos set y get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

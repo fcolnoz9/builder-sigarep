@@ -10,13 +10,14 @@ import javax.persistence.*;
  * @author BUILDER
  * @version 1
  * @since 03/01/2014
+ * @last 08/05/2014
  */
 @Embeddable
 @Access(AccessType.FIELD)
 public class EstudianteSancionadoPK implements Serializable {
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	// Atributos de la clase
 	@Column(name = "codigo_lapso", unique = false, nullable = false, length = 6)
 	private String codigoLapso;
 
@@ -28,18 +29,17 @@ public class EstudianteSancionadoPK implements Serializable {
 	}
 
 	/**
-	 * Constructor estudiante sancionado pk
+	 * Constructor EstudianteSancionadoPK
 	 * 
-	 * @param codigoLapso
-	 *            , cedulaEstudiante
-	 * @return Constructor lleno
+	 * @param codigoLapso, cedulaEstudiante
 	 */
 	public EstudianteSancionadoPK(String codigoLapso, String cedulaEstudiante) {
 		super();
 		this.codigoLapso = codigoLapso;
 		this.cedulaEstudiante = cedulaEstudiante;
 	}
-
+	
+	//metodos set y get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
@@ -55,7 +55,7 @@ public class EstudianteSancionadoPK implements Serializable {
 	public void setCedulaEstudiante(String cedulaEstudiante) {
 		this.cedulaEstudiante = cedulaEstudiante;
 	}
-
+	//Fin metodos set y get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
