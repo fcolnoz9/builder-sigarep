@@ -151,4 +151,4 @@ public class Recaudo implements Serializable {
 		return recaudoEntregado;
 	}
 	
-}//Fin Clase Recaudo
+}

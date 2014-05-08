@@ -169,4 +169,4 @@ private static final long serialVersionUID = 1L;
 		motivo.setTipoMotivo(null);
 		return motivo;
 	}
-}//Fin Clase TipoMotivo
+}
