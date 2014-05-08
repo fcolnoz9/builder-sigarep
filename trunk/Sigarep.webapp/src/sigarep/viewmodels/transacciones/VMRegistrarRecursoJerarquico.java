@@ -292,7 +292,6 @@ public class VMRegistrarRecursoJerarquico {
 	public void registrarSolicitudApelacion(@ContextParam(ContextType.BINDER) final Binder binder) {
 		
 			Date fecha = new Date();
-			Time hora = new Time(0);
 
 			if (observacion==" " || observacion ==null) {
 				mensajeAlUsuario.advertenciaLlenarCampos();
@@ -312,7 +311,7 @@ public class VMRegistrarRecursoJerarquico {
 				apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
 				apelacionEstadoApelacionPK.setIdEstadoApelacion(9);
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-				apelacionEstadoApelacion.setFechaEstado(hora);
+				apelacionEstadoApelacion.setFechaEstado(fecha);
 				apelacionEstadoApelacion.setObservacion(observacion);
 
 				motivoPK.setCedulaEstudiante(cedula);
