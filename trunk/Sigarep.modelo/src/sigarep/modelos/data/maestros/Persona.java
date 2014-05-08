@@ -121,7 +121,6 @@ public class Persona implements Serializable {
 			InstanciaMiembro instanciaMiembro) {
 		getInstanciaMiembros().add(instanciaMiembro);
 		instanciaMiembro.setPersona(this);
-
 		return instanciaMiembro;
 	}
 
