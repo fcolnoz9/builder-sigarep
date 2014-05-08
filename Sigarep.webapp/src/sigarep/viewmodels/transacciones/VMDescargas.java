@@ -20,7 +20,6 @@ import sigarep.modelos.servicio.maestros.ServicioReglamento;
  * @version 1.0
  * @since 22/01/14
  */
-@SuppressWarnings("serial")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDescargas {
 

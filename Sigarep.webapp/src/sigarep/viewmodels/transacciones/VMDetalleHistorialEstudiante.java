@@ -5,8 +5,6 @@ package sigarep.viewmodels.transacciones;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;

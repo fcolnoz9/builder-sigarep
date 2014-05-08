@@ -23,7 +23,6 @@ import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-import sigarep.modelos.servicio.maestros.ServicioEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
 

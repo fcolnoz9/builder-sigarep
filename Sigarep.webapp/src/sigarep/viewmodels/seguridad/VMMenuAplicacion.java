@@ -23,7 +23,6 @@ import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMMenuAplicacion{
 		
-	private static String ruta="timeout.zul";
 	private VMModeloArbolAvanzado modeloMenuArbol;
 	private static VMNodoMenuArbol  raizPortalInicial;
 	private @WireVariable ServicioNodo servicionodo;
