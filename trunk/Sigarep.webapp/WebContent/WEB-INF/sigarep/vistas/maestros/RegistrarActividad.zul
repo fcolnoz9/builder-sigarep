@@ -1,7 +1,7 @@
 <window title="Registros Básicos :: Actividades"
 	id="winRegistrarActividad" border="normal" closable="true"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMactividad')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMActividad')">
 	<groupbox id="grbDatosActividad">
 		<caption label="Datos de la Actividad" />
 		<grid>

@@ -3,7 +3,7 @@
 	title="Reportes :: Informes :: Especiales :: Estudiantes En Proceso de Apelación"
 	border="normal" width="auto" height="auto" closable="true"
 	id="winEstudiantesEnProceso" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMestudiantesEnProcesoApelacion')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMEstudiantesEnProcesoApelacion')">
 
 	<vlayout>
 		<groupbox id="grbParametros" visible="true" closable="false">

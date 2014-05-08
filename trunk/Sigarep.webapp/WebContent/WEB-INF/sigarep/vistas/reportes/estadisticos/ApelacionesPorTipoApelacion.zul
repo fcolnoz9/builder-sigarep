@@ -2,7 +2,7 @@
 <window title="Reportes :: Estadísticos :: Comparativos :: Tipo de Apelaciones y Veredicto"
 	border="normal" width="auto" height="auto" closable="true" id="winApelacionesPorInstancia"
 	apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMapelacionesPorTipoApelacion')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMApelacionesPorTipoApelacion')">
 
 	<vlayout>
 		<groupbox id="grbParametros" visible="true" closable="false">

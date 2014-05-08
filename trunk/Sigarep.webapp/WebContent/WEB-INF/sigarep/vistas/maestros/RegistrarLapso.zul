@@ -3,7 +3,7 @@
 		title="Registros Básicos :: Lapso Académico" border="normal"
 		width="auto" height="auto" contentStyle="overflow:auto"
 		apply="org.zkoss.bind.BindComposer" closable="true"
-		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMlapsoAcademico')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMLapsoAcademico')">
 
 		<groupbox id="grbRegistrarLapso">
 			<caption label="Datos de Lapso Académico" />

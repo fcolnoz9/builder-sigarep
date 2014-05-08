@@ -2,7 +2,7 @@
 <window title="Reportes :: Estadísticos :: Comparativos :: Apelaciones por Motivo y Veredicto"
 	border="normal" width="auto" height="auto" closable="true" id="winApelacionesPorMotivo"
 	apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMapelacionesPorMotivo')">
+		viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMApelacionesPorMotivo')">
 
 	<vlayout>
 		<groupbox id="grbParametros" visible="true" closable="false">

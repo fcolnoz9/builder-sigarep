@@ -1,6 +1,6 @@
 <div id="winNoticiaPortal" class="panel panel-info" height="100%"
 	tooltiptext="Noticias" apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMNoticia')">
 	<div class="panel-heading">
 		<label class="label label-danger" style="font-size:12px">
 			Noticias

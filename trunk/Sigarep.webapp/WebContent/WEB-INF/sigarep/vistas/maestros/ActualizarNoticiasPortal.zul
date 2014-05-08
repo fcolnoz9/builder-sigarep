@@ -2,7 +2,7 @@
 	title="Configuración Web :: Actualizar Noticias" border="normal"
 	width="auto" height="auto" contentStyle="overflow:auto"
 	apply="org.zkoss.bind.BindComposer" closable="true"
-	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMnoticia')">
+	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMNoticia')">
 	<!-- Groupbox que contiene los campos que requieren llenarse con los datos de noticia -->
 	<groupbox id="grbNoticia">
 		<caption label="Datos de Noticia" />
