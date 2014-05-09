@@ -18,12 +18,13 @@ import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-/**
- * VMrecaudoMotivoPortal por XML UCLA DCYT Sistemas de Información.
- * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/** Clase VMrecaudoMotivoPortal.
+ * @author Equipo Builder
  * @version 2.5.2
+ * @since 02-/12/13
+ * @last 09/05/2014
  */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRecaudoMotivoPortal {
 	//-----------------Servicios----------------------------
@@ -136,12 +137,12 @@ public class VMRecaudoMotivoPortal {
 	}//Fin de los métodos gets y sets
 
 	/**
+	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -153,11 +154,9 @@ public class VMRecaudoMotivoPortal {
 
 	/**
 	 * Buscar Recaudos
-	 * 
-	 * @param buscar Recaudos, listaRecaudos
-	 * @return listaRecaudos
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Busca todos los recaudos activos.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({"listaRecaudos"})
@@ -168,10 +167,9 @@ public class VMRecaudoMotivoPortal {
 	/**
 	 * Buscar RecaudoMotivoCombo
 	 * 
-	 * @param buscar Recaudos por motivo, listaRecaudos
-	 * @return listaRecaudos
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Objeto tipo motivo
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({"tipoMotivo","nombreTipoMotivo","listaTipoMotivo","listaRecaudosMotivos"})
@@ -182,10 +180,9 @@ public class VMRecaudoMotivoPortal {
 	/**
 	 * Buscar Recaudos de un Motivos 
 	 * 
-	 * @param buscarRecaudosMotivosPortal
+	 * @param Ninguno
 	 * @return Metodo que buscar los recaudos que pertenecen a cada motivo de apelacion
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaRecaudosMotivosPortal" })
@@ -197,10 +194,9 @@ public class VMRecaudoMotivoPortal {
 	/**
 	 * Buscar Tipo Motivo
 	 * 
-	 * @param buscarTiposMotivo, listaTipoMotivo
-	 * @return listaRecaudos
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno.
+	 * @return Objeto tipo motivo
+	 * @throws No dispara ninguna excepcion.
 	 */	
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
@@ -210,11 +206,9 @@ public class VMRecaudoMotivoPortal {
 
 	/**
 	 * Objeto ComboMotivo
-	 * 
-	 * @param objetoComboMotivo
+	 * @param Ninguno.
 	 * @return Método que busca los tipos de motivos y los carga en el combobox de motivos
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */	
 	@Command
 	@NotifyChange({"listaTipoMotivo"})
@@ -225,10 +219,9 @@ public class VMRecaudoMotivoPortal {
 	/**
 	 * descargar archivo
 	 * 
-	 * @param descargarArchivo
-	 * @return Metodo que descarga un archivo con la lista de recaudos de cada motivo de apelacion
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param ContextType.COMPONENT) Component componente
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepcion.
 	 */		
 	@Command
 	public void descargarArchivo(@ContextParam(ContextType.COMPONENT) Component componente){
@@ -244,10 +237,9 @@ public class VMRecaudoMotivoPortal {
 	/**
 	 * limpiar
 	 * 
-	 * @param limpiar
-	 * @return Metodo que limpia todos los campos de la pantalla
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"idRecaudo", "descripcion", "nombreRecaudo","observacion","nombreTipoMotivo","tipoMotivo","nombreRecaudofiltro","nombreTipoMotivofiltro","listaRecaudos"})

@@ -23,11 +23,13 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 
-/**CargarProgramas por XML
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/** Clase VMProgramaAcademicoLote.
+ * @author Equipo Builder
  * @version 2.5.2
+ * @since 02-/12/13
+ * @last 09/05/2014
  */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMProgramaAcademicoLote {
 	//-----------------Servicios----------------------------
@@ -115,15 +117,15 @@ public class VMProgramaAcademicoLote {
 
 	public void setMensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario) {
 		this.mensajeAlUsuario = mensajeAlUsuario;
-	}// Fin de los métodos set y get
+	}
+	// Fin de los métodos set y get
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init()
@@ -132,8 +134,9 @@ public class VMProgramaAcademicoLote {
 	}
 
 	/** listaProgramas
-	 * @param listaPrograma
-	 * @return La listaPrograama cargada con los programas academicos
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 * 
 	 */
 	@Command
@@ -144,10 +147,10 @@ public class VMProgramaAcademicoLote {
 	}
 
 
-	/** Unico punto de entrada.
-	 * @param UploadEvent event Zkoss UI
-	 * @return No devuelve ningun valor.
-	 * @throws las Excepciones son que el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.
+	/**  cargarAsignatura.
+	 * @param @ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event
+	 * @return Ninguno.
+	 * @throws si el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.
 	 */
 	@SuppressWarnings("unused")
 	@Command
@@ -201,12 +204,10 @@ public class VMProgramaAcademicoLote {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"textoXML","tamanoXML","listaPrograma"})

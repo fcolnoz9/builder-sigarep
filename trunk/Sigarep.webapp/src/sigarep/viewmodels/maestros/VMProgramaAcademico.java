@@ -18,12 +18,11 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
 
-/**
- * ProgramaAcademico UCLA DCYT Sistemas de Informacion.
- * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/** Clase VMProgramaAcademico.
+ * @author Equipo Builder
  * @version 1.0
- * @since 22/01/14
+ * @since 02-/12/13
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMProgramaAcademico {
@@ -93,25 +92,20 @@ public class VMProgramaAcademico {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
 		buscarProgramaA();
 	}
 
-	/**
-	 * guardarPrograma
-	 * 
-	 * @param idPrograma
-	 *            , nombrePrograma, estatus, listaPrograma
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             debe haber campos en blanco
+	/** guardarPrograma
+	 * @param Ninguno.
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma" })
@@ -127,14 +121,10 @@ public class VMProgramaAcademico {
 		}
 	}
 
-	/**
-	 * eliminarPrograma
-	 * 
-	 * @param nombrePrograma
-	 *            , listaPrograma
-	 * @return No devuelve ningun valor
-	 * @throws Debe
-	 *             seleccionar un registro para poder eliminarlo
+	/** eliminarPrograma
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
@@ -173,12 +163,11 @@ public class VMProgramaAcademico {
 	}
 
 	/**
-	 * mostrarSeleccionado
-	 * 
-	 * @param nombrePrograma
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
+	 * @param Ninguno
+	 * @return Objeto programa academico seleccionado
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "nombrePrograma" })
@@ -190,10 +179,9 @@ public class VMProgramaAcademico {
 	/**
 	 * buscarProgramaA
 	 * 
-	 * @param listaPrograma
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaPrograma" })
@@ -202,13 +190,10 @@ public class VMProgramaAcademico {
 	}
 
 	/**
-	 * filtros
-	 * 
-	 * @param listaPrograma
-	 *            , nombreProgramaFiltro
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * filtros   Método que busca y filtra por nombre de programa academico
+	 * @param Ninguno
+	 * @return Objeto programa academico.
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaPrograma", "nombreProgramaFiltro" })
@@ -218,13 +203,10 @@ public class VMProgramaAcademico {
 	}
 
 	/**
-	 * limpiar
-	 * 
-	 * @param idPrograma
-	 *            , nombrePrograma, estatus, listaPrograma
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * limpiar 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "idPrograma", "nombrePrograma", "estatus", "listaPrograma",
@@ -237,13 +219,12 @@ public class VMProgramaAcademico {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * Cerrar Ventana : Cierra el .zul asociado al VM.  
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
+	
 	@Command
 	@NotifyChange({ "listaPrograma", "nombrePrograma" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){

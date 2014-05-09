@@ -23,13 +23,15 @@ import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 /**
  * Clase VMactividad
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 19/12/2013
+ * @last 09/05/2014
  */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMActividad {
+	
 	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioActividad servicioactividad;
@@ -135,15 +137,12 @@ public class VMActividad {
 
 	// Fin de los métodos set y get
 
-
-
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -156,8 +155,7 @@ public class VMActividad {
 	 * 
 	 * @param listaActividad
 	 * @return listaActividad
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaActividad" })
@@ -167,11 +165,12 @@ public class VMActividad {
 
 
 	/**
-	 * guardarActividad
+	 * guardar Actividad
 	 * 
-	 * @param Actividad actividad
-	 * @return No devuelve ningún valor
-	 * @throws No debe haber campos en blanco
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion",
@@ -190,12 +189,11 @@ public class VMActividad {
 
 
 	/**
-	 * eliminarActividad
+	 * eliminarActividad : Elimina un registro físicamente.
 	 * 
-	 * @param Binder binder
-	 * @return No devuelve ningún valor
-	 * @throws Debe
-	 *             seleccionar un registro para poder eliminarlo
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({ "listaActividad", "nombre", "instanciaApelada",
@@ -213,13 +211,6 @@ public class VMActividad {
 						public void onEvent(ClickEvent e) throws Exception {
 							switch (e.getButton()) {
 							case YES:
-								// if you call super.delete here, since original
-								// zk event is not control by binder
-								// the change of viewmodel will not update to
-								// the ui.
-								// so, I post a delete to trigger to process it
-								// in binder controll.
-								// binder.postCommand("limpiar", null);
 								servicioactividad.eliminar(id_actividad);
 								mensajeAlUsuario.informacionEliminarCorrecto();
 								binder.postCommand("limpiar", null);
@@ -233,12 +224,13 @@ public class VMActividad {
 	}
 
 	/**
-	 * mostrarSeleccionada
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
 	 * 
-	 * @param vacío
-	 * @return Actividad seleccionada
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 *            .
+	 * @return Objeto Actividad seleccionada
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "instanciaApelada", "descripcion" })
@@ -252,10 +244,9 @@ public class VMActividad {
 	/**
 	 * buscarInstanciaApelada
 	 * 
-	 * @param vacío
-	 * @return Instancia Apelada
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Busca todos los registros. 
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
@@ -265,12 +256,11 @@ public class VMActividad {
 	}
 
 	/**
-	 * comboResponsable
+	 * comboActividad
 	 * 
-	 * @param vacío
-	 * @return instanciaApelada
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Objeto actividad
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
@@ -279,13 +269,11 @@ public class VMActividad {
 	}
 
 	/**
-	 * filtros
+	 * filtros   Método que busca y filtra por nombre de la actividad y responsable de la actividad
 	 * 
-	 * @param vacío
-	 * @return nombreFiltro,
-				responsableFiltro
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Objeto Actividad
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaActividad", "nombreFiltro", "responsableFiltro" })
@@ -297,10 +285,9 @@ public class VMActividad {
 	/**
 	 * limpiar
 	 * 
-	 * @param vacío
-	 * @return No devuelve ningún valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion",
@@ -318,12 +305,10 @@ public class VMActividad {
 	} 
 	
 	/**
-	 * Cerrar Ventana
-	 * 
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
 	 * @param Window ventana
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
 	
 	@Command

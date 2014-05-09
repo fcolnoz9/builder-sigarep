@@ -26,12 +26,12 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.bind.Binder;
 
-/** Clase Noticia
+/** Clase VMNoticia
  * Registra y modifica una noticia. Utilizada en el portal web.
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder
  * @version 1.0
  * @since 22/01/14
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMNoticia  {
@@ -145,11 +145,10 @@ public class VMNoticia  {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
+	 *  Init. Código de inicialización.
+	 * @param Ninguno
 	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	// inicializador
@@ -161,9 +160,10 @@ public class VMNoticia  {
 	}
 
 	/** Guardar Noticia
-	 * @parameters el objeto Noticia
-	 * @return No devuelve ningun valor
-	 * @throws las Excepciones son que se quiera registrar una Noticia y haya campos en blanco
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido", "enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
@@ -180,10 +180,10 @@ public class VMNoticia  {
 		}
 	}
 
-	/** Elimina una Noticia
-	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
-	 * @return No devuelve ningun valor.
-	 * @throws la Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
+	/** Elimina una Noticia 
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
@@ -209,9 +209,12 @@ public class VMNoticia  {
 		}
 	}
 
-	/** Muestra una Noticia Seleccionada
-	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
-	 * @return No devuelve ningun valor.
+	/**
+	 * mostrarSeleccionado : Muestra en el área de datos el registro
+	 * seleccionado
+	 * @param Ninguno          .
+	 * @return Objeto Noticia seleccionada
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia","fotoNoticia"})
@@ -236,9 +239,10 @@ public class VMNoticia  {
 
 	}
 
-	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado. José Galíndez
-	 * @parameters contenido, enlaceNoticia, fechaRegistro, imagen, titulo, vencimiento, listaNoticia,fotoNoticia. 
-	 * @return No devuelve ningun valor.
+	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado.
+	 *  @param Ninguno  
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"noticiaSeleccionada"})
@@ -259,8 +263,9 @@ public class VMNoticia  {
 	}
 
 	/** Busca una Noticia
-	 * @parameters listaNoticia cargada con  las noticias.
-	 * @return No devuelve ningun valor.
+	 *  @param Ninguno  
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"listaNoticia"})
@@ -268,9 +273,12 @@ public class VMNoticia  {
 		listaNoticia =servicionoticia.listadoNoticia();
 	}
 
-	/** filtros. Filtra por la variable titulo
-	 * @parameters titulof,listaNoticia
-	 * @return No devuelve ningun valor.
+	/**
+	 * filtros :  Método que busca y filtra por el titulo de la noticia
+	 * 
+	 * @param Ninguno
+	 * @return Objeto noticia
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"tituloFiltro","listaNoticia"})
@@ -278,9 +286,11 @@ public class VMNoticia  {
 		listaNoticia = servicionoticia.filtrarNoticias(tituloFiltro);
 	}
 
-	/** Método que limpia los campos
-	 * @parameters idNoticia,contenido, enlaceNoticia, fechaRegistro, imagenNoticia, titulo, vencimiento, listaNoticia.
-	 * @return No devuelve ningun valor.
+	/**
+	 * limpiar : Metodo que limpia todos los campos.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
@@ -299,8 +309,8 @@ public class VMNoticia  {
 	}
 
 	/** cargarImagenNoticia
-	 * @parameters imagenNoticia, UploadEvent event Zkoss UI.
-	 * @return No devuelve ningun valor.
+	 * @param @ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event
+	 * @return Ningun.
 	 * @throws la Excepcion es que la media noticia sea null
 	 */
 	@Command
@@ -326,8 +336,10 @@ public class VMNoticia  {
 	}
 
 	/** mostrarMensaje
-	 * @parameters UploadEvent event Zkoss UI.
+	 *  @param ContextType.TRIGGER_EVENT) UploadEvent event.
 	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepción.
+	 * 
 	 */
 	@Command
 	public void mostrarMensaje(@ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event){
@@ -337,8 +349,9 @@ public class VMNoticia  {
 
 
 	/** Validación de fechas
-	 * @parameters fechaRegistro, fechaCierre
+	 * @param Ninguno.
 	 * @return No devuelve ningun valor.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "fechaRegistro", "fechaCierre" })
@@ -352,13 +365,12 @@ public class VMNoticia  {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
+	
 	@Command
 	@NotifyChange({"idNoticia","contenido","enlaceNoticia", "fechaRegistro", "imagenNoticia", "titulo", "vencimiento", "listaNoticia"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){

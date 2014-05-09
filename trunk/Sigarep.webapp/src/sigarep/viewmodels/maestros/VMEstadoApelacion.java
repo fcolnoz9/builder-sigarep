@@ -21,7 +21,7 @@ import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 /**
  * Clase VMEstadoApelacion 
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
  */
@@ -131,11 +131,10 @@ public class VMEstadoApelacion {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
+	 * Init. Código de inicialización.
+	 * @param Ninguno
 	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 */
 		@Init
 		public void init() {
@@ -146,10 +145,11 @@ public class VMEstadoApelacion {
 		}
 
 	/** Guardar Estado de Apelación 
-	 * @return nada
-	 * @parameters el objeto EstadoApelacion
-	 * @throws No dispara ninguna excepcion.
-	   */
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({"listaEstadoApelacion", "nombreEstado", "descripcion", "instanciaapelada" })
 	// el notifychange le avisa a que parametros en la pantalla se van a
@@ -168,8 +168,8 @@ public class VMEstadoApelacion {
 		}
 	}
 	/** Buscar Estado Apelacion
-	 * @return el estado de apelacion buscado de la lista 
-	 * @parameters nombreEstado, descripcion, instancia apelada y lista Estado Apelacion
+	 *  @param Ninguno
+	 *  @return Ninguno 
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
@@ -178,16 +178,20 @@ public class VMEstadoApelacion {
 			listaEstadoApelacion  = servicioestadoapelacion.listadoEstadoApelacionActivas();
 	}
 	
+	/** buscar Instancia Apelada
+	 *  @param Ninguno
+	 *  @return Ninguno 
+	 * @throws No dispara ninguna excepcion.
+	   */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
 	public void buscarInstanciaApelada() {
 		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
 	}
 	
-
-	
 	/** Metodo que limpia todos los campos
-	 * @parameters nombreEstado, descripcion, lista Estado Apelacion
+	 * @param Ninguno
+	 * @return Ninguno
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
@@ -200,11 +204,14 @@ public class VMEstadoApelacion {
 		buscarEstadoApelacion();
 	}
 
-	
-	/** permite tomar los datos del objeto EstadoApelacion seleccionado
-	 * @parameters idEstadoApelacion, nombreEstado, descripcion, lista Estado Apelacion
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**
+	 * mostrarSeleccionada : Muestra en el área 
+de datos el registro seleccionado 
+	 * 
+	 * @param Ninguno. 
+	 * @return Objeto Estado Apelacion seleccionada
+	 * @throws No dispara ninguna excepción
+	 */
 	@Command
 	@NotifyChange({ "idEstadoApelacion","nombreEstado", "descripcion", "instanciaApelada" })
 	public void mostrarSeleccionado() {
@@ -214,37 +221,37 @@ public class VMEstadoApelacion {
 		instanciaApelada = getEstadoseleccionado().getInstanciaApelada();
 	}
 
-	/** llena el combo de Instancia Apelada
-	 * @parameters lista de instancia apelada
-	 * @return instancia apelada
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**
+	 * combo Estado Apelacion
+	 * 
+	 * @param Ninguno
+	 * @return instanciaApelada
+	 * @throws No dispara ninguna excepción
+	 */
 	@Command
 	 @NotifyChange({"listaInstanciaApelada"})
 	public InstanciaApelada objetoComboEstadoApelacion() {
 		return instanciaApelada;
 	}
 
-	/** Método que trae todos los registros en una lista de Estados de Apelacion
-	 * @parameters lista de estado de apelacion
+	/** listado Estado Apelacion :  Método que trae todos los registros en una lista de Estados de Apelacion
+	 * @param Ninguno
+	 * @return Ninguno
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
 	@NotifyChange({ "listaEstadoApelacion"  })
 	public void listadoEstadoApelacion() {
 		listaEstadoApelacion = servicioestadoapelacion.listadoEstadoApelacionActivas();
-	
 	}
 	
 	/**
-	 * Cerrar Ventana
+	 * Cerrar Ventana : cierra el .zul asociado al VM
 	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param  Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({"listaEstadoApelacion", "nombreEstado", "descripcion", "instanciaapelada" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){

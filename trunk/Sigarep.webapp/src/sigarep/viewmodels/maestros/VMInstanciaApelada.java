@@ -24,7 +24,7 @@ import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
 /**Clase VMInstanciaApelada
  * ViewModel para la interfaz RegistrarInstanciaApelada.zul
- * @author Builder 
+ * @author Equipo Builder
  * @version 1.0
  * @since 20/12/13
  */
@@ -132,8 +132,8 @@ public class VMInstanciaApelada {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
+	 * Init. Código de inicialización.
+	 * @param Ninguno
 	 * @return código de inicialización
 	 * @throws No
 	 * dispara ninguna excepción.
@@ -169,18 +169,17 @@ public class VMInstanciaApelada {
 			InstanciaApelada inst = new InstanciaApelada(idInstanciaApelada,descripcion,
 					true,instanciaApelada,nombreRecursoApelacion);
 			servicioInstanciaApelada.guardar(inst);
+			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
 
 	/**
-	 * eliminarInstancia
+	 * eliminar instancia : Elimina un registro físicamente.
 	 * 
-	 * @param Binder
-	 *            binder
-	 * @return No devuelve ningún valor
-	 * @throws Debe
-	 *             seleccionar un registro para poder eliminarlo
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es se va a colocar en blanco al guardar!!
@@ -215,10 +214,15 @@ public class VMInstanciaApelada {
 			}
 		}
 	}
-	/** Metodo que indica la InstanciaApelada seleccionada del Listbox 
-	 * @return nada
-	 * @parameters vacío
-	 * @throws No dispara ninguna excepcion.
+	
+	/**
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
+	 * 
+	 * @param Ninguno
+	 *            .
+	 * @return Objeto Instanci aApelada seleccionada
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
@@ -229,10 +233,12 @@ public class VMInstanciaApelada {
 		descripcion = getInstanciaApeladaseleccionada().getDescripcion();
 	}
 
-	/** Metodo que filtra el Listbox de las InstanciaApelada registradas 
-	 * @return nada
-	 * @parameters vacío
-	 * @throws No dispara ninguna excepcion.
+	/**
+	 * filtros
+	 * 
+	 * @param Ninguno
+	 * @return instanciaFiltro, recursoFiltro
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada", "instanciaFiltro", "recursoFiltro" })
@@ -241,10 +247,12 @@ public class VMInstanciaApelada {
 				recursoFiltro);
 	}
 
-	/** Método que limpia los campos en la interfaz RegistrarInstanciaApelada.zul 
-	 * @return nada
-	 * @parameters vacío
-	 * @throws No dispara ninguna excepcion.
+	/**
+	 * limpiar
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"listaInstanciaApelada","idInstanciaApelada","instanciaApelada","nombreRecursoApelacion", "descripcion"})
@@ -261,8 +269,7 @@ public class VMInstanciaApelada {
 	 * 
 	 * @param binder
 	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 
 	@Command
