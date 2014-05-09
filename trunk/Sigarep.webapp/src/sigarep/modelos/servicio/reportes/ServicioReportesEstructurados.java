@@ -25,7 +25,8 @@ public class ServicioReportesEstructurados {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	public List<Sancionados> buscarEstudiantesComision(int programa) {
+	public List<Sancionados> buscarEstudiantesComision(int programa,
+			String codigo_lapso) {
 		String queryStatement = "SELECT DISTINCT es.cedula_estudiante as cedula, es.primer_nombre as nombre, es.primer_apellido as apellido, aea.sugerencia as veredicto, "
 				+ "(SELECT count(es.cedula_estudiante) FROM sigarep.apelacion_estado_apelacion as aea, sigarep.estudiante es "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante "
@@ -40,8 +41,10 @@ public class ServicioReportesEstructurados {
 				+ "and prog.id_programa = " + "'"
 				+ programa
 				+ "' "
-				+ "and sa.codigo_lapso = '2013-2' "
-				+ "and aea.id_estado_apelacion = 3) as procedentes, "
+				+ "and sa.codigo_lapso = '"
+				+ codigo_lapso
+				+ "' "
+				+ "and aea.id_estado_apelacion = 4) as procedentes, "
 				+ "(SELECT count(es.cedula_estudiante) FROM sigarep.apelacion_estado_apelacion as aea, sigarep.estudiante es "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "INNER JOIN sigarep.programa_academico as prog on es.id_programa = prog.id_programa "
@@ -56,8 +59,10 @@ public class ServicioReportesEstructurados {
 				+ "'"
 				+ programa
 				+ "' "
-				+ "and sa.codigo_lapso = '2013-2' "
-				+ "and aea.id_estado_apelacion = 3) as noprocedentes "
+				+ "and sa.codigo_lapso = '"
+				+ codigo_lapso
+				+ "' "
+				+ "and aea.id_estado_apelacion = 4) as noprocedentes "
 				+ "FROM sigarep.apelacion_estado_apelacion as aea, sigarep.estudiante es "
 				+ "INNER JOIN sigarep.estudiante_sancionado as essa on essa.cedula_estudiante = es.cedula_estudiante "
 				+ "INNER JOIN sigarep.programa_academico as prog on es.id_programa = prog.id_programa "
@@ -68,11 +73,14 @@ public class ServicioReportesEstructurados {
 				+ "and sa.id_instancia_apelada = aea.id_instancia_apelada "
 				+ "and aea.id_instancia_apelada = 1 "
 				+ "and aea.sugerencia is not null "
+				+ " and aea.id_estado_apelacion = 4 "
 				+ "and prog.id_programa = "
 				+ "'"
 				+ programa
 				+ "' "
-				+ "and sa.codigo_lapso = '2013-2' "
+				+ "and sa.codigo_lapso = '"
+				+ codigo_lapso
+				+ "' "
 				+ "order by nombre";
 
 		Query query = em.createNativeQuery(queryStatement);
