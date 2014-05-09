@@ -5,17 +5,22 @@ import java.util.Date;
 /**
  * Lista momento
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder
  * @version 1.1
  * @since 10/02/14
  * @last 08/05/2014
  */
 public class ListaMomento {
-
+	// Atributos de la clase
 	private Date fecha;
 	private String nombreEstado;
 	private String observacion;
 	private String estatus;
+
+	// constructor por defecto
+	public ListaMomento() {
+
+	}
 
 	/**
 	 * Constructor Momento.
@@ -28,11 +33,8 @@ public class ListaMomento {
 		this.nombreEstado = nombreEstado;
 		this.observacion = observacion;
 	}
-
-	public ListaMomento() {
-
-	}
-	//metodos set y get
+	
+	//Métodos Set y Get
 	public Date getFecha() {
 		return fecha;
 	}
@@ -64,5 +66,5 @@ public class ListaMomento {
 	public void setNombreEstado(String nombreEstado) {
 		this.nombreEstado = nombreEstado;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 }

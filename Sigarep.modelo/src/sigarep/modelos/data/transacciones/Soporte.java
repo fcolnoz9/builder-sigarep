@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * Soporte
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 07/01/14
  * @last 08/05/2014
@@ -36,6 +36,11 @@ public class Soporte implements Serializable {
 	
 	@Embedded
 	private Documento documento;
+	
+	// constructor por defecto
+	public Soporte() {
+	}
+	
 	/**
 	 * Constructor Soporte
 	 * 
@@ -61,9 +66,7 @@ public class Soporte implements Serializable {
 		})
 	private RecaudoEntregado recaudoEntregado;
 
-	public Soporte() {
-	}
-	// metodos set y get
+	// Métodos Set y Get
 	public Integer getIdSoporte() {
 		return this.idSoporte;
 	}
@@ -103,5 +106,5 @@ public class Soporte implements Serializable {
 	public void setDocumento(Documento documento) {
 		this.documento = documento;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 }

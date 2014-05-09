@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Clase estudiante sancionado, trae los objetos de esta clase compuesta por
  * varias claves principales
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1
  * @since 03/01/2014
  * @last 08/05/2014
@@ -39,7 +39,7 @@ public class EstudianteSancionadoPK implements Serializable {
 		this.cedulaEstudiante = cedulaEstudiante;
 	}
 	
-	//metodos set y get
+	//Métodos Set y Get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
@@ -55,7 +55,7 @@ public class EstudianteSancionadoPK implements Serializable {
 	public void setCedulaEstudiante(String cedulaEstudiante) {
 		this.cedulaEstudiante = cedulaEstudiante;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

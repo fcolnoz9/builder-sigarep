@@ -4,9 +4,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Cronograma de Actividades - Planificar UCLA DCYT Sistemas de Informacion.
+ * Cronograma de Actividades 
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder
  * @version 1.1
  * @since 10/02/14
  * @last 08/05/2014
@@ -23,10 +23,12 @@ public class CronogramaPK implements Serializable {
 
 	@Column(name = "id_actividad", unique = false, nullable = false)
 	private Integer idActividad;
-
+	
+	// constructor por defecto
 	public CronogramaPK() {
 	}
-	//metodos set y get
+	
+	//Métodos Set y Get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
@@ -42,7 +44,7 @@ public class CronogramaPK implements Serializable {
 	public void setIdActividad(Integer idActividad) {
 		this.idActividad = idActividad;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

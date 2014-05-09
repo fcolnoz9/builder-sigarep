@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Recaudo Entregado relaciona las tablas recaudo, tipomotivo, estudiante e
  * instancia apelada
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 07/01/14
  * @last 08/05/2014
@@ -43,10 +43,11 @@ public class RecaudoEntregadoPK implements Serializable {
 
 	@Column(name = "id_instancia_apelada", unique = false, nullable = false)
 	private Integer idInstanciaApelada;
-
+	
+	// constructor por defecto
 	public RecaudoEntregadoPK() {
 	}
-	// metodos set y get
+	// Métodos Set y Get
 	public Integer getIdRecaudo() {
 		return this.idRecaudo;
 	}
@@ -86,7 +87,7 @@ public class RecaudoEntregadoPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-	// Fin metodos set y get
+	// Fin Métodos Set y Get
 	
 	public boolean equals(Object other) {
 		if (this == other) {

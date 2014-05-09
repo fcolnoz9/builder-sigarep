@@ -9,7 +9,7 @@ import sigarep.modelos.data.maestros.Recaudo;
  * Recaudo Entregado registra los recaudos estregado por un estudiante en un
  * momento dado
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 07/01/14
  * @last 08/05/2014
@@ -49,6 +49,10 @@ public class RecaudoEntregado implements Serializable {
 	@OneToOne(mappedBy = "recaudoEntregado")
 	private Soporte soporte;
 
+	// constructor por defecto
+	public RecaudoEntregado() {
+	}
+	
 	/**
 	 * Constructor RecaudoEntregado
 	 * 
@@ -61,10 +65,8 @@ public class RecaudoEntregado implements Serializable {
 		this.estatus = estatus;
 		this.observacionExperto = observacionExperto;
 	}
-
-	public RecaudoEntregado() {
-	}
-	// metodos set y get
+	
+	// Métodos Set y Get
 	public RecaudoEntregadoPK getId() {
 		return this.id;
 	}
@@ -112,5 +114,5 @@ public class RecaudoEntregado implements Serializable {
 	public void setSoporte(Soporte soporte) {
 		this.soporte = soporte;
 	}
-	//Fin  metodos set y get
+	//Fin Métodos Set y Get
 }

@@ -6,13 +6,13 @@ import java.util.Date;
 /**
  * Lista cronograma
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder
  * @version 1.1
  * @since 10/02/14
  * @last 08/05/2014
  */
 public class ListaCronograma {
-
+	// Atributos de la clase
 	private String nombre;
 	private String descripcion;
 	private Date fecha_inicio;
@@ -40,7 +40,7 @@ public class ListaCronograma {
 		this.lugar = lugar;
 	}
 
-	//metodos set y get
+	//Métodos Set y Get
 	public String getNombre() {
 		return nombre;
 	}
@@ -96,5 +96,5 @@ public class ListaCronograma {
 	public void setHora_inicio(Time hora_inicio) {
 		this.hora_inicio = hora_inicio;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 }

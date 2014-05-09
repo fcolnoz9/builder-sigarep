@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Clase Apelacion Apelacion, trae los objetos de esta clase compuesta por
  * varias claves principales y la relacion con distintas tablas
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 03/01/2014
  * @last 08/05/2014
@@ -29,11 +29,12 @@ public class ApelacionEstadoApelacionPK implements Serializable {
 
 	@Column(name = "id_instancia_apelada", unique = false, nullable = false)
 	private Integer idInstanciaApelada;
-
+	
+	// constructor por defecto
 	public ApelacionEstadoApelacionPK() {
 	}
 
-	// metodos set y get
+	// Métodos Set y Get
 	public Integer getIdEstadoApelacion() {
 		return idEstadoApelacion;
 	}
@@ -65,7 +66,7 @@ public class ApelacionEstadoApelacionPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-	// Fin metodos set y get
+	// Fin Métodos Set y Get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

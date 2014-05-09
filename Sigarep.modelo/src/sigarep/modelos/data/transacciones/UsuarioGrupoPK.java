@@ -6,7 +6,7 @@ import javax.persistence.*;
 /**
  * UsuarioGrupoPK relaciona a un usuario con un grupo determinado
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 07/01/14
  * @last 08/05/2014
@@ -23,9 +23,11 @@ public class UsuarioGrupoPK implements Serializable {
 	@Column(name="nombre_usuario", unique=false, nullable=false, length=30)
 	private String nombreUsuario;
 
+	// constructor por defecto
 	public UsuarioGrupoPK() {
 	}
-	// metodos set y get
+	
+	//Métodos Set y Get
 	public Integer getIdGrupo() {
 		return this.idGrupo;
 	}
@@ -38,7 +40,7 @@ public class UsuarioGrupoPK implements Serializable {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
-	//Fin  metodos set y get
+	//Fin  Métodos Set y Get
 	
 	public boolean equals(Object other) {
 		if (this == other) {

@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Solicitud apelacion relaciona las tablas estudiante sancionado, lapso
  * academico e instancia
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 07/01/14
  * @last 08/05/2014
@@ -28,6 +28,7 @@ public class SolicitudApelacionPK implements Serializable {
 	@Column(name = "id_instancia_apelada", unique = false, nullable = false)
 	private Integer idInstanciaApelada;
 
+	// constructor por defecto
 	public SolicitudApelacionPK() {
 	}
 
@@ -44,7 +45,7 @@ public class SolicitudApelacionPK implements Serializable {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
 
-	// metodos set y get
+	// Métodos Set y Get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
@@ -68,7 +69,7 @@ public class SolicitudApelacionPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-	// Fin metodos set y get
+	// Métodos Set y Get
 	
 	public boolean equals(Object other) {
 		if (this == other) {

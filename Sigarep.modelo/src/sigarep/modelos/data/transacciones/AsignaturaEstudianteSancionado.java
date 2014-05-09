@@ -9,7 +9,7 @@ import sigarep.modelos.data.maestros.Asignatura;
  * Clase Asignatura Estudiante Sancionado, trae los objetos de esta clase
  * compuesta por varias claves principales y los atributos propios de la clase
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 03/01/2014
  * @last 08/05/2014
@@ -59,7 +59,7 @@ public class AsignaturaEstudianteSancionado implements Serializable {
 		this.estudianteSancionado = estudianteSancionado;
 	}
 
-	//metodos set y get
+	//Métodos Set y Get
 	public AsignaturaEstudianteSancionadoPK getId() {
 		return this.id;
 	}
@@ -94,4 +94,4 @@ public class AsignaturaEstudianteSancionado implements Serializable {
 	}
 
 }
-//Fin metodos set y get
+//Fin Métodos Set y Get
