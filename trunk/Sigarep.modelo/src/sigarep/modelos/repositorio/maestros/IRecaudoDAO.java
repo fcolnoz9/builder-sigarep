@@ -22,46 +22,49 @@ import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
 
 /**
- * Repositorio Recaudo-IRecaudoDAO
+ * Repositorio IRecaudoDAO: Repositorio relacionado con el Maestro Recaudo.
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 12/12/2013
+ * @last 08/05/2014
  */ 
-
 public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 
 	/**
 	 * Busca el último id insertado en la tabla Recaudo
+	 * 
 	 * @return Último id insertado en la tabla Recaudo
 	 */
 	@Query("SELECT COALESCE(MAX(r.idRecaudo),0) FROM Recaudo AS r")
 	public int buscarUltimoID();
 	
 	/**
-	 * Busca los recaudos activos de un tipo de motivo dado
-	 * @param motivo
-	 *  motivo identificador del tipo de motivo al que se le buscaran los recaudos
+	 * Busca todos los recaudos activos de un tipo de motivo dado
+	 * 
+	 * @param motivo Motivo identificador del tipo de motivo al que se le buscaran los recaudos
 	 * @return List<Recaudo> Lista de recaudos activos para el tipo de motivo dado
 	 */
 	public List<Recaudo> findByTipoMotivoAndEstatusTrue(TipoMotivo motivo);
 
 	/**
 	 * Busca un recaudo por su nombre
-	 * @param nombreRecaudo
-	 * nombreRecaudo Nombre del recaudo que se quiere encontrar
-	 * @return Recaudo Recaudo encontrado por su nombre
+	 * 
+	 * @param nombreRecaudo  Nombre del recaudo que se quiere encontrar
+	 * @return Recaudo encontrado por su nombre
 	 */
 	public Recaudo findByNombreRecaudo(String nombreRecaudo);
 	
 	/**
-	 * Busca los Recaudos activos, es decir, que poseen estatus true
-	 * @return List<Recaudo> Lista de Recaudos con estatus true
+	 * Busca los Recaudos activos, es decir, que poseen estatus == true
+	 * 
+	 * @return List<Recaudo> Lista de Recaudos con estatus == true
 	 */
 	public List<Recaudo> findByEstatusTrue();
 	
 	/**
 	 * Busca los Recaudos que estan asociados al tipo de motivo General
+	 * 
 	 * @return List<Recaudo> Lista de Recaudos asociados al tipo de motivo General
 	 */
 	@Query("Select rec FROM Recaudo AS rec WHERE rec.tipoMotivo.idTipoMotivo = '1'")
@@ -69,12 +72,11 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	
 	/**
 	 * Busca los Recaudos asociados a una apelacion de un estudiante en un lapso especifico.
-	 * @param cedulaEstudiante Cedula del estudiante sancionado
-	 * @param codigoLapso, lapsoAcademico
-	 *  en el cual ocurrio la apelación
+	 * 
+	 * @param cedula cedula del estudiante sancionado
+	 * @param codigoLapso lapso académico en el cual ocurrio la apelación
 	 * @param idInstanciaApelada Instancia ante la cual se registro la apelación
-	 * @return List<Recaudo> Lista de Recaudos asociados a la apelacion del 
-	 * estudiante en el lapso dados
+	 * @return List<Recaudo> Lista de Recaudos asociados a la apelacion del estudiante en el lapso dado
 	 */
 	@Query("SELECT r FROM Recaudo AS r, TipoMotivo AS tm, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE la.codigoLapso = m.id.codigoLapso AND la.estatus = 'TRUE' " +
@@ -86,11 +88,10 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	public List<Recaudo> listadoRecaudosPorApelacion(@Param("cedula") String cedula,
 			@Param("codigoLapso") String codigoLapso, @Param("idInstancia") Integer idInstancia);
 	
-	/** busqueda de recaudos faltantes, Verificar Recaudos - Recurso Reconsideración  
+	/** Busca los recaudos faltantes, Verificar Recaudos - Recurso Reconsideración  
+	 * 
 	 * @param cedula
-	 * @return recaudos faltantes por entregar de un estudiante sancionado
-	 * @throws Todos los recaudos menos los que haya entregado, y los generales
-	 *  correspondientes a las apelaciones 1 y 3
+	 * @return List<Recaudo> Recaudos faltantes por entregar de un estudiante sancionado
 	 */
 	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '3' " +
@@ -105,11 +106,9 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	public List<Recaudo> buscarRecaudosVerificarRecaudosII(@Param("cedula") String cedula);
 
 
-	/** busqueda de recaudos faltantes, Verificar Recaudos - Recurso Jerarquico 
+	/** Busca los recaudos faltantes, Verificar Recaudos - Recurso Jerarquico 
 	 * @param cedula
-	 * @return recaudos faltantes por entregar de un estudiante sancionado
-	 * @throws Todos los recaudos menos los que haya entregado, y los generales
-	 *  correspondientes a las apelaciones 1 y 2
+	 * @return List<Recaudo> Recaudos faltantes por entregar de un estudiante sancionado
 	 */
 	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '2' " +

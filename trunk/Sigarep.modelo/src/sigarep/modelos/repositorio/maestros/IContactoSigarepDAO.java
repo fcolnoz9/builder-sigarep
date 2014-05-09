@@ -5,13 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import sigarep.modelos.data.maestros.ContactoSigarep;
 
 /**
- * Repositorio ContactoSigarep-IContactoSigarepDAO
+ * Repositorio IContactoSigarepDAO: Repositorio relacionado con el Maestro ContactoSigarep. 
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 03/03/2014
+ * @last 08/05/2014
  */
-
 public interface IContactoSigarepDAO extends JpaRepository<ContactoSigarep, Integer> {
 
 	/**
