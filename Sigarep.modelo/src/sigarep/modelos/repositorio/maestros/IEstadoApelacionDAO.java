@@ -10,22 +10,25 @@ import org.springframework.data.repository.query.Param;
 import sigarep.modelos.data.maestros.EstadoApelacion;
 
 /**
- * Repositorio EstadoApelacion-IEstadoApelacionDAO 
+ * Repositorio IEstadoApelacionDAO: Repositorio relacionado con el Maestro EstadoApelacion. 
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 12/12/2013
+ * @last 08/05/2014
  */
 public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Integer> {
 
 	/**
-	 * Busca las todas los Estados de Apelación que poseen estatus == true
+	 * Busca todos los Estados de Apelación que poseen estatus == true
+	 * 
 	 * @return List<EstadoApelacion> Lista de Estados de Apelación con estatus == true
 	 */
 	public List<EstadoApelacion> findByEstatusTrue();
 	
 	/**
 	 * Busca un Estado de Apelación por su nombre
+	 * 
 	 * @param nombreEstado Nombre del estado de apelación que se pretende encontrar
 	 * @return EstadoApelacion encontrado por su nombre
 	 */
@@ -33,6 +36,7 @@ public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Inte
 	
 	/**
 	 * Busca el último id insertado en la tabla EstadoApelacion
+	 * 
 	 * @return Último id insertado en la tabla EstadoApelacion
 	 */
 	@Query("SELECT COALESCE(MAX(ea.idEstadoApelacion),0) FROM EstadoApelacion AS ea")
@@ -40,8 +44,9 @@ public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Inte
 	
 	/**
 	 * Busca los estados de apelación de una instancia
-	 * @param el id de la instancia
-	 * @return lista de estados de una instancia
+	 * 
+	 * @param instancia
+	 * @return List<EstadoApelacion> Lista de estados de una instancia
 	 */
 	@Query("select e from EstadoApelacion AS e, InstanciaApelada AS i " +
 			"where e.instanciaApelada.idInstanciaApelada = i.idInstanciaApelada " +
