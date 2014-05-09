@@ -400,22 +400,6 @@ public class VMListaMaestros {
 				 
 			     break;
 			     
-			 case "sancionados": 
-				 listaEstudiantesSancionados =servicioestudiantesancionado.buscarSancionados();
-		         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroSancionados.jasper";
-				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-													// REPORTE
-				reportConfig.getParameters().put("Titulo", "Reporte Lista de Estudiantes Sancionados");
-				reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-						listaEstudiantesSancionados));
-				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-												// IMPRESION DEL REPORTE
-				
-				reportConfig.setDataSource(new JRBeanCollectionDataSource(
-						listaEstudiantesSancionados)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-												// DATOS PARA DIBUJAR EL REPORTE	
-				    
-			     break;
 			 case "cronograma": 
 				 listaCronograma =serviciocronograma.listadoCronograma();
 		         ruta="/WEB-INF/sigarepReportes/maestros/RCronograma.jasper";

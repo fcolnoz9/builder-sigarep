@@ -27,7 +27,6 @@
 		 						<comboitem value="programaacademico" id="cmiProgramaAcademico" label="Lista de Programas Académicos" />
 		 						<comboitem value="tipossancion" id="cmiTiposSancion" label="Lista de Tipos de Sanción" />
 		 						<comboitem value="asignatura" id="cmiAsignatura" label="Lista de Asignaturas" />
-		 						<comboitem value="sancionados" id="cmiSancionados" label="Lista de Sancionados" />
 		 						<comboitem value="cronograma" id="cmiCronograma" label="Lista de Cronograma" />
 		 			 </combobox> 
 		
