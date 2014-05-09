@@ -11,10 +11,10 @@
 			</div>
 			<div align="center">
 				<vbox>
-					<textbox id="u" name="j_username" width="150px" cols="23"
-						mold="rounded" placeholder="Ingrese el usuario." />
-					<textbox id="log_clave" width="150px"
-						type="password" mold="rounded" cols="23"
+					<textbox id="u" name="j_username" width="100%"
+						cols="23" maxlength="35" placeholder="Ingrese el usuario." />
+					<textbox id="log_clave" width="100%"
+						type="password" cols="23" maxlength="20"
 						placeholder="Ingrese la contraseña." name="j_password" />
 				</vbox>
 			</div>
