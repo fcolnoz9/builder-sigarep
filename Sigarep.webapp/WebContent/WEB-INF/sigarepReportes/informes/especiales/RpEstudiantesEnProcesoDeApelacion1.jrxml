@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RMaestroEstadoApelacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="96"/>
 	<property name="ireport.y" value="240"/>
 	<style name="table">
 		<box>
@@ -167,14 +167,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[ESTUDIANTES EN PROCESO DE APELACIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="84" y="164" width="50" height="19" uuid="57008afa-9a66-413d-986a-2fef8e703841"/>
+				<reportElement x="90" y="219" width="50" height="19" uuid="57008afa-9a66-413d-986a-2fef8e703841"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Estado:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="227" y="164" width="256" height="19" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="22bc767d-9e6b-4742-a3ba-c4fd9b81b2be"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="227" y="219" width="256" height="19" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="22bc767d-9e6b-4742-a3ba-c4fd9b81b2be"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
@@ -195,14 +195,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$P{instancia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="84" y="219" width="64" height="19" uuid="6356e591-b834-4885-ab25-a4d0b2a5c2b2"/>
+				<reportElement x="89" y="164" width="64" height="19" uuid="6356e591-b834-4885-ab25-a4d0b2a5c2b2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Programa:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="227" y="219" width="256" height="19" uuid="6821a842-be28-4aec-8f93-61ca81eeac0d"/>
+				<reportElement x="227" y="164" width="256" height="19" uuid="6821a842-be28-4aec-8f93-61ca81eeac0d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
