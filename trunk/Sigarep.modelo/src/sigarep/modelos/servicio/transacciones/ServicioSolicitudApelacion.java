@@ -40,8 +40,8 @@ public class ServicioSolicitudApelacion {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
 	}
 	
-	public List<SolicitudApelacion> buscarApelacionesActa(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
-		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
+	public List<SolicitudApelacion> buscarApelacionesActa(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada ) {
+		return iSolicitudApelacionDAO.findByAnalizadoTrueAndEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
 	}
 
 	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {

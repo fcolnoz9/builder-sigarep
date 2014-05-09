@@ -20,6 +20,12 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			@Param("cedulaEstudiante") String cedulaEstudiante,
 			@Param("codigoLapso") String codigoLapso);
 	
+	/** función función para buscar la solicitud de apelación por lapsoAcademico y analizado true  
+	    * @param LapsoAcademico
+	    * @return lista de solicitudes de apelación para ese lapsoAcademico y para solicitudes de apelacion analizadas
+	*/
+	public List<SolicitudApelacion> findByAnalizadoTrueAndEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada);
+	
 	/** función función para buscar la solicitud de apelación por lapsoAcademico  
 	    * @param LapsoAcademico
 	    * @return lista de solicitudes de apelación para ese lapsoAcademico
@@ -43,6 +49,7 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 	    * @return List<SolicitudApelacion> Lista de solicitudes de apelacion del lapso actual
 	*/
 	public List<SolicitudApelacion> findById_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(Integer idInstanciaApelada);
+	
 	
 	/** función reusable para busqueda de ApelacionesVerificarRecaudos en instancia I, II y III  
 	    * @param LapsoAcademico e idInstanciaApelada
@@ -164,4 +171,6 @@ public interface ISolicitudApelacionDAO extends JpaRepository<SolicitudApelacion
 			+ "AND sa.id.codigoLapso = la.codigoLapso "
 			+ "AND la.estatus='TRUE'")
 	public Date buscarFechaApelacionCargarRecaudo(@Param("cedula") String cedula);
+	
+	
 }
