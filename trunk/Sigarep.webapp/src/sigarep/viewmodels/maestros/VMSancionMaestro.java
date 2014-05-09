@@ -13,6 +13,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
@@ -137,7 +138,7 @@ public class VMSancionMaestro {
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
 			"listaTipoSancion" })
-	public void guardarTipoSancion() {
+	public void guardarTipoSancion(@BindingParam("txtNombreSancion") Textbox txtNombreSancion) {
 		if (nombre == null || descripcion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		} else {
@@ -145,7 +146,7 @@ public class VMSancionMaestro {
 					true, nombre);
 			serviciosancionmaestro.guardarSancion(sanm);
 			mensajeAlUsuario.informacionRegistroCorrecto();
-			limpiar();
+			limpiar(txtNombreSancion);
 		}
 	}
 
@@ -201,10 +202,15 @@ public class VMSancionMaestro {
 	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus" })
-	public void mostrarSeleccionada() {
+	public void mostrarSeleccionada(@BindingParam("txtNombreSancion") Textbox txtNombreSancion) {
 		id_sancion = getTipoSancionSeleccionada().getIdSancion();
 		nombre = getTipoSancionSeleccionada().getNombreSancion();
 		descripcion = getTipoSancionSeleccionada().getDescripcion();
+		if(id_sancion == 1 || id_sancion == 2){
+			txtNombreSancion.setReadonly(true);
+		}else{
+			txtNombreSancion.setReadonly(false);
+		}
 	}
 
 	/**
@@ -230,12 +236,13 @@ public class VMSancionMaestro {
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
 			"nombreFiltro", "listaTipoSancion" })
-	public void limpiar() {
+	public void limpiar(@BindingParam("txtNombreSancion") Textbox txtNombreSancion) {
 		id_sancion = null;
 		nombre = null;
 		nombreFiltro = "";
 		descripcion = null;
 		listaTipoSancion();
+		txtNombreSancion.setReadonly(false);
 	}
 
 	/**

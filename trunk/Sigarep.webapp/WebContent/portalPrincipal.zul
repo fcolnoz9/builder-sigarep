@@ -56,9 +56,10 @@
 				<center border="none">
 					<borderlayout>
 						<west size="55%" border="none">
-							<div class="panel panel-info"
-								height="100%" align="center">
-								<div class="panel-heading" align="left">
+							<div class="panel panel-info" height="100%"
+								align="center">
+								<div class="panel-heading"
+									align="left">
 									<label class="label label-warning"
 										style="font-size:12px">
 										Consulta tu estado
@@ -76,11 +77,12 @@
 									<hbox align="center"
 										pack="center">
 										<image
-											src="/imagenes/portal-principal/busquedaico.png" height="85%" />
+											src="/imagenes/portal-principal/busquedaico.png"
+											height="85%" />
 										<label value="Cédula:" />
 										<intbox id="intcedula"
-											placeholder="Ingrese la cédula." maxlength="8" 
-											value="@bind(vm.cedula)" />
+											placeholder="Ingrese la cédula." maxlength="8" width="100%"
+											cols="23" value="@bind(vm.cedula)" />
 										<button label="Buscar"
 											image="/imagenes/iconos/buscar.png"
 											onClick="@command('modalEstadoEstudiante')" />

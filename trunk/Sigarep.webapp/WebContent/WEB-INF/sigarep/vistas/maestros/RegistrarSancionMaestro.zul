@@ -17,7 +17,7 @@
 					<label value="Nombre:" id="lblSancion" />
 					<textbox id="txtNombreSancion"
 						placeholder="Ingrese nombre del tipo de sanción" cols="23"
-						mold="rounded" width="80%" maxlength="60"
+						mold="rounded" width="80%" maxlength="2"
 						value="@bind(vm.nombre)">
 					</textbox>
 					<label value="Descripción: " id="lblDescripcion" />
@@ -33,7 +33,7 @@
 	<div align="right">
 		<button label="Guardar" id="btnGuardarSancion" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/guardar.png"
-			onClick="@command('guardarTipoSancion')">
+			onClick="@command('guardarTipoSancion', txtNombreSancion = txtNombreSancion)">
 		</button>
 		<button label="Eliminar" id="btnEliminarActividad" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/eliminar.png"
@@ -41,7 +41,7 @@
 		</button>
 		<button label="Limpiar" id="btnLimpiarSancion" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/limpiar.png"
-			onClick="@command('limpiar')">
+			onClick="@command('limpiar', txtNombreSancion = txtNombreSancion)">
 		</button>
 		<button label="Cerrar" id="btnCerrarSancion" mold="trendy"
 			width="auto" height="auto" image="/imagenes/iconos/cerrar.png"
@@ -53,7 +53,7 @@
 		<listbox id="lbxSancion" height="100%"
 			model="@bind(vm.listaTipoSancion)"
 			selectedItem="@bind(vm.tipoSancionSeleccionada)"
-			onSelect="@command('mostrarSeleccionada')"
+			onSelect="@command('mostrarSeleccionada', txtNombreSancion = txtNombreSancion)"
 			emptyMessage="No hay Sanciones registradas" mold="paging"
 			pageSize="10">
 			<listhead>
