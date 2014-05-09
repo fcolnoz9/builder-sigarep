@@ -10,11 +10,11 @@ import org.springframework.data.repository.query.Param;
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.CronogramaPK;
 
-/**Cronograma de Actividades - Planificar
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.1
- * @since 10/02/14
+/** Repositorio ICronogramaDAO
+ * @author Equipo Builder
+ * @version 1.0
+ * @since 10/02/2014
+ * @last 09/05/2014
  */
 
 public interface ICronogramaDAO extends JpaRepository<Cronograma, CronogramaPK> {
@@ -23,6 +23,10 @@ public interface ICronogramaDAO extends JpaRepository<Cronograma, CronogramaPK> 
 
 	public List<Cronograma> findById_CodigoLapso(String codigoLapso);
 	
+	/**
+	 * Busca la ultima fecha en el cronograma actual
+	 * @return la ultima fecha del cronograma actual
+	 */
 	@Query("SELECT MAX(cr.fechaFin) from Cronograma cr, LapsoAcademico la WHERE cr.id.codigoLapso = la.codigoLapso AND la.estatus = TRUE")
 	public Date buscarUltimaFechaCronogramaActual();
 
