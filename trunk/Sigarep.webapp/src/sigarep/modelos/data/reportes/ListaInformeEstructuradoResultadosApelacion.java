@@ -1,9 +1,14 @@
 package sigarep.modelos.data.reportes;
-
 import java.util.Date;
 
+/** Clase ListaInformeEstructuradoResultadosApelacion
+ * @author Equipo Builder   
+ * @version 1.0
+ * @since 20/12/2013
+ * @last 09/05/2014
+ */
 public class ListaInformeEstructuradoResultadosApelacion {
-	
+	// Atributos de la clase
 	private String cedulaEstudiante;
 	private String primerNombre;
 	private String primerApellido;
@@ -13,10 +18,15 @@ public class ListaInformeEstructuradoResultadosApelacion {
 	private Date fechaSesion;
 	private String tipoSesion;
 	
+	// constructor por defecto
 	public ListaInformeEstructuradoResultadosApelacion() {
 		
 	}
 	
+	/**
+	 * Constructor ListaEspecialEstudiantesSancionadosApelaciones
+	 * @param cedulaEstudiante, primerNombre, primerApellido, nombrePrograma, veredicto, nroSesion, fechaSesion, tipoSesion
+	 */
 	public ListaInformeEstructuradoResultadosApelacion(String cedulaEstudiante,String primerNombre, String primerApellido, String nombrePrograma, String veredicto, String nroSesion, Date fechaSesion, String tipoSesion) {
 		this.cedulaEstudiante= cedulaEstudiante;
 		this.primerNombre= primerNombre;
@@ -28,6 +38,7 @@ public class ListaInformeEstructuradoResultadosApelacion {
 		this.tipoSesion= tipoSesion;
 	}
 
+	//  Métodos Set y Get
 	public String getCedulaEstudiante() {
 		return cedulaEstudiante;
 	}
@@ -90,6 +101,6 @@ public class ListaInformeEstructuradoResultadosApelacion {
 
 	public void setTipoSesion(String tipoSesion) {
 		this.tipoSesion = tipoSesion;
-	}
+	}// Fin Métodos Set y Get
 
 }

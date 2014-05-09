@@ -1,10 +1,10 @@
 package sigarep.modelos.data.reportes;
 
-/** Apelaciones
- * Reporte Configurable   por apelaciones
- * @author BUILDER 
+/** Clase ConfigurableApelaciones
+ * @author Equipo Builder
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class ConfigurableApelaciones {
 	// Atributos de la clase	
@@ -20,8 +20,7 @@ public class ConfigurableApelaciones {
 	/**
 	 * Constructor ConfigurableApelaciones
 	 * 
-	 * @param nombrePrograma, nombreSancion, nombreTipoMotivo, instanciaApelada, codigoLapso, veredicto, edoApelacion
-	 * @return Constructor lleno
+	 * @param nombrePrograma, nombreSancion, nombreTipoMotivo, instanciaApelada, codigoLapso, veredicto, edoApelacion, asignatura
 	 */
 	public ConfigurableApelaciones(String nombrePrograma, String nombreSancion,
 			String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,String edoApelacion,String asignatura) {
@@ -104,6 +103,6 @@ public class ConfigurableApelaciones {
 	
 	// Fin Métodos Set y Get
 	
-}//Fin Clase ConfigurableApelaciones
+}
 
 

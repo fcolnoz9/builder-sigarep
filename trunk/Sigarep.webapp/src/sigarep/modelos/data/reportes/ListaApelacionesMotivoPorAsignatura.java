@@ -1,10 +1,11 @@
 package sigarep.modelos.data.reportes;
 import java.math.BigDecimal;
 
-/** ListaApelacionesMotivoPorAsignatura
- * @author BUILDER 
+/** Clase ListaApelacionesMotivoPorAsignatura
+ * @author Equipo Builder 
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class ListaApelacionesMotivoPorAsignatura {
 	// Atributos de la clase
@@ -21,12 +22,8 @@ public class ListaApelacionesMotivoPorAsignatura {
 	}
 
 	/**
-	 * Constructor EstudianteSancionado
-	 * @param String primerNombre, String primerApellido,
-	 *	String sexo, String nombrePrograma, String nombreSancion,
-	 *	String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,
-	 *	String edoApelacion,String asignatura
-	 * @return Constructor lleno
+	 * Constructor ListaApelacionesMotivoPorAsignatura
+	 * @param asignatura, motivo, apelaciones, procedentes, totalapelaciones, totalprocedentes
 	 */
 	public ListaApelacionesMotivoPorAsignatura(String asignatura, String motivo, BigDecimal apelaciones, BigDecimal procedentes, BigDecimal totalapelaciones, BigDecimal totalprocedentes){
 		super();
@@ -85,4 +82,4 @@ public class ListaApelacionesMotivoPorAsignatura {
 		this.procedentes = procedentes;
 	}// Fin Métodos Set y Get
 	
-}//Fin Clase ListaApelacionesMotivoPorAsignatura
+}

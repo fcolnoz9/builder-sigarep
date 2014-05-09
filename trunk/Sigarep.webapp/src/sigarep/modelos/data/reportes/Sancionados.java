@@ -1,9 +1,10 @@
 package sigarep.modelos.data.reportes;
 
-/** Sancionados
- * @author BUILDER 
+/** Clase Sancionados
+ * @author Equipo Builder  
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class Sancionados {
 	// Atributos de la clase
@@ -17,7 +18,6 @@ public class Sancionados {
 	/**
 	 * Constructor Sancionados
 	 * @param cedula, nombre, apellido, veredicto, procedentes, noprocedentes
-	 * @return Constructor lleno
 	 */
 	public Sancionados(String cedula, String nombre, String apellido,
 			String veredicto, int procedentes, int noprocedentes) {
@@ -79,4 +79,4 @@ public class Sancionados {
 		this.noprocedentes = noprocedentes;
 	}// Fin Métodos Set y Get
 
-}//Fin Clase Sancionados
+}

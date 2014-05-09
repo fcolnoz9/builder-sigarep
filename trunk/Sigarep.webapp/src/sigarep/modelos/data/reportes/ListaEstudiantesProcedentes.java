@@ -1,7 +1,13 @@
 package sigarep.modelos.data.reportes;
 
+/** Clase ListaEstudiantesProcedentes
+ * @author Equipo Builder   
+ * @version 1.0
+ * @since 20/12/2013
+ * @last 09/05/2014
+ */
 public class ListaEstudiantesProcedentes {
-	
+	// Atributos de la clase
 	private String cedulaEstudiante;
 	private String primerNombre;
 	private String primerApellido;
@@ -10,10 +16,15 @@ public class ListaEstudiantesProcedentes {
 	private String instanciaApelada;
 	private Integer semestre;
 	
+	// constructor por defecto
 	public ListaEstudiantesProcedentes(){
 		
 	}
 	
+	/**
+	 * Constructor ListaEspecialEstudiantesSancionadosApelaciones
+	 * @param cedulaEstudiante, primerNombre, primerApellido, nombrePrograma, veredicto, instanciaApelada, semestre
+	 */
 	public ListaEstudiantesProcedentes(String cedulaEstudiante, String primerNombre, String primerApellido,
 										String nombrePrograma, String veredicto, String instanciaApelada, Integer semestre){
 		
@@ -26,7 +37,8 @@ public class ListaEstudiantesProcedentes {
 		this.semestre= semestre;
 		
 	}
-
+	
+	//  Métodos Set y Get
 	public String getCedulaEstudiante() {
 		return cedulaEstudiante;
 	}
@@ -81,7 +93,7 @@ public class ListaEstudiantesProcedentes {
 
 	public void setSemestre(Integer semestre) {
 		this.semestre = semestre;
-	}
+	}// Fin Métodos Set y Get
 
 	
 	
