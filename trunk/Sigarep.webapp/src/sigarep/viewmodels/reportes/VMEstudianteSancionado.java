@@ -838,7 +838,7 @@ public class VMEstudianteSancionado {
 	@Command                       //*********CONFIGURAR COMBO ASIGNATURA POR SANCION*******
 	@NotifyChange({"cmbAsignatura","objAsignatura","parametroAsignatura"})
 	public void configurarComboAsignatura(){
-		if(objSancion.getIdSancion()!=1){
+		if(objSancion.getIdSancion()!=1 && objSancion.getDescripcion()=="Todos"){
 			cmbAsignatura.setDisabled(false);
 			objAsignatura= new Asignatura(null, true,"Todos", 3,null);
 		}

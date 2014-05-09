@@ -26,7 +26,7 @@ public class ServicioReporteEstudianteSancionado {
 		}
 		String queryStatement = 
 		"SELECT Distinct es.primer_nombre, es.primer_apellido, es.sexo,prog.nombre_programa,san.nombre_sancion, " + 
-		"tm.nombre_tipo_motivo,iap.instancia_apelada,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado,asig.nombre_asignatura " +
+		"tm.nombre_tipo_motivo,iap.nombre_recurso_apelacion,lapso.codigo_lapso,sap.veredicto,edo_ape.nombre_estado,asig.nombre_asignatura " +
 		"FROM sigarep.estudiante es " + 
 		"LEFT JOIN sigarep.estudiante_sancionado as esa ON esa.cedula_estudiante=es.cedula_estudiante " +
 		"LEFT JOIN sigarep.solicitud_apelacion as sap ON sap.cedula_estudiante=esa.cedula_estudiante " +
