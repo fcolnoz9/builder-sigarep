@@ -241,6 +241,6 @@ public class VMEditarPerfilUsuario {
 		boolean condicion = false;
 		if(!nombre.equals("") || !apellido.equals("") || !correo.equals("") || !telefono.equals(""))
 			condicion = true;
-		mensajesAlusuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+		mensajesAlusuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
 }
