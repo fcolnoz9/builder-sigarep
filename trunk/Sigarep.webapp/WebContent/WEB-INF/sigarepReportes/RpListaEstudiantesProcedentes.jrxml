@@ -56,7 +56,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[LISTADO DE ESTUDIANTES PROCEDENTES]]></text>
+				<text><![CDATA[LISTA DE ESTUDIANTES PROCEDENTES]]></text>
 			</staticText>
 			<image scaleImage="FillFrame">
 				<reportElement x="0" y="56" width="89" height="67" uuid="2781fd22-a4c1-444a-80ce-1e54fa74785f"/>
