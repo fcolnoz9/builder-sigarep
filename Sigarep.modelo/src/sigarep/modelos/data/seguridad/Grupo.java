@@ -23,7 +23,7 @@ import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
 /** Clase Grupo
  * Registra y Modifica el Grupo de usuarios del sistema.
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 04/02/2014 
  * @last 08/05/2014
@@ -135,7 +135,7 @@ public class Grupo implements Serializable{
 	 * Relación de la clase Grupo con la clase UsuarioGrupo, Agregar UsuarioGrupo
 	 * 
 	 * @see UsuarioGrupo
-	 * @param UsuarioGrupo
+	 * @param usuarioGrupo
 	 * @return usuarioGrupo
 	 */
 	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuarioGrupo) {
@@ -147,7 +147,7 @@ public class Grupo implements Serializable{
 	 * Relación de la clase Grupo con la clase UsuarioGrupo, Quitar UsuarioGrupo
 	 * 
 	 * @see UsuarioGrupo
-	 * @param UsuarioGrupo
+	 * @param usuarioGrupo
 	 * @return usuarioGrupo
 	 */
 	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuarioGrupo) {
