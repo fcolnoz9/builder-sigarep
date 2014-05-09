@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Clase TipoMotivo
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 18/12/2013
  * @last 08/05/2014
@@ -122,8 +122,8 @@ private static final long serialVersionUID = 1L;
 	 * Relación de la clase TipoMotivo con la clase Recaudo, Agregar Recaudo
 	 * 
 	 * @see Recaudo
-	 * @param Recaudo
-	 * @return Recaudo
+	 * @param recaudo
+	 * @return recaudo
 	 */
 	public Recaudo addRecaudo(Recaudo recaudo) {
 		getRecaudos().add(recaudo);
@@ -135,8 +135,8 @@ private static final long serialVersionUID = 1L;
 	 * Relación de la clase TipoMotivo con la clase Recaudo, Quitar Recaudo
 	 * 
 	 * @see Recaudo
-	 * @param Recaudo
-	 * @return Recaudo
+	 * @param recaudo
+	 * @return recaudo
 	 */
 	public Recaudo removeRecaudo(Recaudo recaudo) {
 		getRecaudos().remove(recaudo);
@@ -148,8 +148,8 @@ private static final long serialVersionUID = 1L;
 	 * Relación de la clase TipoMotivo con la clase Motivo, Agregar Motivo
 	 * 
 	 * @see Motivo
-	 * @param Motivo
-	 * @return Motivo
+	 * @param motivo
+	 * @return motivo
 	 */
 	public Motivo addMotivo(Motivo motivo) {
 		getMotivos().add(motivo);
@@ -161,8 +161,8 @@ private static final long serialVersionUID = 1L;
 	 * Relación de la clase TipoMotivo con la clase Motivo, Quitar Motivo
 	 * 
 	 * @see Motivo
-	 * @param Motivo
-	 * @return Motivo
+	 * @param motivo
+	 * @return motivo
 	 */
 	public Motivo removeMotivo(Motivo motivo) {
 		getMotivos().remove(motivo);

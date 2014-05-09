@@ -6,7 +6,7 @@ import javax.persistence.*;
 /**
  * Clase PreguntasBasicas
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 15/12/2013
  * @last 08/05/2014

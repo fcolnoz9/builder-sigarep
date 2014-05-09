@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Clase Persona  (Miembros de la Instancia)
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 10/12/2013
  * @last 08/05/2014
@@ -114,8 +114,8 @@ public class Persona implements Serializable {
 	 * InstanciaMiembro
 	 * 
 	 * @see InstanciaMiembro
-	 * @param InstanciaMiembro
-	 * @return InstanciaMiembro
+	 * @param instanciaMiembro
+	 * @return instanciaMiembro
 	 */
 	public InstanciaMiembro addInstanciaMiembro(
 			InstanciaMiembro instanciaMiembro) {
@@ -129,16 +129,13 @@ public class Persona implements Serializable {
 	 * InstanciaMiembro
 	 * 
 	 * @see InstanciaMiembro
-	 * @param InstanciaMiembro
-	 * @return InstanciaMiembro
+	 * @param instanciaMiembro
+	 * @return instanciaMiembro
 	 */
 	public InstanciaMiembro removeInstanciaMiembro(
 			InstanciaMiembro instanciaMiembro) {
 		getInstanciaMiembros().remove(instanciaMiembro);
 		instanciaMiembro.setPersona(null);
-
 		return instanciaMiembro;
-	}
-
-	
+	}	
 }

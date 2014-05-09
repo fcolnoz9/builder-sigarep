@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Clase Actividad (Actividades del Cronograma)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 15/12/2013
  * @last 08/05/2014
@@ -51,9 +51,7 @@ public class Actividad implements Serializable {
 	/**
 	 * Constructor Actividad
 	 * 
-	 * @param id_actividad
-	 *            , nombre, descripcion, instanciaApelada, estatus
-	 * @return Constructor lleno
+	 * @param id_actividad , nombre, descripcion, instanciaApelada, estatus
 	 */
 	public Actividad(Integer id_actividad, String nombre, String descripcion,
 			InstanciaApelada instanciaApelada, Boolean estatus) {
@@ -106,7 +104,6 @@ public class Actividad implements Serializable {
 		this.cronogramas = cronogramas;
 	}
 
-	
 	public InstanciaApelada getInstanciaApelada() {
 		return instanciaApelada;
 	}
@@ -127,7 +124,6 @@ public class Actividad implements Serializable {
 	public Cronograma addCronograma(Cronograma cronograma) {
 		getCronogramas().add(cronograma);
 		cronograma.setActividad(this);
-
 		return cronograma;
 	}
 
@@ -144,4 +140,4 @@ public class Actividad implements Serializable {
 		return cronograma;
 	}
 
-}//Fin Clase Actividad
+}

@@ -9,7 +9,7 @@ import java.util.Set;
  * Clase Asignatura (Asignaturas de los diferentes programas
  * académicos del Decanato)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
  * @last 08/05/2014
@@ -54,10 +54,8 @@ public class Asignatura implements Serializable {
 	/**
 	 * Constructor Asignatura
 	 * 
-	 * @param codigoAsignatura
-	 *            , estatus, nombreAsignatura, unidadesAcademicas,
-	 *            programaAcademico
-	 * @return Constructor lleno
+	 * @param codigoAsignatura , estatus, nombreAsignatura, unidadesAcademicas,
+	 *        programaAcademico
 	 */
 	public Asignatura(String codigoAsignatura, Boolean estatus,
 			String nombreAsignatura, Integer unidadesAcademicas,
@@ -134,7 +132,6 @@ public class Asignatura implements Serializable {
 		getAsignaturaEstudianteSancionados()
 				.add(asignaturaEstudianteSancionado);
 		asignaturaEstudianteSancionado.setAsignatura(this);
-
 		return asignaturaEstudianteSancionado;
 	}
 
@@ -151,8 +148,7 @@ public class Asignatura implements Serializable {
 		getAsignaturaEstudianteSancionados().remove(
 				asignaturaEstudianteSancionado);
 		asignaturaEstudianteSancionado.setAsignatura(null);
-
 		return asignaturaEstudianteSancionado;
 	}
 	
-}//Fin Clase Asignatura
+}

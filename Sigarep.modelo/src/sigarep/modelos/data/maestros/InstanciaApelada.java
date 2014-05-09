@@ -12,7 +12,7 @@ import java.util.List;
  * Clase InstanciaApelada (Instancia por la cual los
  * estudiantes deben introducir sus apelaciones)
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 20/12/13
  * @last 08/05/2014
@@ -72,10 +72,8 @@ public class InstanciaApelada implements Serializable {
 	/**
 	 * Constructor InstanciaApelada
 	 * 
-	 * @param idInstanciaApelada
-	 *            , descripcion, estatus, instanciaApelada,
-	 *            nombreRecursoApelacion
-	 * @return Constructor lleno
+	 * @param idInstanciaApelada, descripcion, estatus, instanciaApelada,
+	 *        nombreRecursoApelacion
 	 */
 	public InstanciaApelada(Integer idInstanciaApelada, String descripcion,
 		Boolean estatus, String instanciaApelada,
@@ -182,7 +180,6 @@ public class InstanciaApelada implements Serializable {
 			SolicitudApelacion solicitudApelacion) {
 		getSolicitudApelacions().add(solicitudApelacion);
 		solicitudApelacion.setInstanciaApelada(this);
-
 		return solicitudApelacion;
 	}
 
@@ -198,7 +195,6 @@ public class InstanciaApelada implements Serializable {
 			SolicitudApelacion solicitudApelacion) {
 		getSolicitudApelacions().remove(solicitudApelacion);
 		solicitudApelacion.setInstanciaApelada(null);
-
 		return solicitudApelacion;
 	}	
-}//Fin Clase InstanciaApelada
+}

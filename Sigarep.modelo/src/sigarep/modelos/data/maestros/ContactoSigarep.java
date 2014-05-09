@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * Clase ContactoSigarep (Clase con los datos del contacto
  * del portal Web)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
  * @last 08/05/2014
@@ -73,10 +73,9 @@ public class ContactoSigarep implements Serializable {
 	/**
 	 * Constructor ConstructorSigarep
 	 * 
-	 * @param id_contacto
-	 *            , quienesSomos, correoContacto, twitter, facebook,
-	 *            telefonoContacto, direccionContacto
-	 * @return Constructor lleno
+	 * @param id_contacto , quienesSomos, correoContacto, twitter, facebook,
+	 *        telefonoContacto, direccionContacto, claveCorreo, servidorEntrantePop3,
+	 *        servidorSalidaSmtp, puertoEntradaPop3, puertoSalidaSmtp, estatus
 	 */
 	public ContactoSigarep(Integer id_contacto, String quienesSomos,
 			String correoContacto, String twitter, String facebook,
@@ -204,4 +203,4 @@ public class ContactoSigarep implements Serializable {
 		this.estatus = estatus;
 	}
 	// Fin Métodos set y get
-}// Fin Clase ContactoSigarep
+}

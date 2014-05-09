@@ -4,9 +4,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Clase EstadoApelacion Instancia Apelada
+ * Clase EstadoApelacion 
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 15/12/2013
  * @last 08/05/2014
@@ -46,9 +46,7 @@ public class EstadoApelacion implements Serializable {
 	/**
 	 * Constructor Estado apelacion
 	 * 
-	 * @param idEstadoApelacion
-	 *            , nombreEstado, descripcion, estatus
-	 * @return Constructor lleno
+	 * @param idEstadoApelacion , nombreEstado, descripcion, estatus
 	 */
 	public EstadoApelacion(Integer idEstadoApelacion, String nombreEstado,
 			String descripcion, Boolean estatus) {
@@ -100,4 +98,4 @@ public class EstadoApelacion implements Serializable {
 		this.instanciaApelada = instanciaApelada;
 	}
 	// Fin Métodos Set y Get
-}// Fin Clase EstadoApelacion
+}

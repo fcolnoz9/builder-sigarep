@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Clase Reglamento
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 12/12/14
  * @last 08/05/2014

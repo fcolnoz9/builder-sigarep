@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Clase Recaudo 
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 15/12/2013
  * @last 08/05/2014
@@ -127,8 +127,8 @@ public class Recaudo implements Serializable {
 	 * Relación de la clase Recaudo con la clase RecaudoEntregado,Agregar RecaudoEntregado
 	 * 
 	 * @see RecaudoEntregado
-	 * @param RecaudoEntregado
-	 * @return RecaudoEntregado
+	 * @param recaudoEntregado
+	 * @return recaudoEntregado
 	 */
 	public RecaudoEntregado addRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {
@@ -141,8 +141,8 @@ public class Recaudo implements Serializable {
 	 * Relación de la clase Recaudo con la clase RecaudoEntregado, Quitar RecaudoEntregado
 	 * 
 	 * @see RecaudoEntregado
-	 * @param RecaudoEntregado
-	 * @return RecaudoEntregado
+	 * @param recaudoEntregado
+	 * @return recaudoEntregado
 	 */
 	public RecaudoEntregado removeRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {
