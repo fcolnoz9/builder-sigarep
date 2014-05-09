@@ -19,7 +19,7 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 /**
  * Clase Lapso Académico REgistra y modifica un lapso académico
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 20/12/13
  */
@@ -103,8 +103,9 @@ public class VMLapsoAcademico {
 
 	/**
 	 * Inicialización
-	 * @param init
-	 * @return metodos inicializados
+	 * Init. Código de inicialización.
+	 * @param Ninguno.
+	 * @return métodos inicializados
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Init
@@ -115,10 +116,10 @@ public class VMLapsoAcademico {
 	}
 
 	/**
-	 * Guardar un lapso Académico si no hay un lapso activo ya registrado y
+	 * Guardar un lapso Académico : si no hay un lapso activo ya registrado y
 	 * modifica el lapso actual
-	 *  @return nada
-	 * @parameters el objeto lapsoacademico
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -164,10 +165,10 @@ public class VMLapsoAcademico {
 	}
 
 	/**
-	 * Metodo que valida la fecha de los calendarios, que la fecha de inico debe
-	 * ser menor que la fecha de cierre
-	 * @return nada
-	 * @parameters fechaInicio, fechaCierre
+	 * Valida la Fecha : Metodo que valida la fecha de los calendarios, que la fecha de inico debe
+	 * ser menor que la fecha de cierre.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -182,10 +183,10 @@ public class VMLapsoAcademico {
 	}
 
 	/**
-	 * permite tomar los datos del objeto lapso académico seleccionado
-	 * @return nada
-	 * @parameters codigo_lapso,fechaInicio,fechaCierre y lista lapso académico
-	 * @throws No dispara ninguna excepcion.
+	 * mostrarSeleccionada 
+	 * @param Ningun.            .
+	 * @return Objeto Lapso seleccionado
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "codigoLapso", "fechaInicio", "fechaCierre" })
@@ -196,9 +197,9 @@ public class VMLapsoAcademico {
 	}
 
 	/**
-	 * Permite mostrar la lista de todos los lapso académico
+	 * Buscar Todos Lapso Academicos : Permite mostrar la lista de todos los lapso académico
+	 * @param Ningun. 
 	 * @return la lista de lapso académico
-	 * @parameters
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -210,8 +211,8 @@ public class VMLapsoAcademico {
 
 	/**
 	 * buscar Lapso Academico
-	 * @return lapso activo
-	 * @param
+	 * @param Ningun.
+	 * @return Ningun.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -221,10 +222,9 @@ public class VMLapsoAcademico {
 	}
 
 	/**
-	 * Metodo que limpia todos los campos
-	 * @return nada
-	 * @parameters codigoLapso, fechaInicio, fechaCierre y la
-	 *             listaLapsoAcademico
+	 * limpiar lapso : Metodo que limpia todos los campos
+	 * @param Ningun.
+	 * @return Ningun
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -239,9 +239,9 @@ public class VMLapsoAcademico {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
+	 * Cerrar Ventana : cierra el .zul asociado al VM
+	 * @param  Window ventana
+	 * @return Ningun
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command

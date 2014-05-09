@@ -23,11 +23,11 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
-/**Reglamento
- * UCLA-DCYT Sistemas de Información
- * @author Equipo : Builder-Sigarep Lapso 2013-1
- * @version 1.0
- * @since 22/01/14
+/** Clase VMReglamento.
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 22-/01/13
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMReglamento {
@@ -160,12 +160,7 @@ public class VMReglamento {
 	}
 	//Fin de los Metodos Get y Set de la clase 
 
-	/**
-	 * Constructor
-	 * @param ninguno
-	 * @return nada
-	 * @throws No dispara ninguna excepcion.
-	 */
+	
 	public VMReglamento() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -173,9 +168,10 @@ public class VMReglamento {
 
 	/**
 	 * inicialización
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No dispara ninguna excepcion.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init 
 	public void init(){
@@ -189,9 +185,10 @@ public class VMReglamento {
 	}
 
 	/** guardarReglamento
-	 * @param "titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc"
-	 * @return Guarda el registro completo.
-	 * @throws las excepciones son que los datos a guardar esten vacios
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command // Permite manipular la propiedad de ViewModel
 	@NotifyChange({"IdDocumento","titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc", "documento"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
@@ -216,9 +213,9 @@ public class VMReglamento {
 	}
 
 	/**eliminarReglamento
-	 * @param IdDocumento,titulo,descripcion,categoria,fechaSubida,listaReglamento,nombreDoc
-	 * @return No devuelve ningun valor
-	 * @throws La Excepcion es que quiera eliminar con los campos vacion, sin seleccionar ningun registro
+	* @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc","documento"})
@@ -244,10 +241,12 @@ public class VMReglamento {
 		}
 	}
 
-	/**mostrarSeleccionado
-	 *@param IdDocumento,titulo,descripcion,categoria,fechaSubida,listaReglamento,nombreDoc
-	 *@return  Llena cada una de las cajas de texto con los datos del registro seleccionado en la lista
-	 *@throws No dispara ninguna excepcion.
+	/**
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
+	 * @param Ninguno         .
+	 * @return Objeto reglamento seleccionada
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida","listaReglamento","nombreDoc","documento"})
@@ -264,9 +263,10 @@ public class VMReglamento {
 		}
 	}
 
-	/** Busca un Reglamento
-	 * @parameters listaReglamento cargado con  los reglamentos.
-	 * @return No devuelve ningun valor.
+	/**Busca un Reglamento
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"listaReglamento"})
@@ -275,8 +275,9 @@ public class VMReglamento {
 	}
 
 	/**filtros. Filtra por las variables tituloF,categoriaF 
-	 *@param tituloF,categoriaF
-	 *@return No devuelve ningun valor.
+	* @param Ninguno
+	 * @return Objeto reglamento.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaReglamento","tituloF","categoriaF" })
@@ -285,12 +286,10 @@ public class VMReglamento {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"})
@@ -301,11 +300,12 @@ public class VMReglamento {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 
-	/** limpiar
-	 * @param "IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc"
-	 * @return inicializa las cajas de texto
-	 * @throws No dispara ninguna excepcion.
+	/**
+	 * limpiar
 	 * 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"IdDocumento","titulo", "descripcion", "categoria","fechaSubida", "listaReglamento","nombreDoc", "documento"})
@@ -323,10 +323,10 @@ public class VMReglamento {
 		buscarReglamento();
 	}
 
-	/**cargarDocumento
-	 * @param nombreDoc,UploadEvent event Zkoss UI.
-	 * @return  Muestra Documento Seleccionado
-	 * @throws La excepcion es que media sea distinto de null
+	/**cargarDocumento : Muestra Documento Seleccionado
+	 * @param Ninguno.
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"nombreDoc","documento"})
@@ -358,7 +358,9 @@ public class VMReglamento {
 	}
 
 	/**descargarDocumento
-	 * @return No devuelve ningun valor
+	 * @param Ninguno.
+	 * @return Ninguno.
+     * @throws No dispara ninguna excepción
 	 */
 	@Command
 	public void descargarDocumento(){

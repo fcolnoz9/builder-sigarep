@@ -17,11 +17,11 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.servicio.maestros.ServicioPreguntaBasica;
 
-/**PreguntaBasica
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/** Clase VMPreguntaBasica.
+ * @author Equipo Builder
  * @version 1.0
- * @since -/12/13
+ * @since 02-/12/13
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMPreguntaBasica {
@@ -87,11 +87,10 @@ public class VMPreguntaBasica {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init(){
@@ -100,9 +99,9 @@ public class VMPreguntaBasica {
 	}
 
 	/** guardarPreguntaBasica
-	 * @param id_pregunta_basica, pregunta, respuesta, estatus, listaPregunta
-	 * @return No devuelve ningun valor.
-	 * @throws las Excepciones ocurren cuando se quiera registrar una PreguntaBasica y haya campos en blanco.
+	 * @param Ninguno.
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command // Permite manipular la propiedad de ViewModel
 	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
@@ -118,9 +117,9 @@ public class VMPreguntaBasica {
 	}
 
 	/** eliminarPreguntaBasica
-	 * @param id_pregunta_basica, pregunta, respuesta, estatus, listaPregunta.
-	 * @return No devuelve ningun valor.
-	 * @throws la Excepcion es que quiera eliminar con los campos vacios, sin seleccionar ningun registro
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({"listaPregunta","pregunta","respuesta"})
@@ -150,9 +149,12 @@ public class VMPreguntaBasica {
 		}
 	}
 
-	/** mostrarSeleccionada
-	 * @param pregunta, respuesta.
-	 * @return No devuelve ningun valor.
+	/**
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
+	 * @param Ninguno
+	 * @return Objeto pregunta basica seleccionada
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"pregunta","respuesta"})
@@ -163,7 +165,9 @@ public class VMPreguntaBasica {
 	}
 
 	/** buscarPreguntaBasica
-	 * @return Devuelve una lista de preguntas.
+	 * @param Ninguno
+	 * @return Objeto preguntas basicas. 
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"listaPregunta"})
@@ -171,9 +175,12 @@ public class VMPreguntaBasica {
 		listaPregunta =serviciopreguntabasica.filtrarPreguntaBasica(pregunta);
 	}
 
-	/** limpiar
-	 * @param id_pregunta_basica, pregunta, respuesta, estatus, listaPregunta
-	 * @return No devuelve ningun valor.
+	/**
+	 * limpiar
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"listaPregunta", "idPreguntaBasica ", "pregunta", "respuesta","estatus"})
@@ -185,12 +192,11 @@ public class VMPreguntaBasica {
 	}
 
 	/**
-	 * Cerrar Ventana
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
 	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"listaPregunta","pregunta","respuesta"})

@@ -19,11 +19,11 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-/**
- * TipoMotivo UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14
+/** Clase VMTipoMotivo.
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 22-/01/13
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMTipoMotivo {
@@ -111,11 +111,10 @@ public class VMTipoMotivo {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init(){
@@ -127,10 +126,9 @@ public class VMTipoMotivo {
 	/**
 	 * listaTipoMotivo
 	 * 
-	 * @param listaTipoMotivo
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Objeto tipoMotivo
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
@@ -140,12 +138,10 @@ public class VMTipoMotivo {
 
 	/**
 	 * guardarTipoMotivo
-	 * 
-	 * @param idTipoMotivo
-	 *            , nombreTipoMotivo, descripcion, listaTipoMotivo
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             debe haber campos en blanco
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus","listaTipoMotivo"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es nombre,apellido,email,sexo se va a colocar en blanco al guardar!!
@@ -179,11 +175,9 @@ public class VMTipoMotivo {
 	/**
 	 * eliminarTipoMotivo
 	 * 
-	 * @param idTipoMotivo
-	 *            , nombreTipoMotivo, estatus, descripcion, listaTipoMotivo
-	 * @return No devuelve ningun valor
-	 * @throws Debe
-	 *             seleccionar un registro para poder eliminarlo
+	* @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({"listaTipoMotivo", "idTipoMotivo","nombreTipoMotivo", "descripcion"})
@@ -220,13 +214,13 @@ public class VMTipoMotivo {
 	}
 
 	/**
-	 * mostrarSeleccionado
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
 	 * 
-	 * @param idTipoMotivo
-	 *            , nombreTipoMotivo, estatus, descripcion
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 *            .
+	 * @return Objeto sacionMaestro seleccionada
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"idTipoMotivo","nombreTipoMotivo", "descripcion","estatus"})
@@ -238,12 +232,10 @@ public class VMTipoMotivo {
 	}
 
 	/**
-	 * filtros
-	 * 
-	 * @param listaTipoMotivo
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * filtros   Método que busca y filtra por nombre de motiv
+	 * @param Ninguno
+	 * @return Objeto tipoMotivo
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaTipoMotivo", "nombreFiltro" })
@@ -254,11 +246,9 @@ public class VMTipoMotivo {
 	/**
 	 * limpiar
 	 * 
-	 * @param idTipoMotivo
-	 *            , nombreTipoMotivo, descripcion, listaTipoMotivo, estatus
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"listaTipoMotivo","idTipoMotivo","nombreTipoMotivo", "estatus","descripcion","nombreFiltro"})
@@ -271,12 +261,10 @@ public class VMTipoMotivo {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"listaTipoMotivo", "idTipoMotivo","nombreTipoMotivo", "descripcion"})

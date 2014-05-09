@@ -22,13 +22,13 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-
-/**
- * VMrecaudoMotivo por XML UCLA DCYT Sistemas de Información.
- * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/** Clase VMrecaudoMotivo .
+ * @author Equipo Builder
  * @version 2.5.2
+ * @since 02-/12/13
+ * @last 09/05/2014
  */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRecaudoMotivo {
 	//-----------------Servicios----------------------------
@@ -153,11 +153,10 @@ public class VMRecaudoMotivo {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -168,12 +167,11 @@ public class VMRecaudoMotivo {
 
 	/**
 	 * Guardar Recaudo
-	 * 
-	 * @param guardarRecaudo
-	 * @return guarda un objeto recaudo
-	 * @throws No
-	 * dispara ninguna excepcion.
-	 */	
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({"idRecaudo", "descripcion", "nombreRecaudo", "observacion","tipoMotivo", "listaRecaudos"})
 	public void guardarRecaudo(){
@@ -191,10 +189,9 @@ public class VMRecaudoMotivo {
 	/**
 	 * Eliminar recaudo
 	 * 
-	 * @param binder
-	 * @returPermite Eliminar un Recaudo.
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({"idRecaudo", "descripcion", "nombreRecaudo", "observacion","nombreTipoMotivo", "tipoMotivo","listaRecaudos"})
@@ -225,13 +222,12 @@ public class VMRecaudoMotivo {
 	}
 
 	/**
-	 * Mostrar Seleccionado
-	 * 
-	 * @param mostrarSeleccionado
-	 * @return muestra en los campos correspondientes los datos del registro seleccionado
-	 * @throws No
-	 * dispara ninguna excepcion.
-	 */			
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
+	 * @param Ninguno           .
+	 * @return Objeto Actividad seleccionada
+	 * @throws No dispara ninguna excepción
+	 */
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "tipoMotivo","nombreTipoMotivo","listaRecaudos"})
 	public void mostrarSeleccionado(){
@@ -247,10 +243,9 @@ public class VMRecaudoMotivo {
 	/**
 	 * Buscar Recaudos
 	 * 
-	 * @param buscar Recaudos, listaRecaudos
-	 * @return listaRecaudos
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Objeto recaudos activos
+	 * @throws No dispara ninguna excepcion.
 	 */
 
 	@Command
@@ -262,8 +257,8 @@ public class VMRecaudoMotivo {
 	/**
 	 * Buscar Tipo Motivo
 	 * 
-	 * @param buscarTiposMotivo, listaTipoMotivo
-	 * @return listaRecaudos
+	 * @param Ninguno.
+	 * @return Objeto tipo motivo
 	 * @throws No
 	 * dispara ninguna excepcion.
 	 */	
@@ -274,12 +269,11 @@ public class VMRecaudoMotivo {
 	}
 
 	/**
-	 * Filtros
+	 * Filtros : Método que busca y filtra los recaudos por nombre de recaudo y tipo del motivo
 	 * 
-	 * @param filtros
-	 * @return Método que busca y filtra los recaudos por nombre de recaudo y tipo del motivo
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Objeto recaudo
+	 * @throws No dispara ninguna excepcion.
 	 */	
 	@Command
 	@NotifyChange({"listaRecaudos","listaTipoMotivo","nombreRecaudofiltro","nombreTipoMotivofiltro"})
@@ -289,12 +283,10 @@ public class VMRecaudoMotivo {
 
 	/**
 	 * Objeto ComboMotivo
-	 * 
-	 * @param objetoComboMotivo
-	 * @return Método que busca los tipos de motivos y los carga en el combobox de motivos
-	 * @throws No
-	 * dispara ninguna excepcion.
-	 */	
+	 * @param Ninguno
+	 * @return Objeto tipo Motivo
+	 * @throws No dispara ninguna excepción
+	 */
 	@Command
 	@NotifyChange({"listaTipoMotivo"})
 	public TipoMotivo objetoComboMotivo() {
@@ -305,10 +297,9 @@ public class VMRecaudoMotivo {
 	/**
 	 * limpiar
 	 * 
-	 * @param limpiar
-	 * @return Metodo que limpia todos los campos de la pantalla
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"idRecaudo", "descripcion", "nombreRecaudo","observacion","nombreTipoMotivo","tipoMotivo","nombreRecaudofiltro","nombreTipoMotivofiltro","listaRecaudos"})
@@ -326,13 +317,12 @@ public class VMRecaudoMotivo {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
+	
 	@Command
 	@NotifyChange({"idRecaudo", "descripcion", "nombreRecaudo", "observacion","tipoMotivo", "listaRecaudos"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){

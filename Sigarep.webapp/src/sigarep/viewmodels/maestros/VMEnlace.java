@@ -14,7 +14,7 @@ import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 /**
  * Clase VMenlace
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
  */
@@ -53,17 +53,23 @@ public class VMEnlace {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
+	 * Init. Código de inicialización.
+	 * @param Ninguno
 	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
 		Enlaces();
 	}
 
+	/** 
+	 * Enlaces.
+	 * 
+	 * @param Ninguno 
+	 * @return Ninguno. 
+	 * @throws No dispara ninguna excepcion. 
+	 */
 	public void Enlaces() {
 		listaEnlace = servicioenlacesinteres.listadoEnlaceInteres();
 		menuItems = new ArrayList<MenuItem>();

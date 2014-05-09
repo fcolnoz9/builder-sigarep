@@ -23,7 +23,7 @@ import sigarep.modelos.servicio.maestros.ServicioNoticia;
 /**
  * Clase VMDetalleNoticia
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
  */
@@ -111,7 +111,7 @@ public class VMDetalleNoticia {
 	
 	/**
 	 * inicialización
-	 * 
+	 * Init. Código de inicialización.
 	 * @param  Component view
 	 * @return código de inicialización
 	 * @throws No

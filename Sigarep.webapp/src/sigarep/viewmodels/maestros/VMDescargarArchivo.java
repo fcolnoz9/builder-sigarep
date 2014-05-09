@@ -17,7 +17,7 @@ import sigarep.modelos.servicio.maestros.ServicioReglamento;
 /**
  * Clase VMDescargarArchivo
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
  */
@@ -43,11 +43,10 @@ public class VMDescargarArchivo {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param String categoria
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 *  Init. Código de inicialización.
+	 * @param categoria
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init(@ExecutionArgParam("categoria") String categoria) {
@@ -59,12 +58,11 @@ public class VMDescargarArchivo {
 	}
 
 	/**
-	 * buscarReglamento.
+	 * buscarReglamento 
 	 * 
-	 * @param Vacío
-	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 * @param Ninguno
+	 * @return Busca todos los registros.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "lista" })
@@ -75,10 +73,9 @@ public class VMDescargarArchivo {
 	/**
 	 * descargarArchivo.
 	 * 
-	 * @param Vacío
+	 * @param Component componente
 	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	public void descargarArchivo(
@@ -97,10 +94,9 @@ public class VMDescargarArchivo {
 	/**
 	 * buscarFormato.
 	 * 
-	 * @param Vacío
+	 * @param Ninguno
 	 * @return Ninguno
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "lista" })

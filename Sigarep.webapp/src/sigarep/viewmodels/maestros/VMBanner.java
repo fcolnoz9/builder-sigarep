@@ -28,9 +28,10 @@ import sigarep.modelos.servicio.maestros.ServicioBanner;
 /**
  * View Models de Banner.
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder
  * @version 2.5.2
  * @since 20/12/2013
+ * @last 09/05/2014
  */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -169,12 +170,11 @@ public class VMBanner {
 	// Fin Métodos Set y Get
 
 	/**
-	 * Inicialización
-	 * 
-	 * @param init
-	 * @return Carga de Variables y metodos inicializados
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * inicialización
+	 *  Init. Código de inicialización.
+	 * @param Ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 
 	@Init
@@ -198,9 +198,9 @@ public class VMBanner {
 	 * Guardar Datos del Banner.
 	 * 
 	 * @param Ninguno
-	 * @return Objeto Banner Guardado
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
 	 */
 
 	@Command
@@ -225,13 +225,11 @@ public class VMBanner {
 	}
 
 	/**
-	 * Eliminar Banner.
+	 * Eliminar Banner: Elimina un registro físicamente.
 	 * 
-	 * @param Integer
-	 *            idImagen
-	 * @return Objeto Banner Eliminado
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({ "listadoBanner", "descripcion", "fechaVencimiento",
@@ -268,10 +266,8 @@ public class VMBanner {
 	 * @param Ninguno
 	 * @return Todos los Banner en la lista que están en estatus TRUE en la Base
 	 *         de Datos
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({ "titulo", "descripcion", "idImagen", "enlace",
 			"fechaVencimiento", "listadoBanner", "imagenBanner" })
@@ -285,10 +281,8 @@ public class VMBanner {
 	 * @param Ninguno
 	 * @return Llena cada una de las cajas de texto con los datos del registro
 	 *         seleccionado en la lista
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({ "descripcion", "enlace", "fechaVencimiento", "titulo",
 			"imagenBanner" })
@@ -312,12 +306,13 @@ public class VMBanner {
 	}
 
 	/**
-	 * Cargar Imagen del Banner.
+	 * Cargar Imagen del Banner: Permite la carga 
+de imágenes. utiliza Archivo del paquete 
+herramientas.
 	 * 
-	 * @param Ninguno
-	 * @return Muestra Imagen Seleccionada
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param @ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "imagenBanner", "fotoBanner" })
@@ -351,11 +346,8 @@ public class VMBanner {
 	 * 
 	 * @param Ninguno
 	 * @return Muestra las imagenes de Banner en el portal en forma de carrusel
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
-
-	// Metodo que reordena la lista
 	@Command
 	@NotifyChange({ "listadoBanner", "fotoBannerPortal" })
 	public void cambiarImagen() {
@@ -369,15 +361,13 @@ public class VMBanner {
 	}
 	
 	/**
-	 * Filtros Banner.
+	 * Filtros Banner: Método que busca y filtra 
+los enlaces por nombre y dirección web 
 	 * 
-	 * @param String
-	 *            tituloFiltro, String enlaceFiltro
-	 * @return Registros de Banner por el tipo de filtrado (por titulo o enlace)
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Objeto Enlace de Interés (por titulo o enlace)
+	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({ "listadoBanner", "tituloFiltro", "enlaceFiltro" })
 	public void filtrosBanner() {
@@ -390,10 +380,8 @@ public class VMBanner {
 	 * 
 	 * @param Ninguno
 	 * @return Limpiar cada una de las cajas de texto de la vista
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
-
 	@Command
 	@NotifyChange({ "descripcion", "fechaVencimiento", "enlace", "titulo",
 			"imagenBanner", "bannerSeleccionado", "listadoBanner",
@@ -414,12 +402,12 @@ public class VMBanner {
 	}
 
 	/**
-	 * Cerrar Ventana
+	 * Cerrar Ventana :  Cierra el .zul 
+asociado al VM. 
 	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listadoBanner", "descripcion", "fechaVencimiento",

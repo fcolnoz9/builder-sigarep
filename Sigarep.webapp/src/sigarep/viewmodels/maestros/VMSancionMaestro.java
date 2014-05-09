@@ -20,12 +20,11 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
-/**
- * SancionMaestro UCLA DCYT Sistemas de Informacion.
- * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
- * @since 22/01/14
+/** Clase VMSancionMaestro.
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 22-/01/13
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMSancionMaestro {
@@ -104,11 +103,10 @@ public class VMSancionMaestro {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 *  Init. Código de inicialización.
+	 * @param ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -118,10 +116,9 @@ public class VMSancionMaestro {
 	/**
 	 * listaTipoSancion
 	 * 
-	 * @param listaTipoSancion
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Sancion
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaTipoSancion" })
@@ -130,13 +127,12 @@ public class VMSancionMaestro {
 	}
 
 	/**
-	 * guardarTipoSancion
+	 * guardar sancionMaestro
 	 * 
-	 * @param id_sancion
-	 *            , nombre, descripcion, listaSancion, estatus
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             debe haber campos en blanco
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
@@ -155,12 +151,9 @@ public class VMSancionMaestro {
 
 	/**
 	 * eliminarTipoSancion
-	 * 
-	 * @param Binder
-	 *            binder
-	 * @return No devuelve ningún valor
-	 * @throws Debe
-	 *             seleccionar un registro para poder eliminarlo
+	* @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
@@ -198,13 +191,13 @@ public class VMSancionMaestro {
 	}
 
 	/**
-	 * mostrarSeleccionada
+	 * mostrarSeleccionada : Muestra en el área de datos el registro
+	 * seleccionado
 	 * 
-	 * @param id_sancion
-	 *            , nombre, estatus, descripcion
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 *            .
+	 * @return Objeto sacionMaestro seleccionada
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus" })
@@ -215,12 +208,11 @@ public class VMSancionMaestro {
 	}
 
 	/**
-	 * filtros
+	 * filtros   Método que busca y filtra por nombre de la sancion
 	 * 
-	 * @param listaTipoSancion
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Objeto sancion
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "listaTipoSancion", "nombreFiltro" })
@@ -231,11 +223,9 @@ public class VMSancionMaestro {
 	/**
 	 * limpiar
 	 * 
-	 * @param id_sancion
-	 *            , nombre, descripcion, listaSancion, estatus
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "id_sancion", "nombre", "descripcion", "estatus",
@@ -249,12 +239,10 @@ public class VMSancionMaestro {
 	}
 
 	/**
-	 * Cerrar Ventana
-	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaTipoSancion", "nombre", "descripcion", "estatus" })

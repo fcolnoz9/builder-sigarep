@@ -28,7 +28,7 @@ import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 /**
  * Clase VMenlaceInteres
  * 
- * @author BUILDER
+ * @authorEquipo Equipo Builder
  * @version 1.0
  * @since 19/12/2013
  */
@@ -152,11 +152,10 @@ public class VMEnlaceInteres {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 * Init. Código de inicialización.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws Nodispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -167,10 +166,9 @@ public class VMEnlaceInteres {
 	/**
 	 * Buscar enlaces de interés
 	 * 
-	 * @param buscarEnlacesInteres
+	 * @param Ninguno
 	 * @return Busca todos los registros. Inicializa el código.
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaEnlaces" })
@@ -184,8 +182,7 @@ public class VMEnlaceInteres {
 	 * @param guardar
 	 * @return Guarda el registro completo, el command indica a las variables el
 	 *         cambio que se hará en el objeto.
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "idEnlace", "nombreEnlace", "direccionEnlace",
@@ -206,13 +203,11 @@ public class VMEnlaceInteres {
 
 	}
 	/**
-	 * Carga de imágenes
+	 * Carga de imágenes : Permite la carga de imágenes. utiliza Archivo del paquete herramientas.
 	 * 
-	 * @param cargarImagen
-	 * @return Permite la carga de imágenes. utiliza Archivo del paquete
-	 *         herramientas.
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param UploadEvent event
+	 * @return  Ninguno.
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({"imagenes","imagen"})
@@ -241,14 +236,12 @@ public class VMEnlaceInteres {
 	}
 
 	/**
-	 * Eliminar un enlace
+	 * Eliminar un enlace : Elimina un registro físicamente.
 	 * 
-	 * @param eliminarEnlaceSeleccionado
-	 * @return Elimina un enlace fisicamente.
-	 * @throws No
-	 *             dispara ninguna excepcion.
-	 */
-	
+	 * @param  @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepcion.
+	 */	
 	@Command
 	@NotifyChange({"listaEnlaces","nombreEnlace", "direccionEnlace", "descripcion", "imagenes"})
 	public void eliminarEnlaceSeleccionado(@ContextParam(ContextType.BINDER) final Binder binder){
@@ -275,12 +268,11 @@ public class VMEnlaceInteres {
 	}
 
 	/**
-	 * Mostrar Enlace
+	 * Mostrar Enlace : muestra en el área de datos el registro seleccionado.
 	 * 
-	 * @param mostrarEnlace
-	 * @return muestra en el área de datos el registro seleccionado.
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "idEnlace", "nombreEnlace", "direccionEnlace",
@@ -305,12 +297,11 @@ public class VMEnlaceInteres {
 	}
 	
 	/**
-	 * Filtros
+	 * Filtros :  Método que busca y filtra los enlaces por nombre y dirección web
 	 * 
-	 * @param filtros
-	 * @return Método que busca y filtra los enlaces por nombre y dirección web
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return nombre y dirección web
+	 * @throws No dispara ninguna excepcion.
 	 */	
 	
 	@Command
@@ -320,12 +311,11 @@ public class VMEnlaceInteres {
 	}
 	
 	/**
-	 * Limpiar.
+	 * limpiar
 	 * 
-	 * @param limpiar
-	 * @return inicializa las cajas de texto
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({"nombreEnlace", "direccionEnlace","descripcion", "estatus", "imagenes","listaEnlaces" })
@@ -340,15 +330,12 @@ public class VMEnlaceInteres {
 		buscarEnlaceInteres();
 	}
 	/**
-	 * Cerrar Ventana
+	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
 	 * 
-	 * @param binder
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepción.
 	 */
-	
-	
 	@Command
 	@NotifyChange({"listaEnlaces","nombreEnlace", "direccionEnlace", "descripcion", "imagenes"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
@@ -359,5 +346,5 @@ public class VMEnlaceInteres {
 	}
 	
 	
-}// fin VMenlaceInteres.
+}
 

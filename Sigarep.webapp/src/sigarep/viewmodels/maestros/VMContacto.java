@@ -14,7 +14,7 @@ import sigarep.modelos.servicio.maestros.ServicioContactoSigarep;
 /**
  * Clase VMContacto
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
  */
@@ -170,11 +170,10 @@ public class VMContacto {
 
 	/**
 	 * inicialización
-	 * 
-	 * @param init
-	 * @return código de inicialización
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 *  Init. Código de inicialización.
+	 * @param Ninguno
+	 * @return Objetos inicializados.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -184,11 +183,10 @@ public class VMContacto {
 	/**
 	 * guardarContacto
 	 * 
-	 * @param quienesSomos
-	 *            , correoContacto, twitter, facebook, telefono, direccion
-	 * @return No devuelve ningun valor
-	 * @throws Debe
-	 *             introducir un correo
+	 * @param Ninguno
+	 * @return Guarda el registro completo, el command indica a las variables el
+	 *         cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "quienesSomos", "correoContacto", "twitter", "facebook",
@@ -212,11 +210,9 @@ public class VMContacto {
 	/**
 	 * cargarContacto
 	 * 
-	 * @param quienesSomos
-	 *            , correoContacto, twitter, facebook, telefonoContacto, direccion
-	 * @return No devuelve ningun valor
-	 * @throws Debe
-	 *             introducir un correo
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "quienesSomos", "correoContacto", "twitter", "facebook",
@@ -247,8 +243,7 @@ public class VMContacto {
 	 * 
 	 * @param Ninguno
 	 * @return envía el correo con el mensaje/consulta al sistema.
-	 * @throws No
-	 *             dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 * 
 	 */
 	@Command
@@ -270,11 +265,9 @@ public class VMContacto {
 	/**
 	 * limpiar
 	 * 
-	 * @param quienesSomos
-	 *            , correoContacto, twitter, facebook, telefono, direccion
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Limpiar cada una de las cajas de texto de la vista
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "quienesSomos", "correoContacto", "twitter", "facebook",
@@ -303,11 +296,9 @@ public class VMContacto {
 	/**
 	 * limpiarContactanos
 	 * 
-	 * @param nombreEmisor
-	 *            , telefonoEmisor, correoEmisor, consulta
-	 * @return No devuelve ningun valor
-	 * @throws No
-	 *             dispara ninguna excepción
+	 * @param Ninguno
+	 * @return Limpiar cada una de las cajas de texto de la vista
+	 * @throws No dispara ninguna excepción
 	 */
 	@Command
 	@NotifyChange({ "nombreEmisor", "telefonoEmisor", "correoEmisor",
@@ -320,13 +311,12 @@ public class VMContacto {
 	}
 
 	/**
-	 * Cerrar Ventana
+	 * Cerrar Ventana :  Cierra el .zul 
+asociado al VM. 
 	 * 
-	 * @param Window
-	 *            ventana
-	 * @return cierra el .zul asociado al VM
-	 * @throws No
-	 *             dispara ninguna excepcion.
+	 * @param Window ventana
+	 * @return Ninguno
+	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "quienesSomos", "correoContacto", "direccion", "twitter",
