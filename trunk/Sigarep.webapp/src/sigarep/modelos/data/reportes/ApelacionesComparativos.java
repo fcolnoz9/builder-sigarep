@@ -13,6 +13,7 @@ public class ApelacionesComparativos {
 	private Integer procedentes;
 	private Integer total;
 	private Integer sancionados;
+	private Integer noprocedentes;
 
 	/**
 	 * Constructor ApelacionesComparativos
@@ -20,11 +21,12 @@ public class ApelacionesComparativos {
 	 * @param categoria, apelaciones, procedentes, total, sancionados
 	 */
 	public ApelacionesComparativos(String categoria, Integer apelaciones,
-			Integer procedentes, Integer total, Integer sancionados) {
+			Integer procedentes, Integer noprocedentes, Integer total, Integer sancionados) {
 		super();
 		this.apelaciones = apelaciones;
 		this.categoria = categoria;
 		this.procedentes = procedentes;
+		this.noprocedentes = noprocedentes;
 		this.total = total;
 		this.sancionados = sancionados;
 	}
@@ -52,6 +54,14 @@ public class ApelacionesComparativos {
 	
 	public void setProcedentes(Integer procedentes) {
 		this.procedentes = procedentes;
+	}
+	
+	public Integer getNoprocedentes() {
+		return noprocedentes;
+	}
+	
+	public void setNoprocedentes(Integer noprocedentes) {
+		this.noprocedentes = noprocedentes;
 	}
 	
 	public Integer getTotal() {

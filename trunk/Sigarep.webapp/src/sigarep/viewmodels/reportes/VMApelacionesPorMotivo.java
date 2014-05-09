@@ -318,8 +318,8 @@ public class VMApelacionesPorMotivo {
 				|| objPrograma == null || reportType == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
-
 			if (objSancion.getNombreSancion() == "Todos") {
+				System.out.println("If de TODOS");
 				apelacionesComparativos = servicioreportescomparativos
 						.buscarPorMotivoResultado_Programa(
 								objLapso.getCodigoLapso(),
