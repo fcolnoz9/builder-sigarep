@@ -127,18 +127,7 @@ public class VMVerificarRecaudosEntregadosI {
 	private List<Recaudo> listaRecaudosPorMotivo;
 	@WireVariable
 	private String telefono;
-	private String observacion;
 	
-	
-	
-	public String getObservacion() {
-		return observacion;
-	}
-
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
-	}
-
 	public String getCedula() {
 		return cedula;
 	}
@@ -378,10 +367,6 @@ public class VMVerificarRecaudosEntregadosI {
 		else 
 		{
 			ApelacionEstadoApelacion apelacionEstadoApelacion = new ApelacionEstadoApelacion();
-			if (getSelected().equals("PROCEDENTE"))
-				apelacionEstadoApelacion.setSugerencia("PROCEDENTE");
-			else if((getSelected().equals("NO PROCEDENTE")))
-				apelacionEstadoApelacion.setSugerencia("NO PROCEDENTE");
 			
 			SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 			solicitudApelacionPK.setCedulaEstudiante(cedula);
@@ -422,7 +407,6 @@ public class VMVerificarRecaudosEntregadosI {
 				
 				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
 				apelacionEstadoApelacion.setFechaEstado(new Date());
-				apelacionEstadoApelacion.setObservacion(observacion);
 				solicitudApelacion.addApelacionEstadosApelacion(apelacionEstadoApelacion);
 				serviciosolicitudapelacion.guardar(solicitudApelacion);
 				
