@@ -12,7 +12,7 @@ import sigarep.modelos.data.transacciones.UsuarioGrupo;
 
 /** Clase Usuario
  * Registra y Modifica el Usuario autorizado para ingresar al sistema.
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 04/12/2013 
  * @last 08/05/2014
@@ -165,7 +165,7 @@ public class Usuario implements Serializable {
 	 * Relación de la clase Usuario con la clase UsuarioGrupo, Agregar UsuarioGrupo
 	 * 
 	 * @see UsuariosGrupo
-	 * @param UsuariosGrupo
+	 * @param usuariosGrupo
 	 * @return usuariosGrupo
 	 */
 	public UsuarioGrupo addUsuarioGrupo(UsuarioGrupo usuariosGrupos) {
@@ -177,7 +177,7 @@ public class Usuario implements Serializable {
 	 * Relación de la clase Grupo con la clase UsuarioGrupo, Quitar UsuarioGrupo
 	 * 
 	 * @see UsuariosGrupo
-	 * @param UsuariosGrupo
+	 * @param usuariosGrupo
 	 * @return usuariosGrupo
 	 */
 	public UsuarioGrupo removeUsuarioGrupo(UsuarioGrupo usuariosGrupos) {

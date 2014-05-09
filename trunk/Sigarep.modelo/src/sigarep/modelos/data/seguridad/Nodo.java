@@ -12,7 +12,7 @@ import org.hibernate.annotations.Index;
 
 /** Clase Nodo
  * Registra y Modifica el Menu tipo arbol de los grupos de usuarios del sistema.
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 04/02/2014 
  * @last 08/05/2014
