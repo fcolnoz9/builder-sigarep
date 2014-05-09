@@ -9,7 +9,7 @@ import java.util.Date;
  * Clase Banner (Banner de la pagina principal
  * del website)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 15/12/2013
  * @last 08/05/2014
@@ -54,10 +54,8 @@ public class Banner implements Serializable {
 	/**
 	 * Constructor Banner
 	 * 
-	 * @param idImagen
-	 *            , descripcion, enlace, fechaVencimiento, titulo, fotoBanner,
-	 *            estatus
-	 * @return Constructor lleno
+	 * @param idImagen, descripcion, enlace, fechaVencimiento, titulo, fotoBanner,
+	 *        estatus
 	 */
 	public Banner(Integer idImagen, String descripcion, String enlace,
 			Date fechaVencimiento, String titulo, Archivo fotoBanner,
@@ -129,4 +127,4 @@ public class Banner implements Serializable {
 		this.fotoBanner = fotoBanner;
 	}
 	// Fin Métodos Set y Get
-}// Fin Clase Banner
+}

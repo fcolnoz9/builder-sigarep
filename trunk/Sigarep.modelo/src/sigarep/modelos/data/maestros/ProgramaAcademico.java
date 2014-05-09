@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Clase ProgramaAcadémico
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 15/12/2013
  * @last 08/05/2014
@@ -103,8 +103,8 @@ public class ProgramaAcademico implements Serializable {
 	 * Asignatura
 	 * 
 	 * @see Asignatura
-	 * @param Asignatura
-	 * @return Asignatura
+	 * @param asignatura
+	 * @return asignatura
 	 */
 	public Asignatura addAsignatura(Asignatura asignatura) {
 		getAsignaturas().add(asignatura);
@@ -117,8 +117,8 @@ public class ProgramaAcademico implements Serializable {
 	 * Asignatura
 	 * 
 	 * @see Asignatura
-	 * @param Asignatura
-	 * @return Asignatura
+	 * @param asignatura
+	 * @return asignatura
 	 */
 	public Asignatura removeAsignatura(Asignatura asignatura) {
 		getAsignaturas().remove(asignatura);
@@ -131,8 +131,8 @@ public class ProgramaAcademico implements Serializable {
 	 * Estudiante
 	 * 
 	 * @see Estudiante
-	 * @param Estudiante
-	 * @return Estudiante
+	 * @param estudiante
+	 * @return estudiante
 	 */
 	public Estudiante addEstudiante(Estudiante estudiante) {
 		getEstudiantes().add(estudiante);
@@ -144,8 +144,8 @@ public class ProgramaAcademico implements Serializable {
 	 * Estudiante
 	 * 
 	 * @see Estudiante
-	 * @param Estudiante
-	 * @return Estudiante
+	 * @param estudiante
+	 * @return estudiante
 	 */
 	public Estudiante removeEstudiante(Estudiante estudiante) {
 		getEstudiantes().remove(estudiante);

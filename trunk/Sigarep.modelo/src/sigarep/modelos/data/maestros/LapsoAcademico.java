@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Clase LapsoAcadémico
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 20/12/13
  * @last 08/05/2014
@@ -56,9 +56,7 @@ public class LapsoAcademico implements Serializable {
 	/**
 	 * Constructor LapsoAcademico
 	 * 
-	 * @param codigoLapso
-	 *            , fechaInicio, fechaCierre, estatus
-	 * @return Constructor lleno
+	 * @param codigoLapso , fechaInicio, fechaCierre, estatus
 	 */
 	public LapsoAcademico(String codigoLapso, Date fechaInicio,
 			Date fechaCierre, Boolean estatus) {
@@ -67,7 +65,6 @@ public class LapsoAcademico implements Serializable {
 		this.estatus = estatus;
 		this.fechaInicio = fechaInicio;
 		this.fechaCierre = fechaCierre;
-
 	}
 
 	// Métodos Set y Get
@@ -161,7 +158,6 @@ public class LapsoAcademico implements Serializable {
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
 		estudianteSancionado.setLapsoAcademico(this);
-
 		return estudianteSancionado;
 	}
 
@@ -179,4 +175,4 @@ public class LapsoAcademico implements Serializable {
 		estudianteSancionado.setLapsoAcademico(null);
 		return estudianteSancionado;
 	}
-}//Fin Clase LapsoAcademico
+}

@@ -11,7 +11,7 @@ import java.util.List;
  * Clase Estudiante (Clase que contiene atributos
  * de los estudiantes que accionan los procesos del sistema)
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 10/12/2013
  * @last 08/05/2014
@@ -80,11 +80,9 @@ public class Estudiante implements Serializable {
 	/**
 	 * Constructor Estudiante
 	 * 
-	 * @param cedulaEstudiante
-	 *            , anioIngreso, email, estatus, fechaNacimiento,
-	 *            primerApellido, primerNombre, segundoApellido, segundoNombre,
-	 *            sexo, telefono, programaAcademico
-	 * @return Constructor lleno
+	 * @param cedulaEstudiante, anioIngreso, email, estatus, fechaNacimiento,
+	 *        primerApellido, primerNombre, segundoApellido, segundoNombre,
+	 *        sexo, telefono, programaAcademico
 	 */
 	public Estudiante(String cedulaEstudiante, Date anioIngreso, String email,
 			Boolean estatus, Date fechaNacimiento, String primerApellido,
@@ -224,7 +222,6 @@ public class Estudiante implements Serializable {
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().add(estudianteSancionado);
 		estudianteSancionado.setEstudiante(this);
-
 		return estudianteSancionado;
 	}
 
@@ -240,7 +237,6 @@ public class Estudiante implements Serializable {
 			EstudianteSancionado estudianteSancionado) {
 		getEstudianteSancionados().remove(estudianteSancionado);
 		estudianteSancionado.setEstudiante(null);
-
 		return estudianteSancionado;
 	}
-}//Fin Clase Estudiante
+}

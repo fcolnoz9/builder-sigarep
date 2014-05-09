@@ -58,9 +58,9 @@ public class Noticia implements Serializable {
 	/** 
 	* Constructor de la clase Noticia 
 	* 
-	* @param idNoticia, contenido, enlaceNoticia, estatus, fechaRegistro, fotoNoticia, titulo, vencimiento
-	*/ 
-	
+	* @param idNoticia, contenido, enlaceNoticia, estatus, fechaRegistro, fotoNoticia,
+	*         titulo, vencimiento
+	*/ 	
 	public Noticia(Integer idNoticia, String contenido, String enlaceNoticia,
 			Boolean estatus, Date fechaRegistro, Archivo fotoNoticia,
 			String titulo, Date vencimiento) {

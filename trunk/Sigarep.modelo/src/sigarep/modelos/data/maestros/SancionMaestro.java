@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Clase SancionMaestro
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1.0
  * @since 15/12/2013
  * @last 08/05/2014
@@ -105,8 +105,8 @@ public class SancionMaestro implements Serializable {
 	 * EstudianteSancionado
 	 * 
 	 * @see EstudianteSancionado
-	 * @param EstudianteSancionado
-	 * @return EstudianteSancionado
+	 * @param estudianteSancionado
+	 * @return estudianteSancionado
 	 */
 	public EstudianteSancionado addEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {
@@ -120,8 +120,8 @@ public class SancionMaestro implements Serializable {
 	 * EstudianteSancionado
 	 * 
 	 * @see EstudianteSancionado
-	 * @param EstudianteSancionado
-	 * @return EstudianteSancionado
+	 * @param estudianteSancionado
+	 * @return estudianteSancionado
 	 */
 	public EstudianteSancionado removeEstudianteSancionado(
 			EstudianteSancionado estudianteSancionado) {

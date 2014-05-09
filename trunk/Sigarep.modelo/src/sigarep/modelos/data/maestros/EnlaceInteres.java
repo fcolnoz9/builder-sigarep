@@ -7,7 +7,7 @@ import sigarep.herramientas.Archivo;
 /**
  * Clase EnlaceInteres (Enlaces de interes del portal web)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 15/12/2013
  * @last 08/05/2014
@@ -48,9 +48,7 @@ public class EnlaceInteres implements Serializable {
 	/**
 	 * Constructor EnlacesInteres
 	 * 
-	 * @param idEnlace
-	 *            , nombreEnlace, direccionEnlace, descripcion, estatus, imagen
-	 * @return Constructor lleno
+	 * @param idEnlace , nombreEnlace, direccionEnlace, descripcion, estatus, imagen
 	 */
 	public EnlaceInteres(Integer idEnlace, String nombreEnlace,
 			String direccionEnlace, String descripcion, Boolean estatus,
@@ -113,4 +111,4 @@ public class EnlaceInteres implements Serializable {
 		this.imagen = imagen;
 	}
 	// Fin Métodos Set y Get
-}// Fin Clase EnlaceInteres
+}
