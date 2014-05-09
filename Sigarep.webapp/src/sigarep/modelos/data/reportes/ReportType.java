@@ -1,9 +1,10 @@
 package sigarep.modelos.data.reportes;
 
-/** ReportType
- * @author BUILDER 
+/** Clase ReportType
+ * @author Equipo Builder  
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class ReportType {
 	// Atributos de la clase
@@ -13,7 +14,6 @@ public class ReportType {
 	/**
 	 * Constructor ReportType
 	 * @param label, value
-	 * @return Constructor lleno
 	 */
 	public ReportType(String label, String value) {
 		super();
@@ -30,4 +30,4 @@ public class ReportType {
 		return label;
 	}// Fin Métodos Get
 
-}//Fin Clase ReportType
+}

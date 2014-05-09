@@ -1,10 +1,10 @@
 package sigarep.modelos.data.reportes;
 
-/** Apelaciones
- * Reporte Estadisticos Comparativos 
- * @author BUILDER 
+/** Clase ApelacionesComparativos 
+ * @author Equipo Builder 
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class ApelacionesComparativos {
 	// Atributos de la clase
@@ -18,7 +18,6 @@ public class ApelacionesComparativos {
 	 * Constructor ApelacionesComparativos
 	 * 
 	 * @param categoria, apelaciones, procedentes, total, sancionados
-	 * @return Constructor lleno
 	 */
 	public ApelacionesComparativos(String categoria, Integer apelaciones,
 			Integer procedentes, Integer total, Integer sancionados) {
@@ -71,4 +70,4 @@ public class ApelacionesComparativos {
 		this.sancionados = sancionados;
 	}// Fin Métodos Set y Get
 	
-}//Fin Clase ApelacionesComparativos
+}

@@ -1,10 +1,10 @@
 package sigarep.modelos.data.reportes;
 
-/** Estudiante Sancionado
- * Reporte Configurable Estudiante Sancionado
- * @author BUILDER 
+/** Clase EstudianteSancionado
+ * @author Equipo Builder 
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class EstudianteSancionado {
 	// Atributos de la clase
@@ -26,11 +26,8 @@ public class EstudianteSancionado {
 
 	/**
 	 * Constructor EstudianteSancionado
-	 * @param String primerNombre, String primerApellido,
-	 *	String sexo, String nombrePrograma, String nombreSancion,
-	 *	String nombreTipoMotivo, String instanciaApelada, String codigoLapso,String veredicto,
-	 *	String edoApelacion,String asignatura
-	 * @return Constructor lleno
+	 * @param primerNombre, primerApellido, sexo, nombrePrograma, nombreSancion,
+	 *	nombreTipoMotivo, instanciaApelada, codigoLapso, veredicto, edoApelacion, asignatura
 	 */
 	public EstudianteSancionado(String primerNombre, String primerApellido,
 			String sexo, String nombrePrograma, String nombreSancion,
@@ -138,4 +135,4 @@ public class EstudianteSancionado {
 		this.asignatura = asignatura;
 	}// Fin Métodos Set y Get
 	
-}//Fin Clase ConfigurableApelaciones
+}

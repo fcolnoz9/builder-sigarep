@@ -1,10 +1,11 @@
 package sigarep.modelos.data.reportes;
 import java.math.BigDecimal;
 
-/** ListaAsignaturasMayorCantidadSancionados
- * @author BUILDER 
+/** Clase ListaAsignaturasMayorCantidadSancionados
+ * @author Equipo Builder 
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class ListaAsignaturasMayorCantidadSancionados {
 	// Atributos de la clase
@@ -24,7 +25,6 @@ public class ListaAsignaturasMayorCantidadSancionados {
 	/**
 	 * Constructor ListaAsignaturasMayorCantidadSancionados
 	 * @param asignatura, sanciones, apelaciones, procedentes, noprocedentes, toltalsancion, totalapela
-	 * @return Constructor lleno
 	 */
 	public ListaAsignaturasMayorCantidadSancionados(String asignatura,BigDecimal sanciones,BigDecimal apelaciones,
 			BigDecimal procedentes, BigDecimal noprocedentes,BigDecimal toltalsancion, BigDecimal totalapela) {
@@ -95,4 +95,4 @@ public class ListaAsignaturasMayorCantidadSancionados {
 		this.totalapela = totalapela;
 	}// Fin Métodos Set y Get
 	
-}//Fin Clase ListaAsignaturasMayorCantidadSancionados
+}

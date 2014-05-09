@@ -4,11 +4,11 @@ import java.util.Map;
 import org.zkoss.zk.ui.Sessions;
 import  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-/** ReportConfig
- * Reporte Configurable ReportConfig
- * @author BUILDER 
+/** Clase ReportConfig
+ * @author Equipo Builder 
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class ReportConfig {
 	// Atributos de la clase
@@ -20,7 +20,6 @@ public class ReportConfig {
 	/**
 	 * Constructor ReportConfig
 	 * @param ruta
-	 * @return Constructor lleno
 	 */
 	public ReportConfig(String ruta) {
 		parametros = new HashMap<String, Object>();
@@ -57,4 +56,4 @@ public class ReportConfig {
 		this.dataSource = dataSource;
 	}// Fin Métodos Set y Get
 
-}//Fin Clase ReportConfig
+}

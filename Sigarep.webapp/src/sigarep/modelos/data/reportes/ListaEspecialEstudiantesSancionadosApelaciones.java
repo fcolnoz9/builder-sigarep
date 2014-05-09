@@ -1,10 +1,11 @@
 package sigarep.modelos.data.reportes;
 import java.util.Date;
 
-/** ListaEspecialEstudiantesSancionadosApelaciones
- * @author BUILDER  
+/** Clase ListaEspecialEstudiantesSancionadosApelaciones
+ * @author Equipo Builder   
  * @version 1.0
- * @since 20/12/13
+ * @since 20/12/2013
+ * @last 09/05/2014
  */
 public class ListaEspecialEstudiantesSancionadosApelaciones {
 	// Atributos de la clase
@@ -29,7 +30,6 @@ public class ListaEspecialEstudiantesSancionadosApelaciones {
 	 * @param cedulaEstudiante, primerNombre, primerApellido, nombrePrograma,
 	 * nombreSancion, codigoLapso, periodoSancion, nombreAsignatura, instanciaApelada,
 	 * veredicto, observacion, nombreTipoMotivo, descripcion, nroSesion, fechaSesion
-	 * @return Constructor lleno
 	 */
 	public ListaEspecialEstudiantesSancionadosApelaciones(String cedulaEstudiante,
 			String primerNombre, String primerApellido, String nombrePrograma,
@@ -175,4 +175,4 @@ public class ListaEspecialEstudiantesSancionadosApelaciones {
 		this.fechaSesion = fechaSesion;
 	}// Fin Métodos Set y Get
 
-}//Fin Clase ListaEspecialEstudiantesSancionadosApelaciones
+}
