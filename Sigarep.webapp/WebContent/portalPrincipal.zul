@@ -79,7 +79,7 @@
 											src="/imagenes/portal-principal/busquedaico.png" height="85%" />
 										<label value="Cédula:" />
 										<intbox id="intcedula"
-											placeholder="Ingrese la cédula" maxlength="8" width="140px"
+											placeholder="Ingrese la cédula." maxlength="8" 
 											value="@bind(vm.cedula)" />
 										<button label="Buscar"
 											image="/imagenes/iconos/buscar.png"
@@ -130,9 +130,8 @@
 		<!-- Inicio cuerpo derecho -->
 		<east size="25%" border="none">
 			<borderlayout>
-
 				<!-- Inicio Login -->
-				<north size="18%" border="none">
+				<north size="18%" border="none" height="200">
 					<include
 						src="WEB-INF/sigarep/vistas/portal/externo/login.zul" />
 				</north>

@@ -3,6 +3,7 @@
 	background-image:
 		url("./../../imagenes/portal-principal/Logo SIGAREP transparente.png");
 	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 .banner {
