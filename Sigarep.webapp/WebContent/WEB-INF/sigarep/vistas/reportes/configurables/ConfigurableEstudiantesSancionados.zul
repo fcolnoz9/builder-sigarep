@@ -140,10 +140,10 @@
 					<listheader label="Apellidos" id="lblprimerApellido" align="center" sort="auto(primerApellido)" />
 					<listheader label="Sexo" id="lblSexo1" align="center" sort="auto(sexo)" width="40px" />
 					<listheader label="Programas" id="lblNombrePrograma" align="center" sort="auto(nombrePrograma)" />
-					<listheader label=" Sanción" id="lblNombreSancion" align="center" sort="auto(nombreSancion)" />
+					<listheader label=" Sanción" id="lblNombreSancion" align="center" sort="auto(nombreSancion)" width="60px" />
 					<listheader label="Motivos" id="lblTipo_motivo" align="center" sort="auto(nombreTipoMotivo)" />
-					<listheader label="Recurso de Apelación" id="lblistacanciaApelada" align="center" sort="auto(instanciaApelada)" />
-					<listheader label="Lapsos Académicos" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="130px"/>
+					<listheader label="R.de Apelación" id="lblistacanciaApelada" align="center" sort="auto(instanciaApelada)" />
+					<listheader label="Lapso" id="lblLapsoAcademicos1" align="center" sort="auto(codigoLapso)" width="60px"/>
 					<listheader label="Veredicto" id="lblVeredicto1" align="center" sort="auto(veredicto)" />
 					<listheader label="Edo.Apelación" id="lblEdoApelacion1" align="center" sort="auto(edoApelacion)" />
 					<listheader label="Asignatura" id="lblAsignatura" align="center"/>
@@ -156,7 +156,7 @@
 						<listcell label="${each.nombrePrograma}" />
 						<listcell label="${each.nombreSancion}" />
 						<listcell label="${each.nombreTipoMotivo}" />
-						<listcell label="${each.nombreRecursoApelacion}" />
+						<listcell label="${each.instanciaApelada}" />
 						<listcell label="${each.codigoLapso}" />
 						<listcell label="${each.veredicto}" />
 						<listcell label="${each.edoApelacion}" />
