@@ -370,7 +370,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -405,7 +405,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -440,7 +440,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -475,7 +475,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -510,7 +510,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -545,7 +545,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -580,7 +580,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -615,7 +615,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",
@@ -650,7 +650,7 @@ public class VMEstudiantesEnProcesoApelacion {
 					reportConfig.getParameters().put("estado",
 							objEstadoApelacion.getNombreEstado());
 					reportConfig.getParameters().put("instancia",
-							objinstanciaApelada.getInstanciaApelada());
+							objinstanciaApelada.getNombreRecursoApelacion());
 					reportConfig.getParameters().put("programa",
 							objPrograma.getNombrePrograma());
 					reportConfig.getParameters().put("Lista",

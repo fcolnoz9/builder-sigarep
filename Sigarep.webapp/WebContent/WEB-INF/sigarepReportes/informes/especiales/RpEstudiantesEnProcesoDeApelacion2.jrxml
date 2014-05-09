@@ -167,32 +167,32 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[ESTUDIANTES EN PROCESO DE APELACIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="83" y="159" width="49" height="18" uuid="2ef123d2-a6e6-43c2-aa61-817f72c5d2a4"/>
+				<reportElement x="89" y="159" width="49" height="18" uuid="2ef123d2-a6e6-43c2-aa61-817f72c5d2a4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Estado:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="132" y="159" width="353" height="18" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="d1898db6-2090-4fc2-8369-64da287fb78d"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="227" y="159" width="258" height="18" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="d1898db6-2090-4fc2-8369-64da287fb78d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="148" y="184" width="337" height="18" uuid="d227243b-a903-416a-9bf5-7243283b428a"/>
+				<reportElement x="227" y="184" width="258" height="18" uuid="d227243b-a903-416a-9bf5-7243283b428a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{instancia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="83" y="184" width="70" height="18" uuid="faa3307e-e8b6-4272-ab33-eb65677afe19"/>
+				<reportElement x="83" y="184" width="144" height="18" uuid="faa3307e-e8b6-4272-ab33-eb65677afe19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Instancia:]]></text>
+				<text><![CDATA[Recurso de Apelación:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="83" y="209" width="65" height="18" uuid="a9767a5f-2e82-4210-9198-2b8be97e2c0b"/>
@@ -202,7 +202,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Programa:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="148" y="209" width="337" height="18" uuid="e6fd2bc8-0282-4e6d-8ed1-a2bd8a6b85cf"/>
+				<reportElement x="227" y="209" width="258" height="18" uuid="e6fd2bc8-0282-4e6d-8ed1-a2bd8a6b85cf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
