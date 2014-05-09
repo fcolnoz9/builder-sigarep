@@ -20,7 +20,7 @@ import sigarep.modelos.data.seguridad.Usuario;
 /**
  * UsuarioGrupo relaciona a un usuario con un grupo determinado y asocia atributos propios de la clase
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 07/01/14
  *  @last 08/05/2014
@@ -49,10 +49,12 @@ public class UsuarioGrupo implements Serializable {
 		@JoinColumn(name="nombre_usuario", referencedColumnName="nombre_usuario", nullable=false, insertable=false, updatable=false)
 	})
 	private Usuario usuario;
-
+	
+	// constructor por defecto
 	public UsuarioGrupo() {
 	}
-	// metodos set y get
+	
+	// Métodos Set y Get
 	public UsuarioGrupoPK getId() {
 		return this.id;
 	}
@@ -84,7 +86,7 @@ public class UsuarioGrupo implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 	
 	public boolean equals(Object o) {
 		if (this == o)

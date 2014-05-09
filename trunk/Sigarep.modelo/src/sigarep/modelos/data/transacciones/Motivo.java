@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Instancia Motivo
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 20/12/13
  * @last 08/05/2014
@@ -47,10 +47,11 @@ public class Motivo implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "motivo")
 	private List<RecaudoEntregado> recaudoEntregados = new LinkedList<RecaudoEntregado>();
 
+	// constructor por defecto
 	public Motivo() {
 	}
 
-	// metodos set y get
+	// Métodos Set y Get
 	public MotivoPK getId() {
 		return this.id;
 	}
@@ -98,14 +99,14 @@ public class Motivo implements Serializable {
 	public void setRecaudoEntregados(List<RecaudoEntregado> recaudoEntregados) {
 		this.recaudoEntregados = recaudoEntregados;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 	
 	/**
 	 * Relación de la clase Motivo con la clase RecaudoEntregado,Agregar RecaudoEntregado
 	 * 
 	 * @see RecaudoEntregado
-	 * @param RecaudoEntregado
-	 * @return RecaudoEntregado
+	 * @param recaudoEntregado
+	 * @return recaudoEntregado
 	 */
 	public RecaudoEntregado addRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {
@@ -117,8 +118,8 @@ public class Motivo implements Serializable {
 	 * Relación de la clase Motivo con la clase RecaudoEntregado,Quitar RecaudoEntregado
 	 * 
 	 * @see RecaudoEntregado
-	 * @param RecaudoEntregado
-	 * @return RecaudoEntregado
+	 * @param recaudoEntregado
+	 * @return recaudoEntregado
 	 */
 	public RecaudoEntregado removeRecaudoEntregado(
 			RecaudoEntregado recaudoEntregado) {

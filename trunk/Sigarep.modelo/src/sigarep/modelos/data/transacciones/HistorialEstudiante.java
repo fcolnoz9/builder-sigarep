@@ -6,7 +6,7 @@ import java.util.Date;
  * Historial estudiante , trae los objetos de esta clase compuesta por varias
  * claves principales y atributos propios
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1
  * @since 13/03/2014
  * @last 08/05/2014
@@ -21,7 +21,11 @@ public class HistorialEstudiante {
 	private String asignaturas = ""; 
 	private String cedula = "";
 	
+	// constructor por defecto
+	public HistorialEstudiante() {
 
+	}
+		
 	/**
 	 * Constructor HistorialEstudiante
 	 * 
@@ -39,12 +43,7 @@ public class HistorialEstudiante {
 		this.cedula = cedula;
 	}
 
-	// constructor por defecto
-	public HistorialEstudiante() {
-
-	}
-
-	// metodos set y get
+	// Métodos Set y Get
 	
 	public String getCedula() {
 		return cedula;
@@ -101,5 +100,5 @@ public class HistorialEstudiante {
 	public void setAsignaturas(String asignaturas) {
 		this.asignaturas = asignaturas;
 	}
-	//Fin  metodos set y get
+	//Fin  Métodos Set y Get
 }

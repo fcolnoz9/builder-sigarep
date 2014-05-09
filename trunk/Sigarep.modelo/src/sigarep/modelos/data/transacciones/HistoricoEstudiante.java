@@ -6,7 +6,7 @@ import java.util.Date;
  * historico estudiante , trae los objetos de esta clase compuesta por varias
  * claves principales y atributos propios
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1
  * @since 03/01/2014
  * @last 08/05/2014
@@ -25,6 +25,11 @@ public class HistoricoEstudiante {
 	private Integer numeroCaso;
 	private String descripcionMotivo;
 	private Date fecha;
+
+	// constructor por defecto
+	public HistoricoEstudiante() {
+
+	}
 
 	/**
 	 * Constructor HistoricoEstudiante
@@ -53,12 +58,7 @@ public class HistoricoEstudiante {
 		this.descripcionMotivo = motivo;
 	}
 
-	// constructor por defecto
-	public HistoricoEstudiante() {
-
-	}
-
-	// metodos set y get
+	// Métodos Set y Get
 	public String getNombre() {
 		return nombre;
 	}
@@ -162,5 +162,5 @@ public class HistoricoEstudiante {
 	public void setDescripcionMotivo(String descripcionMotivo) {
 		this.descripcionMotivo = descripcionMotivo;
 	}
-	// Fin metodos set y get
+	// Fin Métodos Set y Get
 }

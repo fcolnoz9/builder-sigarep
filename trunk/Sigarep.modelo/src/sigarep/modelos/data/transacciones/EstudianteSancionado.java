@@ -17,7 +17,7 @@ import java.util.Set;
  * Clase estudiante sancionado, trae los objetos de esta clase compuesta por
  * varias claves principales y atributos propios
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1
  * @since 03/01/2014
  * @last 08/05/2014
@@ -65,8 +65,6 @@ public class EstudianteSancionado implements Serializable {
 	})
 	private Estudiante estudiante = new Estudiante();
 
-	
-	
 	// bi-directional many-to-one association to LapsoAcademico
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumns({
@@ -114,7 +112,7 @@ public class EstudianteSancionado implements Serializable {
 		this.periodoSancion = periodoSancion;
 	}
 
-	// metodos set y get
+	// Métodos Set y Get
 	public EstudianteSancionadoPK getId() {
 		return this.id;
 	}
@@ -220,14 +218,14 @@ public class EstudianteSancionado implements Serializable {
 	public void setPeriodoSancion(Integer periodoSancion) {
 		this.periodoSancion = periodoSancion;
 	}
-	// Fin metodos set y get
+	// Fin Métodos Set y Get
 	
 	/**
 	 * Relación de la clase EstudianteSancionado con la clase AsignaturaEstudianteSancionado, Agregar AsignaturaEstudianteSancionado
 	 * 
 	 * @see AsignaturaEstudianteSancionado
-	 * @param AsignaturaEstudianteSancionado
-	 * @return AsignaturaEstudianteSancionado
+	 * @param asignaturaEstudianteSancionado
+	 * @return asignaturaEstudianteSancionado
 	 */
 	public AsignaturaEstudianteSancionado addAsignaturaEstudianteSancionado(
 			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
@@ -240,8 +238,8 @@ public class EstudianteSancionado implements Serializable {
 	 * Relación de la clase EstudianteSancionado con la clase AsignaturaEstudianteSancionado, Quitar AsignaturaEstudianteSancionado
 	 * 
 	 * @see AsignaturaEstudianteSancionado
-	 * @param AsignaturaEstudianteSancionado
-	 * @return AsignaturaEstudianteSancionado
+	 * @param asignaturaEstudianteSancionado
+	 * @return asignaturaEstudianteSancionado
 	 */
 	public AsignaturaEstudianteSancionado removeAsignaturaEstudianteSancionado(
 			AsignaturaEstudianteSancionado asignaturaEstudianteSancionado) {
@@ -254,8 +252,8 @@ public class EstudianteSancionado implements Serializable {
 	 * Relación de la clase EstudianteSancionado con la clase SolicitudApelacion, Agregar SolicitudApelacion
 	 * 
 	 * @see SolicitudApelacion
-	 * @param SolicitudApelacion
-	 * @return SolicitudApelacion
+	 * @param solicitudApelacion
+	 * @return solicitudApelacion
 	 */
 	public SolicitudApelacion addSolicitudApelacion(
 			SolicitudApelacion solicitudApelacion) {
@@ -267,8 +265,8 @@ public class EstudianteSancionado implements Serializable {
 	 * Relación de la clase EstudianteSancionado con la clase SolicitudApelacion, Quitar SolicitudApelacion
 	 * 
 	 * @see SolicitudApelacion
-	 * @param SolicitudApelacion
-	 * @return SolicitudApelacion
+	 * @param solicitudApelacion
+	 * @return solicitudApelacion
 	 */
 	public SolicitudApelacion removeSolicitudApelacion(
 			SolicitudApelacion solicitudApelacion) {

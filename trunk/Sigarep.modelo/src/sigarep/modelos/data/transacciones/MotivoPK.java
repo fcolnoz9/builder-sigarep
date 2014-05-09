@@ -4,9 +4,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * MotivoPK UCLA DCYT Sistemas de Informacion.
+ * MotivoPK 
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 20/12/13
  * @last 08/05/2014
@@ -30,9 +30,11 @@ public class MotivoPK implements Serializable {
 	@Column(name = "id_instancia_apelada", unique = false, nullable = false)
 	private Integer idInstanciaApelada;
 
+	// constructor por defecto
 	public MotivoPK() {
 	}
-	// metodos set y get
+	
+	// Métodos Set y Get
 	public Integer getIdTipoMotivo() {
 		return this.idTipoMotivo;
 	}
@@ -64,7 +66,8 @@ public class MotivoPK implements Serializable {
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
-	//Fin  metodos set y get
+	//Fin  Métodos Set y Get
+	
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

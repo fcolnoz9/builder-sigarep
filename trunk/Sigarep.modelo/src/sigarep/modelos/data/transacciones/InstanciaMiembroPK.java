@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 /**
  * Instancia Miembro, relaciona la persona con una instancia 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder
  * @version 1.1
  * @since 10/02/14
  * @last 08/05/2014
@@ -21,22 +21,28 @@ public class InstanciaMiembroPK implements Serializable {
 	@Column(name="cedula_persona")
 	private String cedulaPersona;
 
+	// constructor por defecto
 	public InstanciaMiembroPK() {
 	}
-	// metodos set y get
+	
+	// Métodos Set y Get
 	public Integer getIdInstanciaApelada() {
 		return this.idInstanciaApelada;
 	}
+	
 	public void setIdInstanciaApelada(Integer idInstanciaApelada) {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
+	
 	public String getCedulaPersona() {
 		return this.cedulaPersona;
 	}
 	public void setCedulaPersona(String cedulaPersona) {
 		this.cedulaPersona = cedulaPersona;
 	}
-	// Fin metodos set y get
+	
+	// Métodos Set y Get
+	
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

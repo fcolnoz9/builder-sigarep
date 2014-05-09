@@ -9,7 +9,7 @@ import java.util.Date;
  * Clase Apelacion Apelacion, trae los objetos de esta clase compuesta por
  * varias claves foraneas y atributos propios de la clase
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 03/01/2014
  * @last 08/05/2014
@@ -47,10 +47,11 @@ public class ApelacionEstadoApelacion implements Serializable {
 			@JoinColumn(name = "id_instancia_apelada", referencedColumnName = "id_instancia_apelada", nullable = false, insertable = false, updatable = false) })
 	private SolicitudApelacion solicitudApelacion;
 
+	// constructor por defecto
 	public ApelacionEstadoApelacion() {
 	}
 
-	// Metodos set y get
+	// Métodos Set y Get
 	public ApelacionEstadoApelacionPK getId() {
 		return this.id;
 	}
@@ -98,5 +99,5 @@ public class ApelacionEstadoApelacion implements Serializable {
 	public void setSugerencia(String sugerencia) {
 		this.sugerencia = sugerencia;
 	}
-	// Fin Metodos set y get
+	// Fin Métodos Set y Get
 }

@@ -11,9 +11,9 @@ import java.sql.Time;
 import java.util.Date;
 
 /**
- * Cronograma de Actividades - Planificar UCLA DCYT Sistemas de Informacion.
+ * Cronograma de Actividades 
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder 
  * @version 1.1
  * @since 10/02/14
  * @last 08/05/2014
@@ -49,7 +49,26 @@ public class Cronograma implements Serializable {
 
 	@Column(nullable = true, length = 255)
 	private String observacion;
+	
+	// bi-directional many-to-one association to Actividad
+	@ManyToOne
+	@JoinColumn(name = "id_actividad", nullable = false, insertable = false, updatable = false)
+	private Actividad actividad;
 
+	// bi-directional many-to-one association to LapsoAcademico
+	@ManyToOne
+	@JoinColumn(name = "codigo_lapso", nullable = false, insertable = false, updatable = false)
+	private LapsoAcademico lapsoAcademico;
+
+	// bi-directional many-to-one association to InstanciaApelada
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "id_instancia_apelada", nullable = true)
+	private InstanciaApelada responsable;
+
+	// constructor por defecto
+	public Cronograma() {
+	}
+	
 	/**
 	 * Constructor Cronograma.
 	 * 
@@ -70,24 +89,7 @@ public class Cronograma implements Serializable {
 		this.responsable = responsable;
 	}
 
-	// bi-directional many-to-one association to Actividad
-	@ManyToOne
-	@JoinColumn(name = "id_actividad", nullable = false, insertable = false, updatable = false)
-	private Actividad actividad;
-
-	// bi-directional many-to-one association to LapsoAcademico
-	@ManyToOne
-	@JoinColumn(name = "codigo_lapso", nullable = false, insertable = false, updatable = false)
-	private LapsoAcademico lapsoAcademico;
-
-	// bi-directional many-to-one association to InstanciaApelada
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_instancia_apelada", nullable = true)
-	private InstanciaApelada responsable;
-
-	public Cronograma() {
-	}
-	//metodos set y get
+	//Métodos Set y Get
 	public CronogramaPK getId() {
 		return this.id;
 	}
@@ -167,5 +169,5 @@ public class Cronograma implements Serializable {
 	public void setResponsable(InstanciaApelada responsable) {
 		this.responsable = responsable;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 }

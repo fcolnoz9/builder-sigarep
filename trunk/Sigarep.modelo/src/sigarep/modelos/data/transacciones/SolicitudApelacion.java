@@ -13,7 +13,7 @@ import java.util.Set;
  * Solicitud apelacion relaciona las tablas estudiante sancionado, lapso
  * academico e instancia ademas de varios atributos propios de la clase
  * 
- * @author Equipo: Builder-SIGAREP
+ * @author Equipo Builder
  * @version 1.0
  * @since 07/01/14
  *  @last 08/05/2014
@@ -80,13 +80,14 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 	@ManyToOne
 	@JoinColumn(name = "id_instancia_apelada", nullable = false, insertable = false, updatable = false)
 	private InstanciaApelada instanciaApelada;
-
+	
+	// constructor por defecto
 	public SolicitudApelacion() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	// metodos set y get
+	//  Métodos Set y Get
 	public SolicitudApelacionPK getId() {
 		return this.id;
 	}
@@ -213,14 +214,14 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 	public void setAnalizado(boolean analizado) {
 		this.analizado = analizado;
 	}
-	//Fin metodos set y get
+	//Fin  Métodos Set y Get
 	
 	/**
 	 * Relación de la clase SolicitudApelacion con la clase ApelacionEstadoApelacion, Agregar ApelacionEstadoApelacion
 	 * 
 	 * @see ApelacionEstadoApelacion
-	 * @param ApelacionEstadoApelacion
-	 * @return ApelacionEstadoApelacion
+	 * @param apelacionEstadoApelacion
+	 * @return apelacionEstadoApelacion
 	 */
 	public ApelacionEstadoApelacion addApelacionEstadosApelacion(
 			ApelacionEstadoApelacion apelacionEstadoApelacion) {
@@ -232,8 +233,8 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 	 * Relación de la clase SolicitudApelacion con la clase ApelacionEstadoApelacion, Quitar ApelacionEstadoApelacion
 	 * 
 	 * @see ApelacionEstadoApelacion
-	 * @param ApelacionEstadoApelacion
-	 * @return ApelacionEstadoApelacion
+	 * @param apelacionEstadoApelacion
+	 * @return apelacionEstadoApelacion
 	 */
 	public ApelacionEstadoApelacion removeApelacionEstadosApelacion(
 			ApelacionEstadoApelacion apelacionEstadoApelacion) {
@@ -245,8 +246,8 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 	 * Relación de la clase SolicitudApelacion con la clase Motivo, Agregar Motivo
 	 * 
 	 * @see Motivo
-	 * @param Motivo
-	 * @return Motivo
+	 * @param motivo
+	 * @return motivo
 	 */
 	public Motivo addMotivo(Motivo motivo) {
 		getMotivos().add(motivo);
@@ -257,8 +258,8 @@ public class SolicitudApelacion implements Comparable<SolicitudApelacion>,
 	 * Relación de la clase SolicitudApelacion con la clase Motivo, Quitar Motivo
 	 * 
 	 * @see Motivo
-	 * @param Motivo
-	 * @return Motivo
+	 * @param motivo
+	 * @return motivo
 	 */
 	public Motivo removeMotivo(Motivo motivo) {
 		getMotivos().remove(motivo);

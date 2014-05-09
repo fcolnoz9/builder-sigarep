@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Clase Asignatura estudiante sancionado, trae los objetos de esta clase compuesta por
  * varias claves principales y la relacion con distintas tablas
  * 
- * @author BUILDER
+ * @author Equipo Builder 
  * @version 1
  * @since 03/01/2014
  * @last 08/05/2014
@@ -26,11 +26,12 @@ public class AsignaturaEstudianteSancionadoPK implements Serializable {
 
 	@Column(name="codigo_asignatura", unique=false, nullable=false, length=8)
 	private String codigoAsignatura;
-
+	
+	// constructor por defecto
 	public AsignaturaEstudianteSancionadoPK() {
 	}
 	
-	//metodos set y get
+	//Métodos Set y Get
 	public String getCodigoLapso() {
 		return this.codigoLapso;
 	}
@@ -49,7 +50,7 @@ public class AsignaturaEstudianteSancionadoPK implements Serializable {
 	public void setCodigoAsignatura(String codigoAsignatura) {
 		this.codigoAsignatura = codigoAsignatura;
 	}
-	//Fin metodos set y get
+	//Fin Métodos Set y Get
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

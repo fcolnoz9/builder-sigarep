@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Instancia Miembro, relaciona la persona con una instancia y agrega atributos a esta clase
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @author Equipo Builder
  * @version 1.1
  * @since 10/02/14
  * @last 08/05/2014
@@ -43,10 +43,11 @@ public class InstanciaMiembro implements Serializable {
 	@JoinColumn(name = "cedula_persona", insertable = false, updatable = false)
 	private Persona persona;
 
+	// constructor por defecto
 	public InstanciaMiembro() {
 	}
 
-	// metodos set y get
+	// Métodos Set y Get
 	public InstanciaMiembroPK getId() {
 		return this.id;
 	}
@@ -102,5 +103,5 @@ public class InstanciaMiembro implements Serializable {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
-	// Fin metodos set y get
+	// Fin Métodos Set y Get
 }
