@@ -263,34 +263,35 @@ public class VMInformeConsejoDecanato {
 		listaMatematicas.clear();
 		listaPrograma.clear();
 		listaPrograma = servicioprogramaacademico.listadoProgramas();
+		
 		if (objLapso == null || para.equals("") || nro.equals("")
 				|| de.equals("") || contenido.equals(""))
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
 
 			listaInformatica = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(0).getIdPrograma());
+					.buscarEstudiantesComision(listaPrograma.get(2).getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaInformatica.size() > 0) {
 				procedentesInf = listaInformatica.get(0).getProcedentes();
 				denegadosInf = listaInformatica.get(0).getNoProcedentes();
 			}
 
 			listaProduccion = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(1).getIdPrograma());
+					.buscarEstudiantesComision(listaPrograma.get(3).getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaProduccion.size() > 0) {
 				procedentesPro = listaProduccion.get(0).getProcedentes();
 				denegadosPro = listaProduccion.get(0).getNoProcedentes();
 			}
 
 			listaAnalisis = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(2).getIdPrograma());
+					.buscarEstudiantesComision(listaPrograma.get(0).getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaAnalisis.size() > 0) {
 				procedentesAna = listaAnalisis.get(0).getProcedentes();
 				denegadosAna = listaAnalisis.get(0).getNoProcedentes();
 			}
 
 			listaMatematicas = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(3).getIdPrograma());
+					.buscarEstudiantesComision(listaPrograma.get(1).getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaMatematicas.size() > 0) {
 				procedentesMat = listaMatematicas.get(0).getProcedentes();
 				denegadosMat = listaMatematicas.get(0).getNoProcedentes();
