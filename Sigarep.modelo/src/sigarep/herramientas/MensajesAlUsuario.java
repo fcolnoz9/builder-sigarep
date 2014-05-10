@@ -240,6 +240,10 @@ public class MensajesAlUsuario {
 		Messagebox.show("El formato del código es inválido, solo debe usar numeros y/o el caracter guión(-)", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+	public void advertenciaNoPuedeEliminarRegistro(){
+		Messagebox.show("¡No puede eliminar este registro!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
           Messagebox.show("Hemos enviado un email con su nombre de usuario y contraseña.",
@@ -445,7 +449,7 @@ public class MensajesAlUsuario {
 		return respuesta;
 	}
 	
-	
+
 	/*-------------------------------------------Mensajes de Confirmación-----------------------------------*/
 	public void confirmacionCerrarSesion() {
 
