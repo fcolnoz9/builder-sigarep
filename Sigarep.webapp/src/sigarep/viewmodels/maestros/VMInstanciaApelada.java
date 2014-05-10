@@ -190,8 +190,7 @@ public class VMInstanciaApelada {
 		} else {
 			//System.out.println(id_sancion);
 			if ( idInstanciaApelada == 1 || idInstanciaApelada == 2 || idInstanciaApelada == 3) {
-				Messagebox.show("¡No puede eliminar este registro!",
-						"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+				mensajeAlUsuario.advertenciaNoPuedeEliminarRegistro();
 			} else {
 				Messagebox.show("¿Desea eliminar el registro realmente?",
 						"Confirmar", new Messagebox.Button[] {
