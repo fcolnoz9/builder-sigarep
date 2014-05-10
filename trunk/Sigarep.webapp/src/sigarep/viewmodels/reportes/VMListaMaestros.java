@@ -1,16 +1,13 @@
 package sigarep.viewmodels.reportes;
-import java.util.Arrays;
 
+import java.util.Arrays;
 import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
@@ -25,8 +22,6 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.transacciones.Cronograma;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
-
-
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
@@ -39,12 +34,17 @@ import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 
-
-
+/**
+ * VM Lista Maestros
+ * 
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 23/01/2014
+ * @last 10/05/2014
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaMaestros {
-
-	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -67,9 +67,11 @@ public class VMListaMaestros {
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioAsignatura servicioAsignatura;
-	
-	
-	// ***********************************DECLARACION DE LISTAS*************************
+	// --------------------------Variables de Control-------------------
+	private String maestro;
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	// --------------------------Variables lista------------------------
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<SancionMaestro> listaTipoSancion;
@@ -81,33 +83,16 @@ public class VMListaMaestros {
 	private List<EstudianteSancionado> listaEstudiantesSancionados;
 	private List<Cronograma> listaCronograma;
 	private List<Asignatura> listaAsignatura;
-	
+	// --------------------------Variables Objeto-----------------------
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	private String maestro;
-	
-
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-	
-	private MensajesAlUsuario message;
-	
-	//*****************************METODOS SET Y GET DE LA CLASE*****************************
+	// Métodos Set y Get
 	public String getMaestro() {
 		return maestro;
 	}
 
 	public void setMaestro(String maestro) {
 		this.maestro = maestro;
-	}
-
-	
-	public MensajesAlUsuario getMessage() {
-		return message;
-	}
-
-	public void setMessage(MensajesAlUsuario message) {
-		this.message = message;
 	}
 
 	public ListModelList<ReportType> getReportTypesModel() {
@@ -133,7 +118,7 @@ public class VMListaMaestros {
 	public void setListaLapso(List<LapsoAcademico> listaLapso) {
 		this.listaLapso = listaLapso;
 	}
-	
+
 	public List<Actividad> getListaActividades() {
 		return listaActividades;
 	}
@@ -142,25 +127,24 @@ public class VMListaMaestros {
 		this.listaActividades = listaActividades;
 	}
 
-	
 	public List<EstadoApelacion> getListaEstadoApelacion() {
 		return listaEstadoApelacion;
 	}
 
-	public void setListaEstadoApelacion(List<EstadoApelacion> listaEstadoApelacion) {
+	public void setListaEstadoApelacion(
+			List<EstadoApelacion> listaEstadoApelacion) {
 		this.listaEstadoApelacion = listaEstadoApelacion;
 	}
-	
-	
-	
+
 	public List<InstanciaApelada> getListaInstanciaApelada() {
 		return listaInstanciaApelada;
 	}
 
-	public void setListaInstanciaApelada(List<InstanciaApelada> listaInstanciaApelada) {
+	public void setListaInstanciaApelada(
+			List<InstanciaApelada> listaInstanciaApelada) {
 		this.listaInstanciaApelada = listaInstanciaApelada;
 	}
-	
+
 	public List<Recaudo> getListaRecaudo() {
 		return listaRecaudo;
 	}
@@ -169,7 +153,6 @@ public class VMListaMaestros {
 		this.listaRecaudo = listaRecaudo;
 	}
 
-	
 	public List<ProgramaAcademico> getListaPrograma() {
 		return listaPrograma;
 	}
@@ -186,25 +169,23 @@ public class VMListaMaestros {
 		return listaTipoSancion;
 	}
 
-	public void setListaEstudiantesSancionados(List<EstudianteSancionado> listaEstudiantesSancionados) {
+	public void setListaEstudiantesSancionados(
+			List<EstudianteSancionado> listaEstudiantesSancionados) {
 		this.listaEstudiantesSancionados = listaEstudiantesSancionados;
 	}
-
 
 	public List<EstudianteSancionado> getListaEstudiantesSancionados() {
 		return listaEstudiantesSancionados;
 	}
-	
-	
+
 	public void setListaCronograma(List<Cronograma> listaCronograma) {
 		this.listaCronograma = listaCronograma;
 	}
 
-
 	public List<Cronograma> getListaCronograma() {
 		return listaCronograma;
 	}
-	
+
 	public List<Asignatura> getAsignatura() {
 		return listaAsignatura;
 	}
@@ -212,222 +193,243 @@ public class VMListaMaestros {
 	public void setListaAsignatura(List<Asignatura> listaAsignatura) {
 		this.listaAsignatura = listaAsignatura;
 	}
-	//***********************************FIN DE LOS METODOS SET Y GET*************************************
-	
-	// Lista que me permite llenar el combo para elegir el formato
+
+	public MensajesAlUsuario getMensajeAlUsuario() {
+		return mensajeAlUsuario;
+	}
+
+	public void setMensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario) {
+		this.mensajeAlUsuario = mensajeAlUsuario;
+	}
+
 	/**
-	 * Muestra los tipos de formatos que puede mostrarse el reporte
+	 * ListModelList. Muestra los tipos de formatos que puede mostrarse el
+	 * reporte.
 	 * 
-	 * @param
-	 * @return modelos de la lista
+	 * @param Ninguno
+	 * @return Tipos de formatos para el reporte.
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-		private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-				Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
-						new ReportType("Excel", "xls"), new ReportType(
-								"Excel (JXL)", "jxl"),
-						new ReportType("CSV", "csv"), new ReportType(
-								"OpenOffice (ODT)", "odt")));
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
+					"Word (RTF)", "rtf"), new ReportType("Excel", "xls"),
+					new ReportType("Excel (JXL)", "jxl"), new ReportType("CSV",
+							"csv"), new ReportType("OpenOffice (ODT)", "odt")));
 
-		
-	//********************METODO PARA LIMPIAR COMBOS******************************
-	
+	/**
+	 * Limpiar Maestros.
+	 * 
+	 * @param Ninguno
+	 * @return Limpia el maestro.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
-	@NotifyChange({"maestro","reportType"})
-	public void limpiarMaestros(){
-		maestro= null;
-		reportType= null;
+	@NotifyChange({ "maestro", "reportType" })
+	public void limpiarMaestros() {
+		maestro = null;
+		reportType = null;
 	}
-		
-		
-		
-	// ###############METODO PARA IMPRIMIR REPORTE#################
+
+	/**
+	 * Generar Reporte maestro.
+	 * 
+	 * @param Ninguno
+	 * @return Reporte maestro
+	 * @throws Si
+	 *             la lista está vacía no genera el reporte.
+	 */
 	@Command("GenerarReporteMaestro")
 	@NotifyChange({ "reportConfig", "maestro" })
 	public void GenerarReporte() {
-
-	
 		if (maestro == null || reportType == null) {
-			message.advertenciaSeleccionarTodo();
+			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
-			switch(maestro) {
-			 case "lapsoacademico": 
-				 listaLapso =serviciolapsoacademico.buscarTodosLosLapsos();
-			        String ruta="/WEB-INF/sigarepReportes/maestros/RMaestroLapsoAcadémico.jasper";
-					reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
+			switch (maestro) {
+			case "lapsoacademico":
+				listaLapso = serviciolapsoacademico.buscarTodosLosLapsos();
+				String ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroLapsoAcadémico.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
 														// REPORTE
-					reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-							listaLapso));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaLapso));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
 													// IMPRESION DEL REPORTE
-					
-					reportConfig.setDataSource(new JRBeanCollectionDataSource(
-							listaLapso)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-													// DATOS PARA DIBUJAR EL REPORTE
-			     break;
-	         case "actividad": 
-	        	 
-	        	 listaActividades =servicioactividad.listadoActividad();
-			        ruta="/WEB-INF/sigarepReportes/maestros/RMaestroActividades.jasper";
-					reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-														// REPORTE
-					reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-							listaActividades));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-													// IMPRESION DEL REPORTE
-					
-					reportConfig.setDataSource(new JRBeanCollectionDataSource(
-							listaActividades)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-													// DATOS PARA DIBUJAR EL REPORTE
-			     
-			     break;
-			
-			 case "estadoApelacion": 
-				 listaEstadoApelacion =servicioestadoapelacion.listadoEstadoApelacionActivas();
-			         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroEstadoapelacion.jasper";
-					reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-														// REPORTE
-					reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-							listaEstadoApelacion));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-													// IMPRESION DEL REPORTE
-					
-					reportConfig.setDataSource(new JRBeanCollectionDataSource(
-							listaEstadoApelacion)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-													// DATOS PARA DIBUJAR EL REPORTE
-				 
-			     
-			     break;
-			 case "instanciaApelada": 
-				 listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
-		         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroInstanciaApelada.jasper";
-				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-													// REPORTE
-				reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-						listaInstanciaApelada));
-				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-												// IMPRESION DEL REPORTE
-				
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
-						listaInstanciaApelada)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-												// DATOS PARA DIBUJAR EL REPORTE
-				 break;
-				 
-			 case "motivos": 
-				 listaTipoMotivo =serviciotipomotivo.listadoTipoMotivo();
-			         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroMotivoApelacion.jasper";
-					reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
+						listaLapso)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
+										// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "actividad":
+				listaActividades = servicioactividad.listadoActividad();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroActividades.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
 														// REPORTE
-					reportConfig.getParameters().put("Titulo", "Reporte Comparativo de Apelaciones por Motivo y Veredicto");
-					reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-							listaTipoMotivo));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaActividades));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
 													// IMPRESION DEL REPORTE
-					
-					reportConfig.setDataSource(new JRBeanCollectionDataSource(
-							listaTipoMotivo)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-													// DATOS PARA DIBUJAR EL REPORTE
-			     break;
-				 
-			 case "recaudos": 
-				 
-				 listaRecaudo =serviciorecaudo.listadoRecaudosActivos();
-		         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroRecaudos.jasper";
-				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(
+						listaActividades)); // ASIGNANDO MEDIANTE EL DATA SOURCE
+											// LOS
+											// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "estadoApelacion":
+				listaEstadoApelacion = servicioestadoapelacion
+						.listadoEstadoApelacionActivas();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroEstadoapelacion.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaEstadoApelacion));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(
+						listaEstadoApelacion)); // ASIGNANDO MEDIANTE EL DATA
+												// SOURCE LOS
+												// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "instanciaApelada":
+				listaInstanciaApelada = servicioInstanciaApelada
+						.listadoInstanciaApelada();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroInstanciaApelada.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaInstanciaApelada));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(
+						listaInstanciaApelada)); // ASIGNANDO MEDIANTE EL DATA
+													// SOURCE LOS
+													// DATOS PARA DIBUJAR EL
 													// REPORTE
-				reportConfig.getParameters().put("Titulo", "Reporte Comparativo de Apelaciones por Motivo y Veredicto");
-				reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-						listaRecaudo));
-				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-												// IMPRESION DEL REPORTE
-				
+				break;
+			case "motivos":
+				listaTipoMotivo = serviciotipomotivo.listadoTipoMotivo();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroMotivoApelacion.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig
+						.getParameters()
+						.put("Titulo",
+								"Reporte Comparativo de Apelaciones por Motivo y Veredicto");
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaTipoMotivo));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(
+						listaTipoMotivo)); // ASIGNANDO MEDIANTE EL DATA SOURCE
+											// LOS
+											// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "recaudos":
+				listaRecaudo = serviciorecaudo.listadoRecaudosActivos();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroRecaudos.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig
+						.getParameters()
+						.put("Titulo",
+								"Reporte Comparativo de Apelaciones por Motivo y Veredicto");
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaRecaudo));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
 						listaRecaudo)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-												// DATOS PARA DIBUJAR EL REPORTE		    
-			     break;
-			 case "programaacademico": 
-				 
-				 listaPrograma =servicioprogramaacademico.listadoProgramas();
-		         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroProgramaAcademico.jasper";
-				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-													// REPORTE
-				reportConfig.getParameters().put("Titulo", "Reporte Lista de Programas Académicos");
-				reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-						 listaPrograma));
-				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-												// IMPRESION DEL REPORTE
-				
+										// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "programaacademico":
+				listaPrograma = servicioprogramaacademico.listadoProgramas();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroProgramaAcademico.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig.getParameters().put("Titulo",
+						"Reporte Lista de Programas Académicos");
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaPrograma));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
-						 listaPrograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-												// DATOS PARA DIBUJAR EL REPORTE	
-				    
-			     break;
-	         case "asignatura": 
-				 
-	        	 listaAsignatura =servicioAsignatura.listaAsignaturas();
-		         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroAsignatura.jasper";
-				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-													// REPORTE
-				reportConfig.getParameters().put("Titulo", "Reporte Lista de Programas Académicos");
-				reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-						 listaAsignatura));
-				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-												// IMPRESION DEL REPORTE
-				
+						listaPrograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE
+											// LOS
+											// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "asignatura":
+
+				listaAsignatura = servicioAsignatura.listaAsignaturas();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroAsignatura.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig.getParameters().put("Titulo",
+						"Reporte Lista de Programas Académicos");
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaAsignatura));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
+
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
-						listaAsignatura)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-												// DATOS PARA DIBUJAR EL REPORTE	
-				    
-			     break;
-			 case "tipossancion": 
-				    
-				 
-				 listaTipoSancion =serviciosancionmaestro.listaTipoSanciones();
-		         ruta="/WEB-INF/sigarepReportes/maestros/RMaestroTipoSancion.jasper";
-				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-													// REPORTE
-				reportConfig.getParameters().put("Titulo", "Reporte Lista de Tipos de Sanciones");
-				reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-						listaTipoSancion));
-				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-												// IMPRESION DEL REPORTE
-				
+						listaAsignatura)); // ASIGNANDO MEDIANTE EL DATA SOURCE
+											// LOS
+											// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "tipossancion":
+
+				listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RMaestroTipoSancion.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig.getParameters().put("Titulo",
+						"Reporte Lista de Tipos de Sanciones");
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaTipoSancion));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
-						listaTipoSancion)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-												// DATOS PARA DIBUJAR EL REPORTE	
-				 
-				 
-			     break;
-			     
-			 case "cronograma": 
-				 listaCronograma =serviciocronograma.listadoCronograma();
-		         ruta="/WEB-INF/sigarepReportes/maestros/RCronograma.jasper";
-				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA AL
-													// REPORTE
-				reportConfig.getParameters().put("Titulo", "Reporte Lista de Estudiantes Sancionados");
-				reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(
-						listaCronograma));
-				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-												// IMPRESION DEL REPORTE
-				
+						listaTipoSancion)); // ASIGNANDO MEDIANTE EL DATA SOURCE
+											// LOS
+											// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			case "cronograma":
+				listaCronograma = serviciocronograma.listadoCronograma();
+				ruta = "/WEB-INF/sigarepReportes/maestros/RCronograma.jasper";
+				reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA
+														// LLAMADA AL
+														// REPORTE
+				reportConfig.getParameters().put("Titulo",
+						"Reporte Lista de Estudiantes Sancionados");
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaCronograma));
+				reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE
+													// FORMATO DE
+													// IMPRESION DEL REPORTE
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
-						listaCronograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE LOS
-												// DATOS PARA DIBUJAR EL REPORTE
-				 
-				 
-				    
-			     break;
-			 default: 
-			     
-			     break;
-			 }
+						listaCronograma)); // ASIGNANDO MEDIANTE EL DATA SOURCE
+											// LOS
+											// DATOS PARA DIBUJAR EL REPORTE
+				break;
+			default:
+				break;
+			}
 		}
 	}
-
-	// #####################FIN DEL METODO##########################
-	
-
-	
-
 }

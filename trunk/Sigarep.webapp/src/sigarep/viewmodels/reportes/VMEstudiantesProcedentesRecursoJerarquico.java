@@ -29,244 +29,268 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioEstudiantesProcedentes;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
+/**
+ * VM Estudiantes procedentes recurso jerarquico.
+ * 
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 23/01/2014
+ * @last 10/05/2014
+ */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudiantesProcedentesRecursoJerarquico {
-
-
-	String ruta= "/WEB-INF/sigarepReportes/RpListaEstudiantesProcedentes.jasper";	
-	@Wire("#winProcedentesJerarquico") // para conectarse a la ventana con el ID
-	Window ventanaRJ;
-	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioEstudiantesProcedentes servicioEstudiantesProcedentes;
-	
-	//***********************************DECLARACION DE LISTAS*************************
+	// --------------------------Variables de Control-------------------
+	private Integer idPrograma;
+	ReportType reportType = null;
+	ReportConfig reportConfig = null;
+	String ruta = "/WEB-INF/sigarepReportes/RpListaEstudiantesProcedentes.jasper";
+	@Wire("#winProcedentesJerarquico")
+	// para conectarse a la ventana con el ID
+	Window ventanaRJ;
+	// --------------------------Variables lista------------------------
 	private List<ProgramaAcademico> listadoProgramasAJerarquico;
 	private List<String> listaApelacionesJerarquico;
 	private List<ListaEstudiantesProcedentes> listaProcedentesJerarquico = new LinkedList<ListaEstudiantesProcedentes>();
-	
-	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
-	private ProgramaAcademico  objprogramasAJerarquico;
-	
-	//*********************************Parametros para la Tira Sql***************************************
-	private Integer idPrograma;
-	
-	//*****************************************REPORTE******************************************
-	ReportType reportType = null;
-	ReportConfig reportConfig = null;
+	// --------------------------Variables Objeto-----------------------
+	private ProgramaAcademico objprogramasAJerarquico;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
-	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
+
+	// Métodos Set y Get
 	public ServicioProgramaAcademico getServicioprogramaacademico() {
 		return servicioprogramaacademico;
 	}
+
 	public void setServicioprogramaacademico(
 			ServicioProgramaAcademico servicioprogramaacademico) {
 		this.servicioprogramaacademico = servicioprogramaacademico;
 	}
+
 	public ServicioEstudiantesProcedentes getServicioEstudiantesProcedentes() {
 		return servicioEstudiantesProcedentes;
 	}
+
 	public void setServicioEstudiantesProcedentes(
 			ServicioEstudiantesProcedentes servicioEstudiantesProcedentes) {
 		this.servicioEstudiantesProcedentes = servicioEstudiantesProcedentes;
 	}
+
 	public List<ProgramaAcademico> getListadoProgramasAJerarquico() {
 		return listadoProgramasAJerarquico;
 	}
+
 	public void setListadoProgramasAJerarquico(
 			List<ProgramaAcademico> listadoProgramasAJerarquico) {
 		this.listadoProgramasAJerarquico = listadoProgramasAJerarquico;
 	}
+
 	public List<String> getListaApelacionesJerarquico() {
 		return listaApelacionesJerarquico;
 	}
+
 	public void setListaApelacionesJerarquico(
 			List<String> listaApelacionesJerarquico) {
 		this.listaApelacionesJerarquico = listaApelacionesJerarquico;
 	}
+
 	public List<ListaEstudiantesProcedentes> getListaProcedentesJerarquico() {
 		return listaProcedentesJerarquico;
 	}
+
 	public void setListaProcedentesJerarquico(
 			List<ListaEstudiantesProcedentes> listaProcedentesJerarquico) {
 		this.listaProcedentesJerarquico = listaProcedentesJerarquico;
 	}
+
 	public ProgramaAcademico getObjprogramasAJerarquico() {
 		return objprogramasAJerarquico;
 	}
-	public void setObjprogramasAJerarquico(ProgramaAcademico objprogramasAJerarquico) {
+
+	public void setObjprogramasAJerarquico(
+			ProgramaAcademico objprogramasAJerarquico) {
 		this.objprogramasAJerarquico = objprogramasAJerarquico;
 	}
+
 	public Integer getIdPrograma() {
 		return idPrograma;
 	}
+
 	public void setIdPrograma(Integer idPrograma) {
 		this.idPrograma = idPrograma;
 	}
+
 	public MensajesAlUsuario getMensajeAlUsuario() {
 		return mensajeAlUsuario;
 	}
+
 	public void setMensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario) {
 		this.mensajeAlUsuario = mensajeAlUsuario;
 	}
-	
-	//Reporte SET/GETS
+
 	public ReportType getReportType() {
 		return reportType;
 	}
+
 	public void setReportType(ReportType reportType) {
 		this.reportType = reportType;
 	}
+
 	public ReportConfig getReportConfig() {
 		return reportConfig;
 	}
+
 	public void setReportConfig(ReportConfig reportConfig) {
 		this.reportConfig = reportConfig;
 	}
+
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
-	//===============================FIN DE LOS METODOS SET Y GET==============================
-	
-	//Lista que me permite llenar el combo para elegir el formato 
-		/** Muestra los tipos de formatos que puede mostrarse el reporte
-		 * @param  
-		 * @return modelos de la lista
-		 * @throws No dispara ninguna excepción.
-		*/
-			
-	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-		  Arrays.asList(new ReportType("PDF", "pdf"), 
-		  				new ReportType("Word (RTF)", "rtf"), 
-		  				new ReportType("Reporte en Excel", "xls"), 
-		  				new ReportType("Excel (JXL)", "jxl"), 
-		  				new ReportType("CSV", "csv"), 
-		  				new ReportType("OpenOffice (ODT)", "odt")));
-	
-	
-	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
-	/** buscar Programas Académicos
-	 * @param  
-	 * @return lista de programa Académico
-	 * @throws No dispara ninguna excepción.
-	 */
-	
-	@Command
-	@NotifyChange({ "listadoProgramasAJerarquico" })
-	public void buscarProgramasARecursoJ() {
-		listadoProgramasAJerarquico = servicioprogramaacademico.listadoProgramas();
-	}
-			
-	/** Objeto Combo Programa.
-	 * @param Ninguno
-	 * @return Objeto Programa Académico
-	 * @throws No dispara ninguna excepción.
-	 */
-			
-	@Command
-	@NotifyChange({ "listadoProgramasAJerarquico" })
-	public ProgramaAcademico objprogramaARecursoJ() {
-			return objprogramasAJerarquico;
-	}
-	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FIN DEL METODO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-	
-	//******************************Método para buscar sesiones activas en solicitud de apelacion*****************************
-		/** buscar sesiones
-		 * @param  Ninguno
-		 * @return lista de sesiones
-		 * @throws No dispara ninguna excepción.
-		*/
-		@Command
-		@NotifyChange({ "listaApelacionesReconsideracion" })
-		public void listaSesionesJerarquico() {
-			listaApelacionesJerarquico = (serviciosolicitudapelacion.buscarSesion());
-		}
-	
-	
-	//******************************METODO que Limpia Combos o Cajas de TextoS*****************************		
-	/** Limpiar Combo Programa Académico.
-	* @param Ninguno
-	* @return Limpiar cada uno de los combos de la vista
-	* @throws No dispara ninguna excepción.
-	*/
-	
-	@Command
-	@NotifyChange({ "objprogramasAJerarquico","reportType"})
-	public void limpiarComboProgramaAcademicoRJ() {
-		objprogramasAJerarquico = null;
-		reportType= null;
-	}
-	
-	
-	//******************************METODO DE INICIALIZACION*****************************
-	
+	// Fin Métodos Set y Get
+
 	/**
-	* afterCompose
-	* Metodo que se usa para conectarse a los componentes de la vista
-	* @return nada.
-	* @throws no posee excepciones
-	* 
-	*/
-	@AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);
-    }
-
-	/**Inicialización
+	 * Inicialización
+	 * 
 	 * @param init
 	 * @return Carga de Variables y métodos inicializados
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
-  	
 	@Init
-		public void init(@ContextParam(ContextType.VIEW) Component view){
+	public void init(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
-		
+
 		buscarProgramasARecursoJ();
 		listaSesionesJerarquico();
-		if(listaApelacionesJerarquico.size()== 0){
+		if (listaApelacionesJerarquico.size() == 0) {
 			mensajeAlUsuario.cerrarVentanaSinVeredicto(ventanaRJ, true);
 		}
 	}
-	
-	
-	// ###############METODO PARA IMPRIMIR REPORTE#################
-	
-	/** Generar Reporte Informe Especial Resultado Apelacion.
+
+	/**
+	 * afterCompose. Conecta a los componentes de la vista. Es necesario para
+	 * evitar null pointer.
+	 * 
+	 * @param @ContextParam(ContextType.VIEW) Component view
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
+	}
+
+	/**
+	 * ListModelList. Muestra los tipos de formatos que puede mostrarse el
+	 * reporte.
+	 * 
+	 * @param Ninguno
+	 * @return Tipos de formatos para el reporte.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
+					"Word (RTF)", "rtf"), new ReportType("Reporte en Excel",
+					"xls"), new ReportType("Excel (JXL)", "jxl"),
+					new ReportType("CSV", "csv"), new ReportType(
+							"OpenOffice (ODT)", "odt")));
+
+	/**
+	 * Buscar Programas Académicos
+	 * 
+	 * @param Ninguno
+	 * @return lista de programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listadoProgramasAJerarquico" })
+	public void buscarProgramasARecursoJ() {
+		listadoProgramasAJerarquico = servicioprogramaacademico
+				.listadoProgramas();
+	}
+
+	/**
+	 * Buscar sesiones
+	 * 
+	 * @param Ninguno
+	 * @return lista de sesiones
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaApelacionesReconsideracion" })
+	public void listaSesionesJerarquico() {
+		listaApelacionesJerarquico = (serviciosolicitudapelacion.buscarSesion());
+	}
+
+	/**
+	 * Limpiar Combo Programa Académico.
+	 * 
+	 * @param Ninguno
+	 * @return Limpiar cada uno de los combos de la vista
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "objprogramasAJerarquico", "reportType" })
+	public void limpiarComboProgramaAcademicoRJ() {
+		objprogramasAJerarquico = null;
+		reportType = null;
+	}
+
+	/**
+	 * Generar Reporte Informe Especial Resultado Apelacion.
+	 * 
 	 * @param Ninguno
 	 * @return Reporte Especial de Resultado Apelacion
-	 * @throws Si la lista está vacía no genera el reporte.
-	*/
+	 * @throws Si
+	 *             la lista está vacía no genera el reporte.
+	 */
 	@Command("GenerarReporteEstudiantesRecursoJerarquico")
-	@NotifyChange({"reportConfig"})
-	public void GenerarReporteEstudiantesRecursoJerarquico(){
-			if(objprogramasAJerarquico==null || reportType == null){
-				mensajeAlUsuario.advertenciaSeleccionarTodo();
-			}
-			else{
-						
-					listaProcedentesJerarquico.clear();
-					idPrograma= objprogramasAJerarquico.getIdPrograma();
-						
-					listaProcedentesJerarquico= servicioEstudiantesProcedentes.buscarEstudiantesProcedentesRecursoJerarquico(idPrograma);
-				
-					if(listaProcedentesJerarquico.size()>0){
-						reportConfig =new ReportConfig(ruta);	
-						reportConfig.setType(reportType);
-						reportConfig.setDataSource(new JRBeanCollectionDataSource(listaProcedentesJerarquico));
-					}
-					else{
-						mensajeAlUsuario.informacionNoHayCoincidencias();
-					
-					}
-				}
-			}
-}
+	@NotifyChange({ "reportConfig" })
+	public void GenerarReporteEstudiantesRecursoJerarquico() {
+		if (objprogramasAJerarquico == null || reportType == null) {
+			mensajeAlUsuario.advertenciaSeleccionarTodo();
+		} else {
+			listaProcedentesJerarquico.clear();
+			idPrograma = objprogramasAJerarquico.getIdPrograma();
+			listaProcedentesJerarquico = servicioEstudiantesProcedentes
+					.buscarEstudiantesProcedentesRecursoJerarquico(idPrograma);
+			if (listaProcedentesJerarquico.size() > 0) {
+				reportConfig = new ReportConfig(ruta);
+				reportConfig.setType(reportType);
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(
+						listaProcedentesJerarquico));
+			} else {
+				mensajeAlUsuario.informacionNoHayCoincidencias();
 
+			}
+		}
+	}
+
+	/**
+	 * Objeto Combo Programa.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listadoProgramasAJerarquico" })
+	public ProgramaAcademico objprogramaARecursoJ() {
+		return objprogramasAJerarquico;
+	}
+
+}

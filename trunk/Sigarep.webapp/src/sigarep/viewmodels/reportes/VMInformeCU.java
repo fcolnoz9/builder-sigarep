@@ -1,7 +1,6 @@
 package sigarep.viewmodels.reportes;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -10,46 +9,54 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
-
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
-
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.SolicitudApelacion;
-
 import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * VM Informe Estructurado al Consejo Universitario UCLA DCYT Sistemas de
- * Información.
+ * VM Informe Estructurado al Consejo Universitario.
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 23/01/2014
+ * @last 10/05/2014
  */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMInformeCU {
+	// --------------------------Servicios------------------------------
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	@WireVariable
+	private ServicioMotivo serviciomotivo;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
+	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	// --------------------------Variables de Control-------------------
 	@Wire("#modalDialog")
-	// ***********************************DECLARACIÓN DE LAS VARIABLES
-	// GENERALES*************************
 	private Window window;
 	private String apellido;
 	private String nombre;
@@ -74,42 +81,20 @@ public class VMInformeCU {
 	private int unidades_reprobadas;
 	private float indice_grado;
 	private String cedula;
-	private EstudianteSancionado apelacionseleccionada;
-
-	// ***********************************DECLARACIÓN DE LAS VARIABLES
-	// SERVICIOS*************************
-	@WireVariable
-	private ServicioSolicitudApelacion serviciosolicitudapelacion;
-	@WireVariable
-	private ServicioEstudianteSancionado servicioestudiantesancionado;
-	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
-	@WireVariable
-	private ServicioMotivo serviciomotivo;
-	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
-	@WireVariable
-	private ServicioRecaudoEntregado serviciorecaudoentregado;
-
-	// ***********************************DECLARACIÓN DE
-	// LISTAS*************************
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	String ruta = "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoUniversitario.jasper";
+	// --------------------------Variables lista------------------------
 	private List<ApelacionEstadoApelacion> apelacionestudiante1 = new LinkedList<ApelacionEstadoApelacion>();
 	private List<ApelacionEstadoApelacion> apelacionestudiante2 = new LinkedList<ApelacionEstadoApelacion>();
 	private List<RecaudoEntregado> listaRecaudos1 = new LinkedList<RecaudoEntregado>();
 	private List<RecaudoEntregado> listaRecaudos2 = new LinkedList<RecaudoEntregado>();
+	// --------------------------Variables Objeto-----------------------
 	private SolicitudApelacion sancionadoSeleccionado;
-
-	// *********************************Mensajes***************************************
+	private EstudianteSancionado apelacionseleccionada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
-	// REPORTE***************************
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-	String ruta = "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoUniversitario.jasper";
-
-	// Reporte SET/GETS
-
+	// Métodos Set y Get
 	public ReportConfig getReportConfig() {
 		return reportConfig;
 	}
@@ -205,101 +190,6 @@ public class VMInformeCU {
 		this.nombre = nombre;
 	}
 
-	// fin de metodos get y set
-
-	/**
-	 * concatenacionNombres
-	 * 
-	 * @return devuelve primer y segundo nombre concatenados
-	 */
-	public void concatenacionNombres() {
-		String nombre1 = nombre;
-		String nombre2 = segundoNombre;
-		nombres = nombre1 + " " + nombre2;
-	}
-
-	/**
-	 * concatenacionApellidos
-	 * 
-	 * @return devuelve primer y segundo apellido concatenados
-	 */
-	public void concatenacionApellidos() {
-		String apellido1 = apellido;
-		String apellido2 = segundoApellido;
-		apellidos = apellido1 + " " + apellido2;
-	}
-
-	// Método para Inicializar y Cargar los datos del estudiante sancionado
-	// seleccionado
-	@Init
-	public void init(
-	@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa) {
-		Selectors.wireComponents(view, this, false);
-		this.sancionadoSeleccionado = sa;
-		cedula = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getCedulaEstudiante();
-		codigoLapso = sancionadoSeleccionado.getId().getCodigoLapso();
-		nombre = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getPrimerNombre();
-		segundoNombre = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getSegundoNombre();
-		apellido = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getPrimerApellido();
-		segundoApellido = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getSegundoApellido();
-		programa = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getProgramaAcademico().getNombrePrograma();
-		sancion = sancionadoSeleccionado.getEstudianteSancionado()
-				.getSancionMaestro().getNombreSancion();
-		semestre = sancionadoSeleccionado.getEstudianteSancionado()
-				.getSemestre();
-		unidades_cursadas = sancionadoSeleccionado.getEstudianteSancionado()
-				.getUnidadesCursadas();
-		unidades_aprobadas = sancionadoSeleccionado.getEstudianteSancionado()
-				.getUnidadesAprobadas();
-		unidades_reprobadas = (unidades_cursadas - unidades_aprobadas);
-		indice_grado = sancionadoSeleccionado.getEstudianteSancionado()
-				.getIndiceGrado();
-		apelacionestudiante1 = servicioapelacionestadoapelacion
-				.buscarApelacionHistorial(cedula, codigoLapso, 1);
-		fecha_ingreso = sancionadoSeleccionado.getEstudianteSancionado()
-				.getEstudiante().getAnioIngreso();
-		for (int i = 0; i < apelacionestudiante1.size(); i++) {
-			int estado = apelacionestudiante1.get(i).getEstadoApelacion()
-					.getIdEstadoApelacion();
-			if (estado == 3) {
-				fecha_comision = apelacionestudiante1.get(i).getFechaEstado();
-				sugerencia = apelacionestudiante1.get(i).getSugerencia();
-				observacion_comision = apelacionestudiante1.get(i)
-						.getObservacion();
-			}
-		}
-		apelacionestudiante2 = servicioapelacionestadoapelacion
-				.buscarApelacionHistorial(cedula, codigoLapso, 2);
-		for (int i = 0; i < apelacionestudiante2.size(); i++) {
-			int estado = apelacionestudiante2.get(i).getEstadoApelacion()
-					.getIdEstadoApelacion();
-			if (estado == 8) {
-				fecha_d = apelacionestudiante2.get(i).getFechaEstado();
-				veredicto = apelacionestudiante2.get(i).getSolicitudApelacion()
-						.getVeredicto();
-				observacion_consejo_decanato = apelacionestudiante2.get(i)
-						.getObservacion();
-				codigo_sesion = apelacionestudiante2.get(i)
-						.getSolicitudApelacion().getNumeroSesion();
-			}
-		}
-		concatenacionNombres();
-		concatenacionApellidos();
-		listaRecaudos1 = serviciorecaudoentregado
-				.buscarRecaudosEntregadosVeredictoI(cedula, codigoLapso);
-		listaRecaudos2 = serviciorecaudoentregado
-				.buscarRecaudosEntregadosVeredictoII(cedula, codigoLapso);  
-		generarReporte();
-	}
-
-	// Reporte SET/GETS
 	public String getPrograma() {
 		return programa;
 	}
@@ -437,8 +327,110 @@ public class VMInformeCU {
 		this.sancion = sancion;
 	}
 
-	// ===============================FIN DE LOS METODOS SET Y
-	// GET==============================
+	// Fin Métodos get y set
+
+	/**
+	 * Inicialización
+	 * 
+	 * @param init
+	 * @return Carga de Variables y métodos inicializados
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Init
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa) {
+		Selectors.wireComponents(view, this, false);
+		this.sancionadoSeleccionado = sa;
+		cedula = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getCedulaEstudiante();
+		codigoLapso = sancionadoSeleccionado.getId().getCodigoLapso();
+		nombre = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getPrimerNombre();
+		segundoNombre = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getSegundoNombre();
+		apellido = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getPrimerApellido();
+		segundoApellido = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getSegundoApellido();
+		programa = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getProgramaAcademico().getNombrePrograma();
+		sancion = sancionadoSeleccionado.getEstudianteSancionado()
+				.getSancionMaestro().getNombreSancion();
+		semestre = sancionadoSeleccionado.getEstudianteSancionado()
+				.getSemestre();
+		unidades_cursadas = sancionadoSeleccionado.getEstudianteSancionado()
+				.getUnidadesCursadas();
+		unidades_aprobadas = sancionadoSeleccionado.getEstudianteSancionado()
+				.getUnidadesAprobadas();
+		unidades_reprobadas = (unidades_cursadas - unidades_aprobadas);
+		indice_grado = sancionadoSeleccionado.getEstudianteSancionado()
+				.getIndiceGrado();
+		apelacionestudiante1 = servicioapelacionestadoapelacion
+				.buscarApelacionHistorial(cedula, codigoLapso, 1);
+		fecha_ingreso = sancionadoSeleccionado.getEstudianteSancionado()
+				.getEstudiante().getAnioIngreso();
+		for (int i = 0; i < apelacionestudiante1.size(); i++) {
+			int estado = apelacionestudiante1.get(i).getEstadoApelacion()
+					.getIdEstadoApelacion();
+			if (estado == 3) {
+				fecha_comision = apelacionestudiante1.get(i).getFechaEstado();
+				sugerencia = apelacionestudiante1.get(i).getSugerencia();
+				observacion_comision = apelacionestudiante1.get(i)
+						.getObservacion();
+			}
+		}
+		apelacionestudiante2 = servicioapelacionestadoapelacion
+				.buscarApelacionHistorial(cedula, codigoLapso, 2);
+		for (int i = 0; i < apelacionestudiante2.size(); i++) {
+			int estado = apelacionestudiante2.get(i).getEstadoApelacion()
+					.getIdEstadoApelacion();
+			if (estado == 8) {
+				fecha_d = apelacionestudiante2.get(i).getFechaEstado();
+				veredicto = apelacionestudiante2.get(i).getSolicitudApelacion()
+						.getVeredicto();
+				observacion_consejo_decanato = apelacionestudiante2.get(i)
+						.getObservacion();
+				codigo_sesion = apelacionestudiante2.get(i)
+						.getSolicitudApelacion().getNumeroSesion();
+			}
+		}
+		concatenacionNombres();
+		concatenacionApellidos();
+		listaRecaudos1 = serviciorecaudoentregado
+				.buscarRecaudosEntregadosVeredictoI(cedula, codigoLapso);
+		listaRecaudos2 = serviciorecaudoentregado
+				.buscarRecaudosEntregadosVeredictoII(cedula, codigoLapso);
+		generarReporte();
+	}
+
+	/**
+	 * Concatenacion Nombres
+	 * 
+	 * @param Ninguno
+	 * @return devuelve primer y segundo nombre concatenados
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	public void concatenacionNombres() {
+		String nombre1 = nombre;
+		String nombre2 = segundoNombre;
+		nombres = nombre1 + " " + nombre2;
+	}
+
+	/**
+	 * Concatenacion Apellidos
+	 * 
+	 * @param Ninguno
+	 * @return devuelve primer y segundo apellido concatenados
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	public void concatenacionApellidos() {
+		String apellido1 = apellido;
+		String apellido2 = segundoApellido;
+		apellidos = apellido1 + " " + apellido2;
+	}
 
 	/**
 	 * Generar Informe Estructurado al Consejo Universitario
@@ -449,8 +441,6 @@ public class VMInformeCU {
 	 * @throws Si
 	 *             la lista está vacía no genera el reporte.
 	 */
-	//
-	
 	@NotifyChange({ "reportConfig" })
 	public void generarReporte() {
 		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA
@@ -484,9 +474,16 @@ public class VMInformeCU {
 		reportConfig.getParameters().put("listaRecaudosCD",
 				new JRBeanCollectionDataSource(listaRecaudos2));
 		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-
 	}
-	
+
+	/**
+	 * Close this
+	 * 
+	 * @param Nimguno
+	 * @return cierra el .zul asociado al VM
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	public void closeThis() {
 		window.detach();
@@ -505,5 +502,4 @@ public class VMInformeCU {
 		boolean condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);
 	}
-
 }

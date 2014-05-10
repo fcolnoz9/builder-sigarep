@@ -4,14 +4,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -26,15 +24,16 @@ import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.reportes.ServicioReportesComparativos;
 
 /**
- * VM Reporte Estadístico de Apelaciones por Instancia y Veredicto UCLA DCYT
- * Sistemas de Información.
+ * VM Reporte Estadístico de Apelaciones por Instancia y Veredicto UCLA.
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 03/02/2014
+ * @last 08/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMApelacionesPorTipoApelacion {
-	// ***********************************DECLARACIÓN DE LAS VARIABLES SERVICIOS*************************
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -43,40 +42,24 @@ public class VMApelacionesPorTipoApelacion {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
 	private ServicioReportesComparativos servicioreportescomparativos;
-
-	// ***********************************PARÁMETROS PARA REPORTE*****************************
-	@WireVariable
+	// --------------------------Variables de Control-------------------
 	private String nombrePrograma;
-	@WireVariable
-	private String nombreSancion;
-	@WireVariable
-	private String codigoLapso;
-
-	// ***********************************DECLARACIÓN DE LISTAS*************************
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	String ruta = "/WEB-INF/sigarepReportes/estadisticos/RApelacionesTipoApelacion-Veredicto.jasper";
+	// --------------------------Variables lista------------------------
 	private List<ProgramaAcademico> listaPrograma;
 	private List<TipoMotivo> listaTipoMotivo;
 	private List<SancionMaestro> listaTipoSancion;
 	private List<LapsoAcademico> listaLapso;
 	private List<ApelacionesComparativos> apelacionesComparativos = new LinkedList<ApelacionesComparativos>();
-
-	// ***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
+	// --------------------------Variables Objeto-----------------------
 	private SancionMaestro objSancion;
 	private LapsoAcademico objLapso;
 	private ProgramaAcademico objPrograma;
-
-	// *********************************Mensajes***************************************
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
 
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
-	// REPORTE***************************
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-	String ruta = "/WEB-INF/sigarepReportes/estadisticos/RApelacionesTipoApelacion-Veredicto.jasper";
-
-	
-	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
-	// Reporte SET/GETS
+	// Métodos Set y Get
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
@@ -149,31 +132,15 @@ public class VMApelacionesPorTipoApelacion {
 		this.objPrograma = objPrograma;
 	}
 
-	// ===============================FIN DE LOS METODOS SET Y GET==============================
+	// Fin Métodos Set y Get
 
-	
-	// Lista que me permite llenar el combo para elegir el formato
 	/**
-	 * Muestra los tipos de formatos que puede mostrarse el reporte
+	 * Inicialización
 	 * 
-	 * @param
-	 * @return modelos de la lista
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
-					new ReportType("Excel", "xls"), new ReportType(
-							"Excel (JXL)", "jxl"),
-					new ReportType("CSV", "csv"), new ReportType(
-							"OpenOffice (ODT)", "odt")));
-
-	
-	//***************************METODO DE INICIALIZACION*********************
-	/**Inicialización
 	 * @param init
-	 * @return Carga de Variables y métodos inicializados
-	 * @throws No dispara ninguna excepcion.
+	 * @return Carga de Variables y métodos inicializados.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Init
 	public void init() {
@@ -181,16 +148,27 @@ public class VMApelacionesPorTipoApelacion {
 		buscarTipoSancion();
 		buscarLapso();
 	}
-	
-	
-	
-	
-	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
+
 	/**
-	 * buscar Programa Académico
+	 * ListModelList. Muestra los tipos de formatos que puede mostrarse el
+	 * reporte.
 	 * 
-	 * @param
-	 * @return lista de programa Académico
+	 * @param Ninguno
+	 * @return Tipos de formatos para el reporte.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
+					"Word (RTF)", "rtf"), new ReportType("Excel", "xls"),
+					new ReportType("Excel (JXL)", "jxl"), new ReportType("CSV",
+							"csv"), new ReportType("OpenOffice (ODT)", "odt")));
+
+	/**
+	 * Buscar programa académico.
+	 * 
+	 * @param Ninguno
+	 * @return Busca todos los registros.
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
@@ -202,25 +180,24 @@ public class VMApelacionesPorTipoApelacion {
 	}
 
 	/**
-	 * Objeto Combo Programa.
+	 * Buscar lapsos.
 	 * 
 	 * @param Ninguno
-	 * @return Objeto Programa Académico
+	 * @return Busca todos los registros.
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	@Command
-	@NotifyChange({ "listaPrograma" })
-	public ProgramaAcademico objCmbPrograma() {
-		return objPrograma;
+	@NotifyChange({ "listaLapso" })
+	public void buscarLapso() {
+		listaLapso = serviciolapsoacademico.buscarTodosLosLapsos();
 	}
 
 	/**
-	 * buscar Sanción
+	 * Buscar sanción.
 	 * 
-	 * @param
-	 * @return lista de sanción
+	 * @param Ninguno
+	 * @return Busca todos los registros.
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
@@ -233,64 +210,18 @@ public class VMApelacionesPorTipoApelacion {
 	}
 
 	/**
-	 * Objeto Combo Sanción.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Sanción
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-
-	@Command
-	@NotifyChange({ "listaTipoSancion" })
-	public SancionMaestro objCmbSancion() {
-		return objSancion;
-	}
-
-	/**
-	 * buscar Lapsos
-	 * 
-	 * @param
-	 * @return lista de lapsos
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaLapso" })
-	public void buscarLapso() {
-		listaLapso = serviciolapsoacademico.buscarTodosLosLapsos();
-	}
-
-	/**
-	 * Objeto lapso.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Lapso
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaLapso" })
-	public LapsoAcademico objCmbLapso() {
-		return objLapso;
-	}
-	
-	
-	// ###############METODO PARA IMPRIMIR REPORTE#################
-	/**
 	 * Generar Reporte Estadístico Comparativo de Apelaciones por Instancia y
 	 * Veredicto.
 	 * 
 	 * @param Ninguno
 	 * @return Reporte Estadístico Comparativo de Apelaciones por Instancia y
-	 *         Veredicto generado en PDF u otro tipo de archivo
+	 *         Veredicto generado en PDF u otro tipo de archivo.
 	 * @throws Si
 	 *             la lista está vacía no genera el reporte.
 	 */
 	@Command("GenerarReporteApelacionesInstancia")
 	@NotifyChange({ "reportConfig" })
 	public void GenerarReporte() {
-
 		apelacionesComparativos.clear();
 		ProgramaAcademico prog = objPrograma;
 		LapsoAcademico lap = objLapso;
@@ -334,17 +265,62 @@ public class VMApelacionesPorTipoApelacion {
 		}
 	}
 
-	
-	
-	//********************METODO PARA LIMPIAR COMBOS******************************
+	/**
+	 * Limpiar. Inicializa los combos.
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno.
+	 * @throws No
+	 *             dispara ninguna exepción.
+	 */
 	@Command
-	@NotifyChange({ "objLapso", "objSancion", "objPrograma","reportType"})
+	@NotifyChange({ "objLapso", "objSancion", "objPrograma", "reportType" })
 	public void limpiar() {
 		objLapso = null;
 		objSancion = null;
 		objPrograma = null;
-		reportType= null;
+		reportType = null;
 	}
 
-	
+	/**
+	 * Objeto Combo Programa.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaPrograma" })
+	public ProgramaAcademico objCmbPrograma() {
+		return objPrograma;
+	}
+
+	/**
+	 * Objeto Combo Sanción.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Sanción
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaTipoSancion" })
+	public SancionMaestro objCmbSancion() {
+		return objSancion;
+	}
+
+	/**
+	 * Objeto lapso.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Lapso
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaLapso" })
+	public LapsoAcademico objCmbLapso() {
+		return objLapso;
+	}
 }
