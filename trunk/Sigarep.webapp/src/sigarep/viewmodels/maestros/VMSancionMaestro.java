@@ -166,8 +166,7 @@ public class VMSancionMaestro {
 		} else {
 			System.out.println(id_sancion);
 			if (id_sancion == 1 || id_sancion == 2) {
-				Messagebox.show("¡No puede eliminar este registro!",
-						"Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+				mensajeAlUsuario.advertenciaNoPuedeEliminarRegistro();
 			} else {
 				Messagebox.show("¿Desea eliminar el registro realmente?",
 						"Confirmar", new Messagebox.Button[] {

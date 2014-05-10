@@ -15,7 +15,6 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -320,7 +319,7 @@ public class VMCargarRecaudoEntregado {
 							mensajeAlUsuario.informacionRegistroCorrecto();
 					}
 			} else {
-				Messagebox.show(media.getName()+ " No es un tipo de archivo valido!", "Error",Messagebox.OK, Messagebox.ERROR);
+				mensajeAlUsuario.advertenciaFormatoImagenNoSoportado(media);
 			}
 		}
 	}
