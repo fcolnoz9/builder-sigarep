@@ -2,9 +2,7 @@ package sigarep.viewmodels.reportes;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -17,9 +15,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
-
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
@@ -29,14 +25,21 @@ import sigarep.modelos.servicio.transacciones.ServicioApelacionEstadoApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 
 /**
- * DetalleHistorialEstudiante UCLA DCYT Sistemas de Informacion.
+ * VM Detalle Historial Estudiante.
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-1
- * @version 1.0
- * @since 23/01/14
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 23/01/2014
+ * @last 08/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDetalleHistorialEstudiante {
+	// --------------------------Servicios------------------------------
+	@WireVariable
+	private ServicioEstudianteSancionado servicioestudiantesancionado;
+	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	// --------------------------Variables de Control-------------------
 	@Wire("#modalDialog")
 	private Window window;
 	private String cedula;
@@ -47,27 +50,20 @@ public class VMDetalleHistorialEstudiante {
 	private Integer instancia;
 	private String motivosEstudiante;
 	private String caso;
-	@WireVariable
-	private ServicioEstudianteSancionado servicioestudiantesancionado;
-	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	String ruta = "/WEB-INF/sigarepReportes/informes/RHistorialEstudiante.jasper";
+	// --------------------------Variables lista------------------------
 	private List<ApelacionEstadoApelacion> apelacionestudiante = new LinkedList<ApelacionEstadoApelacion>();
 	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia2 = new LinkedList<ApelacionEstadoApelacion>();
 	private List<ApelacionEstadoApelacion> apelacionestudianteinstancia3 = new LinkedList<ApelacionEstadoApelacion>();
-	private SolicitudApelacion apelacionseleccionada;
 	private List<EstudianteSancionado> estudiante = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> apelacion = new LinkedList<SolicitudApelacion>();
-
-	// Para llamar a los diferentes mensajes de dialogo
+	// --------------------------Variables Objeto-----------------------
+	private SolicitudApelacion apelacionseleccionada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-
-	String ruta = "/WEB-INF/sigarepReportes/informes/RHistorialEstudiante.jasper";
-
-	// Metodos get y set
-
+	// Métodos Set y Get
 	public ReportConfig getReportConfig() {
 		return reportConfig;
 	}
@@ -196,8 +192,49 @@ public class VMDetalleHistorialEstudiante {
 		this.nombreSancion = nombreSancion;
 	}
 
-	// fin de metodos get y set
+	// Fin Métodos Set y Get
 
+	/**
+	 * Inicialización
+	 * 
+	 * @param init
+	 * @return Carga de Variables y métodos inicializados
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Init
+	public void init(
+			@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("apelacionestudiante") List<ApelacionEstadoApelacion> v3,
+			@ExecutionArgParam("apelacionestudianteinstancia2") List<ApelacionEstadoApelacion> v4,
+			@ExecutionArgParam("apelacionestudianteinstancia3") List<ApelacionEstadoApelacion> v5,
+			@ExecutionArgParam("apelacion") List<SolicitudApelacion> v1,
+			@ExecutionArgParam("estudiante") List<EstudianteSancionado> v2,
+			@ExecutionArgParam("cedula") String v6,
+			@ExecutionArgParam("codigoLapso") String v7,
+			@ExecutionArgParam("motivosEstudiante") String v8,
+			@ExecutionArgParam("caso") String v9) {
+		Selectors.wireComponents(view, this, false);
+		this.apelacionestudiante = v3;
+		this.apelacionestudianteinstancia2 = v4;
+		this.apelacionestudianteinstancia3 = v5;
+		this.apelacion = v1;
+		this.estudiante = v2;
+		this.cedula = v6;
+		this.codigoLapso = v7;
+		this.motivosEstudiante = v8;
+		this.caso = v9;
+	}
+
+	/**
+	 * Buscar solicitud.
+	 * 
+	 * @param String
+	 *            cedula, String codigoLapso, Integer instancia
+	 * @return solicitud apelación.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "apelacionestudiante" })
 	public void buscarSolicitud(String cedula, String codigoLapso,
@@ -207,6 +244,15 @@ public class VMDetalleHistorialEstudiante {
 				.buscarApelacionHistorial(cedula, codigoLapso, instancia);
 	}
 
+	/**
+	 * Buscar solicitud instancia 2.
+	 * 
+	 * @param String
+	 *            cedula, String codigoLapso, Integer instancia
+	 * @return solicitud apelación instancia 2.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "apelacionestudianteinstancia2" })
 	public void buscarSolicitudInstancia2(String cedula, String codigoLapso,
@@ -216,6 +262,15 @@ public class VMDetalleHistorialEstudiante {
 				.buscarApelacionHistorial(cedula, codigoLapso, instancia);
 	}
 
+	/**
+	 * Buscar solicitud instancia 3.
+	 * 
+	 * @param String
+	 *            cedula, String codigoLapso, Integer instancia
+	 * @return solicitud apelación instancia 3.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "apelacionestudianteinstancia3" })
 	public void buscarSolicitudInstancia3(String cedula, String codigoLapso,
@@ -225,19 +280,34 @@ public class VMDetalleHistorialEstudiante {
 				.buscarApelacionHistorial(cedula, codigoLapso, instancia);
 	}
 
+	/**
+	 * Buscar estudiante.
+	 * 
+	 * @param String
+	 *            cedula
+	 * @return estudiante.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "estudiante" })
 	public void buscarEstudiante(String cedula) {
 		estudiante = servicioestudiantesancionado.buscarApelacion(cedula);
 	}
 
+	/**
+	 * Generar reporte historial estudiante.
+	 * 
+	 * @param Ninguno
+	 * @return Reporte del historial del estudiante sancionado generado en PDF u
+	 *         otro tipo de archivo.
+	 * @throws Si
+	 *             la lista esta vacia no genera el reporte.
+	 */
 	@Command("GenerarReporteHistorial")
 	@NotifyChange({ "reportConfig" })
 	public void generarReporte() {
-
-		reportConfig = new ReportConfig(ruta); // INSTANCIANDO UNA NUEVA LLAMADA
-												// AL
-												// REPORTE
+		reportConfig = new ReportConfig(ruta);
 		reportConfig.getParameters().put("Titulo", "Historial de Estudiante");
 		reportConfig.getParameters().put("codigoLapso", codigoLapso);
 		reportConfig.getParameters().put("cedula", cedula);
@@ -274,37 +344,6 @@ public class VMDetalleHistorialEstudiante {
 				new JRBeanCollectionDataSource(apelacionestudianteinstancia2));
 		reportConfig.getParameters().put("ListaInstancia3",
 				new JRBeanCollectionDataSource(apelacionestudianteinstancia3));
-		reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE
-		// // IMPRESION DEL REPORTE
-	}
-
-	@Init
-	public void init(
-
-			@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("apelacionestudiante") List<ApelacionEstadoApelacion> v3,
-			@ExecutionArgParam("apelacionestudianteinstancia2") List<ApelacionEstadoApelacion> v4,
-			@ExecutionArgParam("apelacionestudianteinstancia3") List<ApelacionEstadoApelacion> v5,
-			@ExecutionArgParam("apelacion") List<SolicitudApelacion> v1,
-			@ExecutionArgParam("estudiante") List<EstudianteSancionado> v2,
-			@ExecutionArgParam("cedula") String v6,
-			@ExecutionArgParam("codigoLapso") String v7,
-			@ExecutionArgParam("motivosEstudiante") String v8,
-			@ExecutionArgParam("caso") String v9)
-
-	// initialization code
-	{
-
-		Selectors.wireComponents(view, this, false);
-
-		this.apelacionestudiante = v3;
-		this.apelacionestudianteinstancia2 = v4;
-		this.apelacionestudianteinstancia3 = v5;
-		this.apelacion = v1;
-		this.estudiante = v2;
-		this.cedula = v6;
-		this.codigoLapso = v7;
-		this.motivosEstudiante = v8;
-		this.caso = v9;
+		reportConfig.setType(reportType);
 	}
 }

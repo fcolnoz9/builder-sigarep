@@ -3,7 +3,6 @@ package sigarep.viewmodels.reportes;
 import java.util.Arrays;
 import java.util.List;
 
-
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.Command;
@@ -26,50 +25,45 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioListaAsignaturasMayorCantidadSancionados;
 
-/** View Models de Reporte Asignaturas Mayor Cantidad Sancionados.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+/**
+ * View Models de Reporte Asignaturas Mayor Cantidad Sancionados.
+ * 
+ * @author Equipo Builder
  * @version 2.5.2
  * @since 20/01/2014
+ * @last 08/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAsignaturasMayorCantidadSancionados {
-	
-	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
-	//*************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-	
-	//*************************RUTA DEL REPORTE***************************
-	String ruta= "/WEB-INF/sigarepReportes/estadisticos/RpAsignaturasSancionadosVsApelaciones.jasper";
-	
-
-	//***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
-	@WireVariable ServicioListaAsignaturasMayorCantidadSancionados servicioListaAsignaturasMayor;
-	@WireVariable ServicioLapsoAcademico serviciolapsoacademico;
-	@WireVariable ServicioProgramaAcademico servicioprogramaacademico;
-	@WireVariable ServicioInstanciaApelada servicioInstanciaApelada;
-	
-	//***********************************DECLARACION DE LISTAS*************************
-	private  ListModelList<ListaAsignaturasMayorCantidadSancionados> listaAsigMayor;
-	private List<ProgramaAcademico> listaComboPrograma;
-	private List<LapsoAcademico> listaLapsoAcademico;
-	private List<InstanciaApelada> listaComboInstancia;
-	
-	//***********************************DECLARACION DE LAS VARIABLES*************************
-	@WireVariable private String nombreAsignatura;
-	@WireVariable private Integer cantidadSancionados;
+	// --------------------------Servicios------------------------------
+	@WireVariable
+	ServicioListaAsignaturasMayorCantidadSancionados servicioListaAsignaturasMayor;
+	@WireVariable
+	ServicioLapsoAcademico serviciolapsoacademico;
+	@WireVariable
+	ServicioProgramaAcademico servicioprogramaacademico;
+	@WireVariable
+	ServicioInstanciaApelada servicioInstanciaApelada;
+	// --------------------------Variables de Control-------------------
 	private Integer idPrograma;
 	private String nombrePrograma;
 	private String codigoLapso;
 	private Integer idInstanciaApelada;
-	
-	//***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO*************************
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	String ruta = "/WEB-INF/sigarepReportes/estadisticos/RpAsignaturasSancionadosVsApelaciones.jasper";
+	// --------------------------Variables lista------------------------
+	private ListModelList<ListaAsignaturasMayorCantidadSancionados> listaAsigMayor;
+	private List<ProgramaAcademico> listaComboPrograma;
+	private List<LapsoAcademico> listaLapsoAcademico;
+	private List<InstanciaApelada> listaComboInstancia;
+	// --------------------------Variables Objeto-----------------------
 	private LapsoAcademico lapsoAcademico;
 	private ProgramaAcademico programaAcademico;
 	private InstanciaApelada instanciaApelada;
-	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
-	
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+
+	// Métodos Set y Get
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
@@ -77,7 +71,7 @@ public class VMAsignaturasMayorCantidadSancionados {
 	public ReportConfig getReportConfig() {
 		return reportConfig;
 	}
-	
+
 	public ReportType getReportType() {
 		return reportType;
 	}
@@ -85,12 +79,7 @@ public class VMAsignaturasMayorCantidadSancionados {
 	public void setReportType(ReportType reportType) {
 		this.reportType = reportType;
 	}
-	
-	//*******************FIN DE LOS METODOS*****************************
-	
-	//==================================METODOS SET Y GET====================================
-	
-	
+
 	public Integer getIdPrograma() {
 		return idPrograma;
 	}
@@ -102,7 +91,7 @@ public class VMAsignaturasMayorCantidadSancionados {
 	public String getNombrePrograma() {
 		return nombrePrograma;
 	}
-	
+
 	public String getCodigoLapso() {
 		return codigoLapso;
 	}
@@ -110,7 +99,7 @@ public class VMAsignaturasMayorCantidadSancionados {
 	public void setCodigoLapso(String codigoLapso) {
 		this.codigoLapso = codigoLapso;
 	}
-	
+
 	public void setNombrePrograma(String nombrePrograma) {
 		this.nombrePrograma = nombrePrograma;
 	}
@@ -123,7 +112,6 @@ public class VMAsignaturasMayorCantidadSancionados {
 		this.idInstanciaApelada = idInstanciaApelada;
 	}
 
-
 	public ProgramaAcademico getProgramaAcademico() {
 		return programaAcademico;
 	}
@@ -131,7 +119,7 @@ public class VMAsignaturasMayorCantidadSancionados {
 	public void setProgramaAcademico(ProgramaAcademico programaAcademico) {
 		this.programaAcademico = programaAcademico;
 	}
-	
+
 	public LapsoAcademico getLapsoAcademico() {
 		return lapsoAcademico;
 	}
@@ -139,7 +127,7 @@ public class VMAsignaturasMayorCantidadSancionados {
 	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
 		this.lapsoAcademico = lapsoAcademico;
 	}
-	
+
 	public InstanciaApelada getInstanciaApelada() {
 		return instanciaApelada;
 	}
@@ -148,8 +136,6 @@ public class VMAsignaturasMayorCantidadSancionados {
 		this.instanciaApelada = instanciaApelada;
 	}
 
-
-	
 	public List<ProgramaAcademico> getListaComboPrograma() {
 		return listaComboPrograma;
 	}
@@ -157,12 +143,13 @@ public class VMAsignaturasMayorCantidadSancionados {
 	public void setListaComboPrograma(List<ProgramaAcademico> listaComboPrograma) {
 		this.listaComboPrograma = listaComboPrograma;
 	}
-	
+
 	public List<InstanciaApelada> getListaComboInstancia() {
 		return listaComboInstancia;
 	}
 
-	public void setListaComboInstancia(List<InstanciaApelada> listaComboInstancia) {
+	public void setListaComboInstancia(
+			List<InstanciaApelada> listaComboInstancia) {
 		this.listaComboInstancia = listaComboInstancia;
 	}
 
@@ -178,186 +165,187 @@ public class VMAsignaturasMayorCantidadSancionados {
 		return listaAsigMayor;
 	}
 
-	public void setListaAsig(ListModelList<ListaAsignaturasMayorCantidadSancionados> listaAsig) {
+	public void setListaAsig(
+			ListModelList<ListaAsignaturasMayorCantidadSancionados> listaAsig) {
 		this.listaAsigMayor = listaAsig;
 	}
-	//===============================FIN DE LOS METODOS SET Y GET==============================
-	
-	
-	
-	//Lista que me permite llenar el combo para elegir el formato 
-  	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-  			Arrays.asList(
-  					new ReportType("PDF", "pdf"),  
-  					new ReportType("Word (RTF)", "rtf"), 
-  					new ReportType("Excel", "xls"), 
-  					new ReportType("Excel (JXL)", "jxl"), 
-  					new ReportType("CSV", "csv"), 
-  					new ReportType("OpenOffice (ODT)", "odt")));
-  	
-	
-	
-  //*******METODO DE INICIALIZACION*******
-  	
-	  	/**Inicialización
-		 * @param init
-		 * @return Carga de Variables y métodos inicializados
-		 * @throws No dispara ninguna excepción.
-		 */
-	  	
-	  	@Init
-	  	public void Init() {
-	  		buscarProgramaAcademico();
-	  		buscarLapso();
-	  		buscarInstanciaApelada();
-	  		listaAsigMayor = new ListModelList<ListaAsignaturasMayorCantidadSancionados>();
-	  		
-	  	}
-  	//*******FIN DEL METODO*******
-	  	
-	  	
-	  	//********************************METODO PARA LIMPIAR COMBOS*******************************
-	  	/** Limpiar Asignaturas Sancionados.
-		* @param Ninguno
-		* @return Limpiar cada uno de los combos de la vista
-		* @throws No dispara ninguna excepción.
-		*/
 
-		@Command
-		@NotifyChange({"programaAcademico","lapsoAcademico","instanciaApelada","reportType"})
-		public void limpiarAsignaturasSancionados(){
-			programaAcademico= null;
-			lapsoAcademico= null;
-			instanciaApelada= null;
-			reportType= null;
-		}
+	// Fin Métodos Set y Get
 
-  	
-	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
-	
-  	/** Buscar Programas Académicos.
- 	* @param Ninguno
- 	* @return Listado de Programas Académicos
- 	* @throws No dispara ninguna excepción.
- 	*/
-  	
-  	@Command
+	/**
+	 * Inicialización
+	 * 
+	 * @param init
+	 * @return Carga de Variables y métodos inicializados
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Init
+	public void Init() {
+		buscarProgramaAcademico();
+		buscarLapso();
+		buscarInstanciaApelada();
+		listaAsigMayor = new ListModelList<ListaAsignaturasMayorCantidadSancionados>();
+	}
+
+	/**
+	 * ListModelList. Muestra los tipos de formatos que puede mostrarse el
+	 * reporte.
+	 * 
+	 * @param Ninguno
+	 * @return Tipos de formatos para el reporte.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
+					"Word (RTF)", "rtf"), new ReportType("Excel", "xls"),
+					new ReportType("Excel (JXL)", "jxl"), new ReportType("CSV",
+							"csv"), new ReportType("OpenOffice (ODT)", "odt")));
+
+	/**
+	 * Limpiar Asignaturas Sancionados.
+	 * 
+	 * @param Ninguno
+	 * @return Limpiar cada uno de los combos de la vista.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "programaAcademico", "lapsoAcademico", "instanciaApelada",
+			"reportType" })
+	public void limpiarAsignaturasSancionados() {
+		programaAcademico = null;
+		lapsoAcademico = null;
+		instanciaApelada = null;
+		reportType = null;
+	}
+
+	/**
+	 * Buscar programa académico.
+	 * 
+	 * @param Ninguno
+	 * @return Busca todos los registros.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
 	@NotifyChange({ "listaComboPrograma" })
 	public void buscarProgramaAcademico() {
 		setListaComboPrograma(servicioprogramaacademico.listadoProgramas());
 	}
-  	
-  	/** Objeto Combo Programa.
- 	* @param Ninguno
- 	* @return Objeto Programa Académico
- 	* @throws No dispara ninguna excepción.
- 	*/
-  	
-	@Command
-	 @NotifyChange({"listaComboPrograma"})
-	public ProgramaAcademico objetoComboPrograma() {
-		return programaAcademico;
-		
-	}
-	
-	/** Buscar Lapsos.
- 	* @param Ninguno
- 	* @return Listado de Lapsos Académicos
- 	* @throws No dispara ninguna excepción.
- 	*/
-	
+
+	/**
+	 * Buscar lapsos académicos.
+	 * 
+	 * @param Ninguno
+	 * @return Busca todos los registros.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarLapso() {
 		setListaLapsoAcademico(serviciolapsoacademico.buscarTodosLosLapsos());
 	}
-	
-	/** Objeto Combo Lapso.
- 	* @param Ninguno
- 	* @return Objeto Lapso Académico
- 	* @throws No dispara ninguna excepción.
- 	*/
-	
-	@Command
-	 @NotifyChange({"listaLapsoAcademico"})
-	public LapsoAcademico objetoComboLapso() {
-		return lapsoAcademico;
-		
-	}
-	
-	/** Buscar Instancias Apeladas.
- 	* @param Ninguno
- 	* @return Listado de Instancias
- 	* @throws No dispara ninguna excepción.
- 	*/
-	
+
+	/**
+	 * Buscar instancias apeladas.
+	 * 
+	 * @param Ninguno
+	 * @return Listado de Instancias.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
 	@NotifyChange({ "listaComboInstancia" })
 	public void buscarInstanciaApelada() {
-		setListaComboInstancia(servicioInstanciaApelada.listadoInstanciaApelada());
+		setListaComboInstancia(servicioInstanciaApelada
+				.listadoInstanciaApelada());
 	}
-	
-	/** Objeto Combo Instancia.
- 	* @param Ninguno
- 	* @return Objeto Instancia Apelada
- 	* @throws No dispara ninguna excepción.
- 	*/
-	
+
+	/**
+	 * Generar Reporte Asignaturas Mayor.
+	 * 
+	 * @param Ninguno
+	 * @return Reporte de las 5 asignaturas con mas sancionados generado en PDF
+	 *         u otro tipo de archivo.
+	 * @throws Si
+	 *             la lista esta vacia no genera el reporte.
+	 */
+	@Command("GenerarReporteAsigMayor")
+	@NotifyChange({ "reportConfig" })
+	public void GenerarReporteAsigMayor() {
+		if (programaAcademico == null || lapsoAcademico == null
+				|| instanciaApelada == null || reportType == null)
+			mensajeAlUsuario.advertenciaSeleccionarTodo();
+		else {
+			listaAsigMayor.clear();
+			idPrograma = programaAcademico.getIdPrograma();
+			codigoLapso = lapsoAcademico.getCodigoLapso();
+			idInstanciaApelada = instanciaApelada.getIdInstanciaApelada();
+			List<ListaAsignaturasMayorCantidadSancionados> lista = servicioListaAsignaturasMayor
+					.buscarAsignaturasSancionados(idPrograma, codigoLapso,
+							idInstanciaApelada);
+			listaAsigMayor.addAll(lista);
+			if (listaAsigMayor.getSize() > 0) {
+				reportConfig = new ReportConfig(ruta);
+				reportConfig.getParameters().put("nombrePrograma",
+						programaAcademico.getNombrePrograma());
+				reportConfig.getParameters().put("instanciaApelada",
+						instanciaApelada.getInstanciaApelada());
+				reportConfig.getParameters().put("lapso",
+						lapsoAcademico.getCodigoLapso());
+				reportConfig.getParameters().put("Lista",
+						new JRBeanCollectionDataSource(listaAsigMayor));
+				reportConfig.setType(reportType);
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(
+						listaAsigMayor));
+			} else
+				mensajeAlUsuario.informacionNoHayCoincidencias();
+		}
+	}
+
+	/**
+	 * Objeto Combo Programa.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
 	@Command
-	 @NotifyChange({"listaComboInstancia"})
+	@NotifyChange({ "listaComboPrograma" })
+	public ProgramaAcademico objetoComboPrograma() {
+		return programaAcademico;
+	}
+
+	/**
+	 * Objeto Combo Lapso.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Lapso Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaLapsoAcademico" })
+	public LapsoAcademico objetoComboLapso() {
+		return lapsoAcademico;
+	}
+
+	/**
+	 * Objeto Combo Instancia.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Instancia Apelada
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaComboInstancia" })
 	public InstanciaApelada objetoComboInstancia() {
 		return instanciaApelada;
-		
+
 	}
-	
-	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FIN DEL METODO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	
-	
-	
-	// ###############METODO PARA IMPRIMIR REPORTE#################
-	
-	/** Generar Reporte Asignaturas Mayor.
- 	* @param Ninguno
- 	* @return Reporte de las 5 asignaturas con mas sancionados generado en PDF u otro tipo de archivo
- 	* @throws Si la lista esta vacia no genera el reporte
- 	*/
-	
-	@Command("GenerarReporteAsigMayor")
-	@NotifyChange({"reportConfig"})
-	public void GenerarReporteAsigMayor(){
-		
-				
-			if(programaAcademico==null || lapsoAcademico== null || instanciaApelada== null || reportType == null)
-				mensajeAlUsuario.advertenciaSeleccionarTodo();
-			else{
-				
-				listaAsigMayor.clear();
-				idPrograma = programaAcademico.getIdPrograma();// OBTENER EL VALOR DE LOS COMBOS
-				codigoLapso = lapsoAcademico.getCodigoLapso();
-				idInstanciaApelada= instanciaApelada.getIdInstanciaApelada();
-		
-				List<ListaAsignaturasMayorCantidadSancionados> lista= servicioListaAsignaturasMayor.buscarAsignaturasSancionados(idPrograma,codigoLapso,idInstanciaApelada);
-				listaAsigMayor.addAll(lista);
-				
-				if(listaAsigMayor.getSize()> 0){
-					reportConfig= new ReportConfig(ruta); //INSTANCIANDO UNA NUEVA LLAMADA AL REPORTE
-					reportConfig.getParameters().put("nombrePrograma", programaAcademico.getNombrePrograma());
-					reportConfig.getParameters().put("instanciaApelada", instanciaApelada.getInstanciaApelada());
-					reportConfig.getParameters().put("lapso", lapsoAcademico.getCodigoLapso());
-					reportConfig.getParameters().put("Lista", new JRBeanCollectionDataSource(listaAsigMayor));
-					reportConfig.setType(reportType); // ASIGNANDO EL TIPO DE FORMATO DE IMPRESION DEL REPORTE
-					reportConfig.setDataSource(new JRBeanCollectionDataSource(listaAsigMayor)); //ASIGNANDO MEDIANTE EL DATA SOURCE LOS DATOS PARA DIBUJAR EL REPORTE   
-				}
-				else
-					mensajeAlUsuario.informacionNoHayCoincidencias();
-			}
-				
-	}
-	
-		
 }
-
-
-
-

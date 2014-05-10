@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -18,7 +17,6 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
@@ -29,28 +27,25 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioReportesEstructurados;
 
+/**
+ * VM Informe Estructurado al Consejo de Decanato.
+ * 
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 23/01/2014
+ * @last 10/05/2014
+ */
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMInformeConsejoDecanato {
-
-	/**
-	 * VM Informe Estructurado al Consejo de Decanato UCLA DCYT Sistemas de
-	 * Información.
-	 * 
-	 * @author Equipo : Builder-Sigarep Lapso 2013-2
-	 * @version 1.0
-	 */
-	
-	// ***********************************DECLARACION DE LAS VARIABLES SERVICIOS*************************
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
 	private ServicioReportesEstructurados servicioreportesestructurados;
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
-	
-	// ***********************************PARÁMETROS PARA REPORTES*************************
-	@WireVariable
-	private String codigoLapso;
+	// --------------------------Variables de Control-------------------
 	@Wire
 	private String para = "";
 	@Wire
@@ -59,7 +54,6 @@ public class VMInformeConsejoDecanato {
 	private String contenido = "";
 	@Wire
 	private String nro = "";
-
 	private int procedentesInf;
 	private int procedentesPro;
 	private int procedentesAna;
@@ -68,39 +62,23 @@ public class VMInformeConsejoDecanato {
 	private int denegadosPro;
 	private int denegadosAna;
 	private int denegadosMat;
-
-	// ***********************************DECLARACIÓN DE LISTAS*************************
+	@Wire("#winApelacion")
+	Window ventana; // para conectarse a la ventana con el ID
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	String ruta = "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoDecanato.jasper";
+	// --------------------------Variables lista------------------------
 	private List<LapsoAcademico> listaLapso;
 	private List<ProgramaAcademico> listaPrograma = new LinkedList<ProgramaAcademico>();
 	private List<Sancionados> listaInformatica = new LinkedList<Sancionados>();
 	private List<Sancionados> listaAnalisis = new LinkedList<Sancionados>();
 	private List<Sancionados> listaProduccion = new LinkedList<Sancionados>();
 	private List<Sancionados> listaMatematicas = new LinkedList<Sancionados>();
-
-	// ***********************************DECLARACION DE LAS VARIABLES TIPO OBJETO *************************
+	// --------------------------Variables Objeto-----------------------
 	private LapsoAcademico objLapso;
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	// *********************************Mensajes***************************************
-	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();// Llama a los diferentes mensajes de dialogo
-	
-	@Wire("#winApelacion") // para conectarse a la ventana con el ID
-	Window ventana;
-
-	@AfterCompose // para poder conectarse con los componentes en la vista, es necesario si no
-				  // da null Pointer
-	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
-		Selectors.wireComponents(view, this, false);
-	}
-
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL REPORTE***************************
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-
-	String ruta = "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoDecanato.jasper";
-
-		
-	//**************METODOS SET Y GET NECESARIOS PARA GENERAR REPORTE*****************
-	// Reporte SET/GETS
+	// Métodos Set y Get
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
@@ -156,7 +134,7 @@ public class VMInformeConsejoDecanato {
 	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
 		this.listaPrograma = listaPrograma;
 	}
-	
+
 	public List<LapsoAcademico> getListaLapso() {
 		return listaLapso;
 	}
@@ -173,56 +151,57 @@ public class VMInformeConsejoDecanato {
 		this.objLapso = objLapso;
 	}
 
-	// ===============================FIN DE LOS METODOS SET Y GET==============================
+	// Fin Métodos Set y Get
 
-	// REPORTE
 	/**
-	 * Muestra los tipos de formatos que puede mostrarse el reporte
+	 * Inicialización
 	 * 
-	 * @param
-	 * @return modelos de la lista
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType("Word (RTF)", "rtf"),
-					new ReportType("Excel", "xls"), new ReportType(
-							"Excel (JXL)", "jxl"),
-					new ReportType("CSV", "csv"), new ReportType(
-							"OpenOffice (ODT)", "odt")));
-	
-	
-	//******************************METODO DE INICIALIZACION*****************************
-	/**Inicialización
 	 * @param init
 	 * @return Carga de Variables y métodos inicializados
-	 * @throws No dispara ninguna excepcion.
-	*/
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Init
 	public void init() {
 		buscarLapso();
 	}
-	
-	
-	//*****************************METODO PARA LIMPIAR COMBOS O CAJAS DE TEXTO*******************************
-	@Command
-	@NotifyChange({ "para", "de", "contenido", "nro", "contenido", "objLapso" })
-	public void limpiar() {
-		// se utiliza la fecha del sistema para colocarla al momento de limpiar
-		para = "";
-		de = "";
-		nro = "";
-		contenido = "";
-		objLapso = null;
+
+	/**
+	 * afterCompose. Conecta a los componentes de la vista. Es necesario para
+	 * evitar null pointer.
+	 * 
+	 * @param @ContextParam(ContextType.VIEW) Component view
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
 	}
 
-	
-	
-	//@@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS COMBOS@@@@@@@@@@@@@@@@@@@
-	/**buscar Lapso Académico 
+	/**
+	 * ListModelList. Muestra los tipos de formatos que puede mostrarse el
+	 * reporte.
+	 * 
+	 * @param Ninguno
+	 * @return Tipos de formatos para el reporte.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
+					"Word (RTF)", "rtf"), new ReportType("Excel", "xls"),
+					new ReportType("Excel (JXL)", "jxl"), new ReportType("CSV",
+							"csv"), new ReportType("OpenOffice (ODT)", "odt")));
+
+	/**
+	 * Buscar Lapso Académico
+	 * 
 	 * @param
 	 * @return lista de Lapso Académico
-	 * @throws No dispara ninguna excepción.
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaLapso" })
@@ -243,16 +222,16 @@ public class VMInformeConsejoDecanato {
 	public LapsoAcademico objCmbLapso() {
 		return objLapso;
 	}
-	
-	
-	// ###############METODO PARA IMPRIMIR REPORTE#################
-	/**Generar Informe Estructurado al Consejo de Decanato
+
+	/**
+	 * Generar Informe Estructurado al Consejo de Decanato
+	 * 
 	 * @param Ninguno
 	 * @return Informe Estructurado al Consejo de Decanato generado en PDF u
 	 *         otro tipo de archivo
-	 * @throws Si la lista está vacía no genera el reporte.
+	 * @throws Si
+	 *             la lista está vacía no genera el reporte.
 	 */
-	//
 	@Command("GenerarReporteApelacionesMotivo")
 	@NotifyChange({ "reportConfig", "para", "de", "contenido",
 			"tituloinstancia", "titulosancion", "tituloprograma" })
@@ -263,35 +242,34 @@ public class VMInformeConsejoDecanato {
 		listaMatematicas.clear();
 		listaPrograma.clear();
 		listaPrograma = servicioprogramaacademico.listadoProgramas();
-		
 		if (objLapso == null || para.equals("") || nro.equals("")
 				|| de.equals("") || contenido.equals(""))
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
-
 			listaInformatica = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(2).getIdPrograma(), objLapso.getCodigoLapso());
+					.buscarEstudiantesComision(listaPrograma.get(2)
+							.getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaInformatica.size() > 0) {
 				procedentesInf = listaInformatica.get(0).getProcedentes();
 				denegadosInf = listaInformatica.get(0).getNoProcedentes();
 			}
-
 			listaProduccion = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(3).getIdPrograma(), objLapso.getCodigoLapso());
+					.buscarEstudiantesComision(listaPrograma.get(3)
+							.getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaProduccion.size() > 0) {
 				procedentesPro = listaProduccion.get(0).getProcedentes();
 				denegadosPro = listaProduccion.get(0).getNoProcedentes();
 			}
-
 			listaAnalisis = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(0).getIdPrograma(), objLapso.getCodigoLapso());
+					.buscarEstudiantesComision(listaPrograma.get(0)
+							.getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaAnalisis.size() > 0) {
 				procedentesAna = listaAnalisis.get(0).getProcedentes();
 				denegadosAna = listaAnalisis.get(0).getNoProcedentes();
 			}
-
 			listaMatematicas = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(1).getIdPrograma(), objLapso.getCodigoLapso());
+					.buscarEstudiantesComision(listaPrograma.get(1)
+							.getIdPrograma(), objLapso.getCodigoLapso());
 			if (listaMatematicas.size() > 0) {
 				procedentesMat = listaMatematicas.get(0).getProcedentes();
 				denegadosMat = listaMatematicas.get(0).getNoProcedentes();
@@ -322,6 +300,22 @@ public class VMInformeConsejoDecanato {
 			reportConfig.setType(reportType);
 		}
 	}
-	// #####################FIN DEL METODO##########################
 
+	/**
+	 * Limpiar. Inicializa los combos.
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno.
+	 * @throws No
+	 *             dispara ninguna exepción.
+	 */
+	@Command
+	@NotifyChange({ "para", "de", "contenido", "nro", "contenido", "objLapso" })
+	public void limpiar() {
+		para = "";
+		de = "";
+		nro = "";
+		contenido = "";
+		objLapso = null;
+	}
 }

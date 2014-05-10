@@ -31,18 +31,17 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
- * VM Informe Especial de Estudiantes en Proceso de Apelación UCLA DCYT Sistemas
- * de Información.
+ * VM Informe Especial de Estudiantes en Proceso de Apelación.
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-2
- * @version 1.0
+ * @author Equipo Builder
+ * @version 2.5.2
+ * @since 23/01/2014
+ * @last 10/05/2014
  */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEstudiantesEnProcesoApelacion {
-
-	// ***********************************DECLARACION DE LAS VARIABLES
-	// SERVICIOS*************************
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
@@ -55,18 +54,12 @@ public class VMEstudiantesEnProcesoApelacion {
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioInstanciaApelada servicioInstanciaApelada;
-
-	// ***********************************PARÁMETROS PARA
-	// REPORTES************************
-	@WireVariable
-	private String nombrePrograma;
-	@WireVariable
-	private String nombreSancion;
-	@WireVariable
-	private String codigoLapso;
-
-	// ***********************************DECLARACION DE
-	// LISTAS*************************
+	// --------------------------Variables de Control-------------------
+	ReportType reportType = null;
+	private ReportConfig reportConfig = null;
+	String ruta1 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion1.jasper";
+	String ruta2 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion2.jasper";
+	// --------------------------Variables lista------------------------
 	private List<ProgramaAcademico> listaPrograma;
 	private List<SancionMaestro> listaTipoSancion;
 	private List<InstanciaApelada> listaInstanciaApelada;
@@ -75,29 +68,14 @@ public class VMEstudiantesEnProcesoApelacion {
 	private List<EstudianteSancionado> listaES = new LinkedList<EstudianteSancionado>();
 	private List<EstudianteSancionado> lista1 = new LinkedList<EstudianteSancionado>();
 	private List<SolicitudApelacion> lista2 = new LinkedList<SolicitudApelacion>();
-
-	// ***********************************DECLARACION DE LAS VARIABLES TIPO
-	// OBJETO*************************
+	// --------------------------Variables Objeto-----------------------
 	private ProgramaAcademico objPrograma;
 	private EstadoApelacion objEstadoApelacion;
 	private LapsoAcademico lapsoActivo;
 	private InstanciaApelada objinstanciaApelada;
-
-	// *********************************Mensajes***************************************
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	// *************************INSTANCIANDO LAS CLASES NECESARIAS PARA EL
-	// REPORTE***************************
-
-	ReportType reportType = null;
-	private ReportConfig reportConfig = null;
-
-	String ruta1 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion1.jasper";
-	String ruta2 = "/WEB-INF/sigarepReportes/informes/especiales/RpEstudiantesEnProcesoDeApelacion2.jasper";
-
-	// **************METODOS SET Y GET NECESARIOS PARA GENERAR
-	// REPORTE*****************
-	// Reporte SET/GETS
+	// Métodos Set y Get
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
 	}
@@ -204,26 +182,8 @@ public class VMEstudiantesEnProcesoApelacion {
 		this.objinstanciaApelada = objinstanciaApelada;
 	}
 
-	// ===============================FIN DE LOS METODOS SET Y
-	// GET==============================
+	// Fin Métodos Set y Get
 
-	// Lista que me permite llenar el combo para elegir el formato
-	/**
-	 * Muestra los tipos de formatos que puede mostrarse el reporte
-	 * 
-	 * @param
-	 * @return modelos de la lista
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
-			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
-					"Word (RTF)", "rtf"), new ReportType("Excel", "xls"),
-					new ReportType("Excel (JXL)", "jxl"), new ReportType("CSV",
-							"csv"), new ReportType("OpenOffice (ODT)", "odt")));
-
-	// ******************************METODO DE
-	// INICIALIZACION*****************************
 	/**
 	 * Inicialización
 	 * 
@@ -235,17 +195,29 @@ public class VMEstudiantesEnProcesoApelacion {
 	@Init
 	public void init() {
 		buscarPrograma();
-		// buscarEstadoApelacion();
 		lapsoActivo = serviciolapsoacademico.buscarLapsoActivo();
 		listadoInstancia();
 	}
 
-	// @@@@@@@@@@@@@@@@@METODOS PARA CARGAR CADA UNO DE LOS
-	// COMBOS@@@@@@@@@@@@@@@@@@@
 	/**
-	 * buscar Programa Académico
+	 * ListModelList. Muestra los tipos de formatos que puede mostrarse el
+	 * reporte.
 	 * 
-	 * @param
+	 * @param Ninguno
+	 * @return Tipos de formatos para el reporte.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
+			Arrays.asList(new ReportType("PDF", "pdf"), new ReportType(
+					"Word (RTF)", "rtf"), new ReportType("Excel", "xls"),
+					new ReportType("Excel (JXL)", "jxl"), new ReportType("CSV",
+							"csv"), new ReportType("OpenOffice (ODT)", "odt")));
+
+	/**
+	 * Buscar Programa Académico
+	 * 
+	 * @param Ninguno
 	 * @return lista de programa Académico
 	 * @throws No
 	 *             dispara ninguna excepción.
@@ -259,27 +231,13 @@ public class VMEstudiantesEnProcesoApelacion {
 	}
 
 	/**
-	 * Objeto Combo Programa.
+	 * Buscar instancia
 	 * 
 	 * @param Ninguno
-	 * @return Objeto Programa Académico
+	 * @return lista de instacias apeladas
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
-	@Command
-	@NotifyChange({ "listaPrograma" })
-	public ProgramaAcademico objCmbPrograma() {
-		return objPrograma;
-	}
-
-	/**
-	 * buscar Instancia
-	 * 
-	 * @param
-	 * @return lista de instacias apeladas
-	 */
-
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
 	public void listadoInstancia() {
@@ -288,43 +246,20 @@ public class VMEstudiantesEnProcesoApelacion {
 	}
 
 	/**
-	 * Objeto Combo Instancia.
+	 * Buscar estados
 	 * 
 	 * @param Ninguno
-	 * @return Objeto Instancia Apelada
+	 * @return lista de estados de apelacion
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
-	@Command
-	@NotifyChange({ "listaInstanciaApelada" })
-	public InstanciaApelada objCmbinstanciaApelada() {
-		return objinstanciaApelada;
-	}
-
 	@Command
 	@NotifyChange({ "listaEstadoApelacion", "objinstanciaApelada" })
-	// *********BUSCAR ESTADOS POR INSTANCIA
 	public void buscarEstados() {
 		listaEstadoApelacion = servicioestadoapelacion
 				.buscarEstados(objinstanciaApelada.getIdInstanciaApelada());
 	}
 
-	/**
-	 * Objeto Combo Estado Apelacion.
-	 * 
-	 * @param Ninguno
-	 * @return Objeto Estado Apelacion
-	 * @throws No
-	 *             dispara ninguna excepción.
-	 */
-	@Command
-	@NotifyChange({ "listaEstadoApelacion" })
-	public EstadoApelacion objCmbEstadoApelacion() {
-		return objEstadoApelacion;
-	}
-
-	// ###############METODO PARA IMPRIMIR REPORTE#################
 	/**
 	 * Generar Reporte Estadístico Comparativo de Apelaciones por Motivo y
 	 * Veredicto.
@@ -342,7 +277,6 @@ public class VMEstudiantesEnProcesoApelacion {
 		lista1.clear();
 		listaSA.clear();
 		lista2.clear();
-
 		if (objEstadoApelacion == null || objPrograma == null
 				|| reportType == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
@@ -666,11 +600,16 @@ public class VMEstudiantesEnProcesoApelacion {
 				break;
 			}
 		}
-
 	}
 
-	// *******************************METODO PARA LIMPIAR
-	// COMBOS******************************
+	/**
+	 * Limpiar. Inicializa los combos.
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno.
+	 * @throws No
+	 *             dispara ninguna exepción.
+	 */
 	@Command
 	@NotifyChange({ "objPrograma", "objEstadoApelacion", "objinstanciaApelada",
 			"reportType" })
@@ -679,6 +618,49 @@ public class VMEstudiantesEnProcesoApelacion {
 		objEstadoApelacion = null;
 		objinstanciaApelada = null;
 		reportType = null;
+	}
+
+	/**
+	 * Objeto Combo Programa.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Programa Académico
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+
+	@Command
+	@NotifyChange({ "listaPrograma" })
+	public ProgramaAcademico objCmbPrograma() {
+		return objPrograma;
+	}
+
+	/**
+	 * Objeto Combo Instancia.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Instancia Apelada
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaInstanciaApelada" })
+	public InstanciaApelada objCmbinstanciaApelada() {
+		return objinstanciaApelada;
+	}
+
+	/**
+	 * Objeto Combo Estado Apelacion.
+	 * 
+	 * @param Ninguno
+	 * @return Objeto Estado Apelacion
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@Command
+	@NotifyChange({ "listaEstadoApelacion" })
+	public EstadoApelacion objCmbEstadoApelacion() {
+		return objEstadoApelacion;
 	}
 
 }
