@@ -155,10 +155,10 @@ public class VMDatosSesionVeredicto {
 			numa = 1;  numb = 3;
 		}
 		else{
+			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(3);
 			ventana.setTitle("Gestión :: Evaluar Recurso Jerárquico :: Veredicto :: Datos de la Sesión");
 			numa = 1;  numb = 2;
 			}
-			solicitudApelacion = serviciosolicitudapelacion.buscarSolicitudParaDatosSesion(3);
 		if (solicitudApelacion.size() > 0){
 			fechaSesion = solicitudApelacion.get(0).getFechaSesion();
 			tipoSesion = solicitudApelacion.get(0).getTipoSesion();
