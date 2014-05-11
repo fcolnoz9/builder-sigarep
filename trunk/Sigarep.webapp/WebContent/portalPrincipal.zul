@@ -4,6 +4,9 @@
 	<!-- Css -->
 	<style src="widgets/css/style.css" />
 	<html>
+	 	<head>
+       		<meta name="viewport" initial-scale="1" />
+    	</head>
 		<script type="text/javascript" src="widgets/js/DP.js"></script>
 		<script type="text/javascript" defer="true">
 			window.onload = DP.inicio;

@@ -3,5 +3,10 @@
 <?link rel="stylesheet" type="text/css" href="/widgets/css/style.css"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="WEB-INF/sigarep/vistas/portal/interno/template.zul"?>
 <zk>
-	<include id="mainInclude" self="@define(content)" src="" />
+ <html xmlns="http://www.zkoss.org/2005/zk/native">
+ 	<head>
+ 		<meta name="viewport" initial-scale="1" />
+ 	</head>
+ </html>
+ <include id="mainInclude" self="@define(content)" src="" />
 </zk>
