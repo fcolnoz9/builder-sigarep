@@ -25,10 +25,17 @@ import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
-
+/**
+ * VM Historicos Sigarep BD.
+ * 
+ * @author Equipo Builder
+ * @version 1.2
+ * @since 10/01/2014
+ * @last 10/05/2014
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VMHistoricosSigarepBD {	
-
+public class VMHistoricosSigarepBD {
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
@@ -36,25 +43,21 @@ public class VMHistoricosSigarepBD {
 	@WireVariable
 	ServicioMotivo serviciomotivo;
 	@WireVariable
-	private Radio radio;
-	@WireVariable
-	private boolean checkTodos;
-	@WireVariable
-	private LapsoAcademico lapso;
-	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
-	
-	@WireVariable
-	private Date fecha;
-	
-	@WireVariable
-	private String selected = "";
-	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
 	private ServicioCronograma serviciocronograma;
-	@WireVariable
+	// --------------------------Variables de Control-------------------
+	private Radio radio;
+	private boolean checkTodos;
+	private Date fecha;
+	private String selected = "";
+	// --------------------------Variables Lista------------------------
 	private List<LapsoAcademico> listaLapsoAcademico = new LinkedList<LapsoAcademico>();
-	
+	// --------------------------Variables Objeto-----------------------
+	private LapsoAcademico lapso;
+	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+
+	// Métodos Set y Get
 	public String getSelected() {
 		return selected;
 	}
@@ -63,7 +66,7 @@ public class VMHistoricosSigarepBD {
 	public void setSelected(String selected) {
 		this.selected = selected;
 	}
-	
+
 	public boolean isCheckTodos() {
 		return checkTodos;
 	}
@@ -79,7 +82,7 @@ public class VMHistoricosSigarepBD {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
+
 	public Radio getRadio() {
 		return radio;
 	}
@@ -95,7 +98,7 @@ public class VMHistoricosSigarepBD {
 	public void setLapso(LapsoAcademico lapso) {
 		this.lapso = lapso;
 	}
-	
+
 	public List<LapsoAcademico> getListaLapsoAcademico() {
 		return listaLapsoAcademico;
 	}
@@ -104,106 +107,146 @@ public class VMHistoricosSigarepBD {
 		this.listaLapsoAcademico = listaLapsoAcademico;
 	}
 
+	// Fin Métodos Set y Get
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return Código de inicialización
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Init
+	public void init() {
+		buscarLapsoAcademicoAnteriores();
+	}
+
+	/**
+	 * Buscar lapso académico anterios.
+	 * 
+	 * @param Ninguno
+	 * @return Lista lapsos académicos.
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	@NotifyChange({ "listaLapsoAcademico" })
 	public void buscarLapsoAcademicoAnteriores() {
-		listaLapsoAcademico  = serviciolapsoacademico.buscarTodosLosLapsos();
+		listaLapsoAcademico = serviciolapsoacademico.buscarTodosLosLapsos();
 	}
-	
-	@Init
-	public void init() {
-		// initialization code
-		buscarLapsoAcademicoAnteriores();
-	}
-	
 
+	/**
+	 * Generar historico.
+	 * 
+	 * @param Ninguno
+	 * @return Genera el historico en la BD.
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
-	@NotifyChange({"fecha","radio","lapso"})
+	@NotifyChange({ "fecha", "radio", "lapso" })
 	public void generarHistorico() {
-		if (lapso!=null) {
+		if (lapso != null) {
 			List<String> listaElementosAInsertar = new ArrayList<String>();
 			List<String> listaAuxiliarElementos = new ArrayList<String>();
-			SimpleDateFormat sdf=new java.text.SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-			String fechaString =  sdf.format(new Date());
+			SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+					"dd-MM-yyyy-hh-mm-ss");
+			String fechaString = sdf.format(new Date());
 			String nombreHistorico = "historicoTodosSigarep-" + fechaString;
-			String destinoHistorico = "todos/historicoTodosSigarep-" + fechaString;
+			String destinoHistorico = "todos/historicoTodosSigarep-"
+					+ fechaString;
 			if (!selected.equals("")) {
 				if (getSelected().equals("todos")) {
-					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(lapso);
+					listaAuxiliarElementos = serviciosolicitudapelacion
+							.historicoSolicitudApelacion(lapso);
 					if (listaAuxiliarElementos.size() > 0) {
 						listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					}
-					listaAuxiliarElementos=servicioestudiantesancionado.historicoEstudiantesSancionados(lapso);
-					if(listaAuxiliarElementos.size()>0){
+					listaAuxiliarElementos = servicioestudiantesancionado
+							.historicoEstudiantesSancionados(lapso);
+					if (listaAuxiliarElementos.size() > 0) {
 						listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					}
-					 listaAuxiliarElementos=serviciomotivo.historicoMotivosApelacion(lapso);
-					 if(listaAuxiliarElementos.size()>0){
-						 listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					 }
-					 listaAuxiliarElementos=serviciocronograma.historicoCronogramaActividades(lapso);
-					 if(listaAuxiliarElementos.size()>0){
-						 listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					 }
+					listaAuxiliarElementos = serviciomotivo
+							.historicoMotivosApelacion(lapso);
+					if (listaAuxiliarElementos.size() > 0) {
+						listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					}
+					listaAuxiliarElementos = serviciocronograma
+							.historicoCronogramaActividades(lapso);
+					if (listaAuxiliarElementos.size() > 0) {
+						listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					}
 				}
 				if (getSelected().equals("solicitud")) {
-					listaAuxiliarElementos = serviciosolicitudapelacion.historicoSolicitudApelacion(lapso);
+					listaAuxiliarElementos = serviciosolicitudapelacion
+							.historicoSolicitudApelacion(lapso);
 					if (listaAuxiliarElementos.size() > 0) {
 						listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					}
 					nombreHistorico = "solicitudes-" + fechaString;
-					destinoHistorico = "solicitudes/solicitudesApelacion-"+ fechaString;
+					destinoHistorico = "solicitudes/solicitudesApelacion-"
+							+ fechaString;
 				}
-				if(getSelected().equals("sancionados")){
-					listaAuxiliarElementos=servicioestudiantesancionado.historicoEstudiantesSancionados(lapso);
-					if(listaAuxiliarElementos.size()>0){
+				if (getSelected().equals("sancionados")) {
+					listaAuxiliarElementos = servicioestudiantesancionado
+							.historicoEstudiantesSancionados(lapso);
+					if (listaAuxiliarElementos.size() > 0) {
 						listaElementosAInsertar.addAll(listaAuxiliarElementos);
 					}
-					nombreHistorico="sancionados-"+fechaString;
-					destinoHistorico="sancionados/estudiantesSancionados-"+fechaString;
-				 }
-				 if(getSelected().equals("recaudosEntregados")){
-					 listaAuxiliarElementos=serviciomotivo.historicoMotivosApelacion(lapso);
-					 if(listaAuxiliarElementos.size()>0){
-						 listaElementosAInsertar.addAll(listaAuxiliarElementos);
-					 }
-					 nombreHistorico="recaudosEntregados-"+fechaString;
-					 destinoHistorico="recaudosEntregados/recaudosEntregados-"+fechaString;
-				 }
-				 if(getSelected().equals("cronograma")){
-				 listaAuxiliarElementos=serviciocronograma.historicoCronogramaActividades(lapso);
-				 if(listaAuxiliarElementos.size()>0){
-				 listaElementosAInsertar.addAll(listaAuxiliarElementos);
-				 }
-				 nombreHistorico="cronogramaActividades-"+fechaString;
-				 destinoHistorico="cronogramaActividades/cronograma-"+fechaString;
-				 }
-
+					nombreHistorico = "sancionados-" + fechaString;
+					destinoHistorico = "sancionados/estudiantesSancionados-"
+							+ fechaString;
+				}
+				if (getSelected().equals("recaudosEntregados")) {
+					listaAuxiliarElementos = serviciomotivo
+							.historicoMotivosApelacion(lapso);
+					if (listaAuxiliarElementos.size() > 0) {
+						listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					}
+					nombreHistorico = "recaudosEntregados-" + fechaString;
+					destinoHistorico = "recaudosEntregados/recaudosEntregados-"
+							+ fechaString;
+				}
+				if (getSelected().equals("cronograma")) {
+					listaAuxiliarElementos = serviciocronograma
+							.historicoCronogramaActividades(lapso);
+					if (listaAuxiliarElementos.size() > 0) {
+						listaElementosAInsertar.addAll(listaAuxiliarElementos);
+					}
+					nombreHistorico = "cronogramaActividades-" + fechaString;
+					destinoHistorico = "cronogramaActividades/cronograma-"
+							+ fechaString;
+				}
 				String ruta = UtilidadesSigarep.obtenerDirectorio();
-				ruta = ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/historicos";
+				ruta = ruta
+						+ "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/historicos";
 				if (listaElementosAInsertar.size() > 0) {
-					File fichero = new File(ruta + "/" + destinoHistorico+ ".sql");
+					File fichero = new File(ruta + "/" + destinoHistorico
+							+ ".sql");
 					try {
-						BufferedWriter writer = new BufferedWriter(new FileWriter(fichero));
+						BufferedWriter writer = new BufferedWriter(
+								new FileWriter(fichero));
 						for (int j = 0; j < listaElementosAInsertar.size(); j++) {
 							String ln = System.getProperty("line.separator");
 							writer.write(listaElementosAInsertar.get(j) + ln);
 						}
 						mensajeAlUsuario.informacionOperacionExitosa();
-						mensajeAlUsuario.informacionCreacionHistorico(nombreHistorico);
+						mensajeAlUsuario
+								.informacionCreacionHistorico(nombreHistorico);
 						writer.close();
-					} 
-					catch (Exception e) {
+					} catch (Exception e) {
 						System.err.println(e);
 					}
-				}
-				else mensajeAlUsuario.errorNoHayResgistrosParaRespaldo();
-			}
-			else mensajeAlUsuario.advertenciaSeleccionarOpcion();
-		} else mensajeAlUsuario.advertenciaSeleccionarLapso();
+				} else
+					mensajeAlUsuario.errorNoHayResgistrosParaRespaldo();
+			} else
+				mensajeAlUsuario.advertenciaSeleccionarOpcion();
+		} else
+			mensajeAlUsuario.advertenciaSeleccionarLapso();
 	}
-	
-	
+
 	/**
 	 * Cerrar Ventana
 	 * 
@@ -212,12 +255,9 @@ public class VMHistoricosSigarepBD {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
 		boolean condicion = true;
-        mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+		mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);
 	}
-	
-	
 }

@@ -3,7 +3,6 @@ package sigarep.viewmodels.transacciones;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -20,7 +19,6 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacionPK;
@@ -33,15 +31,30 @@ import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancio
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
-/** VMVeredictoII
- * Contiene métodos necesarios  para el funcionamiento de VeredictoII.zul, mostrado en el menu Gestion::Recurso de Reconsideración::Evaluar Recurso de Reconsideración::Veredicto.
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-1
- * @version 1.0
- * @since 22/01/14
+/**
+ * VMVeredictoII Contiene métodos necesarios para el funcionamiento de
+ * VeredictoII.zul, mostrado en el menu Gestion::Recurso de
+ * Reconsideración::Evaluar Recurso de Reconsideración::Veredicto.
+ * 
+ * @author Equipo Builder
+ * @version 1.2
+ * @since 22/01/2014
+ * @last 10/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMVeredictoII {
+	// --------------------------Servicios------------------------------
+	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	@WireVariable
+	private ServicioAsignatura servicioAsignatura;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	// --------------------------Variables de Control-------------------
 	@Wire("#modalDialog")
 	private Window window;
 	private String cedula;
@@ -57,12 +70,11 @@ public class VMVeredictoII {
 	private String segundoApellido;
 	private String nombres;
 	private String apellidos;
-	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private String caso;
 	private String fechaApelacion;
 	private Integer peridoSancion;
 	private String lapsosConsecutivos;
-	private String asignaturaLapsosConsecutivos="";
+	private String asignaturaLapsosConsecutivos = "";
 	private String labelAsignaturaLapsosConsecutivos;
 	private String observacionGeneral;
 	private String veredicto;
@@ -71,24 +83,16 @@ public class VMVeredictoII {
 	private Date fechaSesion;
 	private boolean radioProcedente;
 	private boolean radioNoProcedente;
-	
+	@Wire("#winVeredictoII")
+	Window ventana;// para conectarse a la ventana con el ID
+	// --------------------------Variables Lista------------------------
+	private List<RecaudoEntregado> listaRecaudo;
+	private List<AsignaturaEstudianteSancionado> asignaturas;
+	// --------------------------Variables Objeto-----------------------
 	private SolicitudApelacion solicitudApelacion;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	@WireVariable
-	private ServicioRecaudoEntregado serviciorecaudoentregado;
-	@WireVariable
-	private ServicioAsignatura servicioAsignatura;
-	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
-	@WireVariable
-	private ServicioSolicitudApelacion serviciosolicitudapelacion;
-	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
-	private List<RecaudoEntregado> listaRecaudo; 
-	@Wire("#winVeredictoII")//para conectarse a la ventana con el ID
-	Window ventana;
-	
-	// Getters and Setters
+
+	// Métodos Set y Get
 	public String getNumeroSesion() {
 		return numeroSesion;
 	}
@@ -144,7 +148,7 @@ public class VMVeredictoII {
 	public void setRecaudo(String recaudo) {
 		this.recaudo = recaudo;
 	}
-	
+
 	public Integer getInstancia() {
 		return instancia;
 	}
@@ -184,7 +188,7 @@ public class VMVeredictoII {
 	public void setPrograma(String programa) {
 		this.programa = programa;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -192,11 +196,13 @@ public class VMVeredictoII {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getAsignaturaLapsosConsecutivos() {
 		return asignaturaLapsosConsecutivos;
 	}
 
-	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+	public void setAsignaturaLapsosConsecutivos(
+			String asignaturaLapsosConsecutivos) {
 		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
 	}
 
@@ -248,7 +254,7 @@ public class VMVeredictoII {
 	public void setVeredicto(String veredicto) {
 		this.veredicto = veredicto;
 	}
-	
+
 	public boolean isRadioProcedente() {
 		return radioProcedente;
 	}
@@ -264,86 +270,117 @@ public class VMVeredictoII {
 	public void setRadioNoProcedente(boolean radioNoProcedente) {
 		this.radioNoProcedente = radioNoProcedente;
 	}
-	// Fin Getters and Setters
-	
-	/**
-	 * concatenacionNombres
-	 * 
-	 * @return devuelve primer y segundo nombre concatenados
-	 */
-	public void concatenacionNombres() {
-		nombres = primerNombre + " " + segundoNombre;
-	}
-	
-	/**
-	 * concatenacionApellidos
-	 * 
-	 * @return Devuelve primer y segundo apellido concatenados
-	 */
-	public void concatenacionApellidos() {
-		apellidos = primerApellido + " " + segundoApellido;
-	}
-	
+
+	// Fin Métodos Set y Get
+
 	/**
 	 * inicialización
+	 * 
 	 * @param init
 	 * @return Código de inicialización
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Init
-	public void init(
-		@ContextParam(ContextType.VIEW) Component view,
-		@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa,
-		@ExecutionArgParam("numeroSesion") String numeroSesion,
-		@ExecutionArgParam("tipoSesion") String tipoSesion,
-		@ExecutionArgParam("fechaSesion") Date fechaSesion)
-	{
+	public void init(@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("sancionadoSeleccionado") SolicitudApelacion sa,
+			@ExecutionArgParam("numeroSesion") String numeroSesion,
+			@ExecutionArgParam("tipoSesion") String tipoSesion,
+			@ExecutionArgParam("fechaSesion") Date fechaSesion) {
 		Selectors.wireComponents(view, this, false);
 		this.solicitudApelacion = sa;
-		this.cedula = sa.getEstudianteSancionado().getEstudiante().getCedulaEstudiante();
-		this.primerNombre = sa.getEstudianteSancionado().getEstudiante().getPrimerNombre();
-		this.primerApellido = sa.getEstudianteSancionado().getEstudiante().getPrimerApellido();
+		this.cedula = sa.getEstudianteSancionado().getEstudiante()
+				.getCedulaEstudiante();
+		this.primerNombre = sa.getEstudianteSancionado().getEstudiante()
+				.getPrimerNombre();
+		this.primerApellido = sa.getEstudianteSancionado().getEstudiante()
+				.getPrimerApellido();
 		this.email = sa.getEstudianteSancionado().getEstudiante().getEmail();
-		this.programa = sa.getEstudianteSancionado().getEstudiante().getProgramaAcademico().getNombrePrograma();
-		this.sancion = sa.getEstudianteSancionado().getSancionMaestro().getNombreSancion();
-		this.lapso = sa.getEstudianteSancionado().getLapsoAcademico().getCodigoLapso();
+		this.programa = sa.getEstudianteSancionado().getEstudiante()
+				.getProgramaAcademico().getNombrePrograma();
+		this.sancion = sa.getEstudianteSancionado().getSancionMaestro()
+				.getNombreSancion();
+		this.lapso = sa.getEstudianteSancionado().getLapsoAcademico()
+				.getCodigoLapso();
 		this.instancia = sa.getInstanciaApelada().getIdInstanciaApelada();
-		this.segundoNombre = sa.getEstudianteSancionado().getEstudiante().getSegundoNombre();
-		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante().getSegundoApellido();
+		this.segundoNombre = sa.getEstudianteSancionado().getEstudiante()
+				.getSegundoNombre();
+		this.segundoApellido = sa.getEstudianteSancionado().getEstudiante()
+				.getSegundoApellido();
 		this.caso = sa.getNumeroCaso();
 		this.veredicto = sa.getVeredicto();
-		this.lapsosConsecutivos = sa.getEstudianteSancionado().getLapsosAcademicosRp();
+		this.lapsosConsecutivos = sa.getEstudianteSancionado()
+				.getLapsosAcademicosRp();
 		SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 		this.fechaApelacion = sdf.format(sa.getFechaSolicitud());
 		this.peridoSancion = sa.getEstudianteSancionado().getPeriodoSancion();
 		this.observacionGeneral = sa.getObservacion();
-		
 		this.numeroSesion = numeroSesion;
 		this.tipoSesion = tipoSesion;
 		this.fechaSesion = fechaSesion;
-		
 		concatenacionNombres();
 		concatenacionApellidos();
 		mostrarDatosDeSancion();
-
 		buscarRecaudosEntregados(cedula);
 	}
-	
+
+	/**
+	 * Actualizar Lista de Sancionados
+	 * 
+	 * @param actualizarListaSancionados
+	 * @return La lista de estudiantes en veredicto se actualiza cuando se
+	 *         termina ese proceso.
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@GlobalCommand
+	public void actualizarListaSancionados() {
+		BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+	}
+
+	/**
+	 * Concatenacion nombres.
+	 * 
+	 * @param Ninguno
+	 * @return Devuelve primer y segundo nombre concatenados
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	public void concatenacionNombres() {
+		nombres = primerNombre + " " + segundoNombre;
+	}
+
+	/**
+	 * Concatenacion apellidos.
+	 * 
+	 * @param Ninguno
+	 * @return Devuelve primer y segundo apellido concatenados
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	public void concatenacionApellidos() {
+		apellidos = primerApellido + " " + segundoApellido;
+	}
+
 	/**
 	 * Montrar Datos de Sancion
+	 * 
 	 * @param mostrarDatosSancion
 	 * @return asignaturas,asignaturaLapsosConsecutivos
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	private void mostrarDatosDeSancion() {
-		if (sancion.equalsIgnoreCase("RR")){
-			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, lapso);
+		if (sancion.equalsIgnoreCase("RR")) {
+			asignaturas = servicioasignaturaestudiantesancionado
+					.buscarAsignaturaDeSancion(cedula, lapso);
 			if (asignaturas != null)
-				for (int i=0; i<asignaturas.size(); i++)
-					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura() + ", ";
+				for (int i = 0; i < asignaturas.size(); i++)
+					asignaturaLapsosConsecutivos += asignaturas.get(i)
+							.getAsignatura().getNombreAsignatura()
+							+ ", ";
 			labelAsignaturaLapsosConsecutivos = "Asignatura(s):";
-		}
-		else{
+		} else {
 			labelAsignaturaLapsosConsecutivos = "Lapsos consecutivos:";
 			asignaturaLapsosConsecutivos = lapsosConsecutivos;
 		}
@@ -351,111 +388,128 @@ public class VMVeredictoII {
 
 	/**
 	 * Buscar Recaudos Entregados
-	 * @param buscarRecaudosEntregados, listaRecaudo
+	 * 
+	 * @param buscarRecaudosEntregados
+	 *            , listaRecaudo
 	 * @return listaRecaudos
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({"listaRecaudo"})
-	public void buscarRecaudosEntregados(String cedula){
-		listaRecaudo = serviciorecaudoentregado.buscarRecaudosEntregadosVeredictoII(cedula, lapso);
+	@NotifyChange({ "listaRecaudo" })
+	public void buscarRecaudosEntregados(String cedula) {
+		listaRecaudo = serviciorecaudoentregado
+				.buscarRecaudosEntregadosVeredictoII(cedula, lapso);
 	}
-	
-	
+
+	/**
+	 * Close this
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	public void closeThis() {
 		window.detach();
 	}
-	
+
 	/**
 	 * Registrar Veredicto
+	 * 
 	 * @param registrarVeredicto
 	 * @return Guarda un veredicto y una observacion general
-	 * @throws Las excepciones son que los datos a guardar esten vacios
-	 */	
-	@Command
-	public void registrarVeredicto(@BindingParam("window") Window winVeredictoII){
-		if (veredicto == null || veredicto.equals("")){
-			mensajeAlUsuario.advertenciaGuardarVeredicto();
-			
-		}else{
-		
-		solicitudApelacion.setObservacion(observacionGeneral);
-		solicitudApelacion.setVeredicto(veredicto);
-		solicitudApelacion.setNumeroSesion(numeroSesion);
-		solicitudApelacion.setTipoSesion(tipoSesion);
-		solicitudApelacion.setFechaSesion(fechaSesion);
-		ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
-		ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
-		apelacionEstadoPK.setCedulaEstudiante(cedula);
-		apelacionEstadoPK.setCodigoLapso(lapso);
-		apelacionEstadoPK.setIdEstadoApelacion(8);
-		apelacionEstadoPK.setIdInstanciaApelada(instancia);
-		apelacionEstado.setId(apelacionEstadoPK);
-		apelacionEstado.setFechaEstado(new Date());
-		apelacionEstado.setObservacion(observacionGeneral);
-		apelacionEstado.setSugerencia(veredicto);
-		solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
-		serviciosolicitudapelacion.guardar(solicitudApelacion);
-		mensajeAlUsuario.informacionVeredictoRegistrado();
-		winVeredictoII.detach();
-		actualizarListaSancionados();
-	}
-}
-	/**
-	 * limpiar
-	 * @param limpiar
-	 * @return Metodo que limpia todos los campos de la pantalla
-	 * @throws No dispara ninguna excepcion.
+	 * @throws Las
+	 *             excepciones son que los datos a guardar esten vacios
 	 */
 	@Command
-	@NotifyChange({ "observacionGeneral" , "veredicto" })
-	public void limpiar(){
+	public void registrarVeredicto(@BindingParam("window") Window winVeredictoII) {
+		if (veredicto == null || veredicto.equals("")) {
+			mensajeAlUsuario.advertenciaGuardarVeredicto();
+		} else {
+			solicitudApelacion.setObservacion(observacionGeneral);
+			solicitudApelacion.setVeredicto(veredicto);
+			solicitudApelacion.setNumeroSesion(numeroSesion);
+			solicitudApelacion.setTipoSesion(tipoSesion);
+			solicitudApelacion.setFechaSesion(fechaSesion);
+			ApelacionEstadoApelacion apelacionEstado = new ApelacionEstadoApelacion();
+			ApelacionEstadoApelacionPK apelacionEstadoPK = new ApelacionEstadoApelacionPK();
+			apelacionEstadoPK.setCedulaEstudiante(cedula);
+			apelacionEstadoPK.setCodigoLapso(lapso);
+			apelacionEstadoPK.setIdEstadoApelacion(8);
+			apelacionEstadoPK.setIdInstanciaApelada(instancia);
+			apelacionEstado.setId(apelacionEstadoPK);
+			apelacionEstado.setFechaEstado(new Date());
+			apelacionEstado.setObservacion(observacionGeneral);
+			apelacionEstado.setSugerencia(veredicto);
+			solicitudApelacion.addApelacionEstadosApelacion(apelacionEstado);
+			serviciosolicitudapelacion.guardar(solicitudApelacion);
+			mensajeAlUsuario.informacionVeredictoRegistrado();
+			winVeredictoII.detach();
+			actualizarListaSancionados();
+		}
+	}
+
+	/**
+	 * Limpiar
+	 * 
+	 * @param limpiar
+	 * @return Metodo que limpia todos los campos de la pantalla
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@Command
+	@NotifyChange({ "observacionGeneral", "veredicto" })
+	public void limpiar() {
 		observacionGeneral = solicitudApelacion.getObservacion();
 		veredicto = "";
 	}
-	
-	/**
-	 * Actualizar Lista de Sancionados
-	 * @param actualizarListaSancionados
-	 * @return La lista de estudiantes en veredicto se actualiza cuando se termina ese proceso.
-	 * @throws No dispara ninguna excepcion.
-	 */
-	@GlobalCommand
-    public void actualizarListaSancionados(){
-    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
-    }
-	
+
 	/**
 	 * Cerrar Ventana
+	 * 
 	 * @param binder
 	 * @return Cierra el .zul asociado al VM
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
-	@NotifyChange({"veredicto", "observacionGeneral"})
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+	@NotifyChange({ "veredicto", "observacionGeneral" })
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
 		boolean condicion = false;
-		if (veredicto != null){
+		if (veredicto != null) {
 			condicion = true;
 		}
-		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 
+	/**
+	 * Notificar veredicto.
+	 * 
+	 * @param @ContextParam(ContextType.COMPONENT) Component rowDatosVeredicto
+	 * @return Ninguno.
+	 * @throws No
+	 *             dispara ninguna exepción.
+	 */
 	@Command
-	@NotifyChange({"veredicto","radioProcedente","radioNoProcedente"})
-	public void notificarVeredicto(@ContextParam(ContextType.COMPONENT) Component rowDatosVeredicto){
-		if (veredicto !=null){
-			if (veredicto.equals("PROCEDENTE")){
-				Clients.showNotification("Apelación PROCEDENTE según análisis previo", Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto, "before_start", 6000, true);
+	@NotifyChange({ "veredicto", "radioProcedente", "radioNoProcedente" })
+	public void notificarVeredicto(
+			@ContextParam(ContextType.COMPONENT) Component rowDatosVeredicto) {
+		if (veredicto != null) {
+			if (veredicto.equals("PROCEDENTE")) {
+				Clients.showNotification(
+						"Apelación PROCEDENTE según análisis previo",
+						Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto,
+						"before_start", 6000, true);
 				radioProcedente = true;
-			}
-			else if (veredicto.equals("NO PROCEDENTE")){
-				Clients.showNotification("Apelación NO PROCEDENTE según análisis previo", Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto, "before_start", 6000, true);
+			} else if (veredicto.equals("NO PROCEDENTE")) {
+				Clients.showNotification(
+						"Apelación NO PROCEDENTE según análisis previo",
+						Clients.NOTIFICATION_TYPE_INFO, rowDatosVeredicto,
+						"before_start", 6000, true);
 				radioNoProcedente = true;
 			}
 		}
 	}
-
 }

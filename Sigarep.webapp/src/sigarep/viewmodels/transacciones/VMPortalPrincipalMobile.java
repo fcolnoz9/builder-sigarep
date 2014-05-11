@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
@@ -13,7 +12,6 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.data.transacciones.Cronograma;
@@ -24,8 +22,17 @@ import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
+/**
+ * VM Portal Principal mobile.
+ * 
+ * @author Equipo Builder
+ * @version 1.2
+ * @since 20/04/2013
+ * @last 10/05/2014
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMPortalPrincipalMobile {
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioReglamento servicioreglamento;
 	@WireVariable
@@ -38,6 +45,7 @@ public class VMPortalPrincipalMobile {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
 	private ServicioContactoSigarep serviciocontactosigarep;
+	// --------------------------Variables de Control-------------------
 	private String cedula;
 	private String nombreActividad;
 	private String descripcionActividad;
@@ -46,13 +54,15 @@ public class VMPortalPrincipalMobile {
 	private Time hora_inicio;
 	private String observacionCronograma;
 	private String lugarActividad;
-	private Cronograma cronograma;
+	Window win = null;
+	// --------------------------Variables Lista------------------------
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
 	private List<Reglamento> listaReglamento = new LinkedList<Reglamento>();
+	// --------------------------Variables Objeto-----------------------
+	private Cronograma cronograma;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	Window win = null;
-
+	// Métodos Set y Get
 	public String getCedula() {
 		return cedula;
 	}
@@ -133,11 +143,22 @@ public class VMPortalPrincipalMobile {
 		this.listaCronograma = listaCronograma;
 	}
 
+	// Fin Métodos Set y Get
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return Código de inicialización
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Init
 	public void init() {
 	}
+
 	/**
-	 * modalEstadoEstudiante.
+	 * Modal Estado Estudiante.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana con el historial del estudiante sancionado.
@@ -171,7 +192,7 @@ public class VMPortalPrincipalMobile {
 	}
 
 	/**
-	 * modalPreguntasFrecuentes.
+	 * Modal Preguntas Frecuentes.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana con las preguntas frecuentes
@@ -192,7 +213,7 @@ public class VMPortalPrincipalMobile {
 	}
 
 	/**
-	 * descargarGuia.
+	 * Descargar Guia.
 	 * 
 	 * @param Ninguno
 	 * @return Descarga la Guía paso a paso.
@@ -218,7 +239,7 @@ public class VMPortalPrincipalMobile {
 	}
 
 	/**
-	 * modalContactanos.
+	 * Modal Contáctanos.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana contáctanos.
@@ -238,9 +259,9 @@ public class VMPortalPrincipalMobile {
 		win.setMaximizable(true);
 		win.doModal();
 	}
-	
+
 	/**
-	 * modalQuienesSomos.
+	 * Modal Quienes Somos.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana quiénes somos.

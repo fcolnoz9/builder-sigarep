@@ -22,9 +22,17 @@ import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
+/**
+ * VM Portal Principal. Controla el portal principal del sistema.
+ * 
+ * @author Equipo Builder
+ * @version 1.2
+ * @since 10/12/2013
+ * @last 10/05/2014
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMPortalPrincipal {
-
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioReglamento servicioreglamento;
 	@WireVariable
@@ -37,6 +45,7 @@ public class VMPortalPrincipal {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
 	private ServicioContactoSigarep serviciocontactosigarep;
+	// --------------------------Variables de Control-------------------
 	private String cedula;
 	private String nombreActividad;
 	private String descripcionActividad;
@@ -45,13 +54,15 @@ public class VMPortalPrincipal {
 	private Time hora_inicio;
 	private String observacionCronograma;
 	private String lugarActividad;
-	private Cronograma cronograma;
+	Window win = null;
+	// --------------------------Variables Lista------------------------
 	private List<Cronograma> listaCronograma = new LinkedList<Cronograma>();
 	private List<Reglamento> listaReglamento = new LinkedList<Reglamento>();
+	// --------------------------Variables Objeto-----------------------
+	private Cronograma cronograma;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	Window win = null;
-
+	// Métodos Set y Get
 	public String getCedula() {
 		return cedula;
 	}
@@ -132,32 +143,44 @@ public class VMPortalPrincipal {
 		this.listaCronograma = listaCronograma;
 	}
 
+	// Fin Métodos Set y Get
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return Código de inicialización
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Init
 	public void init() {
-		if(isMobile()==true){
-			Executions.sendRedirect("m.mobileSigarep.zul");//Si es mobile redirecciona a la pagina m.mobile.zul
+		if (isMobile() == true) {
+			// Si es mobile redirecciona a la pagina m.mobile.zul
+			Executions.sendRedirect("m.mobileSigarep.zul");
 		}
-		
 	}
+
 	/**
 	 * isMobile()
 	 * 
 	 * @param Ninguno
-	 * @return true o false si es  mobile
-	 * 
+	 * @return true o false si es mobile
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
-	public boolean isMobile(){
-	    return Executions.getCurrent().getBrowser("mobile") !=null;
+	public boolean isMobile() {
+		return Executions.getCurrent().getBrowser("mobile") != null;
 	}
+
 	/**
-	 * modalEstadoEstudiante.
+	 * Modal Estado Estudiante.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana con el historial del estudiante sancionado.
 	 * @throws Debe
 	 *             agregar una cédula y esta debe estar en la lista de
 	 *             estudiantes sancionados.
-	 * 
 	 */
 	@Command
 	public void modalEstadoEstudiante() {
@@ -184,7 +207,7 @@ public class VMPortalPrincipal {
 	}
 
 	/**
-	 * modalPreguntasFrecuentes.
+	 * Modal Preguntas Frecuentes.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana con las preguntas frecuentes
@@ -205,7 +228,7 @@ public class VMPortalPrincipal {
 	}
 
 	/**
-	 * descargarGuia.
+	 * Descargar Guia.
 	 * 
 	 * @param Ninguno
 	 * @return Descarga la Guía paso a paso.
@@ -231,7 +254,7 @@ public class VMPortalPrincipal {
 	}
 
 	/**
-	 * modalContactanos.
+	 * Modal Contáctanos.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana contáctanos.
@@ -251,9 +274,9 @@ public class VMPortalPrincipal {
 		win.setMaximizable(true);
 		win.doModal();
 	}
-	
+
 	/**
-	 * modalQuienesSomos.
+	 * Modal Quienes Somos.
 	 * 
 	 * @param Ninguno
 	 * @return Muestra la ventana quiénes somos.
