@@ -1,8 +1,15 @@
+<zk>
+<html xmlns="http://www.zkoss.org/2005/zk/native">
+    <head>
+       <meta name="viewport"  initial-scale="1" />
+    </head>
+</html>
 <window title="Estado del proceso de Apelación" border="normal"
 	position="top,center" width="90%" closable="true" mode="modal"
 	action="show: slideDown;hide: slideUp"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMHistoricoEstudiante')">
+	viewModel="@id('vm')@init('sigarep.viewmodels.transacciones.VMHistoricoEstudiante')" hflex="1" vflex="1">
+	
 	<groupbox>
 		<caption label="Datos Estudiante" />
 		<grid>
@@ -157,3 +164,4 @@
 		</listbox>
 	</div>
 </window>
+</zk>

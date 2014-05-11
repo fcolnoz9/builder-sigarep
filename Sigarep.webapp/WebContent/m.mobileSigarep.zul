@@ -2,7 +2,7 @@
 <zk>
 <html xmlns="http://www.zkoss.org/2005/zk/native">
     <head>
-       <meta name="viewport" content="width=device-width, initial-scale=1" />
+       <meta name="viewport" initial-scale="1" />
     </head>
 </html>
 <style>
@@ -74,7 +74,15 @@
         width: 100%;
         height: 25%;
         display:block;
-    }       
+    }
+@viewport{
+    zoom: 1.0;
+    width: device-width;
+	}   
+@viewport{
+    zoom: 1.0;
+    width: extend-to-zoom;
+	}  
 }
 </style>
 <hlayout>
