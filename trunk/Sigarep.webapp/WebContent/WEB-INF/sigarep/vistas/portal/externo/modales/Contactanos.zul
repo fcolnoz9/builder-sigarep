@@ -1,7 +1,13 @@
+<zk>
 <window title="Contáctanos" id="winContactanos" border="normal"
 	height="auto" width="70%" closable="true" maximizable="true"
 	apply="org.zkoss.bind.BindComposer" action="show: slideDown;hide: slideUp"
 	viewModel="@id('vm') @init('sigarep.viewmodels.maestros.VMContacto')">
+	<html xmlns="http://www.zkoss.org/2005/zk/native" hflex="1">
+    <head>
+       <meta name="viewport" initial-scale="1" />
+    </head>
+	</html>
 	<separator />
 	<separator />
 	<hbox>
@@ -76,3 +82,4 @@
 		</button>
 	</div>
 </window>
+</zk>
