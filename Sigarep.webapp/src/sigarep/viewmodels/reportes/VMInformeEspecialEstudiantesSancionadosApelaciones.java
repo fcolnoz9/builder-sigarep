@@ -434,6 +434,8 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 				reportConfig.getParameters().put(
 						"ListaEstudianteAsignaturaSancionados",
 						new JRBeanCollectionDataSource(listaEAS));
+				reportConfig.getParameters().put("nombreRecurso",
+						objinstanciaApelada.getNombreRecursoApelacion());
 				reportConfig.setType(reportType);
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
 						listaEAS));

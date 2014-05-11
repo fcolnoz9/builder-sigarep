@@ -2,12 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpInformeEspecialSancionadosApelaciones" language="groovy" pageWidth="1008" pageHeight="612" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04b9911d-9fe8-4979-8b84-81b5095ca9fd">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="54"/>
 	<parameter name="ICON_LEFT_HEADER" class="java.lang.String"/>
 	<parameter name="ICON_RIGHT_HEADER" class="java.lang.String"/>
 	<parameter name="ICON_FOOTER" class="java.lang.String"/>
 	<parameter name="ImagenSuperior" class="java.lang.String"/>
 	<parameter name="lapso" class="java.lang.String"/>
+	<parameter name="nombreRecurso" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -94,10 +95,10 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[INFORME ESPECIAL ESTUDIANTES SANCIONADOS Y SUS APELACIONES POR PROGRAMA E INSTANCIA]]></text>
+				<text><![CDATA[INFORME ESPECIAL ESTUDIANTES SANCIONADOS Y SUS APELACIONES POR PROGRAMA Y TIPO DE APELACIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="433" y="166" width="50" height="20" uuid="165ac7aa-addd-49b4-afa8-b81c1ec48d33"/>
+				<reportElement x="433" y="152" width="50" height="20" uuid="165ac7aa-addd-49b4-afa8-b81c1ec48d33"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 				</textElement>
@@ -116,11 +117,25 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<imageExpression><![CDATA[$P{ICON_RIGHT_HEADER}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="483" y="166" width="48" height="20" uuid="299c628c-1949-42fc-8409-2f102dc64234"/>
+				<reportElement x="483" y="152" width="48" height="20" uuid="299c628c-1949-42fc-8409-2f102dc64234"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigoLapso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="339" y="172" width="144" height="20" uuid="59225b2f-fdbf-41e0-b8bd-44799e12d615"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Recurso de Apelación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="483" y="172" width="183" height="20" uuid="11cc2b0b-374a-433a-8e87-ad6bacc054d7"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreRecurso}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
