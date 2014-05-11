@@ -23,29 +23,17 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
+/**
+ * VM Historico estudiante. Consulta del Portal principal.
+ * 
+ * @author Equipo Builder
+ * @version 1.2
+ * @since 15/01/2014
+ * @last 10/05/2014
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMHistoricoEstudiante {
-
-	private String Motivos;
-	private String cedulaEstudiante;
-	private String programa;
-	private String nombres;
-	private String apellidos;
-	private String lapsoAcademico;
-	private String tipoSancion;
-	private Integer periodoSancion;
-	private String numeroCaso;
-	private String fecha;
-	private EstudianteSancionado estudianteSancionado;
-	private SolicitudApelacion solicitudEst;
-	private Boolean boton1;
-	private Boolean boton2;
-	private Boolean boton3;
-	private List<EstudianteSancionado> listaEstudianteSancionado;
-	private List<String> listaMotivos;
-	private List<TipoMotivo> listaTipoMotivo;
-	private List<ApelacionEstadoApelacion> listaEstadoApelacion;
-	private List<SolicitudApelacion> listaSolicitudApelacion;
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
@@ -56,7 +44,31 @@ public class VMHistoricoEstudiante {
 	private ServicioLapsoAcademico serviciolapsoacademico;
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
+	// --------------------------Variables de Control-------------------
+	private String Motivos;
+	private String cedulaEstudiante;
+	private String programa;
+	private String nombres;
+	private String apellidos;
+	private String lapsoAcademico;
+	private String tipoSancion;
+	private Integer periodoSancion;
+	private String numeroCaso;
+	private String fecha;
+	private Boolean boton1;
+	private Boolean boton2;
+	private Boolean boton3;
+	// --------------------------Variables Lista------------------------
+	private List<EstudianteSancionado> listaEstudianteSancionado;
+	private List<String> listaMotivos;
+	private List<TipoMotivo> listaTipoMotivo;
+	private List<ApelacionEstadoApelacion> listaEstadoApelacion;
+	private List<SolicitudApelacion> listaSolicitudApelacion;
+	// --------------------------Variables Objeto-----------------------
+	private EstudianteSancionado estudianteSancionado;
+	private SolicitudApelacion solicitudEst;
 
+	// Métodos Set y Get
 	public String getCedulaEstudiante() {
 		return cedulaEstudiante;
 	}
@@ -220,15 +232,15 @@ public class VMHistoricoEstudiante {
 		this.listaEstudianteSancionado = listaEstudianteSancionado;
 	}
 
+	// Fin Métodos Set y Get
+
 	/**
-	 * init carga los datos basicos del estudiante, la sancion, los datos de
-	 * apelacion y todo lo referente a los procesos ejecutados en cada
-	 * instancia.
+	 * inicialización
 	 * 
-	 * @param cedula
-	 * 
-	 * @return no retorna ningun valor
-	 * 
+	 * @param init
+	 * @return Código de inicialización
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view,
@@ -238,20 +250,22 @@ public class VMHistoricoEstudiante {
 		if (serviciolapsoacademico.buscarLapsoActivo() != null)
 			lapsoAcademico = serviciolapsoacademico.buscarLapsoActivo()
 					.getCodigoLapso();
-			buscarEstadoEstudiante(cedula);
-			mostrarHistoricoEstudiante(cedula);
-			buscarListaTipoMotivo(cedula, lapsoAcademico);
-			buscarListaEstadoApelacion(3);
-			buscarListaEstadoApelacion(2);
-			buscarListaEstadoApelacion(1);
-		}
+		buscarEstadoEstudiante(cedula);
+		mostrarHistoricoEstudiante(cedula);
+		buscarListaTipoMotivo(cedula, lapsoAcademico);
+		buscarListaEstadoApelacion(3);
+		buscarListaEstadoApelacion(2);
+		buscarListaEstadoApelacion(1);
+	}
 
 	/**
-	 * buscarEstadoEstudiante
+	 * Buscar Estado Estudiante.
 	 * 
-	 * @param cedula
+	 * @param String
+	 *            cedula
 	 * @return busca si el estudiante realizo alguna apelación.
-	 * 
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "cedulaEstudiante", "programa", "nombres", "apellidos",
@@ -263,12 +277,13 @@ public class VMHistoricoEstudiante {
 	}
 
 	/**
-	 * buscarSolicitudEstudiante
+	 * Buscar Solicitud Estudiante.
 	 * 
-	 * @param cedula
-	 *            , lapso
+	 * @param String
+	 *            cedula, String lapso
 	 * @return devuelve los datos de apelacion del estudiante.
-	 * 
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "cedulaEstudiante", "programa", "nombres", "apellidos",
@@ -280,12 +295,14 @@ public class VMHistoricoEstudiante {
 	}
 
 	/**
-	 * mostrarHistoricoEstudiante
+	 * Mostrar Historico Estudiante.
 	 * 
-	 * @param cedula
+	 * @param String
+	 *            cedula
 	 * @return devuelve todos los datos referente a los basicos, sancion y
 	 *         apelacion en el lapso actual.
-	 * 
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "cedulaEstudiante", "programa", "nombres", "apellidos",
@@ -294,7 +311,6 @@ public class VMHistoricoEstudiante {
 	public void mostrarHistoricoEstudiante(String cedula) {
 		estudianteSancionado = servicioestudiantesancionado
 				.buscarEstudianteSancionadoLapsoActual(cedula);
-
 		cedulaEstudiante = estudianteSancionado.getId().getCedulaEstudiante();
 		programa = estudianteSancionado.getEstudiante().getProgramaAcademico()
 				.getNombrePrograma();
@@ -319,13 +335,14 @@ public class VMHistoricoEstudiante {
 	}
 
 	/**
-	 * buscarListaEstadoApelacion
+	 * Buscar ListaEstado Apelacion
 	 * 
-	 * @param id
-	 *            del boton clickeado
+	 * @param @BindingParam("id") Integer id
 	 * @return devuelve cada uno de los procesos por las que pasa el estudiante
 	 *         en cada instancia seleccionada, esta dependera del id de la
 	 *         instncia que se consulte en el lapso actual.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaEstadoApelacion" })
@@ -344,12 +361,14 @@ public class VMHistoricoEstudiante {
 	}
 
 	/**
-	 * buscarListaTipoMotivo
+	 * Buscar Lista Tipo Motivo.
 	 * 
-	 * @param cedula
-	 *            , codigo del lapso
+	 * @param String
+	 *            cedula, String lapso
 	 * @return devuelve los motivos por las cuales apelo el estudiante en el
 	 *         lapso actual.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaMotivos", "Motivos" })

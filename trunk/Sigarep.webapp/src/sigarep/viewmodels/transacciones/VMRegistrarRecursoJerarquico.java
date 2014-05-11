@@ -1,18 +1,9 @@
 package sigarep.viewmodels.transacciones;
 
-/**VMRegistrarRecurso
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo: Builder-SIGAREP 
- * @version 1.0
- * @since 20/12/13 
- */
-
-import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -33,7 +24,6 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.transacciones.ApelacionEstadoApelacion;
@@ -52,30 +42,17 @@ import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
+/**
+ * VM Registrar Recurso jerarquico.
+ * 
+ * @author Equipo Builder
+ * @version 1.2
+ * @since 20/12/2013
+ * @last 10/05/2014
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarRecursoJerarquico {
-
-	
-	private String sancion;
-	private String lapso;
-	private String nombres;
-	private String apellidos;
-	private String cedula;
-	private String lapsosConsecutivos;
-	private String asignaturaLapsosConsecutivos = "";
-	private String labelAsignaturaLapsosConsecutivos;
-	private String observacion;
-	private String caso;
-	
-	private Integer idRecaudo;
-
-	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
-	private List<AsignaturaEstudianteSancionado> asignaturas;
-	private List<SolicitudApelacion> listaSolicitud = new LinkedList<SolicitudApelacion>();
-	
-	private Documento doc = new Documento();
-	private Media media;
-
+	// --------------------------Servicios------------------------------
 	@WireVariable
 	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	@WireVariable
@@ -86,9 +63,28 @@ public class VMRegistrarRecursoJerarquico {
 	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
 	@WireVariable
 	private ServicioMotivo serviciomotivo;
-	
+	// --------------------------Variables de Control-------------------
+	private String sancion;
+	private String lapso;
+	private String nombres;
+	private String apellidos;
+	private String cedula;
+	private String lapsosConsecutivos;
+	private String asignaturaLapsosConsecutivos = "";
+	private String labelAsignaturaLapsosConsecutivos;
+	private String observacion;
+	private String caso;
+	private Integer idRecaudo;
+	@Wire("#winRegistrarRecursoJerarquico")
+	private Window ventana;
+	private Documento doc = new Documento();
+	private Media media;
+	// --------------------------Variables Lista------------------------
+	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
+	private List<AsignaturaEstudianteSancionado> asignaturas;
+	private List<SolicitudApelacion> listaSolicitud = new LinkedList<SolicitudApelacion>();
+	// --------------------------Variables Objeto-----------------------
 	private EstudianteSancionado estudianteSeleccionado;
-
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
@@ -98,12 +94,8 @@ public class VMRegistrarRecursoJerarquico {
 	RecaudoEntregadoPK recaudoEntregadoPK = new RecaudoEntregadoPK();
 	Motivo motivos = new Motivo();
 	MotivoPK motivoPK = new MotivoPK();
-	
-	@Wire("#winRegistrarRecursoJerarquico")
-	private Window ventana;
-	
-	// METODOS GETS Y DETS
-	
+
+	// Métodos Set y Get
 	public String getNombres() {
 		return nombres;
 	}
@@ -144,7 +136,8 @@ public class VMRegistrarRecursoJerarquico {
 		this.apellidos = apellidos;
 	}
 
-	public void setAsignaturaLapsosConsecutivos(String asignaturaLapsosConsecutivos) {
+	public void setAsignaturaLapsosConsecutivos(
+			String asignaturaLapsosConsecutivos) {
 		this.asignaturaLapsosConsecutivos = asignaturaLapsosConsecutivos;
 	}
 
@@ -169,45 +162,110 @@ public class VMRegistrarRecursoJerarquico {
 			EstudianteSancionado estudianteSeleccionado) {
 		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
-	// FIN DE LOS METODOS GETS Y SET
 
-	// OTROS METODOS
+	public String getLapsosConsecutivos() {
+		return lapsosConsecutivos;
+	}
+
+	public void setLapsosConsecutivos(String lapsosConsecutivos) {
+		this.lapsosConsecutivos = lapsosConsecutivos;
+	}
+
+	public Integer getIdRecaudo() {
+		return idRecaudo;
+	}
+
+	public void setIdRecaudo(Integer idRecaudo) {
+		this.idRecaudo = idRecaudo;
+	}
+
+	public Documento getDoc() {
+		return doc;
+	}
+
+	public void setDoc(Documento doc) {
+		this.doc = doc;
+	}
+
+	public Media getMedia() {
+		return media;
+	}
+
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+
+	// Fin Métodos Set y Get
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return Código de inicialización
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Init
-	public void init(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1, @ContextParam(ContextType.BINDER) final Binder binder)
-
-	// initialization code
-
-	{
+	public void init(
+			@ContextParam(ContextType.VIEW) Component view,
+			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1,
+			@ContextParam(ContextType.BINDER) final Binder binder) {
 		Selectors.wireComponents(view, this, false);
 		this.estudianteSeleccionado = v1;
 		cedula = estudianteSeleccionado.getEstudiante().getCedulaEstudiante();
-		lapso= estudianteSeleccionado.getLapsoAcademico().getCodigoLapso();
-		sancion=estudianteSeleccionado.getSancionMaestro().getNombreSancion();
-		lapsosConsecutivos=estudianteSeleccionado.getLapsosAcademicosRp();
-		
+		lapso = estudianteSeleccionado.getLapsoAcademico().getCodigoLapso();
+		sancion = estudianteSeleccionado.getSancionMaestro().getNombreSancion();
+		lapsosConsecutivos = estudianteSeleccionado.getLapsosAcademicosRp();
 		concatenacionNombres();
 		concatenacionApellidos();
 		buscarRecaudosEntregados(cedula);
 		mostrarDatosDeSancion();
-		buscarSolicitud(cedula);	
-		if(listaSolicitud.size() > 0)
+		buscarSolicitud(cedula);
+		if (listaSolicitud.size() > 0)
 			caso = listaSolicitud.get(0).getNumeroCaso();
-		else{
+		else {
 			registrarApelacionConMotivos();
 			binder.postCommand("closeThis", null);
 		}
-			
 		media = null;
 		doc = new Documento();
 	}
-	
+
+	/**
+	 * afterCompose. Conecta a los componentes de la vista. Es necesario para
+	 * evitar null pointer.
+	 * 
+	 * @param @ContextParam(ContextType.VIEW) Component view
+	 * @return Ninguno.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
+	}
+
+	/**
+	 * Actualizar Lista de Sancionados
+	 * 
+	 * @param actualizarListaSancionados
+	 * @return La lista de estudiantes en veredicto se actualiza cuando se
+	 *         termina ese proceso.
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@GlobalCommand
+	public void actualizarListaSancionados() {
+		BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+	}
+
 	/**
 	 * registrarApelacionConMotivos.
 	 * 
 	 * @param Ninguno
 	 * @return Ninguno
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 * 
 	 */
 	public void registrarApelacionConMotivos() {
@@ -219,35 +277,37 @@ public class VMRegistrarRecursoJerarquico {
 		map.put("instancia", instancia);
 		map.put("idEstado", idEstado);
 		map.put("idMotivoGeneral", idMotivoGeneral);
-		
-		final Window window = (Window) Executions.createComponents(
-        		"/WEB-INF/sigarep/vistas/transacciones/RegistrarDatosInicialesApelacion.zul", null, map);
+		final Window window = (Window) Executions
+				.createComponents(
+						"/WEB-INF/sigarep/vistas/transacciones/RegistrarDatosInicialesApelacion.zul",
+						null, map);
 		window.setMaximizable(true);
 		window.doModal();
 	}
 
 	/**
-	 * concatenacionNombres.
+	 * Concatenacion nombres.
 	 * 
-	 * @param
-	 * @return
-	 * @throws No dispara ninguna excepcion.
+	 * @param Ninguno
+	 * @return Devuelve primer y segundo nombre concatenados
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	public void concatenacionNombres() {
-
 		nombres = estudianteSeleccionado.getEstudiante().getPrimerNombre()
 				+ " "
 				+ estudianteSeleccionado.getEstudiante().getSegundoNombre();
 	}
 
 	/**
-	 * concatenacionApellidos.
+	 * Concatenacion apellidos.
+	 * 
 	 * @param Ninguno
-	 * @return Ninguno
-	 * @throws No dispara ninguna excepcion.
+	 * @return Devuelve primer y segundo apellido concatenados
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	public void concatenacionApellidos() {
-
 		apellidos = estudianteSeleccionado.getEstudiante().getPrimerApellido()
 				+ " "
 				+ estudianteSeleccionado.getEstudiante().getSegundoApellido();
@@ -255,10 +315,13 @@ public class VMRegistrarRecursoJerarquico {
 	}
 
 	/**
-	 * buscarRecaudosEntregados.
-	 * @param cedula.
+	 * Buscar Recaudos Entregados.
+	 * 
+	 * @param String
+	 *            cedula
 	 * @return Ninguno
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaRecaudos" })
@@ -272,7 +335,8 @@ public class VMRegistrarRecursoJerarquico {
 	 * 
 	 * @param Ninguno
 	 * @return Ninguno
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	public void closeThis() {
@@ -280,50 +344,45 @@ public class VMRegistrarRecursoJerarquico {
 	}
 
 	/**
-	 * registrarSolicitudApelacion.
+	 * Registrar Solicitud Apelacion.
 	 * 
-	 * @param Ninguno
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
 	 * @return Ninguno
-	 * @throws las Excepciones ocurren cuando se quiera registrar una Recurso Jerárquico
-	 * 			y no se ha cargado la carta
+	 * @throws las
+	 *             Excepciones ocurren cuando se quiera registrar una Recurso
+	 *             Jerárquico y no se ha cargado la carta
 	 */
-	@NotifyChange({ "lista" , "observacion"})
+	@NotifyChange({ "lista", "observacion" })
 	@Command
-	public void registrarSolicitudApelacion(@ContextParam(ContextType.BINDER) final Binder binder) {
-		
-			Date fecha = new Date();
-
-			if (observacion==" " || observacion ==null) {
-				mensajeAlUsuario.advertenciaLlenarCampos();
-
-			} else {
-				solicitudApelacionPK.setCedulaEstudiante(cedula);
-				solicitudApelacionPK.setCodigoLapso(lapso);
-				solicitudApelacionPK.setIdInstanciaApelada(3);
-				solicitudApelacion.setId(solicitudApelacionPK);
-				solicitudApelacion.setFechaSolicitud(fecha);
-				solicitudApelacion.setEstatus(true);
-				solicitudApelacion.setNumeroCaso(caso);
-				solicitudApelacion.setObservacion(observacion);
-
-				apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
-				apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-				apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
-				apelacionEstadoApelacionPK.setIdEstadoApelacion(9);
-				apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-				apelacionEstadoApelacion.setFechaEstado(fecha);
-				apelacionEstadoApelacion.setObservacion(observacion);
-
-				motivoPK.setCedulaEstudiante(cedula);
-				motivoPK.setCodigoLapso(lapso);
-				motivoPK.setIdInstanciaApelada(3);
-				motivoPK.setIdTipoMotivo(3);
-				motivos.setId(motivoPK);
-				motivos.setEstatus(true);
-				
-			}
+	public void registrarSolicitudApelacion(
+			@ContextParam(ContextType.BINDER) final Binder binder) {
+		Date fecha = new Date();
+		if (observacion == " " || observacion == null) {
+			mensajeAlUsuario.advertenciaLlenarCampos();
+		} else {
+			solicitudApelacionPK.setCedulaEstudiante(cedula);
+			solicitudApelacionPK.setCodigoLapso(lapso);
+			solicitudApelacionPK.setIdInstanciaApelada(3);
+			solicitudApelacion.setId(solicitudApelacionPK);
+			solicitudApelacion.setFechaSolicitud(fecha);
+			solicitudApelacion.setEstatus(true);
+			solicitudApelacion.setNumeroCaso(caso);
+			solicitudApelacion.setObservacion(observacion);
+			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(3);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(9);
+			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+			apelacionEstadoApelacion.setFechaEstado(fecha);
+			apelacionEstadoApelacion.setObservacion(observacion);
+			motivoPK.setCedulaEstudiante(cedula);
+			motivoPK.setCodigoLapso(lapso);
+			motivoPK.setIdInstanciaApelada(3);
+			motivoPK.setIdTipoMotivo(3);
+			motivos.setId(motivoPK);
+			motivos.setEstatus(true);
+		}
 		try {
-
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
 			servicioapelacionestadoapelacion.guardar(apelacionEstadoApelacion);
 			serviciomotivo.guardarMotivo(motivos);
@@ -333,11 +392,12 @@ public class VMRegistrarRecursoJerarquico {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-
 	}
-	
+
 	/**
-	 * descargarDocumento.
+	 * Descargar Documento.
+	 * 
+	 * @param @ContextParam(ContextType.COMPONENT) Component componente
 	 * @return Ninguno
 	 * @throws Ninguna.
 	 */
@@ -358,20 +418,26 @@ public class VMRegistrarRecursoJerarquico {
 	}
 
 	/**
-	 * buscarSolicitud.
-	 * @param String Cedula
+	 * Buscar Solicitud.
+	 * 
+	 * @param String
+	 *            Cedula
 	 * @return Ninguno
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
-	public void buscarSolicitud(String cedula){
-		listaSolicitud = serviciosolicitudapelacion.buscarSolicitudEstudiante(cedula);	
+	public void buscarSolicitud(String cedula) {
+		listaSolicitud = serviciosolicitudapelacion
+				.buscarSolicitudEstudiante(cedula);
 	}
-	
+
 	/**
-	 * mostrarDatosDeSancion.
+	 * Mostrar Datos de Sancion.
+	 * 
 	 * @param Ninguno
 	 * @return Ninguno
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	private void mostrarDatosDeSancion() {
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -390,37 +456,34 @@ public class VMRegistrarRecursoJerarquico {
 		}
 	}
 
-	/** cancelar
+	/**
+	 * Cancelar
+	 * 
 	 * @param Ninguno
 	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({"observacion"})
+	@NotifyChange({ "observacion" })
 	public void cancelar() {
-		observacion = ""; 
+		observacion = "";
 	}
 
 	/**
-	 * cerrarVentana.
+	 * Cerrar Ventana.
+	 * 
+	 * @param @BindingParam("ventana") final Window ventana
 	 * @return Ninguno
-	 * @throws No dispara ninguna excepcion.
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
-	@NotifyChange({"observacion"})
-	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
+	@NotifyChange({ "observacion" })
+	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
 		boolean condicion = false;
-		if(observacion != null)
+		if (observacion != null)
 			condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
+		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
-	
-	 @AfterCompose //para poder conectarse con los componentes en la vista, es necesario si no da null Pointer
-	    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-	        Selectors.wireComponents(view, this, false);
-	    }
-	 @GlobalCommand
-	    public void actualizarListaSancionados(){
-	    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
-	    }
-	// FIN OTROS METODOS
 }

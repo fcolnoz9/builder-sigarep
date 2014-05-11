@@ -1,6 +1,5 @@
 package sigarep.viewmodels.transacciones;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -48,15 +47,27 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
- * RegistrarReconsideracion UCLA DCYT Sistemas de Informacion.
+ * VM Registrar Reconsideracion.
  * 
- * @author Equipo : Builder-Sigarep Lapso 2013-1
- * @version 1.0
- * @since 23/01/14
+ * @author Equipo Builder
+ * @version 1.2
+ * @since 23/01/2014
+ * @last 10/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarReconsideracion {
-
+	// --------------------------Servicios------------------------------
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
+	@WireVariable
+	private ServicioRecaudoEntregado serviciorecaudoentregado;
+	@WireVariable
+	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
+	@WireVariable
+	private ServicioMotivo serviciomotivo;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
+	// --------------------------Variables de Control-------------------
 	private String sancion;
 	private String lapso;
 	private String nombres;
@@ -73,29 +84,15 @@ public class VMRegistrarReconsideracion {
 	private String nombreDoc;
 	private String nombreDocumento;
 	private String tipoDocumento;
-
 	@Wire("#winRegistrarReconsideracion")
 	private Window ventana; // para conectarse a la ventana con el ID
-	private EstudianteSancionado estudianteSeleccionado;
-
+	// --------------------------Variables Lista------------------------
 	private List<AsignaturaEstudianteSancionado> asignaturas;
 	private List<RecaudoEntregado> listaRecaudos = new LinkedList<RecaudoEntregado>();
 	private List<SolicitudApelacion> listaSolicitud = new LinkedList<SolicitudApelacion>();
-
-	@WireVariable
-	private ServicioSolicitudApelacion serviciosolicitudapelacion;
-	@WireVariable
-	private ServicioRecaudoEntregado serviciorecaudoentregado;
-	@WireVariable
-	private ServicioApelacionEstadoApelacion servicioapelacionestadoapelacion;
-	@WireVariable
-	private ServicioMotivo serviciomotivo;
-	@WireVariable
-	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
-
-	// Para llamar a los diferentes mensajes de dialogo
+	// --------------------------Variables Objeto-----------------------
+	private EstudianteSancionado estudianteSeleccionado;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-
 	SolicitudApelacionPK solicitudApelacionPK = new SolicitudApelacionPK();
 	SolicitudApelacion solicitudApelacion = new SolicitudApelacion();
 	ApelacionEstadoApelacionPK apelacionEstadoApelacionPK = new ApelacionEstadoApelacionPK();
@@ -106,7 +103,7 @@ public class VMRegistrarReconsideracion {
 	Motivo motivos = new Motivo();
 	EstadoApelacion estadoApelacion = new EstadoApelacion();
 
-	// Comienzo de los Metodos GET y SET
+	// Métodos Set y Get
 	public String getNombres() {
 		return nombres;
 	}
@@ -174,25 +171,81 @@ public class VMRegistrarReconsideracion {
 		this.listaRecaudos = listaRecaudos;
 	}
 
-	// Fin Metodos GET y SET
+	public String getLapsosConsecutivos() {
+		return lapsosConsecutivos;
+	}
 
-	// Comienzo Otros Metodos
+	public void setLapsosConsecutivos(String lapsosConsecutivos) {
+		this.lapsosConsecutivos = lapsosConsecutivos;
+	}
 
+	public Integer getIdRecaudo() {
+		return idRecaudo;
+	}
+
+	public void setIdRecaudo(Integer idRecaudo) {
+		this.idRecaudo = idRecaudo;
+	}
+
+	public Documento getDoc() {
+		return doc;
+	}
+
+	public void setDoc(Documento doc) {
+		this.doc = doc;
+	}
+
+	public Media getMedia() {
+		return media;
+	}
+
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+
+	public String getNombreDoc() {
+		return nombreDoc;
+	}
+
+	public void setNombreDoc(String nombreDoc) {
+		this.nombreDoc = nombreDoc;
+	}
+
+	public String getNombreDocumento() {
+		return nombreDocumento;
+	}
+
+	public void setNombreDocumento(String nombreDocumento) {
+		this.nombreDocumento = nombreDocumento;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	/**
+	 * inicialización
+	 * 
+	 * @param init
+	 * @return Código de inicialización
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Init
 	public void init(
 			@ContextParam(ContextType.VIEW) Component view,
 			@ExecutionArgParam("estudianteSeleccionado") EstudianteSancionado v1,
-			@ContextParam(ContextType.BINDER) final Binder binder)
-
-	// initialization code
-	{
+			@ContextParam(ContextType.BINDER) final Binder binder) {
 		Selectors.wireComponents(view, this, false);
 		this.estudianteSeleccionado = v1;
 		cedula = estudianteSeleccionado.getEstudiante().getCedulaEstudiante();
 		lapso = estudianteSeleccionado.getLapsoAcademico().getCodigoLapso();
 		sancion = estudianteSeleccionado.getSancionMaestro().getNombreSancion();
 		lapsosConsecutivos = estudianteSeleccionado.getLapsosAcademicosRp();
-
 		concatenacionNombres();
 		concatenacionApellidos();
 		buscarRecaudosEntregados(cedula);
@@ -204,16 +257,45 @@ public class VMRegistrarReconsideracion {
 			registrarApelacionConMotivos();
 			binder.postCommand("closeThis", null);
 		}
-
 		media = null;
 		doc = new Documento();
 	}
 
 	/**
-	 * concatenacionNombres
+	 * afterCompose. Conecta a los componentes de la vista. Es necesario para
+	 * evitar null pointer.
 	 * 
-	 * @return devuelve primer y segundo nombre concatenados de un estudiante
-	 *         sancionado
+	 * @param @ContextParam(ContextType.VIEW) Component view
+	 * @return Ninguno.
+	 * @throws No
+	 *             dispara ninguna excepción.
+	 */
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireComponents(view, this, false);
+	}
+
+	/**
+	 * Actualizar Lista de Sancionados
+	 * 
+	 * @param actualizarListaSancionados
+	 * @return La lista de estudiantes en veredicto se actualiza cuando se
+	 *         termina ese proceso.
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
+	@GlobalCommand
+	public void actualizarListaSancionados() {
+		BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
+	}
+
+	/**
+	 * Concatenacion nombres.
+	 * 
+	 * @param Ninguno
+	 * @return Devuelve primer y segundo nombre concatenados
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	public void concatenacionNombres() {
 		nombres = estudianteSeleccionado.getEstudiante().getPrimerNombre()
@@ -222,10 +304,12 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * concatenacionApellidos
+	 * Concatenacion apellidos.
 	 * 
-	 * @return devuelve primer y segundo apellido concatenados de un estudiante
-	 *         sancionado
+	 * @param Ninguno
+	 * @return Devuelve primer y segundo apellido concatenados
+	 * @throws No
+	 *             dispara ninguna excepción.
 	 */
 	public void concatenacionApellidos() {
 		apellidos = estudianteSeleccionado.getEstudiante().getPrimerApellido()
@@ -234,10 +318,13 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * buscarRecaudosEntregados
+	 * Buscar Recaudos Entregados.
 	 * 
-	 * @param cedula
-	 * @return Lista de recaudos y motivos por estudiante
+	 * @param String
+	 *            cedula
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "listaRecaudos" })
@@ -247,10 +334,12 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * mostrarDatosDeSancion
+	 * Mostrar Datos de Sancion.
 	 * 
 	 * @param Ninguno
-	 * @return Asignaturas y lapsos consecutivos dependiendo de la sanción
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	private void mostrarDatosDeSancion() {
 		if (sancion.equalsIgnoreCase("RR")) {
@@ -270,43 +359,43 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * registrarSolicitudApelacion
+	 * Registrar Solicitud Apelacion.
 	 * 
-	 * @return No devuelve ningun valor.
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * @return Ninguno
 	 * @throws las
-	 *             Excepciones ocurren cuando se quiera registrar una
-	 *             reconsideracion y no se ha cargado la carta
+	 *             Excepciones ocurren cuando se quiera registrar un Recurso de
+	 *             Reconsideración y no se ha cargado la carta.
 	 */
 	@NotifyChange({ "lista", "observacion" })
 	@Command
 	public void registrarSolicitudApelacion(
 			@BindingParam("window") Window winRegistrarReconsideracion) {
 		Date fecha = new Date();
-		if (observacion==" " || observacion ==null) {
+		if (observacion == " " || observacion == null) {
 			mensajeAlUsuario.advertenciaLlenarCampos();
-
 		} else {
-		solicitudApelacionPK.setCedulaEstudiante(cedula);
-		solicitudApelacionPK.setCodigoLapso(lapso);
-		solicitudApelacionPK.setIdInstanciaApelada(2);
-		solicitudApelacion.setId(solicitudApelacionPK);
-		solicitudApelacion.setFechaSolicitud(fecha);
-		solicitudApelacion.setEstatus(true);
-		solicitudApelacion.setNumeroCaso(caso);
-		solicitudApelacion.setObservacion(observacion);
-		apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
-		apelacionEstadoApelacionPK.setCodigoLapso(lapso);
-		apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
-		apelacionEstadoApelacionPK.setIdEstadoApelacion(5);
-		apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
-		apelacionEstadoApelacion.setFechaEstado(new Date());
-		apelacionEstadoApelacion.setObservacion(observacion);
-		motivoPK.setCedulaEstudiante(cedula);
-		motivoPK.setCodigoLapso(lapso);
-		motivoPK.setIdInstanciaApelada(2);
-		motivoPK.setIdTipoMotivo(2);
-		motivos.setId(motivoPK);
-		motivos.setEstatus(true);
+			solicitudApelacionPK.setCedulaEstudiante(cedula);
+			solicitudApelacionPK.setCodigoLapso(lapso);
+			solicitudApelacionPK.setIdInstanciaApelada(2);
+			solicitudApelacion.setId(solicitudApelacionPK);
+			solicitudApelacion.setFechaSolicitud(fecha);
+			solicitudApelacion.setEstatus(true);
+			solicitudApelacion.setNumeroCaso(caso);
+			solicitudApelacion.setObservacion(observacion);
+			apelacionEstadoApelacionPK.setCedulaEstudiante(cedula);
+			apelacionEstadoApelacionPK.setCodigoLapso(lapso);
+			apelacionEstadoApelacionPK.setIdInstanciaApelada(2);
+			apelacionEstadoApelacionPK.setIdEstadoApelacion(5);
+			apelacionEstadoApelacion.setId(apelacionEstadoApelacionPK);
+			apelacionEstadoApelacion.setFechaEstado(new Date());
+			apelacionEstadoApelacion.setObservacion(observacion);
+			motivoPK.setCedulaEstudiante(cedula);
+			motivoPK.setCodigoLapso(lapso);
+			motivoPK.setIdInstanciaApelada(2);
+			motivoPK.setIdTipoMotivo(2);
+			motivos.setId(motivoPK);
+			motivos.setEstatus(true);
 		}
 		try {
 			serviciosolicitudapelacion.guardar(solicitudApelacion);
@@ -321,10 +410,12 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * descargarDocumento
+	 * Descargar Documento
 	 * 
-	 * @param
-	 * @return Documento descargado
+	 * @param @ContextParam(ContextType.COMPONENT) Component componente
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	public void descargarDocumento(
@@ -343,10 +434,12 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * cancelar
+	 * Cancelar
 	 * 
 	 * @param Ninguno
 	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	@Command
 	@NotifyChange({ "observacion" })
@@ -355,11 +448,12 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * buscarSolicitud
+	 * Buscar Solicitud
 	 * 
 	 * @param String
 	 *            cedula
-	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 	public void buscarSolicitud(String cedula) {
 		listaSolicitud = serviciosolicitudapelacion
@@ -367,10 +461,12 @@ public class VMRegistrarReconsideracion {
 	}
 
 	/**
-	 * registrarApelacionMotivo
+	 * Registrar Apelacion Motivo.
 	 * 
 	 * @param Ninguno
 	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
 
 	public void registrarApelacionConMotivos() {
@@ -382,7 +478,6 @@ public class VMRegistrarReconsideracion {
 		map.put("instancia", instancia);
 		map.put("idEstado", idEstado);
 		map.put("idMotivoGeneral", idMotivoGeneral);
-
 		final Window window = (Window) Executions
 				.createComponents(
 						"/WEB-INF/sigarep/vistas/transacciones/RegistrarDatosInicialesApelacion.zul",
@@ -391,29 +486,31 @@ public class VMRegistrarReconsideracion {
 		window.doModal();
 	}
 
+	/**
+	 * Close this
+	 * 
+	 * @param Ninguno
+	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
+	 */
 	@Command
 	public void closeThis() {
 		ventana.detach();
 	}
 
-	@AfterCompose
-	// para poder conectarse con los componentes en la vista, es necesario si no
-	// da null Pointer
-	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
-		Selectors.wireComponents(view, this, false);
-	}
-
 	/**
-	 * cerrarVentana
+	 * Cerrar Ventana.
 	 * 
+	 * @param @BindingParam("ventana") final Window ventana
 	 * @return Ninguno
+	 * @throws No
+	 *             dispara ninguna excepcion.
 	 */
-	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange({ "observacion" })
 	public void cerrarVentana(
 			@ContextParam(ContextType.BINDER) final Binder binder) {
-
 		if (observacion != null) {
 			Messagebox
 					.show("¿Realemente desea cerrrar la ventana sin guardar los cambios?",
@@ -428,7 +525,6 @@ public class VMRegistrarReconsideracion {
 									switch (e.getButton()) {
 									case YES:
 										ventana.detach();
-
 									}
 								}
 							});
@@ -448,9 +544,4 @@ public class VMRegistrarReconsideracion {
 					});
 		}
 	}
-	@GlobalCommand
-    public void actualizarListaSancionados(){
-    	BindUtils.postGlobalCommand(null, null, "buscarSancionados", null);
-    }
-
 }
