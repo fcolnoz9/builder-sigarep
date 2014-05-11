@@ -8,13 +8,14 @@ import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.repositorio.maestros.IEnlaceInteresDAO;
 
 /**
- * Clase  ServicioEnlaceInteres
+ * Clase  ServicioEnlaceInteres (Servicio para la
+ * Clase EnlaceInteres)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("servicioenlacesinteres")
 public class ServicioEnlaceInteres {
 	private @Autowired
@@ -59,7 +60,6 @@ public class ServicioEnlaceInteres {
 		return enlaceinteres.findByEstatusTrue();
 	}
 
-
 	/**
 	 *buscarEnlacesFiltro
 	 * 
@@ -68,7 +68,6 @@ public class ServicioEnlaceInteres {
 	 *         filtros() de VMenlaceInteres.
 	 * @throws No  dispara ninguna excepción.
 	 */
-
 	public List<EnlaceInteres> buscarEnlacesFiltro(String nombreEnlace, String direccionEnlace) {
 		List<EnlaceInteres> result = new LinkedList<EnlaceInteres>();
 		if (nombreEnlace == null || direccionEnlace == null ) {// si el nombre es null o  vacio,el  resultado va  a ser la lista  completa de  todos los enlaces.
@@ -84,4 +83,3 @@ public class ServicioEnlaceInteres {
 		return result;
 	}	
 }
-

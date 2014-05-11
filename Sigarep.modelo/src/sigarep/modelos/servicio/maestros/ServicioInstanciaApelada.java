@@ -8,11 +8,13 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.repositorio.maestros.IInstanciaApeladaDAO;
 
 /**
- * Clase ServicioInstanciaApelada 
+ * Clase ServicioInstanciaApelada (Servicio para
+ * la Clase InstanciaApelada)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
 @Service("servicioInstanciaApelada")
 public class ServicioInstanciaApelada {

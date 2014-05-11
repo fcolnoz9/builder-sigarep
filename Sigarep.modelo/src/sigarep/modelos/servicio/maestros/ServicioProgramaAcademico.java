@@ -8,19 +8,20 @@ import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.repositorio.maestros.IProgramaAcademicoDAO;
 
 /**
- * Clase  ServicioProgramaAcademico
+ * Clase  ServicioProgramaAcademico (Servicio para
+ * la Clase ProgramaAcademico)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("servicioprogramaacademico")
 public class ServicioProgramaAcademico {
 	private @Autowired
 	IProgramaAcademicoDAO pro;
 
-	/**guardarPrograma académico
+	/**guardar Programa Académico
 	 * @param ProgramaAcademico proa
 	 * @return objeto guardado
 	 */
@@ -45,6 +46,7 @@ public class ServicioProgramaAcademico {
 		miPrograma.setEstatusPrograma(false);
 		pro.save(miPrograma);
 	}
+	
 	/**
 	 * Listado Programas
 	 * 
@@ -56,8 +58,9 @@ public class ServicioProgramaAcademico {
 		List<ProgramaAcademico> programasLista = pro.findByEstatusProgramaTrue();
 		return programasLista;
 	}
+	
 	/**
-	 * Buscar Programa
+	 * Buscar Programa por ID
 	 * 
 	 * @param Integer idProgramaAcademico
 	 * @return programa.
@@ -68,7 +71,7 @@ public class ServicioProgramaAcademico {
 	}
 
 	/**
-	 * Buscar Programa
+	 * Buscar Programa por nombre
 	 * 
 	 * @param String programa
 	 * @return programa.

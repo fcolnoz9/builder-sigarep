@@ -8,21 +8,21 @@ import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.repositorio.maestros.ISancionMaestroDAO;
 
 /**
- * Clase  ServicioSancionMaestro
+ * Clase  ServicioSancionMaestro (Servicio para
+ * la Clase SancionMaestro)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("serviciosancionmaestro")
-// Definiendo la variable servicio
 public class ServicioSancionMaestro {
 	private @Autowired
 	ISancionMaestroDAO san;
 
 	/**
-	 *guardarSancion
+	 *guardar sancion
 	 * @param SancionMaestro
 	 * @return Objeto guardado
 	 * @throws No  dispara ninguna excepción.
@@ -37,7 +37,7 @@ public class ServicioSancionMaestro {
 	}
 
 	/**
-	 *eliminarSancion
+	 *eliminar sancion
 	 * @param Integer sanm
 	 * @return Objeto con estatus false, eliminado lógicamente
 	 * @throws No  dispara ninguna excepción.
@@ -50,18 +50,18 @@ public class ServicioSancionMaestro {
 
 
 	/**
-	 *buscarUnaSancion
+	 *buscar sancion por ID
 	 * 
 	 * @param Integer idSancionMaestro
 	 * @return Sanción
 	 * @throws No  dispara ninguna excepción.
 	 */
-
 	public SancionMaestro buscarUnaSancion(Integer idSancionMaestro) {
 		return san.findOne(idSancionMaestro);
 	}
+	
 	/**
-	 * listaTipoSanciones
+	 * lista de tipo de sanciones
 	 * 
 	 * @param vacío
 	 * @return listaTipoSanciones con estatus = true
@@ -70,8 +70,9 @@ public class ServicioSancionMaestro {
 	public List<SancionMaestro> listaTipoSanciones() {
 		return san.findByEstatusTrue();
 	}
+	
 	/**
-	 *filtrarSancion
+	 * filtrar Sancion por nombre
 	 * 
 	 * @param String nombre
 	 * @return busca una sanción por nombre

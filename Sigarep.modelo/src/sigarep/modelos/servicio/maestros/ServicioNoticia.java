@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Noticia;
 import sigarep.modelos.repositorio.maestros.INoticiaDAO;
 
-
 /**
- * Clase  ServicioNoticia 
+ * Clase  ServicioNoticia (Servicio para la
+ * Clase Noticia)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("servicionoticia")
 public class ServicioNoticia {
 	private @Autowired
@@ -46,7 +46,7 @@ public class ServicioNoticia {
 		iNoticia.save(n);
 	}
 
-	/** Lista de Noticia
+	/** Lista de Noticias
 	 * @param No devuelve ningún valor
 	 * @return Lista de las Noticias registradas y activas 
 	 * @throws No dispara ninguna excepción.
@@ -76,5 +76,4 @@ public class ServicioNoticia {
 		}
 		return result;
 	} 
-
 }

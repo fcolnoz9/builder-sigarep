@@ -1,6 +1,6 @@
 package sigarep.modelos.servicio.maestros;
-import java.util.List;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Asignatura;
@@ -9,20 +9,19 @@ import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.repositorio.maestros.IAsignaturaDAO;
 
 /**
- * Clase ServicioAsignatura 
+ * Clase ServicioAsignatura (Servicio relacionado con la
+ * Clase Asignatura)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
-
 @Service("servicioAsignatura")
 public class ServicioAsignatura {
 	private @Autowired
 	IAsignaturaDAO iAsignatura;
 	
-
 	/**
 	 * Buscar Asignatura
 	 * @param codigoAsignatura
@@ -72,7 +71,6 @@ public class ServicioAsignatura {
 	public List<Asignatura> buscarAsignaturasPorPrograma (ProgramaAcademico programa){
 		return iAsignatura.findByProgramaAcademicoAndEstatusTrue(programa);
 	}
-	
 		
 	/**
 	 * Buscar Asignatura filtrando por nombre
@@ -105,7 +103,6 @@ public class ServicioAsignatura {
 	 * @return Busca las asignaturas que no posee el estudianteSancionado
 	 * @throws No dispara ninguna excepción.
 	 */
-	
 	public List<Asignatura> listadoAsignaturaNoPerteneceEstudiante(EstudianteSancionado estudianteSancionado, ProgramaAcademico programaAcademico) {
 		List<Asignatura> listaAsignaturaNoPertenece = iAsignatura.buscarAsignaturaNoPerteneceEstudiante(estudianteSancionado,programaAcademico);
 		return listaAsignaturaNoPertenece;

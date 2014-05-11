@@ -2,20 +2,19 @@ package sigarep.modelos.servicio.maestros;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Persona;
-
 import sigarep.modelos.repositorio.maestros.IPersonaDAO;
 
 /**
- * Clase ServicioPersona
+ * Clase ServicioPersona (Servicio para la
+ * Clase Persona)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
 @Service("serviciopersona")
 public class ServicioPersona {
@@ -52,6 +51,7 @@ public class ServicioPersona {
 	public List<Persona> listadoPersona() {
 		return iPersona.findByEstatusTrue();
 	}
+	
 	/** buscarPersonaFiltro
 	 * @param String cedulaPersona
 			String nombreCompleto, String nombreUsuario
@@ -87,6 +87,7 @@ public class ServicioPersona {
 		Persona persona = iPersona.buscarPersonaPorNombreUsuario(nombreUsuario);
 		return persona;
 	}
+	
 	/** buscaUnaPersona
 	 * @param String cedula
 	 * @return Persona
@@ -96,6 +97,7 @@ public class ServicioPersona {
 		Persona persona = iPersona.findOne(cedula);
 		return persona;
 	}
+	
 	/**eliminarFisicamente
 	 * @param Persona persona
 	 * @return Persona

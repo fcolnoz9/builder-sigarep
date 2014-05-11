@@ -1,23 +1,20 @@
 package sigarep.modelos.servicio.maestros;
 
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.EstadoApelacion;
-
 import sigarep.modelos.repositorio.maestros.IEstadoApelacionDAO;
 
 /**
- * Clase  ServicioEstadoApelacion
+ * Clase  ServicioEstadoApelacion (Servicio para la Clase
+ * EstadoApelacion)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("servicioestadoapelacion")
 public class ServicioEstadoApelacion {
 	private @Autowired
@@ -27,8 +24,7 @@ public class ServicioEstadoApelacion {
 	 * @return guarda el objeto
 	 * @param el objeto EstadoApelacion
 	 * @throws No dispara ninguna excepción.
-	   */
-
+	 */
 	public void guardarEstadoApelacion(EstadoApelacion estadoApelacion) {
 		if (estadoApelacion.getIdEstadoApelacion() != null)
 			ea.save(estadoApelacion);
@@ -68,4 +64,3 @@ public class ServicioEstadoApelacion {
 		return listaEstados;
 	}
 }
-
