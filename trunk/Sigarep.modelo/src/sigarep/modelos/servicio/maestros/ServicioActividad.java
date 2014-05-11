@@ -8,14 +8,14 @@ import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.repositorio.maestros.IActividadDAO;
 
 /**
- * Clase ServicioActividad
+ * Clase ServicioActividad (Servicio relacionado con la 
+ * Clase Actividad del cronograma)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
-
 @Service("servicioactividad")
 public class ServicioActividad {
 	private @Autowired

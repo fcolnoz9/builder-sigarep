@@ -1,7 +1,6 @@
 package sigarep.modelos.servicio.maestros;
 
 import java.security.GeneralSecurityException;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -9,20 +8,15 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zkoss.zul.Messagebox;
-
 import com.sun.mail.util.MailSSLSocketFactory;
-
 import sigarep.modelos.data.maestros.ContactoSigarep;
 import sigarep.modelos.repositorio.maestros.IContactoSigarepDAO;
-
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -32,13 +26,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Clase ServicioContactoSigarep
+ * Clase ServicioContactoSigarep (Servicio de la
+ * Clase ContactoSigarep del sitio Web)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @SuppressWarnings("unused")
 @Service("serviciocontactosigarep")
 public class ServicioContactoSigarep {
@@ -46,6 +41,13 @@ public class ServicioContactoSigarep {
 	private final Properties properties = new Properties();
 	private Session session;
 	
+	/**
+	 * Guardar objeto ContactoSigarep
+	 * 
+	 * @param ContactoSigarep contactoSigarep
+	 * @return Guarda el objeto contacto
+	 * @throws No dispara ninguna excepción.
+	 */
 	public void guardar(ContactoSigarep contactoSigarep) {
 		if (contactoSigarep.getIdContacto() != null)
 			iContactoSigarepDAO.save(contactoSigarep);
@@ -54,18 +56,24 @@ public class ServicioContactoSigarep {
 			iContactoSigarepDAO.save(contactoSigarep);
 		}
 	}
-
+	
 	/**
 	 * Retorna una lista con el UNICO registro de contacto.
 	 * @param
 	 * @return List<ContactoSigarep> contactoSigarep
 	 * @throws No dispara ninguna excepción.
 	 */
-	
 	public List<ContactoSigarep> buscarContactoSigarep(){
 		return iContactoSigarepDAO.findAll();
 	}
 	
+	/**
+	 * Carga las propiedades de envio
+	 * 
+	 * @param null
+	 * @return null
+	 * @throws dispara excepcion cuando MailSSLSocketFactory es diferente de null.
+	 */
 	private void cargarPropiedadesEnvio() {
 		MailSSLSocketFactory sf = null;
 		try {
@@ -90,7 +98,13 @@ public class ServicioContactoSigarep {
 				});
 	}
 
-	// función para recuperar la contraseña
+	/**
+	 * Recuperar contraseña de usuario
+	 * 
+	 * @param String correoReceptor, String clave
+	 * @return null
+	 * @throws dispara excepcion.
+	 */
 	public void sendEmail(String correoReceptor, String clave) {
 	      cargarPropiedadesEnvio();
 		try {
@@ -114,7 +128,13 @@ public class ServicioContactoSigarep {
 		}
 	}
 
-	// función para recuperar la contraseña
+	/**
+	 * Recuperar contraseña de usuario
+	 * 
+	 * @param String correoReceptor, String nombreUsuario,String clave
+	 * @return null
+	 * @throws dispara excepcion.
+	 */
 	public void sendEmailWelcomeToSigarep(String correoReceptor,
 			String nombreUsuario, String clave) {
 		cargarPropiedadesEnvio();
@@ -136,7 +156,14 @@ public class ServicioContactoSigarep {
 		}
 	}
 
-	// Función para contactanos
+	/**
+	 * Recupera el mensaje, correo, nombre, teléfono y consulta que se haga
+	 * por la web a través de la función contáctanos
+	 * 
+	 * @param String correo, String nombre, String telefono, String consulta
+	 * @return null
+	 * @throws dispara excepcion.
+	 */
 	public void sendEmailContactanos(String correo, String nombre,
 			String telefono, String consulta) {
 		cargarPropiedadesEnvio();
@@ -155,6 +182,5 @@ public class ServicioContactoSigarep {
 		} catch (MessagingException me) {
 			throw new RuntimeException(me);
 		}
-	}
-	
+	}	
 }

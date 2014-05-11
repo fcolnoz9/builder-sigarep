@@ -1,25 +1,26 @@
 package sigarep.modelos.servicio.maestros;
+
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.repositorio.maestros.IPreguntaBasicaDAO;
 
 /**
- * Clase  ServicioPreguntaBasica 
+ * Clase  ServicioPreguntaBasica (Servicio
+ * para la clase PreguntaBasica)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("serviciopreguntabasica") 
 public class ServicioPreguntaBasica{
 	private @Autowired IPreguntaBasicaDAO pre ;
 
-	/** guardar
+	/** guardar pregunta basica
 	 * @param preguntaBasica.
 	 * @return No devuelve ningún valor.
 	 */
@@ -32,7 +33,7 @@ public class ServicioPreguntaBasica{
 		}
 	}
 	
-	/** eliminar
+	/** eliminar pregunta basica
 	 * @param idPreguntaBasica
 	 * @return No devuelve ningún  valor.
 	 */
@@ -42,7 +43,7 @@ public class ServicioPreguntaBasica{
 		pre.save(pb);
 	}
 	
-	/** listadoPreguntas
+	/** listado de Preguntas
 	 * @param una listadoPreguntas
 	 * @return listadoPreguntas.
 	 */
@@ -50,7 +51,7 @@ public class ServicioPreguntaBasica{
 	    return pre.findByEstatusTrue() ;
 	}
 	
-	/** buscarPr
+	/** buscar pregunta por tira de texto
 	 * @param pregunta
 	 * @return resultado es un listadoPregunta.
 	 * @throws la Excepcion es que la pregunta o respuesta este en blanco.
@@ -70,5 +71,3 @@ public class ServicioPreguntaBasica{
 		return result;
 	}
 }
-
-	

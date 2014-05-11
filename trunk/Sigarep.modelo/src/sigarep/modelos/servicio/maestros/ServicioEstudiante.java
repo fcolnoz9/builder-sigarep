@@ -8,19 +8,16 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.maestros.Estudiante;
 import sigarep.modelos.repositorio.maestros.IEstudianteDAO;
 
-
-
-
 /**
- * Clase ServicioEstudiante
+ * Clase ServicioEstudiante (Servicio para la
+ * Clase Estudiante)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("servicioestudiante")
-// Definiendo la variable servicio
 public class ServicioEstudiante {
 	private @Autowired IEstudianteDAO est;
 
@@ -43,7 +40,7 @@ public class ServicioEstudiante {
 	}
 
 	/**
-	 *buscar estudiante 
+	 *buscar estudiante por cedula
 	 * @param String cedula
 	 * @return busca un estudiante en una lista
 	 * @throws No  dispara ninguna excepción.
@@ -53,7 +50,7 @@ public class ServicioEstudiante {
 	}
 
 	/**
-	 *Lista de estudiante
+	 *Lista de estudiantes
 	 * @param 
 	 * @return lista de estudiantes
 	 * @throws No  dispara ninguna excepción.
@@ -92,7 +89,6 @@ public class ServicioEstudiante {
 		return est.buscarEstudiante();
 	}
 	
-	
 	/** Filtra Estudiante para ListaGenerica 
 	 * @return Lista de Estudiantes
 	 * @parameters String cedula, String programa, String nombre, String apellido
@@ -117,6 +113,5 @@ public class ServicioEstudiante {
 			}
         }
 		return result;
-	}
-	
+	}	
 }

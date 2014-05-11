@@ -1,28 +1,22 @@
 package sigarep.modelos.servicio.maestros;
+
 import java.util.LinkedList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.Recaudo;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.repositorio.maestros.IRecaudoDAO;
 
-/*
- * @ (#) ServicioRecaudo.java 
- *
- * Copyright 2013 Builder. Todos los derechos reservados.
- * CONFIDENCIAL. El uso está sujeto a los términos de la licencia.
- */
 /**
- * Clase  ServicioRecaudo 
+ * Clase  ServicioRecaudo (Servicio para la
+ * Clase Recaudo)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("serviciorecaudo")
 public class ServicioRecaudo {
 	private @Autowired IRecaudoDAO iRecaudoDAO;
@@ -33,7 +27,6 @@ public class ServicioRecaudo {
 	 * @return Guarda el objeto
 	 * @throws No dispara ninguna excepción.
 	 */
-
 	public void guardarRecaudo(Recaudo recaudo){
 		if (recaudo.getIdRecaudo() != null)
 			iRecaudoDAO.save(recaudo);
@@ -42,6 +35,7 @@ public class ServicioRecaudo {
 			iRecaudoDAO.save(recaudo);
 		}
 	}
+	
 	/**
 	 * Eliminar Recaudo
 	 * @param Integer idRecaudo
@@ -53,6 +47,7 @@ public class ServicioRecaudo {
 		rec.setEstatus(false);
 		iRecaudoDAO.save(rec);
 	}
+	
 	/**
 	 * Listado de Recaudos
 	 * @param
@@ -62,6 +57,7 @@ public class ServicioRecaudo {
 	public List<Recaudo> listadoRecaudosPorMotivo(TipoMotivo motivo) {
 	    return iRecaudoDAO.findByTipoMotivoAndEstatusTrue(motivo);
 	}
+	
 	/**
 	 * Buscar recaudos por nombre
 	 * 
@@ -72,6 +68,7 @@ public class ServicioRecaudo {
 	public Recaudo buscarRecaudoPorNombre(String nombreRecaudo) {
 	    return iRecaudoDAO.findByNombreRecaudo(nombreRecaudo);
 	}
+	
 	/**
 	 * Listado de Recaudos
 	 * @param
@@ -81,6 +78,7 @@ public class ServicioRecaudo {
 	public List<Recaudo> listadoRecaudosActivos() {
 	    return iRecaudoDAO.findByEstatusTrue();
 	}
+	
 	/**
 	 * Buscar en la lista de recaudos 
 	 * 
@@ -104,6 +102,7 @@ public class ServicioRecaudo {
 		}
 		return resultado;
 	}
+	
 	/**
 	 * Buscar Recaudos filtrando por nombre 
 	 * 
@@ -143,6 +142,12 @@ public class ServicioRecaudo {
 	public List<Recaudo> buscarRecaudosVerificarRecaudosIII(String cedula) {
 		return iRecaudoDAO.buscarRecaudosVerificarRecaudosIII(cedula);
 	}
+	
+	/** lista de recaudos por cedula, codigo del lapso y id de la Instancia
+	 * 
+	 * @param cedula, codigoLapso, idInstancia
+	 * @return lista de recaudos faltantes por entregar
+	 */
 	public List<Recaudo> buscarRecaudosPorApelacion(String cedula, String codigoLapso, Integer idInstancia) {	
 		return iRecaudoDAO.listadoRecaudosPorApelacion(cedula, codigoLapso, idInstancia);
 	}

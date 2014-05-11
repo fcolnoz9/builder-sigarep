@@ -1,33 +1,32 @@
 package sigarep.modelos.servicio.maestros;
+
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.repositorio.maestros.ITipoMotivoDAO;
 
-
 /**
- * Clase  ServicioTipoMotivo
+ * Clase  ServicioTipoMotivo (Servicio para la
+ * Clase TipoMotivo)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
-
 @Service("serviciotipomotivo")
 public class ServicioTipoMotivo {
 	private @Autowired ITipoMotivoDAO tipomotivo;
 	
 	/**
-	 *GuardarTipoMotivo
+	 * Guardar Tipo de Motivo
 	 * 
 	 * @param TipoMotivo tipo
 	 * @return guarda el objeto 
 	 * @throws No  dispara ninguna excepción.
 	 */
-
 	public void guardarTipoMotivo(TipoMotivo tipo){
 		if (tipo.getIdTipoMotivo() != null)
 			tipomotivo.save(tipo);
@@ -37,12 +36,18 @@ public class ServicioTipoMotivo {
 		}
 	}
 	
+	/**
+	 * Buscar tipo motivo por ID
+	 * @param 
+	 * @return objeto tipo motivo
+	 * @throws No dispara ninguna excepción
+	 */
 	public TipoMotivo buscarTipoMotivoPorId(Integer codigoTipoMotivo){
 		return tipomotivo.findOne(codigoTipoMotivo);
 	}
 	
 	/**
-	 *Elimina logicamente un tipoMotivo
+	 * Elimina logicamente un tipoMotivo
 	 * @param idTipoMotivo
 	 * @return objeto con status false
 	 * @throws No  dispara ninguna excepción.
@@ -52,8 +57,9 @@ public class ServicioTipoMotivo {
 		tip.setEstatus(false);
 		tipomotivo.save(tip);
 	}
+	
 	/**
-	 * listadoTipoMotivo
+	 * listado de Tipo Motivo
 	 * @param vaío
 	 * @return listadoTipoMotivo con estatus = true
 	 * @throws No  dispara ninguna excepción.
@@ -80,7 +86,6 @@ public class ServicioTipoMotivo {
 	 *         filtros() de VMTipoMotivo.
 	 * @throws No  dispara ninguna excepción.
 	 */
-
 	public List<TipoMotivo> filtrarTipoMotivo(String nombreTipoMotivo){
 		List<TipoMotivo> result = new LinkedList<TipoMotivo>();
 		if (nombreTipoMotivo==null || "".equals(nombreTipoMotivo)){
@@ -94,6 +99,5 @@ public class ServicioTipoMotivo {
 			}
 		}
 		return result;
-	}
-	
+	}	
 }

@@ -2,23 +2,22 @@ package sigarep.modelos.servicio.maestros;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.Banner;
 import sigarep.modelos.repositorio.maestros.IBannerDAO;
 
 /**
- * Clase ServicioBanner 
+ * Clase ServicioBanner (Servicio relacionado a la
+ * Clase Banner del Sitio Web) 
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
 @Service("servicioBanner")
 public class ServicioBanner {
-
 	private @Autowired
 	IBannerDAO banner;
 
@@ -28,7 +27,6 @@ public class ServicioBanner {
 	 * @return Guarda el objeto
 	 * @throws No dispara ninguna excepcion.
 	 */
-
 	public void guardarBanner(Banner ba) {
 		if (ba.getIdImagen() != null)
 			banner.save(ba);
@@ -47,7 +45,6 @@ public class ServicioBanner {
 	 * @throws Nodispara
 	 *             ninguna excepción.
 	 */
-
 	public void eliminarBanner(Integer idImagen) {
 		Banner b = banner.findOne(idImagen);
 		b.setEstatus(false);
@@ -62,7 +59,6 @@ public class ServicioBanner {
 	 * @throws No
 	 *             dispara ninguna excepción.
 	 */
-
 	public List<Banner> listadoBanner() {
 		return banner.findByEstatusTrue();
 	}
@@ -74,7 +70,6 @@ public class ServicioBanner {
 	 * @return Busca un Banner por titulo y enlace
 	 * @throws No dispara ninguna excepción.
 	 */
-
 	public List<Banner> buscarFiltroBanner(String titulo, String enlace) {
 		List<Banner> result = new ArrayList<Banner>();
 		if (titulo == null || enlace == null) {
@@ -102,5 +97,4 @@ public class ServicioBanner {
 	public List<Banner> buscarTodosBanner() {
 		return banner.findByEstatusTrue();
 	}
-
 }

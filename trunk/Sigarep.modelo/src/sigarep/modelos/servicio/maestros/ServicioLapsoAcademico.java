@@ -4,16 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
 
 /**
- * Clase  ServicioLapsoAcademico
+ * Clase  ServicioLapsoAcademico (Servicio para la
+ * Clase LapsoAcademico)
  * 
- * @author BUILDER
+ * @author Equipo Builder
  * @version 1.0
  * @since 18/12/2013
+ * @last 10/05/2014
  */
 @Service("serviciolapsoacademico")
 public class ServicioLapsoAcademico {
@@ -32,7 +33,7 @@ public class ServicioLapsoAcademico {
 	}
 
 	/**
-	 * lapso académico activo
+	 * Buscar lapso académico activo
 	 * 
 	 * @return el lapso académico activo
 	 * @param vacio
@@ -85,7 +86,6 @@ public class ServicioLapsoAcademico {
 	 * @param String codigolapso
 	 * @throws No dispara ninguna excepcion.
 	 */
-
 	public List<LapsoAcademico> filtrarLapsoAcademico(String codigoLapso) {
 		List<LapsoAcademico> result = new LinkedList<LapsoAcademico>();
 		if (codigoLapso == null || "".equals(codigoLapso)) {
@@ -99,6 +99,5 @@ public class ServicioLapsoAcademico {
 			}
 		}
 		return result;
-
 	}
 }
