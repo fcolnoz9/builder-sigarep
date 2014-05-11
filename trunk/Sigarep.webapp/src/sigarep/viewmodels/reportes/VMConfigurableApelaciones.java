@@ -596,6 +596,7 @@ public class VMConfigurableApelaciones {
 				|| objEdoApelacion == null || reportType == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
+			listaE.clear();
 			configurarLapsoAcademico();
 			configurarParametroSancion();
 			configurarParametroInstanciaApelada();
@@ -613,6 +614,9 @@ public class VMConfigurableApelaciones {
 							parametroMotivo, parametroProgramaAcademico,
 							parametroVeredicto, parametroEdoApelacion,
 							parametroAsignatura);
+			if(listaE.size()==0){
+				mensajeAlUsuario.informacionNoHayCoincidencias();
+			}
 		}
 	}
 

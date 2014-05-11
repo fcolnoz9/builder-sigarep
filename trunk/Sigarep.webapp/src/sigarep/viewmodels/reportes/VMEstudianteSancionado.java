@@ -593,6 +593,7 @@ public class VMEstudianteSancionado {
 				|| objEdoApelacion == null || reportType == null) {
 			mensajeAlUsuario.advertenciaSeleccionarTodo();
 		} else {
+			listaE.clear();
 			configurarLapsoAcademico();
 			configurarParametroSancion();
 			configurarParametroInstanciaApelada();
@@ -611,6 +612,9 @@ public class VMEstudianteSancionado {
 					parametroProgramaAcademico, parametroSexo,
 					parametroVeredicto, parametroEdoApelacion,
 					parametroAsignatura);
+			if(listaE.size()==0){
+				mensajeAlUsuario.informacionNoHayCoincidencias();
+			}
 		}
 	}
 
