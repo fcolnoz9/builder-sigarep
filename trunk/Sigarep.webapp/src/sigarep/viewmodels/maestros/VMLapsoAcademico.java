@@ -16,12 +16,13 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
-/**
- * Clase Lapso Académico REgistra y modifica un lapso académico
- * 
+/**Clase VMLapsoAcademico : Clase ViewModels 
+relacionada con el Maestro LapsoAcademico.
+ 
  * @author Equipo Builder
  * @version 1.0
  * @since 20/12/13
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMLapsoAcademico {
@@ -99,13 +100,15 @@ public class VMLapsoAcademico {
 
 	public void setLapsoAcademico(LapsoAcademico lapsoAcademico) {
 		this.lapsoAcademico = lapsoAcademico;
-	}// Fin de los metodos gets y sets
+	}
+	
+	// Fin de los metodos gets y sets
 
 	/**
 	 * Inicialización
 	 * Init. Código de inicialización.
 	 * @param Ninguno.
-	 * @return métodos inicializados
+	 * @return Objetos inicializados
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Init
@@ -185,7 +188,7 @@ public class VMLapsoAcademico {
 	/**
 	 * mostrarSeleccionada 
 	 * @param Ningun.            .
-	 * @return Objeto Lapso seleccionado
+	 * @return Objeto LapsoAcademico seleccionado
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -199,7 +202,7 @@ public class VMLapsoAcademico {
 	/**
 	 * Buscar Todos Lapso Academicos : Permite mostrar la lista de todos los lapso académico
 	 * @param Ningun. 
-	 * @return la lista de lapso académico
+	 * @return Objeto LapsoAcademico
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -210,9 +213,10 @@ public class VMLapsoAcademico {
 	}
 
 	/**
-	 * buscar Lapso Academico
+	 * buscarLapsoAcademico
+	 * 
 	 * @param Ningun.
-	 * @return Ningun.
+	 * @return Objeto LapsoAcademico.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command

@@ -26,8 +26,8 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.bind.Binder;
 
-/** Clase VMNoticia
- * Registra y modifica una noticia. Utilizada en el portal web.
+/** Clase VMNoticia : Clase ViewModels 
+relacionada con el Maestro Noticia
  * @author Equipo Builder
  * @version 1.0
  * @since 22/01/14
@@ -141,28 +141,31 @@ public class VMNoticia  {
 	}
 	public void setTituloFiltro(String tituloFiltro) {
 		this.tituloFiltro = tituloFiltro;
-	}//  Fin de los métodos set y get
+	}
+	
+	//  Fin de los métodos set y get
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param Ninguno
 	 * @return código de inicialización
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
-	// inicializador
+	
 	public void init(){
-		//initialization code
+	
 		mediaNoticia = null;
 		fotoNoticia = new Archivo();
 		buscarNoticia();
 	}
 
-	/** Guardar Noticia
-	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	/** Guardar Noticia : Guarda el registro completo, el command indica a las variables el
+	 *  cambio que se hará en el objeto.
+	 *  
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -181,6 +184,7 @@ public class VMNoticia  {
 	}
 
 	/** Elimina una Noticia 
+	 * 
 	 * @param @ContextParam(ContextType.BINDER) final Binder binder
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción. 
@@ -212,6 +216,7 @@ public class VMNoticia  {
 	/**
 	 * mostrarSeleccionado : Muestra en el área de datos el registro
 	 * seleccionado
+	 * 
 	 * @param Ninguno          .
 	 * @return Objeto Noticia seleccionada
 	 * @throws No dispara ninguna excepción
@@ -240,9 +245,10 @@ public class VMNoticia  {
 	}
 
 	/** mostrarSeleccionado2. Permite tomar los datos del objeto noticiaseleccionada para pasarlo a la pantalla modal, que tambien se le hace llamado.
-	 *  @param Ninguno  
-	 * @return Ninguno.
-	 * @throws No dispara ninguna excepción
+	 *
+	 *  @param Ninguno.  
+	 * @return Objeto Noticia seleccionada.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"noticiaSeleccionada"})
@@ -263,8 +269,9 @@ public class VMNoticia  {
 	}
 
 	/** Busca una Noticia
+	 * 
 	 *  @param Ninguno  
-	 * @return Ninguno.
+	 * @return Objeto Noticia.
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -288,6 +295,7 @@ public class VMNoticia  {
 
 	/**
 	 * limpiar : Metodo que limpia todos los campos.
+	 * 
 	 * @param Ninguno
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción
@@ -309,6 +317,7 @@ public class VMNoticia  {
 	}
 
 	/** cargarImagenNoticia
+	 * 
 	 * @param @ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event
 	 * @return Ningun.
 	 * @throws la Excepcion es que la media noticia sea null
@@ -336,8 +345,9 @@ public class VMNoticia  {
 	}
 
 	/** mostrarMensaje
-	 *  @param ContextType.TRIGGER_EVENT) UploadEvent event.
-	 * @return No devuelve ningun valor.
+	 * 
+	 * @param ContextType.TRIGGER_EVENT) UploadEvent event.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 * 
 	 */
@@ -350,7 +360,7 @@ public class VMNoticia  {
 
 	/** Validación de fechas
 	 * @param Ninguno.
-	 * @return No devuelve ningun valor.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -366,6 +376,7 @@ public class VMNoticia  {
 
 	/**
 	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * 
 	 * @param Window ventana
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.
