@@ -15,11 +15,13 @@ import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
 /**
- * Clase VMDescargarArchivo
+ * Clase VMDescargarArchivo : Clase ViewModels 
+relacionada con el Maestro Reglamento. 
  * 
  * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDescargarArchivo {
@@ -42,8 +44,8 @@ public class VMDescargarArchivo {
 
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param categoria
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
@@ -61,7 +63,7 @@ public class VMDescargarArchivo {
 	 * buscarReglamento 
 	 * 
 	 * @param Ninguno
-	 * @return Busca todos los registros.
+	 * @return Busca todos los registros (Objeto Reglamentos).
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -73,7 +75,7 @@ public class VMDescargarArchivo {
 	/**
 	 * descargarArchivo.
 	 * 
-	 * @param Component componente
+	 * @param ContextType.COMPONENT) Component componente
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.
 	 */
@@ -94,7 +96,7 @@ public class VMDescargarArchivo {
 	/**
 	 * buscarFormato.
 	 * 
-	 * @param Ninguno
+	 * @param Ninguno.
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.
 	 */
