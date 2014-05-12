@@ -231,7 +231,7 @@ public class VMApelacionesPorMotivo {
 	@NotifyChange({ "listaTipoSancion" })
 	public void buscarTipoSancion() {
 		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
-		SancionMaestro sanc = new SancionMaestro(null, null, null, "Todos");
+		SancionMaestro sanc = new SancionMaestro(null,"Todos", null, "Todos");
 		listaTipoSancion.add(0, sanc);
 	}
 
@@ -273,8 +273,8 @@ public class VMApelacionesPorMotivo {
 						.put("Titulo",
 								"Reporte Comparativo de Apelaciones por Motivo y Veredicto");
 				reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
-				reportConfig.getParameters().put("Programa",
-						prog.getNombrePrograma().toUpperCase());
+				reportConfig.getParameters().put("Programa",prog.getNombrePrograma());
+				reportConfig.getParameters().put("sanciones", objSancion.getDescripcion());
 				reportConfig.getParameters()
 						.put("Lista",
 								new JRBeanCollectionDataSource(
