@@ -26,11 +26,13 @@ import sigarep.modelos.data.maestros.EnlaceInteres;
 import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 
 /**
- * Clase VMenlaceInteres
+ * Clase VMenlaceInteres : Clase ViewModels 
+relacionada con el Maestro EnlaceInteres. 
  * 
- * @authorEquipo Equipo Builder
+ * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEnlaceInteres {
@@ -151,11 +153,11 @@ public class VMEnlaceInteres {
 	//Fin  Métodos Set y Get
 
 	/**
-	 * inicialización
+	 * Inicialización
 	 * Init. Código de inicialización.
 	 * @param Ninguno
-	 * @return Ninguno
-	 * @throws Nodispara ninguna excepción.
+	 * @return Objetos inicializados
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init() {
@@ -167,7 +169,7 @@ public class VMEnlaceInteres {
 	 * Buscar enlaces de interés
 	 * 
 	 * @param Ninguno
-	 * @return Busca todos los registros. Inicializa el código.
+	 * @return Busca todos los registros (Objeto EnlaceInteres).
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -177,11 +179,11 @@ public class VMEnlaceInteres {
 	}
 
 	/**
-	 * Guardar Enlace
+	 * Guardar Enlace : Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
 	 * 
-	 * @param guardar
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -271,7 +273,7 @@ public class VMEnlaceInteres {
 	 * Mostrar Enlace : muestra en el área de datos el registro seleccionado.
 	 * 
 	 * @param Ninguno
-	 * @return Ninguno
+	 * @return Objeto Enlace Interés
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -300,7 +302,7 @@ public class VMEnlaceInteres {
 	 * Filtros :  Método que busca y filtra los enlaces por nombre y dirección web
 	 * 
 	 * @param Ninguno
-	 * @return nombre y dirección web
+	 * @return  Objeto Enlace Interés.
 	 * @throws No dispara ninguna excepcion.
 	 */	
 	
