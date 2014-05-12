@@ -22,7 +22,9 @@ import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-/** Clase VMrecaudoMotivo .
+/** Clase VMrecaudoMotivo : Clase ViewModels 
+relacionada con el Maestro Recaudo y TipoMotivo.
+
  * @author Equipo Builder
  * @version 2.5.2
  * @since 02-/12/13
@@ -67,7 +69,7 @@ public class VMRecaudoMotivo {
 	private  @Wire Textbox txtObservacionRecaudo;
 	private  @Wire Combobox cmbTipoMotivo;
 
-	// Metodos GETS Y SETS
+	// Métodos Sets y Gets
 	public Integer getIdRecaudo() {
 		return idRecaudo;
 	}
@@ -149,7 +151,8 @@ public class VMRecaudoMotivo {
 	public void setListaTipoMotivo(List<TipoMotivo> listaTipoMotivo) {
 		this.listaTipoMotivo = listaTipoMotivo;
 	}
-	//Fin de los métodos gets y sets
+	
+	//Fin de los Métodos Sets y Gets
 
 	/**
 	 * inicialización
@@ -160,16 +163,16 @@ public class VMRecaudoMotivo {
 	 */
 	@Init
 	public void init() {
-		// initialization code
+	
 		buscarRecaudos();
 		buscarTiposMotivo();
 	}
 
 	/**
-	 * Guardar Recaudo
-	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	 * Guardar Recaudo : Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -225,8 +228,8 @@ public class VMRecaudoMotivo {
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
 	 * @param Ninguno           .
-	 * @return Objeto Actividad seleccionada
-	 * @throws No dispara ninguna excepción
+	 * @return Objeto Recaudo seleccionada.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({"descripcion", "nombreRecaudo", "observacion", "tipoMotivo","nombreTipoMotivo","listaRecaudos"})
@@ -259,8 +262,7 @@ public class VMRecaudoMotivo {
 	 * 
 	 * @param Ninguno.
 	 * @return Objeto tipo motivo
-	 * @throws No
-	 * dispara ninguna excepcion.
+	 * @throws No dispara ninguna excepcion.
 	 */	
 	@Command
 	@NotifyChange({ "listaTipoMotivo" })
@@ -284,7 +286,7 @@ public class VMRecaudoMotivo {
 	/**
 	 * Objeto ComboMotivo
 	 * @param Ninguno
-	 * @return Objeto tipo Motivo
+	 * @return Objeto TipoMotivo
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -318,6 +320,7 @@ public class VMRecaudoMotivo {
 
 	/**
 	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * 
 	 * @param Window ventana
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.

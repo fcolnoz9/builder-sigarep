@@ -23,7 +23,9 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 
-/** Clase VMProgramaAcademicoLote.
+/** Clase VMProgramaAcademicoLote : Clase ViewModels 
+relacionada con el Maestro ProgramaAcademico.
+
  * @author Equipo Builder
  * @version 2.5.2
  * @since 02-/12/13
@@ -45,7 +47,7 @@ public class VMProgramaAcademicoLote {
 	//-----------------Variables Objeto---------------------
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	// Sets y gets 
+	//Métodos Sets y Gets 
 	public Integer getTamanoXML() {
 		return tamanoXML;
 	}
@@ -118,11 +120,12 @@ public class VMProgramaAcademicoLote {
 	public void setMensajeAlUsuario(MensajesAlUsuario mensajeAlUsuario) {
 		this.mensajeAlUsuario = mensajeAlUsuario;
 	}
-	// Fin de los métodos set y get
+	
+	// Fin de los Métodos Sets y Gets
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param ninguno
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
@@ -134,8 +137,9 @@ public class VMProgramaAcademicoLote {
 	}
 
 	/** listaProgramas
+	 * 
 	 * @param Ninguno
-	 * @return Ninguno
+	 * @return Objeto ProgramaAcademico
 	 * @throws No dispara ninguna excepción.
 	 * 
 	 */
@@ -148,6 +152,7 @@ public class VMProgramaAcademicoLote {
 
 
 	/**  cargarAsignatura.
+	 * 
 	 * @param @ContextParam(ContextType.TRIGGER_EVENT) UploadEvent event
 	 * @return Ninguno.
 	 * @throws si el Archivo Xml no cumpla con el formato,este Corrupto o Ya la los Datos del Estudiante existen.

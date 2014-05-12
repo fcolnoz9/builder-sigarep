@@ -18,7 +18,9 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
 
-/** Clase VMProgramaAcademico.
+/** Clase VMProgramaAcademico : Clase ViewModels 
+relacionada con el Maestro ProgramaAcademico.
+
  * @author Equipo Builder
  * @version 1.0
  * @since 02-/12/13
@@ -41,7 +43,8 @@ public class VMProgramaAcademico {
 	private ProgramaAcademico programaseleccionado;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	// Inicio Métodos Sets y Gets
+	//Métodos Sets y Gets
+	
 	public Integer getIdProgramaAcademico() {
 		return idPrograma;
 	}
@@ -88,11 +91,13 @@ public class VMProgramaAcademico {
 
 	public void setProgramaseleccionado(ProgramaAcademico programaseleccionado) {
 		this.programaseleccionado = programaseleccionado;
-	}// Fin Métodos Sets y Gets
+	}
+	
+	// Fin Métodos Sets y Gets
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param ninguno
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
@@ -103,6 +108,7 @@ public class VMProgramaAcademico {
 	}
 
 	/** guardarPrograma
+	 * 
 	 * @param Ninguno.
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
@@ -122,6 +128,7 @@ public class VMProgramaAcademico {
 	}
 
 	/** eliminarPrograma
+	 * 
 	 * @param @ContextParam(ContextType.BINDER) final Binder binder
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción. 
@@ -141,13 +148,6 @@ public class VMProgramaAcademico {
 				public void onEvent(ClickEvent e) throws Exception {
 					switch (e.getButton()) {
 					case YES:
-						// if you call super.delete here, since original
-						// zk event is not control by binder
-						// the change of viewmodel will not update to
-						// the ui.
-						// so, I post a delete to trigger to process it
-						// in binder controll.
-						// binder.postCommand("limpiar", null);
 						servicioprogramaacademico
 						.eliminarPrograma(getProgramaseleccionado()
 								.getIdPrograma());
@@ -166,7 +166,7 @@ public class VMProgramaAcademico {
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
 	 * @param Ninguno
-	 * @return Objeto programa academico seleccionado
+	 * @return Objeto ProgramaAcademico seleccionado
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -180,7 +180,7 @@ public class VMProgramaAcademico {
 	 * buscarProgramaA
 	 * 
 	 * @param Ninguno
-	 * @return Ninguno
+	 * @return Objeto ProgramaAcademico
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -190,9 +190,9 @@ public class VMProgramaAcademico {
 	}
 
 	/**
-	 * filtros   Método que busca y filtra por nombre de programa academico
+	 * filtros Método que busca y filtra por nombre de programa academico
 	 * @param Ninguno
-	 * @return Objeto programa academico.
+	 * @return Objeto ProgramaAcademico.
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command

@@ -18,7 +18,9 @@ import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-/** Clase VMrecaudoMotivoPortal.
+/** Clase VMrecaudoMotivoPortal : Clase ViewModels 
+relacionada con el Maestro Recaudo y TipoMotivo.
+
  * @author Equipo Builder
  * @version 2.5.2
  * @since 02-/12/13
@@ -52,7 +54,7 @@ public class VMRecaudoMotivoPortal {
 	private Recaudo recaudoSeleccionado;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	// Metodos GETS Y SETS
+	// Métodos Sets y Gets
 	public Integer getIdRecaudo() {
 		return idRecaudo;
 	}
@@ -134,12 +136,14 @@ public class VMRecaudoMotivoPortal {
 	public void setListaRecaudosMotivosPortal(
 			List<Reglamento> listaRecaudosMotivosPortal) {
 		this.listaRecaudosMotivosPortal = listaRecaudosMotivosPortal;
-	}//Fin de los métodos gets y sets
+	}
+	
+	//Fin de los Métodos Sets y Gets
 
 	/**
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param ninguno
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
@@ -153,7 +157,7 @@ public class VMRecaudoMotivoPortal {
 	}	
 
 	/**
-	 * Buscar Recaudos
+	 * buscarRecaudos
 	 * @param Ninguno
 	 * @return Busca todos los recaudos activos.
 	 * @throws No dispara ninguna excepcion.
@@ -165,10 +169,10 @@ public class VMRecaudoMotivoPortal {
 	}
 
 	/**
-	 * Buscar RecaudoMotivoCombo
+	 * buscarRecaudoMotivoCombo
 	 * 
 	 * @param Ninguno
-	 * @return Objeto tipo motivo
+	 * @return Objeto tipoMotivo
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -181,7 +185,7 @@ public class VMRecaudoMotivoPortal {
 	 * Buscar Recaudos de un Motivos 
 	 * 
 	 * @param Ninguno
-	 * @return Metodo que buscar los recaudos que pertenecen a cada motivo de apelacion
+	 * @return Metodo que buscar los recaudos que pertenecen a cada motivo de apelacion (Objeto Recaudos)
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -192,10 +196,10 @@ public class VMRecaudoMotivoPortal {
 	}
 
 	/**
-	 * Buscar Tipo Motivo
+	 * buscarTiposMotivo
 	 * 
 	 * @param Ninguno.
-	 * @return Objeto tipo motivo
+	 * @return Objeto tipoMotivo
 	 * @throws No dispara ninguna excepcion.
 	 */	
 	@Command
@@ -205,9 +209,10 @@ public class VMRecaudoMotivoPortal {
 	}
 
 	/**
-	 * Objeto ComboMotivo
+	 * objetoComboMotivo : Método que busca los tipos de motivos y los carga en el combobox de motivos
+	 * 
 	 * @param Ninguno.
-	 * @return Método que busca los tipos de motivos y los carga en el combobox de motivos
+	 * @return Objeto Motivo
 	 * @throws No dispara ninguna excepcion.
 	 */	
 	@Command

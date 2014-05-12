@@ -21,7 +21,9 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 
-/** Clase VMSancionMaestro.
+/** Clase VMSancionMaestro : Clase ViewModels 
+relacionada con el Maestro SancionMaestro.
+
  * @author Equipo Builder
  * @version 2.5.2
  * @since 22-/01/13
@@ -44,7 +46,7 @@ public class VMSancionMaestro {
 	private SancionMaestro tipoSancionSeleccionada;
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	// Inicion Métodos Sets y Gets
+	// Métodos Sets y Gets
 	public Integer getIdSancion() {
 		return id_sancion;
 	}
@@ -100,7 +102,9 @@ public class VMSancionMaestro {
 
 	public void setNombreFiltro(String nombreFiltro) {
 		this.nombreFiltro = nombreFiltro;
-	}// Fin Métodos Sets y Gets
+	}
+	
+	// Fin Métodos Sets y Gets
 
 	/**
 	 * inicialización
@@ -118,7 +122,7 @@ public class VMSancionMaestro {
 	 * listaTipoSancion
 	 * 
 	 * @param Ninguno
-	 * @return Sancion
+	 * @return Objeto TipoSancion
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -128,11 +132,11 @@ public class VMSancionMaestro {
 	}
 
 	/**
-	 * guardar sancionMaestro
+	 * guardar sancionMaestro : Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
 	 * 
-	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -152,7 +156,8 @@ public class VMSancionMaestro {
 
 	/**
 	 * eliminarTipoSancion
-	* @param @ContextParam(ContextType.BINDER) final Binder binder
+	 * 
+	 * @param @ContextParam(ContextType.BINDER) final Binder binder
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción. 
 	 */
@@ -194,8 +199,7 @@ public class VMSancionMaestro {
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
 	 * 
-	 * @param Ninguno
-	 *            .
+	 * @param Ninguno.
 	 * @return Objeto sacionMaestro seleccionada
 	 * @throws No dispara ninguna excepción
 	 */
@@ -246,6 +250,7 @@ public class VMSancionMaestro {
 
 	/**
 	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * 
 	 * @param Window ventana
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.
