@@ -1,24 +1,36 @@
 package sigarep.viewmodels.seguridad;
 
 import org.zkoss.zul.DefaultTreeModel;
-
-
 import org.zkoss.zul.DefaultTreeNode;
 import sigarep.modelos.data.seguridad.Nodo;
 
+/**
+* Clase VMModeloArbolAvanzado : Clase ViewModels relacionada con las propiedades por defecto del menú arbol.
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 19/12/2014
+* @last 10/05/2014
+*/
 
 public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 	private static final long serialVersionUID = -5513180500300189445L;
-	
+	//-----------------Variables Objeto--------------------
 	DefaultTreeNode<Nodo> _root;
 
+	/**
+	* Constructor de la clase VMModeloArbolAvanzado
+	*
+	* @param nodoMenuArbol
+	*/
+	
 	public VMModeloArbolAvanzado(VMNodoMenuArbol nodoMenuArbol) {
 		super(nodoMenuArbol);
 		_root = nodoMenuArbol;
 	}
 
 	/**
-	 * eliminar los nodos cuyo padre es <code>padre</code> con indices
+	 * Eliminar los nodos cuyo padre es <code>padre</code> con indices
 	 * <code>indices</code>
 	 * 
 	 * @param padre
@@ -27,6 +39,7 @@ public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 	 *            El índice más bajo del rango de cambio
 	 * @param indiceA
 	 *            El índice superior del rango de cambio
+	 * @return ninguno. 
 	 * @throws ocurre una excepción IndexOutOfBoundsException cuando 
 	 * - indiceDesde < 0 o el indiceA > Número de hijos de los padres
 	 */
@@ -40,6 +53,15 @@ public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 			}
 	}
 
+	/**
+	 * Eliminar los nodos hijos cuyo padre tiene como hijo a objetivo
+	 * <code>indices</code>
+	 * 
+	 * @param objetivo
+	 * @return ninguno. 
+	 * @throws No dispara ninguna excepcion. 
+	 */
+	
 	public void remover(DefaultTreeNode<Nodo> objetivo) throws IndexOutOfBoundsException {
 		int indice = 0;
 		DefaultTreeNode<Nodo> padre = null;
@@ -54,7 +76,7 @@ public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 	}
 
 	/**
-	 * insertar nuevos nodos cuyo padre es <code>padre</code> con indices
+	 * Insertar nuevos nodos cuyo padre es <code>padre</code> con indices
 	 * <code>indices</code> con nuevos nodos <code>nuevosNodos</code>
 	 * 
 	 * @param padre
@@ -65,6 +87,7 @@ public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 	 *            El índice superior del rango de cambio
 	 * @param nuevosNodos
 	 *            Los nodos nuevos que se insertan
+	 * @return ninguno.
 	 * @throws ocurre una excepción IndexOutOfBoundsException cuando 
 	 * - indiceDesde < 0 o el indiceA > Número de hijos de los padres
 	 */
@@ -88,14 +111,25 @@ public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 	 *            El padre de los nodos que se adjuntan
 	 * @param nuevosNodos
 	 *            Nuevos nodos que se adjuntan
+	* @return ninguno.
+	* @throws No dispara ninguna excepcion.
 	 */
-	public void add(DefaultTreeNode<Nodo> padre, DefaultTreeNode<Nodo>[] nuevosNodos) {
+	public void agregar(DefaultTreeNode<Nodo> padre, DefaultTreeNode<Nodo>[] nuevosNodos) {
 		DefaultTreeNode<Nodo> nodoPadre = (DefaultTreeNode<Nodo>) padre;
 
 		for (int i = 0; i < nuevosNodos.length; i++)
 			nodoPadre.getChildren().add(nuevosNodos[i]);
 	}
 
+	/**
+	 * Buscar el DefaultTreeNode<Nodo> padre dado un nodo objetivo y 
+	 * el número de hijos de un nodo determinado.
+	 * 
+	 * @param nodo, objetivo
+	 * @return Objeto DefaultTreeNode<Nodo>. 
+	 * @throws No dispara ninguna excepcion. 
+	 */	
+	
 	private DefaultTreeNode<Nodo> dfbuscarPadre(DefaultTreeNode<Nodo> nodo, DefaultTreeNode<Nodo> objetivo) {
 		if (nodo.getChildren() != null && nodo.getChildren().contains(objetivo)) {
 			return nodo;
@@ -110,5 +144,4 @@ public class VMModeloArbolAvanzado extends DefaultTreeModel<Nodo> {
 		}
 		return null;
 	}
-
-}
+} //fin VMModeloArbolAvanzado.

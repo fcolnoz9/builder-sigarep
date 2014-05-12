@@ -2,7 +2,6 @@ package sigarep.viewmodels.seguridad;
 
 import java.io.IOException;
 import java.util.Date;
-
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
@@ -19,7 +18,6 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
@@ -28,35 +26,40 @@ import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.servicio.maestros.ServicioPersona;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 
+/**
+* Clase VMRespaldarBaseDatos : Clase ViewModels relacionada con el Maestro Usuario.
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 20/12/2014
+* @last 10/05/2014
+*/
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEditarPerfilUsuario {
 	
-	@WireVariable
-	private String cedula = "";
-	@WireVariable
-	private String nombre = "";
-	@WireVariable
-	private String apellido = "";
-	@WireVariable
-	private String correo = "";
-	@WireVariable
-	private String telefono = "";
-	@WireVariable
-	private Date fechaCreacion;
-	@WireVariable
-	private Persona persona = new Persona();
-	@WireVariable
-	private Archivo fotoUsuario = new Archivo();
-	@WireVariable
-	private AImage imagenUsuario;
-	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioUsuario serviciousuario;
 	@WireVariable
 	ServicioPersona serviciopersona;
+	//-----------------Variables Usuario ------------------
+	private String cedula = "";
+	private String nombre = "";
+	private String apellido = "";
+	private String correo = "";
+	private String telefono = "";
+	private Date fechaCreacion;
+	//---------Variables de control------------------------
+	String ruta = UtilidadesSigarep.obtenerDirectorio();
+	//-----------------Variables Objeto--------------------
+	private Persona persona = new Persona();
+	private Archivo fotoUsuario = new Archivo();
+	private AImage imagenUsuario;
+	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
 	MensajesAlUsuario mensajesAlusuario = new MensajesAlUsuario(); //para llamar a los diferentes mensajes de dialogo
 	
-	String ruta = UtilidadesSigarep.obtenerDirectorio();
+	// Métodos Set y Get 
 	public Archivo getFotoUsuario() {
 		return fotoUsuario;
 	}
@@ -120,17 +123,42 @@ public class VMEditarPerfilUsuario {
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-
+	//Fin Métodos Set y Get
+	
+	/**
+	* Init. Código de inicialización.
+	* @param Ninguno.
+	* @return Objetos inicializados.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
+	
 	@Init
 	public void init() {
 		// initialization code
 		buscarUsuario();
 	}
 	
+	/**
+	* actualizarFotoPerfilUsuario
+	*
+	* @param Ninguno
+	* @return Actualiza la foto de perfil del usuario cuando éste la cambia con sesión activa.
+	* @throws No dispara ninguna excepción.
+	*/
 	@GlobalCommand
     public void actualizarFotoPerfilUsuario(){
     	BindUtils.postGlobalCommand(null, null, "cargarFotoImagen", null);
     }
+	
+	/**
+	* Buscar Usuario. Inicializa el código.
+	*
+	* @param Ninguno
+	* @return Busca el usuario que ha iniciado sesión en la tabla de usuarios, el command 
+	* indica a las variables el cambio que se hará en el objeto.
+	* @throws No dispara ninguna excepcion.
+	*/
 	
 	@Command
 	@NotifyChange({"correo","fechaCreacion","nombre","apellido","telefono","fotoUsuario","imagenUsuario"})
@@ -151,38 +179,12 @@ public class VMEditarPerfilUsuario {
 		}
 	}
 	
-	@Command
-	@NotifyChange("imagenUsuario")
-	public void removeImage() {
-		imagenUsuario = null;
-	}
-
-	@Command
-	@NotifyChange({"imagenUsuario","fotoUsuario"})
-	public void upload(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
-		UploadEvent upEvent = null;
-		Object objUploadEvent = ctx.getTriggerEvent();
-		if (objUploadEvent != null && (objUploadEvent instanceof UploadEvent)) {
-			upEvent = (UploadEvent) objUploadEvent;
-		}
-		if (upEvent != null) {
-			Media media = upEvent.getMedia();
-			fotoUsuario.setNombreArchivo(media.getName());
-			fotoUsuario.setTipo(media.getContentType());
-			fotoUsuario.setContenidoArchivo(media.getByteData());
-			int tamanhoImagen = media.getByteData().length;
-			int ancho = 500;
-			if (media instanceof Image) {
-				if (tamanhoImagen > ancho * 1024) {
-					mensajesAlusuario.advertenciaTamannoImagen(500);
-				} else {
-					imagenUsuario = (AImage) media;// Initialize the bind object to show image in zul page and Notify it also
-				}
-			} else {
-				mensajesAlusuario.advertenciaCargarImagen();
-			}
-		}
-	}
+	/** Guarda la información de perfil del usuario.
+	 * @param ninguno.
+	 * @return Guarda el perfil del usuario, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
+	 * @throws Dispara un excepción si no existe la ruta de la foto de perfil por defecto.
+	 */
 	
 	@Command
 	@NotifyChange({"imagenUsuario","nombre","apellido", "correo","telefono"})
@@ -216,7 +218,63 @@ public class VMEditarPerfilUsuario {
 			serviciousuario.guardarUsuario(usuario);
 			mensajesAlusuario.informacionRegistroCorrecto();
 		}	
-	}	
+	}
+	
+	/** Elimina la imagen de perfil del usuario.
+	 * @param ninguno.
+	 * @return Elimina la imagen del usuario, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
+	 */
+	
+	@Command
+	@NotifyChange("imagenUsuario")
+	public void removeImage() {
+		imagenUsuario = null;
+	}
+
+	/**
+	* Carga de la imágen del usuario. Permite la carga de imágen de perfil del usuario,
+	* utiliza Archivo del paquete herramientas.
+	* @param @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx
+	* @return ninguno.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
+	
+	@Command
+	@NotifyChange({"imagenUsuario","fotoUsuario"})
+	public void upload(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+		UploadEvent upEvent = null;
+		Object objUploadEvent = ctx.getTriggerEvent();
+		if (objUploadEvent != null && (objUploadEvent instanceof UploadEvent)) {
+			upEvent = (UploadEvent) objUploadEvent;
+		}
+		if (upEvent != null) {
+			Media media = upEvent.getMedia();
+			fotoUsuario.setNombreArchivo(media.getName());
+			fotoUsuario.setTipo(media.getContentType());
+			fotoUsuario.setContenidoArchivo(media.getByteData());
+			int tamanhoImagen = media.getByteData().length;
+			int ancho = 500;
+			if (media instanceof Image) {
+				if (tamanhoImagen > ancho * 1024) {
+					mensajesAlusuario.advertenciaTamannoImagen(500);
+				} else {
+					imagenUsuario = (AImage) media;// Initialize the bind object to show image in zul page and Notify it also
+				}
+			} else {
+				mensajesAlusuario.advertenciaCargarImagen();
+			}
+		}
+	}
+	
+	/** Limpiar todos los campos de texto de información del usuario
+	 * @param ninguno.
+	 * @return ninguno, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepcion.
+	 */
 	
 	@Command
 	@NotifyChange({ "imagenUsuario", "nombre", "apellido", "correo", "telefono" })
@@ -234,13 +292,15 @@ public class VMEditarPerfilUsuario {
 		}
 	}
 	
+	/** Cerrar Ventana
+	 * @param ventana
+	 * @return cierra el EditarPerfilUsuario.zul asociado al VMEditarPerfilUsuario
+	 * @throws No dispara ninguna excepcion.
+	*/
 	
 	@Command
 	@NotifyChange({"nombre","apellido", "correo","telefono"})
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
-		boolean condicion = false;
-		if(!nombre.equals("") || !apellido.equals("") || !correo.equals("") || !telefono.equals(""))
-			condicion = true;
-		mensajesAlusuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
+		mensajesAlusuario.confirmacionCerrarVentanaSimple(ventana,true);		
 	}
-}
+}// fin VMEditarPerfilUsuario.

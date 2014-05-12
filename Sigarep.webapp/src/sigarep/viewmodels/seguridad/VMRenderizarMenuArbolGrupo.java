@@ -1,9 +1,6 @@
 package sigarep.viewmodels.seguridad;
 
 import org.zkoss.zk.ui.event.Event;
-
-
-
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Hlayout;
@@ -14,7 +11,24 @@ import org.zkoss.zul.TreeitemRenderer;
 import org.zkoss.zul.Treerow;
 import sigarep.modelos.data.seguridad.Nodo;
 
+/**
+* Clase VMRenderizarMenuArbolGrupo : Clase ViewModels relacionada con la propiedad render del menú arbol del grupo.
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 19/12/2014
+* @last 11/05/2014
+*/
+
 public class VMRenderizarMenuArbolGrupo implements TreeitemRenderer<VMNodoMenuArbol> {
+	
+	/** Metodo render que agrega la propiedad a los nodos del menu del grupo 
+	 * que les permite pasarse al arbol principal de registrar grupo.
+	 * @param articuloArbol, nodoArbol, indice 
+	 * @return ninguno.
+	 * @throws No dispara ninguna excepción. 
+	 */
+	
 	@Override
 	public void render(final Treeitem articuloArbol, VMNodoMenuArbol nodoArbol, int indice) throws Exception {
 		VMNodoMenuArbol ctn = nodoArbol;
@@ -54,8 +68,6 @@ public class VMRenderizarMenuArbolGrupo implements TreeitemRenderer<VMNodoMenuAr
 				}
 			}
 
-			
-
 			private VMNodoMenuArbol obtenePadres(VMNodoMenuArbol padre,VMNodoMenuArbol hijo) {
 				VMNodoMenuArbol aux=null;
 				VMNodoMenuArbol padre2=null;
@@ -91,14 +103,7 @@ public class VMRenderizarMenuArbolGrupo implements TreeitemRenderer<VMNodoMenuAr
 				 }
 				 if(!encontro)
 					 raiz.add(nodo);
-					 
-			
 			}
-			
 		});
-			
-
-			
 	}
-
-}
+} //fin VMRenderizarMenuArbolGrupo

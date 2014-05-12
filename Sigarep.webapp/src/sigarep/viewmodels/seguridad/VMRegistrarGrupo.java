@@ -27,6 +27,7 @@ import org.zkoss.zul.TreeNode;
 import org.zkoss.zul.Window;
 
 import sigarep.herramientas.MensajesAlUsuario;
+import sigarep.herramientas.UtilidadesSigarep;
 
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Nodo;
@@ -34,55 +35,55 @@ import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioNodo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 
-
- /** Esta clase es el ViewModel del registro del maestro "Grupo"
- * UCLA DCYT Sistemas de Informacion.
- * @author BUILDER
- * @Version 1.0
- * @Since  04/02/13
- */
+/**
+* Clase VMRegistrarGrupo : Clase ViewModels relacionada con el Maestro Grupo.
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 04/12/13
+* @last 10/05/2014
+*/
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRegistrarGrupo {
+	//-----------------Servicios----------------------------
+	@WireVariable
+	private ServicioUsuario serviciousuario;
+	@WireVariable 
+	private ServicioNodo servicionodo;
+	@WireVariable
+	private ServicioGrupo serviciogrupo;
+	//-----------------Variables de control ------------------	
+	String ruta = UtilidadesSigarep.obtenerDirectorio();
+	//-----------------Variables Grupo ------------------
+	private Integer idGrupo; // clave primaria de la tabla Grupo
+	private String nombre = ""; 	// nombre del Grupo
+    private String descripcion = ""; // descripción del Grupo
+    private String estado;
+    //-----------------Variables Filtro---------------------
+	private String nombreGrupofiltro = "";
+	private String descripcionfiltro = "";
+	//-----------------Variables Lista----------------------
+    private List<Grupo> listaGrupos = new LinkedList<Grupo>();
+    private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
+    //-----------------Variables Objeto---------------------
 	@Wire
 	private Window demoWindowRegistrarGrupo;
 	@Wire
 	private Tree arbol;
 	@Wire
-	private Tree arbol2;
-
-	@WireVariable
-	private ServicioUsuario serviciousuario;
-	private @WireVariable 
-	ServicioNodo servicionodo;
-	@WireVariable
-	private ServicioGrupo serviciogrupo;
-	
-	
+	private Tree arbol2;	
 	private VMModeloArbolAvanzado modeloMenuArbol;
 	private VMModeloArbolAvanzado modeloMenuArbol2;
-	
 	private static VMNodoMenuArbol  raiz;
 	private static VMNodoMenuArbol  raiz2;
-	
-
-
-	
-	private Integer idGrupo; // clave primaria de la tabla Grupo
-	private String nombre = ""; 	// nombre del Grupo
-    private String descripcion = ""; // descripción del Grupo
-    private String estado;
-	private String nombreGrupofiltro = "";
-	private String descripcionfiltro = "";
     private Grupo grupoAux = null;
     private Grupo grupoAux2 = null;
     private Grupo grupoSeleccionado = new Grupo();
-    private List<Grupo> listaGrupos = new LinkedList<Grupo>();
-    private ListModelList<Nodo> modelonodos; // lista de los nodos u opciones del menú árbol.
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
-	// Metodos GETS Y SETS
-	
+
+	// Métodos Set y Get
 	public ServicioNodo getsnodo() {
 		return servicionodo;
 	}
@@ -95,56 +96,45 @@ public class VMRegistrarGrupo {
 		return arbol;
 	}
 
-
 	public void setArbol(Tree arbol) {
 		this.arbol = arbol;
 	}
-
 
 	public Tree getArbol2() {
 		return arbol2;
 	}
 
-
 	public void setArbol2(Tree arbol2) {
 		this.arbol2 = arbol2;
 	}
-
 
 	public VMModeloArbolAvanzado getModeloMenuArbol() {
 		return modeloMenuArbol;
 	}
 
-
 	public void setModeloMenuArbol(VMModeloArbolAvanzado modeloMenuArbol) {
 		this.modeloMenuArbol = modeloMenuArbol;
 	}
-
 
 	public VMModeloArbolAvanzado getModeloMenuArbol2() {
 		return modeloMenuArbol2;
 	}
 
-
 	public void setModeloMenuArbol2(VMModeloArbolAvanzado modeloMenuArbol2) {
 		this.modeloMenuArbol2 = modeloMenuArbol2;
 	}
-
 
 	public VMNodoMenuArbol getRaiz2() {
 		return raiz2;
 	}
 
-
 	public void setRaiz2(VMNodoMenuArbol raiz2) {
 		this.raiz2 = raiz2;
 	}
 
-
 	public void setRaiz(VMNodoMenuArbol raiz) {
 		this.raiz = raiz;
 	}
-
 
 	public VMNodoMenuArbol getRaiz() {
 		return raiz;
@@ -154,46 +144,37 @@ public class VMRegistrarGrupo {
 		return idGrupo;
 	}
 
-
 	public void setIdGrupo(Integer idGrupo) {
 		this.idGrupo = idGrupo;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 
 	public String getEstado() {
 		return estado;
 	}
 
-
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
-
 	public ListModelList<Nodo> getModeloGrupo() {
 		return modelonodos;
 	}
-
 
 	public void setModeloGrupo(ListModelList<Nodo> modeloNodo) {
 		this.modelonodos = modeloNodo;
@@ -230,14 +211,13 @@ public class VMRegistrarGrupo {
 	public void setDescripcionfiltro(String descripcionfiltro) {
 		this.descripcionfiltro = descripcionfiltro;
 	}
-	
-	// Fin de los metodos gets y sets
-	// OTROS METODOS
+	//Fin Métodos Set y Get	
+
 
 	/**
-	 * Inicialización
+	 * Init. Código de inicialización.
 	 * 
-	 * @param init
+	 * @param @ContextParam(ContextType.VIEW) Component view, Component comp
 	 * @return Carga de Variables, carga de los dos menu tipo arbol y metodos inicializados
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -255,55 +235,56 @@ public class VMRegistrarGrupo {
 	}
 	
 	/**
-	 * cargarArbol
-	 * carga el primer menú del arbol con todas las funciones existentes 
-	 * @return No devuelve ningun valor.
-	 * @throws no ocurren excepciones 
+	 * Buscar la información del grupo de usuarios, el nombre, la descripción, 
+	 * el menú asociado con sus funcionalidades actuales (modeloMenuArbol2)
+	 * así como el menú de las funcionalidades que no están asociadas al grupo
+	 * (modeloMenuArbol) y que aun se pueden asociar 
+	 * @return ninguno, el command indica a las variables el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	
-	@NotifyChange({"raiz"})
-	public void cargarArbol(){
-		raiz = new VMNodoMenuArbol(null,null);
-		VMNodoMenuArbol aux=null;
-		ArrayList<Nodo> nodosPorPadreOrdenados = new ArrayList<Nodo>(servicionodo.buscarNodosPorPadre(0));
-		Collections.sort(nodosPorPadreOrdenados, new Nodo());
-		for(Nodo a:nodosPorPadreOrdenados){
-			aux=new VMNodoMenuArbol(a,null);
-		    this.cargarHijos(aux,a);
-		    raiz.add(aux);
-		}
-	}
-
-	/**
-	 * cargarHijos
-	 * metodo que carga los nodos hijos a los nodos padres
-	 * @param m1(modelo VMmenuTreeNode del padre), a1(nodo objetivo padre) 
-	 * @return No devuelve ningun valor.
-	 * @throws no ocurren excepciones 
-	 */
-
-	public void cargarHijos(VMNodoMenuArbol m1, Nodo a1) {
-		VMNodoMenuArbol m2 = null;
-		ArrayList<Nodo> buscarPadreOrdenadamente = new ArrayList<Nodo>(servicionodo.buscarNodosPorPadre(a1.getId()));
-		Collections.sort(buscarPadreOrdenadamente, new Nodo());
-		for (Nodo a2 : buscarPadreOrdenadamente) {
-			m1.setOpen(true);
-			if (a2.esFuncion() == false)
-				m2 = new VMNodoMenuArbol(a2, null);
-			else
-				m2 = new VMNodoMenuArbol(a2);
-			m1.add(m2);
-			if (!servicionodo.buscarNodosPorPadre(a2.getId()).isEmpty())
-				cargarHijos(m2, a2);
-		}
+	@Command
+	@NotifyChange({ "nombre", "descripcion","grupoAux","grupoAux2","modeloMenuArbol","modeloMenuArbol2","grupoSeleccionado"})
+	public void buscarGrupo(@BindingParam("listboxGrupos") Listbox listboxGrupos){
+			grupoAux = new Grupo();
+			grupoAux2 = new Grupo();
+			Grupo g = serviciogrupo.buscarGrupoNombre(grupoSeleccionado.getNombre());
+			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());		
+			Collections.sort(nodosOrdenados, new Nodo());
+			raiz2 = new VMNodoMenuArbol(null,null);
+			cargarMenu(nodosOrdenados,raiz2);
+			modeloMenuArbol2 = new VMModeloArbolAvanzado(raiz2);
+			raiz = new VMNodoMenuArbol(null,null);
+			cargarMenu(servicionodo.funcionesGrupoNoPerteneceGrupo(g.getIdGrupo()), raiz);
+			modeloMenuArbol = new VMModeloArbolAvanzado(raiz);
+			grupoAux = g;
+			grupoAux2 = g;
+			nombre = grupoAux.getNombre();
+			descripcion = grupoAux.getDescripcion();
+			listboxGrupos.clearSelection();
 	}
 	
 	/**
-	 * guardarGrupo
-	 * guarda el grupo, así como las funciones asociadas a éste o en su defecto los modifica si se trata de un grupo existente
-	 * @param idGrupo, descripcion, nombre 
-	 * @return No devuelve ningun valor.
-	 * @throws no ocurren excepciones 
+	* Buscar la lista de grupos registrados. Inicializa el código.
+	*
+	* @param Ninguno
+	* @return Busca todos los grupos registrados.
+	* @throws No dispara ninguna excepcion.
+	*/
+	
+	@Command
+	@NotifyChange({ "listaGrupos"})
+	public void buscarListadoGrupos(){
+		listaGrupos = serviciogrupo.listadoGrupo();
+	}
+	
+	/**
+	 * Guarda el grupo, así como las funciones asociadas a éste o en su 
+	 * defecto los modifica si se trata de un grupo existente
+	 * @param ninguno 
+	 * @return Guarda la información del grupo asi como sus funciones, el command 
+	 * indica a las variables el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	
 	@Command
@@ -342,11 +323,56 @@ public class VMRegistrarGrupo {
 	}
 	
 	/**
-	 * cargarHijosGrupo
+	 * Carga del menú arbol por defecto.
+	 * carga el primer menú del arbol con todas las funciones existentes (nodos)
+	 * @param ninguno 
+	 * @return Menu del arbol por defecto cargado con todos los nodos de la BD.
+	 * @throws No dispara ninguna excepción. 
+	 */
+	
+	@NotifyChange({"raiz"})
+	public void cargarArbol(){
+		raiz = new VMNodoMenuArbol(null,null);
+		VMNodoMenuArbol aux=null;
+		ArrayList<Nodo> nodosPorPadreOrdenados = new ArrayList<Nodo>(servicionodo.buscarNodosPorPadre(0));
+		Collections.sort(nodosPorPadreOrdenados, new Nodo());
+		for(Nodo a:nodosPorPadreOrdenados){
+			aux=new VMNodoMenuArbol(a,null);
+		    this.cargarHijos(aux,a);
+		    raiz.add(aux);
+		}
+	}
+
+	/**
+	 * Cargar recursivo los hijos de un nodo en particular
+	 * Metodo que permite la carga los nodos hijos a los nodos padres
+	 * @param m1(modelo VMmenuTreeNode del padre), a1(nodo objetivo padre) 
+	 * @return ninguno.
+	 * @throws No dispara ninguna excepción. 
+	 */
+
+	public void cargarHijos(VMNodoMenuArbol m1, Nodo a1) {
+		VMNodoMenuArbol m2 = null;
+		ArrayList<Nodo> buscarPadreOrdenadamente = new ArrayList<Nodo>(servicionodo.buscarNodosPorPadre(a1.getId()));
+		Collections.sort(buscarPadreOrdenadamente, new Nodo());
+		for (Nodo a2 : buscarPadreOrdenadamente) {
+			m1.setOpen(true);
+			if (a2.esFuncion() == false)
+				m2 = new VMNodoMenuArbol(a2, null);
+			else
+				m2 = new VMNodoMenuArbol(a2);
+			m1.add(m2);
+			if (!servicionodo.buscarNodosPorPadre(a2.getId()).isEmpty())
+				cargarHijos(m2, a2);
+		}
+	}
+	
+	/**
+	 * Cargar los nodos hijos al grupo dado un nodo raiz
 	 * metodo que carga los nodos hijos (funciones) del grupo de usuario
 	 * @param raiz(nodo del arbol), nodos(Colección de nodos hijos encontrados) 
-	 * @return No devuelve ningun valor pero actualiza la coleccion de nodos hijos.
-	 * @throws no ocurren excepciones 
+	 * @return ninguno pero actualiza la coleccion de nodos hijos.
+	 * @throws No se dispara ninguna excepción. 
 	 */
 	
 	public void cargarHijosGrupo(TreeNode<Nodo> raiz, Set<Nodo> nodos) {
@@ -362,67 +388,13 @@ public class VMRegistrarGrupo {
 			nodos.equals(raiz.getData());
 		}
 	}
-	
+		
 	/**
-	 * limpiar
-	 * metodo que limpia los campos nombre, descripción del grupo, el menu del grupo
-	 *  y restaura todos las funciones registradas en el menú general, actualiza la 
-	 *  lista de grupos registrados. 
-	 * @return No devuelve ningun valor.
-	 * @throws no ocurren excepciones 
-	 */
-	
-	@Command
-	@NotifyChange({ "nombre", "descripcion", "modeloMenuArbol2","modeloMenuArbol","raiz","raiz2","listaGrupos","grupoSeleccionado","grupoAux"})
-	public void limpiar(){
-		nombre = "";
-		descripcion = "";
-		cargarArbol();
-		modeloMenuArbol = new VMModeloArbolAvanzado(raiz);
-		raiz2 = new VMNodoMenuArbol(null,null);
-		modeloMenuArbol2 = new VMModeloArbolAvanzado(raiz2);
-		grupoSeleccionado = null;
-		grupoAux = null;
-		buscarListadoGrupos();
-	}
-	
-	/**
-	 * buscarGrupo
-	 * metodo que busca la información del grupo, el nombre, la descripción, 
-	 * el menú asociado con sus funcionalidades actuales (modeloMenuArbol2)
-	 * así como el menú de las funcionalidades que no están asociadas al grupo
-	 * (modeloMenuArbol) y que aun se pueden asociar. 
-	 * @return No devuelve ningun valor.
-	 * @throws no ocurren excepciones 
-	 */
-	
-	@Command
-	@NotifyChange({ "nombre", "descripcion","grupoAux","grupoAux2","modeloMenuArbol","modeloMenuArbol2","grupoSeleccionado"})
-	public void buscarGrupo(@BindingParam("listboxGrupos") Listbox listboxGrupos){
-			grupoAux = new Grupo();
-			grupoAux2 = new Grupo();
-			Grupo g = serviciogrupo.buscarGrupoNombre(grupoSeleccionado.getNombre());
-			ArrayList<Nodo> nodosOrdenados = new ArrayList<Nodo>(g.getNodos());		
-			Collections.sort(nodosOrdenados, new Nodo());
-			raiz2 = new VMNodoMenuArbol(null,null);
-			cargarMenu(nodosOrdenados,raiz2);
-			modeloMenuArbol2 = new VMModeloArbolAvanzado(raiz2);
-			raiz = new VMNodoMenuArbol(null,null);
-			cargarMenu(servicionodo.funcionesGrupoNoPerteneceGrupo(g.getIdGrupo()), raiz);
-			modeloMenuArbol = new VMModeloArbolAvanzado(raiz);
-			grupoAux = g;
-			grupoAux2 = g;
-			nombre = grupoAux.getNombre();
-			descripcion = grupoAux.getDescripcion();
-			listboxGrupos.clearSelection();
-	}
-	
-	/**
-	 * cargarMenu
-	 * metodo reusable que permite cargar los nodos (funciones) del menú del grupo y del menú genera
+	 * Cargar Menú, metodo reusable que permite cargar los nodos (funciones) 
+	 * del menú del grupo y del menú genera.
 	 * @param nodos(Colección de nodos hijos), raiz(nodo raíz del arbol). 
-	 * @return No devuelve ningun valor.
-	 * @throws no ocurren excepciones 
+	 * @return ninguno.
+	 * @throws No dispara ninguna excepción. 
 	 */
 	
 	public void cargarMenu(List<Nodo> nodos, VMNodoMenuArbol raiz){
@@ -441,11 +413,11 @@ public class VMRegistrarGrupo {
 	}
 	
 	/**
-	 * cargarPadre
-	 * metodo que permite cargar el nodo padre (nodo del menú arbol) dado un nodo en especifico
+	 * Cargar nodo padre permite cargar el nodo padre (nodo del menú arbol) dado 
+	 * un nodo en especifico
 	 * @param VMNodoMenuArbol nodo. 
 	 * @return VMmenuTreeNode nodo del ultimo padre cargado recursivamente.
-	 * @throws no ocurren excepciones 
+	 * @throws No dispara ninguna excepción. 
 	 */
 	
 	public VMNodoMenuArbol cargarPadre(VMNodoMenuArbol nodo) {
@@ -461,11 +433,10 @@ public class VMRegistrarGrupo {
 	}
 	
 	/**
-	 * cargarNodos
-	 * metodo que permite cargar el nodo padre (nodo del menú arbol) dado un nodo en especifico
+	 * Metodo que permite cargar el nodo padre (nodo del menú arbol) dado un nodo en especifico
 	 * @param VMNodoMenuArbol nodo. 
 	 * @return VMmenuTreeNode nodo del ultimo padre cargado recursivamente.
-	 * @throws no ocurren excepciones 
+	 * @throws No dispara ninguna excepción. 
 	 */
 	
 	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol raiz) { 
@@ -488,19 +459,6 @@ public class VMRegistrarGrupo {
 		 }
 	}	
 	
-	@Command
-	@NotifyChange({ "listaGrupos"})
-	public void buscarListadoGrupos(){
-		listaGrupos = serviciogrupo.listadoGrupo();
-	}
-	
-	// Método que busca y filtra los usuarios
-	@Command
-	@NotifyChange({"listaGrupos"})
-	public void filtros(){
-		listaGrupos = serviciogrupo.buscarGrupoFiltro(nombreGrupofiltro, descripcionfiltro);
-	}
-	
 	@GlobalCommand
 	@NotifyChange({"grupoAux2"})
     public void actualizarMenuArbolSIGAREP(){
@@ -516,11 +474,41 @@ public class VMRegistrarGrupo {
 		}
     }
 	
+	// Método que busca y filtra los usuarios
+	@Command
+	@NotifyChange({"listaGrupos"})
+	public void filtros(){
+		listaGrupos = serviciogrupo.buscarGrupoFiltro(nombreGrupofiltro, descripcionfiltro);
+	}
+
+	/**
+	 * Limpia los campos nombre, descripción del grupo, el menu del grupo
+	 * y restaura todos las funciones registradas en el menú general, actualiza la 
+	 * lista de grupos registrados. 
+	 * @return ninguno, el command indica a las variables el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción. 
+	 */
+	
+	@Command
+	@NotifyChange({ "nombre", "descripcion", "modeloMenuArbol2","modeloMenuArbol","raiz","raiz2","listaGrupos","grupoSeleccionado","grupoAux"})
+	public void limpiar(){
+		nombre = "";
+		descripcion = "";
+		cargarArbol();
+		modeloMenuArbol = new VMModeloArbolAvanzado(raiz);
+		raiz2 = new VMNodoMenuArbol(null,null);
+		modeloMenuArbol2 = new VMModeloArbolAvanzado(raiz2);
+		grupoSeleccionado = null;
+		grupoAux = null;
+		buscarListadoGrupos();
+	}
+	
 	/**
 	 * Cerrar Ventana
 	 * 
 	 * @param binder
-	 * @return cierra el .zul asociado al VM
+	 * @return cierra el .zul asociado al VM, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
@@ -533,4 +521,4 @@ public class VMRegistrarGrupo {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 
-}
+} //fin VMRegistrarGrupo

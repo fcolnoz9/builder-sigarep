@@ -2,9 +2,7 @@ package sigarep.viewmodels.seguridad;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
 import org.zkoss.bind.annotation.AfterCompose;
-
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -16,28 +14,39 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Nodo;
-
 import sigarep.modelos.servicio.seguridad.ServicioGrupo;
 import sigarep.modelos.servicio.seguridad.ServicioNodo;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
+
+/**
+* Clase VMMenuAplicación : Clase ViewModels relacionada con la carga de las funciones del menú principal del sistema.
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 14/12/2014
+* @last 10/05/2014
+*/
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMMenuAplicacion{
 		
-	private VMModeloArbolAvanzado modeloMenuArbol;
-	private static VMNodoMenuArbol  raizPortalInicial;
+	//-----------------Servicios----------------------------
 	private @WireVariable ServicioNodo servicionodo;
 	private @WireVariable ServicioGrupo serviciogrupo;
 	private @WireVariable ServicioUsuario serviciousuario;
-	private AImage imagen;
+	//---------Variables de control------------------------
 	private String nombreUsuario;
+	//-----------------Variables Objeto--------------------
+	private VMModeloArbolAvanzado modeloMenuArbol;
+	private static VMNodoMenuArbol  raizPortalInicial;
+	private AImage imagen;
 	private VMRenderizarMenuArbolAplicacion renderizarPortalAplicacion=new VMRenderizarMenuArbolAplicacion();
 	VMUtilidadesDeSeguridad seguridad = new VMUtilidadesDeSeguridad();
-	//SETs y GETs
 	
+	// Métodos Set y Get 
 	public VMRenderizarMenuArbolAplicacion getRendererPortalAplicacion() {
 		return renderizarPortalAplicacion;
 	}
-
 
 	public void setRendererPortalAplicacion(
 			VMRenderizarMenuArbolAplicacion rendererPortalAplicacion) {
@@ -48,16 +57,13 @@ public class VMMenuAplicacion{
 		return nombreUsuario;
 	}
 
-
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
 
-
 	public AImage getImagen() {
 		return imagen;
 	}
-
 
 	public void setImagen(AImage imagen) {
 		this.imagen = imagen;
@@ -67,7 +73,6 @@ public class VMMenuAplicacion{
 		return modeloMenuArbol;
 	}
 
-
 	public void setModeloMenuArbol(VMModeloArbolAvanzado modeloMenuArbol) {
 		this.modeloMenuArbol = modeloMenuArbol;
 	}
@@ -75,12 +80,20 @@ public class VMMenuAplicacion{
 		return raizPortalInicial;
 	}
 
-
 	public static void setRaizPortalInicial(VMNodoMenuArbol raizPortalInicial) {
 		VMMenuAplicacion.raizPortalInicial = raizPortalInicial;
 	}
+	//Fin Métodos Set y Get
 	
-	//Fin SETs y GETs
+	/**
+	* Init. Código de inicialización del arbol.
+	* @param @ContextParam(ContextType.COMPONENT) Component windowindex,
+	* @ContextParam(ContextType.VIEW) Component view
+	* @return Objetos inicializados, el command 
+	* indica a las variables el cambio que se hará en el objeto.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
 	
 	@AfterCompose
 	@Command
@@ -108,7 +121,15 @@ public class VMMenuAplicacion{
 		modeloMenuArbol = new VMModeloArbolAvanzado(raizPortalInicial);
 	}
 
-
+	/**
+	* Carga recursiva del nodo padre dado un objeto nodo en particular
+	* @param @ContextParam(ContextType.COMPONENT) Component windowindex,
+	* @ContextParam(ContextType.VIEW) Component view
+	* @return Objeto VMNodoMenuArbol.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
+	
 	public VMNodoMenuArbol cargarPadre(VMNodoMenuArbol nodo) {
 		VMNodoMenuArbol padre=null;
 			if(nodo.getData().getPadre()!=0){
@@ -119,10 +140,18 @@ public class VMMenuAplicacion{
 			}
 			return nodo;
 	}
+
+	/**
+	* Carga recursiva de los nodos asociados a un nodo raiz en particular
+	* @param nodo, raiz
+	* @return No devuelve ningun valor.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
+	
 	private void cargarNodos(VMNodoMenuArbol nodo,VMNodoMenuArbol raiz) { 
 		boolean encontro=false;
-		
-		 for(int j=0;j< raiz.getChildCount();j++){
+		for(int j=0;j< raiz.getChildCount();j++){
 			  if(raiz.getChildAt(j).getData().getId().compareTo(nodo.getData().getId())==0){
 				  for(int i=0;i< nodo.getChildCount();i++){
 				    if(nodo.getChildCount()==1)
@@ -130,12 +159,12 @@ public class VMMenuAplicacion{
 				    else{
 				    	 VMNodoMenuArbol aux = new VMNodoMenuArbol(nodo.getChildAt(i).getData(),null);
 				         cargarNodos(aux,(VMNodoMenuArbol) raiz.getChildAt(j));
-				     }
+				    }
 				  }
-				    encontro=true;
-			    }
-		 }
-		 if(!encontro)
-			 raiz.add(nodo);
+				  encontro=true;
+			  }
+		}
+		if(!encontro)
+			raiz.add(nodo);
 	}	
-}
+} // fin VMMenuAplicacion.

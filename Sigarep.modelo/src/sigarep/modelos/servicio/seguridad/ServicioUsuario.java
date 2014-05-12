@@ -2,30 +2,31 @@ package sigarep.modelos.servicio.seguridad;
 
 import java.util.LinkedList;
 import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.repositorio.seguridad.IUsuarioDAO;
-import sigarep.modelos.repositorio.transacciones.IUsuarioGrupoDAO;
+
+/**
+* Clase ServicioUsuario Clase de la capa servicio web para el manejo de consultas y persistencia de la tabla Usuario 
+* @author Equipo Builder
+* @version 1.0
+* @since 15/12/2013
+* @last 10/05/2014
+*/
 
 @Service("serviciousuario")
 public class ServicioUsuario {
-
+	// Atributos de la clase
 	@Autowired
 	private IUsuarioDAO iUsuarioDAO;
-	public IUsuarioGrupoDAO iUsuarioGrupoDAO;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
 	/**
-	 * Guardar Usuario
-	 * @param Usuario usuario
-	 * @return Guarda el objeto
+	 * Guarda un Usuario en la tabla Usuario
+	 * @param usuario
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -34,34 +35,32 @@ public class ServicioUsuario {
 	}
 	
 	/**
-	 * Encontrar el usuario por nombre del usuario
-	 * @param nombre del usuario
-	 * @return Busca el usuario
-	 * @throws No dispara ninguna excepción.
+	 * Busca un usuario dado su nombre de usuario
+	 * @param nombreUsaurio
+	 * @return Objeto Usuario
+	 * @throws Dispara una excepción si el usuario no existe.
 	 */
 	
-	public Usuario encontrarUsuario(String nombreusaurio){
-		return iUsuarioDAO.findOne(nombreusaurio);
+	public Usuario encontrarUsuario(String nombreUsaurio){
+		return iUsuarioDAO.findOne(nombreUsaurio);
 	}
 	
 	/**
-	 * Eliminar lógicamente el Usuario
-	 * @param String nombre de usuario
-	 * @return Elimina lógicamente el objeto
-	 * @throws No dispara ninguna excepción.
+	 * Elimina lógicamente un usuario dado su nombre de usuario.
+	 * @param nombreUsuario
+	 * @throws Dispara una excepción si el usuario a eliminar no existe.
 	 */
 	
-	public void eliminar(String nombreusuario){
-		Usuario miUsuario = iUsuarioDAO.findOne(nombreusuario);
+	public void eliminar(String nombreUsuario){
+		Usuario miUsuario = iUsuarioDAO.findOne(nombreUsuario);
 		miUsuario.setEstatus(false);
 		iUsuarioDAO.save(miUsuario);
 	}
 	
 	/**
-	 * Eliminar fisicamente el Usuario
-	 * @param String nombre de usuario
-	 * @return Elimina fisicamente el objeto
-	 * @throws No dispara ninguna excepción.
+	 * Elimina fisicamente un usuario de la tabla usuario dado su nombre de usuario.
+	 * @param nombreUsuario
+	 * @throws Dispara una excepción si el usuario a eliminar fisicamente, no existe.
 	 */
 	
 	public void eliminarFisicamente(String nombreusuario){
@@ -70,9 +69,9 @@ public class ServicioUsuario {
 	}
 	
 	/**
-	 * Listado de los roles del usuario
-	 * @param String nombre del usuario
-	 * @return Lista de todos los roles del usuario sin ninguna excepción
+	 * Busca una lista de los roles del usuario dado su nombre de usuario.
+	 * @param nombreUsuario
+	 * @return List<Grupo> roles del usuario.
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -82,9 +81,8 @@ public class ServicioUsuario {
 	}
 	
 	/**
-	 * Listado de los usuarios registrados
-	 * @param 
-	 * @return Lista de todos los usuarios
+	 * Busca una lista de todos los usuarios contenidos en la tabla Usuario con estatus activo.
+	 * @return List<Usuario> lista de usuarios activos
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -94,10 +92,10 @@ public class ServicioUsuario {
 	}
 	
 	/**
-	 * Buscar Usuario filtrando por nombre de usuario
+	 * Busca un Usuario filtrandolo por su nombre de usuario
 	 * 
-	 * @param String nombre de usuario
-	 * @return Busca un usuario por nombre de usuario
+	 * @param nombreusuario
+	 * @return List<Usuario> lista de usuarios.
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -117,10 +115,10 @@ public class ServicioUsuario {
 	}
 	
 	/**
-	 * Cambiar la contraseña del Usuario
+	 * Cambia la contraseña del Usuario dado su nombre de usuario y nueva contraseña.
 	 * 
-	 * @param String nombre de usuario, String nuevaContrasena, String confirmarContrasena
-	 * @return Cambia la contrasena del usuario a la nueva contrasena
+	 * @param nombreUsuario, nuevaContrasena, confirmarContrasena
+	 * @return true si la contraseña es cambiada y false en caso contrario.
 	 * @throws Dispara excepción si el nombre del usuario no está registrado o si la nueva 
 	 * contrasena y confirmar contrasena no coinciden.
 	 */

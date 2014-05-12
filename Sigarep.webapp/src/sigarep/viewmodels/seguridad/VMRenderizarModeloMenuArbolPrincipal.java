@@ -1,7 +1,6 @@
 package sigarep.viewmodels.seguridad;
 
 import org.zkoss.zk.ui.event.Event;
-
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Hlayout;
@@ -10,10 +9,27 @@ import org.zkoss.zul.Treecell;
 import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.TreeitemRenderer;
 import org.zkoss.zul.Treerow;
-
 import sigarep.modelos.data.seguridad.Nodo;
 
+/**
+* Clase VMRenderizarModeloMenuArbolPrincipal : Clase ViewModels relacionada con la propiedad render del menú arbol principal
+* en la funcionalidad registrar grupo.
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 19/12/2014
+* @last 11/05/2014
+*/
+
 public class VMRenderizarModeloMenuArbolPrincipal implements TreeitemRenderer<VMNodoMenuArbol> {
+	
+	/** Metodo render que agrega la propiedad a los nodos del menu principal 
+	 * que les permite pasarse al arbol del grupo de la funcionalidad registrar grupo.
+	 * @param articuloArbol, nodoArbol, indice 
+	 * @return ninguno.
+	 * @throws No dispara ninguna excepción. 
+	 */
+	
 	@Override
 	public void render(final Treeitem articuloArbol, VMNodoMenuArbol nodoArbol,int indice) throws Exception {
 		VMNodoMenuArbol ctn = nodoArbol;
@@ -93,7 +109,5 @@ public class VMRenderizarModeloMenuArbolPrincipal implements TreeitemRenderer<VM
 					raiz.add(nodo);
 			}
 		});
-
 	}
-
-}
+} // fin VMRenderizarModeloMenuArbolPrincipal

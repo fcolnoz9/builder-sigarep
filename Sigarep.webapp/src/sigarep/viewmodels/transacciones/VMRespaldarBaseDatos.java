@@ -5,29 +5,21 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WebApp;
 import org.zkoss.zk.ui.event.Event;
-
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zk.ui.util.GenericForwardComposer;
-
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Window;
-
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,34 +29,42 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
-
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
 
+/**
+* Clase VMRespaldarBaseDatos : ViewModel que proporciona destinos de enlace de datos 
+* para la vista RespaldarDatos.zul 
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 17/01/2014
+* @last 10/05/2014
+*/
+
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMRespaldarBaseDatos implements Comparator<String>{	
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	//---------Variables de control--------
 	private String ruta = UtilidadesSigarep.obtenerDirectorio();
 	private String descripcion = "";
 	private String txtRuta = "";
 	private String nombreRespaldo;
 	private String fecha;
 	private String selected = "";
+	//---------Variables Lista-------------
+	private String[] listaDirectorio2 = null;
+	private List<String> listaDirectorio1 = new ArrayList<String>();
+	//---------Variables Objeto------------
 	private FileInputStream lector;
 	private FileOutputStream escritor;
 	private File directorio = null;
-	private String[] listaDirectorio2 = null;
-	private List<String> listaDirectorio1 = new ArrayList<String>();
 	private MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
 
 	/** doAfterCompose.
-	 * @parameters view. 
-	 * @return No devuelve ningun valor.
+	 * @param @ContextParam(ContextType.VIEW) Component view. 
+	 * @return ninguno.
 	 */
 	
 	@Wire("#backupsListbox")//para conectarse al listbox con el ID
@@ -74,7 +74,7 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
         Selectors.wireComponents(view, this, false);
     }
 	
-	//Metodos SETs Y GETs  
+	// Métodos Set y Get  
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -130,16 +130,15 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
 	public void setListaDirectorio1(List<String> listaDirectorio1) {
 		this.listaDirectorio1 = listaDirectorio1;
 	}
+	//Fin Métodos Set y Get
 	
-	//Fin Metodos SETs Y GETs 
-
 	/**
-	 * Inicialización
-	 * 
-	 * @param init
-	 * @return Carga de Variables y metodos inicializados
-	 * @throws No dispara ninguna excepcion.
-	 */
+	* Init. Código de inicialización.
+	* @param Ninguno.
+	* @return Objetos inicializados.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
 	
 	@Init
 	public void init() {
@@ -152,53 +151,11 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
 		cargarBackups();
 	}
 	
-	/** Cargar backups al modelo del listbox de backups
-	 * @parameters listaDirectorio1, listaDirectorio2 y directorio
-	 * @return No devuelve ningun valor.
-	 * @throws No dispara ninguna excepcion.
-	 */
-	
-	@Command
-	@NotifyChange({"listaDirectorio2","listaDirectorio1","directorio"})
-	public void cargarBackups() {
-		directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
-		//Accediendo a los archivos en el directorio
-		listaDirectorio2 = directorio.list();
-		for (int i=0; i<listaDirectorio2.length;i++)
-		{
-			if (!(listaDirectorio2[i].equals(".svn")))
-			{
-				listaDirectorio1.add(listaDirectorio2[i]);
-			}
-		}
-		Collections.sort(listaDirectorio1,new VMRespaldarBaseDatos());
-	}
-	
-	/** Seleccionar la Ruta de respaldo en dispositivo externo
-	 * @parameters txtRuta
-	 * @return No devuelve ningun valor.
-	 * @throws No dispara ninguna excepcion.
-	 */
-	
-	@Command
-	@NotifyChange({"txtRuta"})
-	public void seleccionarRuta(){
-		JFileChooser chooser = new JFileChooser();
-		// Titulo que llevara la ventana
-		chooser.setDialogTitle("Guardar en...");
-		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		chooser.setVisible(true);
-		chooser.showOpenDialog(null);
-		//Retornando el directorio destino directorio
-		if(chooser.getSelectedFile()!=null){
-	 		txtRuta = chooser.getSelectedFile().getPath();
-	 	}	
-	}
-	
-	/** Guardar respaldo de la base de datos
-	 * @parameters txtRuta, ruta (directorio del proyecto), selected, listaDirectorio1, listaDirectorio2, directorio
-	 * @return No devuelve ningun valor.
-	 * @throws No dispara ninguna excepcion.
+	/** guardarRespaldo de la base de datos
+	 * @param groupboxDispositivo, application
+	 * @return Guarda el respaldo, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
+	 * @throws Dispara un excepción si no existe la ruta de respaldo interno en el sistema.
 	 */
 	
 	@NotifyChange({ "txtRuta", "ruta", "descripcion","selected","listaDirectorio1","listaDirectorio2","directorio"})
@@ -220,12 +177,14 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
 			mensajesAlUsuario.advertenciaSeleccionarDestinoRespaldo();
 		}
 	}
-	
-	/** Crear respaldo de la BD
-	 * @parameters path2, namespace, application, listaDirectorio1, fecha, lector, txtRuta, escritor, backupsListbox
-	 * @return No devuelve ningun valor.
-	 * @throws Se dispara excepción cuando no existe BD para ser respaldada o cuando la ruta de respaldo seleccionada es invalida .
-	 */
+
+	/** crearRespaldoBD de la base de datos
+	 * @param path2, namespace, application
+	 * @return Crea el archivo de respaldo de la BD, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
+	 * @throws Dispara nexcepción cuando no existe BD para ser respaldada 
+	 * o cuando la ruta de respaldo seleccionada es invalida.
+	 */	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@NotifyChange({"listaDirectorio1", "fecha", "lector", "txtRuta", "escritor"})
@@ -277,10 +236,36 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
 		   }
 	}
 	
+	/**
+	* Permite la carga de backups al modelo del listbox de backups. Inicializa el código.
+	*
+	* @param Ninguno
+	* @return Carga los backups en lista del directorio1, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
+	* @throws No dispara ninguna excepcion.
+	*/
+	
+	@Command
+	@NotifyChange({"listaDirectorio2","listaDirectorio1","directorio"})
+	public void cargarBackups() {
+		directorio = new File(ruta+"Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD");
+		//Accediendo a los archivos en el directorio
+		listaDirectorio2 = directorio.list();
+		for (int i=0; i<listaDirectorio2.length;i++)
+		{
+			if (!(listaDirectorio2[i].equals(".svn")))
+			{
+				listaDirectorio1.add(listaDirectorio2[i]);
+			}
+		}
+		Collections.sort(listaDirectorio1,new VMRespaldarBaseDatos());
+	}
+	
 	/** Ejecutar comandos para la creación de la BD en postgreSQL
 	 * @parameters nombreRespaldo, props, path2
-	 * @return No devuelve ningun valor.
-	 * @throws Se dispara excepción cuando el contructor de procesos no inicia es decir no logra acceder al usuario de postgreSQL
+	 * @return ninguno.
+	 * @throws Se dispara excepción cuando el contructor de procesos no inicia 
+	 * es decir no logra acceder al usuario de postgreSQL
 	 */
 	
 	@Command
@@ -323,9 +308,35 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
         	
 	}
 	
+	/**
+	* seleccionarRuta de respaldo en dispositivo externo
+	*
+	* @param Ninguno
+	* @return Busca la ruta externa de respaldo, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
+	
+	@Command
+	@NotifyChange({"txtRuta"})
+	public void seleccionarRuta(){
+		JFileChooser chooser = new JFileChooser();
+		// Titulo que llevara la ventana
+		chooser.setDialogTitle("Guardar en...");
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.setVisible(true);
+		chooser.showOpenDialog(null);
+		//Retornando el directorio destino directorio
+		if(chooser.getSelectedFile()!=null){
+	 		txtRuta = chooser.getSelectedFile().getPath();
+	 	}	
+	}
+	
 	/** HabilitarGroupBoxDispositivo para la ruta externa de respaldo
-	 * @parameters groupboxDispositivo
-	 * @return No devuelve ningun valor.
+	 * @param groupboxDispositivo
+	 * @return ninguno, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
 	 * @throws No dispara ninguna excepcion.
 	 */
 		
@@ -335,8 +346,9 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
 	}
 	
 	/** DeshabilitarGroupBoxDispositivo para la ruta externa de respaldo
-	 * @parameters groupboxDispositivo
-	 * @return No devuelve ningun valor.
+	 * @param groupboxDispositivo
+	 * @return ninguno, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	
@@ -344,10 +356,26 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
 	public void deshabilitarGroupBoxDispositivo(@BindingParam("groupboxDispositivo") Groupbox groupboxDispositivo) {
 		groupboxDispositivo.setVisible(false);
 	}
+
+	/** Comparar dos fechas de tipo string para organizarlas de mayor a menor
+	 * @param fecha1, fecha2
+	 * @return 0 si fecha1 es igual a fecha2, un entero menor que 0 si fecha1 es menor que fecha2
+	 * o un entero mayor que 0 si fecha1 es mayor que fecha2
+	 * @throws No dispara ninguna excepcion.
+	 */
+	
+	public int compare(String fecha1, String fecha2) {
+		// TODO Auto-generated method stub
+		long fechaLong1 = new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + fecha1).lastModified();
+		long fechaLong2 = new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + fecha2).lastModified();
+		return Long.compare(fechaLong1,fechaLong2);
+	}
+	
 	
 	/** Limpiar los campos de texto, los radiobutton y deshabilitar el groupbox de dispositivo
-	 * @parameters txtRuta, descripcion, selected, listaDirectorio2, groupboxDispositivo
-	 * @return No devuelve ningun valor.
+	 * @param groupboxDispositivo
+	 * @return ninguno, el command indica a las variables 
+	 * el cambio que se hará en el objeto.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	
@@ -375,11 +403,4 @@ public class VMRespaldarBaseDatos implements Comparator<String>{
 			condicion = true;
         mensajesAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
 	}
-
-	public int compare(String f1, String f2) {
-		// TODO Auto-generated method stub
-		long fechaLong1 = new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + f1).lastModified();
-		long fechaLong2 = new File(ruta + "Sigarep.webapp/WebContent/WEB-INF/sigarep/administracionBaseDatos/respaldosBD/" + f2).lastModified();
-		return Long.compare(fechaLong1,fechaLong2);
-	}
-}
+}// fin VMRespaldarBaseDatos.
