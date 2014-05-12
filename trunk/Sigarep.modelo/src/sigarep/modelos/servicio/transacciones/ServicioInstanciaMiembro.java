@@ -35,4 +35,10 @@ public class ServicioInstanciaMiembro {
 	public InstanciaMiembro crear() {
 		return new InstanciaMiembro();
 	}
+	public List<InstanciaMiembro> buscarPorCedula(String CedulaPersona){
+		return iInstanciaMiembroDAO.findById_CedulaPersona(CedulaPersona);
+	}
+	public List<InstanciaMiembro> buscarPorInstancia(Integer idInstanciaApelada){
+		return iInstanciaMiembroDAO.findById_IdInstanciaApelada(idInstanciaApelada);
+	}
 }
