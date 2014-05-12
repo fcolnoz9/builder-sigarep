@@ -47,6 +47,7 @@
 					<combobox id="cmbLapso" width="80%"
 						model="@load(vm.listaLapsoAcademico)"
 						value="@bind(vm.lapso.codigoLapso)"
+						readonly="true"
 						selectedItem="@bind(vm.lapso)">
 						<template name="model">
 							<comboitem label="${each.codigoLapso}" />

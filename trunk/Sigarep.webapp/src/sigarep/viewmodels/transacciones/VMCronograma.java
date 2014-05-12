@@ -194,15 +194,6 @@ public class VMCronograma {
 		this.fechaCierreLapso = fechaCierreLapso;
 	}
 	
-	public String getConstraintDate () {
-		if(lapsoActivo!=null)
-			return "after " + new SimpleDateFormat("yyyyMMdd").format(getFechaInicioLapso()) + ",before " +new SimpleDateFormat("yyyyMMdd").format(getFechaCierreLapso());
-		else 
-			return "after 20100710,before 21000720";
-	}
-
-
-
 	// OTROS METODOS
 	@Wire("#winActualizarCronograma")//para conectarse a la ventana con el ID
 	Window ventana;
@@ -401,9 +392,7 @@ public class VMCronograma {
 	@NotifyChange({"fechaInicio", "fechaFin"})
 	public void validarFecha(){
 		if (fechaInicio != null && fechaFin != null){
-			if (fechaInicio.compareTo(fechaFin) > 0 || lapsoActivo.getFechaInicio().compareTo(fechaInicio) > 0 
-					|| fechaInicio.compareTo(lapsoActivo.getFechaCierre()) > 0
-					|| fechaFin.compareTo(lapsoActivo.getFechaCierre()) > 0){
+			if (fechaInicio.compareTo(fechaFin) > 0 || lapsoActivo.getFechaInicio().compareTo(fechaInicio) > 0){
 				mensajeAlUsuario.errorRangoFechas();
 				fechaFin=null;
 			}

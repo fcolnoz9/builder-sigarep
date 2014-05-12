@@ -24,7 +24,7 @@
 						</template>
 						</combobox>
 						<label id="lblLapsoAcademico" value="Lapso Académico:" />
-						<combobox id="cmbLapsoAcademico" mold="rounded" placeholder = "Seleccione un lapso académico..." width="100%"  maxlength="6" 
+						<combobox readonly="true" id="cmbLapsoAcademico" mold="rounded" placeholder = "Seleccione un lapso académico..." width="100%"  maxlength="6" 
 								  tabindex="2" model="@load(vm.listaLapsoAcademico)" selectedItem="@bind(vm.objLapso)" onSelect="@command('objCmbLapso')" >
 							<template name="model">
 								<comboitem label="${each.codigoLapso}" />
