@@ -56,7 +56,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[LISTA DE ESTUDIANTES PROCEDENTES]]></text>
+				<text><![CDATA[LISTADO DE ESTUDIANTES PROCEDENTES]]></text>
 			</staticText>
 			<image scaleImage="FillFrame">
 				<reportElement x="0" y="56" width="89" height="67" uuid="2781fd22-a4c1-444a-80ce-1e54fa74785f"/>
@@ -71,7 +71,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="106" y="158" width="65" height="20" isPrintInFirstWholeBand="true" uuid="c7a86bc0-d494-48e8-b380-d89639f870d9"/>
+				<reportElement x="106" y="158" width="140" height="20" isPrintInFirstWholeBand="true" uuid="c7a86bc0-d494-48e8-b380-d89639f870d9"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -83,12 +83,12 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Instancia:]]></text>
+				<text><![CDATA[Recurso de Apelación:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="169" y="158" width="184" height="20" uuid="72418175-f859-4a5a-a84a-ee4a0751ccd6"/>
+				<reportElement x="246" y="158" width="184" height="20" uuid="72418175-f859-4a5a-a84a-ee4a0751ccd6"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{instanciaApelada}]]></textFieldExpression>
 			</textField>
@@ -235,7 +235,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Fecha de Emisión del Reporte:]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement x="535" y="1" width="36" height="14" uuid="6e805452-a516-4b54-b6df-109ad9722c98"/>
+				<reportElement x="536" y="0" width="36" height="14" uuid="6e805452-a516-4b54-b6df-109ad9722c98"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
@@ -246,14 +246,14 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<imageExpression><![CDATA[$P{ICON_FOOTER}]]></imageExpression>
 			</image>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="154" y="1" width="96" height="13" uuid="47b6ba56-b7a3-4273-be71-303a227483ca"/>
+				<reportElement x="150" y="1" width="96" height="13" uuid="47b6ba56-b7a3-4273-be71-303a227483ca"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="271" y="1" width="260" height="13" uuid="b16b6390-51c4-42d5-b4c1-c479568a6b15"/>
+				<reportElement x="276" y="0" width="260" height="14" uuid="b16b6390-51c4-42d5-b4c1-c479568a6b15"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
