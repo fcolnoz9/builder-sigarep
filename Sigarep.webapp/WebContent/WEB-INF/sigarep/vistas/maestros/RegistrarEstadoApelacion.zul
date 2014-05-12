@@ -20,7 +20,7 @@
 
 						<label id="lblInstanciaApelada"
 							value="Recurso de Apelación:" />
-						<combobox readonly="true"
+						<combobox readonly="true" 
 							id="cmbInstanciaApelada"
 							placeholder= "Seleccione un tipo de recurso de apelación..."
 							value="@bind(vm.instanciaApelada.nombreRecursoApelacion)" width="80%"
@@ -61,7 +61,9 @@
 			<button label="Guardar" id="btnGuardarEstadoApelacion"
 				mold="trendy" width="auto" height="auto"
 				image="imagenes/iconos/guardar.png"
-				onClick="@command('guardarEstadoApelacion')" />
+				onClick="@command('guardarEstadoApelacion')" 
+				
+				/>
 			<button label="Limpiar" id="btnLimpiarEstado" mold="trendy"
 				width="auto" height="auto" image="imagenes/iconos/limpiar.png"
 				onClick="@command('limpiar')" />
@@ -77,6 +79,7 @@
 				model="@bind(vm.listaEstadoApelacion)"
 				selectedItem="@bind(vm.estadoseleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
+				onClick="@command('bloquear')"
 				emptyMessage="No hay Estados de Apelación registrados" mold="paging"
 				pageSize="10">
 
