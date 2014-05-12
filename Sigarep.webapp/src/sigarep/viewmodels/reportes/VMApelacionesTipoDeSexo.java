@@ -218,7 +218,7 @@ public class VMApelacionesTipoDeSexo {
 	@NotifyChange({ "listaTipoSancion" })
 	public void buscarTipoSancion() {
 		listaTipoSancion = serviciosancionmaestro.listaTipoSanciones();
-		SancionMaestro sanc = new SancionMaestro(null, null, null, "Todos");
+		SancionMaestro sanc = new SancionMaestro(null, "Todos", null, "Todos");
 		listaTipoSancion.add(0, sanc);
 	}
 
@@ -260,16 +260,12 @@ public class VMApelacionesTipoDeSexo {
 						.getParameters()
 						.put("Titulo",
 								"Reporte Comparativo de Apelaciones por Sexo y Veredicto");
+				reportConfig.getParameters().put("sancion", objSancion.getDescripcion());
 				reportConfig.getParameters().put("Lapso", lap.getCodigoLapso());
-				reportConfig.getParameters().put("Programa",
-						prog.getNombrePrograma().toUpperCase());
-				reportConfig.getParameters()
-						.put("Lista",
-								new JRBeanCollectionDataSource(
-										apelacionesComparativos));
+				reportConfig.getParameters().put("Programa",prog.getNombrePrograma());
+				reportConfig.getParameters().put("Lista",new JRBeanCollectionDataSource(apelacionesComparativos));
 				reportConfig.setType(reportType);
-				reportConfig.setDataSource(new JRBeanCollectionDataSource(
-						apelacionesComparativos));
+				reportConfig.setDataSource(new JRBeanCollectionDataSource(apelacionesComparativos));
 			} else {
 				mensajeAlUsuario.informacionNoHayCoincidencias();
 			}

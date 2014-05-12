@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
-	<property name="ireport.zoom" value="1.5"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="167"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -106,6 +106,7 @@
 	<parameter name="Programa" class="java.lang.String"/>
 	<parameter name="Titulo" class="java.lang.String"/>
 	<parameter name="Lista" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="sancion" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
 				FROM solicitud_apelacion sa, tipo_motivo timo, motivo mo, estudiante_sancionado
@@ -127,7 +128,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="265" splitType="Stretch">
+		<band height="311" splitType="Stretch">
 			<image scaleImage="FillFrame">
 				<reportElement x="0" y="0" width="572" height="54" uuid="533041e4-814f-4e94-bf01-782c97c499e2"/>
 				<imageExpression><![CDATA[$P{ImagenSuperior}]]></imageExpression>
@@ -157,35 +158,35 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="401" y="168" width="59" height="24" uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9"/>
+				<reportElement x="247" y="160" width="59" height="24" uuid="2811cfd9-36a5-4b53-b18f-2e36da3a6fc9"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[LAPSO:]]></text>
+				<text><![CDATA[Lapso -]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="61" y="168" width="94" height="24" uuid="ec363724-09d5-4efb-947e-41d6f8d42610"/>
+				<reportElement x="61" y="196" width="94" height="24" uuid="ec363724-09d5-4efb-947e-41d6f8d42610"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PROGRAMA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="449" y="168" width="57" height="24" uuid="ace45e21-827f-4270-b413-143832ea4bd0"/>
+				<reportElement x="292" y="160" width="68" height="24" uuid="ace45e21-827f-4270-b413-143832ea4bd0"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Lapso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="143" y="168" width="250" height="24" uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435"/>
+				<reportElement x="143" y="196" width="250" height="24" uuid="7fafac5a-b49c-431d-8a37-a18cdda6c435"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Programa}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 3" style="table 3" x="7" y="209" width="559" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
+				<reportElement key="table 3" style="table 3" x="7" y="253" width="559" height="50" uuid="ce392ef2-9896-4dd3-938f-86c453091cea"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Tabla" uuid="c5ca79a7-7492-4b2b-bafa-bb9c0e1ecc46">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
@@ -252,6 +253,20 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<staticText>
+				<reportElement x="61" y="221" width="94" height="19" uuid="498531fb-3a9f-4260-be8e-7bab231ca93d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TIPO SANCIÓN:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="155" y="221" width="238" height="19" uuid="02e453ff-15a3-40ec-9ec1-de5f22b18111"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sancion}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -303,6 +318,9 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band height="410" splitType="Stretch">
 			<rectangle>
 				<reportElement x="16" y="54" width="544" height="324" forecolor="#3366FF" uuid="8dd65514-27b4-420c-8a05-b6d02848cbf3"/>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
 			</rectangle>
 			<elementGroup/>
 			<bar3DChart>

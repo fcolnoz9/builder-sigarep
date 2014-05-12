@@ -17,6 +17,14 @@
 				</columns>
 				<rows>
 					<row>
+						<label id="lblLapso" value="Lapso:" />
+						<combobox id="cmbLapso" mold="rounded" readonly="true" width="100%"
+							model="@load(vm.listaLapso)" selectedItem="@bind(vm.objLapso)"
+							onSelect="@command('objCmbLapso')" placeholder="Seleccione un lapso académico...">
+							<template name="model">
+								<comboitem label="${each.codigoLapso}" />
+							</template>
+						</combobox>
 						<label id="lblPrograma" value="Programa:" />
 						<combobox id="cmbPrograma" mold="rounded" width="100%"
 							readonly="true" model="@load(vm.listaPrograma)"
@@ -26,14 +34,7 @@
 								<comboitem label="${each.nombrePrograma}" />
 							</template>
 						</combobox>
-						<label id="lblLapso" value="Lapso:" />
-						<combobox id="cmbLapso" mold="rounded" readonly="true" width="100%"
-							model="@load(vm.listaLapso)" selectedItem="@bind(vm.objLapso)"
-							onSelect="@command('objCmbLapso')" placeholder="Seleccione un lapso académico...">
-							<template name="model">
-								<comboitem label="${each.codigoLapso}" />
-							</template>
-						</combobox>
+						
 					</row>
 					<row>
 						<label id="lblSanciones" value="Tipo de Sanción:" />
