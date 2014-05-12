@@ -21,11 +21,13 @@ import sigarep.modelos.servicio.maestros.ServicioNoticia;
 
 
 /**
- * Clase VMDetalleNoticia
+ * Clase VMDetalleNoticia : Clase ViewModels 
+relacionada con el Maestro Noticia. 
  * 
  * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
+ * @last 09/05/2014
  */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -110,7 +112,7 @@ public class VMDetalleNoticia {
 	// Fin Métodos Set y Get
 	
 	/**
-	 * inicialización
+	 * Inicialización
 	 * Init. Código de inicialización.
 	 * @param  Component view
 	 * @return código de inicialización

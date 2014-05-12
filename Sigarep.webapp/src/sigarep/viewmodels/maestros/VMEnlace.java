@@ -12,11 +12,13 @@ import sigarep.modelos.data.maestros.MenuItem;
 import sigarep.modelos.servicio.maestros.ServicioEnlaceInteres;
 
 /**
- * Clase VMenlace
+ * Clase VMenlace :  Clase ViewModels 
+relacionada con el Maestro EnlaceInteres. 
  * 
  * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMEnlace {
@@ -52,7 +54,7 @@ public class VMEnlace {
 	}// Fin de los métodos set y get
 
 	/**
-	 * inicialización
+	 * Inicialización
 	 * Init. Código de inicialización.
 	 * @param Ninguno
 	 * @return código de inicialización
