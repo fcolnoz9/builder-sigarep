@@ -26,9 +26,11 @@ import sigarep.modelos.data.maestros.Banner;
 import sigarep.modelos.servicio.maestros.ServicioBanner;
 
 /**
- * View Models de Banner.
+ * Clase VMBanner : Clase ViewModels 
+relacionada con el Maestro Banner. 
+.
  * 
- * @author Equipo Builder
+ * @author Equipo Builder 
  * @version 2.5.2
  * @since 20/12/2013
  * @last 09/05/2014
@@ -170,9 +172,9 @@ public class VMBanner {
 	// Fin Métodos Set y Get
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
-	 * @param Ninguno
+	 * Inicialización
+	 * Init. Código de inicialización.
+	 * @param Ninguno.
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
 	 */
@@ -195,11 +197,11 @@ public class VMBanner {
 
 
 	/**
-	 * Guardar Datos del Banner.
+	 * Guardar Datos del Banner: Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
 	 * 
-	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 
@@ -263,9 +265,9 @@ public class VMBanner {
 	/**
 	 * Buscar Banner.
 	 * 
-	 * @param Ninguno
+	 * @param Ninguno.
 	 * @return Todos los Banner en la lista que están en estatus TRUE en la Base
-	 *         de Datos
+	 *         de Datos.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -278,9 +280,9 @@ public class VMBanner {
 	/**
 	 * Mostrar Registro Seleccionado.
 	 * 
-	 * @param Ninguno
+	 * @param Ninguno.
 	 * @return Llena cada una de las cajas de texto con los datos del registro
-	 *         seleccionado en la lista
+	 *         seleccionado en la lista.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -344,7 +346,7 @@ herramientas.
 	/**
 	 * Cambiar Imagen en el Portal (Carrusel).
 	 * 
-	 * @param Ninguno
+	 * @param Ninguno.
 	 * @return Muestra las imagenes de Banner en el portal en forma de carrusel
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -362,10 +364,10 @@ herramientas.
 	
 	/**
 	 * Filtros Banner: Método que busca y filtra 
-los enlaces por nombre y dirección web 
+por titulo y enlace. 
 	 * 
 	 * @param Ninguno
-	 * @return Objeto Enlace de Interés (por titulo o enlace)
+	 * @return Objeto Banner (por titulo o enlace)
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -378,8 +380,8 @@ los enlaces por nombre y dirección web
 	/**
 	 * Limpiar Banner.
 	 * 
-	 * @param Ninguno
-	 * @return Limpiar cada una de las cajas de texto de la vista
+	 * @param Ninguno.
+	 * @return Limpiar cada una de las cajas de texto de la vista.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -405,8 +407,8 @@ los enlaces por nombre y dirección web
 	 * Cerrar Ventana :  Cierra el .zul 
 asociado al VM. 
 	 * 
-	 * @param Window ventana
-	 * @return Ninguno
+	 * @param Window ventana.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
