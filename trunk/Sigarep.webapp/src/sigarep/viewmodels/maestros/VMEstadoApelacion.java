@@ -3,10 +3,15 @@ package sigarep.viewmodels.maestros;
 import java.util.List;
 
 
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
@@ -53,8 +58,8 @@ public class VMEstadoApelacion {
 	@WireVariable
 	private InstanciaApelada instanciaApelada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
-	
-	private  @Wire Combobox cmbInstanciaApelada;
+	@Wire("#cmbInstanciaApelada")
+	Combobox cmbInstanciaApelada;
 
 	// Métodos Set y Get
 	public Integer getIdEstadoApelacion() {
@@ -195,8 +200,9 @@ public class VMEstadoApelacion {
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
-	@NotifyChange({ "nombreEstado", "descripcion","listaEstadoApelacion"})
+	@NotifyChange({ "nombreEstado", "descripcion","listaEstadoApelacion","cmbInstanciaApelada"})
 	public void limpiar() {
+		cmbInstanciaApelada.setDisabled(false);
 		idEstadoApelacion = null;
 		nombreEstado =null;
 		descripcion = null;
@@ -215,10 +221,26 @@ de datos el registro seleccionado
 	@Command
 	@NotifyChange({ "idEstadoApelacion","nombreEstado", "descripcion", "instanciaApelada" })
 	public void mostrarSeleccionado() {
+	
 		idEstadoApelacion = getEstadoseleccionado().getIdEstadoApelacion();
 		nombreEstado = getEstadoseleccionado().getNombreEstado();
 		descripcion = getEstadoseleccionado().getDescripcion();
 		instanciaApelada = getEstadoseleccionado().getInstanciaApelada();
+		
+	}
+	
+	
+	/**
+	 * bloquear : 
+	 * 
+	 * @param Ninguno. 
+	 * @return Objeto combobox
+	 * @throws No dispara ninguna excepción
+	 */
+	@Command
+	@NotifyChange({"cmbInstanciaApelada" })
+	public void bloquear(){
+		cmbInstanciaApelada.setDisabled(true);
 	}
 
 	/**
@@ -260,5 +282,13 @@ de datos el registro seleccionado
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);	
 	}
+	
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+		Selectors.wireComponents(view, this, false);
+		Selectors.wireComponents(cmbInstanciaApelada, this, false);
+		
+	}
+	
 
 }
