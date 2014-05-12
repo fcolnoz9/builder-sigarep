@@ -12,11 +12,13 @@ import sigarep.modelos.data.maestros.ContactoSigarep;
 import sigarep.modelos.servicio.maestros.ServicioContactoSigarep;
 
 /**
- * Clase VMContacto
+ * Clase VMContacto: Clase ViewModels 
+relacionada con el Maestro Contacto. 
  * 
  * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMContacto {
@@ -169,8 +171,8 @@ public class VMContacto {
 	// Fin Métodos Set y Get
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param Ninguno
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
@@ -181,11 +183,11 @@ public class VMContacto {
 	}
 
 	/**
-	 * guardarContacto
+	 * guardarContacto : Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
 	 * 
 	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	 * @return 
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
