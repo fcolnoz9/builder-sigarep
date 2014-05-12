@@ -663,7 +663,7 @@ public class VMUsuario {
 				}
 				
 				//fin
-				listaInstanciaMiembro = new LinkedList<InstanciaMiembro>();
+				listaInstanciaMiembro = null;
 				instanciaMiembroPK = null;
 				instanciaMiembro= null;
 				tituloinstancia = "";
@@ -853,8 +853,8 @@ public class VMUsuario {
 	@NotifyChange({ "cedulaPersona","listaUsuario","listaPersona","listaGrupoPertenece","listaGrupoNoPertenece"})
 	public void eliminarUsuario() {
 		serviciousuario.eliminar(getPersonaSeleccionado().getUsuario().getNombreUsuario());
-		listaInstanciaMiembro = getPersonaSeleccionado().getInstanciaMiembros();
 		serviciopersona.eliminar(getPersonaSeleccionado().getCedulaPersona());
+		listaInstanciaMiembro = servicioInstanciaMiembro.buscarPorCedula(getPersonaSeleccionado().getCedulaPersona());
 		for(int i=0;listaInstanciaMiembro.size()>i;i++){
     		instanciaMiembro = listaInstanciaMiembro.remove(i);
 			try {
@@ -891,7 +891,7 @@ public class VMUsuario {
 		apellido = getPersonaSeleccionado().getApellido();
 		telefono = getPersonaSeleccionado().getTelefono();
 		fotoUsuario = getPersonaSeleccionado().getUsuario().getFoto();
-		listaInstanciaMiembro = getPersonaSeleccionado().getInstanciaMiembros();
+		listaInstanciaMiembro = servicioInstanciaMiembro.buscarPorCedula(getPersonaSeleccionado().getCedulaPersona());
 		
 		for(int i=0;listaInstanciaMiembro.size()>i;i++){
 			if(listaInstanciaMiembro.get(i).getEstatus()==false)

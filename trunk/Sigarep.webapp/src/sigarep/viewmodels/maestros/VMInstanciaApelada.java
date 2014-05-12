@@ -1,5 +1,7 @@
 package sigarep.viewmodels.maestros;
 
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.zkoss.bind.Binder;
@@ -20,7 +22,9 @@ import org.zkoss.zul.Messagebox.ClickEvent;
 
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.InstanciaApelada;
+import sigarep.modelos.data.transacciones.InstanciaMiembro;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
+import sigarep.modelos.servicio.transacciones.ServicioInstanciaMiembro;
 
 /**Clase VMInstanciaApelada
  * ViewModel para la interfaz RegistrarInstanciaApelada.zul
@@ -44,9 +48,13 @@ public class VMInstanciaApelada {
 	private String descripcionFiltro;
 	//-----------------Variables Lista----------------------
 	private List<InstanciaApelada> listaInstanciaApelada; //Lista de InstanciaApelada
+	private List<InstanciaMiembro> listaInstanciaMiembro; //Lista de InstanciaMiembro
 	//-----------------Variables Objeto---------------------
 	private InstanciaApelada instanciaApeladaseleccionada;
+	private InstanciaMiembro instanciaMiembro = new InstanciaMiembro();
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	@WireVariable 
+	private ServicioInstanciaMiembro servicioInstanciaMiembro;
 	@Wire Textbox txtcodigoInstacia;
 	
 	//Metodos Setters y Getters
@@ -199,12 +207,16 @@ public class VMInstanciaApelada {
 							@SuppressWarnings("incomplete-switch")
 							public void onEvent(ClickEvent e) throws Exception {
 								switch (e.getButton()) {
-								case YES:
-									servicioInstanciaApelada
-											.eliminarInstancia(idInstanciaApelada);
-									mensajeAlUsuario
-											.informacionEliminarCorrecto();
+								case YES:{
+									servicioInstanciaApelada.eliminarInstancia(idInstanciaApelada);
+									listaInstanciaMiembro = servicioInstanciaMiembro.buscarPorInstancia(idInstanciaApelada);
+									for(int i=0;listaInstanciaMiembro.size()>i;i++){
+							    		instanciaMiembro = listaInstanciaMiembro.remove(i);
+										servicioInstanciaMiembro.eliminar(instanciaMiembro.getId());
+									}
+									mensajeAlUsuario.informacionEliminarCorrecto();
 									binder.postCommand("limpiar", null);
+									}
 								case NO:
 									binder.postCommand("limpiar", null);
 								}
