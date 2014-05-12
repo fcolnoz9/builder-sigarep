@@ -1,7 +1,6 @@
 package sigarep.viewmodels.seguridad;
+
 import java.util.ArrayList;
-
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -9,7 +8,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,35 +28,45 @@ import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.Archivo;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.herramientas.UtilidadesSigarep;
 import sigarep.modelos.data.seguridad.Usuario;
 import sigarep.modelos.servicio.seguridad.ServicioUsuario;
 
-
 /**
- * Utility class for ZK spring security.
- * @author henrichen
- */
+* Clase VMUtilidadesDeSeguridad : Clase ViewModels relacionada con las 
+* utilidades y propiedades del usuario concurrente (activo) y la seguridad funcional.
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 19/12/2014
+* @last 11/05/2014
+*/
+
 @SuppressWarnings("rawtypes")
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMUtilidadesDeSeguridad {
-
-	private Archivo fotoUsuario = new Archivo();
-	private Media media;
-	private String href = "";
-	private AImage imagenUsuario;
-	private String nombreCompleto;
-	private static User usuario;
-	private String ruta = UtilidadesSigarep.obtenerDirectorio();
-	MensajesAlUsuario mensajes = new MensajesAlUsuario();
+	//-----------------Servicios----------------------------
 	@WireVariable
 	ServicioUsuario serviciousuario;
+	//-----------------Variables de control ------------------
+	private String ruta = UtilidadesSigarep.obtenerDirectorio();
+	//-----------------Variables Usuario ------------------
+	private String nombreCompleto;
+	//-----------------Variables Objeto---------------------
+	private AImage imagenUsuario;
+	private Archivo fotoUsuario = new Archivo();
+	private Media media;
+	private static User usuario;
+	MensajesAlUsuario mensajes = new MensajesAlUsuario();
 
+	// Métodos Set y Get
 	/**
-	 * Retorna el objeto de autenticación actual.
+	 * GetUser permite obtener la información del objeto usuario de autenticación actual.
+	 * @parameters ninguno.
+	 * @return Objeto Usuario.
+	 * @throws No dispara ninguna excepción.
 	 */
 	
 	public static Usuario getUser() {
@@ -82,25 +90,7 @@ public class VMUtilidadesDeSeguridad {
 			throw e;
 		}
 	}
-
-	/**
-	 * Devuelve true si el principal autenticado no concede NINGUNA 
-	 * de las funciones especificadas en las autoridades.
-	 * 
-	 * @param autoridades
-	 *	Una lista separada por comas de las funciones que el usuario debe tener concedido NINGUNO
-	 * @return true si el principal autenticado no posee autoridades de NINGUNA de las funciones especificadas.
-	 */
-	public static boolean esAutorizado(String autoridades) {
-		if (null == autoridades || "".equals(autoridades)) {
-			return false;
-		}
-		final Collection<? extends GrantedAuthority> autoridadesConcedidas = getPrincipalAutoridades();
-
-		final Set autoridadesConcedidasCopia = conservarTodos(autoridadesConcedidas,convertirAutoridades(autoridades));
-		return autoridadesConcedidasCopia.isEmpty();
-	}
-
+	
 	/**
 	 * Devuelve true si se concede el principal autenticado TODOS los roles 
 	 * que se especifican en las autoridades.
@@ -108,7 +98,8 @@ public class VMUtilidadesDeSeguridad {
 	 * @param autoridades
 	 *	Una lista separada por comas de las funciones que al usuario se le debe haber otorgado, todas separados.
 	 * @return true si al principal autenticado se le concedieron las autoridades 
-	 * de TODAS las funciones especificadas.
+	 * de TODAS las funciones especificadas.	
+	 * @throws No dispara ninguna excepción.
 	 */
 
 	public User getUsuario() {
@@ -141,14 +132,6 @@ public class VMUtilidadesDeSeguridad {
 		this.imagenUsuario = imagenUsuario;
 	}
 	
-	public String getHref() {
-		return href;
-	}
-
-	public void setHref(String href) {
-		this.href = href;
-	}
-	
 	public String getNombreCompleto() {
 		return nombreCompleto;
 	}
@@ -156,11 +139,12 @@ public class VMUtilidadesDeSeguridad {
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
 	}
-
+	//Fin Métodos Set y Get
+	
 	/**
-	 * Inicialización
+	 * Init. Código de inicialización.
 	 * 
-	 * @param init
+	 * @param ninguno
 	 * @return Carga de Variables y metodos inicializados
 	 * @throws No dispara ninguna excepcion.
 	 */
@@ -175,6 +159,36 @@ public class VMUtilidadesDeSeguridad {
 		serviciousuario.guardarUsuario(usuarioAux);
 		nombreCompleto = usuarioAux.getNombreCompleto();
 	}
+
+	/**
+	 * Metodo que permite conocer el nivel de autoridad del usuario,
+	 * determinando si está autorizado o no
+	 * 
+	 * @param autoridades
+	 *	Una lista separada por comas de las funciones que el usuario debe tener concedido NINGUNO
+	 * @return true si el principal autenticado no posee autoridades de NINGUNA de las funciones especificadas.
+	 * @throws No dispara ninguna excepción.
+	 */
+	public static boolean esAutorizado(String autoridades) {
+		if (null == autoridades || "".equals(autoridades)) {
+			return false;
+		}
+		final Collection<? extends GrantedAuthority> autoridadesConcedidas = getPrincipalAutoridades();
+
+		final Set autoridadesConcedidasCopia = conservarTodos(autoridadesConcedidas,convertirAutoridades(autoridades));
+		return autoridadesConcedidasCopia.isEmpty();
+	}
+	
+	/**
+	* Carga de fotoImagen del usuario. Permite la carga de la foto de perfil del usuario
+	* desde otra vista, cuando a está le ocurre alguna modificación. utiliza Archivo del 
+	* paquete herramientas.
+	* @param ninguno.
+	* @return Foto de perfil del usuario actualizada, 
+	 * el command indica a las variables el cambio que se hará en el objeto.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
 		
 	@Command
 	@GlobalCommand
@@ -195,6 +209,14 @@ public class VMUtilidadesDeSeguridad {
 		}
 	}
 		
+	/**
+	* Editar Perfil del Usuario permite llamar a la vista EditarPerfilUsuario.zul
+	* @param ninguno.
+	* @return ninguno, el command indica a las variables el cambio que se hará en el objeto.
+	* @throws No dispara ninguna excepción.
+	*
+	*/	
+	
 	@Command
 	public void editarPerfil() {
 		try {
@@ -211,12 +233,17 @@ public class VMUtilidadesDeSeguridad {
 			Messagebox.show(e.toString());
 		}
 	}
-	
-	@Command
-	public void cerrarSesion() {
-		mensajes.confirmacionCerrarSesion();
-	}	
        
+	/**
+	* Permite dado unas autoridades especificas, saber si estas son concedidas
+	* por el usuario concurrente o no.
+	* @param autoridades.
+	* @return true si las autoridades son concedidas por el usuario concurrente y false
+	* en caso contrario.
+	* @throws No dispara ninguna excepción.
+	*
+	*/	
+	
 	public static boolean sonTodasLasAutoridadesConcedidas(String autoridades) {
 		if (null == autoridades || "".equals(autoridades)) {
 			return false;
@@ -227,14 +254,15 @@ public class VMUtilidadesDeSeguridad {
 	}
         
 	/**
-	 * Devuelve true si se concede al principal autenticado CUALQUIERA de 
-	 * las funciones especificadas en las autoridades.
+	 * Metodo que permite saber dado unas autoridades en especifico, si el usuario concurrente
+	 * contiene alguna de ellas o no.
 	 * 
 	 * @param autoridades
 	 * Una lista separada por comas de los roles que debe 
 	 *         haber sido otorgados al usuario CUALQUIER separado.
-	 * @return true si al principal autenticado se le concede autoridades
-	 *  	   de TODAS las funciones especificadas.
+	 * @return true si se concede al principal autenticado CUALQUIERA de 
+	 * las funciones especificadas en las autoridades, false en caso contrario.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public static boolean tieneConcedidaAlgunaAutoridad(String autoridades) {
 		if (null == autoridades || "".equals(autoridades)) {
@@ -244,6 +272,14 @@ public class VMUtilidadesDeSeguridad {
 		final Set autoridadesConcedidasCopia = conservarTodos(autoridadesConcedidas,convertirAutoridades(autoridades));
 		return !autoridadesConcedidasCopia.isEmpty();
 	}
+	
+	/**
+	 * Metodo que permite todos los roles del usuario concurrente
+	 * 
+	 * @param ninguno.
+	 * @return List<String> roles estaticos del usuario.
+	 * @throws No dispara ninguna excepción.
+	 */	
         
 	public static List<String> roles() {
 		List<String> roles = new ArrayList<String>();
@@ -255,6 +291,15 @@ public class VMUtilidadesDeSeguridad {
 		return roles;
 	}
         
+	/**
+	 * Metodo que permite saber de manera estatica las autoridades del usuario 
+	 * concurrente, todas las que se le han concedido.
+	 * 
+	 * @param ninguno.
+	 * @return Collection<? extends GrantedAuthority> autoridadesConcedidas
+	 * @throws No dispara ninguna excepción.
+	 */	
+	
 	private static Collection<? extends GrantedAuthority> getPrincipalAutoridades() {
 		Authentication usuarioActual = SecurityContextHolder.getContext().getAuthentication();
 		if (null == usuarioActual) {
@@ -268,6 +313,15 @@ public class VMUtilidadesDeSeguridad {
 		return autoridadesConcedidas;
 	}
 
+	/**
+	 * Metodo que permite convertir ciertas autoridades de formato 
+	 * String a formato Collection<GrantedAuthority>
+	 * 
+	 * @param autorizacionesString.
+	 * @return Collection<? extends GrantedAuthority> autoridadesRequeridas
+	 * @throws No dispara ninguna excepción.
+	 */	
+	
     private static Collection<GrantedAuthority> convertirAutoridades(String autorizacionesString) {
         final ArrayList<GrantedAuthority> autoridadesRequeridas = new ArrayList<GrantedAuthority>();
         final String[] roles = autorizacionesString.split(",");
@@ -280,26 +334,25 @@ public class VMUtilidadesDeSeguridad {
     }
 
     /**
-     * Encuentra las autoridades comunes entre la corriente de autenticación 
+     * Metodo que encuentra las autoridades comunes entre la corriente de autenticación 
      * {@ link GrantedAuthority} y las que se han especificado en ifAny de la etiqueta, 
      * o IfNot ifAllGranted atributos. <p> Tenemos que iterar manualmente sobre ambas colecciones, 
      * porque las autoridades concedidas podrían no aplicar {@ linkObject # equals (Object)} y 
      * {@ link Object # hashCode ()} de la misma manera que {@ link SimpleGrantedAuthority}, lo 
      * que invalida {@ link Collection # retainAll (java.util.Collection)} resultados.</p>
-     * <p>
-     * <strong>CAVEAT</strong>:  Este metodo <strong>no funcionará</strong> si las autoridades otorgadas
-     * devuelven un <code>null</code> string como el valor de retorno de {@link
-     * org.springframework.security.GrantedAuthority#getAuthority()}.
-     * </p>
-     * <p>Reportado por rawdave, el Vie 04 de febrero 2005 14:11 en el foro de Spring Security</p>
      *
-     * @param concedido las autorizaciones otorgadas por la autenticación. Puede ser cualquier implementación de {@link
-     *        GrantedAuthority} que <strong>no</strong> devuelve <code>null</code> desde {@link
+     * @param concedido las autorizaciones otorgadas por la autenticación. Puede ser cualquier implementación 
+     *        de {@link GrantedAuthority} que <strong>no</strong> devuelve <code>null</code> desde {@link
      *        org.springframework.security.GrantedAuthority#getAuthority()}.
      * @param requiere un {@link Set} de {@link SimpleGrantedAuthority}s que se han construido utilizando ifAny, ifAll o
      *        ifNotGranted.
      *
      * @return Un conjunto que contiene sólo las autoridades comunes entre <var>granted</var> y <var>required</var>.
+     * @throws 
+     * <p> <strong>CAVEAT</strong>:  Este metodo <strong>no funcionará</strong> si las autoridades otorgadas
+     * devuelven un <code>null</code> string como el valor de retorno de {@link
+     * org.springframework.security.GrantedAuthority#getAuthority()}.
+     * </p>
      */
     private static Set conservarTodos(final Collection<? extends GrantedAuthority> autoridadesConcedidas, final Collection<? extends GrantedAuthority> autoridadesRequeridas) {
         Set<String> rolesConcedidos = deRoles(autoridadesConcedidas);
@@ -307,12 +360,16 @@ public class VMUtilidadesDeSeguridad {
         rolesConcedidos.retainAll(rolesRequeridos);
         return aLasAutoridades(rolesConcedidos, autoridadesConcedidas);
     }
-    
-    /**
-     * 
-     * @param autoridades
-     * @return
-     */
+
+	/**
+	 * Metodo que permite convertir ciertas autoridades de formato 
+	 *  Collection<GrantedAuthority> a formato String
+	 * 
+	 * @param autoridades.
+	 * @return Set<String> autoridadesConcedidas
+	 * @throws No dispara ninguna excepción.
+	 */	
+  
 	private static Set<String> deRoles(Collection<? extends GrantedAuthority> autoridades) {
 		final Set<String> autoridadesConcedidas = new HashSet<String>();
 		for (GrantedAuthority au : autoridades) {
@@ -327,32 +384,37 @@ public class VMUtilidadesDeSeguridad {
 		}
 		return autoridadesConcedidas;
 	}
-        
-    /**
-     * 
-     * @param rolesConcedidos
-     * @param autoridadesConcedidas
-     * @return autoridadObjetivo
-     */
+	
+	/**
+	 * Metodo que permite encontrar ciertas autoridades concedidas al usuario dentro de 
+	 * un conjunto de roles concedidos y retornar las coincidencias. 
+	 * 
+     * @param rolesConcedidos, autoridadesConcedidas
+	 * @return Set<GrantedAuthority> autoridadesObjetivo
+	 * @throws No dispara ninguna excepción.
+	 */	
+
 	private static Set<GrantedAuthority> aLasAutoridades(Set<String> rolesConcedidos,Collection<? extends GrantedAuthority> autoridadesConcedidas) {
-		Set<GrantedAuthority> autoridadObjetivo = new HashSet<GrantedAuthority>();
+		Set<GrantedAuthority> autoridadesObjetivo = new HashSet<GrantedAuthority>();
 
 		for (String rol : rolesConcedidos) {
 			for (GrantedAuthority autoridad : autoridadesConcedidas) {
 
 				if (autoridad.getAuthority().equals(rol)) {
-					autoridadObjetivo.add(autoridad);
+					autoridadesObjetivo.add(autoridad);
 					break;
 				}
 			}
 		}
-		return autoridadObjetivo;
+		return autoridadesObjetivo;
 	}
 
 	/**
-	 * prueba que verifica si el usuario actual contiene todas las autoridades que figuran
+	 * Metodo que permite verificar si el usuario actual contiene todas las autoridades que figuran
 	 * 
 	 * @param autoridades de los roles que serán verificados
+	 * @return ninguno.
+	 * @throws No dispara ninguna excepción.
 	 */
 	public static void afirmarTodos(String... autoridades) {
 		if (null == autoridades || autoridades.length == 0) {
@@ -373,4 +435,18 @@ public class VMUtilidadesDeSeguridad {
 						+ (usuarioActual == null ? "" : usuarioActual.getName()));
 		}
 	}
-}
+	
+	/**
+	* Cerrar Sesion del Usuario permite visualizar el mensaje de confirmación
+	* de cierre de sesión actual.
+	* @param ninguno.
+	* @return ninguno, el command indica a las variables el cambio que se hará en el objeto.
+	* @throws No dispara ninguna excepción.
+	*
+	*/	
+	
+	@Command
+	public void cerrarSesion() {
+		mensajes.confirmacionCerrarSesion();
+	}	
+} //fin VMUtilidadesDeSeguridad

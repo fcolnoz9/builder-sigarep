@@ -1,12 +1,15 @@
 package sigarep.modelos.lista;
 
 /**
- * Clase ListaGenericaSancionados
- * @author BUILDER
+ * Clase ListaGenericaSancionados (Lista que almacena los datos de los estudiantes
+ *  sancionados para las tres instancias)
+ * @author Equipo Builder
  * @version 1.0
  * @since 15/12/2013
+ * @last 10/05/2014
  */
 public class ListaGenericaSancionados {
+	
 	// Atributos de la clase
 	private String cedulaEstudiante;
 	private String primerNombre;
@@ -23,11 +26,11 @@ public class ListaGenericaSancionados {
 	private Integer idInstancia;
 
 	/**
-	 * Constructor Actividad
+	 * Constructor de la clase ListaGenericaSancionados
+	 * 
 	 * @param cedulaEstudiante, primerNombre, segundoNombre, primerApellido,
 	 * segundoApellido, email, programaAcademico, indiceAcademico, nombreSancion,
 	 * lapsosConsecutivos, lapsoAcademico, numeroCaso, idInstancia
-	 * @return Constructor lleno
 	 */
 	public ListaGenericaSancionados(String cedulaEstudiante, String primerNombre,
 			String segundoNombre, String primerApellido,
@@ -154,6 +157,7 @@ public class ListaGenericaSancionados {
 
 	public void setIdInstancia(Integer idInstancia) {
 		this.idInstancia = idInstancia;
-	}// Fin Métodos Set y Get
+	}
+	// Fin Métodos Set y Get
 
-}//Fin Clase ListaGenericaSancionados 
+} 

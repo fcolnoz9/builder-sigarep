@@ -2,26 +2,31 @@ package sigarep.modelos.servicio.seguridad;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.seguridad.Grupo;
 import sigarep.modelos.repositorio.seguridad.IGrupoDAO;
 import sigarep.modelos.repositorio.transacciones.IUsuarioGrupoDAO;
 
+/**
+* Clase ServicioGrupo : Clase de la capa servicio web para el manejo de consultas y persistencia de la tabla Grupo 
+* @author Equipo Builder
+* @version 1.0
+* @since 15/12/2013
+* @last 10/05/2014
+*/
 @Service("serviciogrupo")
 public class ServicioGrupo {
 
+	// Atributos de la clase
 	@Autowired
 	private IGrupoDAO iGrupoDAO;
 	@Autowired
 	private IUsuarioGrupoDAO iUsuarioGrupoDAO;
 
 	/**
-	 * Guardar Grupo
-	 * @param Grupo grupo
-	 * @return Guarda el objeto
+	 * Guarda un Grupo de usuarios del sistema
+	 * @param grupo
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -35,34 +40,34 @@ public class ServicioGrupo {
 	}
 
 	/**
-	 * Buscar Grupo por identificador de grupo
-	 * @param id del grupo
-	 * @return Busca el grupo
-	 * @throws No dispara ninguna excepción.
+	 * Buscar Grupo dado su id de grupo
+	 * @param idgrupo
+	 * @return Objeto Grupo
+	 * @throws NullPointerException si no
+	 * encuentra el Grupo.
 	 */
 	
 	public Grupo buscarGrupo(Integer idgrupo) {
 		return iGrupoDAO.findOne(idgrupo);
-
 	}
 	
 	/**
-	 * Buscar listado de todos los grupos dado los nombres
-	 * @param String roles
-	 * @return Busca todos los grupos
+	 * Busca la lista de todos los grupos dado los nombres
+	 * @param  roles
+	 * @return List<Grupo> grupos
 	 * @throws No dispara ninguna excepción.
 	 */
 
 	public List<Grupo> buscarTodos(String... roles) {
 		return iGrupoDAO.findAll();
-
 	}
 
 	/**
-	 * Buscar Grupo por nombre del grupo
-	 * @param nombre del grupo (rol)
-	 * @return Busca el grupo
-	 * @throws No dispara ninguna excepción.
+	 * Buscar Grupo dado su nombre
+	 * @param rol
+	 * @return Objeto Grupo
+	 * @throws NullPointerException si no
+	 * encuentra el Grupo.
 	 */
 	
 	public Grupo buscarGrupoNombre(String rol) {
@@ -70,9 +75,8 @@ public class ServicioGrupo {
 	}
 
 	/**
-	 * Listado de los grupos
-	 * @param
-	 * @return Busca todos los grupos registrados con estatus true excepto el grupo de idGrupo = 1
+	 * Busca una lista de todos los grupos a excepción el grupo de idGrupo 1
+	 * @return List<Grupo> grupos
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -82,9 +86,9 @@ public class ServicioGrupo {
 	}
 	
 	/**
-	 * Listado de los grupos a los que pertenece el usuario (sus roles)
-	 * @param Nombre del usuario
-	 * @return Busca todos los grupos a los cuales está asociado el usuario
+	 * Busca una lista de los grupos dado el nombre del usuario al que pertenecen
+	 * @param nombreUsuario
+	 * @return List<Grupo> grupos
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -94,9 +98,9 @@ public class ServicioGrupo {
 	}
 	
 	/**
-	 * Listado de los grupos a los que NO pertenece el usuario
-	 * @param Nombre del usuario
-	 * @return Busca todos los grupos a los cuales NO está asociado el usuario
+	 * Busca una lista de los grupos dado el nombre del usuario al que NO pertenecen
+	 * @param nombreUsuario
+	 * @return List<Grupo> grupos
 	 * @throws No dispara ninguna excepción.
 	 */
 	
@@ -106,10 +110,9 @@ public class ServicioGrupo {
 	}
 
 	/**
-	 * Eliminar Grupo
-	 * @param Integer idGrupo
-	 * @return Elimina lógicamente el objeto
-	 * @throws No dispara ninguna excepción.
+	 * Elimina un grupo dado su id de grupo
+	 * @param idGrupo
+	 * @throws Dispara una excepción si el grupo no existe.
 	 */
 	
 	public void eliminar(Integer idGrupo) {
@@ -119,10 +122,10 @@ public class ServicioGrupo {
 	}
 
 	/**
-	 * Buscar Grupo filtrando por nombre y descripción
+	 * Buscar Grupo filtrando por su nombre y descripción
 	 * 
-	 * @param String nombre, String descripcion
-	 * @return Busca una grupo por nombre y descripcion
+	 * @param nombre, descripcion
+	 * @return List<Grupo> grupos
 	 * @throws No dispara ninguna excepción.
 	 */
 	

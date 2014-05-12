@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.Binder;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -38,39 +37,29 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
+/**
+* Clase VMListaGenericaSancionados : Clase ViewModels relacionada con la clase ListaGenericaSancionados
+*
+* @author Equipo Builder
+* @version 1.0
+* @since 04/12/13
+* @last 10/05/2014
+*/
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMListaGenericaSancionados{
-
-	private SolicitudApelacion sancionadoSeleccionado;
-	private EstudianteSancionado estudianteSeleccionado;
-	private Estudiante estudiante;
-	
-	//Servicios para llenar los combos
+	//-----------------Servicios----------------------------
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
 	@WireVariable
 	private ServicioLapsoAcademico serviciolapsoacademico;
-	
-	//Servicios para buscar apelaciones segun su transaccion (AGREGA TU SERVICIO AQUI)
 	@WireVariable
 	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	@WireVariable
 	private ServicioEstudianteSancionado servicioestudiantesancionado;
 	@WireVariable
 	private ServicioEstudiante servicioestudiante;
-	
-	MensajesAlUsuario mensajesAlUsuario = new MensajesAlUsuario();
-	
-	//Lista que se llena segun la transaccion
-	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
-	private List<EstudianteSancionado> listaEstudiantes = new LinkedList<EstudianteSancionado>();
-	private List<Estudiante> listaMaestroEstudiantes = new LinkedList<Estudiante>();
-	
-	//Variables para el filtrado por combos o textbox
-	private List<ProgramaAcademico> listaPrograma;
-	private List<TipoMotivo> listaTipoMotivo;
-	private ListModelList<String> listaVeredicto;//Lista para llenar el combo Veredicto
+	//-----------------Variables ListaGenericaSancionados ------------------
 	private String nombrePrograma;
 	private String nombreTipoMotivo;
 	private String rutaModal="";
@@ -83,10 +72,21 @@ public class VMListaGenericaSancionados{
 	private String numeroSesion;
 	private String tipoSesion;
 	private Date fechaSesion;
+	//-----------------Variables Lista----------------------
+	private List<SolicitudApelacion> lista = new LinkedList<SolicitudApelacion>();
+	private List<EstudianteSancionado> listaEstudiantes = new LinkedList<EstudianteSancionado>();
+	private List<Estudiante> listaMaestroEstudiantes = new LinkedList<Estudiante>();
+	private List<ProgramaAcademico> listaPrograma;
+	private List<TipoMotivo> listaTipoMotivo;
+	private ListModelList<String> listaVeredicto;//Lista para llenar el combo Veredicto
+	//-----------------Variables Objeto---------------------
+	private SolicitudApelacion sancionadoSeleccionado;
+	private EstudianteSancionado estudianteSeleccionado;
+	private Estudiante estudiante;
 	private LapsoAcademico lapsoActivo;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 	
-	
+	// Métodos Set y Get
 	public List<Estudiante> getListaMaestroEstudiantes() {
 		return listaMaestroEstudiantes;
 	}
@@ -229,10 +229,16 @@ public class VMListaGenericaSancionados{
 	public void setCmbVeredicto(ListModelList<String> cmbVeredicto) {
 		this.listaVeredicto = cmbVeredicto;
 	}
+	//Fin Métodos Set y Get
 
 	/**
-	 * Otros Metodos
+	 * Init. Código de inicialización.
+	 * 
+	 * @param view, binder, rutaModal, numeroSesion, tipoSesion, fechaSesion.
+	 * @return Carga las lista de sancionados, el lapso y programas academicos.
+	 * @throws No dispara ninguna excepcion.
 	 */
+	
 	@Wire("#winListaGenericaSancionados")//para conectarse a la ventana con el ID
 	Window ventana;
 	@Init
@@ -250,11 +256,9 @@ public class VMListaGenericaSancionados{
 			if(lapsoActivo == null)
 				mensajeAlUsuario.advertenciaLapsoAcademicoNoActivo(ventana);
 	
-		
 		//Se valida que si se puede registrar o no la apelacion para
 		//la instancia seleccionada
 		if (validarLogicaApelaciones()){
-			
 			if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
 					rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
@@ -262,54 +266,34 @@ public class VMListaGenericaSancionados{
 				this.tipoSesion = tipoSesion;
 				this.fechaSesion = fechaSesion;
 			}
-			
-			
 			buscarProgramaA ();
 			buscarSancionados();
-			listaVeredicto= new ListModelList<String>();	
-			
+			listaVeredicto= new ListModelList<String>();				
 		}
     }
 	
-	//Valida si se puede registrar apelaciones en una Instancia seleccionada considerando
-	//si se ha comenzado o finalizado el proceso de apelaciones en otra Instancia.
-	public boolean validarLogicaApelaciones(){
-		boolean resultado=true;
-		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul")){
-			if (serviciosolicitudapelacion.existenApelacionesIniciadas(2) ||
-					serviciosolicitudapelacion.existenApelacionesIniciadas(3)){
-				mensajeAlUsuario.advertenciaNoPuedeRegistrarApelacionInicial();
-				return resultado = false;
-			}
-		}
-		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul")){
-			if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
-				mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion();
-				resultado = false;
-			}
-			else if (serviciosolicitudapelacion.existenApelacionesIniciadas(3)){
-				mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion2();
-				resultado = false;
-			}
-			return resultado;
-		}
-		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
-			if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(2) ||
-				!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
-				mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoJerarquico();
-				return resultado = false;
-			}
-		}
-		return resultado;
-	}
-
+	/**Busca la lista de los programas acádemicos registrados. 
+	 * @param ninguno.
+	 * @return Llena la lista de programas, 
+	 * el command indica a las variables el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
+	 */
+	
 	@Command
 	@NotifyChange({ "listaPrograma" })
 	public void buscarProgramaA() {
 		listaPrograma = servicioprogramaacademico.buscarPrograma(nombrePrograma);
 	}
 	
-	//Metodo donde se decide cuales sancionados se deben buscar segun la transaccion
+	/**Metodo que busca una lista de estudiantes o solicitudes de apelación
+	 * de los mismos según la transacción seleccionada del menú del sistema
+	 * decidiendo cuales sancionados se deben buscar segun la transacción. 
+	 * @param ninguno.
+	 * @return Llena la lista de estudiantes o de solicitudes de apelación, 
+	 * el command indica a las variables el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
+	 */	
+
 	@Command
 	@GlobalCommand
 	@NotifyChange({"lista","listaEstudiantes", "listaMaestroEstudiantes"})
@@ -346,11 +330,79 @@ public class VMListaGenericaSancionados{
 			listaEstudiantes = servicioestudiantesancionado.buscarSancionadosRecursoJerarquico();
 		else if (rutaModal.equalsIgnoreCase("reportes/informes/InformeActas.zul"))
 			lista = serviciosolicitudapelacion.buscarApelacionesActa (lapsoActivo, 1);
+	}	
+	
+	/**Metodo que valida si se puede registrar apelaciones en una Instancia 
+	 * seleccionada considerando si se ha comenzado o finalizado el proceso 
+	 * de apelaciones en otra Instancia. 
+	 * @param ninguno.
+	 * @return false si existen apelaciones por procesar en una instancia anterior a
+	 * la seleccionada o true en caso contrario.
+	 * @throws No dispara ninguna excepción.
+	 */	
+	
+	public boolean validarLogicaApelaciones(){
+		boolean resultado=true;
+		if (rutaModal.equalsIgnoreCase("transacciones/RegistrarDatosInicialesApelacion.zul")){
+			if (serviciosolicitudapelacion.existenApelacionesIniciadas(2) ||
+					serviciosolicitudapelacion.existenApelacionesIniciadas(3)){
+				mensajeAlUsuario.advertenciaNoPuedeRegistrarApelacionInicial();
+				return resultado = false;
+			}
+		}
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarReconsideracion.zul")){
+			if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
+				mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion();
+				resultado = false;
+			}
+			else if (serviciosolicitudapelacion.existenApelacionesIniciadas(3)){
+				mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoReconsideracion2();
+				resultado = false;
+			}
+			return resultado;
+		}
+		else if (rutaModal.equalsIgnoreCase("transacciones/RegistrarRecursoJerarquico.zul")){
+			if (!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(2) ||
+				!serviciosolicitudapelacion.estanFinalizadasLasApelaciones(1)){
+				mensajeAlUsuario.advertenciaNoPuedeRegistrarRecursoJerarquico();
+				return resultado = false;
+			}
+		}
+		return resultado;
 	}
+	
+	/**Metodo que valida que aparezca el combo de veredicto cuando una transacción
+	 * de veredicto es seleccionada o que no aparezca en caso contrario. 
+	 * @param ninguno.
+	 * @return ninguno, el command indica a las variables el cambio que se hará en el objeto.
+	 * @throws No dispara ninguna excepción.
+	 */
+	
+	@Command
+	public void validarComboVeredicto(@BindingParam("combo") Combobox cmbVeredicto, 
+										@BindingParam("label") Label lblVeredicto) {
+		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
+				rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
+				rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
+			lblVeredicto.setVisible(true);
+			cmbVeredicto.setVisible(true);
+		}
+		else{
+			lblVeredicto.setVisible(false);
+			cmbVeredicto.setVisible(false);
+		}
+	}
+	
+	/**Metodo que muestra en pantalla la ventana modal con la información
+	 * de los estudiantes sancionados que tienen apelación en esa transacción
+	 * seleccionada. 
+	 * @param listboxSancionados.
+	 * @return ninguno, el command indica a las variables el cambio que se hará en el objeto
+	 * @throws No dispara ninguna excepción.
+	 */	
 	
 	@Command
 	public void showModal(@BindingParam("listboxSancionados") Listbox listboxSancionados){
-  	
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 	 	map.put("sancionadoSeleccionado", sancionadoSeleccionado);
 	 	map.put("estudianteSeleccionado", estudianteSeleccionado);
@@ -364,6 +416,16 @@ public class VMListaGenericaSancionados{
 		window.setMaximizable(true);
 		window.doModal();
   	}
+	
+	/**
+	* Filtros. Método que busca y filtra los estudiantes sancionados
+	* en una transacción seleccionada en el menú del sistema.
+	*
+	* @param Ninguno.
+	* @return Objeto Estudiante Sancionado filtrado.
+	* @throws No dispara ninguna excepción.
+	*
+	*/
 	
 	@Command
 	@NotifyChange({"lista","listaEstudiantes","programa","cedula","nombre","apellido","sancion", "listaMaestroEstudiantes"})
@@ -403,6 +465,22 @@ public class VMListaGenericaSancionados{
 	}
 	
 	/**
+	* Filtrar Veredicto. Método que busca y filtra los estudiantes sancionados 
+	* por un resultado de veredicto seleccionado.
+	*
+	* @param listaFiltrarVeredicto.
+	* @return Objeto Estudiante Sancionado filtrado.
+	* @throws No dispara ninguna excepción.
+	*/	
+		
+	@Command
+	@NotifyChange({"lista","veredicto"})
+	public void filtrarVeredicto(List<SolicitudApelacion> listaFiltrarVeredicto){
+		if(!veredicto.equalsIgnoreCase("TODOS") && !veredicto.equals(""))
+			lista = serviciosolicitudapelacion.filtrarComboVeredictoListaGenerica(listaFiltrarVeredicto,veredicto);
+	}
+		
+	/**
 	 * Cerrar Ventana
 	 * 
 	 * @param binder
@@ -416,27 +494,4 @@ public class VMListaGenericaSancionados{
 		boolean condicion = true;
         mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
-	
-	@Command
-	@NotifyChange({"lista","veredicto"})
-	public void filtrarVeredicto(List<SolicitudApelacion> listaFiltrarVeredicto){
-		if(!veredicto.equalsIgnoreCase("TODOS") && !veredicto.equals(""))
-			lista = serviciosolicitudapelacion.filtrarComboVeredictoListaGenerica(listaFiltrarVeredicto,veredicto);
-	}
-	
-	@Command
-	public void validarComboVeredicto(@BindingParam("combo") Combobox cmbVeredicto, 
-										@BindingParam("label") Label lblVeredicto) {
-		if (rutaModal.equalsIgnoreCase("transacciones/VeredictoI.zul") || 
-				rutaModal.equalsIgnoreCase("transacciones/VeredictoII.zul") || 
-				rutaModal.equalsIgnoreCase("transacciones/VeredictoIII.zul")){
-			lblVeredicto.setVisible(true);
-			cmbVeredicto.setVisible(true);
-		}
-		else{
-			lblVeredicto.setVisible(false);
-			cmbVeredicto.setVisible(false);
-		}
-	}
-}
-
+} //fin VMListaGenericaSancionados
