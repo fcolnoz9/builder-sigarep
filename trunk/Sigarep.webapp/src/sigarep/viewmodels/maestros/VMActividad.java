@@ -21,7 +21,8 @@ import sigarep.modelos.servicio.maestros.ServicioActividad;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
 /**
- * Clase VMactividad
+ * Clase VMactividad : Clase ViewModels 
+relacionada con el Maestro Actividad. 
  * 
  * @author Equipo Builder 
  * @version 1.0
@@ -138,9 +139,9 @@ public class VMActividad {
 	// Fin de los métodos set y get
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
-	 * @param ninguno
+	 * Inicialización
+	 * Init. Código de inicialización.
+	 * @param Ninguno.
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
 	 */
@@ -153,9 +154,9 @@ public class VMActividad {
 	/**
 	 * listaActividad tiene todas las actividades registradas
 	 * 
-	 * @param listaActividad
-	 * @return listaActividad
-	 * @throws No dispara ninguna excepción
+	 * @param Ninguno.
+	 * @return Objeto Actividad.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaActividad" })
@@ -165,11 +166,11 @@ public class VMActividad {
 
 
 	/**
-	 * guardar Actividad
+	 * guardar Actividad : Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
 	 * 
-	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -189,7 +190,7 @@ public class VMActividad {
 
 
 	/**
-	 * eliminarActividad : Elimina un registro físicamente.
+	 * eliminarActividad : Elimina una actividad físicamente.
 	 * 
 	 * @param @ContextParam(ContextType.BINDER) final Binder binder
 	 * @return Ninguno.
@@ -227,10 +228,9 @@ public class VMActividad {
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
 	 * 
-	 * @param Ninguno
-	 *            .
-	 * @return Objeto Actividad seleccionada
-	 * @throws No dispara ninguna excepción
+	 * @param Ninguno.
+	 * @return Objeto Actividad.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "instanciaApelada", "descripcion" })
@@ -244,23 +244,22 @@ public class VMActividad {
 	/**
 	 * buscarInstanciaApelada
 	 * 
-	 * @param Ninguno
+	 * @param Ninguno.
 	 * @return Busca todos los registros. 
-	 * @throws No dispara ninguna excepción
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
 	public void buscarInstanciaApelada() {
-		listaInstanciaApelada = servicioInstanciaApelada
-				.listadoInstanciaApelada();
+		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
 	}
 
 	/**
 	 * comboActividad
 	 * 
-	 * @param Ninguno
-	 * @return Objeto actividad
-	 * @throws No dispara ninguna excepción
+	 * @param Ninguno.
+	 * @return Objeto actividad.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada" })
@@ -271,9 +270,9 @@ public class VMActividad {
 	/**
 	 * filtros   Método que busca y filtra por nombre de la actividad y responsable de la actividad
 	 * 
-	 * @param Ninguno
-	 * @return Objeto Actividad
-	 * @throws No dispara ninguna excepción
+	 * @param Ninguno.
+	 * @return Objeto Actividad.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaActividad", "nombreFiltro", "responsableFiltro" })
@@ -285,9 +284,9 @@ public class VMActividad {
 	/**
 	 * limpiar
 	 * 
-	 * @param Ninguno
-	 * @return Ninguno
-	 * @throws No dispara ninguna excepción
+	 * @param Ninguno.
+	 * @return Ninguno.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "id_actividad", "nombre", "descripcion",
@@ -306,8 +305,9 @@ public class VMActividad {
 	
 	/**
 	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
-	 * @param Window ventana
-	 * @return Ninguno
+	 * 
+	 * @param Window ventana.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	
