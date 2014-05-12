@@ -17,7 +17,9 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.PreguntaBasica;
 import sigarep.modelos.servicio.maestros.ServicioPreguntaBasica;
 
-/** Clase VMPreguntaBasica.
+/** Clase VMPreguntaBasica : Clase ViewModels 
+relacionada con el Maestro PreguntaBasica.
+
  * @author Equipo Builder
  * @version 1.0
  * @since 02-/12/13
@@ -83,28 +85,30 @@ public class VMPreguntaBasica {
 	public void setPreguntaseleccionada(PreguntaBasica preguntaseleccionada) {
 		this.preguntaseleccionada = preguntaseleccionada;
 	}
+	
 	//Fin de los metodos get y set
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param ninguno
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init(){
-		//initialization code
+		
 		buscarPregunta (); 
 	}
 
 	/** guardarPreguntaBasica
+	 * 
 	 * @param Ninguno.
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
-	@Command // Permite manipular la propiedad de ViewModel
-	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
+	@Command 
+	@NotifyChange({"id_pregunta_basica", "pregunta", "respuesta","estatus","listaPregunta"})
 	public void guardarPregunta(){
 		if (pregunta==null||respuesta==null)
 			mensajeAlUsuario.advertenciaLlenarCampos();
@@ -117,6 +121,7 @@ public class VMPreguntaBasica {
 	}
 
 	/** eliminarPreguntaBasica
+	 * 
 	 * @param @ContextParam(ContextType.BINDER) final Binder binder
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción. 
@@ -152,8 +157,9 @@ public class VMPreguntaBasica {
 	/**
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
+	 * 
 	 * @param Ninguno
-	 * @return Objeto pregunta basica seleccionada
+	 * @return Objeto PreguntaBasica seleccionada
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -165,8 +171,9 @@ public class VMPreguntaBasica {
 	}
 
 	/** buscarPreguntaBasica
+	 * 
 	 * @param Ninguno
-	 * @return Objeto preguntas basicas. 
+	 * @return Objeto PreguntaBasica. 
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command

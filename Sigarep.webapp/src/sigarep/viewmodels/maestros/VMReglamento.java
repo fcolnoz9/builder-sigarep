@@ -23,7 +23,9 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
-/** Clase VMReglamento.
+/** Clase VMReglamento : Clase ViewModels 
+relacionada con el Maestro Reglamento.
+
  * @author Equipo Builder
  * @version 2.5.2
  * @since 22-/01/13
@@ -52,7 +54,7 @@ public class VMReglamento {
 	private Documento documento = new Documento();
 	private MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
 
-	//Metodos Get y Set de la clase 
+	//Métodos Sets y Gets
 	public String getNombreDoc() {
 		return nombreDoc;
 	}
@@ -158,17 +160,17 @@ public class VMReglamento {
 	public void setCategoriaF(String categoriaF) {
 		this.categoriaF = categoriaF;
 	}
-	//Fin de los Metodos Get y Set de la clase 
-
 	
+	//Fin Métodos Sets y Gets
+
 	public VMReglamento() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * inicialización
-	 *  Init. Código de inicialización.
+	 * Inicialización
+	 * Init. Código de inicialización.
 	 * @param ninguno
 	 * @return Objetos inicializados.
 	 * @throws No dispara ninguna excepción.
@@ -184,13 +186,14 @@ public class VMReglamento {
 		buscarReglamento();	
 	}
 
-	/** guardarReglamento
-	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	/** guardarReglamento : Guarda el registro completo, el command indica a las variables el
+	 *  cambio que se hará en el objeto.
+	 * 
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
-	@Command // Permite manipular la propiedad de ViewModel
+	@Command 
 	@NotifyChange({"IdDocumento","titulo", "descripcion","categoria","fechaSubida", "listaReglamento","nombreDoc", "documento"})//el notifychange le  avisa a que parametros en la pantalla se van a cambiar, en este caso es los atributos de la pantalla se va a colocar en blanco al guardar!!
 	public void guardarReglamento(){
 		if (titulo == null || descripcion ==null|| categoria==null )
@@ -213,6 +216,7 @@ public class VMReglamento {
 	}
 
 	/**eliminarReglamento
+	 * 
 	* @param @ContextParam(ContextType.BINDER) final Binder binder
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción. 
@@ -244,6 +248,7 @@ public class VMReglamento {
 	/**
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
+	 * 
 	 * @param Ninguno         .
 	 * @return Objeto reglamento seleccionada
 	 * @throws No dispara ninguna excepción
@@ -287,6 +292,7 @@ public class VMReglamento {
 
 	/**
 	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * 
 	 * @param Window ventana
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.
@@ -324,6 +330,7 @@ public class VMReglamento {
 	}
 
 	/**cargarDocumento : Muestra Documento Seleccionado
+	 * 
 	 * @param Ninguno.
 	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción
@@ -358,6 +365,7 @@ public class VMReglamento {
 	}
 
 	/**descargarDocumento
+	 * 
 	 * @param Ninguno.
 	 * @return Ninguno.
      * @throws No dispara ninguna excepción

@@ -19,7 +19,9 @@ import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.TipoMotivo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-/** Clase VMTipoMotivo.
+/** Clase VMTipoMotivo : Clase ViewModels 
+relacionada con el Maestro TipoMotivo.
+
  * @author Equipo Builder
  * @version 2.5.2
  * @since 22-/01/13
@@ -46,7 +48,7 @@ public class VMTipoMotivo {
 	@Wire Textbox txtnombreTipoMotivo;
 	@Wire Window winTipoMotivo;
 
-	//Metodos set y get
+	//Métodos Sets y Gets
 
 	public String getNombreTipoMotivo() {
 		return nombreTipoMotivo;
@@ -107,7 +109,7 @@ public class VMTipoMotivo {
 	public void setNombreFiltro(String nombreFiltro) {
 		this.nombreFiltro = nombreFiltro;
 	}
-	//Fin de los metodod gets y sets
+	//Fin de los Métodos Sets y Gets
 
 	/**
 	 * inicialización
@@ -137,10 +139,10 @@ public class VMTipoMotivo {
 	}	
 
 	/**
-	 * guardarTipoMotivo
+	 * guardarTipoMotivo : Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
 	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -217,9 +219,8 @@ public class VMTipoMotivo {
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
 	 * 
-	 * @param Ninguno
-	 *            .
-	 * @return Objeto sacionMaestro seleccionada
+	 * @param Ninguno.
+	 * @return Objeto TipoMotivo seleccionado
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -232,7 +233,7 @@ public class VMTipoMotivo {
 	}
 
 	/**
-	 * filtros   Método que busca y filtra por nombre de motiv
+	 * filtros   Método que busca y filtra por nombre de motivo
 	 * @param Ninguno
 	 * @return Objeto tipoMotivo
 	 * @throws No dispara ninguna excepción
@@ -262,6 +263,7 @@ public class VMTipoMotivo {
 
 	/**
 	 * Cerrar Ventana : Cierra el .zul asociado al VM. 
+	 * 
 	 * @param Window ventana
 	 * @return Ninguno
 	 * @throws No dispara ninguna excepción.
