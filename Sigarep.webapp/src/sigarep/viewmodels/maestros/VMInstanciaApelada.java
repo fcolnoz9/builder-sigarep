@@ -26,11 +26,13 @@ import sigarep.modelos.data.transacciones.InstanciaMiembro;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.transacciones.ServicioInstanciaMiembro;
 
-/**Clase VMInstanciaApelada
- * ViewModel para la interfaz RegistrarInstanciaApelada.zul
+/**Clase VMInstanciaApelada : Clase ViewModels 
+relacionada con el Maestro InstanciaApelada.
+ 
  * @author Equipo Builder
  * @version 1.0
  * @since 20/12/13
+ * @last 09/05/2014
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMInstanciaApelada {
@@ -143,18 +145,17 @@ public class VMInstanciaApelada {
 	 * Init. Código de inicialización.
 	 * @param Ninguno
 	 * @return código de inicialización
-	 * @throws No
-	 * dispara ninguna excepción.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Init
 	public void init(){
-		//initialization code
+		
 		listadoInstancia();
 	}
 
-	/** Listado de InstaciaApelada registradas y activas 
-	 * @return nada
-	 * @parameters vacío
+	/** Listado de InstaciaApelada registradas que se encuentran activas 
+	 * @param Ninguno
+	 * @return Objeto InstanciaApelada
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -163,9 +164,10 @@ public class VMInstanciaApelada {
 		listaInstanciaApelada = servicioInstanciaApelada.listadoInstanciaApelada();
 	}
 
-	/** Guardar InstaciaApelada 
-	 * @return nada
-	 * @parameters vacío
+	/** Guardar InstaciaApelada :  Guarda el registro completo, el command indica a las variables el
+	 *  cambio que se hará en el objeto.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepcion.
 	 */
 	@Command
@@ -230,9 +232,8 @@ public class VMInstanciaApelada {
 	 * mostrarSeleccionada : Muestra en el área de datos el registro
 	 * seleccionado
 	 * 
-	 * @param Ninguno
-	 *            .
-	 * @return Objeto Instanci aApelada seleccionada
+	 * @param Ninguno.
+	 * @return Objeto InstanciaApelada seleccionada.
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -245,11 +246,11 @@ public class VMInstanciaApelada {
 	}
 
 	/**
-	 * filtros
+	 * filtros : Método que busca y filtra los enlaces por instancia y filtro.
 	 * 
 	 * @param Ninguno
-	 * @return instanciaFiltro, recursoFiltro
-	 * @throws No dispara ninguna excepción
+	 * @return Objeto InstanciaApelada.
+	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
 	@NotifyChange({ "listaInstanciaApelada", "instanciaFiltro", "recursoFiltro" })
@@ -278,7 +279,7 @@ public class VMInstanciaApelada {
 	/**
 	 * Cerrar Ventana
 	 * 
-	 * @param binder
+	 * @param Window ventana
 	 * @return cierra el .zul asociado al VM
 	 * @throws No dispara ninguna excepcion.
 	 */
