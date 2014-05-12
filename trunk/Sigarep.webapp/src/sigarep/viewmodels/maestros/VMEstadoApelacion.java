@@ -24,11 +24,13 @@ import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 
 /**
- * Clase VMEstadoApelacion 
+ * Clase VMEstadoApelacion : Clase ViewModels 
+relacionada con el Maestro EstadoApelacion. 
  * 
  * @author Equipo Builder
  * @version 1.0
  * @since 19/12/2013
+ * @last 09/05/2014
  */
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -135,7 +137,7 @@ public class VMEstadoApelacion {
 	
 
 	/**
-	 * inicialización
+	 * Inicialización
 	 * Init. Código de inicialización.
 	 * @param Ninguno
 	 * @return código de inicialización
@@ -143,16 +145,15 @@ public class VMEstadoApelacion {
 	 */
 		@Init
 		public void init() {
-			// initialization code
 			buscarEstadoApelacion();
 			buscarInstanciaApelada();
 			
 		}
 
-	/** Guardar Estado de Apelación 
-	 * @param Ninguno
-	 * @return Guarda el registro completo, el command indica a las variables el
-	 *         cambio que se hará en el objeto.
+	/**Guardar Estado de Apelación : Guarda el registro completo, el command indica a las variables el
+	 * cambio que se hará en el objeto.
+	 * @param Ninguno.
+	 * @return Ninguno.
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
@@ -174,7 +175,7 @@ public class VMEstadoApelacion {
 	}
 	/** Buscar Estado Apelacion
 	 *  @param Ninguno
-	 *  @return Ninguno 
+	 *  @return Objeto EstadoApelacion.
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
@@ -184,8 +185,9 @@ public class VMEstadoApelacion {
 	}
 	
 	/** buscar Instancia Apelada
+	 * 
 	 *  @param Ninguno
-	 *  @return Ninguno 
+	 *  @return Objeto listadoInstanciaApelada.
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
@@ -247,7 +249,7 @@ de datos el registro seleccionado
 	 * combo Estado Apelacion
 	 * 
 	 * @param Ninguno
-	 * @return instanciaApelada
+	 * @return Objeto instanciaApelada
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
@@ -257,8 +259,9 @@ de datos el registro seleccionado
 	}
 
 	/** listado Estado Apelacion :  Método que trae todos los registros en una lista de Estados de Apelacion
+	 * 
 	 * @param Ninguno
-	 * @return Ninguno
+	 * @return Objeto EstadoApelacion.
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
