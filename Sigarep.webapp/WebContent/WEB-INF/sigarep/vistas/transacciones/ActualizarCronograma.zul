@@ -54,14 +54,14 @@
 				<row>
 					<label value="Fecha de Inicio: "
 						id="lblfechaInicio" />
-					<datebox id="dtbFechaInicio" constraint="@load(vm.constraintDate)"
+					<datebox id="dtbFechaInicio"
 						placeholder="Seleccione..."
 						mold="rounded" width="80%" tabindex="7" format="dd/MM/yyyy"
 						value="@bind(vm.fechaInicio)"
 						onChange="@command('validarFecha')" />
 					<label value="Fecha de Finalización: "
 						id="lblfechaFinal" />
-					<datebox  id="dtbFechaFin" constraint="@load(vm.constraintDate)"
+					<datebox  id="dtbFechaFin"
 					    placeholder="Seleccione..."
 						mold="rounded" width="80%" tabindex="7" format="dd/MM/yyyy"
 						value="@bind(vm.fechaFin)"

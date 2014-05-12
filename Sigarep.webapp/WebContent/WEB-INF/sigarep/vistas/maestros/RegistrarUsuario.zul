@@ -105,11 +105,9 @@
 					<textbox id="txtNombreUsuario"  mold="rounded" width="80%"
 						placeholder="Ingrese un nombre de usuario"  maxlength="45"
 						value="@bind(vm.nombreUsuario)" />
-					<hlayout hflex="1" vflex="1">
 					<button label="Cargar Imagen" id="btnImagen" upload="true,maxsize=51200"  image="/imagenes/iconos/cargar.png" 
 						 onUpload="@command('cargarImagenUsuario',upload=event)" >
 					</button>
-					</hlayout>
 					<image id="imgImagen" height="100px" width="100px" content="@bind(vm.imagenUsuario)" />
 					
 				</row>
