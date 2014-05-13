@@ -52,12 +52,13 @@ public class EstadoApelacion implements Serializable {
 	 * @param idEstadoApelacion , nombreEstado, descripcion, estatus
 	 */
 	public EstadoApelacion(Integer idEstadoApelacion, String nombreEstado,
-			String descripcion, Boolean estatus) {
+			String descripcion, Boolean estatus, Integer prioridadEjecucion) {
 		super();
 		this.idEstadoApelacion = idEstadoApelacion;
 		this.nombreEstado = nombreEstado;
 		this.descripcion = descripcion;
 		this.estatus = estatus;
+		this.prioridadEjecucion = prioridadEjecucion;
 	}
 	
 	// Métodos Set y Get
