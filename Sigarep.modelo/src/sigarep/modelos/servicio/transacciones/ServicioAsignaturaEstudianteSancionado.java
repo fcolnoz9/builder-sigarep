@@ -12,33 +12,46 @@ import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.repositorio.transacciones.IAsignaturaEstudianteSancionadoDAO;
 
 
-
+/**
+ * Clase ServicioAsignaturaEstudianteSancionado : Clase de la capa servicio web para el manejo de consultas y persistencia de la tabla AsignaturaEstudianteSancionado 
+ * 
+ * @author Equipo Builder
+ * @version 1.0
+ * @since 04/01/2014
+ * @last 10/05/2014
+ */
 @Service("servicioasignaturaestudiantesancionado")
 public class ServicioAsignaturaEstudianteSancionado {
 	
+	// Atributos de la clase
 	@PersistenceContext
 	private EntityManager em;
 	private @Autowired IAsignaturaEstudianteSancionadoDAO iAsignaturaEstudianteSancionadoDAO;
 	
-	//metodo que permite Guardar
+	/**
+	 * Guarda la asignatura por la cual un estudiante es sancionado
+	 * @param asignaturaEstudianteSancionado
+	 * @throws No dispara ninguna excepción.
+	 */
 	public void guardarAsignaturaEstudianteSancionado(AsignaturaEstudianteSancionado asignaturaEstudianteSancionado){
 		iAsignaturaEstudianteSancionadoDAO.save(asignaturaEstudianteSancionado);
 	}
-	/**buscarAsignaturaDeSancion 
-	 * @param cedula y lapso
-	 * @return resultado es un listado de asignaturas por estudiante sancionado en un lapso academico
+	
+	/**Busca las asignaturas por las que los estudiantes son sancionados
+	 * @param cedula, lapso
+	 * @return List<AsignaturaEstudianteSancionado> Lista de asignaturas por estudiante sancionado en un lapso académico
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<AsignaturaEstudianteSancionado> buscarAsignaturaDeSancion(String cedula, String lapso){
 		return iAsignaturaEstudianteSancionadoDAO.findById_CedulaEstudianteAndId_CodigoLapso(cedula, lapso);
 	}
 	
 	/**
-	 * Eliminar fisicamente la asignatura del estudiante sancionado
-	 * @param AsignaturaEstudianteSancionadoPK id (codigolapso, cedulaEstudiante, codigoAsignatura) 
-	 * @return Elimina fisicamente el objeto
+	 * Elimina físicamente la asignatura del estudiante sancionado
+	 * @param cedulaEstudiante, codigoAsignatura
+	 * @return Elimina físicamente el objeto
 	 * @throws No dispara ninguna excepción.
 	 */
-	
 	public void eliminarAsignaturaEstudianteSancionadoFisicamente(String cedulaEstudiante, String codigoAsignatura){
 		String queryStatement = "delete from sigarep.asignatura_estudiante_sancionado aes where " +
 		"aes.cedula_estudiante = '"+ cedulaEstudiante +"' and aes.codigo_asignatura = '"+ codigoAsignatura +"'";
