@@ -34,7 +34,7 @@
 							value="Recurso de Apelación:" />
 						<combobox readonly="true" 
 							id="cmbInstanciaApelada" tabindex="3"
-							placeholder= "Seleccione un tipo de recurso de apelación..."
+							placeholder= "Seleccione un tipo de recurso de apelación"
 							value="@bind(vm.instanciaApelada.nombreRecursoApelacion)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
 							selectedItem="@bind(vm.instanciaApelada)"
@@ -45,8 +45,9 @@
 							</template>
 						</combobox>
 						<label id="lblPrioridadEjecucion" value="Prioridad de ejecución:" />
-						<intbox id="txtPrioridadEjecucion" width="80%"
-								tabindex="4" value="@bind(vm.prioridadEjecucion)></intbox>
+						<intbox id="txtPrioridadEjecucion" width="80%" 
+								placeholder= "Ingrese la prioridad de ejecución"
+								tabindex="4" value="@bind(vm.prioridadEjecucion)" ></intbox>
 					</row>
 				</rows>
 			</grid>
@@ -74,7 +75,7 @@
 			<caption label="Lista de Estados de Apelación" />
 			<listbox id="lbxNombreEstadoApelacion" height="100%"
 				model="@bind(vm.listaEstadoApelacion)"
-				selectedItem="@bind(vm.estadoseleccionado)"
+				selectedItem="@bind(vm.estadoSeleccionado)"
 				onSelect="@command('mostrarSeleccionado')"
 				onClick="@command('bloquear')"
 				emptyMessage="No hay Estados de Apelación registrados" mold="paging"
