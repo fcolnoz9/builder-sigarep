@@ -1,5 +1,5 @@
 <zk>
-<window id="winReporteAsignaturasMayorCantidadSancionados" title="Reportes :: Estadísticos :: Comparativos :: Top 5 Asignaturas con Mayor Sancionados Vs Apelaciones por Instancia" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
+<window id="winReporteAsignaturasMayorCantidadSancionados" title="Reportes :: Estadísticos :: Comparativos :: Asignaturas :: Top 5 Asignaturas con Mayor Sancionados Vs Apelaciones por Instancia" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
 	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMAsignaturasMayorCantidadSancionados')">
 
 	<vlayout>
