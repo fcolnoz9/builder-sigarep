@@ -7,6 +7,15 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.reportes.EstudianteSancionado;
 
+/**
+* Clase Servicio ServicioReporteEstudianteSancionado busca
+* a los estudiantes que han apelado según sexo, tipo sanción, 
+* estado de apelación, instancia apelada y lapso académico
+* @author Equipo Builder
+* @version x.5
+* @since 05/01/2014 (Fecha de creación)
+* @last 09/05/2014 (Ultima modificación)
+*/
 @Service("servicioreporteestudiantesancionado")
 public class ServicioReporteEstudianteSancionado {
 	@PersistenceContext

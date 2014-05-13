@@ -3,13 +3,22 @@ package sigarep.modelos.servicio.reportes;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 import sigarep.modelos.data.reportes.ListaEspecialEstudiantesSancionadosApelaciones;
 
+/**
+* Clase Servicio ServicioInformeEspecialEstudiantesSancionadosApelaciones consulta los 
+* datos básicos del estudiante, así como el tipo de sanción, los motivos 
+* por las que apelo y el veredicto obtenido
+* en cada instancia apelada, todo ello en un lapso específico activo.
+* @author Equipo Builder
+* @version x.11
+* @since 05/01/2014 (Fecha de creación)
+* @last 18/03/2014 (Ultima modificación)
+*/
 @Service("servicioestudianteasignaturasancion")
 public class ServicioInformeEspecialEstudiantesSancionadosApelaciones {
 	@PersistenceContext

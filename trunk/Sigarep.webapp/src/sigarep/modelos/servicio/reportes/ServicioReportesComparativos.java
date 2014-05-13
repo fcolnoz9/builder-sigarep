@@ -1,15 +1,20 @@
 package sigarep.modelos.servicio.reportes;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.reportes.ApelacionesComparativos;
 
+/**
+* Clase Servicio ServicioReportesComparativos busca a los estudiantes  
+* que han apelado según lapso académico, programa y tipo de sanción.
+* @author Equipo Builder
+* @version x.2
+* @since 05/01/2014 (Fecha de creación)
+* @last 09/05/2014 (Ultima modificación)
+*/
 @Service("servicioreportescomparativos")
 public class ServicioReportesComparativos {
 	@PersistenceContext
