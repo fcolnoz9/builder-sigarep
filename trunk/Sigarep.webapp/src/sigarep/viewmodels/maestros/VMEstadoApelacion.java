@@ -89,6 +89,39 @@ public class VMEstadoApelacion {
 	public void setEstatus(Boolean estatus) {
 		this.estatus = estatus;
 	}
+	
+	public List<InstanciaApelada> getListaInstanciaApelada() {
+		return listaInstanciaApelada;
+	}
+
+	public void setListaInstanciaApelada(
+			List<InstanciaApelada> listaInstanciaApelada) {
+		this.listaInstanciaApelada = listaInstanciaApelada;
+	}
+	
+	public EstadoApelacion getEstadoSeleccionado() {
+		return estadoSeleccionado;
+	}
+
+	public void setEstadoSeleccionado(EstadoApelacion estadoSeleccionado) {
+		this.estadoSeleccionado = estadoSeleccionado;
+	}
+
+	public InstanciaApelada getInstanciaApelada() {
+		return instanciaApelada;
+	}
+
+	public void setInstanciaApelada(InstanciaApelada instanciaApelada) {
+		this.instanciaApelada = instanciaApelada;
+	}
+	
+	public List<EstadoApelacion> getListaEstadoApelacion() {
+		return listaEstadoApelacion;
+	}
+
+	public void setListaEstadoApelacion(List<EstadoApelacion> listaEstadoApelacion) {
+		this.listaEstadoApelacion = listaEstadoApelacion;
+	}
 
 	public Integer getPrioridadEjecucion() {
 		return prioridadEjecucion;
