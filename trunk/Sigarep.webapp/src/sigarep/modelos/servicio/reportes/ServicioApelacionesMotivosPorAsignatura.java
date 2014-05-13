@@ -3,15 +3,20 @@ package sigarep.modelos.servicio.reportes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.reportes.ListaApelacionesMotivoPorAsignatura;
 
+/**
+* Clase Servicio ServicioApelacionesMotivosPorAsignatura se encarga de buscar 
+* las asignaturas y los motivos por los cuales se apela por dichas asignaturas
+* @author Equipo Builder
+* @version x.11
+* @since 05/01/2014 (Fecha de creación)
+* @last 18/03/2014 (Ultima modificación)
+*/
 @Service("servicioApelacionesMotivos")
 public class ServicioApelacionesMotivosPorAsignatura {
 
