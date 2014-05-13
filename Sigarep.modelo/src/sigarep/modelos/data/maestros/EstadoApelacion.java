@@ -32,6 +32,9 @@ public class EstadoApelacion implements Serializable {
 
 	@Column(name = "descripcion", length = 255)
 	private String descripcion;
+	
+	@Column(name = "prioridad_ejecucion", nullable = true)
+	private Integer prioridadEjecucion;
 
 	// Relación bidireccional de muchos a uno, asociada a la clase
 	// InstanciaApelada
@@ -88,6 +91,14 @@ public class EstadoApelacion implements Serializable {
 
 	public void setNombreEstado(String nombreEstado) {
 		this.nombreEstado = nombreEstado;
+	}
+	
+	public Integer getPrioridadEjecucion() {
+		return prioridadEjecucion;
+	}
+
+	public void setPrioridadEjecucion(Integer prioridadEjecucion) {
+		this.prioridadEjecucion = prioridadEjecucion;
 	}
 
 	public InstanciaApelada getInstanciaApelada() {
