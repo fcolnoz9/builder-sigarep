@@ -1,7 +1,6 @@
 package sigarep.viewmodels.transacciones;
 import java.util.LinkedList;
 import java.util.List;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -10,7 +9,6 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Window;
-
 import sigarep.modelos.data.maestros.Actividad;
 import sigarep.modelos.data.maestros.InstanciaApelada;
 import sigarep.modelos.data.maestros.LapsoAcademico;

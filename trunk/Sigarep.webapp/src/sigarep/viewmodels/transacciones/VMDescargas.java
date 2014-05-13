@@ -14,8 +14,8 @@ import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
 /**
- * Cronograma UCLA DCYT Sistemas de Informacion.
- * 
+ * Descargas UCLA DCYT Sistemas de Informacion.
+ * Maneja la descaga de archivos que requieran los estudiantes en el portal
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.0
  * @since 22/01/14

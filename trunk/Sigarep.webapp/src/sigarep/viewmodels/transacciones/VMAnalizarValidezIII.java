@@ -1,12 +1,5 @@
 package sigarep.viewmodels.transacciones;
-/**VM Analizar validezIII
 
-
-* UCLA DCYT Sistemas de Informacion.
-* @author Equipo: Builder-SIGAREP 
-* @version 1.0
-* @since 20/12/13
-*/
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,8 +47,12 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
-//import sigarep.modelos.servicio.maestros.ServicioEstudiante;
-
+/**VM Analizar validezIII .
+* Registra y modifica EL analizar Validez del recurso gerárquico
+* @author Equipo: Builder-SIGAREP 
+* @version 1.0
+* @since 20/12/13
+*/
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAnalizarValidezIII {
 	@WireVariable

@@ -1,15 +1,7 @@
 package sigarep.viewmodels.transacciones;
 
-/**VM Analizar validezII
- * Registra y modifica EL analizar Validez de la reconsideraciones
- * @author  Builder
- * @version 1.0
- * @since 15/01/14
- */
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,7 +45,12 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
-
+/**VM Analizar validezII
+ * Registra y modifica EL analizar Validez de la reconsideraciones
+ * @author  Builder
+ * @version 1.0
+ * @since 15/01/14
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAnalizarValidezII {
 	@WireVariable

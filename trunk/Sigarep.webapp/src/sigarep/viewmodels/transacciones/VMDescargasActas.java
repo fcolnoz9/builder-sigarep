@@ -10,10 +10,16 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
-
 import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
+/** DescargasActas
+ * Contiene métodos necesarios  para las descargas de las actas.
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0
+ * @since 22/01/14
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDescargasActas {
 	

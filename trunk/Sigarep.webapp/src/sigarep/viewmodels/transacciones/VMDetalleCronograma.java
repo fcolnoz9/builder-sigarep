@@ -13,6 +13,14 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
 import sigarep.modelos.data.transacciones.Cronograma;
 
+/** DetalleCronograma
+ * Contiene métodos necesarios para la presentacion de la información 
+ * detallada de las actividades del cronograma.
+ * UCLA DCYT Sistemas de Informacion.
+ * @author Equipo : Builder-Sigarep Lapso 2013-1
+ * @version 1.0
+ * @since 22/01/14
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDetalleCronograma {
 

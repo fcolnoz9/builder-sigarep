@@ -25,8 +25,8 @@ import sigarep.modelos.data.maestros.ProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioAsignatura;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 
-/**CargarAsignaturas por XML
- * UCLA DCYT Sistemas de Informacion.
+/**CargarAsignaturas por XML UCLA DCYT Sistemas de Informacion.
+ * Maneja lo que respecta la carga de asignaturas mediante el archivo XML
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 2.5.2
  */
