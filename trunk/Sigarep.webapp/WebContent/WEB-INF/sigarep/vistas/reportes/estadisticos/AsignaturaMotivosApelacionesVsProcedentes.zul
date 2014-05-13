@@ -1,5 +1,5 @@
 <zk>
-<window id="winReporteAsignaturaMotivosApelacionesVsProcedentes" title="Reportes :: Estadísticos :: Comparativos :: Asignaturas por Motivo de Apelación y Veredicto" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
+<window id="winReporteAsignaturaMotivosApelacionesVsProcedentes" title="Reportes :: Estadísticos :: Comparativos :: Asignaturas :: Asignaturas por Motivo de Apelación y Veredicto" border="normal" width="auto" height="auto" closable="true" apply="org.zkoss.bind.BindComposer" 
 	viewModel="@id('vm') @init('sigarep.viewmodels.reportes.VMAsignaturaMotivosApelacionesVsResultado')">
 	
 	<vlayout>
