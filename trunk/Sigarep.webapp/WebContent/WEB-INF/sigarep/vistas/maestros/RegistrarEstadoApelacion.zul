@@ -49,7 +49,6 @@
 							placeholder= "Ingrese la descripción del estado de apelación"
 							width="80%" rows="3" maxlength="255" mold="rounded" tabindex="2"
 							value="@bind(vm.descripcion)" />
-
 					</row>
 				</rows>
 			</grid>
@@ -91,21 +90,23 @@
 						sort="auto(descripcion)">
 					</listheader>
 					<listheader label="Recurso de Apelación" align="left"
-						sort="auto(instanciaApelada)" />
+						sort="auto(instanciaApelada)">
+					</listheader>
+					<listheader label="Prioridad de ejecución" align="left"
+						sort="auto(prioridadEjecucion)">
+					</listheader>
 				</listhead>
 				<template name="model">
 					<listitem selected="false">
 						<listcell label="${each.nombreEstado}"></listcell>
 						<listcell label="${each.descripcion}"></listcell>
-						<listcell
-							label="${each.instanciaApelada.nombreRecursoApelacion }">
-						</listcell>
+						<listcell label="${each.instanciaApelada.nombreRecursoApelacion }"></listcell>
+						<listcell label="${each.prioridadEjecucion }"></listcell>
 					</listitem>
 				</template>
 			</listbox>
 			<space />
 			<space />
 		</groupbox>
-
 	</window>
 </zk>
