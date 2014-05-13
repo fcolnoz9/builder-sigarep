@@ -1,4 +1,5 @@
 package sigarep.modelos.test.maestros;
+
 import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import javax.persistence.EntityManager;
@@ -18,10 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
-/**TestLapso Academico Junit 4
- * UCLA DCYT Sistemas de Informacion.
- * @author Equipo : Builder-Sigarep Lapso 2013-2
+
+/**
+ * Clase TestLapsoAcademico
+ * 
+ * @author Equipo Builder
  * @version 1.0
+ * @since 15/12/2013
+ * @last 12/05/2014
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/META-INF/application-context.xml")
@@ -29,6 +34,8 @@ import sigarep.modelos.repositorio.maestros.ILapsoAcademicoDAO;
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback=true)//si defaultRollback=false guarda en la BD y si se coloca true No guarda en la BD
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class TestLapsoAcademico {
+	
+	//Atributos de la clase
 	private LapsoAcademico lapsoAcademico,resultado;
 	@Autowired
 	ILapsoAcademicoDAO lapso;
@@ -36,6 +43,7 @@ public class TestLapsoAcademico {
 	private String fechacierre;
 	private static EntityManager em = null;
 	private static Log LOG = LogFactory.getLog(TestLapsoAcademico.class);
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		
@@ -51,8 +59,8 @@ public class TestLapsoAcademico {
 	@After
 	public void tearDown() throws Exception {
 	}
+	
 	/**
-	 * 
 	 * Metodo Guardar Lapso
 	 * Timeout en 125 segundos 
 	 */
@@ -74,8 +82,8 @@ public class TestLapsoAcademico {
 		}
 		
 	}
+	
 	/**
-	 * 
 	 * Metodo Buscar un lapso Lapso cualesquiera en la BD
 	 * Timeout en 2 segundos 
 	 */
@@ -85,5 +93,4 @@ public class TestLapsoAcademico {
 	assertNotNull(resultado);//si resultado es no nulo quiere decir que consiguió el lapso en la BD
 	System.out.println("Resulatado"+resultado.getFechaCierre());
 	}
-
 }
