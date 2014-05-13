@@ -41,25 +41,19 @@ public class VMEstadoApelacion {
 	@WireVariable
 	ServicioInstanciaApelada servicioInstanciaApelada;
 	//-----------------Variables EstadoApelacion-----------------
-	@WireVariable
 	private Integer idEstadoApelacion; // clave principal de la tabla EstadoApelacion
-	@WireVariable
 	private String nombreEstado; // nombre del EstadoApelacion
-	@WireVariable
 	private String descripcion; // descripcion del EstadoApelacion
-	@WireVariable
 	private Boolean estatus; // estatus del EstadoApelacion
+	private Integer prioridadEjecucion; //Prioridad de ejecucion del estado de apelacion
 	//-----------------Variables Lista----------------------
-	@WireVariable
 	private List<EstadoApelacion> listaEstadoApelacion; // lista de Estados de Apelacion registrados
-	@WireVariable
 	private List<InstanciaApelada> listaInstanciaApelada; 
 	//-----------------Variables Objeto---------------------
-	@WireVariable
-	private EstadoApelacion estadoseleccionado;
-	@WireVariable
+	private EstadoApelacion estadoSeleccionado;
 	private InstanciaApelada instanciaApelada;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
+	
 	@Wire("#cmbInstanciaApelada")
 	Combobox cmbInstanciaApelada;
 
@@ -96,46 +90,15 @@ public class VMEstadoApelacion {
 		this.estatus = estatus;
 	}
 
-	public List<EstadoApelacion> getListaEstadoApelacion() {
-		return listaEstadoApelacion;
+	public Integer getPrioridadEjecucion() {
+		return prioridadEjecucion;
 	}
 
-	public void setListaEstadoApelacion(List<EstadoApelacion> ListaEstadoApelacion) {
-		this.listaEstadoApelacion = ListaEstadoApelacion;
+	public void setPrioridadEjecucion(Integer prioridadEjecucion) {
+		this.prioridadEjecucion = prioridadEjecucion;
 	}
-
-	public EstadoApelacion getEstadoseleccionado() {
-		return estadoseleccionado;
-	}
-
-	public void setEstadoseleccionado(EstadoApelacion estadoseleccionado) {
-		this.estadoseleccionado = estadoseleccionado;
-	}
-
-	public List<InstanciaApelada> getListaInstanciaApelada() {
-		return listaInstanciaApelada;
-	}
-	
-	public void setListaInstanciaApelada(List<InstanciaApelada> listaInstanciaApelada) {
-		this.listaInstanciaApelada = listaInstanciaApelada;
-	}
-	
-	public Combobox getCmbInstanciaApelada() {
-		return cmbInstanciaApelada;
-	}
-	public void setCmbInstanciaApelada(Combobox cmbInstanciaApelada) {
-		this.cmbInstanciaApelada = cmbInstanciaApelada;
-	}
-	public InstanciaApelada getInstanciaApelada() {
-		return instanciaApelada;
-	}
-	public void setInstanciaApelada(InstanciaApelada instanciaapelada) {
-		this.instanciaApelada = instanciaapelada;
-	}
-	
 	// Fin Métodos Set y Get
 	
-
 	/**
 	 * Inicialización
 	 * Init. Código de inicialización.
@@ -143,12 +106,11 @@ public class VMEstadoApelacion {
 	 * @return código de inicialización
 	 * @throws No dispara ninguna excepción.
 	 */
-		@Init
-		public void init() {
-			buscarEstadoApelacion();
-			buscarInstanciaApelada();
-			
-		}
+	@Init
+	public void init() {
+		buscarEstadoApelacion();
+		buscarInstanciaApelada();
+	}
 
 	/**Guardar Estado de Apelación : Guarda el registro completo, el command indica a las variables el
 	 * cambio que se hará en el objeto.
@@ -162,17 +124,18 @@ public class VMEstadoApelacion {
 	// cambiar, en este caso es nombre y descripción se va a colocar en blanco
 	// al guardar
 	public void guardarEstadoApelacion() {
-		if (nombreEstado==null || descripcion==null || instanciaApelada==null) {
+		if (nombreEstado==null || descripcion==null || instanciaApelada==null || prioridadEjecucion==null) {
 			mensajeAlUsuario.advertenciaSeleccionarEstadoApelacion();
 		} else {
 			//EstadoApelacion estadoapelacion = new EstadoApelacion(idEstadoApelacion,nombreEstado,descripcion,true,instanciaApelada);
-			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true);
+			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true, prioridadEjecucion);
 			estadoApelacion.setInstanciaApelada(instanciaApelada);
 			servicioestadoapelacion.guardarEstadoApelacion(estadoApelacion);
 			mensajeAlUsuario.informacionRegistroCorrecto();
 			limpiar();
 		}
 	}
+	
 	/** Buscar Estado Apelacion
 	 *  @param Ninguno
 	 *  @return Objeto EstadoApelacion.
@@ -209,12 +172,12 @@ public class VMEstadoApelacion {
 		nombreEstado =null;
 		descripcion = null;
 		instanciaApelada=null;
+		prioridadEjecucion=null;
 		buscarEstadoApelacion();
 	}
 
 	/**
-	 * mostrarSeleccionada : Muestra en el área 
-de datos el registro seleccionado 
+	 * mostrarSeleccionada : Muestra en el área de datos el registro seleccionado 
 	 * 
 	 * @param Ninguno. 
 	 * @return Objeto Estado Apelacion seleccionada
@@ -223,14 +186,12 @@ de datos el registro seleccionado
 	@Command
 	@NotifyChange({ "idEstadoApelacion","nombreEstado", "descripcion", "instanciaApelada" })
 	public void mostrarSeleccionado() {
-	
-		idEstadoApelacion = getEstadoseleccionado().getIdEstadoApelacion();
-		nombreEstado = getEstadoseleccionado().getNombreEstado();
-		descripcion = getEstadoseleccionado().getDescripcion();
-		instanciaApelada = getEstadoseleccionado().getInstanciaApelada();
-		
+		idEstadoApelacion = estadoSeleccionado.getIdEstadoApelacion();
+		nombreEstado = estadoSeleccionado.getNombreEstado();
+		descripcion = estadoSeleccionado.getDescripcion();
+		instanciaApelada = estadoSeleccionado.getInstanciaApelada();
+		prioridadEjecucion = estadoSeleccionado.getPrioridadEjecucion();
 	}
-	
 	
 	/**
 	 * bloquear : 
@@ -290,8 +251,5 @@ de datos el registro seleccionado
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
 		Selectors.wireComponents(view, this, false);
 		Selectors.wireComponents(cmbInstanciaApelada, this, false);
-		
 	}
-	
-
 }
