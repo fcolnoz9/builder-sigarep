@@ -13,7 +13,7 @@ import sigarep.modelos.data.reportes.Sancionados;
 * Clase Servicio ServicioReportesEstructurados busca
 * a los estudiante con los resultados de sugerencias por comisión.
 * @author Equipo Builder
-* @version x.5
+* @version 1.5
 * @since 05/01/2014 (Fecha de creación)
 * @last 09/05/2014 (Ultima modificación)
 */

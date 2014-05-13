@@ -13,7 +13,7 @@ import sigarep.modelos.data.reportes.ListaInformeEstructuradoResultadosApelacion
 * Clase Servicio ServicioApelacionesMotivosPorAsignatura se encarga de buscar 
 * y filtar los estudiantes según la instancia apelada y el programa académico
 * @author Equipo Builder
-* @version x.11
+* @version 1.11
 * @since 05/01/2014 (Fecha de creación)
 * @last 18/03/2014 (Ultima modificación)
 */

@@ -12,7 +12,7 @@ import sigarep.modelos.data.reportes.EstudianteSancionado;
 * a los estudiantes que han apelado según sexo, tipo sanción, 
 * estado de apelación, instancia apelada y lapso académico
 * @author Equipo Builder
-* @version x.5
+* @version 1.5
 * @since 05/01/2014 (Fecha de creación)
 * @last 09/05/2014 (Ultima modificación)
 */
