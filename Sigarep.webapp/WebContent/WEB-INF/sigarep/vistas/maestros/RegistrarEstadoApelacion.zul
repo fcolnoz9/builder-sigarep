@@ -26,14 +26,14 @@
 						<textbox
 							id="txtDescripcion"
 							placeholder= "Ingrese la descripción del estado de apelación"
-							width="80%" rows="3" maxlength="255" mold="rounded" tabindex="2"
+							width="80%" rows="3" maxlength="255" tabindex="2"
 							value="@bind(vm.descripcion)" />
 					</row>
 					<row>
 						<label id="lblInstanciaApelada"
 							value="Recurso de Apelación:" />
 						<combobox readonly="true" 
-							id="cmbInstanciaApelada"
+							id="cmbInstanciaApelada" tabindex="3"
 							placeholder= "Seleccione un tipo de recurso de apelación..."
 							value="@bind(vm.instanciaApelada.nombreRecursoApelacion)" width="80%"
 							mold="rounded" model="@load(vm.listaInstanciaApelada)"
@@ -45,7 +45,8 @@
 							</template>
 						</combobox>
 						<label id="lblPrioridadEjecucion" value="Prioridad de ejecución:" />
-						<intbox id="txtPrioridadEjecucion" width="80%"></intbox>
+						<intbox id="txtPrioridadEjecucion" width="80%"
+								tabindex="4" value="@bind(vm.prioridadEjecucion)></intbox>
 					</row>
 				</rows>
 			</grid>
