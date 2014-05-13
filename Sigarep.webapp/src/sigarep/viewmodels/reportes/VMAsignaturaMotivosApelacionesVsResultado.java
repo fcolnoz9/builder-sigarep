@@ -332,7 +332,7 @@ public class VMAsignaturaMotivosApelacionesVsResultado {
 				reportConfig.getParameters().put("nombrePrograma",
 						programaseleccionado.getNombrePrograma());
 				reportConfig.getParameters().put("instanciaApelada",
-						instanciasApeladas.getInstanciaApelada());
+						instanciasApeladas.getNombreRecursoApelacion());
 				reportConfig.getParameters().put("lapso",
 						lapsosAcademicos.getCodigoLapso());
 				reportConfig.getParameters().put("asignatura",

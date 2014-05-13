@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpAsignaturasSancionadosVsApelaciones" language="groovy" printOrder="Horizontal" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="e4c809ca-4229-479e-9900-3377b8e4e298">
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -346,11 +346,11 @@ VS APELACIONES POR INSTANCIA]]></text>
 				<text><![CDATA[PROGRAMA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="84" y="211" width="85" height="20" backcolor="#FFFFFF" uuid="004d668f-6bd4-40b5-a02b-023a46c27355"/>
+				<reportElement mode="Transparent" x="84" y="211" width="170" height="20" backcolor="#FFFFFF" uuid="004d668f-6bd4-40b5-a02b-023a46c27355"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[INSTANCIA:]]></text>
+				<text><![CDATA[RECURSO DE APELACIÓN:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="444" y="191" width="171" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="6cf91b13-99a1-4130-9575-1391de7a2ab6"/>
@@ -380,8 +380,8 @@ VS APELACIONES POR INSTANCIA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalsancion}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="158" y="211" width="149" height="20" uuid="8572c6fd-fd24-430c-bd22-a666dfd5aa0b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="248" y="211" width="217" height="20" uuid="8572c6fd-fd24-430c-bd22-a666dfd5aa0b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isItalic="true"/>
 				</textElement>

@@ -293,7 +293,7 @@ public class VMAsignaturasMayorCantidadSancionados {
 				reportConfig.getParameters().put("nombrePrograma",
 						programaAcademico.getNombrePrograma());
 				reportConfig.getParameters().put("instanciaApelada",
-						instanciaApelada.getInstanciaApelada());
+						instanciaApelada.getNombreRecursoApelacion());
 				reportConfig.getParameters().put("lapso",
 						lapsoAcademico.getCodigoLapso());
 				reportConfig.getParameters().put("Lista",
