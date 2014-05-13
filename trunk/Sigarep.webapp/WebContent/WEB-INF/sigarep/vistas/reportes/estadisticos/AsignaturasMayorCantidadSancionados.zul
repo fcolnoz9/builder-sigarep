@@ -16,23 +16,6 @@
 				</columns>
 				<rows>
 					<row>
-						<label id="lblProgramas" value="Programa:" />
-		                <combobox readonly="true" id= "cmbPrograma" maxlength="60" placeholder="Seleccione un programa académico..." width="100%" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
-								  <template name="model">
-										<comboitem  label="${each.nombrePrograma}"/>
-								  </template>				
-						</combobox>
-						
-						<label id="lblInstancia" value="Instancia:" />
-						<combobox readonly="true" id= "cmbInstancia" placeholder="Seleccione una instancia apelada..." width="100%" mold="rounded" 
-						model="@load(vm.listaComboInstancia)" selectedItem="@bind(vm.instanciaApelada)" 
-						onSelect="@command('objetoComboInstancia')" maxlength="100">
-							<template name="model">
-								<comboitem  label="${each.instanciaApelada}" />
-							</template>	
-						</combobox>
-					</row>
-					<row>
 						<label id="lblLapso" value="Lapso:" />
 						
 						<combobox readonly="true" id= "cmbLapso" placeholder="Seleccione un lapso académico..." width="100%" mold="rounded" 
@@ -40,6 +23,24 @@
 						onSelect="@command('objetoComboLapso')" maxlength="6">
 							<template name="model">
 								<comboitem  label="${each.codigoLapso}" />
+							</template>	
+						</combobox>
+						<label id="lblProgramas" value="Programa:" />
+		                <combobox readonly="true" id= "cmbPrograma" maxlength="60" placeholder="Seleccione un programa académico..." width="100%" mold="rounded" model="@load(vm.listaComboPrograma)" selectedItem="@bind(vm.programaAcademico)" onSelect="@command('objetoComboPrograma')">
+								  <template name="model">
+										<comboitem  label="${each.nombrePrograma}"/>
+								  </template>				
+						</combobox>
+						
+						
+					</row>
+					<row>
+						<label id="lblRecursoapelacion" value="Recurso de Apelación:" />
+						<combobox readonly="true" id= "cmbRecursoApelacion" placeholder="Seleccione un recurso de apelación..." width="100%" mold="rounded" 
+						model="@load(vm.listaComboInstancia)" selectedItem="@bind(vm.instanciaApelada)" 
+						onSelect="@command('objetoComboInstancia')" maxlength="100">
+							<template name="model">
+								<comboitem  label="${each.nombreRecursoApelacion}" />
 							</template>	
 						</combobox>
 						Elija el Tipo de Archivo: <listbox id="lbxformat" mold="select" model="@load(vm.reportTypesModel)"
