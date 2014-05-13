@@ -14,39 +14,67 @@ import sigarep.modelos.data.transacciones.RecaudoEntregado;
 import sigarep.modelos.data.transacciones.Soporte;
 import sigarep.modelos.repositorio.transacciones.IMotivoDAO;
 
+/**
+ * Clase ServicioMotivo : Clase de la capa servicio web para el manejo de consultas y persistencia de la tabla Motivo 
+ * 
+ * @author Equipo Builder
+ * @version 1.0
+ * @since 04/01/2014
+ * @last 10/05/2014
+ */
 @Service("serviciomotivo")
 public class ServicioMotivo {
+	
+	// Atributos de la clase
 	private @Autowired
 	IMotivoDAO iMotivoDAO;
 
-	// metodo que permite Guardar
+	/**
+	 * Guarda un motivo de sanción
+	 * @param motivo
+	 * @throws No dispara ninguna excepción.
+	 */
 	public void guardarMotivo(Motivo motivo) {
 		iMotivoDAO.save(motivo);
 	}
 
-	// metodo que permite eliminar
+	/**
+	 * Elimina un motivo dado su PK
+	 * @param motivoPK
+	 * @throws No dispara ninguna excepción.
+	 */
 	public void eliminarMotivo(MotivoPK motivoPK) {
 		Motivo motivo = iMotivoDAO.findOne(motivoPK);
 		motivo.setEstatus(false);
 		iMotivoDAO.save(motivo);
 	}
-
+	
+	/**
+	 * Busca un motivo dado su id
+	 * @param id
+	 * @return Oojeto Motivo
+	 * @throws No dispara ninguna excepción.
+	 */
 	public Motivo buscarMotivoPorID(MotivoPK id) {
 		return iMotivoDAO.findOne(id);
 	}
 
 	/**
-	 * Lista de Motivos por Apelacion
-	 * 
-	 * @param cedulaEstudiante
-	 *            y codigoLapso
-	 * @return resultado es un lista de Motivos por las cuales apelo el
-	 *         estudiante
+	 * Busca una lista de motivos por apelación
+	 * @param cedula, codigoLapso
+	 * @return List<String> Lista de Motivos por las cuales apelo el estudiante
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<String> buscarMotivosApelacion(String cedula, String codigoLapso) {
 		return iMotivoDAO.buscarMotivosApelacion(cedula, codigoLapso);
 	}
 	
+	/**
+	 * Muestra una lista con los motivos de apelación en un lapso académico
+	 * @param lapso
+	 * @return List<Motivo> Lista de motivos encontrados en un lapso
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<String> historicoMotivosApelacion(LapsoAcademico lapso) {
 		List<String> listaElementosAInsertar = new ArrayList<String>();
 		String elementoAInsertar;

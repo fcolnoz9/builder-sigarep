@@ -10,12 +10,27 @@ import org.springframework.stereotype.Service;
 import sigarep.modelos.data.transacciones.HistoricoEstudiante;
 import sigarep.modelos.data.transacciones.ListaMomento;
 
+/**
+ * Clase ServicioHistoricoEstudiante : Clase de la capa servicio web para el manejo de consultas y persistencia de la tabla Estudiante 
+ * 
+ * @author Equipo Builder
+ * @version 1.0
+ * @since 04/01/2014
+ * @last 10/05/2014
+ */
 @Service("serviciohistoricoestudiante")
 public class ServicioHistoricoEstudiante {
-
+	
+	// Atributos de la clase
 	@PersistenceContext
 	private EntityManager em;
 	
+	/**
+	 * Busca el estado de apelación de un estudiante por medio del id
+	 * @param idestado
+	 * @return EstadoApelacion
+	 * @throws No dispara ninguna excepción.
+	 */
 	public String buscarEstadoApelacion(Integer idestado){
 		String queryStatement2 = "SELECT nombre_estado FROM sigarep.estado_apelacion AS estape "
 				+ "WHERE estape.id_estado_apelacion = ?";
@@ -25,6 +40,12 @@ public class ServicioHistoricoEstudiante {
 		return result;
 	}
 
+	/**
+	 * Busca una lista con los momentos de la apelación de un estudiante
+	 * @param cedula, idInstancia
+	 * @return List<ListaMomento> Lista de los momentos
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<ListaMomento> buscarListaMomentos(String cedula, Integer idInstancia) {
 		String queryStatement2 = "SELECT fecha_estado, id_estado_apelacion, observacion "
 				+ "FROM sigarep.apelacion_estado_apelacion AS apemo "
@@ -46,6 +67,12 @@ public class ServicioHistoricoEstudiante {
 		return result;
 	}
 
+	/**
+	 * Busca una lista de estudiantes por cedula
+	 * @param cedula
+	 * @return List<HistoricoEstudiante> Lista de estudiante
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<HistoricoEstudiante> buscarHistoricoEstudiante(String cedula) {
 		String queryStatement2 = "SELECT es.cedula_estudiante, prog.nombre_programa, es.primer_nombre, es.segundo_nombre, "
 				+ "es.primer_apellido, es.segundo_apellido, lapac.codigo_lapso, sanm.nombre_sancion, estsan.lapsos_academicos_RP, "

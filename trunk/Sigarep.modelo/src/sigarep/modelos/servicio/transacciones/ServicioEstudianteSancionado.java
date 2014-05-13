@@ -17,108 +17,103 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.repositorio.transacciones.IEstudianteSancionadoDAO;
 import sigarep.modelos.repositorio.transacciones.ISolicitudApelacionDAO;
 
-/**Clase ServicioEstudianteSancionado
-* Suministra los servicios al VMInstanciaApelada
-* @author Builder
-* @version 1.0
-* @since 20/12/13
-*/
-
+/**
+ * Clase ServicioEstudianteSancionado : Clase de la capa servicio web para el manejo de consultas y persistencia de la tabla EstudianteSancionado 
+ * 
+ * @author Equipo Builder
+ * @version 1.0
+ * @since 04/01/2014
+ * @last 10/05/2014
+ */
 @Service("servicioestudiantesancionado") //Definiendo la variable servicio
 public class ServicioEstudianteSancionado {
 	
+	// Atributos de la clase
 	private @Autowired IEstudianteSancionadoDAO iEstudianteSancionadoDAO;
 	private @Autowired ISolicitudApelacionDAO iSolicitudApelacionDAO;
 	
-	/** Guardar EstudianteSancionado 
-	 * @return el Objeto estudianteSancionado
-	 * @parameters el objeto estudianteSancionado
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Guarda un estudiante sancionado 
+	 * @param estudianteSancionado
+	 * @return el objeto EstudianteSancionado
+	 * @throws No dispara ninguna excepción.
+	 */
 	public EstudianteSancionado guardar(EstudianteSancionado estudianteSancionado) {
 		return iEstudianteSancionadoDAO.save(estudianteSancionado);
 	}
 	
-	/** Eliminar EstudianteSancionado
-	 * @return nada
-	 * @parameters Objeto EstudianteSancionadoPK
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Elimina un estudiante sancionado dado su id
+	 * @param EstudianteSancionadoPK id
+	 * @throws No dispara ninguna excepción.
+	 */
 	public void eliminar(EstudianteSancionadoPK id){
 		EstudianteSancionado miEstudianteSancionado = iEstudianteSancionadoDAO.findOne(id);
 		miEstudianteSancionado.setEstatus(false);
 		iEstudianteSancionadoDAO.save(miEstudianteSancionado);
 	}
 	
-	/** Lista de EstudianteSancionado 
-	 * @return Lista de EstudianteSancionado registrados y activos
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Busca una lista de todos los estudiantes sancionados 
+	 * @return List<EstudianteSancionado> Lista de estudiantes sancionados registrados y activos
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> buscarTodos() {
 		return iEstudianteSancionadoDAO.buscarSancionadosActivos();
 	}
 	
-	/** Lista de EstudianteSancionado 
-	 * @return Lista de EstudianteSancionado registrados y activos
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Busca una lista de estudiantes sancionados 
+	 * @return List<EstudianteSancionado> Lista de estudiantes sancionados registrados
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> buscarSancionados() {
 		return iEstudianteSancionadoDAO.buscarSancionados();
 	}
 	
-	/** Lista de EstudianteSancionado 
-	 * @return Lista de EstudianteSancionado registrados
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Busca una lista de estudiantes 
+	 * @return List<EstudianteSancionado> Lista de estudiantes 
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> buscarEstudiante() {
 		return iEstudianteSancionadoDAO.buscarEstudiante();
 	}
 	
-	/** Lista de EstudianteSancionado 
-	 * @return Lista de EstudianteSancionado registrados y activos
-	 * @parameters Objeto EstudianteSancionadoPK
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Busca un estudiante sancionado dado el id 
+	 * @param Objeto EstudianteSancionadoPK id
+	 * @return estudiante sancionado registrado y activo
+	 * @throws No dispara ninguna excepción.
+	 */
 	public EstudianteSancionado buscar(EstudianteSancionadoPK id) {
 		return iEstudianteSancionadoDAO.findOne(id);
 	}
 	
-	/** Contar EstudianteSancionado 
-	 * @return Integer con el numero de EstudianteSancionado registrados
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Cuenta todos los  estudiantes sancionados registrados 
+	 * @return Integer con el número de estudiantes sancionados registrados
+	 * @throws No dispara ninguna excepción.
+	 */
 	public int contarTodos() {
 		return iEstudianteSancionadoDAO.findAll().size();
 	}
 
-	/** Nuevo EstudianteSancionado 
+	/**Nuevo estudiante sancionado 
 	 * @return Objeto EstudianteSancionado
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
+	 * @throws No dispara ninguna excepción.
+	 */
 	public EstudianteSancionado crear() {
 		return new EstudianteSancionado();
 	}
 	
-	/** Lista de EstudianteSancionado 
-	 * @return Lista de EstudianteSancionado registrados y activos
-	 * @parameters vacio
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Lista de estudiantes sancionados activos
+	 * @return List<EstudianteSancionado> Lista de EstudianteSancionado registrados y activos
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> listadoEstudianteSancionado() {
 		List<EstudianteSancionado> estudiantesancionadoLista = iEstudianteSancionadoDAO.buscarSancionadosActivos();
 	    return estudiantesancionadoLista ;
 	}
 	
-	/** Filtro de EstudianteSancionado 
-	 * @return Lista de EstudianteSancionado filtrados
-	 * @parameters String cedula, String nombre, String Apellido, String Sancion
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Busca estudiantes sancionados filtrando po cedula,nombre,apellido,sancion 
+	 * @param cedula, nombre, Apellido, Sancion
+	 * @return List<EstudianteSancionado> Lista de EstudianteSancionado filtrados
+	 * @throws La Excepción es que las variables que entran por parametro sean null
+	 */
 	public List<EstudianteSancionado> buscarEstudianteSancionadofiltros(String cedula, String nombre, String apellido, String sancion) {
 		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
 		
@@ -137,7 +132,10 @@ public class ServicioEstudianteSancionado {
 		return resultado;
 	}
 
-//Maria Flores
+	/**Busca Recurso Jerarquico de EstudianteSancionado para ListaGenerica 
+	 * @return List<EstudianteSancionado> Lista de EstudianteSancionado
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> buscarSancionadosRecursoJerarquico(){
 		List<EstudianteSancionado> listaRecursoJerarquico = new ArrayList<EstudianteSancionado>();
 		listaRecursoJerarquico = iEstudianteSancionadoDAO.buscarSancionadosRecursoJerarquicoParte1();
@@ -146,6 +144,11 @@ public class ServicioEstudianteSancionado {
 		return listaRecursoJerarquico;
 	}
 	
+	/**Filtra Recurso Jerarquico de EstudianteSancionado para ListaGenerica 
+	 * @param cedula, programa, nombre, apellido, Sancion
+	 * @return List<EstudianteSancionado> Lista de EstudianteSancionado
+	 * @throws La Excepción es que las variables que entran por parametro sean null
+	 */
 	public List<EstudianteSancionado> filtrarApelacionesRecursoJerarquico(
 			String programa, String cedula, String nombre,
 			String apellido, String sancion){
@@ -168,11 +171,11 @@ public class ServicioEstudianteSancionado {
 		return result;
 	}
 
-	/** Filtro de EstudianteSancionado ListaGenerica 
-	 * @return Lista de EstudianteSancionado filtrados
-	 * @parameters String cedula, String nombre, String Apellido, String Sancion
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Filtro de EstudianteSancionado ListaGenerica 
+	 * @parameters cedula, nombre, Apellido, Sancion
+	 * @return List<EstudianteSancionado> Lista de EstudianteSancionado filtrados
+	 * @throws La Excepción es que las variables que entran por parametro sean null
+	 */
 	public List<EstudianteSancionado> filtrarDatosIniciales(String programa, String cedula, String nombre, String apellido, String sancion ) {
 		List<EstudianteSancionado> resultado = new LinkedList<EstudianteSancionado>();
 		
@@ -192,29 +195,28 @@ public class ServicioEstudianteSancionado {
 		return resultado;
 	}
 	
-	/** Buscar Apelacion de EstudianteSancionado para ListaGenerica 
+	/**Busca la Apelación de EstudianteSancionado para ListaGenerica 
+	 * @param cedula
 	 * @return Lista de EstudianteSancionado
-	 * @parameters String cedula
-	 * @throws No dispara ninguna excepcion.
-	   */
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> buscarApelacion(String cedula){
 		return iEstudianteSancionadoDAO.buscarApelacion(cedula);
 	}
 	
-	/** Buscar Reconsideracion de EstudianteSancionado para ListaGenerica 
+	/**Busca la Reconsideracion de EstudianteSancionado para ListaGenerica 
 	 * @return Lista de EstudianteSancionado
-	 * @parameters
-	 * @throws No dispara ninguna excepcion.
-	   */
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> buscarSancionadosReconsideracion(){
 		return iEstudianteSancionadoDAO.buscarSancionadosReconsideracion();
 	}
 	
-	/** Filtra Reconsideracines EstudianteSancionado para ListaGenerica 
-	 * @return Lista de EstudianteSancionado
-	 * @parameters String cedula, String programa, String nombre, String apellido, String Sancion
-	 * @throws No dispara ninguna excepcion.
-	   */
+	/**Filtra Reconsideracines EstudianteSancionado para ListaGenerica 
+	 * @parameters cedula, programa, nombre, apellido, Sancion
+	 * @return List<EstudianteSancionado> Lista de EstudianteSancionado filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null
+	 */
 	public List<EstudianteSancionado> filtrarApelacionesReconsideracion(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion) {
@@ -238,20 +240,30 @@ public class ServicioEstudianteSancionado {
 		return result;
 	}
 	
-	
-	/** EstudianteSancionado en el Lapso Actual
+	/**Busca los estudiantes sancionados en el Lapso Actual
+	 * @param cedula
 	 * @return EstudianteSancionado en el Lapso Actual
-	 * @parameters cedula
-	 * @throws No dispara ninguna excepcion.
-	   */
+	 * @throws No dispara ninguna excepción.
+	 */
 	public EstudianteSancionado buscarEstudianteSancionadoLapsoActual(String cedula) {
 			return iEstudianteSancionadoDAO.buscarSancionadoLapsoActual(cedula);
 	}
 	
+	/**
+	 * Busca los estudiantes sancionados que van a cargar recaudos
+	 * @return EstudianteSancionado
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<EstudianteSancionado> buscarEstudiantesCargarRecaudoEntregado(){
 		return iEstudianteSancionadoDAO.buscarEstudiantesCargarRecaudoEntregado();
 	}
 	
+	/**
+	 * Filtra la lista para la carga de recaudos entregados de las apelaciones
+	 * @param programa, cedula, nombre, apellido, sancion  
+	 * @return List<EstudianteSancionado> Lista de EstudianteSancionado filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null
+	 */
 	public List<EstudianteSancionado> filtrarApelacionesCargarRecaudoEntregado(
 			String programa, String cedula, String nombre,
 			String apellido, String sancion){
@@ -274,6 +286,12 @@ public class ServicioEstudianteSancionado {
 		return result;
 	} 
 	
+	/**
+	 * Busca una lista de estudiantes sancionados en un lapso académico
+	 * @param lapsoAcademico
+	 * @return List<EstudianteSancionado> Lista de elementos insertar de estudiantes sancionados
+	 * @throws No dispara ninguna excepcion
+	 */
 	public List<String> historicoEstudiantesSancionados(LapsoAcademico lapsoAcademico) {
 		List<String> listaElementosAInsertar = new ArrayList<String>();
 		String elementoAInsertar;

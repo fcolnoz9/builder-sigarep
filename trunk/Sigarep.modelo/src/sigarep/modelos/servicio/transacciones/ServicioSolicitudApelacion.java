@@ -16,43 +16,99 @@ import sigarep.modelos.data.transacciones.SolicitudApelacion;
 import sigarep.modelos.repositorio.transacciones.ISolicitudApelacionDAO;
 import sigarep.modelos.repositorio.transacciones.IMotivoDAO;
 
+/**
+ * Clase ServicioSolicitudApelacion: Clase de la capa servicio web para el manejo de consultas y persistencia de la tabla SolicitudApelacion 
+ * 
+ * @author Equipo Builder
+ * @version 1.0
+ * @since 04/01/2014
+ * @last 10/05/2014
+ */
 @Service("serviciosolicitudapelacion")
 public class ServicioSolicitudApelacion {
 
+	// Atributos de la clase
 	private @Autowired
 	ISolicitudApelacionDAO iSolicitudApelacionDAO;
 	private @Autowired
 	IMotivoDAO iMotivoDAO;
 
+	/**
+	 * Guarda una solicitud de apelación de un estudiante sancionado
+	 * @param solicitudapelacion
+	 * @return Objeto SolicitudApelacion
+	 * @throws No dispara ninguna excepción.
+	 */
 	public SolicitudApelacion guardar(SolicitudApelacion solicitudapelacion) {
 		return iSolicitudApelacionDAO.save(solicitudapelacion);
 	}
 
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación verificar de la segunda apelación 
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación verificar de la tercera apelación 
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosIII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 	
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación Recurso jerarquico 
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesRecursoJerarquico(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
 	}
 	
+	/**
+	 * Busca las actas de las solicitudes de apelación que se encuentran registradas en un lapso académico
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesActa(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada ) {
 		return iSolicitudApelacionDAO.findByAnalizadoTrueAndEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(lapsoAcademico, idInstanciaApelada);
 	}
 
+	/**
+	 * Busca las solicitudes de apelación dado el id
+	 * @param id
+	 * @return Objeto SolicitudApelacion
+	 * @throws No dispara ninguna excepción.
+	 */
 	public SolicitudApelacion buscarSolicitudPorID(SolicitudApelacionPK id) {
 		return iSolicitudApelacionDAO.findOne(id);
 	}
 
+	/**
+	 * Buscar un estudiante sancionado en una solicitud de apelación dada su cedula
+	 * @param cedulaEstudiante
+	 * @return Objeto SolicitudApelacion
+	 * @throws No dispara ninguna excepción.
+	 */
 	public SolicitudApelacion buscarEstudianteSancionadoxSolicitud(
 			String cedulaEstudiante) {
 		return iSolicitudApelacionDAO.findById_CedulaEstudiante(cedulaEstudiante);
 	}
 
+	/**
+	 * Eliminar una solicitud de apelación dado el id
+	 * @param id
+	 * @throws No dispara ninguna excepción.
+	 */
 	public void eliminar(SolicitudApelacionPK id) {
 		SolicitudApelacion solicitudApelacion = iSolicitudApelacionDAO
 				.findOne(id);
@@ -60,34 +116,70 @@ public class ServicioSolicitudApelacion {
 		iSolicitudApelacionDAO.save(solicitudApelacion);
 	}
 
+	/**
+	 * Busca una lista con todas las solicitudes de apelaciones registradas
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarTodos() {
 		return iSolicitudApelacionDAO.findAll();
 	}
 
+	/**
+	 * Cuenta todas las solicitudes de apelaciones registradas
+	 * @return Número de solicitudes de apelaciones contadas
+	 * @throws No dispara ninguna excepción.
+	 */
 	public int contarTodos() {
 		return iSolicitudApelacionDAO.findAll().size();
 	}
 
+	/**
+	 * Cuenta todas las solicitudes de apelaciones que NO tienen registrado un veredicto
+	 * @return Número de solicitudes de apelaciones contadas que NO tienen veredicto
+	 * @throws No dispara ninguna excepción.
+	 */
 	public long contarApelacionesSinVeredicto() {
 		return iSolicitudApelacionDAO.numeroApleacionesSinVeredicto();
 	}
 
+	/**
+	 * Cuenta todas las solicitudes de apelaciones que NO tienen registrada una sesión 
+	 * @return Número de solicitudes de apelaciones contadas que NO tienen sesión registrada
+	 * @throws No dispara ninguna excepción.
+	 */
 	public long contarApelacionesSinSesion() {
 		return iSolicitudApelacionDAO.numeroApleacionesSinSesion();
 	}
 
+	/**
+	 * Nueva solicitud de apelación 
+	 * @return Objeto SolicitudApelacion
+	 * @throws No dispara ninguna excepción.
+	 */
 	public SolicitudApelacion crear() {
 		return new SolicitudApelacion();
 	}
 
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación verificar de la primera apelación 
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesVerificarRecaudosI(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoFalse(lapsoAcademico, idInstanciaApelada);
 	}
 
+	/**
+	 * Muestra una lista de las solicitudes de apelaciones en un lapso académico
+	 * @param lapsoAcademico
+	 * @return List<SolicitudApelacion> Lista con las solicitudes encontradas en un lapso
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<String> historicoSolicitudApelacion(LapsoAcademico lapsoAcademico) {
 		List<String> listaElementosAInsertar = new ArrayList<String>();
 		String elementoAInsertar;
-//		String codigolapsoAcademico = lapso.getCodigoLapso();
 		List<SolicitudApelacion> solicitudApelaciones = iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademico(lapsoAcademico);
 
 		for (int i = 0; i < solicitudApelaciones.size(); i++) {
@@ -161,23 +253,42 @@ public class ServicioSolicitudApelacion {
 						+ "');";
 				listaElementosAInsertar.add(elementoAInsertar);
 			}
-//			iSolicitudApelacionDAO.delete(solicitudApelacion);
 		}
 		return listaElementosAInsertar;
 	}
 
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación veredicto de la primera apelación 
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesVeredictoI() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoI();
 	}
 
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación veredicto de la segunda apelación 
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesVeredictoII() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoII();
 	}
 
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación veredicto de la tercera apelación 
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarApelacionesVeredictoIII() {
 		return iSolicitudApelacionDAO.buscarApelacionesVeredictoIII();
 	}
 
+	/**
+	 * Mostrar el número de caso mas alto registrado
+	 * @return El número de caso mayor encontrado
+	 * @throws NullPointerException 
+	 */
 	public String mayorNumeroCaso() {
 		try {
 			return iSolicitudApelacionDAO.mayorNumeroCaso();
@@ -186,11 +297,22 @@ public class ServicioSolicitudApelacion {
 		}
 	}
 
-	// Flor
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación analizar de la primera apelación 
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarAnalizarValidezI(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalseAndVeredictoIsNull(lapsoAcademico, idInstanciaApelada);
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación analizar de la primera apelación  
+	 * @param programa, cedula, nombre, apellido, sancion, lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezI(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
@@ -222,6 +344,12 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación veredicto de la primera apelación  
+	 * @param programa, cedula, nombre, apellido, sancion
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesVeredictoI(String cedula,
 			String nombre, String apellido, String programa, String sancion) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
@@ -252,6 +380,12 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación veredicto de la segunda apelación  
+	 * @param programa, cedula, nombre, apellido, sancion
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesVeredictoII(
 			String cedula, String nombre, String apellido, String programa,
 			String sancion) {
@@ -283,6 +417,12 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación veredicto de la tercera apelación  
+	 * @param programa, cedula, nombre, apellido, sancion
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesVeredictoIII(
 			String cedula, String nombre, String apellido, String programa,
 			String sancion) {
@@ -314,11 +454,22 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
-	// Flory Amanda
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación verificar de la segunda apelación 
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarAnalizarValidezII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalseAndVeredictoIsNull(lapsoAcademico, idInstanciaApelada);
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación analizar de la segunda apelación  
+	 * @param programa, cedula, nombre, apellido, sancion, lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezII(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
@@ -350,10 +501,22 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
+	/**
+	 * Busca las solicitudes de apelación de estudiantes sancionados en el estado de apelación verificar de la tercera apelación 
+	 * @param lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarAnalizarValidezIII(LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		return iSolicitudApelacionDAO.findByEstudianteSancionado_LapsoAcademicoAndId_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndVerificadoTrueAndAnalizadoFalseAndVeredictoIsNull(lapsoAcademico, idInstanciaApelada);
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación analizar de la tercera apelación  
+	 * @param programa, cedula, nombre, apellido, sancion, lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesAnalizarValidezIII(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
@@ -385,38 +548,52 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
+	/**
+	 * Busca una lista de solicitudes de apelaciones para los datos de sesión por instancia apelada
+	 * @param instancia
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación 
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarSolicitudParaDatosSesion(
 			Integer instancia) {
 		return iSolicitudApelacionDAO.buscarSolicitudParaDatosSesion(instancia);
 	}
 
+	/**
+	 * Busca una lista de solicitudes de apelaciones por cedula de estudiante
+	 * @param cedulaEstudiante
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarSolicitudEstudiante(
 			String cedulaEstudiante) {
 		return iSolicitudApelacionDAO
 				.buscarSolicitudEstudiante(cedulaEstudiante);
 	}
-//jose	
+	
+	/**
+	 * Busca una lista de solicitudes de apelaciones para iniciar una sesión valida para dar veredicto
+	 * @param sess, insta, instb
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones registradas
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> buscarSesionValida(String sess,Integer insta, Integer instb) {
 		return iSolicitudApelacionDAO.buscarSesionValida( sess, insta, instb);
 	}
-//Sixmar, Eliecer
 	/**
-	 * Lista de sesiones del lapso actual
-	 * 
-	 * @param ninguno
-	 * @return devuelve una lista de sesiones
+	 * Busca la lista de sesiones del lapso actual
+	 * @return List<String> Lista de sesiones
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<String> buscarSesion() {
 		return iSolicitudApelacionDAO.buscarSesion();
 	}
 
 	/**
-	 * Lista de solicitudes realizadas filtrada por cedula y lapso
-	 * 
-	 * @param cedulaEstudiante
-	 *            , codigoLapso
-	 * @return devuelve una lista con los datos de la apelación relaizada por el
-	 *         estudiando en un lapso determinado
+	 * Busca una lista de solicitudes realizadas filtrada por cedula y lapso
+	 * @param cedula, lapso
+	 * @return<SolicitudApelacion> Lista con los datos de la apelación relaizada por el estudiante en un lapso determinado
+	 * @throws No dispara ninguna excepción.
 	 */
 	public List<SolicitudApelacion> buscarSolicitudApelacionLapsoActual(
 			String cedula, String lapso) {
@@ -424,6 +601,12 @@ public class ServicioSolicitudApelacion {
 				cedula, lapso);
 	}
 	
+	/**
+	 * Lista de solicitudes de apelaciones filtrada en el combo de veredicto por veredictos dados en instancias anteriores
+	 * @param listaFiltrarVeredicto, veredicto
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones filtrada en el combo de veredicto
+	 * @throws No dispara ninguna excepción.
+	 */
 	public List<SolicitudApelacion> filtrarComboVeredictoListaGenerica(
 			List<SolicitudApelacion> listaFiltrarVeredicto, String veredicto) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
@@ -439,6 +622,12 @@ public class ServicioSolicitudApelacion {
 			return result;
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación verificar de la primera apelación  
+	 * @param programa, cedula, nombre, apellido, sancion, lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesVerificarRecaudosI(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
@@ -468,10 +657,14 @@ public class ServicioSolicitudApelacion {
 			}
 		}
 		return result;
-		
-		
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación verificar de la segunda apelación  
+	 * @param programa, cedula, nombre, apellido, sancion, lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesVerificarRecaudosII(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
@@ -504,6 +697,12 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 
+	/**
+	 * Busca una lista filtrada de solicitudes de apelaciones de estudiantes sancionados en el estado de apelación verificar de la tercera apelación  
+	 * @param programa, cedula, nombre, apellido, sancion, lapsoAcademico, idInstanciaApelada
+	 * @return List<SolicitudApelacion> Lista de solicitud de apelación filtrada
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarApelacionesVerificarRecaudosIII(
 			String programa, String cedula, String nombre, String apellido,
 			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
@@ -534,7 +733,12 @@ public class ServicioSolicitudApelacion {
 		}
 		return result;
 	}
-	
+	/**
+	 * Lista de solicitudes de apelaciones por acta filtrada
+	 * @param programa, cedula , nombre , apellido , sancion , lapsoAcademico, idInstanciaApelada 
+	 * @return List<SolicitudApelacion> Lista de solicitudes de apelaciones por acta
+	 * @throws La Excepción es que las variables que entran por parametro sean null.
+	 */
 	public List<SolicitudApelacion> filtrarActa(String programa, String cedula, String nombre, String apellido,
 			String sancion, LapsoAcademico lapsoAcademico, Integer idInstanciaApelada) {
 		List<SolicitudApelacion> result = new ArrayList<SolicitudApelacion>();
@@ -565,9 +769,10 @@ public class ServicioSolicitudApelacion {
 		return result;
 	}
 	/**
-	 * Retorna true si todas las apelaciones fueron procesadas para una instancia
+	 * Muestra el estado en que se encuentran las apelaciones por instancia
 	 * @param idInstanciaApelada
-	 * @return true/false
+	 * @return true si todas las apelaciones fueron procesadas para una instancia si no false
+	 * @throws No dispara ninguna excepción.
 	 */
 	public boolean estanFinalizadasLasApelaciones(int idInstanciaApelada) {
 		List<SolicitudApelacion> listaApelacionesSinVeredicto = iSolicitudApelacionDAO.findById_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrueAndNumeroSesionIsNull(idInstanciaApelada);
@@ -577,7 +782,7 @@ public class ServicioSolicitudApelacion {
 			else
 				return false;
 		}
-		else{//idInstanciaApelada > 1
+		else{
 			List<SolicitudApelacion> listaApelaciones = iSolicitudApelacionDAO.findById_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(idInstanciaApelada);
 			if (listaApelacionesSinVeredicto.size() < 1 && listaApelaciones.size() > 0)
 				return true;
@@ -586,6 +791,12 @@ public class ServicioSolicitudApelacion {
 		}
 	}
 
+	/**
+	 * Muestra el estado de inicio de una apelación 
+	 * @param idInstanciaApelada
+	 * @return true si todas las apelaciones fueron iniciadas para una instancia si no false
+	 * @throws No dispara ninguna excepción.
+	 */
 	public boolean existenApelacionesIniciadas(int idInstanciaApelada) {
 		List<SolicitudApelacion> listaApelacionesPorInstancia = iSolicitudApelacionDAO.findById_IdInstanciaApeladaAndEstudianteSancionado_LapsoAcademico_EstatusTrue(idInstanciaApelada);
 		if (listaApelacionesPorInstancia.size() > 0)
@@ -594,10 +805,22 @@ public class ServicioSolicitudApelacion {
 			return false;
 	}
 
+	/**
+	 * Busca el número de caso de la solicitud de apelación para cargar recaudos de la apelación   
+	 * @param cedula
+	 * @return Número de caso del estudiante para cargar recaudos
+	 * @throws No dispara ninguna excepción.
+	 */
 	public String buscarNumeroDeCasoCargarRecaudo(String cedula) {
 		return iSolicitudApelacionDAO.buscarNumeroDeCasoCargarRecaudo(cedula);
 	}
 
+	/**
+	 * Busca la fecha de la solicitud de apelación para cargar recaudos de la apelación   
+	 * @param cedula
+	 * @return Fecha de solicitud de apelación del estudiante para cargar recaudos
+	 * @throws No dispara ninguna excepción.
+	 */
 	public Object buscarFechaApelacionCargarRecaudo(String cedula) {
 		return iSolicitudApelacionDAO.buscarFechaApelacionCargarRecaudo(cedula);
 	}
