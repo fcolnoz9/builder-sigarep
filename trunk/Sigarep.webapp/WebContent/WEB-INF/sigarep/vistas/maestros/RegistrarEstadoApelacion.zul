@@ -17,7 +17,19 @@
 				</columns>
 				<rows>
 					<row>
-
+						<label id="lblNombreEstado" value="Nombre:" />
+						<textbox id="txtNombreEstado"
+							placeholder= "Ingrese el nombre del estado de apelación"
+							width="80%" cols="23" maxlength="100" mold="rounded" tabindex="1"
+							value="@bind(vm.nombreEstado)" />
+						<label id="lblDescripcion" value="Descripción:" />
+						<textbox
+							id="txtDescripcion"
+							placeholder= "Ingrese la descripción del estado de apelación"
+							width="80%" rows="3" maxlength="255" mold="rounded" tabindex="2"
+							value="@bind(vm.descripcion)" />
+					</row>
+					<row>
 						<label id="lblInstanciaApelada"
 							value="Recurso de Apelación:" />
 						<combobox readonly="true" 
@@ -32,23 +44,8 @@
 									label="${each.nombreRecursoApelacion }" />
 							</template>
 						</combobox>
-
-					</row>
-					<row>
-						<label id="lblNombreEstado" value="Nombre:" />
-
-						<textbox id="txtNombreEstado"
-							placeholder= "Ingrese el nombre del estado de apelación"
-							width="80%" cols="23" maxlength="100" mold="rounded" tabindex="1"
-							value="@bind(vm.nombreEstado)" 
-							/>
-
-						<label id="lblDescripcion" value="Descripción:" />
-						<textbox
-							id="txtDescripcion"
-							placeholder= "Ingrese la descripción del estado de apelación"
-							width="80%" rows="3" maxlength="255" mold="rounded" tabindex="2"
-							value="@bind(vm.descripcion)" />
+						<label id="lblPrioridadEjecucion" value="Prioridad de ejecución:" />
+						<intbox id="txtPrioridadEjecucion" width="80%"></intbox>
 					</row>
 				</rows>
 			</grid>
