@@ -152,7 +152,7 @@ public class VMEstadoApelacion {
 	 * @throws No dispara ninguna excepción.
 	 */
 	@Command
-	@NotifyChange({"listaEstadoApelacion", "nombreEstado", "descripcion", "instanciaapelada" })
+	@NotifyChange({"listaEstadoApelacion", "nombreEstado", "descripcion", "instanciaapelada", "prioridadEjecucion" })
 	// el notifychange le avisa a que parametros en la pantalla se van a
 	// cambiar, en este caso es nombre y descripción se va a colocar en blanco
 	// al guardar
@@ -198,7 +198,7 @@ public class VMEstadoApelacion {
 	 * @throws No dispara ninguna excepcion.
 	   */
 	@Command
-	@NotifyChange({ "nombreEstado", "descripcion","listaEstadoApelacion","cmbInstanciaApelada"})
+	@NotifyChange({ "nombreEstado", "descripcion","listaEstadoApelacion","cmbInstanciaApelada", "prioridadEjecucion"})
 	public void limpiar() {
 		cmbInstanciaApelada.setDisabled(false);
 		idEstadoApelacion = null;
@@ -217,7 +217,7 @@ public class VMEstadoApelacion {
 	 * @throws No dispara ninguna excepción
 	 */
 	@Command
-	@NotifyChange({ "idEstadoApelacion","nombreEstado", "descripcion", "instanciaApelada" })
+	@NotifyChange({ "idEstadoApelacion","nombreEstado", "descripcion", "instanciaApelada", "prioridadEjecucion" })
 	public void mostrarSeleccionado() {
 		idEstadoApelacion = estadoSeleccionado.getIdEstadoApelacion();
 		nombreEstado = estadoSeleccionado.getNombreEstado();
