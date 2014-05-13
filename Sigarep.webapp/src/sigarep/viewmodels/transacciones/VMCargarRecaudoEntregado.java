@@ -3,10 +3,8 @@ package sigarep.viewmodels.transacciones;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import sigarep.herramientas.Documento;
 import sigarep.herramientas.MensajesAlUsuario;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -21,7 +19,6 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
-
 import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
 import sigarep.modelos.data.transacciones.EstudianteSancionado;
 import sigarep.modelos.data.transacciones.RecaudoEntregado;
@@ -33,7 +30,12 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
-
+/**CargarRecaudoEntregado  UCLA DCYT Sistemas de Informacion.
+ * Maneja la carga de documentos que utilizaran los estudiantes 
+ * durante los distintos procesos de apelación.
+ * @author Equipo : Builder-Sigarep Lapso 2013-2
+ * @version 2.6.2
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMCargarRecaudoEntregado {
 

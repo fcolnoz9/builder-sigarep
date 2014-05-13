@@ -28,12 +28,14 @@ import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioMotivo;
 
 
-/**
- * DetalleHistorialEstudiante 
+/** DetalleHistorialEstudiante
+ * Contiene métodos necesarios para la presentacion de la información 
+ * detallada de los estados por los que pasa el estudiante, 
+ * en cada una de las instancias en las que participa.
  * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
- * @since 23/01/14
+ * @since 22/01/14
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMDetalleHistorialEstudiante {

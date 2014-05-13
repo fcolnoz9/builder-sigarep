@@ -44,8 +44,8 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 import sigarep.modelos.servicio.transacciones.ServicioEstudianteSancionado;
-/**CargarEstudiante por XML
- * UCLA DCYT Sistemas de Informacion.
+/**CargarEstudiante por XML UCLA DCYT Sistemas de Informacion.
+ * Maneja lo que respecta la carga de estudiantes sancionados mediante le archivo XML
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 2.6.2
  */

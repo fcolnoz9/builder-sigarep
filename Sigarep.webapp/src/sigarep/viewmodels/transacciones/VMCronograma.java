@@ -1,7 +1,6 @@
 package sigarep.viewmodels.transacciones;
 
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -34,8 +33,8 @@ import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 
-/**Cronograma de Actividades - Planificar
- * UCLA DCYT Sistemas de Informacion.
+/**Cronograma de Actividades - Planificar UCLA DCYT Sistemas de Informacion.
+ * Se encarga de la  gestión del cronograma
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14

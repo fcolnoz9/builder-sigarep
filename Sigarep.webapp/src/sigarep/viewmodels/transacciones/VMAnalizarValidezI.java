@@ -1,18 +1,11 @@
 package sigarep.viewmodels.transacciones;
-/** Transaccion para Analizar Validez II- recurso Jerárquico
- * @author BUILDER
- * @version 1.3
- * @since 12/01/2014 
- */
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
-
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ContextParam;
@@ -21,7 +14,6 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -32,7 +24,6 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
 import sigarep.modelos.data.maestros.Recaudo;
@@ -54,7 +45,12 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.maestros.ServicioRecaudo;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
-
+/** Transaccion para Analizar Validez I
+ * Registra y modifica EL analizar Validez de la primera apelación
+ * @author BUILDER
+ * @version 1.3
+ * @since 12/01/2014 
+ */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMAnalizarValidezI {
 	@WireVariable
