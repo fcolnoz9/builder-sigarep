@@ -505,8 +505,7 @@ public class VMConfigurableApelaciones {
 	public void buscarEdoApelacion() {
 		listaEdoApelacion = servicioestadoapelacion
 				.listadoEstadoApelacionActivas();
-		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos",
-				null);
+		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos",null,null);
 		listaEdoApelacion.add(listaEdoApelacion.size(), edo_ape);
 	}
 

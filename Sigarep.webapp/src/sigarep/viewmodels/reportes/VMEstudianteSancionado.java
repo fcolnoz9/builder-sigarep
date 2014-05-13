@@ -487,7 +487,7 @@ public class VMEstudianteSancionado {
 		listaEdoApelacion = servicioestadoapelacion
 				.listadoEstadoApelacionActivas();
 		EstadoApelacion edo_ape = new EstadoApelacion(null, "Todos", "Todos",
-				null);
+				null,null);
 		listaEdoApelacion.add(listaEdoApelacion.size(), edo_ape);
 	}
 
