@@ -41,7 +41,7 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class VMHistorialEstudiante {
-	@Wire("#modalDialog")
+	@Wire("#winDetalleHistorialEstudiante")
 	private Window window;
 	private String apellido;
 	private String nombre;
@@ -281,7 +281,6 @@ public class VMHistorialEstudiante {
 	{
 		Selectors.wireComponents(view, this, false);
 		this.estudiante = v1;
-		System.out.println("recibe"+estudiante);
 		cedula = estudiante.getCedulaEstudiante();
 	
 		nombre = estudiante.getPrimerNombre();
@@ -376,9 +375,6 @@ public class VMHistorialEstudiante {
 			sancion = apelacion.get(j).
 					getSancionMaestro().getNombreSancion();
 			codigoLapso = apelacion.get(j).getId().getCodigoLapso();
-			System.out.println(sancion);
-			System.out.println(codigoLapso);
-			
 			if (apelacion.get(j).getSancionMaestro().getIdSancion() == 2) {
 				asignaturas = servicioasignaturaestudiantesancionado
 						.buscarAsignaturaDeSancion(cedula, codigoLapso);
@@ -388,10 +384,14 @@ public class VMHistorialEstudiante {
 								.getAsignatura().getNombreAsignatura();
 						if(i+1 < asignaturas.size()){
 							asignaturaLapsosConsecutivos +=", ";
+							
+							
 						}
 					
 					}
 					estudianteH.setAsignaturas(asignaturaLapsosConsecutivos);
+					asignaturaLapsosConsecutivos = "";
+					
 				}
 			}else{
 				
@@ -418,7 +418,12 @@ public class VMHistorialEstudiante {
 		map.put("cedula", cedula);
 		map.put("codigoLapso", codigoLapso);
 		map.put("sancion", sancion);
-		final Window window = (Window) Executions
+		if (window != null){
+			closeThis();
+			window = null;
+		}
+		else{
+		window = (Window) Executions
 				.createComponents(
 						"/WEB-INF/sigarep/vistas/transacciones/DetalleHistorialEstudiante.zul",
 						null, map);
@@ -426,7 +431,7 @@ public class VMHistorialEstudiante {
 		window.doModal();
 
 	}
-	
+	}
 	
 	/**
 	 * Cerrar Ventana
