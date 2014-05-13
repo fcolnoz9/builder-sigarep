@@ -118,22 +118,22 @@
 							selectedItem="@bind(vm.apelacionseleccionada)" tooltiptext="Ver Apelaciones">
 							<listhead>
 								<listheader label="Lapso de la Sanción"
-									 width="14%" align="center">
+									 width="14%" align="center" sort = "auto (lapsoSancion)">
 								</listheader>
 								<listheader label="Tipo de Sanción"
-									width="14%" align="center">
+									width="14%" align="center" sort = "auto (tipoSancion)">
 								</listheader>
 								<listheader label="Indice de Grado"
-									width="14%" align="center">
+									width="14%" align="center" sort = "auto (indiceGrado)">
 								</listheader>
 								<listheader label="Unidades Aprobadas"
-									width="14%" align="center">
+									width="14%" align="center" sort = "auto (unidadesAprobadas)">
 								</listheader>
 								<listheader label="Unidades cursadas"
-									width="14%" align="center">
+									width="14%" align="center" sort = "auto (unidadesCursadas)">
 								</listheader>
 								<listheader label="Asignatura(s)"
-									align="center" sort="auto(asignaturaLapsosConsecutivos)">
+									align="center" sort = "auto (asignaturas)">
 								</listheader>
 							</listhead>
 							<template name="model">
