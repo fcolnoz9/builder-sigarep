@@ -13,7 +13,7 @@ import sigarep.modelos.data.reportes.ConfigurableApelaciones;
 * a los estudiantes segun criterios de motivo de apelacion ,estado de apelacion,
 * instancia paleada, veredicto, programa academico y tipo de sanción.
 * @author Equipo Builder
-* @version x.5
+* @version 1.5
 * @since 05/01/2014 (Fecha de creación)
 * @last 09/05/2014 (Ultima modificación)
 */

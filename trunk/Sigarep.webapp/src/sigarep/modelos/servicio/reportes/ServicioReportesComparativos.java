@@ -11,7 +11,7 @@ import sigarep.modelos.data.reportes.ApelacionesComparativos;
 * Clase Servicio ServicioReportesComparativos busca a los estudiantes  
 * que han apelado según lapso académico, programa y tipo de sanción.
 * @author Equipo Builder
-* @version x.2
+* @version 1.2
 * @since 05/01/2014 (Fecha de creación)
 * @last 09/05/2014 (Ultima modificación)
 */

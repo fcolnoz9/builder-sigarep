@@ -13,7 +13,7 @@ import sigarep.modelos.data.reportes.ListaApelacionesMotivoPorAsignatura;
 * Clase Servicio ServicioApelacionesMotivosPorAsignatura se encarga de buscar 
 * las asignaturas y los motivos por los cuales se apela por dichas asignaturas
 * @author Equipo Builder
-* @version x.11
+* @version 1.11
 * @since 05/01/2014 (Fecha de creación)
 * @last 18/03/2014 (Ultima modificación)
 */

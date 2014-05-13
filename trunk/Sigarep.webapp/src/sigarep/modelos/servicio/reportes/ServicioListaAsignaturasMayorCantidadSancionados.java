@@ -13,7 +13,7 @@ import sigarep.modelos.data.reportes.ListaAsignaturasMayorCantidadSancionados;
 * Clase Servicio ServicioListaAsignaturasMayorCantidadSancionados busca
 * asignaturas con mayor cantidad de sancionados y sus apelaciones con resultados
 * @author Equipo Builder
-* @version x.11
+* @version 1.11
 * @since 05/01/2014 (Fecha de creación)
 * @last 18/03/2014 (Ultima modificación)
 */

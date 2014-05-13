@@ -11,6 +11,14 @@ import org.springframework.stereotype.Service;
 
 import sigarep.modelos.data.reportes.ListaEstudiantesProcedentes;
 
+/**
+* Clase Servicio ServicioEstudiantesProcedentes busca a los 
+* estudiantes procedentes en cada proceso de apelación.
+* @author Equipo Builder
+* @version 1.3
+* @since 05/01/2014 (Fecha de creación)
+* @last 12/05/2014 (Ultima modificación)
+*/
 @Service("servicioEstudiantesProcedentes")
 public class ServicioEstudiantesProcedentes {
 	@PersistenceContext
