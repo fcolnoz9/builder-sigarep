@@ -3,16 +3,20 @@ package sigarep.modelos.servicio.reportes;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Service;
-
 import sigarep.modelos.data.reportes.ListaInformeEstructuradoResultadosApelacion;
 
-
+/**
+* Clase Servicio ServicioApelacionesMotivosPorAsignatura se encarga de buscar 
+* y filtar los estudiantes según la instancia apelada y el programa académico
+* @author Equipo Builder
+* @version x.11
+* @since 05/01/2014 (Fecha de creación)
+* @last 18/03/2014 (Ultima modificación)
+*/
 @Service("servicioInformeEstructuradoResultadoApelacion")
 public class ServicioInformeEstructuradoResultadoApelacion {
 	@PersistenceContext
