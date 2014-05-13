@@ -816,12 +816,16 @@ public class VMConfigurableApelaciones {
 	@Command
 	@NotifyChange({ "cmbAsignatura", "objAsignatura", "parametroAsignatura" })
 	public void configurarComboAsignatura() {
-		if (objSancion.getIdSancion() != 1) {
+		if (objSancion.getIdSancion()==2) {
 			cmbAsignatura.setDisabled(false);
 			objAsignatura = new Asignatura(null, true, "Todos", 3, null);
-		} else {
+		}
+		if(objSancion.getDescripcion().equals("Todos")){
 			cmbAsignatura.setDisabled(true);
-			parametroAsignatura = "val";
+			objAsignatura = new Asignatura(null, true, "Todos", 3, null);
+		}
+		if(objSancion.getIdSancion()==1){
+			cmbAsignatura.setDisabled(true);
 		}
 	}
 

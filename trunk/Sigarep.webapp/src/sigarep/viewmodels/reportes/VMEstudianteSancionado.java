@@ -551,7 +551,8 @@ public class VMEstudianteSancionado {
 	@NotifyChange({ "listaSancion" })
 	public void listadoSancion() {
 		listaSancion = serviciosancionmaestro.listaTipoSanciones();
-		SancionMaestro san = new SancionMaestro(3, "Todos", null, "Todos");
+		SancionMaestro san = new SancionMaestro(null, "Todos", true, "Todos");
+		san.setIdSancion(99);
 		listaSancion.add(listaSancion.size(), san);
 	}
 
@@ -833,13 +834,16 @@ public class VMEstudianteSancionado {
 	@Command
 	@NotifyChange({ "cmbAsignatura", "objAsignatura", "parametroAsignatura" })
 	public void configurarComboAsignatura() {
-		if (objSancion.getIdSancion() != 1
-				&& objSancion.getDescripcion() == "Todos") {
+		if (objSancion.getIdSancion()==2) {
 			cmbAsignatura.setDisabled(false);
 			objAsignatura = new Asignatura(null, true, "Todos", 3, null);
-		} else {
+		}
+		if(objSancion.getDescripcion().equals("Todos")){
 			cmbAsignatura.setDisabled(true);
-			parametroAsignatura = "val";
+			objAsignatura = new Asignatura(null, true, "Todos", 3, null);
+		}
+		if(objSancion.getIdSancion()==1){
+			cmbAsignatura.setDisabled(true);
 		}
 	}
 
