@@ -160,15 +160,22 @@ public class VMEstadoApelacion {
 		if (nombreEstado==null || descripcion==null || instanciaApelada==null || prioridadEjecucion==null) {
 			mensajeAlUsuario.advertenciaSeleccionarEstadoApelacion();
 		} else {
-			//EstadoApelacion estadoapelacion = new EstadoApelacion(idEstadoApelacion,nombreEstado,descripcion,true,instanciaApelada);
-			EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true, prioridadEjecucion);
-			estadoApelacion.setInstanciaApelada(instanciaApelada);
-			servicioestadoapelacion.guardarEstadoApelacion(estadoApelacion);
-			mensajeAlUsuario.informacionRegistroCorrecto();
-			limpiar();
+			if (exitePrioridad(prioridadEjecucion)){
+				mensajeAlUsuario.advertenciaPrioridadDuplicadaEstadoApelacion();
+			}else{
+				EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true, prioridadEjecucion);
+				estadoApelacion.setInstanciaApelada(instanciaApelada);
+				servicioestadoapelacion.guardarEstadoApelacion(estadoApelacion);
+				mensajeAlUsuario.informacionRegistroCorrecto();
+				limpiar();
+			}
 		}
 	}
 	
+	private boolean exitePrioridad(Integer prioridadEjecucion) {
+		return servicioestadoapelacion.existePrioridad(prioridadEjecucion);
+	}
+
 	/** Buscar Estado Apelacion
 	 *  @param Ninguno
 	 *  @return Objeto EstadoApelacion.
