@@ -16,7 +16,7 @@ public class ListaEspecialEstudiantesSancionadosApelaciones {
 	private String nombreSancion;
 	private String codigoLapso;
 	private Integer periodoSancion;
-	private String nombreAsignatura;
+	private String nombreAsignatura = "";
 	private String instanciaApelada;
 	private String veredicto;
 	private String observacion;	
@@ -53,6 +53,13 @@ public class ListaEspecialEstudiantesSancionadosApelaciones {
 		this.nroSesion= nroSesion;
 		this.fechaSesion= fechaSesion;
 	}
+	
+
+	public ListaEspecialEstudiantesSancionadosApelaciones() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 	//  Métodos Set y Get
 	public String getCedulaEstudiante() {

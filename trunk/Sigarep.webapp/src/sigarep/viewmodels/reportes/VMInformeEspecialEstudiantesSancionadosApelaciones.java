@@ -1,6 +1,7 @@
 package sigarep.viewmodels.reportes;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -18,6 +19,8 @@ import sigarep.modelos.data.maestros.SancionMaestro;
 import sigarep.modelos.data.reportes.ListaEspecialEstudiantesSancionadosApelaciones;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
+import sigarep.modelos.data.transacciones.AsignaturaEstudianteSancionado;
+import sigarep.modelos.data.transacciones.HistorialEstudiante;
 import sigarep.modelos.servicio.maestros.ServicioEstadoApelacion;
 import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
@@ -25,6 +28,7 @@ import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.maestros.ServicioSancionMaestro;
 import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 import sigarep.modelos.servicio.reportes.ServicioInformeEspecialEstudiantesSancionadosApelaciones;
+import sigarep.modelos.servicio.transacciones.ServicioAsignaturaEstudianteSancionado;
 
 /**
  * VM Informe Especial Estudiantes Sancionados y sus Apelaciones.
@@ -51,6 +55,8 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	private ServicioInstanciaApelada servicioInstanciaApelada;
 	@WireVariable
 	private ServicioEstadoApelacion servicioestadoapelacion;
+	@WireVariable
+	private ServicioAsignaturaEstudianteSancionado servicioasignaturaestudiantesancionado;
 	// --------------------------Variables de Control-------------------
 	private String objVeredicto;
 	ReportType reportType = null;
@@ -61,8 +67,10 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	private List<SancionMaestro> listaSancion;
 	private List<InstanciaApelada> listaInstanciaApelada;
 	private List<ListaEspecialEstudiantesSancionadosApelaciones> listaEAS = new LinkedList<ListaEspecialEstudiantesSancionadosApelaciones>();
+	private List<ListaEspecialEstudiantesSancionadosApelaciones> listaEASAux = new LinkedList<ListaEspecialEstudiantesSancionadosApelaciones>();
 	private ListModelList<String> cmbVeredicto;// Lista para llenar el combo
 												// Veredicto
+	private List<AsignaturaEstudianteSancionado> asignaturas;
 	// --------------------------Variables Objeto-----------------------
 	private SancionMaestro objSancion;
 	private ProgramaAcademico objprograma;
@@ -75,6 +83,8 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 	private String parametroInstanciaApelada;
 	private String parametroProgramaAcademico;
 	private String parametroVeredicto;
+	private String sancion;
+	private String asignaturaLapsosConsecutivos = "";
 
 	// Métodos Set y Get
 	public SancionMaestro getObjSancion() {
@@ -403,6 +413,75 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 		return parametroVeredicto;
 	}
 
+	@Command
+	@NotifyChange({ "listaEAS","listaEASAux" })
+	public void buscarAsignaturas() {
+        String nombreRecurso="";
+        String cedulaAux="";
+		for (int j = 0; j < listaEAS.size(); j++) {
+			ListaEspecialEstudiantesSancionadosApelaciones especial = new ListaEspecialEstudiantesSancionadosApelaciones();
+			if(listaEAS.get(j).getCedulaEstudiante()!=cedulaAux){
+				System.out.println("cedula"+listaEAS.get(j).getCedulaEstudiante());
+			especial.setCedulaEstudiante(listaEAS.get(j).getCedulaEstudiante());
+			especial.setPrimerNombre(listaEAS.get(j).getPrimerNombre());
+			especial.setPrimerApellido(listaEAS.get(j).getPrimerApellido());
+			especial.setNombrePrograma(listaEAS.get(j).getNombrePrograma());
+			especial.setNombreSancion(listaEAS.get(j).getNombreSancion());
+			especial.setCodigoLapso(listaEAS.get(j).getCodigoLapso());
+			especial.setPeriodoSancion(listaEAS.get(j).getPeriodoSancion());
+			especial.setInstanciaApelada(listaEAS.get(j).getInstanciaApelada());
+			String codigoLapso = listaEAS.get(j).getCodigoLapso();
+			String cedula = listaEAS.get(j).getCedulaEstudiante();
+			asignaturas = servicioasignaturaestudiantesancionado.buscarAsignaturaDeSancion(cedula, codigoLapso);
+			if (asignaturas != null) {
+				System.out.println(asignaturas.size() + "cosa");
+				System.out.println(listaEAS.size() + "cosahgfjhfjh");
+				for (int i = 0; i < asignaturas.size(); i++) {
+					asignaturaLapsosConsecutivos += asignaturas.get(i).getAsignatura().getNombreAsignatura();
+					if (i + 1 < asignaturas.size()) {
+						asignaturaLapsosConsecutivos += ", ";
+
+					}
+
+				}
+			}
+				especial.setNombreAsignatura(asignaturaLapsosConsecutivos);
+				asignaturaLapsosConsecutivos = "";
+				especial.setVeredicto(listaEAS.get(j).getVeredicto());
+				especial.setObservacion(listaEAS.get(j).getObservacion());
+				especial.setNombreTipoMotivo(listaEAS.get(j).getTipoMotivo());
+				especial.setDescripcion(listaEAS.get(j).getDescripcion());
+				especial.setNroSesion(listaEAS.get(j).getNroSesion());
+				especial.setFechaSesion(listaEAS.get(j).getFechaSesion());
+
+			
+//			if (listaEASAux.size() > 0){
+//				if (listaEAS.get(listaEASAux.size() - 1).getCedulaEstudiante() == especial
+//						.getCedulaEstudiante());
+////						&& listaEAS.get(listaEASAux.size() - 1)
+////								.getInstanciaApelada() != especial
+////								.getInstanciaApelada())
+////					listaEASAux.add(especial);
+//				else if(listaEAS.get(listaEASAux.size() - 1).getCedulaEstudiante() != especial
+//						.getCedulaEstudiante()){
+//						listaEASAux.add(especial);
+//						}
+//			}
+//					
+//				else 
+			listaEASAux.add(especial);
+			nombreRecurso=listaEAS.get(j).getInstanciaApelada();
+			cedulaAux=listaEAS.get(j).getCedulaEstudiante();
+			System.out.println("NombreRecurso"+nombreRecurso + "cedulaAux"+cedulaAux);
+			}
+//			else{
+//				j++;
+//			}
+		}
+		listaEAS = null;
+		listaEAS = listaEASAux;
+	}
+
 	/**
 	 * Generar Reporte Estudiantes Sancionado Apelaciones Especial.
 	 * 
@@ -429,7 +508,9 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 					.buscarEstudianteAsignaturasSancion(parametroTipoSancion,
 							parametroInstanciaApelada,
 							parametroProgramaAcademico, parametroVeredicto);
+			buscarAsignaturas();
 			if (listaEAS.size() > 0) {
+				
 				reportConfig = new ReportConfig(ruta);
 				reportConfig.getParameters().put(
 						"ListaEstudianteAsignaturaSancionados",
