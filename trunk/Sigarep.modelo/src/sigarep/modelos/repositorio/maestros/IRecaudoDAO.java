@@ -110,7 +110,7 @@ public interface IRecaudoDAO extends JpaRepository<Recaudo, Integer> {
 	 * @param cedula
 	 * @return List<Recaudo> Recaudos faltantes por entregar de un estudiante sancionado
 	 */
-	@Query("SELECT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
+	@Query("SELECT DISTINCT r FROM Recaudo AS r, Motivo AS m, LapsoAcademico AS la " +
 			"WHERE r.tipoMotivo.idTipoMotivo != '1' AND r.tipoMotivo.idTipoMotivo != '2' " +
 			"AND r.idRecaudo NOT IN " +
 			"(SELECT re.id.idRecaudo FROM RecaudoEntregado AS re, LapsoAcademico AS la " + 
