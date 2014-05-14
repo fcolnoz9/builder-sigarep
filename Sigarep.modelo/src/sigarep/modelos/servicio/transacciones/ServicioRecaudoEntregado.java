@@ -85,7 +85,7 @@ public class ServicioRecaudoEntregado {
 			for (int j = i; j < listaRecaudos.size(); j++) 
 				if (listaRecaudos.get(j).getRecaudo().getIdRecaudo() == idRecaudo)
 					cont++;
-			if (cont > 1)
+			if (cont >= 1)
 				for (int h = 0; h < listaRecaudos.size(); h++)
 					if (listaRecaudos.get(h).getId().getIdRecaudo() == idRecaudo && listaRecaudos.get(h).getId().getIdInstanciaApelada() == 1)
 						listaRecaudos.remove(h);
