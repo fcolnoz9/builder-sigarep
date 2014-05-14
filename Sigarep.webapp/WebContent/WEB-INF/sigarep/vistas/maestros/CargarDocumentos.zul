@@ -108,21 +108,21 @@ style="overflow:auto" action="hide: slideUp"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
-		<listheader label="Categoría" align="lefth"
+		<listheader label="Categoría" align="left"
 		 	sort="auto(categoria)" >
 		 	<textbox id="filtroCategoria" instant="true"
 			mold="rounded" width="100px" value="@bind(vm.categoriaF)"
 			onChange="@command('filtros')" />
 			<image src="imagenes/iconos/buscar.png" />
 		</listheader>
-		<listheader label="Descripción"  align="lefth"
+		<listheader label="Descripción"  align="left"
 		 sort="auto(descripcion)" >
 		</listheader>
-		<listheader label="Fecha Subida" align="lefth" width="100px"
+		<listheader label="Fecha Subida" align="left" width="100px"
 		 sort="auto(fechaSubida)">
 		  </listheader>
-		<listheader label="Documento" align="lefth" width="100px"
-		sort="auto(documento)">
+		<listheader label="Documento" align="left" width="100px"
+		sort="auto(documento.nombreDocumento)">
 		</listheader>
 		
 		
