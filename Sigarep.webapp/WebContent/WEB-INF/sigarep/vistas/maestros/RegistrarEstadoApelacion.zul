@@ -89,7 +89,7 @@
 						sort="auto(descripcion)">
 					</listheader>
 					<listheader label="Recurso de Apelación" align="left"
-						sort="auto(instanciaApelada)">
+						sort="auto(instanciaApelada.instanciaApelada)">
 					</listheader>
 					<listheader label="Prioridad de ejecución" align="left"
 						sort="auto(prioridadEjecucion)">

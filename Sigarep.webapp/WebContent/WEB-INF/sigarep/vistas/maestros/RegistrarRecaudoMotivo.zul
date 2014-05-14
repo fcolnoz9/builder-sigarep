@@ -95,23 +95,23 @@
 				pageSize="10">
 				<!-- Busqueda por FILTROS recaudos -->
 				<listhead>
-					<listheader label="Tipo de Motivo" align="lefth"
-						sort="auto(nombreTipoMotivo)">
+					<listheader label="Tipo de Motivo" align="left"
+						sort="auto(TipoMotivo.nombreTipoMotivo)">
 						<textbox id="filtroTipoMotivo" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreTipoMotivofiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
-					<listheader label="Nombre del Recaudo" align="lefth"
+					<listheader label="Nombre del Recaudo" align="left"
 						sort="auto(nombreRecaudo)">
 						<textbox id="filtroNombre" instant="true" mold="rounded"
 							width="100px" value="@bind(vm.nombreRecaudofiltro)"
 							onChange="@command('filtros')" />
 						<image src="imagenes/iconos/buscar.png" />
 					</listheader>
-					<listheader label="Descripción " align="lefth"
+					<listheader label="Descripción " align="left"
 						sort="auto(descripcion)" />
-					<listheader label="Observación " align="lefth"
+					<listheader label="Observación " align="left"
 						sort="auto(observacion)" />
 				</listhead>
 				<template name="model">
