@@ -19,13 +19,14 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.LapsoAcademico;
-import sigarep.modelos.data.maestros.ProgramaAcademico;
+import sigarep.modelos.data.reportes.ProcedentesComision;
 import sigarep.modelos.data.reportes.ReportConfig;
 import sigarep.modelos.data.reportes.ReportType;
 import sigarep.modelos.data.reportes.Sancionados;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.maestros.ServicioProgramaAcademico;
 import sigarep.modelos.servicio.reportes.ServicioReportesEstructurados;
+import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Informe Estructurado al Consejo de Decanato.
@@ -45,6 +46,8 @@ public class VMInformeConsejoDecanato {
 	private ServicioReportesEstructurados servicioreportesestructurados;
 	@WireVariable
 	private ServicioProgramaAcademico servicioprogramaacademico;
+	@WireVariable
+	private ServicioSolicitudApelacion serviciosolicitudapelacion;
 	// --------------------------Variables de Control-------------------
 	@Wire
 	private String para = "";
@@ -54,14 +57,6 @@ public class VMInformeConsejoDecanato {
 	private String contenido = "";
 	@Wire
 	private String nro = "";
-	private int procedentesInf;
-	private int procedentesPro;
-	private int procedentesAna;
-	private int procedentesMat;
-	private int denegadosInf;
-	private int denegadosPro;
-	private int denegadosAna;
-	private int denegadosMat;
 	@Wire("#winApelacion")
 	Window ventana; // para conectarse a la ventana con el ID
 	ReportType reportType = null;
@@ -69,11 +64,8 @@ public class VMInformeConsejoDecanato {
 	String ruta = "/WEB-INF/sigarepReportes/informes/estructurados/RpInformeConsejoDecanato.jasper";
 	// --------------------------Variables lista------------------------
 	private List<LapsoAcademico> listaLapso;
-	private List<ProgramaAcademico> listaPrograma = new LinkedList<ProgramaAcademico>();
-	private List<Sancionados> listaInformatica = new LinkedList<Sancionados>();
-	private List<Sancionados> listaAnalisis = new LinkedList<Sancionados>();
-	private List<Sancionados> listaProduccion = new LinkedList<Sancionados>();
-	private List<Sancionados> listaMatematicas = new LinkedList<Sancionados>();
+	private List<Sancionados> listaComision = new LinkedList<Sancionados>();
+	private List<ProcedentesComision> procedentesComision = new LinkedList<ProcedentesComision>();
 	// --------------------------Variables Objeto-----------------------
 	private LapsoAcademico objLapso;
 	MensajesAlUsuario mensajeAlUsuario = new MensajesAlUsuario();
@@ -127,14 +119,6 @@ public class VMInformeConsejoDecanato {
 		return nro;
 	}
 
-	public List<ProgramaAcademico> getListaPrograma() {
-		return listaPrograma;
-	}
-
-	public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
-		this.listaPrograma = listaPrograma;
-	}
-
 	public List<LapsoAcademico> getListaLapso() {
 		return listaLapso;
 	}
@@ -149,6 +133,14 @@ public class VMInformeConsejoDecanato {
 
 	public void setObjLapso(LapsoAcademico objLapso) {
 		this.objLapso = objLapso;
+	}
+
+	public List<ProcedentesComision> getProcedentesComision() {
+		return procedentesComision;
+	}
+
+	public void setLista(List<ProcedentesComision> procedentesComision) {
+		this.procedentesComision = procedentesComision;
 	}
 
 	// Fin Métodos Set y Get
@@ -236,68 +228,37 @@ public class VMInformeConsejoDecanato {
 	@NotifyChange({ "reportConfig", "para", "de", "contenido",
 			"tituloinstancia", "titulosancion", "tituloprograma" })
 	public void GenerarReporte() {
-		listaInformatica.clear();
-		listaAnalisis.clear();
-		listaProduccion.clear();
-		listaMatematicas.clear();
-		listaPrograma.clear();
-		listaPrograma = servicioprogramaacademico.listadoProgramas();
+		listaComision.clear();
+
 		if (objLapso == null || para.equals("") || nro.equals("")
 				|| de.equals("") || contenido.equals(""))
 			mensajeAlUsuario.advertenciaLlenarCampos();
 		else {
-			listaInformatica = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(2)
-							.getIdPrograma(), objLapso.getCodigoLapso());
-			if (listaInformatica.size() > 0) {
-				procedentesInf = listaInformatica.get(0).getProcedentes();
-				denegadosInf = listaInformatica.get(0).getNoProcedentes();
+			listaComision = servicioreportesestructurados
+					.buscarEstudiantesComision(objLapso.getCodigoLapso());
+			procedentesComision = servicioreportesestructurados
+					.buscarProcedentesComision(objLapso.getCodigoLapso());
+
+
+			if (listaComision.size() > 0) {
+				reportConfig = new ReportConfig(ruta);
+
+				reportConfig.getParameters().put("De", de);
+				reportConfig.getParameters().put("Para", para);
+				reportConfig.getParameters().put("Contenido", contenido);
+				reportConfig.getParameters().put("nro", nro);
+				reportConfig.getParameters().put("codigoLapso",
+						objLapso.getCodigoLapso());
+				reportConfig.getParameters().put("instancia",
+						"Consejo de Decanato");
+				reportConfig.getParameters().put("listaResumen",
+						(new JRBeanCollectionDataSource(procedentesComision)));
+				reportConfig.setType(reportType);
+				reportConfig
+						.setDataSource(new JRBeanCollectionDataSource(listaComision));
+			} else {
+				mensajeAlUsuario.informacionNoHayCoincidencias();
 			}
-			listaProduccion = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(3)
-							.getIdPrograma(), objLapso.getCodigoLapso());
-			if (listaProduccion.size() > 0) {
-				procedentesPro = listaProduccion.get(0).getProcedentes();
-				denegadosPro = listaProduccion.get(0).getNoProcedentes();
-			}
-			listaAnalisis = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(0)
-							.getIdPrograma(), objLapso.getCodigoLapso());
-			if (listaAnalisis.size() > 0) {
-				procedentesAna = listaAnalisis.get(0).getProcedentes();
-				denegadosAna = listaAnalisis.get(0).getNoProcedentes();
-			}
-			listaMatematicas = servicioreportesestructurados
-					.buscarEstudiantesComision(listaPrograma.get(1)
-							.getIdPrograma(), objLapso.getCodigoLapso());
-			if (listaMatematicas.size() > 0) {
-				procedentesMat = listaMatematicas.get(0).getProcedentes();
-				denegadosMat = listaMatematicas.get(0).getNoProcedentes();
-			}
-			reportConfig = new ReportConfig(ruta);
-			reportConfig.getParameters().put("De", de);
-			reportConfig.getParameters().put("Para", para);
-			reportConfig.getParameters().put("Contenido", contenido);
-			reportConfig.getParameters().put("nro", nro);
-			reportConfig.getParameters().put("codigoLapso",
-					objLapso.getCodigoLapso());
-			reportConfig.getParameters().put("procedentesInf", procedentesInf);
-			reportConfig.getParameters().put("denegadosInf", denegadosInf);
-			reportConfig.getParameters().put("procedentesAna", procedentesAna);
-			reportConfig.getParameters().put("denegadosAna", denegadosAna);
-			reportConfig.getParameters().put("procedentesPro", procedentesPro);
-			reportConfig.getParameters().put("denegadosPro", denegadosPro);
-			reportConfig.getParameters().put("procedentesMat", procedentesMat);
-			reportConfig.getParameters().put("denegadosMat", denegadosMat);
-			reportConfig.getParameters().put("listaInformatica",
-					(new JRBeanCollectionDataSource(listaInformatica)));
-			reportConfig.getParameters().put("listaAnalisis",
-					(new JRBeanCollectionDataSource(listaAnalisis)));
-			reportConfig.getParameters().put("listaProduccion",
-					(new JRBeanCollectionDataSource(listaProduccion)));
-			reportConfig.getParameters().put("listaMatematicas",
-					(new JRBeanCollectionDataSource(listaMatematicas)));
-			reportConfig.setType(reportType);
 		}
 	}
 
