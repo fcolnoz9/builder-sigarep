@@ -12,22 +12,20 @@ public class Sancionados {
 	String nombre;
 	String apellido;
 	String veredicto;
-	int procedentes;
-	int noprocedentes;
+	String programa;
 
 	/**
 	 * Constructor Sancionados
 	 * @param cedula, nombre, apellido, veredicto, procedentes, noprocedentes
 	 */
 	public Sancionados(String cedula, String nombre, String apellido,
-			String veredicto, int procedentes, int noprocedentes) {
+			String veredicto, String programa) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.veredicto = veredicto;
-		this.procedentes = procedentes;
-		this.noprocedentes = noprocedentes;
+		this.programa = programa;
 	}
 
 	// Métodos GET y SET
@@ -62,21 +60,14 @@ public class Sancionados {
 	public void setVeredicto(String veredicto) {
 		this.veredicto = veredicto;
 	}
-
-	public int getProcedentes() {
-		return procedentes;
+	
+	public String getPrograma() {
+		return programa;
 	}
 
-	public void setProcedentes(int procedentes) {
-		this.procedentes = procedentes;
+	public void setPrograma(String programa) {
+		this.programa = programa;
 	}
-
-	public int getNoProcedentes() {
-		return noprocedentes;
-	}
-
-	public void setNoProcedentes(int noprocedentes) {
-		this.noprocedentes = noprocedentes;
-	}// Fin Métodos Set y Get
+	// Fin Métodos Set y Get
 
 }
