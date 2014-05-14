@@ -166,10 +166,10 @@ public class VMDatosSesionVeredicto {
 					Messagebox.QUESTION,new EventListener<ClickEvent>() {
 				@SuppressWarnings("incomplete-switch")
 				public void onEvent(ClickEvent e) throws Exception {
-					switch (e.getButton()) {
-						case NO:
-							binder.postCommand("limpiar", null);
-					}
+					if(e.getButton() == e.getButton().YES);
+					else if(e.getButton() == e.getButton().NO)binder.postCommand("limpiar", null);
+					else e.getTarget().detach();
+					
 				}
 			});	
 		}else{
