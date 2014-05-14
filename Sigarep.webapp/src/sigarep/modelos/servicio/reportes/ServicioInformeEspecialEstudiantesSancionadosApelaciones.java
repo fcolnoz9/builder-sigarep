@@ -32,7 +32,7 @@ public class ServicioInformeEspecialEstudiantesSancionadosApelaciones {
 	public List<ListaEspecialEstudiantesSancionadosApelaciones> buscarEstudianteAsignaturasSancion(String tiposancion,String instanciaApelada, String programaAcademico,String veredicto) {
 		String queryStatement = 
 		"SELECT sa.cedula_estudiante, e.primer_nombre,e.primer_apellido,p.nombre_programa,sm.nombre_sancion,sa.codigo_lapso,es.periodo_sacion,  " +
-		"a.nombre_asignatura, ia.instancia_apelada,sa.veredicto,sa.observacion, tm.nombre_tipo_motivo, m.descripcion,sa.codigo_sesion, sa.fecha_sesion " +
+		"a.nombre_asignatura, ia.nombre_recurso_apelacion,sa.veredicto,sa.observacion, tm.nombre_tipo_motivo, m.descripcion,sa.codigo_sesion, sa.fecha_sesion " +
 		"FROM sigarep.programa_academico as p,sigarep.estudiante as e,sigarep.sancion_maestro as sm,sigarep.lapso_academico as la, sigarep.solicitud_apelacion AS sa " +
 		"LEFT JOIN sigarep.asignatura_estudiante_sancionado  AS aes ON (aes.codigo_lapso = sa.codigo_lapso " +
 															  "AND aes.cedula_estudiante = sa.cedula_estudiante) " +

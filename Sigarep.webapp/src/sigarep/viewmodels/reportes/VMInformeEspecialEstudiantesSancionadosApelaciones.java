@@ -302,7 +302,7 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 		listaInstanciaApelada = servicioInstanciaApelada
 				.listadoInstanciaApelada();
 		InstanciaApelada ins = new InstanciaApelada(null, "Todos", null,
-				"Todos", null);
+				"Todos", "Todos");
 		listaInstanciaApelada.add(listaInstanciaApelada.size(), ins);
 	}
 
@@ -434,8 +434,6 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 				reportConfig.getParameters().put(
 						"ListaEstudianteAsignaturaSancionados",
 						new JRBeanCollectionDataSource(listaEAS));
-				reportConfig.getParameters().put("nombreRecurso",
-						objinstanciaApelada.getNombreRecursoApelacion());
 				reportConfig.setType(reportType);
 				reportConfig.setDataSource(new JRBeanCollectionDataSource(
 						listaEAS));
