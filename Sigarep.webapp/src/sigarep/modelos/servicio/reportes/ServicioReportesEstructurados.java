@@ -115,7 +115,8 @@ public class ServicioReportesEstructurados {
 				"and aea.id_instancia_apelada = 1 " +
 				"and aea.sugerencia is not null " +
 				"and aea.id_estado_apelacion = 3 " +
-				"and sa.codigo_lapso = '2012-1' order by programa, nombre";
+				"and sa.codigo_lapso = '" + codigo_lapso + "' " +
+				"order by programa, nombre";
 		
 		Query query = em.createNativeQuery(queryStatement);
 
