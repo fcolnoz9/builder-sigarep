@@ -477,4 +477,4 @@ public class VMAnalizarValidezI {
 			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
 		}		
 		
-}
+} //fin VMAnalizarValidezI

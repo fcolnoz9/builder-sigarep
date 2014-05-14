@@ -20,7 +20,6 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /** FinalizarLapso
  * Contiene métodos necesarios para la finalización de un lapso académico.
- * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
  * @since 22/01/14
@@ -98,4 +97,4 @@ public class VMFinalizarLapso {
 	}
 	
 
-}
+}//fin VMFinalizarLapso

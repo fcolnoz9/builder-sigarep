@@ -36,7 +36,7 @@ import javax.swing.JFileChooser;
 /**
 * Clase VMRespaldarBaseDatos : ViewModel que proporciona destinos de enlace de datos 
 * para la vista RespaldarDatos.zul 
-*
+* Se encarga de manejar los métodos necesarios para poder respaldar la base de datos
 * @author Equipo Builder
 * @version 1.0
 * @since 17/01/2014

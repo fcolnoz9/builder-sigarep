@@ -37,7 +37,8 @@ import java.util.List;
  * VMVeredictoI Contiene métodos necesarios para el funcionamiento de
  * VeredictoI.zul, mostrado en el menu Gestion::Apelaciones::Evaluar
  * Apelacion::Veredicto.
- * 
+ * Metodos necesarios para la emisión de veredictos a los
+ * estudiantes que estan realizando el proceso de la primera apelación.
  * @author Equipo Builder
  * @version 1.2
  * @since 22/01/2014
@@ -514,4 +515,4 @@ public class VMVeredictoI {
 			}
 		}
 	}
-}
+}//fin VMVeredictoI

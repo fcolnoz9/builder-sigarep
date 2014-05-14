@@ -24,7 +24,9 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Portal Principal mobile.
- * 
+ * Maneja los métodos necesarios para la gestión de la
+ * información que es presentada en el portal principal
+ * de la aplicación móbil.
  * @author Equipo Builder
  * @version 1.2
  * @since 20/04/2013
@@ -281,4 +283,4 @@ public class VMPortalPrincipalMobile {
 		win.setMaximizable(true);
 		win.doModal();
 	}
-}
+}//fin VMPortalPrincipalMobile

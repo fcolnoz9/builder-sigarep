@@ -14,7 +14,7 @@ import sigarep.modelos.data.maestros.Reglamento;
 import sigarep.modelos.servicio.maestros.ServicioReglamento;
 
 /**
- * Descargas UCLA DCYT Sistemas de Informacion.
+ * Descargas 
  * Maneja la descaga de archivos que requieran los estudiantes en el portal
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.0
@@ -90,4 +90,4 @@ public class VMDescargas {
 			mensajeAlUsuario.advertenciaCargarDocumento();
 		}
 	}
-}
+}//fin VMDescargas

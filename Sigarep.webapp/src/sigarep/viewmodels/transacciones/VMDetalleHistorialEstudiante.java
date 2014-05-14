@@ -32,7 +32,6 @@ import sigarep.modelos.servicio.transacciones.ServicioMotivo;
  * Contiene métodos necesarios para la presentacion de la información 
  * detallada de los estados por los que pasa el estudiante, 
  * en cada una de las instancias en las que participa.
- * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
  * @since 22/01/14
@@ -367,5 +366,4 @@ public class VMDetalleHistorialEstudiante {
 		window.detach();
 	}
 	
-
-}
+}//fin VMDetalleHistorialEstudiante

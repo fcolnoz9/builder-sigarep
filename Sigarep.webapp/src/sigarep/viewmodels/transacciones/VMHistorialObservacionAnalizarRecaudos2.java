@@ -21,7 +21,9 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 
 /**
  * VM Historial observación analizar recaudos 2.
- * 
+ * Maneja los métodos asociados a la busqueda de los
+ * recaudos entregados por los estudiantes pero con 
+ * filtros de busqueda mas complejo.
  * @author Equipo Builder
  * @version 1.2
  * @since 20/12/2013
@@ -132,4 +134,4 @@ public class VMHistorialObservacionAnalizarRecaudos2 {
 		boolean condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);
 	}
-}
+}//fin  VMHistorialObservacionAnalizarRecaudos2

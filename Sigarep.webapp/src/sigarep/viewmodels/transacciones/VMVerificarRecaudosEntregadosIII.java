@@ -47,7 +47,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Verificar recaudos entregados III - recurso de jerárquico
- * 
+ * Metodos necesarios para la verificación de los recaudos
+ * entregados a los estudiantes en la tercera apelación.
  * @author Equipo Builder
  * @version 1.3
  * @since 12/01/2014
@@ -538,4 +539,4 @@ public class VMVerificarRecaudosEntregadosIII {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 
-}
+}//fin VMVerificarRecaudosEntregadosIII

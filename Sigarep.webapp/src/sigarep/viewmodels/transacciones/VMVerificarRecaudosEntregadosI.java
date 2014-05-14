@@ -48,7 +48,8 @@ import sigarep.modelos.servicio.maestros.ServicioTipoMotivo;
 
 /**
  * VM Verificar recaudos I - comisión sustanciadora
- * 
+ * Metodos necesarios para la verificación de los recaudos
+ * entregados a los estudiantes en la primera apelación.
  * @author Equipo Builder
  * @version 1.3
  * @since 12/01/2014
@@ -512,4 +513,4 @@ public class VMVerificarRecaudosEntregadosI {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
 
-}
+}//fin VMVerificarRecaudosEntregadosI

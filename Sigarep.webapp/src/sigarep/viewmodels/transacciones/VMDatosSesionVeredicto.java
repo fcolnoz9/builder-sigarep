@@ -33,7 +33,6 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /** VMDatosSesionVeredicto
  * Contiene métodos necesarios  para el funcionamiento de DatosSesionVeredicto.zul
- * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-1
  * @version 1.0
  * @since 22/01/14
@@ -286,4 +285,4 @@ public class VMDatosSesionVeredicto {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 	
-}
+}//fin VMDatosSesionVeredicto

@@ -118,4 +118,4 @@ public class VMAyuda {
     public void mostrarManual() throws IOException { 	 	 
     	 contenidoManual = new AMedia(reglamento.getDocumento().getNombreDocumento(), "pdf", reglamento.getDocumento().getTipoDocumento(), reglamento.getDocumento().getContenidoDocumento());
    }
-}
+}//fin VMAyuda

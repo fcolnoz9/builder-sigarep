@@ -25,7 +25,9 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Historico estudiante. Consulta del Portal principal.
- * 
+ * Maneja los metodos necesarios para la busqueda de los datos 
+ * necesarios de un estudiante en el momento en que esta realizando 
+ * una solocitud de apelación y ya tiene un número de caso asiganado.
  * @author Equipo Builder
  * @version 1.2
  * @since 15/01/2014
@@ -379,4 +381,4 @@ public class VMHistoricoEstudiante {
 			setMotivos(getMotivos() + (listaMotivos.get(i) + ", "));
 		}
 	}
-}
+}//fin VMHistoricoEstudiante
