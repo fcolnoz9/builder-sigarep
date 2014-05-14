@@ -244,6 +244,10 @@ public class MensajesAlUsuario {
 		Messagebox.show("¡No puede eliminar este registro!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+	public void advertenciaPrioridadDuplicadaEstadoApelacion(){
+		Messagebox.show("¡La prioridad de ejecución seleccionada ya se encuentra asignada a otro Estado de Apelación!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
           Messagebox.show("Hemos enviado un email con su nombre de usuario y contraseña.",
