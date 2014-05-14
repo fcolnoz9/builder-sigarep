@@ -30,7 +30,7 @@ import sigarep.modelos.servicio.transacciones.ServicioRecaudoEntregado;
 import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
-/**CargarRecaudoEntregado  UCLA DCYT Sistemas de Informacion.
+/**CargarRecaudoEntregado  
  * Maneja la carga de documentos que utilizaran los estudiantes 
  * durante los distintos procesos de apelación.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
@@ -353,4 +353,4 @@ public class VMCargarRecaudoEntregado {
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
 		ventana.detach();
 	}
-}
+}//fin VMCargarRecaudoEntregado

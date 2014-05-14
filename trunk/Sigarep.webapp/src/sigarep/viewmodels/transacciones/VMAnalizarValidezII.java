@@ -567,4 +567,4 @@ public class VMAnalizarValidezII {
 			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
 		}	
 	
-}
+}//fin VMAnalizarValidezII

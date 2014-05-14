@@ -35,7 +35,8 @@ import java.util.List;
  * VMVeredictoIII Contiene métodos necesarios para el funcionamiento de
  * VeredictoIII.zul, mostrado en el menu Gestion::Recurso Jerarquico::Evaluar
  * Apelacion::Veredicto.
- * 
+ * Metodos necesarios para la emisión de veredictos a los
+ * estudiantes que estan realizando el proceso de la tercera apelación.
  * @author Equipo Builder
  * @version 1.3
  * @since 22/01/2014
@@ -513,4 +514,4 @@ public class VMVeredictoIII {
 			}
 		}
 	}
-}
+}//fin VMVeredictoIII

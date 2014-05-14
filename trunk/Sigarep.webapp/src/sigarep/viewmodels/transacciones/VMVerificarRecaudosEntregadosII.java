@@ -47,7 +47,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Verificar recaudos II - recurso de reconsideracion
- * 
+ * Metodos necesarios para la verificación de los recaudos
+ * entregados a los estudiantes en la segunda apelación.
  * @author Equipo Builder
  * @version 1.3
  * @since 12/01/2014
@@ -526,4 +527,4 @@ public class VMVerificarRecaudosEntregadosII {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
-}
+}//fin VMVerificarRecaudosEntregadosII

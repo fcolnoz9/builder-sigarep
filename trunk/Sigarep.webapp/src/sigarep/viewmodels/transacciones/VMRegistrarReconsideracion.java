@@ -48,7 +48,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Registrar Reconsideracion.
- * 
+ * Maneja los metodos necesarios para el registro de los datos iniciales 
+ * requeridos del estudiante para iniciar el proceso de reconsideración (segunda apelación).
  * @author Equipo Builder
  * @version 1.2
  * @since 23/01/2014
@@ -544,4 +545,4 @@ public class VMRegistrarReconsideracion {
 					});
 		}
 	}
-}
+}//fin VMRegistrarReconsideracion

@@ -1095,4 +1095,4 @@ public class VMEstudianteSancionado {
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
 
-}
+}//fin VMEstudianteSancionado

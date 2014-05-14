@@ -41,7 +41,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSoporte;
 
 /**
  * VM Registrar Datos Iniciales.
- * 
+ * Maneja los metodos necesarios para el registro de los datos iniciales 
+ * requeridos del estudiante para iniciar el proceso de apelación.
  * @author Equipo Builder
  * @version 1.2
  * @since 20/12/2013
@@ -674,4 +675,4 @@ public class VMRegistrarDatosIniciales {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
-}
+}//fin VMRegistrarDatosIniciales

@@ -27,7 +27,8 @@ import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 
 /**
  * VM Historicos Sigarep BD.
- * 
+ * Maneja la generación de archivos históricos de los estudiantes
+ * procesados en lapsos anteriores.
  * @author Equipo Builder
  * @version 1.2
  * @since 10/01/2014
@@ -260,4 +261,4 @@ public class VMHistoricosSigarepBD {
 		boolean condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);
 	}
-}
+}//fin VMHistoricosSigarepBD

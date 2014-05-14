@@ -44,7 +44,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Registrar Recurso jerarquico.
- * 
+ * Maneja los metodos necesarios para el registro de los datos iniciales 
+ * requeridos del estudiante para iniciar el proceso de recurso jerárquico (tercera  apelación).
  * @author Equipo Builder
  * @version 1.2
  * @since 20/12/2013
@@ -486,4 +487,4 @@ public class VMRegistrarRecursoJerarquico {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);
 	}
-}
+}//fin VMRegistrarRecursoJerarquico

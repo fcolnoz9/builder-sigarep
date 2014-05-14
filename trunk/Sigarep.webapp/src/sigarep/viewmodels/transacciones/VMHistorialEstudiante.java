@@ -32,7 +32,7 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 
 /**
- * HistorialEstudiante UCLA DCYT Sistemas de Informacion.
+ * HistorialEstudiante 
  * Maneja la informacón de los estudiantes sancionados que 
  * han iniciado el proceso de apelación.
  * @author Equipo : Builder-Sigarep Lapso 2013-1
@@ -446,4 +446,4 @@ public class VMHistorialEstudiante {
 		window.detach();
 	}
 
-}
+}//fin VMHistorialEstudiante

@@ -27,7 +27,7 @@ import javax.swing.JFileChooser;
 /**
 * Clase VMRestaurarInformacionBD : ViewModel que proporciona destinos de enlace de datos 
 * para la vista RestaurarInformacion.zul 
-*
+* Se encarga de manejar los métodos necesarios para poder restaurar una base de datos
 * @author Equipo Builder
 * @version 1.0
 * @since 17/01/2014
@@ -341,4 +341,4 @@ public class VMRestaurarInformacionBD {
 		boolean condicion = true;
         mensajesAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);		
 	}
-}
+}//fin VMRestaurarInformacionBD

@@ -24,7 +24,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
 
 /**
  * VM Portal Principal. Controla el portal principal del sistema.
- * 
+ * Maneja los métodos necesarios para la gestión de la
+ * información que es presentada en el portal principal.
  * @author Equipo Builder
  * @version 1.2
  * @since 10/12/2013
@@ -297,4 +298,4 @@ public class VMPortalPrincipal {
 		win.doModal();
 	}
 
-}
+}//fin VMPortalPrincipal

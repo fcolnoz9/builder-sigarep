@@ -18,7 +18,6 @@ import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 
 /**Historial de Cronograma
  * Muestra los cronogramas de los diferentes lapsos académicos
- * UCLA DCYT Sistemas de Informacion.
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
  * @since 10/02/14
@@ -160,4 +159,4 @@ public class VMHistorialCronograma {
         mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana,condicion);		
 	}
 	
-}
+}//fin VMHistorialCronograma

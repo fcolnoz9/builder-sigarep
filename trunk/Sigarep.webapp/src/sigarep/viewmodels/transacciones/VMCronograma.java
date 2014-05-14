@@ -33,7 +33,7 @@ import sigarep.modelos.servicio.maestros.ServicioInstanciaApelada;
 import sigarep.modelos.servicio.maestros.ServicioLapsoAcademico;
 import sigarep.modelos.servicio.transacciones.ServicioCronograma;
 
-/**Cronograma de Actividades - Planificar UCLA DCYT Sistemas de Informacion.
+/**Cronograma de Actividades - Planificar 
  * Se encarga de la  gestión del cronograma
  * @author Equipo : Builder-Sigarep Lapso 2013-2
  * @version 1.1
@@ -440,5 +440,5 @@ public class VMCronograma {
 			condicion = true;
 		mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana,condicion);		
 	}
-}
+}//fin VMCronograma
 

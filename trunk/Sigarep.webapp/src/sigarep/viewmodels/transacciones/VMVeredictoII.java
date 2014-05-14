@@ -35,7 +35,8 @@ import sigarep.modelos.servicio.transacciones.ServicioSolicitudApelacion;
  * VMVeredictoII Contiene métodos necesarios para el funcionamiento de
  * VeredictoII.zul, mostrado en el menu Gestion::Recurso de
  * Reconsideración::Evaluar Recurso de Reconsideración::Veredicto.
- * 
+ * Metodos necesarios para la emisión de veredictos a los
+ * estudiantes que estan realizando el proceso de la segunda apelación.
  * @author Equipo Builder
  * @version 1.2
  * @since 22/01/2014
@@ -512,4 +513,4 @@ public class VMVeredictoII {
 			}
 		}
 	}
-}
+}//fin VMVeredictoII
