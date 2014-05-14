@@ -148,7 +148,6 @@ public class VMCargarEstudiantesSancionadosXml {
 				SAXBuilder saxBuilder = new SAXBuilder();
 				XMLOutputter output = new XMLOutputter();
 				try {
-					Clients.showBusy("Cargando los  Estudiantes Sancionados...");
 					Events.echoEvent("onUpload", ventana, null);
 					Document doc = saxBuilder.build(new StringReader(dataXml));// transformar y construir la DataXml con el formato del XML, usa la libreria Jdom-2.0.3 para poder usar sus propiedades
 					Element rootNode = doc.getRootElement(); 
