@@ -24,7 +24,7 @@ public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Inte
 	 * 
 	 * @return List<EstadoApelacion> Lista de Estados de Apelación con estatus == true
 	 */
-	public List<EstadoApelacion> findByEstatusTrue();
+	public List<EstadoApelacion> findByEstatusTrueOrderByPrioridadEjecucionAsc();
 	
 	/**
 	 * Busca un Estado de Apelación por su nombre

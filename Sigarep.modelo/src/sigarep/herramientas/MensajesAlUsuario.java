@@ -244,6 +244,10 @@ public class MensajesAlUsuario {
 		Messagebox.show("¡No puede eliminar este registro!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
 	}
 	
+	public void noPuedeRegistrarEstadosDeApelacion(){
+		Messagebox.show("¡No puede registrar nuevos Estados de Apelación!", "Advertencia", Messagebox.OK, Messagebox.EXCLAMATION);
+	}
+	
 /*-------------------------------------------Mensajes de Información-----------------------------------*/
 	public void informacionHemosEnviadoCorreo() {
           Messagebox.show("Hemos enviado un email con su nombre de usuario y contraseña.",
