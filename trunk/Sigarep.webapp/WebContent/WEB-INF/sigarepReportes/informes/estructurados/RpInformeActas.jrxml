@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
-	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="380"/>
+	<property name="ireport.y" value="212"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -187,7 +187,7 @@
 	<parameter name="ListaInstancia3" class="JRDataSource"/>
 	<parameter name="motivosEstudiante" class="java.lang.String"/>
 	<parameter name="caso" class="java.lang.String"/>
-	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="fecha" class="java.util.Date"/>
 	<parameter name="sugerencias" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT COUNT(*) As numeroapelaciones, timo.nombre_tipo_motivo, prog.nombre_programa
@@ -284,60 +284,53 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<text><![CDATA[Una vez  analizadas las pruebas y alegatos presentadas por el (la) ciudadano(a) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="405" y="52" width="40" height="20" uuid="3dfd8381-6c36-416d-8d23-dfb6db71aa8c"/>
+				<reportElement x="337" y="52" width="40" height="20" uuid="3dfd8381-6c36-416d-8d23-dfb6db71aa8c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<text><![CDATA[C.I Nº]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="59" y="72" width="128" height="20" uuid="ec307c0f-a36e-47fc-bfe0-0529b4ab7f63"/>
+				<reportElement x="59" y="72" width="68" height="20" uuid="ec307c0f-a36e-47fc-bfe0-0529b4ab7f63"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[pertenece al programa ]]></text>
+				<text><![CDATA[programa ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="463" y="72" width="64" height="20" uuid="1c5e76a7-79cd-4f4d-aed4-0a1963fa668f"/>
+				<reportElement x="255" y="72" width="272" height="20" uuid="1c5e76a7-79cd-4f4d-aed4-0a1963fa668f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[la comisión ]]></text>
+				<text><![CDATA[la Comisión Sustanciadora, reunida  el día ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="59" y="92" width="162" height="20" uuid="51ea1849-b6f9-4f2b-836b-3936a585df94"/>
+				<reportElement x="119" y="91" width="408" height="20" uuid="31189600-f024-45ac-b505-26c55ecc7286"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[Sustanciadora, reunida el día ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="339" y="92" width="188" height="20" uuid="31189600-f024-45ac-b505-26c55ecc7286"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12"/>
-				</textElement>
-				<text><![CDATA[, recomienda que la solicitud de el ]]></text>
+				<text><![CDATA[, recomienda que la solicitud de el (la) mencionado (a) ciudadano (a) para]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="59" y="112" width="468" height="20" uuid="615c78b9-6a3e-41d8-9064-76a4492043d5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[(la) mencionado (a) ciudadano (a) para la no aplicación de la normativa contenida en el ]]></text>
+				<text><![CDATA[la no aplicación de la normativa contenida en el Articulo 35 del Reglamento General]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="59" y="132" width="468" height="20" uuid="830a0c03-50ef-4f00-811f-68b0df13faca"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[Articulo 35 del Reglamento General de Evaluación  del   Rendimiento   Estudiantil  de la]]></text>
+				<text><![CDATA[de Evaluación  del   Rendimiento   Estudiantil  de la Universidad Centroccidental ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="59" y="152" width="468" height="20" uuid="57fd0298-149e-47fc-ae77-0e7faad7f09f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[Universidad Centroccidental “ Lisandro Alvarado” sea considerada.]]></text>
+				<text><![CDATA[“ Lisandro Alvarado” sea considerada.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="59" y="198" width="468" height="20" uuid="89bed730-0b06-4a04-b2d1-cae26585d169"/>
@@ -369,42 +362,42 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				<reportElement x="328" y="385" width="100" height="1" uuid="b22fbeca-f0f9-4373-86b6-b2cadcf32580"/>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement x="460" y="52" width="65" height="20" uuid="1939aae5-611e-44d1-9291-e01abefeb86c"/>
+				<reportElement x="382" y="52" width="65" height="20" uuid="1939aae5-611e-44d1-9291-e01abefeb86c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cedula}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="221" y="72" width="190" height="20" uuid="23f04434-380e-42e8-a8fb-773f657f7a9f"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="119" y="72" width="190" height="20" uuid="23f04434-380e-42e8-a8fb-773f657f7a9f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{programa}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="89" y="52" width="144" height="20" uuid="1c879d86-618a-404d-94d7-0997f4efdec9"/>
+				<reportElement x="59" y="52" width="144" height="20" uuid="1c879d86-618a-404d-94d7-0997f4efdec9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{apellidoEstudiante}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="238" y="52" width="145" height="20" uuid="9ebc870f-7a3d-41c0-a439-2640a7869e90"/>
+				<reportElement x="195" y="52" width="145" height="20" uuid="9ebc870f-7a3d-41c0-a439-2640a7869e90"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreEstudiante}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="241" y="91" width="69" height="20" uuid="7c22d38c-f3fb-4c41-984b-a09bdda7235f"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="59" y="91" width="69" height="20" uuid="7c22d38c-f3fb-4c41-984b-a09bdda7235f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="221" y="178" width="145" height="20" uuid="4f8519a3-b335-459b-824b-299a322cad2c"/>
+				<reportElement x="221" y="175" width="145" height="20" uuid="4f8519a3-b335-459b-824b-299a322cad2c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="15"/>
 				</textElement>
@@ -451,6 +444,13 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<text><![CDATA[Coordinador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="52" width="70" height="20" uuid="818ef01e-2b67-441b-a8b6-0d6fea499477"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[pertenece al]]></text>
 			</staticText>
 		</band>
 	</summary>
