@@ -163,11 +163,15 @@ public class VMEstadoApelacion {
 		if (nombreEstado==null || descripcion==null || instanciaApelada==null || prioridadEjecucion==null) {
 			mensajeAlUsuario.advertenciaSeleccionarEstadoApelacion();
 		} else {
+			if (idEstadoApelacion == null){
+				mensajeAlUsuario.noPuedeRegistrarEstadosDeApelacion();
+			}else{
 				EstadoApelacion estadoApelacion = new EstadoApelacion(idEstadoApelacion, nombreEstado, descripcion, true, prioridadEjecucion);
 				estadoApelacion.setInstanciaApelada(instanciaApelada);
 				servicioestadoapelacion.guardarEstadoApelacion(estadoApelacion);
 				mensajeAlUsuario.informacionRegistroCorrecto(); 
 				limpiar();
+			}
 		}
 	}
 

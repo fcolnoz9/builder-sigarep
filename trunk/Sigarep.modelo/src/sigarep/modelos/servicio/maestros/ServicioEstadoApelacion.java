@@ -40,7 +40,7 @@ public class ServicioEstadoApelacion {
 	 * @throws No dispara ninguna excepción.
 	   */
 	public List<EstadoApelacion> listadoEstadoApelacionActivas() {
-		List<EstadoApelacion> ListaEstadoApelacion = ea.findByEstatusTrue();
+		List<EstadoApelacion> ListaEstadoApelacion = ea.findByEstatusTrueOrderByPrioridadEjecucionAsc();
 		return ListaEstadoApelacion;
 	}
 	
