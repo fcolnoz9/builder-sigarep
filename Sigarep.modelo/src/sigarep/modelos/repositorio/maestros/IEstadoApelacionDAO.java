@@ -56,7 +56,4 @@ public interface IEstadoApelacionDAO extends JpaRepository<EstadoApelacion, Inte
 			"and e.idEstadoApelacion <> '12'" +
 			"order by e.idEstadoApelacion asc ")
 	public List<EstadoApelacion> buscarEstados(@Param("instancia") int instancia);
-
-	public EstadoApelacion findByPrioridadEjecucion(Integer prioridadEjecucion);
-
 }
