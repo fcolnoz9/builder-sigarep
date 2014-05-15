@@ -351,8 +351,8 @@ public class VMReglamento {
 				documento.setTipoDocumento(media.getContentType());
 				documento.setContenidoDocumento(media.getByteData());
 
-				if(documento.getTamanoDocumento()>20971520){
-					mensajeAlUsuario.advertenciaTamannoArchivo(20480);
+				if(documento.getTamanoDocumento()>52428800){
+					mensajeAlUsuario.advertenciaTamannoArchivo(51200);
 
 					documento=new Documento();
 				}else{nombreDoc=documento.getNombreDocumento();}
