@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="245"/>
+	<property name="ireport.y" value="370"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -368,10 +368,10 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="452" splitType="Stretch">
+		<band height="461" splitType="Stretch">
 			<elementGroup/>
 			<componentElement>
-				<reportElement key="table 4" style="table 4" x="54" y="38" width="395" height="50" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#999999" uuid="2f8685a5-af58-4e2c-a44f-ec355a35cd59"/>
+				<reportElement key="table 4" style="table 4" x="54" y="34" width="395" height="50" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#999999" uuid="2f8685a5-af58-4e2c-a44f-ec355a35cd59"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DatasetComisionSustanciadora" uuid="f4b519f6-6e57-405a-a542-e85f31be7cef">
 						<dataSourceExpression><![CDATA[$P{Lista}]]></dataSourceExpression>
@@ -387,7 +387,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 4_TD" height="26" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="128" height="26" uuid="c69944a7-0d02-4ee2-9730-a47ac22dc2ae"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -407,7 +407,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 4_TD" height="26" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="81" height="26" uuid="c882b060-9e96-4e5e-af5b-01cae167e5ae"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -427,7 +427,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 4_TD" height="26" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="178" height="26" uuid="03830832-a28e-4405-b00c-5dc57c92d80a"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -447,7 +447,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 4_TD" height="26" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="26" uuid="7873e0c3-ed85-41d2-a4ba-17a6a11a7b75"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -459,7 +459,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement key="table 5" style="table 5" mode="Opaque" x="54" y="230" width="395" height="50" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#999999" uuid="c2620389-a283-4b06-ad24-749279e638d2"/>
+				<reportElement key="table 5" style="table 5" mode="Opaque" x="54" y="235" width="395" height="50" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#999999" uuid="c2620389-a283-4b06-ad24-749279e638d2"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DatasetConsejoDecanato" uuid="e013ec90-3e44-4d9a-91e5-40e1b43bcac4">
 						<dataSourceExpression><![CDATA[$P{ListaInstancia2}]]></dataSourceExpression>
@@ -475,7 +475,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 5_TD" height="23" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="127" height="22" uuid="97fb7c94-53a1-47a8-bf1b-c2c16008868a"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -495,7 +495,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 5_TD" height="23" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="78" height="22" uuid="adb7dac0-04bc-4f53-b07b-759d2f248ff4"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -515,7 +515,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 5_TD" height="23" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="180" height="22" uuid="ce37f6a6-ac8e-4cd6-bd43-52c775d9edf4"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -535,7 +535,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 5_TD" height="23" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="2" width="94" height="20" uuid="b3b4b59b-e5de-4508-9d6f-2ceb18839516"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -547,7 +547,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement key="table 6" style="table 6" x="54" y="404" width="395" height="48" isRemoveLineWhenBlank="true" uuid="be73b646-b524-4315-96d7-a3b572830e28"/>
+				<reportElement key="table 6" style="table 6" x="54" y="410" width="395" height="48" isRemoveLineWhenBlank="true" uuid="be73b646-b524-4315-96d7-a3b572830e28"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DatasetConsejoUniversitario" uuid="817fa768-88c4-4dd7-9e7b-6c2ed3eaab58">
 						<dataSourceExpression><![CDATA[$P{ListaInstancia3}]]></dataSourceExpression>
@@ -563,7 +563,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 6_TD" height="24" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="130" height="22" uuid="91474796-123d-4b81-9c00-f6bcd1b9eda2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -583,7 +583,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 6_TD" height="24" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="76" height="22" uuid="77220549-ff91-4efb-9751-55de1330c57f"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -603,7 +603,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 6_TD" height="24" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="179" height="22" uuid="5b70e711-fdc0-4443-93d4-825f72bd6495"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -623,7 +623,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="table 6_TD" height="24" rowSpan="1">
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="93" height="22" uuid="f9089e90-ad51-4392-892a-c82781ad71e4"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" size="12"/>
@@ -635,21 +635,21 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="173" y="13" width="243" height="20" uuid="fa9acaf9-f783-4ffc-bf8a-276c33fe6a16"/>
+				<reportElement x="173" y="15" width="243" height="20" uuid="fa9acaf9-f783-4ffc-bf8a-276c33fe6a16"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Apelación ante la Comisión Sutanciadora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="179" y="204" width="228" height="20" uuid="121de8a3-1315-42d9-b102-580b0bbcb2af"/>
+				<reportElement x="179" y="216" width="228" height="20" uuid="121de8a3-1315-42d9-b102-580b0bbcb2af"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Apelación ante el Consejo de Decanato]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="174" y="376" width="241" height="20" uuid="47a2ed16-a1bb-4953-8f33-aebd41d8cb57"/>
+				<reportElement x="174" y="391" width="241" height="20" uuid="47a2ed16-a1bb-4953-8f33-aebd41d8cb57"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
