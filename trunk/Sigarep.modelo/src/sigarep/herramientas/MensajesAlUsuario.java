@@ -543,7 +543,7 @@ public class MensajesAlUsuario {
 				new EventListener<ClickEvent>() {
 					@SuppressWarnings("incomplete-switch")
 					public void onEvent(ClickEvent e) throws Exception {
-						if(e.getButton() == e.getButton().YES)ventana.detach();
+						if(e.getButton() == e.getButton().OK)ventana.detach();
 						else e.getTarget().detach();
 					}
 				});
