@@ -63,13 +63,4 @@ public class ServicioEstadoApelacion {
 		List<EstadoApelacion> listaEstados = ea.buscarEstados(instancia);
 		return listaEstados;
 	}
-
-	public boolean existePrioridad(Integer prioridadEjecucion) {
-		EstadoApelacion estadoApelacion;
-		estadoApelacion = ea.findByPrioridadEjecucion(prioridadEjecucion);
-		if (estadoApelacion != null)
-			return true;
-		else
-			return false;
-	}
 }
