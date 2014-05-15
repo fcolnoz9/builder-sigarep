@@ -455,21 +455,18 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 				especial.setFechaSesion(listaEAS.get(j).getFechaSesion());
 
 			
-//			if (listaEASAux.size() > 0){
-//				if (listaEAS.get(listaEASAux.size() - 1).getCedulaEstudiante() == especial
-//						.getCedulaEstudiante());
-////						&& listaEAS.get(listaEASAux.size() - 1)
-////								.getInstanciaApelada() != especial
-////								.getInstanciaApelada())
-////					listaEASAux.add(especial);
-//				else if(listaEAS.get(listaEASAux.size() - 1).getCedulaEstudiante() != especial
-//						.getCedulaEstudiante()){
-//						listaEASAux.add(especial);
-//						}
-//			}
-//					
-//				else 
-			listaEASAux.add(especial);
+	if (listaEASAux.size() > 0){
+		if (listaEASAux.get(listaEASAux.size() - 1).getCedulaEstudiante().equals(especial.getCedulaEstudiante()) 
+				&& !listaEASAux.get(listaEASAux.size() - 1).getInstanciaApelada().equals(especial.getInstanciaApelada()) )
+		{	
+			
+			
+			listaEASAux.add(especial);}
+		else if(!listaEASAux.get(listaEASAux.size() - 1).getCedulaEstudiante().equals(especial.getCedulaEstudiante()) ){
+						listaEASAux.add(especial);
+		}
+	}
+	else listaEASAux.add(especial);
 			nombreRecurso=listaEAS.get(j).getInstanciaApelada();
 			cedulaAux=listaEAS.get(j).getCedulaEstudiante();
 			System.out.println("NombreRecurso"+nombreRecurso + "cedulaAux"+cedulaAux);
@@ -477,6 +474,9 @@ public class VMInformeEspecialEstudiantesSancionadosApelaciones {
 //			else{
 //				j++;
 //			}
+		}
+		for(int l=0; listaEASAux.size()>l;l++){
+			System.out.println("nombre "+listaEASAux.get(l).getPrimerNombre()+" cedula "+listaEASAux.get(l).getCedulaEstudiante()+" instancia "+listaEASAux.get(l).getInstanciaApelada());
 		}
 		listaEAS = null;
 		listaEAS = listaEASAux;
