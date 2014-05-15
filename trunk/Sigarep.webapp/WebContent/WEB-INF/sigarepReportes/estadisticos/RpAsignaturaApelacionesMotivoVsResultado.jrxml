@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RpAsignaturasSancionadosVsApelaciones" language="groovy" printOrder="Horizontal" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="e4c809ca-4229-479e-9900-3377b8e4e298">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="457"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -311,7 +311,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 		<band height="380" splitType="Stretch">
 			<bar3DChart>
 				<chart isShowLegend="true" renderType="draw" theme="default">
-					<reportElement style="table" stretchType="RelativeToTallestObject" mode="Transparent" x="36" y="115" width="676" height="204" uuid="fca06e7b-018e-4200-a49a-707ff5e49421"/>
+					<reportElement style="table" stretchType="RelativeToTallestObject" mode="Transparent" x="36" y="86" width="676" height="259" uuid="fca06e7b-018e-4200-a49a-707ff5e49421"/>
 					<chartTitle>
 						<font fontName="Arial"/>
 					</chartTitle>
@@ -337,12 +337,12 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</categorySeries>
 				</categoryDataset>
 				<bar3DPlot isShowLabels="true">
-					<plot labelRotation="0.0"/>
+					<plot labelRotation="20.0"/>
 					<itemLabel color="#FFFFFF" backgroundColor="#FFFFFF">
 						<font fontName="Arial" size="5" isBold="true"/>
 					</itemLabel>
 					<categoryAxisLabelExpression><![CDATA[$P{asignatura}]]></categoryAxisLabelExpression>
-					<categoryAxisFormat labelRotation="0.0">
+					<categoryAxisFormat labelRotation="20.0">
 						<axisFormat tickLabelMask="0" verticalTickLabels="true">
 							<labelFont>
 								<font fontName="Arial" size="10"/>

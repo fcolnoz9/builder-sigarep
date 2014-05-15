@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RApelacionesMotivoPrograma" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="2dfe648e-987c-48e8-b7b9-d5ba2587b896">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="83"/>
+	<property name="ireport.y" value="401"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -348,7 +348,7 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					</categorySeries>
 				</categoryDataset>
 				<bar3DPlot isShowLabels="true">
-					<plot>
+					<plot labelRotation="20.0">
 						<seriesColor seriesOrder="0" color="#FF6666"/>
 						<seriesColor seriesOrder="1" color="#3366FF"/>
 						<seriesColor seriesOrder="2" color="#669900"/>
@@ -356,8 +356,8 @@ DECANATO DE CIENCIAS Y TECNOLOGÍA]]></text>
 					<itemLabel color="#FFFFFF">
 						<font size="7"/>
 					</itemLabel>
-					<categoryAxisFormat>
-						<axisFormat>
+					<categoryAxisFormat labelRotation="20.0">
+						<axisFormat tickLabelMask="0">
 							<labelFont>
 								<font size="7"/>
 							</labelFont>
