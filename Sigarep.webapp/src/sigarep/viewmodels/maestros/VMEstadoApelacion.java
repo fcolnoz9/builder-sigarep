@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Window;
 import sigarep.herramientas.MensajesAlUsuario;
 import sigarep.modelos.data.maestros.EstadoApelacion;
@@ -56,6 +57,8 @@ public class VMEstadoApelacion {
 	
 	@Wire("#cmbInstanciaApelada")
 	Combobox cmbInstanciaApelada;
+	@Wire("#txtPrioridadEjecucion")
+	Intbox txtPrioridadEjecucion;
 
 	// Métodos Set y Get
 	public Integer getIdEstadoApelacion() {
@@ -214,6 +217,7 @@ public class VMEstadoApelacion {
 		instanciaApelada=null;
 		prioridadEjecucion=null;
 		buscarEstadoApelacion();
+		txtPrioridadEjecucion.setReadonly(false);
 	}
 
 	/**
@@ -231,6 +235,7 @@ public class VMEstadoApelacion {
 		descripcion = estadoSeleccionado.getDescripcion();
 		instanciaApelada = estadoSeleccionado.getInstanciaApelada();
 		prioridadEjecucion = estadoSeleccionado.getPrioridadEjecucion();
+		txtPrioridadEjecucion.setReadonly(true);
 	}
 	
 	/**
