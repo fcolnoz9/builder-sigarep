@@ -85,7 +85,6 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
-
 	// Fin Métodos Set y Get
 
 	/**
@@ -116,7 +115,7 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosObservacionesAnalizar(cedula);
+				.buscarRecaudosEntregadosObservacionesAnalizarII(cedula);
 	}
 
 	/**
@@ -127,11 +126,8 @@ public class VMHistorialObservacionAnalizarRecaudos {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-
 	@Command
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
-		boolean condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);
+		ventana.detach();
 	}
-
-}//fin   VMHistorialObservacionAnalizarRecaudos
+}
