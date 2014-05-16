@@ -347,7 +347,6 @@ public class VMCargarRecaudoEntregado {
 	 * @throws No
 	 *             dispara ninguna excepcion.
 	 */
-	
 	@Command
 	@NotifyChange({ "listaRecaudo" })
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana){
