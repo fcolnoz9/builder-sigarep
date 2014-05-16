@@ -438,16 +438,23 @@ public class MensajesAlUsuario {
 		if(comparar.equals("") || comparar == null){ respuesta = true;}
 		else{
 			String palabra = comparar;
-			String separador = "[A-Za-z0-9]+@[A-Za-z0-9]+\\.com";
+			String separador = "[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z0-9]+";
 	        String[] palabraArray = palabra.split(separador);
-			String separador2 = "@";
+	        System.out.println("tamaño 1 "+palabra.length() + " "+palabra);
+			String separador2 = "";
 	        String[] palabra2Array =palabra.split(separador2);
-	        char[] letras = palabra.toCharArray();       
-		    char letra = letras[letras.length-1];
-		    if(palabraArray.length > 0 ){	            
-		    }else if(palabra2Array.length > 2 || letra == '@' ){
-		    }else{ respuesta = true;}
-		    if(!respuesta)Messagebox.show("¡Debe ingresar un correo válido! ejemplo: abc123@abc.com", "Error",
+	        
+		    if(palabraArray.length == 0 ){	
+		    	respuesta = true;
+		    }else if(palabraArray.length==2 ){
+		    	separador2 = palabraArray[1].toString();
+		    	palabra2Array=separador2.split("\\.");
+		    	if(palabra2Array.length==2 && (palabra2Array[0].length()==0 || palabra2Array[0].equals(null)) && palabra2Array[1].length()>0){
+		    		respuesta = true;
+		    	}else {
+		    		respuesta = false;}
+		    }
+		    if(!respuesta)Messagebox.show("¡Debe ingresar un correo válido! ejemplo: abc123@abc.abc o abc123@abc.abc.ab ", "Error",
 				Messagebox.OK, Messagebox.ERROR);
 		}
 		return respuesta;
