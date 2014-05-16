@@ -95,12 +95,22 @@ public interface IRecaudoEntregadoDAO extends
 	 * @param cedula
 	 * @return List<RecaudoEntregado> lista de recaudos entregados de un estudiante sancionado
 	 */
-	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
-			"WHERE re.id.codigoLapso = la.codigoLapso " +
-			"AND la.estatus = 'TRUE' " +
-			"AND re.id.cedulaEstudiante = :cedula " +
-			"AND (re.id.idInstanciaApelada = '1' " +
-			"OR re.id.idInstanciaApelada = '2')")
+//	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
+//			"WHERE re.id.codigoLapso = la.codigoLapso " +
+//			"AND la.estatus = 'TRUE' " +
+//			"AND re.id.cedulaEstudiante = :cedula " +
+//			"AND (re.id.idInstanciaApelada = '1' " +
+//			"OR re.id.idInstanciaApelada = '2')")
+	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la "
+			+ "WHERE re.id.idInstanciaApelada = (SELECT MAX(r.id.idInstanciaApelada) "
+			+ "								   FROM RecaudoEntregado AS r, LapsoAcademico AS la "
+			+ "								   WHERE r.id.idRecaudo = re.id.idRecaudo " 
+			+ "								   AND r.id.cedulaEstudiante = re.id.cedulaEstudiante " 
+			+ "								   AND r.id.codigoLapso = la.codigoLapso) " 
+			+ "								   AND la.estatus='TRUE' "
+			+ "AND re.id.cedulaEstudiante = :cedula "
+			+ "AND re.id.codigoLapso = la.codigoLapso "
+			+ "AND la.estatus='TRUE'")
 	public List<RecaudoEntregado> buscarRecaudosEntregadosVerificarRecaudosIII(@Param("cedula") String cedula);
 	
 	/**
