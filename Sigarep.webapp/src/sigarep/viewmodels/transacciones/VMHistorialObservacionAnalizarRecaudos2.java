@@ -117,7 +117,7 @@ public class VMHistorialObservacionAnalizarRecaudos2 {
 	@NotifyChange({ "listaRecaudo" })
 	public void buscarRecaudosEntregados(String cedula) {
 		listaRecaudo = serviciorecaudoentregado
-				.buscarRecaudosEntregadosObservacionesAnalizar(cedula);
+				.buscarRecaudosEntregadosObservacionesAnalizarIII(cedula);
 	}
 
 	/**
@@ -131,7 +131,6 @@ public class VMHistorialObservacionAnalizarRecaudos2 {
 
 	@Command
 	public void cerrarVentana(@BindingParam("ventana") final Window ventana) {
-		boolean condicion = true;
-		mensajeAlUsuario.confirmacionCerrarVentanaSimple(ventana, condicion);
+		ventana.detach();
 	}
 }//fin  VMHistorialObservacionAnalizarRecaudos2
