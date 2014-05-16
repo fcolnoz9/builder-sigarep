@@ -28,8 +28,11 @@ public interface IRecaudoEntregadoDAO extends
 			+ "								 AND s.recaudoEntregado.id.codigoLapso = la.codigoLapso "
 			+ "								 AND la.estatus = 'TRUE') "
 			+ "AND re.id.idInstanciaApelada = (SELECT MAX(r.id.idInstanciaApelada) "
-			+ "								   FROM RecaudoEntregado AS r "
-			+ "								   WHERE r.id.idRecaudo = re.id.idRecaudo) "
+			+ "								   FROM RecaudoEntregado AS r, LapsoAcademico AS la "
+			+ "								   WHERE r.id.idRecaudo = re.id.idRecaudo " 
+			+ "								   AND r.id.cedulaEstudiante = re.id.cedulaEstudiante " 
+			+ "								   AND r.id.codigoLapso = la.codigoLapso) " 
+			+ "								   AND la.estatus='TRUE' "
 			+ "AND re.id.cedulaEstudiante = :cedula "
 			+ "AND re.id.codigoLapso = la.codigoLapso "
 			+ "AND la.estatus='TRUE'")
@@ -48,11 +51,11 @@ public interface IRecaudoEntregadoDAO extends
 	    * @param cedula
 	    * @return List<RecaudoEntregado> lista de recaudos entregados de un estudiante sancionado
 	    */
-	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la "
-			+ "WHERE re.id.cedulaEstudiante = :cedula "
-			+ "AND re.id.codigoLapso = la.codigoLapso "
-			+ "AND la.estatus = 'TRUE'")
-	public List<RecaudoEntregado> buscarRecaudosEntregadosRecursoJerarquico(@Param("cedula") String cedula);
+//	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico  la "
+//			+ "WHERE re.id.cedulaEstudiante = :cedula "
+//			+ "AND re.id.codigoLapso = la.codigoLapso "
+//			+ "AND la.estatus = 'TRUE'")
+//	public List<RecaudoEntregado> buscarRecaudosEntregadosRecursoJerarquico(@Param("cedula") String cedula);
 	
 	/**
 	 * Busqueda de recaudos entregados para los veredictos en cualquier apelacion (I, II, III)
@@ -127,6 +130,17 @@ public interface IRecaudoEntregadoDAO extends
 	public List<RecaudoEntregado> buscarRecaudosEntregadosAnalizarValidezIII(@Param("cedula") String cedula);
 	
 	/**
+	 * Busqueda de recaudos entregados y sus observaciones para analizar la validez en la segunda apelacion
+	 * @param cedula
+	 * @return List<RecaudoEntregado> lista de recaudos entregados de un estudiante sancionado
+	 */
+	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
+			"WHERE re.id.codigoLapso = la.codigoLapso " +
+			"AND re.id.cedulaEstudiante = :cedula " +
+			"AND re.id.idInstanciaApelada = '1'")
+	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesanalizarII(@Param("cedula") String cedula);
+	
+	/**
 	 * Busqueda de recaudos entregados y sus observaciones para analizar la validez en la tercera apelacion
 	 * @param cedula
 	 * @return List<RecaudoEntregado> lista de recaudos entregados de un estudiante sancionado
@@ -134,7 +148,7 @@ public interface IRecaudoEntregadoDAO extends
 	@Query("SELECT re FROM RecaudoEntregado AS re, LapsoAcademico AS la " +
 			"WHERE re.id.codigoLapso = la.codigoLapso " +
 			"AND re.id.cedulaEstudiante = :cedula " +
-			"AND (re.id.idInstanciaApelada = '2')")
+			"AND re.id.idInstanciaApelada = '2'")
 	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesanalizarIII(@Param("cedula") String cedula);
 	
 	/** Busqueda de recaudos entregados por estudiante que tienen un soporte asociado en el lapso actual 
