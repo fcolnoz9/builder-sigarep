@@ -801,10 +801,13 @@ public class VMEstudianteSancionado {
 							mensajeAlUsuario.informacionRegistroCorrecto();
 							limpiar(groupBoxAsignaturas, textboxlapsoConsecutivo1, textboxlapsoConsecutivo2, lbllapsoConsecutivo, textboxCedula);
 						}else{ 
-							mensajeAlUsuario.advertenciaLlenarCampos();}
+							mensajeAlUsuario.advertenciaLlenarCampos();
+						}
 					} else if (llenarCamposDeLapsoConsecutivo == false)  {
-						for (AsignaturaEstudianteSancionado asignaturaEstudianteSancionado : (servicioestudiantesancionado.buscar(estudianteSeleccionado.getId()).getAsignaturaEstudianteSancionados())) {
-							servicioasignaturaestudiantesancionado.eliminarAsignaturaEstudianteSancionadoFisicamente(cedula, asignaturaEstudianteSancionado.getAsignatura().getCodigoAsignatura());
+						if(estudianteSeleccionado!=null) {
+							for (AsignaturaEstudianteSancionado asignaturaEstudianteSancionado : (servicioestudiantesancionado.buscar(estudianteSeleccionado.getId()).getAsignaturaEstudianteSancionados())) {
+								servicioasignaturaestudiantesancionado.eliminarAsignaturaEstudianteSancionadoFisicamente(cedula, asignaturaEstudianteSancionado.getAsignatura().getCodigoAsignatura());
+							}
 						}
 						servicioestudiantesancionado.guardar(estudianteSancionado);
 						mensajeAlUsuario.informacionRegistroCorrecto();
@@ -1052,7 +1055,7 @@ public class VMEstudianteSancionado {
 		listaEstudianteSancionado = servicioestudiantesancionado
 				.listadoEstudianteSancionado();
 	}
-
+	
 	@Command
 	@NotifyChange("listaSancionado")
 	public void filtros() {
