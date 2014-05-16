@@ -330,8 +330,10 @@ public class VMRegistrarReconsideracion {
 	@Command
 	@NotifyChange({ "listaRecaudos" })
 	public void buscarRecaudosEntregados(String cedula) {
-		listaRecaudos = serviciorecaudoentregado
-				.buscarRecaudosEntregadosRecursoJerarquico(cedula);
+		List<RecaudoEntregado> listaAux;
+		listaRecaudos = serviciorecaudoentregado.buscarRecaudosEntregadosConSoporte(cedula);
+		listaAux = serviciorecaudoentregado.buscarRecaudosEntregadosSinSoporte(cedula);
+		listaRecaudos.addAll(listaAux);
 	}
 
 	/**
