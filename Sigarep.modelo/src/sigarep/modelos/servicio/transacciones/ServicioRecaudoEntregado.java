@@ -70,28 +70,6 @@ public class ServicioRecaudoEntregado {
 	public List<RecaudoEntregado> buscarRecaudosEntregadosReconsideracion(String cedula){
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosReconsideracion(cedula);
 	}
-	
-	/**
-	 * Busca una lista de recaudos entregados de estudiantes sancionados en el estado de apelación recurso jerarquico
-	 * @param cedula
-	 * @return List<RecaudoEntregado> Lista de recaudos entregados
-	 * @throws No dispara ninguna excepción.
-	 */
-	public List<RecaudoEntregado> buscarRecaudosEntregadosRecursoJerarquico(String cedula){
-		List<RecaudoEntregado> listaRecaudos = iRecaudoEntregadoDAO.buscarRecaudosEntregadosRecursoJerarquico(cedula);
-		for (int i = 0; i < listaRecaudos.size(); i++) {
-			int idRecaudo = listaRecaudos.get(i).getRecaudo().getIdRecaudo();
-			int cont = 0;
-			for (int j = i; j < listaRecaudos.size(); j++) 
-				if (listaRecaudos.get(j).getRecaudo().getIdRecaudo() == idRecaudo)
-					cont++;
-			if (cont >= 1)
-				for (int h = 0; h < listaRecaudos.size(); h++)
-					if (listaRecaudos.get(h).getId().getIdRecaudo() == idRecaudo && listaRecaudos.get(h).getId().getIdInstanciaApelada() == 1)
-						listaRecaudos.remove(h);
-		}
-		return listaRecaudos;
-	}
 
 	/**Busca una lista de recaudos entregados de un estudiante sancionado en el estado de apelación veredicto en la primera apelación
 	 * @param cedula, codigoLapso
@@ -138,7 +116,17 @@ public class ServicioRecaudoEntregado {
 	 * @return List<RecaudoEntregado> Lista de observaciones en los recaudos faltantes por entregar 
 	 * @throws No dispara ninguna excepción.
 	 */
-	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesAnalizar(
+	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesAnalizarII(
+			String cedula) {
+		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosObservacionesanalizarII(cedula);
+	}
+	
+	/**Busca una lista de observaciones en los recaudos entregados de un estudiante sancionado en el estado de apelación analizar
+	 * @param cedula
+	 * @return List<RecaudoEntregado> Lista de observaciones en los recaudos faltantes por entregar 
+	 * @throws No dispara ninguna excepción.
+	 */
+	public List<RecaudoEntregado> buscarRecaudosEntregadosObservacionesAnalizarIII(
 			String cedula) {
 		return iRecaudoEntregadoDAO.buscarRecaudosEntregadosObservacionesanalizarIII(cedula);
 	}
