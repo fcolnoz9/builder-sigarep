@@ -274,9 +274,9 @@ public class ServicioEstudianteSancionado {
         else{
 			for (EstudianteSancionado es : buscarEstudiantesCargarRecaudoEntregado())
 			{
-				if (es.getEstudiante().getProgramaAcademico().getNombrePrograma() .toLowerCase().contains(programa.toLowerCase())&&
+				if (es.getEstudiante().getProgramaAcademico().getNombrePrograma().toLowerCase().contains(programa.toLowerCase())&&
 						es.getEstudiante().getCedulaEstudiante().toLowerCase().contains(cedula.toLowerCase())&&
-						es.getEstudiante().getPrimerApellido().toLowerCase().contains(nombre.toLowerCase())&&
+						es.getEstudiante().getPrimerNombre().toLowerCase().contains(nombre.toLowerCase())&&
 						es.getEstudiante().getPrimerApellido().toLowerCase().contains(apellido.toLowerCase())&&
 						es.getSancionMaestro().getNombreSancion().toLowerCase().contains(sancion.toLowerCase())){
 					result.add(es);
