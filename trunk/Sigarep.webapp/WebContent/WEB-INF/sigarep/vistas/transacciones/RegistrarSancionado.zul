@@ -52,11 +52,25 @@
 					<label id="lblsexo" value="Sexo:" />
 					<textbox id="txtSexo" mold="rounded" width="20%"
 						cols="23" maxlength="1" tabindex="1" value="@bind(vm.sexo)"
-						 placeholder = "F/M" />
+						 placeholder = "F/M" xmlns:w="client">
+						   <attribute w:name="doKeyPress_">
+						   	function(evt)
+						   	{ 
+						   	  if(this.getValue().length> 0 )
+						   	  { 
+						   	   if (!this._shallIgnore(evt,"0123456789")) this.$doKeyPress_(evt);
+						   	  }else{ 
+						   	   if (!this._shallIgnore(evt, "FM"))
+						   		this.$doKeyPress_(evt); 
+						   	  } 
+						   	}
+						   </attribute>
+					</textbox>	   
 					<label id="lblFechaNacimiento"
 						value="Fecha de Nacimiento:" />
 					<datebox id="dtbFechaNacimiento" mold="rounded"
 						placeholder = "Seleccione..." 
+						readonly="true"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.fechaNacimiento)" format="dd/MM/yyyy"
 						 />
@@ -76,6 +90,7 @@
 					<label id="lblAnnoIngreso" value="Año de Ingreso:" />
 					<datebox id="dtbAnnoIngreso" mold="rounded"
 						placeholder = "Seleccione..." 
+						readonly="true"
 						width="80%" cols="23" maxlength="30" tabindex="1"
 						value="@bind(vm.annoIngreso)" format="dd/MM/yyyy"  />
 					<label id="lblPrograma" value="Programa:" />
@@ -114,7 +129,7 @@
 						width="80%" maxlength="6" tabindex="1" readonly="true"
 						value="@bind(vm.lapsoAcademico.getCodigoLapso())" />
 						<label id="lblSemestre" value="Semestre:" />
-					<textbox id="txtSemestre" mold="rounded"
+					<intbox id="txtSemestre" mold="rounded"
 						placeholder = "Ej: 5"
 						width="20%" cols="23" maxlength="2" tabindex="1"
 						value="@bind(vm.semestre)" />
@@ -122,49 +137,28 @@
 				<row>
 					<label id="lblUnidadCursadas"
 						value="Unidades/Horas Cursadas:" />
-					<textbox id="txtUnidadCursadas"
+					<intbox id="txtUnidadCursadas"
 						placeholder = "Ej: 100 UC/300 hrs"
-						mold="rounded" width="80%" cols="23" maxlength="4" tabindex="1"
+						mold="rounded" width="80%" cols="23" maxlength="4" tabindex="2"
 						value="@bind(vm.unidadesCursadas)" />
 					<label id="lblUnidadAprobadas"
 						value="Unidades/Horas Aprobadas:" />
-					<textbox id="txtUnidadAprobadas"
+					<intbox id="txtUnidadAprobadas"
 						placeholder = "Ej: 100 UC/300 hrs"
-						 mold="rounded" width="80%" cols="23" maxlength="4" tabindex="1"
+						 mold="rounded" width="80%" cols="23" maxlength="4" tabindex="3"
 						value="@bind(vm.unidadesAprobadas)" />
 				</row>
 				
 				<row>
 					<label id="lblIndiceGrado" value="Indice de grado:" />
-					<textbox id="txtIndiceGrado" mold="rounded" xmlns:w="client"
-						width="20%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.indiceGrado)">
-								<attribute w:name="doKeyDown_"><![CDATA[
-									function (evt) {
-										var keyCode = event.keyCode;
-								if( keyCode == 8 // back space
-									|| keyCode == 13 // enter
-									|| keyCode == 16 // enter
-									|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
-									|| keyCode == 46) { // Delete
-					this.$doKeyDown_(evt);
-				} else if ( !evt.shiftKey &&  // only do without shift key
-					(keyCode >= 48 && keyCode <= 57)
-					|| (keyCode >= 96 && keyCode <= 105)) {// number range
-					this.$doKeyDown_(evt);
-				} else {
-					evt.stop();
-					return;
-				}
-			}
-		]]></attribute>
-	</textbox>
-						
+					<decimalbox id="txtIndiceGrado" format="###.##" mold="rounded"
+						width="20%" cols="20" maxlength="20" tabindex="4"
+						value="@bind(vm.indiceGrado)"/>
 						
 					<label id="lblSancion" value="Sanción:" />
 					<combobox  id="cmbSancion" readonly="true"
 					    placeholder = "Seleccione el tipo de sanción..."
-						width="80%" cols="23" maxlength="30" tabindex="1"
+						width="80%" cols="23" maxlength="30" tabindex="5"
 						value="@bind(vm.sancionMaestro.nombreSancion)" mold="rounded"
 						model="@load(vm.listaSancion)"
 						selectedItem="@bind(vm.sancionMaestro)"
@@ -179,7 +173,7 @@
 				
 					<label id="lblPeriodoSancion"
 						value="Período de Sanción:" />
-					<textbox id="txtPeriodoSancion"
+					<intbox id="txtPeriodoSancion"
 					 placeholder = "Ej: 2"
 					 mold="rounded" width="80%" cols="23" maxlength="30" tabindex="1"
 					value="@bind(vm.periodoSancion)" />
@@ -188,12 +182,12 @@
 							value="Lapsos Consecutivos:" visible="false" />
 						<hlayout>
 							<textbox id="txtLapsoConsecutivo1" cols="23"
-								placeholder = "Ej: 2013-1"
+								readonly="true"
 								mold="rounded" width="70px" visible="false" maxlength="6" 
 								value="@bind(vm.lapsoConsecutivo1)"/>
 							<textbox id="txtLapsoConsecutivo2" cols="23"
+								readonly="true"
 								maxlength="6" value="@bind(vm.lapsoConsecutivo2)"
-								placeholder = "Ej: 2013-2"
 								mold="rounded" width="70px" visible="false">
 							</textbox>
 						</hlayout>

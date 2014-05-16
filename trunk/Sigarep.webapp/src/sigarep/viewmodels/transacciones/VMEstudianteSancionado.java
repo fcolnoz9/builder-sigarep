@@ -528,7 +528,7 @@ public class VMEstudianteSancionado {
 	 * @return 
 	 */
 	@Command
-	@NotifyChange({ "sancionMaestro", "listaAsignaturas","programa", "listaAsignaturaListBox" })
+	@NotifyChange({ "sancionMaestro", "listaAsignaturas","programa", "listaAsignaturaListBox", "lapsoConsecutivo1", "lapsoConsecutivo2" })
 	public void seleccionarSancion(
 			@BindingParam("parametro1") Groupbox groupBoxAsignaturas,
 			@BindingParam("parametro2") Textbox textboxlapsoConsecutivo1,
@@ -540,6 +540,11 @@ public class VMEstudianteSancionado {
 			textboxlapsoConsecutivo1.setVisible(true);
 			textboxlapsoConsecutivo2.setVisible(true);
 			lbllapsoConsecutivo.setVisible(true);
+			lapsoConsecutivo2 = lapsoActivo.getCodigoLapso();
+			String[] lapsoArray = lapsoConsecutivo2.split("-");
+			if(lapsoArray[1].equals("2"))
+				lapsoConsecutivo1 = String.valueOf(Integer.valueOf(lapsoArray[0])) + "-1";
+			else lapsoConsecutivo1 = String.valueOf(Integer.valueOf(lapsoArray[0]) - 1) + "-2"; 
 		} else {
 			groupBoxAsignaturas.setVisible(true);
 			textboxlapsoConsecutivo1.setVisible(false);
@@ -608,7 +613,7 @@ public class VMEstudianteSancionado {
 		textboxCedula.setReadonly(true);
 		seleccionarSancion(groupBoxAsignaturas, textboxlapsoConsecutivo1,
 				textboxlapsoConsecutivo2, lbllapsoConsecutivo, comboAsignaturas);
-		if (sancionMaestro.getIdSancion()==2) {
+		if (sancionMaestro.getIdSancion()!=1) {
 			listaAsignaturaListBox = miSanc
 					.getAsignaturaEstudianteSancionados();
 		}
@@ -778,8 +783,10 @@ public class VMEstudianteSancionado {
 						}
 						
 						if(pase){
-							for (AsignaturaEstudianteSancionado asignaturaEstudianteSancionado : (servicioestudiantesancionado.buscar(estudianteSeleccionado.getId()).getAsignaturaEstudianteSancionados())) {
-								servicioasignaturaestudiantesancionado.eliminarAsignaturaEstudianteSancionadoFisicamente(cedula, asignaturaEstudianteSancionado.getAsignatura().getCodigoAsignatura());
+							if(estudianteSeleccionado!=null){
+								for (AsignaturaEstudianteSancionado asignaturaEstudianteSancionado : (servicioestudiantesancionado.buscar(estudianteSeleccionado.getId()).getAsignaturaEstudianteSancionados())) {
+									servicioasignaturaestudiantesancionado.eliminarAsignaturaEstudianteSancionadoFisicamente(cedula, asignaturaEstudianteSancionado.getAsignatura().getCodigoAsignatura());
+								}
 							}
 							for (Listitem miAsignaturasacion : asignaturas) {
 								String nombreAsignatura = ((Listcell) miAsignaturasacion.getChildren().get(0)).getLabel();
@@ -864,7 +871,7 @@ public class VMEstudianteSancionado {
 					periodoSancion = miSanc.getPeriodoSancion();
 					seleccionarSancion(groupBoxAsignaturas, textboxlapsoConsecutivo1,
 							textboxlapsoConsecutivo2, lbllapsoConsecutivo, comboAsignaturas);
-					if (sancionMaestro.getIdSancion()==2) {
+					if (sancionMaestro.getIdSancion()!=1) {
 						listaAsignaturaListBox = miSanc
 								.getAsignaturaEstudianteSancionados();
 					}
