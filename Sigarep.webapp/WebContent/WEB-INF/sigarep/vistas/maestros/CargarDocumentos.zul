@@ -27,8 +27,6 @@ style="overflow:auto" action="hide: slideUp"
  						<comboitem value="formato" id="cmiFormato" label="Formatos" /> 
  						<comboitem value="calendario" id="cmiCalendario" label="Calendario Académico" /> 
  						<comboitem value="recaudo" id="cmiRecaudo" label="Recaudos por Motivos" />
- 						<comboitem value="ManualUsuario" id="cmiManualUsuario" label="Manual de Usuario" />
- 						<comboitem value="ManualSistema" id="cmiManualSistema" label="Manual del Sistema" />
  			  </combobox> 
          
          <label id="lblFechaSubida" value="Fecha de Subida:" />
