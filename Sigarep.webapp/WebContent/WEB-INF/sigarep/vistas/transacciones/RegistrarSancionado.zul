@@ -136,9 +136,31 @@
 				
 				<row>
 					<label id="lblIndiceGrado" value="Indice de grado:" />
-					<textbox id="txtIndiceGrado" mold="rounded"
+					<textbox id="txtIndiceGrado" mold="rounded" xmlns:w="client"
 						width="20%" cols="23" maxlength="30" tabindex="1"
-						value="@bind(vm.indiceGrado)"  />
+						value="@bind(vm.indiceGrado)">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+								if( keyCode == 8 // back space
+									|| keyCode == 13 // enter
+									|| keyCode == 16 // enter
+									|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+									|| keyCode == 46) { // Delete
+					this.$doKeyDown_(evt);
+				} else if ( !evt.shiftKey &&  // only do without shift key
+					(keyCode >= 48 && keyCode <= 57)
+					|| (keyCode >= 96 && keyCode <= 105)) {// number range
+					this.$doKeyDown_(evt);
+				} else {
+					evt.stop();
+					return;
+				}
+			}
+		]]></attribute>
+	</textbox>
+						
+						
 					<label id="lblSancion" value="Sanción:" />
 					<combobox  id="cmbSancion" readonly="true"
 					    placeholder = "Seleccione el tipo de sanción..."
