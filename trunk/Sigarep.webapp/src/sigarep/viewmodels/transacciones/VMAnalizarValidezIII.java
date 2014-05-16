@@ -538,7 +538,6 @@ public class VMAnalizarValidezIII {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cedula", this.sancionadoSeleccionado.getEstudianteSancionado()
 				.getEstudiante().getCedulaEstudiante());
-
 		final Window window = (Window) Executions
 				.createComponents(
 						"/WEB-INF/sigarep/vistas/transacciones/HistorialObservacionAnalizarRecaudos2.zul",
@@ -562,7 +561,6 @@ public class VMAnalizarValidezIII {
 			if( !selected.equals("") || observacion != null ){
 				condicion = true;
 			}
-				
 			mensajeAlUsuario.confirmacionCerrarVentanaMaestros(ventana, condicion);		
 		}
 	
